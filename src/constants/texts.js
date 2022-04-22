@@ -94,6 +94,11 @@ export const texts = {
 
     clientReadyBoxesView: {
       appbarTitle: 'Коробки готовые к отправке',
+      confirmTitle: 'Внимание',
+      confirmMessage: 'Вы точно хотите вернуть коробки на склад?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      cancelSendBatchBtn: 'Вернуть на склад',
     },
 
     clientWarehouseView: {
@@ -2270,6 +2275,12 @@ export const texts = {
       editBatch: 'Редактировать партию',
       mainTitle: 'Мои отправления',
       appBarTitle: 'Ожидают отправки',
+      cancelSendBatchBtn: 'Отменить отправку',
+
+      confirmTitle: 'Внимание',
+      confirmMessage: 'Вы точно хотите отменить отправку?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
     },
 
     clientBatchesView: {
@@ -2748,6 +2759,7 @@ export const texts = {
       destinationField: 'Регион',
       ratesField: 'Рейт, $',
       datesField: 'Даты',
+      updatedAtField: 'Обновлено',
     },
 
     destinationsColumns: {
@@ -2767,6 +2779,7 @@ export const texts = {
       nameField: 'Название услуги',
       actionField: 'Действия',
       priceField: 'Стоимость за кг, $',
+      updatedAtField: 'Обновлено',
     },
 
     clientBoxesNotificationsTableColumns: {
@@ -2953,6 +2966,7 @@ export const texts = {
       showBtn: 'Смотреть',
       actionField: 'Действия',
       humanFriendlyIdField: 'Номер',
+      datesField: 'Дата отправления',
     },
 
     batchesTableColumns: {
@@ -2975,6 +2989,7 @@ export const texts = {
       showBtn: 'Смотреть',
       actionField: 'Действия',
       humanFriendlyIdField: 'Номер',
+      datesField: 'Дата отправления',
     },
 
     adminTasksTableColumns: {
@@ -3833,7 +3848,7 @@ export const texts = {
       close: 'Свернуть',
     },
     warehouseWarehouseView: {
-      appbarTitle: 'Отправления',
+      appbarTitle: 'Отправленные',
       mainTitle: 'Boxes for batches',
       confirmSendBatchBtn: 'Confirm send to batch',
       confirmMessage: 'Отправить?',
@@ -3842,8 +3857,31 @@ export const texts = {
       confirmTitle: 'Внимание',
     },
 
+    adminWarehouseView: {
+      appbarTitle: 'Отправленные',
+      mainTitle: 'Boxes for batches',
+      confirmSendBatchBtn: 'Confirm send to batch',
+      confirmMessage: 'Отправить?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      confirmTitle: 'Внимание',
+    },
+
+    adminAwaitingBatchesView: {
+      appbarTitle: 'Ожидают отправки',
+      mainTitle: 'Boxes for batches',
+      confirmSendBatchBtn: 'Confirm Send to batch',
+      confirmMessage: 'Отправить?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      confirmTitle: 'Внимание',
+
+      editBtn: 'Редактировать партию',
+      addBtn: 'Создать партию товара',
+    },
+
     warehouseAwaitingBatchesView: {
-      appbarTitle: 'Отправления',
+      appbarTitle: 'Ожидают отправки',
       mainTitle: 'Boxes for batches',
       confirmSendBatchBtn: 'Confirm Send to batch',
       confirmMessage: 'Отправить?',

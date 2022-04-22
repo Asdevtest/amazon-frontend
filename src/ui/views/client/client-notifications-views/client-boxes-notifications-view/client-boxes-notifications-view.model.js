@@ -197,7 +197,7 @@ export class ClientBoxesNotificationsViewModel {
 
   async onClickRejectOrderPriceChangeBtn(box) {
     try {
-      await ClientModel.returnBoxFromBatch(box._id)
+      await ClientModel.returnBoxFromBatch([{boxId: box._id}])
       this.onTriggerOpenModal('showConfirmModal')
       this.loadData()
     } catch (error) {

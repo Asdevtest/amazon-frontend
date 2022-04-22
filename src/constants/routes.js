@@ -1,3 +1,5 @@
+import {AdminAwaitingBatchesView} from '@views/admin/admin-batches-views/admin-awaiting-batches-view'
+import {AdminBatchesView} from '@views/admin/admin-batches-views/admin-batches-view'
 import {AdminDashboardView} from '@views/admin/admin-dashboard-view'
 import {AdminExchangeViews} from '@views/admin/admin-exchange-views'
 import {AdminFinancesViews} from '@views/admin/admin-finances-views/admin-finances-views'
@@ -10,7 +12,6 @@ import {AdminUserPermissionsView} from '@views/admin/admin-user-permissions-view
 import {AdminUserBalanceView} from '@views/admin/admin-users-view/admin-user-balance-view'
 import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
 import {AdminDestinationsView} from '@views/admin/admin-warehouse-views/admin-destinations-view'
-import {AdminWarehouseBatchesView} from '@views/admin/admin-warehouse-views/admin-warehouse-batches-view'
 import {AdminWarehouseBoxesView} from '@views/admin/admin-warehouse-views/admin-warehouse-boxes-view'
 import {AdminWarehouseTasksView} from '@views/admin/admin-warehouse-views/admin-warehouse-tasks-view'
 import {AuthView} from '@views/auth'
@@ -653,11 +654,19 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/admin/warehouse/batches',
-    component: AdminWarehouseBatchesView,
+    routePath: '/admin/awaiting-batches',
+    component: AdminAwaitingBatchesView,
     exact: false,
     permission: [UserRole.ADMIN],
   },
+
+  {
+    routePath: '/admin/batches',
+    component: AdminBatchesView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+  },
+
   {
     routePath: '/admin/finances',
     component: AdminFinancesViews,

@@ -59,6 +59,9 @@ class ApiV1StorekeepersTariffWarehouses {
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'String');
+            }
         }
         return obj;
     }
@@ -89,6 +92,11 @@ ApiV1StorekeepersTariffWarehouses.prototype['description'] = undefined;
  * @member {Number} price
  */
 ApiV1StorekeepersTariffWarehouses.prototype['price'] = undefined;
+
+/**
+ * @member {String} updatedAt
+ */
+ApiV1StorekeepersTariffWarehouses.prototype['updatedAt'] = undefined;
 
 
 

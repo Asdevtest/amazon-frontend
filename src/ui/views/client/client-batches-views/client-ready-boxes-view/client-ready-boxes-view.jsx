@@ -16,6 +16,7 @@ import {BoxViewForm} from '@components/forms/box-view-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -38,6 +39,7 @@ export class ClientReadyBoxesViewRaw extends Component {
 
   render() {
     const {
+      showConfirmModal,
       showBoxViewModal,
       curBox,
       volumeWeightCoefficient,
@@ -62,10 +64,13 @@ export class ClientReadyBoxesViewRaw extends Component {
       onChangeFilterModel,
       setDataGridState,
       onChangeSortingModel,
+      onSelectionModel,
 
       onClickStorekeeperBtn,
       onTriggerOpenModal,
       setCurrentOpenedBox,
+
+      returnBoxesToStock,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -115,9 +120,21 @@ export class ClientReadyBoxesViewRaw extends Component {
                   )}
               </div>
 
+              <div className={classNames.btnsWrapper}>
+                <Button
+                  disabled={!selectedBoxes.length}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => onTriggerOpenModal('showConfirmModal')}
+                >
+                  {textConsts.cancelSendBatchBtn}
+                </Button>
+              </div>
+
               <DataGrid
                 pagination
                 useResizeContainer
+                checkboxSelection
                 classes={{
                   row: classNames.row,
                 }}
@@ -137,6 +154,9 @@ export class ClientReadyBoxesViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
+                onSelectionModelChange={newSelection => {
+                  onSelectionModel(newSelection)
+                }}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
@@ -155,6 +175,18 @@ export class ClientReadyBoxesViewRaw extends Component {
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
           />
         </Modal>
+
+        <ConfirmationModal
+          isWarning
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={textConsts.confirmMessage}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={returnBoxesToStock}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
       </React.Fragment>
     )
   }

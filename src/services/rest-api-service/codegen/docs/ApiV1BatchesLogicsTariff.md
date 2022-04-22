@@ -14,5 +14,6 @@ Name | Type | Description | Notes
 **conditionsByRegion** | [**ApiV1BatchesLogicsTariffConditionsByRegion**](ApiV1BatchesLogicsTariffConditionsByRegion.md) |  | 
 **_id** | **String** |  | [optional] 
 **storekeeperId** | **String** |  | [optional] 
+**updatedAt** | **String** |  | [optional] 
 
 

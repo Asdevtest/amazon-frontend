@@ -93,7 +93,9 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
 
           <div className={classNames.messageWrapper}>
             <Typography>{`Партий с парметрами коробки нет.`}</Typography>
-            <Typography>{`Для отправки Коробки №${box.humanFriendlyId} создайте новую партию.`}</Typography>
+            <Typography>{`Для ${box.batchId ? 'переноса' : 'отправки'} Коробки №${
+              box.humanFriendlyId
+            } создайте новую партию.`}</Typography>
           </div>
 
           <div className={classNames.btnsSecondWrapper}>

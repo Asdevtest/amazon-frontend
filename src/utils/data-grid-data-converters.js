@@ -256,7 +256,6 @@ export const clientWarehouseDataConverter = data =>
     qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
 
     amazonPrice: calcPriceForBox(item),
-    // amazonPrice: item.items.reduce((acc, cur) => acc + calcPriceForBox(cur), 0),
 
     finalWeight: Math.max(
       parseFloat(item.volumeWeightKgWarehouse ? item.volumeWeightKgWarehouse : item.volumeWeightKgSupplier) || 0,
@@ -279,9 +278,10 @@ export const clientWarehouseDataConverter = data =>
   }))
 
 export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
-  data.map((item, i) => ({
+  data.map(item => ({
     originalData: item,
-    id: i,
+    id: item._id,
+    _id: item._id,
 
     destination: item.boxes[0].destination?.name,
     tariff: item.boxes[0].logicsTariff?.name,

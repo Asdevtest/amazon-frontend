@@ -5,6 +5,7 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
+import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -29,6 +30,7 @@ export class ClientReadyBoxesViewModel {
   storekeepersData = []
 
   showBoxViewModal = false
+  showConfirmModal = false
 
   sortModel = []
   filterModel = {items: []}
@@ -76,6 +78,10 @@ export class ClientReadyBoxesViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
+  }
+
+  onSelectionModel(model) {
+    this.selectedBoxes = model
   }
 
   setRequestStatus(requestStatus) {
@@ -153,6 +159,19 @@ export class ClientReadyBoxesViewModel {
 
   onTriggerOpenModal(modalState) {
     this[modalState] = !this[modalState]
+  }
+
+  async returnBoxesToStock() {
+    try {
+      await ClientModel.returnBoxFromBatch(this.selectedBoxes.map(boxId => ({boxId})))
+      this.selectedBoxes = []
+
+      this.loadData()
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   async getBoxesMy() {

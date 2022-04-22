@@ -162,7 +162,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BoxesApi* | [**apiV1BoxesCancelMergePost**](docs/BoxesApi.md#apiV1BoxesCancelMergePost) | **POST** /api/v1/boxes/cancel-merge | # Отменить объединение коробок.
 *TestSwagger.BoxesApi* | [**apiV1BoxesCancelSplitPost**](docs/BoxesApi.md#apiV1BoxesCancelSplitPost) | **POST** /api/v1/boxes/cancel-split | # Отменить разделение коробок.
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsGet**](docs/BoxesApi.md#apiV1BoxesClientsGet) | **GET** /api/v1/boxes/clients | # Получить коробки и их строки по текущему клиенту.
-*TestSwagger.BoxesApi* | [**apiV1BoxesClientsSentToBatchGet**](docs/BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # Получить коробки по текущему клиенту отправленные в партию.
+*TestSwagger.BoxesApi* | [**apiV1BoxesClientsSentToBatchGet**](docs/BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
 *TestSwagger.BoxesApi* | [**apiV1BoxesEditGuidPost**](docs/BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку. Сликом гибкий метод
 *TestSwagger.BoxesApi* | [**apiV1BoxesGet**](docs/BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
 *TestSwagger.BoxesApi* | [**apiV1BoxesMergePost**](docs/BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.

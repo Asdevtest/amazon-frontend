@@ -8,31 +8,36 @@ import {BatchesModel} from '@models/batches-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-import {clientBatchesViewColumns} from '@components/table-columns/client/client-batches-columns'
+import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
-import {clientBatchesDataConverter} from '@utils/data-grid-data-converters'
+import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
-export class ClientAwaitingBatchesViewModel {
+export class AdminAwaitingBatchesViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
+  volumeWeightCoefficient = undefined
+
   batches = []
+  boxesData = []
+
   selectedBatches = []
   curBatch = {}
-
-  drawerOpen = false
-
-  showBatchInfoModal = false
   showConfirmModal = false
+  drawerOpen = false
+  isWarning = false
+  showBatchInfoModal = false
+
+  showAddOrEditBatchModal = false
 
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientBatchesViewColumns(this.rowHandlers)
+  columnsModel = batchesViewColumns(this.rowHandlers)
 
   constructor({history}) {
     this.history = history
@@ -48,11 +53,11 @@ export class ClientAwaitingBatchesViewModel {
       'columns',
     ])
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_AWAITING_BATCHES)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_AWAITING_BATCHES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_AWAITING_BATCHES]
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_AWAITING_BATCHES]
 
     if (state) {
       this.sortModel = state.sorting.sortModel
@@ -60,7 +65,7 @@ export class ClientAwaitingBatchesViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = clientBatchesViewColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = batchesViewColumns(this.rowHandlers).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -123,11 +128,13 @@ export class ClientAwaitingBatchesViewModel {
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
-        this.batches = clientBatchesDataConverter(batches, this.volumeWeightCoefficient)
+        this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient)
       })
     } catch (error) {
       console.log(error)
       this.error = error
+
+      this.batches = []
     }
   }
 
@@ -141,35 +148,6 @@ export class ClientAwaitingBatchesViewModel {
       })
 
       this.onTriggerOpenModal('showBatchInfoModal')
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  async removeBoxFromBatch(batch) {
-    try {
-      const boxesToRemoveIds = batch.boxes.map(box => box._id)
-
-      await BatchesModel.returnBoxFromBatch(batch._id, boxesToRemoveIds)
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  async onClickCancelSendToBatchBtn() {
-    try {
-      const batches = this.batches.filter(el => this.selectedBatches.includes(el._id))
-
-      for (let i = 0; i < batches.length; i++) {
-        const batch = batches[i].originalData
-
-        this.removeBoxFromBatch(batch)
-      }
-
-      this.loadData()
-      this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
       this.error = error

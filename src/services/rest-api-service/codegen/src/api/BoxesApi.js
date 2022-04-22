@@ -467,8 +467,8 @@ export default class BoxesApi {
 
 
     /**
-     * # Получить коробки по текущему клиенту отправленные в партию.
-     * ## Получить коробки по текущему клиенту отправленные в партию. статусы REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
+     * # DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
+     * ## DEPRECATED Получить коробки по текущему клиенту отправленные в партию. статусы REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
@@ -501,8 +501,8 @@ export default class BoxesApi {
     }
 
     /**
-     * # Получить коробки по текущему клиенту отправленные в партию.
-     * ## Получить коробки по текущему клиенту отправленные в партию. статусы REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
+     * # DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
+     * ## DEPRECATED Получить коробки по текущему клиенту отправленные в партию. статусы REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 

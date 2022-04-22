@@ -36,8 +36,6 @@ const Box = ({
 }) => {
   const classNames = useClassNames()
 
-  const [barCodeReallyIsGlued, setBarCodeReallyIsGlued] = useState(false)
-
   const [showImageModal, setShowImageModal] = useState(false)
 
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
@@ -258,7 +256,7 @@ const Box = ({
       </div>
 
       {isNewBox && (
-        <Paper className={classNames.bottomBlockWrapper}>
+        <div className={classNames.bottomBlockWrapper}>
           {taskType === TaskOperationType.RECEIVE && box.items?.[0].product.barCode && (
             <div className={classNames.barCodeActionsWrapper}>
               {box.isBarCodeAttachedByTheStorekeeper === false && (
@@ -280,23 +278,8 @@ const Box = ({
                   }
                 />
               )}
-              {box.isBarCodeAlreadyAttachedByTheSupplier === true &&
-                box.isBarCodeAttachedByTheStorekeeper === false && (
-                  <Field
-                    oneLine
-                    containerClasses={classNames.checkboxContainer}
-                    label={textConsts.barCodeReallyIsGlued}
-                    inputComponent={
-                      <Checkbox
-                        color="primary"
-                        checked={barCodeReallyIsGlued}
-                        onClick={() => setBarCodeReallyIsGlued(!barCodeReallyIsGlued)}
-                      />
-                    }
-                  />
-                )}
 
-              {(box.isBarCodeAlreadyAttachedByTheSupplier === false || barCodeReallyIsGlued === false) && (
+              {box.isBarCodeAlreadyAttachedByTheSupplier === false && (
                 <Field
                   oneLine
                   containerClasses={classNames.checkboxContainer}
@@ -328,7 +311,7 @@ const Box = ({
               </Button>
             )}
           </div>
-        </Paper>
+        </div>
       )}
 
       <BigImagesModal

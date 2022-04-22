@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**apiV1BoxesCancelMergePost**](BoxesApi.md#apiV1BoxesCancelMergePost) | **POST** /api/v1/boxes/cancel-merge | # Отменить объединение коробок.
 [**apiV1BoxesCancelSplitPost**](BoxesApi.md#apiV1BoxesCancelSplitPost) | **POST** /api/v1/boxes/cancel-split | # Отменить разделение коробок.
 [**apiV1BoxesClientsGet**](BoxesApi.md#apiV1BoxesClientsGet) | **GET** /api/v1/boxes/clients | # Получить коробки и их строки по текущему клиенту.
-[**apiV1BoxesClientsSentToBatchGet**](BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # Получить коробки по текущему клиенту отправленные в партию.
+[**apiV1BoxesClientsSentToBatchGet**](BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
 [**apiV1BoxesEditGuidPost**](BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку. Сликом гибкий метод
 [**apiV1BoxesGet**](BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
 [**apiV1BoxesMergePost**](BoxesApi.md#apiV1BoxesMergePost) | **POST** /api/v1/boxes/merge | # Объединить две и более коробок.
@@ -461,9 +461,9 @@ Name | Type | Description  | Notes
 
 > [ApiV1BatchesBoxes] apiV1BoxesClientsSentToBatchGet(opts)
 
-# Получить коробки по текущему клиенту отправленные в партию.
+# DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
 
-## Получить коробки по текущему клиенту отправленные в партию. статусы REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
+## DEPRECATED Получить коробки по текущему клиенту отправленные в партию. статусы REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
 
 ### Example
 

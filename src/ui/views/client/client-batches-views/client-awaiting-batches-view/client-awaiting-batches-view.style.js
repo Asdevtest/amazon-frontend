@@ -22,4 +22,8 @@ export const styles = createStyles(() => ({
       transform: 'scale(1.01)',
     },
   },
+
+  btnsWrapper: {
+    margin: '10px 0 15px',
+  },
 }))

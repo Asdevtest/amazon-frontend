@@ -6,7 +6,7 @@ export const DataGridTablesKeys = {
   ADMIN_BOXES: 'adminBoxesDataGridState',
   ADMIN_FINANCES: 'adminFinancesDataGridState',
   ADMIN_USER_FINANCES: 'adminUserFinancesDataGridState',
-  ADMIN_BATCHES: 'adminBatchesDataGridState',
+  // ADMIN_BATCHES: 'adminBatchesDataGridState',
   ADMIN_DESTINATIONS: 'adminDestinationsDataGridState',
 
   ADMIN_SINGLE_PERMISSIONS: 'adminSinglePermissionsDataGridState',
@@ -21,6 +21,10 @@ export const DataGridTablesKeys = {
   ADMIN_EXCHANGE_HIGH_PRICE: 'adminExchangeHighPriceDataGridState',
   ADMIN_EXCHANGE_PUBLISHED: 'adminExchangePublishedDataGridState',
   ADMIN_EXCHANGE_CANCELED: 'adminExchangeCanceledDataGridState',
+
+  ADMIN_AWAITING_BATCHES: 'adminAwaitingBatchesDataGridState',
+  ADMIN_BATCHES: 'adminBatchesDataGridState',
+
   COMPLETE_SUPPLIER_WAS_NOT_FOUND: 'adminExchangeCompleteSupplierNotFoundedDataGridState',
 
   WAREHOUSE_VACANT_TASKS: 'warehouseVacantTasksDataGridState',

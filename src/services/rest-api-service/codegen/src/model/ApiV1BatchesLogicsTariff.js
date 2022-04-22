@@ -82,6 +82,9 @@ class ApiV1BatchesLogicsTariff {
             if (data.hasOwnProperty('storekeeperId')) {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'String');
+            }
         }
         return obj;
     }
@@ -145,6 +148,11 @@ ApiV1BatchesLogicsTariff.prototype['_id'] = undefined;
  * @member {String} storekeeperId
  */
 ApiV1BatchesLogicsTariff.prototype['storekeeperId'] = undefined;
+
+/**
+ * @member {String} updatedAt
+ */
+ApiV1BatchesLogicsTariff.prototype['updatedAt'] = undefined;
 
 
 

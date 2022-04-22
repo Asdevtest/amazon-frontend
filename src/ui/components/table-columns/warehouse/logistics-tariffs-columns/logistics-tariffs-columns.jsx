@@ -4,6 +4,7 @@ import {texts} from '@constants/texts'
 
 import {
   EditOrRemoveBtnsCell,
+  NormDateCell,
   renderFieldValueCell,
   ScrollingCell,
   WarehouseTariffDatesCell,
@@ -21,6 +22,14 @@ export const logisticsTariffsColumns = handlers => [
     headerName: textConsts.nameField,
     width: 200,
     renderCell: params => renderFieldValueCell(params.value),
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: textConsts.updatedAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 120,
+    type: 'date',
   },
 
   {

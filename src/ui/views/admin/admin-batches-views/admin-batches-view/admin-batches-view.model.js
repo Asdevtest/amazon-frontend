@@ -1,32 +1,33 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BatchesModel} from '@models/batches-model'
+import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
-import {adminBatchesDataConverter} from '@utils/data-grid-data-converters'
+import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
-export class AdminWarehouseBatchesViewModel {
+export class AdminBatchesViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
   batches = []
   selectedBatches = []
+  volumeWeightCoefficient = undefined
+
   curBatch = {}
-
+  showConfirmModal = false
   drawerOpen = false
-
+  isWarning = false
   showBatchInfoModal = false
-
-  rowHandlers = {
-    setCurrentOpenedBatch: row => this.setCurrentOpenedBatch(row),
-  }
 
   sortModel = []
   filterModel = {items: []}
@@ -117,10 +118,10 @@ export class AdminWarehouseBatchesViewModel {
 
   async getBatches() {
     try {
-      const result = await BatchesModel.getBatches()
+      const result = await BatchesModel.getBatches(BatchStatus.HAS_DISPATCHED)
 
       runInAction(() => {
-        this.batches = adminBatchesDataConverter(result)
+        this.batches = warehouseBatchesDataConverter(result)
       })
     } catch (error) {
       console.log(error)
@@ -128,9 +129,40 @@ export class AdminWarehouseBatchesViewModel {
     }
   }
 
-  setCurrentOpenedBatch(row) {
-    this.curBatch = row
-    this.onTriggerOpenModal('showBatchInfoModal')
+  async setCurrentOpenedBatch(row) {
+    try {
+      this.curBatch = row
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showBatchInfoModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onClickConfirmSendToBatchBtn() {
+    try {
+      const boxesIds = []
+
+      this.batches
+        .filter(batch => this.selectedBatches.includes(batch.id))
+        .map(batch => batch.originalData)
+        .forEach(batch => batch.boxes.forEach(box => boxesIds.push(box._id)))
+
+      await BoxesModel.sendBoxesToBatch(boxesIds)
+      runInAction(() => {
+        this.selectedBatches = []
+      })
+      this.loadData()
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onTriggerOpenModal(modal) {

@@ -7,6 +7,7 @@ import {
   renderFieldValueCell,
   ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
+  WarehouseTariffDatesCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -17,7 +18,7 @@ export const batchesViewColumns = () => [
   {
     field: 'orders',
     headerName: textConsts.ordersField,
-    width: 600,
+    width: 550,
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
     filterable: false,
     sortable: false,
@@ -49,7 +50,7 @@ export const batchesViewColumns = () => [
     headerName: textConsts.weightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 160,
+    width: 130,
   },
 
   {
@@ -57,6 +58,15 @@ export const batchesViewColumns = () => [
     headerName: textConsts.toralPriceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 160,
+    width: 130,
+  },
+
+  {
+    field: 'dates',
+    headerName: textConsts.datesField,
+    renderCell: params => <WarehouseTariffDatesCell row={params.row.originalData.boxes[0].logicsTariff} />,
+    width: 350,
+    filterable: false,
+    sortable: false,
   },
 ]

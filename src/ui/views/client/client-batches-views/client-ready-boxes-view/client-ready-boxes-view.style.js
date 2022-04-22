@@ -15,18 +15,6 @@ export const styles = createStyles(theme => ({
   modalMessageBtn: {
     alignSelf: 'flex-end',
   },
-  btnsWrapper: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: '0 0 10px',
-  },
-  leftBtnsWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: '10px',
-  },
 
   heightFieldAuto: {
     height: 'auto',
@@ -71,5 +59,9 @@ export const styles = createStyles(theme => ({
     '&:hover': {
       transform: 'scale(1.01)',
     },
+  },
+
+  btnsWrapper: {
+    margin: '10px 0 15px',
   },
 }))

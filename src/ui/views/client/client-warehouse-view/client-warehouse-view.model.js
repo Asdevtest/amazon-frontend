@@ -280,6 +280,8 @@ export class ClientWarehouseViewModel {
               destinationId: updatedBoxes[i].destinationId,
               logicsTariffId: updatedBoxes[i].logicsTariffId,
               fbaShipment: updatedBoxes[i].fbaShipment,
+              isBarCodeAlreadyAttachedByTheSupplier: updatedBoxes[i].isBarCodeAlreadyAttachedByTheSupplier,
+              isBarCodeAttachedByTheStorekeeper: updatedBoxes[i].isBarCodeAttachedByTheStorekeeper,
             },
             boxItems: [
               ...updatedBoxes[i].items.map(item => ({
@@ -377,17 +379,12 @@ export class ClientWarehouseViewModel {
         clientComment: boxData.clientComment,
       })
 
-      // await this.getBoxesMy()
       this.loadData()
       this.onTriggerOpenModal('showEditBoxModal')
 
       this.setRequestStatus(loadingStatuses.success)
 
-      // this.loadData()
-
       this.onTriggerOpenModal('showEditBoxSuccessModal')
-
-      // await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)

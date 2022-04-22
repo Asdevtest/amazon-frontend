@@ -13,39 +13,41 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import {AdminWarehouseBatchesViewModel} from './admin-warehouse-batches-view.model'
-import {styles} from './admin-warehouse-batches-view.style'
+import {AdminBatchesViewModel} from './admin-batches-view.model'
+import {styles} from './admin-batches-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').adminBatchesView
+const textConsts = getLocalizedTexts(texts, 'ru').adminWarehouseView
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
-const navbarActiveSubCategory = 3
-
+const activeCategory = navBarActiveCategory.NAVBAR_BATCHES
+const activeSubCategory = 1
 @observer
-class AdminWarehouseBatchesViewRaw extends Component {
-  viewModel = new AdminWarehouseBatchesViewModel({history: this.props.history})
+export class AdminBatchesViewRaw extends Component {
+  viewModel = new AdminBatchesViewModel({history: this.props.history})
 
   componentDidMount() {
     this.viewModel.loadData()
+    this.viewModel.getDataGridState()
   }
 
   render() {
     const {
+      volumeWeightCoefficient,
       curBatch,
       showBatchInfoModal,
       onTriggerOpenModal,
-
+      showConfirmModal,
       getCurrentData,
       sortModel,
       filterModel,
       requestStatus,
       densityModel,
       columnsModel,
-
+      isWarning,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -53,29 +55,33 @@ class AdminWarehouseBatchesViewRaw extends Component {
       onChangeCurPage,
       onChangeRowsPerPage,
 
-      onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+
+      onClickConfirmSendToBatchBtn,
       onChangeFilterModel,
+
+      setCurrentOpenedBatch,
     } = this.viewModel
-    const {classes: className} = this.props
+
+    const {classes: classNames} = this.props
+
     return (
       <React.Fragment>
         <Navbar
-          activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
+          activeCategory={activeCategory}
+          activeSubCategory={activeSubCategory}
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawer}
         />
-
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawer}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
               <DataGrid
                 pagination
                 useResizeContainer
                 classes={{
-                  row: className.row,
+                  row: classNames.row,
                 }}
                 sortModel={sortModel}
                 filterModel={filterModel}
@@ -90,20 +96,31 @@ class AdminWarehouseBatchesViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection)
-                }}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
+                onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
               />
             </MainContent>
           </Appbar>
         </Main>
 
+        <ConfirmationModal
+          isWarning={isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={textConsts.confirmMessage}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={onClickConfirmSendToBatchBtn}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+
         <BatchInfoModal
+          volumeWeightCoefficient={volumeWeightCoefficient}
           openModal={showBatchInfoModal}
           setOpenModal={() => onTriggerOpenModal('showBatchInfoModal')}
           batch={curBatch}
@@ -113,4 +130,4 @@ class AdminWarehouseBatchesViewRaw extends Component {
   }
 }
 
-export const AdminWarehouseBatchesView = withStyles(styles)(AdminWarehouseBatchesViewRaw)
+export const AdminBatchesView = withStyles(styles)(AdminBatchesViewRaw)

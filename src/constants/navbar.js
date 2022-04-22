@@ -203,16 +203,7 @@ export const navbarConfig = {
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INTEGRATIONS_CLIENT),
     },
-    // { // ПОКА СКРЫТЬ
-    //   icon: SettingsIcon,
-    //   title: 'Настройки',
-    //   route: '/client/settings',
-    //   subtitles: null,
-    //   key: navBarActiveCategory.NAVBAR_SETTINGS,
-    //   checkHideBlock: user =>
-    //     !isMasterUser(user) ||
-    //     user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_USER_SETTINGS_CLIENT),
-    // },
+
     {
       icon: ChatBubbleOutlineOutlinedIcon,
       title: 'Сообщения',
@@ -694,11 +685,30 @@ export const navbarConfig = {
         {subtitle: 'Задачи', subRoute: '/admin/warehouse/tasks'},
         {subtitle: 'Коробки', subRoute: '/admin/warehouse/boxes'},
         {subtitle: 'Destinations', subRoute: '/admin/warehouse/destinations'},
-        {subtitle: 'Партии', subRoute: '/admin/warehouse/batches'},
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
       checkHideBlock: () => true,
     },
+
+    {
+      icon: LocalConvenienceStore,
+      title: 'Партии',
+      route: '/admin/awaiting-batches',
+      subtitles: [
+        {
+          subtitle: 'Ожидают отправки',
+          subRoute: '/admin/awaiting-batches',
+        },
+        {
+          subtitle: 'Отправленные',
+          subRoute: '/admin/batches',
+        },
+      ],
+
+      key: navBarActiveCategory.NAVBAR_BATCHES,
+      checkHideBlock: () => true,
+    },
+
     {
       icon: MonetizationOnOutlinedIcon,
       title: 'Финансы',

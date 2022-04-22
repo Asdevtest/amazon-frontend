@@ -117,8 +117,8 @@ class ClientModelStatic {
     return response
   }
 
-  returnBoxFromBatch = async boxId => {
-    const response = await restApiService.clientApi.apiV1ClientsBoxesReturnBoxesToStockPost({body: [{boxId}]})
+  returnBoxFromBatch = async boxIds => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesReturnBoxesToStockPost({body: boxIds})
     return response
   }
 
