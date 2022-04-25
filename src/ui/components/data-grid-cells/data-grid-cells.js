@@ -180,7 +180,7 @@ export const NormDateWithParseISOCell = withStyles(styles)(({params}) => (
   <Typography>{!params.value ? 'N/A' : formatNormDateTimeWithParseISO(params.value)}</Typography>
 ))
 
-export const OrderCell = withStyles(styles)(({classes: classNames, product, superbox}) => (
+export const OrderCell = withStyles(styles)(({classes: classNames, product, superbox, box}) => (
   <div className={classNames.order}>
     <img alt="" src={getAmazonImageUrl(product.images[0])} className={classNames.orderImg} />
     <div>
@@ -191,6 +191,13 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
       </Typography>
       {superbox && (
         <Typography className={classNames.superboxTypo}>{`${textConsts.superboxTypo} x ${superbox}`}</Typography>
+      )}
+
+      {box && box.totalPrice - box.totalPriceChanged < 0 && (
+        <span className={classNames.needPay}>{`Необходима доплата! (${toFixedWithDollarSign(
+          box.totalPriceChanged - box.totalPrice,
+          2,
+        )})`}</span>
       )}
     </div>
   </div>
@@ -571,6 +578,13 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box}
               <span className={classNames.orderTextSpan}>{textConsts.id}</span>
               {item.product.asin}
             </Typography>
+
+            {item.totalPrice - item.totalPriceChanged < 0 && itemIndex === 0 && (
+              <span className={classNames.needPay}>{`Необходима доплата! (${toFixedWithDollarSign(
+                item.totalPriceChanged - item.totalPrice,
+                2,
+              )})`}</span>
+            )}
           </div>
         </div>
       ))}
@@ -645,7 +659,7 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
             <Typography className={classNames.orderText}>
               <span className={classNames.orderTextSpan}>{textConsts.id}</span>
               {item.product.asin}
-              {box.totalPrice - box.totalPriceChanged < 0 && (
+              {box.totalPrice - box.totalPriceChanged < 0 && itemIndex === 0 && (
                 <span className={classNames.needPay}>{`Необходима доплата! (${toFixedWithDollarSign(
                   box.totalPriceChanged - box.totalPrice,
                   2,

@@ -32,10 +32,17 @@ export const useClassNames = makeStyles(() => ({
     width: '225px',
   },
 
-  imgBoxWrapper: {
+  carouselWrapper: {
     width: '240px',
     display: 'flex',
     justifyContent: 'center',
+  },
+
+  imgBoxWrapper: {
+    height: '200px',
+    width: '160px',
+    display: 'flex',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
   },
@@ -66,6 +73,10 @@ export const useClassNames = makeStyles(() => ({
 
   productWrapper: {
     display: 'flex',
+    height: '300px',
+    border: '1px solid rgba(0,0,0, .1)',
+    borderRadius: '10px',
+    padding: '5px',
   },
 
   countField: {
@@ -88,6 +99,7 @@ export const useClassNames = makeStyles(() => ({
 
   labelsInfoWrapper: {
     display: 'flex',
+    marginTop: '20px',
   },
 
   imgSizesWrapper: {

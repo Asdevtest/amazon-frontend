@@ -39,7 +39,7 @@ export const addOrEditBatchFormColumns = () => [
   {
     field: 'orders',
     headerName: textConsts.ordersField,
-    width: 250,
+    width: 330,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
         <OrderManyItemsCell box={params.row.originalData} />
@@ -47,6 +47,7 @@ export const addOrEditBatchFormColumns = () => [
         <OrderCell
           product={params.row.originalData.items[0].product}
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
+          box={params.row.originalData}
         />
       ),
     filterable: false,

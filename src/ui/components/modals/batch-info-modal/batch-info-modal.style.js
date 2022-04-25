@@ -95,4 +95,10 @@ export const useClassNames = makeStyles(theme => ({
     alignItems: 'flex-end',
     gap: '10px',
   },
+
+  needPay: {
+    color: 'red',
+    fontWeight: 'bold',
+    marginLeft: '15px',
+  },
 }))

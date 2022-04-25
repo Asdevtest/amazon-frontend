@@ -2970,6 +2970,30 @@ export const texts = {
       datesField: 'Дата отправления',
     },
 
+    adminBatchesTableColumns: {
+      createdAtField: 'Дата создания',
+      ordersField: 'Продукт',
+      ordersId: 'id Заказа',
+      barCode: 'Баркод',
+      asinField: 'ASIN',
+      qtyField: 'Количество',
+      materialField: 'Материал',
+      warehouseField: 'Destination',
+      boxIdField: 'id Коробки',
+      priceField: 'Цена',
+      trackIdField: 'Трек номер',
+      weightField: 'Общий фин. Вес',
+      grossWeightField: 'Общий вес',
+      deliveryField: 'Тариф',
+      toralPriceField: 'Общая стоимость',
+
+      showBtn: 'Смотреть',
+      actionField: 'Действия',
+      humanFriendlyIdField: 'Номер',
+      datesField: 'Дата отправления',
+      storekeeperNameField: 'Storekeeper',
+    },
+
     batchesTableColumns: {
       createdAtField: 'Дата создания',
       ordersField: 'Продукт',

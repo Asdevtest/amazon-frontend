@@ -352,6 +352,8 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
 
     updatedAt: item.updatedAt,
 
+    storekeeper: item.storekeeper?.name,
+
     volumeWeight: item.boxes.reduce(
       (prev, box) => (prev = prev + calcVolumeWeightForBox(box, volumeWeightCoefficient)),
       0,

@@ -43,8 +43,14 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
   return (
     <TableRow className={classNames.row} onDoubleClick={() => handlers.openBoxView(item)}>
       <TableCell>
-        {item.items.map(el => (
+        {item.items.map((el, itemIndex) => (
           <div key={el.product._id} className={classNames.descriptionWrapper}>
+            {item.totalPrice - item.totalPriceChanged < 0 && itemIndex === 0 && (
+              <span className={classNames.needPay}>{`Необходима доплата! (${toFixedWithDollarSign(
+                item.totalPriceChanged - item.totalPrice,
+                2,
+              )})`}</span>
+            )}
             <div className={classNames.imgBlock}>
               <img className={classNames.imgBox} src={getAmazonImageUrl(el.product.images[0])} />
               <div className={classNames.imgSubBlock}>
@@ -56,7 +62,8 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
                     <Typography className={classNames.superboxTypo}>{`Superbox x ${item.amount}`}</Typography>
                   )}
                 </div>
-                <Typography className={classNames.boxTitle}>{el.product.id}</Typography>
+
+                <Typography className={classNames.boxTitle}>{el.product.asin}</Typography>
               </div>
             </div>
             <Typography className={classNames.productTitle}>{el.product.amazonTitle}</Typography>

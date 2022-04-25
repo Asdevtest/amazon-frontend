@@ -71,66 +71,86 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
             />
           </div>
 
+          {/* <Carousel autoPlay={false} timeout={100} animation="fade">
+                {task.images.map((el, index) => (
+                  <div key={index}>
+                    <img
+                      alt=""
+                      className={classNames.imgBox}
+                      src={el}
+                      onClick={() => {
+                        setShowImageModal(!showImageModal)
+                        setBigImagesOptions({images: task.images, imgIndex: index})
+                      }}
+                    />
+                  </div>
+                ))}
+              </Carousel> */}
+
           <div className={classNames.productsWrapper}>
-            {box.items.map((item, index) => (
-              <div key={index} className={classNames.productWrapper}>
-                {item.product.images.length > 0 ? (
-                  <Carousel autoPlay={false} timeout={100} animation="fade" className={classNames.imgBoxWrapper}>
-                    {item.product.images.map((el, index) => (
-                      <div key={index}>
-                        <img
-                          alt=""
-                          className={classNames.imgBox}
-                          src={getAmazonImageUrl(el)}
-                          onClick={() => {
-                            setShowImageModal(!showImageModal)
-                            setBigImagesOptions({images: item.product.images, imgIndex: index})
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </Carousel>
-                ) : (
-                  <img alt="" className={classNames.noImgBox} src={'/assets/img/no-photo.jpg'} />
-                )}
+            <Carousel autoPlay={false} timeout={100} animation="fade">
+              {box.items.map((item, index) => (
+                <div key={index} className={classNames.productWrapper}>
+                  {item.product.images.length > 0 ? (
+                    <div className={classNames.carouselWrapper}>
+                      <Carousel autoPlay={false} timeout={100} animation="fade" className={classNames.imgBoxWrapper}>
+                        {item.product.images.map((el, index) => (
+                          <div key={index}>
+                            <img
+                              alt=""
+                              className={classNames.imgBox}
+                              src={getAmazonImageUrl(el)}
+                              onClick={() => {
+                                setShowImageModal(!showImageModal)
+                                setBigImagesOptions({images: item.product.images, imgIndex: index})
+                              }}
+                            />
+                          </div>
+                        ))}
+                      </Carousel>
+                    </div>
+                  ) : (
+                    <img alt="" className={classNames.noImgBox} src={'/assets/img/no-photo.jpg'} />
+                  )}
 
-                <div>
-                  <Typography className={classNames.amazonTitle}>{item.product.amazonTitle}</Typography>
+                  <div>
+                    <Typography className={classNames.amazonTitle}>{item.product.amazonTitle}</Typography>
 
-                  <Field
-                    oneLine
-                    disabled
-                    inputClasses={classNames.countField}
-                    label={'Количество'}
-                    value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
-                    placeholder={'N/A'}
-                  />
+                    <Field
+                      oneLine
+                      disabled
+                      inputClasses={classNames.countField}
+                      label={'Количество'}
+                      value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
+                      placeholder={'N/A'}
+                    />
 
-                  <Field
-                    disabled
-                    inputClasses={classNames.countField}
-                    label={'HS Code'}
-                    value={item.product.hsCode}
-                    placeholder={'N/A'}
-                  />
+                    <Field
+                      disabled
+                      inputClasses={classNames.countField}
+                      label={'HS Code'}
+                      value={item.product.hsCode}
+                      placeholder={'N/A'}
+                    />
 
-                  <Field
-                    label={'Баркод'}
-                    inputComponent={
-                      <div>
-                        {item.product.barCode ? (
-                          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.product.barCode)}>
-                            <Typography className={classNames.linkField}>{item.product.barCode}</Typography>
-                          </Link>
-                        ) : (
-                          <Typography className={classNames.linkField}>{'N/A'}</Typography>
-                        )}
-                      </div>
-                    }
-                  />
+                    <Field
+                      label={'Баркод'}
+                      inputComponent={
+                        <div>
+                          {item.product.barCode ? (
+                            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.product.barCode)}>
+                              <Typography className={classNames.linkField}>{item.product.barCode}</Typography>
+                            </Link>
+                          ) : (
+                            <Typography className={classNames.linkField}>{'N/A'}</Typography>
+                          )}
+                        </div>
+                      }
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </Carousel>
           </div>
 
           <div className={classNames.labelsInfoWrapper}>
