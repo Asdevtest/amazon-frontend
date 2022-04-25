@@ -90,6 +90,7 @@ export const texts = {
       boxesInWarehouse: 'Коробок на складе',
       readyToSend: 'Коробки готовые к отправке',
       sendBoxes: 'Отправленные коробки',
+      awaitingBoxes: 'Ожидают отправки',
     },
 
     clientReadyBoxesView: {

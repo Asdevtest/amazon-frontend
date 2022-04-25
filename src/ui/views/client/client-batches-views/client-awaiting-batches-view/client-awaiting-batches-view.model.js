@@ -151,7 +151,7 @@ export class ClientAwaitingBatchesViewModel {
     try {
       const boxesToRemoveIds = batch.boxes.map(box => box._id)
 
-      await BatchesModel.returnBoxFromBatch(batch._id, boxesToRemoveIds)
+      await BatchesModel.removeBoxFromBatch(batch._id, boxesToRemoveIds)
     } catch (error) {
       console.log(error)
       this.error = error

@@ -15,4 +15,12 @@ export const styles = createStyles(theme => ({
   modalMessageBtn: {
     alignSelf: 'flex-end',
   },
+
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
 }))

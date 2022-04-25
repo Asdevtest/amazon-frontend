@@ -152,7 +152,7 @@ export class WarehouseAwaitingBatchesViewModel {
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
-        this.boxesData = clientWarehouseDataConverter(boxes)
+        this.boxesData = clientWarehouseDataConverter(boxes, this.volumeWeightCoefficient)
       })
 
       this.onTriggerOpenModal('showAddOrEditBatchModal')

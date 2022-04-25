@@ -5,6 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {adminBoxesViewColumns} from '@components/table-columns/admin/boxes-columns'
 
@@ -18,6 +19,12 @@ export class AdminWarehouseBoxesViewModel {
   error = undefined
 
   boxes = []
+
+  curBox = undefined
+
+  volumeWeightCoefficient = undefined
+
+  showBoxViewModal = false
 
   drawerOpen = false
   selectedBoxes = []
@@ -113,6 +120,22 @@ export class AdminWarehouseBoxesViewModel {
     }
   }
 
+  async setCurrentOpenedBox(row) {
+    try {
+      this.curBox = row
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
   onTriggerDrawer() {
     this.drawerOpen = !this.drawerOpen
   }
@@ -121,7 +144,7 @@ export class AdminWarehouseBoxesViewModel {
     this.curPage = e
   }
 
-  onTriggerModal(modalState) {
+  onTriggerOpenModal(modalState) {
     this[modalState] = !this[modalState]
   }
 }

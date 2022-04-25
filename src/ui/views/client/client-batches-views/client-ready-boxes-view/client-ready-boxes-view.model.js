@@ -181,18 +181,18 @@ export class ClientReadyBoxesViewModel {
         this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id},
       )
 
+      const volumeWeightCoefficient = await UserModel.getPlatformSettings()
+
       runInAction(() => {
-        this.boxesMy = clientWarehouseDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.boxesMy = clientWarehouseDataConverter(result, volumeWeightCoefficient).sort(
+          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+        )
       })
     } catch (error) {
       console.log(error)
       this.error = error
 
-      if (error.body.message === 'Коробки не найдены.') {
-        runInAction(() => {
-          this.boxesMy = []
-        })
-      }
+      this.boxesMy = []
     }
   }
 }

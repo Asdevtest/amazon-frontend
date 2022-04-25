@@ -245,7 +245,7 @@ export class WarehouseMyWarehouseViewModel {
       const result = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.boxesData = clientWarehouseDataConverter(boxes)
+        this.boxesData = clientWarehouseDataConverter(boxes, result.volumeWeightCoefficient)
 
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 

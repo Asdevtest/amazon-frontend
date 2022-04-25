@@ -247,7 +247,7 @@ export const clientOrdersDataConverter = data =>
     storekeeper: item.storekeeper?.name,
   }))
 
-export const clientWarehouseDataConverter = data =>
+export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -257,10 +257,7 @@ export const clientWarehouseDataConverter = data =>
 
     amazonPrice: calcPriceForBox(item),
 
-    finalWeight: Math.max(
-      parseFloat(item.volumeWeightKgWarehouse ? item.volumeWeightKgWarehouse : item.volumeWeightKgSupplier) || 0,
-      parseFloat(item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier) || 0,
-    ),
+    finalWeight: calcFinalWeightForBox(item, volumeWeightCoefficient),
     grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
 
     destination: item.destination?.name,

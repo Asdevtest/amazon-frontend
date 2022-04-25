@@ -150,8 +150,12 @@ export class ClientBoxesNotificationsViewModel {
     try {
       const result = await BoxesModel.getBoxesForCurClient(BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE)
 
+      const volumeWeightCoefficient = await UserModel.getPlatformSettings()
+
       runInAction(() => {
-        this.boxes = clientWarehouseDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.boxes = clientWarehouseDataConverter(result, volumeWeightCoefficient).sort(
+          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+        )
       })
     } catch (error) {
       console.log(error)

@@ -32,9 +32,9 @@ export const AddOrEditBatchForm = observer(
 
     const [chosenBoxes, setChosenBoxes] = useState(
       batchToEdit
-        ? clientWarehouseDataConverter(batchToEdit.originalData?.boxes)
+        ? clientWarehouseDataConverter(batchToEdit.originalData?.boxes, volumeWeightCoefficient)
         : sourceBox
-        ? [...clientWarehouseDataConverter([sourceBox])]
+        ? [...clientWarehouseDataConverter([sourceBox], volumeWeightCoefficient)]
         : [],
     )
 

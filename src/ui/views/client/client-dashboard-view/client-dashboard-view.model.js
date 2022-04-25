@@ -1,10 +1,12 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {BatchStatus} from '@constants/batch-status'
 import {BoxStatus} from '@constants/box-status'
 import {ClientDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 
+import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {UserModel} from '@models/user-model'
@@ -24,6 +26,7 @@ export class ClientDashboardViewModel {
     [ClientDashboardCardDataKey.CANCELED_ORDERS]: '',
     [ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE]: '',
     [ClientDashboardCardDataKey.READY_TO_SEND]: '',
+    [ClientDashboardCardDataKey.IS_BEING_COLLECTED]: '',
     [ClientDashboardCardDataKey.SEND_BOXES]: '',
   }
 
@@ -76,6 +79,8 @@ export class ClientDashboardViewModel {
 
       this.getBoxesMy()
 
+      this.getBatches()
+
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
@@ -118,6 +123,22 @@ export class ClientDashboardViewModel {
           ...this.dashboardData,
           [ClientDashboardCardDataKey.IN_INVENTORY]: result.length,
           [ClientDashboardCardDataKey.REPURCHASE_ITEMS]: result.filter(el => el.paidAt).length,
+        }
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async getBatches() {
+    try {
+      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
+
+      runInAction(() => {
+        this.dashboardData = {
+          ...this.dashboardData,
+          [ClientDashboardCardDataKey.IS_BEING_COLLECTED]: batches.reduce((ac, cur) => (ac += cur.boxes.length), 0),
         }
       })
     } catch (error) {
