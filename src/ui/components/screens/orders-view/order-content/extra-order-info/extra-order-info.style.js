@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(theme => ({
   orderContainer: {
     padding: '16px 32px',
+    width: '100%',
   },
   orderBorderRightMdUp: {
     [theme.breakpoints.up('md')]: {
@@ -47,11 +48,6 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 400,
     lineHeight: '21px',
   },
-  input: {
-    fontSize: '13px',
-    height: '29px',
-    marginTop: '24px',
-  },
   radio: {
     height: '20px',
   },
@@ -95,6 +91,7 @@ export const useClassNames = makeStyles(theme => ({
 
   imagesWrapper: {
     display: 'flex',
+    justifyContent: 'space-between',
   },
 
   subTitle: {
@@ -105,8 +102,8 @@ export const useClassNames = makeStyles(theme => ({
     marginBottom: '12px',
   },
   photoWrapper: {
-    maxWidth: '200px',
-    marginLeft: '10px',
+    maxWidth: '270px',
+    // marginLeft: '10px'
   },
 
   imgBox: {
@@ -121,6 +118,12 @@ export const useClassNames = makeStyles(theme => ({
     },
   },
 
+  noImgBox: {
+    width: '200px',
+    height: '150px',
+    objectFit: 'contain',
+  },
+
   titleWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -130,5 +133,22 @@ export const useClassNames = makeStyles(theme => ({
     marginLeft: '15px',
     fontSize: '22px',
     fontWeight: 'bold',
+  },
+
+  input: {
+    height: '100px',
+  },
+
+  commentsWrapper: {
+    marginTop: '30px',
+  },
+
+  imgBoxWrapper: {
+    // height: '200px',
+    // width: '160px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
 }))

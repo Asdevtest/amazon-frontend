@@ -3,10 +3,10 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(() => ({
   orderContainer: {
     padding: '16px 32px',
-    flexGrow: 4,
-    maxWidth: '100%',
-    flexBasis: '40%',
-    minWidth: '500px',
+    // flexGrow: 4,
+    // maxWidth: '100%',
+    // flexBasis: '40%',
+    width: '500px',
   },
 
   orderPrice: {
@@ -56,7 +56,7 @@ export const useClassNames = makeStyles(() => ({
   radio: {
     height: '20px',
   },
-  button: {
+  documentsButton: {
     border: '1px solid #ccc',
     borderRadius: '10px',
     padding: '0 8px',
@@ -66,6 +66,10 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 400,
     lineHeight: '21px',
     textTransform: 'none',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    margin: '5px 0 10px',
   },
 
   asinTypo: {

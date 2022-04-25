@@ -71,22 +71,6 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
             />
           </div>
 
-          {/* <Carousel autoPlay={false} timeout={100} animation="fade">
-                {task.images.map((el, index) => (
-                  <div key={index}>
-                    <img
-                      alt=""
-                      className={classNames.imgBox}
-                      src={el}
-                      onClick={() => {
-                        setShowImageModal(!showImageModal)
-                        setBigImagesOptions({images: task.images, imgIndex: index})
-                      }}
-                    />
-                  </div>
-                ))}
-              </Carousel> */}
-
           <div className={classNames.productsWrapper}>
             <Carousel autoPlay={false} timeout={100} animation="fade">
               {box.items.map((item, index) => (

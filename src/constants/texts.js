@@ -3349,7 +3349,7 @@ export const texts = {
       minBuyPrice: 'Цена покупки',
       supplier: 'Поставщик',
       maxDeliveryPrice: 'Макс доставка за единицу',
-      sizes: 'Размеры (дюйм)',
+      sizes: 'Размеры',
       weight: 'Вес (кг)',
       extraParam: 'Дополнительный параметр',
       extraParamValue: 'Значение',
