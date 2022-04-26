@@ -58,6 +58,7 @@ export const AdminContentModal = observer(
       rate: editUserFormFields?.rate || 0,
       role: editUserFormFields?.role || '',
       hideSuppliers: editUserFormFields?.hideSuppliers || false,
+      overdraft: editUserFormFields?.overdraft || 0,
 
       permissions: editUserFormFields?.permissions.map(perm => perm._id) || [],
       permissionGroups: editUserFormFields?.permissionGroups.map(permGroup => permGroup._id) || [],
@@ -144,6 +145,8 @@ export const AdminContentModal = observer(
           type="email"
           onChange={onChangeFormField('email')}
         />
+
+        <Field label={textConsts.overdraft} value={formFields.overdraft} onChange={onChangeFormField('overdraft')} />
 
         {!editUserFormFields.masterUser ? (
           <Field label={textConsts.rate} value={formFields.rate} onChange={onChangeFormField('rate')} />

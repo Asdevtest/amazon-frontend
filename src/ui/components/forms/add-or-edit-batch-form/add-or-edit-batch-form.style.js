@@ -17,6 +17,7 @@ export const useClassNames = makeStyles(() => ({
   tableWrapper: {
     marginTop: '10px',
     height: '37vh',
+    overflow: 'auto',
   },
 
   chosenGoodsTitle: {

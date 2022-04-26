@@ -38,6 +38,7 @@ export const ResearcherAddProductFormRaw = observer(
           onChange={onChangeFormFields('amazonLink')}
         />
         <Field
+          inputProps={{maxLength: 50}}
           label={textConsts.codeOfGood}
           value={formFields.productCode.toUpperCase()}
           onChange={onChangeFormFields('productCode')}

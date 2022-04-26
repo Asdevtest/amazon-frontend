@@ -30,6 +30,8 @@ export const AddOrEditBatchForm = observer(
 
     const [boxesToAddData, setBoxesToAddData] = useState([...boxesData])
 
+    console.log('boxesToAddData', boxesToAddData)
+
     const [chosenBoxes, setChosenBoxes] = useState(
       batchToEdit
         ? clientWarehouseDataConverter(batchToEdit.originalData?.boxes, volumeWeightCoefficient)
@@ -65,25 +67,27 @@ export const AddOrEditBatchForm = observer(
 
     useEffect(() => {
       if (chosenBoxes.length && !batchToEdit) {
-        setBoxesToAddData(filterBoxesToAddData())
+        setBoxesToAddData(() => [...filterBoxesToAddData()])
       } else if (batchToEdit) {
         const chosenBoxesIds = chosenBoxes.map(box => box._id)
-        setBoxesToAddData([
-          ...boxesData.filter(
-            box =>
-              box.destination === batchToEdit.destination &&
-              box.logicsTariff === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
-              !chosenBoxesIds.includes(box._id),
-          ),
+        setBoxesToAddData(() => [
+          ...[
+            ...boxesData.filter(
+              box =>
+                box.destination === batchToEdit.destination &&
+                box.logicsTariff === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
+                !chosenBoxesIds.includes(box._id),
+            ),
+          ],
         ])
       } else {
-        setBoxesToAddData([...boxesData])
+        setBoxesToAddData(() => [...[...boxesData]])
       }
     }, [chosenBoxes])
 
     const onClickTrash = () => {
       const filteredArray = [...chosenBoxes].filter(el => !boxesToDeliteIds.includes(el.id))
-      setChosenBoxes(filteredArray)
+      setChosenBoxes(() => filteredArray)
     }
 
     const onClickAdd = () => {
@@ -92,7 +96,7 @@ export const AddOrEditBatchForm = observer(
       const newRowIds = boxesToAddIds.filter(el => !curChosenGoodsIds.includes(el))
 
       const newSelectedItems = toJS(boxesToAddData).filter(el => newRowIds.includes(el.id))
-      setChosenBoxes([...chosenBoxes, ...newSelectedItems])
+      setChosenBoxes(() => [...chosenBoxes, ...newSelectedItems])
 
       setBoxesToAddIds([])
     }
@@ -189,6 +193,7 @@ export const AddOrEditBatchForm = observer(
           <Typography>{'Выберите коробки из списка:'}</Typography>
           <div className={classNames.tableWrapper}>
             <DataGrid
+              autoHeight
               hideFooter
               checkboxSelection
               rows={toJS(boxesToAddData)}
@@ -215,6 +220,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={classNames.tableWrapper}>
             <DataGrid
+              autoHeight
               hideFooter
               checkboxSelection
               rows={chosenBoxes || []}

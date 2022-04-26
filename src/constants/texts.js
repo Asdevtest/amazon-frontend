@@ -1621,6 +1621,8 @@ export const texts = {
       rate: 'Rate',
       masterUser: 'Master user id',
 
+      overdraft: 'Overdraft',
+
       fieldSecurity: 'Security/Sharing options',
       manageBtn: 'Manage Permissions',
       fieldBalance: 'Balance',

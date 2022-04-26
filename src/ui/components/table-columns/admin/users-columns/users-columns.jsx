@@ -85,7 +85,7 @@ export const adminUsersViewColumns = handlers => [
         row={params.row.originalData}
       />
     ),
-    width: 300,
+    width: 270,
     filterable: false,
     sortable: false,
   },

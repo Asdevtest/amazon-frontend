@@ -72,7 +72,7 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
           </div>
 
           <div className={classNames.productsWrapper}>
-            <Carousel autoPlay={false} timeout={100} animation="fade">
+            <Carousel autoPlay={false} timeout={100} animation="fade" fullHeightHover={false}>
               {box.items.map((item, index) => (
                 <div key={index} className={classNames.productWrapper}>
                   {item.product.images.length > 0 ? (

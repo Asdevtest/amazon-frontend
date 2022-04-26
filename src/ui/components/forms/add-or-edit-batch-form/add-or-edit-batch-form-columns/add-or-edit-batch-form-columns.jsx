@@ -72,7 +72,7 @@ export const addOrEditBatchFormColumns = () => [
     field: 'logicsTariff',
     headerName: textConsts.logicsTariffField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 200,
+    width: 130,
   },
 
   {
@@ -88,14 +88,14 @@ export const addOrEditBatchFormColumns = () => [
     headerName: textConsts.weightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 100,
+    width: 120,
   },
 
   {
     field: 'amazonPrice',
     headerName: textConsts.priceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
-    width: 100,
+    width: 120,
     type: 'number',
   },
 ]
