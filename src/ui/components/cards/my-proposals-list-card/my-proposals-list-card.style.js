@@ -7,7 +7,6 @@ export const useClassNames = makeStyles(() => ({
 
   cardWrapper: {
     width: '100%',
-    // height: '230px',
 
     borderRadius: '4px',
     border: '1px solid rgba(0,0,0, .1)',
@@ -60,7 +59,6 @@ export const useClassNames = makeStyles(() => ({
     marginLeft: '40px',
     display: 'flex',
     flexDirection: 'column',
-    // justifyContent: 'space-between',
     width: '100%',
   },
 
@@ -112,9 +110,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   timeWrapper: {
-    // minWidth: '280px',
     display: 'flex',
-    // justifyContent: 'space-between'
   },
 
   timeCount: {

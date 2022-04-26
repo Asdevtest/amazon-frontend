@@ -99,7 +99,6 @@ export const useClassNames = makeStyles(() => ({
   },
 
   linkPreview: {
-    // marginLeft: '10px',
     width: '100px',
     height: '60px',
     objectFit: 'contain',

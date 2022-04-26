@@ -103,7 +103,6 @@ export const useClassNames = makeStyles(theme => ({
   },
   photoWrapper: {
     maxWidth: '270px',
-    // marginLeft: '10px'
   },
 
   imgBox: {
@@ -144,8 +143,6 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   imgBoxWrapper: {
-    // height: '200px',
-    // width: '160px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

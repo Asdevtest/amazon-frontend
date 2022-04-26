@@ -9,7 +9,6 @@ export const useClassNames = makeStyles(() => ({
     marginLeft: '240px',
     display: 'flex',
     flexDirection: 'column',
-    // marginLeft: '80px'
   },
 
   mainSubRightWrapper: {

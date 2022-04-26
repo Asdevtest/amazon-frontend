@@ -136,10 +136,6 @@ export class WarehouseCanceledTasksViewModel {
 
   async getTasksMy() {
     try {
-      // const result = await StorekeeperModel.getTasksMy({
-      //   status: mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
-      // })
-
       const result = await StorekeeperModel.getLightTasksMy({
         status: mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
       })

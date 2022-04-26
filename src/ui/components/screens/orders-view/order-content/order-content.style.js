@@ -4,6 +4,7 @@ export const useClassNames = makeStyles(() => ({
   orderContainer: {
     padding: '16px 32px',
     display: 'flex',
+    alignItems: 'center',
   },
   containerTitle: {
     fontSize: '14px',
@@ -52,6 +53,7 @@ export const useClassNames = makeStyles(() => ({
     width: '170px',
     justifyContent: 'space-between',
     marginLeft: '120px',
+    alignItems: 'center',
   },
 
   orderPriceWrapper: {
@@ -59,6 +61,7 @@ export const useClassNames = makeStyles(() => ({
     width: '170px',
     justifyContent: 'space-between',
     marginLeft: '120px',
+    alignItems: 'center',
   },
 
   batchPriceWrapper: {
@@ -66,6 +69,7 @@ export const useClassNames = makeStyles(() => ({
     width: '190px',
     justifyContent: 'space-between',
     marginLeft: '120px',
+    alignItems: 'center',
   },
 
   titleSpan: {

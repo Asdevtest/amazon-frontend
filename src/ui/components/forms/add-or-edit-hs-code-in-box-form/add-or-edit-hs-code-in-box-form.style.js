@@ -8,9 +8,6 @@ export const useClassNames = makeStyles(theme => ({
   form: {
     marginTop: theme.spacing(2.5),
     marginBottom: theme.spacing(2.5),
-    // border: '1px solid rgb(224, 224, 224)',
-    // borderRadius: '5px',
-    // padding: '20px',
     display: 'flex',
     flexDirection: 'column',
   },

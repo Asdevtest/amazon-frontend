@@ -234,7 +234,7 @@ export const clientOrdersDataConverter = data =>
     id: item._id,
 
     barCode: item.product.barCode,
-    totalPrice: item.totalPrice, // calcTotalPriceForOrder(item),
+    totalPrice: item.totalPrice,
     grossWeightKg: item.product.weight * item.amount,
     warehouses: item.destination?.name,
     status: OrderStatusByCode[item.status],

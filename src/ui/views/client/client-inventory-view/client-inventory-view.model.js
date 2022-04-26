@@ -248,10 +248,14 @@ export class ClientInventoryViewModel {
 
       const destinations = await ClientModel.getDestinations()
 
+      const result = await UserModel.getPlatformSettings()
+
       runInAction(() => {
         this.storekeepers = storekeepers
 
         this.destinations = destinations
+
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showOrderModal')

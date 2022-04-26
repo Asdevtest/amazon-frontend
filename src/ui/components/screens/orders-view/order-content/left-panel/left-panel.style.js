@@ -3,9 +3,6 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(() => ({
   orderContainer: {
     padding: '16px 32px',
-    // flexGrow: 4,
-    // maxWidth: '100%',
-    // flexBasis: '40%',
     width: '500px',
   },
 

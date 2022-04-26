@@ -38,7 +38,7 @@ export const DeliveryParameters = ({order}) => {
 
       <div className={classNames.storekeeperWrapper}>
         <OrderParameter label={'Storekeeper'} value={order.storekeeper.name} />
-        <OrderParameter label={'Tarif'} value={order.logicsTariff?.name} />
+        <OrderParameter label={'Tariff'} value={order.logicsTariff?.name} />
         <OrderParameter
           label={'ETD (Дата отправки)'}
           value={order.logicsTariff?.etd && formatDateWithoutTime(order.logicsTariff?.etd)}

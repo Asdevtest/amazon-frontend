@@ -111,13 +111,14 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     width: '250px',
+    marginLeft: '20px',
   },
 
   sizesSubWrapper: {
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
 
   imgWrapper: {

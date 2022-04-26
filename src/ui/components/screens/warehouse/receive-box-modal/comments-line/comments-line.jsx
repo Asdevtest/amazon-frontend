@@ -22,8 +22,6 @@ export const CommentsLine = () => {
         rowsMax={6}
         label={textConsts.commentLabel}
         placeholder={textConsts.commentPlaceHolder}
-        // value={'комментарий склада'}
-        // onChange={onChangeField('checkednotes')}
       />
       <Field
         multiline

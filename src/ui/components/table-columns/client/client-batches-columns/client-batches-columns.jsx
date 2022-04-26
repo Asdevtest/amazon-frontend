@@ -19,7 +19,7 @@ export const clientBatchesViewColumns = () => [
   {
     field: 'orders',
     headerName: textConsts.ordersField,
-    width: 550,
+    width: 530,
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
     filterable: false,
     sortable: false,
@@ -43,14 +43,14 @@ export const clientBatchesViewColumns = () => [
     field: 'storekeeper',
     headerName: textConsts.storekeeperField,
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
-    width: 200,
+    width: 120,
   },
 
   {
     field: 'tariff',
     headerName: textConsts.deliveryField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 250,
+    width: 110,
   },
 
   {

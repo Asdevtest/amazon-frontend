@@ -14,9 +14,6 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     marginBottom: '12px',
   },
-  // input: {
-  //   width: '100%'
-  // },
 
   input: {
     height: '32px',

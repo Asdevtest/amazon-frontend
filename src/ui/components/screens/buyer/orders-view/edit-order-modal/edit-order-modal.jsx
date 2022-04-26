@@ -112,7 +112,7 @@ export const EditOrderModal = ({
         return
       }
 
-      newOrderFieldsState[filedName] = Number(e.target.value)
+      newOrderFieldsState[filedName] = e.target.value
     } else if (filedName === 'status') {
       newOrderFieldsState[filedName] = e.target.value
       setTmpNewOrderFieldsState(newOrderFieldsState)

@@ -2,8 +2,6 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    // maxWidth: '90vw',
-    // minWidth: '900px',
     width: '80vw',
   },
   indicator: {

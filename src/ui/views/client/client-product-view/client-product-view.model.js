@@ -164,7 +164,6 @@ export class ClientProductViewModel {
         [
           'icomment',
           'category',
-          // 'asin',
           'lamazon',
           'clientComment',
           'amazonTitle',

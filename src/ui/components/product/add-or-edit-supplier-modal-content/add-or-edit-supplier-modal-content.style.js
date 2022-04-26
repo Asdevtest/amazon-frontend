@@ -164,15 +164,9 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
   },
 
-  calculationWrapper: {
-    // display: 'flex',
-    // width: '350px'
-  },
+  calculationWrapper: {},
 
-  calculationSubWrapper: {
-    // padding: '10px',
-    // width: '370px'
-  },
+  calculationSubWrapper: {},
 
   divider: {
     margin: '35px 18px 10px',

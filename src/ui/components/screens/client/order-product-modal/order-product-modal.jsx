@@ -30,6 +30,7 @@ import {useClassNames} from './order-product-modal.style'
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderProductModal
 
 export const OrderProductModal = ({
+  volumeWeightCoefficient,
   destinations,
   storekeepers,
   requestStatus,
@@ -64,6 +65,7 @@ export const OrderProductModal = ({
       productId: product._id,
       images: [],
       tmpBarCode: [],
+
       destinationId: '',
 
       storekeeperId: '',
@@ -150,6 +152,7 @@ export const OrderProductModal = ({
             {productsForRender.map((product, index) => (
               <OrderModalBodyRow
                 key={product._id}
+                volumeWeightCoefficient={volumeWeightCoefficient}
                 destinations={destinations}
                 storekeepers={storekeepers}
                 item={product}
