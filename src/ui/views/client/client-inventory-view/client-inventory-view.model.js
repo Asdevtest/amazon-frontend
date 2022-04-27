@@ -415,8 +415,6 @@ export class ClientInventoryViewModel {
       this.onTriggerOpenModal('showSuccessModal')
 
       !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
-
-      this.onTriggerOpenModal('showSelectionSupplierModal')
     } catch (error) {
       console.log(error)
       this.error = error
@@ -431,7 +429,6 @@ export class ClientInventoryViewModel {
       this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
       this.onTriggerOpenModal('showAddOrEditSupplierModal')
-      this.onTriggerOpenModal('showSelectionSupplierModal')
     } catch (error) {
       console.log(error)
     }

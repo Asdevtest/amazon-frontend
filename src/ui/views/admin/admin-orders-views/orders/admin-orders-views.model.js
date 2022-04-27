@@ -21,9 +21,8 @@ const ordersStatusBySubCategory = {
   3: OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
   4: OrderStatusByKey[OrderStatus.IN_STOCK],
   5: OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
-  6: OrderStatusByKey[OrderStatus.AWAITING_SHIPMENT],
-  7: OrderStatusByKey[OrderStatus.SHIPPED],
-  8: OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+  6: OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
+  7: OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
 }
 
 export class AdminOrdersAllViewModel {

@@ -490,6 +490,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.UserAdminFullSchemaWithSubUsers](docs/UserAdminFullSchemaWithSubUsers.md)
  - [TestSwagger.UserFullSchema](docs/UserFullSchema.md)
  - [TestSwagger.UserInfoSchema](docs/UserInfoSchema.md)
+ - [TestSwagger.UserInfoSchemaNeedConfirmPriceChange](docs/UserInfoSchemaNeedConfirmPriceChange.md)
  - [TestSwagger.UserInfoSchemaPermissionGroups](docs/UserInfoSchemaPermissionGroups.md)
  - [TestSwagger.UserInfoSchemaPermissions](docs/UserInfoSchemaPermissions.md)
  - [TestSwagger.UserRegisterSchema](docs/UserRegisterSchema.md)

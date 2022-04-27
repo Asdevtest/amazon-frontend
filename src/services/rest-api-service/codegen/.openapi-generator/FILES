@@ -192,6 +192,7 @@ docs/UserAdminFullSchemaWithSubUsers.md
 docs/UserApi.md
 docs/UserFullSchema.md
 docs/UserInfoSchema.md
+docs/UserInfoSchemaNeedConfirmPriceChange.md
 docs/UserInfoSchemaPermissionGroups.md
 docs/UserInfoSchemaPermissions.md
 docs/UserRegisterSchema.md
@@ -395,6 +396,7 @@ src/model/UserAdminFullSchemaPermissions.js
 src/model/UserAdminFullSchemaWithSubUsers.js
 src/model/UserFullSchema.js
 src/model/UserInfoSchema.js
+src/model/UserInfoSchemaNeedConfirmPriceChange.js
 src/model/UserInfoSchemaPermissionGroups.js
 src/model/UserInfoSchemaPermissions.js
 src/model/UserRegisterSchema.js
@@ -403,6 +405,4 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/ApiV1AdminsOrdersLogicsTariff.spec.js
-test/model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion.spec.js
-test/model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest.spec.js
+test/model/UserInfoSchemaNeedConfirmPriceChange.spec.js

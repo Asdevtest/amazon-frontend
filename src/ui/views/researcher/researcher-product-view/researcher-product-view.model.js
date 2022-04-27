@@ -168,8 +168,6 @@ export class ResearcherProductViewModel {
   constructor({history, location}) {
     this.history = history
 
-    console.log('location.state', location.state)
-
     if (location.state) {
       this.startParse = location.state.startParse
     }

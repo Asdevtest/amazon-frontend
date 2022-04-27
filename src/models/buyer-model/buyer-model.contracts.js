@@ -52,7 +52,7 @@ export class BuyerAddOwnProductContract {
   @IsString()
   amazonTitle
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   lamazon
 
