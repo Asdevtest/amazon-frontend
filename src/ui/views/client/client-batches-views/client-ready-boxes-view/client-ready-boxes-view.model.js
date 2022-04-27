@@ -178,7 +178,7 @@ export class ClientReadyBoxesViewModel {
     try {
       const result = await BoxesModel.getBoxesForCurClient(
         BoxStatus.REQUESTED_SEND_TO_BATCH,
-        this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id},
+        this.currentStorekeeper && this.currentStorekeeper._id,
       )
 
       const volumeWeightCoefficient = await UserModel.getPlatformSettings()

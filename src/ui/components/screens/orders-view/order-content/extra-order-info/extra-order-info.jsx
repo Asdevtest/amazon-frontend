@@ -31,7 +31,7 @@ export const ExtraOrderInfo = ({order}) => {
         <div className={classNames.photoWrapper}>
           <Typography className={classNames.subTitle}>{'Фотографии к заказу:'}</Typography>
 
-          {(order.images === null ? false : order.images.length > 0) ? (
+          {(order.images === null ? false : order.images?.length > 0) ? (
             <Carousel autoPlay={false} timeout={100} animation="fade" className={classNames.imgBoxWrapper}>
               {order.images.map((el, index) => (
                 <div key={index}>
@@ -55,15 +55,17 @@ export const ExtraOrderInfo = ({order}) => {
         <div className={classNames.photoWrapper}>
           <Typography className={classNames.subTitle}>{'Фотографии текущего поставщика:'}</Typography>
 
-          {(order.product.currentSupplierюimages === null ? false : order.product.currentSupplier.images.length > 0) ? (
+          {(
+            order.product.currentSupplier?.images === null ? false : order.product.currentSupplier?.images.length > 0
+          ) ? (
             <Carousel autoPlay={false} timeout={100} animation="fade" className={classNames.imgBoxWrapper}>
-              {order.product.currentSupplier.images.map((el, index) => (
+              {order.product.currentSupplier?.images.map((el, index) => (
                 <div key={index}>
                   <img
                     alt=""
                     className={classNames.imgBox}
                     src={getAmazonImageUrl(el)}
-                    onClick={() => onClickImg({images: order.product.currentSupplier.images, imgIndex: index})}
+                    onClick={() => onClickImg({images: order.product.currentSupplier?.images, imgIndex: index})}
                   />
                 </div>
               ))}

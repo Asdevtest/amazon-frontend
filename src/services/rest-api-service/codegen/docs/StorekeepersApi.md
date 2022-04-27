@@ -354,7 +354,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersTariffLogisticsMyGet
 
-> [ApiV1BatchesLogicsTariff] apiV1StorekeepersTariffLogisticsMyGet(opts)
+> [ApiV1AdminsOrdersLogicsTariff] apiV1StorekeepersTariffLogisticsMyGet(opts)
 
 # Получить всех тарифами доставки сторкипером.
 
@@ -392,7 +392,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ApiV1BatchesLogicsTariff]**](ApiV1BatchesLogicsTariff.md)
+[**[ApiV1AdminsOrdersLogicsTariff]**](ApiV1AdminsOrdersLogicsTariff.md)
 
 ### Authorization
 

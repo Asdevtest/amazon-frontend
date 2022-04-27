@@ -13,10 +13,10 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
+import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
 import ApiV1BatchesBatch from './ApiV1BatchesBatch';
-import ApiV1BatchesDestination from './ApiV1BatchesDestination';
 import ApiV1BatchesItems from './ApiV1BatchesItems';
-import ApiV1BatchesLogicsTariff from './ApiV1BatchesLogicsTariff';
 
 /**
  * The ApiV1BatchesBoxes model module.
@@ -161,10 +161,10 @@ class ApiV1BatchesBoxes {
                 obj['lastModifiedBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['lastModifiedBy']);
             }
             if (data.hasOwnProperty('destination')) {
-                obj['destination'] = ApiV1BatchesDestination.constructFromObject(data['destination']);
+                obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
             }
             if (data.hasOwnProperty('logicsTariff')) {
-                obj['logicsTariff'] = ApiV1BatchesLogicsTariff.constructFromObject(data['logicsTariff']);
+                obj['logicsTariff'] = ApiV1AdminsOrdersLogicsTariff.constructFromObject(data['logicsTariff']);
             }
             if (data.hasOwnProperty('batch')) {
                 obj['batch'] = ApiV1BatchesBatch.constructFromObject(data['batch']);
@@ -387,12 +387,12 @@ ApiV1BatchesBoxes.prototype['createdBy'] = undefined;
 ApiV1BatchesBoxes.prototype['lastModifiedBy'] = undefined;
 
 /**
- * @member {module:model/ApiV1BatchesDestination} destination
+ * @member {module:model/ApiV1AdminsOrdersDestination} destination
  */
 ApiV1BatchesBoxes.prototype['destination'] = undefined;
 
 /**
- * @member {module:model/ApiV1BatchesLogicsTariff} logicsTariff
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariff} logicsTariff
  */
 ApiV1BatchesBoxes.prototype['logicsTariff'] = undefined;
 
@@ -434,7 +434,13 @@ ApiV1BatchesBoxes['StatusEnum'] = {
      * value: "IN_BATCH"
      * @const
      */
-    "IN_BATCH": "IN_BATCH"
+    "IN_BATCH": "IN_BATCH",
+
+    /**
+     * value: "IN_BATCH_ON_THE_WAY"
+     * @const
+     */
+    "IN_BATCH_ON_THE_WAY": "IN_BATCH_ON_THE_WAY"
 };
 
 

@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BatchesLogicsTariff from './ApiV1BatchesLogicsTariff';
+import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
 import ApiV1StorekeepersTariffWarehouses from './ApiV1StorekeepersTariffWarehouses';
 
 /**
@@ -58,7 +58,7 @@ class InlineResponse20018 {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
             if (data.hasOwnProperty('tariffLogistics')) {
-                obj['tariffLogistics'] = ApiClient.convertToType(data['tariffLogistics'], [ApiV1BatchesLogicsTariff]);
+                obj['tariffLogistics'] = ApiClient.convertToType(data['tariffLogistics'], [ApiV1AdminsOrdersLogicsTariff]);
             }
             if (data.hasOwnProperty('tariffWarehouses')) {
                 obj['tariffWarehouses'] = ApiClient.convertToType(data['tariffWarehouses'], [ApiV1StorekeepersTariffWarehouses]);
@@ -87,7 +87,7 @@ InlineResponse20018.prototype['name'] = undefined;
 
 /**
  * Тарифы логистики для сторкипера.
- * @member {Array.<module:model/ApiV1BatchesLogicsTariff>} tariffLogistics
+ * @member {Array.<module:model/ApiV1AdminsOrdersLogicsTariff>} tariffLogistics
  */
 InlineResponse20018.prototype['tariffLogistics'] = undefined;
 

@@ -40,8 +40,8 @@ Name | Type | Description | Notes
 **client** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
 **createdBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
 **lastModifiedBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
-**destination** | [**ApiV1BatchesDestination**](ApiV1BatchesDestination.md) |  | [optional] 
-**logicsTariff** | [**ApiV1BatchesLogicsTariff**](ApiV1BatchesLogicsTariff.md) |  | [optional] 
+**destination** | [**ApiV1AdminsOrdersDestination**](ApiV1AdminsOrdersDestination.md) |  | [optional] 
+**logicsTariff** | [**ApiV1AdminsOrdersLogicsTariff**](ApiV1AdminsOrdersLogicsTariff.md) |  | [optional] 
 **batch** | [**ApiV1BatchesBatch**](ApiV1BatchesBatch.md) |  | [optional] 
 
 
@@ -56,6 +56,8 @@ Name | Type | Description | Notes
 * `NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE` (value: `"NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE"`)
 
 * `IN_BATCH` (value: `"IN_BATCH"`)
+
+* `IN_BATCH_ON_THE_WAY` (value: `"IN_BATCH_ON_THE_WAY"`)
 
 
 

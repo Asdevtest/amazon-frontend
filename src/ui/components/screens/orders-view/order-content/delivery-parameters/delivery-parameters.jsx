@@ -2,6 +2,7 @@ import React from 'react'
 
 import {Typography} from '@material-ui/core'
 
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 
 import {formatDateWithoutTime} from '@utils/date-time'
@@ -37,7 +38,14 @@ export const DeliveryParameters = ({order}) => {
       </div>
 
       <div className={classNames.storekeeperWrapper}>
-        <OrderParameter label={'Storekeeper'} value={order.storekeeper.name} />
+        <Field
+          oneLine
+          label={'Storekeeper'}
+          containerClasses={classNames.parameterTableCellWrapper}
+          labelClasses={classNames.fieldLabel}
+          inputComponent={<UserLinkCell name={order.storekeeper.name} userId={order.storekeeper._id} />}
+        />
+
         <OrderParameter label={'Tariff'} value={order.logicsTariff?.name} />
         <OrderParameter
           label={'ETD (Дата отправки)'}
@@ -50,6 +58,16 @@ export const DeliveryParameters = ({order}) => {
         <OrderParameter
           label={'CLS (Дата закрытия партии)'}
           value={order.logicsTariff?.cls && formatDateWithoutTime(order.logicsTariff?.cls)}
+        />
+      </div>
+
+      <div className={classNames.buyerWrapper}>
+        <Field
+          oneLine
+          label={'Buyer'}
+          containerClasses={classNames.parameterTableCellWrapper}
+          labelClasses={classNames.fieldLabel}
+          inputComponent={<UserLinkCell name={order.buyer.name} userId={order.buyer._id} />}
         />
       </div>
     </div>

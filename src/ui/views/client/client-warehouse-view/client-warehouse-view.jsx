@@ -238,20 +238,21 @@ export class ClientWarehouseViewRaw extends Component {
           </div>
         </Modal>
 
-        <MergeBoxesModal
-          destinations={destinations}
-          storekeepers={storekeepersData}
-          selectedBoxes={
-            (selectedBoxes.length &&
-              toJS(boxesMy.filter(box => selectedBoxes.includes(box._id)))?.map(box => box.originalData)) ||
-            []
-          }
-          requestStatus={requestStatus}
-          openModal={showMergeBoxModal}
-          setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
-          onRemoveBoxFromSelected={onRemoveBoxFromSelected}
-          onSubmit={onClickMerge}
-        />
+        <Modal openModal={showMergeBoxModal} setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}>
+          <MergeBoxesModal
+            destinations={destinations}
+            storekeepers={storekeepersData}
+            selectedBoxes={
+              (selectedBoxes.length &&
+                toJS(boxesMy.filter(box => selectedBoxes.includes(box._id)))?.map(box => box.originalData)) ||
+              []
+            }
+            requestStatus={requestStatus}
+            setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
+            onRemoveBoxFromSelected={onRemoveBoxFromSelected}
+            onSubmit={onClickMerge}
+          />
+        </Modal>
 
         <TaskInfoModal
           openModal={showTaskInfoModal}

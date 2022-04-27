@@ -1,15 +1,20 @@
-import React from 'react'
+import {ToggleButton, ToggleButtonGroup} from '@mui/material'
+
+import React, {useState} from 'react'
 
 import {Checkbox, IconButton, TableCell, TableRow, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 
+import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
 
 import {Input} from '@components/input'
 import {Table} from '@components/table'
 
+import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {toFixed} from '@utils/text'
 
 import {useClassNames} from './boxes-to-create-table.style'
 
@@ -73,7 +78,10 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             <Input
               disabled
               classes={{root: classNames.inputWrapper, input: classNames.input}}
-              value={item.heightCmSupplier}
+              value={toFixed(
+                item.heightCmSupplier / (restProps.sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
+                2,
+              )}
             />
           </div>
           <div className={classNames.sizeWrapper}>
@@ -81,7 +89,10 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             <Input
               disabled
               classes={{root: classNames.inputWrapper, input: classNames.input}}
-              value={item.widthCmSupplier}
+              value={toFixed(
+                item.widthCmSupplier / (restProps.sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
+                2,
+              )}
             />
           </div>
           <div className={classNames.sizeWrapper}>
@@ -89,7 +100,10 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             <Input
               disabled
               classes={{root: classNames.inputWrapper, input: classNames.input}}
-              value={item.lengthCmSupplier}
+              value={toFixed(
+                item.lengthCmSupplier / (restProps.sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
+                2,
+              )}
             />
           </div>
         </div>
@@ -108,7 +122,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
           <Input
             disabled
             classes={{root: classNames.inputWrapper, input: classNames.input}}
-            value={item.volumeWeightKgSupplier}
+            value={toFixed(calcVolumeWeightForBox(item, restProps.volumeWeightCoefficient), 2)}
           />
         </div>
       </TableCell>
@@ -117,7 +131,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
           <Input
             disabled
             classes={{root: classNames.inputWrapper, input: classNames.input}}
-            value={item.weightFinalAccountingKgSupplier}
+            value={toFixed(calcFinalWeightForBox(item, restProps.volumeWeightCoefficient), 2)}
           />
         </div>
       </TableCell>
@@ -145,13 +159,37 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
   )
 }
 
-export const BoxesToCreateTable = ({barcodeIsExist, newBoxes, onRemoveBox, onClickBarcodeCheckbox}) => {
+export const BoxesToCreateTable = ({
+  barcodeIsExist,
+  newBoxes,
+  onRemoveBox,
+  onClickBarcodeCheckbox,
+  volumeWeightCoefficient,
+}) => {
   const classNames = useClassNames()
+
+  const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+
+  const handleChange = (event, newAlignment) => {
+    setSizeSetting(newAlignment)
+  }
+
   return (
     <div className={classNames.newBoxes}>
-      <Typography className={classNames.sectionTitle} variant="h4">
+      <Typography className={classNames.sectionTitle} variant="h6">
         {textConsts.newBoxesTitle}
       </Typography>
+
+      <div className={classNames.sizesSubWrapper}>
+        <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+          <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+            {'In'}
+          </ToggleButton>
+          <ToggleButton disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+            {'Cm'}
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </div>
 
       <Table
         rowsOnly
@@ -160,6 +198,8 @@ export const BoxesToCreateTable = ({barcodeIsExist, newBoxes, onRemoveBox, onCli
         renderHeadRow={renderHeadRow}
         rowsHandlers={{onRemoveBox, onClickBarcodeCheckbox}}
         barcodeIsExist={barcodeIsExist}
+        volumeWeightCoefficient={volumeWeightCoefficient}
+        sizeSetting={sizeSetting}
       />
     </div>
   )

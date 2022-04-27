@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
@@ -25,13 +26,6 @@ import {toFixed} from '@utils/text'
 import {useClassNames} from './add-or-edit-supplier-modal-content.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').addOrEditSupplierModalContent
-
-const sizesType = {
-  INCHES: 'INCHES',
-  CM: 'CM',
-}
-
-const inchesCoefficient = 2.54
 
 export const AddOrEditSupplierModalContent = observer(
   ({

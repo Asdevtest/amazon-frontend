@@ -151,7 +151,9 @@ export class BuyerMyOrdersViewModel {
 
   async onClickOrder(order) {
     try {
-      this.selectedOrder = order.originalData
+      const orderData = await BuyerModel.getOrderById(order.originalData._id)
+
+      this.selectedOrder = orderData
       this.getBoxesOfOrder(order.originalData._id)
 
       const result = await UserModel.getPlatformSettings()
@@ -324,10 +326,6 @@ export class BuyerMyOrdersViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  onSelectedOrder(value) {
-    this.selectedOrder = value
   }
 
   onTriggerShowBarcodeModal() {

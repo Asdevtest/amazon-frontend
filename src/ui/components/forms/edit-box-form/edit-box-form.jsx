@@ -1,3 +1,5 @@
+import {ToggleButton, ToggleButtonGroup} from '@mui/material'
+
 import {useState} from 'react'
 
 import {Chip, Divider, NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
@@ -7,6 +9,7 @@ import Carousel from 'react-material-ui-carousel'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
+import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
@@ -28,7 +31,7 @@ import {ProductInOrderTableRow} from './product-in-order-table-row'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
-const WarehouseDemensions = ({orderBox}) => {
+const WarehouseDemensions = ({orderBox, sizeSetting}) => {
   const classNames = useClassNames()
 
   return (
@@ -38,13 +41,13 @@ const WarehouseDemensions = ({orderBox}) => {
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.lengthCmWarehouse}
-          value={orderBox.lengthCmWarehouse || 0}
+          value={toFixed(orderBox.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
         />
         <Field
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.widthCmWarehouse}
-          value={orderBox.widthCmWarehouse || 0}
+          value={toFixed(orderBox.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
         />
       </div>
       <div className={classNames.numberInputFieldsWrapper}>
@@ -52,7 +55,7 @@ const WarehouseDemensions = ({orderBox}) => {
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.heightCmWarehouse}
-          value={orderBox.heightCmWarehouse || 0}
+          value={toFixed(orderBox.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
         />
         <Field
           disabled
@@ -149,6 +152,12 @@ export const EditBoxForm = observer(
       const newFormFields = {...boxFields}
       newFormFields.shippingLabel = ''
       setBoxFields(newFormFields)
+    }
+
+    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+
+    const handleChange = (event, newAlignment) => {
+      setSizeSetting(newAlignment)
     }
 
     const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
@@ -269,10 +278,22 @@ export const EditBoxForm = observer(
             </div>
 
             <div className={classNames.blockOfNewBoxWrapper}>
-              <Typography paragraph className={classNames.subTitle}>
-                {textConsts.warehouseDemensions}
-              </Typography>
-              <WarehouseDemensions orderBox={boxFields} />
+              <div className={classNames.sizesTitleWrapper}>
+                <Typography paragraph className={classNames.subTitle}>
+                  {textConsts.warehouseDemensions}
+                </Typography>
+
+                <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+                  <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                    {'In'}
+                  </ToggleButton>
+                  <ToggleButton disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                    {'Cm'}
+                  </ToggleButton>
+                </ToggleButtonGroup>
+              </div>
+
+              <WarehouseDemensions orderBox={boxFields} sizeSetting={sizeSetting} />
 
               <div className={classNames.photoWrapper}>
                 <Typography className={classNames.subTitle}>{'Фотографии коробки, сделанные на складе:'}</Typography>

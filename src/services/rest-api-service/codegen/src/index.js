@@ -19,6 +19,9 @@ import ApiV1AdminsGetProductsByStatusClient from './model/ApiV1AdminsGetProducts
 import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 import ApiV1AdminsGetProductsByStatusSuppliers from './model/ApiV1AdminsGetProductsByStatusSuppliers';
 import ApiV1AdminsOrdersDestination from './model/ApiV1AdminsOrdersDestination';
+import ApiV1AdminsOrdersLogicsTariff from './model/ApiV1AdminsOrdersLogicsTariff';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest';
 import ApiV1AdminsOrdersOrderSupplier from './model/ApiV1AdminsOrdersOrderSupplier';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
@@ -26,11 +29,7 @@ import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
 import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper';
 import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
 import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
-import ApiV1BatchesDestination from './model/ApiV1BatchesDestination';
 import ApiV1BatchesItems from './model/ApiV1BatchesItems';
-import ApiV1BatchesLogicsTariff from './model/ApiV1BatchesLogicsTariff';
-import ApiV1BatchesLogicsTariffConditionsByRegion from './model/ApiV1BatchesLogicsTariffConditionsByRegion';
-import ApiV1BatchesLogicsTariffConditionsByRegionWest from './model/ApiV1BatchesLogicsTariffConditionsByRegionWest';
 import ApiV1BatchesStorekeeper from './model/ApiV1BatchesStorekeeper';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
@@ -289,6 +288,24 @@ export {
     ApiV1AdminsOrdersDestination,
 
     /**
+     * The ApiV1AdminsOrdersLogicsTariff model constructor.
+     * @property {module:model/ApiV1AdminsOrdersLogicsTariff}
+     */
+    ApiV1AdminsOrdersLogicsTariff,
+
+    /**
+     * The ApiV1AdminsOrdersLogicsTariffConditionsByRegion model constructor.
+     * @property {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
+     */
+    ApiV1AdminsOrdersLogicsTariffConditionsByRegion,
+
+    /**
+     * The ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest model constructor.
+     * @property {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest}
+     */
+    ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest,
+
+    /**
      * The ApiV1AdminsOrdersOrderSupplier model constructor.
      * @property {module:model/ApiV1AdminsOrdersOrderSupplier}
      */
@@ -331,34 +348,10 @@ export {
     ApiV1BatchesBoxes,
 
     /**
-     * The ApiV1BatchesDestination model constructor.
-     * @property {module:model/ApiV1BatchesDestination}
-     */
-    ApiV1BatchesDestination,
-
-    /**
      * The ApiV1BatchesItems model constructor.
      * @property {module:model/ApiV1BatchesItems}
      */
     ApiV1BatchesItems,
-
-    /**
-     * The ApiV1BatchesLogicsTariff model constructor.
-     * @property {module:model/ApiV1BatchesLogicsTariff}
-     */
-    ApiV1BatchesLogicsTariff,
-
-    /**
-     * The ApiV1BatchesLogicsTariffConditionsByRegion model constructor.
-     * @property {module:model/ApiV1BatchesLogicsTariffConditionsByRegion}
-     */
-    ApiV1BatchesLogicsTariffConditionsByRegion,
-
-    /**
-     * The ApiV1BatchesLogicsTariffConditionsByRegionWest model constructor.
-     * @property {module:model/ApiV1BatchesLogicsTariffConditionsByRegionWest}
-     */
-    ApiV1BatchesLogicsTariffConditionsByRegionWest,
 
     /**
      * The ApiV1BatchesStorekeeper model constructor.

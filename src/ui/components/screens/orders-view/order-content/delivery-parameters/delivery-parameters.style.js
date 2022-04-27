@@ -47,4 +47,8 @@ export const useClassNames = makeStyles(() => ({
   fieldLabel: {
     fontSize: '14px',
   },
+
+  buyerWrapper: {
+    marginTop: '40px',
+  },
 }))

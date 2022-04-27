@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BatchesLogicsTariffConditionsByRegion from './ApiV1BatchesLogicsTariffConditionsByRegion';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject56 model module.
@@ -24,7 +24,7 @@ class InlineObject56 {
      * Constructs a new <code>InlineObject56</code>.
      * @alias module:model/InlineObject56
      * @param name {String} Название тарифа
-     * @param conditionsByRegion {module:model/ApiV1BatchesLogicsTariffConditionsByRegion} 
+     * @param conditionsByRegion {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} 
      */
     constructor(name, conditionsByRegion) { 
         
@@ -74,7 +74,7 @@ class InlineObject56 {
                 obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
             }
             if (data.hasOwnProperty('conditionsByRegion')) {
-                obj['conditionsByRegion'] = ApiV1BatchesLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
         }
         return obj;
@@ -126,7 +126,7 @@ InlineObject56.prototype['eta'] = undefined;
 InlineObject56.prototype['minWeightInKg'] = undefined;
 
 /**
- * @member {module:model/ApiV1BatchesLogicsTariffConditionsByRegion} conditionsByRegion
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
  */
 InlineObject56.prototype['conditionsByRegion'] = undefined;
 

@@ -13,8 +13,8 @@
 
 
 import ApiClient from "../ApiClient";
+import ApiV1AdminsOrdersLogicsTariff from '../model/ApiV1AdminsOrdersLogicsTariff';
 import ApiV1BatchesBoxes from '../model/ApiV1BatchesBoxes';
-import ApiV1BatchesLogicsTariff from '../model/ApiV1BatchesLogicsTariff';
 import ApiV1StorekeepersTariffWarehouses from '../model/ApiV1StorekeepersTariffWarehouses';
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
@@ -367,7 +367,7 @@ export default class StorekeepersApi {
      * ## Получить всех тарифами доставки сторкипером.   доступно сторкипером  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1BatchesLogicsTariff>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ApiV1AdminsOrdersLogicsTariff>} and HTTP response
      */
     apiV1StorekeepersTariffLogisticsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -386,7 +386,7 @@ export default class StorekeepersApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ApiV1BatchesLogicsTariff];
+      let returnType = [ApiV1AdminsOrdersLogicsTariff];
       return this.apiClient.callApi(
         '/api/v1/storekeepers/tariff-logistics/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -399,7 +399,7 @@ export default class StorekeepersApi {
      * ## Получить всех тарифами доставки сторкипером.   доступно сторкипером  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1BatchesLogicsTariff>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ApiV1AdminsOrdersLogicsTariff>}
      */
     apiV1StorekeepersTariffLogisticsMyGet(opts) {
       return this.apiV1StorekeepersTariffLogisticsMyGetWithHttpInfo(opts)

@@ -6,6 +6,7 @@ import {Checkbox, Link, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
+import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
@@ -20,13 +21,6 @@ import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithKg} from '@utils/text'
 import {useClassNames} from './box-view-form.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').boxViewForm
-
-const sizesType = {
-  INCHES: 'INCHES',
-  CM: 'CM',
-}
-
-const inchesCoefficient = 2.54
 
 export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient, batchHumanFriendlyId}) => {
   const classNames = useClassNames()

@@ -4,6 +4,7 @@ import React, {useState} from 'react'
 
 import {Typography, Link} from '@material-ui/core'
 
+import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
 
 import {Field} from '@components/field'
@@ -14,13 +15,6 @@ import {toFixed, checkAndMakeAbsoluteUrl} from '@utils/text'
 import {useClassNames} from './product-parameters.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderParameters
-
-const sizesType = {
-  INCHES: 'INCHES',
-  CM: 'CM',
-}
-
-const inchesCoefficient = 2.54
 
 export const ProductParameters = ({order, collapsed}) => {
   const classNames = useClassNames()
@@ -45,7 +39,7 @@ export const ProductParameters = ({order, collapsed}) => {
     <div>
       <OrderParameter label={textConsts.minPrice} value={toFixed(order.product.minpurchase, 2)} />
       <OrderParameter label={textConsts.qty} value={order.amount} />
-      <OrderParameter label={textConsts.minBuyPrice} value={toFixed(order.product.currentSupplier.price, 2)} />
+      <OrderParameter label={textConsts.minBuyPrice} value={toFixed(order.product.currentSupplier?.price, 2)} />
 
       <Field
         oneLine
@@ -54,18 +48,18 @@ export const ProductParameters = ({order, collapsed}) => {
         labelClasses={classNames.fieldLabel}
         inputComponent={
           <div>
-            {order.product.currentSupplier.link === 'access denied' ? (
-              <Typography className={classNames.scrollingText}>{order.product.currentSupplier.link}</Typography>
+            {order.product.currentSupplier?.link === 'access denied' ? (
+              <Typography className={classNames.scrollingText}>{order.product.currentSupplier?.link}</Typography>
             ) : (
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.currentSupplier.link)}>
-                <Typography className={classNames.scrollingText}>{order.product.currentSupplier.link}</Typography>
+              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.product.currentSupplier?.link)}>
+                <Typography className={classNames.scrollingText}>{order.product.currentSupplier?.link}</Typography>
               </Link>
             )}
           </div>
         }
       />
 
-      <OrderParameter label={textConsts.maxDeliveryPrice} value={toFixed(order.product.currentSupplier.delivery)} />
+      <OrderParameter label={textConsts.maxDeliveryPrice} value={toFixed(order.product.currentSupplier?.delivery)} />
 
       <Field
         oneLine

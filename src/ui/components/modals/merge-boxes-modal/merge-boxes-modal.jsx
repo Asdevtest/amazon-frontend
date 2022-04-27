@@ -25,7 +25,6 @@ export const MergeBoxesModal = ({
   storekeepers,
   selectedBoxes,
   requestStatus,
-  openModal,
   setOpenModal,
   onSubmit,
   onRemoveBoxFromSelected,
@@ -34,10 +33,16 @@ export const MergeBoxesModal = ({
 
   const [boxBody, setBoxBody] = useState({
     shippingLabel: '',
-    destinationId: '',
+    destinationId: selectedBoxes.some(box => box.destinationId !== selectedBoxes[0].destinationId)
+      ? ''
+      : selectedBoxes[0].destinationId,
 
-    storekeeperId: '',
-    logicsTariffId: '',
+    storekeeperId: selectedBoxes.some(box => box.storekeeperId !== selectedBoxes[0].storekeeperId)
+      ? ''
+      : selectedBoxes[0].storekeeperId,
+    logicsTariffId: selectedBoxes.some(box => box.logicsTariffId !== selectedBoxes[0].logicsTariffId)
+      ? ''
+      : selectedBoxes[0].logicsTariffId,
 
     fbaShipment: '',
 
@@ -95,140 +100,139 @@ export const MergeBoxesModal = ({
     isDifferentStorekeepers
 
   return (
-    <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={classNames.mainWrapper}>
-        <Typography variant="h5">{textConsts.mainTitle}</Typography>
+    <div className={classNames.mainWrapper}>
+      <Typography variant="h5">{textConsts.mainTitle}</Typography>
 
-        {selectedBoxes.map((box, boxIndex) => (
-          <BoxForMerge key={boxIndex} index={boxIndex} box={box} onRemoveBox={onRemoveBoxFromSelected} />
-        ))}
+      {selectedBoxes.map((box, boxIndex) => (
+        <BoxForMerge key={boxIndex} index={boxIndex} box={box} onRemoveBox={onRemoveBoxFromSelected} />
+      ))}
 
-        <Typography variant="h5">{textConsts.boxData}</Typography>
+      <Typography variant="h5">{textConsts.boxData}</Typography>
 
-        <Typography>{textConsts.attention}</Typography>
+      <Typography>{textConsts.attention}</Typography>
 
-        <Field
-          containerClasses={classNames.field}
-          label={'Destination'}
-          inputComponent={
-            <NativeSelect
-              variant="filled"
-              inputProps={{
-                name: 'destinationId',
-                id: 'destinationId',
-              }}
-              className={classNames.destinationSelect}
-              input={<Input />}
-              onChange={e => setBoxBody({...boxBody, destinationId: e.target.value})}
-            >
-              <option value={''}>{'none'}</option>
-
-              {destinations.map(item => (
-                <option key={item._id} value={item._id}>
-                  {item.name}
-                </option>
-              ))}
-            </NativeSelect>
-          }
-        />
-
-        <Field
-          containerClasses={classNames.field}
-          label={'Storekeeper / Tariff'}
-          inputComponent={
-            <Button
-              disableElevation
-              disabled={isDifferentStorekeepers}
-              color="primary"
-              variant={boxBody.logicsTariffId && 'text'}
-              className={clsx({[classNames.storekeeperBtn]: !boxBody.logicsTariffId})}
-              onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-            >
-              {boxBody.logicsTariffId
-                ? `${storekeepers.find(el => el._id === boxBody.storekeeperId).name} /  
-                  ${
-                    boxBody.logicsTariffId
-                      ? storekeepers
-                          .find(el => el._id === boxBody.storekeeperId)
-                          .tariffLogistics.find(el => el._id === boxBody.logicsTariffId).name
-                      : 'none'
-                  }`
-                : 'Выбрать'}
-            </Button>
-          }
-        />
-
-        <Field
-          containerClasses={classNames.field}
-          inputProps={{maxLength: 255}}
-          label={'FBA SHIPMENT'}
-          value={boxBody.fbaShipment}
-          onChange={e => setBoxBody({...boxBody, fbaShipment: e.target.value})}
-        />
-
-        <div>
-          <Typography className={classNames.linkTitle}>{'Шиппинг лейбл:'}</Typography>
-          <Chip
-            classes={{
-              root: classNames.barcodeChip,
-              clickable: classNames.barcodeChipHover,
-              deletable: classNames.barcodeChipHover,
-              deleteIcon: classNames.barcodeChipIcon,
-              label: classNames.barcodeChiplabel,
+      <Field
+        containerClasses={classNames.field}
+        label={'Destination'}
+        inputComponent={
+          <NativeSelect
+            variant="filled"
+            inputProps={{
+              name: 'destinationId',
+              id: 'destinationId',
             }}
-            className={clsx({[classNames.barcodeChipExists]: boxBody.shippingLabel})}
-            size="small"
-            label={
-              boxBody.tmpShippingLabel?.length
-                ? 'FILE IS ADDED'
-                : boxBody.shippingLabel
-                ? boxBody.shippingLabel
-                : 'Set shipping label'
-            }
-            onClick={() => onClickShippingLabel()}
-            onDelete={!boxBody.shippingLabel ? undefined : () => onDeleteShippingLabel()}
-          />
-        </div>
-
-        <Field
-          multiline
-          className={classNames.heightFieldAuto}
-          rows={4}
-          rowsMax={6}
-          inputProps={{maxLength: 2000}}
-          label={textConsts.comment}
-          value={comment}
-          onChange={e => setComment(e.target.value)}
-        />
-
-        {isDifferentStorekeepers && (
-          <Typography className={classNames.attentionDifStorekeepers}>{textConsts.attentionDifStorekeepers}</Typography>
-        )}
-
-        <div className={classNames.buttonsWrapper}>
-          <Button
-            disabled={disabledSubmit}
-            color="primary"
-            variant="contained"
-            className={classNames.button}
-            onClick={() => {
-              onSubmitBoxesModal()
-            }}
+            value={boxBody.destinationId}
+            className={classNames.destinationSelect}
+            input={<Input />}
+            onChange={e => setBoxBody({...boxBody, destinationId: e.target.value})}
           >
-            {textConsts.saveBtn}
-          </Button>
+            <option value={''}>{'none'}</option>
+
+            {destinations.map(item => (
+              <option key={item._id} value={item._id}>
+                {item.name}
+              </option>
+            ))}
+          </NativeSelect>
+        }
+      />
+
+      <Field
+        containerClasses={classNames.field}
+        label={'Storekeeper / Tariff'}
+        inputComponent={
           <Button
-            disabled={requestStatus === loadingStatuses.isLoading}
+            disableElevation
+            disabled={isDifferentStorekeepers}
             color="primary"
-            variant="contained"
-            className={classNames.button}
-            onClick={() => {
-              onCloseBoxesModal()
-            }}
+            variant={boxBody.logicsTariffId && 'text'}
+            className={clsx({[classNames.storekeeperBtn]: !boxBody.logicsTariffId})}
+            onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {textConsts.cancelBtn}
+            {boxBody.logicsTariffId
+              ? `${storekeepers.find(el => el._id === boxBody.storekeeperId).name} /  
+                ${
+                  boxBody.logicsTariffId
+                    ? storekeepers
+                        .find(el => el._id === boxBody.storekeeperId)
+                        .tariffLogistics.find(el => el._id === boxBody.logicsTariffId).name
+                    : 'none'
+                }`
+              : 'Выбрать'}
           </Button>
-        </div>
+        }
+      />
+
+      <Field
+        containerClasses={classNames.field}
+        inputProps={{maxLength: 255}}
+        label={'FBA SHIPMENT'}
+        value={boxBody.fbaShipment}
+        onChange={e => setBoxBody({...boxBody, fbaShipment: e.target.value})}
+      />
+
+      <div>
+        <Typography className={classNames.linkTitle}>{'Шиппинг лейбл:'}</Typography>
+        <Chip
+          classes={{
+            root: classNames.barcodeChip,
+            clickable: classNames.barcodeChipHover,
+            deletable: classNames.barcodeChipHover,
+            deleteIcon: classNames.barcodeChipIcon,
+            label: classNames.barcodeChiplabel,
+          }}
+          className={clsx({[classNames.barcodeChipExists]: boxBody.shippingLabel})}
+          size="small"
+          label={
+            boxBody.tmpShippingLabel?.length
+              ? 'FILE IS ADDED'
+              : boxBody.shippingLabel
+              ? boxBody.shippingLabel
+              : 'Set shipping label'
+          }
+          onClick={() => onClickShippingLabel()}
+          onDelete={!boxBody.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+        />
+      </div>
+
+      <Field
+        multiline
+        className={classNames.heightFieldAuto}
+        rows={4}
+        rowsMax={6}
+        inputProps={{maxLength: 2000}}
+        label={textConsts.comment}
+        value={comment}
+        onChange={e => setComment(e.target.value)}
+      />
+
+      {isDifferentStorekeepers && (
+        <Typography className={classNames.attentionDifStorekeepers}>{textConsts.attentionDifStorekeepers}</Typography>
+      )}
+
+      <div className={classNames.buttonsWrapper}>
+        <Button
+          disabled={disabledSubmit}
+          color="primary"
+          variant="contained"
+          className={classNames.button}
+          onClick={() => {
+            onSubmitBoxesModal()
+          }}
+        >
+          {textConsts.saveBtn}
+        </Button>
+        <Button
+          disabled={requestStatus === loadingStatuses.isLoading}
+          color="primary"
+          variant="contained"
+          className={classNames.button}
+          onClick={() => {
+            onCloseBoxesModal()
+          }}
+        >
+          {textConsts.cancelBtn}
+        </Button>
       </div>
 
       <Modal
@@ -257,6 +261,6 @@ export const MergeBoxesModal = ({
           onSubmit={onSubmitSelectStorekeeperAndTariff}
         />
       </Modal>
-    </Modal>
+    </div>
   )
 }

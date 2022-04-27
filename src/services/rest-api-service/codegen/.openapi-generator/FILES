@@ -9,6 +9,9 @@ docs/ApiV1AdminsGetProductsByStatusClient.md
 docs/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md
 docs/ApiV1AdminsGetProductsByStatusSuppliers.md
 docs/ApiV1AdminsOrdersDestination.md
+docs/ApiV1AdminsOrdersLogicsTariff.md
+docs/ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md
+docs/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest.md
 docs/ApiV1AdminsOrdersOrderSupplier.md
 docs/ApiV1AdminsPaymentsCreatedBy.md
 docs/ApiV1AdminsProductsVacCheckedby.md
@@ -16,11 +19,7 @@ docs/ApiV1AdminsTasksLightBoxes.md
 docs/ApiV1AdminsTasksLightStorekeeper.md
 docs/ApiV1BatchesBatch.md
 docs/ApiV1BatchesBoxes.md
-docs/ApiV1BatchesDestination.md
 docs/ApiV1BatchesItems.md
-docs/ApiV1BatchesLogicsTariff.md
-docs/ApiV1BatchesLogicsTariffConditionsByRegion.md
-docs/ApiV1BatchesLogicsTariffConditionsByRegionWest.md
 docs/ApiV1BatchesStorekeeper.md
 docs/ApiV1BoxesItems.md
 docs/ApiV1BoxesMergeBoxBody.md
@@ -229,6 +228,9 @@ src/model/ApiV1AdminsGetProductsByStatusClient.js
 src/model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.js
 src/model/ApiV1AdminsGetProductsByStatusSuppliers.js
 src/model/ApiV1AdminsOrdersDestination.js
+src/model/ApiV1AdminsOrdersLogicsTariff.js
+src/model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion.js
+src/model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest.js
 src/model/ApiV1AdminsOrdersOrderSupplier.js
 src/model/ApiV1AdminsPaymentsCreatedBy.js
 src/model/ApiV1AdminsProductsVacCheckedby.js
@@ -236,11 +238,7 @@ src/model/ApiV1AdminsTasksLightBoxes.js
 src/model/ApiV1AdminsTasksLightStorekeeper.js
 src/model/ApiV1BatchesBatch.js
 src/model/ApiV1BatchesBoxes.js
-src/model/ApiV1BatchesDestination.js
 src/model/ApiV1BatchesItems.js
-src/model/ApiV1BatchesLogicsTariff.js
-src/model/ApiV1BatchesLogicsTariffConditionsByRegion.js
-src/model/ApiV1BatchesLogicsTariffConditionsByRegionWest.js
 src/model/ApiV1BatchesStorekeeper.js
 src/model/ApiV1BoxesItems.js
 src/model/ApiV1BoxesMergeBoxBody.js
@@ -405,3 +403,6 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+test/model/ApiV1AdminsOrdersLogicsTariff.spec.js
+test/model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion.spec.js
+test/model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest.spec.js

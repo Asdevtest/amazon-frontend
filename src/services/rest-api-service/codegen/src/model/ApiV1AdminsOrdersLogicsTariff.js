@@ -15,18 +15,20 @@ import ApiClient from '../ApiClient';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 
 /**
- * The InlineObject57 model module.
- * @module model/InlineObject57
+ * The ApiV1AdminsOrdersLogicsTariff model module.
+ * @module model/ApiV1AdminsOrdersLogicsTariff
  * @version 0.1.0
  */
-class InlineObject57 {
+class ApiV1AdminsOrdersLogicsTariff {
     /**
-     * Constructs a new <code>InlineObject57</code>.
-     * @alias module:model/InlineObject57
+     * Constructs a new <code>ApiV1AdminsOrdersLogicsTariff</code>.
+     * @alias module:model/ApiV1AdminsOrdersLogicsTariff
+     * @param name {String} Название тарифа
+     * @param conditionsByRegion {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} 
      */
-    constructor() { 
+    constructor(name, conditionsByRegion) { 
         
-        InlineObject57.initialize(this);
+        ApiV1AdminsOrdersLogicsTariff.initialize(this, name, conditionsByRegion);
     }
 
     /**
@@ -34,19 +36,21 @@ class InlineObject57 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, conditionsByRegion) { 
+        obj['name'] = name;
+        obj['conditionsByRegion'] = conditionsByRegion;
     }
 
     /**
-     * Constructs a <code>InlineObject57</code> from a plain JavaScript object, optionally creating a new instance.
+     * Constructs a <code>ApiV1AdminsOrdersLogicsTariff</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/InlineObject57} obj Optional instance to populate.
-     * @return {module:model/InlineObject57} The populated <code>InlineObject57</code> instance.
+     * @param {module:model/ApiV1AdminsOrdersLogicsTariff} obj Optional instance to populate.
+     * @return {module:model/ApiV1AdminsOrdersLogicsTariff} The populated <code>ApiV1AdminsOrdersLogicsTariff</code> instance.
      */
     static constructFromObject(data, obj) {
         if (data) {
-            obj = obj || new InlineObject57();
+            obj = obj || new ApiV1AdminsOrdersLogicsTariff();
 
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
@@ -72,6 +76,15 @@ class InlineObject57 {
             if (data.hasOwnProperty('conditionsByRegion')) {
                 obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'String');
+            }
         }
         return obj;
     }
@@ -83,53 +96,68 @@ class InlineObject57 {
  * Название тарифа
  * @member {String} name
  */
-InlineObject57.prototype['name'] = undefined;
+ApiV1AdminsOrdersLogicsTariff.prototype['name'] = undefined;
 
 /**
  * Описание тарифа
  * @member {String} description
  */
-InlineObject57.prototype['description'] = undefined;
+ApiV1AdminsOrdersLogicsTariff.prototype['description'] = undefined;
 
 /**
  * Время доставки, днях
  * @member {String} deliveryTimeInDay
  */
-InlineObject57.prototype['deliveryTimeInDay'] = undefined;
+ApiV1AdminsOrdersLogicsTariff.prototype['deliveryTimeInDay'] = undefined;
 
 /**
  * Дата закрытия приема новых грузов.
  * @member {Date} cls
  */
-InlineObject57.prototype['cls'] = undefined;
+ApiV1AdminsOrdersLogicsTariff.prototype['cls'] = undefined;
 
 /**
  * Ожидаема дата отбытия.
  * @member {Date} etd
  */
-InlineObject57.prototype['etd'] = undefined;
+ApiV1AdminsOrdersLogicsTariff.prototype['etd'] = undefined;
 
 /**
  * Ожидаема дата прибытия.
  * @member {Date} eta
  */
-InlineObject57.prototype['eta'] = undefined;
+ApiV1AdminsOrdersLogicsTariff.prototype['eta'] = undefined;
 
 /**
  * Минимальный вес, в кг
  * @member {Number} minWeightInKg
  */
-InlineObject57.prototype['minWeightInKg'] = undefined;
+ApiV1AdminsOrdersLogicsTariff.prototype['minWeightInKg'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
  */
-InlineObject57.prototype['conditionsByRegion'] = undefined;
+ApiV1AdminsOrdersLogicsTariff.prototype['conditionsByRegion'] = undefined;
+
+/**
+ * @member {String} _id
+ */
+ApiV1AdminsOrdersLogicsTariff.prototype['_id'] = undefined;
+
+/**
+ * @member {String} storekeeperId
+ */
+ApiV1AdminsOrdersLogicsTariff.prototype['storekeeperId'] = undefined;
+
+/**
+ * @member {String} updatedAt
+ */
+ApiV1AdminsOrdersLogicsTariff.prototype['updatedAt'] = undefined;
 
 
 
 
 
 
-export default InlineObject57;
+export default ApiV1AdminsOrdersLogicsTariff;
 

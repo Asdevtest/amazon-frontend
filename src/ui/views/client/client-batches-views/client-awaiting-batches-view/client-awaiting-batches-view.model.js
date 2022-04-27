@@ -128,6 +128,8 @@ export class ClientAwaitingBatchesViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+
+      this.batches = []
     }
   }
 

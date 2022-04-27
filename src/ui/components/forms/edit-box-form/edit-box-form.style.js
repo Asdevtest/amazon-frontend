@@ -144,4 +144,11 @@ export const useClassNames = makeStyles(theme => ({
   storekeeperBtn: {
     height: '32px',
   },
+
+  sizesTitleWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '300px',
+  },
 }))

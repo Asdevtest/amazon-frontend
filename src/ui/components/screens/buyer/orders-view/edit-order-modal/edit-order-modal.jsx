@@ -220,6 +220,7 @@ export const EditOrderModal = ({
 
       {boxesForCreation.length > 0 && (
         <BoxesToCreateTable
+          volumeWeightCoefficient={volumeWeightCoefficient}
           barcodeIsExist={order.product.barCode}
           newBoxes={boxesForCreation}
           onRemoveBox={onRemoveForCreationBox}
