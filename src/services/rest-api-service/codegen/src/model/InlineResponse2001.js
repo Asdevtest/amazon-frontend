@@ -101,6 +101,9 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
             }
@@ -229,6 +232,11 @@ InlineResponse2001.prototype['buyerId'] = undefined;
  * @member {Number} amount
  */
 InlineResponse2001.prototype['amount'] = undefined;
+
+/**
+ * @member {String} createdById
+ */
+InlineResponse2001.prototype['createdById'] = undefined;
 
 /**
  * @member {String} createdAt

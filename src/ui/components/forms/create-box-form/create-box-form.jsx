@@ -134,7 +134,6 @@ export const CreateBoxForm = observer(
       widthCmSupplier: formItem?.widthCmSupplier || '',
       heightCmSupplier: formItem?.heightCmSupplier || '',
       weighGrossKgSupplier: formItem?.weighGrossKgSupplier || '',
-      // volumeWeightKgSupplier: formItem?.volumeWeightKgSupplier || '',
       warehouse: formItem?.warehouse || '',
       deliveryMethod: formItem?.deliveryMethod || '',
       amount: 1,
@@ -143,10 +142,12 @@ export const CreateBoxForm = observer(
           product: formItem?.product,
           amount: formItem?.amount,
           order: formItem,
+
+          isBarCodeAlreadyAttachedByTheSupplier: false,
         },
       ],
 
-      isBarCodeAlreadyAttachedByTheSupplier: formItem?.isBarCodeAlreadyAttachedByTheSupplier || false,
+      // isBarCodeAlreadyAttachedByTheSupplier: formItem?.isBarCodeAlreadyAttachedByTheSupplier || false,
     }
 
     const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])

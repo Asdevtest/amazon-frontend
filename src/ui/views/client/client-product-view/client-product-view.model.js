@@ -170,6 +170,8 @@ export class ClientProductViewModel {
           'amazonDescription',
           'amazonDetail',
           'skusByClient',
+          'niche',
+          'asins',
         ].includes(fieldName)
       ) {
         this.product = {...this.product, [fieldName]: e.target.value}
@@ -187,13 +189,13 @@ export class ClientProductViewModel {
         }
 
         if (
-          ['amazon', 'fbafee'].includes(fieldName) &&
+          ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice'].includes(fieldName) &&
           !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
         ) {
           return
         }
 
-        if (['fbaamount'].includes(fieldName)) {
+        if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
           this.product[fieldName] = parseInt(e.target.value)
         }
 

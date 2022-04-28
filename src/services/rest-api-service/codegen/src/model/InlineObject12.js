@@ -84,14 +84,8 @@ class InlineObject12 {
             if (data.hasOwnProperty('weighGrossKgWarehouse')) {
                 obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
-                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
-            }
             if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
                 obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
             }
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
@@ -182,22 +176,10 @@ InlineObject12.prototype['heightCmWarehouse'] = undefined;
 InlineObject12.prototype['weighGrossKgWarehouse'] = undefined;
 
 /**
- * Прикреплен ли баркод к коробке сотрудником склада.
- * @member {Boolean} isBarCodeAttachedByTheStorekeeper
- */
-InlineObject12.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
-
-/**
  * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
  * @member {Boolean} isShippingLabelAttachedByStorekeeper
  */
 InlineObject12.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
-
-/**
- * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
- */
-InlineObject12.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
 
 /**
  * Это номер конкретной коробки при отправке в амазон.

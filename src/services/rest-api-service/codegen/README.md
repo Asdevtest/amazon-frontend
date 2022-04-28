@@ -231,6 +231,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsPost**](docs/PermissionsApi.md#apiV1PermissionsPost) | **POST** /api/v1/permissions/ | # Создать permission.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsSetForUserGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsSetForUserGuidPatch) | **PATCH** /api/v1/permissions/set-for-user/{guid} | #   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
 *TestSwagger.ProductApi* | [**apiV1ProductsAddSuppliersGuidPost**](docs/ProductApi.md#apiV1ProductsAddSuppliersGuidPost) | **POST** /api/v1/products/add_suppliers/{guid} | Добавить поставщиков к продукту.
+*TestSwagger.ProductApi* | [**apiV1ProductsEditHsCodePatch**](docs/ProductApi.md#apiV1ProductsEditHsCodePatch) | **PATCH** /api/v1/products/edit_hsCode | # Редактирование поля hsCode в продукте.
 *TestSwagger.ProductApi* | [**apiV1ProductsGuidGet**](docs/ProductApi.md#apiV1ProductsGuidGet) | **GET** /api/v1/products/{guid} | # Получить товар оп id.
 *TestSwagger.ProductApi* | [**apiV1ProductsParseAmazonIdGet**](docs/ProductApi.md#apiV1ProductsParseAmazonIdGet) | **GET** /api/v1/products/parse_amazon/{id} | Получить данные о продукте с сайта Амазон по id(asin)
 *TestSwagger.ProductApi* | [**apiV1ProductsParseSellercentralGet**](docs/ProductApi.md#apiV1ProductsParseSellercentralGet) | **GET** /api/v1/products/parse_sellercentral | Получить данные о продукте с SellerCentral
@@ -239,6 +240,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsCustomGuidGet**](docs/RequestProposalsApi.md#apiV1RequestProposalsCustomGuidGet) | **GET** /api/v1/request-proposals/custom/{guid} | Получить предложение по его id.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsCustomGuidResultEditPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsCustomGuidResultEditPatch) | **PATCH** /api/v1/request-proposals/custom/{guid}/result_edit | #  Редактировать результат работы.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGet**](docs/RequestProposalsApi.md#apiV1RequestProposalsGet) | **GET** /api/v1/request-proposals/ | Получить все предложения для супервизора.
+*TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidCancelBeforeDealPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidCancelBeforeDealPatch) | **PATCH** /api/v1/request-proposals/{guid}/cancel_before_deal | # Отмена предложения до заключения сделки.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidCancelPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidCancelPatch) | **PATCH** /api/v1/request-proposals/{guid}/cancel | # Отмена предложения после заключения сделки, в зависимости от того кто вызвал ставится статус.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch) | **PATCH** /api/v1/request-proposals/{guid}/link_or_unlink_supervisor | #  Привязать или \&quot;отвязать\&quot; супервайзера от предложения.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidProposalAcceptPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidProposalAcceptPatch) | **PATCH** /api/v1/request-proposals/{guid}/proposal_accept | #  Принять предложение.
@@ -256,7 +258,8 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestsApi* | [**apiV1RequestsCustomPost**](docs/RequestsApi.md#apiV1RequestsCustomPost) | **POST** /api/v1/requests/custom/ | # Создать универсальную заявку.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGet**](docs/RequestsApi.md#apiV1RequestsGet) | **GET** /api/v1/requests/ | Получить список заявок
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidAbortPatch**](docs/RequestsApi.md#apiV1RequestsGuidAbortPatch) | **PATCH** /api/v1/requests/{guid}/abort | # Прервать прием предложений.
-*TestSwagger.RequestsApi* | [**apiV1RequestsGuidDelete**](docs/RequestsApi.md#apiV1RequestsGuidDelete) | **DELETE** /api/v1/requests/{guid} | # Удалить заявку по его GUID.
+*TestSwagger.RequestsApi* | [**apiV1RequestsGuidCancelByCreatorPatch**](docs/RequestsApi.md#apiV1RequestsGuidCancelByCreatorPatch) | **PATCH** /api/v1/requests/{guid}/cancel_by_creator | # Отменить заявку создателем
+*TestSwagger.RequestsApi* | [**apiV1RequestsGuidDelete**](docs/RequestsApi.md#apiV1RequestsGuidDelete) | **DELETE** /api/v1/requests/{guid} | # (возможно данные метод не нужен) Удалить заявку по его GUID.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidPickupPost**](docs/RequestsApi.md#apiV1RequestsGuidPickupPost) | **POST** /api/v1/requests/{guid}/pickup | # Этот метод вызывает тот кто бронирует место в заявке.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidToPublishPatch**](docs/RequestsApi.md#apiV1RequestsGuidToPublishPatch) | **PATCH** /api/v1/requests/{guid}/to_publish | #  Опубликовать заявку.
 *TestSwagger.ResearcherApi* | [**apiV1ResearchersCheckProductsAsinGet**](docs/ResearcherApi.md#apiV1ResearchersCheckProductsAsinGet) | **GET** /api/v1/researchers/check_products/{asin} | Проверить продукт по ID существует ли он в базе.
@@ -272,7 +275,6 @@ Class | Method | HTTP request | Description
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersBoxesGet**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesGet) | **GET** /api/v1/storekeepers/boxes | # Получить коробки и их строки по текущему сторкиперу.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersGet**](docs/StorekeepersApi.md#apiV1StorekeepersGet) | **GET** /api/v1/storekeepers/ | # Получить всех сторкиперов(все склады).
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersOrdersSetStatusGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersOrdersSetStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_status/{guid} | # Изменить значение status в сущности заказ.
-*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersProductsEditHsCodePatch**](docs/StorekeepersApi.md#apiV1StorekeepersProductsEditHsCodePatch) | **PATCH** /api/v1/storekeepers/products_edit_hsCode | # Редактирование поля hsCode в продукте сторкипером.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTariffLogisticsGuidDelete**](docs/StorekeepersApi.md#apiV1StorekeepersTariffLogisticsGuidDelete) | **DELETE** /api/v1/storekeepers/tariff-logistics/{guid} | # Удалить тариф доставки.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTariffLogisticsGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersTariffLogisticsGuidPatch) | **PATCH** /api/v1/storekeepers/tariff-logistics/{guid} | # Редактировать тариф доставки.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTariffLogisticsMyGet**](docs/StorekeepersApi.md#apiV1StorekeepersTariffLogisticsMyGet) | **GET** /api/v1/storekeepers/tariff-logistics/my | # Получить всех тарифами доставки сторкипером.
@@ -421,6 +423,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject64](docs/InlineObject64.md)
  - [TestSwagger.InlineObject65](docs/InlineObject65.md)
  - [TestSwagger.InlineObject66](docs/InlineObject66.md)
+ - [TestSwagger.InlineObject67](docs/InlineObject67.md)
  - [TestSwagger.InlineObject7](docs/InlineObject7.md)
  - [TestSwagger.InlineObject8](docs/InlineObject8.md)
  - [TestSwagger.InlineObject9](docs/InlineObject9.md)

@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **logicsTariffId** | **String** | GUID тарифа доставки | [optional] 
 **buyerId** | **String** | GUID пользователя(байера) | [optional] 
 **amount** | **Number** | кол-во | [optional] 
+**createdById** | **String** |  | [optional] 
 **createdAt** | **String** |  | [optional] 
 **updatedAt** | **String** |  | [optional] 
 **destination** | [**ApiV1AdminsOrdersDestination**](ApiV1AdminsOrdersDestination.md) |  | [optional] 

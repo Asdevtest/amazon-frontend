@@ -160,7 +160,7 @@ export class SupervisorProductViewModel {
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
 
-      if (['checkednotes'].includes(fieldName)) {
+      if (['checkednotes', 'niche', 'asins'].includes(fieldName)) {
         this.product = {...this.product, [fieldName]: e.target.value}
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
@@ -170,12 +170,12 @@ export class SupervisorProductViewModel {
           return
         }
         if (
-          ['amazon', 'fbafee'].includes(fieldName) &&
+          ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice'].includes(fieldName) &&
           !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
         ) {
           return
         }
-        if (['bsr', 'fbaamount'].includes(fieldName)) {
+        if (['bsr', 'fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
           this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
         } else {
           this.product = {...this.product, [fieldName]: e.target.value}

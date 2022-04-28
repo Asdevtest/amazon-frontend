@@ -15,9 +15,7 @@ Name | Type | Description | Notes
 **widthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **heightCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
 **weighGrossKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
-**isBarCodeAttachedByTheStorekeeper** | **Boolean** | Прикреплен ли баркод к коробке сотрудником склада. | [optional] 
 **isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
-**isBarCodeAlreadyAttachedByTheSupplier** | **Boolean** | Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика. | [optional] 
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 **items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) | Массив коробок. | 
 **images** | **[String]** | Массив ссылок на фотографии. | [optional] 

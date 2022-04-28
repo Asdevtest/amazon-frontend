@@ -36,7 +36,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BatchesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject8() // InlineObject8 | 
+  'body': new TestSwagger.InlineObject11() // InlineObject11 | 
 };
 apiInstance.apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -52,7 +52,7 @@ apiInstance.apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts).then((data) =
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject8**](InlineObject8.md)|  | [optional] 
+ **body** | [**InlineObject11**](InlineObject11.md)|  | [optional] 
 
 ### Return type
 
@@ -147,7 +147,7 @@ let apiInstance = new TestSwagger.BatchesApi();
 let guid = null; // String | GUID партии.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject10() // InlineObject10 | 
+  'body': new TestSwagger.InlineObject9() // InlineObject9 | 
 };
 apiInstance.apiV1BatchesGuidAddBoxesPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID партии. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject10**](InlineObject10.md)|  | [optional] 
+ **body** | [**InlineObject9**](InlineObject9.md)|  | [optional] 
 
 ### Return type
 
@@ -257,7 +257,7 @@ let apiInstance = new TestSwagger.BatchesApi();
 let guid = null; // String | GUID партии.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject11() // InlineObject11 | 
+  'body': new TestSwagger.InlineObject10() // InlineObject10 | 
 };
 apiInstance.apiV1BatchesGuidRemoveBoxesPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -274,7 +274,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID партии. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject11**](InlineObject11.md)|  | [optional] 
+ **body** | [**InlineObject10**](InlineObject10.md)|  | [optional] 
 
 ### Return type
 
@@ -312,7 +312,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BatchesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject7() // InlineObject7 | 
+  'body': new TestSwagger.InlineObject8() // InlineObject8 | 
 };
 apiInstance.apiV1BatchesPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -328,7 +328,7 @@ apiInstance.apiV1BatchesPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject7**](InlineObject7.md)|  | [optional] 
+ **body** | [**InlineObject8**](InlineObject8.md)|  | [optional] 
 
 ### Return type
 
@@ -366,7 +366,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.BatchesApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject9() // InlineObject9 | 
+  'body': new TestSwagger.InlineObject7() // InlineObject7 | 
 };
 apiInstance.apiV1BatchesRequestSendBoxesToBatchPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -382,7 +382,7 @@ apiInstance.apiV1BatchesRequestSendBoxesToBatchPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject9**](InlineObject9.md)|  | [optional] 
+ **body** | [**InlineObject7**](InlineObject7.md)|  | [optional] 
 
 ### Return type
 

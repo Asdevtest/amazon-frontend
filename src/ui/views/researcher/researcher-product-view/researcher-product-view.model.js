@@ -218,7 +218,7 @@ export class ResearcherProductViewModel {
   onChangeProductFields = fieldName =>
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
-      if (['icomment'].includes(fieldName)) {
+      if (['icomment', 'niche', 'asins'].includes(fieldName)) {
         this.product = {...this.product, [fieldName]: e.target.value}
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
@@ -228,7 +228,7 @@ export class ResearcherProductViewModel {
           return
         }
         if (
-          ['amazon', 'fbafee'].includes(fieldName) &&
+          ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice'].includes(fieldName) &&
           !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
         ) {
           return
@@ -238,7 +238,7 @@ export class ResearcherProductViewModel {
 
           this.product = {...this.product, status: this.productBase.status}
         }
-        if (['fbaamount'].includes(fieldName)) {
+        if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
           this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
         } else {
           this.product = {...this.product, [fieldName]: e.target.value}

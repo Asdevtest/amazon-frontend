@@ -2,7 +2,7 @@ import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 
 import {React, useState} from 'react'
 
-import {Checkbox, Link, Typography} from '@material-ui/core'
+import {Checkbox, Grid, Link, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
@@ -47,23 +47,37 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
 
       <div className={classNames.blocksWrapper}>
         <div className={classNames.blockWrapper}>
-          <div className={classNames.deliveryInfoWrapper}>
-            <Field
-              disabled
-              inputClasses={classNames.deliveryInfoField}
-              label={'Destination'}
-              value={box.destination?.name || ''}
-              placeholder={'N/A'}
-            />
+          <Grid container spacing={2} className={classNames.deliveryInfoWrapper}>
+            <Grid item>
+              <Field
+                disabled
+                inputClasses={classNames.deliveryInfoField}
+                label={'Destination'}
+                value={box.destination?.name || ''}
+                placeholder={'N/A'}
+              />
+            </Grid>
 
-            <Field
-              disabled
-              inputClasses={classNames.deliveryInfoField}
-              label={'Тариф'}
-              value={box.logicsTariff?.name || ''}
-              placeholder={'N/A'}
-            />
-          </div>
+            <Grid item>
+              <Field
+                disabled
+                inputClasses={classNames.deliveryInfoField}
+                label={'Storekeeper'}
+                value={box.storekeeper?.name || ''}
+                placeholder={'N/A'}
+              />
+            </Grid>
+
+            <Grid item>
+              <Field
+                disabled
+                inputClasses={classNames.deliveryInfoField}
+                label={'Тариф'}
+                value={box.logicsTariff?.name || ''}
+                placeholder={'N/A'}
+              />
+            </Grid>
+          </Grid>
 
           <div className={classNames.productsWrapper}>
             <Carousel autoPlay={false} timeout={100} animation="fade" fullHeightHover={false}>

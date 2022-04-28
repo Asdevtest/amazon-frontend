@@ -80,9 +80,10 @@ export const useClassNames = makeStyles(() => ({
   },
   productFieldBox: {
     display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'flex-end',
+    // flexDirection: 'column',
+    // height: '100%',
+    justifyContent: 'space-between',
+    // alignItems: 'flex-end'
   },
   productCheckboxBox: {
     alignItems: 'center',
@@ -211,5 +212,26 @@ export const useClassNames = makeStyles(() => ({
 
     border: '1px solid rgba(0, 0, 0, .1)',
     borderRadius: '10px',
+  },
+
+  rightBlockWrapper: {
+    display: 'flex',
+    marginLeft: '30px',
+    justifyContent: 'space-between',
+    width: '520px',
+  },
+
+  fieldsSubWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '250px',
+  },
+
+  shortInput: {
+    width: '120px',
+  },
+
+  suppliersWrapper: {
+    alignSelf: 'flex-end',
   },
 }))

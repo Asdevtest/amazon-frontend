@@ -10,6 +10,7 @@ export const styles = createStyles(() => ({
   },
   btnsWrapper: {
     display: 'flex',
+    justifyContent: 'space-between',
     marginTop: '24px',
   },
 
@@ -23,5 +24,30 @@ export const styles = createStyles(() => ({
 
   nativeSelect: {
     width: '300px',
+  },
+
+  mainWrapper: {
+    display: 'flex',
+  },
+
+  leftBlockWrapper: {
+    width: '500px',
+  },
+
+  rightBlockWrapper: {
+    display: 'flex',
+    marginLeft: '30px',
+    justifyContent: 'space-between',
+    width: '800px',
+  },
+
+  fieldsSubWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '380px',
+  },
+
+  shortInput: {
+    width: '180px',
   },
 }))

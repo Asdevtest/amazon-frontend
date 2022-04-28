@@ -4,9 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**execution_time** | **Number** | Время на выполнение, в минутах. | [optional] 
-**price** | **Number** | Цена предложения. | [optional] 
-**comment** | **String** | Комментарий к предложению. | [optional] 
-**linksToMediaFiles** | **[String]** | Ссылки на медиафайлы. | [optional] 
+**totalCost** | **Number** | Для подтверждения нужно вернуть totalCost из калькулятора. | 
 
 

@@ -14,6 +14,7 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
+import InlineObject2 from '../model/InlineObject2';
 import InlineObject37 from '../model/InlineObject37';
 import InlineObject38 from '../model/InlineObject38';
 import InlineResponse200 from '../model/InlineResponse200';
@@ -91,6 +92,55 @@ export default class ProductApi {
      */
     apiV1ProductsAddSuppliersGuidPost(guid, opts) {
       return this.apiV1ProductsAddSuppliersGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Редактирование поля hsCode в продукте.
+     * ## Редактирование поля hsCode в продукте.   Доступно только для Байера, Клиента, Сторкипера
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Array.<module:model/InlineObject2>} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1ProductsEditHsCodePatchWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/products/edit_hsCode', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Редактирование поля hsCode в продукте.
+     * ## Редактирование поля hsCode в продукте.   Доступно только для Байера, Клиента, Сторкипера
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Array.<module:model/InlineObject2>} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1ProductsEditHsCodePatch(opts) {
+      return this.apiV1ProductsEditHsCodePatchWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -181,21 +181,14 @@ export class BuyerMyOrdersViewModel {
         await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
       }
 
-      const orderFieldsToSave = getObjectFilteredByKeyArrayBlackList(
-        {
-          ...orderFields,
-          images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
-        },
-        ['isBarCodeAlreadyAttachedByTheSupplier'],
-      )
+      const orderFieldsToSave = {
+        ...orderFields,
+        images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
+      }
 
       await this.onSaveOrder(order, orderFieldsToSave)
 
       if (boxesForCreation.length > 0 && !isMismatchOrderPrice) {
-        if (orderFields.isBarCodeAlreadyAttachedByTheSupplier) {
-          boxesForCreation = boxesForCreation.slice().map(el => ({...el, isBarCodeAlreadyAttachedByTheSupplier: true}))
-        }
-
         await this.onSubmitCreateBoxes(order, boxesForCreation)
       }
 
@@ -286,6 +279,8 @@ export class BuyerMyOrdersViewModel {
             productId: formFields.items[0].product._id,
             amount: formFields.items[0].amount,
             orderId: this.selectedOrder._id,
+
+            isBarCodeAlreadyAttachedByTheSupplier: formFields.items[0].isBarCodeAlreadyAttachedByTheSupplier,
           },
         ],
       }

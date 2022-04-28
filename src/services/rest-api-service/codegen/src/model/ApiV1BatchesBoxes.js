@@ -73,12 +73,6 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
-                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
-            }
             if (data.hasOwnProperty('shippingLabel')) {
                 obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
@@ -217,18 +211,6 @@ ApiV1BatchesBoxes.prototype['isDraft'] = undefined;
  * @member {String} fbaShipment
  */
 ApiV1BatchesBoxes.prototype['fbaShipment'] = undefined;
-
-/**
- * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
- */
-ApiV1BatchesBoxes.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
-
-/**
- * Прикреплен ли баркод к коробке сотрудником склада.
- * @member {Boolean} isBarCodeAttachedByTheStorekeeper
- */
-ApiV1BatchesBoxes.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
 
 /**
  * Ссылка на наклейку для коробки

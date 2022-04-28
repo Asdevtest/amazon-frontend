@@ -24,8 +24,11 @@ export const useClassNames = makeStyles(() => ({
   },
 
   deliveryInfoWrapper: {
-    display: 'flex',
-    width: '480px',
+    // display: 'grid',
+    // gridAutoColumns: 'auto',
+    // gridTemplateColumns: 'repeat(auto-fill, 250px)',
+    width: '490px',
+    // height: '100px'
   },
 
   deliveryInfoField: {

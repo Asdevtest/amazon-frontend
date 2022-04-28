@@ -1869,10 +1869,19 @@ export const texts = {
     },
     researcherAddProductForm: {
       buttonCheck: 'Проверить',
-      buttonAdd: 'Добавить',
+      buttonAdd: 'Добавить карточку товара',
       linkAmazon: 'Введите ссылку с амазона',
       codeOfGood: 'Код товара',
       successActionAlert: 'Operation complete',
+
+      niche: 'Niche',
+      asins: 'Asins',
+      avgRevenue: 'Avg. Revenue',
+      avgBSR: 'Avg. BSR',
+      totalRevenue: 'Total Revenue',
+      coefficient: 'Coefficient',
+      avgPrice: 'Avg. Price',
+      avgReviews: 'Avg. Reviews',
     },
     productStatusButtonsConfigs: {
       searchForSupplier: 'Поиск поставщика',
@@ -2264,6 +2273,15 @@ export const texts = {
       sku: 'SKU by Client',
       skuHolder: 'SKU',
       addSkuBtn: 'добавить',
+
+      niche: 'Niche',
+      asins: 'Asins',
+      avgRevenue: 'Avg. Revenue',
+      avgBSR: 'Avg. BSR',
+      totalRevenue: 'Total Revenue',
+      coefficient: 'Coefficient',
+      avgPrice: 'Avg. Price',
+      avgReviews: 'Avg. Reviews',
     },
 
     buyerBatchesView: {

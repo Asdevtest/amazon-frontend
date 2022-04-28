@@ -62,6 +62,12 @@ class ApiV1BoxesItems {
             if (data.hasOwnProperty('orderId')) {
                 obj['orderId'] = ApiClient.convertToType(data['orderId'], 'String');
             }
+            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
+                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            }
         }
         return obj;
     }
@@ -86,6 +92,18 @@ ApiV1BoxesItems.prototype['amount'] = undefined;
  * @member {String} orderId
  */
 ApiV1BoxesItems.prototype['orderId'] = undefined;
+
+/**
+ * Прикреплен ли баркод к коробке сотрудником склада.
+ * @member {Boolean} isBarCodeAttachedByTheStorekeeper
+ */
+ApiV1BoxesItems.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
+
+/**
+ * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
+ */
+ApiV1BoxesItems.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
 
 
 
