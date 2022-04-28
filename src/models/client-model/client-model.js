@@ -52,7 +52,7 @@ class ClientModelStatic {
     return response
   }
 
-  getOrder = async id => {
+  getOrderById = async id => {
     const response = await restApiService.clientApi.apiV1ClientsOrdersGuidGet(id)
     return response
   }

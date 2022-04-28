@@ -102,22 +102,20 @@ export class ClientReadyBoxesViewRaw extends Component {
                 {storekeepersData
                   .slice()
                   .sort((a, b) => a.name.localeCompare(b.name))
-                  .map(storekeeper =>
-                    storekeeper.boxesCount !== 0 ? (
-                      <Button
-                        key={storekeeper._id}
-                        disabled={currentStorekeeper?._id === storekeeper._id}
-                        className={clsx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
-                        })}
-                        variant="text"
-                        color="primary"
-                        onClick={() => onClickStorekeeperBtn(storekeeper)}
-                      >
-                        {storekeeper.name}
-                      </Button>
-                    ) : null,
-                  )}
+                  .map(storekeeper => (
+                    <Button
+                      key={storekeeper._id}
+                      disabled={currentStorekeeper?._id === storekeeper._id}
+                      className={clsx(classNames.button, {
+                        [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                      })}
+                      variant="text"
+                      color="primary"
+                      onClick={() => onClickStorekeeperBtn(storekeeper)}
+                    >
+                      {storekeeper.name}
+                    </Button>
+                  ))}
               </div>
 
               <div className={classNames.btnsWrapper}>

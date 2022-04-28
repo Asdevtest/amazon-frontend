@@ -31,8 +31,6 @@ export const MergeBoxesModal = ({
 }) => {
   const classNames = useClassNames()
 
-  console.log('selectedBoxes', selectedBoxes)
-
   const [boxBody, setBoxBody] = useState({
     shippingLabel: '',
     destinationId: selectedBoxes.some(box => box.destinationId !== selectedBoxes[0].destinationId)

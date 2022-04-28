@@ -25,7 +25,6 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_ORDERS
 export class ClientOrderView extends Component {
   viewModel = new ClientOrderViewModel({
     history: this.props.history,
-    location: this.props.location,
   })
 
   componentDidMount() {
@@ -53,13 +52,15 @@ export class ClientOrderView extends Component {
           <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
-              <OrderContent
-                volumeWeightCoefficient={volumeWeightCoefficient}
-                order={order}
-                boxes={orderBoxes}
-                history={history}
-                onClickCancelOrder={onClickCancelOrder}
-              />
+              {order ? (
+                <OrderContent
+                  volumeWeightCoefficient={volumeWeightCoefficient}
+                  order={order}
+                  boxes={orderBoxes}
+                  history={history}
+                  onClickCancelOrder={onClickCancelOrder}
+                />
+              ) : null}
             </MainContent>
           </Appbar>
 

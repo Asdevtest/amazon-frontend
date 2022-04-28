@@ -228,7 +228,15 @@ export class WarehouseVacantViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       for (let i = 0; i < newBoxes.length; i++) {
-        const box = getObjectFilteredByKeyArrayBlackList(newBoxes[i], ['tmpImages'])
+        const box = getObjectFilteredByKeyArrayBlackList(
+          {
+            ...newBoxes[i],
+            lengthCmWarehouse: Number(newBoxes[i].lengthCmWarehouse),
+            widthCmWarehouse: Number(newBoxes[i].widthCmWarehouse),
+            heightCmWarehouse: Number(newBoxes[i].heightCmWarehouse),
+          },
+          ['tmpImages'],
+        )
 
         await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, box)
       }

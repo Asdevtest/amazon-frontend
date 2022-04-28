@@ -13,34 +13,47 @@ export class ClientOrderViewModel {
   requestStatus = undefined
   error = undefined
 
+  orderId = undefined
   orderBoxes = []
 
   volumeWeightCoefficient = undefined
 
   drawerOpen = false
-  orderBase = undefined
   order = undefined
 
   showConfirmModal = false
 
-  constructor({history, location}) {
+  constructor({history}) {
     this.history = history
-    if (location.state) {
-      this.orderBase = location.state.order
-      this.order = location.state.order
-    }
+
+    this.orderId = history.location.search.slice(1)
+
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getBoxesOfOrder(this.order._id)
+
+      await this.getOrderById()
+      await this.getBoxesOfOrder(this.orderId)
       await this.getVolumeWeightCoefficient()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getOrderById() {
+    try {
+      const result = await ClientModel.getOrderById(this.orderId)
+
+      runInAction(() => {
+        this.order = result
+      })
+    } catch (error) {
       console.log(error)
     }
   }

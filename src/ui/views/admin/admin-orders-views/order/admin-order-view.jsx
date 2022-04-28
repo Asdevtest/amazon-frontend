@@ -21,7 +21,6 @@ const textConsts = getLocalizedTexts(texts, 'ru').adminOrderView
 export class AdminOrderView extends Component {
   viewModel = new AdminOrderViewModel({
     history: this.props.history,
-    location: this.props.location,
   })
 
   componentDidMount() {
@@ -43,7 +42,7 @@ export class AdminOrderView extends Component {
           >
             <MainContent>
               <Typography variant="h3">{textConsts.mainTitle}</Typography>
-              <OrderContent order={order} boxes={orderBoxes} history={history} />
+              {order ? <OrderContent order={order} boxes={orderBoxes} history={history} /> : null}
             </MainContent>
           </Appbar>
         </Main>

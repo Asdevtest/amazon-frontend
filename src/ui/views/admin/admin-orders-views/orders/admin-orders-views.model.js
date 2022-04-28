@@ -86,7 +86,10 @@ export class AdminOrdersAllViewModel {
   }
 
   onClickTableRow(order) {
-    this.history.push('/admin/orders/order', {order: toJS(order.originalData)})
+    this.history.push({
+      pathname: '/admin/orders/order',
+      search: order.originalData._id,
+    })
   }
 
   onChangeSubCategory(value) {
