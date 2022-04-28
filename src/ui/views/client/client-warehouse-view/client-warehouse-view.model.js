@@ -100,7 +100,7 @@ export class ClientWarehouseViewModel {
   get isMasterBoxSelected() {
     return this.selectedBoxes.some(boxId => {
       const findBox = this.boxesMy.find(box => box._id === boxId)
-      return findBox.originalData?.amount && findBox.originalData?.amount > 1
+      return findBox?.originalData?.amount && findBox.originalData?.amount > 1
     })
   }
 
@@ -397,7 +397,6 @@ export class ClientWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       const selectedIds = this.selectedBoxes
-      this.selectedBoxes = []
 
       this.uploadedFiles = []
 
@@ -426,6 +425,10 @@ export class ClientWarehouseViewModel {
       })
 
       this.setRequestStatus(loadingStatuses.success)
+
+      await this.getBoxesMy()
+
+      this.selectedBoxes = []
 
       this.tmpClientComment = ''
       await this.getTasksMy()
@@ -501,7 +504,6 @@ export class ClientWarehouseViewModel {
     try {
       const result = await BoxesModel.mergeBoxes(ids, boxBody)
 
-      await this.getBoxesMy()
       return result
     } catch (error) {
       console.log(error)

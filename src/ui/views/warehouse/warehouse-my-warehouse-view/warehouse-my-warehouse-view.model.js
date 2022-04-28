@@ -6,6 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
+import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -195,7 +196,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onSubmitAddOrEditHsCode(data) {
     try {
-      await StorekeeperModel.editProductsHsCods(data)
+      await ProductModel.editProductsHsCods(data)
 
       this.loadData()
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')

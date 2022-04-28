@@ -125,7 +125,7 @@ export const buyerMyOrdersDataConverter = data =>
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
     warehouses: item.destination?.name,
-    client: item.createdBy?.name,
+    client: item.product.client?.name,
   }))
 
 export const buyerVacantOrdersDataConverter = data =>
@@ -146,7 +146,7 @@ export const buyerVacantOrdersDataConverter = data =>
     id: item._id,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
-    client: item.createdBy?.name,
+    client: item.product.client?.name,
   }))
 
 export const clientProductsDataConverter = data =>
@@ -421,6 +421,7 @@ export const adminOrdersDataConverter = data =>
     buyer: item.buyer?.name,
     storekeeper: item.storekeeper?.name,
     warehouses: item.destination?.name,
+    client: item.product.client?.name,
   }))
 
 export const adminTasksDataConverter = data =>

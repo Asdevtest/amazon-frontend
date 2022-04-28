@@ -56,6 +56,12 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
           <Typography variant="h6">{box.storekeeper?.name}</Typography>
         </div>
 
+        <div>
+          <InputLabel className={classNames.modalText}>{textConsts.tariff}</InputLabel>
+
+          <Typography variant="h6">{box.logicsTariff?.name}</Typography>
+        </div>
+
         <IconButton onClick={() => onRemoveBox(box._id)}>
           <DeleteIcon className={classNames.deleteBtn} />
         </IconButton>

@@ -44,6 +44,11 @@ class ProductModelStatic {
     const response = await restApiService.product.apiV1ProductsParseSellercentralGet(asin)
     return response
   }
+
+  editProductsHsCods = async data => {
+    const response = await restApiService.product.apiV1ProductsEditHsCodePatch({body: data})
+    return response
+  }
 }
 
 export const ProductModel = new ProductModelStatic()

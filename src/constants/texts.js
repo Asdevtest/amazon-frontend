@@ -2430,6 +2430,7 @@ export const texts = {
       attentionDifStorekeepers: 'Промежуточные склады должны совпадать!',
 
       shippingLabelError: 'Должно быть не меньше 5 знаков',
+      tariff: 'Тариф',
     },
 
     buyerUserExchangeItem: {
@@ -2661,6 +2662,7 @@ export const texts = {
       statusField: 'Статус',
       buyerField: 'Байер',
       storekeeperNameField: 'Storekeeper',
+      clientNameField: 'Клиент',
     },
 
     subUsersTableColumns: {

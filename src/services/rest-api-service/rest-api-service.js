@@ -38,7 +38,7 @@ class RestApiService {
     this.clientApi = new ClientApi(this.apiClient)
     this.product = new Product(this.apiClient)
     this.researcherApi = new ResearcherApi(this.apiClient)
-    this.strokeepersApi = new StorekeepersApi(this.apiClient)
+    this.storkeepersApi = new StorekeepersApi(this.apiClient)
     this.freelancerApi = new FreelancerApi(this.apiClient)
     this.supervisorApi = new SupervisorApi(this.apiClient)
     this.supplierApi = new SupplierApi(this.apiClient)
