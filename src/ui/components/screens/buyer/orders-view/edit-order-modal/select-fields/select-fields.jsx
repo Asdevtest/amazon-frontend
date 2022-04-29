@@ -5,6 +5,7 @@ import clsx from 'clsx'
 
 import {getOrderStatusOptionByCode, OrderStatusByCode, OrderStatusByKey, OrderStatus} from '@constants/order-status'
 import {texts} from '@constants/texts'
+import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -60,6 +61,12 @@ export const SelectFields = ({
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
+  // const curDestination = destinations.find(el => el._id === orderState.destinationId)
+
+  const firstNumOfCode = order.destination?.zipCode[0]
+
+  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
   return (
     <Grid container justify="space-around">
       <Grid item>
@@ -84,6 +91,19 @@ export const SelectFields = ({
           >
             <option value={'None'}>{order.storekeeper?.name}</option>
           </NativeSelect>
+        </Box>
+
+        <Box mt={3}>
+          <InputLabel id="tariff-select" className={classNames.modalText}>
+            {textConsts.tariff}
+          </InputLabel>
+
+          <Input
+            disabled
+            variant="filled"
+            value={`${order.logicsTariff.name} / ${regionOfDeliveryName} / ${order.logicsTariff.conditionsByRegion[regionOfDeliveryName].rate} $ за кг`}
+            className={classNames.nativeSelect}
+          />
         </Box>
 
         <Box mt={3}>

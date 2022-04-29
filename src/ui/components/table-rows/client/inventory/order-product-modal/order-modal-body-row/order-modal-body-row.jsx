@@ -6,6 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
+import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
@@ -21,12 +22,6 @@ import {toFixed, trimBarcode} from '@utils/text'
 import {useClassNames} from './order-modal-body-row.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').inventoryView
-
-const zipCodeGroups = [
-  {codes: [8, 9], name: 'west'},
-  {codes: [5, 6, 7], name: 'central'},
-  {codes: [0, 1, 2, 3, 4], name: 'east'},
-]
 
 export const OrderModalBodyRow = ({
   volumeWeightCoefficient,
@@ -56,17 +51,18 @@ export const OrderModalBodyRow = ({
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
 
-  const weightOfOneBox =
-    Math.max(
-      Math.round(
-        (((item.currentSupplier.boxProperties.boxWidthCm || 0) *
-          (item.currentSupplier.boxProperties.boxLengthCm || 0) *
-          (item.currentSupplier.boxProperties.boxHeightCm || 0)) /
-          volumeWeightCoefficient) *
-          100,
-      ) / 100 || 0,
-      item.currentSupplier.boxProperties.boxWeighGrossKg,
-    ) / item.currentSupplier.boxProperties.amountInBox
+  const weightOfOneBox = item.currentSupplier
+    ? Math.max(
+        Math.round(
+          (((item.currentSupplier.boxProperties.boxWidthCm || 0) *
+            (item.currentSupplier.boxProperties.boxLengthCm || 0) *
+            (item.currentSupplier.boxProperties.boxHeightCm || 0)) /
+            volumeWeightCoefficient) *
+            100,
+        ) / 100 || 0,
+        item.currentSupplier.boxProperties.boxWeighGrossKg,
+      ) / item.currentSupplier.boxProperties.amountInBox
+    : ''
 
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
 

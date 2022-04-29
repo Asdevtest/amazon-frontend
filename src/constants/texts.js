@@ -1411,6 +1411,7 @@ export const texts = {
       typoCloseButch: 'needCloseButch',
     },
     ordersViewsModalSelectFields: {
+      tariff: 'Тариф',
       warehouse: 'Склад',
       interimWarehouse: 'Промежуточный склад',
       valueNone: 'None',

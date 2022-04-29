@@ -10,6 +10,7 @@ import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
@@ -40,6 +41,17 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
       <div className={classNames.titleWrapper}>
         <Typography variant="h6">{`Коробка № ${box.humanFriendlyId}`}</Typography>
 
+        <Field
+          oneLine
+          label={'Storekeeper: '}
+          containerClasses={classNames.storekeeperField}
+          inputComponent={
+            <div className={classNames.userLinkWrapper}>
+              <UserLinkCell name={box.storekeeper?.name} userId={box.storekeeper?._id} />
+            </div>
+          }
+        />
+
         <Typography>{`Партия № ${
           (batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) || 'N/A'
         }`}</Typography>
@@ -54,16 +66,6 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
                 inputClasses={classNames.deliveryInfoField}
                 label={'Destination'}
                 value={box.destination?.name || ''}
-                placeholder={'N/A'}
-              />
-            </Grid>
-
-            <Grid item>
-              <Field
-                disabled
-                inputClasses={classNames.deliveryInfoField}
-                label={'Storekeeper'}
-                value={box.storekeeper?.name || ''}
                 placeholder={'N/A'}
               />
             </Grid>

@@ -97,9 +97,13 @@ export const FieldsAndSuppliers = observer(
           label={textConsts.fieldLinkAmazon}
           inputComponent={
             <div>
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.lamazon)}>
-                <Typography className={classNames.amazonLink}>{product.lamazon}</Typography>
-              </Link>
+              {product.lamazon ? (
+                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.lamazon)}>
+                  <Typography className={classNames.amazonLink}>{product.lamazon}</Typography>
+                </Link>
+              ) : (
+                <Typography className={classNames.amazonLink}>{'N/A'}</Typography>
+              )}
 
               {checkIsClient(curUserRole) &&
                 product.isCreatedByClient &&

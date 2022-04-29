@@ -159,7 +159,10 @@ export class ClientOrdersNotificationsViewModel {
   }
 
   onClickTableRow(order) {
-    this.history.push('/client/orders/order', {order: toJS(order.originalData)})
+    this.history.push({
+      pathname: '/client/orders/order',
+      search: order.originalData._id,
+    })
   }
 
   onTriggerDrawerOpen() {

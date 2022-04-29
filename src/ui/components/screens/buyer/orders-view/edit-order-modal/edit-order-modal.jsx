@@ -84,11 +84,6 @@ export const EditOrderModal = ({
 
     newStateFormFields[boxIndex].items[0].isBarCodeAlreadyAttachedByTheSupplier = e.target.checked
 
-    // newStateFormFields[boxIndex] = {
-    //   ...newStateFormFields[boxIndex],
-    //   isBarCodeAlreadyAttachedByTheSupplier: e.target.checked,
-    // }
-
     setBoxesForCreation(newStateFormFields)
   }
 
@@ -98,7 +93,6 @@ export const EditOrderModal = ({
     clientComment: order?.clientComment || '',
     buyerComment: order?.buyerComment || '',
     deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || 0,
-    // isBarCodeAlreadyAttachedByTheSupplier: order?.isBarCodeAlreadyAttachedByTheSupplier || false,
     trackId: '',
     material: order?.product?.material || '',
     amount: order?.amount || 0,

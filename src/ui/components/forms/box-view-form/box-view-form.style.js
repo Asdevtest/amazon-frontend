@@ -13,6 +13,14 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: '20px',
   },
 
+  storekeeperField: {
+    maxWidth: '250px',
+    margin: '0',
+  },
+  userLinkWrapper: {
+    marginLeft: '20px',
+  },
+
   blocksWrapper: {
     display: 'flex',
     width: '1000px',
@@ -24,11 +32,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   deliveryInfoWrapper: {
-    // display: 'grid',
-    // gridAutoColumns: 'auto',
-    // gridTemplateColumns: 'repeat(auto-fill, 250px)',
     width: '490px',
-    // height: '100px'
   },
 
   deliveryInfoField: {

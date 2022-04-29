@@ -409,7 +409,7 @@ export const adminOrdersDataConverter = data =>
     id: item.id,
 
     barCode: item.product.barCode,
-    totalPrice: calcTotalPriceForOrder(item),
+    totalPrice: item.totalPrice,
     grossWeightKg: item.product.weight * item.amount,
     status: OrderStatusByCode[item.status],
 
