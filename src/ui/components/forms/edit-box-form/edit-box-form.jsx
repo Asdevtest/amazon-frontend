@@ -11,6 +11,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
+import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
@@ -176,6 +177,12 @@ export const EditBoxForm = observer(
       boxFields.storekeeperId === '' ||
       boxFields.logicsTariffId === ''
 
+    const curDestination = destinations.find(el => el._id === boxFields.destinationId)
+
+    const firstNumOfCode = curDestination?.zipCode[0]
+
+    const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
     return (
       <div className={classNames.root}>
         <div className={classNames.form}>
@@ -226,9 +233,17 @@ export const EditBoxForm = observer(
                       ? `${storekeepers.find(el => el._id === boxFields.storekeeperId)?.name || 'N/A'} /  
                         ${
                           boxFields.storekeeperId
-                            ? storekeepers
-                                .find(el => el._id === boxFields.storekeeperId)
-                                .tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.name || 'N/A'
+                            ? `${
+                                storekeepers
+                                  .find(el => el._id === boxFields.storekeeperId)
+                                  .tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.name
+                              } / ${regionOfDeliveryName} / ${
+                                storekeepers
+                                  .find(el => el._id === boxFields.storekeeperId)
+                                  .tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.conditionsByRegion[
+                                  regionOfDeliveryName
+                                ]?.rate || 'n/a'
+                              } $`
                             : 'none'
                         }`
                       : 'Выбрать'}

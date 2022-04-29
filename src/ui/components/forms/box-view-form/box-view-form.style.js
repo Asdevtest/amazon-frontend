@@ -74,16 +74,23 @@ export const useClassNames = makeStyles(() => ({
   },
 
   productsWrapper: {
-    maxHeight: '400px',
+    maxHeight: '450px',
     overflow: 'auto',
   },
 
   productWrapper: {
     display: 'flex',
-    height: '300px',
+    flexDirection: 'column',
+    height: '330px',
     border: '1px solid rgba(0,0,0, .1)',
     borderRadius: '10px',
-    padding: '5px',
+    padding: '10px',
+  },
+
+  productSubWrapper: {
+    display: 'flex',
+    marginBottom: '10px',
+    alignItems: 'flex-start',
   },
 
   countField: {
@@ -99,13 +106,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   linkField: {
-    maxWidth: '225px',
+    maxWidth: '200px',
     whiteSpace: 'nowrap',
     overflowX: 'auto',
   },
 
   labelsInfoWrapper: {
     display: 'flex',
+    justifyContent: 'space-between',
     marginTop: '20px',
   },
 
@@ -131,7 +139,7 @@ export const useClassNames = makeStyles(() => ({
   imgWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
 
@@ -139,7 +147,6 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
-    padding: '5px',
     marginBottom: '0',
   },
 }))

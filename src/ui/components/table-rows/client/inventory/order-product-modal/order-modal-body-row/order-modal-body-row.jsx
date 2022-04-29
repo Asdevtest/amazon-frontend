@@ -75,7 +75,7 @@ export const OrderModalBodyRow = ({
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
 
   const curTariffRate = curStorekeeper?.tariffLogistics.find(el => el._id === orderState.logicsTariffId)
-    .conditionsByRegion[regionOfDeliveryName].rate
+    .conditionsByRegion[regionOfDeliveryName]?.rate
 
   const costDeliveryOfBatch = weightOfBatch * curTariffRate || ''
 
@@ -185,9 +185,17 @@ export const OrderModalBodyRow = ({
               ? `${storekeepers.find(el => el._id === item.storekeeperId).name} /  
                 ${
                   item.logicsTariffId
-                    ? storekeepers
-                        .find(el => el._id === item.storekeeperId)
-                        .tariffLogistics.find(el => el._id === item.logicsTariffId).name
+                    ? `${
+                        storekeepers
+                          .find(el => el._id === item.storekeeperId)
+                          .tariffLogistics.find(el => el._id === item.logicsTariffId)?.name
+                      } / ${regionOfDeliveryName} / ${
+                        storekeepers
+                          .find(el => el._id === item.storekeeperId)
+                          .tariffLogistics.find(el => el._id === item.logicsTariffId)?.conditionsByRegion[
+                          regionOfDeliveryName
+                        ]?.rate || 'n/a'
+                      } $`
                     : 'none'
                 }`
               : 'Выбрать'}

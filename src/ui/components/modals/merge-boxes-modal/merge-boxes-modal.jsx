@@ -5,6 +5,7 @@ import clsx from 'clsx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
+import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
@@ -99,6 +100,12 @@ export const MergeBoxesModal = ({
     (boxBody.shippingLabel.length < 5 && boxBody.shippingLabel.length > 0) ||
     isDifferentStorekeepers
 
+  const curDestination = destinations.find(el => el._id === boxBody.destinationId)
+
+  const firstNumOfCode = curDestination?.zipCode[0]
+
+  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
   return (
     <div className={classNames.mainWrapper}>
       <Typography variant="h5">{textConsts.mainTitle}</Typography>
@@ -153,9 +160,17 @@ export const MergeBoxesModal = ({
               ? `${storekeepers.find(el => el._id === boxBody.storekeeperId).name} /  
                 ${
                   boxBody.logicsTariffId
-                    ? storekeepers
-                        .find(el => el._id === boxBody.storekeeperId)
-                        .tariffLogistics.find(el => el._id === boxBody.logicsTariffId).name
+                    ? `${
+                        storekeepers
+                          .find(el => el._id === boxBody.storekeeperId)
+                          .tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.name
+                      } / ${regionOfDeliveryName} / ${
+                        storekeepers
+                          .find(el => el._id === boxBody.storekeeperId)
+                          .tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.conditionsByRegion[
+                          regionOfDeliveryName
+                        ]?.rate || 'n/a'
+                      } $`
                     : 'none'
                 }`
               : 'Выбрать'}

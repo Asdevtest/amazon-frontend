@@ -50,6 +50,18 @@ const Box = ({
     setNewBoxes(updatedNewBoxes)
   }
 
+  const onChangeBarCode = (value, field, itemIndex) => {
+    const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
+
+    targetBox.items[itemIndex][field] = value
+
+    // const updatedTargetBox = {...targetBox, items: targetBox.items}
+
+    const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? targetBox : newBox))
+
+    setNewBoxes(updatedNewBoxes)
+  }
+
   const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
   const handleChange = (event, newAlignment) => {
@@ -76,7 +88,13 @@ const Box = ({
       <div className={classNames.itemsWrapper}>
         {box.items?.map((item, index) => (
           <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
-            <BoxItemCard item={item} index={index} superCount={box.amount} />
+            <BoxItemCard
+              item={item}
+              index={index}
+              superCount={box.amount}
+              isNewBox={isNewBox}
+              onChangeBarCode={onChangeBarCode}
+            />
           </div>
         ))}
       </div>
@@ -285,7 +303,7 @@ const Box = ({
 
       {isNewBox && (
         <div className={classNames.bottomBlockWrapper}>
-          {taskType === TaskOperationType.RECEIVE && box.items?.[0].product.barCode && (
+          {/* {taskType === TaskOperationType.RECEIVE && box.items?.[0].product.barCode && (
             <div className={classNames.barCodeActionsWrapper}>
               {box.isBarCodeAttachedByTheStorekeeper === false && (
                 <Field
@@ -324,7 +342,7 @@ const Box = ({
                 />
               )}
             </div>
-          )}
+          )} */}
 
           <div className={classNames.editBtnWrapper}>
             {isEdit && (

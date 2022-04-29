@@ -47,6 +47,8 @@ Name | Type | Description | Notes
 ## Enum: StatusEnum
 
 
+* `NEW` (value: `"NEW"`)
+
 * `IN_STOCK` (value: `"IN_STOCK"`)
 
 * `REQUESTED_SEND_TO_BATCH` (value: `"REQUESTED_SEND_TO_BATCH"`)

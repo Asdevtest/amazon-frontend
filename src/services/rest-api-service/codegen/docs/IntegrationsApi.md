@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsGetSkusByProductIdGuidGet
 
-> [InlineResponse20010] apiV1IntegrationsGetSkusByProductIdGuidGet(guid, opts)
+> [InlineResponse20011] apiV1IntegrationsGetSkusByProductIdGuidGet(guid, opts)
 
 Получить товары из склада (sku), через GUID продукта.
 
@@ -110,7 +110,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20010]**](InlineResponse20010.md)
+[**[InlineResponse20011]**](InlineResponse20011.md)
 
 ### Authorization
 
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet
 
-> [InlineResponse20011] apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(opts)
+> [InlineResponse20012] apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(opts)
 
 Получить месячный отчет селерборда.
 
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20011]**](InlineResponse20011.md)
+[**[InlineResponse20012]**](InlineResponse20012.md)
 
 ### Authorization
 
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsSellerboardWarehouseStocksGet
 
-> [InlineResponse20010] apiV1IntegrationsSellerboardWarehouseStocksGet(opts)
+> [InlineResponse20011] apiV1IntegrationsSellerboardWarehouseStocksGet(opts)
 
 Получить днанные со склада.
 
@@ -326,7 +326,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20010]**](InlineResponse20010.md)
+[**[InlineResponse20011]**](InlineResponse20011.md)
 
 ### Authorization
 
@@ -340,7 +340,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsWarehouseReportGet
 
-> [InlineResponse20010] apiV1IntegrationsWarehouseReportGet(opts)
+> [InlineResponse20011] apiV1IntegrationsWarehouseReportGet(opts)
 
 Поиск по товарам со склада по: asin, sku, title..
 
@@ -380,7 +380,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20010]**](InlineResponse20010.md)
+[**[InlineResponse20011]**](InlineResponse20011.md)
 
 ### Authorization
 

@@ -19,8 +19,8 @@ import InlineObject11 from '../model/InlineObject11';
 import InlineObject7 from '../model/InlineObject7';
 import InlineObject8 from '../model/InlineObject8';
 import InlineObject9 from '../model/InlineObject9';
-import InlineResponse2005 from '../model/InlineResponse2005';
 import InlineResponse2006 from '../model/InlineResponse2006';
+import InlineResponse2007 from '../model/InlineResponse2007';
 import InlineResponse201 from '../model/InlineResponse201';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -51,7 +51,7 @@ export default class BatchesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject11} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2007>} and HTTP response
      */
     apiV1BatchesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -70,7 +70,7 @@ export default class BatchesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2006];
+      let returnType = [InlineResponse2007];
       return this.apiClient.callApi(
         '/api/v1/batches/calculate_box_delivery_costs_in_batch', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -84,7 +84,7 @@ export default class BatchesApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject11} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2007>}
      */
     apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts) {
       return this.apiV1BatchesCalculateBoxDeliveryCostsInBatchPostWithHttpInfo(opts)
@@ -101,7 +101,7 @@ export default class BatchesApi {
      * @param {module:model/String} opts.status GUID склада который нужно получить.
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2006>} and HTTP response
      */
     apiV1BatchesGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -122,7 +122,7 @@ export default class BatchesApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2005];
+      let returnType = [InlineResponse2006];
       return this.apiClient.callApi(
         '/api/v1/batches/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -137,7 +137,7 @@ export default class BatchesApi {
      * @param {module:model/String} opts.status GUID склада который нужно получить.
      * @param {String} opts.storekeeperId GUID склада который нужно получить.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2006>}
      */
     apiV1BatchesGet(opts) {
       return this.apiV1BatchesGetWithHttpInfo(opts)

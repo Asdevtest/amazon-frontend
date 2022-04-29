@@ -1,6 +1,8 @@
 import * as Showdown from 'showdown'
 import * as xssFilter from 'showdown-xss-filter'
 
+import {zipCodeGroups} from '@constants/zip-code-groups'
+
 import {checkIsAbsoluteUrl} from './checks'
 
 export const getModelNameWithotPostfix = modelName => modelName.replace('Static', '')
@@ -50,3 +52,13 @@ const converter = new Showdown.Converter({
 export const getTextFromMarkdown = markdown => converter.makeHtml(markdown)
 
 export const minsToTimeRus = mins => `${mins / 60 > 1 ? Math.floor(mins / 60) : 0} часов ${mins % 60} минут`
+
+export const getFullTariffTextForBox = box => {
+  const firstNumOfCode = box.destination?.zipCode?.[0]
+
+  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
+  return `${box.logicsTariff?.name || 'n/a'} / ${regionOfDeliveryName || 'n/a'} / ${
+    box.logicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate || 'n/a'
+  } $`
+}

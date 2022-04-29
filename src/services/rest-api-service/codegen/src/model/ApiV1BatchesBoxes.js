@@ -395,6 +395,12 @@ ApiV1BatchesBoxes.prototype['batch'] = undefined;
 ApiV1BatchesBoxes['StatusEnum'] = {
 
     /**
+     * value: "NEW"
+     * @const
+     */
+    "NEW": "NEW",
+
+    /**
      * value: "IN_STOCK"
      * @const
      */

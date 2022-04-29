@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import UserAdminFullSchemaPermissionGroups from './UserAdminFullSchemaPermissionGroups';
-import UserAdminFullSchemaPermissions from './UserAdminFullSchemaPermissions';
+import InlineResponse2002PermissionGroups from './InlineResponse2002PermissionGroups';
+import InlineResponse2002Permissions from './InlineResponse2002Permissions';
 
 /**
  * The UserAdminFullSchema model module.
@@ -95,10 +95,10 @@ class UserAdminFullSchema {
                 obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
             }
             if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = ApiClient.convertToType(data['permissions'], [UserAdminFullSchemaPermissions]);
+                obj['permissions'] = ApiClient.convertToType(data['permissions'], [InlineResponse2002Permissions]);
             }
             if (data.hasOwnProperty('permissionGroups')) {
-                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], [UserAdminFullSchemaPermissionGroups]);
+                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], [InlineResponse2002PermissionGroups]);
             }
             if (data.hasOwnProperty('masterUser')) {
                 obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
@@ -190,13 +190,13 @@ UserAdminFullSchema.prototype['overdraft'] = undefined;
 
 /**
  * Массив permission-ов.
- * @member {Array.<module:model/UserAdminFullSchemaPermissions>} permissions
+ * @member {Array.<module:model/InlineResponse2002Permissions>} permissions
  */
 UserAdminFullSchema.prototype['permissions'] = undefined;
 
 /**
  * Массив групп permission-ов.
- * @member {Array.<module:model/UserAdminFullSchemaPermissionGroups>} permissionGroups
+ * @member {Array.<module:model/InlineResponse2002PermissionGroups>} permissionGroups
  */
 UserAdminFullSchema.prototype['permissionGroups'] = undefined;
 

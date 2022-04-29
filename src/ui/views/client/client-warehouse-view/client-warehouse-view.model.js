@@ -541,10 +541,10 @@ export class ClientWarehouseViewModel {
         this.currentStorekeeper && this.currentStorekeeper._id,
       )
 
-      const volumeWeightCoefficient = await UserModel.getPlatformSettings()
+      const res = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.boxesMy = clientWarehouseDataConverter(result, volumeWeightCoefficient).sort(
+        this.boxesMy = clientWarehouseDataConverter(result, res.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
       })

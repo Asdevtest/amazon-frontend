@@ -12,7 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
+import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import InlineResponse2002PermissionGroups from './InlineResponse2002PermissionGroups';
+import InlineResponse2002Permissions from './InlineResponse2002Permissions';
 
 /**
  * The InlineResponse2002 model module.
@@ -22,11 +24,19 @@ import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
 class InlineResponse2002 {
     /**
      * Constructs a new <code>InlineResponse2002</code>.
+     * Пользователь системы
      * @alias module:model/InlineResponse2002
+     * @param _id {String} GUID пользователя в БД.
+     * @param name {String} Имя пользователя.
+     * @param email {String} email
+     * @param role {Number} Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
+     * @param fba {Boolean} Флаг fba.
+     * @param active {Boolean} Если истина - пользователь активен. Если нет - заблокирован админом.
+     * @param rate {Number} Ставка, по который оплачивается сотрудник.
      */
-    constructor() { 
+    constructor(_id, name, email, role, fba, active, rate) { 
         
-        InlineResponse2002.initialize(this);
+        InlineResponse2002.initialize(this, _id, name, email, role, fba, active, rate);
     }
 
     /**
@@ -34,7 +44,14 @@ class InlineResponse2002 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, name, email, role, fba, active, rate) { 
+        obj['_id'] = _id;
+        obj['name'] = name;
+        obj['email'] = email;
+        obj['role'] = role;
+        obj['fba'] = fba;
+        obj['active'] = active;
+        obj['rate'] = rate;
     }
 
     /**
@@ -51,32 +68,65 @@ class InlineResponse2002 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
+            if (data.hasOwnProperty('email')) {
+                obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
             if (data.hasOwnProperty('role')) {
                 obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
-            if (data.hasOwnProperty('subUser')) {
-                obj['subUser'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['subUser']);
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
             }
-            if (data.hasOwnProperty('entityId')) {
-                obj['entityId'] = ApiClient.convertToType(data['entityId'], 'String');
+            if (data.hasOwnProperty('active')) {
+                obj['active'] = ApiClient.convertToType(data['active'], 'Boolean');
             }
-            if (data.hasOwnProperty('paymentType')) {
-                obj['paymentType'] = ApiClient.convertToType(data['paymentType'], 'String');
+            if (data.hasOwnProperty('rate')) {
+                obj['rate'] = ApiClient.convertToType(data['rate'], 'Number');
             }
-            if (data.hasOwnProperty('recipient')) {
-                obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
+            if (data.hasOwnProperty('balance')) {
+                obj['balance'] = ApiClient.convertToType(data['balance'], 'Number');
             }
-            if (data.hasOwnProperty('sum')) {
-                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            if (data.hasOwnProperty('balanceFreeze')) {
+                obj['balanceFreeze'] = ApiClient.convertToType(data['balanceFreeze'], 'Number');
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('overdraft')) {
+                obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
+            }
+            if (data.hasOwnProperty('permissions')) {
+                obj['permissions'] = ApiClient.convertToType(data['permissions'], [InlineResponse2002Permissions]);
+            }
+            if (data.hasOwnProperty('permissionGroups')) {
+                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], [InlineResponse2002PermissionGroups]);
+            }
+            if (data.hasOwnProperty('masterUser')) {
+                obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
+            }
+            if (data.hasOwnProperty('allowedRoles')) {
+                obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
+            }
+            if (data.hasOwnProperty('canByMasterUser')) {
+                obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
+            }
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('subUsers')) {
+                obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusClient]);
+            }
+            if (data.hasOwnProperty('masterUserInfo')) {
+                obj['masterUserInfo'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['masterUserInfo']);
+            }
+            if (data.hasOwnProperty('hideSuppliers')) {
+                obj['hideSuppliers'] = ApiClient.convertToType(data['hideSuppliers'], 'Boolean');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -86,145 +136,132 @@ class InlineResponse2002 {
 }
 
 /**
- * GUID платежа
+ * GUID пользователя в БД.
  * @member {String} _id
  */
 InlineResponse2002.prototype['_id'] = undefined;
 
 /**
- * Дата создания.
- * @member {Date} createdAt
+ * Имя пользователя.
+ * @member {String} name
  */
-InlineResponse2002.prototype['createdAt'] = undefined;
+InlineResponse2002.prototype['name'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
+ * email
+ * @member {String} email
  */
-InlineResponse2002.prototype['createdBy'] = undefined;
+InlineResponse2002.prototype['email'] = undefined;
 
 /**
- * Роль пользователя на момент инициации платежа.
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
  * @member {Number} role
  */
 InlineResponse2002.prototype['role'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsPaymentsCreatedBy} subUser
+ * Флаг fba.
+ * @member {Boolean} fba
  */
-InlineResponse2002.prototype['subUser'] = undefined;
+InlineResponse2002.prototype['fba'] = undefined;
 
 /**
- * GUID товара или услуги.
- * @member {String} entityId
+ * Если истина - пользователь активен. Если нет - заблокирован админом.
+ * @member {Boolean} active
  */
-InlineResponse2002.prototype['entityId'] = undefined;
+InlineResponse2002.prototype['active'] = undefined;
 
 /**
- * Тип платежа
- * @member {module:model/InlineResponse2002.PaymentTypeEnum} paymentType
+ * Ставка, по который оплачивается сотрудник.
+ * @member {Number} rate
  */
-InlineResponse2002.prototype['paymentType'] = undefined;
+InlineResponse2002.prototype['rate'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
+ * Баланс пользователя.
+ * @member {Number} balance
  */
-InlineResponse2002.prototype['recipient'] = undefined;
+InlineResponse2002.prototype['balance'] = undefined;
 
 /**
- * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
- * @member {Number} sum
+ * Замороженная при оплате ордера сумма..
+ * @member {Number} balanceFreeze
  */
-InlineResponse2002.prototype['sum'] = undefined;
+InlineResponse2002.prototype['balanceFreeze'] = undefined;
 
 /**
- * комментарий
- * @member {String} comment
+ * Сумма на которую может уходить в минус пользователь.
+ * @member {Number} overdraft
  */
-InlineResponse2002.prototype['comment'] = undefined;
-
-
-
-
+InlineResponse2002.prototype['overdraft'] = undefined;
 
 /**
- * Allowed values for the <code>paymentType</code> property.
- * @enum {String}
- * @readonly
+ * Массив permission-ов.
+ * @member {Array.<module:model/InlineResponse2002Permissions>} permissions
  */
-InlineResponse2002['PaymentTypeEnum'] = {
+InlineResponse2002.prototype['permissions'] = undefined;
 
-    /**
-     * value: "PRODUCT"
-     * @const
-     */
-    "PRODUCT": "PRODUCT",
+/**
+ * Массив групп permission-ов.
+ * @member {Array.<module:model/InlineResponse2002PermissionGroups>} permissionGroups
+ */
+InlineResponse2002.prototype['permissionGroups'] = undefined;
 
-    /**
-     * value: "ORDER"
-     * @const
-     */
-    "ORDER": "ORDER",
+/**
+ * GUID мастер пользователя к которму относится данный субпользователь.
+ * @member {String} masterUser
+ */
+InlineResponse2002.prototype['masterUser'] = undefined;
 
-    /**
-     * value: "BOX"
-     * @const
-     */
-    "BOX": "BOX",
+/**
+ * Массив массив ролей.
+ * @member {Array.<Number>} allowedRoles
+ */
+InlineResponse2002.prototype['allowedRoles'] = undefined;
 
-    /**
-     * value: "BATCH"
-     * @const
-     */
-    "BATCH": "BATCH",
+/**
+ * Может ли данный пользователь быть мастер юзером.
+ * @member {Boolean} canByMasterUser
+ */
+InlineResponse2002.prototype['canByMasterUser'] = undefined;
 
-    /**
-     * value: "USER"
-     * @const
-     */
-    "USER": "USER",
+/**
+ * Рейтинг пользователя.
+ * @member {Number} rating
+ */
+InlineResponse2002.prototype['rating'] = undefined;
 
-    /**
-     * value: "REQUEST-CUSTOM"
-     * @const
-     */
-    "REQUEST-CUSTOM": "REQUEST-CUSTOM",
+/**
+ * Массив id сабюзеров.
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusClient>} subUsers
+ */
+InlineResponse2002.prototype['subUsers'] = undefined;
 
-    /**
-     * value: "REQUEST-SEARCH_PRODUCT"
-     * @const
-     */
-    "REQUEST-SEARCH_PRODUCT": "REQUEST-SEARCH_PRODUCT",
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} masterUserInfo
+ */
+InlineResponse2002.prototype['masterUserInfo'] = undefined;
 
-    /**
-     * value: "REQUEST-SEARCH_NICHE"
-     * @const
-     */
-    "REQUEST-SEARCH_NICHE": "REQUEST-SEARCH_NICHE",
+/**
+ * Скрывать поставщиков от пользователя.
+ * @member {Boolean} hideSuppliers
+ */
+InlineResponse2002.prototype['hideSuppliers'] = undefined;
 
-    /**
-     * value: "REQUEST-PROPOSAL-CUSTOM"
-     * @const
-     */
-    "REQUEST-PROPOSAL-CUSTOM": "REQUEST-PROPOSAL-CUSTOM",
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+InlineResponse2002.prototype['createdAt'] = undefined;
 
-    /**
-     * value: "REQUEST-PROPOSAL-SEARCH_PRODUCT"
-     * @const
-     */
-    "REQUEST-PROPOSAL-SEARCH_PRODUCT": "REQUEST-PROPOSAL-SEARCH_PRODUCT",
+/**
+ * Дата изменения
+ * @member {Date} updatedAt
+ */
+InlineResponse2002.prototype['updatedAt'] = undefined;
 
-    /**
-     * value: "REQUEST-PROPOSAL-SEARCH_NICHE"
-     * @const
-     */
-    "REQUEST-PROPOSAL-SEARCH_NICHE": "REQUEST-PROPOSAL-SEARCH_NICHE",
 
-    /**
-     * value: "OTHER"
-     * @const
-     */
-    "OTHER": "OTHER"
-};
+
 
 
 

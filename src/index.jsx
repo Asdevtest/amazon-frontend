@@ -1,16 +1,24 @@
-/* eslint-disable prefer-const */
+import * as Sentry from '@sentry/react'
+import {BrowserTracing} from '@sentry/tracing'
+
 import React from 'react'
 
-// import { validate } from 'class-validator';
 import ReactDOM from 'react-dom'
 import 'reflect-metadata'
 
-// import { BoxesCreateBoxContract } from '@models/boxes-model/boxes-model.contracts';
 import '@services/mobx-persist-configure'
 
 import {reportWebVitals} from '@utils/report-web-vitals'
 
 import {App} from './app'
+
+Sentry.init({
+  integrations: [new BrowserTracing()],
+
+  // We recommend adjusting this value in production, or using tracesSampler
+  // for finer control
+  tracesSampleRate: 1.0,
+})
 
 ReactDOM.render(<App />, document.getElementById('root'))
 

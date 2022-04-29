@@ -88,8 +88,6 @@ export const FieldsAndSuppliers = observer(
         !product.archive)
     )
 
-    console.log('product', product)
-
     return (
       <Grid item xs={12}>
         <Field

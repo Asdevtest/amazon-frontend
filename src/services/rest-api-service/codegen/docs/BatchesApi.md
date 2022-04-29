@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## apiV1BatchesCalculateBoxDeliveryCostsInBatchPost
 
-> [InlineResponse2006] apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts)
+> [InlineResponse2007] apiV1BatchesCalculateBoxDeliveryCostsInBatchPost(opts)
 
 # Рассчитать стоимость доставки коробов.
 
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2006]**](InlineResponse2006.md)
+[**[InlineResponse2007]**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BatchesGet
 
-> [InlineResponse2005] apiV1BatchesGet(opts)
+> [InlineResponse2006] apiV1BatchesGet(opts)
 
 # Получить партии.
 
@@ -112,7 +112,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2005]**](InlineResponse2005.md)
+[**[InlineResponse2006]**](InlineResponse2006.md)
 
 ### Authorization
 

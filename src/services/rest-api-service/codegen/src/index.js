@@ -138,8 +138,12 @@ import InlineResponse20020 from './model/InlineResponse20020';
 import InlineResponse20021 from './model/InlineResponse20021';
 import InlineResponse20022 from './model/InlineResponse20022';
 import InlineResponse20023 from './model/InlineResponse20023';
-import InlineResponse20023Details from './model/InlineResponse20023Details';
-import InlineResponse20023Request from './model/InlineResponse20023Request';
+import InlineResponse20024 from './model/InlineResponse20024';
+import InlineResponse20024Details from './model/InlineResponse20024Details';
+import InlineResponse20024Request from './model/InlineResponse20024Request';
+import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
+import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
+import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
 import InlineResponse2005 from './model/InlineResponse2005';
@@ -181,10 +185,6 @@ import UnLinkSubuserInputSchema from './model/UnLinkSubuserInputSchema';
 import UnauthorizedError from './model/UnauthorizedError';
 import UpdatedSuccessfully from './model/UpdatedSuccessfully';
 import UserAdminFullSchema from './model/UserAdminFullSchema';
-import UserAdminFullSchemaAllowedUrls from './model/UserAdminFullSchemaAllowedUrls';
-import UserAdminFullSchemaPermissionGroups from './model/UserAdminFullSchemaPermissionGroups';
-import UserAdminFullSchemaPermissions from './model/UserAdminFullSchemaPermissions';
-import UserAdminFullSchemaWithSubUsers from './model/UserAdminFullSchemaWithSubUsers';
 import UserFullSchema from './model/UserFullSchema';
 import UserInfoSchema from './model/UserInfoSchema';
 import UserInfoSchemaNeedConfirmPriceChange from './model/UserInfoSchemaNeedConfirmPriceChange';
@@ -1004,16 +1004,40 @@ export {
     InlineResponse20023,
 
     /**
-     * The InlineResponse20023Details model constructor.
-     * @property {module:model/InlineResponse20023Details}
+     * The InlineResponse20024 model constructor.
+     * @property {module:model/InlineResponse20024}
      */
-    InlineResponse20023Details,
+    InlineResponse20024,
 
     /**
-     * The InlineResponse20023Request model constructor.
-     * @property {module:model/InlineResponse20023Request}
+     * The InlineResponse20024Details model constructor.
+     * @property {module:model/InlineResponse20024Details}
      */
-    InlineResponse20023Request,
+    InlineResponse20024Details,
+
+    /**
+     * The InlineResponse20024Request model constructor.
+     * @property {module:model/InlineResponse20024Request}
+     */
+    InlineResponse20024Request,
+
+    /**
+     * The InlineResponse2002AllowedUrls model constructor.
+     * @property {module:model/InlineResponse2002AllowedUrls}
+     */
+    InlineResponse2002AllowedUrls,
+
+    /**
+     * The InlineResponse2002PermissionGroups model constructor.
+     * @property {module:model/InlineResponse2002PermissionGroups}
+     */
+    InlineResponse2002PermissionGroups,
+
+    /**
+     * The InlineResponse2002Permissions model constructor.
+     * @property {module:model/InlineResponse2002Permissions}
+     */
+    InlineResponse2002Permissions,
 
     /**
      * The InlineResponse2003 model constructor.
@@ -1260,30 +1284,6 @@ export {
      * @property {module:model/UserAdminFullSchema}
      */
     UserAdminFullSchema,
-
-    /**
-     * The UserAdminFullSchemaAllowedUrls model constructor.
-     * @property {module:model/UserAdminFullSchemaAllowedUrls}
-     */
-    UserAdminFullSchemaAllowedUrls,
-
-    /**
-     * The UserAdminFullSchemaPermissionGroups model constructor.
-     * @property {module:model/UserAdminFullSchemaPermissionGroups}
-     */
-    UserAdminFullSchemaPermissionGroups,
-
-    /**
-     * The UserAdminFullSchemaPermissions model constructor.
-     * @property {module:model/UserAdminFullSchemaPermissions}
-     */
-    UserAdminFullSchemaPermissions,
-
-    /**
-     * The UserAdminFullSchemaWithSubUsers model constructor.
-     * @property {module:model/UserAdminFullSchemaWithSubUsers}
-     */
-    UserAdminFullSchemaWithSubUsers,
 
     /**
      * The UserFullSchema model constructor.

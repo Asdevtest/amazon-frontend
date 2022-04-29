@@ -17,7 +17,7 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithKg} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, getFullTariffTextForBox, toFixed, toFixedWithKg} from '@utils/text'
 
 import {useClassNames} from './box-view-form.style'
 
@@ -75,7 +75,7 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
                 disabled
                 inputClasses={classNames.deliveryInfoField}
                 label={'Тариф'}
-                value={box.logicsTariff?.name || ''}
+                value={getFullTariffTextForBox(box) || ''}
                 placeholder={'N/A'}
               />
             </Grid>
@@ -85,48 +85,52 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
             <Carousel autoPlay={false} timeout={100} animation="fade" fullHeightHover={false}>
               {box.items.map((item, index) => (
                 <div key={index} className={classNames.productWrapper}>
-                  {item.product.images.length > 0 ? (
-                    <div className={classNames.carouselWrapper}>
-                      <Carousel autoPlay={false} timeout={100} animation="fade" className={classNames.imgBoxWrapper}>
-                        {item.product.images.map((el, index) => (
-                          <div key={index}>
-                            <img
-                              alt=""
-                              className={classNames.imgBox}
-                              src={getAmazonImageUrl(el)}
-                              onClick={() => {
-                                setShowImageModal(!showImageModal)
-                                setBigImagesOptions({images: item.product.images, imgIndex: index})
-                              }}
-                            />
-                          </div>
-                        ))}
-                      </Carousel>
+                  <div className={classNames.productSubWrapper}>
+                    {item.product.images.length > 0 ? (
+                      <div className={classNames.carouselWrapper}>
+                        <Carousel autoPlay={false} timeout={100} animation="fade" className={classNames.imgBoxWrapper}>
+                          {item.product.images.map((el, index) => (
+                            <div key={index}>
+                              <img
+                                alt=""
+                                className={classNames.imgBox}
+                                src={getAmazonImageUrl(el)}
+                                onClick={() => {
+                                  setShowImageModal(!showImageModal)
+                                  setBigImagesOptions({images: item.product.images, imgIndex: index})
+                                }}
+                              />
+                            </div>
+                          ))}
+                        </Carousel>
+                      </div>
+                    ) : (
+                      <img alt="" className={classNames.noImgBox} src={'/assets/img/no-photo.jpg'} />
+                    )}
+
+                    <div>
+                      <Typography className={classNames.amazonTitle}>{item.product.amazonTitle}</Typography>
+
+                      <Field
+                        oneLine
+                        disabled
+                        inputClasses={classNames.countField}
+                        label={'Количество'}
+                        value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
+                        placeholder={'N/A'}
+                      />
+
+                      <Field
+                        disabled
+                        inputClasses={classNames.countField}
+                        label={'HS Code'}
+                        value={item.product.hsCode}
+                        placeholder={'N/A'}
+                      />
                     </div>
-                  ) : (
-                    <img alt="" className={classNames.noImgBox} src={'/assets/img/no-photo.jpg'} />
-                  )}
+                  </div>
 
-                  <div>
-                    <Typography className={classNames.amazonTitle}>{item.product.amazonTitle}</Typography>
-
-                    <Field
-                      oneLine
-                      disabled
-                      inputClasses={classNames.countField}
-                      label={'Количество'}
-                      value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
-                      placeholder={'N/A'}
-                    />
-
-                    <Field
-                      disabled
-                      inputClasses={classNames.countField}
-                      label={'HS Code'}
-                      value={item.product.hsCode}
-                      placeholder={'N/A'}
-                    />
-
+                  <div className={classNames.productSubWrapper}>
                     <Field
                       label={'Баркод'}
                       inputComponent={
@@ -141,36 +145,26 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
                         </div>
                       }
                     />
+
+                    {item.isBarCodeAlreadyAttachedByTheSupplier ? (
+                      <Field
+                        oneLine
+                        containerClasses={classNames.checkboxContainer}
+                        label={textConsts.isBarCodeAlreadyAttachedByTheSupplier}
+                        inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
+                      />
+                    ) : (
+                      <Field
+                        oneLine
+                        containerClasses={classNames.checkboxContainer}
+                        label={textConsts.isBarCodeAttachedByTheStorekeeper}
+                        inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
+                      />
+                    )}
                   </div>
                 </div>
               ))}
             </Carousel>
-          </div>
-
-          <div className={classNames.labelsInfoWrapper}>
-            <Field
-              label={'Шиппинг Лейбл'}
-              inputComponent={
-                <div>
-                  {box.shippingLabel ? (
-                    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                      <Typography className={classNames.linkField}>{box.shippingLabel}</Typography>
-                    </Link>
-                  ) : (
-                    <Typography className={classNames.linkField}>{'N/A'}</Typography>
-                  )}
-                </div>
-              }
-            />
-
-            <Field
-              label={'FBA Shipment'}
-              inputComponent={
-                <div>
-                  <Typography className={classNames.linkField}>{box.fbaShipment || 'N/A'}</Typography>
-                </div>
-              }
-            />
           </div>
         </div>
 
@@ -253,19 +247,31 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
               inputComponent={<Checkbox disabled checked={box.isShippingLabelAttachedByStorekeeper} />}
             />
 
-            <Field
-              oneLine
-              containerClasses={classNames.checkboxContainer}
-              label={textConsts.isBarCodeAlreadyAttachedByTheSupplier}
-              inputComponent={<Checkbox disabled checked={box.isBarCodeAlreadyAttachedByTheSupplier} />}
-            />
+            <div className={classNames.labelsInfoWrapper}>
+              <Field
+                label={'Шиппинг Лейбл'}
+                inputComponent={
+                  <div>
+                    {box.shippingLabel ? (
+                      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+                        <Typography className={classNames.linkField}>{box.shippingLabel}</Typography>
+                      </Link>
+                    ) : (
+                      <Typography className={classNames.linkField}>{'N/A'}</Typography>
+                    )}
+                  </div>
+                }
+              />
 
-            <Field
-              oneLine
-              containerClasses={classNames.checkboxContainer}
-              label={textConsts.isBarCodeAttachedByTheStorekeeper}
-              inputComponent={<Checkbox disabled checked={box.isBarCodeAttachedByTheStorekeeper} />}
-            />
+              <Field
+                label={'FBA Shipment'}
+                inputComponent={
+                  <div>
+                    <Typography className={classNames.linkField}>{box.fbaShipment || 'N/A'}</Typography>
+                  </div>
+                }
+              />
+            </div>
           </div>
         </div>
       </div>

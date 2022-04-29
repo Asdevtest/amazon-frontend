@@ -17,7 +17,7 @@ import {useClassNames} from './task-info-box-item-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').taskInfoBoxItemCard
 
-export const TaskInfoBoxItemCard = ({item, superCount, box}) => {
+export const TaskInfoBoxItemCard = ({item, superCount}) => {
   const classNames = useClassNames()
   const [collapsed, setCollapsed] = useState(false)
 
@@ -54,17 +54,17 @@ export const TaskInfoBoxItemCard = ({item, superCount, box}) => {
               )}
             </div>
 
-            {box.isBarCodeAttachedByTheStorekeeper ? (
+            {item.isBarCodeAttachedByTheStorekeeper ? (
               <Field
                 oneLine
                 label={textConsts.isBarCodeAttachedByTheStorekeeper}
-                inputComponent={<Checkbox disabled checked={box.isBarCodeAttachedByTheStorekeeper} />}
+                inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
               />
             ) : (
               <Field
                 oneLine
                 label={textConsts.codeCheck}
-                inputComponent={<Checkbox disabled checked={box.isBarCodeAlreadyAttachedByTheSupplier} />}
+                inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
               />
             )}
           </div>

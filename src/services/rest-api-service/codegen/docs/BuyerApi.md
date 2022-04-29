@@ -783,7 +783,7 @@ Name | Type | Description  | Notes
 
 ## apiV1BuyersTasksGet
 
-> [InlineResponse2007] apiV1BuyersTasksGet(opts)
+> [InlineResponse2008] apiV1BuyersTasksGet(opts)
 
 # Показать все задачи данного пользователя.
 
@@ -821,7 +821,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2007]**](InlineResponse2007.md)
+[**[InlineResponse2008]**](InlineResponse2008.md)
 
 ### Authorization
 

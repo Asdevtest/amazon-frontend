@@ -72,7 +72,7 @@ export const addOrEditBatchFormColumns = () => [
     field: 'logicsTariff',
     headerName: textConsts.logicsTariffField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 130,
+    width: 160,
   },
 
   {

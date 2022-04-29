@@ -672,7 +672,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsPaymentsGet
 
-> [InlineResponse2002] apiV1AdminsPaymentsGet(opts)
+> [InlineResponse2003] apiV1AdminsPaymentsGet(opts)
 
 # Получить все оплаты, которые были начислены всем ролям.
 
@@ -710,7 +710,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -724,7 +724,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsProductsVacGet
 
-> [InlineResponse2004] apiV1AdminsProductsVacGet(opts)
+> [InlineResponse2005] apiV1AdminsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -762,7 +762,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2004]**](InlineResponse2004.md)
+[**[InlineResponse2005]**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -830,7 +830,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsTasksLightGet
 
-> [InlineResponse2003] apiV1AdminsTasksLightGet(opts)
+> [InlineResponse2004] apiV1AdminsTasksLightGet(opts)
 
 #  Облегченная версия. Получить задачи.
 
@@ -870,7 +870,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2003]**](InlineResponse2003.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -888,7 +888,7 @@ Name | Type | Description  | Notes
 
 Получить всех пользователей.
 
-## Получить всех пользователей.   
+## Получить всех пользователей или сабюзеров через query параметр   
 
 ### Example
 
@@ -903,6 +903,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.AdministratorApi();
 let opts = {
+  'subUsers': true, // Boolean | Перевести отображение на подпользователей.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1AdminsUsersGet(opts).then((data) => {
@@ -918,6 +919,7 @@ apiInstance.apiV1AdminsUsersGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **subUsers** | **Boolean**| Перевести отображение на подпользователей. | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -936,7 +938,7 @@ Name | Type | Description  | Notes
 
 ## apiV1AdminsUsersGuidGet
 
-> UserAdminFullSchemaWithSubUsers apiV1AdminsUsersGuidGet(guid, opts)
+> InlineResponse2002 apiV1AdminsUsersGuidGet(guid, opts)
 
 Получить пользователя по GUID.
 
@@ -976,7 +978,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UserAdminFullSchemaWithSubUsers**](UserAdminFullSchemaWithSubUsers.md)
+[**InlineResponse2002**](InlineResponse2002.md)
 
 ### Authorization
 

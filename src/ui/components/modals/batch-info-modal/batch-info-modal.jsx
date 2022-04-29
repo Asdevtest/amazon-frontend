@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 
 import {TableCell, TableRow, Typography} from '@material-ui/core'
@@ -18,7 +17,7 @@ import {calcFinalWeightForBox, calcPriceForBox, calcVolumeWeightForBox} from '@u
 import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixedWithKg, toFixedWithDollarSign, toFixed} from '@utils/text'
+import {toFixedWithKg, toFixedWithDollarSign, toFixed, getFullTariffTextForBox} from '@utils/text'
 
 import {useClassNames} from './batch-info-modal.style'
 
@@ -80,7 +79,7 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
       </TableCell>
 
       <TableCell>
-        <Typography>{item.logicsTariff.name}</Typography>
+        <Typography>{getFullTariffTextForBox(item)}</Typography>
       </TableCell>
 
       <TableCell>
@@ -134,7 +133,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
             disabled
             containerClasses={classNames.sumField}
             label={'Тариф'}
-            value={batch.boxes?.[0].logicsTariff?.name}
+            value={getFullTariffTextForBox(batch.boxes?.[0]) || ''}
             placeholder={'N/A'}
           />
 

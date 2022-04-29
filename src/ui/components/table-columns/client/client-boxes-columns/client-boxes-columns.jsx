@@ -94,18 +94,18 @@ export const clientBoxesViewColumns = () => [
   },
 
   {
-    field: 'finalWeight',
-    headerName: textConsts.weightField,
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-    type: 'number',
-    width: 140,
-  },
-
-  {
     field: 'grossWeight',
     headerName: textConsts.grossWeightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 120,
+  },
+
+  {
+    field: 'finalWeight',
+    headerName: textConsts.weightField,
+    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    type: 'number',
+    width: 140,
   },
 ]

@@ -5,7 +5,6 @@ import {Button, Chip, Link, Tooltip, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
-import {useHistory} from 'react-router-dom'
 
 import {BoxStatus} from '@constants/box-status'
 import {RequestStatus} from '@constants/request-status'

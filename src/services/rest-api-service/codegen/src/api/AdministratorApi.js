@@ -27,11 +27,11 @@ import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2002 from '../model/InlineResponse2002';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2004 from '../model/InlineResponse2004';
+import InlineResponse2005 from '../model/InlineResponse2005';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 import SuccessResponseBodyWithGuid from '../model/SuccessResponseBodyWithGuid';
 import UserAdminFullSchema from '../model/UserAdminFullSchema';
-import UserAdminFullSchemaWithSubUsers from '../model/UserAdminFullSchemaWithSubUsers';
 
 /**
 * Administrator service.
@@ -659,7 +659,7 @@ export default class AdministratorApi {
      * ## Получить все оплаты, которые были начислены всем ролям.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
      */
     apiV1AdminsPaymentsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -678,7 +678,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2002];
+      let returnType = [InlineResponse2003];
       return this.apiClient.callApi(
         '/api/v1/admins/payments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -691,7 +691,7 @@ export default class AdministratorApi {
      * ## Получить все оплаты, которые были начислены всем ролям.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
      */
     apiV1AdminsPaymentsGet(opts) {
       return this.apiV1AdminsPaymentsGetWithHttpInfo(opts)
@@ -706,7 +706,7 @@ export default class AdministratorApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2005>} and HTTP response
      */
     apiV1AdminsProductsVacGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -725,7 +725,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2004];
+      let returnType = [InlineResponse2005];
       return this.apiClient.callApi(
         '/api/v1/admins/products/vac', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -738,7 +738,7 @@ export default class AdministratorApi {
      * ## Получить список  вакантных товаров. статусы 70 и 110  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2005>}
      */
     apiV1AdminsProductsVacGet(opts) {
       return this.apiV1AdminsProductsVacGetWithHttpInfo(opts)
@@ -803,7 +803,7 @@ export default class AdministratorApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.status если указать статус - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2004>} and HTTP response
      */
     apiV1AdminsTasksLightGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -823,7 +823,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2003];
+      let returnType = [InlineResponse2004];
       return this.apiClient.callApi(
         '/api/v1/admins/tasks_light', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -837,7 +837,7 @@ export default class AdministratorApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.status если указать статус - отфильтрует, нет - выведет все.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2004>}
      */
     apiV1AdminsTasksLightGet(opts) {
       return this.apiV1AdminsTasksLightGetWithHttpInfo(opts)
@@ -849,8 +849,9 @@ export default class AdministratorApi {
 
     /**
      * Получить всех пользователей.
-     * ## Получить всех пользователей.   
+     * ## Получить всех пользователей или сабюзеров через query параметр   
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.subUsers Перевести отображение на подпользователей.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/UserAdminFullSchema>} and HTTP response
      */
@@ -861,6 +862,7 @@ export default class AdministratorApi {
       let pathParams = {
       };
       let queryParams = {
+        'subUsers': opts['subUsers']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -881,8 +883,9 @@ export default class AdministratorApi {
 
     /**
      * Получить всех пользователей.
-     * ## Получить всех пользователей.   
+     * ## Получить всех пользователей или сабюзеров через query параметр   
      * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.subUsers Перевести отображение на подпользователей.
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/UserAdminFullSchema>}
      */
@@ -900,7 +903,7 @@ export default class AdministratorApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UserAdminFullSchemaWithSubUsers} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
      */
     apiV1AdminsUsersGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -924,7 +927,7 @@ export default class AdministratorApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = UserAdminFullSchemaWithSubUsers;
+      let returnType = InlineResponse2002;
       return this.apiClient.callApi(
         '/api/v1/admins/users/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -938,7 +941,7 @@ export default class AdministratorApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserAdminFullSchemaWithSubUsers}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
     apiV1AdminsUsersGuidGet(guid, opts) {
       return this.apiV1AdminsUsersGuidGetWithHttpInfo(guid, opts)

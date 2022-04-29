@@ -70,7 +70,7 @@ null (empty response body)
 
 ## apiV1OtherPaymentsByProductGuidGet
 
-> [InlineResponse2002] apiV1OtherPaymentsByProductGuidGet(guid, opts)
+> [InlineResponse2003] apiV1OtherPaymentsByProductGuidGet(guid, opts)
 
 # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
 
@@ -110,7 +110,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherPaymentsByUserGuidGet
 
-> [InlineResponse2002] apiV1OtherPaymentsByUserGuidGet(guid, opts)
+> [InlineResponse2003] apiV1OtherPaymentsByUserGuidGet(guid, opts)
 
 # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
 
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -178,7 +178,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherPaymentsMyGet
 
-> [InlineResponse2002] apiV1OtherPaymentsMyGet(opts)
+> [InlineResponse2003] apiV1OtherPaymentsMyGet(opts)
 
 # Получить все оплаты, которые были произведены обратившемся пользователем.
 
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2002]**](InlineResponse2002.md)
+[**[InlineResponse2003]**](InlineResponse2003.md)
 
 ### Authorization
 

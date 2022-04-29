@@ -738,7 +738,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsGuidGetPriceForClientGet
 
-> InlineResponse2009 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
+> InlineResponse20010 apiV1ClientsProductsGuidGetPriceForClientGet(guid, opts)
 
 # Получить цену для клиента на поиск поставщика
 
@@ -778,7 +778,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2009**](InlineResponse2009.md)
+[**InlineResponse20010**](InlineResponse20010.md)
 
 ### Authorization
 
@@ -848,7 +848,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsMyGet
 
-> [InlineResponse2008] apiV1ClientsProductsMyGet(opts)
+> [InlineResponse2009] apiV1ClientsProductsMyGet(opts)
 
 # Получить список товаров данного клиента используя фильтр
 
@@ -888,7 +888,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -956,7 +956,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsProductsVacGet
 
-> [InlineResponse2008] apiV1ClientsProductsVacGet(opts)
+> [InlineResponse2009] apiV1ClientsProductsVacGet(opts)
 
 # Получить список вакантных товаров.
 
@@ -994,7 +994,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2008]**](InlineResponse2008.md)
+[**[InlineResponse2009]**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -1062,7 +1062,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ClientsTasksGet
 
-> [InlineResponse2003] apiV1ClientsTasksGet(opts)
+> [InlineResponse2004] apiV1ClientsTasksGet(opts)
 
 # Показать все задачи данного пользователя в данном складе.
 
@@ -1102,7 +1102,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse2003]**](InlineResponse2003.md)
+[**[InlineResponse2004]**](InlineResponse2004.md)
 
 ### Authorization
 

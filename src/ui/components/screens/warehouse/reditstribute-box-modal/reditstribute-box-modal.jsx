@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {texts} from '@constants/texts'
+import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
@@ -62,6 +63,12 @@ const Box = ({
 
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
+
+  const curDestination = destinations.find(el => el._id === box.destinationId)
+
+  const firstNumOfCode = curDestination?.zipCode[0]
+
+  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
   return (
     <div className={classNames.box}>
@@ -133,9 +140,17 @@ const Box = ({
                     ? `${storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'} /  
                       ${
                         box.logicsTariffId
-                          ? storekeepers
-                              .find(el => el._id === box.storekeeperId)
-                              .tariffLogistics.find(el => el._id === box.logicsTariffId)?.name || 'N/A'
+                          ? `${
+                              storekeepers
+                                .find(el => el._id === box.storekeeperId)
+                                .tariffLogistics.find(el => el._id === box.logicsTariffId)?.name
+                            } / ${regionOfDeliveryName} / ${
+                              storekeepers
+                                .find(el => el._id === box.storekeeperId)
+                                .tariffLogistics.find(el => el._id === box.logicsTariffId)?.conditionsByRegion[
+                                regionOfDeliveryName
+                              ]?.rate || 'n/a'
+                            } $`
                           : 'none'
                       }`
                     : 'Выбрать'}

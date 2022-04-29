@@ -5,7 +5,6 @@ import clsx from 'clsx'
 
 import {getOrderStatusOptionByCode, OrderStatusByCode, OrderStatusByKey, OrderStatus} from '@constants/order-status'
 import {texts} from '@constants/texts'
-import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -17,7 +16,13 @@ import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} fr
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
+import {
+  checkAndMakeAbsoluteUrl,
+  getFullTariffTextForBox,
+  toFixed,
+  toFixedWithDollarSign,
+  toFixedWithYuanSign,
+} from '@utils/text'
 
 import {useClassNames} from './select-fields.style'
 
@@ -61,12 +66,6 @@ export const SelectFields = ({
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
-  // const curDestination = destinations.find(el => el._id === orderState.destinationId)
-
-  const firstNumOfCode = order.destination?.zipCode[0]
-
-  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
-
   return (
     <Grid container justify="space-around">
       <Grid item>
@@ -98,12 +97,7 @@ export const SelectFields = ({
             {textConsts.tariff}
           </InputLabel>
 
-          <Input
-            disabled
-            variant="filled"
-            value={`${order.logicsTariff.name} / ${regionOfDeliveryName} / ${order.logicsTariff.conditionsByRegion[regionOfDeliveryName].rate} $ за кг`}
-            className={classNames.nativeSelect}
-          />
+          <Input disabled variant="filled" value={getFullTariffTextForBox(order)} className={classNames.nativeSelect} />
         </Box>
 
         <Box mt={3}>

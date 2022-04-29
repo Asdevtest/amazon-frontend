@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
-import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 
 /**
  * The InlineResponse2007 model module.
@@ -49,44 +47,20 @@ class InlineResponse2007 {
         if (data) {
             obj = obj || new InlineResponse2007();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('deliveryCost')) {
+                obj['deliveryCost'] = ApiClient.convertToType(data['deliveryCost'], 'Number');
             }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
+                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1BatchesBoxes]);
+            if (data.hasOwnProperty('weightFinalAccountingKgWarehouse')) {
+                obj['weightFinalAccountingKgWarehouse'] = ApiClient.convertToType(data['weightFinalAccountingKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
-            }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updateDate')) {
-                obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
+            if (data.hasOwnProperty('deliveryRate')) {
+                obj['deliveryRate'] = ApiClient.convertToType(data['deliveryRate'], 'Number');
             }
         }
         return obj;
@@ -96,111 +70,37 @@ class InlineResponse2007 {
 }
 
 /**
- * GUID
- * @member {String} _id
+ * The unique identifier of the box.
+ * @member {String} guid
  */
-InlineResponse2007.prototype['_id'] = undefined;
+InlineResponse2007.prototype['guid'] = undefined;
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * The delivery cost of the box.
+ * @member {Number} deliveryCost
  */
-InlineResponse2007.prototype['taskId'] = undefined;
+InlineResponse2007.prototype['deliveryCost'] = undefined;
 
 /**
- * Тип операции
- * @member {module:model/InlineResponse2007.OperationTypeEnum} operationType
+ * The volume weight of the box in kg.
+ * @member {Number} volumeWeightKgWarehouse
  */
-InlineResponse2007.prototype['operationType'] = undefined;
+InlineResponse2007.prototype['volumeWeightKgWarehouse'] = undefined;
 
 /**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1BatchesBoxes>} boxesBefore
+ * The weight of the box in kg.
+ * @member {Number} weightFinalAccountingKgWarehouse
  */
-InlineResponse2007.prototype['boxesBefore'] = undefined;
+InlineResponse2007.prototype['weightFinalAccountingKgWarehouse'] = undefined;
 
 /**
- * Массив коробок.
- * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
+ * The delivery rate of the box. $/kg
+ * @member {Number} deliveryRate
  */
-InlineResponse2007.prototype['boxes'] = undefined;
-
-/**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
- * @member {Number} status
- */
-InlineResponse2007.prototype['status'] = undefined;
-
-/**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
- */
-InlineResponse2007.prototype['storekeeperComment'] = undefined;
-
-/**
- * Комментарий клиента.
- * @member {String} clientComment
- */
-InlineResponse2007.prototype['clientComment'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineResponse2007.prototype['images'] = undefined;
-
-/**
- * GUID сотрудника склада, который выполняет задачу.
- * @member {String} storekeeperId
- */
-InlineResponse2007.prototype['storekeeperId'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} storekeeper
- */
-InlineResponse2007.prototype['storekeeper'] = undefined;
-
-/**
- * Дата создания.
- * @member {Date} createdAt
- */
-InlineResponse2007.prototype['createdAt'] = undefined;
-
-/**
- * Дата обновления.
- * @member {Date} updateDate
- */
-InlineResponse2007.prototype['updateDate'] = undefined;
+InlineResponse2007.prototype['deliveryRate'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
- */
-InlineResponse2007['OperationTypeEnum'] = {
-
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
-
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
-
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive"
-};
 
 
 

@@ -15,7 +15,7 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import InlineObject36 from '../model/InlineObject36';
-import InlineResponse2002 from '../model/InlineResponse2002';
+import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2016 from '../model/InlineResponse2016';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -100,7 +100,7 @@ export default class OtherApi {
      * @param {String} guid guid товара по которому нужны оплаты.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
      */
     apiV1OtherPaymentsByProductGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -124,7 +124,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['text/html'];
-      let returnType = [InlineResponse2002];
+      let returnType = [InlineResponse2003];
       return this.apiClient.callApi(
         '/api/v1/other/payments/by_product/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -138,7 +138,7 @@ export default class OtherApi {
      * @param {String} guid guid товара по которому нужны оплаты.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
      */
     apiV1OtherPaymentsByProductGuidGet(guid, opts) {
       return this.apiV1OtherPaymentsByProductGuidGetWithHttpInfo(guid, opts)
@@ -154,7 +154,7 @@ export default class OtherApi {
      * @param {String} guid guid пользователя по которому нужны оплаты.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
      */
     apiV1OtherPaymentsByUserGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -178,7 +178,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2002];
+      let returnType = [InlineResponse2003];
       return this.apiClient.callApi(
         '/api/v1/other/payments/by_user/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -192,7 +192,7 @@ export default class OtherApi {
      * @param {String} guid guid пользователя по которому нужны оплаты.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
      */
     apiV1OtherPaymentsByUserGuidGet(guid, opts) {
       return this.apiV1OtherPaymentsByUserGuidGetWithHttpInfo(guid, opts)
@@ -207,7 +207,7 @@ export default class OtherApi {
      * ## Получить все оплаты, которые были произведены обратившемся пользователем.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2002>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2003>} and HTTP response
      */
     apiV1OtherPaymentsMyGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -226,7 +226,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse2002];
+      let returnType = [InlineResponse2003];
       return this.apiClient.callApi(
         '/api/v1/other/payments/my', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -239,7 +239,7 @@ export default class OtherApi {
      * ## Получить все оплаты, которые были произведены обратившемся пользователем.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2002>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2003>}
      */
     apiV1OtherPaymentsMyGet(opts) {
       return this.apiV1OtherPaymentsMyGetWithHttpInfo(opts)

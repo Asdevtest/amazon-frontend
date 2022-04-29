@@ -3862,6 +3862,7 @@ export const texts = {
       barCode: `Баркод:`,
       material: 'Материал',
       codeCheck: 'Баркод проклеен поставщиком',
+      barCodeIsGluedWarehouse: 'Баркод проклеен складом',
     },
 
     taskInfoBoxItemCard: {

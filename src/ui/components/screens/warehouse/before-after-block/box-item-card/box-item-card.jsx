@@ -1,9 +1,10 @@
 import React from 'react'
 
-import {Link, Paper, Typography} from '@material-ui/core'
+import {Checkbox, Link, Paper, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
+import {Field} from '@components/field'
 import {Input} from '@components/input'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
@@ -14,7 +15,7 @@ import {useClassNames} from './box-item-card.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').boxItemCard
 
-export const BoxItemCard = ({item, superCount}) => {
+export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode}) => {
   const classNames = useClassNames()
 
   return (
@@ -38,6 +39,54 @@ export const BoxItemCard = ({item, superCount}) => {
               </Link>
             ) : (
               <Typography className={classNames.barCodeField}>{'N/A'}</Typography>
+            )}
+
+            {item.product.barCode && (
+              <div className={classNames.barCodeActionsWrapper}>
+                {item.isBarCodeAttachedByTheStorekeeper === false && (
+                  <Field
+                    oneLine
+                    containerClasses={classNames.checkboxContainer}
+                    label={textConsts.codeCheck}
+                    inputComponent={
+                      <Checkbox
+                        disabled={!isNewBox}
+                        color="primary"
+                        checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+                        onClick={() =>
+                          onChangeBarCode(
+                            !item.isBarCodeAlreadyAttachedByTheSupplier,
+                            'isBarCodeAlreadyAttachedByTheSupplier',
+                            index,
+                          )
+                        }
+                      />
+                    }
+                  />
+                )}
+
+                {item.isBarCodeAlreadyAttachedByTheSupplier === false && (
+                  <Field
+                    oneLine
+                    containerClasses={classNames.checkboxContainer}
+                    label={textConsts.barCodeIsGluedWarehouse}
+                    inputComponent={
+                      <Checkbox
+                        disabled={!isNewBox}
+                        color="primary"
+                        checked={item.isBarCodeAttachedByTheStorekeeper}
+                        onClick={() =>
+                          onChangeBarCode(
+                            !item.isBarCodeAttachedByTheStorekeeper,
+                            'isBarCodeAttachedByTheStorekeeper',
+                            index,
+                          )
+                        }
+                      />
+                    }
+                  />
+                )}
+              </div>
             )}
           </div>
         </div>
