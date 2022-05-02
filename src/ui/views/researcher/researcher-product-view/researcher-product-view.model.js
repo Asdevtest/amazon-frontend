@@ -53,6 +53,15 @@ const fieldsOfProductAllowedToForceUpdate = [
   'minpurchase',
   'fbaamount',
   'strategyStatus',
+
+  'niche',
+  'asins',
+  'avgRevenue',
+  'avgBSR',
+  'totalRevenue',
+  'coefficient',
+  'avgPrice',
+  'avgReviews',
 ]
 
 const fieldsOfProductAllowedToUpdate = [
@@ -81,6 +90,15 @@ const fieldsOfProductAllowedToUpdate = [
   'fbaamount',
   'strategyStatus',
   'currentSupplierId',
+
+  'niche',
+  'asins',
+  'avgRevenue',
+  'avgBSR',
+  'totalRevenue',
+  'coefficient',
+  'avgPrice',
+  'avgReviews',
 ]
 
 const formFieldsDefault = {

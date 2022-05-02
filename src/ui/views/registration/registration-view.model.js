@@ -81,8 +81,6 @@ export class RegistrationViewModel {
     if (fieldName === 'acceptTerms') {
       this.setField(fieldName)(!this.acceptTerms)
     } else if (fieldName === 'name') {
-      // this.setField(fieldName)(event.target.value.replace(/[^а-яА-Яa-zA-Z0-9]/g, ''))
-
       this.setField(fieldName)(event.target.value.replace(/^\s+|\s(?=\s)/g, ''))
     } else {
       this.setField(fieldName)(event.target.value)

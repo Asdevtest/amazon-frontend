@@ -72,6 +72,14 @@ export const OrderModalBodyRow = ({
 
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
+  const tariffName = storekeepers
+    .find(el => el._id === item.storekeeperId)
+    ?.tariffLogistics.find(el => el._id === item.logicsTariffId)?.name
+
+  const tariffRate = storekeepers
+    .find(el => el._id === item.storekeeperId)
+    ?.tariffLogistics.find(el => el._id === item.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
 
   const curTariffRate = curStorekeeper?.tariffLogistics.find(el => el._id === orderState.logicsTariffId)
@@ -185,17 +193,9 @@ export const OrderModalBodyRow = ({
               ? `${storekeepers.find(el => el._id === item.storekeeperId).name} /  
                 ${
                   item.logicsTariffId
-                    ? `${
-                        storekeepers
-                          .find(el => el._id === item.storekeeperId)
-                          .tariffLogistics.find(el => el._id === item.logicsTariffId)?.name
-                      } / ${regionOfDeliveryName} / ${
-                        storekeepers
-                          .find(el => el._id === item.storekeeperId)
-                          .tariffLogistics.find(el => el._id === item.logicsTariffId)?.conditionsByRegion[
-                          regionOfDeliveryName
-                        ]?.rate || 'n/a'
-                      } $`
+                    ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
+                        tariffRate ? ' / ' + tariffRate + ' $' : ''
+                      }`
                     : 'none'
                 }`
               : 'Выбрать'}

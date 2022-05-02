@@ -70,6 +70,14 @@ const Box = ({
 
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
+  const tariffName = storekeepers
+    .find(el => el._id === box.storekeeperId)
+    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.name
+
+  const tariffRate = storekeepers
+    .find(el => el._id === box.storekeeperId)
+    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+
   return (
     <div className={classNames.box}>
       {!isNewBox && <Typography className={classNames.boxTitle}>{box.humanFriendlyId}</Typography>}
@@ -140,17 +148,9 @@ const Box = ({
                     ? `${storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'} /  
                       ${
                         box.logicsTariffId
-                          ? `${
-                              storekeepers
-                                .find(el => el._id === box.storekeeperId)
-                                .tariffLogistics.find(el => el._id === box.logicsTariffId)?.name
-                            } / ${regionOfDeliveryName} / ${
-                              storekeepers
-                                .find(el => el._id === box.storekeeperId)
-                                .tariffLogistics.find(el => el._id === box.logicsTariffId)?.conditionsByRegion[
-                                regionOfDeliveryName
-                              ]?.rate || 'n/a'
-                            } $`
+                          ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
+                              tariffRate ? ' / ' + tariffRate + ' $' : ''
+                            }`
                           : 'none'
                       }`
                     : 'Выбрать'}

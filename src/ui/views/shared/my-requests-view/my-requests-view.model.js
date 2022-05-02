@@ -184,12 +184,7 @@ export class MyRequestsViewModel {
 
   async getCustomRequests() {
     try {
-      // const isFreelancer = this.userInfo.role === 35
-
-      const result = await RequestModel.getRequests(
-        RequestType.CUSTOM,
-        /* isFreelancer ? RequestSubType.PICKUPED_BY_ME : */ RequestSubType.MY,
-      )
+      const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY)
 
       runInAction(() => {
         this.searchRequests = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))

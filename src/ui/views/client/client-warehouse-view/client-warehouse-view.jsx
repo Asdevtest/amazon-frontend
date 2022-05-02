@@ -78,11 +78,13 @@ export class ClientWarehouseViewRaw extends Component {
       showRedistributeBoxAddNewBoxModal,
       showRedistributeBoxSuccessModal,
       showRedistributeBoxFailModal,
+      showWarningInfoModal,
       showRequestToSendBatchModal,
       showEditBoxSuccessModal,
       showMergeBoxSuccessModal,
       boxesDeliveryCosts,
       showMergeBoxFailModal,
+      warningInfoModalSettings,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -288,6 +290,17 @@ export class ClientWarehouseViewRaw extends Component {
           successBtnText={textConsts.closeBtn}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showRedistributeBoxSuccessModal')
+          }}
+        />
+
+        <WarningInfoModal
+          isWarning={warningInfoModalSettings.isWarning}
+          openModal={showWarningInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
+          title={warningInfoModalSettings.title}
+          btnText={textConsts.closeBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningInfoModal')
           }}
         />
 

@@ -19,7 +19,6 @@ export class ProfileViewModel {
   showAvatarEditModal = false
   showUserInfoModal = false
 
-  // changeNameAndEmail = {email: '', name: ''}
   checkValidationNameOrEmail = {}
 
   drawerOpen = false

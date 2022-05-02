@@ -83,6 +83,13 @@ export class ClientWarehouseViewModel {
   boxesDeliveryCosts = undefined
   showMergeBoxFailModal = false
 
+  showWarningInfoModal = false
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
@@ -676,6 +683,13 @@ export class ClientWarehouseViewModel {
       this.updateUserInfo()
       this.loadData()
     } catch (error) {
+      this.warningInfoModalSettings = {
+        isWarning: true,
+        title: error.body.message,
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }

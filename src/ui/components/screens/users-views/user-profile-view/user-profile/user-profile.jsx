@@ -41,9 +41,6 @@ export const UserProfile = observer(
   }) => {
     const classNames = useClassNames()
 
-    console.log('user.role', user.role)
-    console.log('checkIsAdmin(user.role)', checkIsAdmin(user.role))
-
     return (
       <Paper className={classNames.paper}>
         <div>

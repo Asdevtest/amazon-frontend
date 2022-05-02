@@ -106,6 +106,14 @@ export const MergeBoxesModal = ({
 
   const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
+  const tariffName = storekeepers
+    .find(el => el._id === boxBody.storekeeperId)
+    ?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.name
+
+  const tariffRate = storekeepers
+    .find(el => el._id === boxBody.storekeeperId)
+    ?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+
   return (
     <div className={classNames.mainWrapper}>
       <Typography variant="h5">{textConsts.mainTitle}</Typography>
@@ -160,17 +168,9 @@ export const MergeBoxesModal = ({
               ? `${storekeepers.find(el => el._id === boxBody.storekeeperId).name} /  
                 ${
                   boxBody.logicsTariffId
-                    ? `${
-                        storekeepers
-                          .find(el => el._id === boxBody.storekeeperId)
-                          .tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.name
-                      } / ${regionOfDeliveryName} / ${
-                        storekeepers
-                          .find(el => el._id === boxBody.storekeeperId)
-                          .tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.conditionsByRegion[
-                          regionOfDeliveryName
-                        ]?.rate || 'n/a'
-                      } $`
+                    ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
+                        tariffRate ? ' / ' + tariffRate + ' $' : ''
+                      }`
                     : 'none'
                 }`
               : 'Выбрать'}

@@ -283,8 +283,6 @@ export class ResearcherProductsViewModel {
       }
 
       if (fieldName === 'strategyStatus') {
-        console.log('e.target.value', e.target.value)
-
         if (Number(e.target.value) !== mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL]) {
           this.formFields.niche = ''
           this.formFields.asins = ''

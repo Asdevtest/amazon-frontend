@@ -183,6 +183,14 @@ export const EditBoxForm = observer(
 
     const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
+    const tariffName = storekeepers
+      .find(el => el._id === boxFields.storekeeperId)
+      ?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.name
+
+    const tariffRate = storekeepers
+      .find(el => el._id === boxFields.storekeeperId)
+      ?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+
     return (
       <div className={classNames.root}>
         <div className={classNames.form}>
@@ -233,17 +241,9 @@ export const EditBoxForm = observer(
                       ? `${storekeepers.find(el => el._id === boxFields.storekeeperId)?.name || 'N/A'} /  
                         ${
                           boxFields.storekeeperId
-                            ? `${
-                                storekeepers
-                                  .find(el => el._id === boxFields.storekeeperId)
-                                  .tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.name
-                              } / ${regionOfDeliveryName} / ${
-                                storekeepers
-                                  .find(el => el._id === boxFields.storekeeperId)
-                                  .tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.conditionsByRegion[
-                                  regionOfDeliveryName
-                                ]?.rate || 'n/a'
-                              } $`
+                            ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
+                                tariffRate ? ' / ' + tariffRate + ' $' : ''
+                              }`
                             : 'none'
                         }`
                       : 'Выбрать'}

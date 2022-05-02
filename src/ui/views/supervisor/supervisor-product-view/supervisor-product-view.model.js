@@ -50,6 +50,15 @@ const fieldsOfProductAllowedToUpdate = [
   'minpurchase',
   'fbaamount',
   'strategyStatus',
+
+  'niche',
+  'asins',
+  'avgRevenue',
+  'avgBSR',
+  'totalRevenue',
+  'coefficient',
+  'avgPrice',
+  'avgReviews',
 ]
 
 const formFieldsDefault = {

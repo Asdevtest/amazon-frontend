@@ -115,7 +115,7 @@ export const ResearcherAddProductFormRaw = observer(
             <div className={classNames.fieldsSubWrapper}>
               <Field
                 disabled={disabledNoProvatLabel}
-                inputProps={{maxLength: 255}}
+                inputProps={{maxLength: 10}}
                 containerClasses={classNames.shortInput}
                 label={textConsts.avgRevenue}
                 value={formFields.avgRevenue}
@@ -124,7 +124,7 @@ export const ResearcherAddProductFormRaw = observer(
               <Field
                 disabled={disabledNoProvatLabel}
                 containerClasses={classNames.shortInput}
-                inputProps={{maxLength: 255}}
+                inputProps={{maxLength: 10}}
                 label={textConsts.avgBSR}
                 value={formFields.avgBSR}
                 onChange={onChangeFormFields('avgBSR')}
@@ -135,14 +135,14 @@ export const ResearcherAddProductFormRaw = observer(
           <div className={classNames.fieldsWrapper}>
             <Field
               disabled={disabledNoProvatLabel}
-              inputProps={{maxLength: 255}}
+              inputProps={{maxLength: 10}}
               label={textConsts.totalRevenue}
               value={formFields.totalRevenue}
               onChange={onChangeFormFields('totalRevenue')}
             />
             <Field
               disabled={disabledNoProvatLabel}
-              inputProps={{maxLength: 255}}
+              inputProps={{maxLength: 10}}
               label={textConsts.coefficient}
               value={formFields.coefficient}
               onChange={onChangeFormFields('coefficient')}
@@ -151,7 +151,7 @@ export const ResearcherAddProductFormRaw = observer(
             <div className={classNames.fieldsSubWrapper}>
               <Field
                 disabled={disabledNoProvatLabel}
-                inputProps={{maxLength: 255}}
+                inputProps={{maxLength: 10}}
                 containerClasses={classNames.shortInput}
                 label={textConsts.avgPrice}
                 value={formFields.avgPrice}
@@ -160,7 +160,7 @@ export const ResearcherAddProductFormRaw = observer(
               <Field
                 disabled={disabledNoProvatLabel}
                 containerClasses={classNames.shortInput}
-                inputProps={{maxLength: 255}}
+                inputProps={{maxLength: 10}}
                 label={textConsts.avgReviews}
                 value={formFields.avgReviews}
                 onChange={onChangeFormFields('avgReviews')}

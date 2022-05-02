@@ -11,7 +11,11 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {
+  mapProductStrategyStatusEnum,
+  mapProductStrategyStatusEnumToKey,
+  ProductStrategyStatus,
+} from '@constants/product-strategy-status'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
@@ -81,6 +85,7 @@ export const FieldsAndSuppliers = observer(
 
     const disabledPrivateLabelFields = !(
       checkIsResearcher(curUserRole) ||
+      (checkIsSupervisor(curUserRole) && showActionBtns) ||
       (checkIsClient(curUserRole) &&
         product.isCreatedByClient &&
         clientToEditStatuses.includes(productBase.status) &&
@@ -321,81 +326,83 @@ export const FieldsAndSuppliers = observer(
             </div>
           </div>
 
-          <div>
-            <div className={classNames.rightBlockWrapper}>
-              <div className={classNames.fieldsWrapper}>
-                <Field
-                  disabled={disabledPrivateLabelFields}
-                  inputProps={{maxLength: 255}}
-                  label={textConsts.niche}
-                  value={product.niche}
-                  onChange={onChangeField('niche')}
-                />
-                <Field
-                  disabled={disabledPrivateLabelFields}
-                  inputProps={{maxLength: 255}}
-                  label={textConsts.asins}
-                  value={product.asins}
-                  onChange={onChangeField('asins')}
-                />
+          {product.strategyStatus === mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL] && (
+            <div>
+              <div className={classNames.rightBlockWrapper}>
+                <div className={classNames.fieldsWrapper}>
+                  <Field
+                    disabled={disabledPrivateLabelFields}
+                    inputProps={{maxLength: 255}}
+                    label={textConsts.niche}
+                    value={product.niche}
+                    onChange={onChangeField('niche')}
+                  />
+                  <Field
+                    disabled={disabledPrivateLabelFields}
+                    inputProps={{maxLength: 255}}
+                    label={textConsts.asins}
+                    value={product.asins}
+                    onChange={onChangeField('asins')}
+                  />
 
-                <div className={classNames.fieldsSubWrapper}>
-                  <Field
-                    disabled={disabledPrivateLabelFields}
-                    inputProps={{maxLength: 255}}
-                    containerClasses={classNames.shortInput}
-                    label={textConsts.avgRevenue}
-                    value={product.avgRevenue}
-                    onChange={onChangeField('avgRevenue')}
-                  />
-                  <Field
-                    disabled={disabledPrivateLabelFields}
-                    containerClasses={classNames.shortInput}
-                    inputProps={{maxLength: 255}}
-                    label={textConsts.avgBSR}
-                    value={product.avgBSR}
-                    onChange={onChangeField('avgBSR')}
-                  />
+                  <div className={classNames.fieldsSubWrapper}>
+                    <Field
+                      disabled={disabledPrivateLabelFields}
+                      inputProps={{maxLength: 10}}
+                      containerClasses={classNames.shortInput}
+                      label={textConsts.avgRevenue}
+                      value={product.avgRevenue}
+                      onChange={onChangeField('avgRevenue')}
+                    />
+                    <Field
+                      disabled={disabledPrivateLabelFields}
+                      containerClasses={classNames.shortInput}
+                      inputProps={{maxLength: 10}}
+                      label={textConsts.avgBSR}
+                      value={product.avgBSR}
+                      onChange={onChangeField('avgBSR')}
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className={classNames.fieldsWrapper}>
-                <Field
-                  disabled={disabledPrivateLabelFields}
-                  inputProps={{maxLength: 255}}
-                  label={textConsts.totalRevenue}
-                  value={product.totalRevenue}
-                  onChange={onChangeField('totalRevenue')}
-                />
-                <Field
-                  disabled={disabledPrivateLabelFields}
-                  inputProps={{maxLength: 255}}
-                  label={textConsts.coefficient}
-                  value={product.coefficient}
-                  onChange={onChangeField('coefficient')}
-                />
-
-                <div className={classNames.fieldsSubWrapper}>
+                <div className={classNames.fieldsWrapper}>
                   <Field
                     disabled={disabledPrivateLabelFields}
-                    inputProps={{maxLength: 255}}
-                    containerClasses={classNames.shortInput}
-                    label={textConsts.avgPrice}
-                    value={product.avgPrice}
-                    onChange={onChangeField('avgPrice')}
+                    inputProps={{maxLength: 10}}
+                    label={textConsts.totalRevenue}
+                    value={product.totalRevenue}
+                    onChange={onChangeField('totalRevenue')}
                   />
                   <Field
                     disabled={disabledPrivateLabelFields}
-                    containerClasses={classNames.shortInput}
-                    inputProps={{maxLength: 255}}
-                    label={textConsts.avgReviews}
-                    value={product.avgReviews}
-                    onChange={onChangeField('avgReviews')}
+                    inputProps={{maxLength: 10}}
+                    label={textConsts.coefficient}
+                    value={product.coefficient}
+                    onChange={onChangeField('coefficient')}
                   />
+
+                  <div className={classNames.fieldsSubWrapper}>
+                    <Field
+                      disabled={disabledPrivateLabelFields}
+                      inputProps={{maxLength: 10}}
+                      containerClasses={classNames.shortInput}
+                      label={textConsts.avgPrice}
+                      value={product.avgPrice}
+                      onChange={onChangeField('avgPrice')}
+                    />
+                    <Field
+                      disabled={disabledPrivateLabelFields}
+                      containerClasses={classNames.shortInput}
+                      inputProps={{maxLength: 10}}
+                      label={textConsts.avgReviews}
+                      value={product.avgReviews}
+                      onChange={onChangeField('avgReviews')}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </Box>
       </Grid>
     )

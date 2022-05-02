@@ -77,6 +77,15 @@ const fieldsOfProductAllowedToUpdate = [
   'asin',
   'clientComment',
   'skusByClient',
+
+  'niche',
+  'asins',
+  'avgRevenue',
+  'avgBSR',
+  'totalRevenue',
+  'coefficient',
+  'avgPrice',
+  'avgReviews',
 ]
 
 export class ClientProductViewModel {
@@ -157,8 +166,6 @@ export class ClientProductViewModel {
   onChangeProductFields = fieldName =>
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
-
-      console.log('this.product', this.product)
 
       if (
         [

@@ -204,14 +204,14 @@ export const navbarConfig = {
         user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INTEGRATIONS_CLIENT),
     },
 
-    {
-      icon: ChatBubbleOutlineOutlinedIcon,
-      title: 'Сообщения',
-      route: '/client/messages',
-      subtitles: null,
-      key: navBarActiveCategory.NAVBAR_MESSAGES,
-      checkHideBlock: () => true,
-    },
+    // {
+    //   icon: ChatBubbleOutlineOutlinedIcon,
+    //   title: 'Сообщения',
+    //   route: '/client/messages',
+    //   subtitles: null,
+    //   key: navBarActiveCategory.NAVBAR_MESSAGES,
+    //   checkHideBlock: () => true,
+    // },
     {
       icon: MonetizationOnOutlinedIcon,
       title: 'Финансы',

@@ -133,7 +133,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
             disabled
             containerClasses={classNames.sumField}
             label={'Тариф'}
-            value={getFullTariffTextForBox(batch.boxes?.[0]) || ''}
+            value={(batch.boxes && getFullTariffTextForBox(batch.boxes?.[0])) || ''}
             placeholder={'N/A'}
           />
 

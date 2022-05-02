@@ -54,11 +54,18 @@ export const getTextFromMarkdown = markdown => converter.makeHtml(markdown)
 export const minsToTimeRus = mins => `${mins / 60 > 1 ? Math.floor(mins / 60) : 0} часов ${mins % 60} минут`
 
 export const getFullTariffTextForBox = box => {
-  const firstNumOfCode = box.destination?.zipCode?.[0]
+  if (!box) {
+    return 'N/A'
+  }
 
-  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+  const firstNumOfCode = box.destination?.zipCode?.[0] || null
 
-  return `${box.logicsTariff?.name || 'n/a'} / ${regionOfDeliveryName || 'n/a'} / ${
-    box.logicsTariff?.conditionsByRegion[regionOfDeliveryName]?.rate || 'n/a'
-  } $`
+  const regionOfDeliveryName =
+    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
+  return `${box.logicsTariff?.name || 'n/a'}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
+    box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
+      ? ' / ' + box.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate + '$'
+      : ''
+  }`
 }
