@@ -21,6 +21,7 @@ import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SelectionSupplierModal} from '@components/modals/selection-supplier-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
+import {SetHsCodeModal} from '@components/modals/set-hs-code-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -74,6 +75,7 @@ export class ClientInventoryViewRaw extends Component {
       selectedProduct,
       showSetBarcodeModal,
       showSelectionSupplierModal,
+      showSetHsCodeModal,
       showConfirmModal,
       curPage,
       productsMy,
@@ -95,6 +97,7 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerOpenModal,
       onSubmitOrderProductModal,
       onClickBindInventoryGoodsToStockBtn,
+      onClickSaveHsCode,
 
       onSelectionModel,
       setDataGridState,
@@ -219,6 +222,14 @@ export class ClientInventoryViewRaw extends Component {
             item={selectedProduct}
             onClickSaveBarcode={onClickSaveBarcode}
             onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showSetHsCodeModal} setOpenModal={() => onTriggerOpenModal('showSetHsCodeModal')}>
+          <SetHsCodeModal
+            item={selectedProduct}
+            onClickSaveHsCode={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showSetHsCodeModal')}
           />
         </Modal>
 

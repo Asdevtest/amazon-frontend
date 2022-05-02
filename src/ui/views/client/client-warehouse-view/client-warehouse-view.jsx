@@ -159,37 +159,40 @@ export class ClientWarehouseViewRaw extends Component {
                 <div className={classNames.leftBtnsWrapper}>{this.renderButtons()}</div>
               </div>
 
-              <DataGrid
-                pagination
-                useResizeContainer
-                checkboxSelection
-                isRowSelectable={params => params.row.isDraft === false}
-                classes={{
-                  row: classNames.row,
-                }}
-                getRowClassName={getRowClassName}
-                selectionModel={selectedBoxes}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                rowHeight={150}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-                onStateChange={setDataGridState}
-                onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-              />
+              <div className={classNames.dataGridWrapper}>
+                <DataGrid
+                  autoHeight
+                  pagination
+                  useResizeContainer
+                  checkboxSelection
+                  isRowSelectable={params => params.row.isDraft === false}
+                  classes={{
+                    row: classNames.row,
+                  }}
+                  getRowClassName={getRowClassName}
+                  selectionModel={selectedBoxes}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  rowHeight={150}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onStateChange={setDataGridState}
+                  onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                />
+              </div>
 
               <div className={classNames.tasksWrapper}>
                 <DataGrid

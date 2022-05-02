@@ -46,7 +46,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imgBoxWrapper: {
-    height: '200px',
+    height: '135px',
     width: '160px',
     display: 'flex',
     justifyContent: 'flex-start',

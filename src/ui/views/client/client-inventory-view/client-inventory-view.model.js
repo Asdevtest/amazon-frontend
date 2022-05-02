@@ -98,6 +98,7 @@ export class ClientInventoryViewModel {
   showBindInventoryGoodsToStockModal = false
   showInfoModal = false
   showConfirmModal = false
+  showSetHsCodeModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -110,6 +111,12 @@ export class ClientInventoryViewModel {
     onDeleteBarcode: item => this.onDeleteBarcode(item),
   }
 
+  hsCodeHandlers = {
+    onClickHsCode: item => this.onClickHsCode(item),
+    onDoubleClickHsCode: item => this.onDoubleClickHsCode(item),
+    onDeleteHsCode: item => this.onDeleteHsCode(item),
+  }
+
   readyImages = []
   progressValue = 0
   showProgress = false
@@ -119,7 +126,7 @@ export class ClientInventoryViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientInventoryColumns(this.barCodeHandlers)
+  columnsModel = clientInventoryColumns(this.barCodeHandlers, this.hsCodeHandlers)
 
   get isNoEditProductSelected() {
     return this.selectedRowIds.some(prodId => {
@@ -178,7 +185,7 @@ export class ClientInventoryViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = clientInventoryColumns(this.barCodeHandlers).map(el => ({
+      this.columnsModel = clientInventoryColumns(this.barCodeHandlers, this.hsCodeHandlers).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -295,6 +302,17 @@ export class ClientInventoryViewModel {
     }
   }
 
+  async onClickSaveHsCode(hsCode) {
+    await ProductModel.editProductsHsCods([{productId: this.selectedProduct._id, hsCode}])
+
+    this.onTriggerOpenModal('showSetHsCodeModal')
+    this.loadData()
+
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
+  }
+
   async onClickSaveBarcode(tmpBarCode) {
     this.uploadedFiles = []
 
@@ -337,6 +355,11 @@ export class ClientInventoryViewModel {
   onClickBarcode(item) {
     this.setSelectedProduct(item)
     this.onTriggerOpenModal('showSetBarcodeModal')
+  }
+
+  onClickHsCode(item) {
+    this.setSelectedProduct(item)
+    this.onTriggerOpenModal('showSetHsCodeModal')
   }
 
   async onSubmitOrderProductModal(ordersDataState) {
@@ -600,9 +623,24 @@ export class ClientInventoryViewModel {
     this.onTriggerOpenModal('showSetBarcodeModal')
   }
 
+  onDoubleClickHsCode = item => {
+    this.setSelectedProduct(item)
+    this.onTriggerOpenModal('showSetHsCodeModal')
+  }
+
   async onDeleteBarcode(product) {
     try {
       await ClientModel.updateProductBarCode(product._id, {barCode: null})
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onDeleteHsCode(product) {
+    try {
+      await ProductModel.editProductsHsCods([{productId: product._id, hsCode: ''}])
 
       this.loadData()
     } catch (error) {

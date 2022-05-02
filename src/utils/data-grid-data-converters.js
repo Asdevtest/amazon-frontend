@@ -201,6 +201,8 @@ export const clientInventoryDataConverter = data =>
     stockValue: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.stockValue), 0),
     reserved: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0),
     inBoard: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
+
+    hsCode: item.hsCode,
   }))
 
 export const clientCustomRequestsDataConverter = data =>

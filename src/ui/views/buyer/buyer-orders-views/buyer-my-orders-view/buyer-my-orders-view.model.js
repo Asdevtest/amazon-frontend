@@ -8,6 +8,7 @@ import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
 import {BuyerModel} from '@models/buyer-model'
+import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
@@ -166,7 +167,15 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad) {
+  async onSubmitSaveHsCode(productId, hsCode) {
+    try {
+      await ProductModel.editProductsHsCods([{productId, hsCode}])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -187,6 +196,10 @@ export class BuyerMyOrdersViewModel {
       }
 
       await this.onSaveOrder(order, orderFieldsToSave)
+
+      if (hsCode) {
+        await this.onSubmitSaveHsCode(order.product._id, hsCode)
+      }
 
       if (boxesForCreation.length > 0 && !isMismatchOrderPrice) {
         await this.onSubmitCreateBoxes(order, boxesForCreation)

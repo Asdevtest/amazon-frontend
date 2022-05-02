@@ -1,12 +1,18 @@
-import {Link, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Checkbox, Link, TableCell, TableRow, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {texts} from '@constants/texts'
+
 import {Button} from '@components/buttons/button'
+import {Field} from '@components/field'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 
 import {useClassNames} from './product-in-order-table-row.style'
+
+const textConsts = getLocalizedTexts(texts, 'ru').productInOrderTableRow
 
 export const ProductInOrderTableRow = observer(({item, handlers}) => {
   const classNames = useClassNames()
@@ -34,6 +40,28 @@ export const ProductInOrderTableRow = observer(({item, handlers}) => {
           </Link>
         ) : (
           <Typography className={classNames.barCodeTypo}>{'N/A'}</Typography>
+        )}
+
+        {!item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper ? (
+          <Typography className={classNames.noBarCodeGlued}>{textConsts.noBarCodeGlued}</Typography>
+        ) : (
+          <div>
+            {item.isBarCodeAlreadyAttachedByTheSupplier ? (
+              <Field
+                oneLine
+                containerClasses={classNames.checkboxContainer}
+                label={textConsts.isBarCodeAlreadyAttachedByTheSupplier}
+                inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
+              />
+            ) : (
+              <Field
+                oneLine
+                containerClasses={classNames.checkboxContainer}
+                label={textConsts.isBarCodeAttachedByTheStorekeeper}
+                inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
+              />
+            )}
+          </div>
         )}
       </TableCell>
 

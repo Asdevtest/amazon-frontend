@@ -141,11 +141,13 @@ export const EditOrderModal = ({
         return setOrderFields(tmpNewOrderFieldsState)
 
       case 'SUBMIT':
-        return onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad)
+        return onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode)
     }
   }
 
   const [photosToLoad, setPhotosToLoad] = useState([])
+
+  const [hsCode, setHsCode] = useState(order.product.hsCode)
 
   const disableSubmit =
     requestStatus === loadingStatuses.isLoading ||
@@ -160,6 +162,8 @@ export const EditOrderModal = ({
         <Typography className={classNames.modalText}>{`${textConsts.orderNum} # ${order.id}`}</Typography>
 
         <SelectFields
+          hsCode={hsCode}
+          setHsCode={setHsCode}
           photosToLoad={photosToLoad}
           order={order}
           setOrderField={setOrderField}
@@ -196,7 +200,7 @@ export const EditOrderModal = ({
               setConfirmModalMode(confirmModalModes.SUBMIT)
               setShowConfirmModal(!showConfirmModal)
             } else {
-              onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad)
+              onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode)
             }
           }}
         >

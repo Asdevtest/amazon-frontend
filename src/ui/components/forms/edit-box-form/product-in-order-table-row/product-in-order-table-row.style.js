@@ -48,4 +48,10 @@ export const useClassNames = makeStyles(theme => ({
     width: '300px',
     overflowX: 'auto',
   },
+
+  noBarCodeGlued: {
+    color: 'red',
+    fontWeight: 'bold',
+    fontSize: '18px',
+  },
 }))

@@ -45,6 +45,8 @@ const disabledOrderStatuses = [
 ]
 
 export const SelectFields = ({
+  hsCode,
+  setHsCode,
   photosToLoad,
   order,
   setOrderField,
@@ -373,6 +375,16 @@ export const SelectFields = ({
             value={orderFields.trackingNumberChina}
             className={classNames.numWideInput}
             onChange={setOrderField('trackingNumberChina')}
+          />
+        </Box>
+
+        <Box my={3}>
+          <Typography className={classNames.modalText}>{textConsts.hsCodeTypo}</Typography>
+          <Input
+            inputProps={{maxLength: 50}}
+            value={hsCode}
+            className={classNames.numWideInput}
+            onChange={e => setHsCode(e.target.value)}
           />
         </Box>
 

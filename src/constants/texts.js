@@ -915,6 +915,8 @@ export const texts = {
       amountInBoxesField: 'Stock',
       stockValueField: 'Amazon',
       reservedField: 'Reserved',
+
+      hsCodeField: 'HS code',
     },
 
     clientDailySellerBoardColumns: {
@@ -1445,6 +1447,8 @@ export const texts = {
       costPriceAmount: 'Себестоимость в закупке за шт.',
       trackNumberTypo: 'Track number',
 
+      hsCodeTypo: 'HS code',
+
       circularProgressTitle: 'Загрузка фотографий...',
       loadTitle: 'Прикрепить фото к задаче',
       orderImagesBtn: 'Имеющиеся изображения к заказу',
@@ -1598,6 +1602,7 @@ export const texts = {
       addPermissionsBtn: 'Назначить разрешения',
 
       id: 'ASIN: ',
+      setHsCodeChipLabel: 'Set hscode',
 
       showDetails: 'Подробнее',
       cancelTaskBtn: 'Отменить',
@@ -2357,11 +2362,19 @@ export const texts = {
       appUser: 'client',
     },
     ordersViewsModalSetBarcode: {
-      title: 'Установить штрихкод',
+      title: 'Установить баркод',
       code: 'Штрихкод товара:',
       saveBtn: 'Сохранить',
       closeBtn: 'Закрыть',
     },
+
+    ordersViewsModalSetHsCode: {
+      title: 'Установить HS код',
+      code: 'Штрихкод товара:',
+      saveBtn: 'Сохранить',
+      closeBtn: 'Закрыть',
+    },
+
     ordersViewsModalSetShippingLabel: {
       title: 'Установить Shipping label',
       code: 'Shipping label товара:',
@@ -3656,6 +3669,12 @@ export const texts = {
       appUser: 'warehouse',
       mainTitle: 'Выполненные задачи',
       showBtn: 'Смотреть',
+    },
+
+    productInOrderTableRow: {
+      isBarCodeAlreadyAttachedByTheSupplier: 'Баркод проклеен поставщиком',
+      isBarCodeAttachedByTheStorekeeper: 'Баркод проклеен складом',
+      noBarCodeGlued: 'Не проклеен!',
     },
     warehouseCanceledTasksView: {
       appBarTitle: 'Отмененные задачи',
