@@ -166,6 +166,25 @@ export class WarehouseVacantViewModel {
       const box = boxes[i]
 
       await this.updateBox(box._id, box)
+      await this.setBoxBarcodeAttached(box._id, box)
+    }
+  }
+
+  async setBoxBarcodeAttached(id, box) {
+    try {
+      console.log('box', box)
+
+      const barcodesAttachedData = box.items.map(item => ({
+        orderId: item.order._id,
+        isBarCodeAttachedByTheStorekeeper: item.isBarCodeAttachedByTheStorekeeper,
+        isBarCodeAlreadyAttachedByTheSupplier: item.isBarCodeAlreadyAttachedByTheSupplier,
+      }))
+
+      console.log('barcodesAttachedData', barcodesAttachedData)
+
+      await BoxesModel.setBarcodeAttachedCheckboxes(id, barcodesAttachedData)
+    } catch (error) {
+      this.error = error
     }
   }
 

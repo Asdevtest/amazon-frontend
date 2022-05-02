@@ -190,19 +190,19 @@ export const navbarConfig = {
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_SHOPS_CLIENT),
     },
 
-    {
-      icon: SettingsIcon,
-      title: 'Интеграции',
-      route: '/client/integrations/daily',
-      subtitles: [
-        {subtitle: 'Отчет со склада', subRoute: '/client/integrations/daily'},
-        {subtitle: 'Дашборд по товарам/дням', subRoute: '/client/integrations/last-30-day'},
-      ],
-      key: navBarActiveCategory.NAVBAR_INTEGRATIONS,
-      checkHideBlock: user =>
-        !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INTEGRATIONS_CLIENT),
-    },
+    // {
+    //   icon: SettingsIcon,
+    //   title: 'Интеграции',
+    //   route: '/client/integrations/daily',
+    //   subtitles: [
+    //     {subtitle: 'Отчет со склада', subRoute: '/client/integrations/daily'},
+    //     {subtitle: 'Дашборд по товарам/дням', subRoute: '/client/integrations/last-30-day'},
+    //   ],
+    //   key: navBarActiveCategory.NAVBAR_INTEGRATIONS,
+    //   checkHideBlock: user =>
+    //     !isMasterUser(user) ||
+    //     user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INTEGRATIONS_CLIENT),
+    // },
 
     // {
     //   icon: ChatBubbleOutlineOutlinedIcon,

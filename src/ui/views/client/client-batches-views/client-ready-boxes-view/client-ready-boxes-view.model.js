@@ -110,7 +110,7 @@ export class ClientReadyBoxesViewModel {
 
   async getStorekeepers() {
     try {
-      const result = await StorekeeperModel.getStorekeepers()
+      const result = await StorekeeperModel.getStorekeepers(BoxStatus.REQUESTED_SEND_TO_BATCH)
 
       this.storekeepersData = result
     } catch (error) {

@@ -2323,6 +2323,15 @@ export const texts = {
       appUser: 'client',
     },
 
+    goodsDaysReport: {
+      mainTitle: 'Отчет seller board за 30 дней',
+      appBarTitle: 'Дашборд по товарам/дням',
+      appBarUsername: 'Client',
+      appUser: 'client',
+
+      allShopsBtn: 'Все магазины',
+    },
+
     clientDailySellerBoardView: {
       mainTitle: 'Ежедневный seller board',
       appBarTitle: 'Отчет со склада',

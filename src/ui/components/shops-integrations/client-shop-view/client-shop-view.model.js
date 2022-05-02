@@ -1,0 +1,220 @@
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
+
+import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
+import {loadingStatuses} from '@constants/loading-statuses'
+
+import {SettingsModel} from '@models/settings-model'
+import {ShopModel} from '@models/shop-model'
+
+import {shopsColumns} from '@components/table-columns/shops-columns'
+
+import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+
+export class ClientShopsViewModel {
+  history = undefined
+  requestStatus = undefined
+  error = undefined
+
+  shopsData = []
+
+  drawerOpen = false
+  selectedShop = undefined
+
+  showAddOrEditShopModal = false
+  showWarningModal = false
+  showConfirmModal = false
+
+  selectionModel = undefined
+
+  activeSubCategory = 0
+  drawerOpen = false
+
+  rowHandlers = {
+    onClickRemoveBtn: row => this.onClickRemoveBtn(row),
+    onClickEditBtn: row => this.onClickEditBtn(row),
+  }
+
+  sortModel = []
+  filterModel = {items: []}
+  curPage = 0
+  rowsPerPage = 15
+  densityModel = 'compact'
+  columnsModel = shopsColumns(this.rowHandlers)
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
+
+  constructor({history}) {
+    this.history = history
+    makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  onChangeFilterModel(model) {
+    this.filterModel = model
+  }
+
+  setDataGridState(state) {
+    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+      'sorting',
+      'filter',
+      'pagination',
+      'density',
+      'columns',
+    ])
+
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_SHOPS)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_SHOPS]
+
+    if (state) {
+      this.sortModel = state.sorting.sortModel
+      this.filterModel = state.filter.filterModel
+      this.rowsPerPage = state.pagination.pageSize
+
+      this.densityModel = state.density.value
+      this.columnsModel = shopsColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns?.lookup[el?.field]?.hide,
+      }))
+    }
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
+  }
+
+  getCurrentData() {
+    return toJS(this.shopsData)
+  }
+
+  onSelectionModel(model) {
+    this.selectionModel = model
+  }
+
+  onChangeDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
+  }
+
+  onChangeCurPage = e => {
+    this.curPage = e
+  }
+
+  onChangeSortingModel(e) {
+    this.sortModel = e.sortModel
+  }
+
+  onChangeRowsPerPage(e) {
+    this.rowsPerPage = e
+  }
+
+  onChangeCurPage(e) {
+    this.curPage = e
+  }
+
+  async loadData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      await this.getShops()
+
+      this.getDataGridState()
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+      runInAction(() => {
+        this.shopsData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+
+      this.shopsData = []
+    }
+  }
+
+  async removeShopById() {
+    try {
+      await ShopModel.removeShopById(this.selectedShop._id)
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onSubmitRemoveShop() {
+    try {
+      await this.removeShopById()
+
+      this.loadData()
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onSubmitShopForm(data, shopId) {
+    try {
+      if (shopId) {
+        await ShopModel.editShop(shopId, data)
+
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: 'Магазин изменен',
+        }
+        this.onTriggerOpenModal('showWarningModal')
+      } else {
+        await ShopModel.createShop(data)
+
+        this.warningInfoModalSettings = {
+          isWarning: false,
+          title: 'Магазин создан',
+        }
+        this.onTriggerOpenModal('showWarningModal')
+      }
+
+      this.loadData()
+      this.onTriggerOpenModal('showAddOrEditShopModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: error.body.message,
+      }
+      this.onTriggerOpenModal('showWarningModal')
+    }
+  }
+
+  onClickEditBtn(row) {
+    this.selectedShop = row
+    this.onTriggerOpenModal('showAddOrEditShopModal')
+  }
+
+  onClickRemoveBtn(row) {
+    this.selectedShop = row
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  onClickAddBtn() {
+    this.selectedShop = undefined
+    this.onTriggerOpenModal('showAddOrEditShopModal')
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
+  }
+}

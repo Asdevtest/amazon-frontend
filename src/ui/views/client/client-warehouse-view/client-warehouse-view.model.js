@@ -196,7 +196,7 @@ export class ClientWarehouseViewModel {
 
   async getStorekeepers() {
     try {
-      const result = await StorekeeperModel.getStorekeepers()
+      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
 
       this.storekeepersData = result
     } catch (error) {

@@ -103,6 +103,7 @@ export default class StorekeepersApi {
      * # Получить всех сторкиперов(все склады).
      * ## Получить всех сторкиперов(все склады).  если вызвал килен, то показывает сколко коробок у каждого сторкипера пока тут только данные о сторкипере, далее должно быть вся информация о складе, с тарифами  
      * @param {Object} opts Optional parameters
+     * @param {module:model/String} opts.boxStatus Статус коробок,  которые нужно посчитать. (default to 'IN_STOCK')
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20019>} and HTTP response
      */
@@ -113,6 +114,7 @@ export default class StorekeepersApi {
       let pathParams = {
       };
       let queryParams = {
+        'boxStatus': opts['boxStatus']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -135,6 +137,7 @@ export default class StorekeepersApi {
      * # Получить всех сторкиперов(все склады).
      * ## Получить всех сторкиперов(все склады).  если вызвал килен, то показывает сколко коробок у каждого сторкипера пока тут только данные о сторкипере, далее должно быть вся информация о складе, с тарифами  
      * @param {Object} opts Optional parameters
+     * @param {module:model/String} opts.boxStatus Статус коробок,  которые нужно посчитать. (default to 'IN_STOCK')
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20019>}
      */

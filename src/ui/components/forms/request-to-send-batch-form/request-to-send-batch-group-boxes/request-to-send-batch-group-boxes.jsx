@@ -32,9 +32,11 @@ export const RequestToSendBatchesGroupBoxes = ({
   return (
     <div className={classNames.tableWrapper}>
       {selectedGroup.price !== 0 && (
-        <Typography className={classNames.tableWrapperInfo}>
-          {`Destination: ${selectedGroup.destination?.name} , Промежуточный склад: ${selectedGroup.storekeeper?.name} , Тариф: ${selectedGroup.logicsTariff?.name}`}
-        </Typography>
+        <div>
+          <Typography className={classNames.tableWrapperInfo}>
+            {`Destination: ${selectedGroup.destination?.name} , Промежуточный склад: ${selectedGroup.storekeeper?.name} , Тариф: ${selectedGroup.logicsTariff?.name}`}
+          </Typography>
+        </div>
       )}
 
       <table border="1" className={classNames.table}>

@@ -169,6 +169,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BoxesApi* | [**apiV1BoxesPost**](docs/BoxesApi.md#apiV1BoxesPost) | **POST** /api/v1/boxes/ | # Создать коробку и ее строки.
 *TestSwagger.BoxesApi* | [**apiV1BoxesSplitPost**](docs/BoxesApi.md#apiV1BoxesSplitPost) | **POST** /api/v1/boxes/split | # Разделить коробку.
 *TestSwagger.BoxesApi* | [**apiV1BoxesStorekeepersGuidPatch**](docs/BoxesApi.md#apiV1BoxesStorekeepersGuidPatch) | **PATCH** /api/v1/boxes/storekeepers/{guid} | # Изменить коробку сотрудником склада.
+*TestSwagger.BoxesApi* | [**apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch**](docs/BoxesApi.md#apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch) | **PATCH** /api/v1/boxes/storekeepers/{guid}/set_barcodeAttached_checkboxes | # Изменить чекбоксы баркода.
 *TestSwagger.BoxesApi* | [**apiV1BoxesStorekeepersSentToBatchGet**](docs/BoxesApi.md#apiV1BoxesStorekeepersSentToBatchGet) | **GET** /api/v1/boxes/storekeepers/sent_to_batch | # Получить коробки по текущему сторкипера отправленные в партию.
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersGuidEditPatch**](docs/BuyerApi.md#apiV1BuyersOrdersGuidEditPatch) | **PATCH** /api/v1/buyers/orders/{guid}/edit | # Редактировать заказ.
 *TestSwagger.BuyerApi* | [**apiV1BuyersOrdersGuidGet**](docs/BuyerApi.md#apiV1BuyersOrdersGuidGet) | **GET** /api/v1/buyers/orders/{guid} | # Получить конкретный заказ по его GUID.

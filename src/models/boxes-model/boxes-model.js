@@ -120,6 +120,13 @@ class BoxesModelStatic {
     const response = await restApiService.boxesApi.apiV1BoxesSendBoxesToBatchPost({body: {boxesIds}})
     return response
   }
+
+  setBarcodeAttachedCheckboxes = async (id, data) => {
+    const response = await restApiService.boxesApi.apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch(id, {
+      body: data,
+    })
+    return response
+  }
 }
 
 export const BoxesModel = new BoxesModelStatic()

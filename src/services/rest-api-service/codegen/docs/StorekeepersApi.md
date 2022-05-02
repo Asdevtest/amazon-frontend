@@ -100,6 +100,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.StorekeepersApi();
 let opts = {
+  'boxStatus': "'IN_STOCK'", // String | Статус коробок,  которые нужно посчитать.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1StorekeepersGet(opts).then((data) => {
@@ -115,6 +116,7 @@ apiInstance.apiV1StorekeepersGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **boxStatus** | **String**| Статус коробок,  которые нужно посчитать. | [optional] [default to &#39;IN_STOCK&#39;]
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

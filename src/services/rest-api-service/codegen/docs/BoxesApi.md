@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**apiV1BoxesPost**](BoxesApi.md#apiV1BoxesPost) | **POST** /api/v1/boxes/ | # Создать коробку и ее строки.
 [**apiV1BoxesSplitPost**](BoxesApi.md#apiV1BoxesSplitPost) | **POST** /api/v1/boxes/split | # Разделить коробку.
 [**apiV1BoxesStorekeepersGuidPatch**](BoxesApi.md#apiV1BoxesStorekeepersGuidPatch) | **PATCH** /api/v1/boxes/storekeepers/{guid} | # Изменить коробку сотрудником склада.
+[**apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch**](BoxesApi.md#apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch) | **PATCH** /api/v1/boxes/storekeepers/{guid}/set_barcodeAttached_checkboxes | # Изменить чекбоксы баркода.
 [**apiV1BoxesStorekeepersSentToBatchGet**](BoxesApi.md#apiV1BoxesStorekeepersSentToBatchGet) | **GET** /api/v1/boxes/storekeepers/sent_to_batch | # Получить коробки по текущему сторкипера отправленные в партию.
 
 
@@ -822,6 +823,62 @@ Name | Type | Description  | Notes
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject20**](InlineObject20.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch
+
+> String apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch(guid, opts)
+
+# Изменить чекбоксы баркода.
+
+## Изменить чекбоксы баркода.   Сотрудник склада не может редактировать содержание коробки, но ему доступно для         редактирования параметры коробки.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BoxesApi();
+let guid = null; // String | 
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': ["null"] // [String] | 
+};
+apiInstance.apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)|  | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**[String]**](String.md)|  | [optional] 
 
 ### Return type
 

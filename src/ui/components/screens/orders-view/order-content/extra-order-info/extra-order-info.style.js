@@ -135,7 +135,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   input: {
-    height: '100px',
+    height: '130px',
   },
 
   commentsWrapper: {
