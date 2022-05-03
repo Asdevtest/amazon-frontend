@@ -324,7 +324,8 @@ export const styles = createStyles(() => ({
   },
 
   shortDateCellTypo: {
-    width: '50px',
+    textAlign: 'center',
+    width: '100%',
     whiteSpace: 'pre-line',
   },
 
@@ -450,5 +451,26 @@ export const styles = createStyles(() => ({
     justifyContent: 'center',
     gap: '8px',
     minWidth: '190px',
+  },
+
+  shopsReportBtnsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '100%',
+  },
+
+  downloadLink: {
+    color: '#006CFF',
+  },
+
+  copyImg: {
+    width: '20px',
+    height: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
   },
 }))

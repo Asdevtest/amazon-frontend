@@ -732,3 +732,23 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
     </Button>
   </div>
 ))
+
+export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, value, onClickSeeMore}) => {
+  const copyValue = () => {
+    navigator.clipboard.writeText(value)
+  }
+
+  return (
+    <div className={classNames.shopsReportBtnsWrapper}>
+      <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
+        {'Скачать'}
+      </a>
+
+      <img className={classNames.copyImg} src="/assets/icons/copy-img.svg" alt="" onClick={copyValue} />
+
+      <Button variant="contained" color="primary" onClick={onClickSeeMore}>
+        {'Смотреть'}
+      </Button>
+    </div>
+  )
+})

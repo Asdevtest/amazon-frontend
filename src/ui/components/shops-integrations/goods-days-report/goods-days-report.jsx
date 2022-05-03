@@ -20,7 +20,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').goodsDaysReport
 
 @observer
 class GoodsDaysReportRaw extends Component {
-  viewModel = new GoodsDaysReportModel({history: this.props.history})
+  viewModel = new GoodsDaysReportModel({history: this.props.history, curShop: this.props.curShop})
 
   componentDidMount() {
     this.viewModel.loadData()

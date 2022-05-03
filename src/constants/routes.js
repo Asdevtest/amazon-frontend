@@ -31,8 +31,6 @@ import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
 import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
 import {ClientFinancesViews} from '@views/client/client-finances-views'
-import {ClientDailySellerBoardView} from '@views/client/client-integrations-views/client-daily-seller-board-view'
-import {ClientLast30DaySellerBoardView} from '@views/client/client-integrations-views/client-last-30-day-seller-board-view'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
 import {ClientBoxesNotificationsView} from '@views/client/client-notifications-views/client-boxes-notifications-view'
 import {ClientOrdersNotificationsView} from '@views/client/client-notifications-views/client-orders-notifications-view'
@@ -82,15 +80,15 @@ import {SupervisorSubUsersView} from '@views/supervisor/supervisor-users-views/s
 import {TermsView} from '@views/terms'
 import {WarehouseAwaitingBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view'
 import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-batches-view/warehouse-batches-view'
-import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-canceled-tasks-view'
-import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-completed-tasks-view'
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
 import {WarehouseFinancesViews} from '@views/warehouse/warehouse-finances-views'
 import {WarehouseManagementView} from '@views/warehouse/warehouse-management-view'
-import {WarehouseMyTasksView} from '@views/warehouse/warehouse-my-tasks-view'
 import {WarehouseMyWarehouseView} from '@views/warehouse/warehouse-my-warehouse-view'
+import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-canceled-tasks-view'
+import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-completed-tasks-view'
+import {WarehouseMyTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-my-tasks-view'
+import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view'
 import {WarehouseSubUsersView} from '@views/warehouse/warehouse-users-views/warehouse-sub-users-view'
-import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-vacant-tasks-view'
 
 import {UserRole} from './user-roles'
 
@@ -393,20 +391,6 @@ export const privateRoutesConfigs = [
   {
     routePath: '/client/shops',
     component: ClientShopsView,
-    exact: false,
-    permission: [UserRole.CLIENT],
-  },
-
-  {
-    routePath: '/client/integrations/daily',
-    component: ClientDailySellerBoardView,
-    exact: false,
-    permission: [UserRole.CLIENT],
-  },
-
-  {
-    routePath: '/client/integrations/last-30-day',
-    component: ClientLast30DaySellerBoardView,
     exact: false,
     permission: [UserRole.CLIENT],
   },

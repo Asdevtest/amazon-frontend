@@ -2,9 +2,9 @@ import {texts} from '@constants/texts'
 
 import {
   EditOrRemoveBtnsCell,
-  NormDateCell,
   renderFieldValueCell,
-  ScrollingLinkCell,
+  ShopsReportBtnsCell,
+  ShortDateCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -13,18 +13,10 @@ const textConsts = getLocalizedTexts(texts, 'ru').shopsTableColumns
 
 export const shopsColumns = handlers => [
   {
-    field: 'createdAt',
-    headerName: textConsts.createDateField,
-    minWidth: 130,
-    renderCell: params => <NormDateCell params={params} />,
-    type: 'date',
-  },
-
-  {
     field: 'updatedAt',
     headerName: textConsts.updateDateField,
-    minWidth: 130,
-    renderCell: params => <NormDateCell params={params} />,
+    minWidth: 120,
+    renderCell: params => <ShortDateCell params={params} />,
     type: 'date',
   },
 
@@ -39,14 +31,21 @@ export const shopsColumns = handlers => [
     field: 'sellerBoardWarehouseReportUrlDaily',
     headerName: textConsts.warehouseReportField,
     width: 350,
-    renderCell: params => <ScrollingLinkCell value={params.value} />,
+    renderCell: params => (
+      <ShopsReportBtnsCell value={params.value} onClickSeeMore={() => handlers.onClickSeeStockReport(params.row)} />
+    ),
   },
 
   {
     field: 'sellerBoardWarehouseReportUrlMonthly',
     headerName: textConsts.dashboardField,
     width: 350,
-    renderCell: params => <ScrollingLinkCell value={params.value} />,
+    renderCell: params => (
+      <ShopsReportBtnsCell
+        value={params.value}
+        onClickSeeMore={() => handlers.onClickSeeGoodsDailyReport(params.row)}
+      />
+    ),
   },
 
   {

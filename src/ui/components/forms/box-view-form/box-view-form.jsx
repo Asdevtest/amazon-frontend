@@ -17,7 +17,7 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {checkAndMakeAbsoluteUrl, getFullTariffTextForBox, toFixed, toFixedWithKg} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed, toFixedWithKg} from '@utils/text'
 
 import {useClassNames} from './box-view-form.style'
 
@@ -75,7 +75,7 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
                 disabled
                 inputClasses={classNames.deliveryInfoField}
                 label={'Тариф'}
-                value={getFullTariffTextForBox(box) || ''}
+                value={getFullTariffTextForBoxOrOrder(box) || ''}
                 placeholder={'N/A'}
               />
             </Grid>

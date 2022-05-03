@@ -18,6 +18,8 @@ export class GoodsDaysReportModel {
   requestStatus = undefined
   error = undefined
 
+  currentShop = undefined
+
   sellerBoardLast30DayData = []
   drawerOpen = false
 
@@ -30,8 +32,11 @@ export class GoodsDaysReportModel {
   densityModel = 'compact'
   columnsModel = clientLast30DaySellerBoardColumns()
 
-  constructor({history}) {
+  constructor({history, curShop}) {
     this.history = history
+
+    this.currentShop = curShop
+
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 

@@ -6,7 +6,7 @@ import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 
 import {formatDateWithoutTime} from '@utils/date-time'
-import {getFullTariffTextForBox} from '@utils/text'
+import {getFullTariffTextForBoxOrOrder} from '@utils/text'
 
 // import {texts} from '@constants/texts'
 // import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -47,7 +47,7 @@ export const DeliveryParameters = ({order}) => {
           inputComponent={<UserLinkCell name={order.storekeeper?.name} userId={order.storekeeper?._id} />}
         />
 
-        <OrderParameter label={'Tariff'} value={getFullTariffTextForBox(order)} />
+        <OrderParameter label={'Tariff'} value={getFullTariffTextForBoxOrOrder(order)} />
         <OrderParameter
           label={'ETD (Дата отправки)'}
           value={order.logicsTariff?.etd && formatDateWithoutTime(order.logicsTariff?.etd)}

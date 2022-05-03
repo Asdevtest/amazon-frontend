@@ -12,10 +12,9 @@ import {
   calcFinalWeightForBox,
   calcPriceForBox,
   calcTotalPriceForBatch,
-  calcTotalPriceForOrder,
   calcVolumeWeightForBox,
 } from './calculation'
-import {getFullTariffTextForBox} from './text'
+import {getFullTariffTextForBoxOrOrder} from './text'
 
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
 
@@ -265,7 +264,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
 
     destination: item.destination?.name,
     storekeeper: item.storekeeper?.name,
-    logicsTariff: getFullTariffTextForBox(item),
+    logicsTariff: getFullTariffTextForBoxOrOrder(item),
     client: item.client?.name,
 
     isDraft: item.isDraft,
@@ -284,7 +283,7 @@ export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
     _id: item._id,
 
     destination: item.boxes[0].destination?.name,
-    tariff: getFullTariffTextForBox(item.boxes[0]),
+    tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),
     humanFriendlyId: item.humanFriendlyId,
     storekeeper: item.storekeeper?.name,
 
@@ -319,7 +318,7 @@ export const clientOrdersNotificationsDataConverter = data =>
     id: item._id,
 
     barCode: item.product.barCode,
-    totalPrice: calcTotalPriceForOrder(item),
+    totalPrice: item.totalPrice,
     grossWeightKg: item.product.weight * item.amount,
     warehouses: item.destination.name,
     status: OrderStatusByCode[item.status],
@@ -350,7 +349,7 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
     id: item._id,
 
     destination: item.boxes[0].destination?.name,
-    tariff: getFullTariffTextForBox(item.boxes[0]),
+    tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),
     humanFriendlyId: item.humanFriendlyId,
 
     updatedAt: item.updatedAt,
@@ -473,7 +472,7 @@ export const warehouseBoxesDataConverter = data =>
     _id: item._id,
 
     warehouse: item.destination?.name,
-    logicsTariff: getFullTariffTextForBox(item),
+    logicsTariff: getFullTariffTextForBoxOrOrder(item),
 
     client: item.items[0].product.client.name,
 

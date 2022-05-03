@@ -9,7 +9,7 @@ import {Input} from '@components/input'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {getFullTariffTextForBox} from '@utils/text'
+import {getFullTariffTextForBoxOrOrder} from '@utils/text'
 
 import {useClassNames} from './box-for-merge.style'
 
@@ -60,7 +60,7 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
         <div>
           <InputLabel className={classNames.modalText}>{textConsts.tariff}</InputLabel>
 
-          <Typography variant="h6">{getFullTariffTextForBox(box)}</Typography>
+          <Typography variant="h6">{getFullTariffTextForBoxOrOrder(box)}</Typography>
         </div>
 
         <IconButton onClick={() => onRemoveBox(box._id)}>

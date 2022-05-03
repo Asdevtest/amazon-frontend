@@ -11,10 +11,14 @@ import {shopsColumns} from '@components/table-columns/shops-columns'
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
-export class ClientShopsViewModel {
+export class ShopsViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
+
+  tabsValues = undefined
+  onChangeTabIndex = undefined
+  onChangeCurShop = undefined
 
   shopsData = []
 
@@ -33,6 +37,9 @@ export class ClientShopsViewModel {
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
     onClickEditBtn: row => this.onClickEditBtn(row),
+
+    onClickSeeStockReport: row => this.onClickSeeStockReport(row),
+    onClickSeeGoodsDailyReport: row => this.onClickSeeGoodsDailyReport(row),
   }
 
   sortModel = []
@@ -47,8 +54,13 @@ export class ClientShopsViewModel {
     title: '',
   }
 
-  constructor({history}) {
+  constructor({history, tabsValues, onChangeTabIndex, onChangeCurShop}) {
     this.history = history
+
+    this.tabsValues = tabsValues
+    this.onChangeTabIndex = onChangeTabIndex
+    this.onChangeCurShop = onChangeCurShop
+
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -114,6 +126,17 @@ export class ClientShopsViewModel {
 
   onChangeCurPage(e) {
     this.curPage = e
+  }
+
+  onClickSeeStockReport(shop) {
+    this.onChangeTabIndex(this.tabsValues.STOCK_REPORT)
+
+    this.onChangeCurShop(shop)
+  }
+
+  onClickSeeGoodsDailyReport(shop) {
+    this.onChangeTabIndex(this.tabsValues.GOODS_DAYS_REPORT)
+    this.onChangeCurShop(shop)
   }
 
   async loadData() {

@@ -18,7 +18,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {
   checkAndMakeAbsoluteUrl,
-  getFullTariffTextForBox,
+  getFullTariffTextForBoxOrOrder,
   toFixed,
   toFixedWithDollarSign,
   toFixedWithYuanSign,
@@ -99,7 +99,12 @@ export const SelectFields = ({
             {textConsts.tariff}
           </InputLabel>
 
-          <Input disabled variant="filled" value={getFullTariffTextForBox(order)} className={classNames.nativeSelect} />
+          <Input
+            disabled
+            variant="filled"
+            value={getFullTariffTextForBoxOrOrder(order)}
+            className={classNames.nativeSelect}
+          />
         </Box>
 
         <Box mt={3}>

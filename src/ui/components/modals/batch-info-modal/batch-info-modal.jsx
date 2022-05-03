@@ -17,7 +17,7 @@ import {calcFinalWeightForBox, calcPriceForBox, calcVolumeWeightForBox} from '@u
 import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixedWithKg, toFixedWithDollarSign, toFixed, getFullTariffTextForBox} from '@utils/text'
+import {toFixedWithKg, toFixedWithDollarSign, toFixed, getFullTariffTextForBoxOrOrder} from '@utils/text'
 
 import {useClassNames} from './batch-info-modal.style'
 
@@ -79,7 +79,7 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
       </TableCell>
 
       <TableCell>
-        <Typography>{getFullTariffTextForBox(item)}</Typography>
+        <Typography>{getFullTariffTextForBoxOrOrder(item)}</Typography>
       </TableCell>
 
       <TableCell>
@@ -133,7 +133,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
             disabled
             containerClasses={classNames.sumField}
             label={'Тариф'}
-            value={(batch.boxes && getFullTariffTextForBox(batch.boxes?.[0])) || ''}
+            value={(batch.boxes && getFullTariffTextForBoxOrOrder(batch.boxes?.[0])) || ''}
             placeholder={'N/A'}
           />
 

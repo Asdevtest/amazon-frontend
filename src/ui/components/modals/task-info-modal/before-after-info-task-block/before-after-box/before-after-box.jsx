@@ -11,7 +11,7 @@ import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {checkAndMakeAbsoluteUrl, getFullTariffTextForBox, toFixedWithCm, toFixedWithKg} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixedWithCm, toFixedWithKg} from '@utils/text'
 
 import {useClassNames} from './before-after-box.style'
 import {TaskInfoBoxItemCard} from './task-info-box-item-card'
@@ -30,7 +30,7 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
       <div className={classNames.fieldsWrapper}>
         <Field disabled label={textConsts.warehouseLabel} value={box.destination?.name} />
 
-        <Field disabled label={textConsts.logicsTariffLabel} value={getFullTariffTextForBox(box) || 'N/A'} />
+        <Field disabled label={textConsts.logicsTariffLabel} value={getFullTariffTextForBoxOrOrder(box) || 'N/A'} />
 
         {taskType === TaskOperationType.RECEIVE && (
           <Field

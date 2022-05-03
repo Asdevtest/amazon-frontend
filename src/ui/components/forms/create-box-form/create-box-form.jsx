@@ -37,14 +37,14 @@ const BlockOfNewBox = ({
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           containerClasses={classNames.numberInputField}
-          inputProps={{maxLength: 10}}
+          inputProps={{maxLength: 8}}
           label={textConsts.lengthCmSupplier}
           value={orderBox.lengthCmSupplier}
           onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
-          inputProps={{maxLength: 10}}
+          inputProps={{maxLength: 8}}
           label={textConsts.widthCmSupplier}
           value={orderBox.widthCmSupplier}
           onChange={setFormField('widthCmSupplier', orderBoxIndex)}
@@ -53,14 +53,14 @@ const BlockOfNewBox = ({
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           containerClasses={classNames.numberInputField}
-          inputProps={{maxLength: 10}}
+          inputProps={{maxLength: 8}}
           label={textConsts.heightCmSupplier}
           value={orderBox.heightCmSupplier}
           onChange={setFormField('heightCmSupplier', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
-          inputProps={{maxLength: 10}}
+          inputProps={{maxLength: 8}}
           label={textConsts.weighGrossKgSupplier}
           value={orderBox.weighGrossKgSupplier}
           onChange={setFormField('weighGrossKgSupplier', orderBoxIndex)}

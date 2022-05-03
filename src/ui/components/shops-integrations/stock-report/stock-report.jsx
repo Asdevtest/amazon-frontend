@@ -27,7 +27,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').clientDailySellerBoardView
 
 @observer
 class StockReportRaw extends Component {
-  viewModel = new StockReportModel({history: this.props.history})
+  viewModel = new StockReportModel({history: this.props.history, curShop: this.props.curShop})
 
   componentDidMount() {
     this.viewModel.loadData()

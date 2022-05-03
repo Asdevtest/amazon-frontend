@@ -17,7 +17,7 @@ import {calcFinalWeightForBox, calcPriceForBox, calcVolumeWeightForBox} from '@u
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {getFullTariffTextForBox, toFixed} from '@utils/text'
+import {getFullTariffTextForBoxOrOrder, toFixed} from '@utils/text'
 
 import {addOrEditBatchFormColumns} from './add-or-edit-batch-form-columns'
 import {useClassNames} from './add-or-edit-batch-form.style'
@@ -169,8 +169,8 @@ export const AddOrEditBatchForm = observer(
               label={'Тариф'}
               value={
                 (sourceDataForFilters
-                  ? getFullTariffTextForBox(sourceDataForFilters)
-                  : getFullTariffTextForBox(chosenBoxes[0])) || ''
+                  ? getFullTariffTextForBoxOrOrder(sourceDataForFilters)
+                  : getFullTariffTextForBoxOrOrder(chosenBoxes[0])) || ''
               }
               placeholder={'N/A'}
             />

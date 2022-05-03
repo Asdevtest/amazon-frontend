@@ -76,8 +76,10 @@ export class StockReportModel {
   densityModel = 'compact'
   columnsModel = clientDailySellerBoardColumns(this.selectedRow, this.rowHandlers)
 
-  constructor({history}) {
+  constructor({history, curShop}) {
     this.history = history
+
+    this.currentShop = curShop
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -141,7 +143,7 @@ export class StockReportModel {
   onClickShopBtn(shop) {
     this.currentShop = shop ? shop : undefined
 
-    this.getStockGoods(shop && {shopId: shop._id})
+    this.getStockGoods()
   }
 
   async loadData() {
@@ -220,9 +222,9 @@ export class StockReportModel {
     }
   }
 
-  async getStockGoods(shopId) {
+  async getStockGoods() {
     try {
-      const result = await SellerBoardModel.getStockGoods(shopId)
+      const result = await SellerBoardModel.getStockGoods(this.currentShop && {shopId: this.currentShop._id})
 
       runInAction(() => {
         this.sellerBoardDailyData = addIdDataConverter(result)

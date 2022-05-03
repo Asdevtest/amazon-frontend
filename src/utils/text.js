@@ -53,7 +53,7 @@ export const getTextFromMarkdown = markdown => converter.makeHtml(markdown)
 
 export const minsToTimeRus = mins => `${mins / 60 > 1 ? Math.floor(mins / 60) : 0} часов ${mins % 60} минут`
 
-export const getFullTariffTextForBox = box => {
+export const getFullTariffTextForBoxOrOrder = box => {
   if (!box) {
     return 'N/A'
   }
