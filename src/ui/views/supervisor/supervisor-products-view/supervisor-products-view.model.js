@@ -106,7 +106,7 @@ export class SupervisorProductsViewModel {
 
       runInAction(() => {
         this.productsMy = supervisorProductsDataConverter(result).sort(
-          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })
     } catch (error) {

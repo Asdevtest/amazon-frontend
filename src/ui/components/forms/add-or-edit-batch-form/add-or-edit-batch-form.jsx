@@ -49,8 +49,8 @@ export const AddOrEditBatchForm = observer(
 
       const newArr = boxesData.filter(
         box =>
-          box.destination === chosenBoxes[0]?.originalData?.destination?.name &&
-          box.logicsTariff === chosenBoxes[0]?.originalData?.logicsTariff?.name &&
+          box.originalData?.destination?.name === chosenBoxes[0]?.originalData?.destination?.name &&
+          box.originalData?.logicsTariff?.name === chosenBoxes[0]?.originalData?.logicsTariff?.name &&
           !chosenBoxesIds.includes(box._id),
       )
 
@@ -170,7 +170,7 @@ export const AddOrEditBatchForm = observer(
               value={
                 (sourceDataForFilters
                   ? getFullTariffTextForBoxOrOrder(sourceDataForFilters)
-                  : getFullTariffTextForBoxOrOrder(chosenBoxes[0])) || ''
+                  : getFullTariffTextForBoxOrOrder(chosenBoxes[0]?.originalData)) || ''
               }
               placeholder={'N/A'}
             />

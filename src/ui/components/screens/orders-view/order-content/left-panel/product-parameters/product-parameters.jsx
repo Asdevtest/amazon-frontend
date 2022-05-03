@@ -59,7 +59,13 @@ export const ProductParameters = ({order, collapsed}) => {
         }
       />
 
-      <OrderParameter label={textConsts.maxDeliveryPrice} value={toFixed(order.product.currentSupplier?.delivery)} />
+      <OrderParameter
+        label={textConsts.maxDeliveryPrice}
+        value={toFixed(
+          order.product.currentSupplier.batchDeliveryCostInDollar / order.product.currentSupplier.amount,
+          2,
+        )}
+      />
 
       <Field
         oneLine

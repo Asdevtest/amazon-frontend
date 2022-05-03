@@ -326,7 +326,8 @@ export const FieldsAndSuppliers = observer(
             </div>
           </div>
 
-          {product.strategyStatus === mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL] && (
+          {Number(product.strategyStatus) ===
+            mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL] && (
             <div>
               <div className={classNames.rightBlockWrapper}>
                 <div className={classNames.fieldsWrapper}>
