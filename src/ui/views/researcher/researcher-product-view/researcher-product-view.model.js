@@ -236,7 +236,7 @@ export class ResearcherProductViewModel {
   onChangeProductFields = fieldName =>
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
-      if (['icomment', 'niche', 'asins'].includes(fieldName)) {
+      if (['icomment', 'niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail'].includes(fieldName)) {
         this.product = {...this.product, [fieldName]: e.target.value}
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {

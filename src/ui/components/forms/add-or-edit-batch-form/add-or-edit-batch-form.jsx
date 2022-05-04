@@ -72,8 +72,8 @@ export const AddOrEditBatchForm = observer(
           ...[
             ...boxesData.filter(
               box =>
-                box.destination === batchToEdit.destination &&
-                box.logicsTariff === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
+                box.originalData?.destination?.name === batchToEdit.destination &&
+                box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
                 !chosenBoxesIds.includes(box._id),
             ),
           ],

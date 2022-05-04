@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'

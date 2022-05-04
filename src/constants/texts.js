@@ -145,7 +145,7 @@ export const texts = {
     },
 
     adminWarehouseView: {
-      appbarTitle: 'Коробки на складах',
+      appbarTitle: 'Коробки',
       mainTitle: 'Boxes in warehouse',
       sendProductBtn: 'Send own product',
       sendBatchBtn: 'Send batch',

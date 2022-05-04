@@ -20,6 +20,7 @@ import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {priceCalculation} from '@utils/price-calculation'
 import {toFixed} from '@utils/text'
 
@@ -90,16 +91,16 @@ export const AddOrEditSupplierModalContent = observer(
       batchTotalCostInYuan: supplier?.batchTotalCostInYuan || '',
 
       boxProperties: {
-        amountInBox: supplier?.boxProperties.amountInBox || '',
-        boxLengthCm: supplier?.boxProperties.boxLengthCm || '',
-        boxWidthCm: supplier?.boxProperties.boxWidthCm || '',
-        boxHeightCm: supplier?.boxProperties.boxHeightCm || '',
-        boxWeighGrossKg: supplier?.boxProperties.boxWeighGrossKg || '',
+        amountInBox: supplier?.boxProperties?.amountInBox || '',
+        boxLengthCm: supplier?.boxProperties?.boxLengthCm || '',
+        boxWidthCm: supplier?.boxProperties?.boxWidthCm || '',
+        boxHeightCm: supplier?.boxProperties?.boxHeightCm || '',
+        boxWeighGrossKg: supplier?.boxProperties?.boxWeighGrossKg || '',
       },
     })
 
     const calculateFieldsToSubmit = () => {
-      const res = {
+      let res = {
         ...tmpSupplier,
         batchTotalCostInYuan: toFixed(
           +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
@@ -131,6 +132,17 @@ export const AddOrEditSupplierModalContent = observer(
           boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
         },
       }
+
+      if (
+        !tmpSupplier.boxProperties.amountInBox ||
+        !tmpSupplier.boxProperties.boxLengthCm ||
+        !tmpSupplier.boxProperties.boxWidthCm ||
+        !tmpSupplier.boxProperties.boxHeightCm ||
+        !tmpSupplier.boxProperties.boxWeighGrossKg
+      ) {
+        res = getObjectFilteredByKeyArrayBlackList(res, ['boxProperties'])
+      }
+
       return res
     }
 
