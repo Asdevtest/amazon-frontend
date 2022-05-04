@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1RequestsCustomGuidDetails from './ApiV1RequestsCustomGuidDetails';
+import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 
 /**
  * The InlineObject68 model module.
@@ -21,6 +23,7 @@ import ApiClient from '../ApiClient';
 class InlineObject68 {
     /**
      * Constructs a new <code>InlineObject68</code>.
+     * Схема универсальной заявки.
      * @alias module:model/InlineObject68
      */
     constructor() { 
@@ -47,11 +50,11 @@ class InlineObject68 {
         if (data) {
             obj = obj || new InlineObject68();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
+            if (data.hasOwnProperty('request')) {
+                obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('details')) {
+                obj['details'] = ApiV1RequestsCustomGuidDetails.constructFromObject(data['details']);
             }
         }
         return obj;
@@ -61,16 +64,14 @@ class InlineObject68 {
 }
 
 /**
- * Результат работы исполнителя.
- * @member {String} result
+ * @member {module:model/ApiV1RequestsCustomGuidRequest} request
  */
-InlineObject68.prototype['result'] = undefined;
+InlineObject68.prototype['request'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * @member {module:model/ApiV1RequestsCustomGuidDetails} details
  */
-InlineObject68.prototype['linksToMediaFiles'] = undefined;
+InlineObject68.prototype['details'] = undefined;
 
 
 

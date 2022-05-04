@@ -62,6 +62,9 @@ class ApiV1BoxesSplitBoxItems {
             if (data.hasOwnProperty('orderId')) {
                 obj['orderId'] = ApiClient.convertToType(data['orderId'], 'String');
             }
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
             if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
                 obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
             }
@@ -95,6 +98,12 @@ ApiV1BoxesSplitBoxItems.prototype['amount'] = undefined;
  * @member {String} orderId
  */
 ApiV1BoxesSplitBoxItems.prototype['orderId'] = undefined;
+
+/**
+ * Штрихкод продукта
+ * @member {String} barCode
+ */
+ApiV1BoxesSplitBoxItems.prototype['barCode'] = undefined;
 
 /**
  * Прикреплен ли баркод к коробке сотрудником склада.

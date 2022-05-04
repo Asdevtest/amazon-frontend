@@ -903,7 +903,6 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.AdministratorApi();
 let opts = {
-  'subUsers': true, // Boolean | Перевести отображение на подпользователей.
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1AdminsUsersGet(opts).then((data) => {
@@ -919,7 +918,6 @@ apiInstance.apiV1AdminsUsersGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **subUsers** | **Boolean**| Перевести отображение на подпользователей. | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

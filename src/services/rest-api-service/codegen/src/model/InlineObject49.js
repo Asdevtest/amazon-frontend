@@ -47,8 +47,17 @@ class InlineObject49 {
         if (data) {
             obj = obj || new InlineObject49();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -58,10 +67,28 @@ class InlineObject49 {
 }
 
 /**
- * Причины закрытия приема предложений.
- * @member {String} reason
+ * Время на выполнение, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject49.prototype['reason'] = undefined;
+InlineObject49.prototype['execution_time'] = undefined;
+
+/**
+ * Цена предложения.
+ * @member {Number} price
+ */
+InlineObject49.prototype['price'] = undefined;
+
+/**
+ * Комментарий к предложению.
+ * @member {String} comment
+ */
+InlineObject49.prototype['comment'] = undefined;
+
+/**
+ * Ссылки на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject49.prototype['linksToMediaFiles'] = undefined;
 
 
 

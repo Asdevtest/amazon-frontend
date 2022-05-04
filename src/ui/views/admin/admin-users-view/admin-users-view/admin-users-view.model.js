@@ -31,7 +31,7 @@ export class AdminUsersViewModel {
   submitEditData = undefined
 
   rowHandlers = {
-    onClickEditUser: () => this.onClickEditUser(),
+    onClickEditUser: item => this.onClickEditUser(item),
     onClickBalance: item => this.onClickBalance(item),
   }
 
@@ -197,12 +197,20 @@ export class AdminUsersViewModel {
   }
 
   onSelectionModel(model) {
-    this.editUserFormFields = this.users.find(el => el.id === model).originalData
+    // this.editUserFormFields = this.users.find(el => el.id === model).originalData
     this.selectionModel = model
   }
 
-  onClickEditUser() {
-    this.showEditUserModal = !this.showEditUserModal
+  async onClickEditUser(row) {
+    try {
+      const result = await AdministratorModel.getUsersById(row._id)
+
+      this.editUserFormFields = result
+
+      this.showEditUserModal = !this.showEditUserModal
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onClickBalance(userData) {

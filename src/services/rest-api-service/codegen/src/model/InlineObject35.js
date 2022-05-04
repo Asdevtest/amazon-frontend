@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
 
 /**
  * The InlineObject35 model module.
@@ -22,12 +23,10 @@ class InlineObject35 {
     /**
      * Constructs a new <code>InlineObject35</code>.
      * @alias module:model/InlineObject35
-     * @param productId {String} 
-     * @param skus {Array.<String>} 
      */
-    constructor(productId, skus) { 
+    constructor() { 
         
-        InlineObject35.initialize(this, productId, skus);
+        InlineObject35.initialize(this);
     }
 
     /**
@@ -35,9 +34,7 @@ class InlineObject35 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, skus) { 
-        obj['productId'] = productId;
-        obj['skus'] = skus;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +48,8 @@ class InlineObject35 {
         if (data) {
             obj = obj || new InlineObject35();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('skus')) {
-                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
+            if (data.hasOwnProperty('payload')) {
+                obj['payload'] = ApiClient.convertToType(data['payload'], [ApiV1IntegrationsCreateAndLinkSkuProductsPayload]);
             }
         }
         return obj;
@@ -65,14 +59,9 @@ class InlineObject35 {
 }
 
 /**
- * @member {String} productId
+ * @member {Array.<module:model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload>} payload
  */
-InlineObject35.prototype['productId'] = undefined;
-
-/**
- * @member {Array.<String>} skus
- */
-InlineObject35.prototype['skus'] = undefined;
+InlineObject35.prototype['payload'] = undefined;
 
 
 

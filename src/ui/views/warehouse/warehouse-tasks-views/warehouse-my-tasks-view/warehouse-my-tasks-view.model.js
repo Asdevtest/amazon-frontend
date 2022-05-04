@@ -172,15 +172,12 @@ export class WarehouseVacantViewModel {
 
   async setBoxBarcodeAttached(id, box) {
     try {
-      console.log('box', box)
-
       const barcodesAttachedData = box.items.map(item => ({
         orderId: item.order._id,
+        barCode: item.barCode,
         isBarCodeAttachedByTheStorekeeper: item.isBarCodeAttachedByTheStorekeeper,
         isBarCodeAlreadyAttachedByTheSupplier: item.isBarCodeAlreadyAttachedByTheSupplier,
       }))
-
-      console.log('barcodesAttachedData', barcodesAttachedData)
 
       await BoxesModel.setBarcodeAttachedCheckboxes(id, barcodesAttachedData)
     } catch (error) {
@@ -199,15 +196,6 @@ export class WarehouseVacantViewModel {
       const updateBoxData = {
         ...getObjectFilteredByKeyArrayWhiteList(
           data,
-          // {...data, items: [
-          //       {
-          //         amount: data.items[0].amount,
-          //         orderId: data.items[0].order._id,
-          //         productId: data.items[0].product._id,
-          //         isBarCodeAlreadyAttachedByTheSupplier: data.items[0].isBarCodeAlreadyAttachedByTheSupplier,
-          //         isBarCodeAttachedByTheStorekeeper: data.items[0].isBarCodeAttachedByTheStorekeeper,
-          //       },
-          //     ],},
           [
             'lengthCmWarehouse',
             'widthCmWarehouse',
@@ -216,7 +204,6 @@ export class WarehouseVacantViewModel {
             'isShippingLabelAttachedByStorekeeper',
             'isBarCodeAttachedByTheStorekeeper',
             'images',
-            // 'items'
           ],
           false,
           (key, value) => {

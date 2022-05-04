@@ -3,6 +3,7 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
+  NormDateCell,
   BatchBoxesCell,
   renderFieldValueCell,
   ToFixedWithDollarSignCell,
@@ -23,6 +24,14 @@ export const clientBatchesViewColumns = () => [
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: textConsts.updatedAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 110,
+    type: 'date',
   },
 
   {

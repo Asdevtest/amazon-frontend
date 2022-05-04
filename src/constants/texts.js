@@ -2666,8 +2666,8 @@ export const texts = {
       titleToolTip: 'Финальный вес будет расчитан когда склад получит товар',
     },
     adminOrdersTableColumns: {
-      createDateField: 'Создан',
-      updateDateField: 'Обновлен',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       asinTypo: 'ASIN ',
       setBarcodeLabel: 'Set barcode',
       barcodeDeleteAlert: 'Barcode deleting',
@@ -2689,6 +2689,7 @@ export const texts = {
     },
 
     subUsersTableColumns: {
+      nameField: 'Имя',
       emailField: 'Почта',
       actionField: 'Действия',
     },
@@ -2703,7 +2704,7 @@ export const texts = {
     },
 
     financesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2714,7 +2715,7 @@ export const texts = {
     },
 
     buyerFinancesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2722,7 +2723,7 @@ export const texts = {
     },
 
     clientFinancesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2730,7 +2731,7 @@ export const texts = {
     },
 
     researcherFinancesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2738,7 +2739,7 @@ export const texts = {
     },
 
     supervisorFinancesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2746,7 +2747,7 @@ export const texts = {
     },
 
     warehouseFinancesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2754,7 +2755,7 @@ export const texts = {
     },
 
     freelancerFinancesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2762,8 +2763,8 @@ export const texts = {
     },
 
     adminSinglePermissionsColumns: {
-      createDateField: 'Создано',
-      updateDateField: 'Обновлено',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       descriptionField: 'Описание',
       keyField: 'Ключ',
       titleField: 'Название',
@@ -2771,8 +2772,8 @@ export const texts = {
     },
 
     adminGroupPermissionsColumns: {
-      createDateField: 'Создано',
-      updateDateField: 'Обновлено',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       descriptionField: 'Описание',
       keyField: 'Ключ',
       titleField: 'Название',
@@ -2780,8 +2781,8 @@ export const texts = {
     },
 
     selectStorkeeperAndTariffFormColumns: {
-      createDateField: 'Создано',
-      updateDateField: 'Обновлено',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       descriptionField: 'Описание услуги',
       nameField: 'Название услуги',
       actionField: 'Действия',
@@ -2794,8 +2795,8 @@ export const texts = {
     },
 
     logisticsTariffsColumns: {
-      createDateField: 'Создано',
-      updateDateField: 'Обновлено',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       descriptionField: 'Описание услуги',
       nameField: 'Название услуги',
       actionField: 'Действия',
@@ -2805,7 +2806,7 @@ export const texts = {
       destinationField: 'Регион',
       ratesField: 'Рейт, $',
       datesField: 'Даты',
-      updatedAtField: 'Обновлено',
+      updatedAtField: 'Updated',
     },
 
     destinationsColumns: {
@@ -2881,8 +2882,8 @@ export const texts = {
       deliveryField: 'Доставка',
       clientCommentField: 'Комментарий клиента',
       buyerCommentField: 'Комментарий закупщика',
-      createdAtField: 'Создан',
-      updatedAtField: 'Изменен',
+      createdAtField: 'Created',
+      updatedAtField: 'Updated',
       storekeeperNameField: 'Пром-й склад',
       clientNameField: 'Клиент',
     },
@@ -2904,8 +2905,8 @@ export const texts = {
     },
 
     adminBoxesTableColumns: {
-      createdAtField: 'Создания',
-      updatedAtField: 'Обновление',
+      createdAtField: 'Created',
+      updatedAtField: 'Updated',
       ordersField: 'Продукт',
       ordersId: 'id Заказа',
       barCode: 'Баркод',
@@ -2991,6 +2992,8 @@ export const texts = {
     },
 
     clientBatchesViewColumns: {
+      updatedAtField: 'Updated ',
+
       createdAtField: 'Дата создания',
       ordersField: 'Продукт',
       ordersId: 'id Заказа',
@@ -3016,6 +3019,7 @@ export const texts = {
     },
 
     adminBatchesTableColumns: {
+      updatedAtField: 'Updated',
       createdAtField: 'Дата создания',
       ordersField: 'Продукт',
       ordersId: 'id Заказа',
@@ -3040,6 +3044,8 @@ export const texts = {
     },
 
     batchesTableColumns: {
+      updatedAtField: 'Updated',
+
       createdAtField: 'Дата создания',
       ordersField: 'Продукт',
       ordersId: 'id Заказа',
@@ -3063,8 +3069,8 @@ export const texts = {
     },
 
     adminTasksTableColumns: {
-      createDateField: 'Создано',
-      updateDateField: 'Обновлено',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       typeField: 'Тип',
       descriptionField: 'Описание',
       actionField: 'Действие',

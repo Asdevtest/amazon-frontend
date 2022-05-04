@@ -14,8 +14,6 @@ Name | Type | Description | Notes
 **balance** | **Number** | Баланс пользователя. | [optional] 
 **balanceFreeze** | **Number** | Замороженная при оплате ордера сумма.. | [optional] 
 **overdraft** | **Number** | Сумма на которую может уходить в минус пользователь. | [optional] 
-**permissions** | [**[InlineResponse2002Permissions]**](InlineResponse2002Permissions.md) | Массив permission-ов. | [optional] 
-**permissionGroups** | [**[InlineResponse2002PermissionGroups]**](InlineResponse2002PermissionGroups.md) | Массив групп permission-ов. | [optional] 
 **masterUser** | **String** | GUID мастер пользователя к которму относится данный субпользователь. | [optional] 
 **allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
 **canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 

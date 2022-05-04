@@ -146,14 +146,12 @@ export const useClassNames = makeStyles(() => ({
     width: '350px',
     display: 'flex',
     alignItems: 'center',
-    // justifyContent: 'space-between'
   },
 
   barCodeLabelWrapper: {
     width: '270px',
     display: 'flex',
     alignItems: 'center',
-    // justifyContent: 'space-between'
   },
 
   downloadLink: {
@@ -174,5 +172,16 @@ export const useClassNames = makeStyles(() => ({
   linkWrapper: {
     display: 'flex',
     alignItems: 'center',
+  },
+
+  row: {
+    outline: '1px solid rgb(224, 224, 224)',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(0.99)',
+      opacity: '0.9',
+    },
   },
 }))

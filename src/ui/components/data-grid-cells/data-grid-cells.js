@@ -560,7 +560,7 @@ export const AdminUsersActionBtnsCell = withStyles(styles)(
         disabled={row.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
         variant="contained"
         color="primary"
-        onClick={() => handlers.onClickEditUser()}
+        onClick={() => handlers.onClickEditUser(row)}
       >
         {editBtnText}
       </Button>

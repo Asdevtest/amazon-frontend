@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse2002PermissionGroups from './InlineResponse2002PermissionGroups';
-import InlineResponse2002Permissions from './InlineResponse2002Permissions';
 
 /**
  * The UserAdminFullSchema model module.
@@ -93,12 +91,6 @@ class UserAdminFullSchema {
             }
             if (data.hasOwnProperty('overdraft')) {
                 obj['overdraft'] = ApiClient.convertToType(data['overdraft'], 'Number');
-            }
-            if (data.hasOwnProperty('permissions')) {
-                obj['permissions'] = ApiClient.convertToType(data['permissions'], [InlineResponse2002Permissions]);
-            }
-            if (data.hasOwnProperty('permissionGroups')) {
-                obj['permissionGroups'] = ApiClient.convertToType(data['permissionGroups'], [InlineResponse2002PermissionGroups]);
             }
             if (data.hasOwnProperty('masterUser')) {
                 obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
@@ -187,18 +179,6 @@ UserAdminFullSchema.prototype['balanceFreeze'] = undefined;
  * @member {Number} overdraft
  */
 UserAdminFullSchema.prototype['overdraft'] = undefined;
-
-/**
- * Массив permission-ов.
- * @member {Array.<module:model/InlineResponse2002Permissions>} permissions
- */
-UserAdminFullSchema.prototype['permissions'] = undefined;
-
-/**
- * Массив групп permission-ов.
- * @member {Array.<module:model/InlineResponse2002PermissionGroups>} permissionGroups
- */
-UserAdminFullSchema.prototype['permissionGroups'] = undefined;
 
 /**
  * GUID мастер пользователя к которму относится данный субпользователь.

@@ -25,6 +25,8 @@ import InlineObject17 from '../model/InlineObject17';
 import InlineObject18 from '../model/InlineObject18';
 import InlineObject19 from '../model/InlineObject19';
 import InlineObject20 from '../model/InlineObject20';
+import InlineObject21 from '../model/InlineObject21';
+import InlineResponse2008 from '../model/InlineResponse2008';
 import InlineResponse2011 from '../model/InlineResponse2011';
 import InlineResponse2012 from '../model/InlineResponse2012';
 import InlineResponse2013 from '../model/InlineResponse2013';
@@ -467,6 +469,63 @@ export default class BoxesApi {
 
 
     /**
+     * # Получить коробки и их строки по текущему клиенту.
+     * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
+     * @param {module:model/String} status 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.storekeeperId GUID склада который нужно получить.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse2008>} and HTTP response
+     */
+    apiV1BoxesClientsLightGetWithHttpInfo(status, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'status' is set
+      if (status === undefined || status === null) {
+        throw new Error("Missing the required parameter 'status' when calling apiV1BoxesClientsLightGet");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+        'status': status,
+        'storekeeperId': opts['storekeeperId']
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse2008];
+      return this.apiClient.callApi(
+        '/api/v1/boxes/clients_light', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить коробки и их строки по текущему клиенту.
+     * ## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
+     * @param {module:model/String} status 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.storekeeperId GUID склада который нужно получить.
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse2008>}
+     */
+    apiV1BoxesClientsLightGet(status, opts) {
+      return this.apiV1BoxesClientsLightGetWithHttpInfo(status, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
      * ## DEPRECATED Получить коробки по текущему клиенту отправленные в партию. статусы REQUESTED_SEND_TO_BATCH  ## GUID клиента получаем из токена.   
      * @param {Object} opts Optional parameters
@@ -828,15 +887,15 @@ export default class BoxesApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {Array.<String>} opts.body 
+     * @param {module:model/InlineObject21} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatchWithHttpInfo(guid, opts) {
+    apiV1BoxesStorekeepersGuidSetItemsBarCodePatchWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['body'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch");
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesStorekeepersGuidSetItemsBarCodePatch");
       }
 
       let pathParams = {
@@ -855,7 +914,7 @@ export default class BoxesApi {
       let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
-        '/api/v1/boxes/storekeepers/{guid}/set_barcodeAttached_checkboxes', 'PATCH',
+        '/api/v1/boxes/storekeepers/{guid}/set_itemsBarCode', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -867,11 +926,11 @@ export default class BoxesApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {Array.<String>} opts.body 
+     * @param {module:model/InlineObject21} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch(guid, opts) {
-      return this.apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatchWithHttpInfo(guid, opts)
+    apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(guid, opts) {
+      return this.apiV1BoxesStorekeepersGuidSetItemsBarCodePatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

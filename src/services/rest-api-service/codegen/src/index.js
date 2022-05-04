@@ -31,10 +31,17 @@ import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
 import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
 import ApiV1BatchesItems from './model/ApiV1BatchesItems';
 import ApiV1BatchesStorekeeper from './model/ApiV1BatchesStorekeeper';
+import ApiV1BoxesClientsLightBatch from './model/ApiV1BoxesClientsLightBatch';
+import ApiV1BoxesClientsLightDestination from './model/ApiV1BoxesClientsLightDestination';
+import ApiV1BoxesClientsLightItems from './model/ApiV1BoxesClientsLightItems';
+import ApiV1BoxesClientsLightLogicsTariff from './model/ApiV1BoxesClientsLightLogicsTariff';
+import ApiV1BoxesClientsLightOrder from './model/ApiV1BoxesClientsLightOrder';
+import ApiV1BoxesClientsLightProduct from './model/ApiV1BoxesClientsLightProduct';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
+import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
 import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
 import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1IntegrationsSellerboardWarehouseStocksShop';
@@ -118,6 +125,7 @@ import InlineObject64 from './model/InlineObject64';
 import InlineObject65 from './model/InlineObject65';
 import InlineObject66 from './model/InlineObject66';
 import InlineObject67 from './model/InlineObject67';
+import InlineObject68 from './model/InlineObject68';
 import InlineObject7 from './model/InlineObject7';
 import InlineObject8 from './model/InlineObject8';
 import InlineObject9 from './model/InlineObject9';
@@ -139,8 +147,9 @@ import InlineResponse20021 from './model/InlineResponse20021';
 import InlineResponse20022 from './model/InlineResponse20022';
 import InlineResponse20023 from './model/InlineResponse20023';
 import InlineResponse20024 from './model/InlineResponse20024';
-import InlineResponse20024Details from './model/InlineResponse20024Details';
-import InlineResponse20024Request from './model/InlineResponse20024Request';
+import InlineResponse20025 from './model/InlineResponse20025';
+import InlineResponse20025Details from './model/InlineResponse20025Details';
+import InlineResponse20025Request from './model/InlineResponse20025Request';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
@@ -362,6 +371,42 @@ export {
     ApiV1BatchesStorekeeper,
 
     /**
+     * The ApiV1BoxesClientsLightBatch model constructor.
+     * @property {module:model/ApiV1BoxesClientsLightBatch}
+     */
+    ApiV1BoxesClientsLightBatch,
+
+    /**
+     * The ApiV1BoxesClientsLightDestination model constructor.
+     * @property {module:model/ApiV1BoxesClientsLightDestination}
+     */
+    ApiV1BoxesClientsLightDestination,
+
+    /**
+     * The ApiV1BoxesClientsLightItems model constructor.
+     * @property {module:model/ApiV1BoxesClientsLightItems}
+     */
+    ApiV1BoxesClientsLightItems,
+
+    /**
+     * The ApiV1BoxesClientsLightLogicsTariff model constructor.
+     * @property {module:model/ApiV1BoxesClientsLightLogicsTariff}
+     */
+    ApiV1BoxesClientsLightLogicsTariff,
+
+    /**
+     * The ApiV1BoxesClientsLightOrder model constructor.
+     * @property {module:model/ApiV1BoxesClientsLightOrder}
+     */
+    ApiV1BoxesClientsLightOrder,
+
+    /**
+     * The ApiV1BoxesClientsLightProduct model constructor.
+     * @property {module:model/ApiV1BoxesClientsLightProduct}
+     */
+    ApiV1BoxesClientsLightProduct,
+
+    /**
      * The ApiV1BoxesItems model constructor.
      * @property {module:model/ApiV1BoxesItems}
      */
@@ -384,6 +429,12 @@ export {
      * @property {module:model/ApiV1BoxesSplitNewBoxesParams}
      */
     ApiV1BoxesSplitNewBoxesParams,
+
+    /**
+     * The ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges model constructor.
+     * @property {module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges}
+     */
+    ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges,
 
     /**
      * The ApiV1IntegrationsCreateAndLinkSkuProductsPayload model constructor.
@@ -884,6 +935,12 @@ export {
     InlineObject67,
 
     /**
+     * The InlineObject68 model constructor.
+     * @property {module:model/InlineObject68}
+     */
+    InlineObject68,
+
+    /**
      * The InlineObject7 model constructor.
      * @property {module:model/InlineObject7}
      */
@@ -1010,16 +1067,22 @@ export {
     InlineResponse20024,
 
     /**
-     * The InlineResponse20024Details model constructor.
-     * @property {module:model/InlineResponse20024Details}
+     * The InlineResponse20025 model constructor.
+     * @property {module:model/InlineResponse20025}
      */
-    InlineResponse20024Details,
+    InlineResponse20025,
 
     /**
-     * The InlineResponse20024Request model constructor.
-     * @property {module:model/InlineResponse20024Request}
+     * The InlineResponse20025Details model constructor.
+     * @property {module:model/InlineResponse20025Details}
      */
-    InlineResponse20024Request,
+    InlineResponse20025Details,
+
+    /**
+     * The InlineResponse20025Request model constructor.
+     * @property {module:model/InlineResponse20025Request}
+     */
+    InlineResponse20025Request,
 
     /**
      * The InlineResponse2002AllowedUrls model constructor.

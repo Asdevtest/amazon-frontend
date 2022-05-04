@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**apiV1BoxesCancelMergePost**](BoxesApi.md#apiV1BoxesCancelMergePost) | **POST** /api/v1/boxes/cancel-merge | # Отменить объединение коробок.
 [**apiV1BoxesCancelSplitPost**](BoxesApi.md#apiV1BoxesCancelSplitPost) | **POST** /api/v1/boxes/cancel-split | # Отменить разделение коробок.
 [**apiV1BoxesClientsGet**](BoxesApi.md#apiV1BoxesClientsGet) | **GET** /api/v1/boxes/clients | # Получить коробки и их строки по текущему клиенту.
+[**apiV1BoxesClientsLightGet**](BoxesApi.md#apiV1BoxesClientsLightGet) | **GET** /api/v1/boxes/clients_light | # Получить коробки и их строки по текущему клиенту.
 [**apiV1BoxesClientsSentToBatchGet**](BoxesApi.md#apiV1BoxesClientsSentToBatchGet) | **GET** /api/v1/boxes/clients/sent_to_batch | # DEPRECATED Получить коробки по текущему клиенту отправленные в партию.
 [**apiV1BoxesEditGuidPost**](BoxesApi.md#apiV1BoxesEditGuidPost) | **POST** /api/v1/boxes/edit/{guid} | # Отредактировать коробку. Сликом гибкий метод
 [**apiV1BoxesGet**](BoxesApi.md#apiV1BoxesGet) | **GET** /api/v1/boxes/ | # Получить коробки и их строки.
@@ -19,7 +20,7 @@ Method | HTTP request | Description
 [**apiV1BoxesPost**](BoxesApi.md#apiV1BoxesPost) | **POST** /api/v1/boxes/ | # Создать коробку и ее строки.
 [**apiV1BoxesSplitPost**](BoxesApi.md#apiV1BoxesSplitPost) | **POST** /api/v1/boxes/split | # Разделить коробку.
 [**apiV1BoxesStorekeepersGuidPatch**](BoxesApi.md#apiV1BoxesStorekeepersGuidPatch) | **PATCH** /api/v1/boxes/storekeepers/{guid} | # Изменить коробку сотрудником склада.
-[**apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch**](BoxesApi.md#apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch) | **PATCH** /api/v1/boxes/storekeepers/{guid}/set_barcodeAttached_checkboxes | # Изменить чекбоксы баркода.
+[**apiV1BoxesStorekeepersGuidSetItemsBarCodePatch**](BoxesApi.md#apiV1BoxesStorekeepersGuidSetItemsBarCodePatch) | **PATCH** /api/v1/boxes/storekeepers/{guid}/set_itemsBarCode | # Изменить чекбоксы баркода.
 [**apiV1BoxesStorekeepersSentToBatchGet**](BoxesApi.md#apiV1BoxesStorekeepersSentToBatchGet) | **GET** /api/v1/boxes/storekeepers/sent_to_batch | # Получить коробки по текущему сторкипера отправленные в партию.
 
 
@@ -458,6 +459,62 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1BoxesClientsLightGet
+
+> [InlineResponse2008] apiV1BoxesClientsLightGet(status, opts)
+
+# Получить коробки и их строки по текущему клиенту.
+
+## Получить коробки(без черновиков) и их строки по текущему клиенту. (Без отправленных в партию)  ## GUID клиента получаем из токена.   По статусу коробок
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BoxesApi();
+let status = "status_example"; // String | 
+let opts = {
+  'storekeeperId': null, // String | GUID склада который нужно получить.
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1BoxesClientsLightGet(status, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **String**|  | 
+ **storekeeperId** | [**String**](.md)| GUID склада который нужно получить. | [optional] 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse2008]**](InlineResponse2008.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## apiV1BoxesClientsSentToBatchGet
 
 > [ApiV1BatchesBoxes] apiV1BoxesClientsSentToBatchGet(opts)
@@ -838,9 +895,9 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch
+## apiV1BoxesStorekeepersGuidSetItemsBarCodePatch
 
-> String apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch(guid, opts)
+> String apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(guid, opts)
 
 # Изменить чекбоксы баркода.
 
@@ -861,9 +918,9 @@ let apiInstance = new TestSwagger.BoxesApi();
 let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': ["null"] // [String] | 
+  'body': new TestSwagger.InlineObject21() // InlineObject21 | 
 };
-apiInstance.apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch(guid, opts).then((data) => {
+apiInstance.apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -878,7 +935,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**[String]**](String.md)|  | [optional] 
+ **body** | [**InlineObject21**](InlineObject21.md)|  | [optional] 
 
 ### Return type
 

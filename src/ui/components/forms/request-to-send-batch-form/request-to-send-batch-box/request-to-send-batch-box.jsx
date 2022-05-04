@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Checkbox, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {ErrorButton} from '@components/buttons/error-button/error-button'
+import {BoxViewForm} from '@components/forms/box-view-form'
+import {Modal} from '@components/modal'
 
 import {calcVolumeWeightForBox, calcFinalWeightForBox} from '@utils/calculation'
 import {getShortenStringIfLongerThanCount} from '@utils/change-string-length'
@@ -14,6 +16,8 @@ import {useClassNames} from './request-to-send-batch-box.styles'
 
 export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
+
+  const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
   const tableCellClsx = clsx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
 
@@ -28,7 +32,10 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
   const isBadBox = isNoBarCodGlued || !box.isShippingLabelAttachedByStorekeeper
 
   return (
-    <div className={clsx(classNames.box, {[classNames.badBox]: isBadBox})}>
+    <div
+      className={clsx(classNames.box, classNames.row, {[classNames.badBox]: isBadBox})}
+      onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
+    >
       <div className={clsx(tableCellClsx, classNames.indexCell)}>
         <Typography variant="subtitle2">{`№ ${box.humanFriendlyId}`}</Typography>
       </div>
@@ -223,6 +230,14 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
           X
         </ErrorButton>
       </div>
+
+      <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>
+        <BoxViewForm
+          box={box}
+          volumeWeightCoefficient={volumeWeightCoefficient}
+          setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
+        />
+      </Modal>
     </div>
   )
 }

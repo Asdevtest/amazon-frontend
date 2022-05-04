@@ -122,7 +122,7 @@ class BoxesModelStatic {
   }
 
   setBarcodeAttachedCheckboxes = async (id, data) => {
-    const response = await restApiService.boxesApi.apiV1BoxesStorekeepersGuidSetBarcodeAttachedCheckboxesPatch(id, {
+    const response = await restApiService.boxesApi.apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(id, {
       body: data,
     })
     return response
