@@ -2,13 +2,15 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   dialogContextClassName: {},
-  content: {},
-  modalTitle: {},
-  boxesWrapper: {
-    marginTop: '40px',
-    overflowY: 'auto',
-    maxHeight: '400px',
+  content: {
     width: '100%',
+  },
+  modalTitle: {},
+
+  boxesWrapper: {
+    marginTop: '20px',
+    overflowY: 'auto',
+    maxHeight: '550px',
   },
   warningWrapper: {
     marginTop: '20px',

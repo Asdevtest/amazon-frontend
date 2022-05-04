@@ -77,4 +77,8 @@ export const styles = createStyles(theme => ({
     height: '73vh',
     overflow: 'auto',
   },
+
+  virtualScrollerContent: {
+    maxHeight: '69vh',
+  },
 }))

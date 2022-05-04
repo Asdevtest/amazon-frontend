@@ -75,7 +75,7 @@ export const RequestToSendBatchForm = observer(
 
     return (
       <div className={classNames.content}>
-        <Typography className={classNames.modalTitle} variant="h4">
+        <Typography className={classNames.modalTitle} variant="h5">
           {textConsts.modalTitle}
         </Typography>
         <div className={classNames.boxesWrapper}>

@@ -9,8 +9,10 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
   },
   tableWrapper: {
-    border: '2px solid grey',
-    marginBottom: '20px',
+    borderRadius: '4px',
+    border: '1px solid #E0E0E0',
+    marginBottom: '30px',
+    // width: '1000px'
   },
   tableWrapperInfo: {
     fontSize: '16px',
@@ -22,5 +24,62 @@ export const useClassNames = makeStyles(() => ({
   },
   boxWrapper: {
     width: '100%',
+  },
+
+  headerWrapper: {
+    backgroundColor: '#F8F8F8',
+    height: '65px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '0 80px',
+  },
+
+  headerSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  headerTitle: {
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+  },
+
+  headerSpanText: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#0460DE',
+    marginLeft: '30px',
+  },
+
+  footerWrapper: {
+    backgroundColor: '#F8F8F8',
+    height: '65px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingRight: '80px',
+  },
+
+  footerSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: '50px',
+  },
+
+  footerTitle: {
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+  },
+
+  footerSpanText: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#0460DE',
+    marginLeft: '30px',
   },
 }))

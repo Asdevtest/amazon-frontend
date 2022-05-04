@@ -3,6 +3,7 @@ import React from 'react'
 import {Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
+import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -23,19 +24,46 @@ export const RequestToSendBatchesGroupBoxes = ({
   const classNames = useClassNames()
 
   const totalPrice = selectedGroup.boxes.reduce(
-    (acc, cur) => (acc += boxesDeliveryCosts.find(priceObj => priceObj.guid === cur._id).deliveryCost),
+    (acc, cur) => (acc += boxesDeliveryCosts.find(priceObj => priceObj.guid === cur._id)?.deliveryCost),
     0,
   )
 
   const totalWeight = selectedGroup.boxes.reduce((acc, cur) => acc + calcFinalWeightForBox(cur), 0)
 
+  const firstNumOfCode = selectedGroup.destination?.zipCode?.[0] || null
+
+  const regionOfDeliveryName =
+    firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
   return (
     <div className={classNames.tableWrapper}>
       {selectedGroup.price !== 0 && (
-        <div>
-          <Typography className={classNames.tableWrapperInfo}>
-            {`Destination: ${selectedGroup.destination?.name} , Промежуточный склад: ${selectedGroup.storekeeper?.name} , Тариф: ${selectedGroup.logicsTariff?.name}`}
-          </Typography>
+        <div className={classNames.headerWrapper}>
+          <div className={classNames.headerSubWrapper}>
+            <Typography className={classNames.headerTitle}>{'Destination'}</Typography>
+
+            <Typography className={classNames.headerSpanText}>{selectedGroup.destination?.name}</Typography>
+          </div>
+
+          <div className={classNames.headerSubWrapper}>
+            <Typography className={classNames.headerTitle}>{'Storekeeper'}</Typography>
+
+            <Typography className={classNames.headerSpanText}>{selectedGroup.storekeeper?.name}</Typography>
+          </div>
+
+          <div className={classNames.headerSubWrapper}>
+            <Typography className={classNames.headerTitle}>{'Tariff'}</Typography>
+
+            <Typography className={classNames.headerSpanText}>{selectedGroup.logicsTariff?.name}</Typography>
+          </div>
+
+          <div className={classNames.headerSubWrapper}>
+            <Typography className={classNames.headerTitle}>{`Rate (US ${regionOfDeliveryName})`}</Typography>
+
+            <Typography className={classNames.headerSpanText}>
+              {toFixedWithDollarSign(selectedGroup.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate, 2)}
+            </Typography>
+          </div>
         </div>
       )}
 
@@ -60,11 +88,19 @@ export const RequestToSendBatchesGroupBoxes = ({
         })}
       </table>
       {selectedGroup.price !== 0 && (
-        <Typography className={classNames.tableWrapperInfo}>
-          {`${textConsts.totalPrice} ${toFixedWithDollarSign(totalPrice, 2)} , ${
-            textConsts.totalWeight
-          } ${toFixedWithKg(totalWeight, 2)}`}
-        </Typography>
+        <div className={classNames.footerWrapper}>
+          <div className={classNames.footerSubWrapper}>
+            <Typography className={classNames.footerTitle}>{textConsts.totalWeight}</Typography>
+
+            <Typography className={classNames.footerSpanText}>{toFixedWithKg(totalWeight, 2)}</Typography>
+          </div>
+
+          <div className={classNames.footerSubWrapper}>
+            <Typography className={classNames.footerTitle}>{textConsts.totalPrice}</Typography>
+
+            <Typography className={classNames.footerSpanText}>{toFixedWithDollarSign(totalPrice, 2)}</Typography>
+          </div>
+        </div>
       )}
     </div>
   )

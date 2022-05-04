@@ -23,6 +23,8 @@ export const PrivateLabelCard = ({item, setProductToPay}) => {
     </div>
   )
 
+  console.log('item', item)
+
   return (
     <Paper className={classNames.root}>
       <div className={classNames.imgWrapper}>
@@ -44,7 +46,7 @@ export const PrivateLabelCard = ({item, setProductToPay}) => {
         <InfoRow label={textConsts.avgPrice} value={toFixedWithDollarSign(item.avgPrice, 2)} />
 
         <InfoRow label={textConsts.recConsignmentQty} value={withAmount(item.fbaamount)} />
-        <InfoRow label={textConsts.recConsignmentWeight} value={toFixedWithKg(item.weight, 2)} />
+        <InfoRow label={textConsts.recConsignmentWeight} value={toFixedWithKg(item.weight * item.fbaamount, 2)} />
 
         <Divider className={classNames.divider} />
 

@@ -28,6 +28,7 @@ export const RegistrationFormRaw = ({
     <form className={classNames.root} onSubmit={onSubmitForm}>
       <div className={classNames.formFields}>
         <Field
+          inputProps={{maxLength: 30}}
           containerClasses={classNames.field}
           label={'Your Name'}
           placeholder={'name'}
@@ -36,6 +37,7 @@ export const RegistrationFormRaw = ({
           onChange={onChangeFormField('name')}
         />
         <Field
+          inputProps={{maxLength: 30}}
           containerClasses={classNames.field}
           label={textConsts.emailLabel}
           placeholder={textConsts.emailPlaceholder}
@@ -45,6 +47,7 @@ export const RegistrationFormRaw = ({
           onChange={onChangeFormField('email')}
         />
         <Field
+          inputProps={{maxLength: 16}}
           containerClasses={classNames.field}
           label={textConsts.passwordLabel}
           placeholder={textConsts.passwordPlaceholder}
@@ -53,6 +56,8 @@ export const RegistrationFormRaw = ({
           onChange={onChangeFormField('password')}
         />
         <Field
+          inputProps={{maxLength: 16}}
+          error={formFields.password !== formFields.confirmPassword && 'пароли не совпадают'}
           containerClasses={classNames.field}
           label={textConsts.rePasswordLabel}
           placeholder={textConsts.rePasswordPlaceholder}
