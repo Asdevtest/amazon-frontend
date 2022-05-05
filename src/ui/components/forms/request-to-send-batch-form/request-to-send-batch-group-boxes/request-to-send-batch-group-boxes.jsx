@@ -5,6 +5,8 @@ import {Typography} from '@material-ui/core'
 import {texts} from '@constants/texts'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+
 import {calcFinalWeightForBox} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
@@ -48,7 +50,10 @@ export const RequestToSendBatchesGroupBoxes = ({
           <div className={classNames.headerSubWrapper}>
             <Typography className={classNames.headerTitle}>{'Storekeeper'}</Typography>
 
-            <Typography className={classNames.headerSpanText}>{selectedGroup.storekeeper?.name}</Typography>
+            {/* <Typography className={classNames.headerSpanText}>{selectedGroup.storekeeper?.name}</Typography> */}
+            <div className={classNames.userLinkWrapper}>
+              <UserLinkCell name={selectedGroup.storekeeper?.name} userId={selectedGroup.storekeeper?._id} />
+            </div>
           </div>
 
           <div className={classNames.headerSubWrapper}>

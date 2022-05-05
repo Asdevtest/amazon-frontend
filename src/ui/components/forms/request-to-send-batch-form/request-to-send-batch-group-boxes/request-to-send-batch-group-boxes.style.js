@@ -82,4 +82,8 @@ export const useClassNames = makeStyles(() => ({
     color: '#0460DE',
     marginLeft: '30px',
   },
+
+  userLinkWrapper: {
+    marginLeft: '30px',
+  },
 }))

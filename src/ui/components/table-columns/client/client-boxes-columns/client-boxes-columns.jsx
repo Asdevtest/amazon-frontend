@@ -7,6 +7,7 @@ import {
   OrderCell,
   OrderManyItemsCell,
   renderFieldValueCell,
+  ScrollingCell,
   SuperboxQtyCell,
   ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
@@ -91,6 +92,13 @@ export const clientBoxesViewColumns = () => [
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 120,
     type: 'number',
+  },
+
+  {
+    field: 'fbaShipment',
+    headerName: textConsts.fbaShipmentField,
+    renderCell: params => <ScrollingCell value={params.value} />,
+    width: 150,
   },
 
   {

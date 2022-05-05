@@ -11,6 +11,7 @@ import {BoxViewForm} from '@components/forms/box-view-form'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
+import {calcPriceForBox} from '@utils/calculation'
 import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
@@ -118,9 +119,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           </React.Fragment>
         )}
 
-        <TableCell className={classNames.cellValueNumber}>
-          {toFixedWithDollarSign((parseFloat(order.product.amazon) || 0) * (parseInt(order.amount) || 0), 2)}
-        </TableCell>
+        <TableCell className={classNames.cellValueNumber}>{toFixedWithDollarSign(calcPriceForBox(box), 2)}</TableCell>
 
         <TableCell className={classNames.cellValueNumber}>
           {toFixedWithKg(

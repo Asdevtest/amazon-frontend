@@ -2956,6 +2956,7 @@ export const texts = {
       weightField: 'Финальный Вес',
       grossWeightField: 'Общий вес',
       deliveryField: 'Доставка',
+      fbaShipmentField: 'FBA shipment',
     },
 
     clientBoxesReadyToBatchViewColumns: {

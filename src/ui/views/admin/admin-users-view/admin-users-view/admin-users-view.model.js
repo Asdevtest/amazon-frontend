@@ -197,7 +197,6 @@ export class AdminUsersViewModel {
   }
 
   onSelectionModel(model) {
-    // this.editUserFormFields = this.users.find(el => el.id === model).originalData
     this.selectionModel = model
   }
 

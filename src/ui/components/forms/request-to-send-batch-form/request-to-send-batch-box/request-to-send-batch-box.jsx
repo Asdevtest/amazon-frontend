@@ -105,7 +105,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                 <img src={getAmazonImageUrl(item.product.images[0])} className={classNames.img} />
 
                 <div className={classNames.boxItemSubWrapper}>
-                  <Typography className={classNames.amazonTitle}>{`${idx + 1}: ${getShortenStringIfLongerThanCount(
+                  <Typography className={classNames.amazonTitle}>{`${getShortenStringIfLongerThanCount(
                     item.product.amazonTitle,
                     30,
                   )}`}</Typography>

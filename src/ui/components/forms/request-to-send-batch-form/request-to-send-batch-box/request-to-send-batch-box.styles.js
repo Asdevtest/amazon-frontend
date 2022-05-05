@@ -156,6 +156,11 @@ export const useClassNames = makeStyles(() => ({
 
   downloadLink: {
     color: '#006CFF',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
   },
 
   copyImg: {

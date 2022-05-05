@@ -130,6 +130,7 @@ export const calcPriceForBox = box =>
     (acc, cur) =>
       acc +
       (cur.product.currentSupplier.price +
-        (cur.product.currentSupplier.batchDeliveryCostInDollar / cur.product.currentSupplier.amount) * cur.amount),
+        cur.product.currentSupplier.batchDeliveryCostInDollar / cur.product.currentSupplier.amount) *
+        cur.amount,
     0,
   )

@@ -58,11 +58,6 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder, volumeW
               <Typography className={classNames.orderPrice}>{'Сумма заказа'}</Typography>
               <Typography className={classNames.titleSpan}>{toFixedWithDollarSign(order.totalPrice, 2)}</Typography>
             </div>
-
-            <div className={classNames.batchPriceWrapper}>
-              <Typography className={classNames.batchPrice}>{'Стоимость партии'}</Typography>
-              <Typography className={classNames.titleSpan}>{'N/A'}</Typography>
-            </div>
           </div>
 
           <Divider orientation={'horizontal'} />

@@ -7,13 +7,7 @@ import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {UserRoleCodeMap} from '@constants/user-roles'
 import {warehouses} from '@constants/warehouses'
 
-import {
-  calcAmazonPriceForBox,
-  calcFinalWeightForBox,
-  calcPriceForBox,
-  calcTotalPriceForBatch,
-  calcVolumeWeightForBox,
-} from './calculation'
+import {calcFinalWeightForBox, calcPriceForBox, calcTotalPriceForBatch, calcVolumeWeightForBox} from './calculation'
 import {getFullTariffTextForBoxOrOrder} from './text'
 
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
@@ -274,6 +268,8 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
 
     humanFriendlyId: item.humanFriendlyId,
     totalPriceChanged: item.totalPriceChanged,
+
+    fbaShipment: item.fbaShipment,
   }))
 
 export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
@@ -447,7 +443,7 @@ export const adminBoxesDataConverter = data =>
 
     qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
 
-    amazonPrice: calcAmazonPriceForBox(item),
+    amazonPrice: calcPriceForBox(item),
 
     trackingNumberChina: item.items[0].order.trackingNumberChina,
     finalWeight: calcFinalWeightForBox(item),

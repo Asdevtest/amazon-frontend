@@ -314,7 +314,6 @@ export const styles = createStyles(() => ({
 
   scrollingValue: {
     width: '100%',
-    height: '45px',
     overflowX: 'auto',
   },
 
@@ -462,6 +461,11 @@ export const styles = createStyles(() => ({
 
   downloadLink: {
     color: '#006CFF',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
   },
 
   copyImg: {
