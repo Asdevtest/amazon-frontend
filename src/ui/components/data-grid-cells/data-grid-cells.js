@@ -16,6 +16,7 @@ import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 
+import {calcVolumeWeightForBox} from '@utils/calculation'
 import {
   formatDateDistanceFromNow,
   formatDateForShowWithoutParseISO,
@@ -752,3 +753,15 @@ export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, val
     </div>
   )
 })
+
+export const ShortBoxDimensions = withStyles(styles)(({classes: classNames, box, volumeWeightCoefficient}) => (
+  <div>
+    <Typography>{`${toFixed(box.lengthCmWarehouse, 2)}x${toFixed(box.widthCmWarehouse, 2)}x${toFixed(
+      box.heightCmWarehouse,
+      2,
+    )}`}</Typography>
+
+    <Typography>{`вес: ${toFixedWithKg(box.weighGrossKgWarehouse, 2)}`}</Typography>
+    <Typography>{`об. вес: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}`}</Typography>
+  </div>
+))

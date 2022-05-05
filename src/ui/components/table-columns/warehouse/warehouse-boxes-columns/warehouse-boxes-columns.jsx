@@ -7,6 +7,8 @@ import {
   OrderCell,
   OrderManyItemsCell,
   renderFieldValueCell,
+  ShortBoxDimensions,
+  SuperboxQtyCell,
   UserLinkCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -65,6 +67,19 @@ export const warehouseBoxesViewColumns = handlers => [
   },
 
   {
+    field: 'qty',
+    headerName: textConsts.qtyField,
+    renderCell: params =>
+      params.row.originalData.amount > 1 ? (
+        <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
+      ) : (
+        renderFieldValueCell(params.value)
+      ),
+    width: 110,
+    type: 'number',
+  },
+
+  {
     field: 'warehouse',
     headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
@@ -83,6 +98,15 @@ export const warehouseBoxesViewColumns = handlers => [
     headerName: textConsts.clientNameField,
     renderCell: params => (
       <UserLinkCell name={params.value} userId={params.row.originalData.items[0].product.client?._id} />
+    ),
+    width: 230,
+  },
+
+  {
+    field: 'dimansions',
+    headerName: textConsts.dimansionsField,
+    renderCell: params => (
+      <ShortBoxDimensions box={params.row.originalData} volumeWeightCoefficient={params.row.volumeWeightCoefficient} />
     ),
     width: 230,
   },

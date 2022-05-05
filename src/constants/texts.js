@@ -2990,6 +2990,8 @@ export const texts = {
       actionField: 'Действия',
       actionBtnText: 'Переместить',
       logicsTariffField: 'Тариф',
+      qtyField: 'Кол-во',
+      dimansionsField: 'Размеры',
     },
 
     clientBatchesViewColumns: {
@@ -3167,6 +3169,7 @@ export const texts = {
       bsrField: 'BSR',
       fbaamountField: 'Recommend batch',
       researcherField: 'Created by',
+      supervisorField: 'Supervisor',
       buyerField: 'Buyer',
       byForBtn: 'Купить за',
       createDateField: 'Created',

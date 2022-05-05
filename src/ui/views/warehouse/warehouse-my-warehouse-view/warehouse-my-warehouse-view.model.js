@@ -26,6 +26,8 @@ export class WarehouseMyWarehouseViewModel {
   requestStatus = undefined
   error = undefined
 
+  volumeWeightCoefficient = undefined
+
   boxesMy = []
   tasksMy = []
   boxesData = []
@@ -274,10 +276,16 @@ export class WarehouseMyWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await StorekeeperModel.getBoxesMy()
+      const result = await UserModel.getPlatformSettings()
+
+      const boxes = await StorekeeperModel.getBoxesMy()
 
       runInAction(() => {
-        this.boxesMy = warehouseBoxesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.boxesMy = warehouseBoxesDataConverter(boxes, result.volumeWeightCoefficient).sort(
+          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+        )
       })
     } catch (error) {
       console.log(error)

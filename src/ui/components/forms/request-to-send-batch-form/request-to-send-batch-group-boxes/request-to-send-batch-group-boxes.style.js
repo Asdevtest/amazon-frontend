@@ -12,7 +12,6 @@ export const useClassNames = makeStyles(() => ({
     borderRadius: '4px',
     border: '1px solid #E0E0E0',
     marginBottom: '30px',
-    // width: '1000px'
   },
   tableWrapperInfo: {
     fontSize: '16px',

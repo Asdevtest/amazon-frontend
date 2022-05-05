@@ -48,6 +48,7 @@ export const DeliveryParameters = ({order}) => {
         />
 
         <OrderParameter label={'Tariff'} value={getFullTariffTextForBoxOrOrder(order)} />
+
         <OrderParameter
           label={'ETD (Дата отправки)'}
           value={order.logicsTariff?.etd && formatDateWithoutTime(order.logicsTariff?.etd)}

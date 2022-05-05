@@ -149,6 +149,8 @@ export const clientProductsDataConverter = data =>
 
     researcherName: item.createdBy?.name,
     buyerName: item.buyer?.name,
+    supervisorName: item.checkedBy?.name,
+
     strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
 
     createdAt: item.createdAt,
@@ -461,7 +463,7 @@ export const adminBoxesDataConverter = data =>
     updatedAt: item.updatedAt,
   }))
 
-export const warehouseBoxesDataConverter = data =>
+export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -473,11 +475,13 @@ export const warehouseBoxesDataConverter = data =>
     client: item.items[0].product.client.name,
 
     humanFriendlyId: item.humanFriendlyId,
+    qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
 
     isDraft: item.isDraft,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     batchId: item.batch?.humanFriendlyId,
+    volumeWeightCoefficient,
   }))
 
 export const adminBatchesDataConverter = data =>

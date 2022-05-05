@@ -12,7 +12,7 @@ export const useClassNames = makeStyles(() => ({
 
   parameterTableCellWrapper: {
     display: 'flex',
-    width: '360px',
+    width: '380px',
     justifyContent: 'space-between',
   },
 
@@ -28,6 +28,9 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     fontWeight: 600,
     lineHeight: '21px',
+    maxWidth: '200px',
+    overflowX: 'auto',
+    whiteSpace: 'nowrap',
   },
 
   scrollingText: {

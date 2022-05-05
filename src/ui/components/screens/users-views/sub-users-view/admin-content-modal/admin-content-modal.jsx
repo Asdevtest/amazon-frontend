@@ -120,7 +120,12 @@ export const AdminContentModal = observer(
       selectedPermissions.find(per => per.role !== Number(formFields.role)) ||
       selectedGroupPermissions.find(perGroup => perGroup.role !== Number(formFields.role))
 
-    const disabledSubmitButton = formFields.name === '' || formFields.email === '' || formFields.rate === ''
+    const disabledSubmitButton =
+      formFields.name === '' ||
+      formFields.email === '' ||
+      formFields.rate === '' ||
+      formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
+      JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
     return (
       <Container disableGutters className={classNames.modalContainer}>
