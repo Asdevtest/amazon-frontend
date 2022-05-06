@@ -169,7 +169,7 @@ export class SupervisorProductViewModel {
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
 
-      if (['checkednotes', 'niche', 'asins'].includes(fieldName)) {
+      if (['checkednotes', 'niche', 'asins', 'category'].includes(fieldName)) {
         this.product = {...this.product, [fieldName]: e.target.value}
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {

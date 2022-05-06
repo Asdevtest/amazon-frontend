@@ -146,7 +146,7 @@ export const CreateOrEditRequestContent = ({
               <Field
                 multiline
                 inputProps={{maxLength: 250}}
-                label={'Название заявки*'}
+                label={'Название*'}
                 className={classNames.nameField}
                 minRows={2}
                 rowsMax={2}

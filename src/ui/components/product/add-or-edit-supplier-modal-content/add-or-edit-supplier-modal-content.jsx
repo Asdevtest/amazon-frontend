@@ -140,7 +140,7 @@ export const AddOrEditSupplierModalContent = observer(
         !tmpSupplier.boxProperties.boxHeightCm ||
         !tmpSupplier.boxProperties.boxWeighGrossKg
       ) {
-        res = getObjectFilteredByKeyArrayBlackList(res, ['boxProperties'])
+        res = {...res, boxProperties: null}
       }
 
       return res

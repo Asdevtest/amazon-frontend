@@ -41,13 +41,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
         <Grid item sm={7} xs={12}>
           <Paper className={classNames.cardPadding}>
             <Field
-              disabled={
-                !(
-                  checkIsClient(curUserRole) &&
-                  product.isCreatedByClient &&
-                  clientToEditStatuses.includes(productBase.status)
-                ) || product.archive
-              }
+              disabled={defaultFieldDisable}
               inputProps={{maxLength: 50}}
               label={textConsts.category}
               value={product.category || ''}

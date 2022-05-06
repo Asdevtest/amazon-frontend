@@ -110,6 +110,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
         <TableCell className={classNames.cellValueNumber}>
           {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
         </TableCell>
+
         <TableCell>{order.product.material}</TableCell>
 
         {orderIndex === 0 && (
@@ -119,7 +120,11 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           </React.Fragment>
         )}
 
-        <TableCell className={classNames.cellValueNumber}>{toFixedWithDollarSign(calcPriceForBox(box), 2)}</TableCell>
+        {orderIndex === 0 && (
+          <TableCell rowSpan={ordersQty} className={classNames.cellValueNumber}>
+            {toFixedWithDollarSign(calcPriceForBox(box), 2)}
+          </TableCell>
+        )}
 
         <TableCell className={classNames.cellValueNumber}>
           {toFixedWithKg(

@@ -364,6 +364,8 @@ export class ClientWarehouseViewModel {
         amount: el.amount,
         orderId: el.order._id,
         productId: el.product._id,
+        isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
+        isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
       }))
 
       const requestBox = getObjectFilteredByKeyArrayWhiteList(

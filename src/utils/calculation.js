@@ -125,12 +125,15 @@ export const calcTotalPriceForBatch = batch =>
 
 export const calcAmazonPriceForBox = box => box.items.reduce((acc, cur) => acc + cur.product.amazon * cur.amount, 0)
 
-export const calcPriceForBox = box =>
-  box.items.reduce(
+export const calcPriceForBox = box => {
+  const sumsOfItems = box.items.reduce(
     (acc, cur) =>
       acc +
       (cur.product.currentSupplier.price +
-        cur.product.currentSupplier.batchDeliveryCostInDollar / cur.product.currentSupplier.amount) *
+        Math.round((cur.product.currentSupplier.batchDeliveryCostInDollar / cur.product.currentSupplier.amount) * 100) /
+          100) *
         cur.amount,
     0,
   )
+  return box.amount > 1 ? sumsOfItems * box.amount : sumsOfItems
+}

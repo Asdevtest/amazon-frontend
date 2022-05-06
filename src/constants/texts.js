@@ -1625,7 +1625,9 @@ export const texts = {
       fba: 'FBA',
       active: 'User status',
       rate: 'Rate',
-      masterUser: 'Master user id',
+      masterUser: 'Master user',
+      subUsers: 'Sub users',
+      rating: 'rating',
 
       overdraft: 'Overdraft',
 

@@ -54,14 +54,14 @@ export const OrderModalBodyRow = ({
   const weightOfOneBox = item.currentSupplier
     ? Math.max(
         Math.round(
-          (((item.currentSupplier.boxProperties.boxWidthCm || 0) *
-            (item.currentSupplier.boxProperties.boxLengthCm || 0) *
-            (item.currentSupplier.boxProperties.boxHeightCm || 0)) /
+          (((item.currentSupplier.boxProperties?.boxWidthCm || 0) *
+            (item.currentSupplier.boxProperties?.boxLengthCm || 0) *
+            (item.currentSupplier.boxProperties?.boxHeightCm || 0)) /
             volumeWeightCoefficient) *
             100,
         ) / 100 || 0,
-        item.currentSupplier.boxProperties.boxWeighGrossKg,
-      ) / item.currentSupplier.boxProperties.amountInBox
+        item.currentSupplier.boxProperties?.boxWeighGrossKg,
+      ) / item.currentSupplier.boxProperties?.amountInBox
     : ''
 
   const weightOfBatch = weightOfOneBox * orderState.amount || ''

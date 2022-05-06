@@ -1,3 +1,5 @@
+import {Rating} from '@mui/material'
+
 import React, {useState} from 'react'
 
 import {Container, Button, Typography, NativeSelect, Checkbox, Select, ListItemText, MenuItem} from '@material-ui/core'
@@ -6,6 +8,7 @@ import {observer} from 'mobx-react'
 import {texts} from '@constants/texts'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
 import {Input} from '@components/input'
@@ -134,8 +137,45 @@ export const AdminContentModal = observer(
         </Typography>
 
         {editUserFormFields.masterUser ? (
-          <Field disabled label={textConsts.masterUser} value={editUserFormFields.masterUser} />
+          <Field
+            label={textConsts.masterUser}
+            inputComponent={
+              <div className={classNames.ratingWrapper}>
+                <UserLinkCell
+                  name={editUserFormFields.masterUserInfo?.name}
+                  userId={editUserFormFields.masterUserInfo?._id}
+                />
+
+                <div className={classNames.ratingSubWrapper}>
+                  <Typography className={classNames.rating}>{textConsts.rating}</Typography>
+
+                  <Rating disabled value={editUserFormFields.masterUserInfo?.rating} />
+                </div>
+              </div>
+            }
+          />
         ) : null}
+
+        {editUserFormFields.subUsers.length && (
+          <Field
+            label={textConsts.subUsers}
+            inputComponent={
+              <div className={classNames.subUsersWrapper}>
+                {editUserFormFields.subUsers.map(subUser => (
+                  <div key={subUser._id} className={classNames.ratingWrapper}>
+                    <UserLinkCell name={subUser.name} userId={subUser._id} />
+
+                    <div className={classNames.ratingSubWrapper}>
+                      <Typography className={classNames.rating}>{textConsts.rating}</Typography>
+
+                      <Rating disabled value={subUser.rating} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            }
+          />
+        )}
 
         <Field
           label={textConsts.name}
