@@ -27,22 +27,6 @@ export const warehouseBoxesViewColumns = handlers => [
   },
 
   {
-    field: 'createdAt',
-    headerName: textConsts.createdAtField,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 120,
-    type: 'date',
-  },
-
-  {
-    field: 'updatedAt',
-    headerName: textConsts.updatedAtField,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 120,
-    type: 'date',
-  },
-
-  {
     field: 'humanFriendlyId',
     headerName: textConsts.boxIdField,
     renderCell: params => renderFieldValueCell(params.value),
@@ -90,7 +74,7 @@ export const warehouseBoxesViewColumns = handlers => [
     field: 'logicsTariff',
     headerName: textConsts.logicsTariffField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 250,
+    width: 170,
   },
 
   {
@@ -99,7 +83,7 @@ export const warehouseBoxesViewColumns = handlers => [
     renderCell: params => (
       <UserLinkCell name={params.value} userId={params.row.originalData.items[0].product.client?._id} />
     ),
-    width: 230,
+    width: 200,
   },
 
   {
@@ -126,5 +110,21 @@ export const warehouseBoxesViewColumns = handlers => [
     renderCell: params => <WarehouseBoxesBtnsCell row={params.row.originalData} handlers={handlers} />,
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'createdAt',
+    headerName: textConsts.createdAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 120,
+    type: 'date',
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: textConsts.updatedAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 120,
+    type: 'date',
   },
 ]

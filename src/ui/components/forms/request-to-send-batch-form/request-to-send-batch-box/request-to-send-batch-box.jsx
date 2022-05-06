@@ -54,7 +54,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
                 <Typography variant="subtitle1">{`ASIN: ${box.items[0].product.asin}`}</Typography>
 
-                <Typography variant="subtitle1">{`Количество${box.items[0].amount}шт.`}</Typography>
+                <Typography variant="subtitle1">{`Количество ${box.items[0].amount}шт.`}</Typography>
 
                 <Typography className={classNames.superBoxTypo}>{`Superbox x ${box.amount}`}</Typography>
 

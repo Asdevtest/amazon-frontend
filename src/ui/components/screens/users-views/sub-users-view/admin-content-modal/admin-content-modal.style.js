@@ -54,6 +54,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
+    overflow: 'hidden',
     justifyContent: 'space-between',
   },
 

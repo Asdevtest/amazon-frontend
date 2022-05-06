@@ -156,7 +156,7 @@ export const AdminContentModal = observer(
           />
         ) : null}
 
-        {editUserFormFields.subUsers.length && (
+        {editUserFormFields.subUsers.length ? (
           <Field
             label={textConsts.subUsers}
             inputComponent={
@@ -175,7 +175,7 @@ export const AdminContentModal = observer(
               </div>
             }
           />
-        )}
+        ) : null}
 
         <Field
           label={textConsts.name}
