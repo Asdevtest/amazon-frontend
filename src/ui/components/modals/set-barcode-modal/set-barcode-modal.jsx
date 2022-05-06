@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 
 import {Box, Container, Divider, Typography, Link} from '@material-ui/core'
+import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
 
@@ -29,7 +30,7 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item
 
       {barCode && (
         <Box className={classNames.boxCode}>
-          <Typography className={(classNames.modalText, classNames.typoCode)}>{textConsts.code}</Typography>
+          <Typography className={clsx(classNames.modalText, classNames.typoCode)}>{textConsts.code}</Typography>
 
           <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
             <Typography className={classNames.link}>{barCode}</Typography>

@@ -9,36 +9,32 @@ import {Field} from '@components/field'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
-import {useClassNames} from './set-hs-code-modal.style'
+import {useClassNames} from './set-chip-value-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalSetHsCode
 
-export const SetHsCodeModal = ({onClickSaveHsCode, onCloseModal, item}) => {
+export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue}) => {
   const classNames = useClassNames()
 
-  const [hsCode, setHsCode] = useState(item?.hsCode)
+  const [newValue, setNewValue] = useState(sourceValue)
 
   return (
     <Container disableGutters>
-      <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
+      <Typography className={classNames.modalTitle}>{title}</Typography>
 
       <Divider className={classNames.divider} />
 
       <Field
         containerClasses={classNames.field}
         inputProps={{maxLength: 255}}
-        value={hsCode}
-        onChange={e => setHsCode(e.target.value)}
+        value={newValue}
+        onChange={e => setNewValue(e.target.value)}
       />
 
       <Divider className={classNames.divider} />
 
       <Box className={classNames.saveBox}>
-        <Button
-          disabled={item?.hsCode === hsCode}
-          className={classNames.saveBtn}
-          onClick={() => onClickSaveHsCode(hsCode)}
-        >
+        <Button disabled={sourceValue === newValue} className={classNames.saveBtn} onClick={() => onSubmit(newValue)}>
           {textConsts.saveBtn}
         </Button>
         <Button onClick={onCloseModal}>{textConsts.closeBtn}</Button>

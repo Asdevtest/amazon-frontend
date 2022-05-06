@@ -116,7 +116,9 @@ export const texts = {
 
       modalSendOwnProductTitle: 'Send own product',
       modalEditBoxTitle: 'Box editing',
-      modalEditSuccessMessage: 'Создана задача на изменение коробки',
+      modalEditSuccessMessage: 'Коробка изменена',
+      modalEditSuccessMessageAndTask: 'Создана задача на изменение коробки',
+
       modalRedistributionTitle: 'Box redistributing',
       modalRedistributionAddNewBoxTitle: 'Attention!',
       modalRedistributionAddNewBoxMessage:
@@ -137,6 +139,7 @@ export const texts = {
       confirmMessage: 'Вы точно хотите отменить задачу?',
       yesBtn: 'Да',
       noBtn: 'Нет',
+      setFbaShipment: 'Установить FBA shipment',
     },
 
     warehouseMyWarehouseView: {
@@ -1196,6 +1199,8 @@ export const texts = {
       noBtn: 'Нет',
 
       noCurrentSupplier: 'Не выбран поставщик!',
+
+      setHsCode: 'Установить HS code',
     },
     researcherDashboardView: {
       appBarTitle: 'Dashboard',
@@ -2959,6 +2964,7 @@ export const texts = {
       grossWeightField: 'Общий вес',
       deliveryField: 'Доставка',
       fbaShipmentField: 'FBA shipment',
+      fbaShipmentChip: 'Set fba shipment',
     },
 
     clientBoxesReadyToBatchViewColumns: {

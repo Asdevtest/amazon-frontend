@@ -22,6 +22,7 @@ import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
+import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -48,6 +49,7 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
+      selectedBox,
       curBox,
       showBoxViewModal,
       volumeWeightCoefficient,
@@ -78,12 +80,14 @@ export class ClientWarehouseViewRaw extends Component {
       showRedistributeBoxAddNewBoxModal,
       showRedistributeBoxSuccessModal,
       showRedistributeBoxFailModal,
+      showSetChipValueModal,
       showWarningInfoModal,
       showRequestToSendBatchModal,
       showEditBoxSuccessModal,
       showMergeBoxSuccessModal,
       boxesDeliveryCosts,
       showMergeBoxFailModal,
+      modalEditSuccessMessage,
       warningInfoModalSettings,
       onTriggerDrawer,
       onChangeCurPage,
@@ -106,6 +110,7 @@ export class ClientWarehouseViewRaw extends Component {
 
       onClickStorekeeperBtn,
       setCurrentOpenedBox,
+      onClickSaveFbaShipment,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -267,7 +272,7 @@ export class ClientWarehouseViewRaw extends Component {
         <SuccessInfoModal
           openModal={showEditBoxSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showEditBoxSuccessModal')}
-          title={textConsts.modalEditSuccessMessage}
+          title={modalEditSuccessMessage}
           successBtnText={textConsts.closeBtn}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showEditBoxSuccessModal')
@@ -366,6 +371,15 @@ export class ClientWarehouseViewRaw extends Component {
             box={curBox}
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showSetChipValueModal} setOpenModal={() => onTriggerOpenModal('showSetChipValueModal')}>
+          <SetChipValueModal
+            title={textConsts.setFbaShipment}
+            item={selectedBox?.fbaShipment}
+            onSubmit={onClickSaveFbaShipment}
+            onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}
           />
         </Modal>
       </React.Fragment>

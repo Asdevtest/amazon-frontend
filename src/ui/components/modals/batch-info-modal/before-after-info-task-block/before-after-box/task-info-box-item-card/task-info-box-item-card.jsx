@@ -66,7 +66,7 @@ export const TaskInfoBoxItemCard = ({item, superCount, box}) => {
 
           <div className={classNames.chipWrapper}>
             <Typography className={classNames.subTitle}>{textConsts.barCode}</Typography>
-            <Typography className={classNames.barCodeField}>{item.product.barCode || 'N/A'}</Typography>
+            <Typography className={classNames.barCodeField}>{item.barCode || 'N/A'}</Typography>
           </div>
 
           {box.isBarCodeAttachedByTheStorekeeper ? (

@@ -174,7 +174,6 @@ export class WarehouseVacantViewModel {
     try {
       const barcodesAttachedData = box.items.map(item => ({
         orderId: item.order._id,
-        barCode: item.barCode,
         isBarCodeAttachedByTheStorekeeper: item.isBarCodeAttachedByTheStorekeeper,
         isBarCodeAlreadyAttachedByTheSupplier: item.isBarCodeAlreadyAttachedByTheSupplier,
       }))

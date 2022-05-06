@@ -135,9 +135,9 @@ export const BoxViewForm = observer(({box, setOpenModal, volumeWeightCoefficient
                       label={'Баркод'}
                       inputComponent={
                         <div>
-                          {item.product.barCode ? (
-                            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.product.barCode)}>
-                              <Typography className={classNames.linkField}>{item.product.barCode}</Typography>
+                          {item.barCode ? (
+                            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
+                              <Typography className={classNames.linkField}>{item.barCode}</Typography>
                             </Link>
                           ) : (
                             <Typography className={classNames.linkField}>{'N/A'}</Typography>

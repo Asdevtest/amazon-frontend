@@ -130,13 +130,13 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                       />
                     </div>
 
-                    {item.product.barCode ? (
+                    {item.barCode ? (
                       <div className={classNames.linkWrapper}>
                         <a
                           download
                           target="_blank"
                           rel="noreferrer"
-                          href={item.product.barCode}
+                          href={item.barCode}
                           className={classNames.downloadLink}
                         >
                           {'Скачать'}
@@ -146,7 +146,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                           className={classNames.copyImg}
                           src="/assets/icons/copy-img.svg"
                           alt=""
-                          onClick={() => copyValue(item.product.barCode)}
+                          onClick={() => copyValue(item.barCode)}
                         />
                       </div>
                     ) : (

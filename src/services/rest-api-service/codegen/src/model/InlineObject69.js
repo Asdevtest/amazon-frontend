@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
-import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
+import ApiV1RequestsCustomGuidDetails from './ApiV1RequestsCustomGuidDetails';
+import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 
 /**
  * The InlineObject69 model module.
@@ -25,12 +25,10 @@ class InlineObject69 {
      * Constructs a new <code>InlineObject69</code>.
      * Схема универсальной заявки.
      * @alias module:model/InlineObject69
-     * @param request {module:model/ApiV1RequestsCustomRequest} 
-     * @param details {module:model/ApiV1RequestsCustomDetails} 
      */
-    constructor(request, details) { 
+    constructor() { 
         
-        InlineObject69.initialize(this, request, details);
+        InlineObject69.initialize(this);
     }
 
     /**
@@ -38,9 +36,7 @@ class InlineObject69 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, request, details) { 
-        obj['request'] = request;
-        obj['details'] = details;
+    static initialize(obj) { 
     }
 
     /**
@@ -55,10 +51,10 @@ class InlineObject69 {
             obj = obj || new InlineObject69();
 
             if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomRequest.constructFromObject(data['request']);
+                obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
             }
             if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
+                obj['details'] = ApiV1RequestsCustomGuidDetails.constructFromObject(data['details']);
             }
         }
         return obj;
@@ -68,12 +64,12 @@ class InlineObject69 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomRequest} request
+ * @member {module:model/ApiV1RequestsCustomGuidRequest} request
  */
 InlineObject69.prototype['request'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestsCustomDetails} details
+ * @member {module:model/ApiV1RequestsCustomGuidDetails} details
  */
 InlineObject69.prototype['details'] = undefined;
 

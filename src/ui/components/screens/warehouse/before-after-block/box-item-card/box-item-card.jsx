@@ -33,15 +33,15 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode}
           <div className={classNames.chipWrapper}>
             <Typography className={classNames.subTitle}>{textConsts.barCode}</Typography>
 
-            {item.product.barCode ? (
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.product.barCode)}>
-                <Typography className={classNames.barCodeField}>{item.product.barCode}</Typography>
+            {item.barCode ? (
+              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
+                <Typography className={classNames.barCodeField}>{item.barCode}</Typography>
               </Link>
             ) : (
               <Typography className={classNames.barCodeField}>{'N/A'}</Typography>
             )}
 
-            {item.product.barCode && (
+            {item.barCode && (
               <div className={classNames.barCodeActionsWrapper}>
                 {item.isBarCodeAttachedByTheStorekeeper === false && (
                   <Field

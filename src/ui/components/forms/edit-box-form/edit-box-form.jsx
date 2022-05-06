@@ -19,6 +19,7 @@ import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 import {Table} from '@components/table'
 
@@ -107,6 +108,35 @@ export const EditBoxForm = observer(
       onSelectPhotos: setBigImagesOptions,
     }
 
+    const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
+
+    const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
+
+    const onClickBarcode = item => {
+      setCurProductToEditBarcode(item)
+
+      setShowSetBarcodeModal(!showSetBarcodeModal)
+    }
+
+    const onDoubleClickBarcode = item => {
+      setCurProductToEditBarcode(item)
+      setShowSetBarcodeModal(!showSetBarcodeModal)
+    }
+
+    const onClickSaveBarcode = product => newBarCodeData => {
+      const newFormFields = {...boxFields}
+
+      newFormFields.items = [
+        ...boxFields.items.map(el =>
+          el.product._id === product.product._id ? {...el, tmpBarCode: newBarCodeData} : el,
+        ),
+      ]
+
+      setBoxFields(newFormFields)
+
+      setShowSetBarcodeModal(!showSetBarcodeModal)
+    }
+
     const boxInitialState = {
       ...formItem,
 
@@ -127,6 +157,9 @@ export const EditBoxForm = observer(
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
+      items: formItem?.items
+        ? [...formItem.items.map(el => ({...el, changeBarCodInInventory: false, tmpBarCode: []}))]
+        : [],
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
@@ -152,6 +185,23 @@ export const EditBoxForm = observer(
     const onDeleteShippingLabel = () => {
       const newFormFields = {...boxFields}
       newFormFields.shippingLabel = ''
+      newFormFields.tmpShippingLabel = []
+      setBoxFields(newFormFields)
+    }
+
+    const onDeleteBarcode = productId => {
+      const newFormFields = {...boxFields}
+      newFormFields.items = boxFields.items.map(item =>
+        item.product._id === productId ? {...item, barCode: '', changeBarCodInInventory: false} : item,
+      )
+      setBoxFields(newFormFields)
+    }
+
+    const onClickBarcodeInventoryCheckbox = (productId, value) => {
+      const newFormFields = {...boxFields}
+      newFormFields.items = boxFields.items.map(item =>
+        item.product._id === productId ? {...item, changeBarCodInInventory: value} : item,
+      )
       setBoxFields(newFormFields)
     }
 
@@ -268,28 +318,34 @@ export const EditBoxForm = observer(
                 onChange={setFormField('fbaShipment')}
               />
 
-              <div>
-                <Chip
-                  classes={{
-                    root: classNames.barcodeChip,
-                    clickable: classNames.barcodeChipHover,
-                    deletable: classNames.barcodeChipHover,
-                    deleteIcon: classNames.barcodeChipIcon,
-                    label: classNames.barcodeChiplabel,
-                  }}
-                  className={clsx({[classNames.barcodeChipExists]: boxFields.shippingLabel})}
-                  size="small"
-                  label={
-                    boxFields.tmpShippingLabel.length
-                      ? 'FILE IS ADDED'
-                      : boxFields.shippingLabel
-                      ? boxFields.shippingLabel
-                      : 'Set shipping label'
-                  }
-                  onClick={() => onClickShippingLabel()}
-                  onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
-                />
-              </div>
+              <Field
+                containerClasses={classNames.field}
+                label={'Shipping label'}
+                inputComponent={
+                  <div>
+                    <Chip
+                      classes={{
+                        root: classNames.barcodeChip,
+                        clickable: classNames.barcodeChipHover,
+                        deletable: classNames.barcodeChipHover,
+                        deleteIcon: classNames.barcodeChipIcon,
+                        label: classNames.barcodeChiplabel,
+                      }}
+                      className={clsx({[classNames.barcodeChipExists]: boxFields.shippingLabel})}
+                      size="small"
+                      label={
+                        boxFields.tmpShippingLabel.length
+                          ? 'FILE IS ADDED'
+                          : boxFields.shippingLabel
+                          ? boxFields.shippingLabel
+                          : 'Set shipping label'
+                      }
+                      onClick={() => onClickShippingLabel()}
+                      onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                    />
+                  </div>
+                }
+              />
             </div>
 
             <div className={classNames.blockOfNewBoxWrapper}>
@@ -356,6 +412,10 @@ export const EditBoxForm = observer(
               BodyRow={ProductInOrderTableRow}
               renderHeadRow={renderHeadRow}
               rowsHandlers={rowHandlers}
+              onClickBarcode={onClickBarcode}
+              onDoubleClickBarcode={onDoubleClickBarcode}
+              onDeleteBarcode={onDeleteBarcode}
+              onClickBarcodeInventoryCheckbox={onClickBarcodeInventoryCheckbox}
             />
           </div>
 
@@ -432,6 +492,15 @@ export const EditBoxForm = observer(
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}
             onSubmit={onSubmitSelectStorekeeperAndTariff}
+          />
+        </Modal>
+
+        <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
+          <SetBarcodeModal
+            tmpCode={curProductToEditBarcode?.tmpBarCode}
+            item={curProductToEditBarcode}
+            onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
+            onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
       </div>

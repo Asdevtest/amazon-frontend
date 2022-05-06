@@ -54,4 +54,30 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 'bold',
     fontSize: '18px',
   },
+
+  barcodeChip: {
+    width: '150px',
+    backgroundColor: 'rgb(0, 123, 255)',
+    color: 'white',
+    fontSize: '13px',
+    borderRadius: '4px',
+  },
+  barcodeChipHover: {
+    '&:hover, &:focus': {
+      backgroundColor: 'rgb(0, 123, 255)',
+    },
+  },
+  barcodeChipIcon: {
+    color: 'rgba(255,255,255,0.26)',
+    '&:hover, &:focus': {
+      color: 'rgba(255,255,255,0.46)',
+    },
+  },
+  barcodeChipExists: {
+    backgroundColor: 'rgb(61, 81, 112)',
+  },
+
+  checkboxContainer: {
+    margin: '0',
+  },
 }))

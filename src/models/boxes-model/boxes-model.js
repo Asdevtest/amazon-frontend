@@ -49,6 +49,11 @@ class BoxesModelStatic {
     return response
   }
 
+  editBoxAtClient = async (id, data) => {
+    const response = await restApiService.boxesApi.apiV1BoxesClientsGuidPatch(id, {body: data})
+    return response
+  }
+
   cancelSplitBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelSplitPost({
       body: {guid: id},

@@ -167,6 +167,25 @@ export const HsCodeCell = withStyles(styles)(({classes: classNames, product, han
   </React.Fragment>
 ))
 
+export const ChangeChipCell = withStyles(styles)(({classes: classNames, row, value, handlers, text}) => (
+  <React.Fragment>
+    <Chip
+      classes={{
+        root: classNames.barcodeChip,
+        clickable: classNames.barcodeChipHover,
+        deletable: classNames.barcodeChipHover,
+        deleteIcon: classNames.barcodeChipIcon,
+      }}
+      className={clsx({[classNames.barcodeChipExists]: value})}
+      size="small"
+      label={value ? trimBarcode(value) : text}
+      onClick={() => handlers.onClickChip(row)}
+      onDoubleClick={() => handlers.onDoubleClickChip(row)}
+      onDelete={!value ? undefined : () => handlers.onDeleteChip(row)}
+    />
+  </React.Fragment>
+))
+
 export const DateCell = withStyles(styles)(({params}) => (
   <Typography>{!params.value ? 'N/A' : formatDateTime(params.value)}</Typography>
 ))

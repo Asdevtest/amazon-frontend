@@ -3,11 +3,11 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
+  ChangeChipCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
   renderFieldValueCell,
-  ScrollingCell,
   SuperboxQtyCell,
   ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
@@ -17,7 +17,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientBoxesTableColumns
 
-export const clientBoxesViewColumns = () => [
+export const clientBoxesViewColumns = handlers => [
   {
     field: 'isDraft',
     headerName: '',
@@ -97,8 +97,16 @@ export const clientBoxesViewColumns = () => [
   {
     field: 'fbaShipment',
     headerName: textConsts.fbaShipmentField,
-    renderCell: params => <ScrollingCell value={params.value} />,
-    width: 150,
+    renderCell: params => (
+      <ChangeChipCell
+        row={params.row.originalData}
+        value={params.value}
+        handlers={handlers}
+        text={textConsts.fbaShipmentChip}
+      />
+    ),
+    minWidth: 150,
+    headerAlign: 'center',
   },
 
   {

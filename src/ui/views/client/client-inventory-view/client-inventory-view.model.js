@@ -98,7 +98,7 @@ export class ClientInventoryViewModel {
   showBindInventoryGoodsToStockModal = false
   showInfoModal = false
   showConfirmModal = false
-  showSetHsCodeModal = false
+  showSetChipValueModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -305,7 +305,7 @@ export class ClientInventoryViewModel {
   async onClickSaveHsCode(hsCode) {
     await ProductModel.editProductsHsCods([{productId: this.selectedProduct._id, hsCode}])
 
-    this.onTriggerOpenModal('showSetHsCodeModal')
+    this.onTriggerOpenModal('showSetChipValueModal')
     this.loadData()
 
     runInAction(() => {
@@ -359,7 +359,7 @@ export class ClientInventoryViewModel {
 
   onClickHsCode(item) {
     this.setSelectedProduct(item)
-    this.onTriggerOpenModal('showSetHsCodeModal')
+    this.onTriggerOpenModal('showSetChipValueModal')
   }
 
   async onSubmitOrderProductModal(ordersDataState) {
@@ -625,7 +625,7 @@ export class ClientInventoryViewModel {
 
   onDoubleClickHsCode = item => {
     this.setSelectedProduct(item)
-    this.onTriggerOpenModal('showSetHsCodeModal')
+    this.onTriggerOpenModal('showSetChipValueModal')
   }
 
   async onDeleteBarcode(product) {

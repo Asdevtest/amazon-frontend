@@ -23,13 +23,12 @@ class ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges {
      * Constructs a new <code>ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges</code>.
      * @alias module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges
      * @param orderId {String} 
-     * @param barCode {String} Штрихкод продукта
      * @param isBarCodeAttachedByTheStorekeeper {Boolean} 
      * @param isBarCodeAlreadyAttachedByTheSupplier {Boolean} 
      */
-    constructor(orderId, barCode, isBarCodeAttachedByTheStorekeeper, isBarCodeAlreadyAttachedByTheSupplier) { 
+    constructor(orderId, isBarCodeAttachedByTheStorekeeper, isBarCodeAlreadyAttachedByTheSupplier) { 
         
-        ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.initialize(this, orderId, barCode, isBarCodeAttachedByTheStorekeeper, isBarCodeAlreadyAttachedByTheSupplier);
+        ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.initialize(this, orderId, isBarCodeAttachedByTheStorekeeper, isBarCodeAlreadyAttachedByTheSupplier);
     }
 
     /**
@@ -37,9 +36,8 @@ class ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, orderId, barCode, isBarCodeAttachedByTheStorekeeper, isBarCodeAlreadyAttachedByTheSupplier) { 
+    static initialize(obj, orderId, isBarCodeAttachedByTheStorekeeper, isBarCodeAlreadyAttachedByTheSupplier) { 
         obj['orderId'] = orderId;
-        obj['barCode'] = barCode;
         obj['isBarCodeAttachedByTheStorekeeper'] = isBarCodeAttachedByTheStorekeeper;
         obj['isBarCodeAlreadyAttachedByTheSupplier'] = isBarCodeAlreadyAttachedByTheSupplier;
     }
@@ -58,12 +56,6 @@ class ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges {
             if (data.hasOwnProperty('orderId')) {
                 obj['orderId'] = ApiClient.convertToType(data['orderId'], 'String');
             }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
-            if (data.hasOwnProperty('doUpdateBarCodeOnProduct')) {
-                obj['doUpdateBarCodeOnProduct'] = ApiClient.convertToType(data['doUpdateBarCodeOnProduct'], 'Boolean');
-            }
             if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
                 obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
             }
@@ -81,19 +73,6 @@ class ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges {
  * @member {String} orderId
  */
 ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.prototype['orderId'] = undefined;
-
-/**
- * Штрихкод продукта
- * @member {String} barCode
- */
-ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.prototype['barCode'] = undefined;
-
-/**
- * Обновить в продукте?
- * @member {Boolean} doUpdateBarCodeOnProduct
- * @default false
- */
-ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.prototype['doUpdateBarCodeOnProduct'] = false;
 
 /**
  * @member {Boolean} isBarCodeAttachedByTheStorekeeper
