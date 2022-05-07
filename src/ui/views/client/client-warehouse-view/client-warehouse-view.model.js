@@ -416,8 +416,6 @@ export class ClientWarehouseViewModel {
       for (let i = 0; i < dataToBarCodeChange.length; i++) {
         const item = dataToBarCodeChange[i]
 
-        console.log('item', item)
-
         if (item.changeBarCodInInventory) {
           this.updateOneBarCodeInInventory(item.productId, item.newData[0])
         }
@@ -440,7 +438,7 @@ export class ClientWarehouseViewModel {
       ) {
         await BoxesModel.editBoxAtClient(id, {
           fbaShipment: boxData.fbaShipment,
-          descriptionId: boxData.descriptionId,
+          destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
         })
 
