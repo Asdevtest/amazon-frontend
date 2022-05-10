@@ -21,4 +21,14 @@ export const styles = createStyles(() => ({
     width: '100%',
     height: '60vh',
   },
+  additionalButtonsWrapper: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginRight: 10
+  },
+  cancelRequestProposalBtn: {
+    backgroundColor: '#C4C4C4'
+  }
 }))

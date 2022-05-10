@@ -12,7 +12,7 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'row-reverse',
   },
   messageWrapperIsNextMessageSameAuthor: {
-    marginBottom: '10px',
+    marginBottom: '15px',
   },
   messageWrapperIsIncomming: {
     flexDirection: 'row',
@@ -20,11 +20,19 @@ export const useClassNames = makeStyles(() => ({
   messageWrapperIsLastMessage: {
     marginBottom: 0,
   },
+  messageWrapperisNotPersonal: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   messageInner: {
     marginRight: '12px',
     maxWidth: '80%',
     wordBreak: 'break-word',
     whiteSpace: 'normal',
+    position: 'relative',
+    minWidth: '50%',
+  },
+  messageInnerContentWrapper: {
     overflow: 'hidden',
   },
   messageInnerIsIncomming: {
@@ -42,12 +50,10 @@ export const useClassNames = makeStyles(() => ({
     width: '32px',
   },
   messageAvatarWrapperIsIncomming: {},
-
   timeText: {
     fontSize: '10px',
     textAlign: 'center',
   },
-
   linkText: {
     fontSize: '10px',
     textAlign: 'center',
@@ -55,5 +61,13 @@ export const useClassNames = makeStyles(() => ({
     maxHeight: '40px',
     maxWidth: '200px',
     whiteSpace: 'nowrap',
+  },
+  timeTextWrapper: {
+    position: 'absolute',
+    bottom: '-15px',
+    left: 0,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }))

@@ -10,32 +10,53 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
+import {
+  checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract,
+  checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract,
+  checkIsChatMessageDataProposalResultEditedDetailsContract,
+  checkIsChatMessageDataProposalStatusChangedContract,
+} from '@utils/ts-checks'
 
 import {useClassNames} from './chat-messages-list.style'
 import {ChatMessageBasicText} from './chat-messages/chat-message-basic-text'
-import {ChatMessageProposal} from './chat-messages/chat-message-proposal'
+import {ChatMessageProposal, ChatMessageProposalHandlers} from './chat-messages/chat-message-proposal'
+import {ChatMessageProposalStatusChanged} from './chat-messages/chat-message-proposal-status-changed'
 import {ChatMessageRequest} from './chat-messages/chat-message-request'
+import {ChatMessageRequestProposalResultEdited} from './chat-messages/chat-message-request-proposal-result-edited'
+
+export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers
 
 interface Props {
   userId: string
   messages?: ChatMessageContract[]
+  handlers?: ChatMessageUniversalHandlers
 }
 
-export const ChatMessagesList: FC<Props> = observer(({messages, userId}) => {
+export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers}) => {
   const classNames = useClassNames()
 
   console.log('messages', messages)
 
   const renderMessageByType = (isIncomming: boolean, messageItem: ChatMessageContract) => {
-    switch (messageItem.text) {
-      case 'CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION':
-        return <ChatMessageRequest message={messageItem} />
-
-      case 'CREATED_NEW_PROPOSAL_PROPOSAL_DESCRIPTION':
-        return <ChatMessageProposal message={messageItem} />
-
-      default:
-        return <ChatMessageBasicText isIncomming={isIncomming} message={messageItem} />
+    if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
+      return <ChatMessageRequest message={messageItem} />
+    } else if (handlers && checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract(messageItem)) {
+      return (
+        <ChatMessageProposal
+          message={messageItem}
+          handlers={{
+            onClickProposalAccept: handlers.onClickProposalAccept,
+            onClickProposalRegect: handlers.onClickProposalRegect,
+          }}
+        />
+      )
+    } else if (checkIsChatMessageDataProposalStatusChangedContract(messageItem)) {
+      return <ChatMessageProposalStatusChanged message={messageItem} />
+    } else if (checkIsChatMessageDataProposalResultEditedDetailsContract(messageItem)) {
+      console.log('messageItem ', messageItem)
+      return <ChatMessageRequestProposalResultEdited message={messageItem} />
+    } else {
+      return <ChatMessageBasicText isIncomming={isIncomming} message={messageItem} />
     }
   }
 
@@ -45,8 +66,10 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId}) => {
         {messages
           ? messages.map((messageItem: ChatMessageContract, index: number) => {
               const isIncomming = userId !== messageItem.userId
+              const isNotPersonal = !messageItem.userId
               const isLastMessage = index === messages.length - 1
-              const isNextMessageSameAuthor = !isLastMessage && messages[index + 1]?.userId === messageItem.userId
+              const isNextMessageSameAuthor =
+                !isLastMessage && messages[index + 1]?.userId === messageItem.userId && !isNotPersonal
               return (
                 <div
                   key={`chatMessage_${messageItem._id}`}
@@ -54,9 +77,10 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId}) => {
                     [classNames.messageWrapperIsIncomming]: isIncomming,
                     [classNames.messageWrapperIsNextMessageSameAuthor]: isNextMessageSameAuthor,
                     [classNames.messageWrapperIsLastMessage]: isLastMessage,
+                    [classNames.messageWrapperisNotPersonal]: isNotPersonal,
                   })}
                 >
-                  {!isNextMessageSameAuthor ? (
+                  {!isNextMessageSameAuthor && !isNotPersonal ? (
                     <Avatar
                       src={getUserAvatarSrc(messageItem.userId)}
                       className={clsx(classNames.messageAvatarWrapper, {
@@ -72,20 +96,25 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId}) => {
                         isNextMessageSameAuthor && isIncomming,
                     })}
                   >
-                    {/* <ChatMessageBasicText isIncomming={isIncomming} message={messageItem} /> */}
-                    {renderMessageByType(isIncomming, messageItem)}
-                    {messageItem.files.length && (
-                      <div>
-                        <Typography className={classNames.timeText}>{'ФАЙЛЫ:'}</Typography>
+                    <div className={classNames.messageInnerContentWrapper}>
+                      {renderMessageByType(isIncomming, messageItem)}
+                      {messageItem.files.length ? (
+                        <div>
+                          <Typography className={classNames.timeText}>{'ФАЙЛЫ:'}</Typography>
 
-                        {messageItem.files.map(file => (
-                          <Link key={index} target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(file)}>
-                            <Typography className={classNames.linkText}>{file}</Typography>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                    <Typography className={classNames.timeText}>{formatNormDateTime(messageItem.updatedAt)}</Typography>
+                          {messageItem.files.map(file => (
+                            <Link key={index} target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(file)}>
+                              <Typography className={classNames.linkText}>{file}</Typography>
+                            </Link>
+                          ))}
+                        </div>
+                      ) : undefined}
+                    </div>
+                    <div className={classNames.timeTextWrapper}>
+                      <Typography className={classNames.timeText}>
+                        {formatNormDateTime(messageItem.updatedAt)}
+                      </Typography>
+                    </div>
                   </div>
                 </div>
               )

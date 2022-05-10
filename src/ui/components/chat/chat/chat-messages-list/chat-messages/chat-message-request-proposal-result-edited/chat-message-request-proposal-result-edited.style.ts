@@ -21,7 +21,9 @@ export const useClassNames = makeStyles(() => ({
     fontSize: 18,
     fontWeight: 600,
   },
-  timeWrapper: {},
+  timeWrapper: {
+    marginLeft: '20px',
+  },
   timeText: {
     color: '#5F5F5F',
     fontSize: 18,
@@ -41,22 +43,48 @@ export const useClassNames = makeStyles(() => ({
     color: '#354256',
     fontSize: 18,
   },
-  footerWrapper: {
+  resultWrapper: {
     marginTop: 25,
-  },
-  footerRow: {
     display: 'flex',
+    flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
-    '&:not(:first-of-type)': {
-      marginTop: '20px',
-    },
   },
-  footerRowNotFirst: {
+  resultLeftSide: {
+    flex: 4,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  resultTextWrapper: {},
+  resultText: {
+    fontSize: 18,
+    color: '#354256',
+  },
+  resultLinksWrapper: {
     marginTop: 20,
   },
-  labelValueBlockWrapper: {},
-  labelValueBlockWrapperNotFirst: {
-    marginLeft: '20px',
+  linkWrapper: {
+    padding: '10px 0',
+  },
+  resultRightSide: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
+  timeToCheckBlockWrapper: {},
+  timeToCheckBlockLabelText: {
+    fontSize: '15px',
+    color: '#5F5F5F',
+  },
+  timeToCheckBlockValueWrapper: {
+    padding: '8px 25px 6px 56px',
+    backgroundColor: '#FFFFFF',
+    borderRadius: '4px',
+    marginTop: 15,
+  },
+  timeToCheckBlockValueText: {
+    fontSize: '15px',
+    color: '#5F5F5F',
   },
 }))

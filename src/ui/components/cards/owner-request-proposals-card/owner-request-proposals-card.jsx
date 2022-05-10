@@ -14,6 +14,7 @@ import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './owner-request-proposals-card.style'
+import { RequestProposalStatus } from '@constants/request-proposal-status'
 
 export const OwnerRequestProposalsCard = ({
   item,
@@ -94,25 +95,31 @@ export const OwnerRequestProposalsCard = ({
       </div>
 
       <div className={classNames.cardFooter}>
-        <Typography>{'Ожидает выбора'}</Typography>
+        <Typography>{item.proposal.status}</Typography>
 
         <div>
-          <Button
-            variant="contained"
-            color="primary"
-            className={clsx(classNames.actionButton, classNames.cancelBtn)}
-            onClick={() => onClickRejectProposal(item.proposal)}
-          >
-            {'Отклонить'}
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            className={clsx(classNames.actionButton, classNames.successBtn)}
-            onClick={() => onClickAcceptProposal(item.proposal)}
-          >
-            {`Заказать за ${toFixedWithDollarSign(item.proposal.price)}`}
-          </Button>
+          {
+            item.proposal.status === RequestProposalStatus.CREATED ? (
+              <>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={clsx(classNames.actionButton, classNames.cancelBtn)}
+                  onClick={() => onClickRejectProposal(item.proposal)}
+                >
+                  {'Отклонить'}
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={clsx(classNames.actionButton, classNames.successBtn)}
+                  onClick={() => onClickAcceptProposal(item.proposal)}
+                >
+                  {`Заказать за ${toFixedWithDollarSign(item.proposal.price)}`}
+                </Button>
+              </>
+            ) : undefined
+          }
 
           <Button
             variant="contained"

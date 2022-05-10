@@ -73,11 +73,9 @@ export const useClassNames = makeStyles(() => ({
     overflow: 'hidden',
     height: '60px',
   },
-
   subTitle: {
     marginTop: '10px',
   },
-
   btnsBlockWrapper: {
     marginLeft: '40px',
     width: '300px',
@@ -85,26 +83,38 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'flex-end',
   },
-
   stopBtn: {
     width: '100%',
     background: '#F3AF00',
-
     color: '#354256',
-
     '&:hover': {
       opacity: '0.8',
       background: '#F3AF00',
     },
   },
-
   btnsWrapper: {
-    display: 'flex',
-    marginBottom: '30px',
-
-    justifyContent: 'space-between',
   },
-
+  btnsRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  btnsRowIsLast: {
+    marginBottom: 0
+  },
+  buttonWrapperFullWidth: {
+    flex: 1,
+    display: 'flex'
+  },
+  button: {
+    display: 'flex',
+    flex: 1
+  },
+  buttonEditRemoveBtnIsShown: {
+    marginLeft: '10px'
+  },
   requestStatus: {
     marginLeft: '15px',
     fontSize: '18px',
@@ -113,7 +123,6 @@ export const useClassNames = makeStyles(() => ({
   },
 
   successBtn: {
-    marginLeft: '10px',
     backgroundColor: '#00B746',
     '&:hover': {
       opacity: '0.8',

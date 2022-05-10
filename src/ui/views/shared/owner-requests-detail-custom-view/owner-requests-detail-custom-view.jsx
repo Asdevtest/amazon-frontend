@@ -25,6 +25,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {OwnerRequestDetailCustomViewModel} from './owner-requests-detail-custom-view.model'
 import {styles} from './owner-requests-detail-custom-view.style'
+import { ChatRequestAndRequestProposalContext } from '../../../../contexts/chat-request-and-request-proposal-context'
 
 const textConsts = getLocalizedTexts(texts, 'ru').CustomRequestView
 
@@ -77,6 +78,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
     const {classes: classNames} = this.props
 
+    const findRequestProposalForCurChat = requestProposals.find((requestProposal) => requestProposal.chatId === chatSelectedId)
     return (
       <React.Fragment>
         <Navbar
@@ -122,14 +124,25 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
               {chatIsConnected ? (
                 <div className={classNames.chatWrapper}>
-                  <MultipleChats
-                    ref={this.chatRef}
-                    chats={chats}
-                    userId={userInfo._id}
-                    chatSelectedId={chatSelectedId}
-                    onSubmitMessage={onSubmitMessage}
-                    onClickChat={onClickChat}
-                  />
+                  <ChatRequestAndRequestProposalContext.Provider
+                    value={{
+                    request,
+                    requestProposal: findRequestProposalForCurChat
+                  }}
+                  >
+                    <MultipleChats
+                      ref={this.chatRef}
+                      chats={chats}
+                      userId={userInfo._id}
+                      chatSelectedId={chatSelectedId}
+                      chatMessageHandlers={{
+                        onClickProposalAccept: onClickAcceptProposal,
+                        onClickProposalRegect: onClickRejectProposal
+                      }}
+                      onSubmitMessage={onSubmitMessage}
+                      onClickChat={onClickChat}
+                    />
+                  </ChatRequestAndRequestProposalContext.Provider>
                 </div>
               ) : undefined}
             </MainContent>

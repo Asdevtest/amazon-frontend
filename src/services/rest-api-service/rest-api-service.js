@@ -50,7 +50,7 @@ class RestApiService {
     this.integrationsApi = new IntegrationsApi(this.apiClient)
 
     this.SearchRequestApi = new RequestsApi(this.apiClient)
-    this.SearchRequestProposalApi = new RequestProposalsApi(this.apiClient)
+    this.RequestProposalsApi = new RequestProposalsApi(this.apiClient)
     this.shopApi = new ShopApi(this.apiClient)
   }
 

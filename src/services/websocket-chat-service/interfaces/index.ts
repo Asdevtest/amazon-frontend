@@ -21,17 +21,57 @@ export interface SendMessageRequestParams {
   is_draft?: boolean
 }
 
-export interface ChatMessage {
+export interface ChatMessage<T extends ChatMessageDataUniversal = ChatMessageDataUniversal> {
   _id: string
   userId: string
   chatId: string
   text: string
-  type: string
+  type: ChatMessageType
   images: string[]
   files: string[]
   is_draft?: boolean
   createdAt: string
   updatedAt: string
+  data: T
+}
+
+export enum ChatMessageType {
+  'CREATED_NEW_PROPOSAL_PROPOSAL_DESCRIPTION' = 'CREATED_NEW_PROPOSAL_PROPOSAL_DESCRIPTION',
+  'CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION' = 'CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION',
+  'PROPOSAL_STATUS_CHANGED' = 'PROPOSAL_STATUS_CHANGED',
+  'PROPOSAL_RESULT_EDITED' = 'PROPOSAL_RESULT_EDITED',
+}
+
+export type ChatMessageDataUniversal =
+  | ChatMessageDataCreatedNewProposalProposalDescription
+  | ChatMessageDataCreatedNewProposalRequestDescription
+  | ChatMessageDataProposalStatusChanged
+  | ChatMessageDataProposalResultEditedDetails
+  | undefined
+
+export interface ChatMessageDataCreatedNewProposalProposalDescription {
+  _id: string
+  execution_time: number
+  price: number
+  comment: string
+  status: string
+}
+
+export interface ChatMessageDataCreatedNewProposalRequestDescription {
+  _id: string
+  title: string
+  timeoutAt: string
+  status: string
+  price: string
+}
+
+export interface ChatMessageDataProposalStatusChanged {
+  status: string
+}
+
+export interface ChatMessageDataProposalResultEditedDetails {
+  linksToMediaFiles: string[]
+  result: string
 }
 
 export interface ChatUser {

@@ -1,22 +1,34 @@
-import React, {FC} from 'react'
+import React, {FC, useContext} from 'react'
 
 import clsx from 'clsx'
 
+import {RequestProposalStatus} from '@constants/request-proposal-status'
+
+import {ChatMessageDataCreatedNewProposalProposalDescriptionContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime} from '@utils/date-time'
-import {toFixedWithDollarSign} from '@utils/text'
+import {toFixed, toFixedWithDollarSign} from '@utils/text'
+
+import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
 import {LabelValuePairBlock} from '../label-value-pair-block'
 import {useClassNames} from './chat-message-proposal.style'
 
-interface Props {
-  message: ChatMessageContract
+export interface ChatMessageProposalHandlers {
+  onClickProposalAccept: (proposalId: string) => void
+  onClickProposalRegect: (proposalId: string) => void
 }
 
-export const ChatMessageProposal: FC<Props> = ({message}) => {
+interface Props {
+  message: ChatMessageContract<ChatMessageDataCreatedNewProposalProposalDescriptionContract>
+  handlers: ChatMessageProposalHandlers
+}
+
+export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
+  const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
   const classNames = useClassNames()
   return (
     <div className={classNames.root}>
@@ -33,7 +45,7 @@ export const ChatMessageProposal: FC<Props> = ({message}) => {
           <p className={classNames.titleText}>Сделаю за другую сумму</p>
         </div> */}
         <div className={classNames.descriptionWrapper}>
-          <p className={classNames.descriptionText}>{message.text}</p>
+          <p className={classNames.descriptionText}>{message.data.comment}</p>
         </div>
       </div>
       <div className={classNames.footerWrapper}>
@@ -41,21 +53,33 @@ export const ChatMessageProposal: FC<Props> = ({message}) => {
           <div className={classNames.labelValueBlockWrapper}>
             <LabelValuePairBlock
               label="Время на выполнение"
-              value={`${(message.data?.execution_time || 0) / 60} часов`}
+              value={`${toFixed((message.data.execution_time || 0) / 60, 2)} часов`}
             />
           </div>
           <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
-            <LabelValuePairBlock label="Стоимость" value={toFixedWithDollarSign(message.data?.price, 2)} />
+            <LabelValuePairBlock label="Стоимость" value={toFixedWithDollarSign(message.data.price, 2)} />
           </div>
         </div>
-        <div className={classNames.rightSide}>
-          <Button variant="contained" color="primary" className={clsx(classNames.actionButton, classNames.successBtn)}>
-            Отклонить
-          </Button>
-          <Button variant="contained" color="primary" className={clsx(classNames.actionButton, classNames.successBtn)}>
-            Принять
-          </Button>
-        </div>
+        {chatRequestAndRequestProposal.requestProposal?.status === RequestProposalStatus.CREATED ? (
+          <div className={classNames.rightSide}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={clsx(classNames.actionButton, classNames.successBtn)}
+              onClick={() => handlers.onClickProposalRegect(message.data._id)}
+            >
+              Отклонить
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              className={clsx(classNames.actionButton, classNames.successBtn)}
+              onClick={() => handlers.onClickProposalAccept(message.data._id)}
+            >
+              Принять
+            </Button>
+          </div>
+        ) : undefined}
       </div>
     </div>
   )

@@ -1,8 +1,26 @@
-import {IsBoolean, IsNotEmpty, IsOptional, IsString} from 'class-validator'
+import {IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString} from 'class-validator'
 
 import {TWebsocketChatService} from '@services/websocket-chat-service'
 
-export class ChatMessageContract implements TWebsocketChatService.ChatMessage {
+import {
+  ChatMessageDataCreatedNewProposalProposalDescriptionContract,
+  ChatMessageDataCreatedNewProposalRequestDescriptionContract,
+  ChatMessageDataProposalResultEditedDetailsContract,
+  ChatMessageDataProposalStatusChangedContract,
+} from './chat-message-data.contract'
+
+export {ChatMessageType} from '@services/websocket-chat-service'
+
+export type TChatMessageDataUniversal =
+  | ChatMessageDataCreatedNewProposalProposalDescriptionContract
+  | ChatMessageDataCreatedNewProposalRequestDescriptionContract
+  | ChatMessageDataProposalStatusChangedContract
+  | ChatMessageDataProposalResultEditedDetailsContract
+  | undefined
+
+export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMessageDataUniversal>
+  implements TWebsocketChatService.ChatMessage
+{
   @IsNotEmpty()
   @IsString()
   public _id!: string
@@ -16,8 +34,8 @@ export class ChatMessageContract implements TWebsocketChatService.ChatMessage {
   @IsString()
   public text!: string
   @IsNotEmpty()
-  @IsString()
-  public type!: string
+  @IsEnum(TWebsocketChatService.ChatMessageType)
+  public type!: TWebsocketChatService.ChatMessageType
   @IsNotEmpty()
   @IsString({each: true})
   public images!: string[]
@@ -33,6 +51,5 @@ export class ChatMessageContract implements TWebsocketChatService.ChatMessage {
   @IsNotEmpty()
   @IsString()
   public updatedAt!: string
-  @IsOptional()
-  public data?: {price: string; execution_time: number; status: string; title?: string; timeoutAt?: string}
+  public data!: T
 }

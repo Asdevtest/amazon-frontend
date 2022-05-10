@@ -13,12 +13,12 @@ export const useClassNames = makeStyles(() => ({
   labelText: {
     color: '#354256',
     fontWeight: 18,
+    textAlign: 'center',
   },
-  valueWrapper: {
-    marginLeft: 35,
-  },
+  valueWrapper: {},
   valueText: {
     color: '#354256',
     fontSize: 18,
+    textAlign: 'center',
   },
 }))

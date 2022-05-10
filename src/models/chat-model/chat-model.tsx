@@ -10,7 +10,7 @@ import {UserModel} from '@models/user-model'
 import {WebsocketChatService} from '@services/websocket-chat-service'
 
 import {ChatContract, SendMessageRequestParamsContract} from './contracts'
-import {ChatMessageContract} from './contracts/chat-message.contract'
+import {ChatMessageContract, TChatMessageDataUniversal} from './contracts/chat-message.contract'
 
 const websocketChatServiceIsNotInitializedError = new Error('websocketChatService is not  onotialized')
 const noTokenProvidedError = new Error('no access token in user model, login before useing websocket')
@@ -123,7 +123,10 @@ class ChatModelStatic {
   }
 
   private onNewMessage(newMessage: ChatMessageContract) {
-    const message = plainToClass(ChatMessageContract, newMessage)
+    const message = plainToClass<ChatMessageContract<TChatMessageDataUniversal>, unknown>(
+      ChatMessageContract,
+      newMessage,
+    )
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
     if (findChatIndexById !== -1) {
       runInAction(() => {

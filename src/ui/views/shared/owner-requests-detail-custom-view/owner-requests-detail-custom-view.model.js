@@ -70,8 +70,8 @@ export class OwnerRequestDetailCustomViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      this.getCustomRequestById()
-      this.getCustomProposalsByRequestId()
+      this.getCustomRequestCur()
+      this.getCustomProposalsForRequestCur()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -92,7 +92,7 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  async getCustomRequestById() {
+  async getCustomRequestCur() {
     try {
       const result = await RequestModel.getCustomRequestById(this.requestId)
 
@@ -105,8 +105,9 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  async onSubmitMessage(message, files, chatIdId) {
+  async onSubmitMessage(message, links, files, chatIdId) {
     try {
+      console.log('links ', links)
       await ChatModel.sendMessage({
         chatId: chatIdId,
         text: message,
@@ -117,7 +118,7 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  async getCustomProposalsByRequestId() {
+  async getCustomProposalsForRequestCur() {
     try {
       const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
 
@@ -150,9 +151,27 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  onClickAcceptProposal() {}
+  async onClickAcceptProposal(proposalId) {
+    try {
+      await RequestProposalModel.requestProposalAccept(proposalId)
+      await this.getCustomRequestCur()
+      await this.getCustomProposalsForRequestCur()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
 
-  onClickRejectProposal() {}
+  async onClickRejectProposal(proposalId) {
+    try {
+      await RequestProposalModel.requestProposalReject(proposalId)
+      await this.getCustomRequestCur()
+      await this.getCustomProposalsForRequestCur()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
 
   async onClickPublishBtn() {
     try {

@@ -11,6 +11,7 @@
       "@views/*": ["./src/ui/views/*"],
       "@utils/*": ["./src/utils/*"],
       "@typings/*": ["./src/typings/*"],
+      "@contexts/*": ["./src/contexts/*"],
     }
   }
 }
