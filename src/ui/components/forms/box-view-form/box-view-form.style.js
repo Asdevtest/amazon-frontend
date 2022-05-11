@@ -19,6 +19,8 @@ export const useClassNames = makeStyles(() => ({
   },
   userLinkWrapper: {
     marginLeft: '20px',
+    display: 'flex',
+    alignItems: 'flex-end',
   },
 
   blocksWrapper: {

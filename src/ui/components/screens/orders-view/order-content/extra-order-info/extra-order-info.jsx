@@ -89,7 +89,7 @@ export const ExtraOrderInfo = ({order}) => {
           rowsMax={6}
           value={order.buyerComment}
           inputClasses={classNames.input}
-          label={'Закупщика'}
+          label={'Баера'}
         />
 
         <Field
@@ -99,7 +99,7 @@ export const ExtraOrderInfo = ({order}) => {
           rowsMax={6}
           value={order.clientComment}
           inputClasses={classNames.input}
-          label={'Поставщика'}
+          label={'Клиента'}
         />
       </div>
 

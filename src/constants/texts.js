@@ -3424,7 +3424,7 @@ export const texts = {
     },
     clientOrderComments: {
       mainTitle: 'Комментарии',
-      buyerLabel: 'Закупщика',
+      buyerLabel: 'Баера',
       buyerComment:
         'Бубны распространённый инструмент, есть у разных народов мира, от сибирских шаманов, до индейцев америки.',
       clientLabel: 'Клиента',

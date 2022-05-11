@@ -196,6 +196,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
 
         <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>
           <BoxViewForm
+            storekeeper={batch?.storekeeper}
             box={curBox}
             batchHumanFriendlyId={batch.humanFriendlyId}
             volumeWeightCoefficient={volumeWeightCoefficient}
