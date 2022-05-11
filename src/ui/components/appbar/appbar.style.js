@@ -25,7 +25,7 @@ export const useClassNames = makeStyles(theme => ({
     flexGrow: 1,
     fontWeight: 600,
     color: theme.palette.text.secondary,
-    fontSize: '24px',
+    fontSize: '16px',
   },
   avatar: {
     marginLeft: theme.spacing(3),
@@ -34,6 +34,8 @@ export const useClassNames = makeStyles(theme => ({
   username: {
     fontSize: '14px',
     fontWeight: 500,
+    width: '110px',
+    textOverflow: 'ellipsis',
   },
   userroleTitle: {
     marginRight: '5px',

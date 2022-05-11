@@ -20,7 +20,7 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
 
   return (
     <div className={classNames.box}>
-      <Typography className={classNames.boxTitle}>{box.humanFriendlyId}</Typography>
+      <Typography className={classNames.boxTitle}>{`Коробка № ${box.humanFriendlyId}`}</Typography>
       <div className={classNames.itemsWrapper}>
         <div>
           {box.items.map((order, orderIndex) => (
@@ -30,9 +30,7 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
                   className={classNames.img}
                   src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
                 />
-                <Typography className={classNames.title}>
-                  {orderIndex + 1 + '. ' + order.product.amazonTitle}
-                </Typography>
+                <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
                 <Typography className={classNames.subTitle}>{'qty'}</Typography>
                 <Input
                   disabled

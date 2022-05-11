@@ -2965,6 +2965,7 @@ export const texts = {
       deliveryField: 'Доставка',
       fbaShipmentField: 'FBA shipment',
       fbaShipmentChip: 'Set fba shipment',
+      dimansionsField: 'Размеры',
     },
 
     clientBoxesReadyToBatchViewColumns: {

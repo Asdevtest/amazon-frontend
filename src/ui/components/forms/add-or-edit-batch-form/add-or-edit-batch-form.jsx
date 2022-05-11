@@ -28,6 +28,8 @@ export const AddOrEditBatchForm = observer(
   ({boxesData, onClose, volumeWeightCoefficient, onSubmit, batchToEdit, sourceBox}) => {
     const classNames = useClassNames()
 
+    const [submitIsClicked, setSubmitIsClicked] = useState(false)
+
     const [boxesToAddData, setBoxesToAddData] = useState([...boxesData])
 
     const [chosenBoxes, setChosenBoxes] = useState(
@@ -113,6 +115,8 @@ export const AddOrEditBatchForm = observer(
       const sourceBoxesIds = batchToEdit?.originalData.boxes.map(el => el._id) || []
 
       onSubmit(chosenBoxesIds, sourceBoxesIds, batchToEdit?.id)
+
+      setSubmitIsClicked(true)
     }
 
     return (
@@ -278,7 +282,7 @@ export const AddOrEditBatchForm = observer(
           <div className={classNames.btnsWrapper}>
             <SuccessButton
               disableElevation
-              disabled={chosenBoxes.length < 1 && !batchToEdit}
+              disabled={(chosenBoxes.length < 1 && !batchToEdit) || submitIsClicked}
               variant="contained"
               color="primary"
               onClick={onClickSubmit}

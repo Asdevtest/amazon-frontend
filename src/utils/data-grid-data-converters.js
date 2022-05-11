@@ -272,6 +272,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
     totalPriceChanged: item.totalPriceChanged,
 
     fbaShipment: item.fbaShipment,
+    volumeWeightCoefficient,
   }))
 
 export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>

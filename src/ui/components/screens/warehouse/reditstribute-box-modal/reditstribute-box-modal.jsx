@@ -80,16 +80,14 @@ const Box = ({
 
   return (
     <div className={classNames.box}>
-      {!isNewBox && <Typography className={classNames.boxTitle}>{box.humanFriendlyId}</Typography>}
+      {!isNewBox && <Typography className={classNames.boxTitle}>{`Коробка № ${box.humanFriendlyId}`}</Typography>}
       <div className={classNames.itemWrapper}>
         <div>
           {box.items.map((order, orderIndex) => (
             <div key={`box_${box._id}_${readOnly ? 1 : 0}_${orderIndex}`}>
               <div key={orderIndex} className={classNames.order}>
                 <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
-                <Typography className={classNames.title}>
-                  {orderIndex + 1 + '. ' + order.product.amazonTitle}
-                </Typography>
+                <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
                 <Typography className={classNames.subTitle}>{textConsts.qtyLabel}</Typography>
                 <Input
                   classes={{root: classNames.inputWrapper, input: classNames.input}}
