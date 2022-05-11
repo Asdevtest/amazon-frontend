@@ -16,8 +16,6 @@ const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalSetHsCode
 export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue}) => {
   const classNames = useClassNames()
 
-  console.log('sourceValue', sourceValue)
-
   const [newValue, setNewValue] = useState(sourceValue)
 
   return (

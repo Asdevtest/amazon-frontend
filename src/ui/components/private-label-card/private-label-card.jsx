@@ -23,8 +23,6 @@ export const PrivateLabelCard = ({item, setProductToPay}) => {
     </div>
   )
 
-  console.log('item', item)
-
   return (
     <Paper className={classNames.root}>
       <div className={classNames.imgWrapper}>
