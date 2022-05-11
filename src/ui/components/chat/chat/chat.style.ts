@@ -15,31 +15,6 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  textInputWrapper: {
-    width: '100%',
-    backgroundColor: '#EBEBEB',
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    '& .react-mde': {
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      '& div:last-child': {
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        '& .mde-textarea-wrapper': {
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          '& textarea': {
-            resize: 'none',
-          },
-        },
-      },
-    },
-  },
   btnsWrapper: {
     width: '100%',
     display: 'flex',
@@ -47,10 +22,5 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: '10px',
-  },
-  textInput: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'grey',
   },
 }))

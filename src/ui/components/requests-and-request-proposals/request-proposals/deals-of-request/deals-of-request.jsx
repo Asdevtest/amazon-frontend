@@ -32,10 +32,11 @@ export const DealsOfRequest = ({requestProposals}) => {
       <Accordion
         classes={{root: classNames.accordion}}
         expanded={showDetails}
+        disabled={!requestProposals.length}
         onChange={() => setShowDetails(!showDetails)}
       >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classNames.title}>{'Сделки по заявке'}</Typography>
+          <Typography className={classNames.title}>{`Сделки по заявке (${requestProposals.length})`}</Typography>
         </AccordionSummary>
 
         <AccordionDetails>

@@ -28,6 +28,9 @@ export const OwnerGeneralRequestInfo = ({
 
   const now = new Date()
 
+  const requestIsNotDraftAndPublished = !request?.request.status === RequestStatus.DRAFT ||
+  request?.request.status === RequestStatus.PUBLISHED
+
   return (
     <Paper className={classNames.root}>
       <div className={classNames.mainBlockWrapper}>
@@ -110,17 +113,19 @@ export const OwnerGeneralRequestInfo = ({
       {request && request?.request.status === RequestStatus.DRAFT && (
         <div className={classNames.btnsBlockWrapper}>
           <div className={classNames.btnsWrapper}>
-            <Button color="primary" className={classNames.button} onClick={onClickEditBtn}>
-              {'Редактировать'}
-            </Button>
-
-            <Button color="primary" className={classNames.successBtn} onClick={onClickPublishBtn}>
-              {'Опубликовать'}
-            </Button>
-
-            <Button variant="contained" color="primary" className={classNames.cancelBtn} onClick={onClickCancelBtn}>
-              {'Удалить'}
-            </Button>
+            <div className={classNames.btnsRow}>
+              <Button color="primary" btnWrapperStyle={classNames.buttonWrapperFullWidth} className={classNames.button} onClick={onClickEditBtn}>
+                {'Редактировать'}
+              </Button>
+              <Button variant="contained" color="primary" btnWrapperStyle={classNames.buttonWrapperFullWidth} className={[classNames.button, classNames.cancelBtn]} onClick={onClickCancelBtn}>
+                {'Удалить'}
+              </Button>
+            </div>
+            <div className={[classNames.btnsRow, classNames.btnsRowIsLast]}>
+              <Button color="primary" btnWrapperStyle={classNames.buttonWrapperFullWidth} className={[classNames.button, classNames.successBtn]} onClick={onClickPublishBtn}>
+                {'Опубликовать'}
+              </Button>
+            </div>
           </div>
         </div>
       )}
@@ -128,31 +133,35 @@ export const OwnerGeneralRequestInfo = ({
       {request && request?.request.status !== RequestStatus.DRAFT && (
         <div className={classNames.btnsBlockWrapper}>
           <div className={classNames.btnsWrapper}>
-            {request?.request.status === RequestStatus.DRAFT ||
-              (request?.request.status === RequestStatus.PUBLISHED && (
-                <Button variant="outlined" color="danger" className={classNames.button} onClick={onClickCancelBtn}>
+            <div className={classNames.btnsRow}>
+              {requestIsNotDraftAndPublished && (
+                <Button variant="outlined" color="danger" btnWrapperStyle={classNames.buttonWrapperFullWidth} className={classNames.button} onClick={onClickCancelBtn}>
                   {'Удалить'}
                 </Button>
-              ))}
+              )}
 
-            {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED && (
-              <Button variant="outlined" color="primary" className={classNames.button} onClick={onClickEditBtn}>
+              {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED && (
+              <Button variant="outlined" color="primary" btnWrapperStyle={classNames.buttonWrapperFullWidth} className={clsx(classNames.button, {[classNames.buttonEditRemoveBtnIsShown]: requestIsNotDraftAndPublished})} onClick={onClickEditBtn}>
                 {'Редактировать'}
               </Button>
             )}
+            </div>
           </div>
 
           {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED && (
-            <Button
-              variant="contained"
-              color="primary"
-              className={clsx({[classNames.stopBtn]: request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS})}
-              onClick={request?.request.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
-            >
-              {request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS
+            <div className={[classNames.btnsRow, classNames.btnsRowIsLast]}>
+              <Button
+                variant="contained"
+                color="primary"
+                btnWrapperStyle={classNames.buttonWrapperFullWidth}
+                className={clsx(classNames.button, {[classNames.stopBtn]: request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS})}
+                onClick={request?.request.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
+              >
+                {request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS
                 ? 'Возобновить прием заявок'
                 : 'Остановить прием заявок'}
-            </Button>
+              </Button>
+            </div>
           )}
         </div>
       )}

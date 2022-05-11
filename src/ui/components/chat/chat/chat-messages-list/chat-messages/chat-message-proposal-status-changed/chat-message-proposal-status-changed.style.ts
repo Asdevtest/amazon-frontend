@@ -1,0 +1,57 @@
+import {makeStyles} from '@material-ui/core'
+
+export const useClassNames = makeStyles(() => ({
+  root: {
+    width: '100%',
+    padding: '10px 0',
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  statusWrapper: {},
+  statusTextDesciption: {
+    color: 'grey',
+    fontSize: '18px',
+    marginBottom: 0,
+  },
+  statusText: {
+    color: 'black',
+    fontSize: '15px',
+  },
+  detailsWrapper: {
+    marginTop: '5px',
+    minWidth: '70%',
+    backgroundColor: '#D9FAE5',
+    padding: '15px 14px',
+    borderRadius: '4px',
+    '& p, h1, h2, h3, h4, h5, span': {
+      margin: 0,
+    },
+  },
+  titleWrapper: {},
+  titleText: {
+    fontSize: 18,
+    fontWeight: 700,
+  },
+  reasonWrapper: {
+    marginTop: '10px',
+  },
+  reasonText: {},
+  footerWrapper: {
+    marginTop: 25,
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  footerRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    '&:not(:first-of-type)': {
+      marginTop: '20px',
+    },
+  },
+  labelValueBlockWrapper: {},
+}))

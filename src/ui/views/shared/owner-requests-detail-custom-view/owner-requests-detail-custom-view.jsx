@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, createRef} from 'react'
 
 import {Typography, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
@@ -25,6 +25,8 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {OwnerRequestDetailCustomViewModel} from './owner-requests-detail-custom-view.model'
 import {styles} from './owner-requests-detail-custom-view.style'
+import { ChatRequestAndRequestProposalContext } from '../../../../contexts/chat-request-and-request-proposal-context'
+import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
 
 const textConsts = getLocalizedTexts(texts, 'ru').CustomRequestView
 
@@ -32,13 +34,23 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
 @observer
 export class OwnerRequestDetailCustomViewRaw extends Component {
+  chatRef = createRef()
   viewModel = new OwnerRequestDetailCustomViewModel({
     history: this.props.history,
     location: this.props.location,
+    scrollToChat: () => {
+      if (this.chatRef?.current) {
+        this.chatRef.current.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'})
+      }
+    },
   })
 
   componentDidMount() {
     this.viewModel.loadData()
+  }
+
+  componentWillUnmount() {
+    this.viewModel.resetChats()
   }
 
   render() {
@@ -54,6 +66,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       chats,
       userInfo,
       chatIsConnected,
+      showResultToCorrectFormModal,
       onSubmitMessage,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
@@ -64,10 +77,18 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       onClickAbortBtn,
       onSubmitAbortRequest,
       onClickChat,
+      onClickContactWithExecutor,
+      onClickAcceptProposal,
+      onClickRejectProposal,
+      onClickProposalResultAccept,
+      onClickProposalResultToCorrect,
+      onPressSubmitRequestProposalResultToCorrectForm,
+      triggerShowResultToCorrectFormModal
     } = this.viewModel
 
     const {classes: classNames} = this.props
 
+    const findRequestProposalForCurChat = chatSelectedId && requestProposals.find((requestProposal) => requestProposal.proposal.chatId === chatSelectedId)
     return (
       <React.Fragment>
         <Navbar
@@ -101,19 +122,39 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
               <Paper className={classNames.proposalsWrapper}>
                 {requestProposals.map(item => (
-                  <OwnerRequestProposalsCard key={item.proposal._id} item={item} />
+                  <OwnerRequestProposalsCard
+                    key={item.proposal._id}
+                    item={item}
+                    onClickContactWithExecutor={onClickContactWithExecutor}
+                    onClickAcceptProposal={onClickAcceptProposal}
+                    onClickRejectProposal={onClickRejectProposal}
+                  />
                 ))}
               </Paper>
 
               {chatIsConnected ? (
                 <div className={classNames.chatWrapper}>
-                  <MultipleChats
-                    chats={chats}
-                    userId={userInfo._id}
-                    chatSelectedId={chatSelectedId}
-                    onSubmitMessage={onSubmitMessage}
-                    onClickChat={onClickChat}
-                  />
+                  <ChatRequestAndRequestProposalContext.Provider
+                    value={{
+                      request,
+                      requestProposal: findRequestProposalForCurChat
+                    }}
+                  >
+                    <MultipleChats
+                      ref={this.chatRef}
+                      chats={chats}
+                      userId={userInfo._id}
+                      chatSelectedId={chatSelectedId}
+                      chatMessageHandlers={{
+                        onClickProposalAccept: onClickAcceptProposal,
+                        onClickProposalRegect: onClickRejectProposal,
+                        onClickProposalResultToCorrect,
+                        onClickProposalResultAccept
+                      }}
+                      onSubmitMessage={onSubmitMessage}
+                      onClickChat={onClickChat}
+                    />
+                  </ChatRequestAndRequestProposalContext.Provider>
                 </div>
               ) : undefined}
             </MainContent>
@@ -126,6 +167,14 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
               setOpenModal={() => onTriggerOpenModal('showRequestForm')}
               requestToEdit={request}
               onSubmit={onSubmitEditCustomSearchRequest}
+            />
+          </Modal>
+          <Modal
+            openModal={showResultToCorrectFormModal}
+            setOpenModal={triggerShowResultToCorrectFormModal}
+          >
+            <RequestProposalResultToCorrectForm
+              onPressSubmitForm={onPressSubmitRequestProposalResultToCorrectForm}
             />
           </Modal>
 

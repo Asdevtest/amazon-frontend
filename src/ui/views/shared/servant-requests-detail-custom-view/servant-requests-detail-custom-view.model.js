@@ -1,9 +1,13 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {ChatModel} from '@models/chat-model'
 // import {texts} from '@constants/texts'
 import {RequestModel} from '@models/request-model'
+import {UserModel} from '@models/user-model'
+import { RequestProposalModel } from '@models/request-proposal'
+import { RequestProposalStatus } from '@constants/request-proposal-status'
 
 // import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -25,24 +29,78 @@ export class RequestDetailCustomViewModel {
     title: '',
   }
 
+  chatSelectedId = undefined
+  chatIsConnected = false
+
   constructor({history, location}) {
     this.history = history
     if (location.state) {
       this.requestId = location.state.requestId
     }
     makeAutoObservable(this, undefined, {autoBind: true})
+    try {
+      if (ChatModel.isConnected) {
+        ChatModel.getChats(this.requestId, 'REQUEST')
+        runInAction(() => {
+          this.chatIsConnected = ChatModel.isConnected
+        })
+      } else {
+        reaction(
+          () => ChatModel.isConnected,
+          isConnected => {
+            if (isConnected) {
+              ChatModel.getChats(this.requestId, 'REQUEST')
+              runInAction(() => {
+                this.chatIsConnected = isConnected
+              })
+            }
+          },
+        )
+      }
+      ChatModel.init()
+    } catch (error) {
+      console.warn(error)
+    }
+  }
+
+  get chats() {
+    return ChatModel.chats || []
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      this.getCustomRequestById()
+      await this.getCustomRequestById()
+      await this.getRequestProposals()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+    }
+  }
+
+  get userInfo() {
+    return UserModel.userInfo || {}
+  }
+
+  onClickChat(chat) {
+    if (this.chatSelectedId === chat._id) {
+      this.chatSelectedId = undefined
+    } else {
+      this.chatSelectedId = chat._id
+    }
+  }
+
+  async onSubmitMessage(message, chatIdId) {
+    try {
+      await ChatModel.sendMessage({
+        chatId: chatIdId,
+        text: message,
+      })
+    } catch (error) {
+      console.warn('onSubmitMessage error ', error)
     }
   }
 
@@ -53,6 +111,72 @@ export class RequestDetailCustomViewModel {
       runInAction(() => {
         this.request = result
       })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async getRequestProposals() {
+    try {
+      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
+      console.log('result ', result)
+
+      runInAction(() => {
+        this.requestProposals = result
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onClickSendAsResult({message, links, files}) {
+    try {
+      console.log('links ', links)
+      const findRequestProposalByChatSelectedId = this.requestProposals.find((requestProposal) => requestProposal.proposal.chatId === this.chatSelectedId)
+      if (!findRequestProposalByChatSelectedId) {
+        return
+      }
+      if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {
+        await RequestProposalModel.requestProposalResultCorrected(findRequestProposalByChatSelectedId.proposal._id, {
+          reason: message,
+          linksToMediaFiles: files.map(item => item.file)
+        })
+      } else {
+        await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
+          result: message,
+          linksToMediaFiles: files.map(item => item.file)
+        })
+      }
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onClickReadyToVerify() {
+    try {
+      const findRequestProposalByChatSelectedId = this.requestProposals.find((requestProposal) => requestProposal.proposal.chatId === this.chatSelectedId)
+      if (!findRequestProposalByChatSelectedId) {
+        return
+      }
+      await RequestProposalModel.onClickReadyToVerify(findRequestProposalByChatSelectedId.proposal._id)
+      await this.getRequestProposals()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onClickCancelRequestProposal() {
+    try {
+      const findRequestProposalByChatSelectedId = this.requestProposals.find((requestProposal) => requestProposal.proposal.chatId === this.chatSelectedId)
+      if (!findRequestProposalByChatSelectedId) {
+        return
+      }
+      await RequestProposalModel.requestProposalCancel(findRequestProposalByChatSelectedId.proposal._id)
+      await this.getRequestProposals()
     } catch (error) {
       console.log(error)
       this.error = error
@@ -76,6 +200,10 @@ export class RequestDetailCustomViewModel {
 
   onSubmitOfferDeal() {
     this.history.push('/create-or-edit-proposal', {request: toJS(this.request)})
+  }
+
+  resetChats() {
+    ChatModel.resetChats()
   }
 
   // async onSubmitRequestProposalForm(formFields) {
@@ -105,4 +233,5 @@ export class RequestDetailCustomViewModel {
   //     this.onTriggerOpenModal('showWarningModal')
   //   }
   // }
+  
 }

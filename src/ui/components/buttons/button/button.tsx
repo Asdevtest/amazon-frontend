@@ -17,6 +17,7 @@ interface Props {
   disabled?: boolean
   onClick?: () => void
   disableElevation?: boolean
+  btnWrapperStyle?: string
 }
 
 export const Button: FC<Props> = ({
@@ -28,11 +29,12 @@ export const Button: FC<Props> = ({
   danger,
   className,
   disabled,
+  btnWrapperStyle,
   ...restProps
 }) => {
   const classNames = useClassNames()
   return (
-    <div className={classNames.btnWrapper}>
+    <div className={clsx(classNames.btnWrapper, btnWrapperStyle)}>
       <StyledButton
         disableElevation
         color={color || 'primary'}

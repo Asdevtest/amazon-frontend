@@ -60,18 +60,28 @@ export class WebsocketChatService {
   }
 
   public ping(): void {
-    this.socket.emit(EentToEmit.PING)
+    this.socket.emit(EentToEmit.PING, {
+      example: 'ПРОВЕРКА',
+    })
   }
 
-  public async getChats(): Promise<Chat[]> {
+  public async getChats(crmItemId?: string, crmItemType?: string): Promise<Chat[]> {
+    if (!crmItemId || !crmItemType) {
+      throw new Error('crmItemId and crmItemType should be both in parameters')
+    }
     return new Promise((resolve, reject) => {
-      this.socket.emit(EentToEmit.GET_CHATS, undefined, (getChatsResponse: WebsocketChatResponse<Chat[]>) => {
-        if (!getChatsResponse.success || !getChatsResponse.data) {
-          reject(getChatsResponse.error)
-        } else {
-          resolve(getChatsResponse.data)
-        }
-      })
+      console.log('emit socket call')
+      this.socket.emit(
+        EentToEmit.GET_CHATS,
+        {crmItemId, crmItemType},
+        (getChatsResponse: WebsocketChatResponse<Chat[]>) => {
+          if (!getChatsResponse.success || !getChatsResponse.data) {
+            reject(getChatsResponse.error)
+          } else {
+            resolve(getChatsResponse.data)
+          }
+        },
+      )
     })
   }
 

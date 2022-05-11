@@ -12,10 +12,7 @@ export const parseFieldsAdapterConfig = {
     amazonDetail: 'detail',
     amazonDescription: 'description',
     images: 'images',
-    amazon: {
-      fieldKey: 'price',
-      transformFunc: n => n,
-    },
+    amazon: 'price',
     weight: {
       fieldKey: 'weight',
       transformFunc: getFloatOrZero,

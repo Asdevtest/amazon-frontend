@@ -20,11 +20,14 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {RequestDetailCustomViewModel} from './servant-requests-detail-custom-view.model'
 import {styles} from './servant-requests-detail-custom-view.style'
+import { RequestProposalStatus } from '@constants/request-proposal-status'
 
 const textConsts = getLocalizedTexts(texts, 'ru').CustomRequestView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS
+
+const requestProposalCancelAllowedStatuses = [RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED, RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.TO_CORRECT, RequestProposalStatus.CORRECTED]
 
 @observer
 export class RequestDetailCustomViewRaw extends Component {
@@ -35,6 +38,10 @@ export class RequestDetailCustomViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
+  }
+
+  componentWillUnmount() {
+    this.viewModel.resetChats()
   }
 
   render() {
@@ -48,13 +55,19 @@ export class RequestDetailCustomViewRaw extends Component {
       userInfo,
       chatSelectedId,
       chatIsConnected,
+      requestProposals,
       onClickChat,
       onSubmitMessage,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickBackBtn,
       onSubmitOfferDeal,
+      onClickSendAsResult,
+      onClickCancelRequestProposal,
+      onClickReadyToVerify
     } = this.viewModel
+
+    const findRequestProposalByChatSelectedId = requestProposals.find((requestProposal) => requestProposal.proposal.chatId === chatSelectedId)
 
     return (
       <React.Fragment>
@@ -73,7 +86,11 @@ export class RequestDetailCustomViewRaw extends Component {
                 </Button>
               </div>
 
-              {request ? <ServantGeneralRequestInfo request={request} onSubmit={onSubmitOfferDeal} /> : null}
+              {request ? (
+                <div className={classNames.requestInfoWrapper}>
+                  <ServantGeneralRequestInfo request={request} onSubmit={onSubmitOfferDeal} />
+                </div>
+              ) : null}
 
               {request ? (
                 <div className={classNames.detailsWrapper}>
@@ -86,6 +103,45 @@ export class RequestDetailCustomViewRaw extends Component {
                     chats={chats}
                     userId={userInfo._id}
                     chatSelectedId={chatSelectedId}
+                    chatMessageHandlers={{}}
+                    renderAdditionalButtons={(params, resetAllInputs) => (
+                      <div className={classNames.additionalButtonsWrapper}>
+                        {
+                          findRequestProposalByChatSelectedId && requestProposalCancelAllowedStatuses.includes(findRequestProposalByChatSelectedId.proposal.status) ? (
+                            <Button
+                              className={classNames.cancelRequestProposalBtn}
+                              onClick={onClickCancelRequestProposal}
+                            >
+                              Отменить сделку
+                            </Button>
+                          ) : <div />
+                        }
+                        {
+                          findRequestProposalByChatSelectedId.proposal.status !== RequestProposalStatus.ACCEPTED_BY_CLIENT ? (
+                            <Button
+                              onClick={() => {
+                                if (!params.message) {
+                                  alert("Сообщение не может быть пустым")
+                                }
+                                onClickSendAsResult(params)
+                                resetAllInputs()
+                              }}
+                            >
+                              Отправить как результат
+                            </Button>
+                          ) : undefined
+                        }
+                        {
+                          findRequestProposalByChatSelectedId?.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ? (
+                            <Button
+                              onClick={onClickReadyToVerify}
+                            >
+                              Отправить на проверку
+                            </Button>
+                          ) : undefined
+                        }
+                      </div>
+                    )}
                     onSubmitMessage={onSubmitMessage}
                     onClickChat={onClickChat}
                   />

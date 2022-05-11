@@ -13,8 +13,8 @@ export class SendMessageRequestParamsContract implements SendMessageRequestParam
   @IsString({each: true})
   public images?: string[]
   @IsOptional()
-  @IsString({each: true})
-  public files?: string[]
+  // @IsString({each: true})
+  public files?: any[]
   @IsOptional()
   @IsBoolean()
   public is_draft?: boolean

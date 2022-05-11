@@ -27,7 +27,7 @@ const regExpUriChecking =
 
 const maxSizeInBytes = 15728640
 
-export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptType}) => {
+export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptType, withoutLinks}) => {
   const classNames = useClassNames()
 
   const [linkInput, setLinkInput] = useState('')
@@ -75,31 +75,33 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptT
 
   return (
     <div>
-      <Field
-        label={textConsts.addPhoto}
-        error={linkInputError && 'Ссылка невалидна!'}
-        inputComponent={
-          <div className={classNames.amazonLinkWrapper}>
-            <Input
-              placeholder={textConsts.link}
-              className={classNames.loadImageInput}
-              value={linkInput}
-              onChange={e => onChangeLinkInput(e.target.value)}
-            />
+      {!withoutLinks && (
+        <Field
+          label={textConsts.addPhoto}
+          error={linkInputError && 'Ссылка невалидна!'}
+          inputComponent={
+            <div className={classNames.amazonLinkWrapper}>
+              <Input
+                placeholder={textConsts.link}
+                className={classNames.loadImageInput}
+                value={linkInput}
+                onChange={e => onChangeLinkInput(e.target.value)}
+              />
 
-            <Button
-              disableElevation
-              disabled={linkInput === ''}
-              className={classNames.loadBtn}
-              variant="contained"
-              color="primary"
-              onClick={() => onClickLoadBtn()}
-            >
-              {textConsts.loadBtn}
-            </Button>
-          </div>
-        }
-      />
+              <Button
+                disableElevation
+                disabled={linkInput === ''}
+                className={classNames.loadBtn}
+                variant="contained"
+                color="primary"
+                onClick={() => onClickLoadBtn()}
+              >
+                {textConsts.loadBtn}
+              </Button>
+            </div>
+          }
+        />
+      )}
 
       <ImageUploading
         multiple
