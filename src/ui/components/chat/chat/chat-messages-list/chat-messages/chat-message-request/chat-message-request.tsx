@@ -17,7 +17,6 @@ interface Props {
 
 export const ChatMessageRequest: FC<Props> = ({message}) => {
   const classNames = useClassNames()
-  console.log('message 123 ', message)
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
@@ -29,13 +28,8 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
         </div>
       </div>
       <div className={classNames.mainInfoWrapper}>
-        {/* <div className={classNames.titleWrapper}>
-          <p className={classNames.titleText}>Сделаю за другую сумму</p>
-        </div> */}
         <div className={classNames.descriptionWrapper}>
-          <p className={classNames.descriptionText}>
-            Тут должно быть описание, но его нет, потому что не прикреплены детали заявки
-          </p>
+          <p className={classNames.descriptionText}>{message.data.details.conditions}</p>
         </div>
       </div>
       <div className={classNames.footerWrapper}>

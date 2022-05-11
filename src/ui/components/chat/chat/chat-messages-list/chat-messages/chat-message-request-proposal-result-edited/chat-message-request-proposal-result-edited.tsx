@@ -1,4 +1,4 @@
-import React, {FC, ReactElement, useContext} from 'react'
+import React, {FC, ReactElement} from 'react'
 
 import clsx from 'clsx'
 
@@ -10,8 +10,6 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime} from '@utils/date-time'
-
-import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
 import {useClassNames} from './chat-message-request-proposal-result-edited.style'
 
@@ -32,12 +30,8 @@ const showBtnsAllowedProposalStatuses = [
 ]
 
 export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, handlers}) => {
-  const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
   const classNames = useClassNames()
-  console.log('1232 message', message)
-  // TODO: should be fixed, proposal should be taken from message data
-  const proposal = chatRequestAndRequestProposal.requestProposal?.proposal
-  console.log('proposal ', chatRequestAndRequestProposal)
+  const proposal = message.data.proposal
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>

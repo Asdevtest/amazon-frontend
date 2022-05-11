@@ -1,3 +1,4 @@
+import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 
 import {ChatHandlerName} from '../event-handler-mappings'
@@ -59,12 +60,17 @@ export interface ChatMessageDataCreatedNewProposalProposalDescription {
   status: string
 }
 
+export interface ChatMessageDataCreatedNewProposalRequestDescriptionDetails {
+  conditions: string
+}
+
 export interface ChatMessageDataCreatedNewProposalRequestDescription {
   _id: string
   title: string
   timeoutAt: string
   status: string
   price: string
+  details: ChatMessageDataCreatedNewProposalRequestDescriptionDetails
 }
 
 export interface ChatMessageDataProposalStatusChanged {
@@ -86,9 +92,15 @@ export interface ChatMessageDataProposalResultEditedRequest {
   title: string
 }
 
+export interface ChatMessageDataProposalResultEditedProposal {
+  _id: string
+  status: keyof typeof RequestProposalStatus
+}
+
 export interface ChatMessageDataProposalResultEdited {
   edited: ChatMessageDataProposalResultEditedEdited
   request: ChatMessageDataProposalResultEditedRequest
+  proposal: ChatMessageDataProposalResultEditedProposal
 }
 
 export interface ChatUser {

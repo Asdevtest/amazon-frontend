@@ -1,6 +1,7 @@
 import {Type} from 'class-transformer'
 import {IsNotEmpty, IsNumber, IsOptional, IsString} from 'class-validator'
 
+import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 
 import {TWebsocketChatService} from '@services/websocket-chat-service'
@@ -25,6 +26,14 @@ export class ChatMessageDataCreatedNewProposalProposalDescriptionContract
   public status!: string
 }
 
+export class ChatMessageDataCreatedNewProposalRequestDescriptionDetailsContract
+  implements TWebsocketChatService.ChatMessageDataCreatedNewProposalRequestDescriptionDetails
+{
+  @IsNotEmpty()
+  @IsString()
+  public conditions!: string
+}
+
 export class ChatMessageDataCreatedNewProposalRequestDescriptionContract
   implements TWebsocketChatService.ChatMessageDataCreatedNewProposalRequestDescription
 {
@@ -43,6 +52,8 @@ export class ChatMessageDataCreatedNewProposalRequestDescriptionContract
   @IsNotEmpty()
   @IsString()
   public price!: string
+  @Type(() => ChatMessageDataCreatedNewProposalRequestDescriptionDetailsContract)
+  public details!: ChatMessageDataCreatedNewProposalRequestDescriptionDetailsContract
 }
 
 export class ChatMessageDataProposalStatusChangedContract
@@ -89,6 +100,18 @@ export class ChatMessageDataProposalResultEditedEdited
   @IsString()
   public result!: string
 }
+
+export class ChatMessageDataProposalResultEditedProposalContract
+  implements TWebsocketChatService.ChatMessageDataProposalResultEditedProposal
+{
+  @IsNotEmpty()
+  @IsString()
+  public _id!: string
+  @IsNotEmpty()
+  @IsString()
+  public status!: keyof typeof RequestProposalStatus
+}
+
 export class ChatMessageDataProposalResultEditedContract
   implements TWebsocketChatService.ChatMessageDataProposalResultEdited
 {
@@ -96,4 +119,6 @@ export class ChatMessageDataProposalResultEditedContract
   public edited!: ChatMessageDataProposalResultEditedEdited
   @Type(() => ChatMessageDataProposalResultEditedRequestContract)
   public request!: ChatMessageDataProposalResultEditedRequestContract
+  @Type(() => ChatMessageDataProposalResultEditedProposalContract)
+  public proposal!: ChatMessageDataProposalResultEditedProposalContract
 }
