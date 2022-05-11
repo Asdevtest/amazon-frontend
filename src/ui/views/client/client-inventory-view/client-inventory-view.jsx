@@ -227,7 +227,7 @@ export class ClientInventoryViewRaw extends Component {
         <Modal openModal={showSetChipValueModal} setOpenModal={() => onTriggerOpenModal('showSetChipValueModal')}>
           <SetChipValueModal
             title={textConsts.setHsCode}
-            item={selectedProduct?.hsCode}
+            sourceValue={selectedProduct?.hsCode}
             onSubmit={onClickSaveHsCode}
             onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}
           />

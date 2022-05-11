@@ -8,7 +8,6 @@ import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
 import {zipCodeGroups} from '@constants/zip-code-groups'
@@ -298,15 +297,6 @@ export const EditBoxForm = observer(
                         }`
                       : 'Выбрать'}
                   </Button>
-                }
-              />
-
-              <Field
-                disabled
-                containerClasses={classNames.field}
-                label={textConsts.statusLabel}
-                value={
-                  boxFields.items[0].order.status && getOrderStatusOptionByCode(boxFields.items[0].order.status).label
                 }
               />
 

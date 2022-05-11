@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
@@ -73,6 +73,18 @@ export const RequestToSendBatchForm = observer(
       .concat(boxesWithoutPrice)
       .filter(obj => obj.boxes.length)
 
+    const [submitIsClicked, setSubmitIsClicked] = useState(false)
+
+    const onClickSubmit = () => {
+      onClickSendBoxesToBatch()
+      setSubmitIsClicked(true)
+    }
+
+    const disabledSubmit =
+      boxesWithPriceRequest.length < 1 ||
+      boxesWithPriceRequest.some(el => !el.isShippingLabelAttachedByStorekeeper) ||
+      submitIsClicked
+
     return (
       <div className={classNames.content}>
         <Typography className={classNames.modalTitle} variant="h5">
@@ -99,13 +111,10 @@ export const RequestToSendBatchForm = observer(
         <div className={classNames.btnsWrapper}>
           <Button
             disableElevation
-            disabled={
-              boxesWithPriceRequest.length < 1 ||
-              boxesWithPriceRequest.some(el => !el.isShippingLabelAttachedByStorekeeper)
-            }
+            disabled={disabledSubmit}
             color="primary"
             variant="contained"
-            onClick={onClickSendBoxesToBatch}
+            onClick={onClickSubmit}
           >
             {textConsts.btnSend}
           </Button>

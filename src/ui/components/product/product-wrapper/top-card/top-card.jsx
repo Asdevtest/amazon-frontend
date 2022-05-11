@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Box, Grid, Paper} from '@material-ui/core'
 import {Alert} from '@material-ui/lab'
@@ -12,6 +12,7 @@ import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
@@ -55,6 +56,10 @@ export const TopCard = observer(
   }) => {
     const classNames = useClassNames()
 
+    const [showImageModal, setShowImageModal] = useState(false)
+
+    const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+
     const clientToEdit =
       checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)
 
@@ -86,7 +91,15 @@ export const TopCard = observer(
                       <Carousel animation="slide" /* autoPlay={true}*/ timeout={500}>
                         {product.images.map((imageHash, index) => (
                           <Box key={index} textAlign="center" className={classNames.carouselImageWrapper}>
-                            <img alt="" className={classNames.carouselImage} src={getAmazonImageUrl(imageHash)} />
+                            <img
+                              alt=""
+                              className={classNames.carouselImage}
+                              src={getAmazonImageUrl(imageHash)}
+                              onClick={() => {
+                                setShowImageModal(!showImageModal)
+                                setBigImagesOptions({images: product.images, imgIndex: index})
+                              }}
+                            />
                           </Box>
                         ))}
                       </Carousel>
@@ -162,6 +175,14 @@ export const TopCard = observer(
 
           {showProgress && <CircularProgressWithLabel value={progressValue} title={textConsts.circularProgressTitle} />}
         </Paper>
+
+        <BigImagesModal
+          isAmazone
+          openModal={showImageModal}
+          setOpenModal={() => setShowImageModal(!showImageModal)}
+          images={bigImagesOptions.images}
+          imgIndex={bigImagesOptions.imgIndex}
+        />
       </React.Fragment>
     )
   },

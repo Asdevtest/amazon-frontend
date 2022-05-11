@@ -194,6 +194,7 @@ export const useClassNames = makeStyles(() => ({
       overflow: 'visible',
       fontWeight: 'bold',
       backgroundColor: 'rgba(0,0,0, .2)',
+      maxWidth: 'none',
     },
   },
 
