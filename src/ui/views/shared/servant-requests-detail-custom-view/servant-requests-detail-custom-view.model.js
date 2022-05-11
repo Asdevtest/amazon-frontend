@@ -7,6 +7,7 @@ import {ChatModel} from '@models/chat-model'
 import {RequestModel} from '@models/request-model'
 import {UserModel} from '@models/user-model'
 import { RequestProposalModel } from '@models/request-proposal'
+import { RequestProposalStatus } from '@constants/request-proposal-status'
 
 // import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -39,6 +40,7 @@ export class RequestDetailCustomViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
     try {
       if (ChatModel.isConnected) {
+        ChatModel.getChats(this.requestId, 'REQUEST')
         runInAction(() => {
           this.chatIsConnected = ChatModel.isConnected
         })
@@ -132,15 +134,21 @@ export class RequestDetailCustomViewModel {
   async onClickSendAsResult({message, links, files}) {
     try {
       console.log('links ', links)
-      console.log('this.requestProposals ', this.requestProposals)
       const findRequestProposalByChatSelectedId = this.requestProposals.find((requestProposal) => requestProposal.proposal.chatId === this.chatSelectedId)
       if (!findRequestProposalByChatSelectedId) {
         return
       }
-      await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
-        result: message,
-        linksToMediaFiles: files.map(item => item.file)
-      })
+      if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {
+        await RequestProposalModel.requestProposalResultCorrected(findRequestProposalByChatSelectedId.proposal._id, {
+          reason: message,
+          linksToMediaFiles: files.map(item => item.file)
+        })
+      } else {
+        await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
+          result: message,
+          linksToMediaFiles: files.map(item => item.file)
+        })
+      }
     } catch (error) {
       console.log(error)
       this.error = error
@@ -194,6 +202,10 @@ export class RequestDetailCustomViewModel {
     this.history.push('/create-or-edit-proposal', {request: toJS(this.request)})
   }
 
+  resetChats() {
+    ChatModel.resetChats()
+  }
+
   // async onSubmitRequestProposalForm(formFields) {
   //   try {
   //     const result = this.requestProposal
@@ -221,4 +233,5 @@ export class RequestDetailCustomViewModel {
   //     this.onTriggerOpenModal('showWarningModal')
   //   }
   // }
+  
 }

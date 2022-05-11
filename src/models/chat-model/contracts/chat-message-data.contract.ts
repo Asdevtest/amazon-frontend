@@ -1,5 +1,7 @@
 import {Type} from 'class-transformer'
-import {IsNotEmpty, IsNumber, IsString} from 'class-validator'
+import {IsNotEmpty, IsNumber, IsOptional, IsString} from 'class-validator'
+
+import {RequestStatus} from '@constants/request-status'
 
 import {TWebsocketChatService} from '@services/websocket-chat-service'
 
@@ -49,15 +51,49 @@ export class ChatMessageDataProposalStatusChangedContract
   @IsNotEmpty()
   @IsString()
   public status!: string
-}
-
-export class ChatMessageDataProposalResultEditedDetailsContract
-  implements TWebsocketChatService.ChatMessageDataProposalResultEditedDetails
-{
+  @IsNotEmpty()
+  @IsString()
+  public reason!: string
   @IsNotEmpty()
   @IsString({each: true})
   public linksToMediaFiles!: string[]
+  @IsOptional()
+  @IsNumber()
+  public timeLimitInMinutes?: number
+}
+
+export class ChatMessageDataProposalResultEditedRequestContract
+  implements TWebsocketChatService.ChatMessageDataProposalResultEditedRequest
+{
+  @IsNotEmpty()
+  @IsString()
+  public _id!: string
+  @IsNotEmpty()
+  @IsNumber()
+  public price!: number
+  @IsNotEmpty()
+  @IsString()
+  public status!: keyof typeof RequestStatus
+  @IsNotEmpty()
+  @IsString()
+  public title!: string
+}
+
+export class ChatMessageDataProposalResultEditedEdited
+  implements TWebsocketChatService.ChatMessageDataProposalResultEditedEdited
+{
+  @IsOptional()
+  @IsString({each: true})
+  public linksToMediaFiles?: string[]
   @IsNotEmpty()
   @IsString()
   public result!: string
+}
+export class ChatMessageDataProposalResultEditedContract
+  implements TWebsocketChatService.ChatMessageDataProposalResultEdited
+{
+  @Type(() => ChatMessageDataProposalResultEditedEdited)
+  public edited!: ChatMessageDataProposalResultEditedEdited
+  @Type(() => ChatMessageDataProposalResultEditedRequestContract)
+  public request!: ChatMessageDataProposalResultEditedRequestContract
 }

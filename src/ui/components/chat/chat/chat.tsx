@@ -37,7 +37,7 @@ export const Chat: FC<Props> = observer(
   ({messages, userId, chatMessageHandlers, onSubmitMessage, renderAdditionalButtons}) => {
     const [inputMode, setInputMode] = useState<ChatInputMode>(ChatInputMode.TEXT)
     const [message, setMessage] = useState('')
-    const [links, setLinks] = useState<string[]>([''])
+    const [links, setLinks] = useState<string[]>([])
     const [files, setFiles] = useState<any[]>([])
     const classNames = useClassNames()
 
@@ -93,7 +93,7 @@ export const Chat: FC<Props> = observer(
               ? renderAdditionalButtons({message, links, files}, resetAllInputs)
               : undefined}
             <Button
-              disabled={inputMode === ChatInputMode.TEXT && (!message || links.length < 2 || !files.length)}
+              disabled={!message && inputMode === ChatInputMode.TEXT}
               onClick={() => {
                 if (inputMode === ChatInputMode.TEXT) {
                   onSubmitMessageInternal()

@@ -26,6 +26,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {OwnerRequestDetailCustomViewModel} from './owner-requests-detail-custom-view.model'
 import {styles} from './owner-requests-detail-custom-view.style'
 import { ChatRequestAndRequestProposalContext } from '../../../../contexts/chat-request-and-request-proposal-context'
+import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
 
 const textConsts = getLocalizedTexts(texts, 'ru').CustomRequestView
 
@@ -48,6 +49,10 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
     this.viewModel.loadData()
   }
 
+  componentWillUnmount() {
+    this.viewModel.resetChats()
+  }
+
   render() {
     const {
       requestProposals,
@@ -61,6 +66,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       chats,
       userInfo,
       chatIsConnected,
+      showResultToCorrectFormModal,
       onSubmitMessage,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
@@ -74,11 +80,15 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       onClickContactWithExecutor,
       onClickAcceptProposal,
       onClickRejectProposal,
+      onClickProposalResultAccept,
+      onClickProposalResultToCorrect,
+      onPressSubmitRequestProposalResultToCorrectForm,
+      triggerShowResultToCorrectFormModal
     } = this.viewModel
 
     const {classes: classNames} = this.props
 
-    const findRequestProposalForCurChat = requestProposals.find((requestProposal) => requestProposal.chatId === chatSelectedId)
+    const findRequestProposalForCurChat = chatSelectedId && requestProposals.find((requestProposal) => requestProposal.proposal.chatId === chatSelectedId)
     return (
       <React.Fragment>
         <Navbar
@@ -126,9 +136,9 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                 <div className={classNames.chatWrapper}>
                   <ChatRequestAndRequestProposalContext.Provider
                     value={{
-                    request,
-                    requestProposal: findRequestProposalForCurChat
-                  }}
+                      request,
+                      requestProposal: findRequestProposalForCurChat
+                    }}
                   >
                     <MultipleChats
                       ref={this.chatRef}
@@ -137,7 +147,9 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                       chatSelectedId={chatSelectedId}
                       chatMessageHandlers={{
                         onClickProposalAccept: onClickAcceptProposal,
-                        onClickProposalRegect: onClickRejectProposal
+                        onClickProposalRegect: onClickRejectProposal,
+                        onClickProposalResultToCorrect,
+                        onClickProposalResultAccept
                       }}
                       onSubmitMessage={onSubmitMessage}
                       onClickChat={onClickChat}
@@ -155,6 +167,14 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
               setOpenModal={() => onTriggerOpenModal('showRequestForm')}
               requestToEdit={request}
               onSubmit={onSubmitEditCustomSearchRequest}
+            />
+          </Modal>
+          <Modal
+            openModal={showResultToCorrectFormModal}
+            setOpenModal={triggerShowResultToCorrectFormModal}
+          >
+            <RequestProposalResultToCorrectForm
+              onPressSubmitForm={onPressSubmitRequestProposalResultToCorrectForm}
             />
           </Modal>
 

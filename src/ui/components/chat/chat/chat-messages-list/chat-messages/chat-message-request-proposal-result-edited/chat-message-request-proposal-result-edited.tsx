@@ -1,18 +1,43 @@
-import React, {FC, ReactElement} from 'react'
+import React, {FC, ReactElement, useContext} from 'react'
 
-import {ChatMessageDataProposalResultEditedDetailsContract} from '@models/chat-model/contracts/chat-message-data.contract'
+import clsx from 'clsx'
+
+import {RequestProposalStatus} from '@constants/request-proposal-status'
+
+import {ChatMessageDataProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+
+import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime} from '@utils/date-time'
 
+import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+
 import {useClassNames} from './chat-message-request-proposal-result-edited.style'
 
-interface Props {
-  message: ChatMessageContract<ChatMessageDataProposalResultEditedDetailsContract>
+export interface ChatMessageRequestProposalResultEditedHandlers {
+  onClickProposalResultToCorrect: (proposalId: string) => void
+  onClickProposalResultAccept: (proposalId: string) => void
 }
 
-export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message}) => {
+interface Props {
+  message: ChatMessageContract<ChatMessageDataProposalResultEditedContract>
+  handlers: ChatMessageRequestProposalResultEditedHandlers
+}
+
+const showBtnsAllowedProposalStatuses = [
+  RequestProposalStatus.CORRECTED,
+  RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED,
+  RequestProposalStatus.READY_TO_VERIFY,
+]
+
+export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, handlers}) => {
+  const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
   const classNames = useClassNames()
+  console.log('1232 message', message)
+  // TODO: should be fixed, proposal should be taken from message data
+  const proposal = chatRequestAndRequestProposal.requestProposal?.proposal
+  console.log('proposal ', chatRequestAndRequestProposal)
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
@@ -25,21 +50,19 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message}) => 
       </div>
       <div className={classNames.mainInfoWrapper}>
         <div className={classNames.titleWrapper}>
-          <p className={classNames.titleText}>Тут должен быть тайтл заявка, но его пока нет в этом типе сообщения</p>
+          <p className={classNames.titleText}>{message.data.request.title}</p>
         </div>
         <div className={classNames.descriptionWrapper}>
-          <p className={classNames.descriptionText}>
-            Тут должно быть описание, но его нет, потому что не прикреплены детали заявки
-          </p>
+          <p className={classNames.descriptionText}>{}</p>
         </div>
       </div>
       <div className={classNames.resultWrapper}>
         <div className={classNames.resultLeftSide}>
           <div className={classNames.resultTextWrapper}>
-            <p className={classNames.resultText}>{message.data.result}</p>
+            <p className={classNames.resultText}>{message.data.edited.result}</p>
           </div>
           <div className={classNames.resultLinksWrapper}>
-            {message.data.linksToMediaFiles.map(
+            {message.data.edited.linksToMediaFiles?.map(
               (link: string, index: number): ReactElement => (
                 <div key={`${message.createdAt}_resultLink_${index}`} className={classNames.linkWrapper}>
                   <a href={link}>{`Ссылка №${index}`}</a>
@@ -56,6 +79,30 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message}) => 
             </div>
           </div>
         </div>
+      </div>
+      <div className={classNames.footerWrapper}>
+        {proposal && showBtnsAllowedProposalStatuses.includes(proposal.status) ? (
+          <div className={classNames.btnsWrapper}>
+            <Button
+              variant="contained"
+              color="primary"
+              btnWrapperStyle={classNames.actionBtnWrapperStyle}
+              className={clsx(classNames.actionButton, classNames.cancelBtn)}
+              onClick={() => handlers.onClickProposalResultToCorrect(proposal._id)}
+            >
+              Отправить на доработку
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              btnWrapperStyle={clsx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
+              className={clsx(classNames.actionButton, classNames.successBtn)}
+              onClick={() => handlers.onClickProposalResultAccept(proposal._id)}
+            >
+              Принять
+            </Button>
+          </div>
+        ) : undefined}
       </div>
     </div>
   )

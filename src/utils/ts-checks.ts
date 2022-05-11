@@ -1,7 +1,7 @@
 import {
   ChatMessageDataCreatedNewProposalProposalDescriptionContract,
   ChatMessageDataCreatedNewProposalRequestDescriptionContract,
-  ChatMessageDataProposalResultEditedDetailsContract,
+  ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,
 } from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract, ChatMessageType} from '@models/chat-model/contracts/chat-message.contract'
@@ -24,8 +24,8 @@ export const checkIsChatMessageDataProposalStatusChangedContract = (
   return value.text === ChatMessageType.PROPOSAL_STATUS_CHANGED
 }
 
-export const checkIsChatMessageDataProposalResultEditedDetailsContract = (
+export const checkIsChatMessageDataProposalResultEditedContract = (
   value: ChatMessageContract,
-): value is ChatMessageContract<ChatMessageDataProposalResultEditedDetailsContract> => {
+): value is ChatMessageContract<ChatMessageDataProposalResultEditedContract> => {
   return value.text === ChatMessageType.PROPOSAL_RESULT_EDITED
 }

@@ -46,7 +46,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   leftSide: {},
   rightSide: {
@@ -62,18 +62,18 @@ export const useClassNames = makeStyles(() => ({
     marginLeft: '50px',
     minWidth: '240px',
   },
-  cancelBtn: {
-    backgroundColor: 'transparent',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#6D6D6E',
-    },
-  },
   successBtn: {
     backgroundColor: '#4CAF50',
     '&:hover': {
       opacity: '0.8',
       backgroundColor: '#4CAF50',
+    },
+  },
+  cancelBtn: {
+    backgroundColor: '#F44336',
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#F44336',
     },
   },
 }))

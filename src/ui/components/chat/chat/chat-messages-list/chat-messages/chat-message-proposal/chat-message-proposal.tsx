@@ -60,12 +60,12 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
             <LabelValuePairBlock label="Стоимость" value={toFixedWithDollarSign(message.data.price, 2)} />
           </div>
         </div>
-        {chatRequestAndRequestProposal.requestProposal?.status === RequestProposalStatus.CREATED ? (
+        {chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ? (
           <div className={classNames.rightSide}>
             <Button
               variant="contained"
               color="primary"
-              className={clsx(classNames.actionButton, classNames.successBtn)}
+              className={clsx(classNames.actionButton, classNames.cancelBtn)}
               onClick={() => handlers.onClickProposalRegect(message.data._id)}
             >
               Отклонить

@@ -3,7 +3,14 @@ import {createContext} from 'react'
 export interface TRequest {}
 
 export interface TRequestProposal {
-  status: string
+  details: {
+    linksToMediaFiles: string[]
+    result: string
+  }
+  proposal: {
+    _id: string
+    status: string
+  }
 }
 
 interface TChatRequestAndRequestProposalContext {

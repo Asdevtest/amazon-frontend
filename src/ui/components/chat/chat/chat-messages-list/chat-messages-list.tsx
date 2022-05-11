@@ -13,7 +13,7 @@ import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {
   checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract,
   checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract,
-  checkIsChatMessageDataProposalResultEditedDetailsContract,
+  checkIsChatMessageDataProposalResultEditedContract,
   checkIsChatMessageDataProposalStatusChangedContract,
 } from '@utils/ts-checks'
 
@@ -22,9 +22,12 @@ import {ChatMessageBasicText} from './chat-messages/chat-message-basic-text'
 import {ChatMessageProposal, ChatMessageProposalHandlers} from './chat-messages/chat-message-proposal'
 import {ChatMessageProposalStatusChanged} from './chat-messages/chat-message-proposal-status-changed'
 import {ChatMessageRequest} from './chat-messages/chat-message-request'
-import {ChatMessageRequestProposalResultEdited} from './chat-messages/chat-message-request-proposal-result-edited'
+import {
+  ChatMessageRequestProposalResultEdited,
+  ChatMessageRequestProposalResultEditedHandlers,
+} from './chat-messages/chat-message-request-proposal-result-edited'
 
-export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers
+export type ChatMessageUniversalHandlers = ChatMessageProposalHandlers & ChatMessageRequestProposalResultEditedHandlers
 
 interface Props {
   userId: string
@@ -52,9 +55,16 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
       )
     } else if (checkIsChatMessageDataProposalStatusChangedContract(messageItem)) {
       return <ChatMessageProposalStatusChanged message={messageItem} />
-    } else if (checkIsChatMessageDataProposalResultEditedDetailsContract(messageItem)) {
-      console.log('messageItem ', messageItem)
-      return <ChatMessageRequestProposalResultEdited message={messageItem} />
+    } else if (handlers && checkIsChatMessageDataProposalResultEditedContract(messageItem)) {
+      return (
+        <ChatMessageRequestProposalResultEdited
+          message={messageItem}
+          handlers={{
+            onClickProposalResultAccept: handlers.onClickProposalResultAccept,
+            onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
+          }}
+        />
+      )
     } else {
       return <ChatMessageBasicText isIncomming={isIncomming} message={messageItem} />
     }

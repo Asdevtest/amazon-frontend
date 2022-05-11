@@ -17,7 +17,7 @@ interface Props {
   chatSelectedId?: string
   chatMessageHandlers?: ChatMessageUniversalHandlers
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  onSubmitMessage: (message: string, files: any, chat: string) => void
+  onSubmitMessage: (message: string, links: string[], files: any, chat: string) => void
   onClickChat: (chat: ChatContract) => void
 }
 
@@ -41,8 +41,10 @@ export const MultipleChats = observer(
                 messages={findChatByChatId.messages}
                 chatMessageHandlers={chatMessageHandlers}
                 renderAdditionalButtons={renderAdditionalButtons}
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                onSubmitMessage={(message: string, files: any) => onSubmitMessage(message, files, chatSelectedId!)}
+                onSubmitMessage={(message: string, links: string[], files: any) =>
+                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  onSubmitMessage(message, links, files, chatSelectedId!)
+                }
               />
             ) : undefined}
           </div>

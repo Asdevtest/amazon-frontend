@@ -7,18 +7,15 @@ export const styles = createStyles(() => ({
     borderRadius: '4px',
     padding: '10px',
   },
-
   backBtnWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     marginBottom: '30px',
   },
   chatWrapper: {
     marginTop: '20px',
     width: '100%',
-    height: '60vh',
   },
-
   resultButtonsWrapper: {
     margin: '20px 0',
     height: '90px',
@@ -26,5 +23,6 @@ export const styles = createStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
+    width: '100%'
   },
 }))

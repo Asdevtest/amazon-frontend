@@ -66,7 +66,6 @@ export const useClassNames = makeStyles(() => ({
     padding: '10px 0',
   },
   resultRightSide: {
-    flex: 1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -86,5 +85,39 @@ export const useClassNames = makeStyles(() => ({
   timeToCheckBlockValueText: {
     fontSize: '15px',
     color: '#5F5F5F',
+  },
+  footerWrapper: {
+    marginTop: '20px',
+  },
+  btnsWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  actionBtnWrapperStyle: {
+    flex: 1,
+    display: 'flex',
+  },
+  actionBtnWrapperStyleNotFirst: {
+    marginLeft: '50px',
+  },
+  actionButton: {
+    flex: 1,
+    display: 'flex',
+  },
+  cancelBtn: {
+    backgroundColor: '#F44336',
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#F44336',
+    },
+  },
+  successBtn: {
+    backgroundColor: '#4CAF50',
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#4CAF50',
+    },
   },
 }))

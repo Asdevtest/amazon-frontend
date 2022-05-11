@@ -5,7 +5,7 @@ import {TWebsocketChatService} from '@services/websocket-chat-service'
 import {
   ChatMessageDataCreatedNewProposalProposalDescriptionContract,
   ChatMessageDataCreatedNewProposalRequestDescriptionContract,
-  ChatMessageDataProposalResultEditedDetailsContract,
+  ChatMessageDataProposalResultEditedContract,
   ChatMessageDataProposalStatusChangedContract,
 } from './chat-message-data.contract'
 
@@ -15,7 +15,7 @@ export type TChatMessageDataUniversal =
   | ChatMessageDataCreatedNewProposalProposalDescriptionContract
   | ChatMessageDataCreatedNewProposalRequestDescriptionContract
   | ChatMessageDataProposalStatusChangedContract
-  | ChatMessageDataProposalResultEditedDetailsContract
+  | ChatMessageDataProposalResultEditedContract
   | undefined
 
 export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMessageDataUniversal>

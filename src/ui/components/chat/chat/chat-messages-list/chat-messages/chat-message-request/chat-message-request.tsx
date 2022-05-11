@@ -17,6 +17,7 @@ interface Props {
 
 export const ChatMessageRequest: FC<Props> = ({message}) => {
   const classNames = useClassNames()
+  console.log('message 123 ', message)
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>

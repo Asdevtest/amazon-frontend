@@ -7,6 +7,7 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 
 import {formatDateTime} from '@utils/date-time'
 
+import {LabelValuePairBlock} from '../label-value-pair-block'
 import {useClassNames} from './chat-message-proposal-status-changed.style'
 
 interface Props {
@@ -25,11 +26,54 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message}) => {
     )
   }
 
+  const renderDetails = () => {
+    switch (message.data.status) {
+      case RequestProposalStatus.TO_CORRECT:
+        return (
+          <div className={classNames.detailsWrapper}>
+            <div className={classNames.titleWrapper}>
+              <p className={classNames.titleText}>Причина:</p>
+            </div>
+            <div className={classNames.reasonWrapper}>
+              <p className={classNames.reasonText}>{message.data.reason}</p>
+            </div>
+            <div className={classNames.footerWrapper}>
+              <div className={classNames.footerRow}>
+                {message.data.timeLimitInMinutes ? (
+                  <div className={classNames.labelValueBlockWrapper}>
+                    <LabelValuePairBlock
+                      label="Ограничени по времени на исправление (мин)"
+                      value={message.data.timeLimitInMinutes.toString()}
+                      bgColor="white"
+                    />
+                  </div>
+                ) : undefined}
+              </div>
+            </div>
+          </div>
+        )
+      case RequestProposalStatus.CORRECTED:
+        return (
+          <div className={classNames.detailsWrapper}>
+            <div className={classNames.titleWrapper}>
+              <p className={classNames.titleText}>Исправления:</p>
+            </div>
+            <div className={classNames.reasonWrapper}>
+              <p className={classNames.reasonText}>{message.data.reason}</p>
+            </div>
+          </div>
+        )
+    }
+  }
+
   return (
     <div className={classNames.root}>
-      <p className={classNames.statusTextDesciption}>
-        Новый статус предложения: <span className={classNames.statusText}>{message.data.status}</span>
-      </p>
+      <div className={classNames.statusWrapper}>
+        <p className={classNames.statusTextDesciption}>
+          Новый статус предложения: <span className={classNames.statusText}>{message.data.status}</span>
+        </p>
+      </div>
+      {renderDetails()}
     </div>
   )
 }

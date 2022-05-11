@@ -30,6 +30,7 @@ export class OwnerRequestDetailCustomViewModel {
   chatSelectedId = undefined
   chatIsConnected = false
   scrollToChat = undefined
+  showResultToCorrectFormModal = false
 
   constructor({history, location, scrollToChat}) {
     this.history = history
@@ -40,6 +41,7 @@ export class OwnerRequestDetailCustomViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
     try {
       if (ChatModel.isConnected) {
+        ChatModel.getChats(this.requestId, 'REQUEST')
         runInAction(() => {
           this.chatIsConnected = ChatModel.isConnected
         })
@@ -107,14 +109,41 @@ export class OwnerRequestDetailCustomViewModel {
 
   async onSubmitMessage(message, links, files, chatIdId) {
     try {
-      console.log('links ', links)
+      console.log('files ', files)
       await ChatModel.sendMessage({
         chatId: chatIdId,
         text: message,
-        files: files.map(item => item.file),
+        files: files?.map(item => item?.file),
       })
     } catch (error) {
       console.warn('onSubmitMessage error ', error)
+    }
+  }
+  
+  async onClickProposalResultAccept(proposalId) {
+    try {
+      await RequestProposalModel.requestProposalResultAccept(proposalId)
+      this.loadData()
+    } catch (error) {
+      console.warn('onClickProposalResultAccept error ', error)
+    }
+  }
+  
+  async onClickProposalResultToCorrect() {
+    this.triggerShowResultToCorrectFormModal()
+  }
+
+  async onPressSubmitRequestProposalResultToCorrectForm(formFields) {
+    this.triggerShowResultToCorrectFormModal()
+    try {
+      const findProposalByChatId = this.requestProposals.find((requestProposal) => requestProposal.proposal.chatId === this.chatSelectedId)
+      if (!findProposalByChatId) {
+        return
+      }
+      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {...formFields, timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes)})
+      this.loadData()
+    } catch (error) {
+      console.warn('onClickProposalResultToCorrect error ', error)
     }
   }
 
@@ -245,6 +274,10 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
+  triggerShowResultToCorrectFormModal() {
+    this.showResultToCorrectFormModal = !this.showResultToCorrectFormModal
+  }
+
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
   }
@@ -252,7 +285,12 @@ export class OwnerRequestDetailCustomViewModel {
   onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
   }
+
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  resetChats() {
+    ChatModel.resetChats()
   }
 }

@@ -100,7 +100,7 @@ class ChatModelStatic {
       throw websocketChatServiceIsNotInitializedError
     }
 
-    if (params?.files?.length) {
+    if (params.files?.length) {
       for (let i = 0; i < params.files.length; i++) {
         const file: File = params.files[i]
 
@@ -144,6 +144,10 @@ class ChatModelStatic {
       throw websocketChatServiceIsNotInitializedError
     }
     this.websocketChatService.ping()
+  }
+
+  public resetChats() {
+    this.chats = []
   }
 }
 

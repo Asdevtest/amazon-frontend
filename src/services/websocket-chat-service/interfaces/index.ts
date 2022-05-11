@@ -1,3 +1,5 @@
+import {RequestStatus} from '@constants/request-status'
+
 import {ChatHandlerName} from '../event-handler-mappings'
 
 export interface WebsocketChatServiceHandlers {
@@ -46,7 +48,7 @@ export type ChatMessageDataUniversal =
   | ChatMessageDataCreatedNewProposalProposalDescription
   | ChatMessageDataCreatedNewProposalRequestDescription
   | ChatMessageDataProposalStatusChanged
-  | ChatMessageDataProposalResultEditedDetails
+  | ChatMessageDataProposalResultEdited
   | undefined
 
 export interface ChatMessageDataCreatedNewProposalProposalDescription {
@@ -67,11 +69,26 @@ export interface ChatMessageDataCreatedNewProposalRequestDescription {
 
 export interface ChatMessageDataProposalStatusChanged {
   status: string
+  reason: string
+  linksToMediaFiles: string[]
+  timeLimitInMinutes?: number
 }
 
-export interface ChatMessageDataProposalResultEditedDetails {
-  linksToMediaFiles: string[]
+export interface ChatMessageDataProposalResultEditedEdited {
+  linksToMediaFiles?: string[]
   result: string
+}
+
+export interface ChatMessageDataProposalResultEditedRequest {
+  _id: string
+  price: number
+  status: keyof typeof RequestStatus
+  title: string
+}
+
+export interface ChatMessageDataProposalResultEdited {
+  edited: ChatMessageDataProposalResultEditedEdited
+  request: ChatMessageDataProposalResultEditedRequest
 }
 
 export interface ChatUser {

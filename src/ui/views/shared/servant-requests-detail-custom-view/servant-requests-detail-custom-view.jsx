@@ -40,6 +40,10 @@ export class RequestDetailCustomViewRaw extends Component {
     this.viewModel.loadData()
   }
 
+  componentWillUnmount() {
+    this.viewModel.resetChats()
+  }
+
   render() {
     const {classes: classNames} = this.props
     const {
@@ -82,7 +86,11 @@ export class RequestDetailCustomViewRaw extends Component {
                 </Button>
               </div>
 
-              {request ? <ServantGeneralRequestInfo request={request} onSubmit={onSubmitOfferDeal} /> : null}
+              {request ? (
+                <div className={classNames.requestInfoWrapper}>
+                  <ServantGeneralRequestInfo request={request} onSubmit={onSubmitOfferDeal} />
+                </div>
+              ) : null}
 
               {request ? (
                 <div className={classNames.detailsWrapper}>
@@ -108,17 +116,21 @@ export class RequestDetailCustomViewRaw extends Component {
                             </Button>
                           ) : <div />
                         }
-                        <Button
-                          onClick={() => {
-                            if (!params.message) {
-                              alert("Сообщение не может быть пустым")
-                            }
-                            onClickSendAsResult(params)
-                            resetAllInputs()
-                          }}
-                        >
-                          Отправить как результат
-                        </Button>
+                        {
+                          findRequestProposalByChatSelectedId.proposal.status !== RequestProposalStatus.ACCEPTED_BY_CLIENT ? (
+                            <Button
+                              onClick={() => {
+                                if (!params.message) {
+                                  alert("Сообщение не может быть пустым")
+                                }
+                                onClickSendAsResult(params)
+                                resetAllInputs()
+                              }}
+                            >
+                              Отправить как результат
+                            </Button>
+                          ) : undefined
+                        }
                         {
                           findRequestProposalByChatSelectedId?.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ? (
                             <Button
