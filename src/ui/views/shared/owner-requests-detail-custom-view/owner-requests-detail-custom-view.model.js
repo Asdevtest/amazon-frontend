@@ -121,7 +121,7 @@ export class OwnerRequestDetailCustomViewModel {
       console.warn('onSubmitMessage error ', error)
     }
   }
-  
+
   async onClickProposalResultAccept(proposalId) {
     try {
       await RequestProposalModel.requestProposalResultAccept(proposalId)
@@ -130,7 +130,7 @@ export class OwnerRequestDetailCustomViewModel {
       console.warn('onClickProposalResultAccept error ', error)
     }
   }
-  
+
   async onClickProposalResultToCorrect() {
     this.triggerShowResultToCorrectFormModal()
   }
@@ -138,11 +138,16 @@ export class OwnerRequestDetailCustomViewModel {
   async onPressSubmitRequestProposalResultToCorrectForm(formFields) {
     this.triggerShowResultToCorrectFormModal()
     try {
-      const findProposalByChatId = this.requestProposals.find((requestProposal) => requestProposal.proposal.chatId === this.chatSelectedId)
+      const findProposalByChatId = this.requestProposals.find(
+        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
+      )
       if (!findProposalByChatId) {
         return
       }
-      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {...formFields, timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes)})
+      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
+        ...formFields,
+        timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
+      })
       this.loadData()
     } catch (error) {
       console.warn('onClickProposalResultToCorrect error ', error)

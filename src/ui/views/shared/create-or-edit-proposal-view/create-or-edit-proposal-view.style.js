@@ -23,6 +23,6 @@ export const styles = createStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '100%'
+    width: '100%',
   },
 }))

@@ -12,12 +12,12 @@ export const useClassNames = makeStyles(() => ({
       backgroundColor: '#009a07',
 
       '@media (hover: none)': {
-        backgroundColor: '#009a07'
-      }
+        backgroundColor: '#009a07',
+      },
     },
     '&$disabled': {
-      backgroundColor: 'rgba(15, 169, 20, 0.5)'
-    }
+      backgroundColor: 'rgba(15, 169, 20, 0.5)',
+    },
   },
   danger: {
     color: '#fff',
@@ -26,12 +26,12 @@ export const useClassNames = makeStyles(() => ({
       backgroundColor: '#c51a1c',
 
       '@media (hover: none)': {
-        backgroundColor: '#c51a1c'
-      }
+        backgroundColor: '#c51a1c',
+      },
     },
     '&$disabled': {
-      backgroundColor: 'rgba(210, 35, 35, 0.5)'
-    }
+      backgroundColor: 'rgba(210, 35, 35, 0.5)',
+    },
   },
   disabled: {},
 
@@ -45,13 +45,13 @@ export const useClassNames = makeStyles(() => ({
     transition: '.3s ease-in-out',
     '&:hover': {
       cursor: 'default',
-      transform: 'scale(1.1)'
+      transform: 'scale(1.1)',
     },
-    zIndex: '10'
+    zIndex: '10',
   },
 
   btnWrapper: {
     position: 'relative',
-    display: 'inline-flex'
-  }
+    display: 'inline-flex',
+  },
 }))

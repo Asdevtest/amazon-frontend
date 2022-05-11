@@ -78,8 +78,7 @@ export const useClassNames = makeStyles(() => ({
       background: '#F3AF00',
     },
   },
-  btnsWrapper: {
-  },
+  btnsWrapper: {},
   btnsRow: {
     display: 'flex',
     flexDirection: 'row',
@@ -88,18 +87,18 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: 10,
   },
   btnsRowIsLast: {
-    marginBottom: 0
+    marginBottom: 0,
   },
   buttonWrapperFullWidth: {
     flex: 1,
-    display: 'flex'
+    display: 'flex',
   },
   button: {
     display: 'flex',
-    flex: 1
+    flex: 1,
   },
   buttonEditRemoveBtnIsShown: {
-    marginLeft: '10px'
+    marginLeft: '10px',
   },
   requestStatus: {
     marginLeft: '15px',

@@ -6,6 +6,8 @@ import {Typography, Avatar} from '@material-ui/core'
 import clsx from 'clsx'
 import Carousel from 'react-material-ui-carousel'
 
+import {RequestProposalStatus} from '@constants/request-proposal-status'
+
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
@@ -14,7 +16,6 @@ import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './owner-request-proposals-card.style'
-import { RequestProposalStatus } from '@constants/request-proposal-status'
 
 export const OwnerRequestProposalsCard = ({
   item,
@@ -98,28 +99,26 @@ export const OwnerRequestProposalsCard = ({
         <Typography>{item.proposal.status}</Typography>
 
         <div>
-          {
-            item.proposal.status === RequestProposalStatus.CREATED ? (
-              <>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={clsx(classNames.actionButton, classNames.cancelBtn)}
-                  onClick={() => onClickRejectProposal(item.proposal)}
-                >
-                  {'Отклонить'}
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={clsx(classNames.actionButton, classNames.successBtn)}
-                  onClick={() => onClickAcceptProposal(item.proposal)}
-                >
-                  {`Заказать за ${toFixedWithDollarSign(item.proposal.price)}`}
-                </Button>
-              </>
-            ) : undefined
-          }
+          {item.proposal.status === RequestProposalStatus.CREATED ? (
+            <>
+              <Button
+                variant="contained"
+                color="primary"
+                className={clsx(classNames.actionButton, classNames.cancelBtn)}
+                onClick={() => onClickRejectProposal(item.proposal)}
+              >
+                {'Отклонить'}
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className={clsx(classNames.actionButton, classNames.successBtn)}
+                onClick={() => onClickAcceptProposal(item.proposal)}
+              >
+                {`Заказать за ${toFixedWithDollarSign(item.proposal.price)}`}
+              </Button>
+            </>
+          ) : undefined}
 
           <Button
             variant="contained"
