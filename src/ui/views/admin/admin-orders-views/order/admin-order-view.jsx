@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
@@ -16,6 +17,8 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {AdminOrderViewModel} from './admin-order-view.model'
 
 const textConsts = getLocalizedTexts(texts, 'ru').adminOrderView
+
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_ORDERS
 
 @observer
 export class AdminOrderView extends Component {
@@ -32,7 +35,7 @@ export class AdminOrderView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}

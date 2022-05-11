@@ -167,7 +167,7 @@ export class ClientAwaitingBatchesViewModel {
       for (let i = 0; i < batches.length; i++) {
         const batch = batches[i].originalData
 
-        this.removeBoxFromBatch(batch)
+        await this.removeBoxFromBatch(batch)
       }
 
       this.loadData()

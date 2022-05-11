@@ -85,7 +85,7 @@ export const ExtraOrderInfo = ({order}) => {
         <Field
           disabled
           multiline
-          rows={4}
+          rows={6}
           rowsMax={6}
           value={order.buyerComment}
           inputClasses={classNames.input}
@@ -95,7 +95,7 @@ export const ExtraOrderInfo = ({order}) => {
         <Field
           disabled
           multiline
-          rows={4}
+          rows={6}
           rowsMax={6}
           value={order.clientComment}
           inputClasses={classNames.input}

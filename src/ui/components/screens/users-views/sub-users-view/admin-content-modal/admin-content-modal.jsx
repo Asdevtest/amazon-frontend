@@ -14,6 +14,7 @@ import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
+import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './admin-content-modal.style'
@@ -82,6 +83,11 @@ export const AdminContentModal = observer(
         newFormFields[fieldName] = event.target.value.replace(/[-]/, '')
       } else if (['fba', 'canByMasterUser', 'hideSuppliers'].includes(fieldName)) {
         newFormFields[fieldName] = event.target.checked
+      } else if (
+        ['overdraft'].includes(fieldName) &&
+        !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
+      ) {
+        return
       } else {
         newFormFields[fieldName] = event.target.value
       }

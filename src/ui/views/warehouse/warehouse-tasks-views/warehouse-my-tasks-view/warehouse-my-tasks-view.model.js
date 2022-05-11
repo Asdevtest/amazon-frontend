@@ -275,6 +275,7 @@ export class WarehouseVacantViewModel {
                   amount: box.items[0].amount,
                   orderId: box.items[0].order._id,
                   productId: box.items[0].product._id,
+                  barCode: box.items[0].barCode,
                   isBarCodeAlreadyAttachedByTheSupplier: box.items[0].isBarCodeAlreadyAttachedByTheSupplier,
                   isBarCodeAttachedByTheStorekeeper: box.items[0].isBarCodeAttachedByTheStorekeeper,
                 },
