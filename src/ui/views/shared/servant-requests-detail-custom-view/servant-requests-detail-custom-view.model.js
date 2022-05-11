@@ -1,13 +1,13 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {RequestProposalStatus} from '@constants/request-proposal-status'
 
 import {ChatModel} from '@models/chat-model'
 // import {texts} from '@constants/texts'
 import {RequestModel} from '@models/request-model'
+import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'
-import { RequestProposalModel } from '@models/request-proposal'
-import { RequestProposalStatus } from '@constants/request-proposal-status'
 
 // import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -134,19 +134,21 @@ export class RequestDetailCustomViewModel {
   async onClickSendAsResult({message, links, files}) {
     try {
       console.log('links ', links)
-      const findRequestProposalByChatSelectedId = this.requestProposals.find((requestProposal) => requestProposal.proposal.chatId === this.chatSelectedId)
+      const findRequestProposalByChatSelectedId = this.requestProposals.find(
+        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
+      )
       if (!findRequestProposalByChatSelectedId) {
         return
       }
       if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {
         await RequestProposalModel.requestProposalResultCorrected(findRequestProposalByChatSelectedId.proposal._id, {
           reason: message,
-          linksToMediaFiles: files.map(item => item.file)
+          linksToMediaFiles: files.map(item => item.file),
         })
       } else {
         await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
           result: message,
-          linksToMediaFiles: files.map(item => item.file)
+          linksToMediaFiles: files.map(item => item.file),
         })
       }
     } catch (error) {
@@ -157,7 +159,9 @@ export class RequestDetailCustomViewModel {
 
   async onClickReadyToVerify() {
     try {
-      const findRequestProposalByChatSelectedId = this.requestProposals.find((requestProposal) => requestProposal.proposal.chatId === this.chatSelectedId)
+      const findRequestProposalByChatSelectedId = this.requestProposals.find(
+        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
+      )
       if (!findRequestProposalByChatSelectedId) {
         return
       }
@@ -171,7 +175,9 @@ export class RequestDetailCustomViewModel {
 
   async onClickCancelRequestProposal() {
     try {
-      const findRequestProposalByChatSelectedId = this.requestProposals.find((requestProposal) => requestProposal.proposal.chatId === this.chatSelectedId)
+      const findRequestProposalByChatSelectedId = this.requestProposals.find(
+        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
+      )
       if (!findRequestProposalByChatSelectedId) {
         return
       }
@@ -233,5 +239,4 @@ export class RequestDetailCustomViewModel {
   //     this.onTriggerOpenModal('showWarningModal')
   //   }
   // }
-  
 }

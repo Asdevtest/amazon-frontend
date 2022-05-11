@@ -122,7 +122,6 @@ export const RightSideComments = observer(
           <Field
             multiline
             disabled={!checkIsClient(curUserRole) || !clientToEditStatuses.includes(productBase.status)}
-            // error={formFieldsValidationErrors.clientComment}
             className={clsx(classNames.heightFieldAuto, {
               // [classNames.errorActive]: formFieldsValidationErrors.icomment,
             })}

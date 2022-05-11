@@ -7,8 +7,11 @@ import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
 import {Button} from '@components/buttons/button'
+import {BoxViewForm} from '@components/forms/box-view-form'
+import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
+import {calcPriceForBox} from '@utils/calculation'
 import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
@@ -24,7 +27,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
   const [showPhotosModal, setShowPhotosModal] = useState(false)
   const [curImages, setCurImages] = useState([])
 
-  console.log('mainProductId', restProps.mainProductId)
+  const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
   const onTriggerIsMaximizedMasterBox = () => {
     setIsMaximizedMasterBox(!isMaximizedMasterBox)
@@ -69,7 +72,10 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
   return box.items.map((order, orderIndex) => (
     <React.Fragment key={`orderBox_${order.order._id}_${orderIndex}`}>
-      <TableRow className={clsx({[classNames.boxLastRow]: orderIndex === ordersQty - 1})}>
+      <TableRow
+        className={clsx(classNames.row, {[classNames.boxLastRow]: orderIndex === ordersQty - 1})}
+        onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
+      >
         {orderIndex === 0 && (
           <React.Fragment>
             <TableCell rowSpan={ordersQty}>{boxIndex + 1}</TableCell>
@@ -79,14 +85,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           </React.Fragment>
         )}
         <TableCell>{boxCreatedAt}</TableCell>
-        <ProductCell
-          imgSrc={
-            restProps.mainProductId === order.product._id
-              ? getAmazonImageUrl(order.product.images[0])
-              : '/assets/img/no-photo.jpg'
-          }
-          title={restProps.mainProductId === order.product._id ? order.product.amazonTitle : '??'}
-        />
+        <ProductCell imgSrc={getAmazonImageUrl(order.product.images[0])} title={order.product.amazonTitle} />
 
         {orderIndex === 0 && (
           <React.Fragment>
@@ -109,13 +108,10 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
         )}
 
         <TableCell className={classNames.cellValueNumber}>
-          {restProps.mainProductId === order.product._id
-            ? isMasterBox
-              ? `${box.amount} boxes x ${order.amount} units`
-              : order.amount
-            : '??'}
+          {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
         </TableCell>
-        <TableCell>{restProps.mainProductId === order.product._id ? order.product.material : '??'}</TableCell>
+
+        <TableCell>{order.product.material}</TableCell>
 
         {orderIndex === 0 && (
           <React.Fragment>
@@ -124,38 +120,33 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           </React.Fragment>
         )}
 
+        {orderIndex === 0 && (
+          <TableCell rowSpan={ordersQty} className={classNames.cellValueNumber}>
+            {toFixedWithDollarSign(calcPriceForBox(box), 2)}
+          </TableCell>
+        )}
+
         <TableCell className={classNames.cellValueNumber}>
-          {restProps.mainProductId === order.product._id
-            ? toFixedWithDollarSign((parseFloat(order.product.amazon) || 0) * (parseInt(order.amount) || 0), 2)
-            : '??'}
+          {toFixedWithKg(
+            Math.max(
+              parseFloat(
+                box.weighGrossKgWarehouse
+                  ? (box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) /
+                      restProps.volumeWeightCoefficient
+                  : (box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) /
+                      restProps.volumeWeightCoefficient,
+              ) || 0,
+              parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,
+            ),
+            2,
+          )}
         </TableCell>
 
         <TableCell className={classNames.cellValueNumber}>
-          {restProps.mainProductId === order.product._id
-            ? toFixedWithKg(
-                Math.max(
-                  parseFloat(box.volumeWeightKgWarehouse ? box.volumeWeightKgWarehouse : box.volumeWeightKgSupplier) ||
-                    0,
-                  parseFloat(
-                    box.weightFinalAccountingKgWarehouse
-                      ? box.weightFinalAccountingKgWarehouse
-                      : box.weightFinalAccountingKgSupplier,
-                  ) || 0,
-                ),
-                2,
-              )
-            : '??'}
+          {toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)}
         </TableCell>
 
-        <TableCell className={classNames.cellValueNumber}>
-          {restProps.mainProductId === order.product._id
-            ? toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)
-            : '??'}
-        </TableCell>
-
-        <TableCell>
-          {restProps.mainProductId === order.product._id ? order.order.trackingNumberChina || 'N/A' : '??'}
-        </TableCell>
+        <TableCell>{order.order.trackingNumberChina || 'N/A'}</TableCell>
       </TableRow>
       {isMaximizedMasterBox ? (
         <TableRow className={classNames.subBoxesTableWrapper}>
@@ -180,6 +171,14 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
         images={curImages}
       />
+
+      <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>
+        <BoxViewForm
+          box={box}
+          volumeWeightCoefficient={restProps.volumeWeightCoefficient}
+          setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
+        />
+      </Modal>
     </React.Fragment>
   ))
 }

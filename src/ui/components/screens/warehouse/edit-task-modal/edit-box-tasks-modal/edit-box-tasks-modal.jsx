@@ -1,8 +1,11 @@
+import {ToggleButton, ToggleButtonGroup} from '@mui/material'
+
 import React, {useState} from 'react'
 
 import {Box, Container, Divider, Typography} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 
+import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
@@ -17,18 +20,20 @@ import {useClassNames} from './edit-box-tasks-modal.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseViewsEditBoxModal
 
-const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient}) => {
+const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, sizeSetting}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
+          inputProps={{maxLength: 4}}
           containerClasses={classNames.numberInputField}
           label={textConsts.lengthCmWarehouse}
           value={box.lengthCmWarehouse}
           onChange={setNewBoxField('lengthCmWarehouse')}
         />
         <Field
+          inputProps={{maxLength: 4}}
           containerClasses={classNames.numberInputField}
           label={textConsts.widthCmWarehouse}
           value={box.widthCmWarehouse}
@@ -37,12 +42,14 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient}) => 
       </div>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
+          inputProps={{maxLength: 4}}
           containerClasses={classNames.numberInputField}
           label={textConsts.heightCmWarehouse}
           value={box.heightCmWarehouse}
           onChange={setNewBoxField('heightCmWarehouse')}
         />
         <Field
+          inputProps={{maxLength: 4}}
           containerClasses={classNames.numberInputField}
           label={textConsts.weighGrossKgWarehouse}
           value={box.weighGrossKgWarehouse}
@@ -55,10 +62,14 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient}) => 
           containerClasses={classNames.numberInputField}
           label={textConsts.volumeWeightKgWarehouse}
           value={toFixed(
-            ((parseFloat(box.lengthCmWarehouse) || 0) *
-              (parseFloat(box.heightCmWarehouse) || 0) *
-              (parseFloat(box.widthCmWarehouse) || 0)) /
-              volumeWeightCoefficient,
+            (sizeSetting === sizesType.INCHES
+              ? box.heightCmWarehouse *
+                inchesCoefficient *
+                box.widthCmWarehouse *
+                inchesCoefficient *
+                box.lengthCmWarehouse *
+                inchesCoefficient
+              : box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,
             2,
           )}
         />
@@ -66,9 +77,19 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient}) => 
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.weightFinalAccountingKgWarehouse}
-          value={toFixed(
-            Math.max(parseFloat(box.volumeWeightKgWarehouse) || 0, parseFloat(box.weighGrossKgWarehouse) || 0),
-            2,
+          value={Math.max(
+            toFixed(
+              (sizeSetting === sizesType.INCHES
+                ? box.heightCmWarehouse *
+                  inchesCoefficient *
+                  box.widthCmWarehouse *
+                  inchesCoefficient *
+                  box.lengthCmWarehouse *
+                  inchesCoefficient
+                : box.heightCmWarehouse * box.widthCmWarehouse * box.lengthCmWarehouse) / volumeWeightCoefficient,
+              2,
+            ),
+            box.weighGrossKgWarehouse,
           )}
         />
       </div>
@@ -110,12 +131,25 @@ export const EditBoxTasksModal = ({
     setEditingBox(newFormFields)
   }
 
-  const onSubmith = () => {
+  const onSubmit = () => {
     const lastStepEditBox = {
       ...editingBox,
-      lengthCmWarehouse: parseFloat(editingBox?.lengthCmWarehouse) || '',
-      widthCmWarehouse: parseFloat(editingBox?.widthCmWarehouse) || '',
-      heightCmWarehouse: parseFloat(editingBox?.heightCmWarehouse) || '',
+
+      lengthCmWarehouse:
+        (sizeSetting === sizesType.INCHES
+          ? Math.round(editingBox.lengthCmWarehouse * inchesCoefficient * 100) / 100
+          : editingBox.lengthCmWarehouse) || 0,
+
+      widthCmWarehouse:
+        (sizeSetting === sizesType.INCHES
+          ? Math.round(editingBox.widthCmWarehouse * inchesCoefficient * 100) / 100
+          : editingBox.widthCmWarehouse) || 0,
+
+      heightCmWarehouse:
+        (sizeSetting === sizesType.INCHES
+          ? Math.round(editingBox.heightCmWarehouse * inchesCoefficient * 100) / 100
+          : editingBox.heightCmWarehouse) || 0,
+
       weighGrossKgWarehouse: parseFloat(editingBox?.weighGrossKgWarehouse) || '',
       volumeWeightKgWarehouse: parseFloat(editingBox?.volumeWeightKgWarehouse) || '',
     }
@@ -125,16 +159,50 @@ export const EditBoxTasksModal = ({
     setEditModal()
   }
 
+  const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+
+  const handleChange = (event, newAlignment) => {
+    setSizeSetting(newAlignment)
+
+    if (newAlignment === sizesType.INCHES) {
+      setEditingBox({
+        ...editingBox,
+        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse / inchesCoefficient, 4),
+        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse / inchesCoefficient, 4),
+        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse / inchesCoefficient, 4),
+      })
+    } else {
+      setEditingBox({
+        ...editingBox,
+        lengthCmWarehouse: toFixed(editingBox.lengthCmWarehouse * inchesCoefficient, 4),
+        widthCmWarehouse: toFixed(editingBox.widthCmWarehouse * inchesCoefficient, 4),
+        heightCmWarehouse: toFixed(editingBox.heightCmWarehouse * inchesCoefficient, 4),
+      })
+    }
+  }
+
   return (
     <Container disableGutters>
       <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
       <Divider className={classNames.divider} />
+
+      <div className={classNames.sizesSubWrapper}>
+        <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+          <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+            {'In'}
+          </ToggleButton>
+          <ToggleButton disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+            {'Cm'}
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </div>
 
       <AttributesEditBlock
         box={editingBox}
         operationType={operationType}
         setNewBoxField={setNewBoxField}
         volumeWeightCoefficient={volumeWeightCoefficient}
+        sizeSetting={sizeSetting}
       />
 
       <div className={classNames.photoWrapper}>
@@ -172,7 +240,7 @@ export const EditBoxTasksModal = ({
 
       <div className={classNames.buttonsWrapper}>
         <Box className={classNames.button}>
-          <Button onClick={() => onSubmith()}>{textConsts.saveBtn}</Button>
+          <Button onClick={onSubmit}>{textConsts.saveBtn}</Button>
         </Box>
 
         <Box className={classNames.button}>

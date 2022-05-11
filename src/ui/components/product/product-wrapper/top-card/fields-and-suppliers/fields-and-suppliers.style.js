@@ -14,9 +14,6 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     marginBottom: '12px',
   },
-  // input: {
-  //   width: '100%'
-  // },
 
   input: {
     height: '32px',
@@ -83,9 +80,10 @@ export const useClassNames = makeStyles(() => ({
   },
   productFieldBox: {
     display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'flex-end',
+    // flexDirection: 'column',
+    // height: '100%',
+    justifyContent: 'space-between',
+    // alignItems: 'flex-end'
   },
   productCheckboxBox: {
     alignItems: 'center',
@@ -149,7 +147,6 @@ export const useClassNames = makeStyles(() => ({
   },
   amazonLink: {
     width: '100%',
-    height: '50px',
     overflowX: 'auto',
     whiteSpace: 'nowrap',
 
@@ -197,6 +194,7 @@ export const useClassNames = makeStyles(() => ({
       overflow: 'visible',
       fontWeight: 'bold',
       backgroundColor: 'rgba(0,0,0, .2)',
+      maxWidth: 'none',
     },
   },
 
@@ -215,5 +213,26 @@ export const useClassNames = makeStyles(() => ({
 
     border: '1px solid rgba(0, 0, 0, .1)',
     borderRadius: '10px',
+  },
+
+  rightBlockWrapper: {
+    display: 'flex',
+    marginLeft: '30px',
+    justifyContent: 'space-between',
+    width: '520px',
+  },
+
+  fieldsSubWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '250px',
+  },
+
+  shortInput: {
+    width: '120px',
+  },
+
+  suppliersWrapper: {
+    alignSelf: 'flex-end',
   },
 }))

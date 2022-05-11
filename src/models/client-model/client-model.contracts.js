@@ -56,7 +56,7 @@ export class ClientAddOwnProductContract {
   @IsString()
   amazonTitle
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   lamazon
 

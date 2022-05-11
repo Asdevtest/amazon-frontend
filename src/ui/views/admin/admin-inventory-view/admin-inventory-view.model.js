@@ -99,6 +99,8 @@ export class AdminInventoryViewModel {
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+
       console.log(error)
       if (error.body && error.body.message) {
         this.error = error.body.message

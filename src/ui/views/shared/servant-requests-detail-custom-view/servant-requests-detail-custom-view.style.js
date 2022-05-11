@@ -12,7 +12,7 @@ export const styles = createStyles(() => ({
     justifyContent: 'flex-start',
   },
   requestInfoWrapper: {
-    marginTop: '24px'
+    marginTop: '24px',
   },
   detailsWrapper: {
     marginTop: '20px',
@@ -27,9 +27,9 @@ export const styles = createStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginRight: 10
+    marginRight: 10,
   },
   cancelRequestProposalBtn: {
-    backgroundColor: '#C4C4C4'
-  }
+    backgroundColor: '#C4C4C4',
+  },
 }))

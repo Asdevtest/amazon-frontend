@@ -109,6 +109,11 @@ class BuyerModelStatic {
     })
     return response
   }
+
+  getOrderById = async id => {
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersGuidGet(id)
+    return response
+  }
 }
 
 export const BuyerModel = new BuyerModelStatic()

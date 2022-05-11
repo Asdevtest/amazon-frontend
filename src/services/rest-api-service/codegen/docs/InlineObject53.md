@@ -44,5 +44,13 @@ Name | Type | Description | Notes
 **listingExtraInfo** | **String** |  | [optional] 
 **listingSupplierCompetitors** | [**[ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]**](ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md) | Массив объектов: ссылки и комментарии к конкурентам | [optional] 
 **strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
+**niche** | **String** | Ниша | [optional] 
+**asins** | **String** | Асины | [optional] 
+**totalRevenue** | **String** | Общий доход | [optional] 
+**coefficient** | **String** | Коэффициент прибыли | [optional] 
+**avgRevenue** | **String** | Средний доход | [optional] 
+**avgBSR** | **String** | Средний BSR | [optional] 
+**avgPrice** | **String** | Средняя цена | [optional] 
+**avgReviews** | **String** | Средний отзывы | [optional] 
 
 

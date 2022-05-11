@@ -6,7 +6,11 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {
+  mapProductStrategyStatusEnum,
+  mapProductStrategyStatusEnumToKey,
+  ProductStrategyStatus,
+} from '@constants/product-strategy-status'
 import {texts} from '@constants/texts'
 
 import {SuccessButton} from '@components/buttons/success-button'
@@ -29,63 +33,144 @@ export const ResearcherAddProductFormRaw = observer(
     errorMsg,
     chekedCode,
     actionStatus,
-  }) => (
-    <React.Fragment>
-      <div className={classNames.fieldsWrapper}>
-        <Field
-          label={textConsts.linkAmazon}
-          value={formFields.amazonLink}
-          onChange={onChangeFormFields('amazonLink')}
-        />
-        <Field
-          disabled
-          label={textConsts.codeOfGood}
-          value={formFields.productCode.toUpperCase()}
-          onChange={onChangeFormFields('productCode')}
-        />
+  }) => {
+    const disabledNoProvatLabel =
+      Number(formFields.strategyStatus) !== mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL]
+
+    return (
+      <div className={classNames.mainWrapper}>
+        <div className={classNames.leftBlockWrapper}>
+          <div>
+            <Field
+              label={textConsts.linkAmazon}
+              value={formFields.amazonLink}
+              onChange={onChangeFormFields('amazonLink')}
+            />
+            <Field
+              inputProps={{maxLength: 50}}
+              label={textConsts.codeOfGood}
+              value={formFields.productCode.toUpperCase()}
+              onChange={onChangeFormFields('productCode')}
+            />
+          </div>
+          {errorMsg ? (
+            <Alert className={classNames.alert} elevation={0} severity="error">
+              {errorMsg}
+            </Alert>
+          ) : undefined}
+          {!errorMsg && actionStatus === loadingStatuses.success ? (
+            <Alert className={classNames.alert} elevation={0} severity="success">
+              {textConsts.successActionAlert}
+            </Alert>
+          ) : undefined}
+
+          <Box mt={3} className={classNames.strategyWrapper}>
+            <InputLabel className={classNames.strategyLabel}>{'Стратегия продукта'}</InputLabel>
+
+            <NativeSelect
+              disabled={chekedCode === '' || errorMsg}
+              value={formFields.strategyStatus}
+              className={classNames.nativeSelect}
+              input={<Input />}
+              onChange={onChangeFormFields('strategyStatus')}
+            >
+              {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
+                <option key={statusIndex} value={statusCode}>
+                  {mapProductStrategyStatusEnum[statusCode]}
+                </option>
+              ))}
+            </NativeSelect>
+          </Box>
+
+          <Box className={classNames.btnsWrapper}>
+            <Button variant="contained" color="primary" className={classNames.button} onClick={onClickCheckBtn}>
+              {textConsts.buttonCheck}
+            </Button>
+            <SuccessButton
+              disabled={chekedCode === '' || errorMsg || formFields.strategyStatus < 10}
+              onClick={onClickAddBtn}
+            >
+              {textConsts.buttonAdd}
+            </SuccessButton>
+          </Box>
+        </div>
+
+        <div className={classNames.rightBlockWrapper}>
+          <div className={classNames.fieldsWrapper}>
+            <Field
+              disabled={disabledNoProvatLabel}
+              inputProps={{maxLength: 255}}
+              label={textConsts.niche}
+              value={formFields.niche}
+              onChange={onChangeFormFields('niche')}
+            />
+            <Field
+              disabled={disabledNoProvatLabel}
+              inputProps={{maxLength: 255}}
+              label={textConsts.asins}
+              value={formFields.asins}
+              onChange={onChangeFormFields('asins')}
+            />
+
+            <div className={classNames.fieldsSubWrapper}>
+              <Field
+                disabled={disabledNoProvatLabel}
+                inputProps={{maxLength: 10}}
+                containerClasses={classNames.shortInput}
+                label={textConsts.avgRevenue}
+                value={formFields.avgRevenue}
+                onChange={onChangeFormFields('avgRevenue')}
+              />
+              <Field
+                disabled={disabledNoProvatLabel}
+                containerClasses={classNames.shortInput}
+                inputProps={{maxLength: 10}}
+                label={textConsts.avgBSR}
+                value={formFields.avgBSR}
+                onChange={onChangeFormFields('avgBSR')}
+              />
+            </div>
+          </div>
+
+          <div className={classNames.fieldsWrapper}>
+            <Field
+              disabled={disabledNoProvatLabel}
+              inputProps={{maxLength: 10}}
+              label={textConsts.totalRevenue}
+              value={formFields.totalRevenue}
+              onChange={onChangeFormFields('totalRevenue')}
+            />
+            <Field
+              disabled={disabledNoProvatLabel}
+              inputProps={{maxLength: 10}}
+              label={textConsts.coefficient}
+              value={formFields.coefficient}
+              onChange={onChangeFormFields('coefficient')}
+            />
+
+            <div className={classNames.fieldsSubWrapper}>
+              <Field
+                disabled={disabledNoProvatLabel}
+                inputProps={{maxLength: 10}}
+                containerClasses={classNames.shortInput}
+                label={textConsts.avgPrice}
+                value={formFields.avgPrice}
+                onChange={onChangeFormFields('avgPrice')}
+              />
+              <Field
+                disabled={disabledNoProvatLabel}
+                containerClasses={classNames.shortInput}
+                inputProps={{maxLength: 10}}
+                label={textConsts.avgReviews}
+                value={formFields.avgReviews}
+                onChange={onChangeFormFields('avgReviews')}
+              />
+            </div>
+          </div>
+        </div>
       </div>
-      {errorMsg ? (
-        <Alert className={classNames.alert} elevation={0} severity="error">
-          {errorMsg}
-        </Alert>
-      ) : undefined}
-      {!errorMsg && actionStatus === loadingStatuses.success ? (
-        <Alert className={classNames.alert} elevation={0} severity="success">
-          {textConsts.successActionAlert}
-        </Alert>
-      ) : undefined}
-
-      <Box mt={3} className={classNames.strategyWrapper}>
-        <InputLabel className={classNames.strategyLabel}>{'Стратегия продукта'}</InputLabel>
-
-        <NativeSelect
-          disabled={chekedCode === '' || errorMsg}
-          value={formFields.strategyStatus}
-          className={classNames.nativeSelect}
-          input={<Input />}
-          onChange={onChangeFormFields('strategyStatus')}
-        >
-          {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
-            <option key={statusIndex} value={statusCode}>
-              {mapProductStrategyStatusEnum[statusCode]}
-            </option>
-          ))}
-        </NativeSelect>
-      </Box>
-
-      <Box className={classNames.btnsWrapper}>
-        <Button variant="contained" color="primary" className={classNames.button} onClick={onClickCheckBtn}>
-          {textConsts.buttonCheck}
-        </Button>
-        <SuccessButton
-          disabled={chekedCode === '' || errorMsg || formFields.strategyStatus < 10}
-          onClick={onClickAddBtn}
-        >
-          {textConsts.buttonAdd}
-        </SuccessButton>
-      </Box>
-    </React.Fragment>
-  ),
+    )
+  },
 )
 
 export const ResearcherAddProductForm = withStyles(styles)(ResearcherAddProductFormRaw)

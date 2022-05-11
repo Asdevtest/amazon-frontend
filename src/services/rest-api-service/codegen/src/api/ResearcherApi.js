@@ -18,7 +18,7 @@ import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject52 from '../model/InlineObject52';
 import InlineObject53 from '../model/InlineObject53';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse20017 from '../model/InlineResponse20017';
+import InlineResponse20018 from '../model/InlineResponse20018';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -49,7 +49,7 @@ export default class ResearcherApi {
      * @param {String} asin ASIN для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20017} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20018} and HTTP response
      */
     apiV1ResearchersCheckProductsAsinGetWithHttpInfo(asin, opts) {
       opts = opts || {};
@@ -73,7 +73,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20017;
+      let returnType = InlineResponse20018;
       return this.apiClient.callApi(
         '/api/v1/researchers/check_products/{asin}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -87,7 +87,7 @@ export default class ResearcherApi {
      * @param {String} asin ASIN для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20017}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20018}
      */
     apiV1ResearchersCheckProductsAsinGet(asin, opts) {
       return this.apiV1ResearchersCheckProductsAsinGetWithHttpInfo(asin, opts)

@@ -134,6 +134,11 @@ export const useClassNames = makeStyles(() => ({
   },
   carouselImage: {
     height: '100%',
+    transition: '.2s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
   },
 
   imageFileInputWrapper: {

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**_id** | **String** | GUID поставщика в БД | [optional] 
 **name** | **String** | Название поставщика. | [optional] 
 **link** | **String** | Ссылка на поставщика. | [optional] 
 **price** | **Number** | Цена за еденицу, dollar | [optional] 
@@ -18,12 +19,6 @@ Name | Type | Description | Notes
 **batchDeliveryCostInYuan** | **Number** | Доставка партии, yuan | [optional] 
 **batchTotalCostInDollar** | **Number** | Цена партии, dollar | [optional] 
 **batchTotalCostInYuan** | **Number** | Цена партии, yuan | [optional] 
-**amountInBox** | **Number** | Количество единиц в коробке. | [optional] 
-**boxLengthCm** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
-**boxWidthCm** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
-**boxHeightCm** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
-**boxWeighGrossKg** | **Number** | Общий вес кг коробки который назвал поставщик. | [optional] 
-**boxVolumeWeightKg** | **Number** | Объемный вес кг коробки, расчет на беке. | [optional] 
-**_id** | **String** | GUID поставщика в БД | [optional] 
+**boxProperties** | [**ApiV1AdminsGetProductsByStatusBoxProperties**](ApiV1AdminsGetProductsByStatusBoxProperties.md) |  | [optional] 
 
 

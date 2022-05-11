@@ -1,14 +1,22 @@
-import {Link, TableCell, TableRow, Typography} from '@material-ui/core'
+import React from 'react'
+
+import {Checkbox, Chip, TableCell, TableRow, Typography} from '@material-ui/core'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
+import {texts} from '@constants/texts'
+
 import {Button} from '@components/buttons/button'
+import {Field} from '@components/field'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {checkAndMakeAbsoluteUrl} from '@utils/text'
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './product-in-order-table-row.style'
 
-export const ProductInOrderTableRow = observer(({item, handlers}) => {
+const textConsts = getLocalizedTexts(texts, 'ru').productInOrderTableRow
+
+export const ProductInOrderTableRow = observer(({item, handlers, ...restProps}) => {
   const classNames = useClassNames()
 
   return (
@@ -28,12 +36,58 @@ export const ProductInOrderTableRow = observer(({item, handlers}) => {
       </TableCell>
 
       <TableCell>
-        {item.product.barCode ? (
-          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.product.barCode)}>
-            <Typography className={classNames.barCodeTypo}>{item.product.barCode}</Typography>
-          </Link>
+        <Chip
+          classes={{
+            root: classNames.barcodeChip,
+            clickable: classNames.barcodeChipHover,
+            deletable: classNames.barcodeChipHover,
+            deleteIcon: classNames.barcodeChipIcon,
+          }}
+          className={clsx({[classNames.barcodeChipExists]: item.barCode})}
+          size="small"
+          label={item.tmpBarCode.length ? 'FILE IS ADDED' : item.barCode ? item.barCode : 'Set barcode label'}
+          onClick={() => restProps.onClickBarcode(item)}
+          onDoubleClick={() => restProps.onDoubleClickBarcode(item)}
+          onDelete={!item.barCode ? undefined : () => restProps.onDeleteBarcode(item.product._id)}
+        />
+
+        {item.tmpBarCode.length ? (
+          <Field
+            oneLine
+            containerClasses={classNames.checkboxContainer}
+            label={'Изменить в инвентаре'}
+            inputComponent={
+              <Checkbox
+                color="primary"
+                checked={item.changeBarCodInInventory}
+                onClick={() =>
+                  restProps.onClickBarcodeInventoryCheckbox(item.product._id, !item.changeBarCodInInventory)
+                }
+              />
+            }
+          />
+        ) : null}
+
+        {!item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper ? (
+          <Typography className={classNames.noBarCodeGlued}>{textConsts.noBarCodeGlued}</Typography>
         ) : (
-          <Typography className={classNames.barCodeTypo}>{'N/A'}</Typography>
+          <div>
+            {item.isBarCodeAlreadyAttachedByTheSupplier ? (
+              <Field
+                oneLine
+                containerClasses={classNames.checkboxContainer}
+                label={textConsts.isBarCodeAlreadyAttachedByTheSupplier}
+                inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
+              />
+            ) : (
+              <Field
+                oneLine
+                containerClasses={classNames.checkboxContainer}
+                label={textConsts.isBarCodeAttachedByTheStorekeeper}
+                inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
+              />
+            )}
+          </div>
         )}
       </TableCell>
 

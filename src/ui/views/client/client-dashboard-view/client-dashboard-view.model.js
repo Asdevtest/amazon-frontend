@@ -1,5 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {BatchStatus} from '@constants/batch-status'
+import {BoxStatus} from '@constants/box-status'
 import {ClientDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
@@ -24,6 +26,7 @@ export class ClientDashboardViewModel {
     [ClientDashboardCardDataKey.CANCELED_ORDERS]: '',
     [ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE]: '',
     [ClientDashboardCardDataKey.READY_TO_SEND]: '',
+    [ClientDashboardCardDataKey.IS_BEING_COLLECTED]: '',
     [ClientDashboardCardDataKey.SEND_BOXES]: '',
   }
 
@@ -100,7 +103,9 @@ export class ClientDashboardViewModel {
             ].includes(el.status),
           ).length,
           [ClientDashboardCardDataKey.CANCELED_ORDERS]: result.filter(
-            el => el.status === OrderStatusByKey[OrderStatus.ORDER_CLOSED],
+            el =>
+              el.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
+              el.status === OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
           ).length,
         }
       })
@@ -126,14 +131,14 @@ export class ClientDashboardViewModel {
     }
   }
 
-  async getBoxesMy() {
+  async getBatches() {
     try {
-      const result = await BoxesModel.getBoxesForCurClient()
+      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
 
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,
-          [ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE]: result.filter(el => !el.isDraft).length,
+          [ClientDashboardCardDataKey.IS_BEING_COLLECTED]: batches.reduce((ac, cur) => (ac += cur.boxes.length), 0),
         }
       })
     } catch (error) {
@@ -142,17 +147,32 @@ export class ClientDashboardViewModel {
     }
   }
 
-  async getBatches() {
+  async getBoxesMy() {
     try {
-      const result = await BatchesModel.getBatches()
-
-      const batchesBoxes = result.reduce((ac, cur) => ac.concat(cur.boxes), [])
+      const warehouseBoxes = await BoxesModel.getBoxesForCurClient(BoxStatus.IN_STOCK)
 
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,
-          [ClientDashboardCardDataKey.READY_TO_SEND]: batchesBoxes.filter(el => !el.sendToBatchComplete).length,
-          [ClientDashboardCardDataKey.SEND_BOXES]: batchesBoxes.filter(el => el.sendToBatchComplete).length,
+          [ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE]: warehouseBoxes.filter(el => !el.isDraft).length,
+        }
+      })
+
+      const readyBoxes = await BoxesModel.getBoxesForCurClient(BoxStatus.REQUESTED_SEND_TO_BATCH)
+
+      runInAction(() => {
+        this.dashboardData = {
+          ...this.dashboardData,
+          [ClientDashboardCardDataKey.READY_TO_SEND]: readyBoxes.filter(el => !el.isDraft).length,
+        }
+      })
+
+      const sendedBoxes = await BoxesModel.getBoxesForCurClient(BoxStatus.IN_BATCH)
+
+      runInAction(() => {
+        this.dashboardData = {
+          ...this.dashboardData,
+          [ClientDashboardCardDataKey.SEND_BOXES]: sendedBoxes.filter(el => !el.isDraft).length,
         }
       })
     } catch (error) {

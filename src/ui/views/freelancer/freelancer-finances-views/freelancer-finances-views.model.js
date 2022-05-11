@@ -77,13 +77,6 @@ export class FreelancerFinancesViewsModel {
       this.error = undefined
       const result = await OtherModel.getMyPayments()
 
-      // const paymentsData = result.map(item => ({
-      //   ...item,
-      //   id: item._id,
-      //   tmpCreatorName: item.createdBy?.name,
-      //   tmpRecipientName: item.recipient?.name,
-      // }))
-
       runInAction(() => {
         this.currentFinancesData = financesDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),

@@ -47,7 +47,7 @@ export const clientExchangeViewColumns = handlers => [
     field: 'strategyStatus',
     headerName: textConsts.strategyStatusField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 250,
+    width: 210,
   },
 
   {
@@ -93,14 +93,21 @@ export const clientExchangeViewColumns = handlers => [
     field: 'researcherName',
     headerName: textConsts.researcherField,
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
-    width: 170,
+    width: 120,
   },
 
   {
     field: 'buyerName',
     headerName: textConsts.buyerField,
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.buyer?._id} />,
-    width: 170,
+    width: 120,
+  },
+
+  {
+    field: 'supervisorName',
+    headerName: textConsts.supervisorField,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.checkedBy?._id} />,
+    width: 120,
   },
 
   {

@@ -82,13 +82,9 @@ export const adminOrdersBtnsConfig = [
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
+
   {
-    label: 'Ожидает отправки',
-    color: 'rgb(15, 169, 20)',
-    colorHover: '#009a07',
-  },
-  {
-    label: 'Отправлен',
+    label: 'Необходима доплата',
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },

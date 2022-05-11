@@ -12,6 +12,11 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
+import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
+import ApiV1BatchesBatch from './ApiV1BatchesBatch';
+import ApiV1BatchesItems from './ApiV1BatchesItems';
 
 /**
  * The ApiV1BatchesBoxes model module.
@@ -53,8 +58,110 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('humanFriendlyId')) {
                 obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            }
+            if (data.hasOwnProperty('isActual')) {
+                obj['isActual'] = ApiClient.convertToType(data['isActual'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isDraft')) {
+                obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
+            }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
+            if (data.hasOwnProperty('lengthCmSupplier')) {
+                obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('widthCmSupplier')) {
+                obj['widthCmSupplier'] = ApiClient.convertToType(data['widthCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmSupplier')) {
+                obj['heightCmSupplier'] = ApiClient.convertToType(data['heightCmSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgSupplier')) {
+                obj['weighGrossKgSupplier'] = ApiClient.convertToType(data['weighGrossKgSupplier'], 'Number');
+            }
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('totalPrice')) {
+                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
+            }
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('batchId')) {
+                obj['batchId'] = ApiClient.convertToType(data['batchId'], 'String');
+            }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('clientId')) {
+                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
             if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], [Object]);
+                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BatchesItems]);
+            }
+            if (data.hasOwnProperty('storekeeper')) {
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
+            }
+            if (data.hasOwnProperty('client')) {
+                obj['client'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['client']);
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('lastModifiedBy')) {
+                obj['lastModifiedBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['lastModifiedBy']);
+            }
+            if (data.hasOwnProperty('destination')) {
+                obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
+            }
+            if (data.hasOwnProperty('logicsTariff')) {
+                obj['logicsTariff'] = ApiV1AdminsOrdersLogicsTariff.constructFromObject(data['logicsTariff']);
+            }
+            if (data.hasOwnProperty('batch')) {
+                obj['batch'] = ApiV1BatchesBatch.constructFromObject(data['batch']);
             }
         }
         return obj;
@@ -64,24 +171,265 @@ class ApiV1BatchesBoxes {
 }
 
 /**
- * GUID элемента
+ * GUID коробки.
  * @member {String} _id
  */
 ApiV1BatchesBoxes.prototype['_id'] = undefined;
 
 /**
- * Человекочитаемый id.
+ * Номер коробки.
  * @member {Number} humanFriendlyId
  */
 ApiV1BatchesBoxes.prototype['humanFriendlyId'] = undefined;
 
 /**
- * @member {Array.<Object>} items
+ * ККоличества в коробке.
+ * @member {Number} amount
+ */
+ApiV1BatchesBoxes.prototype['amount'] = undefined;
+
+/**
+ * Статус коробки
+ * @member {module:model/ApiV1BatchesBoxes.StatusEnum} status
+ */
+ApiV1BatchesBoxes.prototype['status'] = undefined;
+
+/**
+ * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
+ * @member {Boolean} isActual
+ */
+ApiV1BatchesBoxes.prototype['isActual'] = undefined;
+
+/**
+ * Если true - значит коробку черновик.
+ * @member {Boolean} isDraft
+ */
+ApiV1BatchesBoxes.prototype['isDraft'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+ApiV1BatchesBoxes.prototype['fbaShipment'] = undefined;
+
+/**
+ * Ссылка на наклейку для коробки
+ * @member {String} shippingLabel
+ */
+ApiV1BatchesBoxes.prototype['shippingLabel'] = undefined;
+
+/**
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} lengthCmSupplier
+ */
+ApiV1BatchesBoxes.prototype['lengthCmSupplier'] = undefined;
+
+/**
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} widthCmSupplier
+ */
+ApiV1BatchesBoxes.prototype['widthCmSupplier'] = undefined;
+
+/**
+ * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
+ * @member {Number} heightCmSupplier
+ */
+ApiV1BatchesBoxes.prototype['heightCmSupplier'] = undefined;
+
+/**
+ * Общий вес кг коробки который назвал поставщик.
+ * @member {Number} weighGrossKgSupplier
+ */
+ApiV1BatchesBoxes.prototype['weighGrossKgSupplier'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} lengthCmWarehouse
+ */
+ApiV1BatchesBoxes.prototype['lengthCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} widthCmWarehouse
+ */
+ApiV1BatchesBoxes.prototype['widthCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} heightCmWarehouse
+ */
+ApiV1BatchesBoxes.prototype['heightCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} weighGrossKgWarehouse
+ */
+ApiV1BatchesBoxes.prototype['weighGrossKgWarehouse'] = undefined;
+
+/**
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+ApiV1BatchesBoxes.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+ApiV1BatchesBoxes.prototype['images'] = undefined;
+
+/**
+ * Итого за доставку.
+ * @member {Number} totalPrice
+ */
+ApiV1BatchesBoxes.prototype['totalPrice'] = undefined;
+
+/**
+ * Обновление итога за доставку.
+ * @member {Number} totalPriceChanged
+ */
+ApiV1BatchesBoxes.prototype['totalPriceChanged'] = undefined;
+
+/**
+ * id склада - склады куда отправляют 
+ * @member {String} destinationId
+ */
+ApiV1BatchesBoxes.prototype['destinationId'] = undefined;
+
+/**
+ * GUID тарифа доставки 
+ * @member {String} logicsTariffId
+ */
+ApiV1BatchesBoxes.prototype['logicsTariffId'] = undefined;
+
+/**
+ * Сторкипер взявший коробку в работу.
+ * @member {String} batchId
+ */
+ApiV1BatchesBoxes.prototype['batchId'] = undefined;
+
+/**
+ * Сторкипер взявший коробку в работу.
+ * @member {String} storekeeperId
+ */
+ApiV1BatchesBoxes.prototype['storekeeperId'] = undefined;
+
+/**
+ * Клиент владелец товара в коробке в работу.
+ * @member {String} clientId
+ */
+ApiV1BatchesBoxes.prototype['clientId'] = undefined;
+
+/**
+ * Клиент создавший заказ и коробку.
+ * @member {String} createdById
+ */
+ApiV1BatchesBoxes.prototype['createdById'] = undefined;
+
+/**
+ * GUID любого, кто последний редактировал коробку.
+ * @member {String} lastModifiedById
+ */
+ApiV1BatchesBoxes.prototype['lastModifiedById'] = undefined;
+
+/**
+ * @member {Date} createdAt
+ */
+ApiV1BatchesBoxes.prototype['createdAt'] = undefined;
+
+/**
+ * @member {Date} updatedAt
+ */
+ApiV1BatchesBoxes.prototype['updatedAt'] = undefined;
+
+/**
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1BatchesItems>} items
  */
 ApiV1BatchesBoxes.prototype['items'] = undefined;
 
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} storekeeper
+ */
+ApiV1BatchesBoxes.prototype['storekeeper'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} client
+ */
+ApiV1BatchesBoxes.prototype['client'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} createdBy
+ */
+ApiV1BatchesBoxes.prototype['createdBy'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} lastModifiedBy
+ */
+ApiV1BatchesBoxes.prototype['lastModifiedBy'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersDestination} destination
+ */
+ApiV1BatchesBoxes.prototype['destination'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariff} logicsTariff
+ */
+ApiV1BatchesBoxes.prototype['logicsTariff'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BatchesBatch} batch
+ */
+ApiV1BatchesBoxes.prototype['batch'] = undefined;
 
 
+
+
+
+/**
+ * Allowed values for the <code>status</code> property.
+ * @enum {String}
+ * @readonly
+ */
+ApiV1BatchesBoxes['StatusEnum'] = {
+
+    /**
+     * value: "NEW"
+     * @const
+     */
+    "NEW": "NEW",
+
+    /**
+     * value: "IN_STOCK"
+     * @const
+     */
+    "IN_STOCK": "IN_STOCK",
+
+    /**
+     * value: "REQUESTED_SEND_TO_BATCH"
+     * @const
+     */
+    "REQUESTED_SEND_TO_BATCH": "REQUESTED_SEND_TO_BATCH",
+
+    /**
+     * value: "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE"
+     * @const
+     */
+    "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE": "NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE",
+
+    /**
+     * value: "IN_BATCH"
+     * @const
+     */
+    "IN_BATCH": "IN_BATCH",
+
+    /**
+     * value: "IN_BATCH_ON_THE_WAY"
+     * @const
+     */
+    "IN_BATCH_ON_THE_WAY": "IN_BATCH_ON_THE_WAY"
+};
 
 
 

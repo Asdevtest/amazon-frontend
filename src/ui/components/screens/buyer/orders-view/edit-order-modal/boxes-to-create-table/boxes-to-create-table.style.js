@@ -114,4 +114,9 @@ export const useClassNames = makeStyles(theme => ({
   deleteBtn: {
     color: 'rgba(189, 194, 209, 1)',
   },
+
+  checkboxWithLabelWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
 }))

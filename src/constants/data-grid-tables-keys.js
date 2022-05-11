@@ -6,7 +6,7 @@ export const DataGridTablesKeys = {
   ADMIN_BOXES: 'adminBoxesDataGridState',
   ADMIN_FINANCES: 'adminFinancesDataGridState',
   ADMIN_USER_FINANCES: 'adminUserFinancesDataGridState',
-  ADMIN_BATCHES: 'adminBatchesDataGridState',
+  // ADMIN_BATCHES: 'adminBatchesDataGridState',
   ADMIN_DESTINATIONS: 'adminDestinationsDataGridState',
 
   ADMIN_SINGLE_PERMISSIONS: 'adminSinglePermissionsDataGridState',
@@ -21,15 +21,21 @@ export const DataGridTablesKeys = {
   ADMIN_EXCHANGE_HIGH_PRICE: 'adminExchangeHighPriceDataGridState',
   ADMIN_EXCHANGE_PUBLISHED: 'adminExchangePublishedDataGridState',
   ADMIN_EXCHANGE_CANCELED: 'adminExchangeCanceledDataGridState',
+
+  ADMIN_AWAITING_BATCHES: 'adminAwaitingBatchesDataGridState',
+  ADMIN_BATCHES: 'adminBatchesDataGridState',
+
   COMPLETE_SUPPLIER_WAS_NOT_FOUND: 'adminExchangeCompleteSupplierNotFoundedDataGridState',
 
   WAREHOUSE_VACANT_TASKS: 'warehouseVacantTasksDataGridState',
   WAREHOUSE_MY_TASKS: 'warehouseMyTasksDataGridState',
   WAREHOUSE_COMPLETED_TASKS: 'warehouseCompletedTasksDataGridState',
   WAREHOUSE_CANCELED_TASKS: 'warehouseCanceledTasksDataGridState',
-  WAREHOUSE_BATCHES: 'warehouseBatchesDataGridState',
   WAREHOUSE_SUB_USERS: 'warehouseSubUsersDataGridState',
   WAREHOUSE_FINANCES: 'warehouseFinancesDataGridState',
+
+  WAREHOUSE_AWAITING_BATCHES: 'warehouseAwaitingBatchesDataGridState',
+  WAREHOUSE_BATCHES: 'warehouseBatchesDataGridState',
 
   WAREHOUSE_LOGISTICS_TARIFFS: 'warehouseLogisticsTariffsDataGridState',
   WAREHOUSE_SELF_TARIFFS: 'warehouseSelfTariffsDataGridState',
@@ -59,16 +65,20 @@ export const DataGridTablesKeys = {
   CLIENT_INVENTORY: 'clientInventoryDataGridState',
   CLIENT_ORDERS: 'clientOrdersDataGridState',
   CLIENT_ORDERS_NOTIFICATIONS: 'clientOrdersNotificationsDataGridState',
+  CLIENT_BOXES_NOTIFICATIONS: 'clientBoxesNotificationsDataGridState',
   CLIENT_WAREHOUSE: 'clientWarehouseDataGridState',
   CLIENT_PRODUCT_SEARCH_REQUESTS: 'clientProductSearchRequestsDataGridState',
   CLIENT_NICHE_SEARCH_REQUESTS: 'clientNicheSearchRequestsDataGridState',
 
   CLIENT_SUB_USERS: 'clientSubUsersDataGridState',
-  CLIENT_BATCHES: 'clientBatchesDataGridState',
   CLIENT_DAILY_SELLER_BOARD: 'clientDailySellerBoardDataGridState',
   CLIENT_LAST_30_DAY_SELLER_BOARD: 'clientLast30DaySellerBoardDataGridState',
   CLIENT_FINANCES: 'clientFinancesDataGridState',
   CLIENT_SHOPS: 'clientShopsDataGridState',
+
+  CLIENT_BATCHES: 'clientBatchesDataGridState',
+  CLIENT_AWAITING_BATCHES: 'clientAwaitingBatchesDataGridState',
+  CLIENT_BOXES_READY_TO_BATCH: 'clientReadyToBatchDataGridState',
 
   FREELANCER_FINANCES: 'freelancerFinancesDataGridState',
   FREELANCER_CUSTOM_MY_REQUESTS: 'freelancerCustomMyRequestsDataGridState',

@@ -47,65 +47,11 @@ class InlineObject67 {
         if (data) {
             obj = obj || new InlineObject67();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('result')) {
+                obj['result'] = ApiClient.convertToType(data['result'], 'String');
             }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
-            }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
-            }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('yuanRate')) {
-                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
-            }
-            if (data.hasOwnProperty('priceInYuan')) {
-                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
-                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
-            }
-            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
-                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('batchTotalCostInDollar')) {
-                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
-            }
-            if (data.hasOwnProperty('batchTotalCostInYuan')) {
-                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
-            }
-            if (data.hasOwnProperty('amountInBox')) {
-                obj['amountInBox'] = ApiClient.convertToType(data['amountInBox'], 'Number');
-            }
-            if (data.hasOwnProperty('boxLengthCm')) {
-                obj['boxLengthCm'] = ApiClient.convertToType(data['boxLengthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxWidthCm')) {
-                obj['boxWidthCm'] = ApiClient.convertToType(data['boxWidthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxHeightCm')) {
-                obj['boxHeightCm'] = ApiClient.convertToType(data['boxHeightCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxWeighGrossKg')) {
-                obj['boxWeighGrossKg'] = ApiClient.convertToType(data['boxWeighGrossKg'], 'Number');
-            }
-            if (data.hasOwnProperty('boxVolumeWeightKg')) {
-                obj['boxVolumeWeightKg'] = ApiClient.convertToType(data['boxVolumeWeightKg'], 'Number');
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -115,124 +61,16 @@ class InlineObject67 {
 }
 
 /**
- * Название поставщика.
- * @member {String} name
+ * Результат работы исполнителя.
+ * @member {String} result
  */
-InlineObject67.prototype['name'] = undefined;
+InlineObject67.prototype['result'] = undefined;
 
 /**
- * Ссылка на поставщика.
- * @member {String} link
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject67.prototype['link'] = undefined;
-
-/**
- * Цена за еденицу, dollar
- * @member {Number} price
- */
-InlineObject67.prototype['price'] = undefined;
-
-/**
- * кол-во
- * @member {Number} amount
- */
-InlineObject67.prototype['amount'] = undefined;
-
-/**
- * Минимальный лот.
- * @member {Number} minlot
- */
-InlineObject67.prototype['minlot'] = undefined;
-
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-InlineObject67.prototype['lotcost'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject67.prototype['images'] = undefined;
-
-/**
- * Комментарий
- * @member {String} comment
- */
-InlineObject67.prototype['comment'] = undefined;
-
-/**
- * Курс доллара к юаню поставщика. 
- * @member {Number} yuanRate
- */
-InlineObject67.prototype['yuanRate'] = undefined;
-
-/**
- * Цена за еденицу, yuan
- * @member {Number} priceInYuan
- */
-InlineObject67.prototype['priceInYuan'] = undefined;
-
-/**
- * Доставка партии, dollar
- * @member {Number} batchDeliveryCostInDollar
- */
-InlineObject67.prototype['batchDeliveryCostInDollar'] = undefined;
-
-/**
- * Доставка партии, yuan
- * @member {Number} batchDeliveryCostInYuan
- */
-InlineObject67.prototype['batchDeliveryCostInYuan'] = undefined;
-
-/**
- * Цена партии, dollar
- * @member {Number} batchTotalCostInDollar
- */
-InlineObject67.prototype['batchTotalCostInDollar'] = undefined;
-
-/**
- * Цена партии, yuan
- * @member {Number} batchTotalCostInYuan
- */
-InlineObject67.prototype['batchTotalCostInYuan'] = undefined;
-
-/**
- * Количество единиц в коробке.
- * @member {Number} amountInBox
- */
-InlineObject67.prototype['amountInBox'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxLengthCm
- */
-InlineObject67.prototype['boxLengthCm'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxWidthCm
- */
-InlineObject67.prototype['boxWidthCm'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxHeightCm
- */
-InlineObject67.prototype['boxHeightCm'] = undefined;
-
-/**
- * Общий вес кг коробки который назвал поставщик.
- * @member {Number} boxWeighGrossKg
- */
-InlineObject67.prototype['boxWeighGrossKg'] = undefined;
-
-/**
- * Объемный вес кг коробки, расчет на беке.
- * @member {Number} boxVolumeWeightKg
- */
-InlineObject67.prototype['boxVolumeWeightKg'] = undefined;
+InlineObject67.prototype['linksToMediaFiles'] = undefined;
 
 
 

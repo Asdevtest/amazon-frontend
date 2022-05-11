@@ -78,12 +78,4 @@ export const myRequestsViewColumns = () => [
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },
-
-  // {
-  //   field: 'createdAt',
-  //   headerName: textConsts.createDateField,
-  //   renderCell: params => <NormDateCell params={params} />,
-  //   width: 130,
-  //   type: 'date',
-  // },
 ]

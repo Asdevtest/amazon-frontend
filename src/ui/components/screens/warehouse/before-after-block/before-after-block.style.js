@@ -66,7 +66,6 @@ export const useClassNames = makeStyles(() => ({
   },
   bottomBlockWrapper: {
     marginTop: '5px',
-    padding: '10px',
   },
   editBtnWrapper: {
     width: '100%',

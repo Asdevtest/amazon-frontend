@@ -1,0 +1,140 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
+import React, {Component} from 'react'
+
+import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
+
+import {loadingStatuses} from '@constants/loading-statuses'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {texts} from '@constants/texts'
+
+import {Appbar} from '@components/appbar'
+import {BoxViewForm} from '@components/forms/box-view-form'
+import {Main} from '@components/main'
+import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {Navbar} from '@components/navbar'
+
+import {getLocalizedTexts} from '@utils/get-localized-texts'
+
+import {ClientBoxesNotificationsViewModel} from './client-boxes-notifications-view.model'
+import {styles} from './client-boxes-notifications-view.style'
+
+const textConsts = getLocalizedTexts(texts, 'ru').clientBoxesNotificationsView
+
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS
+const navbarActiveSubCategory = 1
+
+@observer
+class ClientBoxesNotificationsViewRaw extends Component {
+  viewModel = new ClientBoxesNotificationsViewModel({history: this.props.history})
+
+  componentDidMount() {
+    this.viewModel.loadData()
+    this.viewModel.getDataGridState()
+  }
+
+  render() {
+    const {
+      volumeWeightCoefficient,
+      curBox,
+      showBoxViewModal,
+      requestStatus,
+      getCurrentData,
+      sortModel,
+      filterModel,
+      densityModel,
+      columnsModel,
+
+      drawerOpen,
+      rowsPerPage,
+      curPage,
+      onTriggerDrawerOpen,
+      onChangeCurPage,
+      onChangeRowsPerPage,
+      setCurrentOpenedBox,
+      showConfirmModal,
+      confirmModalSettings,
+      onTriggerOpenModal,
+      onSelectionModel,
+      setDataGridState,
+      onChangeSortingModel,
+      onChangeFilterModel,
+    } = this.viewModel
+    const {classes: classNames} = this.props
+
+    return (
+      <React.Fragment>
+        <Navbar
+          activeCategory={navbarActiveCategory}
+          activeSubCategory={navbarActiveSubCategory}
+          drawerOpen={drawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
+        />
+        <Main>
+          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+            <MainContent>
+              <div className={classNames.tableWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  classes={{
+                    row: classNames.row,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  rowHeight={140}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection[0])
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                />
+              </div>
+            </MainContent>
+          </Appbar>
+        </Main>
+
+        <ConfirmationModal
+          isWarning={confirmModalSettings.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={textConsts.confirmTitle}
+          message={confirmModalSettings.message}
+          successBtnText={textConsts.yesBtn}
+          cancelBtnText={textConsts.noBtn}
+          onClickSuccessBtn={() => {
+            confirmModalSettings.onClickOkBtn()
+          }}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
+
+        <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
+          <BoxViewForm
+            box={curBox}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+          />
+        </Modal>
+      </React.Fragment>
+    )
+  }
+}
+
+export const ClientBoxesNotificationsView = withStyles(styles)(ClientBoxesNotificationsViewRaw)

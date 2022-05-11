@@ -3,12 +3,14 @@ import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import {mapProductStrategyStatusEnumToKey, ProductStrategyStatus} from '@constants/product-strategy-status'
 
 import {ResearcherModel} from '@models/researcher-model'
 import {SettingsModel} from '@models/settings-model'
 
 import {researcherProductsViewColumns} from '@components/table-columns/researcher/researcher-products-columns'
 
+import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {researcherProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
@@ -19,6 +21,15 @@ const formFieldsDefault = {
   amazonLink: '',
   productCode: '',
   strategyStatus: '',
+
+  niche: '',
+  asins: '',
+  avgRevenue: '',
+  avgBSR: '',
+  totalRevenue: '',
+  coefficient: '',
+  avgPrice: '',
+  avgReviews: '',
 }
 
 export class ResearcherProductsViewModel {
@@ -147,15 +158,28 @@ export class ResearcherProductsViewModel {
         lamazon: this.formFields.amazonLink,
         strategyStatus: Number(this.formFields.strategyStatus),
         fba: true,
+
+        niche: this.formFields.niche,
+        asins: this.formFields.asins,
+        avgRevenue: this.formFields.avgRevenue,
+        avgBSR: this.formFields.avgBSR,
+        totalRevenue: this.formFields.totalRevenue,
+        coefficient: this.formFields.coefficient,
+        avgPrice: this.formFields.avgPrice,
+        avgReviews: this.formFields.avgReviews,
       }
+
       await this.createProduct(product)
 
       const foundedProd = this.products.find(prod => prod.originalData._id === this.newProductId)
 
-      this.history.push({
-        pathname: '/researcher/product',
-        search: foundedProd.originalData._id,
-      })
+      this.history.push(
+        {
+          pathname: '/researcher/product',
+          search: foundedProd.originalData._id,
+        },
+        {startParse: true},
+      )
     } catch (error) {
       console.warn(error)
     }
@@ -241,11 +265,34 @@ export class ResearcherProductsViewModel {
       this.error = undefined
       this.actionStatus = undefined
 
-      this.formFields[fieldName] = e.target.value
+      if (
+        ['avgRevenue', 'coefficient', 'avgPrice'].includes(fieldName) &&
+        !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
+      ) {
+        return
+      }
+      if (['avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
+        this.formFields[fieldName] = parseInt(e.target.value) || ''
+      } else {
+        this.formFields[fieldName] = e.target.value
+      }
 
       if (fieldName === 'amazonLink') {
         this.chekedCode = ''
         this.formFields.productCode = getAmazonCodeFromLink(e.target.value)
+      }
+
+      if (fieldName === 'strategyStatus') {
+        if (Number(e.target.value) !== mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL]) {
+          this.formFields.niche = ''
+          this.formFields.asins = ''
+          this.formFields.avgRevenue = ''
+          this.formFields.avgBSR = ''
+          this.formFields.totalRevenue = ''
+          this.formFields.coefficient = ''
+          this.formFields.avgPrice = ''
+          this.formFields.avgReviews = ''
+        }
       }
     })
 

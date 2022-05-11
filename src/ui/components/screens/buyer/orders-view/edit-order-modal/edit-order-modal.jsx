@@ -79,13 +79,20 @@ export const EditOrderModal = ({
     setBoxesForCreation(updatedNewBoxes)
   }
 
+  const onClickBarcodeCheckbox = boxIndex => e => {
+    const newStateFormFields = [...boxesForCreation]
+
+    newStateFormFields[boxIndex].items[0].isBarCodeAlreadyAttachedByTheSupplier = e.target.checked
+
+    setBoxesForCreation(newStateFormFields)
+  }
+
   const [orderFields, setOrderFields] = useState({
     ...order,
     status: order?.status || undefined,
     clientComment: order?.clientComment || '',
     buyerComment: order?.buyerComment || '',
     deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || 0,
-    isBarCodeAlreadyAttachedByTheSupplier: order?.isBarCodeAlreadyAttachedByTheSupplier || false,
     trackId: '',
     material: order?.product?.material || '',
     amount: order?.amount || 0,
@@ -134,11 +141,13 @@ export const EditOrderModal = ({
         return setOrderFields(tmpNewOrderFieldsState)
 
       case 'SUBMIT':
-        return onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad)
+        return onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode)
     }
   }
 
   const [photosToLoad, setPhotosToLoad] = useState([])
+
+  const [hsCode, setHsCode] = useState(order.product.hsCode)
 
   const disableSubmit =
     requestStatus === loadingStatuses.isLoading ||
@@ -153,6 +162,8 @@ export const EditOrderModal = ({
         <Typography className={classNames.modalText}>{`${textConsts.orderNum} # ${order.id}`}</Typography>
 
         <SelectFields
+          hsCode={hsCode}
+          setHsCode={setHsCode}
           photosToLoad={photosToLoad}
           order={order}
           setOrderField={setOrderField}
@@ -189,7 +200,7 @@ export const EditOrderModal = ({
               setConfirmModalMode(confirmModalModes.SUBMIT)
               setShowConfirmModal(!showConfirmModal)
             } else {
-              onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad)
+              onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode)
             }
           }}
         >
@@ -210,7 +221,13 @@ export const EditOrderModal = ({
       )}
 
       {boxesForCreation.length > 0 && (
-        <BoxesToCreateTable newBoxes={boxesForCreation} onRemoveBox={onRemoveForCreationBox} />
+        <BoxesToCreateTable
+          volumeWeightCoefficient={volumeWeightCoefficient}
+          barcodeIsExist={order.product.barCode}
+          newBoxes={boxesForCreation}
+          onRemoveBox={onRemoveForCreationBox}
+          onClickBarcodeCheckbox={onClickBarcodeCheckbox}
+        />
       )}
 
       <div className={classNames.tableWrapper}>
@@ -222,6 +239,7 @@ export const EditOrderModal = ({
             BodyRow={WarehouseBodyRow}
             renderHeadRow={renderHeadRow}
             mainProductId={order.product._id}
+            volumeWeightCoefficient={volumeWeightCoefficient}
           />
         ) : (
           <Typography className={classNames.noBoxesText}>{textConsts.noBoxesYat}</Typography>

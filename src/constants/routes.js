@@ -1,3 +1,5 @@
+import {AdminAwaitingBatchesView} from '@views/admin/admin-batches-views/admin-awaiting-batches-view'
+import {AdminBatchesView} from '@views/admin/admin-batches-views/admin-batches-view'
 import {AdminDashboardView} from '@views/admin/admin-dashboard-view'
 import {AdminExchangeViews} from '@views/admin/admin-exchange-views'
 import {AdminFinancesViews} from '@views/admin/admin-finances-views/admin-finances-views'
@@ -10,7 +12,6 @@ import {AdminUserPermissionsView} from '@views/admin/admin-user-permissions-view
 import {AdminUserBalanceView} from '@views/admin/admin-users-view/admin-user-balance-view'
 import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
 import {AdminDestinationsView} from '@views/admin/admin-warehouse-views/admin-destinations-view'
-import {AdminWarehouseBatchesView} from '@views/admin/admin-warehouse-views/admin-warehouse-batches-view'
 import {AdminWarehouseBoxesView} from '@views/admin/admin-warehouse-views/admin-warehouse-boxes-view'
 import {AdminWarehouseTasksView} from '@views/admin/admin-warehouse-views/admin-warehouse-tasks-view'
 import {AuthView} from '@views/auth'
@@ -23,20 +24,21 @@ import {BuyerProductView} from '@views/buyer/buyer-product-view/'
 import {BuyerSearchSupplierByClientView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-client-view'
 import {BuyerSearchSupplierBySupervisorView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-supervisor-view'
 import {BuyerSubUsersView} from '@views/buyer/buyer-users-views/buyer-sub-users-view'
-import {ClientBatchesView} from '@views/client/client-batches-view'
+import {ClientAwaitingBatchesView} from '@views/client/client-batches-views/client-awaiting-batches-view'
+import {ClientBatchesView} from '@views/client/client-batches-views/client-batches-view'
+import {ClientReadyBoxesView} from '@views/client/client-batches-views/client-ready-boxes-view'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
 import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
 import {ClientFinancesViews} from '@views/client/client-finances-views'
-import {ClientDailySellerBoardView} from '@views/client/client-integrations-views/client-daily-seller-board-view'
-import {ClientLast30DaySellerBoardView} from '@views/client/client-integrations-views/client-last-30-day-seller-board-view'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
-import {ClientOrdersNotificationsView} from '@views/client/client-orders-notifications-view'
+import {ClientBoxesNotificationsView} from '@views/client/client-notifications-views/client-boxes-notifications-view'
+import {ClientOrdersNotificationsView} from '@views/client/client-notifications-views/client-orders-notifications-view'
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
 import {ClientProductView} from '@views/client/client-product-view/'
 import {ClientSettingsView} from '@views/client/client-settings-view'
-import {ClientShopsView} from '@views/client/client-shop-view/client-shop-view'
+import {ClientShopsView} from '@views/client/client-shops-view'
 import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {DocumentationView} from '@views/documentation'
@@ -76,16 +78,17 @@ import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-
 import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
 import {SupervisorSubUsersView} from '@views/supervisor/supervisor-users-views/supervisor-sub-users-view'
 import {TermsView} from '@views/terms'
-import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-view/warehouse-batches-view'
-import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-canceled-tasks-view'
-import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-completed-tasks-view'
+import {WarehouseAwaitingBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view'
+import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-batches-view/warehouse-batches-view'
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
 import {WarehouseFinancesViews} from '@views/warehouse/warehouse-finances-views'
 import {WarehouseManagementView} from '@views/warehouse/warehouse-management-view'
-import {WarehouseMyTasksView} from '@views/warehouse/warehouse-my-tasks-view'
 import {WarehouseMyWarehouseView} from '@views/warehouse/warehouse-my-warehouse-view'
+import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-canceled-tasks-view'
+import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-completed-tasks-view'
+import {WarehouseMyTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-my-tasks-view'
+import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view'
 import {WarehouseSubUsersView} from '@views/warehouse/warehouse-users-views/warehouse-sub-users-view'
-import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-vacant-tasks-view'
 
 import {UserRole} from './user-roles'
 
@@ -365,6 +368,20 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/client/boxes-ready-to-batch',
+    component: ClientReadyBoxesView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
+    routePath: '/client/awaiting-batch',
+    component: ClientAwaitingBatchesView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
     routePath: '/client/batches',
     component: ClientBatchesView,
     exact: false,
@@ -374,20 +391,6 @@ export const privateRoutesConfigs = [
   {
     routePath: '/client/shops',
     component: ClientShopsView,
-    exact: false,
-    permission: [UserRole.CLIENT],
-  },
-
-  {
-    routePath: '/client/integrations/daily',
-    component: ClientDailySellerBoardView,
-    exact: false,
-    permission: [UserRole.CLIENT],
-  },
-
-  {
-    routePath: '/client/integrations/last-30-day',
-    component: ClientLast30DaySellerBoardView,
     exact: false,
     permission: [UserRole.CLIENT],
   },
@@ -430,6 +433,14 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.CLIENT],
   },
+
+  {
+    routePath: '/client/boxes-notifications',
+    component: ClientBoxesNotificationsView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
   {
     routePath: '/client/finances',
     component: ClientFinancesViews,
@@ -505,8 +516,16 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.STOREKEEPER],
   },
+
   {
-    routePath: '/warehouse/boxes',
+    routePath: '/warehouse/awaiting-batches',
+    component: WarehouseAwaitingBatchesView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+  },
+
+  {
+    routePath: '/warehouse/batches',
     component: WarehouseBatchesView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
@@ -619,11 +638,19 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/admin/warehouse/batches',
-    component: AdminWarehouseBatchesView,
+    routePath: '/admin/awaiting-batches',
+    component: AdminAwaitingBatchesView,
     exact: false,
     permission: [UserRole.ADMIN],
   },
+
+  {
+    routePath: '/admin/batches',
+    component: AdminBatchesView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+  },
+
   {
     routePath: '/admin/finances',
     component: AdminFinancesViews,

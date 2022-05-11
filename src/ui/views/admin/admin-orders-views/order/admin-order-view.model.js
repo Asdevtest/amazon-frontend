@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
+import {ClientModel} from '@models/client-model'
 
 export class AdminOrderViewModel {
   history = undefined
@@ -10,25 +11,37 @@ export class AdminOrderViewModel {
   error = undefined
 
   orderBoxes = []
+  orderId = undefined
 
   drawerOpen = false
   order = undefined
 
-  constructor({history, location}) {
+  constructor({history}) {
     this.history = history
-    if (location.state) {
-      this.order = location.state.order
-    }
+    this.orderId = history.location.search.slice(1)
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      await this.getOrderById()
       await this.getBoxesOfOrder(this.order._id)
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
+  }
+
+  async getOrderById() {
+    try {
+      const result = await ClientModel.getOrderById(this.orderId)
+
+      runInAction(() => {
+        this.order = result
+      })
+    } catch (error) {
       console.log(error)
     }
   }

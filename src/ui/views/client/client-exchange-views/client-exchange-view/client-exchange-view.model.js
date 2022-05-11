@@ -27,6 +27,9 @@ export class ClientExchangeViewModel {
   productsVacant = []
   dataToPay = {}
   storekeepers = []
+
+  volumeWeightCoefficient = undefined
+
   destinations = []
 
   drawerOpen = false
@@ -218,13 +221,18 @@ export class ClientExchangeViewModel {
 
   async openCreateOrder() {
     try {
-      const result = await StorekeeperModel.getStorekeepers()
+      const storekeepers = await StorekeeperModel.getStorekeepers()
+
       const destinations = await ClientModel.getDestinations()
 
+      const result = await UserModel.getPlatformSettings()
+
       runInAction(() => {
-        this.storekeepers = result
+        this.storekeepers = storekeepers
 
         this.destinations = destinations
+
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
 
       this.onTriggerOpenModal('showOrderModal')

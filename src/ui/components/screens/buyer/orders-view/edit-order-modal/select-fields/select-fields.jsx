@@ -16,7 +16,13 @@ import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} fr
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithDollarSign, toFixedWithYuanSign} from '@utils/text'
+import {
+  checkAndMakeAbsoluteUrl,
+  getFullTariffTextForBoxOrOrder,
+  toFixed,
+  toFixedWithDollarSign,
+  toFixedWithYuanSign,
+} from '@utils/text'
 
 import {useClassNames} from './select-fields.style'
 
@@ -39,6 +45,8 @@ const disabledOrderStatuses = [
 ]
 
 export const SelectFields = ({
+  hsCode,
+  setHsCode,
   photosToLoad,
   order,
   setOrderField,
@@ -84,6 +92,19 @@ export const SelectFields = ({
           >
             <option value={'None'}>{order.storekeeper?.name}</option>
           </NativeSelect>
+        </Box>
+
+        <Box mt={3}>
+          <InputLabel id="tariff-select" className={classNames.modalText}>
+            {textConsts.tariff}
+          </InputLabel>
+
+          <Input
+            disabled
+            variant="filled"
+            value={getFullTariffTextForBoxOrOrder(order)}
+            className={classNames.nativeSelect}
+          />
         </Box>
 
         <Box mt={3}>
@@ -168,7 +189,7 @@ export const SelectFields = ({
                   onChange={e => {
                     if (
                       checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
-                      e.target.value < priceYuansForBatch
+                      Number(e.target.value) < priceYuansForBatch
                     ) {
                       setPriceYuansDeliveryCostToTheWarehouse(e.target.value)
                       setOrderField('deliveryCostToTheWarehouse')({
@@ -238,7 +259,8 @@ export const SelectFields = ({
                   value={orderFields.deliveryCostToTheWarehouse}
                   className={classNames.input}
                   onChange={e =>
-                    +e.target.value < orderFields.totalPriceChanged && setOrderField('deliveryCostToTheWarehouse')(e)
+                    Number(e.target.value) < orderFields.totalPriceChanged &&
+                    setOrderField('deliveryCostToTheWarehouse')(e)
                   }
                 />
               </div>
@@ -321,7 +343,7 @@ export const SelectFields = ({
 
         <Box>
           <div className={classNames.barCodeWrapper}>
-            <div className={classNames.checkboxWithLabelWrapper}>
+            {/* <div className={classNames.checkboxWithLabelWrapper}>
               <Checkbox
                 color="primary"
                 disabled={!orderFields.product.barCode}
@@ -333,7 +355,7 @@ export const SelectFields = ({
                 }}
               />
               <Typography className={classNames.modalText}>{textConsts.supplierAddBarCode}</Typography>
-            </div>
+            </div> */}
 
             <div className={classNames.barCodeLinkWrapper}>
               <div>
@@ -358,6 +380,16 @@ export const SelectFields = ({
             value={orderFields.trackingNumberChina}
             className={classNames.numWideInput}
             onChange={setOrderField('trackingNumberChina')}
+          />
+        </Box>
+
+        <Box my={3}>
+          <Typography className={classNames.modalText}>{textConsts.hsCodeTypo}</Typography>
+          <Input
+            inputProps={{maxLength: 50}}
+            value={hsCode}
+            className={classNames.numWideInput}
+            onChange={e => setHsCode(e.target.value)}
           />
         </Box>
 

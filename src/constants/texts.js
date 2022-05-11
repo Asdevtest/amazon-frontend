@@ -90,6 +90,16 @@ export const texts = {
       boxesInWarehouse: 'Коробок на складе',
       readyToSend: 'Коробки готовые к отправке',
       sendBoxes: 'Отправленные коробки',
+      awaitingBoxes: 'Ожидают отправки',
+    },
+
+    clientReadyBoxesView: {
+      appbarTitle: 'Коробки готовые к отправке',
+      confirmTitle: 'Внимание',
+      confirmMessage: 'Вы точно хотите вернуть коробки на склад?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      cancelSendBatchBtn: 'Вернуть на склад',
     },
 
     clientWarehouseView: {
@@ -106,7 +116,9 @@ export const texts = {
 
       modalSendOwnProductTitle: 'Send own product',
       modalEditBoxTitle: 'Box editing',
-      modalEditSuccessMessage: 'Создана задача на изменение коробки',
+      modalEditSuccessMessage: 'Коробка изменена',
+      modalEditSuccessMessageAndTask: 'Создана задача на изменение коробки',
+
       modalRedistributionTitle: 'Box redistributing',
       modalRedistributionAddNewBoxTitle: 'Attention!',
       modalRedistributionAddNewBoxMessage:
@@ -127,6 +139,7 @@ export const texts = {
       confirmMessage: 'Вы точно хотите отменить задачу?',
       yesBtn: 'Да',
       noBtn: 'Нет',
+      setFbaShipment: 'Установить FBA shipment',
     },
 
     warehouseMyWarehouseView: {
@@ -135,7 +148,7 @@ export const texts = {
     },
 
     adminWarehouseView: {
-      appbarTitle: 'Коробки на складах',
+      appbarTitle: 'Коробки',
       mainTitle: 'Boxes in warehouse',
       sendProductBtn: 'Send own product',
       sendBatchBtn: 'Send batch',
@@ -191,16 +204,16 @@ export const texts = {
       deliveryMethodLabel: 'Delivery method',
       statusLabel: 'Status',
 
-      lengthCmSupplier: 'Длина коробки в см',
-      widthCmSupplier: 'Ширина коробки в см',
-      heightCmSupplier: 'Высота коробки в см',
+      lengthCmSupplier: 'Длина коробки',
+      widthCmSupplier: 'Ширина коробки',
+      heightCmSupplier: 'Высота коробки',
       weighGrossKgSupplier: 'Реальный вес в кг',
       volumeWeightKgSupplier: 'Объемный вес в кг',
       weightFinalAccountingKgSupplier: 'Финальный вес в кг',
 
-      lengthCmWarehouse: 'Длина коробки в см',
-      widthCmWarehouse: 'Ширина коробки в см',
-      heightCmWarehouse: 'Высота коробки в см',
+      lengthCmWarehouse: 'Длина коробки',
+      widthCmWarehouse: 'Ширина коробки',
+      heightCmWarehouse: 'Высота коробки',
       weighGrossKgWarehouse: 'Реальный вес в кг',
       volumeWeightKgWarehouse: 'Объемный вес в кг',
       weightFinalAccountingKgWarehouse: 'Финальный вес в кг',
@@ -589,7 +602,7 @@ export const texts = {
       nameLabel: 'Название услуги*',
       nameHolder: 'наименование услуги',
 
-      priceField: 'Стоимость услуги, $*',
+      priceField: 'Стоимость услуги за кг, $*',
       priceHolder: 'стоимость',
 
       descriptionField: 'Описание услуги*',
@@ -680,6 +693,24 @@ export const texts = {
       bindBtn: 'Привязать',
     },
 
+    moveBoxToBatchForm: {
+      saveBtn: 'Сохранить',
+      cancelBtn: 'Отмена',
+    },
+
+    addOrEditBatchForm: {
+      mainTitle: 'Привязать товар со склада',
+      recommend: 'Рекомендованные',
+      asin: 'ASIN',
+      sku: 'SKU',
+      name: 'названию',
+      betweenChipsText: 'или поиск по',
+      searchHolder: `поиск...`,
+      searchBtn: 'Поиск',
+      chosenGoods: 'Коробки в партии:',
+      bindBtn: 'Привязать',
+    },
+
     addOrEditGroupPermissionForm: {
       addTitle: 'Новоя группа разрешений',
       editTitle: 'Изменить группу разрешений',
@@ -737,6 +768,32 @@ export const texts = {
       stockValueField: 'Count',
       reservedField: 'Reserved',
       roiField: 'ROI',
+    },
+
+    moveBoxToBatchFormColumns: {
+      warehouseField: 'Destination',
+      boxIdField: 'ID',
+
+      logicsTariffField: 'Тариф',
+      updatedAtField: 'Обновлено',
+
+      volumeWeightField: 'Об-й вес',
+
+      weightField: 'Вес фин-й',
+      priceField: 'Стоимость',
+    },
+
+    addOrEditBatchFormColumnsTexts: {
+      humanFriendlyIdField: 'ID',
+      qtyField: 'Кол-во',
+      ordersField: 'Продукт',
+      warehouseField: 'Destination',
+
+      clientField: 'Клиент',
+      logicsTariffField: 'Тариф',
+      updatedAtField: 'Обновлено',
+      weightField: 'Вес фин-й',
+      priceField: 'Стоимость',
     },
 
     addProductSellerboardForm: {
@@ -861,6 +918,8 @@ export const texts = {
       amountInBoxesField: 'Stock',
       stockValueField: 'Amazon',
       reservedField: 'Reserved',
+
+      hsCodeField: 'HS code',
     },
 
     clientDailySellerBoardColumns: {
@@ -929,7 +988,7 @@ export const texts = {
       bsrField: 'BSR',
       fbaField: 'FBA',
       barcodeField: 'Barcode',
-      createDateField: 'Create date',
+      createDateField: 'Created',
     },
 
     exchangeWaitingColumns: {
@@ -954,7 +1013,7 @@ export const texts = {
       bsrField: 'BSR',
       fbaField: 'FBA',
       barcodeField: 'Barcode',
-      createDateField: 'Create date',
+      createDateField: 'Created',
       profitField: 'Profit',
       marginField: 'Margin',
     },
@@ -983,9 +1042,9 @@ export const texts = {
       fbaField: 'FBA fee',
       fbaAmountField: 'FBA amount',
       barcodeField: 'Barcode',
-      createDateField: 'Create date',
-      checkDateField: 'Check date',
-      updateDateField: 'Update date',
+      createDateField: 'Created',
+      checkDateField: 'Created',
+      updateDateField: 'Updated',
     },
     exchangeSupplierSearchColumns: {
       strategyStatusField: 'Strategy',
@@ -1010,8 +1069,8 @@ export const texts = {
       bsrField: 'BSR',
       fbaField: 'FBA',
       barcodeField: 'Barcode',
-      createDateField: 'Create date',
-      updateDateField: 'Update date',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       profitField: 'Profit',
       marginField: 'Margin',
       fbaAmountField: 'FBA amount',
@@ -1040,8 +1099,8 @@ export const texts = {
       bsrField: 'BSR',
       fbaField: 'FBA',
       barcodeField: 'Barcode',
-      createDateField: 'Create date',
-      updateDateField: 'Update date',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       profitField: 'Profit',
       marginField: 'Margin',
       fbaAmountField: 'FBA amount',
@@ -1071,8 +1130,8 @@ export const texts = {
       bsrField: 'BSR',
       fbaField: 'FBA',
       barcodeField: 'Barcode',
-      createDateField: 'Create date',
-      updateDateField: 'Update date',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       profitField: 'Profit',
       marginField: 'Margin',
       fbaAmountField: 'FBA amount',
@@ -1140,6 +1199,8 @@ export const texts = {
       noBtn: 'Нет',
 
       noCurrentSupplier: 'Не выбран поставщик!',
+
+      setHsCode: 'Установить HS code',
     },
     researcherDashboardView: {
       appBarTitle: 'Dashboard',
@@ -1357,6 +1418,7 @@ export const texts = {
       typoCloseButch: 'needCloseButch',
     },
     ordersViewsModalSelectFields: {
+      tariff: 'Тариф',
       warehouse: 'Склад',
       interimWarehouse: 'Промежуточный склад',
       valueNone: 'None',
@@ -1389,6 +1451,8 @@ export const texts = {
       totalPriceChanged: 'Долларов за партию фактически $',
       costPriceAmount: 'Себестоимость в закупке за шт.',
       trackNumberTypo: 'Track number',
+
+      hsCodeTypo: 'HS code',
 
       circularProgressTitle: 'Загрузка фотографий...',
       loadTitle: 'Прикрепить фото к задаче',
@@ -1543,6 +1607,7 @@ export const texts = {
       addPermissionsBtn: 'Назначить разрешения',
 
       id: 'ASIN: ',
+      setHsCodeChipLabel: 'Set hscode',
 
       showDetails: 'Подробнее',
       cancelTaskBtn: 'Отменить',
@@ -1565,7 +1630,11 @@ export const texts = {
       fba: 'FBA',
       active: 'User status',
       rate: 'Rate',
-      masterUser: 'Master user id',
+      masterUser: 'Master user',
+      subUsers: 'Sub users',
+      rating: 'rating',
+
+      overdraft: 'Overdraft',
 
       fieldSecurity: 'Security/Sharing options',
       manageBtn: 'Manage Permissions',
@@ -1813,10 +1882,19 @@ export const texts = {
     },
     researcherAddProductForm: {
       buttonCheck: 'Проверить',
-      buttonAdd: 'Добавить',
+      buttonAdd: 'Добавить карточку товара',
       linkAmazon: 'Введите ссылку с амазона',
       codeOfGood: 'Код товара',
       successActionAlert: 'Operation complete',
+
+      niche: 'Niche',
+      asins: 'Asins',
+      avgRevenue: 'Avg. Revenue',
+      avgBSR: 'Avg. BSR',
+      totalRevenue: 'Total Revenue',
+      coefficient: 'Coefficient',
+      avgPrice: 'Avg. Price',
+      avgReviews: 'Avg. Reviews',
     },
     productStatusButtonsConfigs: {
       searchForSupplier: 'Поиск поставщика',
@@ -2124,6 +2202,20 @@ export const texts = {
       makeMainSupplier: 'Сделать основным поставщиком',
       errorNoZero: 'не может быть ноль',
     },
+
+    boxViewForm: {
+      closeBtn: 'Закрыть',
+      length: 'Длина: ',
+      width: 'Ширина: ',
+      height: 'Высота: ',
+      weight: 'Вес: ',
+      volumeWeigh: 'Объемный вес: ',
+      finalWeight: 'Финальный вес: ',
+      shippingLabelIsGluedSupplier: 'Шиппинг лебл проклеен',
+      isBarCodeAlreadyAttachedByTheSupplier: 'Баркод проклеен поставщиком',
+      isBarCodeAttachedByTheStorekeeper: 'Баркод проклеен складом',
+    },
+
     productWrapperComponent: {
       buttonParseAmazon: ' Parse Amazon ',
       buttonParseSellcentrall: 'Parse Seller central',
@@ -2194,6 +2286,15 @@ export const texts = {
       sku: 'SKU by Client',
       skuHolder: 'SKU',
       addSkuBtn: 'добавить',
+
+      niche: 'Niche',
+      asins: 'Asins',
+      avgRevenue: 'Avg. Revenue',
+      avgBSR: 'Avg. BSR',
+      totalRevenue: 'Total Revenue',
+      coefficient: 'Coefficient',
+      avgPrice: 'Avg. Price',
+      avgReviews: 'Avg. Reviews',
     },
 
     buyerBatchesView: {
@@ -2203,12 +2304,23 @@ export const texts = {
       appBarUsername: 'Buyer',
       appUser: 'buyer',
     },
+
+    clientAwaitingBatchesView: {
+      editBatch: 'Редактировать партию',
+      mainTitle: 'Мои отправления',
+      appBarTitle: 'Ожидают отправки',
+      cancelSendBatchBtn: 'Отменить отправку',
+
+      confirmTitle: 'Внимание',
+      confirmMessage: 'Вы точно хотите отменить отправку?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+    },
+
     clientBatchesView: {
       editBatch: 'Редактировать партию',
       mainTitle: 'Мои отправления',
-      appBarTitle: 'Мои отправления',
-      appBarUsername: 'Client',
-      appUser: 'client',
+      appBarTitle: 'Отправленные',
     },
 
     clientLast30DaySellerBoardView: {
@@ -2216,6 +2328,15 @@ export const texts = {
       appBarTitle: 'Дашборд по товарам/дням',
       appBarUsername: 'Client',
       appUser: 'client',
+    },
+
+    goodsDaysReport: {
+      mainTitle: 'Отчет seller board за 30 дней',
+      appBarTitle: 'Дашборд по товарам/дням',
+      appBarUsername: 'Client',
+      appUser: 'client',
+
+      allShopsBtn: 'Все магазины',
     },
 
     clientDailySellerBoardView: {
@@ -2257,11 +2378,19 @@ export const texts = {
       appUser: 'client',
     },
     ordersViewsModalSetBarcode: {
-      title: 'Установить штрихкод',
+      title: 'Установить баркод',
       code: 'Штрихкод товара:',
       saveBtn: 'Сохранить',
       closeBtn: 'Закрыть',
     },
+
+    ordersViewsModalSetHsCode: {
+      title: 'Установить HS код',
+      code: 'Штрихкод товара:',
+      saveBtn: 'Сохранить',
+      closeBtn: 'Закрыть',
+    },
+
     ordersViewsModalSetShippingLabel: {
       title: 'Установить Shipping label',
       code: 'Shipping label товара:',
@@ -2331,6 +2460,7 @@ export const texts = {
       attentionDifStorekeepers: 'Промежуточные склады должны совпадать!',
 
       shippingLabelError: 'Должно быть не меньше 5 знаков',
+      tariff: 'Тариф',
     },
 
     buyerUserExchangeItem: {
@@ -2449,9 +2579,17 @@ export const texts = {
     },
     clientOrdersNotificationsView: {
       mainTitle: 'Уведомления по заказам',
-      appBarTitle: 'Страница уведомлений по заказам',
-      appBarUsername: 'Client',
-      appUser: 'client',
+      appBarTitle: 'Уведомлений по заказам',
+      confirmTitle: 'Внимание',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      errorMessage: 'Вы хотите отменить?',
+      confirmMessage: 'Вы подтверждаете доплату?',
+    },
+
+    clientBoxesNotificationsView: {
+      mainTitle: 'Уведомления по заказам',
+      appBarTitle: 'Уведомлений по коробкам',
       confirmTitle: 'Внимание',
       yesBtn: 'Да',
       noBtn: 'Нет',
@@ -2535,8 +2673,8 @@ export const texts = {
       titleToolTip: 'Финальный вес будет расчитан когда склад получит товар',
     },
     adminOrdersTableColumns: {
-      createDateField: 'Создан',
-      updateDateField: 'Обновлен',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       asinTypo: 'ASIN ',
       setBarcodeLabel: 'Set barcode',
       barcodeDeleteAlert: 'Barcode deleting',
@@ -2554,9 +2692,11 @@ export const texts = {
       statusField: 'Статус',
       buyerField: 'Байер',
       storekeeperNameField: 'Storekeeper',
+      clientNameField: 'Клиент',
     },
 
     subUsersTableColumns: {
+      nameField: 'Имя',
       emailField: 'Почта',
       actionField: 'Действия',
     },
@@ -2571,7 +2711,7 @@ export const texts = {
     },
 
     financesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2582,7 +2722,7 @@ export const texts = {
     },
 
     buyerFinancesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2590,7 +2730,7 @@ export const texts = {
     },
 
     clientFinancesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2598,7 +2738,7 @@ export const texts = {
     },
 
     researcherFinancesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2606,7 +2746,7 @@ export const texts = {
     },
 
     supervisorFinancesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2614,7 +2754,7 @@ export const texts = {
     },
 
     warehouseFinancesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2622,7 +2762,7 @@ export const texts = {
     },
 
     freelancerFinancesTableColumns: {
-      createDateField: 'Создано',
+      createDateField: 'Created',
       commentField: 'Комментарий',
       sumField: 'Сумма',
       creatorNameField: 'Инициатор',
@@ -2630,8 +2770,8 @@ export const texts = {
     },
 
     adminSinglePermissionsColumns: {
-      createDateField: 'Создано',
-      updateDateField: 'Обновлено',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       descriptionField: 'Описание',
       keyField: 'Ключ',
       titleField: 'Название',
@@ -2639,8 +2779,8 @@ export const texts = {
     },
 
     adminGroupPermissionsColumns: {
-      createDateField: 'Создано',
-      updateDateField: 'Обновлено',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       descriptionField: 'Описание',
       keyField: 'Ключ',
       titleField: 'Название',
@@ -2648,8 +2788,8 @@ export const texts = {
     },
 
     selectStorkeeperAndTariffFormColumns: {
-      createDateField: 'Создано',
-      updateDateField: 'Обновлено',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       descriptionField: 'Описание услуги',
       nameField: 'Название услуги',
       actionField: 'Действия',
@@ -2662,8 +2802,8 @@ export const texts = {
     },
 
     logisticsTariffsColumns: {
-      createDateField: 'Создано',
-      updateDateField: 'Обновлено',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       descriptionField: 'Описание услуги',
       nameField: 'Название услуги',
       actionField: 'Действия',
@@ -2673,6 +2813,7 @@ export const texts = {
       destinationField: 'Регион',
       ratesField: 'Рейт, $',
       datesField: 'Даты',
+      updatedAtField: 'Updated',
     },
 
     destinationsColumns: {
@@ -2692,6 +2833,21 @@ export const texts = {
       nameField: 'Название услуги',
       actionField: 'Действия',
       priceField: 'Стоимость за кг, $',
+      updatedAtField: 'Обновлено',
+    },
+
+    clientBoxesNotificationsTableColumns: {
+      actionField: 'Действие',
+      boxIdField: 'ID',
+      updatedAtField: 'Обновлено',
+      ordersField: 'Продукт',
+      qtyField: 'Кол-во',
+      warehouseField: 'Куда',
+      logicsTariffField: 'Тариф',
+      priceField: 'Стоимость',
+      weightField: 'Вес фин-й',
+      grossWeight: 'Вес',
+      neededToPayExtraField: 'Доплатить',
     },
 
     clientOrdersTableColumns: {
@@ -2718,7 +2874,7 @@ export const texts = {
       weightField: 'Вес',
       grossWeightField: 'Общий вес',
       trackIdField: 'Трек номер',
-      neededToPayExtraField: 'Необходимо доплатить',
+      neededToPayExtraField: 'Доплатить',
       forDeliveryFromTheWarehouse: 'Из них за доставку до склада Китая',
       buyerCommentField: 'Комментарий баера',
     },
@@ -2733,8 +2889,8 @@ export const texts = {
       deliveryField: 'Доставка',
       clientCommentField: 'Комментарий клиента',
       buyerCommentField: 'Комментарий закупщика',
-      createdAtField: 'Создан',
-      updatedAtField: 'Изменен',
+      createdAtField: 'Created',
+      updatedAtField: 'Updated',
       storekeeperNameField: 'Пром-й склад',
       clientNameField: 'Клиент',
     },
@@ -2756,8 +2912,8 @@ export const texts = {
     },
 
     adminBoxesTableColumns: {
-      createdAtField: 'Создания',
-      updatedAtField: 'Обновление',
+      createdAtField: 'Created',
+      updatedAtField: 'Updated',
       ordersField: 'Продукт',
       ordersId: 'id Заказа',
       barCode: 'Баркод',
@@ -2807,22 +2963,49 @@ export const texts = {
       weightField: 'Финальный Вес',
       grossWeightField: 'Общий вес',
       deliveryField: 'Доставка',
+      fbaShipmentField: 'FBA shipment',
+      fbaShipmentChip: 'Set fba shipment',
+      dimansionsField: 'Размеры',
+    },
+
+    clientBoxesReadyToBatchViewColumns: {
+      createdAtField: 'Создано',
+      updatedAtField: 'Обновлено',
+      ordersField: 'Продукт',
+      ordersId: 'id Заказа',
+      barCode: 'Баркод',
+      asinField: 'ASIN',
+      qtyField: 'Количество',
+      materialField: 'Материал',
+      warehouseField: 'Destination',
+      boxIdField: 'ID',
+      priceField: 'Общая цена',
+      trackIdField: 'Трек номер',
+      weightField: 'Финальный Вес',
+      grossWeightField: 'Общий вес',
+      deliveryField: 'Доставка',
+      storekeeperField: 'Пром-й склад',
+      logicsTariffField: 'Тариф',
     },
 
     warehouseBoxesTableColumns: {
       createdAtField: 'Создано',
       updatedAtField: 'Обновлено',
       ordersField: 'Продукт',
-      ordersId: 'ID Заказа',
       warehouseField: 'Склад',
-      boxIdField: 'ID Коробки',
+      boxIdField: 'ID',
       clientNameField: 'Клиент',
       batchField: 'Партия',
       actionField: 'Действия',
       actionBtnText: 'Переместить',
+      logicsTariffField: 'Тариф',
+      qtyField: 'Кол-во',
+      dimansionsField: 'Размеры',
     },
 
-    batchesTableColumns: {
+    clientBatchesViewColumns: {
+      updatedAtField: 'Updated ',
+
       createdAtField: 'Дата создания',
       ordersField: 'Продукт',
       ordersId: 'id Заказа',
@@ -2830,22 +3013,76 @@ export const texts = {
       asinField: 'ASIN',
       qtyField: 'Количество',
       materialField: 'Материал',
-      warehouseField: 'Склад',
+      warehouseField: 'Destination',
       boxIdField: 'id Коробки',
       priceField: 'Цена',
       trackIdField: 'Трек номер',
-      weightField: 'Общий финальный Вес',
+      weightField: 'Общий фин. Вес',
       grossWeightField: 'Общий вес',
-      deliveryField: 'Доставка',
+      deliveryField: 'Тариф',
+      toralPriceField: 'Общая стоимость',
+
+      storekeeperField: 'Storekeeper',
+
+      showBtn: 'Смотреть',
+      actionField: 'Действия',
+      humanFriendlyIdField: 'Номер',
+      datesField: 'Дата отправления',
+    },
+
+    adminBatchesTableColumns: {
+      updatedAtField: 'Updated',
+      createdAtField: 'Дата создания',
+      ordersField: 'Продукт',
+      ordersId: 'id Заказа',
+      barCode: 'Баркод',
+      asinField: 'ASIN',
+      qtyField: 'Количество',
+      materialField: 'Материал',
+      warehouseField: 'Destination',
+      boxIdField: 'id Коробки',
+      priceField: 'Цена',
+      trackIdField: 'Трек номер',
+      weightField: 'Общий фин. Вес',
+      grossWeightField: 'Общий вес',
+      deliveryField: 'Тариф',
       toralPriceField: 'Общая стоимость',
 
       showBtn: 'Смотреть',
       actionField: 'Действия',
+      humanFriendlyIdField: 'Номер',
+      datesField: 'Дата отправления',
+      storekeeperNameField: 'Storekeeper',
+    },
+
+    batchesTableColumns: {
+      updatedAtField: 'Updated',
+
+      createdAtField: 'Дата создания',
+      ordersField: 'Продукт',
+      ordersId: 'id Заказа',
+      barCode: 'Баркод',
+      asinField: 'ASIN',
+      qtyField: 'Количество',
+      materialField: 'Материал',
+      warehouseField: 'Destination',
+      boxIdField: 'id Коробки',
+      priceField: 'Цена',
+      trackIdField: 'Трек номер',
+      weightField: 'Общий фин. Вес',
+      grossWeightField: 'Общий вес',
+      deliveryField: 'Тариф',
+      toralPriceField: 'Общая стоимость',
+
+      showBtn: 'Смотреть',
+      actionField: 'Действия',
+      humanFriendlyIdField: 'Номер',
+      datesField: 'Дата отправления',
     },
 
     adminTasksTableColumns: {
-      createDateField: 'Создано',
-      updateDateField: 'Обновлено',
+      createDateField: 'Created',
+      updateDateField: 'Updated',
       typeField: 'Тип',
       descriptionField: 'Описание',
       actionField: 'Действие',
@@ -2941,6 +3178,7 @@ export const texts = {
       bsrField: 'BSR',
       fbaamountField: 'Recommend batch',
       researcherField: 'Created by',
+      supervisorField: 'Supervisor',
       buyerField: 'Buyer',
       byForBtn: 'Купить за',
       createDateField: 'Created',
@@ -3175,7 +3413,7 @@ export const texts = {
       minBuyPrice: 'Цена покупки',
       supplier: 'Поставщик',
       maxDeliveryPrice: 'Макс доставка за единицу',
-      sizes: 'Размеры (дюйм)',
+      sizes: 'Размеры',
       weight: 'Вес (кг)',
       extraParam: 'Дополнительный параметр',
       extraParamValue: 'Значение',
@@ -3187,7 +3425,7 @@ export const texts = {
     },
     clientOrderComments: {
       mainTitle: 'Комментарии',
-      buyerLabel: 'Закупщика',
+      buyerLabel: 'Баера',
       buyerComment:
         'Бубны распространённый инструмент, есть у разных народов мира, от сибирских шаманов, до индейцев америки.',
       clientLabel: 'Клиента',
@@ -3460,6 +3698,12 @@ export const texts = {
       mainTitle: 'Выполненные задачи',
       showBtn: 'Смотреть',
     },
+
+    productInOrderTableRow: {
+      isBarCodeAlreadyAttachedByTheSupplier: 'Баркод проклеен поставщиком',
+      isBarCodeAttachedByTheStorekeeper: 'Баркод проклеен складом',
+      noBarCodeGlued: 'Не проклеен!',
+    },
     warehouseCanceledTasksView: {
       appBarTitle: 'Отмененные задачи',
       appBarUsername: 'Warehouse',
@@ -3485,9 +3729,9 @@ export const texts = {
       volumeWeightConfigText: 'Вес:',
       weightFinalConfigText: 'Финальный вес:',
 
-      lengthCmWarehouse: 'Длина коробки в см',
-      widthCmWarehouse: 'Ширина коробки в см',
-      heightCmWarehouse: 'Высота коробки в см',
+      lengthCmWarehouse: 'Длина коробки',
+      widthCmWarehouse: 'Ширина коробки',
+      heightCmWarehouse: 'Высота коробки',
       weighGrossKgWarehouse: 'Реальный вес в кг',
       volumeWeightKgWarehouse: 'Объемный вес в кг',
       weightFinalAccountingKgWarehouse: 'Финальный вес в кг',
@@ -3528,6 +3772,7 @@ export const texts = {
       actuallyAssembled: 'Actually assembled',
       dimensionsMessage: 'Внесите размеры всех коробок',
       okBtn: 'Ок',
+      supplierAddBarCode: 'Поставщик поклеил баркод',
     },
 
     warehouseBeforeAfterBlock: {
@@ -3558,6 +3803,7 @@ export const texts = {
       warehouseLabel: 'Склад',
       deliveryMethodLabel: 'Метод доставки',
       statusLabel: 'Статус заказа',
+      logicsTariffLabel: 'Тариф логистики',
     },
 
     beforeAfterInfoTaskBlock: {
@@ -3584,6 +3830,7 @@ export const texts = {
       warehouseLabel: 'Склад',
       deliveryMethodLabel: 'Метод доставки',
       statusLabel: 'Статус заказа',
+      logicsTariffLabel: 'Тариф логистики',
     },
 
     warehouseTaskForm: {
@@ -3662,6 +3909,7 @@ export const texts = {
       barCode: `Баркод:`,
       material: 'Материал',
       codeCheck: 'Баркод проклеен поставщиком',
+      barCodeIsGluedWarehouse: 'Баркод проклеен складом',
     },
 
     taskInfoBoxItemCard: {
@@ -3696,7 +3944,7 @@ export const texts = {
       close: 'Свернуть',
     },
     warehouseWarehouseView: {
-      appbarTitle: 'Отправления',
+      appbarTitle: 'Отправленные',
       mainTitle: 'Boxes for batches',
       confirmSendBatchBtn: 'Confirm send to batch',
       confirmMessage: 'Отправить?',
@@ -3704,6 +3952,43 @@ export const texts = {
       noBtn: 'Нет',
       confirmTitle: 'Внимание',
     },
+
+    adminWarehouseView: {
+      appbarTitle: 'Отправленные',
+      mainTitle: 'Boxes for batches',
+      confirmSendBatchBtn: 'Confirm send to batch',
+      confirmMessage: 'Отправить?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      confirmTitle: 'Внимание',
+    },
+
+    adminAwaitingBatchesView: {
+      appbarTitle: 'Ожидают отправки',
+      mainTitle: 'Boxes for batches',
+      confirmSendBatchBtn: 'Confirm Send to batch',
+      confirmMessage: 'Отправить?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      confirmTitle: 'Внимание',
+
+      editBtn: 'Редактировать партию',
+      addBtn: 'Создать партию товара',
+    },
+
+    warehouseAwaitingBatchesView: {
+      appbarTitle: 'Ожидают отправки',
+      mainTitle: 'Boxes for batches',
+      confirmSendBatchBtn: 'Confirm Send to batch',
+      confirmMessage: 'Отправить?',
+      yesBtn: 'Да',
+      noBtn: 'Нет',
+      confirmTitle: 'Внимание',
+
+      editBtn: 'Редактировать партию',
+      addBtn: 'Создать партию товара',
+    },
+
     appbarTexts: {
       menuTitle: 'Меню:',
       exit: 'Выйти',
@@ -3738,6 +4023,14 @@ export const texts = {
       warehousePlaceholder: 'Комментарий склада к задаче для клиента',
     },
 
+    addOrEditHsCodeInBox: {
+      countTypo: 'Кол-во:',
+      photos: 'Фотографии',
+      mainTitle: 'Просмотр партии',
+      saveBtn: 'Сохранить',
+      closeBtn: 'Отмена',
+    },
+
     batchInfoModal: {
       divideBox: 'Разделить коробки',
       mergeBoxes: 'Соединить коробки',
@@ -3752,7 +4045,7 @@ export const texts = {
 
       countTypo: 'Кол-во:',
       photos: 'Фотографии',
-      mainTitle: 'Поставка',
+      mainTitle: 'Просмотр партии',
     },
 
     supervisorReadyToCheckBodyRow: {

@@ -2,7 +2,12 @@ import React from 'react'
 
 import {texts} from '@constants/texts'
 
-import {EditOrRemoveBtnsCell, renderFieldValueCell, ScrollingCell} from '@components/data-grid-cells/data-grid-cells'
+import {
+  EditOrRemoveBtnsCell,
+  NormDateCell,
+  renderFieldValueCell,
+  ScrollingCell,
+} from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
@@ -14,6 +19,14 @@ export const warehouseTariffsColumns = handlers => [
     headerName: textConsts.nameField,
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: textConsts.updatedAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 120,
+    type: 'date',
   },
 
   {

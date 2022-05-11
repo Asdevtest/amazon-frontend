@@ -11,7 +11,6 @@ import SupervisorMainPageRedirect from './assets/supervisor/SupervisorMainPageRe
 import SupervisorProducts from './assets/supervisor/SupervisorProducts.jpg'
 import SupervisorReadyToCheck from './assets/supervisor/SupervisorReadyToCheck.jpg'
 import SupervisorSettings from './assets/supervisor/SupervisorSettings.jpg'
-// import SupervisorProduct from "./assets/supervisor/SupervisorProduct.jpg";
 import {useStyles} from './supervisor.style'
 
 export const Supervisor = ({refs}) => {

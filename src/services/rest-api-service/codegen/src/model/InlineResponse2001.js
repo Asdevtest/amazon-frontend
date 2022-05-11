@@ -14,6 +14,7 @@
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
 import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
+import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
 import ApiV1AdminsOrdersOrderSupplier from './ApiV1AdminsOrdersOrderSupplier';
 import InlineResponse200 from './InlineResponse200';
 
@@ -94,11 +95,14 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
-            if (data.hasOwnProperty('destination')) {
-                obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
-            }
             if (data.hasOwnProperty('buyerId')) {
                 obj['buyerId'] = ApiClient.convertToType(data['buyerId'], 'String');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'String');
@@ -106,8 +110,11 @@ class InlineResponse2001 {
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'String');
             }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('destination')) {
+                obj['destination'] = ApiV1AdminsOrdersDestination.constructFromObject(data['destination']);
+            }
+            if (data.hasOwnProperty('logicsTariff')) {
+                obj['logicsTariff'] = ApiV1AdminsOrdersLogicsTariff.constructFromObject(data['logicsTariff']);
             }
             if (data.hasOwnProperty('product')) {
                 obj['product'] = InlineResponse200.constructFromObject(data['product']);
@@ -215,15 +222,21 @@ InlineResponse2001.prototype['productId'] = undefined;
 InlineResponse2001.prototype['logicsTariffId'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsOrdersDestination} destination
- */
-InlineResponse2001.prototype['destination'] = undefined;
-
-/**
  * GUID пользователя(байера)
  * @member {String} buyerId
  */
 InlineResponse2001.prototype['buyerId'] = undefined;
+
+/**
+ * кол-во
+ * @member {Number} amount
+ */
+InlineResponse2001.prototype['amount'] = undefined;
+
+/**
+ * @member {String} createdById
+ */
+InlineResponse2001.prototype['createdById'] = undefined;
 
 /**
  * @member {String} createdAt
@@ -236,10 +249,14 @@ InlineResponse2001.prototype['createdAt'] = undefined;
 InlineResponse2001.prototype['updatedAt'] = undefined;
 
 /**
- * кол-во
- * @member {Number} amount
+ * @member {module:model/ApiV1AdminsOrdersDestination} destination
  */
-InlineResponse2001.prototype['amount'] = undefined;
+InlineResponse2001.prototype['destination'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariff} logicsTariff
+ */
+InlineResponse2001.prototype['logicsTariff'] = undefined;
 
 /**
  * @member {module:model/InlineResponse200} product

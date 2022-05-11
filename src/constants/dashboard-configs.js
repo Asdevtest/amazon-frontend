@@ -116,6 +116,7 @@ export const ClientDashboardCardDataKey = {
   ALL_ORDERS: 'ALL_ORDERS',
   BOXES_IN_WAREHOUSE: 'BOXES_IN_WAREHOUSE',
   READY_TO_SEND: 'READY_TO_SEND',
+  IS_BEING_COLLECTED: 'IS_BEING_COLLECTED',
   SEND_BOXES: 'SEND_BOXES',
 }
 export const getClientDashboardCardConfig = textConsts => [
@@ -176,8 +177,15 @@ export const getClientDashboardCardConfig = textConsts => [
         dataKey: ClientDashboardCardDataKey.READY_TO_SEND,
         title: textConsts.readyToSend,
         color: '#C69109',
-        route: '/client/batches',
+        route: '/client/boxes-ready-to-batch',
       },
+      {
+        dataKey: ClientDashboardCardDataKey.IS_BEING_COLLECTED,
+        title: textConsts.awaitingBoxes,
+        color: '#ffc107',
+        route: '/client/awaiting-batch',
+      },
+
       {
         dataKey: ClientDashboardCardDataKey.SEND_BOXES,
         title: textConsts.sendBoxes,

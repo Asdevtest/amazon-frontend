@@ -7,12 +7,8 @@ import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {UserRoleCodeMap} from '@constants/user-roles'
 import {warehouses} from '@constants/warehouses'
 
-import {
-  calcAmazonPriceForBox,
-  calcFinalWeightForBox,
-  calcTotalPriceForBatch,
-  calcTotalPriceForOrder,
-} from './calculation'
+import {calcFinalWeightForBox, calcPriceForBox, calcTotalPriceForBatch, calcVolumeWeightForBox} from './calculation'
+import {getFullTariffTextForBoxOrOrder} from './text'
 
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
 
@@ -123,7 +119,7 @@ export const buyerMyOrdersDataConverter = data =>
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
     warehouses: item.destination?.name,
-    client: item.createdBy?.name,
+    client: item.product.client?.name,
   }))
 
 export const buyerVacantOrdersDataConverter = data =>
@@ -144,7 +140,7 @@ export const buyerVacantOrdersDataConverter = data =>
     id: item._id,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
-    client: item.createdBy?.name,
+    client: item.product.client?.name,
   }))
 
 export const clientProductsDataConverter = data =>
@@ -153,6 +149,8 @@ export const clientProductsDataConverter = data =>
 
     researcherName: item.createdBy?.name,
     buyerName: item.buyer?.name,
+    supervisorName: item.checkedBy?.name,
+
     strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
 
     createdAt: item.createdAt,
@@ -198,6 +196,8 @@ export const clientInventoryDataConverter = data =>
     stockValue: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.stockValue), 0),
     reserved: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0),
     inBoard: item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
+
+    hsCode: item.hsCode,
   }))
 
 export const clientCustomRequestsDataConverter = data =>
@@ -232,7 +232,7 @@ export const clientOrdersDataConverter = data =>
     id: item._id,
 
     barCode: item.product.barCode,
-    totalPrice: item.totalPrice, // calcTotalPriceForOrder(item),
+    totalPrice: item.totalPrice,
     grossWeightKg: item.product.weight * item.amount,
     warehouses: item.destination?.name,
     status: OrderStatusByCode[item.status],
@@ -245,7 +245,7 @@ export const clientOrdersDataConverter = data =>
     storekeeper: item.storekeeper?.name,
   }))
 
-export const clientWarehouseDataConverter = data =>
+export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
@@ -253,35 +253,51 @@ export const clientWarehouseDataConverter = data =>
 
     qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
 
-    amazonPrice: item.items.reduce((acc, cur) => acc + cur.product.amazon * cur.amount, 0),
+    amazonPrice: calcPriceForBox(item),
 
-    finalWeight: Math.max(
-      parseFloat(item.volumeWeightKgWarehouse ? item.volumeWeightKgWarehouse : item.volumeWeightKgSupplier) || 0,
-      parseFloat(item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier) || 0,
-    ),
-    grossWeight: item.weighGrossKgWarehouse ? item.weighGrossKgWarehouse : item.weighGrossKgSupplier,
-    warehouses: item.destination?.name,
+    finalWeight: calcFinalWeightForBox(item, volumeWeightCoefficient),
+    grossWeight: item.weighGrossKgWarehouse,
+
+    destination: item.destination?.name,
+    storekeeper: item.storekeeper?.name,
+    logicsTariff: getFullTariffTextForBoxOrOrder(item),
+    client: item.client?.name,
 
     isDraft: item.isDraft,
+
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
 
     humanFriendlyId: item.humanFriendlyId,
+    totalPriceChanged: item.totalPriceChanged,
+
+    fbaShipment: item.fbaShipment,
+    volumeWeightCoefficient,
   }))
 
-export const clientBatchesDataConverter = data =>
-  data.map((item, i) => ({
+export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
+  data.map(item => ({
     originalData: item,
-    id: i,
+    id: item._id,
+    _id: item._id,
 
-    delivery: DeliveryTypeByCode[item.batch.deliveryMethod],
-    warehouses: warehouses[item.batch.warehouse],
-    finalWeight: item.boxes.reduce(
-      (prev, box) => (prev = prev + calcFinalWeightForBox(box)),
+    destination: item.boxes[0].destination?.name,
+    tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),
+    humanFriendlyId: item.humanFriendlyId,
+    storekeeper: item.storekeeper?.name,
 
+    updatedAt: item.updatedAt,
+
+    volumeWeight: item.boxes.reduce(
+      (prev, box) => (prev = prev + calcVolumeWeightForBox(box, volumeWeightCoefficient)),
       0,
     ),
-    totalPrice: calcTotalPriceForBatch(item),
+
+    finalWeight: item.boxes.reduce(
+      (prev, box) => (prev = prev + calcFinalWeightForBox(box, volumeWeightCoefficient)),
+      0,
+    ),
+    totalPrice: item.boxes.reduce((prev, box) => (prev = prev + calcPriceForBox(box)), 0),
   }))
 
 export const clientFinancesDataConverter = data =>
@@ -301,7 +317,7 @@ export const clientOrdersNotificationsDataConverter = data =>
     id: item._id,
 
     barCode: item.product.barCode,
-    totalPrice: calcTotalPriceForOrder(item),
+    totalPrice: item.totalPrice,
     grossWeightKg: item.product.weight * item.amount,
     warehouses: item.destination.name,
     status: OrderStatusByCode[item.status],
@@ -326,19 +342,29 @@ export const warehouseFinancesDataConverter = data =>
     sum: item.sum,
   }))
 
-export const warehouseBatchesDataConverter = data =>
-  data.map((item, i) => ({
+export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
+  data.map(item => ({
     originalData: item,
-    id: i,
+    id: item._id,
 
-    delivery: DeliveryTypeByCode[item.batch.deliveryMethod],
-    warehouses: warehouses[item.batch.warehouse],
-    finalWeight: item.boxes.reduce(
-      (prev, box) => (prev = prev + calcFinalWeightForBox(box)),
+    destination: item.boxes[0].destination?.name,
+    tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),
+    humanFriendlyId: item.humanFriendlyId,
 
+    updatedAt: item.updatedAt,
+
+    storekeeper: item.storekeeper?.name,
+
+    volumeWeight: item.boxes.reduce(
+      (prev, box) => (prev = prev + calcVolumeWeightForBox(box, volumeWeightCoefficient)),
       0,
     ),
-    totalPrice: calcTotalPriceForBatch(item),
+
+    finalWeight: item.boxes.reduce(
+      (prev, box) => (prev = prev + calcFinalWeightForBox(box, volumeWeightCoefficient)),
+      0,
+    ),
+    totalPrice: item.boxes.reduce((prev, box) => (prev = prev + calcPriceForBox(box)), 0),
   }))
 
 export const warehouseTasksDataConverter = data =>
@@ -384,7 +410,7 @@ export const adminOrdersDataConverter = data =>
     id: item.id,
 
     barCode: item.product.barCode,
-    totalPrice: calcTotalPriceForOrder(item),
+    totalPrice: item.totalPrice,
     grossWeightKg: item.product.weight * item.amount,
     status: OrderStatusByCode[item.status],
 
@@ -396,6 +422,7 @@ export const adminOrdersDataConverter = data =>
     buyer: item.buyer?.name,
     storekeeper: item.storekeeper?.name,
     warehouses: item.destination?.name,
+    client: item.product.client?.name,
   }))
 
 export const adminTasksDataConverter = data =>
@@ -419,7 +446,7 @@ export const adminBoxesDataConverter = data =>
 
     qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
 
-    amazonPrice: calcAmazonPriceForBox(item),
+    amazonPrice: calcPriceForBox(item),
 
     trackingNumberChina: item.items[0].order.trackingNumberChina,
     finalWeight: calcFinalWeightForBox(item),
@@ -437,22 +464,25 @@ export const adminBoxesDataConverter = data =>
     updatedAt: item.updatedAt,
   }))
 
-export const warehouseBoxesDataConverter = data =>
+export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
     _id: item._id,
 
     warehouse: item.destination?.name,
+    logicsTariff: getFullTariffTextForBoxOrOrder(item),
 
     client: item.items[0].product.client.name,
 
     humanFriendlyId: item.humanFriendlyId,
+    qty: item.items.reduce((acc, cur) => (acc += cur.amount), 0),
 
     isDraft: item.isDraft,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
-    batchId: item.batchId,
+    batchId: item.batch?.humanFriendlyId,
+    volumeWeightCoefficient,
   }))
 
 export const adminBatchesDataConverter = data =>

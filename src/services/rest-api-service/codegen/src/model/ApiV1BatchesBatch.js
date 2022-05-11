@@ -47,14 +47,38 @@ class ApiV1BatchesBatch {
         if (data) {
             obj = obj || new ApiV1BatchesBatch();
 
-            if (data.hasOwnProperty('deliveryMethod')) {
-                obj['deliveryMethod'] = ApiClient.convertToType(data['deliveryMethod'], 'Number');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('warehouse')) {
-                obj['warehouse'] = ApiClient.convertToType(data['warehouse'], 'Number');
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
-            if (data.hasOwnProperty('scheduledDispatchDate')) {
-                obj['scheduledDispatchDate'] = ApiClient.convertToType(data['scheduledDispatchDate'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            }
+            if (data.hasOwnProperty('shipId')) {
+                obj['shipId'] = ApiClient.convertToType(data['shipId'], 'String');
+            }
+            if (data.hasOwnProperty('attachedDocuments')) {
+                obj['attachedDocuments'] = ApiClient.convertToType(data['attachedDocuments'], ['String']);
+            }
+            if (data.hasOwnProperty('finalWeightAsOneBox')) {
+                obj['finalWeightAsOneBox'] = ApiClient.convertToType(data['finalWeightAsOneBox'], 'Number');
+            }
+            if (data.hasOwnProperty('finalWeightSumEachBoxAmount')) {
+                obj['finalWeightSumEachBoxAmount'] = ApiClient.convertToType(data['finalWeightSumEachBoxAmount'], 'Number');
+            }
+            if (data.hasOwnProperty('storekeeperId')) {
+                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -64,19 +88,70 @@ class ApiV1BatchesBatch {
 }
 
 /**
- * @member {Number} deliveryMethod
+ * GUID партии.
+ * @member {String} _id
  */
-ApiV1BatchesBatch.prototype['deliveryMethod'] = undefined;
+ApiV1BatchesBatch.prototype['_id'] = undefined;
 
 /**
- * @member {Number} warehouse
+ * Человекочитаемый id партии.
+ * @member {Number} humanFriendlyId
  */
-ApiV1BatchesBatch.prototype['warehouse'] = undefined;
+ApiV1BatchesBatch.prototype['humanFriendlyId'] = undefined;
 
 /**
- * @member {String} scheduledDispatchDate
+ * Статус партии.
+ * @member {String} status
  */
-ApiV1BatchesBatch.prototype['scheduledDispatchDate'] = undefined;
+ApiV1BatchesBatch.prototype['status'] = undefined;
+
+/**
+ * id корабля.
+ * @member {String} shipId
+ */
+ApiV1BatchesBatch.prototype['shipId'] = undefined;
+
+/**
+ * Массив ссылок на файлов документации к партии.
+ * @member {Array.<String>} attachedDocuments
+ */
+ApiV1BatchesBatch.prototype['attachedDocuments'] = undefined;
+
+/**
+ * Финальный вес партии, если считать все коробки как одну большую коробу.
+ * @member {Number} finalWeightAsOneBox
+ */
+ApiV1BatchesBatch.prototype['finalWeightAsOneBox'] = undefined;
+
+/**
+ * Финальный вес партии, если сложить все веса коробок по отдельности.
+ * @member {Number} finalWeightSumEachBoxAmount
+ */
+ApiV1BatchesBatch.prototype['finalWeightSumEachBoxAmount'] = undefined;
+
+/**
+ * Сторкипер взявший коробку в работу.
+ * @member {String} storekeeperId
+ */
+ApiV1BatchesBatch.prototype['storekeeperId'] = undefined;
+
+/**
+ * Клиент создавший заказ и коробку.
+ * @member {String} createdById
+ */
+ApiV1BatchesBatch.prototype['createdById'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} createdAt
+ */
+ApiV1BatchesBatch.prototype['createdAt'] = undefined;
+
+/**
+ * Дата создания.
+ * @member {Date} updatedAt
+ */
+ApiV1BatchesBatch.prototype['updatedAt'] = undefined;
 
 
 

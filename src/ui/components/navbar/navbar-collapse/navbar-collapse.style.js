@@ -10,4 +10,18 @@ export const useClassNames = makeStyles(theme => ({
   selected: {
     color: theme.palette.primary.main,
   },
+
+  badge: {
+    position: 'absolute',
+    top: 2,
+    left: 25,
+    height: 20,
+    width: 20,
+    backgroundColor: 'rgba(0,0,0, .1)',
+    borderRadius: 30,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'black',
+  },
 }))

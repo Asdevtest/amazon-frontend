@@ -77,6 +77,15 @@ const fieldsOfProductAllowedToUpdate = [
   'asin',
   'clientComment',
   'skusByClient',
+
+  'niche',
+  'asins',
+  'avgRevenue',
+  'avgBSR',
+  'totalRevenue',
+  'coefficient',
+  'avgPrice',
+  'avgReviews',
 ]
 
 export class ClientProductViewModel {
@@ -162,13 +171,14 @@ export class ClientProductViewModel {
         [
           'icomment',
           'category',
-          // 'asin',
           'lamazon',
           'clientComment',
           'amazonTitle',
           'amazonDescription',
           'amazonDetail',
           'skusByClient',
+          'niche',
+          'asins',
         ].includes(fieldName)
       ) {
         this.product = {...this.product, [fieldName]: e.target.value}
@@ -186,13 +196,13 @@ export class ClientProductViewModel {
         }
 
         if (
-          ['amazon', 'fbafee'].includes(fieldName) &&
+          ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice'].includes(fieldName) &&
           !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
         ) {
           return
         }
 
-        if (['fbaamount'].includes(fieldName)) {
+        if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
           this.product[fieldName] = parseInt(e.target.value)
         }
 
@@ -353,7 +363,7 @@ export class ClientProductViewModel {
               ? [...this.curUpdateProductData.images, ...this.uploadedImages]
               : this.curUpdateProductData.images,
           },
-          this.curUpdateProductData.currentSupplierId === null ? ['suppliers', 'currentSupplierId'] : ['suppliers'],
+          ['suppliers'],
         ),
       )
       this.setActionStatus(loadingStatuses.success)

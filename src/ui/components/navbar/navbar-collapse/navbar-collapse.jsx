@@ -1,17 +1,46 @@
 import React from 'react'
 
-import {Collapse, List, ListItemText} from '@material-ui/core'
+import {Collapse, List, ListItemIcon, ListItemText} from '@material-ui/core'
 import clsx from 'clsx'
 import {Link} from 'react-router-dom'
 
 import {NavbarSubCategory} from '../navbar-sub-category'
 import {useClassNames} from './navbar-collapse.style'
 
-export const NavbarCollapse = ({activeCategory, activeSubCategory, category, index, userInfo, onChangeSubCategory}) => {
+export const NavbarCollapse = ({
+  activeCategory,
+  activeSubCategory,
+  category,
+  index,
+  userInfo,
+  onChangeSubCategory,
+  currentViewModel,
+}) => {
   const classNames = useClassNames()
 
   const onClickCategory = subIndex => {
     onChangeSubCategory && onChangeSubCategory(subIndex)
+  }
+
+  const renderNotificationBySubRoute = subRoute => {
+    switch (subRoute) {
+      case '/client/orders-notifications':
+        return (
+          <ListItemIcon>
+            {<div className={classNames.badge}>{currentViewModel.userInfo.needConfirmPriceChange.orders}</div>}
+          </ListItemIcon>
+        )
+
+      case '/client/boxes-notifications':
+        return (
+          <ListItemIcon>
+            {<div className={classNames.badge}>{currentViewModel.userInfo.needConfirmPriceChange.boxes}</div>}
+          </ListItemIcon>
+        )
+
+      default:
+        return null
+    }
   }
 
   const renderSubCategory = (subIndex, subCategory) => (
@@ -29,6 +58,8 @@ export const NavbarCollapse = ({activeCategory, activeSubCategory, category, ind
         className={clsx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
         primary={subCategory.subtitle}
       />
+
+      {renderNotificationBySubRoute(subCategory.subRoute)}
     </NavbarSubCategory>
   )
 

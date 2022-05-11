@@ -4,7 +4,7 @@ import {Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Typogr
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {checkAndMakeAbsoluteUrl, toFixedWithDollarSign} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './product-table.style'
 
@@ -37,7 +37,10 @@ export const ProductTable = ({modalHeadCells, order, orderFields}) => {
             </TableCell>
             <TableCell>{order.orderSupplier ? order.orderSupplier.price : 'N/A'}</TableCell>
             <TableCell className={classNames.tableCell}>
-              {order.orderSupplier ? order.orderSupplier.delivery : 'N/A'}
+              {toFixed(
+                order.product.currentSupplier.batchDeliveryCostInDollar / order.product.currentSupplier.amount,
+                2,
+              ) || 'N/A'}
             </TableCell>
             <TableCell className={classNames.tableCell}>{orderFields.amount}</TableCell>
             <TableCell>{toFixedWithDollarSign(calcProductsPriceWithDelivery(order.product, orderFields), 2)}</TableCell>

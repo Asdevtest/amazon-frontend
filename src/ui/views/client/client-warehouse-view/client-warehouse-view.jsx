@@ -14,6 +14,7 @@ import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {BoxViewForm} from '@components/forms/box-view-form'
 import {EditBoxForm} from '@components/forms/edit-box-form'
 import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
 import {Main} from '@components/main'
@@ -21,6 +22,7 @@ import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
+import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -47,6 +49,9 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
+      selectedBox,
+      curBox,
+      showBoxViewModal,
       volumeWeightCoefficient,
       taskColumnsModel,
       currentStorekeeper,
@@ -62,7 +67,6 @@ export class ClientWarehouseViewRaw extends Component {
       columnsModel,
 
       curOpenedTask,
-      // tasksMy,
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -76,11 +80,15 @@ export class ClientWarehouseViewRaw extends Component {
       showRedistributeBoxAddNewBoxModal,
       showRedistributeBoxSuccessModal,
       showRedistributeBoxFailModal,
+      showSetChipValueModal,
+      showWarningInfoModal,
       showRequestToSendBatchModal,
       showEditBoxSuccessModal,
       showMergeBoxSuccessModal,
       boxesDeliveryCosts,
       showMergeBoxFailModal,
+      modalEditSuccessMessage,
+      warningInfoModalSettings,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
@@ -89,12 +97,10 @@ export class ClientWarehouseViewRaw extends Component {
       onTriggerOpenModal,
       onModalRedistributeBoxAddNewBox,
       onEditBoxSubmit,
-      // setCurrentOpenedTask,
       triggerRequestToSendBatchModal,
       onClickSendBoxesToBatch,
       onClickMerge,
       onRemoveBoxFromSelected,
-      // onClickCancelBtn,
       onClickCancelAfterConfirm,
 
       onChangeFilterModel,
@@ -103,6 +109,8 @@ export class ClientWarehouseViewRaw extends Component {
       onChangeSortingModel,
 
       onClickStorekeeperBtn,
+      setCurrentOpenedBox,
+      onClickSaveFbaShipment,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -157,10 +165,14 @@ export class ClientWarehouseViewRaw extends Component {
               </div>
 
               <DataGrid
+                autoHeight
                 pagination
-                useResizeContainer
                 checkboxSelection
                 isRowSelectable={params => params.row.isDraft === false}
+                classes={{
+                  row: classNames.row,
+                  virtualScrollerContent: classNames.virtualScrollerContent,
+                }}
                 getRowClassName={getRowClassName}
                 selectionModel={selectedBoxes}
                 sortModel={sortModel}
@@ -182,6 +194,7 @@ export class ClientWarehouseViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onFilterModelChange={model => onChangeFilterModel(model)}
                 onStateChange={setDataGridState}
+                onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
               />
 
               <div className={classNames.tasksWrapper}>
@@ -233,20 +246,21 @@ export class ClientWarehouseViewRaw extends Component {
           </div>
         </Modal>
 
-        <MergeBoxesModal
-          destinations={destinations}
-          storekeepers={storekeepersData}
-          selectedBoxes={
-            (selectedBoxes.length &&
-              toJS(boxesMy.filter(box => selectedBoxes.includes(box._id)))?.map(box => box.originalData)) ||
-            []
-          }
-          requestStatus={requestStatus}
-          openModal={showMergeBoxModal}
-          setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
-          onRemoveBoxFromSelected={onRemoveBoxFromSelected}
-          onSubmit={onClickMerge}
-        />
+        <Modal openModal={showMergeBoxModal} setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}>
+          <MergeBoxesModal
+            destinations={destinations}
+            storekeepers={storekeepersData}
+            selectedBoxes={
+              (selectedBoxes.length &&
+                toJS(boxesMy.filter(box => selectedBoxes.includes(box._id)))?.map(box => box.originalData)) ||
+              []
+            }
+            requestStatus={requestStatus}
+            setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
+            onRemoveBoxFromSelected={onRemoveBoxFromSelected}
+            onSubmit={onClickMerge}
+          />
+        </Modal>
 
         <TaskInfoModal
           openModal={showTaskInfoModal}
@@ -258,7 +272,7 @@ export class ClientWarehouseViewRaw extends Component {
         <SuccessInfoModal
           openModal={showEditBoxSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showEditBoxSuccessModal')}
-          title={textConsts.modalEditSuccessMessage}
+          title={modalEditSuccessMessage}
           successBtnText={textConsts.closeBtn}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showEditBoxSuccessModal')
@@ -282,6 +296,17 @@ export class ClientWarehouseViewRaw extends Component {
           successBtnText={textConsts.closeBtn}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showRedistributeBoxSuccessModal')
+          }}
+        />
+
+        <WarningInfoModal
+          isWarning={warningInfoModalSettings.isWarning}
+          openModal={showWarningInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
+          title={warningInfoModalSettings.title}
+          btnText={textConsts.closeBtn}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningInfoModal')
           }}
         />
 
@@ -320,6 +345,7 @@ export class ClientWarehouseViewRaw extends Component {
             closeModal={triggerRequestToSendBatchModal}
             boxesDeliveryCosts={boxesDeliveryCosts}
             selectedBoxes={selectedBoxes}
+            volumeWeightCoefficient={volumeWeightCoefficient}
             boxesMy={boxesMy.map(box => box.originalData)}
             onClickRemoveBoxFromBatch={onTriggerCheckbox}
             onClickSendBoxesToBatch={onClickSendBoxesToBatch}
@@ -339,6 +365,23 @@ export class ClientWarehouseViewRaw extends Component {
           }}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
+
+        <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
+          <BoxViewForm
+            box={curBox}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showSetChipValueModal} setOpenModal={() => onTriggerOpenModal('showSetChipValueModal')}>
+          <SetChipValueModal
+            title={textConsts.setFbaShipment}
+            item={selectedBox?.fbaShipment}
+            onSubmit={onClickSaveFbaShipment}
+            onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}
+          />
+        </Modal>
       </React.Fragment>
     )
   }

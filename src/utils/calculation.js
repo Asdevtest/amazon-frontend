@@ -4,7 +4,7 @@ export const calcProductPrice = product =>
   ((parseInt(product.createdBy?.rate) || 0) +
     (parseInt(product.buyer?.rate) || 0) +
     (parseInt(product.supervisorRate) || 0)) *
-  2 // TODO: добавить рейт супервизора
+  2
 
 export const calcProductsPriceWithDelivery = (product, order) =>
   ((parseFloat(product.currentSupplier && product.currentSupplier.price) || 0) +
@@ -22,9 +22,21 @@ export const calcExchangeDollarsInYuansPrice = (price, rate) =>
 export const calcPriceForItem = (fullPrice, amount) =>
   toFixedWithDollarSign((parseFloat(fullPrice) || 0) / (parseFloat(amount) || 0), 2)
 
-export const calcFinalWeightForBox = box =>
+export const calcVolumeWeightForBox = (box, coefficient) => {
+  if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
+    return (
+      Math.round(((box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient) * 100) / 100 ||
+      0
+    )
+  } else {
+    return (
+      Math.round(((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) * 100) / 100 || 0
+    )
+  }
+}
+export const calcFinalWeightForBox = (box, coefficient) =>
   Math.max(
-    parseFloat(box.volumeWeightKgWarehouse ? box.volumeWeightKgWarehouse : box.volumeWeightKgSupplier) || 0,
+    parseFloat(calcVolumeWeightForBox(box, coefficient)) || 0,
     parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,
   )
 
@@ -91,16 +103,37 @@ export const calcTotalPriceForBatch = batch =>
       cur.amount > 1
         ? acc +
           cur.items.reduce(
-            (ac, cu) => ac + (cu.product.currentSupplier.price + cu.product.currentSupplier.delivery) * cu.amount,
+            (ac, cu) =>
+              ac +
+              (cu.product.currentSupplier.price +
+                cu.product.currentSupplier.batchDeliveryCostInDollar / cu.product.currentSupplier.amount) *
+                cu.amount,
             0,
           ) *
             cur.amount
         : acc +
           cur.items.reduce(
-            (ac, cu) => ac + (cu.product.currentSupplier.price + cu.product.currentSupplier.delivery) * cu.amount,
+            (ac, cu) =>
+              ac +
+              (cu.product.currentSupplier.price +
+                cu.product.currentSupplier.batchDeliveryCostInDollar / cu.product.currentSupplier.amount) *
+                cu.amount,
             0,
           ),
     0,
   )
 
 export const calcAmazonPriceForBox = box => box.items.reduce((acc, cur) => acc + cur.product.amazon * cur.amount, 0)
+
+export const calcPriceForBox = box => {
+  const sumsOfItems = box.items.reduce(
+    (acc, cur) =>
+      acc +
+      (cur.product.currentSupplier.price +
+        Math.round((cur.product.currentSupplier.batchDeliveryCostInDollar / cur.product.currentSupplier.amount) * 100) /
+          100) *
+        cur.amount,
+    0,
+  )
+  return box.amount > 1 ? sumsOfItems * box.amount : sumsOfItems
+}

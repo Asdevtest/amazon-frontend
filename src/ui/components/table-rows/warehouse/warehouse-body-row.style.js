@@ -36,7 +36,14 @@ export const styles = createStyles({
   barCode: {
     maxWidth: '200px',
     whiteSpace: 'nowrap',
-    height: '50px',
     overflowX: 'auto',
+  },
+
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(0.99)',
+    },
   },
 })

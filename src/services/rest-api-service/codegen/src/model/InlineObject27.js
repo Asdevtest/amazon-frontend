@@ -22,10 +22,13 @@ class InlineObject27 {
     /**
      * Constructs a new <code>InlineObject27</code>.
      * @alias module:model/InlineObject27
+     * @param taskId {Number} ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+     * @param boxes {Array.<String>} 
+     * @param operationType {module:model/InlineObject27.OperationTypeEnum} Тип операции
      */
-    constructor() { 
+    constructor(taskId, boxes, operationType) { 
         
-        InlineObject27.initialize(this);
+        InlineObject27.initialize(this, taskId, boxes, operationType);
     }
 
     /**
@@ -33,7 +36,10 @@ class InlineObject27 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, taskId, boxes, operationType) { 
+        obj['taskId'] = taskId;
+        obj['boxes'] = boxes;
+        obj['operationType'] = operationType;
     }
 
     /**
@@ -47,32 +53,26 @@ class InlineObject27 {
         if (data) {
             obj = obj || new InlineObject27();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('taskId')) {
+                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            if (data.hasOwnProperty('boxesBefore')) {
+                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], ['String']);
             }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = ApiClient.convertToType(data['boxes'], ['String']);
             }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            if (data.hasOwnProperty('operationType')) {
+                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            }
+            if (data.hasOwnProperty('clientComment')) {
+                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('trackingNumberChina')) {
-                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
-            }
-            if (data.hasOwnProperty('orderSupplierId')) {
-                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -82,28 +82,33 @@ class InlineObject27 {
 }
 
 /**
- * комментарии байера.
- * @member {String} buyerComment
+ * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
+ * @member {Number} taskId
  */
-InlineObject27.prototype['buyerComment'] = undefined;
+InlineObject27.prototype['taskId'] = undefined;
 
 /**
- * GUID storekeeper-a
- * @member {String} storekeeperId
+ * @member {Array.<String>} boxesBefore
  */
-InlineObject27.prototype['storekeeperId'] = undefined;
+InlineObject27.prototype['boxesBefore'] = undefined;
 
 /**
- * GUID тарифа доставки.
- * @member {String} logicsTariffId
+ * @member {Array.<String>} boxes
  */
-InlineObject27.prototype['logicsTariffId'] = undefined;
+InlineObject27.prototype['boxes'] = undefined;
 
 /**
- * GUID пункта назначения.
- * @member {String} destinationId
+ * Тип операции
+ * @member {module:model/InlineObject27.OperationTypeEnum} operationType
  */
-InlineObject27.prototype['destinationId'] = undefined;
+InlineObject27.prototype['operationType'] = undefined;
+
+/**
+ * Комментарий клиента.
+ * @member {String} clientComment
+ * @default ''
+ */
+InlineObject27.prototype['clientComment'] = '';
 
 /**
  * Массив картинок.
@@ -112,31 +117,46 @@ InlineObject27.prototype['destinationId'] = undefined;
 InlineObject27.prototype['images'] = undefined;
 
 /**
- * Курс юань доллар.
- * @member {Number} yuanToDollarRate
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject27.prototype['yuanToDollarRate'] = undefined;
+InlineObject27.prototype['storekeeperComment'] = undefined;
+
+
+
+
 
 /**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
+ * Allowed values for the <code>operationType</code> property.
+ * @enum {String}
+ * @readonly
  */
-InlineObject27.prototype['deliveryCostToTheWarehouse'] = undefined;
+InlineObject27['OperationTypeEnum'] = {
 
-/**
- * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
- * @member {String} trackingNumberChina
- */
-InlineObject27.prototype['trackingNumberChina'] = undefined;
+    /**
+     * value: "merge"
+     * @const
+     */
+    "merge": "merge",
 
-/**
- * GUID поставщика, для данного заказа.
- * @member {String} orderSupplierId
- */
-InlineObject27.prototype['orderSupplierId'] = undefined;
+    /**
+     * value: "split"
+     * @const
+     */
+    "split": "split",
 
+    /**
+     * value: "receive"
+     * @const
+     */
+    "receive": "receive",
 
-
+    /**
+     * value: "edit"
+     * @const
+     */
+    "edit": "edit"
+};
 
 
 

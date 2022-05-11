@@ -34,10 +34,6 @@ export class BoxesCreateBoxContract {
   @IsNumber()
   weightFinalAccountingKgSupplier
 
-  @IsNotEmpty()
-  @IsString()
-  clientId
-
   @IsArray() items
 
   @IsOptional()

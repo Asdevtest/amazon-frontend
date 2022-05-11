@@ -4,13 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**storekeeperId** | **String** | GUID storekeeper-a | 
-**logicsTariffId** | **String** | GUID тарифа доставки | 
-**destinationId** | **String** | GUID пункта назначения. | 
-**amount** | **Number** | Кол-во продукта по этой позиции. | 
+**storekeeperId** | **String** | GUID storekeeper-a | [optional] 
+**logicsTariffId** | **String** | GUID тарифа доставки | [optional] 
+**destinationId** | **String** | GUID пункта назначения. | [optional] 
+**amount** | **Number** | Кол-во продукта по этой позиции. | [optional] 
 **deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
 **clientComment** | **String** | Комментарии клиента. | [optional] 
-**productId** | **String** | GUID заказанного продукта | 
 **images** | **[String]** | Массив изображений. | [optional] 
 
 

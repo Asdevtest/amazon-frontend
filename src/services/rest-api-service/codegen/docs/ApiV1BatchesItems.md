@@ -1,11 +1,14 @@
-# Amazonapi.ApiV1BatchesItems
+# TestSwagger.ApiV1BatchesItems
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**product** | [**InlineResponse200**](InlineResponse200.md) |  | 
-**amount** | **Number** | Кол-во продукта | 
-**order** | [**InlineResponse2001**](InlineResponse2001.md) |  | 
+**product** | [**InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**amount** | **Number** | Кол-во продукта | [optional] 
+**order** | [**InlineResponse2001**](InlineResponse2001.md) |  | [optional] 
+**barCode** | **String** | Штрихкод продукта | [optional] 
+**isBarCodeAttachedByTheStorekeeper** | **Boolean** | Прикреплен ли баркод к коробке сотрудником склада. | [optional] 
+**isBarCodeAlreadyAttachedByTheSupplier** | **Boolean** | Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика. | [optional] 
 
 

@@ -4,6 +4,7 @@ import React, {Component} from 'react'
 
 import {Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -12,7 +13,7 @@ import {adminExchangeBtnsConfig} from '@constants/tables-filter-btns-configs'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
-import {ColoredChip} from '@components/colored-chip'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -70,16 +71,18 @@ class AdminExchangeViewsRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
-              <Grid container spacing={2}>
-                {adminExchangeBtnsConfig.map((buttonConfig, index) => (
-                  <Grid key={buttonConfig.statusKey} item>
-                    <ColoredChip
-                      label={buttonConfig.label}
-                      color={buttonConfig.color}
-                      colorHover={buttonConfig.colorHover}
-                      selected={activeSubCategory === index}
+              <Grid container spacing={3} className={classNames.filterBtnWrapper}>
+                {adminExchangeBtnsConfig?.map((buttonConfig, index) => (
+                  <Grid key={buttonConfig.status} item>
+                    <Button
+                      variant={'text'}
+                      className={clsx(classNames.filterBtn, {
+                        [classNames.currentFilterBtn]: activeSubCategory === index,
+                      })}
                       onClick={() => onChangeSubCategory(index)}
-                    />
+                    >
+                      {buttonConfig.label}
+                    </Button>
                   </Grid>
                 ))}
               </Grid>

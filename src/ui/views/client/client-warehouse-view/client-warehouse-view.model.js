@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {TaskOperationType} from '@constants/task-operation-type'
+import {texts} from '@constants/texts'
 
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
@@ -17,8 +20,11 @@ import {clientTasksViewColumns} from '@components/table-columns/client/client-ta
 
 import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate, sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {onSubmitPostImages} from '@utils/upload-files'
+import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
+
+const textConsts = getLocalizedTexts(texts, 'en').clientWarehouseView
 
 const updateBoxWhiteList = [
   'amount',
@@ -37,7 +43,7 @@ const updateBoxWhiteList = [
   'weighGrossKgWarehouse',
   'isBarCodeAttachedByTheStorekeeper',
   'isShippingLabelAttachedByStorekeeper',
-  'clientId',
+  'isBarCodeAlreadyAttachedByTheSupplier',
   'items',
   'images',
   'destinationId',
@@ -51,8 +57,13 @@ export class ClientWarehouseViewModel {
   requestStatus = undefined
   error = undefined
 
+  selectedBox = undefined
+
   boxesMy = []
   tasksMy = []
+
+  curBox = undefined
+  showBoxViewModal = false
 
   drawerOpen = false
   selectedBoxes = []
@@ -79,12 +90,29 @@ export class ClientWarehouseViewModel {
   boxesDeliveryCosts = undefined
   showMergeBoxFailModal = false
 
+  modalEditSuccessMessage = ''
+
+  showSetChipValueModal = false
+
+  showWarningInfoModal = false
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
+
+  rowHandlers = {
+    onClickChip: item => this.onClickFbaShipment(item),
+    onDoubleClickChip: item => this.onDoubleClickFbaShipment(item),
+    onDeleteChip: item => this.onDeleteFbaShipment(item),
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientBoxesViewColumns()
+  columnsModel = clientBoxesViewColumns(this.rowHandlers)
 
   rowTaskHandlers = {
     onClickTaskInfo: item => this.setCurrentOpenedTask(item),
@@ -96,7 +124,7 @@ export class ClientWarehouseViewModel {
   get isMasterBoxSelected() {
     return this.selectedBoxes.some(boxId => {
       const findBox = this.boxesMy.find(box => box._id === boxId)
-      return findBox.originalData?.amount && findBox.originalData?.amount > 1
+      return findBox?.originalData?.amount && findBox.originalData?.amount > 1
     })
   }
 
@@ -139,7 +167,10 @@ export class ClientWarehouseViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = clientBoxesViewColumns().map(el => ({...el, hide: state.columns?.lookup[el?.field]?.hide}))
+      this.columnsModel = clientBoxesViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns?.lookup[el?.field]?.hide,
+      }))
     }
   }
 
@@ -185,12 +216,47 @@ export class ClientWarehouseViewModel {
 
   async getStorekeepers() {
     try {
-      const result = await StorekeeperModel.getStorekeepers()
+      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
 
       this.storekeepersData = result
     } catch (error) {
       console.log(error)
     }
+  }
+
+  onClickFbaShipment(item) {
+    this.setSelectedBox(item)
+    this.onTriggerOpenModal('showSetChipValueModal')
+  }
+
+  onDoubleClickFbaShipment = item => {
+    this.setSelectedBox(item)
+    this.onTriggerOpenModal('showSetChipValueModal')
+  }
+
+  setSelectedBox(item) {
+    this.selectedBox = item
+  }
+
+  async onDeleteFbaShipment(box) {
+    try {
+      await BoxesModel.editBoxAtClient(box._id, {fbaShipment: ''})
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickSaveFbaShipment(fbaShipment) {
+    await BoxesModel.editBoxAtClient(this.selectedBox._id, {fbaShipment})
+
+    this.onTriggerOpenModal('showSetChipValueModal')
+    this.loadData()
+
+    runInAction(() => {
+      this.selectedBox = undefined
+    })
   }
 
   async loadData() {
@@ -275,6 +341,9 @@ export class ClientWarehouseViewModel {
               shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : updatedBoxes[i].shippingLabel,
               destinationId: updatedBoxes[i].destinationId,
               logicsTariffId: updatedBoxes[i].logicsTariffId,
+              fbaShipment: updatedBoxes[i].fbaShipment,
+              isBarCodeAlreadyAttachedByTheSupplier: updatedBoxes[i].isBarCodeAlreadyAttachedByTheSupplier,
+              isBarCodeAttachedByTheStorekeeper: updatedBoxes[i].isBarCodeAttachedByTheStorekeeper,
             },
             boxItems: [
               ...updatedBoxes[i].items.map(item => ({
@@ -334,55 +403,124 @@ export class ClientWarehouseViewModel {
     }
   }
 
+  async updateOneBarCodeInInventory(id, data) {
+    try {
+      await ClientModel.updateProductBarCode(id, {barCode: data})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async updateBarCodesInInventory(dataToBarCodeChange) {
+    try {
+      for (let i = 0; i < dataToBarCodeChange.length; i++) {
+        const item = dataToBarCodeChange[i]
+
+        if (item.changeBarCodInInventory) {
+          this.updateOneBarCodeInInventory(item.productId, item.newData[0])
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async onEditBoxSubmit(id, boxData, sourceData) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.selectedBoxes = []
 
-      this.uploadedFiles = []
+      if (
+        !boxData.clientComment &&
+        !boxData.tmpShippingLabel.length &&
+        boxData.shippingLabel === sourceData.shippingLabel &&
+        boxData.items.every(item => !item.tmpBarCode.length)
+      ) {
+        await BoxesModel.editBoxAtClient(id, {
+          fbaShipment: boxData.fbaShipment,
+          destinationId: boxData.destinationId,
+          logicsTariffId: boxData.logicsTariffId,
+        })
 
-      if (boxData.tmpShippingLabel.length) {
-        await onSubmitPostImages.call(this, {images: boxData.tmpShippingLabel, type: 'uploadedFiles'})
+        this.modalEditSuccessMessage = textConsts.modalEditSuccessMessage
+
+        this.onTriggerOpenModal('showEditBoxSuccessModal')
+      } else {
+        this.uploadedFiles = []
+
+        let dataToBarCodeChange = boxData.items
+          .map(el =>
+            el.tmpBarCode.length
+              ? {
+                  changeBarCodInInventory: el.changeBarCodInInventory,
+                  productId: el.product._id,
+                  tmpBarCode: el.tmpBarCode,
+                  newData: [],
+                }
+              : null,
+          )
+          .filter(el => el !== null)
+
+        if (dataToBarCodeChange.length) {
+          dataToBarCodeChange = await onSubmitPostFilesInData({
+            dataWithFiles: dataToBarCodeChange,
+            nameOfField: 'tmpBarCode',
+          })
+        }
+
+        if (boxData.tmpShippingLabel.length) {
+          await onSubmitPostImages.call(this, {images: boxData.tmpShippingLabel, type: 'uploadedFiles'})
+        }
+
+        const newItems = boxData.items.map(el => {
+          const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
+          return {
+            ...getObjectFilteredByKeyArrayBlackList(el, ['order', 'product', 'tmpBarCode', 'changeBarCodInInventory']),
+            amount: el.amount,
+            orderId: el.order._id,
+            productId: el.product._id,
+
+            barCode: prodInDataToUpdateBarCode?.newData.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
+            isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData.length
+              ? false
+              : el.isBarCodeAlreadyAttachedByTheSupplier,
+            isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData.length
+              ? false
+              : el.isBarCodeAttachedByTheStorekeeper,
+          }
+        })
+
+        const requestBox = getObjectFilteredByKeyArrayWhiteList(
+          {
+            ...boxData,
+            isShippingLabelAttachedByStorekeeper:
+              sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
+            items: newItems,
+            shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+          },
+          updateBoxWhiteList,
+        )
+
+        const editBoxesResult = await this.editBox({id, data: requestBox})
+
+        await this.updateBarCodesInInventory(dataToBarCodeChange)
+
+        await this.postTask({
+          idsData: [editBoxesResult.guid],
+          idsBeforeData: [id],
+          type: TaskOperationType.EDIT,
+          clientComment: boxData.clientComment,
+        })
+
+        this.modalEditSuccessMessage = textConsts.modalEditSuccessMessageAndTask
+
+        this.onTriggerOpenModal('showEditBoxSuccessModal')
       }
 
-      const newItems = boxData.items.map(el => ({
-        ...getObjectFilteredByKeyArrayBlackList(el, ['order', 'product']),
-        amount: el.amount,
-        orderId: el.order._id,
-        productId: el.product._id,
-      }))
-
-      const requestBox = getObjectFilteredByKeyArrayWhiteList(
-        {
-          ...boxData,
-          isShippingLabelAttachedByStorekeeper:
-            sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
-          items: newItems,
-          shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxData.shippingLabel,
-        },
-        updateBoxWhiteList,
-      )
-
-      const editBoxesResult = await this.editBox({id, data: requestBox})
-
-      await this.postTask({
-        idsData: [editBoxesResult.guid],
-        idsBeforeData: [id],
-        type: TaskOperationType.EDIT,
-        clientComment: boxData.clientComment,
-      })
-
-      // await this.getBoxesMy()
       this.loadData()
       this.onTriggerOpenModal('showEditBoxModal')
 
       this.setRequestStatus(loadingStatuses.success)
-
-      // this.loadData()
-
-      this.onTriggerOpenModal('showEditBoxSuccessModal')
-
-      // await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
@@ -395,7 +533,6 @@ export class ClientWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       const selectedIds = this.selectedBoxes
-      this.selectedBoxes = []
 
       this.uploadedFiles = []
 
@@ -425,10 +562,30 @@ export class ClientWarehouseViewModel {
 
       this.setRequestStatus(loadingStatuses.success)
 
+      await this.getBoxesMy()
+
+      this.selectedBoxes = []
+
       this.tmpClientComment = ''
       await this.getTasksMy()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async setCurrentOpenedBox(row) {
+    try {
+      this.curBox = row
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
+    } catch (error) {
       console.log(error)
       this.error = error
     }
@@ -483,7 +640,6 @@ export class ClientWarehouseViewModel {
     try {
       const result = await BoxesModel.mergeBoxes(ids, boxBody)
 
-      await this.getBoxesMy()
       return result
     } catch (error) {
       console.log(error)
@@ -517,21 +673,24 @@ export class ClientWarehouseViewModel {
   async getBoxesMy() {
     try {
       const result = await BoxesModel.getBoxesForCurClient(
-        this.currentStorekeeper && {storekeeperId: this.currentStorekeeper._id},
+        BoxStatus.IN_STOCK,
+        this.currentStorekeeper && this.currentStorekeeper._id,
       )
 
+      const res = await UserModel.getPlatformSettings()
+
       runInAction(() => {
-        this.boxesMy = clientWarehouseDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.boxesMy = clientWarehouseDataConverter(result, res.volumeWeightCoefficient).sort(
+          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+        )
       })
     } catch (error) {
       console.log(error)
       this.error = error
 
-      if (error.body.message === 'Коробки не найдены.') {
-        runInAction(() => {
-          this.boxesMy = []
-        })
-      }
+      runInAction(() => {
+        this.boxesMy = []
+      })
     }
   }
 
@@ -621,9 +780,15 @@ export class ClientWarehouseViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       const boxesDeliveryCosts = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
+
+      const result = await UserModel.getPlatformSettings()
+
       runInAction(() => {
         this.boxesDeliveryCosts = boxesDeliveryCosts
+
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
       })
+
       this.setRequestStatus(loadingStatuses.success)
       this.triggerRequestToSendBatchModal()
     } catch (error) {
@@ -647,6 +812,13 @@ export class ClientWarehouseViewModel {
       this.updateUserInfo()
       this.loadData()
     } catch (error) {
+      this.warningInfoModalSettings = {
+        isWarning: true,
+        title: error.body.message,
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }

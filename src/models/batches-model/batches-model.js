@@ -1,8 +1,8 @@
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
 export class BatchesModelStatic {
-  getBatches = async () => {
-    const response = await restApiService.batchesApi.apiV1BatchesGet()
+  getBatches = async status => {
+    const response = await restApiService.batchesApi.apiV1BatchesGet({status})
     return response
   }
 
@@ -14,9 +14,35 @@ export class BatchesModelStatic {
   }
 
   requestSendBoxToBatch = async boxesIds => {
-    const response = await restApiService.boxesApi.apiV1BoxesRequestSendBoxesToBatchPost({
+    const response = await restApiService.batchesApi.apiV1BatchesRequestSendBoxesToBatchPost({
       body: {cancel: false, boxesIds},
     })
+    return response
+  }
+
+  createBatch = async boxesIds => {
+    const response = await restApiService.batchesApi.apiV1BatchesPost({
+      body: {boxesIds},
+    })
+    return response
+  }
+
+  removeBoxFromBatch = async (id, boxesIds) => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidRemoveBoxesPatch(id, {
+      body: {boxesIds},
+    })
+    return response
+  }
+
+  addBoxToBatch = async (id, boxesIds) => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidAddBoxesPatch(id, {
+      body: {boxesIds},
+    })
+    return response
+  }
+
+  confirmSentToBatch = async id => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidBatchHasDispatchedPatch(id)
     return response
   }
 }

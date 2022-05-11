@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
@@ -19,19 +20,13 @@ import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {priceCalculation} from '@utils/price-calculation'
 import {toFixed} from '@utils/text'
 
 import {useClassNames} from './add-or-edit-supplier-modal-content.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').addOrEditSupplierModalContent
-
-const sizesType = {
-  INCHES: 'INCHES',
-  CM: 'CM',
-}
-
-const inchesCoefficient = 2.54
 
 export const AddOrEditSupplierModalContent = observer(
   ({
@@ -59,46 +54,53 @@ export const AddOrEditSupplierModalContent = observer(
       if (newAlignment === sizesType.INCHES) {
         setTmpSupplier({
           ...tmpSupplier,
-          boxLengthCm: toFixed(tmpSupplier.boxLengthCm / inchesCoefficient, 2),
-          boxWidthCm: toFixed(tmpSupplier.boxWidthCm / inchesCoefficient, 2),
-          boxHeightCm: toFixed(tmpSupplier.boxHeightCm / inchesCoefficient, 2),
+          boxProperties: {
+            ...tmpSupplier.boxProperties,
+            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm / inchesCoefficient, 2),
+            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm / inchesCoefficient, 2),
+            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm / inchesCoefficient, 2),
+          },
         })
       } else {
         setTmpSupplier({
           ...tmpSupplier,
-          boxLengthCm: toFixed(tmpSupplier.boxLengthCm * inchesCoefficient, 2),
-          boxWidthCm: toFixed(tmpSupplier.boxWidthCm * inchesCoefficient, 2),
-          boxHeightCm: toFixed(tmpSupplier.boxHeightCm * inchesCoefficient, 2),
+          boxProperties: {
+            ...tmpSupplier.boxProperties,
+            boxLengthCm: toFixed(tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient, 2),
+            boxWidthCm: toFixed(tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient, 2),
+            boxHeightCm: toFixed(tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient, 2),
+          },
         })
       }
     }
 
     const [tmpSupplier, setTmpSupplier] = useState({
-      amount: (supplier && supplier.amount) || '',
-      comment: (supplier && supplier.comment) || '',
-      link: (supplier && supplier.link) || '',
-      lotcost: (supplier && supplier.lotcost) || '',
-      minlot: (supplier && supplier.minlot) || '',
-      name: (supplier && supplier.name) || '',
-      price: (supplier && supplier.price) || '',
-      images: (supplier && supplier.images) || [],
+      amount: supplier?.amount || '',
+      comment: supplier?.comment || '',
+      link: supplier?.link || '',
+      lotcost: supplier?.lotcost || '',
+      minlot: supplier?.minlot || '',
+      name: supplier?.name || '',
+      price: supplier?.price || '',
+      images: supplier?.images || [],
 
-      priceInYuan: (supplier && supplier.priceInYuan) || '',
-      batchDeliveryCostInDollar: (supplier && supplier.batchDeliveryCostInDollar) || 0,
-      batchDeliveryCostInYuan: (supplier && supplier.batchDeliveryCostInYuan) || 0,
-      batchTotalCostInDollar: (supplier && supplier.batchTotalCostInDollar) || '',
-      batchTotalCostInYuan: (supplier && supplier.batchTotalCostInYuan) || '',
+      priceInYuan: supplier?.priceInYuan || '',
+      batchDeliveryCostInDollar: supplier?.batchDeliveryCostInDollar || 0,
+      batchDeliveryCostInYuan: supplier?.batchDeliveryCostInYuan || 0,
+      batchTotalCostInDollar: supplier?.batchTotalCostInDollar || '',
+      batchTotalCostInYuan: supplier?.batchTotalCostInYuan || '',
 
-      amountInBox: (supplier && supplier.amountInBox) || '',
-      boxLengthCm: (supplier && supplier.boxLengthCm) || '',
-      boxWidthCm: (supplier && supplier.boxWidthCm) || '',
-      boxHeightCm: (supplier && supplier.boxHeightCm) || '',
-      boxWeighGrossKg: (supplier && supplier.boxWeighGrossKg) || '',
-      boxVolumeWeightKg: (supplier && supplier.boxVolumeWeightKg) || '',
+      boxProperties: {
+        amountInBox: supplier?.boxProperties?.amountInBox || '',
+        boxLengthCm: supplier?.boxProperties?.boxLengthCm || '',
+        boxWidthCm: supplier?.boxProperties?.boxWidthCm || '',
+        boxHeightCm: supplier?.boxProperties?.boxHeightCm || '',
+        boxWeighGrossKg: supplier?.boxProperties?.boxWeighGrossKg || '',
+      },
     })
 
     const calculateFieldsToSubmit = () => {
-      const res = {
+      let res = {
         ...tmpSupplier,
         batchTotalCostInYuan: toFixed(
           +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan,
@@ -108,32 +110,39 @@ export const AddOrEditSupplierModalContent = observer(
           +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
           2,
         ),
-        boxLengthCm:
-          (sizeSetting === sizesType.INCHES ? tmpSupplier.boxLengthCm * inchesCoefficient : tmpSupplier.boxLengthCm) ||
-          0,
-        boxWidthCm:
-          (sizeSetting === sizesType.INCHES ? tmpSupplier.boxWidthCm * inchesCoefficient : tmpSupplier.boxWidthCm) || 0,
-        boxHeightCm:
-          (sizeSetting === sizesType.INCHES ? tmpSupplier.boxHeightCm * inchesCoefficient : tmpSupplier.boxHeightCm) ||
-          0,
 
         lotcost: toFixed(+tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar, 2),
 
-        boxVolumeWeightKg: toFixed(
-          (sizeSetting === sizesType.INCHES
-            ? tmpSupplier.boxHeightCm *
-              inchesCoefficient *
-              tmpSupplier.boxWidthCm *
-              inchesCoefficient *
-              tmpSupplier.boxLengthCm *
-              inchesCoefficient
-            : tmpSupplier.boxHeightCm * tmpSupplier.boxWidthCm * tmpSupplier.boxLengthCm) / volumeWeightCoefficient,
-          2,
-        ),
+        boxProperties: {
+          ...tmpSupplier.boxProperties,
+          boxLengthCm:
+            (sizeSetting === sizesType.INCHES
+              ? tmpSupplier.boxProperties.boxLengthCm * inchesCoefficient
+              : tmpSupplier.boxProperties.boxLengthCm) || 0,
+          boxWidthCm:
+            (sizeSetting === sizesType.INCHES
+              ? tmpSupplier.boxProperties.boxWidthCm * inchesCoefficient
+              : tmpSupplier.boxProperties.boxWidthCm) || 0,
+          boxHeightCm:
+            (sizeSetting === sizesType.INCHES
+              ? tmpSupplier.boxProperties.boxHeightCm * inchesCoefficient
+              : tmpSupplier.boxProperties.boxHeightCm) || 0,
 
-        amountInBox: tmpSupplier.amountInBox || 0,
-        boxWeighGrossKg: tmpSupplier.boxWeighGrossKg || 0,
+          amountInBox: tmpSupplier.boxProperties.amountInBox || 0,
+          boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
+        },
       }
+
+      if (
+        !tmpSupplier.boxProperties.amountInBox ||
+        !tmpSupplier.boxProperties.boxLengthCm ||
+        !tmpSupplier.boxProperties.boxWidthCm ||
+        !tmpSupplier.boxProperties.boxHeightCm ||
+        !tmpSupplier.boxProperties.boxWeighGrossKg
+      ) {
+        res = {...res, boxProperties: null}
+      }
+
       return res
     }
 
@@ -188,6 +197,20 @@ export const AddOrEditSupplierModalContent = observer(
                     name: '',
                     price: '',
                     images: [],
+
+                    priceInYuan: '',
+                    batchDeliveryCostInDollar: 0,
+                    batchDeliveryCostInYuan: 0,
+                    batchTotalCostInDollar: '',
+                    batchTotalCostInYuan: '',
+
+                    boxProperties: {
+                      amountInBox: '',
+                      boxLengthCm: '',
+                      boxWidthCm: '',
+                      boxHeightCm: '',
+                      boxWeighGrossKg: '',
+                    },
                   })
 
                   setPhotosOfSupplier(() => [])
@@ -236,8 +259,18 @@ export const AddOrEditSupplierModalContent = observer(
         !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)
       ) {
         return
-      } else if (['minlot', 'amount', 'amountInBox'].includes(fieldName)) {
+      } else if (['minlot', 'amount'].includes(fieldName)) {
         setTmpSupplier({...tmpSupplier, [fieldName]: parseInt(event.target.value) || ''})
+      } else if (['amountInBox'].includes(fieldName)) {
+        setTmpSupplier({
+          ...tmpSupplier,
+          boxProperties: {...tmpSupplier.boxProperties, [fieldName]: parseInt(event.target.value) || ''},
+        })
+      } else if (['boxLengthCm', 'boxWidthCm', 'boxHeightCm', 'boxWeighGrossKg'].includes(fieldName)) {
+        setTmpSupplier({
+          ...tmpSupplier,
+          boxProperties: {...tmpSupplier.boxProperties, [fieldName]: event.target.value || ''},
+        })
       } else if (['price'].includes(fieldName)) {
         setTmpSupplier({
           ...tmpSupplier,
@@ -308,7 +341,19 @@ export const AddOrEditSupplierModalContent = observer(
       0 === parseFloat(tmpSupplier.price) ||
       0 === parseInt(tmpSupplier.amount) ||
       0 === parseInt(tmpSupplier.minlot) ||
-      requestStatus === loadingStatuses.isLoading
+      requestStatus === loadingStatuses.isLoading ||
+      ((tmpSupplier.boxProperties.amountInBox ||
+        tmpSupplier.boxProperties.boxLengthCm ||
+        tmpSupplier.boxProperties.boxWidthCm ||
+        tmpSupplier.boxProperties.boxHeightCm ||
+        tmpSupplier.boxProperties.boxWeighGrossKg) &&
+        !(
+          tmpSupplier.boxProperties.amountInBox &&
+          tmpSupplier.boxProperties.boxLengthCm &&
+          tmpSupplier.boxProperties.boxWidthCm &&
+          tmpSupplier.boxProperties.boxHeightCm &&
+          tmpSupplier.boxProperties.boxWeighGrossKg
+        ))
 
     return (
       <Container disableGutters className={classNames.modalContainer}>
@@ -496,31 +541,31 @@ export const AddOrEditSupplierModalContent = observer(
                 <div className={classNames.sizesBottomWrapper}>
                   <Field
                     label={'H'}
-                    inputProps={{maxLength: 8}}
+                    inputProps={{maxLength: 4}}
                     containerClasses={classNames.sizeContainer}
                     labelClasses={clsx(classNames.rateLabel)}
                     inputClasses={classNames.sizeInput}
-                    value={tmpSupplier.boxHeightCm}
+                    value={tmpSupplier.boxProperties.boxHeightCm}
                     onChange={onChangeField('boxHeightCm')}
                   />
 
                   <Field
                     label={'W'}
-                    inputProps={{maxLength: 8}}
+                    inputProps={{maxLength: 4}}
                     containerClasses={classNames.sizeContainer}
                     labelClasses={clsx(classNames.rateLabel)}
                     inputClasses={classNames.sizeInput}
-                    value={tmpSupplier.boxWidthCm}
+                    value={tmpSupplier.boxProperties.boxWidthCm}
                     onChange={onChangeField('boxWidthCm')}
                   />
 
                   <Field
                     label={'L'}
-                    inputProps={{maxLength: 8}}
+                    inputProps={{maxLength: 4}}
                     containerClasses={classNames.sizeContainer}
                     labelClasses={clsx(classNames.rateLabel)}
                     inputClasses={classNames.sizeInput}
-                    value={tmpSupplier.boxLengthCm}
+                    value={tmpSupplier.boxProperties.boxLengthCm}
                     onChange={onChangeField('boxLengthCm')}
                   />
                 </div>
@@ -531,7 +576,7 @@ export const AddOrEditSupplierModalContent = observer(
                 inputProps={{maxLength: 10}}
                 containerClasses={classNames.shortContainer}
                 labelClasses={classNames.normalLabel}
-                value={tmpSupplier.boxWeighGrossKg}
+                value={tmpSupplier.boxProperties.boxWeighGrossKg}
                 onChange={onChangeField('boxWeighGrossKg')}
               />
               <Field
@@ -539,7 +584,7 @@ export const AddOrEditSupplierModalContent = observer(
                 inputProps={{maxLength: 10}}
                 containerClasses={classNames.shortContainer}
                 labelClasses={classNames.normalLabel}
-                value={tmpSupplier.amountInBox}
+                value={tmpSupplier.boxProperties.amountInBox}
                 onChange={onChangeField('amountInBox')}
               />
 
@@ -551,14 +596,15 @@ export const AddOrEditSupplierModalContent = observer(
                 labelClasses={classNames.normalLabel}
                 value={toFixed(
                   (sizeSetting === sizesType.INCHES
-                    ? tmpSupplier.boxHeightCm *
+                    ? tmpSupplier.boxProperties.boxHeightCm *
                       inchesCoefficient *
-                      tmpSupplier.boxWidthCm *
+                      tmpSupplier.boxProperties.boxWidthCm *
                       inchesCoefficient *
-                      tmpSupplier.boxLengthCm *
+                      tmpSupplier.boxProperties.boxLengthCm *
                       inchesCoefficient
-                    : tmpSupplier.boxHeightCm * tmpSupplier.boxWidthCm * tmpSupplier.boxLengthCm) /
-                    volumeWeightCoefficient,
+                    : tmpSupplier.boxProperties.boxHeightCm *
+                      tmpSupplier.boxProperties.boxWidthCm *
+                      tmpSupplier.boxProperties.boxLengthCm) / volumeWeightCoefficient,
                   2,
                 )}
               />

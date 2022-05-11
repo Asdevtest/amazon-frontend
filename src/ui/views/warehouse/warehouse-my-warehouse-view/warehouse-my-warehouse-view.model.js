@@ -1,15 +1,23 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
+import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {BatchesModel} from '@models/batches-model'
+import {BoxesModel} from '@models/boxes-model'
+import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {warehouseBoxesViewColumns} from '@components/table-columns/warehouse/warehouse-boxes-columns'
 
-import {warehouseBoxesDataConverter} from '@utils/data-grid-data-converters'
+import {
+  clientWarehouseDataConverter,
+  warehouseBatchesDataConverter,
+  warehouseBoxesDataConverter,
+} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
@@ -18,32 +26,38 @@ export class WarehouseMyWarehouseViewModel {
   requestStatus = undefined
   error = undefined
 
+  volumeWeightCoefficient = undefined
+
   boxesMy = []
   tasksMy = []
+  boxesData = []
+  batches = []
+
+  curBox = undefined
+  curBoxToMove = undefined
+  sourceBoxForBatch = undefined
 
   drawerOpen = false
   selectedBoxes = []
   curOpenedTask = {}
   toCancelData = {}
 
-  showMergeBoxModal = false
-  showTaskInfoModal = false
-  showSendOwnProductModal = false
-  showEditBoxModal = false
-  showConfirmModal = false
-  showRedistributeBoxModal = false
-  showRedistributeBoxAddNewBoxModal = false
-  showRedistributeBoxSuccessModal = false
-  showRedistributeBoxFailModal = false
-  showRequestToSendBatchModal = false
-  boxesDeliveryCosts = undefined
+  showBoxViewModal = false
+  showBoxMoveToBatchModal = false
+  showAddBatchModal = false
+  showAddOrEditHsCodeInBox = false
+
+  rowHandlers = {
+    moveBox: item => this.moveBox(item),
+    setHsCode: item => this.setHsCode(item),
+  }
 
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns()
+  columnsModel = warehouseBoxesViewColumns(this.rowHandlers)
 
   get isMasterBoxSelected() {
     return this.selectedBoxes.some(boxId => {
@@ -86,7 +100,10 @@ export class WarehouseMyWarehouseViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = warehouseBoxesViewColumns().map(el => ({...el, hide: state.columns?.lookup[el?.field]?.hide}))
+      this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns?.lookup[el?.field]?.hide,
+      }))
     }
   }
 
@@ -128,13 +145,121 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  setCurrentOpenedTask(item) {
-    this.curOpenedTask = item
-    this.onTriggerOpenModal('showTaskInfoModal')
+  async getDataToMoveBatch() {
+    try {
+      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.batches = warehouseBatchesDataConverter(batches, this.volumeWeightCoefficient)
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  onModalRedistributeBoxAddNewBox(value) {
-    this.modalRedistributeBoxAddNewBox = value
+  async moveBox(row) {
+    try {
+      this.curBoxToMove = row
+      await this.getDataToMoveBatch()
+
+      this.onTriggerOpenModal('showBoxMoveToBatchModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async setHsCode(row) {
+    try {
+      this.curBox = row
+
+      this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onSubmitAddBatch(boxesIds) {
+    try {
+      await BatchesModel.createBatch(boxesIds)
+
+      this.loadData()
+      this.onTriggerOpenModal('showAddBatchModal')
+      this.onTriggerOpenModal('showBoxMoveToBatchModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onSubmitAddOrEditHsCode(data) {
+    try {
+      await ProductModel.editProductsHsCods(data)
+
+      this.loadData()
+      this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onSubmitMoveBoxToBatch(box, selectedBatch) {
+    try {
+      if (box.batchId) {
+        await BatchesModel.removeBoxFromBatch(box.batchId, [box._id])
+      }
+
+      await BatchesModel.addBoxToBatch(selectedBatch.id, [box._id])
+
+      this.loadData()
+
+      this.onTriggerOpenModal('showBoxMoveToBatchModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async setCurrentOpenedBox(row) {
+    try {
+      this.curBox = row
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showBoxViewModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onSubmitCreateBatch(box) {
+    try {
+      const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
+
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.boxesData = clientWarehouseDataConverter(boxes, result.volumeWeightCoefficient)
+
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.sourceBoxForBatch = box
+      })
+
+      this.onTriggerOpenModal('showAddBatchModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   onTriggerDrawer() {
@@ -151,10 +276,16 @@ export class WarehouseMyWarehouseViewModel {
 
   async getBoxesMy() {
     try {
-      const result = await StorekeeperModel.getBoxesMy()
+      const result = await UserModel.getPlatformSettings()
+
+      const boxes = await StorekeeperModel.getBoxesMy()
 
       runInAction(() => {
-        this.boxesMy = warehouseBoxesDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+
+        this.boxesMy = warehouseBoxesDataConverter(boxes, result.volumeWeightCoefficient).sort(
+          sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+        )
       })
     } catch (error) {
       console.log(error)

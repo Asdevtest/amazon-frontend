@@ -30,6 +30,7 @@ import {useClassNames} from './order-product-modal.style'
 const textConsts = getLocalizedTexts(texts, 'ru').clientOrderProductModal
 
 export const OrderProductModal = ({
+  volumeWeightCoefficient,
   destinations,
   storekeepers,
   requestStatus,
@@ -40,6 +41,8 @@ export const OrderProductModal = ({
   onClickCancel,
 }) => {
   const classNames = useClassNames()
+
+  const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
   const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)
 
@@ -62,6 +65,7 @@ export const OrderProductModal = ({
       productId: product._id,
       images: [],
       tmpBarCode: [],
+
       destinationId: '',
 
       storekeeperId: '',
@@ -103,7 +107,22 @@ export const OrderProductModal = ({
   const onClickSubmit = () => {
     onTriggerOpenModal('showOrderModal')
     onSubmit(orderState)
+    setSubmitIsClicked(true)
   }
+
+  const disabledSubmit =
+    orderState.some(
+      order =>
+        order.storekeeperId === '' ||
+        order.logicsTariffId === '' ||
+        order.destinationId === '' ||
+        Number(order.amount) <= 0 ||
+        !Number.isInteger(Number(order.amount)),
+    ) ||
+    requestStatus === loadingStatuses.isLoading ||
+    productsForRender.some(item => !item.currentSupplier) ||
+    !orderState.length ||
+    submitIsClicked
 
   return (
     <Container disableGutters maxWidth={'xl'}>
@@ -131,6 +150,7 @@ export const OrderProductModal = ({
             {productsForRender.map((product, index) => (
               <OrderModalBodyRow
                 key={product._id}
+                volumeWeightCoefficient={volumeWeightCoefficient}
                 destinations={destinations}
                 storekeepers={storekeepers}
                 item={product}
@@ -165,19 +185,7 @@ export const OrderProductModal = ({
           disableElevation
           variant="contained"
           className={(classNames.modalButton, classNames.buyNowBtn)}
-          disabled={
-            orderState.some(
-              order =>
-                order.storekeeperId === '' ||
-                order.logicsTariffId === '' ||
-                order.destinationId === '' ||
-                Number(order.amount) <= 0 ||
-                !Number.isInteger(Number(order.amount)),
-            ) ||
-            requestStatus === loadingStatuses.isLoading ||
-            productsForRender.some(item => !item.currentSupplier) ||
-            !orderState.length
-          }
+          disabled={disabledSubmit}
           onClick={onClickSubmit}
         >
           {textConsts.buyNowBtn}

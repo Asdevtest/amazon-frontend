@@ -4,31 +4,30 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID | [optional] 
-**taskId** | **Number** | ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя. | [optional] 
-**operationType** | **String** | Тип операции | [optional] 
-**boxesBefore** | [**[InlineResponse2007]**](InlineResponse2007.md) | Массив коробок которые были до переформирования коробок. | [optional] 
-**boxes** | [**[InlineResponse2007]**](InlineResponse2007.md) | Массив коробок. | [optional] 
-**status** | **Number** | Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено. | [optional] 
-**storekeeperComment** | **String** | Комментарий работника склада. | [optional] 
-**clientComment** | **String** | Комментарий клиента. | [optional] 
+**_id** | **String** | GUID коробки. | [optional] 
+**humanFriendlyId** | **Number** | Номер коробки. | [optional] 
+**amount** | **Number** | ККоличества в коробке. | [optional] 
+**status** | **String** | Статус коробки | [optional] 
+**isActual** | **Boolean** | Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам. | [optional] 
+**isDraft** | **Boolean** | Если true - значит коробку черновик. | [optional] 
+**shippingLabel** | **String** | Ссылка на наклейку для коробки | [optional] 
+**lengthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**widthCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**heightCmWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**weighGrossKgWarehouse** | **Number** | Что фактически пришло на склад. Кладовщик. | [optional] 
+**isShippingLabelAttachedByStorekeeper** | **Boolean** | Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл. | [optional] 
+**fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
+**totalPrice** | **Number** | Итого за доставку. | [optional] 
+**totalPriceChanged** | **Number** | Обновление итога за доставку. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
-**storekeeperId** | **String** | GUID сотрудника склада, который выполняет задачу. | [optional] 
+**createdAt** | **Date** |  | [optional] 
+**updatedAt** | **Date** |  | [optional] 
+**items** | [**[ApiV1BoxesClientsLightItems]**](ApiV1BoxesClientsLightItems.md) | Массив коробок. | [optional] 
 **storekeeper** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
-**createdAt** | **Date** | Дата создания. | [optional] 
-**updateDate** | **Date** | Дата обновления. | [optional] 
-
-
-
-## Enum: OperationTypeEnum
-
-
-* `merge` (value: `"merge"`)
-
-* `split` (value: `"split"`)
-
-* `receive` (value: `"receive"`)
-
-
+**client** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**createdBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**destination** | [**ApiV1BoxesClientsLightDestination**](ApiV1BoxesClientsLightDestination.md) |  | [optional] 
+**logicsTariff** | [**ApiV1BoxesClientsLightLogicsTariff**](ApiV1BoxesClientsLightLogicsTariff.md) |  | [optional] 
+**batch** | [**ApiV1BoxesClientsLightBatch**](ApiV1BoxesClientsLightBatch.md) |  | [optional] 
 
 

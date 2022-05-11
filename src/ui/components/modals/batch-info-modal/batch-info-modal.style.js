@@ -8,9 +8,6 @@ export const useClassNames = makeStyles(theme => ({
   form: {
     marginTop: theme.spacing(2.5),
     marginBottom: theme.spacing(2.5),
-    border: '1px solid rgb(224, 224, 224)',
-    borderRadius: '5px',
-    padding: '20px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -45,7 +42,6 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   shippinLabel: {
-    height: '56px',
     whiteSpace: 'nowrap',
     width: '250px',
     overflowX: 'auto',
@@ -78,5 +74,28 @@ export const useClassNames = makeStyles(theme => ({
 
   amount: {
     marginLeft: '5px',
+  },
+
+  row: {
+    outline: '1px solid rgb(224, 224, 224)',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(0.99)',
+      backgroundColor: 'rgba(123, 163, 255, 0.3)',
+    },
+  },
+
+  infoWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    gap: '10px',
+  },
+
+  needPay: {
+    color: 'red',
+    fontWeight: 'bold',
+    marginLeft: '15px',
   },
 }))

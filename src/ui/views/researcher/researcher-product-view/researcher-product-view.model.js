@@ -53,6 +53,15 @@ const fieldsOfProductAllowedToForceUpdate = [
   'minpurchase',
   'fbaamount',
   'strategyStatus',
+
+  'niche',
+  'asins',
+  'avgRevenue',
+  'avgBSR',
+  'totalRevenue',
+  'coefficient',
+  'avgPrice',
+  'avgReviews',
 ]
 
 const fieldsOfProductAllowedToUpdate = [
@@ -81,6 +90,15 @@ const fieldsOfProductAllowedToUpdate = [
   'fbaamount',
   'strategyStatus',
   'currentSupplierId',
+
+  'niche',
+  'asins',
+  'avgRevenue',
+  'avgBSR',
+  'totalRevenue',
+  'coefficient',
+  'avgPrice',
+  'avgReviews',
 ]
 
 const formFieldsDefault = {
@@ -137,6 +155,8 @@ export class ResearcherProductViewModel {
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
 
+  startParse = false
+
   drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
@@ -163,8 +183,12 @@ export class ResearcherProductViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+
+    if (location.state) {
+      this.startParse = location.state.startParse
+    }
 
     this.productId = history.location.search.slice(1)
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -173,6 +197,13 @@ export class ResearcherProductViewModel {
   async loadData() {
     try {
       await this.getProductById()
+
+      if (this.startParse) {
+        this.onClickParseProductData(ProductDataParser.AMAZON, this.product)
+
+        this.onClickParseProductData(ProductDataParser.SELLCENTRAL, this.product)
+        this.startParse = false
+      }
     } catch (error) {
       console.log(error)
     }
@@ -205,7 +236,11 @@ export class ResearcherProductViewModel {
   onChangeProductFields = fieldName =>
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
-      if (['icomment'].includes(fieldName)) {
+      if (
+        ['icomment', 'niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail', 'category'].includes(
+          fieldName,
+        )
+      ) {
         this.product = {...this.product, [fieldName]: e.target.value}
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
@@ -215,7 +250,7 @@ export class ResearcherProductViewModel {
           return
         }
         if (
-          ['amazon', 'fbafee'].includes(fieldName) &&
+          ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice'].includes(fieldName) &&
           !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
         ) {
           return
@@ -225,7 +260,7 @@ export class ResearcherProductViewModel {
 
           this.product = {...this.product, status: this.productBase.status}
         }
-        if (['fbaamount'].includes(fieldName)) {
+        if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
           this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
         } else {
           this.product = {...this.product, [fieldName]: e.target.value}
@@ -523,7 +558,7 @@ export class ResearcherProductViewModel {
               ? [...this.curUpdateProductData.images, ...this.uploadedImages]
               : this.curUpdateProductData.images,
           },
-          this.curUpdateProductData.currentSupplierId === null ? ['suppliers', 'currentSupplierId'] : ['suppliers'],
+          ['suppliers'],
         ),
       )
       this.setActionStatus(loadingStatuses.success)

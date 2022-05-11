@@ -1,24 +1,23 @@
-/* eslint-disable no-unused-vars */
+import {ToggleButton, ToggleButtonGroup} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Divider, Typography, Paper, Checkbox, NativeSelect, Link} from '@material-ui/core'
+import {Divider, Typography, Paper, Checkbox, Link} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
-import {DeliveryTypeByCode, getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
+import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {texts} from '@constants/texts'
-import {getWarehousesOptionByCode, warehouses} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
-import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {checkAndMakeAbsoluteUrl, toFixedWithCm, toFixedWithKg} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithKg} from '@utils/text'
 
 import {EditBoxTasksModal} from '../edit-task-modal/edit-box-tasks-modal'
 import {useClassNames} from './before-after-block.style'
@@ -40,8 +39,6 @@ const Box = ({
 }) => {
   const classNames = useClassNames()
 
-  const [barCodeReallyIsGlued, setBarCodeReallyIsGlued] = useState(false)
-
   const [showImageModal, setShowImageModal] = useState(false)
 
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
@@ -53,11 +50,31 @@ const Box = ({
     setNewBoxes(updatedNewBoxes)
   }
 
+  const onChangeBarCode = (value, field, itemIndex) => {
+    const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
+
+    targetBox.items[itemIndex][field] = value
+
+    // const updatedTargetBox = {...targetBox, items: targetBox.items}
+
+    const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? targetBox : newBox))
+
+    setNewBoxes(updatedNewBoxes)
+  }
+
+  const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+
+  const handleChange = (event, newAlignment) => {
+    setSizeSetting(newAlignment)
+  }
+
   return (
-    <Paper className={(classNames.box, classNames.mainPaper)}>
+    <div className={(classNames.box, classNames.mainPaper)}>
       {isNewBox && (
         <div className={classNames.fieldsWrapper}>
           <Field disabled label={textConsts.warehouseLabel} value={box.destination?.name} />
+
+          <Field disabled label={textConsts.logicsTariffLabel} value={box.logicsTariff?.name || 'N/A'} />
         </div>
       )}
 
@@ -71,109 +88,134 @@ const Box = ({
       <div className={classNames.itemsWrapper}>
         {box.items?.map((item, index) => (
           <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
-            <BoxItemCard item={item} index={index} superCount={box.amount} />
+            <BoxItemCard
+              item={item}
+              index={index}
+              superCount={box.amount}
+              isNewBox={isNewBox}
+              onChangeBarCode={onChangeBarCode}
+            />
           </div>
         ))}
       </div>
 
       <Paper className={classNames.boxInfoWrapper}>
-        {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
-          <div className={classNames.demensionsWrapper}>
-            <Typography className={classNames.categoryTitle}>{textConsts.demensionsSupplier}</Typography>
-            <Typography>
-              {textConsts.length}
-              {toFixedWithCm(box.lengthCmSupplier, 2)}
-            </Typography>
-            <Typography>
-              {textConsts.width}
-              {toFixedWithCm(box.widthCmSupplier, 2)}
-            </Typography>
-            <Typography>
-              {textConsts.height}
-              {toFixedWithCm(box.heightCmSupplier, 2)}
-            </Typography>
+        <div>
+          <Typography className={classNames.categoryTitle}>
+            {isCurrentBox && taskType === TaskOperationType.RECEIVE
+              ? textConsts.demensionsSupplier
+              : textConsts.demensionsWarehouse}
+          </Typography>
 
-            <Typography>
-              {textConsts.weight}
-              {toFixedWithKg(box.weighGrossKgSupplier, 2)}
-            </Typography>
+          <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+            <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+              {'In'}
+            </ToggleButton>
+            <ToggleButton disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+              {'Cm'}
+            </ToggleButton>
+          </ToggleButtonGroup>
 
-            <Typography>
-              {textConsts.volumeWeigh}
-              {toFixedWithKg(
-                ((parseFloat(box.lengthCmSupplier) || 0) *
-                  (parseFloat(box.heightCmSupplier) || 0) *
-                  (parseFloat(box.widthCmSupplier) || 0)) /
-                  volumeWeightCoefficient,
-                2,
-              )}
-            </Typography>
+          {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
+            <div className={classNames.demensionsWrapper}>
+              <Typography>
+                {textConsts.length}
 
-            <Typography>
-              {textConsts.finalWeight}
-              {toFixedWithKg(
-                box.weighGrossKgSupplier >
+                {toFixed(box.lengthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+              </Typography>
+              <Typography>
+                {textConsts.width}
+                {toFixed(box.widthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+              </Typography>
+              <Typography>
+                {textConsts.height}
+                {toFixed(box.heightCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+              </Typography>
+
+              <Typography>
+                {textConsts.weight}
+                {toFixedWithKg(box.weighGrossKgSupplier, 2)}
+              </Typography>
+
+              <Typography>
+                {textConsts.volumeWeigh}
+                {toFixedWithKg(
                   ((parseFloat(box.lengthCmSupplier) || 0) *
                     (parseFloat(box.heightCmSupplier) || 0) *
                     (parseFloat(box.widthCmSupplier) || 0)) /
-                    volumeWeightCoefficient
-                  ? box.weighGrossKgSupplier
-                  : ((parseFloat(box.lengthCmSupplier) || 0) *
+                    volumeWeightCoefficient,
+                  2,
+                )}
+              </Typography>
+
+              <Typography>
+                {textConsts.finalWeight}
+                {toFixedWithKg(
+                  box.weighGrossKgSupplier >
+                    ((parseFloat(box.lengthCmSupplier) || 0) *
                       (parseFloat(box.heightCmSupplier) || 0) *
                       (parseFloat(box.widthCmSupplier) || 0)) /
-                      volumeWeightCoefficient,
-                2,
-              )}
-            </Typography>
-          </div>
-        ) : (
-          <div className={classNames.demensionsWrapper}>
-            <Typography className={classNames.categoryTitle}>{textConsts.demensionsWarehouse}</Typography>
-            <Typography>
-              {textConsts.length}
-              {toFixedWithCm(box.lengthCmWarehouse, 2)}
-            </Typography>
-            <Typography>
-              {textConsts.width}
-              {toFixedWithCm(box.widthCmWarehouse, 2)}
-            </Typography>
-            <Typography>
-              {textConsts.height}
-              {toFixedWithCm(box.heightCmWarehouse, 2)}
-            </Typography>
+                      volumeWeightCoefficient
+                    ? box.weighGrossKgSupplier
+                    : ((parseFloat(box.lengthCmSupplier) || 0) *
+                        (parseFloat(box.heightCmSupplier) || 0) *
+                        (parseFloat(box.widthCmSupplier) || 0)) /
+                        volumeWeightCoefficient,
+                  2,
+                )}
+              </Typography>
+            </div>
+          ) : (
+            <div className={classNames.demensionsWrapper}>
+              <Typography>
+                {textConsts.length}
+                {/* {toFixedWithCm(box.lengthCmWarehouse, 2)} */}
+                {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+              </Typography>
+              <Typography>
+                {textConsts.width}
+                {/* {toFixedWithCm(box.widthCmWarehouse, 2)} */}
+                {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+              </Typography>
+              <Typography>
+                {textConsts.height}
+                {/* {toFixedWithCm(box.heightCmWarehouse, 2)} */}
+                {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+              </Typography>
 
-            <Typography>
-              {textConsts.weight}
-              {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
-            </Typography>
-            <Typography>
-              {textConsts.volumeWeigh}
-              {toFixedWithKg(
-                ((parseFloat(box.lengthCmWarehouse) || 0) *
-                  (parseFloat(box.heightCmWarehouse) || 0) *
-                  (parseFloat(box.widthCmWarehouse) || 0)) /
-                  volumeWeightCoefficient,
-                2,
-              )}
-            </Typography>
-            <Typography>
-              {textConsts.finalWeight}
-              {toFixedWithKg(
-                box.weighGrossKgWarehouse >
+              <Typography>
+                {textConsts.weight}
+                {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
+              </Typography>
+              <Typography>
+                {textConsts.volumeWeigh}
+                {toFixedWithKg(
                   ((parseFloat(box.lengthCmWarehouse) || 0) *
                     (parseFloat(box.heightCmWarehouse) || 0) *
                     (parseFloat(box.widthCmWarehouse) || 0)) /
-                    volumeWeightCoefficient
-                  ? box.weighGrossKgWarehouse
-                  : ((parseFloat(box.lengthCmWarehouse) || 0) *
+                    volumeWeightCoefficient,
+                  2,
+                )}
+              </Typography>
+              <Typography>
+                {textConsts.finalWeight}
+                {toFixedWithKg(
+                  box.weighGrossKgWarehouse >
+                    ((parseFloat(box.lengthCmWarehouse) || 0) *
                       (parseFloat(box.heightCmWarehouse) || 0) *
                       (parseFloat(box.widthCmWarehouse) || 0)) /
-                      volumeWeightCoefficient,
-                2,
-              )}
-            </Typography>
-          </div>
-        )}
+                      volumeWeightCoefficient
+                    ? box.weighGrossKgWarehouse
+                    : ((parseFloat(box.lengthCmWarehouse) || 0) *
+                        (parseFloat(box.heightCmWarehouse) || 0) *
+                        (parseFloat(box.widthCmWarehouse) || 0)) /
+                        volumeWeightCoefficient,
+                  2,
+                )}
+              </Typography>
+            </div>
+          )}
+        </div>
 
         <div className={classNames.imagesWrapper}>
           {box.images && (
@@ -260,8 +302,8 @@ const Box = ({
       </div>
 
       {isNewBox && (
-        <Paper className={classNames.bottomBlockWrapper}>
-          {taskType === TaskOperationType.RECEIVE && box.items?.[0].product.barCode && (
+        <div className={classNames.bottomBlockWrapper}>
+          {/* {taskType === TaskOperationType.RECEIVE && box.items?.[0].product.barCode && (
             <div className={classNames.barCodeActionsWrapper}>
               {box.isBarCodeAttachedByTheStorekeeper === false && (
                 <Field
@@ -282,23 +324,8 @@ const Box = ({
                   }
                 />
               )}
-              {box.isBarCodeAlreadyAttachedByTheSupplier === true &&
-                box.isBarCodeAttachedByTheStorekeeper === false && (
-                  <Field
-                    oneLine
-                    containerClasses={classNames.checkboxContainer}
-                    label={textConsts.barCodeReallyIsGlued}
-                    inputComponent={
-                      <Checkbox
-                        color="primary"
-                        checked={barCodeReallyIsGlued}
-                        onClick={() => setBarCodeReallyIsGlued(!barCodeReallyIsGlued)}
-                      />
-                    }
-                  />
-                )}
 
-              {(box.isBarCodeAlreadyAttachedByTheSupplier === false || barCodeReallyIsGlued === false) && (
+              {box.isBarCodeAlreadyAttachedByTheSupplier === false && (
                 <Field
                   oneLine
                   containerClasses={classNames.checkboxContainer}
@@ -315,7 +342,7 @@ const Box = ({
                 />
               )}
             </div>
-          )}
+          )} */}
 
           <div className={classNames.editBtnWrapper}>
             {isEdit && (
@@ -330,7 +357,7 @@ const Box = ({
               </Button>
             )}
           </div>
-        </Paper>
+        </div>
       )}
 
       <BigImagesModal
@@ -340,7 +367,7 @@ const Box = ({
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
       />
-    </Paper>
+    </div>
   )
 }
 
@@ -420,6 +447,8 @@ export const BeforeAfterBlock = observer(
         {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
           <div className={classNames.fieldsWrapper}>
             <Field disabled label={textConsts.warehouseLabel} value={currentBoxes[0].destination?.name} />
+
+            <Field disabled label={textConsts.logicsTariffLabel} value={currentBoxes[0].logicsTariff?.name || 'N/A'} />
 
             {taskType === TaskOperationType.RECEIVE && (
               <Field

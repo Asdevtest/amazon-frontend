@@ -8,6 +8,7 @@ import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {BoxesModel} from '@models/boxes-model'
 import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
 import {BuyerModel} from '@models/buyer-model'
+import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
@@ -151,7 +152,9 @@ export class BuyerMyOrdersViewModel {
 
   async onClickOrder(order) {
     try {
-      this.selectedOrder = order.originalData
+      const orderData = await BuyerModel.getOrderById(order.originalData._id)
+
+      this.selectedOrder = orderData
       this.getBoxesOfOrder(order.originalData._id)
 
       const result = await UserModel.getPlatformSettings()
@@ -164,7 +167,15 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad) {
+  async onSubmitSaveHsCode(productId, hsCode) {
+    try {
+      await ProductModel.editProductsHsCods([{productId, hsCode}])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
@@ -179,21 +190,18 @@ export class BuyerMyOrdersViewModel {
         await onSubmitPostImages.call(this, {images: photosToLoad, type: 'readyImages'})
       }
 
-      const orderFieldsToSave = getObjectFilteredByKeyArrayBlackList(
-        {
-          ...orderFields,
-          images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
-        },
-        ['isBarCodeAlreadyAttachedByTheSupplier'],
-      )
+      const orderFieldsToSave = {
+        ...orderFields,
+        images: order.images === null ? this.readyImages : order.images.concat(this.readyImages),
+      }
 
       await this.onSaveOrder(order, orderFieldsToSave)
 
-      if (boxesForCreation.length > 0 && !isMismatchOrderPrice) {
-        if (orderFields.isBarCodeAlreadyAttachedByTheSupplier) {
-          boxesForCreation = boxesForCreation.slice().map(el => ({...el, isBarCodeAlreadyAttachedByTheSupplier: true}))
-        }
+      if (hsCode) {
+        await this.onSubmitSaveHsCode(order.product._id, hsCode)
+      }
 
+      if (boxesForCreation.length > 0 && !isMismatchOrderPrice) {
         await this.onSubmitCreateBoxes(order, boxesForCreation)
       }
 
@@ -275,18 +283,17 @@ export class BuyerMyOrdersViewModel {
           'volumeWeightKgSupplier',
           'warehouse',
         ]),
-        clientId: this.selectedOrder.createdBy._id,
-        // deliveryMethod: formFields.deliveryMethod,
         lengthCmSupplier: parseFloat(formFields?.lengthCmSupplier) || 0,
         widthCmSupplier: parseFloat(formFields?.widthCmSupplier) || 0,
         heightCmSupplier: parseFloat(formFields?.heightCmSupplier) || 0,
         weighGrossKgSupplier: parseFloat(formFields?.weighGrossKgSupplier) || 0,
-        // volumeWeightKgSupplier: parseFloat(formFields?.volumeWeightKgSupplier) || 0,
         items: [
           {
             productId: formFields.items[0].product._id,
             amount: formFields.items[0].amount,
             orderId: this.selectedOrder._id,
+
+            isBarCodeAlreadyAttachedByTheSupplier: formFields.items[0].isBarCodeAlreadyAttachedByTheSupplier,
           },
         ],
       }
@@ -327,10 +334,6 @@ export class BuyerMyOrdersViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  onSelectedOrder(value) {
-    this.selectedOrder = value
   }
 
   onTriggerShowBarcodeModal() {

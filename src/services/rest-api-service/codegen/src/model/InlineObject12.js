@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesItems1 from './ApiV1BoxesItems1';
+import ApiV1BoxesItems from './ApiV1BoxesItems';
 
 /**
  * The InlineObject12 model module.
@@ -24,7 +24,7 @@ class InlineObject12 {
      * Constructs a new <code>InlineObject12</code>.
      * Коробка
      * @alias module:model/InlineObject12
-     * @param items {Array.<module:model/ApiV1BoxesItems1>} Массив коробок.
+     * @param items {Array.<module:model/ApiV1BoxesItems>} Массив коробок.
      */
     constructor(items) { 
         
@@ -54,6 +54,12 @@ class InlineObject12 {
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
+            if (data.hasOwnProperty('isDraft')) {
+                obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
+            }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
             if (data.hasOwnProperty('lengthCmSupplier')) {
                 obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
             }
@@ -78,32 +84,23 @@ class InlineObject12 {
             if (data.hasOwnProperty('weighGrossKgWarehouse')) {
                 obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
             }
-            if (data.hasOwnProperty('isDraft')) {
-                obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
-                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems1]);
-            }
-            if (data.hasOwnProperty('clientId')) {
-                obj['clientId'] = ApiClient.convertToType(data['clientId'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
             }
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
+            if (data.hasOwnProperty('items')) {
+                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesItems]);
             }
-            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
-                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
         }
         return obj;
@@ -117,6 +114,18 @@ class InlineObject12 {
  * @member {Number} amount
  */
 InlineObject12.prototype['amount'] = undefined;
+
+/**
+ * true - если создаем черновик заказа.
+ * @member {Boolean} isDraft
+ */
+InlineObject12.prototype['isDraft'] = undefined;
+
+/**
+ * Шипингш лейбл
+ * @member {String} shippingLabel
+ */
+InlineObject12.prototype['shippingLabel'] = undefined;
 
 /**
  * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
@@ -167,40 +176,10 @@ InlineObject12.prototype['heightCmWarehouse'] = undefined;
 InlineObject12.prototype['weighGrossKgWarehouse'] = undefined;
 
 /**
- * true - если создаем черновик заказа.
- * @member {Boolean} isDraft
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
  */
-InlineObject12.prototype['isDraft'] = undefined;
-
-/**
- * Прикреплен ли баркод к коробке сотрудником склада.
- * @member {Boolean} isBarCodeAttachedByTheStorekeeper
- */
-InlineObject12.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
-
-/**
- * Массив коробок.
- * @member {Array.<module:model/ApiV1BoxesItems1>} items
- */
-InlineObject12.prototype['items'] = undefined;
-
-/**
- * GUID клиента
- * @member {String} clientId
- */
-InlineObject12.prototype['clientId'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
- */
-InlineObject12.prototype['images'] = undefined;
-
-/**
- * Шипингш лейбл
- * @member {String} shippingLabel
- */
-InlineObject12.prototype['shippingLabel'] = undefined;
+InlineObject12.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
 
 /**
  * Это номер конкретной коробки при отправке в амазон.
@@ -209,16 +188,28 @@ InlineObject12.prototype['shippingLabel'] = undefined;
 InlineObject12.prototype['fbaShipment'] = undefined;
 
 /**
- * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1BoxesItems>} items
  */
-InlineObject12.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
+InlineObject12.prototype['items'] = undefined;
 
 /**
- * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
- * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
  */
-InlineObject12.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+InlineObject12.prototype['images'] = undefined;
+
+/**
+ * destination GUID 
+ * @member {String} destinationId
+ */
+InlineObject12.prototype['destinationId'] = undefined;
+
+/**
+ *  logicsTariff GUID
+ * @member {String} logicsTariffId
+ */
+InlineObject12.prototype['logicsTariffId'] = undefined;
 
 
 

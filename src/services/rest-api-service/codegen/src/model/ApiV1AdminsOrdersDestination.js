@@ -53,6 +53,21 @@ class ApiV1AdminsOrdersDestination {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
+            if (data.hasOwnProperty('country')) {
+                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            }
+            if (data.hasOwnProperty('zipCode')) {
+                obj['zipCode'] = ApiClient.convertToType(data['zipCode'], 'String');
+            }
+            if (data.hasOwnProperty('state')) {
+                obj['state'] = ApiClient.convertToType(data['state'], 'String');
+            }
+            if (data.hasOwnProperty('city')) {
+                obj['city'] = ApiClient.convertToType(data['city'], 'String');
+            }
+            if (data.hasOwnProperty('address')) {
+                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            }
         }
         return obj;
     }
@@ -71,6 +86,36 @@ ApiV1AdminsOrdersDestination.prototype['_id'] = undefined;
  * @member {String} name
  */
 ApiV1AdminsOrdersDestination.prototype['name'] = undefined;
+
+/**
+ * Страна.
+ * @member {String} country
+ */
+ApiV1AdminsOrdersDestination.prototype['country'] = undefined;
+
+/**
+ * Индекс.
+ * @member {String} zipCode
+ */
+ApiV1AdminsOrdersDestination.prototype['zipCode'] = undefined;
+
+/**
+ * Штат.
+ * @member {String} state
+ */
+ApiV1AdminsOrdersDestination.prototype['state'] = undefined;
+
+/**
+ * Город.
+ * @member {String} city
+ */
+ApiV1AdminsOrdersDestination.prototype['city'] = undefined;
+
+/**
+ * Адрес склада.
+ * @member {String} address
+ */
+ApiV1AdminsOrdersDestination.prototype['address'] = undefined;
 
 
 

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
 
 /**
  * The InlineObject66 model module.
@@ -21,20 +22,11 @@ import ApiClient from '../ApiClient';
 class InlineObject66 {
     /**
      * Constructs a new <code>InlineObject66</code>.
-     * Новый поставщик.
      * @alias module:model/InlineObject66
-     * @param name {String} Название поставщика.
-     * @param link {String} Ссылка на поставщика.
-     * @param price {Number} Цена за еденицу, dollar
-     * @param amount {Number} кол-во
-     * @param minlot {Number} Минимальный лот.
-     * @param lotcost {Number} Стоимость лота.
-     * @param comment {String} Комментарий
-     * @param batchDeliveryCostInDollar {Number} Доставка партии, dollar
      */
-    constructor(name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar) { 
+    constructor() { 
         
-        InlineObject66.initialize(this, name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar);
+        InlineObject66.initialize(this);
     }
 
     /**
@@ -42,15 +34,7 @@ class InlineObject66 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar) { 
-        obj['name'] = name;
-        obj['link'] = link;
-        obj['price'] = price;
-        obj['amount'] = amount;
-        obj['minlot'] = minlot;
-        obj['lotcost'] = lotcost;
-        obj['comment'] = comment;
-        obj['batchDeliveryCostInDollar'] = batchDeliveryCostInDollar;
+    static initialize(obj) { 
     }
 
     /**
@@ -106,23 +90,8 @@ class InlineObject66 {
             if (data.hasOwnProperty('batchTotalCostInYuan')) {
                 obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
             }
-            if (data.hasOwnProperty('amountInBox')) {
-                obj['amountInBox'] = ApiClient.convertToType(data['amountInBox'], 'Number');
-            }
-            if (data.hasOwnProperty('boxLengthCm')) {
-                obj['boxLengthCm'] = ApiClient.convertToType(data['boxLengthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxWidthCm')) {
-                obj['boxWidthCm'] = ApiClient.convertToType(data['boxWidthCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxHeightCm')) {
-                obj['boxHeightCm'] = ApiClient.convertToType(data['boxHeightCm'], 'Number');
-            }
-            if (data.hasOwnProperty('boxWeighGrossKg')) {
-                obj['boxWeighGrossKg'] = ApiClient.convertToType(data['boxWeighGrossKg'], 'Number');
-            }
-            if (data.hasOwnProperty('boxVolumeWeightKg')) {
-                obj['boxVolumeWeightKg'] = ApiClient.convertToType(data['boxVolumeWeightKg'], 'Number');
+            if (data.hasOwnProperty('boxProperties')) {
+                obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
             }
         }
         return obj;
@@ -216,40 +185,9 @@ InlineObject66.prototype['batchTotalCostInDollar'] = undefined;
 InlineObject66.prototype['batchTotalCostInYuan'] = undefined;
 
 /**
- * Количество единиц в коробке.
- * @member {Number} amountInBox
+ * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
  */
-InlineObject66.prototype['amountInBox'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxLengthCm
- */
-InlineObject66.prototype['boxLengthCm'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxWidthCm
- */
-InlineObject66.prototype['boxWidthCm'] = undefined;
-
-/**
- * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
- * @member {Number} boxHeightCm
- */
-InlineObject66.prototype['boxHeightCm'] = undefined;
-
-/**
- * Общий вес кг коробки который назвал поставщик.
- * @member {Number} boxWeighGrossKg
- */
-InlineObject66.prototype['boxWeighGrossKg'] = undefined;
-
-/**
- * Объемный вес кг коробки, расчет на беке.
- * @member {Number} boxVolumeWeightKg
- */
-InlineObject66.prototype['boxVolumeWeightKg'] = undefined;
+InlineObject66.prototype['boxProperties'] = undefined;
 
 
 

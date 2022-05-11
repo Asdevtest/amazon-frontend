@@ -11,7 +11,11 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+import {
+  mapProductStrategyStatusEnum,
+  mapProductStrategyStatusEnumToKey,
+  ProductStrategyStatus,
+} from '@constants/product-strategy-status'
 import {texts} from '@constants/texts'
 
 import {Button} from '@components/buttons/button'
@@ -79,229 +83,327 @@ export const FieldsAndSuppliers = observer(
         productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
         productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
 
+    const disabledPrivateLabelFields = !(
+      checkIsResearcher(curUserRole) ||
+      (checkIsSupervisor(curUserRole) && showActionBtns) ||
+      (checkIsClient(curUserRole) &&
+        product.isCreatedByClient &&
+        clientToEditStatuses.includes(productBase.status) &&
+        checkIsClient(curUserRole) &&
+        !product.archive)
+    )
+
     return (
       <Grid item xs={12}>
-        <Box className={classNames.productFieldBox}>
-          <Field
-            disabled={
-              !(
-                checkIsClient(curUserRole) &&
-                product.isCreatedByClient &&
-                clientToEditStatuses.includes(productBase.status) &&
-                checkIsClient(curUserRole) &&
-                !product.archive
-              )
-            }
-            inputProps={{maxLength: 254}}
-            error={formFieldsValidationErrors.asin}
-            label={textConsts.fieldAsin}
-            value={product.asin}
-            onChange={onChangeField('asin')}
-          />
-          <Field
-            disabled
-            label={textConsts.fieldLinkAmazon}
-            inputComponent={
-              <div>
+        <Field
+          disabled
+          label={textConsts.fieldLinkAmazon}
+          inputComponent={
+            <div>
+              {product.lamazon ? (
                 <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.lamazon)}>
                   <Typography className={classNames.amazonLink}>{product.lamazon}</Typography>
                 </Link>
+              ) : (
+                <Typography className={classNames.amazonLink}>{'N/A'}</Typography>
+              )}
 
-                {checkIsClient(curUserRole) &&
-                  product.isCreatedByClient &&
-                  !product.archive &&
-                  clientToEditStatuses.includes(productBase.status) && (
-                    <Input
-                      disabled={!checkIsClient(curUserRole)}
-                      placeholder={textConsts.linkPlaceholder}
-                      value={product.lamazon}
-                      onChange={onChangeField('lamazon')}
-                    />
-                  )}
-              </div>
-            }
-          />
+              {checkIsClient(curUserRole) &&
+                product.isCreatedByClient &&
+                !product.archive &&
+                clientToEditStatuses.includes(productBase.status) && (
+                  <Input
+                    disabled={!checkIsClient(curUserRole)}
+                    placeholder={textConsts.linkPlaceholder}
+                    value={product.lamazon}
+                    onChange={onChangeField('lamazon')}
+                  />
+                )}
+            </div>
+          }
+        />
 
-          {checkIsClient(curUserRole) && product.isCreatedByClient && (
+        <Box className={classNames.productFieldBox}>
+          <div>
             <Field
-              label={textConsts.sku}
-              inputComponent={
-                <div>
-                  {product.skusByClient.length ? (
-                    <Grid container className={classNames.skuItemsWrapper}>
-                      {product.skusByClient.map((item, index) => (
-                        <Grid key={index} item className={classNames.skuItemWrapper}>
-                          <Typography className={classNames.skuItemTitle}>{item}</Typography>
-
-                          {checkIsClient(curUserRole) &&
-                            product.isCreatedByClient &&
-                            clientToEditStatuses.includes(productBase.status) && (
-                              <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
-                                <DeleteIcon className={classNames.deleteBtn} />
-                              </IconButton>
-                            )}
-                        </Grid>
-                      ))}
-                    </Grid>
-                  ) : null}
-
-                  {checkIsClient(curUserRole) &&
-                    product.isCreatedByClient &&
-                    !product.archive &&
-                    clientToEditStatuses.includes(productBase.status) && (
-                      <div className={classNames.inputWrapper}>
-                        <Input
-                          placeholder={textConsts.skuHolder}
-                          inputProps={{maxLength: 1000}}
-                          value={skuLine}
-                          className={classNames.input}
-                          onChange={e => setSkuLine(e.target.value.replace(/ /g, ''))}
-                        />
-                        <Button
-                          disableElevation
-                          disabled={skuLine === ''}
-                          className={classNames.defaultBtn}
-                          variant="contained"
-                          color="primary"
-                          onClick={onClickSkuBtn}
-                        >
-                          {textConsts.addSkuBtn}
-                        </Button>
-                      </div>
-                    )}
-                </div>
-              }
-            />
-          )}
-
-          <Typography className={classNames.label}>{textConsts.deliveryMethod}</Typography>
-
-          <div className={classNames.productCheckboxBoxesWrapper}>
-            <Box className={classNames.productCheckboxBox} mb={2.5}>
-              <Typography className={classNames.label}>{textConsts.checkboxFba}</Typography>
-              <MuiCheckbox
-                disabled={
-                  !(
-                    checkIsSupervisor(curUserRole) ||
-                    checkIsResearcher(curUserRole) ||
-                    (checkIsClient(curUserRole) &&
-                      product.isCreatedByClient &&
-                      clientToEditStatuses.includes(productBase.status) &&
-                      checkIsClient(curUserRole) &&
-                      !product.archive)
-                  )
-                }
-                color="primary"
-                checked={product.fba}
-                onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
-              />
-            </Box>
-
-            <Box className={classNames.productCheckboxBox} mb={2.5}>
-              <Typography className={classNames.label}>{textConsts.checkboxFbm}</Typography>
-              <MuiCheckbox
-                disabled={
-                  !(
-                    checkIsSupervisor(curUserRole) ||
-                    checkIsResearcher(curUserRole) ||
-                    (checkIsClient(curUserRole) &&
-                      product.isCreatedByClient &&
-                      clientToEditStatuses.includes(productBase.status) &&
-                      checkIsClient(curUserRole) &&
-                      !product.archive)
-                  )
-                }
-                color="primary"
-                checked={!product.fba}
-                onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
-              />
-            </Box>
-          </div>
-
-          <Box mt={3} className={classNames.strategyWrapper}>
-            <InputLabel className={classNames.strategyLabel}>{textConsts.strategyLabel}</InputLabel>
-
-            <NativeSelect
               disabled={
                 !(
-                  checkIsResearcher(curUserRole) ||
-                  (checkIsClient(curUserRole) &&
-                    product.isCreatedByClient &&
-                    clientToEditStatuses.includes(productBase.status) &&
-                    checkIsClient(curUserRole) &&
-                    !product.archive)
+                  checkIsClient(curUserRole) &&
+                  product.isCreatedByClient &&
+                  clientToEditStatuses.includes(productBase.status) &&
+                  checkIsClient(curUserRole) &&
+                  !product.archive
                 )
               }
-              value={product.strategyStatus}
-              className={classNames.nativeSelect}
-              input={<Input />}
-              onChange={onChangeField('strategyStatus')}
-            >
-              <option>{'none'}</option>
-              {Object.keys(mapProductStrategyStatusEnum)
-                .filter(el => el > 0)
-                .map((statusCode, statusIndex) => (
-                  <option key={statusIndex} value={statusCode}>
-                    {mapProductStrategyStatusEnum[statusCode]}
-                  </option>
-                ))}
-            </NativeSelect>
-          </Box>
+              inputProps={{maxLength: 254}}
+              error={formFieldsValidationErrors.asin}
+              label={textConsts.fieldAsin}
+              value={product.asin}
+              onChange={onChangeField('asin')}
+            />
 
-          <Typography variant="h4" className={classNames.supplierTitle}>
-            {textConsts.supplierTitle}
-          </Typography>
+            {checkIsClient(curUserRole) && product.isCreatedByClient && (
+              <Field
+                label={textConsts.sku}
+                inputComponent={
+                  <div>
+                    {product.skusByClient.length ? (
+                      <Grid container className={classNames.skuItemsWrapper}>
+                        {product.skusByClient.map((item, index) => (
+                          <Grid key={index} item className={classNames.skuItemWrapper}>
+                            <Typography className={classNames.skuItemTitle}>{item}</Typography>
 
-          {!(
-            !showActionBtns ||
-            (checkIsClient(curUserRole) && product.archive) ||
-            (checkIsClient(curUserRole) && !product.isCreatedByClient) ||
-            (checkIsClient(curUserRole) && !clientToEditStatuses.includes(productBase.status)) ||
-            checkIsSupervisor(curUserRole) ||
-            checkIsAdmin(curUserRole) ||
-            (checkIsResearcher(curUserRole) &&
-              productBase.status === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])
-          ) ? (
-            <div className={classNames.supplierActionsWrapper}>
-              <Typography variant="h6" className={classNames.supplierActionsTitle}>
-                {textConsts.supplierActionsTitle}
-              </Typography>
-              <Container disableGutters className={classNames.supplierContainer}>
-                <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('add')}>
-                  <AddIcon />
-                </IconButton>
-                {selectedSupplier ? (
-                  <>
-                    <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('edit')}>
-                      <EditIcon />
-                    </IconButton>
+                            {checkIsClient(curUserRole) &&
+                              product.isCreatedByClient &&
+                              clientToEditStatuses.includes(productBase.status) && (
+                                <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
+                                  <DeleteIcon className={classNames.deleteBtn} />
+                                </IconButton>
+                              )}
+                          </Grid>
+                        ))}
+                      </Grid>
+                    ) : null}
 
-                    {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
-                      <IconButton
-                        className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
-                        onClick={() => onClickSupplierBtns('delete')}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    )}
+                    {checkIsClient(curUserRole) &&
+                      product.isCreatedByClient &&
+                      !product.archive &&
+                      clientToEditStatuses.includes(productBase.status) && (
+                        <div className={classNames.inputWrapper}>
+                          <Input
+                            placeholder={textConsts.skuHolder}
+                            inputProps={{maxLength: 1000}}
+                            value={skuLine}
+                            className={classNames.input}
+                            onChange={e => setSkuLine(e.target.value.replace(/ /g, ''))}
+                          />
+                          <Button
+                            disableElevation
+                            disabled={skuLine === ''}
+                            className={classNames.defaultBtn}
+                            variant="contained"
+                            color="primary"
+                            onClick={onClickSkuBtn}
+                          >
+                            {textConsts.addSkuBtn}
+                          </Button>
+                        </div>
+                      )}
+                  </div>
+                }
+              />
+            )}
 
-                    <IconButton
-                      className={clsx(classNames.iconBtn, classNames.iconBtnAccept, {
-                        [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
-                      })}
-                      onClick={() =>
-                        isSupplierAcceptRevokeActive
-                          ? onClickSupplierBtns('acceptRevoke')
-                          : onClickSupplierBtns('accept')
-                      }
-                    >
-                      {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
-                    </IconButton>
-                  </>
-                ) : undefined}
-              </Container>
+            <Typography className={classNames.label}>{textConsts.deliveryMethod}</Typography>
+
+            <div className={classNames.productCheckboxBoxesWrapper}>
+              <Box className={classNames.productCheckboxBox}>
+                <Typography className={classNames.label}>{textConsts.checkboxFba}</Typography>
+                <MuiCheckbox
+                  disabled={
+                    !(
+                      checkIsSupervisor(curUserRole) ||
+                      checkIsResearcher(curUserRole) ||
+                      (checkIsClient(curUserRole) &&
+                        product.isCreatedByClient &&
+                        clientToEditStatuses.includes(productBase.status) &&
+                        checkIsClient(curUserRole) &&
+                        !product.archive)
+                    )
+                  }
+                  color="primary"
+                  checked={product.fba}
+                  onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
+                />
+              </Box>
+
+              <Box className={classNames.productCheckboxBox}>
+                <Typography className={classNames.label}>{textConsts.checkboxFbm}</Typography>
+                <MuiCheckbox
+                  disabled={
+                    !(
+                      checkIsSupervisor(curUserRole) ||
+                      checkIsResearcher(curUserRole) ||
+                      (checkIsClient(curUserRole) &&
+                        product.isCreatedByClient &&
+                        clientToEditStatuses.includes(productBase.status) &&
+                        checkIsClient(curUserRole) &&
+                        !product.archive)
+                    )
+                  }
+                  color="primary"
+                  checked={!product.fba}
+                  onClick={() => onChangeField('fba')({target: {value: !product.fba}})}
+                />
+              </Box>
             </div>
-          ) : undefined}
+
+            <Box mt={3} className={classNames.strategyWrapper}>
+              <InputLabel className={classNames.strategyLabel}>{textConsts.strategyLabel}</InputLabel>
+
+              <NativeSelect
+                disabled={
+                  !(
+                    checkIsResearcher(curUserRole) ||
+                    (checkIsClient(curUserRole) &&
+                      product.isCreatedByClient &&
+                      clientToEditStatuses.includes(productBase.status) &&
+                      checkIsClient(curUserRole) &&
+                      !product.archive)
+                  )
+                }
+                value={product.strategyStatus}
+                className={classNames.nativeSelect}
+                input={<Input />}
+                onChange={onChangeField('strategyStatus')}
+              >
+                <option>{'none'}</option>
+                {Object.keys(mapProductStrategyStatusEnum)
+                  .filter(el => el > 0)
+                  .map((statusCode, statusIndex) => (
+                    <option key={statusIndex} value={statusCode}>
+                      {mapProductStrategyStatusEnum[statusCode]}
+                    </option>
+                  ))}
+              </NativeSelect>
+            </Box>
+
+            <div className={classNames.suppliersWrapper}>
+              <Typography variant="h6" className={classNames.supplierTitle}>
+                {textConsts.supplierTitle}
+              </Typography>
+
+              {!(
+                !showActionBtns ||
+                (checkIsClient(curUserRole) && product.archive) ||
+                (checkIsClient(curUserRole) && !product.isCreatedByClient) ||
+                (checkIsClient(curUserRole) && !clientToEditStatuses.includes(productBase.status)) ||
+                checkIsSupervisor(curUserRole) ||
+                checkIsAdmin(curUserRole) ||
+                (checkIsResearcher(curUserRole) &&
+                  productBase.status === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])
+              ) ? (
+                <div className={classNames.supplierActionsWrapper}>
+                  <Typography variant="h6" className={classNames.supplierActionsTitle}>
+                    {textConsts.supplierActionsTitle}
+                  </Typography>
+                  <Container disableGutters className={classNames.supplierContainer}>
+                    <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('add')}>
+                      <AddIcon />
+                    </IconButton>
+                    {selectedSupplier ? (
+                      <>
+                        <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('edit')}>
+                          <EditIcon />
+                        </IconButton>
+
+                        {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
+                          <IconButton
+                            className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
+                            onClick={() => onClickSupplierBtns('delete')}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        )}
+
+                        <IconButton
+                          className={clsx(classNames.iconBtn, classNames.iconBtnAccept, {
+                            [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
+                          })}
+                          onClick={() =>
+                            isSupplierAcceptRevokeActive
+                              ? onClickSupplierBtns('acceptRevoke')
+                              : onClickSupplierBtns('accept')
+                          }
+                        >
+                          {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
+                        </IconButton>
+                      </>
+                    ) : undefined}
+                  </Container>
+                </div>
+              ) : undefined}
+            </div>
+          </div>
+
+          {Number(product.strategyStatus) ===
+            mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL] && (
+            <div>
+              <div className={classNames.rightBlockWrapper}>
+                <div className={classNames.fieldsWrapper}>
+                  <Field
+                    disabled={disabledPrivateLabelFields}
+                    inputProps={{maxLength: 255}}
+                    label={textConsts.niche}
+                    value={product.niche}
+                    onChange={onChangeField('niche')}
+                  />
+                  <Field
+                    disabled={disabledPrivateLabelFields}
+                    inputProps={{maxLength: 255}}
+                    label={textConsts.asins}
+                    value={product.asins}
+                    onChange={onChangeField('asins')}
+                  />
+
+                  <div className={classNames.fieldsSubWrapper}>
+                    <Field
+                      disabled={disabledPrivateLabelFields}
+                      inputProps={{maxLength: 10}}
+                      containerClasses={classNames.shortInput}
+                      label={textConsts.avgRevenue}
+                      value={product.avgRevenue}
+                      onChange={onChangeField('avgRevenue')}
+                    />
+                    <Field
+                      disabled={disabledPrivateLabelFields}
+                      containerClasses={classNames.shortInput}
+                      inputProps={{maxLength: 10}}
+                      label={textConsts.avgBSR}
+                      value={product.avgBSR}
+                      onChange={onChangeField('avgBSR')}
+                    />
+                  </div>
+                </div>
+
+                <div className={classNames.fieldsWrapper}>
+                  <Field
+                    disabled={disabledPrivateLabelFields}
+                    inputProps={{maxLength: 10}}
+                    label={textConsts.totalRevenue}
+                    value={product.totalRevenue}
+                    onChange={onChangeField('totalRevenue')}
+                  />
+                  <Field
+                    disabled={disabledPrivateLabelFields}
+                    inputProps={{maxLength: 10}}
+                    label={textConsts.coefficient}
+                    value={product.coefficient}
+                    onChange={onChangeField('coefficient')}
+                  />
+
+                  <div className={classNames.fieldsSubWrapper}>
+                    <Field
+                      disabled={disabledPrivateLabelFields}
+                      inputProps={{maxLength: 10}}
+                      containerClasses={classNames.shortInput}
+                      label={textConsts.avgPrice}
+                      value={product.avgPrice}
+                      onChange={onChangeField('avgPrice')}
+                    />
+                    <Field
+                      disabled={disabledPrivateLabelFields}
+                      containerClasses={classNames.shortInput}
+                      inputProps={{maxLength: 10}}
+                      label={textConsts.avgReviews}
+                      value={product.avgReviews}
+                      onChange={onChangeField('avgReviews')}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </Box>
       </Grid>
     )

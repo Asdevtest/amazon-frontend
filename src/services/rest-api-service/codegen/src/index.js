@@ -14,26 +14,34 @@
 
 import ApiClient from './ApiClient';
 import AdminUserPatchDtoSchema from './model/AdminUserPatchDtoSchema';
+import ApiV1AdminsGetProductsByStatusBoxProperties from './model/ApiV1AdminsGetProductsByStatusBoxProperties';
 import ApiV1AdminsGetProductsByStatusClient from './model/ApiV1AdminsGetProductsByStatusClient';
 import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 import ApiV1AdminsGetProductsByStatusSuppliers from './model/ApiV1AdminsGetProductsByStatusSuppliers';
 import ApiV1AdminsOrdersDestination from './model/ApiV1AdminsOrdersDestination';
+import ApiV1AdminsOrdersLogicsTariff from './model/ApiV1AdminsOrdersLogicsTariff';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest';
 import ApiV1AdminsOrdersOrderSupplier from './model/ApiV1AdminsOrdersOrderSupplier';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
 import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
 import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper';
+import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
 import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
+import ApiV1BatchesItems from './model/ApiV1BatchesItems';
 import ApiV1BatchesStorekeeper from './model/ApiV1BatchesStorekeeper';
-import ApiV1BoxesDestination from './model/ApiV1BoxesDestination';
+import ApiV1BoxesClientsLightBatch from './model/ApiV1BoxesClientsLightBatch';
+import ApiV1BoxesClientsLightDestination from './model/ApiV1BoxesClientsLightDestination';
+import ApiV1BoxesClientsLightItems from './model/ApiV1BoxesClientsLightItems';
+import ApiV1BoxesClientsLightLogicsTariff from './model/ApiV1BoxesClientsLightLogicsTariff';
+import ApiV1BoxesClientsLightOrder from './model/ApiV1BoxesClientsLightOrder';
+import ApiV1BoxesClientsLightProduct from './model/ApiV1BoxesClientsLightProduct';
 import ApiV1BoxesItems from './model/ApiV1BoxesItems';
-import ApiV1BoxesItems1 from './model/ApiV1BoxesItems1';
-import ApiV1BoxesLogicsTariff from './model/ApiV1BoxesLogicsTariff';
-import ApiV1BoxesLogicsTariffConditionsByRegion from './model/ApiV1BoxesLogicsTariffConditionsByRegion';
-import ApiV1BoxesLogicsTariffConditionsByRegionWest from './model/ApiV1BoxesLogicsTariffConditionsByRegionWest';
 import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
+import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
 import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
 import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1IntegrationsSellerboardWarehouseStocksShop';
@@ -45,6 +53,7 @@ import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetai
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
+import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
 import BadRequestError from './model/BadRequestError';
 import CheckIsUniqueNameOrEmailReqSchema from './model/CheckIsUniqueNameOrEmailReqSchema';
 import CheckIsUniqueNameOrEmailSchema from './model/CheckIsUniqueNameOrEmailSchema';
@@ -119,7 +128,6 @@ import InlineObject67 from './model/InlineObject67';
 import InlineObject68 from './model/InlineObject68';
 import InlineObject69 from './model/InlineObject69';
 import InlineObject7 from './model/InlineObject7';
-import InlineObject70 from './model/InlineObject70';
 import InlineObject8 from './model/InlineObject8';
 import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
@@ -140,8 +148,12 @@ import InlineResponse20021 from './model/InlineResponse20021';
 import InlineResponse20022 from './model/InlineResponse20022';
 import InlineResponse20023 from './model/InlineResponse20023';
 import InlineResponse20024 from './model/InlineResponse20024';
-import InlineResponse20024Details from './model/InlineResponse20024Details';
-import InlineResponse20024Request from './model/InlineResponse20024Request';
+import InlineResponse20025 from './model/InlineResponse20025';
+import InlineResponse20025Details from './model/InlineResponse20025Details';
+import InlineResponse20025Request from './model/InlineResponse20025Request';
+import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
+import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
+import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
 import InlineResponse2003 from './model/InlineResponse2003';
 import InlineResponse2004 from './model/InlineResponse2004';
 import InlineResponse2005 from './model/InlineResponse2005';
@@ -183,12 +195,9 @@ import UnLinkSubuserInputSchema from './model/UnLinkSubuserInputSchema';
 import UnauthorizedError from './model/UnauthorizedError';
 import UpdatedSuccessfully from './model/UpdatedSuccessfully';
 import UserAdminFullSchema from './model/UserAdminFullSchema';
-import UserAdminFullSchemaAllowedUrls from './model/UserAdminFullSchemaAllowedUrls';
-import UserAdminFullSchemaPermissionGroups from './model/UserAdminFullSchemaPermissionGroups';
-import UserAdminFullSchemaPermissions from './model/UserAdminFullSchemaPermissions';
-import UserAdminFullSchemaWithSubUsers from './model/UserAdminFullSchemaWithSubUsers';
 import UserFullSchema from './model/UserFullSchema';
 import UserInfoSchema from './model/UserInfoSchema';
+import UserInfoSchemaNeedConfirmPriceChange from './model/UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaPermissionGroups from './model/UserInfoSchemaPermissionGroups';
 import UserInfoSchemaPermissions from './model/UserInfoSchemaPermissions';
 import UserRegisterSchema from './model/UserRegisterSchema';
@@ -261,6 +270,12 @@ export {
     AdminUserPatchDtoSchema,
 
     /**
+     * The ApiV1AdminsGetProductsByStatusBoxProperties model constructor.
+     * @property {module:model/ApiV1AdminsGetProductsByStatusBoxProperties}
+     */
+    ApiV1AdminsGetProductsByStatusBoxProperties,
+
+    /**
      * The ApiV1AdminsGetProductsByStatusClient model constructor.
      * @property {module:model/ApiV1AdminsGetProductsByStatusClient}
      */
@@ -283,6 +298,24 @@ export {
      * @property {module:model/ApiV1AdminsOrdersDestination}
      */
     ApiV1AdminsOrdersDestination,
+
+    /**
+     * The ApiV1AdminsOrdersLogicsTariff model constructor.
+     * @property {module:model/ApiV1AdminsOrdersLogicsTariff}
+     */
+    ApiV1AdminsOrdersLogicsTariff,
+
+    /**
+     * The ApiV1AdminsOrdersLogicsTariffConditionsByRegion model constructor.
+     * @property {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
+     */
+    ApiV1AdminsOrdersLogicsTariffConditionsByRegion,
+
+    /**
+     * The ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest model constructor.
+     * @property {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest}
+     */
+    ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest,
 
     /**
      * The ApiV1AdminsOrdersOrderSupplier model constructor.
@@ -315,10 +348,22 @@ export {
     ApiV1AdminsTasksLightStorekeeper,
 
     /**
+     * The ApiV1BatchesBatch model constructor.
+     * @property {module:model/ApiV1BatchesBatch}
+     */
+    ApiV1BatchesBatch,
+
+    /**
      * The ApiV1BatchesBoxes model constructor.
      * @property {module:model/ApiV1BatchesBoxes}
      */
     ApiV1BatchesBoxes,
+
+    /**
+     * The ApiV1BatchesItems model constructor.
+     * @property {module:model/ApiV1BatchesItems}
+     */
+    ApiV1BatchesItems,
 
     /**
      * The ApiV1BatchesStorekeeper model constructor.
@@ -327,40 +372,46 @@ export {
     ApiV1BatchesStorekeeper,
 
     /**
-     * The ApiV1BoxesDestination model constructor.
-     * @property {module:model/ApiV1BoxesDestination}
+     * The ApiV1BoxesClientsLightBatch model constructor.
+     * @property {module:model/ApiV1BoxesClientsLightBatch}
      */
-    ApiV1BoxesDestination,
+    ApiV1BoxesClientsLightBatch,
+
+    /**
+     * The ApiV1BoxesClientsLightDestination model constructor.
+     * @property {module:model/ApiV1BoxesClientsLightDestination}
+     */
+    ApiV1BoxesClientsLightDestination,
+
+    /**
+     * The ApiV1BoxesClientsLightItems model constructor.
+     * @property {module:model/ApiV1BoxesClientsLightItems}
+     */
+    ApiV1BoxesClientsLightItems,
+
+    /**
+     * The ApiV1BoxesClientsLightLogicsTariff model constructor.
+     * @property {module:model/ApiV1BoxesClientsLightLogicsTariff}
+     */
+    ApiV1BoxesClientsLightLogicsTariff,
+
+    /**
+     * The ApiV1BoxesClientsLightOrder model constructor.
+     * @property {module:model/ApiV1BoxesClientsLightOrder}
+     */
+    ApiV1BoxesClientsLightOrder,
+
+    /**
+     * The ApiV1BoxesClientsLightProduct model constructor.
+     * @property {module:model/ApiV1BoxesClientsLightProduct}
+     */
+    ApiV1BoxesClientsLightProduct,
 
     /**
      * The ApiV1BoxesItems model constructor.
      * @property {module:model/ApiV1BoxesItems}
      */
     ApiV1BoxesItems,
-
-    /**
-     * The ApiV1BoxesItems1 model constructor.
-     * @property {module:model/ApiV1BoxesItems1}
-     */
-    ApiV1BoxesItems1,
-
-    /**
-     * The ApiV1BoxesLogicsTariff model constructor.
-     * @property {module:model/ApiV1BoxesLogicsTariff}
-     */
-    ApiV1BoxesLogicsTariff,
-
-    /**
-     * The ApiV1BoxesLogicsTariffConditionsByRegion model constructor.
-     * @property {module:model/ApiV1BoxesLogicsTariffConditionsByRegion}
-     */
-    ApiV1BoxesLogicsTariffConditionsByRegion,
-
-    /**
-     * The ApiV1BoxesLogicsTariffConditionsByRegionWest model constructor.
-     * @property {module:model/ApiV1BoxesLogicsTariffConditionsByRegionWest}
-     */
-    ApiV1BoxesLogicsTariffConditionsByRegionWest,
 
     /**
      * The ApiV1BoxesMergeBoxBody model constructor.
@@ -379,6 +430,12 @@ export {
      * @property {module:model/ApiV1BoxesSplitNewBoxesParams}
      */
     ApiV1BoxesSplitNewBoxesParams,
+
+    /**
+     * The ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges model constructor.
+     * @property {module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges}
+     */
+    ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges,
 
     /**
      * The ApiV1IntegrationsCreateAndLinkSkuProductsPayload model constructor.
@@ -445,6 +502,12 @@ export {
      * @property {module:model/ApiV1StorekeepersTariffWarehouses}
      */
     ApiV1StorekeepersTariffWarehouses,
+
+    /**
+     * The ApiV1SuppliersBoxProperties model constructor.
+     * @property {module:model/ApiV1SuppliersBoxProperties}
+     */
+    ApiV1SuppliersBoxProperties,
 
     /**
      * The BadRequestError model constructor.
@@ -891,12 +954,6 @@ export {
     InlineObject7,
 
     /**
-     * The InlineObject70 model constructor.
-     * @property {module:model/InlineObject70}
-     */
-    InlineObject70,
-
-    /**
      * The InlineObject8 model constructor.
      * @property {module:model/InlineObject8}
      */
@@ -1017,16 +1074,40 @@ export {
     InlineResponse20024,
 
     /**
-     * The InlineResponse20024Details model constructor.
-     * @property {module:model/InlineResponse20024Details}
+     * The InlineResponse20025 model constructor.
+     * @property {module:model/InlineResponse20025}
      */
-    InlineResponse20024Details,
+    InlineResponse20025,
 
     /**
-     * The InlineResponse20024Request model constructor.
-     * @property {module:model/InlineResponse20024Request}
+     * The InlineResponse20025Details model constructor.
+     * @property {module:model/InlineResponse20025Details}
      */
-    InlineResponse20024Request,
+    InlineResponse20025Details,
+
+    /**
+     * The InlineResponse20025Request model constructor.
+     * @property {module:model/InlineResponse20025Request}
+     */
+    InlineResponse20025Request,
+
+    /**
+     * The InlineResponse2002AllowedUrls model constructor.
+     * @property {module:model/InlineResponse2002AllowedUrls}
+     */
+    InlineResponse2002AllowedUrls,
+
+    /**
+     * The InlineResponse2002PermissionGroups model constructor.
+     * @property {module:model/InlineResponse2002PermissionGroups}
+     */
+    InlineResponse2002PermissionGroups,
+
+    /**
+     * The InlineResponse2002Permissions model constructor.
+     * @property {module:model/InlineResponse2002Permissions}
+     */
+    InlineResponse2002Permissions,
 
     /**
      * The InlineResponse2003 model constructor.
@@ -1275,30 +1356,6 @@ export {
     UserAdminFullSchema,
 
     /**
-     * The UserAdminFullSchemaAllowedUrls model constructor.
-     * @property {module:model/UserAdminFullSchemaAllowedUrls}
-     */
-    UserAdminFullSchemaAllowedUrls,
-
-    /**
-     * The UserAdminFullSchemaPermissionGroups model constructor.
-     * @property {module:model/UserAdminFullSchemaPermissionGroups}
-     */
-    UserAdminFullSchemaPermissionGroups,
-
-    /**
-     * The UserAdminFullSchemaPermissions model constructor.
-     * @property {module:model/UserAdminFullSchemaPermissions}
-     */
-    UserAdminFullSchemaPermissions,
-
-    /**
-     * The UserAdminFullSchemaWithSubUsers model constructor.
-     * @property {module:model/UserAdminFullSchemaWithSubUsers}
-     */
-    UserAdminFullSchemaWithSubUsers,
-
-    /**
      * The UserFullSchema model constructor.
      * @property {module:model/UserFullSchema}
      */
@@ -1309,6 +1366,12 @@ export {
      * @property {module:model/UserInfoSchema}
      */
     UserInfoSchema,
+
+    /**
+     * The UserInfoSchemaNeedConfirmPriceChange model constructor.
+     * @property {module:model/UserInfoSchemaNeedConfirmPriceChange}
+     */
+    UserInfoSchemaNeedConfirmPriceChange,
 
     /**
      * The UserInfoSchemaPermissionGroups model constructor.

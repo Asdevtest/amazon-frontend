@@ -50,6 +50,15 @@ const fieldsOfProductAllowedToUpdate = [
   'minpurchase',
   'fbaamount',
   'strategyStatus',
+
+  'niche',
+  'asins',
+  'avgRevenue',
+  'avgBSR',
+  'totalRevenue',
+  'coefficient',
+  'avgPrice',
+  'avgReviews',
 ]
 
 const formFieldsDefault = {
@@ -81,6 +90,7 @@ const confirmMessageByProductStatus = {
   20: 'Товар не подходит?',
   70: 'Опубликовать на бирже?',
   80: 'Поставщик не найден?',
+  90: 'Прайс поставщика не подходит?',
   230: 'Отправить на поиск поставщика?',
   270: 'Подтвердить нахождение поставщика?',
   280: 'Поставщик не найден?',
@@ -159,7 +169,11 @@ export class SupervisorProductViewModel {
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
 
-      if (['checkednotes'].includes(fieldName)) {
+      if (
+        ['checkednotes', 'niche', 'asins', 'amazonTitle', 'amazonDescription', 'amazonDetail', 'category'].includes(
+          fieldName,
+        )
+      ) {
         this.product = {...this.product, [fieldName]: e.target.value}
       } else {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
@@ -169,12 +183,12 @@ export class SupervisorProductViewModel {
           return
         }
         if (
-          ['amazon', 'fbafee'].includes(fieldName) &&
+          ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice'].includes(fieldName) &&
           !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
         ) {
           return
         }
-        if (['bsr', 'fbaamount'].includes(fieldName)) {
+        if (['bsr', 'fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
           this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
         } else {
           this.product = {...this.product, [fieldName]: e.target.value}

@@ -3,20 +3,21 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
+  ChangeChipCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
   renderFieldValueCell,
+  ShortBoxDimensions,
   SuperboxQtyCell,
-  ToFixedWithDollarSignCell,
-  ToFixedWithKgSignCell,
+  ToFixedWithDollarSignCell, // ToFixedWithKgSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientBoxesTableColumns
 
-export const clientBoxesViewColumns = () => [
+export const clientBoxesViewColumns = handlers => [
   {
     field: 'isDraft',
     headerName: '',
@@ -30,22 +31,6 @@ export const clientBoxesViewColumns = () => [
     headerName: textConsts.boxIdField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 50,
-  },
-
-  {
-    field: 'createdAt',
-    headerName: textConsts.createdAtField,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 110,
-    type: 'date',
-  },
-
-  {
-    field: 'updatedAt',
-    headerName: textConsts.updatedAtField,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 110,
-    type: 'date',
   },
 
   {
@@ -79,7 +64,7 @@ export const clientBoxesViewColumns = () => [
   },
 
   {
-    field: 'warehouses',
+    field: 'destination',
     headerName: textConsts.warehouseField,
     renderCell: params => renderFieldValueCell(params.value),
     width: 160,
@@ -94,18 +79,58 @@ export const clientBoxesViewColumns = () => [
   },
 
   {
-    field: 'finalWeight',
-    headerName: textConsts.weightField,
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-    type: 'number',
-    width: 140,
+    field: 'fbaShipment',
+    headerName: textConsts.fbaShipmentField,
+    renderCell: params => (
+      <ChangeChipCell
+        row={params.row.originalData}
+        value={params.value}
+        handlers={handlers}
+        text={textConsts.fbaShipmentChip}
+      />
+    ),
+    minWidth: 150,
+    headerAlign: 'center',
   },
 
   {
-    field: 'grossWeight',
-    headerName: textConsts.grossWeightField,
-    renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-    type: 'number',
-    width: 120,
+    field: 'dimansions',
+    headerName: textConsts.dimansionsField,
+    renderCell: params => (
+      <ShortBoxDimensions box={params.row.originalData} volumeWeightCoefficient={params.row.volumeWeightCoefficient} />
+    ),
+    width: 230,
+  },
+
+  // {
+  //   field: 'grossWeight',
+  //   headerName: textConsts.grossWeightField,
+  //   renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+  //   type: 'number',
+  //   width: 120,
+  // },
+
+  // {
+  //   field: 'finalWeight',
+  //   headerName: textConsts.weightField,
+  //   renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+  //   type: 'number',
+  //   width: 140,
+  // },
+
+  {
+    field: 'createdAt',
+    headerName: textConsts.createdAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 110,
+    type: 'date',
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: textConsts.updatedAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 110,
+    type: 'date',
   },
 ]

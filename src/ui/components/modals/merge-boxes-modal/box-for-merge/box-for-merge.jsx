@@ -9,6 +9,7 @@ import {Input} from '@components/input'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {getFullTariffTextForBoxOrOrder} from '@utils/text'
 
 import {useClassNames} from './box-for-merge.style'
 
@@ -19,7 +20,7 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
 
   return (
     <div className={classNames.box}>
-      <Typography className={classNames.boxTitle}>{box.humanFriendlyId}</Typography>
+      <Typography className={classNames.boxTitle}>{`Коробка № ${box.humanFriendlyId}`}</Typography>
       <div className={classNames.itemsWrapper}>
         <div>
           {box.items.map((order, orderIndex) => (
@@ -29,9 +30,7 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
                   className={classNames.img}
                   src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
                 />
-                <Typography className={classNames.title}>
-                  {orderIndex + 1 + '. ' + order.product.amazonTitle}
-                </Typography>
+                <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
                 <Typography className={classNames.subTitle}>{'qty'}</Typography>
                 <Input
                   disabled
@@ -54,6 +53,12 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
           <InputLabel className={classNames.modalText}>{textConsts.storekeeper}</InputLabel>
 
           <Typography variant="h6">{box.storekeeper?.name}</Typography>
+        </div>
+
+        <div>
+          <InputLabel className={classNames.modalText}>{textConsts.tariff}</InputLabel>
+
+          <Typography variant="h6">{getFullTariffTextForBoxOrOrder(box)}</Typography>
         </div>
 
         <IconButton onClick={() => onRemoveBox(box._id)}>

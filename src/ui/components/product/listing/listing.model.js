@@ -8,6 +8,7 @@ import {ProductModel} from '@models/product-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {UserModel} from '@models/user-model'
 
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -173,7 +174,7 @@ export class ListingModel {
       const result = await OtherModel.getPaymentsByProductId(this.productId)
 
       runInAction(() => {
-        this.payments = result
+        this.payments = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {
       this.payments = []

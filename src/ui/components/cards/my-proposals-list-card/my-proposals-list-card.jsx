@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
@@ -7,9 +6,8 @@ import {Grid, Typography, Avatar, Divider} from '@material-ui/core'
 
 import {Button} from '@components/buttons/button'
 
-import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './my-proposals-list-card.style'
 
@@ -44,12 +42,14 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) =>
         <div className={classNames.rightBlockWrapper}>
           <Typography className={classNames.cardTitle}>{'Предложение'}</Typography>
 
-          <Typography className={classNames.cardSubTitle}>{item.proposals[0].detailsCustom.comment}</Typography>
+          <Typography className={classNames.proposalComment}>{item.proposals[0].comment}</Typography>
 
           <div className={classNames.rightSubWrapper}>
             <div className={classNames.timeWrapper}>
               <Typography>{'Время на выполнение в мин.'}</Typography>
-              <Typography className={classNames.timeCount}>{item.proposals[0].execution_time}</Typography>
+              <Typography className={classNames.timeCount}>
+                {minsToTimeRus(item.proposals[0].execution_time)}
+              </Typography>
             </div>
 
             <div className={classNames.rightItemSubWrapper}>

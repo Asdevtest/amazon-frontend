@@ -49,6 +49,11 @@ class BoxesModelStatic {
     return response
   }
 
+  editBoxAtClient = async (id, data) => {
+    const response = await restApiService.boxesApi.apiV1BoxesClientsGuidPatch(id, {body: data})
+    return response
+  }
+
   cancelSplitBoxes = async id => {
     const response = await restApiService.boxesApi.apiV1BoxesCancelSplitPost({
       body: {guid: id},
@@ -79,8 +84,18 @@ class BoxesModelStatic {
     return response
   }
 
-  getBoxesForCurClient = async storekeeperId => {
-    const response = await restApiService.boxesApi.apiV1BoxesClientsGet(storekeeperId)
+  getBoxesForCurClient = async (status, storekeeperId) => {
+    const response = await restApiService.boxesApi.apiV1BoxesClientsGet(status, {storekeeperId})
+    return response
+  }
+
+  getBoxesReadyToBatchClient = async storekeeperId => {
+    const response = await restApiService.boxesApi.apiV1BoxesClientsSentToBatchGet({storekeeperId})
+    return response
+  }
+
+  getBoxesReadyToBatchStorekeeper = async () => {
+    const response = await restApiService.boxesApi.apiV1BoxesStorekeepersSentToBatchGet()
     return response
   }
 
@@ -108,6 +123,13 @@ class BoxesModelStatic {
 
   sendBoxesToBatch = async boxesIds => {
     const response = await restApiService.boxesApi.apiV1BoxesSendBoxesToBatchPost({body: {boxesIds}})
+    return response
+  }
+
+  setBarcodeAttachedCheckboxes = async (id, data) => {
+    const response = await restApiService.boxesApi.apiV1BoxesStorekeepersGuidSetItemsBarCodePatch(id, {
+      body: {itemsBarCodeChanges: data},
+    })
     return response
   }
 }

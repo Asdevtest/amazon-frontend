@@ -4,46 +4,26 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID платежа | [optional] 
-**createdAt** | **Date** | Дата создания. | [optional] 
-**createdBy** | [**ApiV1AdminsPaymentsCreatedBy**](ApiV1AdminsPaymentsCreatedBy.md) |  | [optional] 
-**role** | **Number** | Роль пользователя на момент инициации платежа. | [optional] 
-**subUser** | [**ApiV1AdminsPaymentsCreatedBy**](ApiV1AdminsPaymentsCreatedBy.md) |  | [optional] 
-**entityId** | **String** | GUID товара или услуги. | [optional] 
-**paymentType** | **String** | Тип платежа | [optional] 
-**recipient** | [**ApiV1AdminsPaymentsCreatedBy**](ApiV1AdminsPaymentsCreatedBy.md) |  | [optional] 
-**sum** | **Number** | Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления. | [optional] 
-**comment** | **String** | комментарий | [optional] 
-
-
-
-## Enum: PaymentTypeEnum
-
-
-* `PRODUCT` (value: `"PRODUCT"`)
-
-* `ORDER` (value: `"ORDER"`)
-
-* `BOX` (value: `"BOX"`)
-
-* `BATCH` (value: `"BATCH"`)
-
-* `USER` (value: `"USER"`)
-
-* `REQUEST-CUSTOM` (value: `"REQUEST-CUSTOM"`)
-
-* `REQUEST-SEARCH_PRODUCT` (value: `"REQUEST-SEARCH_PRODUCT"`)
-
-* `REQUEST-SEARCH_NICHE` (value: `"REQUEST-SEARCH_NICHE"`)
-
-* `REQUEST-PROPOSAL-CUSTOM` (value: `"REQUEST-PROPOSAL-CUSTOM"`)
-
-* `REQUEST-PROPOSAL-SEARCH_PRODUCT` (value: `"REQUEST-PROPOSAL-SEARCH_PRODUCT"`)
-
-* `REQUEST-PROPOSAL-SEARCH_NICHE` (value: `"REQUEST-PROPOSAL-SEARCH_NICHE"`)
-
-* `OTHER` (value: `"OTHER"`)
-
-
+**_id** | **String** | GUID пользователя в БД. | 
+**name** | **String** | Имя пользователя. | 
+**email** | **String** | email | 
+**role** | **Number** | Код роли присвоенный пользователю.    roles.root &#x3D; 0    roles.client &#x3D; 10    roles.super &#x3D; 20    roles.researcher &#x3D; 30    roles.freelancer &#x3D; 35    roles.buyer &#x3D; 40    roles.storekeeper &#x3D; 45    roles.candidate &#x3D; 50     | 
+**fba** | **Boolean** | Флаг fba. | 
+**active** | **Boolean** | Если истина - пользователь активен. Если нет - заблокирован админом. | 
+**rate** | **Number** | Ставка, по который оплачивается сотрудник. | 
+**balance** | **Number** | Баланс пользователя. | [optional] 
+**balanceFreeze** | **Number** | Замороженная при оплате ордера сумма.. | [optional] 
+**overdraft** | **Number** | Сумма на которую может уходить в минус пользователь. | [optional] 
+**permissions** | [**[InlineResponse2002Permissions]**](InlineResponse2002Permissions.md) | Массив permission-ов. | [optional] 
+**permissionGroups** | [**[InlineResponse2002PermissionGroups]**](InlineResponse2002PermissionGroups.md) | Массив групп permission-ов. | [optional] 
+**masterUser** | **String** | GUID мастер пользователя к которму относится данный субпользователь. | [optional] 
+**allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
+**canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 
+**rating** | **Number** | Рейтинг пользователя. | [optional] 
+**subUsers** | [**[ApiV1AdminsGetProductsByStatusClient]**](ApiV1AdminsGetProductsByStatusClient.md) | Массив id сабюзеров. | [optional] 
+**masterUserInfo** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**hideSuppliers** | **Boolean** | Скрывать поставщиков от пользователя. | [optional] 
+**createdAt** | **Date** | Дата создания | [optional] 
+**updatedAt** | **Date** | Дата изменения | [optional] 
 
 

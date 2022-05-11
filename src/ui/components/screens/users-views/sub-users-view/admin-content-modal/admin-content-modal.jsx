@@ -1,3 +1,5 @@
+import {Rating} from '@mui/material'
+
 import React, {useState} from 'react'
 
 import {Container, Button, Typography, NativeSelect, Checkbox, Select, ListItemText, MenuItem} from '@material-ui/core'
@@ -6,11 +8,13 @@ import {observer} from 'mobx-react'
 import {texts} from '@constants/texts'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
+import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './admin-content-modal.style'
@@ -58,6 +62,7 @@ export const AdminContentModal = observer(
       rate: editUserFormFields?.rate || 0,
       role: editUserFormFields?.role || '',
       hideSuppliers: editUserFormFields?.hideSuppliers || false,
+      overdraft: editUserFormFields?.overdraft || 0,
 
       permissions: editUserFormFields?.permissions.map(perm => perm._id) || [],
       permissionGroups: editUserFormFields?.permissionGroups.map(permGroup => permGroup._id) || [],
@@ -78,6 +83,11 @@ export const AdminContentModal = observer(
         newFormFields[fieldName] = event.target.value.replace(/[-]/, '')
       } else if (['fba', 'canByMasterUser', 'hideSuppliers'].includes(fieldName)) {
         newFormFields[fieldName] = event.target.checked
+      } else if (
+        ['overdraft'].includes(fieldName) &&
+        !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
+      ) {
+        return
       } else {
         newFormFields[fieldName] = event.target.value
       }
@@ -119,7 +129,12 @@ export const AdminContentModal = observer(
       selectedPermissions.find(per => per.role !== Number(formFields.role)) ||
       selectedGroupPermissions.find(perGroup => perGroup.role !== Number(formFields.role))
 
-    const disabledSubmitButton = formFields.name === '' || formFields.email === '' || formFields.rate === ''
+    const disabledSubmitButton =
+      formFields.name === '' ||
+      formFields.email === '' ||
+      formFields.rate === '' ||
+      formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
+      JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
     return (
       <Container disableGutters className={classNames.modalContainer}>
@@ -128,7 +143,44 @@ export const AdminContentModal = observer(
         </Typography>
 
         {editUserFormFields.masterUser ? (
-          <Field disabled label={textConsts.masterUser} value={editUserFormFields.masterUser} />
+          <Field
+            label={textConsts.masterUser}
+            inputComponent={
+              <div className={classNames.ratingWrapper}>
+                <UserLinkCell
+                  name={editUserFormFields.masterUserInfo?.name}
+                  userId={editUserFormFields.masterUserInfo?._id}
+                />
+
+                <div className={classNames.ratingSubWrapper}>
+                  <Typography className={classNames.rating}>{textConsts.rating}</Typography>
+
+                  <Rating disabled value={editUserFormFields.masterUserInfo?.rating} />
+                </div>
+              </div>
+            }
+          />
+        ) : null}
+
+        {editUserFormFields.subUsers.length ? (
+          <Field
+            label={textConsts.subUsers}
+            inputComponent={
+              <div className={classNames.subUsersWrapper}>
+                {editUserFormFields.subUsers.map(subUser => (
+                  <div key={subUser._id} className={classNames.ratingWrapper}>
+                    <UserLinkCell name={subUser.name} userId={subUser._id} />
+
+                    <div className={classNames.ratingSubWrapper}>
+                      <Typography className={classNames.rating}>{textConsts.rating}</Typography>
+
+                      <Rating disabled value={subUser.rating} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            }
+          />
         ) : null}
 
         <Field
@@ -144,6 +196,8 @@ export const AdminContentModal = observer(
           type="email"
           onChange={onChangeFormField('email')}
         />
+
+        <Field label={textConsts.overdraft} value={formFields.overdraft} onChange={onChangeFormField('overdraft')} />
 
         {!editUserFormFields.masterUser ? (
           <Field label={textConsts.rate} value={formFields.rate} onChange={onChangeFormField('rate')} />

@@ -31,7 +31,10 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
     const newFormFields = {...formFields}
 
     if (['price'].includes(fieldName)) {
-      if (checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)) {
+      if (
+        checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
+        Number(event.target.value) < 100000
+      ) {
         newFormFields[fieldName] = event.target.value
       }
     } else {
@@ -53,7 +56,8 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
     formFields.name === '' ||
     formFields.description === '' ||
-    formFields.price === ''
+    formFields.price === '' ||
+    Number(formFields.price) > 100000
 
   return (
     <div className={classNames.root}>
@@ -62,6 +66,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
       <div className={classNames.form}>
         <Field
           label={textConsts.nameLabel}
+          inputProps={{maxLength: 50}}
           value={formFields.name}
           placeholder={textConsts.nameHolder}
           onChange={onChangeField('name')}
@@ -69,6 +74,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
 
         <Field
           label={textConsts.priceField}
+          inputProps={{maxLength: 10}}
           placeholder={textConsts.priceHolder}
           value={formFields.price}
           onChange={onChangeField('price')}
@@ -78,6 +84,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
           multiline
           minRows={4}
           rowsMax={4}
+          inputProps={{maxLength: 255}}
           className={classNames.descriptionField}
           placeholder={textConsts.descriptionHolder}
           label={textConsts.descriptionField}

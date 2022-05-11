@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsTasksLightBoxes from './ApiV1AdminsTasksLightBoxes';
-import ApiV1AdminsTasksLightStorekeeper from './ApiV1AdminsTasksLightStorekeeper';
+import ApiV1AdminsPaymentsCreatedBy from './ApiV1AdminsPaymentsCreatedBy';
 
 /**
  * The InlineResponse2003 model module.
@@ -53,25 +52,31 @@ class InlineResponse2003 {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
             if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Number');
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
             }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Number');
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['createdBy']);
             }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
+            if (data.hasOwnProperty('role')) {
+                obj['role'] = ApiClient.convertToType(data['role'], 'Number');
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('subUser')) {
+                obj['subUser'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['subUser']);
             }
-            if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsTasksLightStorekeeper.constructFromObject(data['storekeeper']);
+            if (data.hasOwnProperty('entityId')) {
+                obj['entityId'] = ApiClient.convertToType(data['entityId'], 'String');
             }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1AdminsTasksLightBoxes]);
+            if (data.hasOwnProperty('paymentType')) {
+                obj['paymentType'] = ApiClient.convertToType(data['paymentType'], 'String');
             }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1AdminsTasksLightBoxes]);
+            if (data.hasOwnProperty('recipient')) {
+                obj['recipient'] = ApiV1AdminsPaymentsCreatedBy.constructFromObject(data['recipient']);
+            }
+            if (data.hasOwnProperty('sum')) {
+                obj['sum'] = ApiClient.convertToType(data['sum'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
         }
         return obj;
@@ -81,54 +86,145 @@ class InlineResponse2003 {
 }
 
 /**
- * GUID элемента
+ * GUID платежа
  * @member {String} _id
  */
 InlineResponse2003.prototype['_id'] = undefined;
 
 /**
  * Дата создания.
- * @member {Number} createdAt
+ * @member {Date} createdAt
  */
 InlineResponse2003.prototype['createdAt'] = undefined;
 
 /**
- * Дата обновления.
- * @member {Number} updatedAt
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} createdBy
  */
-InlineResponse2003.prototype['updatedAt'] = undefined;
+InlineResponse2003.prototype['createdBy'] = undefined;
 
 /**
- * Тип операции
- * @member {String} operationType
+ * Роль пользователя на момент инициации платежа.
+ * @member {Number} role
  */
-InlineResponse2003.prototype['operationType'] = undefined;
+InlineResponse2003.prototype['role'] = undefined;
 
 /**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
- * @member {Number} status
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} subUser
  */
-InlineResponse2003.prototype['status'] = undefined;
+InlineResponse2003.prototype['subUser'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsTasksLightStorekeeper} storekeeper
+ * GUID товара или услуги.
+ * @member {String} entityId
  */
-InlineResponse2003.prototype['storekeeper'] = undefined;
+InlineResponse2003.prototype['entityId'] = undefined;
 
 /**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1AdminsTasksLightBoxes>} boxes
+ * Тип платежа
+ * @member {module:model/InlineResponse2003.PaymentTypeEnum} paymentType
  */
-InlineResponse2003.prototype['boxes'] = undefined;
+InlineResponse2003.prototype['paymentType'] = undefined;
 
 /**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1AdminsTasksLightBoxes>} boxesBefore
+ * @member {module:model/ApiV1AdminsPaymentsCreatedBy} recipient
  */
-InlineResponse2003.prototype['boxesBefore'] = undefined;
+InlineResponse2003.prototype['recipient'] = undefined;
+
+/**
+ * Начисленная сумма выплаты. Равна рейту сотрудника в момент начисления.
+ * @member {Number} sum
+ */
+InlineResponse2003.prototype['sum'] = undefined;
+
+/**
+ * комментарий
+ * @member {String} comment
+ */
+InlineResponse2003.prototype['comment'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>paymentType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse2003['PaymentTypeEnum'] = {
+
+    /**
+     * value: "PRODUCT"
+     * @const
+     */
+    "PRODUCT": "PRODUCT",
+
+    /**
+     * value: "ORDER"
+     * @const
+     */
+    "ORDER": "ORDER",
+
+    /**
+     * value: "BOX"
+     * @const
+     */
+    "BOX": "BOX",
+
+    /**
+     * value: "BATCH"
+     * @const
+     */
+    "BATCH": "BATCH",
+
+    /**
+     * value: "USER"
+     * @const
+     */
+    "USER": "USER",
+
+    /**
+     * value: "REQUEST-CUSTOM"
+     * @const
+     */
+    "REQUEST-CUSTOM": "REQUEST-CUSTOM",
+
+    /**
+     * value: "REQUEST-SEARCH_PRODUCT"
+     * @const
+     */
+    "REQUEST-SEARCH_PRODUCT": "REQUEST-SEARCH_PRODUCT",
+
+    /**
+     * value: "REQUEST-SEARCH_NICHE"
+     * @const
+     */
+    "REQUEST-SEARCH_NICHE": "REQUEST-SEARCH_NICHE",
+
+    /**
+     * value: "REQUEST-PROPOSAL-CUSTOM"
+     * @const
+     */
+    "REQUEST-PROPOSAL-CUSTOM": "REQUEST-PROPOSAL-CUSTOM",
+
+    /**
+     * value: "REQUEST-PROPOSAL-SEARCH_PRODUCT"
+     * @const
+     */
+    "REQUEST-PROPOSAL-SEARCH_PRODUCT": "REQUEST-PROPOSAL-SEARCH_PRODUCT",
+
+    /**
+     * value: "REQUEST-PROPOSAL-SEARCH_NICHE"
+     * @const
+     */
+    "REQUEST-PROPOSAL-SEARCH_NICHE": "REQUEST-PROPOSAL-SEARCH_NICHE",
+
+    /**
+     * value: "OTHER"
+     * @const
+     */
+    "OTHER": "OTHER"
+};
 
 
 

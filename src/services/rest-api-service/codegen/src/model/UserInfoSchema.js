@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import UserInfoSchemaNeedConfirmPriceChange from './UserInfoSchemaNeedConfirmPriceChange';
 import UserInfoSchemaPermissionGroups from './UserInfoSchemaPermissionGroups';
 import UserInfoSchemaPermissions from './UserInfoSchemaPermissions';
 
@@ -106,6 +107,9 @@ class UserInfoSchema {
             }
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('needConfirmPriceChange')) {
+                obj['needConfirmPriceChange'] = UserInfoSchemaNeedConfirmPriceChange.constructFromObject(data['needConfirmPriceChange']);
             }
         }
         return obj;
@@ -220,6 +224,11 @@ UserInfoSchema.prototype['createdAt'] = undefined;
  * @member {Date} updatedAt
  */
 UserInfoSchema.prototype['updatedAt'] = undefined;
+
+/**
+ * @member {module:model/UserInfoSchemaNeedConfirmPriceChange} needConfirmPriceChange
+ */
+UserInfoSchema.prototype['needConfirmPriceChange'] = undefined;
 
 
 

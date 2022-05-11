@@ -34,7 +34,9 @@ export const Navbar = observer(
                   userInfo={viewModel.current.userInfo}
                   category={category}
                   badge={
-                    category.route === '/client/orders-notifications' && viewModel.current.ordersNotificationsAmount
+                    category.route === '/client/orders-notifications' &&
+                    viewModel.current.userInfo.needConfirmPriceChange.boxes +
+                      viewModel.current.userInfo.needConfirmPriceChange.orders
                   }
                 />
 
@@ -44,6 +46,7 @@ export const Navbar = observer(
                   category={category}
                   index={category.key}
                   userInfo={viewModel.current.userInfo}
+                  currentViewModel={viewModel.current}
                   onChangeSubCategory={onChangeSubCategory}
                 />
               </React.Fragment>

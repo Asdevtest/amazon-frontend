@@ -7,6 +7,8 @@ import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'
 
+import {toFixed} from '@utils/text'
+
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
@@ -119,7 +121,7 @@ export class OwnerRequestDetailCustomViewModel {
       console.warn('onSubmitMessage error ', error)
     }
   }
-  
+
   async onClickProposalResultAccept(proposalId) {
     try {
       await RequestProposalModel.requestProposalResultAccept(proposalId)
@@ -128,7 +130,7 @@ export class OwnerRequestDetailCustomViewModel {
       console.warn('onClickProposalResultAccept error ', error)
     }
   }
-  
+
   async onClickProposalResultToCorrect() {
     this.triggerShowResultToCorrectFormModal()
   }
@@ -136,11 +138,16 @@ export class OwnerRequestDetailCustomViewModel {
   async onPressSubmitRequestProposalResultToCorrectForm(formFields) {
     this.triggerShowResultToCorrectFormModal()
     try {
-      const findProposalByChatId = this.requestProposals.find((requestProposal) => requestProposal.proposal.chatId === this.chatSelectedId)
+      const findProposalByChatId = this.requestProposals.find(
+        requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
+      )
       if (!findProposalByChatId) {
         return
       }
-      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {...formFields, timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes)})
+      await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
+        ...formFields,
+        timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
+      })
       this.loadData()
     } catch (error) {
       console.warn('onClickProposalResultToCorrect error ', error)
@@ -208,7 +215,7 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.confirmModalSettings = {
         isWarning: false,
-        message: `Точная стоимость заявки составит: ${result.totalCost} $. Подтвердить публикацию?`,
+        message: `Точная стоимость заявки составит: ${toFixed(result.totalCost, 2)} $. Подтвердить публикацию?`,
         onSubmit: () => this.toPublishRequest(result.totalCost),
       }
 

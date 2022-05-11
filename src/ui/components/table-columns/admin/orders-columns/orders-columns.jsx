@@ -66,6 +66,13 @@ export const adminOrdersViewColumns = () => [
   },
 
   {
+    field: 'client',
+    headerName: textConsts.clientNameField,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.product.client?._id} />,
+    width: 200,
+  },
+
+  {
     field: 'storekeeper',
     headerName: textConsts.storekeeperNameField,
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,

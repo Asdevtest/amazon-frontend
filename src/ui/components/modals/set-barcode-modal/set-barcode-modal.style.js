@@ -76,4 +76,10 @@ export const useClassNames = makeStyles(() => ({
   saveBtn: {
     marginRight: '8px',
   },
+
+  link: {
+    width: '450px',
+    whiteSpace: 'nowrap',
+    overflowX: 'auto',
+  },
 }))

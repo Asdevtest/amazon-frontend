@@ -10,8 +10,10 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {BoxViewForm} from '@components/forms/box-view-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -35,6 +37,9 @@ export class AdminWarehouseBoxesViewRaw extends Component {
 
   render() {
     const {
+      curBox,
+      volumeWeightCoefficient,
+      showBoxViewModal,
       getCurrentData,
       sortModel,
       filterModel,
@@ -52,7 +57,12 @@ export class AdminWarehouseBoxesViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+
+      onTriggerOpenModal,
+      setCurrentOpenedBox,
     } = this.viewModel
+
+    const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
@@ -68,6 +78,9 @@ export class AdminWarehouseBoxesViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                classes={{
+                  row: classNames.row,
+                }}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}
@@ -86,10 +99,19 @@ export class AdminWarehouseBoxesViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
+                onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
               />
             </MainContent>
           </Appbar>
         </Main>
+
+        <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
+          <BoxViewForm
+            box={curBox}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}
+          />
+        </Modal>
       </React.Fragment>
     )
   }

@@ -22,5 +22,6 @@ Name | Type | Description | Notes
 **rating** | **Number** | Рейтинг пользователя. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
+**needConfirmPriceChange** | [**UserInfoSchemaNeedConfirmPriceChange**](UserInfoSchemaNeedConfirmPriceChange.md) |  | [optional] 
 
 

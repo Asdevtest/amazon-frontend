@@ -36,7 +36,6 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 500,
     lineHeight: '21px',
     width: '200px',
-    height: '50px',
     overflowX: 'auto',
     whiteSpace: 'nowrap',
   },

@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | GUID коробки, объединение которой нужно отменить | [optional] 
+**descriptionId** | **String** | GUID описания коробки | [optional] 
+**logicsTariffId** | **String** | GUID тарифа к сторкипера | [optional] 
+**fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 
 

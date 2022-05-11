@@ -47,8 +47,14 @@ class InlineObject14 {
         if (data) {
             obj = obj || new InlineObject14();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('descriptionId')) {
+                obj['descriptionId'] = ApiClient.convertToType(data['descriptionId'], 'String');
+            }
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
+            }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
         }
         return obj;
@@ -58,10 +64,22 @@ class InlineObject14 {
 }
 
 /**
- * GUID коробки, объединение которой нужно отменить
- * @member {String} guid
+ * GUID описания коробки
+ * @member {String} descriptionId
  */
-InlineObject14.prototype['guid'] = undefined;
+InlineObject14.prototype['descriptionId'] = undefined;
+
+/**
+ * GUID тарифа к сторкипера
+ * @member {String} logicsTariffId
+ */
+InlineObject14.prototype['logicsTariffId'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+InlineObject14.prototype['fbaShipment'] = undefined;
 
 
 

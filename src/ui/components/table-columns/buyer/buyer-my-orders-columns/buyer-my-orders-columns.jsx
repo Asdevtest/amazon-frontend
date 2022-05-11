@@ -64,7 +64,7 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'client',
     headerName: textConsts.clientNameField,
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
+    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.product.client?._id} />,
     width: 200,
   },
 

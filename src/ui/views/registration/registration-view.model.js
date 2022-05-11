@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import {transformAndValidate} from 'class-transformer-validator'
-import {action, makeAutoObservable} from 'mobx'
+import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
@@ -50,7 +51,12 @@ export class RegistrationViewModel {
     try {
       this.requestStatus = loadingStatuses.isLoading
       this.error = undefined
-      this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({name: this.name, email: this.email})
+      const result = await UserModel.isCheckUniqueUser({name: this.name, email: this.email})
+
+      runInAction(() => {
+        this.checkValidationNameOrEmail = result
+      })
+
       const requestData = {name: this.name, email: this.email, password: this.password}
 
       await transformAndValidate(UserRegistrationContract, requestData)
@@ -81,8 +87,6 @@ export class RegistrationViewModel {
     if (fieldName === 'acceptTerms') {
       this.setField(fieldName)(!this.acceptTerms)
     } else if (fieldName === 'name') {
-      // this.setField(fieldName)(event.target.value.replace(/[^а-яА-Яa-zA-Z0-9]/g, ''))
-
       this.setField(fieldName)(event.target.value.replace(/^\s+|\s(?=\s)/g, ''))
     } else {
       this.setField(fieldName)(event.target.value)

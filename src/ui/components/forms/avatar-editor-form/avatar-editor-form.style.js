@@ -19,9 +19,6 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imgWrapper: {
-    // border: '1px solid rgba(0,0,0, .1)',
-    // backgroundColor: '#C4C4C4',
-    // borderRadius: '2px',
     marginLeft: '70px',
     display: 'flex',
     flexDirection: 'column',

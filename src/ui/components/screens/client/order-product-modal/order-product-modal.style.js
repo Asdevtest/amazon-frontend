@@ -41,7 +41,6 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     fontWeight: 500,
     lineHeight: '19px',
-    // textTransform: 'none'
   },
   footerTitle: {
     color: 'rgba(189, 194, 209, 1)',

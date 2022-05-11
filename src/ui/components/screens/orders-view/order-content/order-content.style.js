@@ -3,6 +3,8 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(() => ({
   orderContainer: {
     padding: '16px 32px',
+    display: 'flex',
+    alignItems: 'center',
   },
   containerTitle: {
     fontSize: '14px',
@@ -19,7 +21,7 @@ export const useClassNames = makeStyles(() => ({
   },
   tableText: {
     color: 'rgba(61, 81, 112, 1)',
-    fontSize: '24px',
+    fontSize: '18px',
     fontWeight: 500,
     lineHeight: '28px',
     marginBottom: '24px',
@@ -44,5 +46,36 @@ export const useClassNames = makeStyles(() => ({
 
   cancelBtn: {
     height: '36px',
+  },
+
+  orderNumWrapper: {
+    display: 'flex',
+    width: '170px',
+    justifyContent: 'space-between',
+    marginLeft: '120px',
+    alignItems: 'center',
+  },
+
+  orderPriceWrapper: {
+    display: 'flex',
+    width: '170px',
+    justifyContent: 'space-between',
+    marginLeft: '120px',
+    alignItems: 'center',
+  },
+
+  batchPriceWrapper: {
+    display: 'flex',
+    width: '190px',
+    justifyContent: 'space-between',
+    marginLeft: '120px',
+    alignItems: 'center',
+  },
+
+  titleSpan: {
+    fontWeight: '600',
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#354256',
   },
 }))

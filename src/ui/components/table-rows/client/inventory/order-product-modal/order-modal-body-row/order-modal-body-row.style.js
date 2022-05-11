@@ -176,4 +176,27 @@ export const useClassNames = makeStyles(() => ({
   storekeeperSelectCell: {
     width: '150px',
   },
+
+  row: {
+    border: '1px solid rgba(0,0,0, .1)',
+  },
+
+  sumsWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '60px',
+  },
+
+  containerField: {
+    display: 'flex',
+    width: 'min-content',
+  },
+  labelField: {
+    marginRight: '20px',
+    whiteSpace: 'nowrap',
+  },
+
+  sumText: {
+    whiteSpace: 'nowrap',
+  },
 }))

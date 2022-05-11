@@ -4,6 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalPriceChanged** | **Number** | новое значение изменения итоговой цены. | 
+**buyerComment** | **String** | комментарии байера. | [optional] 
+**storekeeperId** | **String** | GUID storekeeper-a | [optional] 
+**logicsTariffId** | **String** | GUID тарифа доставки. | [optional] 
+**destinationId** | **String** | GUID пункта назначения. | [optional] 
+**images** | **[String]** | Массив картинок. | [optional] 
+**yuanToDollarRate** | **Number** | Курс юань доллар. | [optional] 
+**deliveryCostToTheWarehouse** | **Number** | Стоимость доставки до склада. | [optional] 
+**trackingNumberChina** | **String** | Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ. | [optional] 
+**orderSupplierId** | **String** | GUID поставщика, для данного заказа. | [optional] 
 
 

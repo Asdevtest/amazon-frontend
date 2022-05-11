@@ -10,13 +10,15 @@ import {
   ShortDateCell,
   MultilineStatusCell,
   ActiveBarcodeCell,
+  NoActiveBarcodeCell,
+  HsCodeCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientInventoryColumns
 
-export const clientInventoryColumns = barCodeHandlers => [
+export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'asin',
     headerName: textConsts.asinField,
@@ -127,6 +129,19 @@ export const clientInventoryColumns = barCodeHandlers => [
         <ActiveBarcodeCell barCode={params.row.originalData.barCode} />
       ) : (
         <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />
+      ),
+    minWidth: 100,
+    headerAlign: 'center',
+  },
+
+  {
+    field: 'hsCode',
+    headerName: textConsts.hsCodeField,
+    renderCell: params =>
+      params.row.originalData.archive ? (
+        <NoActiveBarcodeCell barCode={params.row.originalData.hsCode} />
+      ) : (
+        <HsCodeCell product={params.row.originalData} handlers={hsCodeHandlers} />
       ),
     minWidth: 100,
     headerAlign: 'center',

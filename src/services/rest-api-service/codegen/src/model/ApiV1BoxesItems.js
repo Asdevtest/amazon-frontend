@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse200 from './InlineResponse200';
-import InlineResponse2001 from './InlineResponse2001';
 
 /**
  * The ApiV1BoxesItems model module.
@@ -24,10 +22,13 @@ class ApiV1BoxesItems {
     /**
      * Constructs a new <code>ApiV1BoxesItems</code>.
      * @alias module:model/ApiV1BoxesItems
+     * @param productId {String} GUID продукта в БД
+     * @param amount {Number} Кол-во продукта
+     * @param orderId {String} GUID заказа в БД
      */
-    constructor() { 
+    constructor(productId, amount, orderId) { 
         
-        ApiV1BoxesItems.initialize(this);
+        ApiV1BoxesItems.initialize(this, productId, amount, orderId);
     }
 
     /**
@@ -35,7 +36,10 @@ class ApiV1BoxesItems {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId, amount, orderId) { 
+        obj['productId'] = productId;
+        obj['amount'] = amount;
+        obj['orderId'] = orderId;
     }
 
     /**
@@ -49,14 +53,23 @@ class ApiV1BoxesItems {
         if (data) {
             obj = obj || new ApiV1BoxesItems();
 
-            if (data.hasOwnProperty('product')) {
-                obj['product'] = InlineResponse200.constructFromObject(data['product']);
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
             if (data.hasOwnProperty('amount')) {
                 obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('order')) {
-                obj['order'] = InlineResponse2001.constructFromObject(data['order']);
+            if (data.hasOwnProperty('orderId')) {
+                obj['orderId'] = ApiClient.convertToType(data['orderId'], 'String');
+            }
+            if (data.hasOwnProperty('barCode')) {
+                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
+            }
+            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
+                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
+                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
             }
         }
         return obj;
@@ -66,9 +79,10 @@ class ApiV1BoxesItems {
 }
 
 /**
- * @member {module:model/InlineResponse200} product
+ * GUID продукта в БД
+ * @member {String} productId
  */
-ApiV1BoxesItems.prototype['product'] = undefined;
+ApiV1BoxesItems.prototype['productId'] = undefined;
 
 /**
  * Кол-во продукта
@@ -77,9 +91,28 @@ ApiV1BoxesItems.prototype['product'] = undefined;
 ApiV1BoxesItems.prototype['amount'] = undefined;
 
 /**
- * @member {module:model/InlineResponse2001} order
+ * GUID заказа в БД
+ * @member {String} orderId
  */
-ApiV1BoxesItems.prototype['order'] = undefined;
+ApiV1BoxesItems.prototype['orderId'] = undefined;
+
+/**
+ * Штрихкод продукта
+ * @member {String} barCode
+ */
+ApiV1BoxesItems.prototype['barCode'] = undefined;
+
+/**
+ * Прикреплен ли баркод к коробке сотрудником склада.
+ * @member {Boolean} isBarCodeAttachedByTheStorekeeper
+ */
+ApiV1BoxesItems.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
+
+/**
+ * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
+ * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
+ */
+ApiV1BoxesItems.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
 
 
 

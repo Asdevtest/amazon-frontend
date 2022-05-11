@@ -52,7 +52,7 @@ class ClientModelStatic {
     return response
   }
 
-  getOrder = async id => {
+  getOrderById = async id => {
     const response = await restApiService.clientApi.apiV1ClientsOrdersGuidGet(id)
     return response
   }
@@ -107,8 +107,18 @@ class ClientModelStatic {
     return response
   }
 
+  boxConfirmPriceChange = async boxId => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesConfirmDeliveryPriceChangePost({body: [{boxId}]})
+    return response
+  }
+
   cancelOrder = async orderId => {
     const response = await restApiService.clientApi.apiV1ClientsOrdersGuidCancelPost(orderId, {body: {}})
+    return response
+  }
+
+  returnBoxFromBatch = async boxIds => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesReturnBoxesToStockPost({body: boxIds})
     return response
   }
 
@@ -145,7 +155,7 @@ class ClientModelStatic {
   }
 
   getDestinations = async () => {
-    const response = await restApiService.clientApi.apiV1ClientsWarehouseGet()
+    const response = await restApiService.clientApi.apiV1ClientsDestinationGet()
     return response
   }
 }

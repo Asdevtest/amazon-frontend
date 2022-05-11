@@ -82,7 +82,6 @@ export const useClassNames = makeStyles(() => ({
   },
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
-    flexDirection: 'row',
     justifyContent: 'center',
     alignSelf: 'center',
     width: '100%',
@@ -123,5 +122,9 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       transform: 'scale(1.02)',
     },
+  },
+
+  sizesSubWrapper: {
+    margin: '5px 0 0 25px',
   },
 }))

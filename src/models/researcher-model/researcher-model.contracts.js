@@ -50,13 +50,13 @@ export class ResearcherCreateProductContract {
   @IsString()
   id
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   lamazon
 }
 
 export class ResearcherUpdateProductContract {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   lamazon
 

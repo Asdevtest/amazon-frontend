@@ -3,39 +3,55 @@ import React from 'react'
 import {texts} from '@constants/texts'
 
 import {
+  NormDateCell,
   BatchBoxesCell,
-  NormalActionBtnCell,
   renderFieldValueCell,
   ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
+  WarehouseTariffDatesCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 const textConsts = getLocalizedTexts(texts, 'ru').batchesTableColumns
 
-export const batchesViewColumns = handlers => [
+export const batchesViewColumns = () => [
   {
     field: 'orders',
     headerName: textConsts.ordersField,
-    width: 600,
+    width: 550,
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
     filterable: false,
     sortable: false,
   },
 
   {
-    field: 'warehouses',
-    headerName: textConsts.warehouseField,
-    renderCell: params => renderFieldValueCell(params.value),
-    width: 200,
+    field: 'updatedAt',
+    headerName: textConsts.updatedAtField,
+    renderCell: params => <NormDateCell params={params} />,
+    width: 110,
+    type: 'date',
   },
 
   {
-    field: 'delivery',
+    field: 'destination',
+    headerName: textConsts.warehouseField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 100,
+  },
+
+  {
+    field: 'humanFriendlyId',
+    headerName: textConsts.humanFriendlyIdField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 80,
+  },
+
+  {
+    field: 'tariff',
     headerName: textConsts.deliveryField,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 200,
+    width: 250,
   },
 
   {
@@ -43,7 +59,7 @@ export const batchesViewColumns = handlers => [
     headerName: textConsts.weightField,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 200,
+    width: 130,
   },
 
   {
@@ -51,19 +67,14 @@ export const batchesViewColumns = handlers => [
     headerName: textConsts.toralPriceField,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 250,
+    width: 130,
   },
 
   {
-    field: 'action',
-    headerName: textConsts.actionField,
-    width: 250,
-    renderCell: params => (
-      <NormalActionBtnCell
-        bTnText={textConsts.showBtn}
-        onClickOkBtn={() => handlers.setCurrentOpenedBatch(params.row.originalData)}
-      />
-    ),
+    field: 'dates',
+    headerName: textConsts.datesField,
+    renderCell: params => <WarehouseTariffDatesCell row={params.row.originalData.boxes[0].logicsTariff} />,
+    width: 350,
     filterable: false,
     sortable: false,
   },

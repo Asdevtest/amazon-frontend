@@ -1,3 +1,5 @@
+import {ToggleButton, ToggleButtonGroup} from '@mui/material'
+
 import {useState} from 'react'
 
 import {Chip, Divider, NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
@@ -6,8 +8,9 @@ import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {getOrderStatusOptionByCode} from '@constants/order-status'
+import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
+import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
@@ -15,9 +18,11 @@ import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 import {Table} from '@components/table'
 
+import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
 
@@ -27,7 +32,7 @@ import {ProductInOrderTableRow} from './product-in-order-table-row'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
-const WarehouseDemensions = ({orderBox}) => {
+const WarehouseDemensions = ({orderBox, sizeSetting}) => {
   const classNames = useClassNames()
 
   return (
@@ -37,13 +42,13 @@ const WarehouseDemensions = ({orderBox}) => {
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.lengthCmWarehouse}
-          value={orderBox.lengthCmWarehouse || 0}
+          value={toFixed(orderBox.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
         />
         <Field
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.widthCmWarehouse}
-          value={orderBox.widthCmWarehouse || 0}
+          value={toFixed(orderBox.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
         />
       </div>
       <div className={classNames.numberInputFieldsWrapper}>
@@ -51,7 +56,7 @@ const WarehouseDemensions = ({orderBox}) => {
           disabled
           containerClasses={classNames.numberInputField}
           label={textConsts.heightCmWarehouse}
-          value={orderBox.heightCmWarehouse || 0}
+          value={toFixed(orderBox.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
         />
         <Field
           disabled
@@ -102,6 +107,35 @@ export const EditBoxForm = observer(
       onSelectPhotos: setBigImagesOptions,
     }
 
+    const [curProductToEditBarcode, setCurProductToEditBarcode] = useState(null)
+
+    const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
+
+    const onClickBarcode = item => {
+      setCurProductToEditBarcode(item)
+
+      setShowSetBarcodeModal(!showSetBarcodeModal)
+    }
+
+    const onDoubleClickBarcode = item => {
+      setCurProductToEditBarcode(item)
+      setShowSetBarcodeModal(!showSetBarcodeModal)
+    }
+
+    const onClickSaveBarcode = product => newBarCodeData => {
+      const newFormFields = {...boxFields}
+
+      newFormFields.items = [
+        ...boxFields.items.map(el =>
+          el.product._id === product.product._id ? {...el, tmpBarCode: newBarCodeData} : el,
+        ),
+      ]
+
+      setBoxFields(newFormFields)
+
+      setShowSetBarcodeModal(!showSetBarcodeModal)
+    }
+
     const boxInitialState = {
       ...formItem,
 
@@ -109,14 +143,8 @@ export const EditBoxForm = observer(
       widthCmWarehouse: formItem?.widthCmWarehouse || 0,
       heightCmWarehouse: formItem?.heightCmWarehouse || 0,
       weighGrossKgWarehouse: formItem?.weighGrossKgWarehouse || 0,
-      volumeWeightKgWarehouse: formItem
-        ? (formItem.lengthCmWarehouse * formItem.widthCmWarehouse * formItem.heightCmWarehouse) /
-          volumeWeightCoefficient
-        : 0,
-      weightFinalAccountingKgWarehouse: Math.max(
-        parseFloat(formItem?.volumeWeightKgWarehouse) || 0,
-        parseFloat(formItem?.weighGrossKgWarehouse) || 0,
-      ),
+      volumeWeightKgWarehouse: formItem ? calcVolumeWeightForBox(formItem, volumeWeightCoefficient) : 0,
+      weightFinalAccountingKgWarehouse: formItem ? calcFinalWeightForBox(formItem, volumeWeightCoefficient) : 0,
 
       destinationId: formItem?.destinationId || '',
       storekeeperId: formItem?.storekeeperId || '',
@@ -128,6 +156,9 @@ export const EditBoxForm = observer(
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
       tmpShippingLabel: [],
+      items: formItem?.items
+        ? [...formItem.items.map(el => ({...el, changeBarCodInInventory: false, tmpBarCode: []}))]
+        : [],
     }
 
     const [boxFields, setBoxFields] = useState(boxInitialState)
@@ -153,7 +184,30 @@ export const EditBoxForm = observer(
     const onDeleteShippingLabel = () => {
       const newFormFields = {...boxFields}
       newFormFields.shippingLabel = ''
+      newFormFields.tmpShippingLabel = []
       setBoxFields(newFormFields)
+    }
+
+    const onDeleteBarcode = productId => {
+      const newFormFields = {...boxFields}
+      newFormFields.items = boxFields.items.map(item =>
+        item.product._id === productId ? {...item, barCode: '', changeBarCodInInventory: false} : item,
+      )
+      setBoxFields(newFormFields)
+    }
+
+    const onClickBarcodeInventoryCheckbox = (productId, value) => {
+      const newFormFields = {...boxFields}
+      newFormFields.items = boxFields.items.map(item =>
+        item.product._id === productId ? {...item, changeBarCodInInventory: value} : item,
+      )
+      setBoxFields(newFormFields)
+    }
+
+    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+
+    const handleChange = (event, newAlignment) => {
+      setSizeSetting(newAlignment)
     }
 
     const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
@@ -171,6 +225,20 @@ export const EditBoxForm = observer(
       boxFields.destinationId === '' ||
       boxFields.storekeeperId === '' ||
       boxFields.logicsTariffId === ''
+
+    const curDestination = destinations.find(el => el._id === boxFields.destinationId)
+
+    const firstNumOfCode = curDestination?.zipCode[0]
+
+    const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
+    const tariffName = storekeepers
+      .find(el => el._id === boxFields.storekeeperId)
+      ?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.name
+
+    const tariffRate = storekeepers
+      .find(el => el._id === boxFields.storekeeperId)
+      ?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
 
     return (
       <div className={classNames.root}>
@@ -222,22 +290,13 @@ export const EditBoxForm = observer(
                       ? `${storekeepers.find(el => el._id === boxFields.storekeeperId)?.name || 'N/A'} /  
                         ${
                           boxFields.storekeeperId
-                            ? storekeepers
-                                .find(el => el._id === boxFields.storekeeperId)
-                                .tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.name || 'N/A'
+                            ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
+                                tariffRate ? ' / ' + tariffRate + ' $' : ''
+                              }`
                             : 'none'
                         }`
                       : 'Выбрать'}
                   </Button>
-                }
-              />
-
-              <Field
-                disabled
-                containerClasses={classNames.field}
-                label={textConsts.statusLabel}
-                value={
-                  boxFields.items[0].order.status && getOrderStatusOptionByCode(boxFields.items[0].order.status).label
                 }
               />
 
@@ -249,35 +308,53 @@ export const EditBoxForm = observer(
                 onChange={setFormField('fbaShipment')}
               />
 
-              <div>
-                <Chip
-                  classes={{
-                    root: classNames.barcodeChip,
-                    clickable: classNames.barcodeChipHover,
-                    deletable: classNames.barcodeChipHover,
-                    deleteIcon: classNames.barcodeChipIcon,
-                    label: classNames.barcodeChiplabel,
-                  }}
-                  className={clsx({[classNames.barcodeChipExists]: boxFields.shippingLabel})}
-                  size="small"
-                  label={
-                    boxFields.tmpShippingLabel.length
-                      ? 'FILE IS ADDED'
-                      : boxFields.shippingLabel
-                      ? boxFields.shippingLabel
-                      : 'Set shipping label'
-                  }
-                  onClick={() => onClickShippingLabel()}
-                  onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
-                />
-              </div>
+              <Field
+                containerClasses={classNames.field}
+                label={'Shipping label'}
+                inputComponent={
+                  <div>
+                    <Chip
+                      classes={{
+                        root: classNames.barcodeChip,
+                        clickable: classNames.barcodeChipHover,
+                        deletable: classNames.barcodeChipHover,
+                        deleteIcon: classNames.barcodeChipIcon,
+                        label: classNames.barcodeChiplabel,
+                      }}
+                      className={clsx({[classNames.barcodeChipExists]: boxFields.shippingLabel})}
+                      size="small"
+                      label={
+                        boxFields.tmpShippingLabel.length
+                          ? 'FILE IS ADDED'
+                          : boxFields.shippingLabel
+                          ? boxFields.shippingLabel
+                          : 'Set shipping label'
+                      }
+                      onClick={() => onClickShippingLabel()}
+                      onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                    />
+                  </div>
+                }
+              />
             </div>
 
             <div className={classNames.blockOfNewBoxWrapper}>
-              <Typography paragraph className={classNames.subTitle}>
-                {textConsts.warehouseDemensions}
-              </Typography>
-              <WarehouseDemensions orderBox={boxFields} />
+              <div className={classNames.sizesTitleWrapper}>
+                <Typography paragraph className={classNames.subTitle}>
+                  {textConsts.warehouseDemensions}
+                </Typography>
+
+                <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+                  <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                    {'In'}
+                  </ToggleButton>
+                  <ToggleButton disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                    {'Cm'}
+                  </ToggleButton>
+                </ToggleButtonGroup>
+              </div>
+
+              <WarehouseDemensions orderBox={boxFields} sizeSetting={sizeSetting} />
 
               <div className={classNames.photoWrapper}>
                 <Typography className={classNames.subTitle}>{'Фотографии коробки, сделанные на складе:'}</Typography>
@@ -325,6 +402,10 @@ export const EditBoxForm = observer(
               BodyRow={ProductInOrderTableRow}
               renderHeadRow={renderHeadRow}
               rowsHandlers={rowHandlers}
+              onClickBarcode={onClickBarcode}
+              onDoubleClickBarcode={onDoubleClickBarcode}
+              onDeleteBarcode={onDeleteBarcode}
+              onClickBarcodeInventoryCheckbox={onClickBarcodeInventoryCheckbox}
             />
           </div>
 
@@ -401,6 +482,15 @@ export const EditBoxForm = observer(
             curStorekeeperId={boxFields.storekeeperId}
             curTariffId={boxFields.logicsTariffId}
             onSubmit={onSubmitSelectStorekeeperAndTariff}
+          />
+        </Modal>
+
+        <Modal openModal={showSetBarcodeModal} setOpenModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
+          <SetBarcodeModal
+            tmpCode={curProductToEditBarcode?.tmpBarCode}
+            item={curProductToEditBarcode}
+            onClickSaveBarcode={data => onClickSaveBarcode(curProductToEditBarcode)(data)}
+            onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
           />
         </Modal>
       </div>

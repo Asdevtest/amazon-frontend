@@ -8,6 +8,13 @@ const textConsts = getLocalizedTexts(texts, 'ru').subUsersTableColumns
 
 export const subUsersColumns = handlers => [
   {
+    field: 'name',
+    headerName: textConsts.nameField,
+    width: 250,
+    renderCell: params => renderFieldValueCell(params.value),
+  },
+
+  {
     field: 'email',
     headerName: textConsts.emailField,
     width: 300,

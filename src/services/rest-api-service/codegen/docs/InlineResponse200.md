@@ -76,5 +76,13 @@ Name | Type | Description | Notes
 **amountInBoxes** | **Number** | Сколько такого продукта находится в коробках. | [optional] 
 **archive** | **Boolean** | Флаг указывает что продукт в архиве. | [optional] 
 **hsCode** | **String** | hsCode продукта. | [optional] 
+**niche** | **String** | Ниша | [optional] 
+**asins** | **String** | Асины | [optional] 
+**totalRevenue** | **String** | Общий доход | [optional] 
+**coefficient** | **String** | Коэффициент прибыли | [optional] 
+**avgRevenue** | **String** | Средний доход | [optional] 
+**avgBSR** | **String** | Средний BSR | [optional] 
+**avgPrice** | **String** | Средняя цена | [optional] 
+**avgReviews** | **String** | Средний отзывы | [optional] 
 
 

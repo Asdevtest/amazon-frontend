@@ -147,9 +147,25 @@ export const navbarConfig = {
     },
     {
       icon: AllInboxIcon,
-      title: 'Мои отправления',
-      route: '/client/batches',
-      subtitles: null,
+      title: 'Мои партии',
+      route: '/client/boxes-ready-to-batch',
+      subtitles: [
+        {
+          subtitle: 'Коробки готовые к отправке',
+          subRoute: '/client/boxes-ready-to-batch',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
+        },
+        {
+          subtitle: 'Ожидают отправки',
+          subRoute: '/client/awaiting-batch',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH,
+        },
+        {
+          subtitle: 'Отправленные',
+          subRoute: '/client/batches',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES,
+        },
+      ],
       key: navBarActiveCategory.NAVBAR_BATCHES,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_BATCHES_CLIENT),
@@ -174,37 +190,28 @@ export const navbarConfig = {
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_SHOPS_CLIENT),
     },
 
-    {
-      icon: SettingsIcon,
-      title: 'Интеграции',
-      route: '/client/integrations/daily',
-      subtitles: [
-        {subtitle: 'Отчет со склада', subRoute: '/client/integrations/daily'},
-        {subtitle: 'Дашборд по товарам/дням', subRoute: '/client/integrations/last-30-day'},
-      ],
-      key: navBarActiveCategory.NAVBAR_INTEGRATIONS,
-      checkHideBlock: user =>
-        !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INTEGRATIONS_CLIENT),
-    },
-    // { // ПОКА СКРЫТЬ
+    // {
     //   icon: SettingsIcon,
-    //   title: 'Настройки',
-    //   route: '/client/settings',
-    //   subtitles: null,
-    //   key: navBarActiveCategory.NAVBAR_SETTINGS,
+    //   title: 'Интеграции',
+    //   route: '/client/integrations/daily',
+    //   subtitles: [
+    //     {subtitle: 'Отчет со склада', subRoute: '/client/integrations/daily'},
+    //     {subtitle: 'Дашборд по товарам/дням', subRoute: '/client/integrations/last-30-day'},
+    //   ],
+    //   key: navBarActiveCategory.NAVBAR_INTEGRATIONS,
     //   checkHideBlock: user =>
     //     !isMasterUser(user) ||
-    //     user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_USER_SETTINGS_CLIENT),
+    //     user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INTEGRATIONS_CLIENT),
     // },
-    {
-      icon: ChatBubbleOutlineOutlinedIcon,
-      title: 'Сообщения',
-      route: '/client/messages',
-      subtitles: null,
-      key: navBarActiveCategory.NAVBAR_MESSAGES,
-      checkHideBlock: () => true,
-    },
+
+    // {
+    //   icon: ChatBubbleOutlineOutlinedIcon,
+    //   title: 'Сообщения',
+    //   route: '/client/messages',
+    //   subtitles: null,
+    //   key: navBarActiveCategory.NAVBAR_MESSAGES,
+    //   checkHideBlock: () => true,
+    // },
     {
       icon: MonetizationOnOutlinedIcon,
       title: 'Финансы',
@@ -215,9 +222,12 @@ export const navbarConfig = {
     },
     {
       icon: ChatBubbleOutlineOutlinedIcon,
-      title: 'Уведомления по заказам',
+      title: 'Уведомления',
       route: '/client/orders-notifications',
-      subtitles: null,
+      subtitles: [
+        {subtitle: 'По заказам', subRoute: '/client/orders-notifications'},
+        {subtitle: 'По коробкам', subRoute: '/client/boxes-notifications'},
+      ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -591,9 +601,21 @@ export const navbarConfig = {
 
     {
       icon: LocalConvenienceStore,
-      title: 'Отправления',
-      subtitles: null,
-      route: '/warehouse/boxes',
+      title: 'Мои партии',
+      route: '/warehouse/batches',
+      subtitles: [
+        {
+          subtitle: 'Ожидают отправки',
+          subRoute: '/warehouse/awaiting-batches',
+          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES,
+        },
+        {
+          subtitle: 'Отправленные',
+          subRoute: '/warehouse/batches',
+          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES,
+        },
+      ],
+
       key: navBarActiveCategory.NAVBAR_BATCHES,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -663,11 +685,30 @@ export const navbarConfig = {
         {subtitle: 'Задачи', subRoute: '/admin/warehouse/tasks'},
         {subtitle: 'Коробки', subRoute: '/admin/warehouse/boxes'},
         {subtitle: 'Destinations', subRoute: '/admin/warehouse/destinations'},
-        {subtitle: 'Партии', subRoute: '/admin/warehouse/batches'},
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
       checkHideBlock: () => true,
     },
+
+    {
+      icon: LocalConvenienceStore,
+      title: 'Партии',
+      route: '/admin/awaiting-batches',
+      subtitles: [
+        {
+          subtitle: 'Ожидают отправки',
+          subRoute: '/admin/awaiting-batches',
+        },
+        {
+          subtitle: 'Отправленные',
+          subRoute: '/admin/batches',
+        },
+      ],
+
+      key: navBarActiveCategory.NAVBAR_BATCHES,
+      checkHideBlock: () => true,
+    },
+
     {
       icon: MonetizationOnOutlinedIcon,
       title: 'Финансы',

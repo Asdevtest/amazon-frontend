@@ -100,6 +100,13 @@ export const productStatusButtonsConfigs = {
           color: '#ff9800',
           colorHover: '#f57c00',
         },
+
+        {
+          statusKey: ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
+          label: textConfigs.supplierPriceNotAccepted,
+          color: 'rgb(0, 123, 255)',
+          colorHover: '#1269ec',
+        },
       ]
     } else if (curStatus <= ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
       return [

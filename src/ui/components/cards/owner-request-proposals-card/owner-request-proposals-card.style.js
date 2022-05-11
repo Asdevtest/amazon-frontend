@@ -18,7 +18,7 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '20px',
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   userInfoMainWrapper: {

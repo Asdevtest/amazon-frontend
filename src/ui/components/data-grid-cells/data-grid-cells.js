@@ -1,11 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {Button, Chip, Link, Tooltip, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
-import {useHistory} from 'react-router-dom'
 
+import {BoxStatus} from '@constants/box-status'
 import {RequestStatus} from '@constants/request-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
@@ -15,6 +16,7 @@ import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 
+import {calcVolumeWeightForBox} from '@utils/calculation'
 import {
   formatDateDistanceFromNow,
   formatDateForShowWithoutParseISO,
@@ -91,28 +93,17 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
   </div>
 ))
 
-export const UserLinkCell = withStyles(styles)(({classes: classNames, name, userId}) => {
-  const history = useHistory()
-
-  const onLinkClick = () => {
-    history.push({
-      pathname: '/another-user',
-      search: userId,
-    })
-  }
-
-  return (
-    <div>
-      {name ? (
-        <Typography className={classNames.linkText} onClick={onLinkClick}>
-          {name}
-        </Typography>
-      ) : (
-        <Typography>{'N/A'}</Typography>
-      )}
-    </div>
-  )
-})
+export const UserLinkCell = withStyles(styles)(({classes: classNames, name, userId}) => (
+  <div>
+    {name ? (
+      <Link target="_blank" href={`${window.location.origin}/another-user?${userId}`}>
+        <Typography className={classNames.linkText}>{name}</Typography>
+      </Link>
+    ) : (
+      <Typography>{'N/A'}</Typography>
+    )}
+  </div>
+))
 
 export const SupervisorCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
@@ -157,6 +148,44 @@ export const BarcodeCell = withStyles(styles)(({classes: classNames, product, ha
   </React.Fragment>
 ))
 
+export const HsCodeCell = withStyles(styles)(({classes: classNames, product, handlers}) => (
+  <React.Fragment>
+    <Chip
+      classes={{
+        root: classNames.barcodeChip,
+        clickable: classNames.barcodeChipHover,
+        deletable: classNames.barcodeChipHover,
+        deleteIcon: classNames.barcodeChipIcon,
+      }}
+      className={clsx({[classNames.barcodeChipExists]: product.hsCode})}
+      size="small"
+      label={product.hsCode ? trimBarcode(product.hsCode) : textConsts.setHsCodeChipLabel}
+      onClick={() => handlers.onClickHsCode(product)}
+      onDoubleClick={() => handlers.onDoubleClickHsCode(product)}
+      onDelete={!product.hsCode ? undefined : () => handlers.onDeleteHsCode(product)}
+    />
+  </React.Fragment>
+))
+
+export const ChangeChipCell = withStyles(styles)(({classes: classNames, row, value, handlers, text}) => (
+  <React.Fragment>
+    <Chip
+      classes={{
+        root: classNames.barcodeChip,
+        clickable: classNames.barcodeChipHover,
+        deletable: classNames.barcodeChipHover,
+        deleteIcon: classNames.barcodeChipIcon,
+      }}
+      className={clsx({[classNames.barcodeChipExists]: value})}
+      size="small"
+      label={value ? trimBarcode(value) : text}
+      onClick={() => handlers.onClickChip(row)}
+      onDoubleClick={() => handlers.onDoubleClickChip(row)}
+      onDelete={!value ? undefined : () => handlers.onDeleteChip(row)}
+    />
+  </React.Fragment>
+))
+
 export const DateCell = withStyles(styles)(({params}) => (
   <Typography>{!params.value ? 'N/A' : formatDateTime(params.value)}</Typography>
 ))
@@ -189,7 +218,7 @@ export const NormDateWithParseISOCell = withStyles(styles)(({params}) => (
   <Typography>{!params.value ? 'N/A' : formatNormDateTimeWithParseISO(params.value)}</Typography>
 ))
 
-export const OrderCell = withStyles(styles)(({classes: classNames, product, superbox}) => (
+export const OrderCell = withStyles(styles)(({classes: classNames, product, superbox, box}) => (
   <div className={classNames.order}>
     <img alt="" src={getAmazonImageUrl(product.images[0])} className={classNames.orderImg} />
     <div>
@@ -200,6 +229,13 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
       </Typography>
       {superbox && (
         <Typography className={classNames.superboxTypo}>{`${textConsts.superboxTypo} x ${superbox}`}</Typography>
+      )}
+
+      {box && box.totalPrice - box.totalPriceChanged < 0 && (
+        <span className={classNames.needPay}>{`Необходима доплата! (${toFixedWithDollarSign(
+          box.totalPriceChanged - box.totalPrice,
+          2,
+        )})`}</span>
       )}
     </div>
   </div>
@@ -227,17 +263,17 @@ export const WarehouseTariffDatesCell = withStyles(styles)(({classes: classNames
   <div>
     <div className={classNames.warehouseTariffDatesItem}>
       <Typography>{'ETD(дата отправки):'}</Typography>
-      <Typography>{!row.cls ? 'N/A' : formatDateWithoutTime(row.cls)}</Typography>
-    </div>
-
-    <div className={classNames.warehouseTariffDatesItem}>
-      <Typography>{'ETA(дата прибытия):'}</Typography>
       <Typography>{!row.etd ? 'N/A' : formatDateWithoutTime(row.etd)}</Typography>
     </div>
 
     <div className={classNames.warehouseTariffDatesItem}>
+      <Typography>{'ETA(дата прибытия):'}</Typography>
+      <Typography>{!row.eta ? 'N/A' : formatDateWithoutTime(row.eta)}</Typography>
+    </div>
+
+    <div className={classNames.warehouseTariffDatesItem}>
       <Typography>{'CLS(дата закрытия партии):'}</Typography>
-      <Typography>{!row.atd ? 'N/A' : formatDateWithoutTime(row.atd)}</Typography>
+      <Typography>{!row.cls ? 'N/A' : formatDateWithoutTime(row.cls)}</Typography>
     </div>
   </div>
 ))
@@ -520,7 +556,7 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
   return <div>{renderHistoryItem()}</div>
 })
 
-export const ClientOrdersNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
+export const ClientNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
   <div>
     <Button variant="contained" color="primary" onClick={() => handlers.onTriggerOpenConfirmModal(row)}>
       {textConsts.confirmBtn}
@@ -544,7 +580,7 @@ export const AdminUsersActionBtnsCell = withStyles(styles)(
         disabled={row.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
         variant="contained"
         color="primary"
-        onClick={() => handlers.onClickEditUser()}
+        onClick={() => handlers.onClickEditUser(row)}
       >
         {editBtnText}
       </Button>
@@ -580,6 +616,13 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box}
               <span className={classNames.orderTextSpan}>{textConsts.id}</span>
               {item.product.asin}
             </Typography>
+
+            {item.totalPrice - item.totalPriceChanged < 0 && itemIndex === 0 && (
+              <span className={classNames.needPay}>{`Необходима доплата! (${toFixedWithDollarSign(
+                item.totalPriceChanged - item.totalPrice,
+                2,
+              )})`}</span>
+            )}
           </div>
         </div>
       ))}
@@ -654,7 +697,12 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
             <Typography className={classNames.orderText}>
               <span className={classNames.orderTextSpan}>{textConsts.id}</span>
               {item.product.asin}
-              {box.sendToBatchComplete && <span className={classNames.sendSuccess}>{' Отправлено'}</span>}
+              {box.totalPrice - box.totalPriceChanged < 0 && itemIndex === 0 && (
+                <span className={classNames.needPay}>{`Необходима доплата! (${toFixedWithDollarSign(
+                  box.totalPriceChanged - box.totalPrice,
+                  2,
+                )})`}</span>
+              )}
             </Typography>
             <Typography className={classNames.imgNum}>{`x ${item.amount}`}</Typography>
             {box.amount > 1 && (
@@ -678,5 +726,61 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
 export const TrashCell = withStyles(styles)(({classes: classNames, onClick}) => (
   <div className={classNames.trashWrapper}>
     <img className={classNames.trashImg} src="/assets/icons/trash.svg" alt="" onClick={onClick} />
+  </div>
+))
+
+export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
+  <div className={classNames.warehouseBoxesBtnsWrapper}>
+    {row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
+      <Typography>{'Не готово к отправке'}</Typography>
+    )}
+
+    {row.batchId && row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE && (
+      <Button variant="contained" color="primary" onClick={() => handlers.moveBox(row)}>
+        {'Переместить'}
+      </Button>
+    )}
+
+    {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
+      <SuccessButton className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.moveBox(row)}>
+        {'Добавить в партию'}
+      </SuccessButton>
+    )}
+
+    <Button variant="contained" color="primary" onClick={() => handlers.setHsCode(row)}>
+      {'HS Code'}
+    </Button>
+  </div>
+))
+
+export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, value, onClickSeeMore}) => {
+  const copyValue = () => {
+    navigator.clipboard.writeText(value)
+  }
+
+  return (
+    <div className={classNames.shopsReportBtnsWrapper}>
+      <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
+        {'Скачать'}
+      </a>
+
+      <img className={classNames.copyImg} src="/assets/icons/copy-img.svg" alt="" onClick={copyValue} />
+
+      <Button variant="contained" color="primary" onClick={onClickSeeMore}>
+        {'Смотреть'}
+      </Button>
+    </div>
+  )
+})
+
+export const ShortBoxDimensions = withStyles(styles)(({classes: classNames, box, volumeWeightCoefficient}) => (
+  <div>
+    <Typography>{`${toFixed(box.lengthCmWarehouse, 2)}x${toFixed(box.widthCmWarehouse, 2)}x${toFixed(
+      box.heightCmWarehouse,
+      2,
+    )}`}</Typography>
+
+    <Typography>{`вес: ${toFixedWithKg(box.weighGrossKgWarehouse, 2)}`}</Typography>
+    <Typography>{`об. вес: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}`}</Typography>
   </div>
 ))

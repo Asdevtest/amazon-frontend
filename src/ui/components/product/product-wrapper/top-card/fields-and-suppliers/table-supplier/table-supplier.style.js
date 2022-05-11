@@ -128,7 +128,6 @@ export const useClassNames = makeStyles(() => ({
   },
   link: {
     width: '250px',
-    maxheight: '50px',
     overflowX: 'auto',
     whiteSpace: 'nowrap',
   },

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
@@ -17,6 +17,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').requestToSendBatchModal
 
 export const RequestToSendBatchForm = observer(
   ({
+    volumeWeightCoefficient,
     boxesMy,
     openModal,
     setOpenModal,
@@ -52,14 +53,18 @@ export const RequestToSendBatchForm = observer(
     const boxesGroupedByWarehouseAndDeliveryMethod = boxesWithPriceRequest
       .reduce((acc, cur) => {
         const findGroupIndex = acc.findIndex(
-          group => group.warehouse === cur.warehouse && group.deliveryMethod === cur.deliveryMethod,
+          group =>
+            group.destination?._id === cur.destination?._id &&
+            group.storekeeper?._id === cur.storekeeper?._id &&
+            group.logicsTariff?._id === cur.logicsTariff?._id,
         )
         if (findGroupIndex !== -1) {
           acc[findGroupIndex].boxes.push(cur)
         } else {
           acc.push({
-            warehouse: cur.warehouse,
-            deliveryMethod: cur.deliveryMethod,
+            destination: cur.destination,
+            storekeeper: cur.storekeeper,
+            logicsTariff: cur.logicsTariff,
             boxes: [cur],
           })
         }
@@ -68,15 +73,28 @@ export const RequestToSendBatchForm = observer(
       .concat(boxesWithoutPrice)
       .filter(obj => obj.boxes.length)
 
+    const [submitIsClicked, setSubmitIsClicked] = useState(false)
+
+    const onClickSubmit = () => {
+      onClickSendBoxesToBatch()
+      setSubmitIsClicked(true)
+    }
+
+    const disabledSubmit =
+      boxesWithPriceRequest.length < 1 ||
+      boxesWithPriceRequest.some(el => !el.isShippingLabelAttachedByStorekeeper) ||
+      submitIsClicked
+
     return (
       <div className={classNames.content}>
-        <Typography className={classNames.modalTitle} variant="h4">
+        <Typography className={classNames.modalTitle} variant="h5">
           {textConsts.modalTitle}
         </Typography>
         <div className={classNames.boxesWrapper}>
           {boxesGroupedByWarehouseAndDeliveryMethod.map((selectedGroup, i) => (
             <div key={i}>
               <RequestToSendBatchesGroupBoxes
+                volumeWeightCoefficient={volumeWeightCoefficient}
                 boxesMy={boxesMy}
                 selectedGroup={selectedGroup}
                 boxesDeliveryCosts={boxesDeliveryCosts}
@@ -93,13 +111,10 @@ export const RequestToSendBatchForm = observer(
         <div className={classNames.btnsWrapper}>
           <Button
             disableElevation
-            disabled={
-              boxesWithPriceRequest.length < 1 ||
-              boxesWithPriceRequest.some(el => !el.isShippingLabelAttachedByStorekeeper)
-            }
+            disabled={disabledSubmit}
             color="primary"
             variant="contained"
-            onClick={onClickSendBoxesToBatch}
+            onClick={onClickSubmit}
           >
             {textConsts.btnSend}
           </Button>

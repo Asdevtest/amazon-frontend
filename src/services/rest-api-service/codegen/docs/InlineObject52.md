@@ -22,5 +22,13 @@ Name | Type | Description | Notes
 **byboxprice** | **Number** | Цена | [optional] 
 **reffee** | **Number** | комиссия которую берет амазон за любой заказ - 15% | [optional] 
 **strategyStatus** | **Number** | У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40 | [optional] 
+**niche** | **String** | Ниша | [optional] 
+**asins** | **String** | Асины | [optional] 
+**totalRevenue** | **String** | Общий доход | [optional] 
+**coefficient** | **String** | Коэффициент прибыли | [optional] 
+**avgRevenue** | **String** | Средний доход | [optional] 
+**avgBSR** | **String** | Средний BSR | [optional] 
+**avgPrice** | **String** | Средняя цена | [optional] 
+**avgReviews** | **String** | Средний отзывы | [optional] 
 
 

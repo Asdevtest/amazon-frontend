@@ -118,5 +118,10 @@ export const useClassNames = makeStyles(() => ({
   checkboxWrapper: {
     display: 'flex',
     alignItems: 'center',
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      opacity: '0.8',
+    },
   },
 }))

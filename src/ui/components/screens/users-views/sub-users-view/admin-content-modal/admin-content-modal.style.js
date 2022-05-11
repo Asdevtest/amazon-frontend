@@ -44,4 +44,25 @@ export const useClassNames = makeStyles(() => ({
       color: '#DEDEDE',
     },
   },
+
+  subUsersWrapper: {
+    maxHeight: '150px',
+    overflow: 'auto',
+  },
+
+  ratingWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    overflow: 'hidden',
+    justifyContent: 'space-between',
+  },
+
+  ratingSubWrapper: {
+    display: 'flex',
+  },
+
+  rating: {
+    margin: '0 20px',
+  },
 }))

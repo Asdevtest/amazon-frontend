@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {texts} from '@constants/texts'
+import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
@@ -63,18 +64,30 @@ const Box = ({
     setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
   }
 
+  const curDestination = destinations.find(el => el._id === box.destinationId)
+
+  const firstNumOfCode = curDestination?.zipCode[0]
+
+  const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
+  const tariffName = storekeepers
+    .find(el => el._id === box.storekeeperId)
+    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.name
+
+  const tariffRate = storekeepers
+    .find(el => el._id === box.storekeeperId)
+    ?.tariffLogistics.find(el => el._id === box.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+
   return (
     <div className={classNames.box}>
-      {!isNewBox && <Typography className={classNames.boxTitle}>{box.humanFriendlyId}</Typography>}
+      {!isNewBox && <Typography className={classNames.boxTitle}>{`Коробка № ${box.humanFriendlyId}`}</Typography>}
       <div className={classNames.itemWrapper}>
         <div>
           {box.items.map((order, orderIndex) => (
             <div key={`box_${box._id}_${readOnly ? 1 : 0}_${orderIndex}`}>
               <div key={orderIndex} className={classNames.order}>
                 <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
-                <Typography className={classNames.title}>
-                  {orderIndex + 1 + '. ' + order.product.amazonTitle}
-                </Typography>
+                <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
                 <Typography className={classNames.subTitle}>{textConsts.qtyLabel}</Typography>
                 <Input
                   classes={{root: classNames.inputWrapper, input: classNames.input}}
@@ -133,9 +146,9 @@ const Box = ({
                     ? `${storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'} /  
                       ${
                         box.logicsTariffId
-                          ? storekeepers
-                              .find(el => el._id === box.storekeeperId)
-                              .tariffLogistics.find(el => el._id === box.logicsTariffId)?.name || 'N/A'
+                          ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
+                              tariffRate ? ' / ' + tariffRate + ' $' : ''
+                            }`
                           : 'none'
                       }`
                     : 'Выбрать'}

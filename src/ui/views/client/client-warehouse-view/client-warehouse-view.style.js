@@ -64,4 +64,21 @@ export const styles = createStyles(theme => ({
 
     borderBottom: '5px solid #0460DE',
   },
+
+  row: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
+
+  dataGridWrapper: {
+    height: '73vh',
+    overflow: 'auto',
+  },
+
+  virtualScrollerContent: {
+    maxHeight: '69vh',
+  },
 }))

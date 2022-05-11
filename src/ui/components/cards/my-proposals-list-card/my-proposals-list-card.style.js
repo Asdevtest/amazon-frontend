@@ -7,7 +7,6 @@ export const useClassNames = makeStyles(() => ({
 
   cardWrapper: {
     width: '100%',
-    // height: '230px',
 
     borderRadius: '4px',
     border: '1px solid rgba(0,0,0, .1)',
@@ -35,7 +34,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '16px',
     color: '#354256',
-    maxWidth: '350px',
+    maxWidth: '420px',
     marginBottom: '20px',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
@@ -43,8 +42,16 @@ export const useClassNames = makeStyles(() => ({
 
   cardSubTitle: {
     marginBottom: '5px',
-    maxWidth: '350px',
+    maxWidth: '420px',
     overflow: 'auto',
+    maxHeight: '90px',
+  },
+
+  proposalComment: {
+    marginBottom: '20px',
+    maxWidth: '720px',
+    overflow: 'auto',
+    maxHeight: '90px',
   },
 
   rightBlockWrapper: {
@@ -52,7 +59,6 @@ export const useClassNames = makeStyles(() => ({
     marginLeft: '40px',
     display: 'flex',
     flexDirection: 'column',
-    // justifyContent: 'space-between',
     width: '100%',
   },
 
@@ -104,9 +110,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   timeWrapper: {
-    // minWidth: '280px',
     display: 'flex',
-    // justifyContent: 'space-between'
   },
 
   timeCount: {

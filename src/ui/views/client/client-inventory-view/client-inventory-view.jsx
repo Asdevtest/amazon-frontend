@@ -20,6 +20,7 @@ import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SelectionSupplierModal} from '@components/modals/selection-supplier-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
+import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -73,6 +74,7 @@ export class ClientInventoryViewRaw extends Component {
       selectedProduct,
       showSetBarcodeModal,
       showSelectionSupplierModal,
+      showSetChipValueModal,
       showConfirmModal,
       curPage,
       productsMy,
@@ -94,6 +96,7 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerOpenModal,
       onSubmitOrderProductModal,
       onClickBindInventoryGoodsToStockBtn,
+      onClickSaveHsCode,
 
       onSelectionModel,
       setDataGridState,
@@ -221,6 +224,15 @@ export class ClientInventoryViewRaw extends Component {
           />
         </Modal>
 
+        <Modal openModal={showSetChipValueModal} setOpenModal={() => onTriggerOpenModal('showSetChipValueModal')}>
+          <SetChipValueModal
+            title={textConsts.setHsCode}
+            sourceValue={selectedProduct?.hsCode}
+            onSubmit={onClickSaveHsCode}
+            onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}
+          />
+        </Modal>
+
         <Modal
           openModal={showAddOrEditSupplierModal}
           setOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
@@ -251,6 +263,7 @@ export class ClientInventoryViewRaw extends Component {
 
         <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
           <OrderProductModal
+            volumeWeightCoefficient={volumeWeightCoefficient}
             destinations={destinations}
             storekeepers={storekeepers}
             requestStatus={requestStatus}

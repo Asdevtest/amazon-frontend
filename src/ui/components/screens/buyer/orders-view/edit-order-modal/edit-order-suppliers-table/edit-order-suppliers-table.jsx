@@ -60,7 +60,9 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                   </Link>
                 </TableCell>
                 <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.price, 2)}</TableCell>
-                <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.delivery, 2)}</TableCell>
+                <TableCell className={classNames.alignRight}>
+                  {toFixedWithDollarSign(supplier.batchDeliveryCostInDollar / supplier.amount, 2) || 'N/A'}
+                </TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.amount}</TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.minlot}</TableCell>
                 <TableCell className={classNames.alignCenter}>{toFixedWithDollarSign(supplier.lotcost, 2)}</TableCell>
