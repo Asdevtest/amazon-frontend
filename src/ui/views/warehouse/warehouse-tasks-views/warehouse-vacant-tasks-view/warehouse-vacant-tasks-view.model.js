@@ -110,8 +110,11 @@ export class WarehouseVacantViewModel {
   async onClickPickupBtn(item) {
     try {
       await StorekeeperModel.pickupTask(item._id)
-      this.onTriggerOpenModal('showWarningModal')
-      await this.getTasksVacant()
+      // this.onTriggerOpenModal('showWarningModal')
+
+      this.history.push('/warehouse/my-tasks', {task: toJS(item)})
+
+      // await this.getTasksVacant()
     } catch (error) {
       console.log(error)
       this.error = error

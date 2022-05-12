@@ -31,7 +31,7 @@ const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS
 
 @observer
 export class WarehouseMyTasksViewRaw extends Component {
-  viewModel = new WarehouseVacantViewModel({history: this.props.history})
+  viewModel = new WarehouseVacantViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()

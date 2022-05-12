@@ -58,8 +58,15 @@ export class WarehouseVacantViewModel {
 
   tmpDataForCancelTask = {}
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+
+    if (location.state?.task) {
+      // this.request = location.state.request
+
+      this.onClickResolveBtn(location.state?.task)
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 

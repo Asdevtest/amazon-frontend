@@ -17,6 +17,7 @@ export const useClassNames = makeStyles(theme => ({
     alignItems: 'center',
     height: theme.spacing(7),
     flexShrink: 0,
+    width: '250px',
   },
   logo: {
     marginTop: '15px',

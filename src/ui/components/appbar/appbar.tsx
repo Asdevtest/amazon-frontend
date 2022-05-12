@@ -87,26 +87,28 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen}) => 
 
           <Typography className={classNames.userroleTitle}>{'your role:'}</Typography>
 
-          <div className={classNames.allowedRolesWrapper}>
-            {allowedRolesWithoutCandidate?.map((roleCode: number) => (
-              <Button
-                key={roleCode}
-                variant={'text'}
-                className={clsx(classNames.allowedRolesItem, {
-                  [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
-                })}
-                onClick={() => onChangeUserInfo(roleCode)}
-              >
-                {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
-              </Button>
-            ))}
-          </div>
+          <div className={classNames.allowedRolesMainWrapper}>
+            <div className={classNames.allowedRolesWrapper}>
+              {allowedRolesWithoutCandidate?.map((roleCode: number) => (
+                <Button
+                  key={roleCode}
+                  variant={'text'}
+                  className={clsx(classNames.allowedRolesItem, {
+                    [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
+                  })}
+                  onClick={() => onChangeUserInfo(roleCode)}
+                >
+                  {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
+                </Button>
+              ))}
+            </div>
 
-          {!allowedRolesWithoutCandidate?.length && (
-            <Typography className={clsx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
-              {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
-            </Typography>
-          )}
+            {!allowedRolesWithoutCandidate?.length && (
+              <Typography className={clsx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
+                {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
+              </Typography>
+            )}
+          </div>
 
           <Divider orientation="vertical" />
           <Badge showZero badgeContent={2}>

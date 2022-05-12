@@ -172,7 +172,7 @@ export const FieldsAndSuppliers = observer(
                         <div className={classNames.inputWrapper}>
                           <Input
                             placeholder={textConsts.skuHolder}
-                            inputProps={{maxLength: 1000}}
+                            inputProps={{maxLength: 50}}
                             value={skuLine}
                             className={classNames.input}
                             onChange={e => setSkuLine(e.target.value.replace(/ /g, ''))}
