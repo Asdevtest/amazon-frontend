@@ -7,7 +7,7 @@ import React, {useState} from 'react'
 import {Grid, Typography, Avatar, Link} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
-import ImageUploading from 'react-images-uploading'
+import ImageUploading from 'react-images-uploading-alex76457-version'
 
 import {texts} from '@constants/texts'
 
@@ -105,7 +105,7 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptT
 
       <ImageUploading
         multiple
-        acceptType={acceptType ? acceptType : ['jpg', 'gif', 'png', 'pdf']}
+        acceptType={acceptType ? acceptType : ['jpg', 'gif', 'png', 'pdf', 'jpeg']}
         value={images}
         maxNumber={maxNumber}
         dataURLKey="data_url"

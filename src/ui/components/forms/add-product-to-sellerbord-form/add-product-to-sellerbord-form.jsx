@@ -190,7 +190,12 @@ export const AddProductSellerboardForm = observer(({goodsToSelect, onSubmit, sho
       </div>
 
       <div className={classNames.imageFileInputWrapper}>
-        <UploadFilesInput images={images} setImages={setImages} maxNumber={50} acceptType={['jpg', 'gif', 'png']} />
+        <UploadFilesInput
+          images={images}
+          setImages={setImages}
+          maxNumber={50}
+          acceptType={['jpg', 'gif', 'png', 'jpeg']}
+        />
       </div>
 
       <div className={classNames.btnsWrapper}>

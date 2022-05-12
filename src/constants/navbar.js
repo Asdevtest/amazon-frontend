@@ -60,6 +60,7 @@ const permissionsKeys = {
     SHOW_PAYMENTS_CLIENT: 'SHOW_PAYMENTS_CLIENT',
     SHOW_NOTIFICATIONS_CLIENT: 'SHOW_NOTIFICATIONS_CLIENT',
     SHOW_SHOPS_CLIENT: 'SHOW_SHOPS_CLIENT',
+    SHOW_FREELANCE_CLIENT: 'SHOW_FREELANCE_CLIENT',
   },
   researcher: {
     SHOW_PAYMENTS_RESEARCHER: 'SHOW_PAYMENTS_RESEARCHER',
@@ -99,7 +100,8 @@ export const navbarConfig = {
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>
-        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_REQUESTS_CLIENT),
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_FREELANCE_CLIENT),
     },
 
     {

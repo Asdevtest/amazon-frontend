@@ -18,6 +18,8 @@ export class AdminUsersViewModel {
   requestStatus = undefined
   error = undefined
 
+  nameSearchValue = ''
+
   users = []
   groupPermissions = []
   singlePermissions = []
@@ -81,6 +83,10 @@ export class AdminUsersViewModel {
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
     }
+  }
+
+  onChangeNameSearchValue(e) {
+    this.nameSearchValue = e.target.value
   }
 
   async loadData() {
@@ -193,7 +199,11 @@ export class AdminUsersViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.users)
+    if (this.nameSearchValue) {
+      return toJS(this.users).filter(user => user.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+    } else {
+      return toJS(this.users)
+    }
   }
 
   onSelectionModel(model) {

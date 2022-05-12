@@ -10,6 +10,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
+import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -35,6 +36,8 @@ class AdminUsersViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
+
       groupPermissions,
       singlePermissions,
 
@@ -64,6 +67,7 @@ class AdminUsersViewRaw extends Component {
       onChangeFilterModel,
 
       onTriggerOpenModal,
+      onChangeNameSearchValue,
     } = this.viewModel
 
     return (
@@ -72,6 +76,10 @@ class AdminUsersViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
             <MainContent>
+              <div>
+                <Field label={'Быстрый поиск по имени:'} value={nameSearchValue} onChange={onChangeNameSearchValue} />
+              </div>
+
               <DataGrid
                 pagination
                 autoHeight

@@ -131,7 +131,7 @@ export const TopCard = observer(
                           images={imagesForLoad}
                           setImages={onChangeImagesForLoad}
                           maxNumber={50}
-                          acceptType={['jpg', 'gif', 'png']}
+                          acceptType={['jpg', 'gif', 'png', 'jpeg']}
                         />
                       </div>
                     )}

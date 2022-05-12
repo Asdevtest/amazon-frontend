@@ -70,6 +70,12 @@ export const AddOrEditBatchForm = observer(
         setBoxesToAddData(() => [...filterBoxesToAddData()])
       } else if (batchToEdit) {
         const chosenBoxesIds = chosenBoxes.map(box => box._id)
+
+        const deletedBoxes = clientWarehouseDataConverter(
+          [...batchToEdit.originalData?.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
+          volumeWeightCoefficient,
+        )
+
         setBoxesToAddData(() => [
           ...[
             ...boxesData.filter(
@@ -79,6 +85,7 @@ export const AddOrEditBatchForm = observer(
                 !chosenBoxesIds.includes(box._id),
             ),
           ],
+          ...deletedBoxes,
         ])
       } else {
         setBoxesToAddData(() => [...[...boxesData]])
@@ -88,6 +95,15 @@ export const AddOrEditBatchForm = observer(
     const onClickTrash = () => {
       const filteredArray = [...chosenBoxes].filter(el => !boxesToDeliteIds.includes(el.id))
       setChosenBoxes(() => filteredArray)
+
+      // if(batchToEdit){
+      //   const deletedBoxes = [...chosenBoxes].filter(el => boxesToDeliteIds.includes(el.id))
+
+      //   console.log('deletedBoxes', deletedBoxes)
+
+      //   setBoxesToAddData(() =>[...[...boxesToAddData, ...deletedBoxes]])
+
+      // }
     }
 
     const onClickAdd = () => {
