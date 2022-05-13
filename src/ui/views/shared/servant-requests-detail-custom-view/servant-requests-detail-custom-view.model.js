@@ -93,11 +93,13 @@ export class RequestDetailCustomViewModel {
     }
   }
 
-  async onSubmitMessage(message, chatIdId) {
+  async onSubmitMessage(message, links, files, chatIdId) {
     try {
+      console.log('files ', files)
       await ChatModel.sendMessage({
         chatId: chatIdId,
         text: message,
+        files: files?.map(item => item?.file),
       })
     } catch (error) {
       console.warn('onSubmitMessage error ', error)
