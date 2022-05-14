@@ -162,7 +162,7 @@ export const OwnerGeneralRequestInfo = ({
                 </Button>
               )}
 
-              {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED && (
+              {request?.request.status === RequestStatus.PUBLISHED && (
                 <Button
                   variant="outlined"
                   color="primary"

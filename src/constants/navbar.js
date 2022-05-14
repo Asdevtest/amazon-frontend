@@ -510,7 +510,7 @@ export const navbarConfig = {
   [UserRole.STOREKEEPER]: [
     {
       icon: InfoOutlinedIcon,
-      title: 'Главная страница',
+      title: 'Dashboard',
       subtitles: null,
       route: '/warehouse/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
@@ -518,10 +518,10 @@ export const navbarConfig = {
     },
     {
       icon: AssignmentIcon,
-      title: 'Задачи',
+      title: 'Tasks',
       subtitles: [
         {
-          subtitle: 'Новые задачи',
+          subtitle: 'New tasks',
           subRoute: '/warehouse/vacant-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_VAC_TASKS,
           checkHideSubBlock: user =>
@@ -529,7 +529,7 @@ export const navbarConfig = {
             user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_VAC_TASKS_STOREKEEPER),
         },
         {
-          subtitle: 'Мои задачи',
+          subtitle: 'My tasks',
           subRoute: '/warehouse/my-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS,
           checkHideSubBlock: user =>
@@ -538,7 +538,7 @@ export const navbarConfig = {
         },
 
         {
-          subtitle: 'Выполненые задачи',
+          subtitle: 'Completed tasks',
           subRoute: '/warehouse/completed-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS,
           checkHideSubBlock: user =>
@@ -546,7 +546,7 @@ export const navbarConfig = {
             user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_COMPLETED_TASKS_STOREKEEPER),
         },
         {
-          subtitle: 'Отмененные задачи',
+          subtitle: 'Canceled tasks',
           subRoute: '/warehouse/canceled-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
           checkHideSubBlock: user =>
@@ -570,13 +570,13 @@ export const navbarConfig = {
 
     {
       icon: ArchiveOutlinedIcon,
-      title: 'Мой склад',
+      title: 'My warehouse',
       route: '/warehouse/my-warehouse',
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
 
       subtitles: [
         {
-          subtitle: 'Товары',
+          subtitle: 'Boxes',
           subRoute: '/warehouse/my-warehouse',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
           checkHideSubBlock: user =>
@@ -584,7 +584,7 @@ export const navbarConfig = {
             user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER),
         },
         {
-          subtitle: 'Управление складом',
+          subtitle: 'Warehouse management',
           subRoute: '/warehouse/management',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MANAGEMENT,
           checkHideSubBlock: user =>
@@ -603,16 +603,16 @@ export const navbarConfig = {
 
     {
       icon: LocalConvenienceStore,
-      title: 'Мои партии',
+      title: 'My batches',
       route: '/warehouse/batches',
       subtitles: [
         {
-          subtitle: 'Ожидают отправки',
+          subtitle: 'Awaiting send',
           subRoute: '/warehouse/awaiting-batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES,
         },
         {
-          subtitle: 'Отправленные',
+          subtitle: 'Sended',
           subRoute: '/warehouse/batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES,
         },
@@ -625,9 +625,9 @@ export const navbarConfig = {
     },
     {
       icon: PeopleIcon,
-      title: 'Пользователи',
+      title: 'Users',
       route: '/warehouse/users/sub-users',
-      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/warehouse/users/sub-users'}],
+      subtitles: [{subtitle: 'My users', subRoute: '/warehouse/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -635,7 +635,7 @@ export const navbarConfig = {
     },
     {
       icon: MonetizationOnOutlinedIcon,
-      title: 'Финансы',
+      title: 'Finances',
       route: '/warehouse/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
