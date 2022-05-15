@@ -2,7 +2,8 @@
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "types": [
-      "react"
+      "react",
+      "node"
     ],
     "lib": [
       "es2020",
