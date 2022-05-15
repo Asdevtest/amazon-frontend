@@ -14,6 +14,10 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {AuthViewModel} from './auth-view.model'
 import {styles} from './auth-view.style'
+import { languageOptions } from '@constants/translations/language-options'
+import { SettingsModel } from '@models/settings-model'
+import { setI18nConfig, t } from '@utils/translations'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 const textConsts = getLocalizedTexts(texts, 'en').authView
 
@@ -38,6 +42,19 @@ export class AuthViewRaw extends Component {
             onSubmit={this.viewModel.onSubmitForm}
           />
           {this.renderError()}
+          <p>{t(TranslationKey.Test)}</p>
+          {
+            languageOptions.map((languageOption) => (
+              <p
+                key={languageOption.key}
+                style={{cursor: 'pointer'}}
+                onClick={() => {
+                  SettingsModel.setLanguageTag(languageOption.key)
+                  setI18nConfig()
+              }}
+              >{languageOption.label}</p>
+            ))
+          }
         </EntryRightPanel>
       </div>
     )

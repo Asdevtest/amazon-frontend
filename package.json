@@ -13,7 +13,8 @@
     "generate-rest-api-service": "openapi-generator-cli generate -i ./schema.json -g javascript -c ./src/services/rest-api-service/options-openapi.json -o ./src/services/rest-api-service/codegen/ --skip-validate-spec",
     "prepare": "husky install",
     "lint:fix": "eslint --fix --ext .js,.jsx .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "translations:check": "npx ts-node scripts/translations-check"
   },
   "dependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.14.5",
@@ -51,7 +52,9 @@
     "env-cmd": "^10.1.0",
     "git": "^0.1.5",
     "husky": "^7.0.2",
+    "i18n-js": "^3.9.2",
     "js-cookie": "^3.0.1",
+    "lodash.memoize": "^4.1.2",
     "mobx": "^6.3.3",
     "mobx-persist-store": "^1.0.4",
     "mobx-react": "^7.2.0",
@@ -80,6 +83,8 @@
     "@babel/plugin-proposal-decorators": "^7.15.4",
     "@babel/plugin-syntax-jsx": "^7.12.13",
     "@trivago/prettier-plugin-sort-imports": "^2.0.4",
+    "@types/i18n-js": "^3.8.2",
+    "@types/lodash.memoize": "^4.1.7",
     "@types/node": "^16.10.2",
     "@types/react": "^17.0.27",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
@@ -111,7 +116,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint && lint-staged"
+      "pre-commit": "yarn lint && lint-staged && yarn translations:check"
     }
   },
   "lint-staged": {
