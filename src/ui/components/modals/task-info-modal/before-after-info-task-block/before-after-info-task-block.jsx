@@ -3,14 +3,12 @@ import React from 'react'
 import {Divider, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {BeforeAfterBox} from './before-after-box'
 import {useClassNames} from './before-after-info-task-block.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').beforeAfterInfoTaskBlock
 
 export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, taskType, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
@@ -18,7 +16,7 @@ export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, task
   return (
     <div className={classNames.boxesWrapper}>
       <div className={classNames.currentBox}>
-        <Typography variant="h4">{textConsts.incom}</Typography>
+        <Typography variant="h4">{t(TranslationKey.Incoming)}</Typography>
 
         {beforeBoxes.map((box, boxIndex) => (
           <BeforeAfterBox
@@ -35,7 +33,7 @@ export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, task
 
       {afterBoxes.length > 0 && (
         <div className={classNames.newBoxes}>
-          <Typography variant="h4">{textConsts.newBoxes}</Typography>
+          <Typography variant="h4">{t(TranslationKey['New boxes'])}</Typography>
 
           {afterBoxes.map((box, boxIndex) => (
             <BeforeAfterBox

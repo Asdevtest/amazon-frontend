@@ -6,7 +6,7 @@ import {Typography} from '@material-ui/core'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
@@ -16,13 +16,11 @@ import {Field} from '@components/field/field'
 import {calcFinalWeightForBox, calcPriceForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {formatDateWithoutTime} from '@utils/date-time'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getFullTariffTextForBoxOrOrder, toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {addOrEditBatchFormColumns} from './add-or-edit-batch-form-columns'
 import {useClassNames} from './add-or-edit-batch-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').addOrEditBatchForm
 
 export const AddOrEditBatchForm = observer(
   ({boxesData, onClose, volumeWeightCoefficient, onSubmit, batchToEdit, sourceBox}) => {
@@ -137,14 +135,16 @@ export const AddOrEditBatchForm = observer(
 
     return (
       <div className={classNames.root}>
-        <Typography variant="h5">{batchToEdit ? 'Редактирование партии' : 'Создание партии'}</Typography>
+        <Typography variant="h5">
+          {batchToEdit ? t(TranslationKey['Editing a batch']) : t(TranslationKey['Creating a batch'])}
+        </Typography>
 
         <div className={classNames.form}>
           <div className={classNames.filtersWrapper}>
             <Field
               disabled
               className={classNames.filterField}
-              label={'ETD (дата отправки)'}
+              label={t(TranslationKey['ETD (date of shipment)'])}
               value={
                 sourceDataForFilters
                   ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.etd)
@@ -152,13 +152,13 @@ export const AddOrEditBatchForm = observer(
                       formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.etd)) ||
                     ''
               }
-              placeholder={'dd.mm.yyyy'}
+              placeholder={t(TranslationKey['dd.mm.yyyy'])}
             />
 
             <Field
               disabled
               className={classNames.filterField}
-              label={'ETA (дата прибытия)'}
+              label={t(TranslationKey['ETA (arrival date)'])}
               value={
                 sourceDataForFilters
                   ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.eta)
@@ -166,13 +166,13 @@ export const AddOrEditBatchForm = observer(
                       formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.eta)) ||
                     ''
               }
-              placeholder={'dd.mm.yyyy'}
+              placeholder={t(TranslationKey['dd.mm.yyyy'])}
             />
 
             <Field
               disabled
               className={classNames.filterField}
-              label={'CLS (дата закрытия партии)'}
+              label={t(TranslationKey['CLS (batch closing date)'])}
               value={
                 sourceDataForFilters
                   ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.cls)
@@ -180,13 +180,13 @@ export const AddOrEditBatchForm = observer(
                       formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.cls)) ||
                     ''
               }
-              placeholder={'dd.mm.yyyy'}
+              placeholder={t(TranslationKey['dd.mm.yyyy'])}
             />
 
             <Field
               disabled
               className={classNames.filterField}
-              label={'Тариф'}
+              label={t(TranslationKey.Tariff)}
               value={
                 (sourceDataForFilters
                   ? getFullTariffTextForBoxOrOrder(sourceDataForFilters)
@@ -198,7 +198,7 @@ export const AddOrEditBatchForm = observer(
             <Field
               disabled
               className={classNames.filterField}
-              label={'Destination'}
+              label={t(TranslationKey.Destination)}
               value={
                 (sourceDataForFilters
                   ? sourceDataForFilters.destination.name
@@ -208,7 +208,7 @@ export const AddOrEditBatchForm = observer(
             />
           </div>
 
-          <Typography>{'Выберите коробки из списка:'}</Typography>
+          <Typography>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
           <div className={classNames.tableWrapper}>
             <DataGrid
               autoHeight
@@ -224,17 +224,17 @@ export const AddOrEditBatchForm = observer(
 
           <div className={classNames.btnsWrapper}>
             <Button
-              tooltipContent={!chosenBoxes.length && !batchToEdit && 'Сначала выберите одну коробку'}
+              tooltipContent={!chosenBoxes.length && !batchToEdit && t(TranslationKey['First select one box'])}
               disabled={!boxesToAddIds.length || (!chosenBoxes.length && boxesToAddIds.length !== 1 && !batchToEdit)}
               color="primary"
               variant="contained"
               onClick={onClickAdd}
             >
-              {'Добавить в партию'}
+              {t(TranslationKey.Add)}
             </Button>
           </div>
 
-          <Typography className={classNames.chosenGoodsTitle}>{textConsts.chosenGoods}</Typography>
+          <Typography className={classNames.chosenGoodsTitle}>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
 
           <div className={classNames.tableWrapper}>
             <DataGrid
@@ -250,7 +250,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={classNames.btnsWrapper}>
             <ErrorButton disabled={!boxesToDeliteIds.length} color="primary" variant="contained" onClick={onClickTrash}>
-              {'Удалить'}
+              {t(TranslationKey.Remove)}
             </ErrorButton>
           </div>
 
@@ -258,7 +258,7 @@ export const AddOrEditBatchForm = observer(
             <Field
               disabled
               containerClasses={classNames.sumField}
-              label={'Объемный вес'}
+              label={t(TranslationKey['Volume weight'])}
               value={toFixed(
                 chosenBoxes.reduce(
                   (ac, cur) => (ac += calcVolumeWeightForBox(cur.originalData, volumeWeightCoefficient)),
@@ -272,7 +272,7 @@ export const AddOrEditBatchForm = observer(
             <Field
               disabled
               containerClasses={classNames.sumField}
-              label={'Общий финальный вес'}
+              label={t(TranslationKey['Final weight'])}
               value={toFixed(
                 chosenBoxes.reduce(
                   (ac, cur) => (ac += calcFinalWeightForBox(cur.originalData, volumeWeightCoefficient)),
@@ -286,7 +286,7 @@ export const AddOrEditBatchForm = observer(
             <Field
               disabled
               containerClasses={classNames.sumField}
-              label={'Общая финальная стоимость'}
+              label={t(TranslationKey['Total price'])}
               value={toFixed(
                 chosenBoxes.reduce((ac, cur) => (ac += calcPriceForBox(cur.originalData)), 0),
                 2,
@@ -303,11 +303,11 @@ export const AddOrEditBatchForm = observer(
               color="primary"
               onClick={onClickSubmit}
             >
-              {'Сохранить'}
+              {t(TranslationKey.Save)}
             </SuccessButton>
 
             <Button color="primary" variant="text" className={classNames.cancelBtn} onClick={onClose}>
-              {'Отмена'}
+              {t(TranslationKey.Cancel)}
             </Button>
           </div>
         </div>

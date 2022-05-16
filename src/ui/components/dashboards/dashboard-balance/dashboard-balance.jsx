@@ -2,22 +2,20 @@ import React from 'react'
 
 import {Typography} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {useClassNames} from '@components/dashboards/dashboard-balance/dashboard-balance.style'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getThousandsSeparatedString} from '@utils/get-thousands-separated-string'
 import {toFixed, toFixedWithDollarSign, withDollarSign} from '@utils/text'
-
-const textConsts = getLocalizedTexts(texts, 'en').dashboardBalance
+import {t} from '@utils/translations'
 
 export const DashboardBalance = ({user}) => {
   const classNames = useClassNames()
   return (
     <>
       <Typography paragraph variant="h6">
-        {textConsts.balance}
+        {t(TranslationKey.Balance)}
       </Typography>
       <Typography className={classNames.balanceTitle}>
         {withDollarSign(getThousandsSeparatedString(toFixed(user.balance, 2), ' '))}

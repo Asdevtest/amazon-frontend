@@ -6,19 +6,17 @@ import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {AddOrEditLogisticTariffForm} from '@components/forms/add-or-edit-logistic-tariff-form'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {LogisticsTariffsModel} from './logistics-tariffs.model'
 import {useClassNames} from './logistics-tariffs.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').groupPermissions
 
 export const LogisticsTariffs = observer(() => {
   const classNames = useClassNames()
@@ -60,7 +58,7 @@ export const LogisticsTariffs = observer(() => {
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.placeAddBtnWrapper}>
-        <SuccessButton onClick={() => onClickAddBtn()}>{textConsts.addBtn}</SuccessButton>
+        <SuccessButton onClick={() => onClickAddBtn()}>{t(TranslationKey.Add)}</SuccessButton>
       </div>
 
       <DataGrid
@@ -102,10 +100,10 @@ export const LogisticsTariffs = observer(() => {
         isWarning={confirmModalSettings.isWarning}
         openModal={showConfirmModal}
         setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={textConsts.confirmTitle}
+        title={t(TranslationKey.Attention)}
         message={confirmModalSettings.message}
-        successBtnText={textConsts.yesBtn}
-        cancelBtnText={textConsts.noBtn}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
         onClickSuccessBtn={confirmModalSettings.onClickSuccess}
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
       />

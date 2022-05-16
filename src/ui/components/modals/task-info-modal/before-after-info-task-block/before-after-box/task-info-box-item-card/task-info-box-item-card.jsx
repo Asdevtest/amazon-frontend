@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import {Paper, Typography, Checkbox, Link} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
@@ -10,12 +10,10 @@ import {Input} from '@components/input'
 
 import {calcMaxDeliveryForProduct, calcTotalFbaForProduct} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl, toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './task-info-box-item-card.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').taskInfoBoxItemCard
 
 export const TaskInfoBoxItemCard = ({item, superCount}) => {
   const classNames = useClassNames()
@@ -31,19 +29,19 @@ export const TaskInfoBoxItemCard = ({item, superCount}) => {
             <Typography className={classNames.title}>{item.product.amazonTitle}</Typography>
 
             <Button className={classNames.moreBtn} onClick={() => setCollapsed(!collapsed)}>
-              {!collapsed ? textConsts.allParameters : textConsts.close}
+              {!collapsed ? t(TranslationKey['All parameters']) : t(TranslationKey.Close)}
             </Button>
           </div>
 
           <div className={classNames.attributeWrapper}>
             <div className={classNames.countWrapper}>
-              <Typography className={classNames.subTitle}>{textConsts.count}</Typography>
+              <Typography className={classNames.subTitle}>{t(TranslationKey.Quantity) + ':'}</Typography>
               <Input readOnly classes={{root: classNames.inputWrapper, input: classNames.input}} value={item.amount} />
               {superCount > 1 && <Typography className={classNames.superCount}>{`x ${superCount}`}</Typography>}
             </div>
 
             <div className={classNames.chipWrapper}>
-              <Typography className={classNames.subTitle}>{textConsts.barCode}</Typography>
+              <Typography className={classNames.subTitle}>{t(TranslationKey.BarCode) + ':'}</Typography>
 
               {item.barCode ? (
                 <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
@@ -57,13 +55,13 @@ export const TaskInfoBoxItemCard = ({item, superCount}) => {
             {item.isBarCodeAttachedByTheStorekeeper ? (
               <Field
                 oneLine
-                label={textConsts.isBarCodeAttachedByTheStorekeeper}
+                label={t(TranslationKey['BarCode is glued by storekeeper'])}
                 inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
               />
             ) : (
               <Field
                 oneLine
-                label={textConsts.codeCheck}
+                label={t(TranslationKey['BarCode is glued by supplier'])}
                 inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
               />
             )}
@@ -76,44 +74,49 @@ export const TaskInfoBoxItemCard = ({item, superCount}) => {
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.material}
+                label={t(TranslationKey.Material)}
                 value={item.product.material || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.category}
+                label={t(TranslationKey.Category)}
                 value={item.product.category || ''}
               />
-              <Field disabled className={classNames.field} label={textConsts.bsr} value={item.product.bsr || ''} />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.amazonPrice}
+                label={t(TranslationKey.BSR)}
+                value={item.product.bsr || ''}
+              />
+              <Field
+                disabled
+                className={classNames.field}
+                label={t(TranslationKey['Amazon price'])}
                 value={toFixed(item.product.amazon, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.fieldWidth}
+                label={t(TranslationKey['Width, inches'])}
                 value={toFixed(item.product.width, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.fieldHeight}
+                label={t(TranslationKey['Height, inches'])}
                 value={toFixed(item.product.height, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.fieldLength}
+                label={t(TranslationKey['Length, inches'])}
                 value={toFixed(item.product.length, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.fieldWeight}
+                label={t(TranslationKey['Weight, kg'])}
                 value={toFixed(item.product.weight, 2) || ''}
               />
             </div>
@@ -121,49 +124,49 @@ export const TaskInfoBoxItemCard = ({item, superCount}) => {
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.minpurchase}
+                label={t(TranslationKey['Min purchase price, $'])}
                 value={toFixed(item.product.minpurchase, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.maxDeliveryPrice}
+                label={t(TranslationKey['Max delivery price, $'])}
                 value={toFixed(calcMaxDeliveryForProduct(item.product), 2)}
               />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.refferalFee}
+                label={t(TranslationKey['Refferal fee , $'])}
                 value={toFixed(item.product.reffee, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.fbaFee}
+                label={t(TranslationKey['FBA fee , $'])}
                 value={toFixed(item.product.fbafee, 2) || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.totalFba}
+                label={t(TranslationKey['Total FBA, $'])}
                 value={toFixed(calcTotalFbaForProduct(item.product), 2)}
               />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.recommendedBatch}
+                label={t(TranslationKey['Recommended batch'])}
                 value={item.product.fbaamount || ''}
               />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.revenue}
+                label={t(TranslationKey['Profit, $'])}
                 value={toFixed(item.product.profit, 2) || 0}
               />
               <Field
                 disabled
                 className={classNames.field}
-                label={textConsts.fieldMargin}
+                label={t(TranslationKey['Margin, %'])}
                 value={toFixed(item.product.margin, 2) || 0}
               />
             </div>

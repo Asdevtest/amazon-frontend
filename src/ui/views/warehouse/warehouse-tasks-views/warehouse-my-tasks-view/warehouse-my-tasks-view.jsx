@@ -8,7 +8,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -20,12 +20,11 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {WarehouseVacantViewModel} from './warehouse-my-tasks-view.model'
 import {styles} from './warehouse-my-tasks-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseMyTasksView
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_TASKS
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS
 
@@ -35,7 +34,6 @@ export class WarehouseMyTasksViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -86,7 +84,7 @@ export class WarehouseMyTasksViewRaw extends Component {
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['My tasks'])} notificationCount={2} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination
@@ -120,7 +118,7 @@ export class WarehouseMyTasksViewRaw extends Component {
           </Appbar>
         </Main>
         <Modal openModal={showEditTaskModal} setOpenModal={onTriggerEditTaskModal}>
-          <Typography variant="h5">{textConsts.taskModalTitle}</Typography>
+          <Typography variant="h5">{t(TranslationKey['Resolve task'])}</Typography>
           <EditTaskModal
             requestStatus={requestStatus}
             volumeWeightCoefficient={volumeWeightCoefficient}
@@ -142,18 +140,17 @@ export class WarehouseMyTasksViewRaw extends Component {
             onTriggerOpenModal('showCancelTaskModal')
             onTriggerOpenModal('showConfirmModal')
           }}
-          titleText={textConsts.modalMergeTitle}
-          commentLabelText={textConsts.modalCancelTaskLabel}
-          okBtnText={textConsts.okBtn}
-          cancelBtnText={textConsts.cancelBtn}
+          commentLabelText={t(TranslationKey['Reason for canceling the task'])}
+          okBtnText={t(TranslationKey.Ok)}
+          cancelBtnText={t(TranslationKey.Cancel)}
           onSubmit={onClickConfirmCancelTask}
         />
 
         <WarningInfoModal
           openModal={showNoDimensionsErrorModal}
           setOpenModal={() => onTriggerOpenModal('showNoDimensionsErrorModal')}
-          title={textConsts.dimensionsMessage}
-          btnText={textConsts.okBtn}
+          title={t(TranslationKey['Enter dimensions'])}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showNoDimensionsErrorModal')
           }}
@@ -163,10 +160,10 @@ export class WarehouseMyTasksViewRaw extends Component {
           isWarning
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
-          message={textConsts.confirmMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          title={t(TranslationKey['Confirm action'])}
+          message={t(TranslationKey['After confirmation, the task will be cancelled. Confirm?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showCancelTaskModal')
           }}

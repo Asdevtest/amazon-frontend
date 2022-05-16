@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -20,12 +20,10 @@ import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {WarehouseAwaitingBatchesViewModel} from './warehouse-awaiting-batches-view.model'
 import {styles} from './warehouse-awaiting-batches-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseAwaitingBatchesView
 
 const activeCategory = navBarActiveCategory.NAVBAR_BATCHES
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES
@@ -35,7 +33,6 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -85,7 +82,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Awaiting send'])}>
             <MainContent>
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>
@@ -95,7 +92,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                     variant="contained"
                     onClick={() => onTriggerOpenModal('showConfirmModal')}
                   >
-                    {textConsts.confirmSendBatchBtn}
+                    {t(TranslationKey['Confirm send to batch'])}
                   </Button>
 
                   <Button
@@ -104,12 +101,12 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                     variant="contained"
                     onClick={() => onClickAddOrEditBatch({isAdding: false})}
                   >
-                    {textConsts.editBtn}
+                    {t(TranslationKey.Edit)}
                   </Button>
                 </div>
 
                 <SuccessButton className={classNames.addBtn} onClick={() => onClickAddOrEditBatch({isAdding: true})}>
-                  {textConsts.addBtn}
+                  {t(TranslationKey.Add)}
                 </SuccessButton>
               </div>
 
@@ -162,10 +159,10 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
           isWarning={isWarning}
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
-          message={textConsts.confirmMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey.Send) + '?'}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={onClickConfirmSendToBatchBtn}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />

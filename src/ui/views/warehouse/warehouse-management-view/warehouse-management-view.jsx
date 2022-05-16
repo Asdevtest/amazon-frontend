@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -11,11 +11,9 @@ import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 import {WarehouseManagement} from '@components/warehouse-management'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {WarehouseManagementViewModel} from './warehouse-management-view.model'
-
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseManagementView
 
 const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MANAGEMENT
@@ -44,7 +42,7 @@ export class WarehouseManagementView extends Component {
         />
         <Main>
           <Appbar
-            title={textConsts.appBarTitle}
+            title={t(TranslationKey['Warehouse management'])}
             notificationCount={2}
             history={history}
             setDrawerOpen={onTriggerDrawerOpen}

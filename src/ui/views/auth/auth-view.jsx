@@ -4,22 +4,17 @@ import {Hidden} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {EntryLeftPanel} from '@components/entry-left-panel'
 import {EntryRightPanel} from '@components/entry-right-panel'
 import {AuthForm} from '@components/forms/auth-form'
+import {LanguageSelector} from '@components/language-selector'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AuthViewModel} from './auth-view.model'
 import {styles} from './auth-view.style'
-import { languageOptions } from '@constants/translations/language-options'
-import { SettingsModel } from '@models/settings-model'
-import { setI18nConfig, t } from '@utils/translations'
-import { TranslationKey } from '@constants/translations/translation-key'
-
-const textConsts = getLocalizedTexts(texts, 'en').authView
 
 @observer
 export class AuthViewRaw extends Component {
@@ -31,7 +26,11 @@ export class AuthViewRaw extends Component {
         <Hidden smDown>
           <EntryLeftPanel />
         </Hidden>
-        <EntryRightPanel redirect={textConsts.redirect} title={textConsts.title} onClickRedirect={this.onClickRedirect}>
+        <EntryRightPanel
+          redirect={t(TranslationKey['Create account'])}
+          title={t(TranslationKey['Sign in'])}
+          onClickRedirect={this.onClickRedirect}
+        >
           <AuthForm
             formFields={{
               email: this.viewModel.email,
@@ -42,19 +41,8 @@ export class AuthViewRaw extends Component {
             onSubmit={this.viewModel.onSubmitForm}
           />
           {this.renderError()}
-          <p>{t(TranslationKey.Test)}</p>
-          {
-            languageOptions.map((languageOption) => (
-              <p
-                key={languageOption.key}
-                style={{cursor: 'pointer'}}
-                onClick={() => {
-                  SettingsModel.setLanguageTag(languageOption.key)
-                  setI18nConfig()
-              }}
-              >{languageOption.label}</p>
-            ))
-          }
+
+          <LanguageSelector />
         </EntryRightPanel>
       </div>
     )

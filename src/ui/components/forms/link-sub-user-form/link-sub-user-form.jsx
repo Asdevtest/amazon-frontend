@@ -2,16 +2,14 @@ import React, {useState} from 'react'
 
 import {Typography} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './link-sub-user-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').linkSubUserForm
 
 export const LinkSubUserForm = ({closeModal, onSubmit}) => {
   const classNames = useClassNames()
@@ -20,9 +18,9 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
 
   return (
     <div disableGutters className={classNames.mainWrapper}>
-      <Typography variant="h3">{textConsts.title}</Typography>
+      <Typography variant="h4">{t(TranslationKey['Add a sub-user'])}</Typography>
 
-      <Field label={textConsts.email} type="email" onChange={e => setEmail(e.target.value)} />
+      <Field label={t(TranslationKey.Email)} type="email" onChange={e => setEmail(e.target.value)} />
 
       <div className={classNames.buttonWrapper}>
         <Button
@@ -32,11 +30,11 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
           className={classNames.button}
           onClick={() => onSubmit({email: email.toLowerCase()})}
         >
-          {textConsts.addBtn}
+          {t(TranslationKey.Add)}
         </Button>
 
         <Button disableElevation variant="contained" className={classNames.button} onClick={() => closeModal()}>
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Cancel)}
         </Button>
       </div>
     </div>

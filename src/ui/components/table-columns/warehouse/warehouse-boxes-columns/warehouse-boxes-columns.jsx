@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   NormDateCell,
@@ -13,9 +13,7 @@ import {
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseBoxesTableColumns
+import {t} from '@utils/translations'
 
 export const warehouseBoxesViewColumns = handlers => [
   {
@@ -28,14 +26,14 @@ export const warehouseBoxesViewColumns = handlers => [
 
   {
     field: 'humanFriendlyId',
-    headerName: textConsts.boxIdField,
+    headerName: t(TranslationKey.ID),
     renderCell: params => renderFieldValueCell(params.value),
     width: 70,
   },
 
   {
     field: 'orders',
-    headerName: textConsts.ordersField,
+    headerName: t(TranslationKey.Product),
     width: 380,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
@@ -52,7 +50,7 @@ export const warehouseBoxesViewColumns = handlers => [
 
   {
     field: 'qty',
-    headerName: textConsts.qtyField,
+    headerName: t(TranslationKey.Quantity),
     renderCell: params =>
       params.row.originalData.amount > 1 ? (
         <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
@@ -65,21 +63,21 @@ export const warehouseBoxesViewColumns = handlers => [
 
   {
     field: 'warehouse',
-    headerName: textConsts.warehouseField,
+    headerName: t(TranslationKey.Warehouse),
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
   },
 
   {
     field: 'logicsTariff',
-    headerName: textConsts.logicsTariffField,
+    headerName: t(TranslationKey.Tariff),
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },
 
   {
     field: 'client',
-    headerName: textConsts.clientNameField,
+    headerName: t(TranslationKey.Client),
     renderCell: params => (
       <UserLinkCell name={params.value} userId={params.row.originalData.items[0].product.client?._id} />
     ),
@@ -88,7 +86,7 @@ export const warehouseBoxesViewColumns = handlers => [
 
   {
     field: 'dimansions',
-    headerName: textConsts.dimansionsField,
+    headerName: t(TranslationKey.Demensions),
     renderCell: params => (
       <ShortBoxDimensions box={params.row.originalData} volumeWeightCoefficient={params.row.volumeWeightCoefficient} />
     ),
@@ -97,14 +95,14 @@ export const warehouseBoxesViewColumns = handlers => [
 
   {
     field: 'batchId',
-    headerName: textConsts.batchField,
+    headerName: t(TranslationKey.Batch),
     renderCell: params => renderFieldValueCell(params.value),
     width: 130,
   },
 
   {
     field: 'action',
-    headerName: textConsts.actionField,
+    headerName: t(TranslationKey.Action),
     width: 200,
 
     renderCell: params => <WarehouseBoxesBtnsCell row={params.row.originalData} handlers={handlers} />,
@@ -114,7 +112,7 @@ export const warehouseBoxesViewColumns = handlers => [
 
   {
     field: 'createdAt',
-    headerName: textConsts.createdAtField,
+    headerName: t(TranslationKey.Created),
     renderCell: params => <NormDateCell params={params} />,
     width: 120,
     type: 'date',
@@ -122,7 +120,7 @@ export const warehouseBoxesViewColumns = handlers => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updatedAtField,
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     width: 120,
     type: 'date',

@@ -4,7 +4,7 @@ import {Divider, IconButton, TableCell, TableRow, Typography} from '@material-ui
 import DeleteIcon from '@material-ui/icons/Delete'
 import {transformAndValidate} from 'class-transformer-validator'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesWarehouseReceiveBoxModalContract} from '@models/boxes-model/boxes-model.contracts'
 
@@ -17,14 +17,12 @@ import {Table} from '@components/table'
 import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
-import {CommentsLine} from './comments-line'
+// import {CommentsLine} from './comments-line'
 import {useClassNames} from './receive-box-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseReceiveBoxModal
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = [
   {title: 'BOX'},
@@ -150,7 +148,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
 
   return (
     <div className={classNames.newBoxes}>
-      <Typography className={classNames.sectionTitle}>{textConsts.newBoxesTitle}</Typography>
+      <Typography className={classNames.sectionTitle}>{t(TranslationKey['New boxes'])}</Typography>
 
       <div className={classNames.tableWrapper}>
         <Table
@@ -281,7 +279,6 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
   }
   const CurrentBox = () => (
     <div className={classNames.currentBox}>
-      <Typography className={classNames.sectionTitle}>{textConsts.redistributionTitle}</Typography>
       <Typography className={classNames.boxTitle}>{`Box ${selectedBox.humanFriendlyId}`}</Typography>
       <div className={classNames.order}>
         <img className={classNames.img} src={getAmazonImageUrl(selectedBox?.items[0]?.product.images[0])} />
@@ -289,20 +286,20 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
       </div>
       <div className={classNames.currentBoxFooter}>
         <div className={classNames.qtyWrapper}>
-          <Typography className={classNames.footerTitle}>{textConsts.qtyLabel}</Typography>
+          <Typography className={classNames.footerTitle}>{t(TranslationKey.Quantity)}</Typography>
           <Input
             readOnly
             classes={{root: classNames.inputWrapper, input: classNames.input}}
             value={`${selectedBox.items[0].amount} x ${selectedBox.amount}`}
           />
         </div>
-        <Typography
-          className={classNames.footerTitle}
-        >{`${textConsts.productsLeftToRedistribute}: ${totalProductsAmount}`}</Typography>
+        <Typography className={classNames.footerTitle}>{`${t(
+          TranslationKey['Left to redistribute'],
+        )}: ${totalProductsAmount}`}</Typography>
 
-        <Typography
-          className={classNames.footerTitle}
-        >{`${textConsts.actuallyAssembled}: ${actuallyAssembled}`}</Typography>
+        <Typography className={classNames.footerTitle}>{`${t(
+          TranslationKey['Actually assembled'],
+        )}: ${actuallyAssembled}`}</Typography>
       </div>
     </div>
   )
@@ -311,9 +308,9 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
 
   return (
     <div className={classNames.root}>
-      <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
+      <Typography className={classNames.modalTitle}>{t(TranslationKey['Receive and distribute'])}</Typography>
 
-      <CommentsLine />
+      {/* <CommentsLine /> */}
 
       <Divider className={classNames.divider} />
 
@@ -337,7 +334,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
             onClickRedistributeBtn()
           }}
         >
-          {textConsts.toRedistributeBtn}
+          {t(TranslationKey.Save)}
         </Button>
         <Button
           className={classNames.button}
@@ -345,7 +342,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
             setNewBoxes(newBoxes.concat(getEmptyBox()))
           }}
         >
-          {textConsts.newBoxBtn}
+          {t(TranslationKey['New box'])}
         </Button>
         <Button
           className={classNames.button}
@@ -353,14 +350,14 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
             setOpenModal()
           }}
         >
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Cancel)}
         </Button>
       </div>
       <WarningInfoModal
         openModal={showNoDimensionsErrorModal}
         setOpenModal={() => setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)}
-        title={textConsts.dimensionsMessage}
-        btnText={textConsts.okBtn}
+        title={t(TranslationKey['Enter the dimensions of all the boxes'])}
+        btnText={t(TranslationKey.Ok)}
         onClickBtn={() => {
           setShowNoDimensionsErrorModal(!showNoDimensionsErrorModal)
         }}

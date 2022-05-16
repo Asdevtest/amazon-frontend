@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -15,12 +15,11 @@ import {MainContent} from '@components/main-content'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {WarehouseCanceledTasksViewModel} from './warehouse-canceled-tasks-view.model'
 import {styles} from './warehouse-canceled-tasks-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseCanceledTasksView
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_TASKS
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS
 
@@ -30,8 +29,6 @@ export class WarehouseCanceledTasksViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -73,7 +70,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
         />
         <Main>
           <Appbar
-            title={textConsts.appBarTitle}
+            title={t(TranslationKey['Canceled tasks'])}
             notificationCount={2}
             history={history}
             setDrawerOpen={onChangeTriggerDrawerOpen}

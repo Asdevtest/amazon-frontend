@@ -11,6 +11,7 @@ import {RequestStatus} from '@constants/request-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 
 import {ErrorButton} from '@components/buttons/error-button/error-button'
@@ -29,6 +30,7 @@ import {
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, trimBarcode, toFixedWithKg, checkAndMakeAbsoluteUrl, toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {styles} from './data-grid-cells.style'
 
@@ -224,7 +226,7 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
     <div>
       <Typography className={classNames.orderTitle}>{product.amazonTitle}</Typography>
       <Typography className={classNames.orderText}>
-        <span className={classNames.orderTextSpan}>{textConsts.id}</span>
+        <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN)}</span>
         {product.asin}
       </Typography>
       {superbox && (
@@ -232,7 +234,7 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
       )}
 
       {box && box.totalPrice - box.totalPriceChanged < 0 && (
-        <span className={classNames.needPay}>{`Необходима доплата! (${toFixedWithDollarSign(
+        <span className={classNames.needPay}>{`${t(TranslationKey['Extra payment required!'])} (${toFixedWithDollarSign(
           box.totalPriceChanged - box.totalPrice,
           2,
         )})`}</span>
@@ -262,17 +264,17 @@ export const WarehouseTariffRatesCell = withStyles(styles)(({conditionsByRegion}
 export const WarehouseTariffDatesCell = withStyles(styles)(({classes: classNames, row}) => (
   <div>
     <div className={classNames.warehouseTariffDatesItem}>
-      <Typography>{'ETD(дата отправки):'}</Typography>
+      <Typography>{t(TranslationKey['ETD (date of shipment)'])}</Typography>
       <Typography>{!row.etd ? 'N/A' : formatDateWithoutTime(row.etd)}</Typography>
     </div>
 
     <div className={classNames.warehouseTariffDatesItem}>
-      <Typography>{'ETA(дата прибытия):'}</Typography>
+      <Typography>{t(TranslationKey['ETA (arrival date)'])}</Typography>
       <Typography>{!row.eta ? 'N/A' : formatDateWithoutTime(row.eta)}</Typography>
     </div>
 
     <div className={classNames.warehouseTariffDatesItem}>
-      <Typography>{'CLS(дата закрытия партии):'}</Typography>
+      <Typography>{t(TranslationKey['CLS (batch closing date)'])}</Typography>
       <Typography>{!row.cls ? 'N/A' : formatDateWithoutTime(row.cls)}</Typography>
     </div>
   </div>
@@ -357,14 +359,14 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
 
   const taskMergeDescription = () => (
     <div className={classNames.taskTableCell}>
-      <Typography>{textConsts.merge}</Typography>
+      <Typography>{t(TranslationKey.Merge)}</Typography>
 
       {renderBlockProductsImages}
     </div>
   )
   const taskDivideDescription = () => (
     <div className={classNames.taskTableCell}>
-      <Typography className={classNames.descriptionWrapper}>{textConsts.unMerge}</Typography>
+      <Typography className={classNames.descriptionWrapper}>{t(TranslationKey.Split)}</Typography>
 
       {renderBlockProductsImages}
     </div>
@@ -372,7 +374,7 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
   const taskReceiveDescription = () => (
     <div className={classNames.blockProductsImagesWrapper}>
       <div className={classNames.taskTableCell}>
-        <Typography className={classNames.descriptionWrapper}>{textConsts.receive}</Typography>
+        <Typography className={classNames.descriptionWrapper}>{t(TranslationKey.Receive)}</Typography>
 
         {task.boxesBefore && task.boxesBefore.map((box, index) => renderProductImage(box, index))}
       </div>
@@ -382,7 +384,7 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
   const taskEditDescription = () => (
     <div className={classNames.blockProductsImagesWrapper}>
       <div className={classNames.taskTableCell}>
-        <Typography className={classNames.descriptionWrapper}>{textConsts.edit}</Typography>
+        <Typography className={classNames.descriptionWrapper}>{t(TranslationKey.Edit)}</Typography>
 
         {task.boxesBefore && task.boxesBefore.map((box, index) => renderProductImage(box, index))}
       </div>
@@ -469,7 +471,7 @@ export const NormalActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText}) 
 export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
   <div>
     <SuccessButton className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.onClickResolveBtn(row)}>
-      {textConsts.resolveBtn}
+      {t(TranslationKey.Resolve)}
     </SuccessButton>
 
     {row.operationType !== TaskOperationType.RECEIVE && (
@@ -479,7 +481,7 @@ export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames
           handlers.onClickCancelTask(row.boxes[0]._id, row._id, row.operationType)
         }}
       >
-        {textConsts.cancelBtn}
+        {t(TranslationKey.Cancel)}
       </ErrorButton>
     )}
   </div>
@@ -613,15 +615,14 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box}
           <div>
             <Typography className={classNames.manyItemsOrderTitle}>{item.product.amazonTitle}</Typography>
             <Typography className={classNames.orderText}>
-              <span className={classNames.orderTextSpan}>{textConsts.id}</span>
+              <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN)}</span>
               {item.product.asin}
             </Typography>
 
             {item.totalPrice - item.totalPriceChanged < 0 && itemIndex === 0 && (
-              <span className={classNames.needPay}>{`Необходима доплата! (${toFixedWithDollarSign(
-                item.totalPriceChanged - item.totalPrice,
-                2,
-              )})`}</span>
+              <span className={classNames.needPay}>{`${t(
+                TranslationKey['Extra payment required!'],
+              )} (${toFixedWithDollarSign(item.totalPriceChanged - item.totalPrice, 2)})`}</span>
             )}
           </div>
         </div>
@@ -670,7 +671,7 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
         disabled={disableActionBtn}
         onClick={() => handlers.onClickEditBtn(row)}
       >
-        {isSubUsersTable ? textConsts.addPermissionsBtn : textConsts.editBtn}
+        {isSubUsersTable ? t(TranslationKey['Assign permissions']) : t(TranslationKey.Edit)}
       </Button>
 
       <ErrorButton
@@ -680,7 +681,7 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
           handlers.onClickRemoveBtn(row)
         }}
       >
-        {textConsts.removeBtn}
+        {t(TranslationKey.Remove)}
       </ErrorButton>
     </div>
   ),
@@ -732,23 +733,23 @@ export const TrashCell = withStyles(styles)(({classes: classNames, onClick}) => 
 export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
   <div className={classNames.warehouseBoxesBtnsWrapper}>
     {row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
-      <Typography>{'Не готово к отправке'}</Typography>
+      <Typography>{t(TranslationKey['Not ready to ship'])}</Typography>
     )}
 
     {row.batchId && row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE && (
       <Button variant="contained" color="primary" onClick={() => handlers.moveBox(row)}>
-        {'Переместить'}
+        {t(TranslationKey['Move box'])}
       </Button>
     )}
 
     {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
       <SuccessButton className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.moveBox(row)}>
-        {'Добавить в партию'}
+        {t(TranslationKey['Add box to batch'])}
       </SuccessButton>
     )}
 
     <Button variant="contained" color="primary" onClick={() => handlers.setHsCode(row)}>
-      {'HS Code'}
+      {t(TranslationKey['HS code'])}
     </Button>
   </div>
 ))
@@ -780,7 +781,10 @@ export const ShortBoxDimensions = withStyles(styles)(({classes: classNames, box,
       2,
     )}`}</Typography>
 
-    <Typography>{`вес: ${toFixedWithKg(box.weighGrossKgWarehouse, 2)}`}</Typography>
-    <Typography>{`об. вес: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}`}</Typography>
+    <Typography>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(box.weighGrossKgWarehouse, 2)}`}</Typography>
+    <Typography>{`${t(TranslationKey['Volume weight'])}: ${toFixedWithKg(
+      calcVolumeWeightForBox(box, volumeWeightCoefficient),
+      2,
+    )}`}</Typography>
   </div>
 ))

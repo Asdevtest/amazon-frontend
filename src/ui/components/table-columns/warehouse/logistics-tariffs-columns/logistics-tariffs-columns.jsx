@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveBtnsCell,
@@ -12,21 +12,19 @@ import {
   WarehouseTariffRatesCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').logisticsTariffsColumns
+import {t} from '@utils/translations'
 
 export const logisticsTariffsColumns = handlers => [
   {
     field: 'name',
-    headerName: textConsts.nameField,
+    headerName: t(TranslationKey.Title),
     width: 200,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updatedAtField,
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     width: 120,
     type: 'date',
@@ -34,28 +32,28 @@ export const logisticsTariffsColumns = handlers => [
 
   {
     field: 'description',
-    headerName: textConsts.descriptionField,
+    headerName: t(TranslationKey.Description),
     width: 350,
     renderCell: params => <ScrollingCell value={params.value} />,
   },
 
   {
     field: 'deliveryTimeInDay',
-    headerName: textConsts.deliveryTimeInDayField,
+    headerName: t(TranslationKey['Time on the road, days']),
     width: 140,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'minWeightInKg',
-    headerName: textConsts.minWeightInKgField,
+    headerName: t(TranslationKey['Min. weight, kg']),
     width: 130,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'destination',
-    headerName: textConsts.destinationField,
+    headerName: t(TranslationKey.Region),
     renderCell: () => <WarehouseTariffDestinationCell />,
     width: 130,
     filterable: false,
@@ -64,7 +62,7 @@ export const logisticsTariffsColumns = handlers => [
 
   {
     field: 'rates',
-    headerName: textConsts.ratesField,
+    headerName: t(TranslationKey['Rate, $']),
     renderCell: params => <WarehouseTariffRatesCell conditionsByRegion={params.row.conditionsByRegion} />,
     width: 100,
     filterable: false,
@@ -73,7 +71,7 @@ export const logisticsTariffsColumns = handlers => [
 
   {
     field: 'dates',
-    headerName: textConsts.datesField,
+    headerName: t(TranslationKey.Dates),
     renderCell: params => <WarehouseTariffDatesCell row={params.row} />,
     width: 350,
     filterable: false,
@@ -82,7 +80,7 @@ export const logisticsTariffsColumns = handlers => [
 
   {
     field: 'action',
-    headerName: textConsts.actionField,
+    headerName: t(TranslationKey.Action),
     width: 200,
     renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
     filterable: false,

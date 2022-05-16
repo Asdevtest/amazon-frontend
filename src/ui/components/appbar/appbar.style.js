@@ -153,4 +153,11 @@ export const useClassNames = makeStyles(theme => ({
 
     borderBottom: '5px solid #0460DE',
   },
+
+  languageSelectorWrapper: {
+    width: '150px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 }))

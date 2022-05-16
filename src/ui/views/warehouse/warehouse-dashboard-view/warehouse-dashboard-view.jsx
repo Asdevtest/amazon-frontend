@@ -6,6 +6,7 @@ import {observer} from 'mobx-react'
 import {getWarehouseDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
@@ -15,12 +16,12 @@ import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {WarehouseDashboardViewModel} from './warehouse-dashboard-view.model'
 import {styles} from './warehouse-dashboard-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'ru').warehouseDashboardView
-const dashboardCardConfig = getWarehouseDashboardCardConfig(textConsts)
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
 @observer
@@ -42,12 +43,12 @@ export class WarehouseDashboardViewRaw extends Component {
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey.Dashboard)} notificationCount={2} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
               <DashboardBalance user={userInfo} />
 
               <SectionalDashboard
-                config={dashboardCardConfig}
+                config={getWarehouseDashboardCardConfig(textConsts)}
                 valuesData={dashboardData}
                 onClickViewMore={onClickInfoCardViewMode}
               />

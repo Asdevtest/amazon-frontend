@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 
 import {Divider, Drawer, Hidden, List} from '@material-ui/core'
 import clsx from 'clsx'
@@ -6,6 +6,8 @@ import {observer} from 'mobx-react'
 
 import {navbarConfig} from '@constants/navbar'
 import {UserRoleCodeMap} from '@constants/user-roles'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {NavbarCategory} from './navbar-category'
 import {NavbarCollapse} from './navbar-collapse'
@@ -17,6 +19,12 @@ export const Navbar = observer(
     const classNames = useClassNames()
     const viewModel = useRef(new NavbarModel())
 
+    const [curNavbar, setCurNavbar] = useState(navbarConfig())
+
+    useEffect(() => {
+      setCurNavbar(navbarConfig())
+    }, [SettingsModel.languageTag])
+
     const drawerContent = (
       <React.Fragment>
         <div className={classNames.logoWrapper}>
@@ -25,7 +33,7 @@ export const Navbar = observer(
         <Divider />
 
         <List className={classNames.categoriesWrapper}>
-          {navbarConfig[UserRoleCodeMap[viewModel.current.userInfo.role]].map((category, index) =>
+          {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]].map((category, index) =>
             category.checkHideBlock(viewModel.current.userInfo) ? (
               <React.Fragment key={index}>
                 <NavbarCategory

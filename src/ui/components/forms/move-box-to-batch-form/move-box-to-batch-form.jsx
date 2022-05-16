@@ -6,17 +6,15 @@ import {Typography} from '@material-ui/core'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {moveBoxToBatchFormColumns} from './move-box-to-batch-form-columns'
 import {useClassNames} from './move-box-to-batch-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').moveBoxToBatchForm
 
 export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, box, onSubmitCreateBatch}) => {
   const classNames = useClassNames()
@@ -39,12 +37,16 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
       {filteredBatches.length ? (
         <div className={classNames.batchesExistBlock}>
           <div className={classNames.titleWrapper}>
-            <Typography variant="h5">{box.batchId ? 'Переместить коробку' : 'Добавить коробку в партию'}</Typography>
+            <Typography variant="h5">
+              {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey['Add box to batch'])}
+            </Typography>
 
             <div className={classNames.titleSubWrapper}>
-              <Typography variant="h6">{`Коробка: ${box.humanFriendlyId}`}</Typography>
+              <Typography variant="h6">{`${t(TranslationKey.Box)}: ${box.humanFriendlyId}`}</Typography>
 
-              <Typography variant="h6">{`Текущая партия: ${box.batch?.humanFriendlyId || 'N/A'}`}</Typography>
+              <Typography variant="h6">{`${t(TranslationKey.Batch)}: ${
+                box.batch?.humanFriendlyId || 'N/A'
+              }`}</Typography>
             </div>
           </div>
 
@@ -65,7 +67,7 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
               color="primary"
               onClick={() => onSubmitCreateBatch(box)}
             >
-              {'Создать новую партию'}
+              {t(TranslationKey['Create new batch'])}
             </SuccessButton>
 
             <div className={classNames.btnsSubWrapper}>
@@ -76,11 +78,11 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
                 className={classNames.cancelBtn}
                 onClick={() => onSubmit(box, selectedBatch)}
               >
-                {box.batchId ? 'Переместить' : 'Добавить'}
+                {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey.Add)}
               </Button>
 
               <Button color="primary" variant="text" className={classNames.cancelBtn} onClick={setOpenModal}>
-                {textConsts.cancelBtn}
+                {t(TranslationKey.Cancel)}
               </Button>
             </div>
           </div>
@@ -88,14 +90,14 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
       ) : (
         <div className={classNames.batchesNotExistBlock}>
           <Typography variant="h5" className={classNames.title}>
-            {'Добавить коробку в партию'}
+            {t(TranslationKey['Add box to batch'])}
           </Typography>
 
           <div className={classNames.messageWrapper}>
-            <Typography>{`Партий с параметрами коробки нет.`}</Typography>
-            <Typography>{`Для ${box.batchId ? 'переноса' : 'отправки'} Коробки №${
-              box.humanFriendlyId
-            } создайте новую партию.`}</Typography>
+            <Typography>{t(TranslationKey['No batch with the parameters of the box.'])}</Typography>
+            <Typography>{`${t(TranslationKey.For)} ${
+              box.batchId ? t(TranslationKey.move) : t(TranslationKey.sending)
+            } ${t(TranslationKey.Box)} №${box.humanFriendlyId} ${t(TranslationKey['Create new batch'])}.`}</Typography>
           </div>
 
           <div className={classNames.btnsSecondWrapper}>
@@ -105,11 +107,11 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
               color="primary"
               onClick={() => onSubmitCreateBatch(box)}
             >
-              {'Создать новую партию товара'}
+              {t(TranslationKey['Create new batch'])}
             </SuccessButton>
 
             <Button color="primary" variant="text" className={classNames.cancelBtn} onClick={setOpenModal}>
-              {textConsts.cancelBtn}
+              {t(TranslationKey.Cancel)}
             </Button>
           </div>
         </div>

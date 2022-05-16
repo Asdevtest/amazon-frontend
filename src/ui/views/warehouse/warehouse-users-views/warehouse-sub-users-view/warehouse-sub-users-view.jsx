@@ -8,7 +8,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
@@ -21,12 +21,10 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {WarehouseSubUsersViewModel} from './warehouse-sub-users-view.model'
 import {styles} from './warehouse-sub-users-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').warehouseSubUsersView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_USERS
 
@@ -85,11 +83,11 @@ class WarehouseSubUsersViewRaw extends Component {
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
+          <Appbar title={t(TranslationKey.Users)} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <Box className={this.props.classes.buttonBox}>
                 <SuccessButton onClick={() => onTriggerOpenModal('showAddSubUserModal')}>
-                  {textConsts.addUserBtn}
+                  {t(TranslationKey.Add)}
                 </SuccessButton>
               </Box>
 
@@ -141,7 +139,7 @@ class WarehouseSubUsersViewRaw extends Component {
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
           title={warningInfoModalSettings.title}
-          btnText={textConsts.okBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
           }}
@@ -151,10 +149,10 @@ class WarehouseSubUsersViewRaw extends Component {
           isWarning
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
-          message={textConsts.confirmRemoveMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Are you sure you want to unbind the sabuser?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={onSubmitUnlinkSubUser}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />

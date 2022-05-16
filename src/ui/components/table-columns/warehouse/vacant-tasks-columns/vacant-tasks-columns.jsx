@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   NormDateFromUnixCell,
@@ -9,14 +9,12 @@ import {
   NormalActionBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseVacantTasksTableColumns
+import {t} from '@utils/translations'
 
 export const warehouseVacantTasksViewColumns = handlers => [
   {
     field: 'createdAt',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Created),
     width: 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
@@ -24,22 +22,22 @@ export const warehouseVacantTasksViewColumns = handlers => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updateDateField,
+    headerName: t(TranslationKey.Updated),
     width: 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
 
-  {
-    field: 'operationType',
-    headerName: textConsts.typeField,
-    width: 200,
-    renderCell: params => renderFieldValueCell(params.value),
-  },
+  // {
+  //   field: 'operationType',
+  //   headerName: t(TranslationKey.Type),
+  //   width: 200,
+  //   renderCell: params => renderFieldValueCell(params.value),
+  // },
 
   {
     field: 'description',
-    headerName: textConsts.descriptionField,
+    headerName: t(TranslationKey.Description),
     width: 400,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
@@ -48,7 +46,7 @@ export const warehouseVacantTasksViewColumns = handlers => [
 
   {
     field: 'status',
-    headerName: textConsts.statusField,
+    headerName: t(TranslationKey.Status),
     width: 150,
     renderCell: params => renderFieldValueCell(params.value),
     filterable: false,
@@ -57,11 +55,11 @@ export const warehouseVacantTasksViewColumns = handlers => [
 
   {
     field: 'action',
-    headerName: textConsts.actionField,
+    headerName: t(TranslationKey.Action),
     width: 250,
     renderCell: params => (
       <NormalActionBtnCell
-        bTnText={textConsts.pickUp}
+        bTnText={t(TranslationKey['Get to work'])}
         onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
       />
     ),

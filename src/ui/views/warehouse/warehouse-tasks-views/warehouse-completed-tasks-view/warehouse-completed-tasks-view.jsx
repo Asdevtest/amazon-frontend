@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -15,12 +15,11 @@ import {MainContent} from '@components/main-content'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {WarehouseCompletedViewModel} from './warehouse-completed-tasks-view.model'
 import {styles} from './warehouse-completed-tasks-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseCompletedTasksView
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_TASKS
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS
 
@@ -30,8 +29,6 @@ export class WarehouseCompletedTasksViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -70,7 +67,11 @@ export class WarehouseCompletedTasksViewRaw extends Component {
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeTriggerDrawerOpen}>
+          <Appbar
+            title={t(TranslationKey['Completed tasks'])}
+            notificationCount={2}
+            setDrawerOpen={onChangeTriggerDrawerOpen}
+          >
             <MainContent>
               <DataGrid
                 pagination

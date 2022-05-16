@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
@@ -19,12 +19,10 @@ import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {WarehouseMyWarehouseViewModel} from './warehouse-my-warehouse-view.model'
 import {styles} from './warehouse-my-warehouse-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').warehouseMyWarehouseView
 
 const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES
@@ -34,7 +32,6 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -90,7 +87,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Boxes)}>
             <MainContent>
               <DataGrid
                 pagination

@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -69,6 +69,11 @@ export class WarehouseMyWarehouseViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
   }
 
   async updateUserInfo() {
@@ -137,7 +142,7 @@ export class WarehouseMyWarehouseViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getBoxesMy()
-
+      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

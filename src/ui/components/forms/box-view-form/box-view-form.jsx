@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
@@ -16,12 +16,10 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed, toFixedWithKg} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './box-view-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').boxViewForm
 
 export const BoxViewForm = observer(
   ({box, setOpenModal, volumeWeightCoefficient, batchHumanFriendlyId, storekeeper}) => {
@@ -40,7 +38,7 @@ export const BoxViewForm = observer(
     return (
       <div className={classNames.formContainer}>
         <div className={classNames.titleWrapper}>
-          <Typography variant="h6">{`Коробка № ${box.humanFriendlyId}`}</Typography>
+          <Typography variant="h6">{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
 
           <Field
             oneLine
@@ -56,7 +54,7 @@ export const BoxViewForm = observer(
             }
           />
 
-          <Typography>{`Партия № ${
+          <Typography>{`${t(TranslationKey.Batch)} № ${
             (batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) || 'N/A'
           }`}</Typography>
         </div>
@@ -68,7 +66,7 @@ export const BoxViewForm = observer(
                 <Field
                   disabled
                   inputClasses={classNames.deliveryInfoField}
-                  label={'Destination'}
+                  label={t(TranslationKey.Destination)}
                   value={box.destination?.name || ''}
                   placeholder={'N/A'}
                 />
@@ -78,7 +76,7 @@ export const BoxViewForm = observer(
                 <Field
                   disabled
                   inputClasses={classNames.deliveryInfoField}
-                  label={'Тариф'}
+                  label={t(TranslationKey.Tariff)}
                   value={getFullTariffTextForBoxOrOrder(box) || ''}
                   placeholder={'N/A'}
                 />
@@ -124,7 +122,7 @@ export const BoxViewForm = observer(
                           oneLine
                           disabled
                           inputClasses={classNames.countField}
-                          label={'Количество'}
+                          label={t(TranslationKey.Quantity)}
                           value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
                           placeholder={'N/A'}
                         />
@@ -132,7 +130,7 @@ export const BoxViewForm = observer(
                         <Field
                           disabled
                           inputClasses={classNames.countField}
-                          label={'HS Code'}
+                          label={t(TranslationKey['HS code'])}
                           value={item.product.hsCode}
                           placeholder={'N/A'}
                         />
@@ -141,7 +139,7 @@ export const BoxViewForm = observer(
 
                     <div className={classNames.productSubWrapper}>
                       <Field
-                        label={'Баркод'}
+                        label={t(TranslationKey.BarCode)}
                         inputComponent={
                           <div>
                             {item.barCode ? (
@@ -159,14 +157,14 @@ export const BoxViewForm = observer(
                         <Field
                           oneLine
                           containerClasses={classNames.checkboxContainer}
-                          label={textConsts.isBarCodeAlreadyAttachedByTheSupplier}
+                          label={t(TranslationKey['BarCode is glued by supplier'])}
                           inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
                         />
                       ) : (
                         <Field
                           oneLine
                           containerClasses={classNames.checkboxContainer}
-                          label={textConsts.isBarCodeAttachedByTheStorekeeper}
+                          label={t(TranslationKey['BarCode is glued by storekeeper'])}
                           inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
                         />
                       )}
@@ -180,7 +178,7 @@ export const BoxViewForm = observer(
           <div className={classNames.blockWrapper}>
             <div className={classNames.imgSizesWrapper}>
               <div className={classNames.imgWrapper}>
-                <Typography>{'Фотографии коробки'}</Typography>
+                <Typography>{t(TranslationKey['Box photos:'])}</Typography>
 
                 {box.images?.length > 0 ? (
                   <Carousel autoPlay={false} timeout={100} animation="fade" className={classNames.imgBoxWrapper}>
@@ -205,7 +203,7 @@ export const BoxViewForm = observer(
 
               <div className={classNames.sizesWrapper}>
                 <div className={classNames.sizesSubWrapper}>
-                  <Typography>{'Размеры коробки'}</Typography>
+                  <Typography>{t(TranslationKey.Demensions)}</Typography>
 
                   <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                     <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
@@ -218,30 +216,32 @@ export const BoxViewForm = observer(
                 </div>
 
                 <div className={classNames.demensionsWrapper}>
-                  <Typography className={classNames.categoryTitle}>{textConsts.demensionsWarehouse}</Typography>
+                  <Typography className={classNames.categoryTitle}>
+                    {t(TranslationKey['Sizes from storekeeper:'])}
+                  </Typography>
                   <Typography>
-                    {textConsts.length}
+                    {t(TranslationKey.Length) + ': '}
                     {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                   </Typography>
                   <Typography>
-                    {textConsts.width}
+                    {t(TranslationKey.Width) + ': '}
                     {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                   </Typography>
                   <Typography>
-                    {textConsts.height}
+                    {t(TranslationKey.Height) + ': '}
                     {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                   </Typography>
 
                   <Typography>
-                    {textConsts.weight}
+                    {t(TranslationKey.Weight) + ': '}
                     {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
                   </Typography>
                   <Typography>
-                    {textConsts.volumeWeigh}
+                    {t(TranslationKey['Volume weight']) + ': '}
                     {toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
                   </Typography>
                   <Typography>
-                    {textConsts.finalWeight}
+                    {t(TranslationKey['Final weight']) + ': '}
                     {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}
                   </Typography>
                 </div>
@@ -252,13 +252,13 @@ export const BoxViewForm = observer(
               <Field
                 oneLine
                 containerClasses={classNames.checkboxContainer}
-                label={textConsts.shippingLabelIsGluedSupplier}
+                label={t(TranslationKey['Shipping label was glued to the warehouse'])}
                 inputComponent={<Checkbox disabled checked={box.isShippingLabelAttachedByStorekeeper} />}
               />
 
               <div className={classNames.labelsInfoWrapper}>
                 <Field
-                  label={'Шиппинг Лейбл'}
+                  label={t(TranslationKey['Shipping label'])}
                   inputComponent={
                     <div>
                       {box.shippingLabel ? (
@@ -273,7 +273,7 @@ export const BoxViewForm = observer(
                 />
 
                 <Field
-                  label={'FBA Shipment'}
+                  label={t(TranslationKey['FBA Shipment'])}
                   inputComponent={
                     <div>
                       <Typography className={classNames.linkField}>{box.fbaShipment || 'N/A'}</Typography>
@@ -287,7 +287,7 @@ export const BoxViewForm = observer(
 
         <div className={classNames.buttonsWrapper}>
           <Button disableElevation color="primary" variant="contained" onClick={setOpenModal}>
-            {textConsts.closeBtn}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
 

@@ -11,8 +11,10 @@ import PeopleIcon from '@material-ui/icons/People'
 import SettingsIcon from '@material-ui/icons/Settings'
 
 import {isMasterUser} from '@utils/checks'
+import {t} from '@utils/translations'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from './navbar-active-category'
+import {TranslationKey} from './translations/translation-key'
 import {UserRole} from './user-roles'
 
 const permissionsKeys = {
@@ -72,7 +74,7 @@ const permissionsKeys = {
   },
 }
 
-export const navbarConfig = {
+export const navbarConfig = () => ({
   [UserRole.CLIENT]: [
     {
       icon: InfoOutlinedIcon,
@@ -510,7 +512,7 @@ export const navbarConfig = {
   [UserRole.STOREKEEPER]: [
     {
       icon: InfoOutlinedIcon,
-      title: 'Dashboard',
+      title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/warehouse/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
@@ -518,10 +520,10 @@ export const navbarConfig = {
     },
     {
       icon: AssignmentIcon,
-      title: 'Tasks',
+      title: t(TranslationKey.Tasks),
       subtitles: [
         {
-          subtitle: 'New tasks',
+          subtitle: t(TranslationKey['New tasks']),
           subRoute: '/warehouse/vacant-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_VAC_TASKS,
           checkHideSubBlock: user =>
@@ -529,7 +531,7 @@ export const navbarConfig = {
             user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_VAC_TASKS_STOREKEEPER),
         },
         {
-          subtitle: 'My tasks',
+          subtitle: t(TranslationKey['My tasks']),
           subRoute: '/warehouse/my-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS,
           checkHideSubBlock: user =>
@@ -538,7 +540,7 @@ export const navbarConfig = {
         },
 
         {
-          subtitle: 'Completed tasks',
+          subtitle: t(TranslationKey['Completed tasks']),
           subRoute: '/warehouse/completed-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS,
           checkHideSubBlock: user =>
@@ -546,7 +548,7 @@ export const navbarConfig = {
             user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_COMPLETED_TASKS_STOREKEEPER),
         },
         {
-          subtitle: 'Canceled tasks',
+          subtitle: t(TranslationKey['Canceled tasks']),
           subRoute: '/warehouse/canceled-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
           checkHideSubBlock: user =>
@@ -570,13 +572,13 @@ export const navbarConfig = {
 
     {
       icon: ArchiveOutlinedIcon,
-      title: 'My warehouse',
+      title: t(TranslationKey['My warehouse']),
       route: '/warehouse/my-warehouse',
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
 
       subtitles: [
         {
-          subtitle: 'Boxes',
+          subtitle: t(TranslationKey.Boxes),
           subRoute: '/warehouse/my-warehouse',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
           checkHideSubBlock: user =>
@@ -584,7 +586,7 @@ export const navbarConfig = {
             user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER),
         },
         {
-          subtitle: 'Warehouse management',
+          subtitle: t(TranslationKey['Warehouse management']),
           subRoute: '/warehouse/management',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MANAGEMENT,
           checkHideSubBlock: user =>
@@ -603,16 +605,16 @@ export const navbarConfig = {
 
     {
       icon: LocalConvenienceStore,
-      title: 'My batches',
+      title: t(TranslationKey['My batches']),
       route: '/warehouse/batches',
       subtitles: [
         {
-          subtitle: 'Awaiting send',
+          subtitle: t(TranslationKey['Awaiting send']),
           subRoute: '/warehouse/awaiting-batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES,
         },
         {
-          subtitle: 'Sended',
+          subtitle: t(TranslationKey.Sent),
           subRoute: '/warehouse/batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES,
         },
@@ -625,7 +627,7 @@ export const navbarConfig = {
     },
     {
       icon: PeopleIcon,
-      title: 'Users',
+      title: t(TranslationKey.Users),
       route: '/warehouse/users/sub-users',
       subtitles: [{subtitle: 'My users', subRoute: '/warehouse/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
@@ -635,7 +637,7 @@ export const navbarConfig = {
     },
     {
       icon: MonetizationOnOutlinedIcon,
-      title: 'Finances',
+      title: t(TranslationKey.Finances),
       route: '/warehouse/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
@@ -742,4 +744,4 @@ export const navbarConfig = {
       checkHideBlock: () => true,
     },
   ],
-}
+})

@@ -7,19 +7,17 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {WarehouseFinancesViewsModel} from './warehouse-finances-views.model'
 import {styles} from './warehouse-finances-views.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseFinancesView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_FINANCES
 
@@ -28,8 +26,7 @@ class WarehouseFinancesViewsRaw extends Component {
   viewModel = new WarehouseFinancesViewsModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getPayments(this.viewModel.activeSubCategory)
-    this.viewModel.getDataGridState()
+    this.viewModel.loadData()
   }
 
   render() {
@@ -64,7 +61,7 @@ class WarehouseFinancesViewsRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onChangeDrawerOpen} />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
+          <Appbar title={t(TranslationKey.Finances)} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination
