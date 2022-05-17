@@ -80,6 +80,11 @@ export const RequestToSendBatchForm = observer(
       setSubmitIsClicked(true)
     }
 
+    const onClickRemoveBtn = boxId => {
+      onClickRemoveBoxFromBatch(boxId)
+      setSubmitIsClicked(false)
+    }
+
     const disabledSubmit =
       boxesWithPriceRequest.length < 1 ||
       boxesWithPriceRequest.some(el => !el.isShippingLabelAttachedByStorekeeper) ||
@@ -98,7 +103,7 @@ export const RequestToSendBatchForm = observer(
                 boxesMy={boxesMy}
                 selectedGroup={selectedGroup}
                 boxesDeliveryCosts={boxesDeliveryCosts}
-                onClickRemoveBoxFromBatch={onClickRemoveBoxFromBatch}
+                onClickRemoveBoxFromBatch={onClickRemoveBtn}
               />
             </div>
           ))}

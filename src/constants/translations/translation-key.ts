@@ -195,6 +195,8 @@ export enum TranslationKey {
 
 // "Without the group": "Without the group"
 
+// <p>t(TranslationKey.Close)</p> ПРИМЕР
+
 // '' = '',
 // '' = '',
 // '' = '',

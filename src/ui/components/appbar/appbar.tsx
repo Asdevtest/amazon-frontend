@@ -87,22 +87,24 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen}) => 
           <Typography className={classNames.userroleTitle}>{t(TranslationKey['your role:'])}</Typography>
 
           <div className={classNames.allowedRolesMainWrapper}>
-            <div className={classNames.allowedRolesWrapper}>
-              {allowedRolesWithoutCandidate?.map((roleCode: number) => (
-                <Button
-                  key={roleCode}
-                  variant={'text'}
-                  className={clsx(classNames.allowedRolesItem, {
-                    [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
-                  })}
-                  onClick={() => onChangeUserInfo(roleCode)}
-                >
-                  {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
-                </Button>
-              ))}
-            </div>
+            {!componentModel.current.masterUser ? (
+              <div className={classNames.allowedRolesWrapper}>
+                {allowedRolesWithoutCandidate?.map((roleCode: number) => (
+                  <Button
+                    key={roleCode}
+                    variant={'text'}
+                    className={clsx(classNames.allowedRolesItem, {
+                      [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
+                    })}
+                    onClick={() => onChangeUserInfo(roleCode)}
+                  >
+                    {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
+                  </Button>
+                ))}
+              </div>
+            ) : null}
 
-            {!allowedRolesWithoutCandidate?.length && (
+            {(!allowedRolesWithoutCandidate?.length || componentModel.current.masterUser) && (
               <Typography className={clsx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
                 {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
               </Typography>

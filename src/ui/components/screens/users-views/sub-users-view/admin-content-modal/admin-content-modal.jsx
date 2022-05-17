@@ -184,12 +184,14 @@ export const AdminContentModal = observer(
         ) : null}
 
         <Field
+          inputProps={{maxLength: 50}}
           label={textConsts.name}
           error={checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
           value={formFields.name}
           onChange={onChangeFormField('name')}
         />
         <Field
+          inputProps={{maxLength: 50}}
           label={textConsts.email}
           error={checkValidationNameOrEmail.emailIsUnique && 'Пользователь с таким email уже существует'}
           value={formFields.email}
@@ -197,7 +199,12 @@ export const AdminContentModal = observer(
           onChange={onChangeFormField('email')}
         />
 
-        <Field label={textConsts.overdraft} value={formFields.overdraft} onChange={onChangeFormField('overdraft')} />
+        <Field
+          inputProps={{maxLength: 10}}
+          label={textConsts.overdraft}
+          value={formFields.overdraft}
+          onChange={onChangeFormField('overdraft')}
+        />
 
         {!editUserFormFields.masterUser ? (
           <Field label={textConsts.rate} value={formFields.rate} onChange={onChangeFormField('rate')} />

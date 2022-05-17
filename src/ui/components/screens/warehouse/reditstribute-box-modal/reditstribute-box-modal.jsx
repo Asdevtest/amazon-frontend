@@ -134,25 +134,40 @@ const Box = ({
               containerClasses={classNames.field}
               label={'Storekeeper / Tariff'}
               inputComponent={
-                <Button
-                  disableElevation
-                  disabled={!isNewBox}
-                  color="primary"
-                  variant={box.logicsTariffId && 'text'}
-                  className={clsx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
-                  onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-                >
-                  {box.logicsTariffId
-                    ? `${storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'} /  
-                      ${
-                        box.logicsTariffId
-                          ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                              tariffRate ? ' / ' + tariffRate + ' $' : ''
+                <div>
+                  {isNewBox ? (
+                    <Button
+                      disableElevation
+                      disabled={!isNewBox}
+                      color="primary"
+                      variant={box.logicsTariffId && 'text'}
+                      className={clsx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
+                      onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+                    >
+                      {box.logicsTariffId
+                        ? `${storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'} /  
+                            ${
+                              box.logicsTariffId
+                                ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
+                                    tariffRate ? ' / ' + tariffRate + ' $' : ''
+                                  }`
+                                : 'none'
                             }`
-                          : 'none'
-                      }`
-                    : 'Выбрать'}
-                </Button>
+                        : 'Выбрать'}
+                    </Button>
+                  ) : (
+                    <Typography className={classNames.storekeeperDisableBtn}>{`${
+                      storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'
+                    } /  
+                        ${
+                          box.logicsTariffId
+                            ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
+                                tariffRate ? ' / ' + tariffRate + ' $' : ''
+                              }`
+                            : 'none'
+                        }`}</Typography>
+                  )}
+                </div>
               }
             />
 

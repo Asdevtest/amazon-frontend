@@ -39,7 +39,6 @@ export const useClassNames = makeStyles(theme => ({
   },
   userroleTitle: {
     marginRight: '5px',
-    // justifySelf: 'flex-end'
   },
   userrole: {
     marginRight: '20px',
@@ -48,7 +47,6 @@ export const useClassNames = makeStyles(theme => ({
     padding: '6px 16px',
     fontWeight: 500,
     borderRadius: '4px',
-    // minWidth: '150px'
   },
   userInfoWrapper: {
     display: 'flex',
@@ -133,7 +131,7 @@ export const useClassNames = makeStyles(theme => ({
 
   allowedRolesMainWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     minWidth: '200px',
   },
 
