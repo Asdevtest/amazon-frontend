@@ -34,12 +34,17 @@ export const useClassNames = makeStyles(theme => ({
     margin: '8px 0px 16px',
   },
   redirect: {
-    marginLeft: '20px',
+    margin: '0 30px',
     transition: '0.3s ease',
     cursor: 'pointer',
     '&:hover': {
       color: '#007bff',
       fontWeight: '500',
     },
+  },
+
+  redirectWrapper: {
+    display: 'flex',
+    alignItems: 'center',
   },
 }))

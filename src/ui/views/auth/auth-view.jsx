@@ -9,7 +9,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {EntryLeftPanel} from '@components/entry-left-panel'
 import {EntryRightPanel} from '@components/entry-right-panel'
 import {AuthForm} from '@components/forms/auth-form'
-import {LanguageSelector} from '@components/language-selector'
 
 import {t} from '@utils/translations'
 
@@ -41,8 +40,6 @@ export class AuthViewRaw extends Component {
             onSubmit={this.viewModel.onSubmitForm}
           />
           {this.renderError()}
-
-          <LanguageSelector />
         </EntryRightPanel>
       </div>
     )

@@ -11,4 +11,9 @@ export const useClassNames = makeStyles({
       opacity: '.8',
     },
   },
+
+  selectedBtn: {
+    // backgroundСolor: 'rgba(25, 118, 210, 0.8)',
+    backgroundColor: 'red',
+  },
 })

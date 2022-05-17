@@ -121,6 +121,8 @@ export const CreateOrEditRequestContent = ({
       formFields.details.conditions === '') &&
     (curStep === stepVariant.STEP_TWO || requestToEdit)
 
+  console.log('formFields', formFields)
+
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.mainLeftWrapper}>
@@ -356,7 +358,11 @@ export const CreateOrEditRequestContent = ({
                   <Typography className={classNames.checkboxLabel}>
                     {'Разрешить многократное исполнение одному исполнителю'}
                   </Typography>
-                  <Checkbox color="primary" /* checked={formFields.fba} onChange={onChangeFormField('fba')} */ />
+                  <Checkbox
+                    color="primary"
+                    checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+                    onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
+                  />
                 </div>
               )}
 

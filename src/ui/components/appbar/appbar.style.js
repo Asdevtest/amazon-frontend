@@ -153,7 +153,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   languageSelectorWrapper: {
-    width: '150px',
+    width: '90px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

@@ -700,10 +700,9 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
               <span className={classNames.orderTextSpan}>{textConsts.id}</span>
               {item.product.asin}
               {box.totalPrice - box.totalPriceChanged < 0 && itemIndex === 0 && (
-                <span className={classNames.needPay}>{`Необходима доплата! (${toFixedWithDollarSign(
-                  box.totalPriceChanged - box.totalPrice,
-                  2,
-                )})`}</span>
+                <span className={classNames.needPay}>{`${t(
+                  TranslationKey['Extra payment required!'],
+                )} (${toFixedWithDollarSign(box.totalPriceChanged - box.totalPrice, 2)})`}</span>
               )}
             </Typography>
             <Typography className={classNames.imgNum}>{`x ${item.amount}`}</Typography>

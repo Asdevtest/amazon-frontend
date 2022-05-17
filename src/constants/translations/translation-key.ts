@@ -177,23 +177,24 @@ export enum TranslationKey {
   'Assign permissions' = 'Assign permissions',
   'Add a sub-user' = 'Add a sub-user',
   'Without the group' = 'Without the group',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
+  'The avatar has been uploaded. The update will take place within a few minutes.' = 'The avatar has been uploaded. The update will take place within a few minutes.',
+  'Roles' = 'Roles',
+  'Enter information' = 'Enter information',
+  'A user with this name already exists' = 'A user with this name already exists',
+  'A user with this email already exists' = 'A user with this email already exists',
+  'Invalid email!' = 'Invalid email!',
+  'Load' = 'Load',
+  'Allowed image formats' = 'Allowed image formats',
+  'The image size should not exceed' = 'The image size should not exceed',
+  'Inappropriate format!' = 'Inappropriate format!',
+  'The file is too big!' = 'The file is too big!',
   // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',
 }
 
-// "Without the group": "Without the group"
+// "The file is too big!": "The file is too big!"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

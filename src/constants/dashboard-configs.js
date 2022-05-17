@@ -264,17 +264,17 @@ export const getWarehouseDashboardCardConfig = () => [
     title: t(TranslationKey.Batches),
     items: [
       {
-        dataKey: WarehouseDashboardCardDataKey.SENT_BATCHES,
-        title: t(TranslationKey.Sent),
+        dataKey: WarehouseDashboardCardDataKey.NOT_SENT_BATCHES,
+        title: t(TranslationKey['Not sent']),
         color: '#C69109',
-        route: '/warehouse/boxes',
+        route: '/warehouse/awaiting-batches',
       },
 
       {
-        dataKey: WarehouseDashboardCardDataKey.NOT_SENT_BATCHES,
-        title: t(TranslationKey['Not sent']),
+        dataKey: WarehouseDashboardCardDataKey.SENT_BATCHES,
+        title: t(TranslationKey.Sent),
         color: '#00B746',
-        route: '/warehouse/boxes',
+        route: '/warehouse/batches',
       },
     ],
   },

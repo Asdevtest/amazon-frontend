@@ -175,6 +175,18 @@
   "Email": "Почта",
   "Assign permissions": "Назначить разрешения",
   "Add a sub-user": "Добавить саб-юзера",
-  "Without the group": "Без группы"
+  "Without the group": "Без группы",
+  "The avatar has been uploaded. The update will take place within a few minutes.": "Аватар загружен. Обновление произойдёт в течение нескольких минут.",
+  "Roles": "Роли",
+  "Enter information": "Введите данные",
+  "A user with this name already exists": "Пользователь с таким именем уже существует",
+  "A user with this email already exists": "Пользователь с таким email уже существует",
+  "Invalid email!": "Почта невалидна!",
+  "Load": "Загрузить",
+  "Allowed image formats": "Допустимые форматы изображений",
+  "The image size should not exceed": "Размер изображения не должен превышать",
+  "Inappropriate format!": "Неподходящий формат!",
+  "The file is too big!": "Файл слишком большой!"
+
 
 }

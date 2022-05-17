@@ -4,16 +4,14 @@ import {Typography, Avatar as AvatarMui} from '@material-ui/core'
 import clsx from 'clsx'
 import Avatar from 'react-avatar-edit'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './avatar-editor-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').avatarEditorForm
 
 export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
   const classNames = useClassNames()
@@ -36,7 +34,7 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
 
   const onBeforeFileLoad = elem => {
     if (elem.target.files[0].size > 15728640) {
-      setShowInfoModalText(textConsts.fileIsBig)
+      setShowInfoModalText(t(TranslationKey['The file is too big!']))
       setShowInfoModal(true)
       elem.target.value = ''
     } else if (
@@ -51,7 +49,7 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
         'image/avif',
       ].includes(elem.target.files[0].type)
     ) {
-      setShowInfoModalText(textConsts.badFormat)
+      setShowInfoModalText(t(TranslationKey['Inappropriate format!']))
       setShowInfoModal(true)
       elem.target.value = ''
     }
@@ -59,7 +57,7 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h4">{textConsts.title}</Typography>
+      <Typography variant="h4">{t(TranslationKey.Load)}</Typography>
 
       <div className={classNames.mainWrapper}>
         <Avatar
@@ -92,24 +90,25 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
 
       <div className={classNames.textsWrapper}>
         <Typography className={clsx({[classNames.successText]: state.preview})}>
-          {textConsts.sizeFile} {<span className={classNames.spanText}>{'15 Мб.'}</span>}
+          {t(TranslationKey['The image size should not exceed'])}{' '}
+          {<span className={classNames.spanText}>{'15 mb.'}</span>}
         </Typography>
 
         <Typography className={clsx({[classNames.successText]: state.preview})}>
-          {textConsts.allowedFormats}
+          {t(TranslationKey['Allowed image formats'])}
           {'('}
-          {<span className={classNames.spanText}>{textConsts.formats}</span>}
+          {<span className={classNames.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}
           {')'}
         </Typography>
       </div>
 
       <div className={classNames.btnsWrapper}>
         <Button disabled={!state.preview} onClick={() => onSubmit(state.preview)}>
-          {textConsts.loadBtn}
+          {t(TranslationKey.Load)}
         </Button>
 
         <Button variant="text" className={classNames.cancelBtn} onClick={onCloseModal}>
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Cancel)}
         </Button>
       </div>
 
@@ -117,7 +116,7 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
         openModal={showInfoModal}
         setOpenModal={() => setShowInfoModal(!showInfoModal)}
         title={showInfoModalText}
-        btnText={textConsts.okBtn}
+        btnText={t(TranslationKey.Ok)}
         onClickBtn={() => {
           setShowInfoModal(!showInfoModal)
         }}
