@@ -26,6 +26,7 @@ export const navBarActiveCategory = {
   NAVBAR_PERMISSIONS: 'NAVBAR_PERMISSIONS',
   NAVBAR_SHOPS: 'NAVBAR_SHOPS',
   NAVBAR_TASKS: 'NAVBAR_TASKS',
+  NAVBAR_MANAGEMENT: 'NAVBAR_MANAGEMENT',
 }
 
 export const navBarActiveSubCategory = {

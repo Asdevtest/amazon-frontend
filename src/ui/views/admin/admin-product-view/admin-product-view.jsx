@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
@@ -20,6 +21,7 @@ const textConsts = getLocalizedTexts(texts, 'en').adminProductView
 export class AdminProductView extends Component {
   viewModel = new AdminProductViewModel({
     history: this.props.history,
+    location: this.props.location,
   })
 
   componentDidMount() {
@@ -28,6 +30,7 @@ export class AdminProductView extends Component {
 
   render() {
     const {
+      inInventory,
       userInfo,
       product,
       drawerOpen,
@@ -40,9 +43,11 @@ export class AdminProductView extends Component {
       onChangeProductFields,
     } = this.viewModel
 
+    const activeCategory = inInventory ? navBarActiveCategory.NAVBAR_INVENTORY : navBarActiveCategory.NAVBAR_EXCHANGE
+
     return (
       <React.Fragment>
-        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
+        <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
             title={textConsts.appBarTitle}

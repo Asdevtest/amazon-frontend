@@ -576,31 +576,9 @@ export const navbarConfig = () => ({
       route: '/warehouse/my-warehouse',
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
 
-      subtitles: [
-        {
-          subtitle: t(TranslationKey.Boxes),
-          subRoute: '/warehouse/my-warehouse',
-          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
-          checkHideSubBlock: user =>
-            !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER),
-        },
-        {
-          subtitle: t(TranslationKey['Warehouse management']),
-          subRoute: '/warehouse/management',
-          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MANAGEMENT,
-          checkHideSubBlock: user =>
-            !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_MANAGEMENT),
-        },
-      ],
       checkHideBlock: user =>
         !isMasterUser(user) ||
-        user?.permissions.some(
-          item =>
-            item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER ||
-            item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_MANAGEMENT,
-        ),
+        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER),
     },
 
     {
@@ -643,6 +621,16 @@ export const navbarConfig = () => ({
       checkHideBlock: user =>
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_PAYMENTS_STOREKEEPER),
+    },
+
+    {
+      icon: SettingsIcon,
+      title: t(TranslationKey['Warehouse management']),
+      route: '/warehouse/management',
+      key: navBarActiveCategory.NAVBAR_MANAGEMENT,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_MANAGEMENT),
     },
   ],
   [UserRole.ADMIN]: [

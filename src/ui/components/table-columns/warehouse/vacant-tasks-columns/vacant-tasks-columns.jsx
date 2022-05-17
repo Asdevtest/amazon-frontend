@@ -7,6 +7,7 @@ import {
   TaskDescriptionCell,
   renderFieldValueCell,
   NormalActionBtnCell,
+  TaskTypeCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -21,19 +22,11 @@ export const warehouseVacantTasksViewColumns = handlers => [
   },
 
   {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    width: 150,
-    renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    type: 'date',
+    field: 'operationType',
+    headerName: t(TranslationKey.Type),
+    width: 200,
+    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
-
-  // {
-  //   field: 'operationType',
-  //   headerName: t(TranslationKey.Type),
-  //   width: 200,
-  //   renderCell: params => renderFieldValueCell(params.value),
-  // },
 
   {
     field: 'description',

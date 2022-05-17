@@ -7,6 +7,7 @@ import {
   renderFieldValueCell,
   NormalActionBtnCell,
   NormDateFromUnixCell,
+  TaskTypeCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -28,12 +29,12 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     type: 'date',
   },
 
-  // {
-  //   field: 'operationType',
-  //   headerName: t(TranslationKey.Type),
-  //   width: 200,
-  //   renderCell: params => renderFieldValueCell(params.value),
-  // },
+  {
+    field: 'operationType',
+    headerName: t(TranslationKey.Type),
+    width: 200,
+    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
+  },
   {
     field: 'description',
     headerName: t(TranslationKey.Description),

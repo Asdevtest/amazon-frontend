@@ -322,6 +322,23 @@ export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNam
   )
 })
 
+export const TaskTypeCell = withStyles(styles)(({classes: classNames, task}) => {
+  const renderTaskDescription = type => {
+    switch (type) {
+      case TaskOperationType.MERGE:
+        return <Typography>{t(TranslationKey.Merge)}</Typography>
+      case TaskOperationType.SPLIT:
+        return <Typography>{t(TranslationKey.Split)}</Typography>
+      case TaskOperationType.RECEIVE:
+        return <Typography>{t(TranslationKey.Receive)}</Typography>
+      case TaskOperationType.EDIT:
+        return <Typography>{t(TranslationKey.Edit)}</Typography>
+    }
+  }
+
+  return <div className={classNames.taskDescriptionScrollWrapper}>{renderTaskDescription(task.operationType)}</div>
+})
+
 export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, task, hideImage}) => {
   const renderProductImage = (box, key) => {
     if (hideImage) {
@@ -357,25 +374,11 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
     </div>
   )
 
-  const taskMergeDescription = () => (
-    <div className={classNames.taskTableCell}>
-      <Typography>{t(TranslationKey.Merge)}</Typography>
-
-      {renderBlockProductsImages}
-    </div>
-  )
-  const taskDivideDescription = () => (
-    <div className={classNames.taskTableCell}>
-      <Typography className={classNames.descriptionWrapper}>{t(TranslationKey.Split)}</Typography>
-
-      {renderBlockProductsImages}
-    </div>
-  )
+  const taskMergeDescription = () => <div className={classNames.taskTableCell}>{renderBlockProductsImages}</div>
+  const taskDivideDescription = () => <div className={classNames.taskTableCell}>{renderBlockProductsImages}</div>
   const taskReceiveDescription = () => (
     <div className={classNames.blockProductsImagesWrapper}>
       <div className={classNames.taskTableCell}>
-        <Typography className={classNames.descriptionWrapper}>{t(TranslationKey.Receive)}</Typography>
-
         {task.boxesBefore && task.boxesBefore.map((box, index) => renderProductImage(box, index))}
       </div>
     </div>
@@ -384,8 +387,6 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
   const taskEditDescription = () => (
     <div className={classNames.blockProductsImagesWrapper}>
       <div className={classNames.taskTableCell}>
-        <Typography className={classNames.descriptionWrapper}>{t(TranslationKey.Edit)}</Typography>
-
         {task.boxesBefore && task.boxesBefore.map((box, index) => renderProductImage(box, index))}
       </div>
     </div>

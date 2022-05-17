@@ -69,10 +69,13 @@ export class AdminInventoryViewModel {
   }
 
   onClickTableRow(product) {
-    this.history.push({
-      pathname: '/admin/product',
-      search: product.originalData._id,
-    })
+    this.history.push(
+      {
+        pathname: '/admin/product',
+        search: product.originalData._id,
+      },
+      {inInventory: true},
+    )
   }
 
   onChangeSortingModel(e) {

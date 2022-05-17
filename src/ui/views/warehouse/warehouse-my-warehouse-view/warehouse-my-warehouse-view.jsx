@@ -6,7 +6,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -25,7 +25,6 @@ import {WarehouseMyWarehouseViewModel} from './warehouse-my-warehouse-view.model
 import {styles} from './warehouse-my-warehouse-view.style'
 
 const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
-const activeSubCategory = navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES
 @observer
 export class WarehouseMyWarehouseViewRaw extends Component {
   viewModel = new WarehouseMyWarehouseViewModel({history: this.props.history})
@@ -80,14 +79,9 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
     return (
       <React.Fragment>
-        <Navbar
-          activeCategory={activeCategory}
-          activeSubCategory={activeSubCategory}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={onTriggerDrawer}
-        />
+        <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Boxes)}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
             <MainContent>
               <DataGrid
                 pagination
