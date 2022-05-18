@@ -64,7 +64,7 @@
   "Sizes from supplier:": "Размеры от поставщика:",
   "Sizes from storekeeper:": "Размеры от склада:",
   "Length": "Длина",
-  "Width": "Width",
+  "Width": "Ширина",
   "Height": "Высота",
   "Weight": "Вес",
   "Volume weight": "Объемный вес",
@@ -186,7 +186,8 @@
   "Allowed image formats": "Допустимые форматы изображений",
   "The image size should not exceed": "Размер изображения не должен превышать",
   "Inappropriate format!": "Неподходящий формат!",
-  "The file is too big!": "Файл слишком большой!"
+  "The file is too big!": "Файл слишком большой!",
+  "My users": "Мои пользователи"
 
 
 }

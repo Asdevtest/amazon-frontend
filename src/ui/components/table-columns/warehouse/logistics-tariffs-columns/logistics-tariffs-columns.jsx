@@ -16,6 +16,15 @@ import {t} from '@utils/translations'
 
 export const logisticsTariffsColumns = handlers => [
   {
+    field: 'action',
+    headerName: t(TranslationKey.Action),
+    width: 200,
+    renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
+    filterable: false,
+    sortable: false,
+  },
+
+  {
     field: 'name',
     headerName: t(TranslationKey.Title),
     width: 200,
@@ -23,32 +32,10 @@ export const logisticsTariffsColumns = handlers => [
   },
 
   {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderCell: params => <NormDateCell params={params} />,
-    width: 120,
-    type: 'date',
-  },
-
-  {
     field: 'description',
     headerName: t(TranslationKey.Description),
     width: 350,
     renderCell: params => <ScrollingCell value={params.value} />,
-  },
-
-  {
-    field: 'deliveryTimeInDay',
-    headerName: t(TranslationKey['Time on the road, days']),
-    width: 140,
-    renderCell: params => renderFieldValueCell(params.value),
-  },
-
-  {
-    field: 'minWeightInKg',
-    headerName: t(TranslationKey['Min. weight, kg']),
-    width: 130,
-    renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
@@ -79,11 +66,24 @@ export const logisticsTariffsColumns = handlers => [
   },
 
   {
-    field: 'action',
-    headerName: t(TranslationKey.Action),
-    width: 200,
-    renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
-    filterable: false,
-    sortable: false,
+    field: 'deliveryTimeInDay',
+    headerName: t(TranslationKey['Time on the road, days']),
+    width: 140,
+    renderCell: params => renderFieldValueCell(params.value),
+  },
+
+  {
+    field: 'minWeightInKg',
+    headerName: t(TranslationKey['Min. weight, kg']),
+    width: 130,
+    renderCell: params => renderFieldValueCell(params.value),
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderCell: params => <NormDateCell params={params} />,
+    width: 120,
+    type: 'date',
   },
 ]

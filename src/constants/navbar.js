@@ -609,7 +609,7 @@ export const navbarConfig = () => ({
       icon: PeopleIcon,
       title: t(TranslationKey.Users),
       route: '/warehouse/users/sub-users',
-      subtitles: [{subtitle: 'My users', subRoute: '/warehouse/users/sub-users'}],
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/warehouse/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||

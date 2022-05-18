@@ -188,13 +188,13 @@ export enum TranslationKey {
   'The image size should not exceed' = 'The image size should not exceed',
   'Inappropriate format!' = 'Inappropriate format!',
   'The file is too big!' = 'The file is too big!',
-  // '' = '',
+  'My users' = 'My users',
   // '' = '',
   // '' = '',
   // '' = '',
 }
 
-// "The file is too big!": "The file is too big!"
+// "My users": "My users"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

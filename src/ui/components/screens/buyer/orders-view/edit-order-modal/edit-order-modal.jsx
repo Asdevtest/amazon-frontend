@@ -149,10 +149,7 @@ export const EditOrderModal = ({
 
   const [hsCode, setHsCode] = useState(order.product.hsCode)
 
-  const disableSubmit =
-    requestStatus === loadingStatuses.isLoading ||
-    disabledOrderStatuses.includes(order.status) ||
-    order.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]
+  const disableSubmit = requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status)
 
   return (
     <Box className={classNames.modalWrapper}>
