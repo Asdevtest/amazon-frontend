@@ -2,15 +2,13 @@ import {Button, Checkbox, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {Link} from 'react-router-dom'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {styles} from './registration-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').registerScreen
 
 export const RegistrationFormRaw = ({
   classes: classNames,
@@ -30,37 +28,39 @@ export const RegistrationFormRaw = ({
         <Field
           inputProps={{maxLength: 30}}
           containerClasses={classNames.field}
-          label={'Your Name'}
-          placeholder={'name'}
-          error={checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
+          label={t(TranslationKey.Name)}
+          placeholder={t(TranslationKey.Name)}
+          error={checkValidationNameOrEmail.nameIsUnique && t(TranslationKey['A user with this name already exists'])}
           value={formFields.name}
           onChange={onChangeFormField('name')}
         />
         <Field
           inputProps={{maxLength: 30}}
           containerClasses={classNames.field}
-          label={textConsts.emailLabel}
-          placeholder={textConsts.emailPlaceholder}
+          label={t(TranslationKey.Email)}
+          placeholder={t(TranslationKey.Email)}
           type="email"
-          error={checkValidationNameOrEmail?.emailIsUnique ? 'Пользователь с таким email уже существует' : ''}
+          error={
+            checkValidationNameOrEmail?.emailIsUnique ? t(TranslationKey['A user with this email already exists']) : ''
+          }
           value={formFields.email}
           onChange={onChangeFormField('email')}
         />
         <Field
           inputProps={{maxLength: 16}}
           containerClasses={classNames.field}
-          label={textConsts.passwordLabel}
-          placeholder={textConsts.passwordPlaceholder}
+          label={t(TranslationKey.Password)}
+          placeholder={t(TranslationKey.Password)}
           type="password"
           value={formFields.password}
           onChange={onChangeFormField('password')}
         />
         <Field
           inputProps={{maxLength: 16}}
-          error={formFields.password !== formFields.confirmPassword && 'пароли не совпадают'}
+          error={formFields.password !== formFields.confirmPassword && t(TranslationKey['passwords dont match'])}
           containerClasses={classNames.field}
-          label={textConsts.rePasswordLabel}
-          placeholder={textConsts.rePasswordPlaceholder}
+          label={t(TranslationKey['Re-type Password'])}
+          placeholder={t(TranslationKey.Password)}
           type="password"
           value={formFields.confirmPassword}
           onChange={onChangeFormField('confirmPassword')}
@@ -74,9 +74,9 @@ export const RegistrationFormRaw = ({
           onChange={onChangeFormField('acceptTerms')}
         />
         <Typography className={classNames.label}>
-          {textConsts.checkboxLabel}
+          {t(TranslationKey['Agree with']) + ' '}
           <Link href="#" to="/terms" target="_blank" rel="noopener">
-            {textConsts.termsAndConditions}
+            {t(TranslationKey['Terms & Conditions'])}
           </Link>
         </Typography>
       </div>
@@ -93,7 +93,7 @@ export const RegistrationFormRaw = ({
         type="submit"
         variant="contained"
       >
-        {textConsts.button}
+        {t(TranslationKey.Registration)}
       </Button>
     </form>
   )

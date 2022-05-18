@@ -34,17 +34,8 @@ class RequestProposalModelStatic {
   }
 
   updateRequestProposalCustom = async (id, data) => {
-    const loadedFiles = []
-    if (data.files?.length) {
-      for (let i = 0; i < data.files.length; i++) {
-        const file = data.files[i]
-
-        loadedFiles.push(await this.onPostFile(file))
-      }
-    }
-
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidProposalEditPatch(id, {
-      body: {...data, files: loadedFiles},
+      body: {...data},
     })
     return response
   }

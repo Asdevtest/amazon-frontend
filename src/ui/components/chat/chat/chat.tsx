@@ -37,7 +37,7 @@ export const Chat: FC<Props> = observer(
   ({messages, userId, chatMessageHandlers, onSubmitMessage, renderAdditionalButtons}) => {
     const [inputMode, setInputMode] = useState<ChatInputMode>(ChatInputMode.TEXT)
     const [message, setMessage] = useState('')
-    const [links, setLinks] = useState<string[]>([])
+    const [links, setLinks] = useState<string[]>([''])
     const [files, setFiles] = useState<any[]>([])
     const classNames = useClassNames()
 

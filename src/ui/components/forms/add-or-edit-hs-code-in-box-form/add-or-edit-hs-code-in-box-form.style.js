@@ -59,6 +59,7 @@ export const useClassNames = makeStyles(theme => ({
 
   countBlock: {
     display: 'flex',
+    alignItems: 'center',
   },
 
   buttonsWrapper: {

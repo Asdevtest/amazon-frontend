@@ -4,7 +4,7 @@ import {Hidden} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {EntryLeftPanel} from '@components/entry-left-panel'
 import {EntryRightPanel} from '@components/entry-right-panel'
@@ -12,13 +12,11 @@ import {RegistrationForm} from '@components/forms/registration-form'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 import {disallowsSpecialCharInEmailField, disallowsSpecialCharInFirstCharEmail} from '@utils/validation'
 
 import {RegistrationViewModel} from './registration-view.model'
 import {styles} from './registration-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').registerScreen
 
 @observer
 class RegistrationViewRaw extends Component {
@@ -46,7 +44,11 @@ class RegistrationViewRaw extends Component {
         <Hidden smDown>
           <EntryLeftPanel />
         </Hidden>
-        <EntryRightPanel redirect={textConsts.redirect} title={textConsts.title} onClickRedirect={onClickRedirect}>
+        <EntryRightPanel
+          redirect={t(TranslationKey['Already have account?'])}
+          title={t(TranslationKey.Registration)}
+          onClickRedirect={onClickRedirect}
+        >
           <RegistrationForm
             checkValidationNameOrEmail={checkValidationNameOrEmail}
             formFields={{
@@ -65,8 +67,8 @@ class RegistrationViewRaw extends Component {
         <SuccessInfoModal
           openModal={showSuccessRegistrationModal}
           setOpenModal={() => onTriggerOpenModal('showSuccessRegistrationModal')}
-          title={textConsts.successRegistration}
-          successBtnText={textConsts.okBtn}
+          title={t(TranslationKey['Successful registration'])}
+          successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showSuccessRegistrationModal')
           }}
@@ -75,8 +77,8 @@ class RegistrationViewRaw extends Component {
         <WarningInfoModal
           openModal={showErrorRegistrationModal}
           setOpenModal={() => onTriggerOpenModal('showErrorRegistrationModal')}
-          title={textConsts.errorRegistration}
-          btnText={textConsts.okBtn}
+          title={t(TranslationKey['Registration error'])}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showErrorRegistrationModal')
           }}

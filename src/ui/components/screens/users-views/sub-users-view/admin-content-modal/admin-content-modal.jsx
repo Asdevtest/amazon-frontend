@@ -207,7 +207,12 @@ export const AdminContentModal = observer(
         />
 
         {!editUserFormFields.masterUser ? (
-          <Field label={textConsts.rate} value={formFields.rate} onChange={onChangeFormField('rate')} />
+          <Field
+            inputProps={{maxLength: 8}}
+            label={textConsts.rate}
+            value={formFields.rate}
+            onChange={onChangeFormField('rate')}
+          />
         ) : null}
 
         <Field

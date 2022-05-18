@@ -189,12 +189,28 @@ export enum TranslationKey {
   'Inappropriate format!' = 'Inappropriate format!',
   'The file is too big!' = 'The file is too big!',
   'My users' = 'My users',
+  'Password' = 'Password',
+  'Remember me' = 'Remember me',
+  'Forgot password' = 'Forgot password',
+  'Login' = 'Login',
+  'Registration' = 'Registration',
+  'Already have account?' = 'Already have account?',
+  'Registration error' = 'Registration error',
+  'Successful registration' = 'Successful registration',
+  'Re-type Password' = 'Re-type Password',
+  'Agree with' = 'Agree with',
+  'Terms & Conditions' = 'Terms & Conditions',
+  'passwords dont match' = 'passwords dont match',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',
 }
 
-// "My users": "My users"
+// "passwords dont match": "passwords dont match"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

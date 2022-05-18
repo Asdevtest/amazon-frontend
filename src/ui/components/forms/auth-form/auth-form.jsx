@@ -3,15 +3,13 @@ import React from 'react'
 import {Button, Checkbox, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {styles} from './auth-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').authView
 
 const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubmit}) => {
   const onSubmitForm = event => {
@@ -24,16 +22,16 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
       <form className={classNames.formFields} onSubmit={onSubmitForm}>
         <Field
           containerClasses={classNames.field}
-          label={textConsts.emailLabel}
-          placeholder={textConsts.emailPlaceholder}
+          label={t(TranslationKey.Email)}
+          placeholder={t(TranslationKey.Email)}
           type="email"
           value={formFields.email}
           onChange={onChangeFormField('email')}
         />
         <Field
           containerClasses={classNames.field}
-          label={textConsts.passwordLabel}
-          placeholder={textConsts.passwordPlaceholder}
+          label={t(TranslationKey.Password)}
+          placeholder={t(TranslationKey.Password)}
           type="password"
           value={formFields.password}
           onChange={onChangeFormField('password')}
@@ -41,12 +39,12 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
         <div className={classNames.formFooter}>
           <div className={classNames.checkboxWrapper} onClick={onChangeFormField('remember')}>
             <Checkbox className={classNames.checkbox} color="primary" checked={formFields.remember} />
-            <Typography className={classNames.label}>{textConsts.checkboxLabel}</Typography>
+            <Typography className={classNames.label}>{t(TranslationKey['Remember me'])}</Typography>
           </div>
-          <Typography className={classNames.forgotPassword}>{textConsts.forgotPassword}</Typography>
+          <Typography className={classNames.forgotPassword}>{t(TranslationKey['Forgot password'])}</Typography>
         </div>
         <Button disableElevation type="submit" color="primary" variant="contained">
-          {textConsts.button}
+          {t(TranslationKey.Login)}
         </Button>
       </form>
     </div>

@@ -187,7 +187,19 @@
   "The image size should not exceed": "The image size should not exceed",
   "Inappropriate format!": "Inappropriate format!",
   "The file is too big!": "The file is too big!",
-  "My users": "My users"
+  "My users": "My users",
+  "Password": "Password",
+  "Remember me": "Remember me",
+  "Forgot password": "Forgot password",
+  "Login": "Login",
+  "Registration": "Registration",
+  "Already have account?": "Already have account?",
+  "Registration error": "Registration error",
+  "Successful registration": "Successful registration",
+  "Re-type Password": "Re-type Password",
+  "Agree with": "Agree with",
+  "Terms & Conditions": "Terms & Conditions",
+  "passwords dont match": "passwords dont match"
 
 
 

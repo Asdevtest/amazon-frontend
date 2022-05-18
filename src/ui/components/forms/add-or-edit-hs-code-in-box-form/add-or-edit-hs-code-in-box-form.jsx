@@ -40,7 +40,7 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
           <Typography className={classNames.amount}>{item.qty}</Typography>
 
           {restProps.box.amount > 1 && (
-            <Typography className={classNames.superboxTypo}>{`Superbox x ${item.amount}`}</Typography>
+            <Typography className={classNames.superboxTypo}>{`Superbox x ${restProps.box.amount}`}</Typography>
           )}
         </div>
       </TableCell>

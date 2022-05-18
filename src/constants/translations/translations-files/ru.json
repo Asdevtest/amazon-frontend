@@ -187,7 +187,19 @@
   "The image size should not exceed": "Размер изображения не должен превышать",
   "Inappropriate format!": "Неподходящий формат!",
   "The file is too big!": "Файл слишком большой!",
-  "My users": "Мои пользователи"
+  "My users": "Мои пользователи",
+  "Password": "Пароль",
+  "Remember me": "Запомнить меня",
+  "Forgot password": "Забыл пароль",
+  "Login": "Войти",
+  "Registration": "Регистрация",
+  "Already have account?": "Уже есть аккаунт?",
+  "Registration error": "Ошибка регистрации",
+  "Successful registration": "Успешная регистрация",
+  "Re-type Password": "Повторите ввод пароля",
+  "Agree with": "Согласен с",
+  "Terms & Conditions": "Положения и условия",
+  "passwords dont match": "пароли не совпадают"
 
 
 }
