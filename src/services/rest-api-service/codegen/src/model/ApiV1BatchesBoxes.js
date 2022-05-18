@@ -425,6 +425,12 @@ ApiV1BatchesBoxes['StatusEnum'] = {
     "IN_BATCH": "IN_BATCH",
 
     /**
+     * value: "NEED_TO_UPDATE_THE_TARIFF"
+     * @const
+     */
+    "NEED_TO_UPDATE_THE_TARIFF": "NEED_TO_UPDATE_THE_TARIFF",
+
+    /**
      * value: "IN_BATCH_ON_THE_WAY"
      * @const
      */

@@ -47,14 +47,14 @@ class InlineObject62 {
         if (data) {
             obj = obj || new InlineObject62();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -64,22 +64,22 @@ class InlineObject62 {
 }
 
 /**
- * Название услуги
- * @member {String} name
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject62.prototype['name'] = undefined;
+InlineObject62.prototype['status'] = undefined;
 
 /**
- * Описание услуги
- * @member {String} description
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineObject62.prototype['description'] = undefined;
+InlineObject62.prototype['images'] = undefined;
 
 /**
- * Цена услуги.
- * @member {Number} price
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject62.prototype['price'] = undefined;
+InlineObject62.prototype['storekeeperComment'] = undefined;
 
 
 

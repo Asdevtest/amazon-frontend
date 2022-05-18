@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1IntegrationsSellerboardWarehouseStocksShop from './ApiV1IntegrationsSellerboardWarehouseStocksShop';
 
 /**
  * The InlineResponse20014 model module.
@@ -21,7 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20014 {
     /**
      * Constructs a new <code>InlineResponse20014</code>.
-     * Схема парсинга.
+     * Схема репорта за 30 дней с Seller-board
      * @alias module:model/InlineResponse20014
      */
     constructor() { 
@@ -48,83 +49,143 @@ class InlineResponse20014 {
         if (data) {
             obj = obj || new InlineResponse20014();
 
-            if (data.hasOwnProperty('amazonFee')) {
-                obj['amazonFee'] = ApiClient.convertToType(data['amazonFee'], 'Number');
+            if (data.hasOwnProperty('date')) {
+                obj['date'] = ApiClient.convertToType(data['date'], 'String');
             }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
-            }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
-            }
-            if (data.hasOwnProperty('weightUnitString')) {
-                obj['weightUnitString'] = ApiClient.convertToType(data['weightUnitString'], 'String');
-            }
-            if (data.hasOwnProperty('isWhiteGloveRequired')) {
-                obj['isWhiteGloveRequired'] = ApiClient.convertToType(data['isWhiteGloveRequired'], 'Boolean');
-            }
-            if (data.hasOwnProperty('subCategory')) {
-                obj['subCategory'] = ApiClient.convertToType(data['subCategory'], 'String');
-            }
-            if (data.hasOwnProperty('fnsku')) {
-                obj['fnsku'] = ApiClient.convertToType(data['fnsku'], 'String');
-            }
-            if (data.hasOwnProperty('dimensionUnit')) {
-                obj['dimensionUnit'] = ApiClient.convertToType(data['dimensionUnit'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
-            }
-            if (data.hasOwnProperty('binding')) {
-                obj['binding'] = ApiClient.convertToType(data['binding'], 'String');
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('dimensionUnitString')) {
-                obj['dimensionUnitString'] = ApiClient.convertToType(data['dimensionUnitString'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('imageUrl')) {
-                obj['imageUrl'] = ApiClient.convertToType(data['imageUrl'], 'String');
-            }
-            if (data.hasOwnProperty('isAfn')) {
-                obj['isAfn'] = ApiClient.convertToType(data['isAfn'], 'Boolean');
-            }
-            if (data.hasOwnProperty('gl')) {
-                obj['gl'] = ApiClient.convertToType(data['gl'], 'String');
-            }
-            if (data.hasOwnProperty('TRexId')) {
-                obj['TRexId'] = ApiClient.convertToType(data['TRexId'], 'String');
-            }
-            if (data.hasOwnProperty('isAsinLimits')) {
-                obj['isAsinLimits'] = ApiClient.convertToType(data['isAsinLimits'], 'Boolean');
-            }
-            if (data.hasOwnProperty('originalUrl')) {
-                obj['originalUrl'] = ApiClient.convertToType(data['originalUrl'], 'String');
-            }
-            if (data.hasOwnProperty('productGroup')) {
-                obj['productGroup'] = ApiClient.convertToType(data['productGroup'], 'String');
-            }
-            if (data.hasOwnProperty('thumbStringUrl')) {
-                obj['thumbStringUrl'] = ApiClient.convertToType(data['thumbStringUrl'], 'String');
+            if (data.hasOwnProperty('marketplace')) {
+                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
             }
             if (data.hasOwnProperty('asin')) {
                 obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('encryptedMarketplaceId')) {
-                obj['encryptedMarketplaceId'] = ApiClient.convertToType(data['encryptedMarketplaceId'], 'String');
+            if (data.hasOwnProperty('sku')) {
+                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
             }
-            if (data.hasOwnProperty('weightUnit')) {
-                obj['weightUnit'] = ApiClient.convertToType(data['weightUnit'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('salesorganic')) {
+                obj['salesorganic'] = ApiClient.convertToType(data['salesorganic'], 'Number');
+            }
+            if (data.hasOwnProperty('salesppc')) {
+                obj['salesppc'] = ApiClient.convertToType(data['salesppc'], 'Number');
+            }
+            if (data.hasOwnProperty('unitsorganic')) {
+                obj['unitsorganic'] = ApiClient.convertToType(data['unitsorganic'], 'Number');
+            }
+            if (data.hasOwnProperty('unitsppc')) {
+                obj['unitsppc'] = ApiClient.convertToType(data['unitsppc'], 'Number');
+            }
+            if (data.hasOwnProperty('refunds')) {
+                obj['refunds'] = ApiClient.convertToType(data['refunds'], 'Number');
+            }
+            if (data.hasOwnProperty('promovalue')) {
+                obj['promovalue'] = ApiClient.convertToType(data['promovalue'], 'Number');
+            }
+            if (data.hasOwnProperty('sponsoredproducts')) {
+                obj['sponsoredproducts'] = ApiClient.convertToType(data['sponsoredproducts'], 'Number');
+            }
+            if (data.hasOwnProperty('sponsoreddisplay')) {
+                obj['sponsoreddisplay'] = ApiClient.convertToType(data['sponsoreddisplay'], 'Number');
+            }
+            if (data.hasOwnProperty('sponsoredRands')) {
+                obj['sponsoredRands'] = ApiClient.convertToType(data['sponsoredRands'], 'Number');
+            }
+            if (data.hasOwnProperty('sponsoredbrandsvideo')) {
+                obj['sponsoredbrandsvideo'] = ApiClient.convertToType(data['sponsoredbrandsvideo'], 'Number');
+            }
+            if (data.hasOwnProperty('giftwrap')) {
+                obj['giftwrap'] = ApiClient.convertToType(data['giftwrap'], 'Number');
+            }
+            if (data.hasOwnProperty('shipping')) {
+                obj['shipping'] = ApiClient.convertToType(data['shipping'], 'Number');
+            }
+            if (data.hasOwnProperty('refundcost')) {
+                obj['refundcost'] = ApiClient.convertToType(data['refundcost'], 'Number');
+            }
+            if (data.hasOwnProperty('valueOfReturnedItems')) {
+                obj['valueOfReturnedItems'] = ApiClient.convertToType(data['valueOfReturnedItems'], 'Number');
+            }
+            if (data.hasOwnProperty('productcostUnsellableRefunds')) {
+                obj['productcostUnsellableRefunds'] = ApiClient.convertToType(data['productcostUnsellableRefunds'], 'Number');
+            }
+            if (data.hasOwnProperty('commission')) {
+                obj['commission'] = ApiClient.convertToType(data['commission'], 'Number');
+            }
+            if (data.hasOwnProperty('compensatedClawback')) {
+                obj['compensatedClawback'] = ApiClient.convertToType(data['compensatedClawback'], 'Number');
+            }
+            if (data.hasOwnProperty('fbadisposalfee')) {
+                obj['fbadisposalfee'] = ApiClient.convertToType(data['fbadisposalfee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaperunitfulfillmentfee')) {
+                obj['fbaperunitfulfillmentfee'] = ApiClient.convertToType(data['fbaperunitfulfillmentfee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbastoragefee')) {
+                obj['fbastoragefee'] = ApiClient.convertToType(data['fbastoragefee'], 'Number');
+            }
+            if (data.hasOwnProperty('freeReplacementRefundItems')) {
+                obj['freeReplacementRefundItems'] = ApiClient.convertToType(data['freeReplacementRefundItems'], 'Number');
+            }
+            if (data.hasOwnProperty('subscription')) {
+                obj['subscription'] = ApiClient.convertToType(data['subscription'], 'Number');
+            }
+            if (data.hasOwnProperty('warehouseDamage')) {
+                obj['warehouseDamage'] = ApiClient.convertToType(data['warehouseDamage'], 'Number');
+            }
+            if (data.hasOwnProperty('warehouseLost')) {
+                obj['warehouseLost'] = ApiClient.convertToType(data['warehouseLost'], 'Number');
+            }
+            if (data.hasOwnProperty('estimatedpayout')) {
+                obj['estimatedpayout'] = ApiClient.convertToType(data['estimatedpayout'], 'Number');
+            }
+            if (data.hasOwnProperty('productcostSales')) {
+                obj['productcostSales'] = ApiClient.convertToType(data['productcostSales'], 'Number');
+            }
+            if (data.hasOwnProperty('productcostNonAmazon')) {
+                obj['productcostNonAmazon'] = ApiClient.convertToType(data['productcostNonAmazon'], 'Number');
+            }
+            if (data.hasOwnProperty('productcostMultichannelcosts')) {
+                obj['productcostMultichannelcosts'] = ApiClient.convertToType(data['productcostMultichannelcosts'], 'Number');
+            }
+            if (data.hasOwnProperty('productcostMissingfrominbound')) {
+                obj['productcostMissingfrominbound'] = ApiClient.convertToType(data['productcostMissingfrominbound'], 'Number');
+            }
+            if (data.hasOwnProperty('productcostCostofmissingreturns')) {
+                obj['productcostCostofmissingreturns'] = ApiClient.convertToType(data['productcostCostofmissingreturns'], 'Number');
+            }
+            if (data.hasOwnProperty('vat')) {
+                obj['vat'] = ApiClient.convertToType(data['vat'], 'Number');
+            }
+            if (data.hasOwnProperty('grossprofit')) {
+                obj['grossprofit'] = ApiClient.convertToType(data['grossprofit'], 'Number');
+            }
+            if (data.hasOwnProperty('netprofit')) {
+                obj['netprofit'] = ApiClient.convertToType(data['netprofit'], 'Number');
+            }
+            if (data.hasOwnProperty('margin')) {
+                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
+            }
+            if (data.hasOwnProperty('realAcos')) {
+                obj['realAcos'] = ApiClient.convertToType(data['realAcos'], 'Number');
+            }
+            if (data.hasOwnProperty('adjustmentFbaperunitfulfillmentfee')) {
+                obj['adjustmentFbaperunitfulfillmentfee'] = ApiClient.convertToType(data['adjustmentFbaperunitfulfillmentfee'], 'Number');
+            }
+            if (data.hasOwnProperty('amazonfees')) {
+                obj['amazonfees'] = ApiClient.convertToType(data['amazonfees'], 'Number');
+            }
+            if (data.hasOwnProperty('costOfGoods')) {
+                obj['costOfGoods'] = ApiClient.convertToType(data['costOfGoods'], 'Number');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('shop')) {
+                obj['shop'] = ApiV1IntegrationsSellerboardWarehouseStocksShop.constructFromObject(data['shop']);
             }
         }
         return obj;
@@ -134,139 +195,279 @@ class InlineResponse20014 {
 }
 
 /**
- * 
- * @member {Number} amazonFee
+ * ﻿\"Date\"
+ * @member {String} date
  */
-InlineResponse20014.prototype['amazonFee'] = undefined;
+InlineResponse20014.prototype['date'] = undefined;
 
 /**
- * 
- * @member {Number} width
+ * Marketplace
+ * @member {String} marketplace
  */
-InlineResponse20014.prototype['width'] = undefined;
+InlineResponse20014.prototype['marketplace'] = undefined;
 
 /**
- * 
- * @member {Number} height
- */
-InlineResponse20014.prototype['height'] = undefined;
-
-/**
- * 
- * @member {Number} length
- */
-InlineResponse20014.prototype['length'] = undefined;
-
-/**
- * 
- * @member {Number} weight
- */
-InlineResponse20014.prototype['weight'] = undefined;
-
-/**
- * @member {String} weightUnitString
- */
-InlineResponse20014.prototype['weightUnitString'] = undefined;
-
-/**
- * @member {Boolean} isWhiteGloveRequired
- */
-InlineResponse20014.prototype['isWhiteGloveRequired'] = undefined;
-
-/**
- * @member {String} subCategory
- */
-InlineResponse20014.prototype['subCategory'] = undefined;
-
-/**
- * @member {String} fnsku
- */
-InlineResponse20014.prototype['fnsku'] = undefined;
-
-/**
- * @member {String} dimensionUnit
- */
-InlineResponse20014.prototype['dimensionUnit'] = undefined;
-
-/**
- * @member {String} link
- */
-InlineResponse20014.prototype['link'] = undefined;
-
-/**
- * @member {String} binding
- */
-InlineResponse20014.prototype['binding'] = undefined;
-
-/**
- * @member {String} title
- */
-InlineResponse20014.prototype['title'] = undefined;
-
-/**
- * @member {String} dimensionUnitString
- */
-InlineResponse20014.prototype['dimensionUnitString'] = undefined;
-
-/**
- * @member {Number} price
- */
-InlineResponse20014.prototype['price'] = undefined;
-
-/**
- * @member {String} imageUrl
- */
-InlineResponse20014.prototype['imageUrl'] = undefined;
-
-/**
- * @member {Boolean} isAfn
- */
-InlineResponse20014.prototype['isAfn'] = undefined;
-
-/**
- * @member {String} gl
- */
-InlineResponse20014.prototype['gl'] = undefined;
-
-/**
- * @member {String} TRexId
- */
-InlineResponse20014.prototype['TRexId'] = undefined;
-
-/**
- * @member {Boolean} isAsinLimits
- */
-InlineResponse20014.prototype['isAsinLimits'] = undefined;
-
-/**
- * @member {String} originalUrl
- */
-InlineResponse20014.prototype['originalUrl'] = undefined;
-
-/**
- * @member {String} productGroup
- */
-InlineResponse20014.prototype['productGroup'] = undefined;
-
-/**
- * @member {String} thumbStringUrl
- */
-InlineResponse20014.prototype['thumbStringUrl'] = undefined;
-
-/**
+ * ASIN
  * @member {String} asin
  */
 InlineResponse20014.prototype['asin'] = undefined;
 
 /**
- * @member {String} encryptedMarketplaceId
+ * SKU
+ * @member {String} sku
  */
-InlineResponse20014.prototype['encryptedMarketplaceId'] = undefined;
+InlineResponse20014.prototype['sku'] = undefined;
 
 /**
- * @member {String} weightUnit
+ * Name
+ * @member {String} name
  */
-InlineResponse20014.prototype['weightUnit'] = undefined;
+InlineResponse20014.prototype['name'] = undefined;
+
+/**
+ * SalesOrganic
+ * @member {Number} salesorganic
+ */
+InlineResponse20014.prototype['salesorganic'] = undefined;
+
+/**
+ * SalesPPC
+ * @member {Number} salesppc
+ */
+InlineResponse20014.prototype['salesppc'] = undefined;
+
+/**
+ * UnitsOrganic
+ * @member {Number} unitsorganic
+ */
+InlineResponse20014.prototype['unitsorganic'] = undefined;
+
+/**
+ * UnitsPPC
+ * @member {Number} unitsppc
+ */
+InlineResponse20014.prototype['unitsppc'] = undefined;
+
+/**
+ * Refunds
+ * @member {Number} refunds
+ */
+InlineResponse20014.prototype['refunds'] = undefined;
+
+/**
+ * PromoValue
+ * @member {Number} promovalue
+ */
+InlineResponse20014.prototype['promovalue'] = undefined;
+
+/**
+ * SponsoredProducts
+ * @member {Number} sponsoredproducts
+ */
+InlineResponse20014.prototype['sponsoredproducts'] = undefined;
+
+/**
+ * SponsoredDisplay
+ * @member {Number} sponsoreddisplay
+ */
+InlineResponse20014.prototype['sponsoreddisplay'] = undefined;
+
+/**
+ * SponsoredВrands
+ * @member {Number} sponsoredRands
+ */
+InlineResponse20014.prototype['sponsoredRands'] = undefined;
+
+/**
+ * SponsoredBrandsVideo
+ * @member {Number} sponsoredbrandsvideo
+ */
+InlineResponse20014.prototype['sponsoredbrandsvideo'] = undefined;
+
+/**
+ * GiftWrap
+ * @member {Number} giftwrap
+ */
+InlineResponse20014.prototype['giftwrap'] = undefined;
+
+/**
+ * Shipping
+ * @member {Number} shipping
+ */
+InlineResponse20014.prototype['shipping'] = undefined;
+
+/**
+ * RefundCost
+ * @member {Number} refundcost
+ */
+InlineResponse20014.prototype['refundcost'] = undefined;
+
+/**
+ * Value of returned items
+ * @member {Number} valueOfReturnedItems
+ */
+InlineResponse20014.prototype['valueOfReturnedItems'] = undefined;
+
+/**
+ * ProductCost Unsellable Refunds
+ * @member {Number} productcostUnsellableRefunds
+ */
+InlineResponse20014.prototype['productcostUnsellableRefunds'] = undefined;
+
+/**
+ * Commission
+ * @member {Number} commission
+ */
+InlineResponse20014.prototype['commission'] = undefined;
+
+/**
+ * COMPENSATED_CLAWBACK
+ * @member {Number} compensatedClawback
+ */
+InlineResponse20014.prototype['compensatedClawback'] = undefined;
+
+/**
+ * FBADisposalFee
+ * @member {Number} fbadisposalfee
+ */
+InlineResponse20014.prototype['fbadisposalfee'] = undefined;
+
+/**
+ * FBAPerUnitFulfillmentFee
+ * @member {Number} fbaperunitfulfillmentfee
+ */
+InlineResponse20014.prototype['fbaperunitfulfillmentfee'] = undefined;
+
+/**
+ * FBAStorageFee
+ * @member {Number} fbastoragefee
+ */
+InlineResponse20014.prototype['fbastoragefee'] = undefined;
+
+/**
+ * FREE_REPLACEMENT_REFUND_ITEMS
+ * @member {Number} freeReplacementRefundItems
+ */
+InlineResponse20014.prototype['freeReplacementRefundItems'] = undefined;
+
+/**
+ * Subscription
+ * @member {Number} subscription
+ */
+InlineResponse20014.prototype['subscription'] = undefined;
+
+/**
+ * WAREHOUSE_DAMAGE
+ * @member {Number} warehouseDamage
+ */
+InlineResponse20014.prototype['warehouseDamage'] = undefined;
+
+/**
+ * WAREHOUSE_LOST
+ * @member {Number} warehouseLost
+ */
+InlineResponse20014.prototype['warehouseLost'] = undefined;
+
+/**
+ * EstimatedPayout
+ * @member {Number} estimatedpayout
+ */
+InlineResponse20014.prototype['estimatedpayout'] = undefined;
+
+/**
+ * ProductCost Sales
+ * @member {Number} productcostSales
+ */
+InlineResponse20014.prototype['productcostSales'] = undefined;
+
+/**
+ * ProductCost Non-Amazon
+ * @member {Number} productcostNonAmazon
+ */
+InlineResponse20014.prototype['productcostNonAmazon'] = undefined;
+
+/**
+ * ProductCost MultichannelCosts
+ * @member {Number} productcostMultichannelcosts
+ */
+InlineResponse20014.prototype['productcostMultichannelcosts'] = undefined;
+
+/**
+ * ProductCost MissingFromInbound
+ * @member {Number} productcostMissingfrominbound
+ */
+InlineResponse20014.prototype['productcostMissingfrominbound'] = undefined;
+
+/**
+ * ProductCost CostOfMissingReturns
+ * @member {Number} productcostCostofmissingreturns
+ */
+InlineResponse20014.prototype['productcostCostofmissingreturns'] = undefined;
+
+/**
+ * VAT
+ * @member {Number} vat
+ */
+InlineResponse20014.prototype['vat'] = undefined;
+
+/**
+ * GrossProfit
+ * @member {Number} grossprofit
+ */
+InlineResponse20014.prototype['grossprofit'] = undefined;
+
+/**
+ * NetProfit
+ * @member {Number} netprofit
+ */
+InlineResponse20014.prototype['netprofit'] = undefined;
+
+/**
+ * Margin
+ * @member {Number} margin
+ */
+InlineResponse20014.prototype['margin'] = undefined;
+
+/**
+ * Real ACOS
+ * @member {Number} realAcos
+ */
+InlineResponse20014.prototype['realAcos'] = undefined;
+
+/**
+ * Adjustment_FBAPerUnitFulfillmentFee
+ * @member {Number} adjustmentFbaperunitfulfillmentfee
+ */
+InlineResponse20014.prototype['adjustmentFbaperunitfulfillmentfee'] = undefined;
+
+/**
+ * AmazonFees
+ * @member {Number} amazonfees
+ */
+InlineResponse20014.prototype['amazonfees'] = undefined;
+
+/**
+ * Cost of Goods
+ * @member {Number} costOfGoods
+ */
+InlineResponse20014.prototype['costOfGoods'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+InlineResponse20014.prototype['createdAt'] = undefined;
+
+/**
+ * Дата обновления
+ * @member {Date} updatedAt
+ */
+InlineResponse20014.prototype['updatedAt'] = undefined;
+
+/**
+ * @member {module:model/ApiV1IntegrationsSellerboardWarehouseStocksShop} shop
+ */
+InlineResponse20014.prototype['shop'] = undefined;
 
 
 

@@ -50,6 +50,9 @@ class InlineObject51 {
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            }
         }
         return obj;
     }
@@ -58,10 +61,16 @@ class InlineObject51 {
 }
 
 /**
- * Причины закрытия приема предложений.
+ * Комментарий причин изменения статуса.
  * @member {String} reason
  */
 InlineObject51.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject51.prototype['linksToMediaFiles'] = undefined;
 
 
 

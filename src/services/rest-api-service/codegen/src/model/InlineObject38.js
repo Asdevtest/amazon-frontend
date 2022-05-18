@@ -22,11 +22,11 @@ class InlineObject38 {
     /**
      * Constructs a new <code>InlineObject38</code>.
      * @alias module:model/InlineObject38
-     * @param fileUrl {String} uri полный путь до файла, для скачивания
+     * @param profileId {String} id профайла
      */
-    constructor(fileUrl) { 
+    constructor(profileId) { 
         
-        InlineObject38.initialize(this, fileUrl);
+        InlineObject38.initialize(this, profileId);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject38 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, fileUrl) { 
-        obj['fileUrl'] = fileUrl;
+    static initialize(obj, profileId) { 
+        obj['profileId'] = profileId;
     }
 
     /**
@@ -49,8 +49,8 @@ class InlineObject38 {
         if (data) {
             obj = obj || new InlineObject38();
 
-            if (data.hasOwnProperty('fileUrl')) {
-                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -60,10 +60,10 @@ class InlineObject38 {
 }
 
 /**
- * uri полный путь до файла, для скачивания
- * @member {String} fileUrl
+ * id профайла
+ * @member {String} profileId
  */
-InlineObject38.prototype['fileUrl'] = undefined;
+InlineObject38.prototype['profileId'] = undefined;
 
 
 

@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
-import InlineResponse20015 from './InlineResponse20015';
 
 /**
  * The InlineResponse20023 model module.
@@ -23,7 +21,6 @@ import InlineResponse20015 from './InlineResponse20015';
 class InlineResponse20023 {
     /**
      * Constructs a new <code>InlineResponse20023</code>.
-     * Схема универсального предложения
      * @alias module:model/InlineResponse20023
      */
     constructor() { 
@@ -50,11 +47,29 @@ class InlineResponse20023 {
         if (data) {
             obj = obj || new InlineResponse20023();
 
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = InlineResponse20015.constructFromObject(data['proposal']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('numberOfPositiveFeedbacks')) {
+                obj['numberOfPositiveFeedbacks'] = ApiClient.convertToType(data['numberOfPositiveFeedbacks'], 'Number');
+            }
+            if (data.hasOwnProperty('numberOfNegativeFeedbacks')) {
+                obj['numberOfNegativeFeedbacks'] = ApiClient.convertToType(data['numberOfNegativeFeedbacks'], 'Number');
+            }
+            if (data.hasOwnProperty('country')) {
+                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            }
+            if (data.hasOwnProperty('isOnline')) {
+                obj['isOnline'] = ApiClient.convertToType(data['isOnline'], 'Boolean');
+            }
+            if (data.hasOwnProperty('countsOfDeals')) {
+                obj['countsOfDeals'] = ApiClient.convertToType(data['countsOfDeals'], 'Number');
             }
         }
         return obj;
@@ -64,14 +79,52 @@ class InlineResponse20023 {
 }
 
 /**
- * @member {module:model/InlineResponse20015} proposal
+ * GUID пользователя.
+ * @member {String} _id
  */
-InlineResponse20023.prototype['proposal'] = undefined;
+InlineResponse20023.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails} details
+ * Имя пользователя.
+ * @member {String} name
  */
-InlineResponse20023.prototype['details'] = undefined;
+InlineResponse20023.prototype['name'] = undefined;
+
+/**
+ * Рейтинг пользователя.
+ * @member {Number} rating
+ */
+InlineResponse20023.prototype['rating'] = undefined;
+
+/**
+ * Количество положительных отзыв
+ * @member {Number} numberOfPositiveFeedbacks
+ */
+InlineResponse20023.prototype['numberOfPositiveFeedbacks'] = undefined;
+
+/**
+ * Количество негативных отзыв
+ * @member {Number} numberOfNegativeFeedbacks
+ */
+InlineResponse20023.prototype['numberOfNegativeFeedbacks'] = undefined;
+
+/**
+ * Страна
+ * @member {String} country
+ */
+InlineResponse20023.prototype['country'] = undefined;
+
+/**
+ * Пользователь онлайн
+ * @member {Boolean} isOnline
+ */
+InlineResponse20023.prototype['isOnline'] = undefined;
+
+/**
+ * Количество общих сделок
+ * @member {Number} countsOfDeals
+ */
+InlineResponse20023.prototype['countsOfDeals'] = undefined;
 
 
 

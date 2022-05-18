@@ -190,6 +190,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BuyerApi* | [**apiV1BuyersTasksGet**](docs/BuyerApi.md#apiV1BuyersTasksGet) | **GET** /api/v1/buyers/tasks | # Показать все задачи данного пользователя.
 *TestSwagger.BuyerApi* | [**apiV1BuyersTasksPost**](docs/BuyerApi.md#apiV1BuyersTasksPost) | **POST** /api/v1/buyers/tasks | # Создать задачу.
 *TestSwagger.ClientApi* | [**apiV1ClientsBoxesConfirmDeliveryPriceChangePost**](docs/ClientApi.md#apiV1ClientsBoxesConfirmDeliveryPriceChangePost) | **POST** /api/v1/clients/boxes/confirm_delivery_price_change | # Подтвердить измение цены доставки за коробки.
+*TestSwagger.ClientApi* | [**apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch**](docs/ClientApi.md#apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch) | **PATCH** /api/v1/clients/boxes/{guid}/edit_shippingLabel_first_time | Редактировать shippingLabel в первый раз.
 *TestSwagger.ClientApi* | [**apiV1ClientsBoxesReturnBoxesToStockPost**](docs/ClientApi.md#apiV1ClientsBoxesReturnBoxesToStockPost) | **POST** /api/v1/clients/boxes/return_boxes_to_stock | Вернуть коробки обратно на склад.
 *TestSwagger.ClientApi* | [**apiV1ClientsDestinationGet**](docs/ClientApi.md#apiV1ClientsDestinationGet) | **GET** /api/v1/clients/destination | #  Получить все склады назначения.
 *TestSwagger.ClientApi* | [**apiV1ClientsGetOrdersByProductIdGuidGet**](docs/ClientApi.md#apiV1ClientsGetOrdersByProductIdGuidGet) | **GET** /api/v1/clients/get_orders_by_product_id/{guid} | # Получить заказы текущего клиента через id товара.
@@ -210,6 +211,10 @@ Class | Method | HTTP request | Description
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksCancelGuidPost**](docs/ClientApi.md#apiV1ClientsTasksCancelGuidPost) | **POST** /api/v1/clients/tasks/cancel/{guid} | # Отменить задачу.
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksGet**](docs/ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя в данном складе.
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksPost**](docs/ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.
+*TestSwagger.GoLoginApi* | [**apiV1GologinProfilePost**](docs/GoLoginApi.md#apiV1GologinProfilePost) | **POST** /api/v1/gologin/profile | # Создать новый профайл пользователя.
+*TestSwagger.GoLoginApi* | [**apiV1GologinProfileProfileIdPatch**](docs/GoLoginApi.md#apiV1GologinProfileProfileIdPatch) | **PATCH** /api/v1/gologin/profile/{profileId} | # Изменить профайл пользователя.
+*TestSwagger.GoLoginApi* | [**apiV1GologinProfileStartPost**](docs/GoLoginApi.md#apiV1GologinProfileStartPost) | **POST** /api/v1/gologin/profile/start | # Запустить пользователя.
+*TestSwagger.GoLoginApi* | [**apiV1GologinProfileStopPost**](docs/GoLoginApi.md#apiV1GologinProfileStopPost) | **POST** /api/v1/gologin/profile/stop | # Остановить профайл пользователя.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsCreateAndLinkSkuProductsPost**](docs/IntegrationsApi.md#apiV1IntegrationsCreateAndLinkSkuProductsPost) | **POST** /api/v1/integrations/create_and_link_sku_products | # Создать, привязать товары к SKU. Спарсить данные. 
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsGetSkusByProductIdGuidGet**](docs/IntegrationsApi.md#apiV1IntegrationsGetSkusByProductIdGuidGet) | **GET** /api/v1/integrations/get_skus_by_product_id/{guid} | Получить товары из склада (sku), через GUID продукта.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet) | **GET** /api/v1/integrations/sellerboard_dashboard_products_days_reports_last_30_days | Получить месячный отчет селерборда.
@@ -351,6 +356,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1BoxesSplitBoxItems](docs/ApiV1BoxesSplitBoxItems.md)
  - [TestSwagger.ApiV1BoxesSplitNewBoxesParams](docs/ApiV1BoxesSplitNewBoxesParams.md)
  - [TestSwagger.ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges](docs/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.md)
+ - [TestSwagger.ApiV1GologinProfileNavigator](docs/ApiV1GologinProfileNavigator.md)
  - [TestSwagger.ApiV1IntegrationsCreateAndLinkSkuProductsPayload](docs/ApiV1IntegrationsCreateAndLinkSkuProductsPayload.md)
  - [TestSwagger.ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks](docs/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.md)
  - [TestSwagger.ApiV1IntegrationsSellerboardWarehouseStocksShop](docs/ApiV1IntegrationsSellerboardWarehouseStocksShop.md)
@@ -437,6 +443,11 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject68](docs/InlineObject68.md)
  - [TestSwagger.InlineObject69](docs/InlineObject69.md)
  - [TestSwagger.InlineObject7](docs/InlineObject7.md)
+ - [TestSwagger.InlineObject70](docs/InlineObject70.md)
+ - [TestSwagger.InlineObject71](docs/InlineObject71.md)
+ - [TestSwagger.InlineObject72](docs/InlineObject72.md)
+ - [TestSwagger.InlineObject73](docs/InlineObject73.md)
+ - [TestSwagger.InlineObject74](docs/InlineObject74.md)
  - [TestSwagger.InlineObject8](docs/InlineObject8.md)
  - [TestSwagger.InlineObject9](docs/InlineObject9.md)
  - [TestSwagger.InlineResponse200](docs/InlineResponse200.md)
@@ -458,8 +469,9 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20023](docs/InlineResponse20023.md)
  - [TestSwagger.InlineResponse20024](docs/InlineResponse20024.md)
  - [TestSwagger.InlineResponse20025](docs/InlineResponse20025.md)
- - [TestSwagger.InlineResponse20025Details](docs/InlineResponse20025Details.md)
- - [TestSwagger.InlineResponse20025Request](docs/InlineResponse20025Request.md)
+ - [TestSwagger.InlineResponse20026](docs/InlineResponse20026.md)
+ - [TestSwagger.InlineResponse20026Details](docs/InlineResponse20026Details.md)
+ - [TestSwagger.InlineResponse20026Request](docs/InlineResponse20026Request.md)
  - [TestSwagger.InlineResponse2002AllowedUrls](docs/InlineResponse2002AllowedUrls.md)
  - [TestSwagger.InlineResponse2002PermissionGroups](docs/InlineResponse2002PermissionGroups.md)
  - [TestSwagger.InlineResponse2002Permissions](docs/InlineResponse2002Permissions.md)
@@ -479,6 +491,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse2016](docs/InlineResponse2016.md)
  - [TestSwagger.InlineResponse2017](docs/InlineResponse2017.md)
  - [TestSwagger.InlineResponse2018](docs/InlineResponse2018.md)
+ - [TestSwagger.InlineResponse2019](docs/InlineResponse2019.md)
  - [TestSwagger.InternalServerError](docs/InternalServerError.md)
  - [TestSwagger.LinkSubuserInputSchema](docs/LinkSubuserInputSchema.md)
  - [TestSwagger.MePatchInputSchema](docs/MePatchInputSchema.md)

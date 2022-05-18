@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1ClientsBoxesConfirmDeliveryPriceChangePost**](ClientApi.md#apiV1ClientsBoxesConfirmDeliveryPriceChangePost) | **POST** /api/v1/clients/boxes/confirm_delivery_price_change | # Подтвердить измение цены доставки за коробки.
+[**apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch**](ClientApi.md#apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch) | **PATCH** /api/v1/clients/boxes/{guid}/edit_shippingLabel_first_time | Редактировать shippingLabel в первый раз.
 [**apiV1ClientsBoxesReturnBoxesToStockPost**](ClientApi.md#apiV1ClientsBoxesReturnBoxesToStockPost) | **POST** /api/v1/clients/boxes/return_boxes_to_stock | Вернуть коробки обратно на склад.
 [**apiV1ClientsDestinationGet**](ClientApi.md#apiV1ClientsDestinationGet) | **GET** /api/v1/clients/destination | #  Получить все склады назначения.
 [**apiV1ClientsGetOrdersByProductIdGuidGet**](ClientApi.md#apiV1ClientsGetOrdersByProductIdGuidGet) | **GET** /api/v1/clients/get_orders_by_product_id/{guid} | # Получить заказы текущего клиента через id товара.
@@ -67,6 +68,62 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**[InlineObject]**](InlineObject.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch
+
+> String apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch(guid, opts)
+
+Редактировать shippingLabel в первый раз.
+
+## Редактировать shippingLabel в первый раз  Данный метод нужен чтобы отредактировать в первый раз shippingLabel коробки.         Проверки:         Доступен только для коробок ранее shippingLabel &#x3D;&#x3D;&#x3D; null,         Доступен только для коробок со статусами IN_STOCK
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let guid = null; // String | GUID коробки
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject35() // InlineObject35 | 
+};
+apiInstance.apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID коробки | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject35**](InlineObject35.md)|  | [optional] 
 
 ### Return type
 

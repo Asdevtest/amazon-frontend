@@ -105,7 +105,7 @@ export const OwnerRequestProposalsCard = ({
                 variant="contained"
                 color="primary"
                 className={clsx(classNames.actionButton, classNames.cancelBtn)}
-                onClick={() => onClickRejectProposal(item.proposal)}
+                onClick={() => onClickRejectProposal(item.proposal._id)}
               >
                 {'Отклонить'}
               </Button>
@@ -113,7 +113,7 @@ export const OwnerRequestProposalsCard = ({
                 variant="contained"
                 color="primary"
                 className={clsx(classNames.actionButton, classNames.successBtn)}
-                onClick={() => onClickAcceptProposal(item.proposal)}
+                onClick={() => onClickAcceptProposal(item.proposal._id)}
               >
                 {`Заказать за ${toFixedWithDollarSign(item.proposal.price)}`}
               </Button>

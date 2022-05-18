@@ -25,6 +25,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cardTitleBlockWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '650px',
     padding: '20px 0 25px',
   },
@@ -127,5 +129,17 @@ export const useClassNames = makeStyles(() => ({
 
   price: {
     color: '#006CFF',
+  },
+
+  updatedAtWrapper: {
+    alignSelf: 'flex-end',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  updatedAtText: {
+    marginRight: '20px',
+    fontSize: '10px',
+    fontWeight: 'bold',
   },
 }))

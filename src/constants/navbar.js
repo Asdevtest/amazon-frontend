@@ -99,6 +99,12 @@ export const navbarConfig = () => ({
           subRoute: '/vacant-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
         },
+
+        {
+          subtitle: 'Мои предложения',
+          subRoute: '/requests/my-proposals',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+        },
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>

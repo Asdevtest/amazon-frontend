@@ -6,6 +6,7 @@ import {Grid, Typography, Avatar, Divider} from '@material-ui/core'
 
 import {Button} from '@components/buttons/button'
 
+import {formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
 
@@ -35,6 +36,14 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) =>
           <Typography className={classNames.cardSubTitle}>{item.detailsCustom.conditions}</Typography>
 
           <Typography>{'Ожидает выбора'}</Typography>
+
+          <div className={classNames.updatedAtWrapper}>
+            <Typography className={classNames.updatedAtText}>{'Обновлено:'}</Typography>
+
+            <Typography className={classNames.updatedAtText}>
+              {formatNormDateTimeWithParseISO(item.updatedAt)}
+            </Typography>
+          </div>
         </div>
 
         <Divider flexItem orientation="vertical" />
