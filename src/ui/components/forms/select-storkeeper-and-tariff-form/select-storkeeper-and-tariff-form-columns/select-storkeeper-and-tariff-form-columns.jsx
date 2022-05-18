@@ -19,7 +19,7 @@ export const logisticsTariffsColumns = handlers => [
   {
     field: 'name',
     headerName: textConsts.nameField,
-    width: 200,
+    width: 150,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
@@ -33,14 +33,14 @@ export const logisticsTariffsColumns = handlers => [
   {
     field: 'deliveryTimeInDay',
     headerName: textConsts.deliveryTimeInDayField,
-    width: 130,
+    width: 110,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'minWeightInKg',
     headerName: textConsts.minWeightInKgField,
-    width: 130,
+    width: 110,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
@@ -57,7 +57,7 @@ export const logisticsTariffsColumns = handlers => [
     field: 'rates',
     headerName: textConsts.ratesField,
     renderCell: params => <WarehouseTariffRatesCell conditionsByRegion={params.row.conditionsByRegion} />,
-    width: 100,
+    width: 80,
     filterable: false,
     sortable: false,
   },
@@ -74,7 +74,7 @@ export const logisticsTariffsColumns = handlers => [
   {
     field: 'action',
     headerName: textConsts.actionField,
-    width: 200,
+    width: 150,
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={'Выбрать тариф'}

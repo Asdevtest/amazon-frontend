@@ -434,6 +434,16 @@ export const navbarConfig = () => ({
     },
 
     {
+      icon: AssignmentIcon,
+      title: 'Свободные заказы',
+      route: '/buyer/free-orders',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER),
+    },
+
+    {
       icon: InboxOutlinedIcon,
       title: 'Поиск поставщика',
       // route: '/buyer/search-supplier-by-supervisor',
@@ -482,15 +492,7 @@ export const navbarConfig = () => ({
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_BUYER),
     },
-    {
-      icon: AssignmentIcon,
-      title: 'Свободные заказы',
-      route: '/buyer/free-orders',
-      subtitles: null,
-      key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
-      checkHideBlock: user =>
-        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER),
-    },
+
     {
       icon: PeopleIcon,
       title: 'Пользователи',
