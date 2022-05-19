@@ -98,6 +98,7 @@ export interface ChatMessageDataProposalResultEditedProposal {
 }
 
 export interface ChatMessageDataProposalResultEdited {
+  needApproveBy: Array<string>
   edited: ChatMessageDataProposalResultEditedEdited
   request: ChatMessageDataProposalResultEditedRequest
   proposal: ChatMessageDataProposalResultEditedProposal

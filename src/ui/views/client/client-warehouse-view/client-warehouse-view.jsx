@@ -377,7 +377,7 @@ export class ClientWarehouseViewRaw extends Component {
         <Modal openModal={showSetChipValueModal} setOpenModal={() => onTriggerOpenModal('showSetChipValueModal')}>
           <SetChipValueModal
             title={textConsts.setFbaShipment}
-            item={selectedBox?.fbaShipment}
+            sourceValue={selectedBox?.fbaShipment}
             onSubmit={onClickSaveFbaShipment}
             onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}
           />

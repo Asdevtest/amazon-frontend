@@ -199,7 +199,8 @@
   "Re-type Password": "Повторите ввод пароля",
   "Agree with": "Согласен с",
   "Terms & Conditions": "Положения и условия",
-  "passwords dont match": "пароли не совпадают"
+  "passwords dont match": "пароли не совпадают",
+  "Enter the email of the user you want to add": "Введите электронную почту пользователя, которого хотите добавить"
 
 
 }

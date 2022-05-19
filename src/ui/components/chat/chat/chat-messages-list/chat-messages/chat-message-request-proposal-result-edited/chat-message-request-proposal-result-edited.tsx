@@ -6,6 +6,7 @@ import {RequestProposalStatus} from '@constants/request-proposal-status'
 
 import {ChatMessageDataProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
 
@@ -32,6 +33,9 @@ const showBtnsAllowedProposalStatuses = [
 export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, handlers}) => {
   const classNames = useClassNames()
   const proposal = message.data.proposal
+
+  const curUserId: string | undefined = UserModel.userId
+
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
@@ -75,7 +79,10 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
         </div>
       </div>
       <div className={classNames.footerWrapper}>
-        {proposal && showBtnsAllowedProposalStatuses.includes(proposal.status) ? (
+        {proposal &&
+        showBtnsAllowedProposalStatuses.includes(proposal.status) &&
+        curUserId &&
+        message.data.needApproveBy.includes(curUserId) ? (
           <div className={classNames.btnsWrapper}>
             <Button
               variant="contained"

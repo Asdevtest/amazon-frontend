@@ -94,9 +94,7 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
           label={textConsts.balanceLabel}
           value={balanceValue}
           onChange={e =>
-            checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) &&
-            (e.target.value > 0 || e.target.value === '') &&
-            setBalanceValue(e.target.value)
+            checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) && setBalanceValue(e.target.value)
           }
         />
 

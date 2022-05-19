@@ -30,6 +30,11 @@ interface Props {
 export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
   const classNames = useClassNames()
+
+  console.log(
+    `chatRequestAndRequestProposal.requestProposal?.proposal?.status`,
+    chatRequestAndRequestProposal.requestProposal?.proposal?.status,
+  )
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>

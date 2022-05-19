@@ -13,6 +13,7 @@ const stateModelName = 'UserModel'
 class UserModelStatic {
   accessToken = undefined
   userInfo = undefined
+  userId = undefined // не получилось обойти ошибку "Property '_Id' does not exist on type 'never'." в тайпскрипт, по этому создал отдельную переменнную
   isHydrated = false
 
   constructor() {
@@ -36,6 +37,7 @@ class UserModelStatic {
   signOut() {
     this.accessToken = undefined
     this.userInfo = undefined
+    this.userId = undefined
     restApiService.removeAccessToken()
   }
 
@@ -82,11 +84,13 @@ class UserModelStatic {
       const response = await restApiService.userApi.apiV1UsersInfoGet()
       runInAction(() => {
         this.userInfo = response
+        this.userId = response._id
       })
       return response
     } catch (error) {
       this.accessToken = undefined
       this.userInfo = undefined
+      this.userId = undefined
     }
   }
 

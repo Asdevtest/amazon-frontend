@@ -20,7 +20,11 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
     <div disableGutters className={classNames.mainWrapper}>
       <Typography variant="h4">{t(TranslationKey['Add a sub-user'])}</Typography>
 
-      <Field label={t(TranslationKey.Email)} type="email" onChange={e => setEmail(e.target.value)} />
+      <Field
+        label={t(TranslationKey['Enter the email of the user you want to add'])}
+        type="email"
+        onChange={e => setEmail(e.target.value)}
+      />
 
       <div className={classNames.buttonWrapper}>
         <Button

@@ -201,7 +201,7 @@ export enum TranslationKey {
   'Agree with' = 'Agree with',
   'Terms & Conditions' = 'Terms & Conditions',
   'passwords dont match' = 'passwords dont match',
-  // '' = '',
+  'Enter the email of the user you want to add' = 'Enter the email of the user you want to add',
   // '' = '',
   // '' = '',
   // '' = '',
@@ -210,7 +210,7 @@ export enum TranslationKey {
   // '' = '',
 }
 
-// "passwords dont match": "passwords dont match"
+// "Enter the email of the user you want to add": "Enter the email of the user you want to add"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

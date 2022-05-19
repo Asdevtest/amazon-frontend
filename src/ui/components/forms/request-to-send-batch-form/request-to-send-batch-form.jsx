@@ -19,8 +19,6 @@ export const RequestToSendBatchForm = observer(
   ({
     volumeWeightCoefficient,
     boxesMy,
-    openModal,
-    setOpenModal,
     selectedBoxes,
     boxesDeliveryCosts,
     onClickSendBoxesToBatch,
@@ -29,10 +27,10 @@ export const RequestToSendBatchForm = observer(
   }) => {
     const classNames = useClassNames()
     useEffect(() => {
-      if (openModal && !selectedBoxes.length) {
-        setOpenModal(false)
+      if (!selectedBoxes.length) {
+        closeModal()
       }
-    }, [selectedBoxes, openModal])
+    }, [selectedBoxes])
 
     const boxesWithPriceRequest = boxesMy.filter(el => {
       const findRequestToSendBatchPriceForCurBox = boxesDeliveryCosts.find(priceObj => priceObj.guid === el._id)
