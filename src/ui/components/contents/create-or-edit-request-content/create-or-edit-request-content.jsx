@@ -1,5 +1,3 @@
-import Radio from '@mui/material/Radio'
-
 import React, {useState} from 'react'
 
 import {Checkbox, Divider, Typography, Select, ListItemText, MenuItem} from '@material-ui/core'
@@ -347,9 +345,6 @@ export const CreateOrEditRequestContent = ({
           <div className={classNames.footerWrapper}>
             <div className={classNames.stepsWrapper}>
               <Typography>{curStep === stepVariant.STEP_TWO ? 'Шаг 2' : 'Шаг 1'}</Typography>
-
-              <Radio color="success" size="small" checked={curStep === stepVariant.STEP_ONE} />
-              <Radio color="success" size="small" checked={curStep === stepVariant.STEP_TWO} />
             </div>
 
             <div className={classNames.footerRightWrapper}>

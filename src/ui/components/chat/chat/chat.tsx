@@ -37,13 +37,13 @@ export const Chat: FC<Props> = observer(
   ({messages, userId, chatMessageHandlers, onSubmitMessage, renderAdditionalButtons}) => {
     const [inputMode, setInputMode] = useState<ChatInputMode>(ChatInputMode.TEXT)
     const [message, setMessage] = useState('')
-    const [links, setLinks] = useState<string[]>([''])
+    const [links, setLinks] = useState<string[]>([])
     const [files, setFiles] = useState<any[]>([])
     const classNames = useClassNames()
 
     const resetAllInputs = () => {
       setMessage('')
-      setLinks([''])
+      setLinks([])
       setFiles([])
     }
 
@@ -85,7 +85,7 @@ export const Chat: FC<Props> = observer(
               case ChatInputMode.FILES:
                 return <ChatFilesInput files={files} setFiles={setFiles} />
               case ChatInputMode.LINKS:
-                return <ChatLinksInput links={links} setLink={setLink} />
+                return <ChatLinksInput links={links} setLink={setLink} setLinks={setLinks} inputMode={inputMode} />
             }
           })()}
           <div className={classNames.btnsWrapper}>

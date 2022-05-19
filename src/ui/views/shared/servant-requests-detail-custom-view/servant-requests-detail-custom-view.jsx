@@ -125,10 +125,12 @@ export class RequestDetailCustomViewRaw extends Component {
                         {findRequestProposalByChatSelectedId.proposal.status !==
                         RequestProposalStatus.ACCEPTED_BY_CLIENT ? (
                           <Button
+                            disabled={!params.links.length && !params.files.length && !params.message}
                             onClick={() => {
-                              if (!params.message) {
-                                alert('Сообщение не может быть пустым')
-                              }
+                              // if (!params.message) {
+                              //   alert('Сообщение не может быть пустым')
+                              //   console.log('params', params)
+                              // }
                               onClickSendAsResult(params)
                               resetAllInputs()
                             }}

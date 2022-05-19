@@ -82,7 +82,7 @@ export const useClassNames = makeStyles(() => ({
 
   requestStatus: {
     width: '235px',
-    textAlign: 'right',
+    textAlign: 'center',
 
     marginLeft: '15px',
     fontSize: '18px',
