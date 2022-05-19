@@ -423,6 +423,8 @@ export const adminOrdersDataConverter = data =>
     storekeeper: item.storekeeper?.name,
     warehouses: item.destination?.name,
     client: item.product.client?.name,
+
+    surcharge: item.totalPriceChanged - item.totalPrice,
   }))
 
 export const adminTasksDataConverter = data =>

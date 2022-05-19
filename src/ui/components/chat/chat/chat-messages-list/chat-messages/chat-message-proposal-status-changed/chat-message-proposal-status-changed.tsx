@@ -42,7 +42,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message}) => {
                 {message.data.timeLimitInMinutes ? (
                   <div className={classNames.labelValueBlockWrapper}>
                     <LabelValuePairBlock
-                      label="Ограничени по времени на исправление (мин)"
+                      label="Ограничение по времени на исправление (мин)"
                       value={message.data.timeLimitInMinutes.toString()}
                       bgColor="white"
                     />
