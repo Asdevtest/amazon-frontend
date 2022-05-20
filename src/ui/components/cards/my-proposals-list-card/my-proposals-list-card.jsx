@@ -15,7 +15,6 @@ import {useClassNames} from './my-proposals-list-card.style'
 
 export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) => {
   const classNames = useClassNames()
-  console.log('item', item)
 
   return (
     <Grid item className={classNames.mainWrapper}>
@@ -95,53 +94,6 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) =>
             ))}
           </Carousel>
         </div>
-
-        {/* <div className={classNames.rightBlockWrapper}>
-          <Typography className={classNames.cardTitle}>{'Предложение'}</Typography>
-
-          <Typography className={classNames.proposalComment}>{item.proposals[0].comment}</Typography>
-
-          <div className={classNames.rightSubWrapper}>
-            <div className={classNames.timeWrapper}>
-              <Typography>{'Время на выполнение в мин.'}</Typography>
-              <Typography className={classNames.timeCount}>
-                {minsToTimeRus(item.proposals[0].execution_time)}
-              </Typography>
-            </div>
-
-            <div className={classNames.rightItemSubWrapper}>
-              <Typography>{'Стоимость'}</Typography>
-              <Typography className={classNames.price}>{toFixedWithDollarSign(item.proposals[0].price, 2)}</Typography>
-            </div>
-          </div>
-
-          <div className={classNames.proposalFooter}>
-            <Typography>{item.proposals[0].status}</Typography>
-
-            <div className={classNames.btnsWrapper}>
-              
-
-              <Button disableElevation color="primary" variant="text" onClick={() => onClickDeleteBtn(item.proposals[0])}>
-                {'Отменить'}
-              </Button>
-
-              <Button
-                disableElevation
-                color="primary"
-                variant="contained"
-                onClick={() => onClickEditBtn(item, item.proposals[0])}
-              >
-                {'Редактировать'}
-              </Button>
-
-              <Button disableElevation color="primary" variant="contained">
-                {'Открыть заявку'}
-              </Button>
-            </div>
-
-          </div>
-          
-        </div> */}
       </div>
     </Grid>
   )

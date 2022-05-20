@@ -108,6 +108,16 @@ class RequestProposalModelStatic {
     return response
   }
 
+  requestProposalCancelBeforDeal = async (proposalId, data) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidCancelBeforeDealPatch(
+      proposalId,
+      {
+        body: data || {},
+      },
+    )
+    return response
+  }
+
   requestProposalCancel = async (proposalId, data) => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidCancelPatch(proposalId, {
       body: data || {},

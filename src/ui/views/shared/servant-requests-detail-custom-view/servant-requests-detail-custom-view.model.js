@@ -9,6 +9,8 @@ import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'
 
+import {onSubmitPostImages} from '@utils/upload-files'
+
 // import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 // const textConsts = getLocalizedTexts(texts, 'ru').CustomRequestView
@@ -23,6 +25,8 @@ export class RequestDetailCustomViewModel {
   request = undefined
   requestProposals = []
   showWarningModal = false
+
+  loadedFiles = []
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -138,18 +142,27 @@ export class RequestDetailCustomViewModel {
       const findRequestProposalByChatSelectedId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
       )
+
       if (!findRequestProposalByChatSelectedId) {
         return
       }
+
+      this.loadedFiles = []
+      if (files.length) {
+        await onSubmitPostImages.call(this, {images: files, type: 'loadedFiles'})
+      }
+
       if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {
         await RequestProposalModel.requestProposalResultCorrected(findRequestProposalByChatSelectedId.proposal._id, {
           reason: message,
-          linksToMediaFiles: files.map(item => item.file),
+          // linksToMediaFiles: files.map(item => item.file),
+          linksToMediaFiles: this.loadedFiles,
         })
       } else {
         await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
           result: message,
-          linksToMediaFiles: files.map(item => item.file),
+          // linksToMediaFiles: files.map(item => item.file),
+          linksToMediaFiles: this.loadedFiles,
         })
       }
     } catch (error) {

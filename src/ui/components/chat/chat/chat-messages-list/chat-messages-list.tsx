@@ -112,8 +112,8 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                         <div>
                           <Typography className={classNames.timeText}>{'ФАЙЛЫ:'}</Typography>
 
-                          {messageItem.files.map(file => (
-                            <Link key={index} target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(file)}>
+                          {messageItem.files.map((file, fileIndex) => (
+                            <Link key={fileIndex} target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(file)}>
                               <Typography className={classNames.linkText}>{file}</Typography>
                             </Link>
                           ))}
