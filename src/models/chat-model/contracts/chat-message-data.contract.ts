@@ -1,5 +1,5 @@
 import {Type} from 'class-transformer'
-import {IsNotEmpty, IsNumber, IsOptional, IsString} from 'class-validator'
+import {IsArray, IsNotEmpty, IsNumber, IsOptional, IsString} from 'class-validator'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
@@ -115,6 +115,9 @@ export class ChatMessageDataProposalResultEditedProposalContract
 export class ChatMessageDataProposalResultEditedContract
   implements TWebsocketChatService.ChatMessageDataProposalResultEdited
 {
+  @IsOptional()
+  @IsArray()
+  public needApproveBy!: Array<string>
   @Type(() => ChatMessageDataProposalResultEditedEdited)
   public edited!: ChatMessageDataProposalResultEditedEdited
   @Type(() => ChatMessageDataProposalResultEditedRequestContract)

@@ -6,7 +6,7 @@ export class SendMessageRequestParamsContract implements SendMessageRequestParam
   @IsNotEmpty()
   @IsString()
   public chatId!: string
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   public text!: string
   @IsOptional()

@@ -3,16 +3,14 @@ import React, {useState} from 'react'
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './user-info-edit-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').userInfoEditForm
 
 const regExpEmailChecking =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -90,23 +88,23 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
 
   return (
     <div className={classNames.mainWrapper}>
-      <Typography variant="h5">{'Введите данные'}</Typography>
+      <Typography variant="h5">{t(TranslationKey['Enter information'])}</Typography>
 
       <Field
-        label={textConsts.name}
+        label={t(TranslationKey.Name)}
         inputProps={{maxLength: 25}}
-        error={checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
+        error={checkValidationNameOrEmail.nameIsUnique && t(TranslationKey['A user with this name already exists'])}
         className={classNames.textField}
         value={formFields.name}
         onChange={onChangeField('name')}
       />
 
       <Field
-        label={textConsts.email}
+        label={t(TranslationKey.Email)}
         inputProps={{maxLength: 35}}
         error={
-          (checkValidationNameOrEmail.emailIsUnique && 'Пользователь с таким email уже существует') ||
-          (emailInputError && 'Почта невалидна!')
+          (checkValidationNameOrEmail.emailIsUnique && t(TranslationKey['A user with this email already exists'])) ||
+          (emailInputError && t(TranslationKey['Invalid email!']))
         }
         className={classNames.textField}
         value={formFields.email}
@@ -115,11 +113,11 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
 
       <div className={classNames.btnsWrapper}>
         <Button disabled={disabledSubmit} onClick={onClickSubmit}>
-          {textConsts.saveBtn}
+          {t(TranslationKey.Save)}
         </Button>
 
         <Button variant="text" className={classNames.cancelBtn} onClick={onCloseModal}>
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Cancel)}
         </Button>
       </div>
     </div>

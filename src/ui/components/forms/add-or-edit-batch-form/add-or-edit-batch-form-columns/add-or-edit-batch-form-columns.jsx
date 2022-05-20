@@ -1,4 +1,4 @@
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   NormDateCell,
@@ -11,21 +11,19 @@ import {
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'en').addOrEditBatchFormColumnsTexts
+import {t} from '@utils/translations'
 
 export const addOrEditBatchFormColumns = () => [
   {
     field: 'humanFriendlyId',
-    headerName: textConsts.humanFriendlyIdField,
+    headerName: t(TranslationKey.ID),
     renderCell: params => renderFieldValueCell(params.value),
     width: 70,
   },
 
   {
     field: 'qty',
-    headerName: textConsts.qtyField,
+    headerName: t(TranslationKey.Quantity),
     renderCell: params =>
       params.row.originalData.amount > 1 ? (
         <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
@@ -38,7 +36,7 @@ export const addOrEditBatchFormColumns = () => [
 
   {
     field: 'orders',
-    headerName: textConsts.ordersField,
+    headerName: t(TranslationKey.Product),
     width: 330,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
@@ -56,28 +54,28 @@ export const addOrEditBatchFormColumns = () => [
 
   {
     field: 'destination',
-    headerName: textConsts.warehouseField,
+    headerName: t(TranslationKey.Destination),
     renderCell: params => renderFieldValueCell(params.value),
     width: 130,
   },
 
   {
     field: 'client',
-    headerName: textConsts.clientField,
+    headerName: t(TranslationKey.Client),
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.client._id} />,
     width: 160,
   },
 
   {
     field: 'logicsTariff',
-    headerName: textConsts.logicsTariffField,
+    headerName: t(TranslationKey.Tariff),
     renderCell: params => renderFieldValueCell(params.value),
     width: 160,
   },
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updatedAtField,
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     width: 110,
     type: 'date',
@@ -85,7 +83,7 @@ export const addOrEditBatchFormColumns = () => [
 
   {
     field: 'finalWeight',
-    headerName: textConsts.weightField,
+    headerName: t(TranslationKey['Final weight']),
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 120,
@@ -93,7 +91,7 @@ export const addOrEditBatchFormColumns = () => [
 
   {
     field: 'amazonPrice',
-    headerName: textConsts.priceField,
+    headerName: t(TranslationKey['Total price']),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 120,
     type: 'number',

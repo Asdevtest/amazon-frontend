@@ -43,6 +43,8 @@ export class ResearcherProductsViewModel {
   formFields = {...formFieldsDefault}
   newProductId = undefined
 
+  showWarningInfoModal = false
+
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
   products = []
@@ -54,6 +56,11 @@ export class ResearcherProductsViewModel {
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = researcherProductsViewColumns()
+
+  warningInfoModalSettings = {
+    isWarning: false,
+    title: '',
+  }
 
   constructor({history}) {
     this.history = history
@@ -203,6 +210,14 @@ export class ResearcherProductsViewModel {
       await this.loadData()
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
+
+      this.warningInfoModalSettings = {
+        isWarning: true,
+        title: error.body.message,
+      }
+
+      this.onTriggerOpenModal('showWarningInfoModal')
+
       if (isValidationErrors(error)) {
         plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
           runInAction(() => {
@@ -302,6 +317,10 @@ export class ResearcherProductsViewModel {
 
   onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 
   setActionStatus(actionStatus) {

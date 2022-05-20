@@ -47,8 +47,8 @@ class InlineObject14 {
         if (data) {
             obj = obj || new InlineObject14();
 
-            if (data.hasOwnProperty('descriptionId')) {
-                obj['descriptionId'] = ApiClient.convertToType(data['descriptionId'], 'String');
+            if (data.hasOwnProperty('destinationId')) {
+                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
             }
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
@@ -64,10 +64,10 @@ class InlineObject14 {
 }
 
 /**
- * GUID описания коробки
- * @member {String} descriptionId
+ * GUID пункта назначения коробки
+ * @member {String} destinationId
  */
-InlineObject14.prototype['descriptionId'] = undefined;
+InlineObject14.prototype['destinationId'] = undefined;
 
 /**
  * GUID тарифа к сторкипера

@@ -22,11 +22,10 @@ class InlineObject49 {
     /**
      * Constructs a new <code>InlineObject49</code>.
      * @alias module:model/InlineObject49
-     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
      */
-    constructor(totalCost) { 
+    constructor() { 
         
-        InlineObject49.initialize(this, totalCost);
+        InlineObject49.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject49 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalCost) { 
-        obj['totalCost'] = totalCost;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +47,11 @@ class InlineObject49 {
         if (data) {
             obj = obj || new InlineObject49();
 
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -60,10 +61,16 @@ class InlineObject49 {
 }
 
 /**
- * Для подтверждения нужно вернуть totalCost из калькулятора.
- * @member {Number} totalCost
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject49.prototype['totalCost'] = undefined;
+InlineObject49.prototype['reason'] = undefined;
+
+/**
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject49.prototype['linksToMediaFiles'] = undefined;
 
 
 

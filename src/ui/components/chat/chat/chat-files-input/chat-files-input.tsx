@@ -1,6 +1,6 @@
 import React, {FC} from 'react'
 
-import {ImageType} from 'react-images-uploading'
+import {ImageType} from 'react-images-uploading-alex76457-version'
 
 import {UploadFilesInput} from '@components/upload-files-input'
 
@@ -21,7 +21,7 @@ export const ChatFilesInput: FC<Props> = ({files, setFiles}) => {
         images={files}
         setImages={setFiles}
         maxNumber={50}
-        acceptType={['jpg', 'gif', 'png', 'pdf']}
+        acceptType={['jpg', 'gif', 'png', 'pdf', 'jpeg']}
       />
     </div>
   )

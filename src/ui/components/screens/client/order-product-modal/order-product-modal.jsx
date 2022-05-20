@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {
   Container,
@@ -72,6 +72,12 @@ export const OrderProductModal = ({
       logicsTariffId: '',
     })),
   )
+
+  useEffect(() => {
+    if (!orderState?.length) {
+      onTriggerOpenModal('showOrderModal')
+    }
+  }, [orderState])
 
   const onRemoveProduct = itemId => {
     const newStateOrderState = [...orderState].filter(el => el.productId !== itemId)

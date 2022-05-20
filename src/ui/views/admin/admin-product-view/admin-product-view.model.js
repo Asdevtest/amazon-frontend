@@ -35,6 +35,8 @@ export class AdminProductViewModel {
   requestStatus = undefined
   actionStatus = undefined
 
+  inInventory = undefined
+
   productId = undefined
   product = undefined
   curUpdateProductData = {}
@@ -58,9 +60,13 @@ export class AdminProductViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
     this.productId = history.location.search.slice(1)
+
+    if (location.state) {
+      this.inInventory = location.state.inInventory
+    }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 

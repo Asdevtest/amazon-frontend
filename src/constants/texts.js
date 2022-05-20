@@ -2693,6 +2693,7 @@ export const texts = {
       buyerField: 'Байер',
       storekeeperNameField: 'Storekeeper',
       clientNameField: 'Клиент',
+      surchargeField: 'Доплатить',
     },
 
     subUsersTableColumns: {

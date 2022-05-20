@@ -22,10 +22,11 @@ class InlineObject39 {
     /**
      * Constructs a new <code>InlineObject39</code>.
      * @alias module:model/InlineObject39
+     * @param profileId {String} id профайла
      */
-    constructor() { 
+    constructor(profileId) { 
         
-        InlineObject39.initialize(this);
+        InlineObject39.initialize(this, profileId);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject39 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, profileId) { 
+        obj['profileId'] = profileId;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject39 {
         if (data) {
             obj = obj || new InlineObject39();
 
-            if (data.hasOwnProperty('suppliersIds')) {
-                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -58,10 +60,10 @@ class InlineObject39 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
- * @member {Array.<String>} suppliersIds
+ * id профайла
+ * @member {String} profileId
  */
-InlineObject39.prototype['suppliersIds'] = undefined;
+InlineObject39.prototype['profileId'] = undefined;
 
 
 

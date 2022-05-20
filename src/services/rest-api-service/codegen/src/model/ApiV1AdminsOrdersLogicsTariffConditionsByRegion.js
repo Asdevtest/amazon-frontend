@@ -63,6 +63,9 @@ class ApiV1AdminsOrdersLogicsTariffConditionsByRegion {
             if (data.hasOwnProperty('east')) {
                 obj['east'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest.constructFromObject(data['east']);
             }
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
+            }
         }
         return obj;
     }
@@ -84,6 +87,12 @@ ApiV1AdminsOrdersLogicsTariffConditionsByRegion.prototype['central'] = undefined
  * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest} east
  */
 ApiV1AdminsOrdersLogicsTariffConditionsByRegion.prototype['east'] = undefined;
+
+/**
+ * Курс юань/доллар.
+ * @member {Number} yuanToDollarRate
+ */
+ApiV1AdminsOrdersLogicsTariffConditionsByRegion.prototype['yuanToDollarRate'] = undefined;
 
 
 

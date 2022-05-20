@@ -25,6 +25,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cardTitleBlockWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '650px',
     padding: '20px 0 25px',
   },
@@ -41,7 +43,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cardSubTitle: {
-    marginBottom: '5px',
+    marginBottom: '15px',
     maxWidth: '420px',
     overflow: 'auto',
     maxHeight: '90px',
@@ -60,6 +62,12 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+  },
+
+  proposalWrapper: {
+    minHeight: '250px',
+    display: 'flex',
+    flexDirection: 'column',
   },
 
   userInfoWrapper: {
@@ -127,5 +135,25 @@ export const useClassNames = makeStyles(() => ({
 
   price: {
     color: '#006CFF',
+  },
+
+  updatedAtWrapper: {
+    alignSelf: 'flex-end',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  updatedAtText: {
+    marginRight: '20px',
+    fontSize: '10px',
+    fontWeight: 'bold',
+  },
+
+  proposalFooter: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+    alignSelf: 'flex-end',
+    marginTop: 'auto',
   },
 }))

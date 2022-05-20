@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   NormDateFromUnixCell,
@@ -8,9 +9,11 @@ import {
   renderFieldValueCell,
   NormalActionBtnCell,
   UserLinkCell,
+  TaskTypeCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 const textConsts = getLocalizedTexts(texts, 'ru').adminTasksTableColumns
 
@@ -33,9 +36,9 @@ export const adminTasksViewColumns = handlers => [
 
   {
     field: 'operationType',
-    headerName: textConsts.typeField,
-    width: 120,
-    renderCell: params => renderFieldValueCell(params.value),
+    headerName: t(TranslationKey.Type),
+    width: 200,
+    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 
   {

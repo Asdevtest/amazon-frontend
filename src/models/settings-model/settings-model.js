@@ -1,6 +1,9 @@
-import { setI18nConfig } from '@utils/translations'
 import {makeAutoObservable, reaction} from 'mobx'
 import {makePersistable} from 'mobx-persist-store'
+
+import {LanguageKey} from '@constants/translations/language-key'
+
+import {setI18nConfig} from '@utils/translations'
 
 const persistProperties = ['dataGridState', 'activeSubCategoryState', 'languageTag']
 
@@ -8,7 +11,7 @@ const stateModelName = 'SettingsModel'
 class SettingsModelStatic {
   dataGridState = {}
   activeSubCategoryState = {}
-  languageTag = undefined
+  languageTag = LanguageKey.en
   isHydrated = false
 
   constructor() {
@@ -18,7 +21,7 @@ class SettingsModelStatic {
     })
     reaction(
       () => this.isHydrated,
-      (isHydrated) => {
+      isHydrated => {
         if (isHydrated) {
           setI18nConfig()
         }

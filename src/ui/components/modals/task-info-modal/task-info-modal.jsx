@@ -4,19 +4,17 @@ import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {BigImagesModal} from '../big-images-modal'
 import {BeforeAfterInfoTaskBlock} from './before-after-info-task-block'
 import {useClassNames} from './task-info-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').taskInfoModal
 
 export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
@@ -28,13 +26,13 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWei
   const renderDescriptionText = () => {
     switch (task.operationType) {
       case 'split':
-        return textConsts.divideBox
+        return t(TranslationKey.Split)
       case 'merge':
-        return textConsts.mergeBoxes
+        return t(TranslationKey.Merge)
       case 'receive':
-        return textConsts.receiveBoxes
+        return t(TranslationKey.Receive)
       case 'edit':
-        return textConsts.editBox
+        return t(TranslationKey.Edit)
     }
   }
 
@@ -51,8 +49,8 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWei
             className={classNames.heightFieldAuto}
             rows={4}
             rowsMax={6}
-            label={textConsts.clientLabel}
-            placeholder={textConsts.clientPlaceholder}
+            label={t(TranslationKey['Client comment'])}
+            placeholder={t(TranslationKey['Client comment on the task'])}
             value={task.clientComment || ''}
           />
           <Field
@@ -61,15 +59,15 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWei
             className={classNames.heightFieldAuto}
             rows={4}
             rowsMax={6}
-            label={textConsts.warehouseLabel}
-            placeholder={textConsts.warehousePlaceholder}
+            label={t(TranslationKey['Storekeeper comment'])}
+            placeholder={t(TranslationKey['Storekeeper comment to client'])}
             value={task.storekeeperComment || ''}
           />
         </div>
 
         {task.images && (
           <div className={classNames.photoWrapper}>
-            <Typography className={classNames.subTitle}>{'Фотографии задачи:'}</Typography>
+            <Typography className={classNames.subTitle}>{t(TranslationKey['Task photos']) + ':'}</Typography>
 
             {task.images.length > 0 ? (
               <Carousel autoPlay={false} timeout={100} animation="fade">
@@ -88,7 +86,7 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWei
                 ))}
               </Carousel>
             ) : (
-              <Typography>{'Фотографий пока нет...'}</Typography>
+              <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
             )}
           </div>
         )}
@@ -101,7 +99,7 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWei
         />
         <div className={classNames.buttonsWrapper}>
           <Button disableElevation color="primary" variant="contained" onClick={setOpenModal}>
-            {textConsts.closeBtn}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
 

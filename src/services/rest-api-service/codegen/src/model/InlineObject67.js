@@ -47,11 +47,14 @@ class InlineObject67 {
         if (data) {
             obj = obj || new InlineObject67();
 
-            if (data.hasOwnProperty('result')) {
-                obj['result'] = ApiClient.convertToType(data['result'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -61,16 +64,22 @@ class InlineObject67 {
 }
 
 /**
- * Результат работы исполнителя.
- * @member {String} result
+ * Название услуги
+ * @member {String} name
  */
-InlineObject67.prototype['result'] = undefined;
+InlineObject67.prototype['name'] = undefined;
 
 /**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
+ * Описание услуги
+ * @member {String} description
  */
-InlineObject67.prototype['linksToMediaFiles'] = undefined;
+InlineObject67.prototype['description'] = undefined;
+
+/**
+ * Цена услуги.
+ * @member {Number} price
+ */
+InlineObject67.prototype['price'] = undefined;
 
 
 

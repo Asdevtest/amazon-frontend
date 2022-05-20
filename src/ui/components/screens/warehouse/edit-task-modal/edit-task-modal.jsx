@@ -5,7 +5,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TaskOperationType} from '@constants/task-operation-type'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
@@ -14,13 +14,11 @@ import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {BeforeAfterBlock} from '../before-after-block'
 import {ReceiveBoxModal} from '../receive-box-modal'
 import {useClassNames} from './edit-task-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseTaskForm
 
 export const EditTaskModal = observer(
   ({
@@ -67,7 +65,7 @@ export const EditTaskModal = observer(
       <div className={classNames.root}>
         <div className={classNames.form}>
           <Typography paragraph className={classNames.subTitle}>
-            {textConsts.taskTitle}
+            {t(TranslationKey['Receipt data'])}
           </Typography>
 
           <div className={classNames.commentsWrapper}>
@@ -77,8 +75,8 @@ export const EditTaskModal = observer(
               className={classNames.heightFieldAuto}
               rows={4}
               rowsMax={6}
-              label={'Комментарий клиента'}
-              placeholder={'Комментарий клиента к задаче'}
+              label={t(TranslationKey['Client comment'])}
+              placeholder={t(TranslationKey['Client comment on the task'])}
               value={task.clientComment || ''}
             />
             <Field
@@ -87,8 +85,8 @@ export const EditTaskModal = observer(
               rows={4}
               rowsMax={6}
               inputProps={{maxLength: 2000}}
-              label={'Комментарий склада'}
-              placeholder={'Комментарий склада к задаче для клиента'}
+              label={t(TranslationKey['Storekeeper comment'])}
+              placeholder={t(TranslationKey['Storekeeper comment to client'])}
               value={storekeeperComment || ''}
               onChange={e => setStorekeeperComment(e.target.value)}
             />
@@ -101,8 +99,8 @@ export const EditTaskModal = observer(
               className={classNames.heightFieldAuto}
               rows={4}
               rowsMax={6}
-              label={'Комментарий баера к заказу'}
-              placeholder={'Комментарий баера к заказу'}
+              label={t(TranslationKey['Buyer comment to order'])}
+              placeholder={t(TranslationKey['Buyer comment to order'])}
               value={task.boxesBefore[0].items?.[0].order.buyerComment || ''}
             />
           )}
@@ -135,7 +133,7 @@ export const EditTaskModal = observer(
                 setReceiveBoxModal(!receiveBoxModal)
               }}
             >
-              {newBoxes.length === 0 ? textConsts.receiveBoxBtn : textConsts.reReceiveBoxBtn}
+              {newBoxes.length === 0 ? t(TranslationKey.Receive) : t(TranslationKey.Redistribute)}
             </Button>
           )}
           <div className={classNames.button}>
@@ -153,7 +151,7 @@ export const EditTaskModal = observer(
                 })
               }}
             >
-              {textConsts.saveChangesBtn}
+              {t(TranslationKey.Save)}
             </SuccessButton>
           </div>
 
@@ -164,7 +162,7 @@ export const EditTaskModal = observer(
             variant="contained"
             onClick={onClickOpenCloseModal}
           >
-            {textConsts.cancelChangesBtn}
+            {t(TranslationKey.Cancel)}
           </Button>
         </div>
         <Modal
@@ -179,7 +177,7 @@ export const EditTaskModal = observer(
             setSourceBoxes={setNewBoxes}
           />
         </Modal>
-        {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
+        {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
       </div>
     )
   },

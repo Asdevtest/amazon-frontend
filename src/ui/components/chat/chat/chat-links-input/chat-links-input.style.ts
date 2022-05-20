@@ -13,5 +13,6 @@ export const useClassNames = makeStyles(() => ({
   },
   linkInput: {
     width: '100%',
+    height: '70px',
   },
 }))

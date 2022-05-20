@@ -92,7 +92,7 @@ export const useClassNames = makeStyles(theme => ({
   menuWrapper: {
     display: 'flex',
     justifyContent: 'center',
-    width: '200px',
+    width: '150px',
   },
   menuTitle: {
     height: '30px',
@@ -129,6 +129,12 @@ export const useClassNames = makeStyles(theme => ({
     marginRight: '30px',
   },
 
+  allowedRolesMainWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    minWidth: '200px',
+  },
+
   allowedRolesItem: {
     marginLeft: '10px',
     color: 'rgba(0, 0, 0, 0.54)',
@@ -144,5 +150,12 @@ export const useClassNames = makeStyles(theme => ({
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
 
     borderBottom: '5px solid #0460DE',
+  },
+
+  languageSelectorWrapper: {
+    width: '90px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }))

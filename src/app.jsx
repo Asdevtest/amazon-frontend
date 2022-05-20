@@ -18,6 +18,7 @@ export const App = () => (
     <Sentry.ErrorBoundary showDialog fallback={myFallback}>
       <ThemeProvider theme={muiTheme}>
         <CssBaseline />
+
         <MainNav />
       </ThemeProvider>
     </Sentry.ErrorBoundary>

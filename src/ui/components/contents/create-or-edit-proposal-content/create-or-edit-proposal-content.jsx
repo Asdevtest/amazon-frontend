@@ -78,11 +78,13 @@ export const CreateOrEditProposalContent = ({
         <Field
           multiline
           className={classNames.descriptionField}
-          minRows={4}
-          rowsMax={4}
           label={'Детали заявки'}
           inputComponent={
-            <Typography className={clsx(classNames.twoStepFieldResult, classNames.descriptionField)}>
+            <Typography
+              minRows={16}
+              rowsMax={16}
+              className={clsx(classNames.twoStepFieldResult, classNames.requestDescriptionField)}
+            >
               {request?.details.conditions}
             </Typography>
           }
@@ -115,8 +117,8 @@ export const CreateOrEditProposalContent = ({
             multiline
             className={classNames.descriptionField}
             inputProps={{maxLength: 255}}
-            minRows={4}
-            rowsMax={4}
+            minRows={8}
+            rowsMax={8}
             label={'Опишите свое предложение*'}
             value={formFields.comment}
             onChange={onChangeField('comment')}

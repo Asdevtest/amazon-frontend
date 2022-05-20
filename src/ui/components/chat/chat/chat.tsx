@@ -43,7 +43,7 @@ export const Chat: FC<Props> = observer(
 
     const resetAllInputs = () => {
       setMessage('')
-      setLinks([''])
+      setLinks([])
       setFiles([])
     }
 
@@ -85,7 +85,7 @@ export const Chat: FC<Props> = observer(
               case ChatInputMode.FILES:
                 return <ChatFilesInput files={files} setFiles={setFiles} />
               case ChatInputMode.LINKS:
-                return <ChatLinksInput links={links} setLink={setLink} />
+                return <ChatLinksInput links={links} setLink={setLink} setLinks={setLinks} inputMode={inputMode} />
             }
           })()}
           <div className={classNames.btnsWrapper}>
@@ -93,7 +93,7 @@ export const Chat: FC<Props> = observer(
               ? renderAdditionalButtons({message, links, files}, resetAllInputs)
               : undefined}
             <Button
-              disabled={!message && inputMode === ChatInputMode.TEXT}
+              disabled={!message && inputMode === ChatInputMode.TEXT && !files.length}
               onClick={() => {
                 if (inputMode === ChatInputMode.TEXT) {
                   onSubmitMessageInternal()

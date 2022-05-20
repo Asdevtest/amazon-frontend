@@ -22,11 +22,10 @@ class InlineObject48 {
     /**
      * Constructs a new <code>InlineObject48</code>.
      * @alias module:model/InlineObject48
-     * @param action {module:model/InlineObject48.ActionEnum} 
      */
-    constructor(action) { 
+    constructor() { 
         
-        InlineObject48.initialize(this, action);
+        InlineObject48.initialize(this);
     }
 
     /**
@@ -34,8 +33,7 @@ class InlineObject48 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, action) { 
-        obj['action'] = action;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,11 +47,17 @@ class InlineObject48 {
         if (data) {
             obj = obj || new InlineObject48();
 
-            if (data.hasOwnProperty('action')) {
-                obj['action'] = ApiClient.convertToType(data['action'], 'String');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -63,39 +67,31 @@ class InlineObject48 {
 }
 
 /**
- * @member {module:model/InlineObject48.ActionEnum} action
+ * Время на выполнение, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject48.prototype['action'] = undefined;
+InlineObject48.prototype['execution_time'] = undefined;
 
 /**
- * Причина смены статуса.
- * @member {String} reason
+ * Цена предложения.
+ * @member {Number} price
  */
-InlineObject48.prototype['reason'] = undefined;
-
-
-
-
+InlineObject48.prototype['price'] = undefined;
 
 /**
- * Allowed values for the <code>action</code> property.
- * @enum {String}
- * @readonly
+ * Комментарий к предложению.
+ * @member {String} comment
  */
-InlineObject48['ActionEnum'] = {
+InlineObject48.prototype['comment'] = undefined;
 
-    /**
-     * value: "LINK"
-     * @const
-     */
-    "LINK": "LINK",
+/**
+ * Ссылки на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject48.prototype['linksToMediaFiles'] = undefined;
 
-    /**
-     * value: "UNLINK"
-     * @const
-     */
-    "UNLINK": "UNLINK"
-};
+
+
 
 
 

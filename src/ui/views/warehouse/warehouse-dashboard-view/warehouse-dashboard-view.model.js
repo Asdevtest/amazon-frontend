@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {BatchStatus} from '@constants/batch-status'
 import {WarehouseDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
@@ -119,10 +120,12 @@ export class WarehouseDashboardViewModel {
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,
-          [WarehouseDashboardCardDataKey.SENT_BATCHES]: result.filter(batch => batch.boxes[0].sendToBatchComplete)
-            .length,
-          [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: result.filter(batch => !batch.boxes[0].sendToBatchComplete)
-            .length,
+          [WarehouseDashboardCardDataKey.SENT_BATCHES]: result.filter(
+            batch => batch.status === BatchStatus.HAS_DISPATCHED,
+          ).length,
+          [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: result.filter(
+            batch => batch.status === BatchStatus.IS_BEING_COLLECTED,
+          ).length,
         }
       })
     } catch (error) {

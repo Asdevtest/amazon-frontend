@@ -60,7 +60,9 @@ export const DealsOfRequest = ({requestProposals}) => {
                 <div className={classNames.blockInfoWrapper}>
                   <div className={classNames.requestItemInfoWrapper}>
                     <Typography>{'Статус'}</Typography>
-                    <Typography className={classNames.requestStatus}>{deal.proposal.status}</Typography>
+                    <Typography className={classNames.requestStatus}>
+                      {deal.proposal.status.replace(/_/g, ' ')}
+                    </Typography>
                   </div>
                 </div>
 

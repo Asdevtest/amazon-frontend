@@ -32,6 +32,7 @@ docs/ApiV1BoxesMergeBoxBody.md
 docs/ApiV1BoxesSplitBoxItems.md
 docs/ApiV1BoxesSplitNewBoxesParams.md
 docs/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.md
+docs/ApiV1GologinProfileNavigator.md
 docs/ApiV1IntegrationsCreateAndLinkSkuProductsPayload.md
 docs/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.md
 docs/ApiV1IntegrationsSellerboardWarehouseStocksShop.md
@@ -54,6 +55,7 @@ docs/ClientApi.md
 docs/ConflictInTheState.md
 docs/DefaultHeaders.md
 docs/ForbiddenError.md
+docs/GoLoginApi.md
 docs/InlineObject.md
 docs/InlineObject1.md
 docs/InlineObject10.md
@@ -122,6 +124,11 @@ docs/InlineObject67.md
 docs/InlineObject68.md
 docs/InlineObject69.md
 docs/InlineObject7.md
+docs/InlineObject70.md
+docs/InlineObject71.md
+docs/InlineObject72.md
+docs/InlineObject73.md
+docs/InlineObject74.md
 docs/InlineObject8.md
 docs/InlineObject9.md
 docs/InlineResponse200.md
@@ -143,8 +150,9 @@ docs/InlineResponse20022.md
 docs/InlineResponse20023.md
 docs/InlineResponse20024.md
 docs/InlineResponse20025.md
-docs/InlineResponse20025Details.md
-docs/InlineResponse20025Request.md
+docs/InlineResponse20026.md
+docs/InlineResponse20026Details.md
+docs/InlineResponse20026Request.md
 docs/InlineResponse2002AllowedUrls.md
 docs/InlineResponse2002PermissionGroups.md
 docs/InlineResponse2002Permissions.md
@@ -164,6 +172,7 @@ docs/InlineResponse2015.md
 docs/InlineResponse2016.md
 docs/InlineResponse2017.md
 docs/InlineResponse2018.md
+docs/InlineResponse2019.md
 docs/IntegrationsApi.md
 docs/InternalServerError.md
 docs/LinkSubuserInputSchema.md
@@ -221,6 +230,7 @@ src/api/BatchesApi.js
 src/api/BoxesApi.js
 src/api/BuyerApi.js
 src/api/ClientApi.js
+src/api/GoLoginApi.js
 src/api/IntegrationsApi.js
 src/api/OtherApi.js
 src/api/PermissionsApi.js
@@ -263,6 +273,7 @@ src/model/ApiV1BoxesMergeBoxBody.js
 src/model/ApiV1BoxesSplitBoxItems.js
 src/model/ApiV1BoxesSplitNewBoxesParams.js
 src/model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges.js
+src/model/ApiV1GologinProfileNavigator.js
 src/model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload.js
 src/model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.js
 src/model/ApiV1IntegrationsSellerboardWarehouseStocksShop.js
@@ -349,6 +360,11 @@ src/model/InlineObject67.js
 src/model/InlineObject68.js
 src/model/InlineObject69.js
 src/model/InlineObject7.js
+src/model/InlineObject70.js
+src/model/InlineObject71.js
+src/model/InlineObject72.js
+src/model/InlineObject73.js
+src/model/InlineObject74.js
 src/model/InlineObject8.js
 src/model/InlineObject9.js
 src/model/InlineResponse200.js
@@ -370,8 +386,9 @@ src/model/InlineResponse20022.js
 src/model/InlineResponse20023.js
 src/model/InlineResponse20024.js
 src/model/InlineResponse20025.js
-src/model/InlineResponse20025Details.js
-src/model/InlineResponse20025Request.js
+src/model/InlineResponse20026.js
+src/model/InlineResponse20026Details.js
+src/model/InlineResponse20026Request.js
 src/model/InlineResponse2002AllowedUrls.js
 src/model/InlineResponse2002PermissionGroups.js
 src/model/InlineResponse2002Permissions.js
@@ -391,6 +408,7 @@ src/model/InlineResponse2015.js
 src/model/InlineResponse2016.js
 src/model/InlineResponse2017.js
 src/model/InlineResponse2018.js
+src/model/InlineResponse2019.js
 src/model/InternalServerError.js
 src/model/LinkSubuserInputSchema.js
 src/model/MePatchInputSchema.js
@@ -427,3 +445,11 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+test/api/GoLoginApi.spec.js
+test/model/ApiV1GologinProfileNavigator.spec.js
+test/model/InlineObject73.spec.js
+test/model/InlineObject74.spec.js
+test/model/InlineResponse20026.spec.js
+test/model/InlineResponse20026Details.spec.js
+test/model/InlineResponse20026Request.spec.js
+test/model/InlineResponse2019.spec.js

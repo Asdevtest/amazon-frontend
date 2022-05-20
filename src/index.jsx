@@ -20,6 +20,15 @@ Sentry.init({
   tracesSampleRate: 1.0,
 })
 
+// import yatranslate from './js/yatranslate.js'
+
+// import yatranslate from './js/yatranslate.js'
+
+// <script src="./js/yatranslate.js"></script>
+// <link rel="stylesheet" href="./css/yatranslate.css"></link>
+
+// yatranslate()
+
 ReactDOM.render(<App />, document.getElementById('root'))
 
 // If you want to start measuring performance in your app, pass a function

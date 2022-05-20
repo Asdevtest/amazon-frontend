@@ -1,5 +1,5 @@
 import {transformAndValidate} from 'class-transformer-validator'
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -58,9 +58,18 @@ export class WarehouseVacantViewModel {
 
   tmpDataForCancelTask = {}
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+
+    if (location.state?.task) {
+      this.onClickResolveBtn(location.state?.task)
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
   }
 
   onChangeFilterModel(model) {
@@ -116,6 +125,7 @@ export class WarehouseVacantViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getTasksMy()
+      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

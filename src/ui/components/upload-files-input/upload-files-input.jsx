@@ -7,20 +7,18 @@ import React, {useState} from 'react'
 import {Grid, Typography, Avatar, Link} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
-import ImageUploading from 'react-images-uploading'
+import ImageUploading from 'react-images-uploading-alex76457-version'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './upload-files-input.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').uploadFilesInput
 
 const regExpUriChecking =
   /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|\/|\?)*)?$/i
@@ -77,12 +75,12 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptT
     <div>
       {!withoutLinks && (
         <Field
-          label={textConsts.addPhoto}
-          error={linkInputError && 'Ссылка невалидна!'}
+          label={t(TranslationKey['Add file'])}
+          error={linkInputError && t(TranslationKey['Invalid link!'])}
           inputComponent={
             <div className={classNames.amazonLinkWrapper}>
               <Input
-                placeholder={textConsts.link}
+                placeholder={t(TranslationKey.Link)}
                 className={classNames.loadImageInput}
                 value={linkInput}
                 onChange={e => onChangeLinkInput(e.target.value)}
@@ -96,7 +94,7 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptT
                 color="primary"
                 onClick={() => onClickLoadBtn()}
               >
-                {textConsts.loadBtn}
+                {t(TranslationKey.Add)}
               </Button>
             </div>
           }
@@ -105,7 +103,7 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptT
 
       <ImageUploading
         multiple
-        acceptType={acceptType ? acceptType : ['jpg', 'gif', 'png', 'pdf']}
+        acceptType={acceptType ? acceptType : ['jpg', 'gif', 'png', 'pdf', 'jpeg']}
         value={images}
         maxNumber={maxNumber}
         dataURLKey="data_url"
@@ -124,9 +122,7 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptT
         }) => (
           <div className={classNames.mainWrapper}>
             {errors?.maxNumber && (
-              <Typography className={classNames.errorText}>
-                {maxNumber === 1 ? 'Нельзя загрузить больше 1 файла!' : textConsts.maxNumberError}
-              </Typography>
+              <Typography className={classNames.errorText}>{t(TranslationKey['You cannot load more!'])}</Typography>
             )}
 
             <button
@@ -134,7 +130,7 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptT
               onClick={onImageUpload}
               {...dragProps}
             >
-              {textConsts.dragAndDropBtn}
+              {t(TranslationKey['Click or Drop here'])}
             </button>
 
             <div className={classNames.actionBtnsWrapper}>
@@ -143,14 +139,14 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptT
                 className={classNames.showImagesBtn}
                 onClick={() => setShowImages(!showImages)}
               >
-                {showImages ? textConsts.hideImagesBtn : textConsts.showImagesBtn}
+                {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
               </button>
               <Typography className={classNames.imagesCount}>
                 {<span className={classNames.imagesCountSpan}>{`${images.length}/${maxNumber}`}</span>}
                 {` files`}{' '}
               </Typography>
               <button disabled={images.length === 0} className={classNames.removeAllBtn} onClick={onImageRemoveAll}>
-                {textConsts.removeAllBtn}
+                {t(TranslationKey['Remove all'])}
               </button>
             </div>
 

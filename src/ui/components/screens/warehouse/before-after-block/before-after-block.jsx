@@ -6,24 +6,21 @@ import {Divider, Typography, Paper, Checkbox, Link} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
-import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TaskOperationType} from '@constants/task-operation-type'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithKg} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {EditBoxTasksModal} from '../edit-task-modal/edit-box-tasks-modal'
 import {useClassNames} from './before-after-block.style'
 import {BoxItemCard} from './box-item-card'
-
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseBeforeAfterBlock
 
 const Box = ({
   box,
@@ -55,8 +52,6 @@ const Box = ({
 
     targetBox.items[itemIndex][field] = value
 
-    // const updatedTargetBox = {...targetBox, items: targetBox.items}
-
     const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === box._id ? targetBox : newBox))
 
     setNewBoxes(updatedNewBoxes)
@@ -70,18 +65,19 @@ const Box = ({
 
   return (
     <div className={(classNames.box, classNames.mainPaper)}>
-      {isNewBox && (
-        <div className={classNames.fieldsWrapper}>
-          <Field disabled label={textConsts.warehouseLabel} value={box.destination?.name} />
+      <div className={classNames.fieldsWrapper}>
+        <Field disabled label={t(TranslationKey.Warehouse)} value={box.destination?.name} />
 
-          <Field disabled label={textConsts.logicsTariffLabel} value={box.logicsTariff?.name || 'N/A'} />
-        </div>
-      )}
+        <Field disabled label={t(TranslationKey.Tariff)} value={box.logicsTariff?.name || 'N/A'} />
+      </div>
 
-      <Typography className={classNames.boxTitle}>{`${textConsts.boxNum} ${box.humanFriendlyId}`}</Typography>
+      <Typography className={classNames.boxTitle}>{`${t(TranslationKey['Box number:'])} ${
+        box.humanFriendlyId
+      }`}</Typography>
+
       {box.amount > 1 && (
         <div className={classNames.superWrapper}>
-          <Typography className={classNames.subTitle}>{textConsts.superTypo}</Typography>
+          <Typography className={classNames.subTitle}>{t(TranslationKey.Super) + ' '}</Typography>
           <Typography>{`x${box.amount}`}</Typography>
         </div>
       )}
@@ -103,8 +99,8 @@ const Box = ({
         <div>
           <Typography className={classNames.categoryTitle}>
             {isCurrentBox && taskType === TaskOperationType.RECEIVE
-              ? textConsts.demensionsSupplier
-              : textConsts.demensionsWarehouse}
+              ? t(TranslationKey['Sizes from supplier:'])
+              : t(TranslationKey['Sizes from storekeeper:'])}
           </Typography>
 
           <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
@@ -119,26 +115,26 @@ const Box = ({
           {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
             <div className={classNames.demensionsWrapper}>
               <Typography>
-                {textConsts.length}
+                {t(TranslationKey.Length) + ': '}
 
                 {toFixed(box.lengthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
               </Typography>
               <Typography>
-                {textConsts.width}
+                {t(TranslationKey.Width) + ': '}
                 {toFixed(box.widthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
               </Typography>
               <Typography>
-                {textConsts.height}
+                {t(TranslationKey.Height) + ': '}
                 {toFixed(box.heightCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
               </Typography>
 
               <Typography>
-                {textConsts.weight}
+                {t(TranslationKey.Weight) + ': '}
                 {toFixedWithKg(box.weighGrossKgSupplier, 2)}
               </Typography>
 
               <Typography>
-                {textConsts.volumeWeigh}
+                {t(TranslationKey['Volume weight']) + ': '}
                 {toFixedWithKg(
                   ((parseFloat(box.lengthCmSupplier) || 0) *
                     (parseFloat(box.heightCmSupplier) || 0) *
@@ -149,7 +145,7 @@ const Box = ({
               </Typography>
 
               <Typography>
-                {textConsts.finalWeight}
+                {t(TranslationKey['Final weight']) + ': '}
                 {toFixedWithKg(
                   box.weighGrossKgSupplier >
                     ((parseFloat(box.lengthCmSupplier) || 0) *
@@ -168,27 +164,24 @@ const Box = ({
           ) : (
             <div className={classNames.demensionsWrapper}>
               <Typography>
-                {textConsts.length}
-                {/* {toFixedWithCm(box.lengthCmWarehouse, 2)} */}
+                {t(TranslationKey.Length) + ': '}
                 {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
               </Typography>
               <Typography>
-                {textConsts.width}
-                {/* {toFixedWithCm(box.widthCmWarehouse, 2)} */}
+                {t(TranslationKey.Width) + ': '}
                 {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
               </Typography>
               <Typography>
-                {textConsts.height}
-                {/* {toFixedWithCm(box.heightCmWarehouse, 2)} */}
+                {t(TranslationKey.Height) + ': '}
                 {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
               </Typography>
 
               <Typography>
-                {textConsts.weight}
+                {t(TranslationKey.Weight) + ': '}
                 {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
               </Typography>
               <Typography>
-                {textConsts.volumeWeigh}
+                {t(TranslationKey['Volume weight']) + ': '}
                 {toFixedWithKg(
                   ((parseFloat(box.lengthCmWarehouse) || 0) *
                     (parseFloat(box.heightCmWarehouse) || 0) *
@@ -198,7 +191,7 @@ const Box = ({
                 )}
               </Typography>
               <Typography>
-                {textConsts.finalWeight}
+                {t(TranslationKey['Final weight']) + ': '}
                 {toFixedWithKg(
                   box.weighGrossKgWarehouse >
                     ((parseFloat(box.lengthCmWarehouse) || 0) *
@@ -220,7 +213,7 @@ const Box = ({
         <div className={classNames.imagesWrapper}>
           {box.images && (
             <div className={classNames.photoWrapper}>
-              <Typography>{'Фотографии коробки:'}</Typography>
+              <Typography>{t(TranslationKey['Box photos:'])}</Typography>
 
               {box.images.length > 0 ? (
                 <Carousel autoPlay={false} timeout={100} animation="fade">
@@ -239,14 +232,14 @@ const Box = ({
                   ))}
                 </Carousel>
               ) : (
-                <Typography>{'Фотографий пока нет...'}</Typography>
+                <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
               )}
             </div>
           )}
 
           {box.items[0].order.images && (
             <div className={classNames.photoWrapper}>
-              <Typography>{'Фотографии заказа:'}</Typography>
+              <Typography>{t(TranslationKey['Order photos:'])}</Typography>
 
               {box.items[0].order.images.length > 0 ? (
                 <Carousel autoPlay={false} timeout={100} animation="fade">
@@ -265,7 +258,7 @@ const Box = ({
                   ))}
                 </Carousel>
               ) : (
-                <Typography>{'Фотографий пока нет...'}</Typography>
+                <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
               )}
             </div>
           )}
@@ -274,7 +267,7 @@ const Box = ({
 
       <div>
         <div className={classNames.chipWrapper}>
-          <Typography className={classNames.subTitle}>{textConsts.shippingLabel}</Typography>
+          <Typography className={classNames.subTitle}>{t(TranslationKey['Shipping label']) + ':'}</Typography>
 
           {box.shippingLabel ? (
             <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
@@ -287,7 +280,7 @@ const Box = ({
         <Field
           oneLine
           containerClasses={classNames.checkboxContainer}
-          label={textConsts.shippingLabelIsGluedWarehouse}
+          label={t(TranslationKey['Shipping label was glued to the warehouse'])}
           inputComponent={
             <Checkbox
               color="primary"
@@ -303,47 +296,6 @@ const Box = ({
 
       {isNewBox && (
         <div className={classNames.bottomBlockWrapper}>
-          {/* {taskType === TaskOperationType.RECEIVE && box.items?.[0].product.barCode && (
-            <div className={classNames.barCodeActionsWrapper}>
-              {box.isBarCodeAttachedByTheStorekeeper === false && (
-                <Field
-                  oneLine
-                  containerClasses={classNames.checkboxContainer}
-                  label={textConsts.codeCheck}
-                  inputComponent={
-                    <Checkbox
-                      color="primary"
-                      checked={box.isBarCodeAlreadyAttachedByTheSupplier}
-                      onClick={() =>
-                        onChangeField(
-                          !box.isBarCodeAlreadyAttachedByTheSupplier,
-                          'isBarCodeAlreadyAttachedByTheSupplier',
-                        )
-                      }
-                    />
-                  }
-                />
-              )}
-
-              {box.isBarCodeAlreadyAttachedByTheSupplier === false && (
-                <Field
-                  oneLine
-                  containerClasses={classNames.checkboxContainer}
-                  label={textConsts.barCodeIsGluedWarehouse}
-                  inputComponent={
-                    <Checkbox
-                      color="primary"
-                      checked={box.isBarCodeAttachedByTheStorekeeper}
-                      onClick={() =>
-                        onChangeField(!box.isBarCodeAttachedByTheStorekeeper, 'isBarCodeAttachedByTheStorekeeper')
-                      }
-                    />
-                  }
-                />
-              )}
-            </div>
-          )} */}
-
           <div className={classNames.editBtnWrapper}>
             {isEdit && (
               <Button
@@ -353,7 +305,7 @@ const Box = ({
                   onClickEditBox(box)
                 }}
               >
-                {textConsts.editBtn}
+                {t(TranslationKey.Edit)}
               </Button>
             )}
           </div>
@@ -388,7 +340,7 @@ const NewBoxes = ({
 
   return (
     <div className={classNames.newBoxes}>
-      <Typography className={classNames.sectionTitle}>{textConsts.newBoxes}</Typography>
+      <Typography className={classNames.sectionTitle}>{t(TranslationKey['New boxes'])}</Typography>
 
       {newBoxes.map((box, boxIndex) => (
         <Box
@@ -442,23 +394,23 @@ export const BeforeAfterBlock = observer(
 
     const CurrentBox = ({currentBoxes}) => (
       <div className={classNames.currentBox}>
-        <Typography className={classNames.sectionTitle}>{textConsts.incom}</Typography>
+        <Typography className={classNames.sectionTitle}>{t(TranslationKey.Incoming)}</Typography>
 
-        {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
+        {/* {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
           <div className={classNames.fieldsWrapper}>
-            <Field disabled label={textConsts.warehouseLabel} value={currentBoxes[0].destination?.name} />
+            <Field disabled label={t(TranslationKey.Warehouse)} value={currentBoxes[0].destination?.name} />
 
-            <Field disabled label={textConsts.logicsTariffLabel} value={currentBoxes[0].logicsTariff?.name || 'N/A'} />
+            <Field disabled label={t(TranslationKey.Tariff)} value={currentBoxes[0].logicsTariff?.name || 'N/A'} />
 
             {taskType === TaskOperationType.RECEIVE && (
               <Field
                 disabled
-                label={textConsts.statusLabel}
+                label={t(TranslationKey.Status)}
                 value={getOrderStatusOptionByCode(currentBoxes[0].items?.[0].order.status)?.label}
               />
             )}
           </div>
-        )}
+        )} */}
 
         {currentBoxes &&
           currentBoxes.map((box, boxIndex) => (

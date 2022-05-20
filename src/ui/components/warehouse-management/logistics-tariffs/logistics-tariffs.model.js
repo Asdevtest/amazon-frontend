@@ -1,8 +1,8 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
@@ -10,10 +10,8 @@ import {StorekeeperModel} from '@models/storekeeper-model'
 import {logisticsTariffsColumns} from '@components/table-columns/warehouse/logistics-tariffs-columns'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-
-const textConsts = getLocalizedTexts(texts, 'ru').groupPermissions
+import {t} from '@utils/translations'
 
 export class LogisticsTariffsModel {
   history = undefined
@@ -48,6 +46,10 @@ export class LogisticsTariffsModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
   }
 
   onChangeFilterModel(model) {
@@ -177,7 +179,7 @@ export class LogisticsTariffsModel {
   onClickCancelBtn() {
     this.confirmModalSettings = {
       isWarning: false,
-      message: textConsts.confirmCloseModalMessage,
+      message: t(TranslationKey['Data will not be saved!']),
       onClickSuccess: () => this.cancelTheOrder(),
     }
 
@@ -194,7 +196,7 @@ export class LogisticsTariffsModel {
 
     this.confirmModalSettings = {
       isWarning: true,
-      message: textConsts.confirmRemoveGroupMessage,
+      message: t(TranslationKey['Are you sure you want to delete the tariff?']),
       onClickSuccess: () => this.removeTariff(),
     }
 

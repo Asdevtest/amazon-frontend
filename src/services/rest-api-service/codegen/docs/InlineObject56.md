@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**additionalBoxes** | [**[InlineObject12]**](InlineObject12.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
+**reason** | **String** | Причины закрытия приема предложений. | [optional] 
 
 

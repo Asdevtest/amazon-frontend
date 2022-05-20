@@ -6,19 +6,17 @@ import {Box, Container, Divider, Typography} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './edit-box-tasks-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseViewsEditBoxModal
 
 const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, sizeSetting}) => {
   const classNames = useClassNames()
@@ -28,14 +26,14 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           inputProps={{maxLength: 4}}
           containerClasses={classNames.numberInputField}
-          label={textConsts.lengthCmWarehouse}
+          label={t(TranslationKey.Length) + ': '}
           value={box.lengthCmWarehouse}
           onChange={setNewBoxField('lengthCmWarehouse')}
         />
         <Field
           inputProps={{maxLength: 4}}
           containerClasses={classNames.numberInputField}
-          label={textConsts.widthCmWarehouse}
+          label={t(TranslationKey.Width) + ': '}
           value={box.widthCmWarehouse}
           onChange={setNewBoxField('widthCmWarehouse')}
         />
@@ -44,14 +42,14 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           inputProps={{maxLength: 4}}
           containerClasses={classNames.numberInputField}
-          label={textConsts.heightCmWarehouse}
+          label={t(TranslationKey.Height) + ': '}
           value={box.heightCmWarehouse}
           onChange={setNewBoxField('heightCmWarehouse')}
         />
         <Field
           inputProps={{maxLength: 4}}
           containerClasses={classNames.numberInputField}
-          label={textConsts.weighGrossKgWarehouse}
+          label={t(TranslationKey.Weight) + ': '}
           value={box.weighGrossKgWarehouse}
           onChange={setNewBoxField('weighGrossKgWarehouse')}
         />
@@ -60,7 +58,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={textConsts.volumeWeightKgWarehouse}
+          label={t(TranslationKey['Volume weight']) + ': '}
           value={toFixed(
             (sizeSetting === sizesType.INCHES
               ? box.heightCmWarehouse *
@@ -76,7 +74,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={textConsts.weightFinalAccountingKgWarehouse}
+          label={t(TranslationKey['Final weight']) + ': '}
           value={Math.max(
             toFixed(
               (sizeSetting === sizesType.INCHES
@@ -183,7 +181,7 @@ export const EditBoxTasksModal = ({
 
   return (
     <Container disableGutters>
-      <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
+      <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
       <Divider className={classNames.divider} />
 
       <div className={classNames.sizesSubWrapper}>
@@ -206,7 +204,7 @@ export const EditBoxTasksModal = ({
       />
 
       <div className={classNames.photoWrapper}>
-        <Typography>{'Текущие фотографии:'}</Typography>
+        <Typography>{t(TranslationKey['Box photos:'])}</Typography>
 
         {box.images.length > 0 ? (
           <Carousel autoPlay timeout={100} animation="fade">
@@ -226,7 +224,7 @@ export const EditBoxTasksModal = ({
             ))}
           </Carousel>
         ) : (
-          <Typography>{'Фотографий пока нет...'}</Typography>
+          <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
         )}
       </div>
 
@@ -240,11 +238,11 @@ export const EditBoxTasksModal = ({
 
       <div className={classNames.buttonsWrapper}>
         <Box className={classNames.button}>
-          <Button onClick={onSubmit}>{textConsts.saveBtn}</Button>
+          <Button onClick={onSubmit}>{t(TranslationKey.Save)}</Button>
         </Box>
 
         <Box className={classNames.button}>
-          <Button onClick={() => setEditModal()}>{textConsts.closeBtn}</Button>
+          <Button onClick={() => setEditModal()}>{t(TranslationKey.Close)}</Button>
         </Box>
       </div>
 

@@ -130,6 +130,10 @@ export const useClassNames = makeStyles(theme => ({
     height: '32px',
   },
 
+  storekeeperDisableBtn: {
+    fontWeight: 'bold',
+  },
+
   field: {
     margin: '0',
   },

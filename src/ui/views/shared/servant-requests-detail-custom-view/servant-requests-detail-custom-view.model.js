@@ -122,7 +122,6 @@ export class RequestDetailCustomViewModel {
   async getRequestProposals() {
     try {
       const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
-      console.log('result ', result)
 
       runInAction(() => {
         this.requestProposals = result

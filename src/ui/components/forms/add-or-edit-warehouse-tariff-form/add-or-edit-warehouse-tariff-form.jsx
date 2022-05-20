@@ -3,18 +3,16 @@ import React, {useState} from 'react'
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Field} from '@components/field/field'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './add-or-edit-warehouse-tariff-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').addOrEditWarehouseTariffForm
 
 export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit}) => {
   const classNames = useClassNames()
@@ -61,21 +59,20 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h5">{textConsts.mainTitle}</Typography>
+      <Typography variant="h5">{t(TranslationKey['Adding tariff'])}</Typography>
 
       <div className={classNames.form}>
         <Field
-          label={textConsts.nameLabel}
+          label={t(TranslationKey.Title)}
           inputProps={{maxLength: 50}}
           value={formFields.name}
-          placeholder={textConsts.nameHolder}
+          placeholder={t(TranslationKey.Title)}
           onChange={onChangeField('name')}
         />
 
         <Field
-          label={textConsts.priceField}
+          label={t(TranslationKey['Service cost per kg, $']) + '*'}
           inputProps={{maxLength: 10}}
-          placeholder={textConsts.priceHolder}
           value={formFields.price}
           onChange={onChangeField('price')}
         />
@@ -86,8 +83,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
           rowsMax={4}
           inputProps={{maxLength: 255}}
           className={classNames.descriptionField}
-          placeholder={textConsts.descriptionHolder}
-          label={textConsts.descriptionField}
+          label={t(TranslationKey.Description)}
           value={formFields.description}
           onChange={onChangeField('description')}
         />
@@ -101,7 +97,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
           variant="contained"
           onClick={onSubmit}
         >
-          {textConsts.saveBtn}
+          {t(TranslationKey.Save)}
         </SuccessButton>
 
         <Button
@@ -111,7 +107,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
           variant="text"
           onClick={() => onCloseModal()}
         >
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Close)}
         </Button>
       </div>
     </div>

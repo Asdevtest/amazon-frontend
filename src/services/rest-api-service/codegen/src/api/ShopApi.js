@@ -15,9 +15,9 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject54 from '../model/InlineObject54';
-import InlineObject55 from '../model/InlineObject55';
-import InlineResponse20019 from '../model/InlineResponse20019';
+import InlineObject59 from '../model/InlineObject59';
+import InlineObject60 from '../model/InlineObject60';
+import InlineResponse20020 from '../model/InlineResponse20020';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -47,7 +47,7 @@ export default class ShopApi {
      * ## Получить все магазины пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20019>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20020>} and HTTP response
      */
     apiV1ShopsGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -66,7 +66,7 @@ export default class ShopApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20019];
+      let returnType = [InlineResponse20020];
       return this.apiClient.callApi(
         '/api/v1/shops/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -79,7 +79,7 @@ export default class ShopApi {
      * ## Получить все магазины пользователя.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20019>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20020>}
      */
     apiV1ShopsGet(opts) {
       return this.apiV1ShopsGetWithHttpInfo(opts)
@@ -149,7 +149,7 @@ export default class ShopApi {
      * @param {String} guid GUID объекта в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject55} opts.body 
+     * @param {module:model/InlineObject60} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ShopsGuidPatchWithHttpInfo(guid, opts) {
@@ -188,7 +188,7 @@ export default class ShopApi {
      * @param {String} guid GUID объекта в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject55} opts.body 
+     * @param {module:model/InlineObject60} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ShopsGuidPatch(guid, opts) {
@@ -204,7 +204,7 @@ export default class ShopApi {
      * # Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name) Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject54} opts.body 
+     * @param {module:model/InlineObject59} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
     apiV1ShopsPostWithHttpInfo(opts) {
@@ -237,7 +237,7 @@ export default class ShopApi {
      * # Добавить новый магазин клиентом.  ## Создает новые магазин и добавляет в таблицу связи user_shops Проверки: Пользователь не может иметь два магазина с одинаковыми именами (name) Перед записью в базу проверка работоспособности ссылок Поля со ссылками должны быть в формате uri!!! Это полная ссылка до файлов. валидный пример: \"https://user:password@app.sellerboard.com/ru/automation/reports?id=e5...8&format=csv\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject54} opts.body 
+     * @param {module:model/InlineObject59} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
     apiV1ShopsPost(opts) {

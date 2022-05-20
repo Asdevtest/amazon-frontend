@@ -57,6 +57,8 @@ Name | Type | Description | Notes
 
 * `IN_BATCH` (value: `"IN_BATCH"`)
 
+* `NEED_TO_UPDATE_THE_TARIFF` (value: `"NEED_TO_UPDATE_THE_TARIFF"`)
+
 * `IN_BATCH_ON_THE_WAY` (value: `"IN_BATCH_ON_THE_WAY"`)
 
 

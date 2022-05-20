@@ -164,7 +164,12 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
           />
 
           <div className={classNames.imageFileInputWrapper}>
-            <UploadFilesInput images={images} setImages={setImages} maxNumber={50} acceptType={['jpg', 'gif', 'png']} />
+            <UploadFilesInput
+              images={images}
+              setImages={setImages}
+              maxNumber={50}
+              acceptType={['jpg', 'gif', 'png', 'jpeg']}
+            />
           </div>
         </div>
       )}

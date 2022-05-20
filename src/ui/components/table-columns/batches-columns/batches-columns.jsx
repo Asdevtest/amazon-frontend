@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   NormDateCell,
@@ -11,14 +11,12 @@ import {
   WarehouseTariffDatesCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').batchesTableColumns
+import {t} from '@utils/translations'
 
 export const batchesViewColumns = () => [
   {
     field: 'orders',
-    headerName: textConsts.ordersField,
+    headerName: t(TranslationKey.Product),
     width: 550,
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
     filterable: false,
@@ -27,7 +25,7 @@ export const batchesViewColumns = () => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updatedAtField,
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     width: 110,
     type: 'date',
@@ -35,28 +33,28 @@ export const batchesViewColumns = () => [
 
   {
     field: 'destination',
-    headerName: textConsts.warehouseField,
+    headerName: t(TranslationKey.Destination),
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
   },
 
   {
     field: 'humanFriendlyId',
-    headerName: textConsts.humanFriendlyIdField,
+    headerName: t(TranslationKey.ID),
     renderCell: params => renderFieldValueCell(params.value),
     width: 80,
   },
 
   {
     field: 'tariff',
-    headerName: textConsts.deliveryField,
+    headerName: t(TranslationKey.Tariff),
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
 
   {
     field: 'finalWeight',
-    headerName: textConsts.weightField,
+    headerName: t(TranslationKey['Final weight']),
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 130,
@@ -64,7 +62,7 @@ export const batchesViewColumns = () => [
 
   {
     field: 'totalPrice',
-    headerName: textConsts.toralPriceField,
+    headerName: t(TranslationKey['Total price']),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 130,
@@ -72,7 +70,7 @@ export const batchesViewColumns = () => [
 
   {
     field: 'dates',
-    headerName: textConsts.datesField,
+    headerName: t(TranslationKey.Dates),
     renderCell: params => <WarehouseTariffDatesCell row={params.row.originalData.boxes[0].logicsTariff} />,
     width: 350,
     filterable: false,

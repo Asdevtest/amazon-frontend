@@ -8,25 +8,24 @@ import MenuItem from '@material-ui/core/MenuItem'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import MenuIcon from '@material-ui/icons/Menu'
-import NotificationsIcon from '@material-ui/icons/Notifications'
+// import NotificationsIcon from '@material-ui/icons/Notifications'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
-import {Badge} from '@components/badge'
+// import {Badge} from '@components/badge'
 import {Button} from '@components/buttons/button'
+import {LanguageSelector} from '@components/language-selector'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {AppbarModel} from './appbar.model'
 import {useClassNames} from './appbar.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').appbarTexts
 
 interface Props {
   avatarSrc: string
@@ -85,33 +84,42 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen}) => 
 
           <Typography className={classNames.title}>{title}</Typography>
 
-          <Typography className={classNames.userroleTitle}>{'your role:'}</Typography>
+          <Typography className={classNames.userroleTitle}>{t(TranslationKey['your role:'])}</Typography>
 
-          <div className={classNames.allowedRolesWrapper}>
-            {allowedRolesWithoutCandidate?.map((roleCode: number) => (
-              <Button
-                key={roleCode}
-                variant={'text'}
-                className={clsx(classNames.allowedRolesItem, {
-                  [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
-                })}
-                onClick={() => onChangeUserInfo(roleCode)}
-              >
-                {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
-              </Button>
-            ))}
+          <div className={classNames.allowedRolesMainWrapper}>
+            {!componentModel.current.masterUser ? (
+              <div className={classNames.allowedRolesWrapper}>
+                {allowedRolesWithoutCandidate?.map((roleCode: number) => (
+                  <Button
+                    key={roleCode}
+                    variant={'text'}
+                    className={clsx(classNames.allowedRolesItem, {
+                      [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
+                    })}
+                    onClick={() => onChangeUserInfo(roleCode)}
+                  >
+                    {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
+                  </Button>
+                ))}
+              </div>
+            ) : null}
+
+            {(!allowedRolesWithoutCandidate?.length || componentModel.current.masterUser) && (
+              <Typography className={clsx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
+                {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
+              </Typography>
+            )}
           </div>
 
-          {!allowedRolesWithoutCandidate?.length && (
-            <Typography className={clsx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
-              {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
-            </Typography>
-          )}
-
           <Divider orientation="vertical" />
-          <Badge showZero badgeContent={2}>
+          {/* <Badge showZero badgeContent={2}>
             <NotificationsIcon color="action" />
-          </Badge>
+          </Badge> */}
+
+          <div className={classNames.languageSelectorWrapper}>
+            <LanguageSelector />
+          </div>
+
           <Divider orientation="vertical" />
 
           <div
@@ -136,18 +144,18 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen}) => 
 
         <div>
           <Menu keepMounted id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-            <Typography className={classNames.menuTitle}>{textConsts.menuTitle}</Typography>
+            <Typography className={classNames.menuTitle}>{t(TranslationKey.Menu)}</Typography>
 
             {
               <MenuItem className={classNames.menuWrapper} onClick={onClickProfile}>
                 <SettingsIcon color="primary" />
-                {textConsts.profileBtn}
+                {t(TranslationKey.Profile)}
               </MenuItem>
             }
 
             <MenuItem className={classNames.menuWrapper} onClick={onClickExit}>
               <ExitToAppIcon color="primary" />
-              {textConsts.exit}
+              {t(TranslationKey.Exit)}
             </MenuItem>
           </Menu>
         </div>

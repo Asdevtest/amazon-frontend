@@ -9,6 +9,7 @@ import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {MultipleChats} from '@components/chat/multiple-chats'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -117,22 +118,15 @@ export class RequestDetailCustomViewRaw extends Component {
                         requestProposalCancelAllowedStatuses.includes(
                           findRequestProposalByChatSelectedId.proposal.status,
                         ) ? (
-                          <Button
-                            className={classNames.cancelRequestProposalBtn}
-                            onClick={onClickCancelRequestProposal}
-                          >
-                            Отменить сделку
-                          </Button>
+                          <ErrorButton onClick={onClickCancelRequestProposal}>Отменить сделку</ErrorButton>
                         ) : (
                           <div />
                         )}
                         {findRequestProposalByChatSelectedId.proposal.status !==
                         RequestProposalStatus.ACCEPTED_BY_CLIENT ? (
                           <Button
+                            disabled={!params.links.length && !params.files.length && !params.message}
                             onClick={() => {
-                              if (!params.message) {
-                                alert('Сообщение не может быть пустым')
-                              }
                               onClickSendAsResult(params)
                               resetAllInputs()
                             }}

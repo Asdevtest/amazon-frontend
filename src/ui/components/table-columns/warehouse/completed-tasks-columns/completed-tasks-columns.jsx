@@ -1,22 +1,21 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   TaskDescriptionCell,
   renderFieldValueCell,
   NormalActionBtnCell,
   NormDateFromUnixCell,
+  TaskTypeCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseCompletedTasksTableColumns
+import {t} from '@utils/translations'
 
 export const warehouseCompletedTasksViewColumns = handlers => [
   {
     field: 'createdAt',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Created),
     width: 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
@@ -24,7 +23,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updateDateField,
+    headerName: t(TranslationKey.Updated),
     width: 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
@@ -32,13 +31,13 @@ export const warehouseCompletedTasksViewColumns = handlers => [
 
   {
     field: 'operationType',
-    headerName: textConsts.typeField,
+    headerName: t(TranslationKey.Type),
     width: 200,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
   {
     field: 'description',
-    headerName: textConsts.descriptionField,
+    headerName: t(TranslationKey.Description),
     width: 400,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
@@ -47,7 +46,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
 
   {
     field: 'status',
-    headerName: textConsts.statusField,
+    headerName: t(TranslationKey.Status),
     width: 150,
     renderCell: params => renderFieldValueCell(params.value),
     filterable: false,
@@ -56,11 +55,11 @@ export const warehouseCompletedTasksViewColumns = handlers => [
 
   {
     field: 'action',
-    headerName: textConsts.actionField,
+    headerName: t(TranslationKey.Action),
     width: 250,
     renderCell: params => (
       <NormalActionBtnCell
-        bTnText={textConsts.showBtn}
+        bTnText={t(TranslationKey.View)}
         onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
       />
     ),

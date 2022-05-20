@@ -5,18 +5,16 @@ import Carousel from 'react-material-ui-carousel'
 
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {TaskOperationType} from '@constants/task-operation-type'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixedWithCm, toFixedWithKg} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './before-after-box.style'
 import {TaskInfoBoxItemCard} from './task-info-box-item-card'
-
-const textConsts = getLocalizedTexts(texts, 'ru').beforeAfterInfoTaskBlock
 
 export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
@@ -28,24 +26,26 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
   return (
     <Paper className={classNames.box}>
       <div className={classNames.fieldsWrapper}>
-        <Field disabled label={textConsts.warehouseLabel} value={box.destination?.name} />
+        <Field disabled label={t(TranslationKey.Warehouse)} value={box.destination?.name} />
 
-        <Field disabled label={textConsts.logicsTariffLabel} value={getFullTariffTextForBoxOrOrder(box) || 'N/A'} />
+        <Field disabled label={t(TranslationKey.Tariff)} value={getFullTariffTextForBoxOrOrder(box) || 'N/A'} />
 
         {taskType === TaskOperationType.RECEIVE && (
           <Field
             disabled
-            label={textConsts.statusLabel}
+            label={t(TranslationKey.Status)}
             value={getOrderStatusOptionByCode(box.items[0].order.status).label}
           />
         )}
       </div>
 
-      <Typography className={classNames.boxTitle}>{`${textConsts.boxNum} ${box.humanFriendlyId}`}</Typography>
+      <Typography className={classNames.boxTitle}>{`${t(TranslationKey['Box number:'])} ${
+        box.humanFriendlyId
+      }`}</Typography>
 
       {box.amount > 1 && (
         <div className={classNames.superWrapper}>
-          <Typography className={classNames.subTitle}>{textConsts.superTypo}</Typography>
+          <Typography className={classNames.subTitle}>{t(TranslationKey.Super) + ' '}</Typography>
           <Typography>{`x${box.amount}`}</Typography>
         </div>
       )}
@@ -60,30 +60,30 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
 
       <Paper className={classNames.boxInfoWrapper}>
         <div>
-          <Typography className={classNames.categoryTitle}>{textConsts.demensions}</Typography>
+          <Typography className={classNames.categoryTitle}>{t(TranslationKey.Demensions) + ':'}</Typography>
 
           {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
             <div className={classNames.demensionsWrapper}>
-              <Typography className={classNames.categoryTitle}>{textConsts.demensionsSupplier}</Typography>
+              <Typography className={classNames.categoryTitle}>{t(TranslationKey['Sizes from supplier:'])}</Typography>
               <Typography>
-                {textConsts.length}
+                {t(TranslationKey.Length) + ': '}
                 {toFixedWithCm(box.lengthCmSupplier, 2)}
               </Typography>
               <Typography>
-                {textConsts.width}
+                {t(TranslationKey.Width) + ': '}
                 {toFixedWithCm(box.widthCmSupplier, 2)}
               </Typography>
               <Typography>
-                {textConsts.height}
+                {t(TranslationKey.Height) + ': '}
                 {toFixedWithCm(box.heightCmSupplier, 2)}
               </Typography>
 
               <Typography>
-                {textConsts.weight}
+                {t(TranslationKey.Weight) + ': '}
                 {toFixedWithKg(box.weighGrossKgSupplier, 2)}
               </Typography>
               <Typography>
-                {textConsts.volumeWeigh}
+                {t(TranslationKey['Volume weight']) + ': '}
                 {toFixedWithKg(
                   ((parseFloat(box.lengthCmSupplier) || 0) *
                     (parseFloat(box.heightCmSupplier) || 0) *
@@ -94,7 +94,7 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
               </Typography>
 
               <Typography>
-                {textConsts.finalWeight}
+                {t(TranslationKey['Final weight']) + ': '}
                 {toFixedWithKg(
                   box.weighGrossKgSupplier >
                     ((parseFloat(box.lengthCmSupplier) || 0) *
@@ -112,26 +112,28 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
             </div>
           ) : (
             <div className={classNames.demensionsWrapper}>
-              <Typography className={classNames.categoryTitle}>{textConsts.demensionsWarehouse}</Typography>
+              <Typography className={classNames.categoryTitle}>
+                {t(TranslationKey['Sizes from storekeeper:'])}
+              </Typography>
               <Typography>
-                {textConsts.length}
+                {t(TranslationKey.Length) + ': '}
                 {toFixedWithCm(box.lengthCmWarehouse, 2)}
               </Typography>
               <Typography>
-                {textConsts.width}
+                {t(TranslationKey.Width) + ': '}
                 {toFixedWithCm(box.widthCmWarehouse, 2)}
               </Typography>
               <Typography>
-                {textConsts.height}
+                {t(TranslationKey.Height) + ': '}
                 {toFixedWithCm(box.heightCmWarehouse, 2)}
               </Typography>
 
               <Typography>
-                {textConsts.weight}
+                {t(TranslationKey.Weight) + ': '}
                 {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
               </Typography>
               <Typography>
-                {textConsts.volumeWeigh}
+                {t(TranslationKey['Volume weight']) + ': '}
                 {toFixedWithKg(
                   ((parseFloat(box.lengthCmWarehouse) || 0) *
                     (parseFloat(box.heightCmWarehouse) || 0) *
@@ -141,7 +143,7 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
                 )}
               </Typography>
               <Typography>
-                {textConsts.finalWeight}
+                {t(TranslationKey['Final weight']) + ': '}
                 {toFixedWithKg(
                   box.weighGrossKgWarehouse >
                     ((parseFloat(box.lengthCmWarehouse) || 0) *
@@ -164,7 +166,7 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
           <div className={classNames.imagesWrapper}>
             {box.images && (
               <div className={classNames.photoWrapper}>
-                <Typography>{'Фотографии коробки:'}</Typography>
+                <Typography>{t(TranslationKey['Box photos:'])}</Typography>
 
                 {box.images.length > 0 ? (
                   <Carousel autoPlay={false} timeout={100} animation="fade">
@@ -183,14 +185,14 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
                     ))}
                   </Carousel>
                 ) : (
-                  <Typography>{'Фотографий пока нет...'}</Typography>
+                  <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
                 )}
               </div>
             )}
 
             {box.items[0].order.images && (
               <div className={classNames.photoWrapper}>
-                <Typography>{'Фотографии заказа:'}</Typography>
+                <Typography>{t(TranslationKey['Order photos:'])}</Typography>
 
                 {box.items[0].order.images.length > 0 ? (
                   <Carousel autoPlay={false} timeout={100} animation="fade">
@@ -209,7 +211,7 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
                     ))}
                   </Carousel>
                 ) : (
-                  <Typography>{'Фотографий пока нет...'}</Typography>
+                  <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
                 )}
               </div>
             )}
@@ -219,7 +221,7 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
 
       <Paper className={classNames.bottomBlockWrapper}>
         <div className={classNames.chipWrapper}>
-          <Typography className={classNames.subTitle}>{textConsts.shippingLabel}</Typography>
+          <Typography className={classNames.subTitle}>{t(TranslationKey['Shipping label']) + ':'}</Typography>
 
           {box.shippingLabel ? (
             <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
@@ -233,7 +235,7 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
         <Field
           oneLine
           containerClasses={classNames.checkboxContainer}
-          label={textConsts.shippingLabelIsGluedWarehouse}
+          label={t(TranslationKey['Shipping label was glued to the warehouse'])}
           inputComponent={<Checkbox disabled checked={box.isShippingLabelAttachedByStorekeeper} />}
         />
       </Paper>

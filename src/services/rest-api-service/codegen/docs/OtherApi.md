@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherUploadAvatarPost
 
-> InlineResponse2016 apiV1OtherUploadAvatarPost(opts)
+> InlineResponse2017 apiV1OtherUploadAvatarPost(opts)
 
 # Загрузить аватар.
 
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2016**](InlineResponse2016.md)
+[**InlineResponse2017**](InlineResponse2017.md)
 
 ### Authorization
 
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherUploadFileByUrlPost
 
-> InlineResponse2016 apiV1OtherUploadFileByUrlPost(opts)
+> InlineResponse2017 apiV1OtherUploadFileByUrlPost(opts)
 
 # Загрузить изображение по ссылке.
 
@@ -302,7 +302,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.OtherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject38() // InlineObject38 | 
+  'body': new TestSwagger.InlineObject43() // InlineObject43 | 
 };
 apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -318,11 +318,11 @@ apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
+ **body** | [**InlineObject43**](InlineObject43.md)|  | [optional] 
 
 ### Return type
 
-[**InlineResponse2016**](InlineResponse2016.md)
+[**InlineResponse2017**](InlineResponse2017.md)
 
 ### Authorization
 
@@ -336,7 +336,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherUploadFilePost
 
-> InlineResponse2016 apiV1OtherUploadFilePost(opts)
+> InlineResponse2017 apiV1OtherUploadFilePost(opts)
 
 # Загрузить изображение.
 
@@ -374,7 +374,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2016**](InlineResponse2016.md)
+[**InlineResponse2017**](InlineResponse2017.md)
 
 ### Authorization
 

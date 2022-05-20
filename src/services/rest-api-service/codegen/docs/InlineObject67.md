@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**result** | **String** | Результат работы исполнителя. | [optional] 
-**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
+**name** | **String** | Название услуги | [optional] 
+**description** | **String** | Описание услуги | [optional] 
+**price** | **Number** | Цена услуги. | [optional] 
 
 

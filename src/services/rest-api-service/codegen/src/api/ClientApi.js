@@ -24,6 +24,7 @@ import InlineObject31 from '../model/InlineObject31';
 import InlineObject32 from '../model/InlineObject32';
 import InlineObject33 from '../model/InlineObject33';
 import InlineObject34 from '../model/InlineObject34';
+import InlineObject35 from '../model/InlineObject35';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse20010 from '../model/InlineResponse20010';
 import InlineResponse20011 from '../model/InlineResponse20011';
@@ -96,6 +97,62 @@ export default class ClientApi {
      */
     apiV1ClientsBoxesConfirmDeliveryPriceChangePost(opts) {
       return this.apiV1ClientsBoxesConfirmDeliveryPriceChangePostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Редактировать shippingLabel в первый раз.
+     * ## Редактировать shippingLabel в первый раз  Данный метод нужен чтобы отредактировать в первый раз shippingLabel коробки.         Проверки:         Доступен только для коробок ранее shippingLabel === null,         Доступен только для коробок со статусами IN_STOCK
+     * @param {String} guid GUID коробки
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject35} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/clients/boxes/{guid}/edit_shippingLabel_first_time', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Редактировать shippingLabel в первый раз.
+     * ## Редактировать shippingLabel в первый раз  Данный метод нужен чтобы отредактировать в первый раз shippingLabel коробки.         Проверки:         Доступен только для коробок ранее shippingLabel === null,         Доступен только для коробок со статусами IN_STOCK
+     * @param {String} guid GUID коробки
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject35} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch(guid, opts) {
+      return this.apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

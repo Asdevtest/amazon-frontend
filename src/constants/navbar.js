@@ -11,8 +11,10 @@ import PeopleIcon from '@material-ui/icons/People'
 import SettingsIcon from '@material-ui/icons/Settings'
 
 import {isMasterUser} from '@utils/checks'
+import {t} from '@utils/translations'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from './navbar-active-category'
+import {TranslationKey} from './translations/translation-key'
 import {UserRole} from './user-roles'
 
 const permissionsKeys = {
@@ -60,6 +62,7 @@ const permissionsKeys = {
     SHOW_PAYMENTS_CLIENT: 'SHOW_PAYMENTS_CLIENT',
     SHOW_NOTIFICATIONS_CLIENT: 'SHOW_NOTIFICATIONS_CLIENT',
     SHOW_SHOPS_CLIENT: 'SHOW_SHOPS_CLIENT',
+    SHOW_FREELANCE_CLIENT: 'SHOW_FREELANCE_CLIENT',
   },
   researcher: {
     SHOW_PAYMENTS_RESEARCHER: 'SHOW_PAYMENTS_RESEARCHER',
@@ -71,7 +74,7 @@ const permissionsKeys = {
   },
 }
 
-export const navbarConfig = {
+export const navbarConfig = () => ({
   [UserRole.CLIENT]: [
     {
       icon: InfoOutlinedIcon,
@@ -96,10 +99,17 @@ export const navbarConfig = {
           subRoute: '/vacant-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
         },
+
+        {
+          subtitle: 'Мои предложения',
+          subRoute: '/requests/my-proposals',
+          key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
+        },
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>
-        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_REQUESTS_CLIENT),
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_FREELANCE_CLIENT),
     },
 
     {
@@ -430,6 +440,16 @@ export const navbarConfig = {
     },
 
     {
+      icon: AssignmentIcon,
+      title: 'Свободные заказы',
+      route: '/buyer/free-orders',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER),
+    },
+
+    {
       icon: InboxOutlinedIcon,
       title: 'Поиск поставщика',
       // route: '/buyer/search-supplier-by-supervisor',
@@ -478,15 +498,7 @@ export const navbarConfig = {
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_BUYER),
     },
-    {
-      icon: AssignmentIcon,
-      title: 'Свободные заказы',
-      route: '/buyer/free-orders',
-      subtitles: null,
-      key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
-      checkHideBlock: user =>
-        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER),
-    },
+
     {
       icon: PeopleIcon,
       title: 'Пользователи',
@@ -508,7 +520,7 @@ export const navbarConfig = {
   [UserRole.STOREKEEPER]: [
     {
       icon: InfoOutlinedIcon,
-      title: 'Главная страница',
+      title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/warehouse/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
@@ -516,10 +528,10 @@ export const navbarConfig = {
     },
     {
       icon: AssignmentIcon,
-      title: 'Задачи',
+      title: t(TranslationKey.Tasks),
       subtitles: [
         {
-          subtitle: 'Новые задачи',
+          subtitle: t(TranslationKey['New tasks']),
           subRoute: '/warehouse/vacant-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_VAC_TASKS,
           checkHideSubBlock: user =>
@@ -527,7 +539,7 @@ export const navbarConfig = {
             user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_VAC_TASKS_STOREKEEPER),
         },
         {
-          subtitle: 'Мои задачи',
+          subtitle: t(TranslationKey['My tasks']),
           subRoute: '/warehouse/my-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS,
           checkHideSubBlock: user =>
@@ -536,7 +548,7 @@ export const navbarConfig = {
         },
 
         {
-          subtitle: 'Выполненые задачи',
+          subtitle: t(TranslationKey['Completed tasks']),
           subRoute: '/warehouse/completed-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS,
           checkHideSubBlock: user =>
@@ -544,7 +556,7 @@ export const navbarConfig = {
             user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_COMPLETED_TASKS_STOREKEEPER),
         },
         {
-          subtitle: 'Отмененные задачи',
+          subtitle: t(TranslationKey['Canceled tasks']),
           subRoute: '/warehouse/canceled-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
           checkHideSubBlock: user =>
@@ -568,49 +580,27 @@ export const navbarConfig = {
 
     {
       icon: ArchiveOutlinedIcon,
-      title: 'Мой склад',
+      title: t(TranslationKey['My warehouse']),
       route: '/warehouse/my-warehouse',
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
 
-      subtitles: [
-        {
-          subtitle: 'Товары',
-          subRoute: '/warehouse/my-warehouse',
-          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
-          checkHideSubBlock: user =>
-            !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER),
-        },
-        {
-          subtitle: 'Управление складом',
-          subRoute: '/warehouse/management',
-          key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MANAGEMENT,
-          checkHideSubBlock: user =>
-            !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_MANAGEMENT),
-        },
-      ],
       checkHideBlock: user =>
         !isMasterUser(user) ||
-        user?.permissions.some(
-          item =>
-            item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER ||
-            item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_MANAGEMENT,
-        ),
+        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER),
     },
 
     {
       icon: LocalConvenienceStore,
-      title: 'Мои партии',
+      title: t(TranslationKey['My batches']),
       route: '/warehouse/batches',
       subtitles: [
         {
-          subtitle: 'Ожидают отправки',
+          subtitle: t(TranslationKey['Awaiting send']),
           subRoute: '/warehouse/awaiting-batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES,
         },
         {
-          subtitle: 'Отправленные',
+          subtitle: t(TranslationKey.Sent),
           subRoute: '/warehouse/batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES,
         },
@@ -623,9 +613,9 @@ export const navbarConfig = {
     },
     {
       icon: PeopleIcon,
-      title: 'Пользователи',
+      title: t(TranslationKey.Users),
       route: '/warehouse/users/sub-users',
-      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/warehouse/users/sub-users'}],
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/warehouse/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -633,12 +623,22 @@ export const navbarConfig = {
     },
     {
       icon: MonetizationOnOutlinedIcon,
-      title: 'Финансы',
+      title: t(TranslationKey.Finances),
       route: '/warehouse/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_PAYMENTS_STOREKEEPER),
+    },
+
+    {
+      icon: SettingsIcon,
+      title: t(TranslationKey['Warehouse management']),
+      route: '/warehouse/management',
+      key: navBarActiveCategory.NAVBAR_MANAGEMENT,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_MANAGEMENT),
     },
   ],
   [UserRole.ADMIN]: [
@@ -740,4 +740,4 @@ export const navbarConfig = {
       checkHideBlock: () => true,
     },
   ],
-}
+})

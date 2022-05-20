@@ -87,6 +87,14 @@ export const adminOrdersViewColumns = () => [
   },
 
   {
+    field: 'surcharge',
+    headerName: textConsts.surchargeField,
+    width: 100,
+    type: 'number',
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
+  },
+
+  {
     field: 'totalPrice',
     headerName: textConsts.sumField,
     width: 100,

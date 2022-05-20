@@ -5,6 +5,8 @@ import {tableViewMode} from '@constants/table-view-modes'
 import {RequestModel} from '@models/request-model'
 import {UserModel} from '@models/user-model'
 
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+
 export class MyProposalsViewModel {
   history = undefined
   requestStatus = undefined
@@ -77,7 +79,7 @@ export class MyProposalsViewModel {
       const result = await RequestModel.getRequestsCustom(this.user._id)
 
       runInAction(() => {
-        this.requests = result
+        this.requests = result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
       console.log(error)

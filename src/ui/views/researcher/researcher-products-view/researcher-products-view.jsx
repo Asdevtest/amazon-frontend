@@ -9,14 +9,17 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {ResearcherAddProductForm} from '@components/forms/reasearcher-add-product-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ResearcherProductsViewModel} from './researcher-products-view.model'
 import {styles} from './researcher-products-view.style'
@@ -36,6 +39,8 @@ class ResearcherProductsViewRaw extends Component {
 
   render() {
     const {
+      warningInfoModalSettings,
+      showWarningInfoModal,
       requestStatus,
       getCurrentData,
       sortModel,
@@ -62,6 +67,7 @@ class ResearcherProductsViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      onTriggerOpenModal,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -117,6 +123,17 @@ class ResearcherProductsViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+
+        <WarningInfoModal
+          isWarning={warningInfoModalSettings.isWarning}
+          openModal={showWarningInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
+          title={warningInfoModalSettings.title}
+          btnText={t(TranslationKey.Close)}
+          onClickBtn={() => {
+            onTriggerOpenModal('showWarningInfoModal')
+          }}
+        />
       </React.Fragment>
     )
   }

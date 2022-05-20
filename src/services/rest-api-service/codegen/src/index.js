@@ -42,6 +42,7 @@ import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
 import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
 import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
 import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
+import ApiV1GologinProfileNavigator from './model/ApiV1GologinProfileNavigator';
 import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
 import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1IntegrationsSellerboardWarehouseStocksShop';
@@ -128,6 +129,11 @@ import InlineObject67 from './model/InlineObject67';
 import InlineObject68 from './model/InlineObject68';
 import InlineObject69 from './model/InlineObject69';
 import InlineObject7 from './model/InlineObject7';
+import InlineObject70 from './model/InlineObject70';
+import InlineObject71 from './model/InlineObject71';
+import InlineObject72 from './model/InlineObject72';
+import InlineObject73 from './model/InlineObject73';
+import InlineObject74 from './model/InlineObject74';
 import InlineObject8 from './model/InlineObject8';
 import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
@@ -149,8 +155,9 @@ import InlineResponse20022 from './model/InlineResponse20022';
 import InlineResponse20023 from './model/InlineResponse20023';
 import InlineResponse20024 from './model/InlineResponse20024';
 import InlineResponse20025 from './model/InlineResponse20025';
-import InlineResponse20025Details from './model/InlineResponse20025Details';
-import InlineResponse20025Request from './model/InlineResponse20025Request';
+import InlineResponse20026 from './model/InlineResponse20026';
+import InlineResponse20026Details from './model/InlineResponse20026Details';
+import InlineResponse20026Request from './model/InlineResponse20026Request';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
@@ -170,6 +177,7 @@ import InlineResponse2015 from './model/InlineResponse2015';
 import InlineResponse2016 from './model/InlineResponse2016';
 import InlineResponse2017 from './model/InlineResponse2017';
 import InlineResponse2018 from './model/InlineResponse2018';
+import InlineResponse2019 from './model/InlineResponse2019';
 import InternalServerError from './model/InternalServerError';
 import LinkSubuserInputSchema from './model/LinkSubuserInputSchema';
 import MePatchInputSchema from './model/MePatchInputSchema';
@@ -211,6 +219,7 @@ import BatchesApi from './api/BatchesApi';
 import BoxesApi from './api/BoxesApi';
 import BuyerApi from './api/BuyerApi';
 import ClientApi from './api/ClientApi';
+import GoLoginApi from './api/GoLoginApi';
 import IntegrationsApi from './api/IntegrationsApi';
 import OtherApi from './api/OtherApi';
 import PermissionsApi from './api/PermissionsApi';
@@ -436,6 +445,12 @@ export {
      * @property {module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges}
      */
     ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges,
+
+    /**
+     * The ApiV1GologinProfileNavigator model constructor.
+     * @property {module:model/ApiV1GologinProfileNavigator}
+     */
+    ApiV1GologinProfileNavigator,
 
     /**
      * The ApiV1IntegrationsCreateAndLinkSkuProductsPayload model constructor.
@@ -954,6 +969,36 @@ export {
     InlineObject7,
 
     /**
+     * The InlineObject70 model constructor.
+     * @property {module:model/InlineObject70}
+     */
+    InlineObject70,
+
+    /**
+     * The InlineObject71 model constructor.
+     * @property {module:model/InlineObject71}
+     */
+    InlineObject71,
+
+    /**
+     * The InlineObject72 model constructor.
+     * @property {module:model/InlineObject72}
+     */
+    InlineObject72,
+
+    /**
+     * The InlineObject73 model constructor.
+     * @property {module:model/InlineObject73}
+     */
+    InlineObject73,
+
+    /**
+     * The InlineObject74 model constructor.
+     * @property {module:model/InlineObject74}
+     */
+    InlineObject74,
+
+    /**
      * The InlineObject8 model constructor.
      * @property {module:model/InlineObject8}
      */
@@ -1080,16 +1125,22 @@ export {
     InlineResponse20025,
 
     /**
-     * The InlineResponse20025Details model constructor.
-     * @property {module:model/InlineResponse20025Details}
+     * The InlineResponse20026 model constructor.
+     * @property {module:model/InlineResponse20026}
      */
-    InlineResponse20025Details,
+    InlineResponse20026,
 
     /**
-     * The InlineResponse20025Request model constructor.
-     * @property {module:model/InlineResponse20025Request}
+     * The InlineResponse20026Details model constructor.
+     * @property {module:model/InlineResponse20026Details}
      */
-    InlineResponse20025Request,
+    InlineResponse20026Details,
+
+    /**
+     * The InlineResponse20026Request model constructor.
+     * @property {module:model/InlineResponse20026Request}
+     */
+    InlineResponse20026Request,
 
     /**
      * The InlineResponse2002AllowedUrls model constructor.
@@ -1204,6 +1255,12 @@ export {
      * @property {module:model/InlineResponse2018}
      */
     InlineResponse2018,
+
+    /**
+     * The InlineResponse2019 model constructor.
+     * @property {module:model/InlineResponse2019}
+     */
+    InlineResponse2019,
 
     /**
      * The InternalServerError model constructor.
@@ -1450,6 +1507,12 @@ export {
     * @property {module:api/ClientApi}
     */
     ClientApi,
+
+    /**
+    * The GoLoginApi service constructor.
+    * @property {module:api/GoLoginApi}
+    */
+    GoLoginApi,
 
     /**
     * The IntegrationsApi service constructor.

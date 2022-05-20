@@ -1,3 +1,7 @@
+import {t} from '@utils/translations'
+
+import {TranslationKey} from './translations/translation-key'
+
 export const ResearcherDashboardCardDataKey = {
   ALL_PRODUCTS: 'ALL_PRODUCTS',
   SUCCESS_PRODUCTS: 'SUCCESS_PRODUCTS',
@@ -208,34 +212,34 @@ export const WarehouseDashboardCardDataKey = {
 
   CANCELED_TASKS: 'CANCELED_TASKS',
 }
-export const getWarehouseDashboardCardConfig = textConsts => [
+export const getWarehouseDashboardCardConfig = () => [
   {
     key: 'TASKS',
-    title: textConsts.tasksTitle,
+    title: t(TranslationKey.Tasks),
     items: [
       {
         dataKey: WarehouseDashboardCardDataKey.VACANT_TASKS,
-        title: textConsts.vacantTasksCardTitle,
+        title: t(TranslationKey['Number of vacant tasks']),
         color: '#0056B2',
         route: '/warehouse/vacant-tasks',
       },
       {
         dataKey: WarehouseDashboardCardDataKey.TASKS_MY,
-        title: textConsts.tasksMyCardTitle,
+        title: t(TranslationKey['My tasks']),
         color: '#0056B2',
         route: '/warehouse/my-tasks',
       },
 
       {
         dataKey: WarehouseDashboardCardDataKey.COMPLETED_TASKS,
-        title: textConsts.comletedTasksCardTitle,
+        title: t(TranslationKey['Completed tasks']),
         color: '#4dbd74',
         route: '/warehouse/completed-tasks',
       },
 
       {
         dataKey: WarehouseDashboardCardDataKey.CANCELED_TASKS,
-        title: textConsts.canceledTasksCardTitle,
+        title: t(TranslationKey['Canceled tasks']),
         color: '#BC3030',
         route: '/warehouse/canceled-tasks',
       },
@@ -244,11 +248,11 @@ export const getWarehouseDashboardCardConfig = textConsts => [
 
   {
     key: 'WAREHOUSE',
-    title: textConsts.warehouseTitle,
+    title: t(TranslationKey.Warehouse),
     items: [
       {
         dataKey: WarehouseDashboardCardDataKey.BOXES_IN_STORE,
-        title: textConsts.boxesInStore,
+        title: t(TranslationKey['Boxes in store']),
         color: '#63C2DE',
         route: '/warehouse/my-warehouse',
       },
@@ -257,20 +261,20 @@ export const getWarehouseDashboardCardConfig = textConsts => [
 
   {
     key: 'BATCHES',
-    title: textConsts.batchesTitle,
+    title: t(TranslationKey.Batches),
     items: [
       {
-        dataKey: WarehouseDashboardCardDataKey.SENT_BATCHES,
-        title: textConsts.sentBatches,
+        dataKey: WarehouseDashboardCardDataKey.NOT_SENT_BATCHES,
+        title: t(TranslationKey['Not sent']),
         color: '#C69109',
-        route: '/warehouse/boxes',
+        route: '/warehouse/awaiting-batches',
       },
 
       {
-        dataKey: WarehouseDashboardCardDataKey.NOT_SENT_BATCHES,
-        title: textConsts.notSentBatches,
+        dataKey: WarehouseDashboardCardDataKey.SENT_BATCHES,
+        title: t(TranslationKey.Sent),
         color: '#00B746',
-        route: '/warehouse/boxes',
+        route: '/warehouse/batches',
       },
     ],
   },

@@ -21,7 +21,6 @@ import ApiClient from '../ApiClient';
 class InlineObject55 {
     /**
      * Constructs a new <code>InlineObject55</code>.
-     * Схема магазина.
      * @alias module:model/InlineObject55
      */
     constructor() { 
@@ -48,14 +47,17 @@ class InlineObject55 {
         if (data) {
             obj = obj || new InlineObject55();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('execution_time')) {
+                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -65,22 +67,28 @@ class InlineObject55 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * Время на выполнение, в минутах.
+ * @member {Number} execution_time
  */
-InlineObject55.prototype['name'] = undefined;
+InlineObject55.prototype['execution_time'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
+ * Цена предложения.
+ * @member {Number} price
  */
-InlineObject55.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+InlineObject55.prototype['price'] = undefined;
 
 /**
- * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
+ * Комментарий к предложению.
+ * @member {String} comment
  */
-InlineObject55.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject55.prototype['comment'] = undefined;
+
+/**
+ * Ссылки на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
+ */
+InlineObject55.prototype['linksToMediaFiles'] = undefined;
 
 
 

@@ -50,16 +50,16 @@ export const OwnerRequestProposalsCard = ({
           </div>
 
           <div className={classNames.proposalDescriptionWrapper}>
-            <Typography className={classNames.proposalDescription}>{item.details.comment}</Typography>
+            <Typography className={classNames.proposalDescription}>{item.proposal.comment}</Typography>
 
-            {item.details.linksToMediaFiles.length ? (
+            {item.proposal.linksToMediaFiles.length ? (
               <div className={classNames.photoWrapper}>
                 <Field
                   multiline
                   containerClasses={classNames.conditionsFieldWrapper}
                   inputComponent={
                     <Carousel autoPlay={false} timeout={100} animation="fade">
-                      {item.details.linksToMediaFiles.map((el, index) => (
+                      {item.proposal.linksToMediaFiles.map((el, index) => (
                         <div key={index}>
                           <img
                             alt=""
@@ -67,7 +67,7 @@ export const OwnerRequestProposalsCard = ({
                             src={el}
                             onClick={() => {
                               setShowImageModal(!showImageModal)
-                              setBigImagesOptions({images: item.details.linksToMediaFiles, imgIndex: index})
+                              setBigImagesOptions({images: item.proposal.linksToMediaFiles, imgIndex: index})
                             }}
                           />
                         </div>
@@ -105,7 +105,7 @@ export const OwnerRequestProposalsCard = ({
                 variant="contained"
                 color="primary"
                 className={clsx(classNames.actionButton, classNames.cancelBtn)}
-                onClick={() => onClickRejectProposal(item.proposal)}
+                onClick={() => onClickRejectProposal(item.proposal._id)}
               >
                 {'Отклонить'}
               </Button>
@@ -113,7 +113,7 @@ export const OwnerRequestProposalsCard = ({
                 variant="contained"
                 color="primary"
                 className={clsx(classNames.actionButton, classNames.successBtn)}
-                onClick={() => onClickAcceptProposal(item.proposal)}
+                onClick={() => onClickAcceptProposal(item.proposal._id)}
               >
                 {`Заказать за ${toFixedWithDollarSign(item.proposal.price)}`}
               </Button>

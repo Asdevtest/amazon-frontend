@@ -6,7 +6,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   mainRightWrapper: {
-    marginLeft: '240px',
+    marginLeft: '150px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -21,7 +21,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   mainLeftWrapper: {
-    width: '375px',
+    width: '550px',
   },
 
   mainTitle: {
@@ -107,10 +107,16 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
   },
 
-  descriptionField: {
-    height: '100px',
+  requestDescriptionField: {
+    height: '400px',
     width: '100%',
-    overflowY: 'hidden',
+    overflow: 'auto',
+  },
+
+  descriptionField: {
+    height: '200px',
+    width: '100%',
+    overflow: 'auto',
   },
 
   rightTwoStepSubFieldWrapper: {

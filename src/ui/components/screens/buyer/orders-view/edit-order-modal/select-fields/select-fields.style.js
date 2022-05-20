@@ -9,7 +9,7 @@ export const useClassNames = makeStyles(() => ({
     minWidth: '230px',
   },
   nativeSelect: {
-    width: '250px',
+    width: '500px',
   },
   numInput: {
     width: '80px',

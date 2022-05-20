@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -22,7 +22,6 @@ export class WarehouseVacantViewModel {
 
   drawerOpen = false
   selectedTask = undefined
-  showWarningModal = false
 
   rowHandlers = {
     onClickPickupBtn: item => this.onClickPickupBtn(item),
@@ -38,6 +37,10 @@ export class WarehouseVacantViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
   }
 
   onChangeFilterModel(model) {
@@ -100,6 +103,7 @@ export class WarehouseVacantViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getTasksVacant()
+      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -110,8 +114,8 @@ export class WarehouseVacantViewModel {
   async onClickPickupBtn(item) {
     try {
       await StorekeeperModel.pickupTask(item._id)
-      this.onTriggerOpenModal('showWarningModal')
-      await this.getTasksVacant()
+
+      this.history.push('/warehouse/my-tasks', {task: toJS(item)})
     } catch (error) {
       console.log(error)
       this.error = error

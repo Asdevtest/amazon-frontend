@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   NormDateCell,
@@ -9,14 +9,12 @@ import {
   ToFixedWithDollarSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').financesTableColumns
+import {t} from '@utils/translations'
 
 export const financesViewColumns = () => [
   {
     field: 'createdAt',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Created),
     renderCell: params => <NormDateCell params={params} />,
     width: 110,
     type: 'date',
@@ -24,14 +22,14 @@ export const financesViewColumns = () => [
 
   {
     field: 'type',
-    headerName: textConsts.typeField,
+    headerName: t(TranslationKey.Type),
     width: 90,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'sum',
-    headerName: textConsts.sumField,
+    headerName: t(TranslationKey.Sum),
     width: 110,
     type: 'number',
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
@@ -39,28 +37,28 @@ export const financesViewColumns = () => [
 
   {
     field: 'creatorName',
-    headerName: textConsts.creatorNameField,
+    headerName: t(TranslationKey.Initiator),
     width: 170,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'recipientName',
-    headerName: textConsts.recipientNameField,
+    headerName: t(TranslationKey.Recipient),
     width: 170,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'paymentType',
-    headerName: textConsts.paymentTypeField,
+    headerName: t(TranslationKey.Category),
     width: 230,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'comment',
-    headerName: textConsts.commentField,
+    headerName: t(TranslationKey.Comment),
     width: 800,
     renderCell: params => (
       <ScrollingCell

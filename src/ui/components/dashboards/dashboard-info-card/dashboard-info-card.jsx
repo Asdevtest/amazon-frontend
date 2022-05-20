@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {Paper, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
@@ -11,6 +12,7 @@ const textConsts = getLocalizedTexts(texts, 'ru').dashboardInfoCard
 
 export const DashboardInfoCard = observer(({color, title, value, route, onClickViewMore}) => {
   const classNames = useClassNames()
+
   return (
     <Paper className={classNames.root}>
       <div className={classNames.circle} style={{borderColor: color}}>

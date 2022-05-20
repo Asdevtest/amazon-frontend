@@ -12,8 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineResponse20025Details from './InlineResponse20025Details';
-import InlineResponse20025Request from './InlineResponse20025Request';
+import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1RequestsCustomDetailsCustom from './ApiV1RequestsCustomDetailsCustom';
 
 /**
  * The InlineResponse20025 model module.
@@ -23,12 +23,18 @@ import InlineResponse20025Request from './InlineResponse20025Request';
 class InlineResponse20025 {
     /**
      * Constructs a new <code>InlineResponse20025</code>.
-     * Схема детали на поиск ниш.
+     * Схема заявки.
      * @alias module:model/InlineResponse20025
+     * @param _id {String} GUID заявки в базе данных.
+     * @param type {String} Тип заявки.
+     * @param maxAmountOfProposals {Number} Количество предложений.
+     * @param price {Number} Цена за каждое предложение.
+     * @param status {module:model/InlineResponse20025.StatusEnum}  DRAFT - черновик, заявка создана, но не опубликована  PUBLISHED - заявка опубликована, изменять такую заявку можно! Для того чтобы не произошло неожиданных изменений при  установке этого статуса рассчитываем чек сумму на основе данных самой заявки и деталей при создании и каждом изменении. После этого при публикации предложения будем отправлять этот хеш. Если хеш был изменен то предложение не публикуется и  сервер отдает соответствующую ошибку. Так же из этого статуса можно перевести обратно в статус CREATED (черновик) IN_PROGRESS - по заявке уже есть хотябы одно предложение, изменять такую заявку нельзя, можно только закрыть или снять  с публикации, остановить прием предложений по этой заявке. После этого статуса можно закрыть заявку или она может быть  закрыта автоматически FORBID_NEW_PROPOSALS - снять с публикации, остановить прием предложений по этой заявке, этот статус разрешает закрыть  заявку или перевести ее обратно в статус PUBLISHED/IN_PROGRESS в зависимости от того есть ли по этой заявке уже предложения.  Так же после этого статуса можно закрыть заявку или она может быть автоматически закрыта. Финальные статусы, после них нельзя менять ни заявку ни статус: COMPLETE_PROPOSALS_AMOUNT_ACHIEVED - заявка закрылась автоматически при достижении кол-ва выполненных предложений CANCELED_BY_CREATOR - заявка закрыта пользователем EXPIRED - истек срок заявки, автоматически закрылась Технические статусы: VERIFYING_BY_ADMIN - проверяется адином, такая заявка не отображается в общей выдаче, этот статус выставляет сам админ TO_CORRECT_BY_ADMIN - статус выставляет админ после проверки заявки, после этого статуса можно выставить только статус  READY_TO_VERIFY_BY_ADMIN и эта заявка должна попасть обратно на проверку админу. Если админ проверил все и все ок, то он  выставляет статус CREATED. READY_TO_VERIFY_BY_ADMIN - статус устанавливается клиентом для того чтобы админ проверил изменения по заявке CANCELED_BY_ADMIN - закрыто админом  Статусы для проверки заявки у супервизера (пока вроде не нужно, но статусы можно создать): READY_TO_VERIFY_BY_SUPERVISOR - клиент отправляет заявку на проверку спервизеру, в этом статусе заявка не опубликована  на бирже и подавать предложения нельзя, изменять заявку так же нельзя. Заявки с таким статусом доступны всем супервизерам.  (пока этот функционал вроде не нужен) VERIFYING_BY_SUPERVISOR - в процессе проверки заявки супервизером, в этом статусе заявка не опубликована на бирже и  подавать предложения нельзя, изменять заявку так же нельзя (пока этот функционал вроде не нужен) TO_CORRECT_BY_SUPERVISOR - статус выставляет супервизор после проверки заявки, после этого статуса можно выставить только  статус READY_TO_VERIFY и эта заявка должна попасть обратно на проверку ТОМУ ЖЕ супервизеру что и проверял ее ранее.  (поле supervisorId). Если супервизор проверил все и все ок, то он выставляет статус PUBLISHED. (опять же пока можно заложить  статус но логику не реализовывать) 
+     * @param direction {module:model/InlineResponse20025.DirectionEnum} Направление заявки, исходящая или входящая.
      */
-    constructor() { 
+    constructor(_id, type, maxAmountOfProposals, price, status, direction) { 
         
-        InlineResponse20025.initialize(this);
+        InlineResponse20025.initialize(this, _id, type, maxAmountOfProposals, price, status, direction);
     }
 
     /**
@@ -36,7 +42,13 @@ class InlineResponse20025 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id, type, maxAmountOfProposals, price, status, direction) { 
+        obj['_id'] = _id;
+        obj['type'] = type;
+        obj['maxAmountOfProposals'] = maxAmountOfProposals;
+        obj['price'] = price;
+        obj['status'] = status;
+        obj['direction'] = direction;
     }
 
     /**
@@ -50,11 +62,65 @@ class InlineResponse20025 {
         if (data) {
             obj = obj || new InlineResponse20025();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = InlineResponse20025Request.constructFromObject(data['request']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = InlineResponse20025Details.constructFromObject(data['details']);
+            if (data.hasOwnProperty('type')) {
+                obj['type'] = ApiClient.convertToType(data['type'], 'String');
+            }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
+            if (data.hasOwnProperty('maxAmountOfProposals')) {
+                obj['maxAmountOfProposals'] = ApiClient.convertToType(data['maxAmountOfProposals'], 'Number');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
+            }
+            if (data.hasOwnProperty('timeoutAt')) {
+                obj['timeoutAt'] = ApiClient.convertToType(data['timeoutAt'], 'Date');
+            }
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
+            }
+            if (data.hasOwnProperty('assignees')) {
+                obj['assignees'] = ApiClient.convertToType(data['assignees'], ['String']);
+            }
+            if (data.hasOwnProperty('direction')) {
+                obj['direction'] = ApiClient.convertToType(data['direction'], 'String');
+            }
+            if (data.hasOwnProperty('roles')) {
+                obj['roles'] = ApiClient.convertToType(data['roles'], ['Number']);
+            }
+            if (data.hasOwnProperty('needCheckBySupervisor')) {
+                obj['needCheckBySupervisor'] = ApiClient.convertToType(data['needCheckBySupervisor'], 'Boolean');
+            }
+            if (data.hasOwnProperty('restrictMoreThanOneProposalFromOneAssignee')) {
+                obj['restrictMoreThanOneProposalFromOneAssignee'] = ApiClient.convertToType(data['restrictMoreThanOneProposalFromOneAssignee'], 'Boolean');
+            }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            }
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('detailsCustom')) {
+                obj['detailsCustom'] = ApiV1RequestsCustomDetailsCustom.constructFromObject(data['detailsCustom']);
+            }
+            if (data.hasOwnProperty('proposals')) {
+                obj['proposals'] = ApiClient.convertToType(data['proposals'], [Object]);
             }
         }
         return obj;
@@ -64,17 +130,238 @@ class InlineResponse20025 {
 }
 
 /**
- * @member {module:model/InlineResponse20025Request} request
+ * GUID заявки в базе данных.
+ * @member {String} _id
  */
-InlineResponse20025.prototype['request'] = undefined;
+InlineResponse20025.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/InlineResponse20025Details} details
+ * Тип заявки.
+ * @member {String} type
  */
-InlineResponse20025.prototype['details'] = undefined;
+InlineResponse20025.prototype['type'] = undefined;
+
+/**
+ * Title заявки.
+ * @member {String} title
+ */
+InlineResponse20025.prototype['title'] = undefined;
+
+/**
+ * Количество предложений.
+ * @member {Number} maxAmountOfProposals
+ */
+InlineResponse20025.prototype['maxAmountOfProposals'] = undefined;
+
+/**
+ * Цена за каждое предложение.
+ * @member {Number} price
+ */
+InlineResponse20025.prototype['price'] = undefined;
+
+/**
+ *  DRAFT - черновик, заявка создана, но не опубликована  PUBLISHED - заявка опубликована, изменять такую заявку можно! Для того чтобы не произошло неожиданных изменений при  установке этого статуса рассчитываем чек сумму на основе данных самой заявки и деталей при создании и каждом изменении. После этого при публикации предложения будем отправлять этот хеш. Если хеш был изменен то предложение не публикуется и  сервер отдает соответствующую ошибку. Так же из этого статуса можно перевести обратно в статус CREATED (черновик) IN_PROGRESS - по заявке уже есть хотябы одно предложение, изменять такую заявку нельзя, можно только закрыть или снять  с публикации, остановить прием предложений по этой заявке. После этого статуса можно закрыть заявку или она может быть  закрыта автоматически FORBID_NEW_PROPOSALS - снять с публикации, остановить прием предложений по этой заявке, этот статус разрешает закрыть  заявку или перевести ее обратно в статус PUBLISHED/IN_PROGRESS в зависимости от того есть ли по этой заявке уже предложения.  Так же после этого статуса можно закрыть заявку или она может быть автоматически закрыта. Финальные статусы, после них нельзя менять ни заявку ни статус: COMPLETE_PROPOSALS_AMOUNT_ACHIEVED - заявка закрылась автоматически при достижении кол-ва выполненных предложений CANCELED_BY_CREATOR - заявка закрыта пользователем EXPIRED - истек срок заявки, автоматически закрылась Технические статусы: VERIFYING_BY_ADMIN - проверяется адином, такая заявка не отображается в общей выдаче, этот статус выставляет сам админ TO_CORRECT_BY_ADMIN - статус выставляет админ после проверки заявки, после этого статуса можно выставить только статус  READY_TO_VERIFY_BY_ADMIN и эта заявка должна попасть обратно на проверку админу. Если админ проверил все и все ок, то он  выставляет статус CREATED. READY_TO_VERIFY_BY_ADMIN - статус устанавливается клиентом для того чтобы админ проверил изменения по заявке CANCELED_BY_ADMIN - закрыто админом  Статусы для проверки заявки у супервизера (пока вроде не нужно, но статусы можно создать): READY_TO_VERIFY_BY_SUPERVISOR - клиент отправляет заявку на проверку спервизеру, в этом статусе заявка не опубликована  на бирже и подавать предложения нельзя, изменять заявку так же нельзя. Заявки с таким статусом доступны всем супервизерам.  (пока этот функционал вроде не нужен) VERIFYING_BY_SUPERVISOR - в процессе проверки заявки супервизером, в этом статусе заявка не опубликована на бирже и  подавать предложения нельзя, изменять заявку так же нельзя (пока этот функционал вроде не нужен) TO_CORRECT_BY_SUPERVISOR - статус выставляет супервизор после проверки заявки, после этого статуса можно выставить только  статус READY_TO_VERIFY и эта заявка должна попасть обратно на проверку ТОМУ ЖЕ супервизеру что и проверял ее ранее.  (поле supervisorId). Если супервизор проверил все и все ок, то он выставляет статус PUBLISHED. (опять же пока можно заложить  статус но логику не реализовывать) 
+ * @member {module:model/InlineResponse20025.StatusEnum} status
+ */
+InlineResponse20025.prototype['status'] = undefined;
+
+/**
+ * Время закрытия заявки.
+ * @member {Date} timeoutAt
+ */
+InlineResponse20025.prototype['timeoutAt'] = undefined;
+
+/**
+ * Время за которое должен отправить предложение после бронирования. В минутах.
+ * @member {Number} timeLimitInMinutes
+ */
+InlineResponse20025.prototype['timeLimitInMinutes'] = undefined;
+
+/**
+ * Массив id пользователей.
+ * @member {Array.<String>} assignees
+ */
+InlineResponse20025.prototype['assignees'] = undefined;
+
+/**
+ * Направление заявки, исходящая или входящая.
+ * @member {module:model/InlineResponse20025.DirectionEnum} direction
+ */
+InlineResponse20025.prototype['direction'] = undefined;
+
+/**
+ * Массив массив ролей.
+ * @member {Array.<Number>} roles
+ */
+InlineResponse20025.prototype['roles'] = undefined;
+
+/**
+ * Если требуется проверка супервайзером.
+ * @member {Boolean} needCheckBySupervisor
+ */
+InlineResponse20025.prototype['needCheckBySupervisor'] = undefined;
+
+/**
+ * Запретить фрилансеру повторное отправление предложений.
+ * @member {Boolean} restrictMoreThanOneProposalFromOneAssignee
+ */
+InlineResponse20025.prototype['restrictMoreThanOneProposalFromOneAssignee'] = undefined;
+
+/**
+ * GUID клиента, который создал заявку.
+ * @member {String} createdById
+ */
+InlineResponse20025.prototype['createdById'] = undefined;
+
+/**
+ * GUID клиента, который обновил запрос на поиск товара.
+ * @member {String} lastModifiedById
+ */
+InlineResponse20025.prototype['lastModifiedById'] = undefined;
+
+/**
+ * Дата создания
+ * @member {Date} createdAt
+ */
+InlineResponse20025.prototype['createdAt'] = undefined;
+
+/**
+ * Дата изменения
+ * @member {Date} updatedAt
+ */
+InlineResponse20025.prototype['updatedAt'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} createdBy
+ */
+InlineResponse20025.prototype['createdBy'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestsCustomDetailsCustom} detailsCustom
+ */
+InlineResponse20025.prototype['detailsCustom'] = undefined;
+
+/**
+ * @member {Array.<Object>} proposals
+ */
+InlineResponse20025.prototype['proposals'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>status</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse20025['StatusEnum'] = {
+
+    /**
+     * value: "DRAFT"
+     * @const
+     */
+    "DRAFT": "DRAFT",
+
+    /**
+     * value: "PUBLISHED"
+     * @const
+     */
+    "PUBLISHED": "PUBLISHED",
+
+    /**
+     * value: "IN_PROCESS"
+     * @const
+     */
+    "IN_PROCESS": "IN_PROCESS",
+
+    /**
+     * value: "FORBID_NEW_PROPOSALS"
+     * @const
+     */
+    "FORBID_NEW_PROPOSALS": "FORBID_NEW_PROPOSALS",
+
+    /**
+     * value: "COMPLETE_PROPOSALS_AMOUNT_ACHIEVED"
+     * @const
+     */
+    "COMPLETE_PROPOSALS_AMOUNT_ACHIEVED": "COMPLETE_PROPOSALS_AMOUNT_ACHIEVED",
+
+    /**
+     * value: "CANCELED_BY_CREATOR"
+     * @const
+     */
+    "CANCELED_BY_CREATOR": "CANCELED_BY_CREATOR",
+
+    /**
+     * value: "EXPIRED"
+     * @const
+     */
+    "EXPIRED": "EXPIRED",
+
+    /**
+     * value: "READY_TO_VERIFY_BY_ADMIN"
+     * @const
+     */
+    "READY_TO_VERIFY_BY_ADMIN": "READY_TO_VERIFY_BY_ADMIN",
+
+    /**
+     * value: "VERIFYING_BY_ADMIN"
+     * @const
+     */
+    "VERIFYING_BY_ADMIN": "VERIFYING_BY_ADMIN",
+
+    /**
+     * value: "TO_CORRECT_BY_ADMIN"
+     * @const
+     */
+    "TO_CORRECT_BY_ADMIN": "TO_CORRECT_BY_ADMIN",
+
+    /**
+     * value: "CANCELED_BY_ADMIN"
+     * @const
+     */
+    "CANCELED_BY_ADMIN": "CANCELED_BY_ADMIN",
+
+    /**
+     * value: "READY_TO_VERIFY_BY_SUPERVISOR"
+     * @const
+     */
+    "READY_TO_VERIFY_BY_SUPERVISOR": "READY_TO_VERIFY_BY_SUPERVISOR",
+
+    /**
+     * value: "VERIFYING_BY_SUPERVISOR"
+     * @const
+     */
+    "VERIFYING_BY_SUPERVISOR": "VERIFYING_BY_SUPERVISOR",
+
+    /**
+     * value: "TO_CORRECT_BY_SUPERVISOR"
+     * @const
+     */
+    "TO_CORRECT_BY_SUPERVISOR": "TO_CORRECT_BY_SUPERVISOR"
+};
+
+
+/**
+ * Allowed values for the <code>direction</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineResponse20025['DirectionEnum'] = {
+
+    /**
+     * value: "IN"
+     * @const
+     */
+    "IN": "IN",
+
+    /**
+     * value: "OUT"
+     * @const
+     */
+    "OUT": "OUT"
+};
 
 
 

@@ -8,15 +8,13 @@ import {Box, Divider, ListItemText, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './new-add-or-edit-user-permissions-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').addOrEditUserPermissionsForm
 
 export const NewAddOrEditUserPermissionsForm = observer(
   ({onCloseModal, onSubmit, permissionsToSelect, permissionGroupsToSelect, sourceData}) => {
@@ -29,7 +27,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
     const otherPermissionsGroup = {
       key: 'WITHOUT_GROUP',
-      title: 'Без группы',
+      title: t(TranslationKey['Without the group']),
       permissions: permissionsToSelect.filter(el => !permissionsIdsFromGroups.includes(el._id)),
       hierarchy: 999,
     }
@@ -79,7 +77,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
     return (
       <div className={classNames.root}>
-        <Typography variant="h5">{textConsts.mainTitle}</Typography>
+        <Typography variant="h5">{t(TranslationKey['Assign permissions'])}</Typography>
 
         <div className={classNames.form}>
           <div className={classNames.leftSideWrapper}>
@@ -160,7 +158,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
               onCloseModal()
             }}
           >
-            {textConsts.editBtn}
+            {t(TranslationKey.Edit)}
           </Button>
 
           <Button
@@ -170,7 +168,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
             variant="contained"
             onClick={() => onCloseModal()}
           >
-            {textConsts.cancelBtn}
+            {t(TranslationKey.Cancel)}
           </Button>
         </div>
       </div>

@@ -4,7 +4,7 @@ import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
@@ -12,11 +12,9 @@ import {DatePicker} from '@components/date-picker'
 import {Field} from '@components/field/field'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './add-or-edit-logistic-tariff-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').addOrEditLogisticTariffForm
 
 export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit}) => {
   const classNames = useClassNames()
@@ -91,25 +89,24 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h5">{textConsts.mainTitle}</Typography>
+      <Typography variant="h5">{t(TranslationKey['Adding tariff'])}</Typography>
 
       <div className={classNames.form}>
         <div className={classNames.nameDeliveryWrapper}>
           <Field
-            label={textConsts.nameLabel}
+            label={t(TranslationKey.Title) + '*'}
             inputProps={{maxLength: 50}}
             labelClasses={classNames.fieldLabel}
             containerClasses={classNames.longContainer}
             value={formFields.name}
-            placeholder={textConsts.nameHolder}
+            placeholder={t(TranslationKey.Title)}
             onChange={onChangeField('name')}
           />
 
           <Field
-            label={'Срок доставки, дней*'}
+            label={t(TranslationKey['Delivery time, days']) + '*'}
             inputProps={{maxLength: 20}}
             labelClasses={classNames.fieldLabel}
-            placeholder={textConsts.daysHolder}
             containerClasses={classNames.longContainer}
             value={formFields.deliveryTimeInDay}
             onChange={onChangeField('deliveryTimeInDay')}
@@ -117,16 +114,15 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
         </div>
 
         <Field
-          label={'Минимальный вес, кг*'}
+          label={t(TranslationKey['Min. weight, kg']) + '*'}
           inputProps={{maxLength: 12}}
           labelClasses={classNames.fieldLabel}
-          placeholder={textConsts.weightHolder}
           containerClasses={classNames.longContainer}
           value={formFields.minWeightInKg}
           onChange={onChangeField('minWeightInKg')}
         />
 
-        <Typography variant="h5">{'Rates'}</Typography>
+        <Typography variant="h5">{t(TranslationKey.Rates)}</Typography>
 
         <div className={classNames.blockWrapper}>
           <div className={classNames.blockItem}>
@@ -134,7 +130,6 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
               label={'US West Coast'}
               labelClasses={classNames.fieldLabel}
               value={formFields.conditionsByRegion.west.rate}
-              placeholder={textConsts.rateHolder}
               onChange={onChangeField('rate', 'west')}
             />
           </div>
@@ -144,7 +139,6 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
               label={'US Central'}
               labelClasses={classNames.fieldLabel}
               value={formFields.conditionsByRegion.central.rate}
-              placeholder={textConsts.rateHolder}
               onChange={onChangeField('rate', 'central')}
             />
           </div>
@@ -154,18 +148,17 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
               label={'US East Coast'}
               labelClasses={classNames.fieldLabel}
               value={formFields.conditionsByRegion.east.rate}
-              placeholder={textConsts.rateHolder}
               onChange={onChangeField('rate', 'east')}
             />
           </div>
         </div>
 
-        <Typography variant="h5">{'Shipping date'}</Typography>
+        <Typography variant="h5">{t(TranslationKey['Shipping dates'])}</Typography>
 
         <div className={classNames.blockWrapper}>
           <div className={classNames.blockItem}>
             <Field
-              label={'ETD (дата отправки)'}
+              label={t(TranslationKey['ETD (date of shipment)'])}
               labelClasses={classNames.fieldLabel}
               inputComponent={
                 <div
@@ -187,7 +180,7 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
 
           <div className={classNames.blockItem}>
             <Field
-              label={'ETA (дата прибытия)'}
+              label={t(TranslationKey['ETA (arrival date)'])}
               labelClasses={classNames.fieldLabel}
               inputComponent={
                 <div
@@ -208,7 +201,7 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
 
           <div className={classNames.blockItem}>
             <Field
-              label={'CLS (дата закрытия партии)'}
+              label={t(TranslationKey['CLS (batch closing date)'])}
               labelClasses={classNames.fieldLabel}
               inputComponent={
                 <div
@@ -233,8 +226,8 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
           minRows={4}
           rowsMax={4}
           className={classNames.descriptionField}
-          placeholder={textConsts.descriptionHolder}
-          label={textConsts.descriptionField}
+          placeholder={t(TranslationKey.Description)}
+          label={t(TranslationKey.Description)}
           value={formFields.description}
           onChange={onChangeField('description')}
         />
@@ -248,7 +241,7 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
           variant="contained"
           onClick={onSubmit}
         >
-          {textConsts.saveBtn}
+          {t(TranslationKey.Save)}
         </SuccessButton>
 
         <Button
@@ -258,7 +251,7 @@ export const AddOrEditLogisticTariffForm = observer(({onCloseModal, onCreateSubm
           variant="text"
           onClick={() => onCloseModal()}
         >
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Cancel)}
         </Button>
       </div>
     </div>

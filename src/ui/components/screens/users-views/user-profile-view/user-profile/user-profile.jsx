@@ -8,23 +8,21 @@ import {Avatar, Box, Paper, Typography, Button, Badge} from '@material-ui/core'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {PurchaseHistory} from '@components/screens/users-views/user-profile-view/purchase-history'
 import {Reviews} from '@components/screens/users-views/user-profile-view/reviews'
 
 import {checkIsAdmin} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {FeedbackCard} from './feedback-card'
 import {Info} from './info'
 import {Tested} from './tested'
 import {useClassNames} from './user-profile.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').buerUserHeader
 
 export const UserProfile = observer(
   ({
@@ -82,7 +80,7 @@ export const UserProfile = observer(
                   className={classNames.changeBtn}
                   onClick={onClickChangeUserInfo}
                 >
-                  {'Изменить данные'}
+                  {t(TranslationKey.Edit)}
                 </Button>
               )}
             </Box>
@@ -90,7 +88,7 @@ export const UserProfile = observer(
 
           {!isAnotherUser && (
             <div className={classNames.rolesWrapper}>
-              <Typography variant="h6">{'Роли'}</Typography>
+              <Typography variant="h6">{t(TranslationKey.Roles)}</Typography>
 
               {user?.allowedRoles.length && !user?.masterUser ? (
                 <div className={classNames.roles}>

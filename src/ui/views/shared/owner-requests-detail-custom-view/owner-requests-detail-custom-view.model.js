@@ -112,6 +112,7 @@ export class OwnerRequestDetailCustomViewModel {
   async onSubmitMessage(message, links, files, chatIdId) {
     try {
       console.log('files ', files)
+
       await ChatModel.sendMessage({
         chatId: chatIdId,
         text: message,

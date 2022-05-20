@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject64 model module.
@@ -23,10 +23,12 @@ class InlineObject64 {
     /**
      * Constructs a new <code>InlineObject64</code>.
      * @alias module:model/InlineObject64
+     * @param name {String} Название тарифа
+     * @param conditionsByRegion {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} 
      */
-    constructor() { 
+    constructor(name, conditionsByRegion) { 
         
-        InlineObject64.initialize(this);
+        InlineObject64.initialize(this, name, conditionsByRegion);
     }
 
     /**
@@ -34,7 +36,9 @@ class InlineObject64 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, conditionsByRegion) { 
+        obj['name'] = name;
+        obj['conditionsByRegion'] = conditionsByRegion;
     }
 
     /**
@@ -48,41 +52,29 @@ class InlineObject64 {
         if (data) {
             obj = obj || new InlineObject64();
 
-            if (data.hasOwnProperty('fbm')) {
-                obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('listingName')) {
-                obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('listingBulletPoints')) {
-                obj['listingBulletPoints'] = ApiClient.convertToType(data['listingBulletPoints'], ['String']);
+            if (data.hasOwnProperty('deliveryTimeInDay')) {
+                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
             }
-            if (data.hasOwnProperty('listingProductDetails')) {
-                obj['listingProductDetails'] = ApiClient.convertToType(data['listingProductDetails'], 'String');
+            if (data.hasOwnProperty('cls')) {
+                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
             }
-            if (data.hasOwnProperty('listingSearchTerms')) {
-                obj['listingSearchTerms'] = ApiClient.convertToType(data['listingSearchTerms'], 'String');
+            if (data.hasOwnProperty('etd')) {
+                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
             }
-            if (data.hasOwnProperty('listingSubjectMatters')) {
-                obj['listingSubjectMatters'] = ApiClient.convertToType(data['listingSubjectMatters'], ['String']);
+            if (data.hasOwnProperty('eta')) {
+                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
             }
-            if (data.hasOwnProperty('listingImages')) {
-                obj['listingImages'] = ApiClient.convertToType(data['listingImages'], ['String']);
+            if (data.hasOwnProperty('minWeightInKg')) {
+                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
             }
-            if (data.hasOwnProperty('listingTaskToFindSupplier')) {
-                obj['listingTaskToFindSupplier'] = ApiClient.convertToType(data['listingTaskToFindSupplier'], 'String');
-            }
-            if (data.hasOwnProperty('listingSupplierImportantPoints')) {
-                obj['listingSupplierImportantPoints'] = ApiClient.convertToType(data['listingSupplierImportantPoints'], 'String');
-            }
-            if (data.hasOwnProperty('listingExtraInfo')) {
-                obj['listingExtraInfo'] = ApiClient.convertToType(data['listingExtraInfo'], 'String');
-            }
-            if (data.hasOwnProperty('listingSupplierCompetitors')) {
-                obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], [ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]);
-            }
-            if (data.hasOwnProperty('strategyStatus')) {
-                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
+            if (data.hasOwnProperty('conditionsByRegion')) {
+                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
             }
         }
         return obj;
@@ -92,76 +84,51 @@ class InlineObject64 {
 }
 
 /**
- * Признак fbm
- * @member {Boolean} fbm
+ * Название тарифа
+ * @member {String} name
  */
-InlineObject64.prototype['fbm'] = undefined;
+InlineObject64.prototype['name'] = undefined;
 
 /**
- * 
- * @member {String} listingName
+ * Описание тарифа
+ * @member {String} description
  */
-InlineObject64.prototype['listingName'] = undefined;
+InlineObject64.prototype['description'] = undefined;
 
 /**
- * Массив ...
- * @member {Array.<String>} listingBulletPoints
+ * Время доставки, днях
+ * @member {String} deliveryTimeInDay
  */
-InlineObject64.prototype['listingBulletPoints'] = undefined;
+InlineObject64.prototype['deliveryTimeInDay'] = undefined;
 
 /**
- * 
- * @member {String} listingProductDetails
+ * Дата закрытия приема новых грузов.
+ * @member {Date} cls
  */
-InlineObject64.prototype['listingProductDetails'] = undefined;
+InlineObject64.prototype['cls'] = undefined;
 
 /**
- * 
- * @member {String} listingSearchTerms
+ * Ожидаема дата отбытия.
+ * @member {Date} etd
  */
-InlineObject64.prototype['listingSearchTerms'] = undefined;
+InlineObject64.prototype['etd'] = undefined;
 
 /**
- * Массив ...
- * @member {Array.<String>} listingSubjectMatters
+ * Ожидаема дата прибытия.
+ * @member {Date} eta
  */
-InlineObject64.prototype['listingSubjectMatters'] = undefined;
+InlineObject64.prototype['eta'] = undefined;
 
 /**
- * массив картинок(в виде прямых ссылок).
- * @member {Array.<String>} listingImages
+ * Минимальный вес, в кг
+ * @member {Number} minWeightInKg
  */
-InlineObject64.prototype['listingImages'] = undefined;
+InlineObject64.prototype['minWeightInKg'] = undefined;
 
 /**
- * 
- * @member {String} listingTaskToFindSupplier
+ * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
  */
-InlineObject64.prototype['listingTaskToFindSupplier'] = undefined;
-
-/**
- * 
- * @member {String} listingSupplierImportantPoints
- */
-InlineObject64.prototype['listingSupplierImportantPoints'] = undefined;
-
-/**
- * 
- * @member {String} listingExtraInfo
- */
-InlineObject64.prototype['listingExtraInfo'] = undefined;
-
-/**
- * Массив объектов: ссылки и комментарии к конкурентам
- * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors>} listingSupplierCompetitors
- */
-InlineObject64.prototype['listingSupplierCompetitors'] = undefined;
-
-/**
- * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
- * @member {Number} strategyStatus
- */
-InlineObject64.prototype['strategyStatus'] = undefined;
+InlineObject64.prototype['conditionsByRegion'] = undefined;
 
 
 

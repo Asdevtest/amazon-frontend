@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveBtnsCell,
@@ -9,21 +9,19 @@ import {
   ScrollingCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseTariffsColumns
+import {t} from '@utils/translations'
 
 export const warehouseTariffsColumns = handlers => [
   {
     field: 'name',
-    headerName: textConsts.nameField,
+    headerName: t(TranslationKey.Title),
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updatedAtField,
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     width: 120,
     type: 'date',
@@ -31,21 +29,21 @@ export const warehouseTariffsColumns = handlers => [
 
   {
     field: 'description',
-    headerName: textConsts.descriptionField,
+    headerName: t(TranslationKey.Description),
     width: 600,
     renderCell: params => <ScrollingCell value={params.value} />,
   },
 
   {
     field: 'price',
-    headerName: textConsts.priceField,
+    headerName: t(TranslationKey['Service cost per kg, $']),
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'action',
-    headerName: textConsts.actionField,
+    headerName: t(TranslationKey.Action),
     width: 200,
     renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
     filterable: false,

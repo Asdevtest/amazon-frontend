@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 
 /**
  * The InlineObject35 model module.
@@ -22,13 +21,13 @@ import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from 
 class InlineObject35 {
     /**
      * Constructs a new <code>InlineObject35</code>.
+     * Схема редактирования в первый раз shippingLabel коробки
      * @alias module:model/InlineObject35
-     * @param productId {String} 
-     * @param warehouseStocks {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} 
+     * @param shippingLabel {String} shippingLabel
      */
-    constructor(productId, warehouseStocks) { 
+    constructor(shippingLabel) { 
         
-        InlineObject35.initialize(this, productId, warehouseStocks);
+        InlineObject35.initialize(this, shippingLabel);
     }
 
     /**
@@ -36,9 +35,8 @@ class InlineObject35 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, warehouseStocks) { 
-        obj['productId'] = productId;
-        obj['warehouseStocks'] = warehouseStocks;
+    static initialize(obj, shippingLabel) { 
+        obj['shippingLabel'] = shippingLabel;
     }
 
     /**
@@ -52,11 +50,8 @@ class InlineObject35 {
         if (data) {
             obj = obj || new InlineObject35();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('warehouseStocks')) {
-                obj['warehouseStocks'] = ApiClient.convertToType(data['warehouseStocks'], [ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]);
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
         }
         return obj;
@@ -66,14 +61,10 @@ class InlineObject35 {
 }
 
 /**
- * @member {String} productId
+ * shippingLabel
+ * @member {String} shippingLabel
  */
-InlineObject35.prototype['productId'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} warehouseStocks
- */
-InlineObject35.prototype['warehouseStocks'] = undefined;
+InlineObject35.prototype['shippingLabel'] = undefined;
 
 
 
