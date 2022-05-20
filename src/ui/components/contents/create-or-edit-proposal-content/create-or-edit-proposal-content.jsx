@@ -143,7 +143,7 @@ export const CreateOrEditProposalContent = ({
           <Field
             multiline
             className={classNames.descriptionField}
-            inputProps={{maxLength: 255}}
+            inputProps={{maxLength: 1000}}
             minRows={8}
             rowsMax={8}
             label={'Опишите свое предложение*'}

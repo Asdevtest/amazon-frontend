@@ -42,12 +42,9 @@ const permissionsKeys = {
     SHOW_PAYMENTS_STOREKEEPER: 'SHOW_PAYMENTS_STOREKEEPER',
     SHOW_USERS_STOREKEEPER: 'SHOW_USERS_STOREKEEPER',
     SHOW_BATCHES_STOREKEEPER: 'SHOW_BATCHES_STOREKEEPER',
-    SHOW_CANCELED_TASKS_STOREKEEPER: 'SHOW_CANCELED_TASKS_STOREKEEPER',
-    SHOW_COMPLETED_TASKS_STOREKEEPER: 'SHOW_COMPLETED_TASKS_STOREKEEPER',
     SHOW_WAREHOUSE_STOREKEEPER: 'SHOW_WAREHOUSE_STOREKEEPER',
     SHOW_WAREHOUSE_MANAGEMENT: 'SHOW_WAREHOUSE_MANAGEMENT',
     SHOW_MY_TASKS_STOREKEEPER: 'SHOW_MY_TASKS_STOREKEEPER',
-    SHOW_VAC_TASKS_STOREKEEPER: 'SHOW_VAC_TASKS_STOREKEEPER',
   },
   client: {
     SHOW_VACANT_CLIENT: 'SHOW_VACANT_CLIENT',
@@ -534,34 +531,22 @@ export const navbarConfig = () => ({
           subtitle: t(TranslationKey['New tasks']),
           subRoute: '/warehouse/vacant-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_VAC_TASKS,
-          checkHideSubBlock: user =>
-            !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_VAC_TASKS_STOREKEEPER),
         },
         {
           subtitle: t(TranslationKey['My tasks']),
           subRoute: '/warehouse/my-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS,
-          checkHideSubBlock: user =>
-            !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_MY_TASKS_STOREKEEPER),
         },
 
         {
           subtitle: t(TranslationKey['Completed tasks']),
           subRoute: '/warehouse/completed-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS,
-          checkHideSubBlock: user =>
-            !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_COMPLETED_TASKS_STOREKEEPER),
         },
         {
           subtitle: t(TranslationKey['Canceled tasks']),
           subRoute: '/warehouse/canceled-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
-          checkHideSubBlock: user =>
-            !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_CANCELED_TASKS_STOREKEEPER),
         },
       ],
       route: '/warehouse/vacant-tasks',
@@ -569,13 +554,7 @@ export const navbarConfig = () => ({
 
       checkHideBlock: user =>
         !isMasterUser(user) ||
-        user?.permissions.some(
-          item =>
-            item.key === permissionsKeys.storekeeper.SHOW_VAC_TASKS_STOREKEEPER ||
-            item.key === permissionsKeys.storekeeper.SHOW_MY_TASKS_STOREKEEPER ||
-            item.key === permissionsKeys.storekeeper.SHOW_COMPLETED_TASKS_STOREKEEPER ||
-            item.key === permissionsKeys.storekeeper.SHOW_CANCELED_TASKS_STOREKEEPER,
-        ),
+        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_MY_TASKS_STOREKEEPER),
     },
 
     {

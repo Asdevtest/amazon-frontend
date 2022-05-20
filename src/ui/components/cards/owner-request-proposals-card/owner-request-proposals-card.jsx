@@ -56,9 +56,19 @@ export const OwnerRequestProposalsCard = ({
               <div className={classNames.photoWrapper}>
                 <Field
                   multiline
-                  containerClasses={classNames.conditionsFieldWrapper}
+                  containerClasses={classNames.photoWrapper}
                   inputComponent={
-                    <Carousel autoPlay={false} timeout={100} animation="fade">
+                    <Carousel
+                      autoPlay={false}
+                      timeout={100}
+                      animation="fade"
+                      // indicatorContainerProps={{
+                      //         style: {
+                      //             whiteSpace: 'nowrap',
+                      //         }
+
+                      //     }}
+                    >
                       {item.proposal.linksToMediaFiles.map((el, index) => (
                         <div key={index}>
                           <img
