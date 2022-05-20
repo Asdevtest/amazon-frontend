@@ -123,7 +123,8 @@ export class RequestDetailCustomViewRaw extends Component {
                           <div />
                         )}
                         {findRequestProposalByChatSelectedId.proposal.status !==
-                        RequestProposalStatus.ACCEPTED_BY_CLIENT ? (
+                          RequestProposalStatus.ACCEPTED_BY_CLIENT &&
+                        findRequestProposalByChatSelectedId.proposal.status !== RequestProposalStatus.CREATED ? (
                           <Button
                             disabled={!params.links.length && !params.files.length && !params.message}
                             onClick={() => {

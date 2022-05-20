@@ -103,6 +103,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             <MainContent>
               {request ? (
                 <OwnerGeneralRequestInfo
+                  requestProposals={requestProposals}
                   request={request}
                   onClickPublishBtn={onClickPublishBtn}
                   onClickEditBtn={onClickEditBtn}

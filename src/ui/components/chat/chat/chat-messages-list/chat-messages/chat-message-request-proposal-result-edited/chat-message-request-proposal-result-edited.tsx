@@ -82,7 +82,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
         {proposal &&
         showBtnsAllowedProposalStatuses.includes(proposal.status) &&
         curUserId &&
-        message.data.needApproveBy.includes(curUserId) ? (
+        message.data.needApproveBy?.includes(curUserId) ? (
           <div className={classNames.btnsWrapper}>
             <Button
               variant="contained"

@@ -5,7 +5,6 @@ import clsx from 'clsx'
 
 import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
-// import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -17,10 +16,7 @@ import {UploadFilesInput} from '@components/upload-files-input'
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
 
-// import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {useClassNames} from './create-or-edit-request-content.style'
-
-// const textConsts = getLocalizedTexts(texts, 'ru').CreateOrEditRequestContent
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -100,11 +96,11 @@ export const CreateOrEditRequestContent = ({
   }
 
   const onClickBackBtn = () => {
-    if (isDeadlineError) {
-      setDeadlineError(!deadlineError)
+    if (curStep === stepVariant.STEP_ONE) {
+      history.goBack()
     } else {
-      if (curStep === stepVariant.STEP_ONE) {
-        history.goBack()
+      if (isDeadlineError) {
+        setDeadlineError(!deadlineError)
       } else {
         setCurStep(stepVariant.STEP_ONE)
       }

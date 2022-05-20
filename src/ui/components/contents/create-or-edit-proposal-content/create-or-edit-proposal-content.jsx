@@ -2,9 +2,9 @@ import React, {useState} from 'react'
 
 import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
+import Carousel from 'react-material-ui-carousel'
 
 import {Button} from '@components/buttons/button'
-// import {texts} from '@constants/texts'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
@@ -15,10 +15,7 @@ import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
 import {toFixedWithDollarSign} from '@utils/text'
 
-// import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {useClassNames} from './create-or-edit-proposal-content.style'
-
-// const textConsts = getLocalizedTexts(texts, 'ru').CreateOrEditRequestContent
 
 export const CreateOrEditProposalContent = ({
   onCreateSubmit,
@@ -32,6 +29,8 @@ export const CreateOrEditProposalContent = ({
 
   const [images, setImages] = useState([])
   const [showPhotosModal, setShowPhotosModal] = useState(false)
+
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   const sourceFormFields = {
     price: proposalToEdit?.price || '',
@@ -72,6 +71,8 @@ export const CreateOrEditProposalContent = ({
     formFields.comment === '' ||
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
+  console.log('request', request)
+
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.mainLeftWrapper}>
@@ -89,6 +90,32 @@ export const CreateOrEditProposalContent = ({
             </Typography>
           }
         />
+
+        {request.details.linksToMediaFiles.length > 0 ? (
+          <Field
+            label={'Файлы'}
+            inputComponent={
+              <div className={classNames.photoWrapper}>
+                <Carousel autoPlay timeout={100} animation="fade">
+                  {request.details.linksToMediaFiles.map((el, index) => (
+                    <div key={index}>
+                      <img
+                        alt=""
+                        className={classNames.imgBox}
+                        src={el}
+                        onClick={() => {
+                          setShowPhotosModal(!showPhotosModal)
+
+                          setBigImagesOptions({images: request.details.linksToMediaFiles, imgIndex: index})
+                        }}
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+              </div>
+            }
+          />
+        ) : null}
 
         <div className={classNames.mainLeftSubWrapper}>
           <Field
@@ -150,7 +177,10 @@ export const CreateOrEditProposalContent = ({
               color="primary"
               className={classNames.imagesButton}
               variant="contained"
-              onClick={() => setShowPhotosModal(!showPhotosModal)}
+              onClick={() => {
+                setShowPhotosModal(!showPhotosModal)
+                setBigImagesOptions({images: formFields.linksToMediaFiles})
+              }}
             >
               {'Имеющиеся файлы'}
             </Button>
@@ -176,7 +206,7 @@ export const CreateOrEditProposalContent = ({
         isAmazone
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={formFields.linksToMediaFiles || []}
+        images={bigImagesOptions.images || []}
       />
     </div>
   )
