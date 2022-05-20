@@ -45,15 +45,11 @@ export class CreateOrEditProposalViewModel {
 
   async onSubmitEditProposal(data, files) {
     try {
-      console.log('data', data)
-
       if (files.length) {
         await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
       }
 
       const dataWithFiles = {...data, linksToMediaFiles: [...data.linksToMediaFiles, ...this.uploadedFiles]}
-
-      console.log('dataWithFiles', dataWithFiles)
 
       await RequestProposalModel.updateRequestProposalCustom(this.proposalToEdit._id, dataWithFiles)
 

@@ -127,10 +127,6 @@ export class RequestDetailCustomViewRaw extends Component {
                           <Button
                             disabled={!params.links.length && !params.files.length && !params.message}
                             onClick={() => {
-                              // if (!params.message) {
-                              //   alert('Сообщение не может быть пустым')
-                              //   console.log('params', params)
-                              // }
                               onClickSendAsResult(params)
                               resetAllInputs()
                             }}

@@ -119,8 +119,6 @@ export const CreateOrEditRequestContent = ({
       formFields.details.conditions === '') &&
     (curStep === stepVariant.STEP_TWO || requestToEdit)
 
-  console.log('formFields', formFields)
-
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.mainLeftWrapper}>

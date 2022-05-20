@@ -93,15 +93,6 @@ export const AddOrEditBatchForm = observer(
     const onClickTrash = () => {
       const filteredArray = [...chosenBoxes].filter(el => !boxesToDeliteIds.includes(el.id))
       setChosenBoxes(() => filteredArray)
-
-      // if(batchToEdit){
-      //   const deletedBoxes = [...chosenBoxes].filter(el => boxesToDeliteIds.includes(el.id))
-
-      //   console.log('deletedBoxes', deletedBoxes)
-
-      //   setBoxesToAddData(() =>[...[...boxesToAddData, ...deletedBoxes]])
-
-      // }
     }
 
     const onClickAdd = () => {
