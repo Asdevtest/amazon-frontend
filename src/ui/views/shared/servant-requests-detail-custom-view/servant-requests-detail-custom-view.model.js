@@ -165,6 +165,8 @@ export class RequestDetailCustomViewModel {
           linksToMediaFiles: this.loadedFiles,
         })
       }
+
+      this.loadData()
     } catch (error) {
       console.log(error)
       this.error = error

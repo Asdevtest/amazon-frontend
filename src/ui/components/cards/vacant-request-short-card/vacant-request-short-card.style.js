@@ -44,11 +44,13 @@ export const useClassNames = makeStyles(() => ({
   userInfoWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '100%',
   },
 
   timeInfoWrapper: {
     width: '100%',
-    margin: '22px 0 30px',
+    margin: '22px 0 10px',
 
     display: 'flex',
     justifyContent: 'space-between',
@@ -82,5 +84,19 @@ export const useClassNames = makeStyles(() => ({
 
   nameRatingWrapper: {
     marginLeft: '10px',
+  },
+
+  updatedAtWrapper: {
+    marginTop: 'auto',
+    alignSelf: 'flex-start',
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '10px',
+  },
+
+  updatedAtText: {
+    marginRight: '20px',
+    fontSize: '10px',
+    fontWeight: 'bold',
   },
 }))

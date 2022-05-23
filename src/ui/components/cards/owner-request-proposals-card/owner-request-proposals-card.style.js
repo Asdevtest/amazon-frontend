@@ -96,6 +96,8 @@ export const useClassNames = makeStyles(() => ({
 
   proposalDescription: {
     marginTop: '10px',
+    height: '120px',
+    overflow: 'auto',
   },
 
   proposalDescriptionWrapper: {

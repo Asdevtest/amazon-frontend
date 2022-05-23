@@ -811,6 +811,8 @@ export class ClientWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.success)
       this.updateUserInfo()
       this.loadData()
+
+      this.triggerRequestToSendBatchModal()
     } catch (error) {
       this.warningInfoModalSettings = {
         isWarning: true,

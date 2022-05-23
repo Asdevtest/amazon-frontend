@@ -15,7 +15,7 @@ import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
-import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithKg} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {EditBoxTasksModal} from '../edit-task-modal/edit-box-tasks-modal'
@@ -68,7 +68,7 @@ const Box = ({
       <div className={classNames.fieldsWrapper}>
         <Field disabled label={t(TranslationKey.Warehouse)} value={box.destination?.name} />
 
-        <Field disabled label={t(TranslationKey.Tariff)} value={box.logicsTariff?.name || 'N/A'} />
+        <Field disabled label={t(TranslationKey.Tariff)} value={getFullTariffTextForBoxOrOrder(box) || 'N/A'} />
       </div>
 
       <Typography className={classNames.boxTitle}>{`${t(TranslationKey['Box number:'])} ${

@@ -5,6 +5,8 @@ import React from 'react'
 import {Grid, Typography, Avatar, Divider} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 
+import {RequestProposalStatus} from '@constants/request-proposal-status'
+
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTimeWithParseISO} from '@utils/date-time'
@@ -15,6 +17,12 @@ import {useClassNames} from './my-proposals-list-card.style'
 
 export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) => {
   const classNames = useClassNames()
+
+  const noDisabledEditBtnStatuses = [
+    RequestProposalStatus.CREATED,
+    RequestProposalStatus.OFFER_CONDITIONS_REJECTED,
+    RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
+  ]
 
   return (
     <Grid item className={classNames.mainWrapper}>
@@ -78,6 +86,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) =>
 
                     <Button
                       disableElevation
+                      disabled={!noDisabledEditBtnStatuses.includes(proposal.status)}
                       color="primary"
                       variant="contained"
                       onClick={() => onClickEditBtn(item, proposal)}

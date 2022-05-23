@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {RequestSubType, RequestType} from '@constants/request-type'
-import {tableViewMode} from '@constants/table-view-modes'
+import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 
 import {RequestModel} from '@models/request-model'
 
@@ -17,6 +17,7 @@ export class VacantRequestsViewModel {
   requests = []
 
   viewMode = tableViewMode.LIST
+  sortMode = tableSortMode.DESK
 
   constructor({history}) {
     this.history = history
@@ -70,5 +71,13 @@ export class VacantRequestsViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
+  }
+
+  onTriggerSortMode() {
+    if (this.sortMode === tableSortMode.DESK) {
+      this.sortMode = tableSortMode.ASC
+    } else {
+      this.sortMode = tableSortMode.DESK
+    }
   }
 }

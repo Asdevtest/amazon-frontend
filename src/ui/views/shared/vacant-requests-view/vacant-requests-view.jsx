@@ -1,3 +1,5 @@
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import TableRowsIcon from '@mui/icons-material/TableRows'
 import ViewModuleIcon from '@mui/icons-material/ViewModule'
 import ToggleButton from '@mui/material/ToggleButton'
@@ -10,7 +12,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {tableViewMode} from '@constants/table-view-modes'
+import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {texts} from '@constants/texts'
 
 import {Appbar} from '@components/appbar'
@@ -20,6 +22,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {VacantRequestsViewModel} from './vacant-requests-view.model'
@@ -39,11 +42,31 @@ class VacantRequestsViewRaw extends Component {
   }
 
   render() {
-    const {viewMode, getCurrentData, drawerOpen, onTriggerDrawerOpen, onClickViewMore, onChangeViewMode} =
-      this.viewModel
+    const {
+      viewMode,
+      getCurrentData,
+      sortMode,
+      drawerOpen,
+      onTriggerSortMode,
+      onTriggerDrawerOpen,
+      onClickViewMore,
+      onChangeViewMode,
+    } = this.viewModel
     const {classes: classNames} = this.props
 
-    const currentData = getCurrentData()
+    // const currentData =  getCurrentData()
+
+    const getSortedData = mode => {
+      switch (mode) {
+        case tableSortMode.DESK:
+          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+
+        case tableSortMode.ASC:
+          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+      }
+    }
+
+    // const currentSortedData =  getSortedData(sortMode) || []
 
     return (
       <React.Fragment>
@@ -69,9 +92,19 @@ class VacantRequestsViewRaw extends Component {
                     </ToggleButton>
                   </ToggleButtonGroup>
                 </div>
+
+                <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
+                  <Typography className={classNames.tablePanelViewText}>{'Сортировать по дате'}</Typography>
+
+                  {sortMode === tableSortMode.DESK ? (
+                    <KeyboardArrowDownIcon color="primary" />
+                  ) : (
+                    <KeyboardArrowUpIcon color="primary" />
+                  )}
+                </div>
               </div>
 
-              {currentData.length ? (
+              {getSortedData(sortMode)?.length ? (
                 <Grid
                   container
                   classes={{root: classNames.dashboardCardWrapper}}
@@ -80,7 +113,7 @@ class VacantRequestsViewRaw extends Component {
                   justifyContent="flex-start"
                   alignItems="flex-start"
                 >
-                  {currentData.map(item =>
+                  {getSortedData(sortMode)?.map(item =>
                     viewMode === tableViewMode.LIST ? (
                       <VacantRequestListCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
                     ) : (

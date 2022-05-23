@@ -1,4 +1,4 @@
-import {format, formatDistance, compareDesc, parseISO, formatDistanceStrict} from 'date-fns'
+import {format, formatDistance, compareDesc, compareAsc, parseISO, formatDistanceStrict} from 'date-fns'
 import ruLocale from 'date-fns/locale/ru'
 
 export const formatDate = dateString => format(parseISO(dateString), 'dd-MM-yyyy') // предпочтительный формат
@@ -39,3 +39,8 @@ export const sortObjectsArrayByFiledDate = fieldName => (a, b) => compareDesc(a[
 
 export const sortObjectsArrayByFiledDateWithParseISO = fieldName => (a, b) =>
   compareDesc(parseISO(a[fieldName]), parseISO(b[fieldName]))
+
+export const sortObjectsArrayByFiledDateAsc = fieldName => (a, b) => compareAsc(a[fieldName], b[fieldName])
+
+export const sortObjectsArrayByFiledDateWithParseISOAsc = fieldName => (a, b) =>
+  compareAsc(parseISO(a[fieldName]), parseISO(b[fieldName]))

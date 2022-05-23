@@ -6,7 +6,7 @@ import {Divider, Grid, Typography, Avatar} from '@material-ui/core'
 
 import {Button} from '@components/buttons/button'
 
-import {formatNormDateTime} from '@utils/date-time'
+import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 
@@ -50,6 +50,14 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
               item.timeLimitInMinutes / 60,
               2,
             )} ч. `}</Typography>
+          </div>
+
+          <div className={classNames.updatedAtWrapper}>
+            <Typography className={classNames.updatedAtText}>{'Обновлено:'}</Typography>
+
+            <Typography className={classNames.updatedAtText}>
+              {formatNormDateTimeWithParseISO(item.updatedAt)}
+            </Typography>
           </div>
 
           <Button

@@ -6,7 +6,7 @@ import {Grid, Typography, Avatar} from '@material-ui/core'
 
 import {Button} from '@components/buttons/button'
 
-import {formatNormDateTime} from '@utils/date-time'
+import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 
@@ -34,6 +34,14 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
           <Typography className={classNames.cardSubTitle}>{`Осталось ${0} из ${
             item.maxAmountOfProposals
           } предложений`}</Typography>
+
+          <div className={classNames.updatedAtWrapper}>
+            <Typography className={classNames.updatedAtText}>{'Обновлено:'}</Typography>
+
+            <Typography className={classNames.updatedAtText}>
+              {formatNormDateTimeWithParseISO(item.updatedAt)}
+            </Typography>
+          </div>
         </div>
 
         <div className={classNames.middleBlockWrapper}>
