@@ -91,7 +91,7 @@ export const CreateOrEditProposalContent = ({
           }
         />
 
-        {request.details.linksToMediaFiles.length > 0 ? (
+        {request.details.linksToMediaFiles?.length > 0 ? (
           <Field
             label={'Файлы'}
             inputComponent={
@@ -173,7 +173,7 @@ export const CreateOrEditProposalContent = ({
 
             <Button
               disableElevation
-              disabled={!formFields.linksToMediaFiles.length}
+              disabled={!formFields.linksToMediaFiles?.length}
               color="primary"
               className={classNames.imagesButton}
               variant="contained"

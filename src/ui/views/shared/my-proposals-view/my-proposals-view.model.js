@@ -71,6 +71,7 @@ export class MyProposalsViewModel {
       } else {
         await RequestProposalModel.requestProposalCancel(this.selectedProposal._id)
       }
+      this.onTriggerOpenModal('showConfirmModal')
 
       await this.loadData()
     } catch (error) {

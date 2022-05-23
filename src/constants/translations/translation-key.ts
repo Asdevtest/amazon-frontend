@@ -207,10 +207,9 @@ export enum TranslationKey {
   // '' = '',
   // '' = '',
   // '' = '',
-  // '' = '',
 }
 
-// "Enter the email of the user you want to add": "Enter the email of the user you want to add"
+// "word": "word"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

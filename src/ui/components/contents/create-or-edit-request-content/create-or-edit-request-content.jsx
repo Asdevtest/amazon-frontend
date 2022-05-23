@@ -191,7 +191,7 @@ export const CreateOrEditRequestContent = ({
               /> */}
 
               <Field
-                inputProps={{maxLength: 10}}
+                inputProps={{maxLength: 8}}
                 label={'Введите количество предложений*'}
                 value={formFields.request.maxAmountOfProposals}
                 onChange={onChangeField('request')('maxAmountOfProposals')}
