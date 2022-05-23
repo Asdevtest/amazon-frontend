@@ -6,7 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **amount** | **Number** | Сколько таких же коробок в одной коробке | [optional] 
 **isDraft** | **Boolean** | true - если создаем черновик заказа. | [optional] 
-**shippingLabel** | **String** | Шипингш лейбл | [optional] 
 **lengthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
 **widthCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
 **heightCmSupplier** | **Number** | Размеры которые назвал поставщик при заказе ( могут отличаться с реальными). | [optional] 
@@ -22,5 +21,6 @@ Name | Type | Description | Notes
 **destinationId** | **String** | id склада - склады куда отправляют  | [optional] 
 **logicsTariffId** | **String** | GUID тарифа доставки  | [optional] 
 **storekeeperId** | **String** | GUID сторкипера | [optional] 
+**shippingLabel** | **String** | Шипингш лейбл | [optional] 
 
 

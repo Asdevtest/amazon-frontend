@@ -31,9 +31,9 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
 
           <Typography className={classNames.cardTitle}>{item.title}</Typography>
 
-          <Typography className={classNames.cardSubTitle}>{`Осталось ${0} из ${
-            item.maxAmountOfProposals
-          } предложений`}</Typography>
+          <Typography className={classNames.cardSubTitle}>{`Осталось ${
+            item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals
+          } из ${item.maxAmountOfProposals} предложений`}</Typography>
 
           <div className={classNames.updatedAtWrapper}>
             <Typography className={classNames.updatedAtText}>{'Обновлено:'}</Typography>

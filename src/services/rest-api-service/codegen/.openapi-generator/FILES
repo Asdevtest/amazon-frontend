@@ -38,6 +38,7 @@ docs/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.md
 docs/ApiV1IntegrationsSellerboardWarehouseStocksShop.md
 docs/ApiV1RequestProposalsCreatedBy.md
 docs/ApiV1RequestProposalsCustomByRequestIdGuidDetails.md
+docs/ApiV1RequestsCountProposalsByStatuses.md
 docs/ApiV1RequestsCustomDetails.md
 docs/ApiV1RequestsCustomDetailsCustom.md
 docs/ApiV1RequestsCustomGuidDetails.md
@@ -152,7 +153,6 @@ docs/InlineResponse20024.md
 docs/InlineResponse20025.md
 docs/InlineResponse20026.md
 docs/InlineResponse20026Details.md
-docs/InlineResponse20026Request.md
 docs/InlineResponse2002AllowedUrls.md
 docs/InlineResponse2002PermissionGroups.md
 docs/InlineResponse2002Permissions.md
@@ -279,6 +279,7 @@ src/model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks.js
 src/model/ApiV1IntegrationsSellerboardWarehouseStocksShop.js
 src/model/ApiV1RequestProposalsCreatedBy.js
 src/model/ApiV1RequestProposalsCustomByRequestIdGuidDetails.js
+src/model/ApiV1RequestsCountProposalsByStatuses.js
 src/model/ApiV1RequestsCustomDetails.js
 src/model/ApiV1RequestsCustomDetailsCustom.js
 src/model/ApiV1RequestsCustomGuidDetails.js
@@ -388,7 +389,6 @@ src/model/InlineResponse20024.js
 src/model/InlineResponse20025.js
 src/model/InlineResponse20026.js
 src/model/InlineResponse20026Details.js
-src/model/InlineResponse20026Request.js
 src/model/InlineResponse2002AllowedUrls.js
 src/model/InlineResponse2002PermissionGroups.js
 src/model/InlineResponse2002Permissions.js
@@ -445,11 +445,4 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/api/GoLoginApi.spec.js
-test/model/ApiV1GologinProfileNavigator.spec.js
-test/model/InlineObject73.spec.js
-test/model/InlineObject74.spec.js
-test/model/InlineResponse20026.spec.js
-test/model/InlineResponse20026Details.spec.js
-test/model/InlineResponse20026Request.spec.js
-test/model/InlineResponse2019.spec.js
+test/model/ApiV1RequestsCountProposalsByStatuses.spec.js

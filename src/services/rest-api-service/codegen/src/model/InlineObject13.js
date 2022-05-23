@@ -57,9 +57,6 @@ class InlineObject13 {
             if (data.hasOwnProperty('isDraft')) {
                 obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
             }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
-            }
             if (data.hasOwnProperty('lengthCmSupplier')) {
                 obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
             }
@@ -105,6 +102,9 @@ class InlineObject13 {
             if (data.hasOwnProperty('storekeeperId')) {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
         }
         return obj;
     }
@@ -123,12 +123,6 @@ InlineObject13.prototype['amount'] = undefined;
  * @member {Boolean} isDraft
  */
 InlineObject13.prototype['isDraft'] = undefined;
-
-/**
- * Шипингш лейбл
- * @member {String} shippingLabel
- */
-InlineObject13.prototype['shippingLabel'] = undefined;
 
 /**
  * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).
@@ -219,6 +213,12 @@ InlineObject13.prototype['logicsTariffId'] = undefined;
  * @member {String} storekeeperId
  */
 InlineObject13.prototype['storekeeperId'] = undefined;
+
+/**
+ * Шипингш лейбл
+ * @member {String} shippingLabel
+ */
+InlineObject13.prototype['shippingLabel'] = undefined;
 
 
 

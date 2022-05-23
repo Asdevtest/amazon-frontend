@@ -65,12 +65,6 @@ class ApiV1BoxesSplitBoxItems {
             if (data.hasOwnProperty('barCode')) {
                 obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
             }
-            if (data.hasOwnProperty('isBarCodeAttachedByTheStorekeeper')) {
-                obj['isBarCodeAttachedByTheStorekeeper'] = ApiClient.convertToType(data['isBarCodeAttachedByTheStorekeeper'], 'Boolean');
-            }
-            if (data.hasOwnProperty('isBarCodeAlreadyAttachedByTheSupplier')) {
-                obj['isBarCodeAlreadyAttachedByTheSupplier'] = ApiClient.convertToType(data['isBarCodeAlreadyAttachedByTheSupplier'], 'Boolean');
-            }
             if (data.hasOwnProperty('masterBoxAmount')) {
                 obj['masterBoxAmount'] = ApiClient.convertToType(data['masterBoxAmount'], 'Number');
             }
@@ -104,18 +98,6 @@ ApiV1BoxesSplitBoxItems.prototype['orderId'] = undefined;
  * @member {String} barCode
  */
 ApiV1BoxesSplitBoxItems.prototype['barCode'] = undefined;
-
-/**
- * Прикреплен ли баркод к коробке сотрудником склада.
- * @member {Boolean} isBarCodeAttachedByTheStorekeeper
- */
-ApiV1BoxesSplitBoxItems.prototype['isBarCodeAttachedByTheStorekeeper'] = undefined;
-
-/**
- * Кнопка в заказе, сообщающая складу что штрихкод на товар поклеен у поставщика.
- * @member {Boolean} isBarCodeAlreadyAttachedByTheSupplier
- */
-ApiV1BoxesSplitBoxItems.prototype['isBarCodeAlreadyAttachedByTheSupplier'] = undefined;
 
 /**
  * Если задан этот параметр, то его значение будет скопировано в поле amount в сущность новой коробки.

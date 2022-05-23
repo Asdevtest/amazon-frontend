@@ -30,7 +30,10 @@ export const RequestToSendBatchesGroupBoxes = ({
     0,
   )
 
-  const totalWeight = selectedGroup.boxes.reduce((acc, cur) => acc + calcFinalWeightForBox(cur), 0)
+  const totalWeight = selectedGroup.boxes.reduce(
+    (acc, cur) => acc + calcFinalWeightForBox(cur, volumeWeightCoefficient),
+    0,
+  )
 
   const firstNumOfCode = selectedGroup.destination?.zipCode?.[0] || null
 

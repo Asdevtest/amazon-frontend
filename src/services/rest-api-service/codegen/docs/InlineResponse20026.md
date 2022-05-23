@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**request** | [**InlineResponse20026Request**](InlineResponse20026Request.md) |  | [optional] 
+**request** | [**InlineResponse20018**](InlineResponse20018.md) |  | [optional] 
 **details** | [**InlineResponse20026Details**](InlineResponse20026Details.md) |  | [optional] 
 
 

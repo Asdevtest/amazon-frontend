@@ -48,6 +48,7 @@ import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from 
 import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1IntegrationsSellerboardWarehouseStocksShop';
 import ApiV1RequestProposalsCreatedBy from './model/ApiV1RequestProposalsCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1RequestProposalsCustomByRequestIdGuidDetails';
+import ApiV1RequestsCountProposalsByStatuses from './model/ApiV1RequestsCountProposalsByStatuses';
 import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
 import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails';
@@ -157,7 +158,6 @@ import InlineResponse20024 from './model/InlineResponse20024';
 import InlineResponse20025 from './model/InlineResponse20025';
 import InlineResponse20026 from './model/InlineResponse20026';
 import InlineResponse20026Details from './model/InlineResponse20026Details';
-import InlineResponse20026Request from './model/InlineResponse20026Request';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
@@ -481,6 +481,12 @@ export {
      * @property {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails}
      */
     ApiV1RequestProposalsCustomByRequestIdGuidDetails,
+
+    /**
+     * The ApiV1RequestsCountProposalsByStatuses model constructor.
+     * @property {module:model/ApiV1RequestsCountProposalsByStatuses}
+     */
+    ApiV1RequestsCountProposalsByStatuses,
 
     /**
      * The ApiV1RequestsCustomDetails model constructor.
@@ -1135,12 +1141,6 @@ export {
      * @property {module:model/InlineResponse20026Details}
      */
     InlineResponse20026Details,
-
-    /**
-     * The InlineResponse20026Request model constructor.
-     * @property {module:model/InlineResponse20026Request}
-     */
-    InlineResponse20026Request,
 
     /**
      * The InlineResponse2002AllowedUrls model constructor.

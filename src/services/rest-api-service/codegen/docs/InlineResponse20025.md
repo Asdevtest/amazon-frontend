@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 **createdBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**countProposalsByStatuses** | [**ApiV1RequestsCountProposalsByStatuses**](ApiV1RequestsCountProposalsByStatuses.md) |  | [optional] 
 **detailsCustom** | [**ApiV1RequestsCustomDetailsCustom**](ApiV1RequestsCustomDetailsCustom.md) |  | [optional] 
 **proposals** | **[Object]** |  | [optional] 
 
