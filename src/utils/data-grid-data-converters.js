@@ -271,6 +271,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
     humanFriendlyId: item.humanFriendlyId,
     totalPriceChanged: item.totalPriceChanged,
 
+    shippingLabel: item.shippingLabel,
     fbaShipment: item.fbaShipment,
     volumeWeightCoefficient,
   }))

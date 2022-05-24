@@ -10,7 +10,7 @@ import {
   renderFieldValueCell,
   ShortBoxDimensions,
   SuperboxQtyCell,
-  ToFixedWithDollarSignCell, // ToFixedWithKgSignCell,
+  ToFixedWithDollarSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -82,12 +82,25 @@ export const clientBoxesViewColumns = handlers => [
     field: 'fbaShipment',
     headerName: textConsts.fbaShipmentField,
     renderCell: params => (
-      <ChangeChipCell
-        row={params.row.originalData}
-        value={params.value}
-        handlers={handlers}
-        text={textConsts.fbaShipmentChip}
-      />
+      <div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
+        <ChangeChipCell
+          row={params.row.originalData}
+          value={params.row.shippingLabel}
+          text={'Set Shipping Label'}
+          onClickChip={handlers.onClickShippingLabel}
+          onDoubleClickChip={handlers.onDoubleClickShippingLabel}
+          onDeleteChip={handlers.onDeleteShippingLabel}
+        />
+
+        <ChangeChipCell
+          row={params.row.originalData}
+          value={params.row.fbaShipment}
+          text={textConsts.fbaShipmentChip}
+          onClickChip={handlers.onClickFbaShipment}
+          onDoubleClickChip={handlers.onDoubleClickFbaShipment}
+          onDeleteChip={handlers.onDeleteFbaShipment}
+        />
+      </div>
     ),
     minWidth: 150,
     headerAlign: 'center',
@@ -101,22 +114,6 @@ export const clientBoxesViewColumns = handlers => [
     ),
     width: 230,
   },
-
-  // {
-  //   field: 'grossWeight',
-  //   headerName: textConsts.grossWeightField,
-  //   renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-  //   type: 'number',
-  //   width: 120,
-  // },
-
-  // {
-  //   field: 'finalWeight',
-  //   headerName: textConsts.weightField,
-  //   renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-  //   type: 'number',
-  //   width: 140,
-  // },
 
   {
     field: 'createdAt',

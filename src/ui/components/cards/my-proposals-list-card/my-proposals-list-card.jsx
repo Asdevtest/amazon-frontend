@@ -24,6 +24,14 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) =>
     RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
   ]
 
+  const disabledCancelBtnStatuses = [
+    RequestProposalStatus.CANCELED_BY_SUPERVISOR,
+    RequestProposalStatus.CANCELED_BY_EXECUTOR,
+    RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST,
+    RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+    RequestProposalStatus.EXPIRED,
+  ]
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -80,7 +88,13 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) =>
                   <Typography>{proposal.status}</Typography>
 
                   <div className={classNames.btnsWrapper}>
-                    <Button disableElevation color="primary" variant="text" onClick={() => onClickDeleteBtn(proposal)}>
+                    <Button
+                      disableElevation
+                      disabled={disabledCancelBtnStatuses.includes(proposal.status)}
+                      color="primary"
+                      variant="text"
+                      onClick={() => onClickDeleteBtn(proposal)}
+                    >
                       {'Отменить'}
                     </Button>
 

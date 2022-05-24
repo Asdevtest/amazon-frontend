@@ -151,7 +151,7 @@ export const EditBoxForm = observer(
       logicsTariffId: formItem?.logicsTariffId || '',
 
       amount: formItem?.amount,
-      shippingLabel: formItem?.shippingLabel || '',
+      shippingLabel: formItem?.shippingLabel,
       clientComment: formItem?.clientComment || '',
       images: formItem?.images || [],
       fbaShipment: formItem?.fbaShipment || '',
@@ -221,7 +221,6 @@ export const EditBoxForm = observer(
     const disableSubmit =
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
       requestStatus === loadingStatuses.isLoading ||
-      (boxFields.shippingLabel.length < 5 && boxFields.shippingLabel.length > 0) ||
       boxFields.destinationId === '' ||
       boxFields.storekeeperId === '' ||
       boxFields.logicsTariffId === ''

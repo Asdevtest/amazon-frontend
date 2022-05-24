@@ -23,6 +23,7 @@ import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
 import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
+import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -49,6 +50,7 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
+      confirmModalSettings,
       selectedBox,
       curBox,
       showBoxViewModal,
@@ -80,6 +82,7 @@ export class ClientWarehouseViewRaw extends Component {
       showRedistributeBoxAddNewBoxModal,
       showRedistributeBoxSuccessModal,
       showRedistributeBoxFailModal,
+      showSetShippingLabelModal,
       showSetChipValueModal,
       showWarningInfoModal,
       showRequestToSendBatchModal,
@@ -101,7 +104,6 @@ export class ClientWarehouseViewRaw extends Component {
       onClickSendBoxesToBatch,
       onClickMerge,
       onRemoveBoxFromSelected,
-      onClickCancelAfterConfirm,
 
       onChangeFilterModel,
       onSelectionModel,
@@ -111,6 +113,7 @@ export class ClientWarehouseViewRaw extends Component {
       onClickStorekeeperBtn,
       setCurrentOpenedBox,
       onClickSaveFbaShipment,
+      onClickSaveShippingLabel,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -353,16 +356,14 @@ export class ClientWarehouseViewRaw extends Component {
         </Modal>
 
         <ConfirmationModal
-          isWarning
+          isWarning={confirmModalSettings.isWarning}
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
           title={textConsts.confirmTitle}
-          message={textConsts.confirmMessage}
+          message={confirmModalSettings.confirmMessage}
           successBtnText={textConsts.yesBtn}
           cancelBtnText={textConsts.noBtn}
-          onClickSuccessBtn={() => {
-            onClickCancelAfterConfirm()
-          }}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
 
@@ -380,6 +381,17 @@ export class ClientWarehouseViewRaw extends Component {
             sourceValue={selectedBox?.fbaShipment}
             onSubmit={onClickSaveFbaShipment}
             onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}
+          />
+        </Modal>
+
+        <Modal
+          openModal={showSetShippingLabelModal}
+          setOpenModal={() => onTriggerOpenModal('showSetShippingLabelModal')}
+        >
+          <SetShippingLabelModal
+            item={selectedBox}
+            onClickSaveShippingLabel={onClickSaveShippingLabel}
+            onCloseModal={() => onTriggerOpenModal('showSetShippingLabelModal')}
           />
         </Modal>
       </React.Fragment>
