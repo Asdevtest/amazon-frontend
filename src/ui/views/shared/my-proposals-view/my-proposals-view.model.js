@@ -60,6 +60,10 @@ export class MyProposalsViewModel {
     this.history.push('/create-or-edit-proposal', {request: toJS(convertedRequest), proposalToEdit: toJS(proposal)})
   }
 
+  onClickOpenBtn(request) {
+    this.history.push('/custom-search-request', {requestId: request._id, proposalIsExist: true})
+  }
+
   async onSubmitDeleteProposal() {
     try {
       if (

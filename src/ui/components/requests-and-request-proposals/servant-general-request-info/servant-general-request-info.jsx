@@ -14,7 +14,7 @@ import {useClassNames} from './servant-general-request-info.style'
 
 // const textConsts = getLocalizedTexts(texts, 'en').productSearchRequestContent
 
-export const ServantGeneralRequestInfo = ({request, onSubmit}) => {
+export const ServantGeneralRequestInfo = ({request, proposalIsExist, onSubmit}) => {
   const classNames = useClassNames()
 
   return (
@@ -59,11 +59,13 @@ export const ServantGeneralRequestInfo = ({request, onSubmit}) => {
         </div>
       </div>
 
-      <div className={classNames.btnsBlockWrapper}>
-        <Button variant="contained" color="primary" className={classNames.actionBtn} onClick={onSubmit}>
-          {'Предложить сделку'}
-        </Button>
-      </div>
+      {!proposalIsExist ? (
+        <div className={classNames.btnsBlockWrapper}>
+          <Button variant="contained" color="primary" className={classNames.actionBtn} onClick={onSubmit}>
+            {'Предложить сделку'}
+          </Button>
+        </div>
+      ) : null}
     </Paper>
   )
 }

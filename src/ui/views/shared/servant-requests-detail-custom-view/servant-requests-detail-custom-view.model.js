@@ -20,6 +20,8 @@ export class RequestDetailCustomViewModel {
   requestStatus = undefined
   error = undefined
 
+  proposalIsExist = false
+
   drawerOpen = false
   requestId = undefined
   request = undefined
@@ -40,6 +42,8 @@ export class RequestDetailCustomViewModel {
     this.history = history
     if (location.state) {
       this.requestId = location.state.requestId
+
+      this.proposalIsExist = location.state.proposalIsExist
     }
     makeAutoObservable(this, undefined, {autoBind: true})
     try {
@@ -155,13 +159,24 @@ export class RequestDetailCustomViewModel {
       if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT) {
         await RequestProposalModel.requestProposalResultCorrected(findRequestProposalByChatSelectedId.proposal._id, {
           reason: message,
-          // linksToMediaFiles: files.map(item => item.file),
+          linksToMediaFiles: this.loadedFiles,
+        })
+      } else if (
+        findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.CREATED ||
+        findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+        findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED
+      ) {
+        await RequestProposalModel.requestProposalCorrected(findRequestProposalByChatSelectedId.proposal._id, {
+          reason: message,
           linksToMediaFiles: this.loadedFiles,
         })
       } else {
+        if (findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
+          await RequestProposalModel.requestProposalReadyToVerify(findRequestProposalByChatSelectedId.proposal._id)
+        }
+
         await RequestProposalModel.requestProposalResultEdit(findRequestProposalByChatSelectedId.proposal._id, {
           result: message,
-          // linksToMediaFiles: files.map(item => item.file),
           linksToMediaFiles: this.loadedFiles,
         })
       }

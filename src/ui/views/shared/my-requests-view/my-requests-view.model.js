@@ -10,7 +10,7 @@ import {UserModel} from '@models/user-model'
 
 import {myRequestsViewColumns} from '@components/table-columns/overall/my-requests-columns'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {myRequestsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 
 export class MyRequestsViewModel {
@@ -187,7 +187,7 @@ export class MyRequestsViewModel {
       const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY)
 
       runInAction(() => {
-        this.searchRequests = addIdDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.searchRequests = myRequestsDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
     } catch (error) {
       console.log(error)

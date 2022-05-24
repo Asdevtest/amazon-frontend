@@ -15,7 +15,7 @@ import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './my-proposals-list-card.style'
 
-export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) => {
+export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onClickOpenBtn}) => {
   const classNames = useClassNames()
 
   const noDisabledEditBtnStatuses = [
@@ -108,7 +108,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) =>
                       {'Редактировать'}
                     </Button>
 
-                    <Button disableElevation color="primary" variant="contained">
+                    <Button disableElevation color="primary" variant="contained" onClick={() => onClickOpenBtn(item)}>
                       {'Открыть заявку'}
                     </Button>
                   </div>

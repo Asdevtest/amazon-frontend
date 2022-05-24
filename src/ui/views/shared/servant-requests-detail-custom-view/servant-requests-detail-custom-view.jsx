@@ -53,6 +53,7 @@ export class RequestDetailCustomViewRaw extends Component {
   render() {
     const {classes: classNames} = this.props
     const {
+      proposalIsExist,
       drawerOpen,
       request,
       showWarningModal,
@@ -86,7 +87,7 @@ export class RequestDetailCustomViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={'Request'} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.backBtnWrapper}>
                 <Button variant="contained" color="primary" onClick={onClickBackBtn}>
@@ -96,7 +97,11 @@ export class RequestDetailCustomViewRaw extends Component {
 
               {request ? (
                 <div className={classNames.requestInfoWrapper}>
-                  <ServantGeneralRequestInfo request={request} onSubmit={onSubmitOfferDeal} />
+                  <ServantGeneralRequestInfo
+                    proposalIsExist={proposalIsExist}
+                    request={request}
+                    onSubmit={onSubmitOfferDeal}
+                  />
                 </div>
               ) : null}
 

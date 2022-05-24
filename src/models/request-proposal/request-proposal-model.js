@@ -77,9 +77,9 @@ class RequestProposalModelStatic {
     return response
   }
 
-  requestProposalReadyToVerify = async (proposalId, data) => {
+  requestProposalReadyToVerify = async proposalId => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidReadyToVerifyPatch(proposalId, {
-      body: data,
+      body: {},
     })
     return response
   }
@@ -93,10 +93,10 @@ class RequestProposalModelStatic {
     return response
   }
 
-  requestProposalResultCorrected = async (proposalId, data) => {
+  requestProposalResultCorrected = async proposalId => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidResultCorrectedPatch(
       proposalId,
-      {body: data},
+      {body: {}},
     )
     return response
   }
