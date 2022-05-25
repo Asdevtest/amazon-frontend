@@ -14,12 +14,13 @@ import {
   ToFixedWithDollarSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
+import {findTariffInStorekeepersData} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientBoxesTableColumns
 
-export const clientBoxesViewColumns = handlers => [
+export const clientBoxesViewColumns = (handlers, storekeepersData) => [
   {
     field: 'isDraft',
     headerName: '',
@@ -41,11 +42,27 @@ export const clientBoxesViewColumns = handlers => [
     width: 400,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
-        <OrderManyItemsCell box={params.row.originalData} />
+        <OrderManyItemsCell
+          box={params.row.originalData}
+          error={
+            !findTariffInStorekeepersData(
+              storekeepersData,
+              params.row.originalData.storekeeper._id,
+              params.row.originalData.logicsTariff._id,
+            ) && t(TranslationKey['The tariff is invalid or has been removed!'])
+          }
+        />
       ) : (
         <OrderCell
           product={params.row.originalData.items[0].product}
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
+          error={
+            !findTariffInStorekeepersData(
+              storekeepersData,
+              params.row.originalData.storekeeper._id,
+              params.row.originalData.logicsTariff._id,
+            ) && t(TranslationKey['The tariff is invalid or has been removed!'])
+          }
         />
       ),
     filterable: false,
@@ -86,6 +103,7 @@ export const clientBoxesViewColumns = handlers => [
     renderCell: params => (
       <div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
         <ChangeChipCell
+          disabled={params.row.originalData.isDraft}
           row={params.row.originalData}
           value={params.row.shippingLabel}
           text={'Set Shipping Label'}
@@ -95,6 +113,7 @@ export const clientBoxesViewColumns = handlers => [
         />
 
         <ChangeChipCell
+          disabled={params.row.originalData.isDraft}
           row={params.row.originalData}
           value={params.row.fbaShipment}
           text={textConsts.fbaShipmentChip}

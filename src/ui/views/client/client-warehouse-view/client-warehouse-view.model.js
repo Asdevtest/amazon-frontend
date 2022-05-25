@@ -124,7 +124,7 @@ export class ClientWarehouseViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientBoxesViewColumns(this.rowHandlers)
+  columnsModel = clientBoxesViewColumns(this.rowHandlers, this.storekeepersData)
 
   rowTaskHandlers = {
     onClickTaskInfo: item => this.setCurrentOpenedTask(item),
@@ -184,7 +184,7 @@ export class ClientWarehouseViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = clientBoxesViewColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = clientBoxesViewColumns(this.rowHandlers, this.storekeepersData).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))

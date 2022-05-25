@@ -378,6 +378,12 @@ export const styles = createStyles(() => ({
     marginLeft: '15px',
   },
 
+  OrderCellError: {
+    color: 'red',
+    fontWeight: 'bold',
+    marginLeft: '15px',
+  },
+
   trashWrapper: {
     width: '100%',
     display: 'flex',

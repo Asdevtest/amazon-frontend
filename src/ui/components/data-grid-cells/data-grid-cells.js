@@ -170,9 +170,10 @@ export const HsCodeCell = withStyles(styles)(({classes: classNames, product, han
 ))
 
 export const ChangeChipCell = withStyles(styles)(
-  ({classes: classNames, row, value, onClickChip, onDoubleClickChip, onDeleteChip, text}) => (
+  ({classes: classNames, row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled}) => (
     <React.Fragment>
       <Chip
+        disabled={disabled}
         classes={{
           root: classNames.barcodeChip,
           clickable: classNames.barcodeChipHover,
@@ -222,7 +223,7 @@ export const NormDateWithParseISOCell = withStyles(styles)(({params}) => (
   <Typography>{!params.value ? 'N/A' : formatNormDateTimeWithParseISO(params.value)}</Typography>
 ))
 
-export const OrderCell = withStyles(styles)(({classes: classNames, product, superbox, box}) => (
+export const OrderCell = withStyles(styles)(({classes: classNames, product, superbox, box, error}) => (
   <div className={classNames.order}>
     <img alt="" src={getAmazonImageUrl(product.images[0])} className={classNames.orderImg} />
     <div>
@@ -241,6 +242,8 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
           2,
         )})`}</span>
       )}
+
+      {error && <span className={classNames.OrderCellError}>{error}</span>}
     </div>
   </div>
 ))
@@ -605,7 +608,7 @@ export const SuperboxQtyCell = withStyles(styles)(({classes: classNames, qty, su
   </div>
 ))
 
-export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box}) => {
+export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box, error}) => {
   const renderProductInfo = () => (
     <div className={classNames.manyItemsOrderWrapper}>
       {box.items.map((item, itemIndex) => (
@@ -630,6 +633,8 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box}
           </div>
         </div>
       ))}
+
+      {error && <span className={classNames.OrderCellError}>{error}</span>}
     </div>
   )
 

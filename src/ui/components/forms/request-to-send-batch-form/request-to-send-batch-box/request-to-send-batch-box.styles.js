@@ -57,7 +57,7 @@ export const useClassNames = makeStyles(() => ({
   boxItemWrapper: {
     display: 'flex',
     alignItems: 'center',
-    width: '350px',
+    width: '450px',
     gap: '5px',
   },
 
@@ -80,7 +80,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   dementionsCell: {
-    width: '220px',
+    width: '250px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -115,7 +115,6 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
-    color: '#001029',
   },
 
   amazonTitle: {
@@ -137,21 +136,28 @@ export const useClassNames = makeStyles(() => ({
   },
 
   boxItemSubWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     marginLeft: '10px',
   },
 
   shippingLabelWrapper: {
-    width: '350px',
+    width: '180px',
+    height: '60px',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
   },
 
   barCodeLabelWrapper: {
     width: '270px',
+    height: '50px',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
   },
 
   downloadLink: {
@@ -164,9 +170,9 @@ export const useClassNames = makeStyles(() => ({
   },
 
   copyImg: {
-    marginLeft: '10px',
-    width: '15px',
-    height: '15px',
+    marginLeft: '30px',
+    width: '20px',
+    height: '20px',
     transition: '0.3s ease',
     cursor: 'pointer',
     '&:hover': {
@@ -188,5 +194,15 @@ export const useClassNames = makeStyles(() => ({
       transform: 'scale(0.99)',
       opacity: '0.9',
     },
+  },
+
+  boxItemSubInfoWrapper: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+    margin: '15px 0',
+  },
+  boxItemSubSubInfoWrapper: {
+    width: '100%',
   },
 }))

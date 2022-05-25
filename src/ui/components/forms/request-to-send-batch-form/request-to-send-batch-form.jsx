@@ -82,9 +82,7 @@ export const RequestToSendBatchForm = observer(
     }
 
     const disabledSubmit =
-      boxesWithPriceRequest.length < 1 ||
-      boxesWithPriceRequest.some(el => !el.isShippingLabelAttachedByStorekeeper) ||
-      submitIsClicked
+      boxesWithPriceRequest.length < 1 || boxesWithPriceRequest.some(el => !el.shippingLabel) || submitIsClicked
 
     return (
       <div className={classNames.content}>

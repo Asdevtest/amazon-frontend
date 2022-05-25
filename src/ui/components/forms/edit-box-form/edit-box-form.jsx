@@ -281,6 +281,7 @@ export const EditBoxForm = observer(
               <Field
                 containerClasses={classNames.field}
                 label={'Storekeeper /' + t(TranslationKey.Tariff)}
+                error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
                 inputComponent={
                   <Button
                     disableElevation

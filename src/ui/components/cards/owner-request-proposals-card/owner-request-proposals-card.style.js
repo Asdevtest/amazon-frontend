@@ -105,6 +105,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imgBox: {
+    textAlign: 'center',
     width: '160px',
     height: '50px',
     objectFit: 'contain',
@@ -116,8 +117,18 @@ export const useClassNames = makeStyles(() => ({
     },
   },
   photoWrapper: {
+    border: '1px solid rgba(0,0,0, .1)',
+    borderRadius: '10px',
     marginLeft: '10px',
     width: '250px',
     height: '130px',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  photoSubWrapper: {
+    width: '250px',
+    display: 'flex',
+    justifyContent: 'center',
   },
 }))

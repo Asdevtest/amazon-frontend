@@ -35,6 +35,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
               (requestProposals?.filter(
                 el =>
                   el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
+                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
                   el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
               ).length || 0)
             } ${t(TranslationKey['out of'])} ${request?.request.maxAmountOfProposals} ${t(
