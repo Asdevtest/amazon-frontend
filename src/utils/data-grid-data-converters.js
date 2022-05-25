@@ -12,6 +12,23 @@ import {getFullTariffTextForBoxOrOrder} from './text'
 
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
 
+export const myRequestsDataConverter = data =>
+  data.map((item, i) => ({
+    originalData: item,
+    id: i,
+    _id: item._id,
+    status: item.status,
+    title: item.title,
+    price: item.price,
+    updatedAt: item.updatedAt,
+    timeoutAt: item.timeoutAt,
+    acceptedProposals: item.countProposalsByStatuses.acceptedProposals,
+    allProposals: item.countProposalsByStatuses.allProposals,
+    atWorkProposals: item.countProposalsByStatuses.atWorkProposals,
+    verifyingProposals: item.countProposalsByStatuses.verifyingProposals,
+    waitedProposals: item.countProposalsByStatuses.waitedProposals,
+  }))
+
 export const researcherCustomRequestsDataConverter = data =>
   data.map((item, i) => ({
     originalData: item,
@@ -271,6 +288,7 @@ export const clientWarehouseDataConverter = (data, volumeWeightCoefficient) =>
     humanFriendlyId: item.humanFriendlyId,
     totalPriceChanged: item.totalPriceChanged,
 
+    shippingLabel: item.shippingLabel,
     fbaShipment: item.fbaShipment,
     volumeWeightCoefficient,
   }))

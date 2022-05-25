@@ -296,7 +296,7 @@ export class WarehouseVacantViewModel {
               'amount',
               'weighGrossKg',
               'weightFinalAccountingKg',
-              'shippingLabel',
+              // 'shippingLabel',
               'warehouse',
               'deliveryMethod',
               'lengthCmSupplier',

@@ -43,7 +43,7 @@ const permissionsKeys = {
     SHOW_USERS_STOREKEEPER: 'SHOW_USERS_STOREKEEPER',
     SHOW_BATCHES_STOREKEEPER: 'SHOW_BATCHES_STOREKEEPER',
     SHOW_WAREHOUSE_STOREKEEPER: 'SHOW_WAREHOUSE_STOREKEEPER',
-    SHOW_WAREHOUSE_MANAGEMENT: 'SHOW_WAREHOUSE_MANAGEMENT',
+    SHOW_MANAGEMENT_STOREKEEPER: 'SHOW_MANAGEMENT_STOREKEEPER',
     SHOW_MY_TASKS_STOREKEEPER: 'SHOW_MY_TASKS_STOREKEEPER',
   },
   client: {
@@ -617,7 +617,7 @@ export const navbarConfig = () => ({
       key: navBarActiveCategory.NAVBAR_MANAGEMENT,
       checkHideBlock: user =>
         !isMasterUser(user) ||
-        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_WAREHOUSE_MANAGEMENT),
+        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_MANAGEMENT_STOREKEEPER),
     },
   ],
   [UserRole.ADMIN]: [

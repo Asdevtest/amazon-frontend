@@ -2,6 +2,8 @@ import React from 'react'
 
 import {Typography, Paper, Avatar} from '@material-ui/core'
 
+import {RequestProposalStatus} from '@constants/request-proposal-status'
+
 // import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 
@@ -14,7 +16,7 @@ import {useClassNames} from './servant-general-request-info.style'
 
 // const textConsts = getLocalizedTexts(texts, 'en').productSearchRequestContent
 
-export const ServantGeneralRequestInfo = ({request, onSubmit}) => {
+export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals}) => {
   const classNames = useClassNames()
 
   return (
@@ -26,9 +28,14 @@ export const ServantGeneralRequestInfo = ({request, onSubmit}) => {
           <div className={classNames.titleWrapper}>
             <Typography className={classNames.title}>{request?.request.title}</Typography>
 
-            <Typography className={classNames.subTitle}>{`Осталось ${0} из ${
-              request?.request.maxAmountOfProposals
-            } предложений`}</Typography>
+            <Typography className={classNames.subTitle}>{`Осталось ${
+              request?.request.maxAmountOfProposals -
+              (requestProposals?.filter(
+                el =>
+                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
+                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+              ).length || 0)
+            } из ${request?.request.maxAmountOfProposals} предложений`}</Typography>
           </div>
         </div>
 

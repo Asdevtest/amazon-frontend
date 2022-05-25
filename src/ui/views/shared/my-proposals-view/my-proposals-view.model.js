@@ -60,6 +60,10 @@ export class MyProposalsViewModel {
     this.history.push('/create-or-edit-proposal', {request: toJS(convertedRequest), proposalToEdit: toJS(proposal)})
   }
 
+  onClickOpenBtn(request) {
+    this.history.push('/custom-search-request', {requestId: request._id})
+  }
+
   async onSubmitDeleteProposal() {
     try {
       if (
@@ -71,6 +75,7 @@ export class MyProposalsViewModel {
       } else {
         await RequestProposalModel.requestProposalCancel(this.selectedProposal._id)
       }
+      this.onTriggerOpenModal('showConfirmModal')
 
       await this.loadData()
     } catch (error) {

@@ -169,24 +169,26 @@ export const HsCodeCell = withStyles(styles)(({classes: classNames, product, han
   </React.Fragment>
 ))
 
-export const ChangeChipCell = withStyles(styles)(({classes: classNames, row, value, handlers, text}) => (
-  <React.Fragment>
-    <Chip
-      classes={{
-        root: classNames.barcodeChip,
-        clickable: classNames.barcodeChipHover,
-        deletable: classNames.barcodeChipHover,
-        deleteIcon: classNames.barcodeChipIcon,
-      }}
-      className={clsx({[classNames.barcodeChipExists]: value})}
-      size="small"
-      label={value ? trimBarcode(value) : text}
-      onClick={() => handlers.onClickChip(row)}
-      onDoubleClick={() => handlers.onDoubleClickChip(row)}
-      onDelete={!value ? undefined : () => handlers.onDeleteChip(row)}
-    />
-  </React.Fragment>
-))
+export const ChangeChipCell = withStyles(styles)(
+  ({classes: classNames, row, value, onClickChip, onDoubleClickChip, onDeleteChip, text}) => (
+    <React.Fragment>
+      <Chip
+        classes={{
+          root: classNames.barcodeChip,
+          clickable: classNames.barcodeChipHover,
+          deletable: classNames.barcodeChipHover,
+          deleteIcon: classNames.barcodeChipIcon,
+        }}
+        className={clsx({[classNames.barcodeChipExists]: value})}
+        size="small"
+        label={value ? trimBarcode(value) : text}
+        onClick={() => onClickChip(row)}
+        onDoubleClick={() => onDoubleClickChip(row)}
+        onDelete={!value ? undefined : () => onDeleteChip(row)}
+      />
+    </React.Fragment>
+  ),
+)
 
 export const DateCell = withStyles(styles)(({params}) => (
   <Typography>{!params.value ? 'N/A' : formatDateTime(params.value)}</Typography>
@@ -744,7 +746,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
 
     {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
       <SuccessButton className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.moveBox(row)}>
-        {t(TranslationKey['Add box to batch'])}
+        {t(TranslationKey['Add to batch'])}
       </SuccessButton>
     )}
 

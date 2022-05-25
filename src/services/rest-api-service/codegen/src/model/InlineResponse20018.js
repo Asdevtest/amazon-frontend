@@ -12,7 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsCreatedBy from './ApiV1RequestProposalsCreatedBy';
+import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1RequestsCountProposalsByStatuses from './ApiV1RequestsCountProposalsByStatuses';
 
 /**
  * The InlineResponse20018 model module.
@@ -100,6 +101,9 @@ class InlineResponse20018 {
             if (data.hasOwnProperty('restrictMoreThanOneProposalFromOneAssignee')) {
                 obj['restrictMoreThanOneProposalFromOneAssignee'] = ApiClient.convertToType(data['restrictMoreThanOneProposalFromOneAssignee'], 'Boolean');
             }
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            }
             if (data.hasOwnProperty('lastModifiedById')) {
                 obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
@@ -110,7 +114,10 @@ class InlineResponse20018 {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1RequestProposalsCreatedBy.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('countProposalsByStatuses')) {
+                obj['countProposalsByStatuses'] = ApiV1RequestsCountProposalsByStatuses.constructFromObject(data['countProposalsByStatuses']);
             }
         }
         return obj;
@@ -198,6 +205,12 @@ InlineResponse20018.prototype['needCheckBySupervisor'] = undefined;
 InlineResponse20018.prototype['restrictMoreThanOneProposalFromOneAssignee'] = undefined;
 
 /**
+ * GUID клиента, который создал заявку.
+ * @member {String} createdById
+ */
+InlineResponse20018.prototype['createdById'] = undefined;
+
+/**
  * GUID клиента, который обновил запрос на поиск товара.
  * @member {String} lastModifiedById
  */
@@ -216,9 +229,14 @@ InlineResponse20018.prototype['createdAt'] = undefined;
 InlineResponse20018.prototype['updatedAt'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCreatedBy} createdBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusClient} createdBy
  */
 InlineResponse20018.prototype['createdBy'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestsCountProposalsByStatuses} countProposalsByStatuses
+ */
+InlineResponse20018.prototype['countProposalsByStatuses'] = undefined;
 
 
 

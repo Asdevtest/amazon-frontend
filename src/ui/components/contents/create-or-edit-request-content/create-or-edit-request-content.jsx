@@ -46,6 +46,7 @@ export const CreateOrEditRequestContent = ({
       price: requestToEdit?.request.price || '',
       timeoutAt: requestToEdit?.request.timeoutAt || null,
       direction: requestToEdit?.request.direction || 'IN',
+      timeLimitInMinutes: requestToEdit?.request.timeLimitInMinutes || 60,
       roles: requestToEdit?.request.roles.length ? requestToEdit?.request.roles : [10, 35],
       needCheckBySupervisor: requestToEdit?.request.needCheckBySupervisor || false,
       restrictMoreThanOneProposalFromOneAssignee:
@@ -62,7 +63,7 @@ export const CreateOrEditRequestContent = ({
 
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
-    if (['maxAmountOfProposals'].includes(fieldName)) {
+    if (['maxAmountOfProposals', 'timeLimitInMinutes'].includes(fieldName)) {
       newFormFields[section][fieldName] = parseInt(event.target.value) || ''
     } else if (
       ['price'].includes(fieldName) &&
@@ -110,6 +111,7 @@ export const CreateOrEditRequestContent = ({
   const disableSubmit =
     (formFields.request.title === '' ||
       formFields.request.maxAmountOfProposals === '' ||
+      formFields.request.timeLimitInMinutes === '' ||
       formFields.request.price === '' ||
       formFields.request.timeoutAt === '' ||
       formFields.details.conditions === '') &&
@@ -191,10 +193,17 @@ export const CreateOrEditRequestContent = ({
               /> */}
 
               <Field
-                inputProps={{maxLength: 10}}
+                inputProps={{maxLength: 8}}
                 label={'Введите количество предложений*'}
                 value={formFields.request.maxAmountOfProposals}
                 onChange={onChangeField('request')('maxAmountOfProposals')}
+              />
+
+              <Field
+                inputProps={{maxLength: 8}}
+                label={'Время на выполнение (мин)*'}
+                value={formFields.request.timeLimitInMinutes}
+                onChange={onChangeField('request')('timeLimitInMinutes')}
               />
 
               <Field
@@ -283,7 +292,7 @@ export const CreateOrEditRequestContent = ({
 
                 <Field
                   containerClasses={classNames.twoStepDeadlineField}
-                  label={'Срок выполнения'}
+                  label={'Срок действия заявки'}
                   inputComponent={
                     <Typography className={classNames.twoStepFieldResult}>
                       {formFields.request.timeoutAt && formatDateForShowWithoutParseISO(formFields.request.timeoutAt)}
@@ -297,6 +306,15 @@ export const CreateOrEditRequestContent = ({
                 inputComponent={
                   <Typography className={classNames.twoStepFieldResult}>
                     {formFields.request.maxAmountOfProposals}
+                  </Typography>
+                }
+              />
+
+              <Field
+                label={'Время на выполнение предложения (мин)'}
+                inputComponent={
+                  <Typography className={classNames.twoStepFieldResult}>
+                    {formFields.request.timeLimitInMinutes}
                   </Typography>
                 }
               />

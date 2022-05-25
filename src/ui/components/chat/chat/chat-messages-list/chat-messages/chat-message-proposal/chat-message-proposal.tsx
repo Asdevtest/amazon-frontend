@@ -10,7 +10,7 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime} from '@utils/date-time'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
 
 import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
@@ -56,10 +56,7 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
       <div className={classNames.footerWrapper}>
         <div className={classNames.leftSide}>
           <div className={classNames.labelValueBlockWrapper}>
-            <LabelValuePairBlock
-              label="Время на выполнение"
-              value={`${toFixed((message.data.execution_time || 0) / 60, 2)} часов`}
-            />
+            <LabelValuePairBlock label="Время на выполнение" value={minsToTimeRus(message.data.execution_time)} />
           </div>
           <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
             <LabelValuePairBlock label="Стоимость" value={toFixedWithDollarSign(message.data.price, 2)} />

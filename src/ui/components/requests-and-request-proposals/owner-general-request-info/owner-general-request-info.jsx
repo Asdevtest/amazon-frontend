@@ -218,7 +218,7 @@ export const OwnerGeneralRequestInfo = ({
               >
                 {request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS
                   ? 'Возобновить прием заявок'
-                  : 'Остановить прием заявок'}
+                  : 'Остановить прием предложений'}
               </Button>
             </div>
           )}

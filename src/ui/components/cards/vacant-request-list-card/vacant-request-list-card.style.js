@@ -27,6 +27,9 @@ export const useClassNames = makeStyles(() => ({
 
   cardTitleBlockWrapper: {
     width: '480px',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
 
   cardTitle: {
@@ -106,5 +109,18 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '21px',
     color: '#00B746',
+  },
+
+  updatedAtWrapper: {
+    marginTop: 'auto',
+    alignSelf: 'flex-end',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  updatedAtText: {
+    marginRight: '20px',
+    fontSize: '10px',
+    fontWeight: 'bold',
   },
 }))

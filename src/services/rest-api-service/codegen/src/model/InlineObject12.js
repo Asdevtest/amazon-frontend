@@ -57,9 +57,6 @@ class InlineObject12 {
             if (data.hasOwnProperty('isDraft')) {
                 obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
             }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
-            }
             if (data.hasOwnProperty('lengthCmSupplier')) {
                 obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
             }
@@ -120,12 +117,6 @@ InlineObject12.prototype['amount'] = undefined;
  * @member {Boolean} isDraft
  */
 InlineObject12.prototype['isDraft'] = undefined;
-
-/**
- * Шипингш лейбл
- * @member {String} shippingLabel
- */
-InlineObject12.prototype['shippingLabel'] = undefined;
 
 /**
  * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).

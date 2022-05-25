@@ -17,10 +17,12 @@ Name | Type | Description | Notes
 **roles** | **[Number]** | Массив массив ролей. | [optional] 
 **needCheckBySupervisor** | **Boolean** | Если требуется проверка супервайзером. | [optional] 
 **restrictMoreThanOneProposalFromOneAssignee** | **Boolean** | Запретить фрилансеру повторное отправление предложений. | [optional] 
+**createdById** | **String** | GUID клиента, который создал заявку. | [optional] 
 **lastModifiedById** | **String** | GUID клиента, который обновил запрос на поиск товара. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
-**createdBy** | [**ApiV1RequestProposalsCreatedBy**](ApiV1RequestProposalsCreatedBy.md) |  | [optional] 
+**createdBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**countProposalsByStatuses** | [**ApiV1RequestsCountProposalsByStatuses**](ApiV1RequestsCountProposalsByStatuses.md) |  | [optional] 
 
 
 

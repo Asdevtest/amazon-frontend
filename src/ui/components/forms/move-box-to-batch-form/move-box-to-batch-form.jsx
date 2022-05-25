@@ -38,7 +38,7 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
         <div className={classNames.batchesExistBlock}>
           <div className={classNames.titleWrapper}>
             <Typography variant="h5">
-              {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey['Add box to batch'])}
+              {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey['Add to batch'])}
             </Typography>
 
             <div className={classNames.titleSubWrapper}>
@@ -90,7 +90,7 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
       ) : (
         <div className={classNames.batchesNotExistBlock}>
           <Typography variant="h5" className={classNames.title}>
-            {t(TranslationKey['Add box to batch'])}
+            {t(TranslationKey['Add to batch'])}
           </Typography>
 
           <div className={classNames.messageWrapper}>

@@ -16,6 +16,7 @@ export const styles = createStyles(theme => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    marginBottom: '10px',
   },
   tableWrapper: {
     marginTop: '15px',

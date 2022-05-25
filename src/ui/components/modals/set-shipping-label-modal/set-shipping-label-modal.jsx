@@ -26,7 +26,7 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, i
       <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
       <Divider className={classNames.divider} />
 
-      {item.shippingLabel && (
+      {item?.shippingLabel && (
         <Box className={classNames.boxCode}>
           <Typography className={(classNames.modalText, classNames.typoCode)}>{textConsts.code}</Typography>
 

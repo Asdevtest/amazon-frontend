@@ -33,6 +33,18 @@ export const styles = createStyles(() => ({
     marginBottom: '20px',
   },
 
+  tablePanelSortWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+
+    marginBottom: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      opacity: '.8',
+    },
+  },
+
   tablePanelViewText: {
     fontSize: '20px',
     lineHeight: '23px',
@@ -52,5 +64,11 @@ export const styles = createStyles(() => ({
 
   emptyTableText: {
     marginTop: '30px',
+  },
+
+  tablePanelWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 }))

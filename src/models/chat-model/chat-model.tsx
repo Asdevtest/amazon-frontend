@@ -129,10 +129,6 @@ class ChatModelStatic {
     )
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
-    console.log('findChatIndexById', findChatIndexById)
-
-    console.log('this.chats', this.chats)
-
     if (findChatIndexById !== -1) {
       runInAction(() => {
         this.chats[findChatIndexById].messages = [
@@ -141,15 +137,6 @@ class ChatModelStatic {
         ]
       })
     }
-    // if (findChat) {
-    //   runInAction(() => {
-    //     this.chats = [
-    //       ...this.chats.map(el =>
-    //         el._id === findChat._id ? {...findChat, messages: [...findChat.messages.filter(mes=>mes._id === message._id), message]} : el,
-    //       ),
-    //     ]
-    //   })
-    // }
   }
 
   private onPong(result: string) {

@@ -5,6 +5,8 @@ import React from 'react'
 import {Grid, Typography, Avatar, Divider} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 
+import {RequestProposalStatus} from '@constants/request-proposal-status'
+
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTimeWithParseISO} from '@utils/date-time'
@@ -13,8 +15,22 @@ import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './my-proposals-list-card.style'
 
-export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) => {
+export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onClickOpenBtn}) => {
   const classNames = useClassNames()
+
+  const noDisabledEditBtnStatuses = [
+    RequestProposalStatus.CREATED,
+    RequestProposalStatus.OFFER_CONDITIONS_REJECTED,
+    RequestProposalStatus.OFFER_CONDITIONS_CORRECTED,
+  ]
+
+  const disabledCancelBtnStatuses = [
+    RequestProposalStatus.CANCELED_BY_SUPERVISOR,
+    RequestProposalStatus.CANCELED_BY_EXECUTOR,
+    RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST,
+    RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+    RequestProposalStatus.EXPIRED,
+  ]
 
   return (
     <Grid item className={classNames.mainWrapper}>
@@ -72,12 +88,19 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) =>
                   <Typography>{proposal.status}</Typography>
 
                   <div className={classNames.btnsWrapper}>
-                    <Button disableElevation color="primary" variant="text" onClick={() => onClickDeleteBtn(proposal)}>
+                    <Button
+                      disableElevation
+                      disabled={disabledCancelBtnStatuses.includes(proposal.status)}
+                      color="primary"
+                      variant="text"
+                      onClick={() => onClickDeleteBtn(proposal)}
+                    >
                       {'Отменить'}
                     </Button>
 
                     <Button
                       disableElevation
+                      disabled={!noDisabledEditBtnStatuses.includes(proposal.status)}
                       color="primary"
                       variant="contained"
                       onClick={() => onClickEditBtn(item, proposal)}
@@ -85,7 +108,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn}) =>
                       {'Редактировать'}
                     </Button>
 
-                    <Button disableElevation color="primary" variant="contained">
+                    <Button disableElevation color="primary" variant="contained" onClick={() => onClickOpenBtn(item)}>
                       {'Открыть заявку'}
                     </Button>
                   </div>

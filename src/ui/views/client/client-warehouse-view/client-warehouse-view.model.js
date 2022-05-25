@@ -90,6 +90,8 @@ export class ClientWarehouseViewModel {
   boxesDeliveryCosts = undefined
   showMergeBoxFailModal = false
 
+  showSetShippingLabelModal = false
+
   modalEditSuccessMessage = ''
 
   showSetChipValueModal = false
@@ -102,9 +104,19 @@ export class ClientWarehouseViewModel {
   }
 
   rowHandlers = {
-    onClickChip: item => this.onClickFbaShipment(item),
-    onDoubleClickChip: item => this.onDoubleClickFbaShipment(item),
-    onDeleteChip: item => this.onDeleteFbaShipment(item),
+    onClickFbaShipment: item => this.onClickFbaShipment(item),
+    onDoubleClickFbaShipment: item => this.onDoubleClickFbaShipment(item),
+    onDeleteFbaShipment: item => this.onDeleteFbaShipment(item),
+
+    onClickShippingLabel: item => this.onClickShippingLabel(item),
+    onDoubleClickShippingLabel: item => this.onDoubleClickShippingLabel(item),
+    onDeleteShippingLabel: item => this.onDeleteShippingLabel(item),
+  }
+
+  confirmModalSettings = {
+    isWarning: false,
+    confirmMessage: '',
+    onClickConfirm: () => {},
   }
 
   sortModel = []
@@ -224,6 +236,105 @@ export class ClientWarehouseViewModel {
     }
   }
 
+  setSelectedBox(item) {
+    this.selectedBox = item
+  }
+
+  onClickShippingLabel(item) {
+    this.setSelectedBox(item)
+    this.onTriggerOpenModal('showSetShippingLabelModal')
+  }
+
+  onDoubleClickShippingLabel = item => {
+    this.setSelectedBox(item)
+    this.onTriggerOpenModal('showSetShippingLabelModal')
+  }
+
+  async onDeleteShippingLabel(box) {
+    try {
+      await BoxesModel.editBoxAtClient(box._id, {
+        shippingLabel: '',
+        isShippingLabelAttachedByStorekeeper: false,
+      })
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickSaveShippingLabel(tmpShippingLabel) {
+    this.uploadedFiles = []
+
+    if (tmpShippingLabel.length) {
+      await onSubmitPostImages.call(this, {images: tmpShippingLabel, type: 'uploadedFiles'})
+    }
+
+    if (this.selectedBox.shippingLabel === null) {
+      await ClientModel.editShippingLabelFirstTime(this.selectedBox._id, {shippingLabel: this.uploadedFiles[0]})
+      this.loadData()
+    } else {
+      this.confirmModalSettings = {
+        iWarning: false,
+        confirmMessage: 'Shipping label был проставлен, для проклейки будет создана задача складу.',
+        onClickConfirm: () => this.onSaveShippingLabelInTableSubmit(),
+      }
+
+      this.onTriggerOpenModal('showConfirmModal')
+    }
+
+    this.onTriggerOpenModal('showSetShippingLabelModal')
+  }
+
+  async onSaveShippingLabelInTableSubmit() {
+    try {
+      const boxData = {...this.selectedBox, shippingLabel: this.uploadedFiles[0]}
+
+      const sourceData = this.selectedBox
+
+      const newItems = boxData.items.map(el => ({
+        ...getObjectFilteredByKeyArrayBlackList(el, ['order', 'product', 'tmpBarCode', 'changeBarCodInInventory']),
+        amount: el.amount,
+        orderId: el.order._id,
+        productId: el.product._id,
+
+        barCode: el.barCode,
+        isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
+        isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
+      }))
+
+      const requestBox = getObjectFilteredByKeyArrayWhiteList(
+        {
+          ...boxData,
+          isShippingLabelAttachedByStorekeeper:
+            sourceData.shippingLabel !== boxData.shippingLabel ? false : boxData.isShippingLabelAttachedByStorekeeper,
+          items: newItems,
+          shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+        },
+        updateBoxWhiteList,
+      )
+
+      const editBoxesResult = await this.editBox({id: this.selectedBox._id, data: requestBox})
+
+      await this.postTask({
+        idsData: [editBoxesResult.guid],
+        idsBeforeData: [this.selectedBox._id],
+        type: TaskOperationType.EDIT,
+        clientComment: boxData.clientComment,
+      })
+
+      this.modalEditSuccessMessage = textConsts.modalEditSuccessMessageAndTask
+
+      this.onTriggerOpenModal('showEditBoxSuccessModal')
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
   onClickFbaShipment(item) {
     this.setSelectedBox(item)
     this.onTriggerOpenModal('showSetChipValueModal')
@@ -232,10 +343,6 @@ export class ClientWarehouseViewModel {
   onDoubleClickFbaShipment = item => {
     this.setSelectedBox(item)
     this.onTriggerOpenModal('showSetChipValueModal')
-  }
-
-  setSelectedBox(item) {
-    this.selectedBox = item
   }
 
   async onDeleteFbaShipment(box) {
@@ -430,24 +537,32 @@ export class ClientWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.selectedBoxes = []
 
+      this.uploadedFiles = []
+
+      if (boxData.tmpShippingLabel.length) {
+        await onSubmitPostImages.call(this, {images: boxData.tmpShippingLabel, type: 'uploadedFiles'})
+      }
+
       if (
         !boxData.clientComment &&
-        !boxData.tmpShippingLabel.length &&
-        boxData.shippingLabel === sourceData.shippingLabel &&
+        boxData.shippingLabel === null &&
         boxData.items.every(item => !item.tmpBarCode.length)
       ) {
         await BoxesModel.editBoxAtClient(id, {
           fbaShipment: boxData.fbaShipment,
           destinationId: boxData.destinationId,
           logicsTariffId: boxData.logicsTariffId,
+          shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxData.shippingLabel,
+          isShippingLabelAttachedByStorekeeper:
+            boxData.shippingLabel !== sourceData.shippingLabel
+              ? false
+              : sourceData.isShippingLabelAttachedByStorekeeper,
         })
 
         this.modalEditSuccessMessage = textConsts.modalEditSuccessMessage
 
         this.onTriggerOpenModal('showEditBoxSuccessModal')
       } else {
-        this.uploadedFiles = []
-
         let dataToBarCodeChange = boxData.items
           .map(el =>
             el.tmpBarCode.length
@@ -466,10 +581,6 @@ export class ClientWarehouseViewModel {
             dataWithFiles: dataToBarCodeChange,
             nameOfField: 'tmpBarCode',
           })
-        }
-
-        if (boxData.tmpShippingLabel.length) {
-          await onSubmitPostImages.call(this, {images: boxData.tmpShippingLabel, type: 'uploadedFiles'})
         }
 
         const newItems = boxData.items.map(el => {
@@ -721,6 +832,12 @@ export class ClientWarehouseViewModel {
   onClickCancelBtn(id, taskId, type) {
     this.toCancelData = {id, taskId, type}
 
+    this.confirmModalSettings = {
+      iWarning: true,
+      confirmMessage: 'Вы точно хотите отменить заказ?',
+      onClickConfirm: () => this.onClickCancelAfterConfirm(),
+    }
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 
@@ -811,6 +928,8 @@ export class ClientWarehouseViewModel {
       this.setRequestStatus(loadingStatuses.success)
       this.updateUserInfo()
       this.loadData()
+
+      this.triggerRequestToSendBatchModal()
     } catch (error) {
       this.warningInfoModalSettings = {
         isWarning: true,

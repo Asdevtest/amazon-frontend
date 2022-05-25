@@ -16,6 +16,14 @@ const textConsts = getLocalizedTexts(texts, 'ru').myRequestsTableColumns
 
 export const myRequestsViewColumns = () => [
   {
+    field: 'updatedAt',
+    headerName: 'Updated',
+    renderCell: params => <NormDateCell params={params} />,
+    width: 110,
+    type: 'date',
+  },
+
+  {
     field: 'status',
     headerName: textConsts.statusField,
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
@@ -26,7 +34,7 @@ export const myRequestsViewColumns = () => [
     field: 'title',
     headerName: textConsts.nameRequestField,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 200,
+    width: 350,
   },
 
   {
@@ -40,40 +48,40 @@ export const myRequestsViewColumns = () => [
     field: 'timeoutAt',
     headerName: textConsts.deadline,
     renderCell: params => <NormDateCell params={params} />,
-    width: 130,
+    width: 110,
     type: 'date',
   },
 
   {
-    field: 'offerCount',
+    field: 'allProposals',
     headerName: textConsts.offerCount,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => renderFieldValueCell(`${params.value} / ${params.row.originalData.maxAmountOfProposals} `),
     width: 170,
   },
 
   {
-    field: 'offerAwaits',
+    field: 'verifyingProposals',
     headerName: textConsts.offerAwaits,
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },
 
   {
-    field: 'offersInWork',
+    field: 'atWorkProposals',
     headerName: textConsts.offersInWork,
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },
 
   {
-    field: 'offersWaitCheck',
+    field: 'waitedProposals',
     headerName: textConsts.offersWaitCheck,
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },
 
   {
-    field: 'offersAccept',
+    field: 'acceptedProposals',
     headerName: textConsts.offersAccept,
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,

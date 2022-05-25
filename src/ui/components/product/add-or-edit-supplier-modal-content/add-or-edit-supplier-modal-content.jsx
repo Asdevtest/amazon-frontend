@@ -329,6 +329,7 @@ export const AddOrEditSupplierModalContent = observer(
     }
 
     const diasabledSubmit =
+      '' === tmpSupplier.name ||
       '' === tmpSupplier.price ||
       '' === tmpSupplier.link ||
       '' === tmpSupplier.amount ||
@@ -366,7 +367,7 @@ export const AddOrEditSupplierModalContent = observer(
           <div className={classNames.nameBlock}>
             <Field
               label={textConsts.name}
-              inputProps={{maxLength: 1024}}
+              inputProps={{maxLength: 100}}
               containerClasses={classNames.nameContainer}
               labelClasses={classNames.normalLabel}
               value={tmpSupplier.name}

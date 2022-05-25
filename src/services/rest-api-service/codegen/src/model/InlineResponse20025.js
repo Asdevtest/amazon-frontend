@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1RequestsCountProposalsByStatuses from './ApiV1RequestsCountProposalsByStatuses';
 import ApiV1RequestsCustomDetailsCustom from './ApiV1RequestsCustomDetailsCustom';
 
 /**
@@ -115,6 +116,9 @@ class InlineResponse20025 {
             }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('countProposalsByStatuses')) {
+                obj['countProposalsByStatuses'] = ApiV1RequestsCountProposalsByStatuses.constructFromObject(data['countProposalsByStatuses']);
             }
             if (data.hasOwnProperty('detailsCustom')) {
                 obj['detailsCustom'] = ApiV1RequestsCustomDetailsCustom.constructFromObject(data['detailsCustom']);
@@ -235,6 +239,11 @@ InlineResponse20025.prototype['updatedAt'] = undefined;
  * @member {module:model/ApiV1AdminsGetProductsByStatusClient} createdBy
  */
 InlineResponse20025.prototype['createdBy'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestsCountProposalsByStatuses} countProposalsByStatuses
+ */
+InlineResponse20025.prototype['countProposalsByStatuses'] = undefined;
 
 /**
  * @member {module:model/ApiV1RequestsCustomDetailsCustom} detailsCustom

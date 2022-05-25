@@ -49,6 +49,7 @@ class MyProposalsViewRaw extends Component {
       onSubmitDeleteProposal,
       onClickDeleteBtn,
       onClickEditBtn,
+      onClickOpenBtn,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -96,6 +97,7 @@ class MyProposalsViewRaw extends Component {
                         item={item}
                         onClickEditBtn={onClickEditBtn}
                         onClickDeleteBtn={onClickDeleteBtn}
+                        onClickOpenBtn={onClickOpenBtn}
                       />
                     ) : null,
                   )}

@@ -158,6 +158,13 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1ClientsDestinationGet()
     return response
   }
+
+  editShippingLabelFirstTime = async (id, data) => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch(id, {
+      body: data,
+    })
+    return response
+  }
 }
 
 export const ClientModel = new ClientModelStatic()
