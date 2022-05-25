@@ -24,15 +24,11 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
         <div className={classNames.cardTitleBlockWrapper}>
           <Typography className={classNames.cardTitle}>{item.title}</Typography>
 
-<<<<<<< HEAD
-          <Typography className={classNames.cardSubTitle}>{`Осталось ${
+          <Typography className={classNames.cardSubTitle}>{`${
             item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals
-          } из ${item.maxAmountOfProposals} предложений`}</Typography>
-=======
-          <Typography className={classNames.cardSubTitle}>{`${0} ${t(TranslationKey['out of'])} ${
-            item.maxAmountOfProposals
-          } ${t(TranslationKey['suggestions left'])}`}</Typography>
->>>>>>> 74dd8ffa (translate client role)
+          } ${t(TranslationKey['out of'])} ${item.maxAmountOfProposals} ${t(
+            TranslationKey['suggestions left'],
+          )}`}</Typography>
 
           <Typography>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(item.timeoutAt)}`}</Typography>
         </div>

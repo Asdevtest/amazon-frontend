@@ -200,7 +200,7 @@ export const CreateOrEditRequestContent = ({
 
               <Field
                 inputProps={{maxLength: 8}}
-                label={t(TranslationKey['Enter the number of prsoposals']) + '*'}
+                label={t(TranslationKey['Enter the number of proposals']) + '*'}
                 value={formFields.request.maxAmountOfProposals}
                 onChange={onChangeField('request')('maxAmountOfProposals')}
               />

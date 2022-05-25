@@ -51,62 +51,36 @@ export const myRequestsViewColumns = () => [
   },
 
   {
-<<<<<<< HEAD
     field: 'allProposals',
-    headerName: textConsts.offerCount,
+    headerName: t(TranslationKey['Total proposals']),
     renderCell: params => renderFieldValueCell(`${params.value} / ${params.row.originalData.maxAmountOfProposals} `),
-=======
-    field: 'offerCount',
-    headerName: t(TranslationKey['Total batches']),
-    renderCell: params => renderFieldValueCell(params.value),
->>>>>>> 74dd8ffa (translate client role)
     width: 170,
   },
 
   {
-<<<<<<< HEAD
     field: 'verifyingProposals',
-    headerName: textConsts.offerAwaits,
-=======
-    field: 'offerAwaits',
-    headerName: t(TranslationKey['Batches are expected']),
->>>>>>> 74dd8ffa (translate client role)
+    headerName: t(TranslationKey['Proposals are expected']),
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },
 
   {
-<<<<<<< HEAD
     field: 'atWorkProposals',
-    headerName: textConsts.offersInWork,
-=======
-    field: 'offersInWork',
-    headerName: t(TranslationKey['Batches in the works']),
->>>>>>> 74dd8ffa (translate client role)
+    headerName: t(TranslationKey['Proposals in the works']),
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },
 
   {
-<<<<<<< HEAD
     field: 'waitedProposals',
-    headerName: textConsts.offersWaitCheck,
-=======
-    field: 'offersWaitCheck',
-    headerName: t(TranslationKey['Batches at the checkout']),
->>>>>>> 74dd8ffa (translate client role)
+    headerName: t(TranslationKey['Proposals at the checkout']),
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },
 
   {
-<<<<<<< HEAD
     field: 'acceptedProposals',
-    headerName: textConsts.offersAccept,
-=======
-    field: 'offersAccept',
-    headerName: t(TranslationKey['The batches accepted']),
->>>>>>> 74dd8ffa (translate client role)
+    headerName: t(TranslationKey['The proposals accepted']),
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },
