@@ -170,9 +170,10 @@ export const HsCodeCell = withStyles(styles)(({classes: classNames, product, han
 ))
 
 export const ChangeChipCell = withStyles(styles)(
-  ({classes: classNames, row, value, onClickChip, onDoubleClickChip, onDeleteChip, text}) => (
+  ({classes: classNames, row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled}) => (
     <React.Fragment>
       <Chip
+        disabled={disabled}
         classes={{
           root: classNames.barcodeChip,
           clickable: classNames.barcodeChipHover,

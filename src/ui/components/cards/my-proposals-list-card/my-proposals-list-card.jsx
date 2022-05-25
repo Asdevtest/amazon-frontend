@@ -27,6 +27,8 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
   ]
 
   const disabledCancelBtnStatuses = [
+    RequestProposalStatus.ACCEPTED_BY_CLIENT,
+    RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST,
     RequestProposalStatus.CANCELED_BY_SUPERVISOR,
     RequestProposalStatus.CANCELED_BY_EXECUTOR,
     RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST,

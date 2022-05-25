@@ -439,14 +439,14 @@ export enum TranslationKey {
   'Stop accepting proposals' = 'Stop accepting proposals',
   'Resume accepting proposals' = 'Resume accepting proposals',
   'Deadline for the request' = 'Deadline for the request',
-  // '' = '',
+  'Missing' = 'Missing',
   // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',
 }
 
-// "word": "word"
+// "Missing": "Missing"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

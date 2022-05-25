@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Checkbox, Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -52,79 +52,28 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
               <div className={classNames.boxItemSubWrapper}>
                 <Typography className={classNames.amazonTitle}>{`${getShortenStringIfLongerThanCount(
                   box.items[0].product.amazonTitle,
-                  30,
+                  40,
                 )}`}</Typography>
 
-                <Typography variant="subtitle1">{`ASIN: ${box.items[0].product.asin}`}</Typography>
+                <div className={classNames.boxItemSubInfoWrapper}>
+                  <div className={classNames.boxItemSubSubInfoWrapper}>
+                    <Typography variant="subtitle1">{`ASIN: ${box.items[0].product.asin}`}</Typography>
 
-                <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${box.items[0].amount} ${t(
-                  TranslationKey['pcs.'],
-                )}`}</Typography>
+                    <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${box.items[0].amount} ${t(
+                      TranslationKey['pcs.'],
+                    )}`}</Typography>
 
-                <Typography className={classNames.superBoxTypo}>{`Superbox x ${box.amount}`}</Typography>
-
-                <div className={classNames.barCodeLabelWrapper}>
-                  <Typography className={classNames.spanText}>{t(TranslationKey.BarCode)}</Typography>
-
-                  <div className={classNames.checkboxWrapper}>
-                    <Typography className={clsx({[classNames.alertSpan]: isNoBarCodGlued})}>
-                      {t(TranslationKey.glued)}
-                    </Typography>
-
-                    <Checkbox
-                      disabled
-                      color="primary"
-                      checked={
-                        box.items[0].isBarCodeAlreadyAttachedByTheSupplier ||
-                        box.items[0].isBarCodeAttachedByTheStorekeeper
-                      }
-                    />
+                    <Typography className={classNames.superBoxTypo}>{`Superbox x ${box.amount}`}</Typography>
                   </div>
 
-                  {box.items[0].product.barCode ? (
-                    <div className={classNames.linkWrapper}>
-                      <a
-                        download
-                        target="_blank"
-                        rel="noreferrer"
-                        href={box.items[0].product.barCode}
-                        className={classNames.downloadLink}
-                      >
-                        {t(TranslationKey.download)}
-                      </a>
-
-                      <img
-                        className={classNames.copyImg}
-                        src="/assets/icons/copy-img.svg"
-                        alt=""
-                        onClick={() => copyValue(box.items[0].product.barCode)}
-                      />
-                    </div>
-                  ) : (
-                    <Typography className={classNames.alertSpan}>{'N/A'}</Typography>
-                  )}
-                </div>
-              </div>
-            </div>
-          ) : (
-            box.items.map((item, idx) => (
-              <div key={idx} className={classNames.boxItemWrapper}>
-                <img src={getAmazonImageUrl(item.product.images[0])} className={classNames.img} />
-
-                <div className={classNames.boxItemSubWrapper}>
-                  <Typography className={classNames.amazonTitle}>{`${getShortenStringIfLongerThanCount(
-                    item.product.amazonTitle,
-                    30,
-                  )}`}</Typography>
-
-                  <Typography variant="subtitle1">{`ASIN: ${box.items[0].product.asin}`}</Typography>
-
-                  <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${item.amount} шт.`}</Typography>
-
                   <div className={classNames.barCodeLabelWrapper}>
-                    <Typography className={classNames.spanText}>{t(TranslationKey.BarCode)}</Typography>
+                    <Typography
+                      className={clsx(classNames.spanText, {[classNames.alertSpan]: !box.items[0].product.barCode})}
+                    >
+                      {t(TranslationKey.BarCode)}
+                    </Typography>
 
-                    <div className={classNames.checkboxWrapper}>
+                    {/* <div className={classNames.checkboxWrapper}>
                       <Typography className={clsx({[classNames.alertSpan]: isNoBarCodGlued})}>
                         {t(TranslationKey.glued)}
                       </Typography>
@@ -137,15 +86,15 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                           box.items[0].isBarCodeAttachedByTheStorekeeper
                         }
                       />
-                    </div>
+                    </div> */}
 
-                    {item.barCode ? (
+                    {box.items[0].product.barCode ? (
                       <div className={classNames.linkWrapper}>
                         <a
                           download
                           target="_blank"
                           rel="noreferrer"
-                          href={item.barCode}
+                          href={box.items[0].product.barCode}
                           className={classNames.downloadLink}
                         >
                           {t(TranslationKey.download)}
@@ -155,12 +104,62 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                           className={classNames.copyImg}
                           src="/assets/icons/copy-img.svg"
                           alt=""
-                          onClick={() => copyValue(item.barCode)}
+                          onClick={() => copyValue(box.items[0].product.barCode)}
                         />
                       </div>
                     ) : (
                       <Typography className={classNames.alertSpan}>{'N/A'}</Typography>
                     )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            box.items.map((item, idx) => (
+              <div key={idx} className={classNames.boxItemWrapper}>
+                <img src={getAmazonImageUrl(item.product.images[0])} className={classNames.img} />
+
+                <div className={classNames.boxItemSubWrapper}>
+                  <Typography className={classNames.amazonTitle}>{`${getShortenStringIfLongerThanCount(
+                    item.product.amazonTitle,
+                    40,
+                  )}`}</Typography>
+
+                  <div className={classNames.boxItemSubInfoWrapper}>
+                    <div className={classNames.boxItemSubSubInfoWrapper}>
+                      <Typography variant="subtitle1">{`ASIN: ${box.items[0].product.asin}`}</Typography>
+
+                      <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${item.amount} шт.`}</Typography>
+                    </div>
+
+                    <div className={classNames.barCodeLabelWrapper}>
+                      <Typography className={clsx(classNames.spanText, {[classNames.alertSpan]: !item.barCode})}>
+                        {t(TranslationKey.BarCode)}
+                      </Typography>
+
+                      {item.barCode ? (
+                        <div className={classNames.linkWrapper}>
+                          <a
+                            download
+                            target="_blank"
+                            rel="noreferrer"
+                            href={item.barCode}
+                            className={classNames.downloadLink}
+                          >
+                            {t(TranslationKey.download)}
+                          </a>
+
+                          <img
+                            className={classNames.copyImg}
+                            src="/assets/icons/copy-img.svg"
+                            alt=""
+                            onClick={() => copyValue(item.barCode)}
+                          />
+                        </div>
+                      ) : (
+                        <Typography className={classNames.alertSpan}>{t(TranslationKey.Missing)}</Typography>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -197,15 +196,9 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
       <div className={clsx(tableCellClsx, classNames.shippingLabelCell)}>
         <div className={classNames.shippingLabelWrapper}>
-          <Typography className={classNames.spanText}>{t(TranslationKey['Shipping label'])}</Typography>
-
-          <div className={classNames.checkboxWrapper}>
-            <Typography className={clsx({[classNames.alertSpan]: !box.isShippingLabelAttachedByStorekeeper})}>
-              {t(TranslationKey.glued)}
-            </Typography>
-
-            <Checkbox disabled color="primary" checked={box.isShippingLabelAttachedByStorekeeper} />
-          </div>
+          <Typography className={clsx(classNames.spanText, {[classNames.alertSpan]: !box.shippingLabel})}>
+            {t(TranslationKey['Shipping label'])}
+          </Typography>
 
           {box.shippingLabel ? (
             <div className={classNames.linkWrapper}>
@@ -221,7 +214,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
               />
             </div>
           ) : (
-            <Typography className={classNames.alertSpan}>{'N/A'}</Typography>
+            <Typography className={classNames.alertSpan}>{t(TranslationKey.Missing)}</Typography>
           )}
         </div>
       </div>

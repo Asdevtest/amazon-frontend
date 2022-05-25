@@ -86,6 +86,7 @@ export const clientBoxesViewColumns = handlers => [
     renderCell: params => (
       <div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
         <ChangeChipCell
+          disabled={params.row.originalData.isDraft}
           row={params.row.originalData}
           value={params.row.shippingLabel}
           text={'Set Shipping Label'}
@@ -95,6 +96,7 @@ export const clientBoxesViewColumns = handlers => [
         />
 
         <ChangeChipCell
+          disabled={params.row.originalData.isDraft}
           row={params.row.originalData}
           value={params.row.fbaShipment}
           text={textConsts.fbaShipmentChip}
