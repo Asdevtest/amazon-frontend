@@ -14,6 +14,7 @@ import {observer} from 'mobx-react'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
@@ -24,6 +25,7 @@ import {Navbar} from '@components/navbar'
 
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {VacantRequestsViewModel} from './vacant-requests-view.model'
 import {styles} from './vacant-requests-view.style'
@@ -81,7 +83,7 @@ class VacantRequestsViewRaw extends Component {
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.tablePanelViewWrapper}>
-                  <Typography className={classNames.tablePanelViewText}>{'Вид'}</Typography>
+                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey.Location)}</Typography>
 
                   <ToggleButtonGroup exclusive value={viewMode} onChange={onChangeViewMode}>
                     <ToggleButton value={tableViewMode.LIST}>
@@ -125,7 +127,7 @@ class VacantRequestsViewRaw extends Component {
                 <div className={classNames.emptyTableWrapper}>
                   <img src="/assets/icons/empty-table.svg" />
                   <Typography variant="h5" className={classNames.emptyTableText}>
-                    {'Вакантных заявок пока нет.'}
+                    {t(TranslationKey['No vacant applications yet'])}
                   </Typography>
                 </div>
               )}

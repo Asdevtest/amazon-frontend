@@ -17,6 +17,7 @@ import {
   ProductStrategyStatus,
 } from '@constants/product-strategy-status'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
@@ -25,6 +26,7 @@ import {Input} from '@components/input'
 import {checkIsClient, checkIsSupervisor, checkIsAdmin, checkIsResearcher, checkIsBuyer} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './fields-and-suppliers.style'
 
@@ -97,7 +99,7 @@ export const FieldsAndSuppliers = observer(
       <Grid item xs={12}>
         <Field
           disabled
-          label={textConsts.fieldLinkAmazon}
+          label={t(TranslationKey['Amazon product link'])}
           inputComponent={
             <div>
               {product.lamazon ? (
@@ -144,7 +146,7 @@ export const FieldsAndSuppliers = observer(
 
             {checkIsClient(curUserRole) && product.isCreatedByClient && (
               <Field
-                label={textConsts.sku}
+                label={t(TranslationKey['SKU by Client'])}
                 inputComponent={
                   <div>
                     {product.skusByClient.length ? (
@@ -185,7 +187,7 @@ export const FieldsAndSuppliers = observer(
                             color="primary"
                             onClick={onClickSkuBtn}
                           >
-                            {textConsts.addSkuBtn}
+                            {t(TranslationKey.Add)}
                           </Button>
                         </div>
                       )}
@@ -194,7 +196,7 @@ export const FieldsAndSuppliers = observer(
               />
             )}
 
-            <Typography className={classNames.label}>{textConsts.deliveryMethod}</Typography>
+            <Typography className={classNames.label}>{t(TranslationKey['Delivery Method'])}</Typography>
 
             <div className={classNames.productCheckboxBoxesWrapper}>
               <Box className={classNames.productCheckboxBox}>
@@ -239,7 +241,7 @@ export const FieldsAndSuppliers = observer(
             </div>
 
             <Box mt={3} className={classNames.strategyWrapper}>
-              <InputLabel className={classNames.strategyLabel}>{textConsts.strategyLabel}</InputLabel>
+              <InputLabel className={classNames.strategyLabel}>{t(TranslationKey['Product Strategy'])}</InputLabel>
 
               <NativeSelect
                 disabled={
@@ -270,7 +272,7 @@ export const FieldsAndSuppliers = observer(
 
             <div className={classNames.suppliersWrapper}>
               <Typography variant="h6" className={classNames.supplierTitle}>
-                {textConsts.supplierTitle}
+                {t(TranslationKey['List of suppliers'])}
               </Typography>
 
               {!(
@@ -285,7 +287,7 @@ export const FieldsAndSuppliers = observer(
               ) ? (
                 <div className={classNames.supplierActionsWrapper}>
                   <Typography variant="h6" className={classNames.supplierActionsTitle}>
-                    {textConsts.supplierActionsTitle}
+                    {t(TranslationKey.Actions)}
                   </Typography>
                   <Container disableGutters className={classNames.supplierContainer}>
                     <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('add')}>
@@ -334,7 +336,7 @@ export const FieldsAndSuppliers = observer(
                   <Field
                     disabled={disabledPrivateLabelFields}
                     inputProps={{maxLength: 255}}
-                    label={textConsts.niche}
+                    label={t(TranslationKey.Niche)}
                     value={product.niche}
                     onChange={onChangeField('niche')}
                   />
@@ -351,7 +353,7 @@ export const FieldsAndSuppliers = observer(
                       disabled={disabledPrivateLabelFields}
                       inputProps={{maxLength: 10}}
                       containerClasses={classNames.shortInput}
-                      label={textConsts.avgRevenue}
+                      label={t(TranslationKey['Average revenue'])}
                       value={product.avgRevenue}
                       onChange={onChangeField('avgRevenue')}
                     />
@@ -359,7 +361,7 @@ export const FieldsAndSuppliers = observer(
                       disabled={disabledPrivateLabelFields}
                       containerClasses={classNames.shortInput}
                       inputProps={{maxLength: 10}}
-                      label={textConsts.avgBSR}
+                      label={t(TranslationKey['Average BSR'])}
                       value={product.avgBSR}
                       onChange={onChangeField('avgBSR')}
                     />
@@ -370,14 +372,14 @@ export const FieldsAndSuppliers = observer(
                   <Field
                     disabled={disabledPrivateLabelFields}
                     inputProps={{maxLength: 10}}
-                    label={textConsts.totalRevenue}
+                    label={t(TranslationKey['Total Revenue'])}
                     value={product.totalRevenue}
                     onChange={onChangeField('totalRevenue')}
                   />
                   <Field
                     disabled={disabledPrivateLabelFields}
                     inputProps={{maxLength: 10}}
-                    label={textConsts.coefficient}
+                    label={t(TranslationKey.Coefficient)}
                     value={product.coefficient}
                     onChange={onChangeField('coefficient')}
                   />
@@ -387,7 +389,7 @@ export const FieldsAndSuppliers = observer(
                       disabled={disabledPrivateLabelFields}
                       inputProps={{maxLength: 10}}
                       containerClasses={classNames.shortInput}
-                      label={textConsts.avgPrice}
+                      label={t(TranslationKey['Average Price'])}
                       value={product.avgPrice}
                       onChange={onChangeField('avgPrice')}
                     />
@@ -395,7 +397,7 @@ export const FieldsAndSuppliers = observer(
                       disabled={disabledPrivateLabelFields}
                       containerClasses={classNames.shortInput}
                       inputProps={{maxLength: 10}}
-                      label={textConsts.avgReviews}
+                      label={t(TranslationKey['Average Review'])}
                       value={product.avgReviews}
                       onChange={onChangeField('avgReviews')}
                     />

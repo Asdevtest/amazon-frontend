@@ -1,4 +1,4 @@
-import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
+import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
@@ -6,6 +6,7 @@ import {texts} from '@constants/texts'
 
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
+import {SettingsModel} from '@models/settings-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
@@ -138,6 +139,10 @@ export class ClientProductViewModel {
     this.productId = history.location.search.slice(1)
 
     makeAutoObservable(this, undefined, {autoBind: true})
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
   }
 
   async loadData() {

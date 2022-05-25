@@ -1,9 +1,11 @@
 import * as Showdown from 'showdown'
 import * as xssFilter from 'showdown-xss-filter'
 
+import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {checkIsAbsoluteUrl} from './checks'
+import {t} from './translations'
 
 export const getModelNameWithotPostfix = modelName => modelName.replace('Static', '')
 
@@ -28,9 +30,9 @@ export const toFixedWithCm = (int, x) => withCm(toFixed(int, x))
 
 export const withDollarSign = str => (str && str !== '0' ? `$${str}` : str)
 export const withYuanSign = str => (str && str !== '0' ? `Ұ${str}` : str)
-export const withKg = str => (str && str !== '0' ? `${str} кг` : str)
-export const withAmount = str => (str && str !== '0' ? `${str} шт` : str)
-export const withCm = str => (str && str !== '0' ? `${str} см` : str)
+export const withKg = str => (str && str !== '0' ? `${str} ${t(TranslationKey.kg)}` : str)
+export const withAmount = str => (str && str !== '0' ? `${str} ${t(TranslationKey['pcs.'])}` : str)
+export const withCm = str => (str && str !== '0' ? `${str} ${t(TranslationKey.cm)}` : str)
 
 export const withText = (str, text) => (str && str !== 0 ? `${str}${text}` : str)
 
@@ -51,7 +53,8 @@ const converter = new Showdown.Converter({
 
 export const getTextFromMarkdown = markdown => converter.makeHtml(markdown)
 
-export const minsToTimeRus = mins => `${mins / 60 > 1 ? Math.floor(mins / 60) : 0} часов ${mins % 60} минут`
+export const minsToTimeRus = mins =>
+  `${mins / 60 > 1 ? Math.floor(mins / 60) : 0} ${t(TranslationKey.hour)} ${mins % 60} ${t(TranslationKey.minute)}`
 
 export const getFullTariffTextForBoxOrOrder = box => {
   if (!box) {

@@ -8,6 +8,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -28,6 +29,7 @@ import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-sup
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ClientInventoryViewModel} from './client-inventory-view.model'
 import {styles} from './client-inventory-view.style'
@@ -42,7 +44,6 @@ export class ClientInventoryViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -122,13 +123,13 @@ export class ClientInventoryViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Inventory)}>
             <MainContent>
               <div className={classNames.addProductBtnsWrapper}>
                 {!isArchive && (
                   <div className={classNames.btnsWrapper}>
                     <Button variant="contained" disabled={selectedRowIds.length === 0} onClick={onClickOrderBtn}>
-                      {textConsts.orderBtn}
+                      {t(TranslationKey['To order'])}
                     </Button>
 
                     <Button
@@ -139,7 +140,7 @@ export class ClientInventoryViewRaw extends Component {
                       color="primary"
                       onClick={onClickBindInventoryGoodsToStockBtn}
                     >
-                      {textConsts.bindGoodsBtn}
+                      {t(TranslationKey['Bind goods from the warehouse'])}
                     </Button>
 
                     <Button
@@ -148,30 +149,32 @@ export class ClientInventoryViewRaw extends Component {
                       className={classNames.buttonOffset}
                       onClick={() => onClickAddSupplierBtn()}
                     >
-                      {textConsts.addSupplierBtn}
+                      {t(TranslationKey['Supplier search'])}
                     </Button>
                   </div>
                 )}
 
                 <div className={classNames.archiveBtnsWrapper}>
                   <Button variant="outlined" onClick={onTriggerArchive}>
-                    {isArchive ? 'Открыть инвентарь' : 'Открыть архив'}
+                    {isArchive ? t(TranslationKey['Open inventory']) : t(TranslationKey['Open archive'])}
                   </Button>
 
                   <Button
                     disableElevation
-                    tooltipContent={isNoEditProductSelected && 'Выбран продукт с неподходящим статусом'}
+                    tooltipContent={
+                      isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
+                    }
                     disabled={!selectedRowIds.length || isNoEditProductSelected}
                     variant="outlined"
                     onClick={onClickTriggerArchOrResetProducts}
                   >
-                    {isArchive ? 'Восстановить' : 'Перенести в архив'}
+                    {isArchive ? t(TranslationKey.Recover) : t(TranslationKey['Move to archive'])}
                   </Button>
                 </div>
 
                 {!isArchive && (
                   <SuccessButton onClick={() => onTriggerOpenModal('showSendOwnProductModal')}>
-                    {textConsts.addProductBtn}
+                    {t(TranslationKey['Add your product'])}
                   </SuccessButton>
                 )}
               </div>
@@ -241,7 +244,7 @@ export class ClientInventoryViewRaw extends Component {
             outsideProduct
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}
-            title={textConsts.addOrEditSupplierTitle}
+            title={t(TranslationKey['Add a new supplier'])}
             showProgress={showProgress}
             progressValue={progressValue}
             onClickPrevButton={() => onClickPrevButton()}

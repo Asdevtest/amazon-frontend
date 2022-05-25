@@ -9,6 +9,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -20,6 +21,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ClientReadyBoxesViewModel} from './client-ready-boxes-view.model'
 import {styles} from './client-ready-boxes-view.style'
@@ -34,7 +36,6 @@ export class ClientReadyBoxesViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -96,7 +97,7 @@ export class ClientReadyBoxesViewRaw extends Component {
                   color="primary"
                   onClick={onClickStorekeeperBtn}
                 >
-                  {`Все склады`}
+                  {t(TranslationKey['All warehouses'])}
                 </Button>
 
                 {storekeepersData
@@ -127,7 +128,7 @@ export class ClientReadyBoxesViewRaw extends Component {
                   variant="contained"
                   onClick={() => onTriggerOpenModal('showConfirmModal')}
                 >
-                  {textConsts.cancelSendBatchBtn}
+                  {t(TranslationKey['Return to stock'])}
                 </Button>
               </div>
 

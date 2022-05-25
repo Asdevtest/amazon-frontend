@@ -6,6 +6,7 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -17,6 +18,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {CreateOrEditProposalViewModel} from './create-or-edit-proposal-view.model'
 import {styles} from './create-or-edit-proposal-view.style'
@@ -66,7 +68,7 @@ export class CreateOrEditProposalViewRaw extends Component {
             <MainContent>
               <div className={classNames.backBtnWrapper}>
                 <Button variant="contained" color="primary" onClick={onClickBackBtn}>
-                  {'Назад'}
+                  {t(TranslationKey.Back)}
                 </Button>
               </div>
 

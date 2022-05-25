@@ -1,8 +1,10 @@
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {renderFieldValueCell, TrashCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 const textConsts = getLocalizedTexts(texts, 'en').bindInventoryGoodsToStockColumnsTexts
 
@@ -23,21 +25,21 @@ export const sourceColumns = () => [
 
   {
     field: 'title',
-    headerName: textConsts.titleField,
+    headerName: t(TranslationKey.Title),
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
 
   {
     field: 'stockValue',
-    headerName: textConsts.stockValueField,
+    headerName: t(TranslationKey.Quantity),
     renderCell: params => renderFieldValueCell(params.value),
     width: 110,
   },
 
   {
     field: 'reserved',
-    headerName: textConsts.reservedField,
+    headerName: t(TranslationKey.Reserved),
     renderCell: params => renderFieldValueCell(params.value),
     width: 110,
   },
@@ -67,21 +69,21 @@ export const chosenGoodsColumns = handlers => [
 
   {
     field: 'title',
-    headerName: textConsts.titleField,
+    headerName: t(TranslationKey.Title),
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
 
   {
     field: 'stockValue',
-    headerName: textConsts.stockValueField,
+    headerName: t(TranslationKey.Quantity),
     renderCell: params => renderFieldValueCell(params.value),
     width: 110,
   },
 
   {
     field: 'reserved',
-    headerName: textConsts.reservedField,
+    headerName: t(TranslationKey.Reserved),
     renderCell: params => renderFieldValueCell(params.value),
     width: 110,
   },

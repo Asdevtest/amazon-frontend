@@ -3,6 +3,8 @@ import React, {useState} from 'react'
 import {Checkbox, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {Modal} from '@components/modal'
@@ -11,6 +13,7 @@ import {calcVolumeWeightForBox, calcFinalWeightForBox} from '@utils/calculation'
 import {getShortenStringIfLongerThanCount} from '@utils/change-string-length'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './request-to-send-batch-box.styles'
 
@@ -54,15 +57,19 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
                 <Typography variant="subtitle1">{`ASIN: ${box.items[0].product.asin}`}</Typography>
 
-                <Typography variant="subtitle1">{`Количество ${box.items[0].amount} шт.`}</Typography>
+                <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${box.items[0].amount} ${t(
+                  TranslationKey['pcs.'],
+                )}`}</Typography>
 
                 <Typography className={classNames.superBoxTypo}>{`Superbox x ${box.amount}`}</Typography>
 
                 <div className={classNames.barCodeLabelWrapper}>
-                  <Typography className={classNames.spanText}>{'Баркод'}</Typography>
+                  <Typography className={classNames.spanText}>{t(TranslationKey.BarCode)}</Typography>
 
                   <div className={classNames.checkboxWrapper}>
-                    <Typography className={clsx({[classNames.alertSpan]: isNoBarCodGlued})}>{'проклеен'}</Typography>
+                    <Typography className={clsx({[classNames.alertSpan]: isNoBarCodGlued})}>
+                      {t(TranslationKey.glued)}
+                    </Typography>
 
                     <Checkbox
                       disabled
@@ -83,7 +90,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                         href={box.items[0].product.barCode}
                         className={classNames.downloadLink}
                       >
-                        {'Скачать'}
+                        {t(TranslationKey.download)}
                       </a>
 
                       <img
@@ -112,13 +119,15 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
                   <Typography variant="subtitle1">{`ASIN: ${box.items[0].product.asin}`}</Typography>
 
-                  <Typography variant="subtitle1">{`Количество ${item.amount} шт.`}</Typography>
+                  <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${item.amount} шт.`}</Typography>
 
                   <div className={classNames.barCodeLabelWrapper}>
-                    <Typography className={classNames.spanText}>{'Баркод'}</Typography>
+                    <Typography className={classNames.spanText}>{t(TranslationKey.BarCode)}</Typography>
 
                     <div className={classNames.checkboxWrapper}>
-                      <Typography className={clsx({[classNames.alertSpan]: isNoBarCodGlued})}>{'проклеен'}</Typography>
+                      <Typography className={clsx({[classNames.alertSpan]: isNoBarCodGlued})}>
+                        {t(TranslationKey.glued)}
+                      </Typography>
 
                       <Checkbox
                         disabled
@@ -139,7 +148,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                           href={item.barCode}
                           className={classNames.downloadLink}
                         >
-                          {'Скачать'}
+                          {t(TranslationKey.download)}
                         </a>
 
                         <img
@@ -162,7 +171,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
       <div className={clsx(tableCellClsx, classNames.dementionsCell)}>
         <div className={classNames.dementionsSubWrapper}>
-          <Typography className={classNames.dementionsTitle}>{'Фактический вес'}</Typography>
+          <Typography className={classNames.dementionsTitle}>{t(TranslationKey['Actual weight'])}</Typography>
 
           <Typography className={classNames.dementionsSpanText}>
             {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
@@ -170,7 +179,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
         </div>
 
         <div className={classNames.dementionsSubWrapper}>
-          <Typography className={classNames.dementionsTitle}>{'Объемный вес'}</Typography>
+          <Typography className={classNames.dementionsTitle}>{t(TranslationKey['Volume weight'])}</Typography>
 
           <Typography className={classNames.dementionsSpanText}>
             {toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
@@ -178,7 +187,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
         </div>
 
         <div className={classNames.dementionsSubWrapper}>
-          <Typography className={classNames.dementionsTitle}>{'Финальный вес'}</Typography>
+          <Typography className={classNames.dementionsTitle}>{t(TranslationKey['Final weight'])}</Typography>
 
           <Typography className={classNames.dementionsSpanText}>
             {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}
@@ -188,11 +197,11 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
       <div className={clsx(tableCellClsx, classNames.shippingLabelCell)}>
         <div className={classNames.shippingLabelWrapper}>
-          <Typography className={classNames.spanText}>{'Шиппинг Лейбл'}</Typography>
+          <Typography className={classNames.spanText}>{t(TranslationKey['Shipping label'])}</Typography>
 
           <div className={classNames.checkboxWrapper}>
             <Typography className={clsx({[classNames.alertSpan]: !box.isShippingLabelAttachedByStorekeeper})}>
-              {'проклеен'}
+              {t(TranslationKey.glued)}
             </Typography>
 
             <Checkbox disabled color="primary" checked={box.isShippingLabelAttachedByStorekeeper} />
@@ -201,7 +210,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
           {box.shippingLabel ? (
             <div className={classNames.linkWrapper}>
               <a download target="_blank" rel="noreferrer" href={box.shippingLabel} className={classNames.downloadLink}>
-                {'Скачать'}
+                {t(TranslationKey.download)}
               </a>
 
               <img
@@ -218,7 +227,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
       </div>
 
       <div className={clsx(tableCellClsx, classNames.priceCell)}>
-        <Typography className={classNames.spanText}>{`Стоимость доставки коробки`}</Typography>
+        <Typography className={classNames.spanText}>{t(TranslationKey['Box delivery cost'])}</Typography>
       </div>
 
       <div className={clsx(tableCellClsx, classNames.priceCellRight)}>

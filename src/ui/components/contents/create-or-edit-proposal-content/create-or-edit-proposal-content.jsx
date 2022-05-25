@@ -4,6 +4,8 @@ import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import Carousel from 'react-material-ui-carousel'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -14,6 +16,7 @@ import {UploadFilesInput} from '@components/upload-files-input'
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
 import {toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './create-or-edit-proposal-content.style'
 
@@ -79,7 +82,7 @@ export const CreateOrEditProposalContent = ({
         <Field
           multiline
           className={classNames.descriptionField}
-          label={'Детали заявки'}
+          label={t(TranslationKey['Application details'])}
           inputComponent={
             <Typography
               minRows={16}
@@ -119,7 +122,7 @@ export const CreateOrEditProposalContent = ({
 
         <div className={classNames.mainLeftSubWrapper}>
           <Field
-            label={'Цена'}
+            label={t(TranslationKey.Price)}
             inputComponent={
               <Typography className={clsx(classNames.twoStepFieldResult, classNames.price)}>
                 {toFixedWithDollarSign(request?.request.price, 2)}
@@ -128,7 +131,7 @@ export const CreateOrEditProposalContent = ({
           />
 
           <Field
-            label={'Срок выполнения'}
+            label={t(TranslationKey.Deadline)}
             inputComponent={
               <Typography className={classNames.twoStepFieldResult}>
                 {request.request.timeoutAt && formatNormDateTime(request?.request.timeoutAt)}
@@ -146,21 +149,21 @@ export const CreateOrEditProposalContent = ({
             inputProps={{maxLength: 1000}}
             minRows={8}
             rowsMax={8}
-            label={'Опишите свое предложение*'}
+            label={t(TranslationKey['Describe your proposal'])}
             value={formFields.comment}
             onChange={onChangeField('comment')}
           />
 
           <div className={classNames.middleSubWrapper}>
             <Field
-              label={'Введите цену предложения $*'}
+              label={t(TranslationKey['Enter the offer price'])}
               inputProps={{maxLength: 8}}
               value={formFields.price}
               onChange={onChangeField('price')}
             />
 
             <Field
-              label={'Время на выполнение мин.*'}
+              label={t(TranslationKey['Time to complete, min*'])}
               inputProps={{maxLength: 8}}
               containerClasses={classNames.dateWrapper}
               value={formFields.execution_time}
@@ -182,7 +185,7 @@ export const CreateOrEditProposalContent = ({
                 setBigImagesOptions({images: formFields.linksToMediaFiles})
               }}
             >
-              {'Имеющиеся файлы'}
+              {t(TranslationKey['Available files'])}
             </Button>
           </div>
         </div>
@@ -194,7 +197,7 @@ export const CreateOrEditProposalContent = ({
               className={classNames.successBtn}
               onClick={proposalToEdit ? onClickEditSubmit : onClickCreateSubmit}
             >
-              {proposalToEdit ? 'Изменить' : 'Предложить'}
+              {proposalToEdit ? t(TranslationKey.Edit) : t(TranslationKey.Suggest)}
             </SuccessButton>
           </div>
         </div>

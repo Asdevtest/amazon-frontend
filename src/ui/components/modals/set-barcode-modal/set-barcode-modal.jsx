@@ -4,12 +4,14 @@ import {Box, Container, Divider, Typography, Link} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './set-barcode-modal.style'
 
@@ -24,7 +26,7 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item
 
   return (
     <Container disableGutters>
-      <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
+      <Typography className={classNames.modalTitle}>{t(TranslationKey['Add barcode'])}</Typography>
 
       <Divider className={classNames.divider} />
 
@@ -46,9 +48,9 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item
 
       <Box className={classNames.saveBox}>
         <Button disabled={!files.length} className={classNames.saveBtn} onClick={() => onClickSaveBarcode([files[0]])}>
-          {textConsts.saveBtn}
+          {t(TranslationKey.Save)}
         </Button>
-        <Button onClick={onCloseModal}>{textConsts.closeBtn}</Button>
+        <Button onClick={onCloseModal}>{t(TranslationKey.Close)}</Button>
       </Box>
     </Container>
   )

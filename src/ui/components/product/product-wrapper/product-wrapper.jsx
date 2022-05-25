@@ -5,9 +5,11 @@ import React from 'react'
 import {Typography, Box, Tabs, Tab} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {checkIsClient} from '@utils/checks'
+import {t} from '@utils/translations'
 
 import {Integrations} from '../integrations'
 import {Listing} from '../listing'
@@ -78,12 +80,14 @@ export const ProductWrapper = observer(
           value={tabIndex}
           onChange={(e, value) => setTabIndex(value)}
         >
-          <Tab classes={tabItemStyles} label={'Основная информация'} value={tabsValues.MAIN_INFO} />
-          {checkIsClient(curUserRole) && <Tab classes={tabItemStyles} label={'Заказы'} value={tabsValues.ORDERS} />}
+          <Tab classes={tabItemStyles} label={t(TranslationKey['Basic information'])} value={tabsValues.MAIN_INFO} />
           {checkIsClient(curUserRole) && (
-            <Tab classes={tabItemStyles} label={'Интеграции'} value={tabsValues.INTEGRATIONS} />
+            <Tab classes={tabItemStyles} label={t(TranslationKey.Orders)} value={tabsValues.ORDERS} />
           )}
-          <Tab classes={tabItemStyles} label={'Листинг'} value={tabsValues.LISTING} />
+          {checkIsClient(curUserRole) && (
+            <Tab classes={tabItemStyles} label={t(TranslationKey.Integrations)} value={tabsValues.INTEGRATIONS} />
+          )}
+          <Tab classes={tabItemStyles} label={t(TranslationKey.Listing)} value={tabsValues.LISTING} />
         </Tabs>
 
         <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>

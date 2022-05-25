@@ -9,7 +9,7 @@ import Carousel from 'react-material-ui-carousel'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
@@ -23,14 +23,12 @@ import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal
 import {Table} from '@components/table'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {SelectStorekeeperAndTariffForm} from '../select-storkeeper-and-tariff-form'
 import {useClassNames} from './edit-box-form.style'
 import {ProductInOrderTableRow} from './product-in-order-table-row'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientEditBoxForm
 
 const WarehouseDemensions = ({orderBox, sizeSetting}) => {
   const classNames = useClassNames()
@@ -41,13 +39,13 @@ const WarehouseDemensions = ({orderBox, sizeSetting}) => {
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={textConsts.lengthCmWarehouse}
+          label={t(TranslationKey.Length)}
           value={toFixed(orderBox.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
         />
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={textConsts.widthCmWarehouse}
+          label={t(TranslationKey.Width)}
           value={toFixed(orderBox.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
         />
       </div>
@@ -55,13 +53,13 @@ const WarehouseDemensions = ({orderBox, sizeSetting}) => {
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={textConsts.heightCmWarehouse}
+          label={t(TranslationKey.Height)}
           value={toFixed(orderBox.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
         />
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={textConsts.weighGrossKgWarehouse}
+          label={t(TranslationKey['Real weight'])}
           value={orderBox.weighGrossKgWarehouse || 0}
         />
       </div>
@@ -69,13 +67,13 @@ const WarehouseDemensions = ({orderBox, sizeSetting}) => {
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={textConsts.volumeWeightKgWarehouse}
+          label={t(TranslationKey['Volume weight, kg'])}
           value={toFixed(orderBox.volumeWeightKgWarehouse, 4) || 0}
         />
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={textConsts.weightFinalAccountingKgWarehouse}
+          label={t(TranslationKey['Final weight, kg'])}
           value={toFixed(orderBox.weightFinalAccountingKgWarehouse, 4) || 0}
         />
       </div>
@@ -83,7 +81,13 @@ const WarehouseDemensions = ({orderBox, sizeSetting}) => {
   )
 }
 
-export const CLIENT_EDIT_BOX_MODAL_HEAD_CELLS = ['Product', 'Barcode', 'Qty', 'Buyer order comment', 'Actions']
+export const CLIENT_EDIT_BOX_MODAL_HEAD_CELLS = [
+  t(TranslationKey.Product),
+  t(TranslationKey.BarCode),
+  t(TranslationKey.Quantity),
+  t(TranslationKey['Order comment']),
+  t(TranslationKey.Actions),
+]
 
 const renderHeadRow = (
   <TableRow>
@@ -245,12 +249,12 @@ export const EditBoxForm = observer(
           <div className={classNames.topWrapper}>
             <div>
               <Typography paragraph className={classNames.subTitle}>
-                {textConsts.updateBoxTitle}
+                {t(TranslationKey['Editing the box'])}
               </Typography>
 
               <Field
                 containerClasses={classNames.field}
-                label={'Destination'}
+                label={t(TranslationKey.Destination)}
                 inputComponent={
                   <NativeSelect
                     variant="filled"
@@ -276,7 +280,7 @@ export const EditBoxForm = observer(
 
               <Field
                 containerClasses={classNames.field}
-                label={'Storekeeper / Tariff'}
+                label={'Storekeeper /' + t(TranslationKey.Tariff)}
                 inputComponent={
                   <Button
                     disableElevation
@@ -294,7 +298,7 @@ export const EditBoxForm = observer(
                               }`
                             : 'none'
                         }`
-                      : 'Выбрать'}
+                      : t(TranslationKey.Select)}
                   </Button>
                 }
               />
@@ -302,14 +306,14 @@ export const EditBoxForm = observer(
               <Field
                 containerClasses={classNames.field}
                 inputProps={{maxLength: 255}}
-                label={'FBA SHIPMENT'}
+                label={t(TranslationKey['FBA Shipment'])}
                 value={boxFields.fbaShipment}
                 onChange={setFormField('fbaShipment')}
               />
 
               <Field
                 containerClasses={classNames.field}
-                label={'Shipping label'}
+                label={t(TranslationKey['Shipping label'])}
                 inputComponent={
                   <div>
                     <Chip
@@ -324,10 +328,10 @@ export const EditBoxForm = observer(
                       size="small"
                       label={
                         boxFields.tmpShippingLabel.length
-                          ? 'FILE IS ADDED'
+                          ? t(TranslationKey['File added'])
                           : boxFields.shippingLabel
                           ? boxFields.shippingLabel
-                          : 'Set shipping label'
+                          : t(TranslationKey['Set Shipping Label'])
                       }
                       onClick={() => onClickShippingLabel()}
                       onDelete={!boxFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
@@ -340,7 +344,7 @@ export const EditBoxForm = observer(
             <div className={classNames.blockOfNewBoxWrapper}>
               <div className={classNames.sizesTitleWrapper}>
                 <Typography paragraph className={classNames.subTitle}>
-                  {textConsts.warehouseDemensions}
+                  {t(TranslationKey['Box dimensions'])}
                 </Typography>
 
                 <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
@@ -356,7 +360,9 @@ export const EditBoxForm = observer(
               <WarehouseDemensions orderBox={boxFields} sizeSetting={sizeSetting} />
 
               <div className={classNames.photoWrapper}>
-                <Typography className={classNames.subTitle}>{'Фотографии коробки, сделанные на складе:'}</Typography>
+                <Typography className={classNames.subTitle}>
+                  {t(TranslationKey['Photos of the box taken at the warehouse:'])}
+                </Typography>
 
                 {boxFields.images.length > 0 ? (
                   <Carousel autoPlay timeout={100} animation="fade">
@@ -376,7 +382,7 @@ export const EditBoxForm = observer(
                     ))}
                   </Carousel>
                 ) : (
-                  <Typography>{'Фотографий пока нет...'}</Typography>
+                  <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
                 )}
               </div>
             </div>
@@ -386,7 +392,7 @@ export const EditBoxForm = observer(
 
           <div className={classNames.tableWrapper}>
             <div className={classNames.boxTitleWrapper}>
-              <Typography className={classNames.tableTitle}>{`${textConsts.boxTitle} #${
+              <Typography className={classNames.tableTitle}>{`${t(TranslationKey.Box)} #${
                 formItem && formItem.humanFriendlyId
               }`}</Typography>
 
@@ -417,8 +423,8 @@ export const EditBoxForm = observer(
               rows={4}
               rowsMax={6}
               inputProps={{maxLength: 2000}}
-              label={'Оставить комментарий к задаче'}
-              placeholder={'Комментарий клиента к задаче'}
+              label={t(TranslationKey['Write a comment on the task'])}
+              placeholder={t(TranslationKey['Task commentary'])}
               onChange={setFormField('clientComment')}
             />
           </div>
@@ -435,7 +441,7 @@ export const EditBoxForm = observer(
               onSubmit(formItem._id, boxFields, formItem)
             }}
           >
-            {textConsts.saveChangesBtn}
+            {t(TranslationKey.Save)}
           </SuccessButton>
 
           <Button
@@ -445,7 +451,7 @@ export const EditBoxForm = observer(
             variant="contained"
             onClick={onTriggerOpenModal}
           >
-            {textConsts.cancelChangesBtn}
+            {t(TranslationKey.Cancel)}
           </Button>
         </div>
 

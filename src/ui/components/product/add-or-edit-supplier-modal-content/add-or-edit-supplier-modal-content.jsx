@@ -10,6 +10,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
@@ -23,6 +24,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {priceCalculation} from '@utils/price-calculation'
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './add-or-edit-supplier-modal-content.style'
 
@@ -157,7 +159,7 @@ export const AddOrEditSupplierModalContent = observer(
         return (
           <div className={classNames.buttonsWrapperClient}>
             <Button disableElevation className={classNames.prevBtnClient} onClick={() => onClickPrevButton()}>
-              {textConsts.backBtn}
+              {t(TranslationKey.Back)}
             </Button>
             <div>
               <SuccessButton
@@ -174,7 +176,7 @@ export const AddOrEditSupplierModalContent = observer(
                   )
                 }}
               >
-                {textConsts.saveAndBindBtn}
+                {t(TranslationKey['Save and bind'])}
               </SuccessButton>
               <SuccessButton
                 disableElevation
@@ -217,7 +219,7 @@ export const AddOrEditSupplierModalContent = observer(
                   setMakeMainSupplier(false)
                 }}
               >
-                {textConsts.saveAndAddBtn}
+                {t(TranslationKey['Save and add more'])}
               </SuccessButton>
             </div>
           </div>
@@ -362,12 +364,12 @@ export const AddOrEditSupplierModalContent = observer(
         <Divider className={classNames.titleDivider} />
 
         <div>
-          <Typography className={classNames.modalTitle}>{'Основная информация'}</Typography>
+          <Typography className={classNames.modalTitle}>{t(TranslationKey['Basic information'])}</Typography>
 
           <div className={classNames.nameBlock}>
             <Field
-              label={textConsts.name}
               inputProps={{maxLength: 100}}
+              label={t(TranslationKey.Title) + '*'}
               containerClasses={classNames.nameContainer}
               labelClasses={classNames.normalLabel}
               value={tmpSupplier.name}
@@ -375,7 +377,7 @@ export const AddOrEditSupplierModalContent = observer(
             />
 
             <Field
-              label={textConsts.qty}
+              label={t(TranslationKey['Purchase quantity']) + '*'}
               inputProps={{maxLength: 10}}
               containerClasses={classNames.middleContainer}
               labelClasses={classNames.normalLabel}
@@ -384,7 +386,7 @@ export const AddOrEditSupplierModalContent = observer(
               onChange={onChangeField('amount')}
             />
             <Field
-              label={textConsts.minLot}
+              label={t(TranslationKey['Minimum batch']) + '*'}
               inputProps={{maxLength: 10}}
               containerClasses={classNames.middleContainer}
               labelClasses={classNames.normalLabel}
@@ -395,7 +397,7 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
 
           <Field
-            label={textConsts.link}
+            label={t(TranslationKey.Link) + '*'}
             inputProps={{maxLength: 2000}}
             labelClasses={classNames.normalLabel}
             value={tmpSupplier.link}
@@ -405,11 +407,11 @@ export const AddOrEditSupplierModalContent = observer(
 
         <div>
           <div className={classNames.costBlock}>
-            <Typography className={classNames.modalTitle}>{'Стоимость'}</Typography>
+            <Typography className={classNames.modalTitle}>{t(TranslationKey['Total price'])}</Typography>
 
             <Field
               oneLine
-              label={'Курс Юань к Доллару'}
+              label={t(TranslationKey['Yuan to USD exchange rate'])}
               inputProps={{maxLength: 10}}
               containerClasses={classNames.rateContainer}
               labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
@@ -433,7 +435,7 @@ export const AddOrEditSupplierModalContent = observer(
               >
                 <Grid item>
                   <Field
-                    label={'Цена за единицу, ¥*'}
+                    label={t(TranslationKey['price per unit']) + ', ¥*'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
@@ -445,7 +447,7 @@ export const AddOrEditSupplierModalContent = observer(
                 <Grid item>
                   <Field
                     disabled
-                    label={'Цена партии, ¥*'}
+                    label={t(TranslationKey['Batch price']) + ', ¥*'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
@@ -458,7 +460,7 @@ export const AddOrEditSupplierModalContent = observer(
 
                 <Grid item>
                   <Field
-                    label={'Доставка партии, ¥'}
+                    label={t(TranslationKey['Batch delivery']) + ', ¥'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
@@ -484,7 +486,7 @@ export const AddOrEditSupplierModalContent = observer(
               >
                 <Grid item>
                   <Field
-                    label={'Цена за единицу, $*'}
+                    label={t(TranslationKey['price per unit']) + ', $*'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
@@ -496,7 +498,7 @@ export const AddOrEditSupplierModalContent = observer(
                 <Grid item>
                   <Field
                     disabled
-                    label={'Цена партии, $*'}
+                    label={t(TranslationKey['Batch price']) + ', $*'}
                     inputProps={{maxLength: 15}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
@@ -509,7 +511,7 @@ export const AddOrEditSupplierModalContent = observer(
 
                 <Grid item>
                   <Field
-                    label={'Доставка партии, $'}
+                    label={t(TranslationKey['Batch delivery']) + ', $'}
                     inputProps={{maxLength: 15}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
@@ -522,12 +524,12 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
 
           <div>
-            <Typography className={classNames.modalTitle}>{'Информация о коробке'}</Typography>
+            <Typography className={classNames.modalTitle}>{t(TranslationKey['Box info'])}</Typography>
 
             <div className={classNames.boxInfoWrapper}>
               <div className={classNames.sizesWrapper}>
                 <div className={classNames.sizesSubWrapper}>
-                  <Typography>{'Размеры'}</Typography>
+                  <Typography>{t(TranslationKey.Demensions)}</Typography>
 
                   <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                     <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
@@ -573,7 +575,7 @@ export const AddOrEditSupplierModalContent = observer(
               </div>
 
               <Field
-                label={'Вес, кг'}
+                label={t(TranslationKey['Weight, kg'])}
                 inputProps={{maxLength: 10}}
                 containerClasses={classNames.shortContainer}
                 labelClasses={classNames.normalLabel}
@@ -581,7 +583,7 @@ export const AddOrEditSupplierModalContent = observer(
                 onChange={onChangeField('boxWeighGrossKg')}
               />
               <Field
-                label={'Количество единиц в коробке'}
+                label={t(TranslationKey['Number of units in box'])}
                 inputProps={{maxLength: 10}}
                 containerClasses={classNames.shortContainer}
                 labelClasses={classNames.normalLabel}
@@ -591,7 +593,7 @@ export const AddOrEditSupplierModalContent = observer(
 
               <Field
                 disabled
-                label={'Объемный вес, кг'}
+                label={t(TranslationKey['Volume weight, kg'])}
                 inputProps={{maxLength: 15}}
                 containerClasses={classNames.shortContainer}
                 labelClasses={classNames.normalLabel}
@@ -620,14 +622,14 @@ export const AddOrEditSupplierModalContent = observer(
           inputProps={{maxLength: 2000}}
           rows={4}
           rowsMax={6}
-          label={textConsts.comment}
+          label={t(TranslationKey.Comment)}
           value={tmpSupplier.comment}
           onChange={onChangeField('comment')}
         />
 
         {outsideProduct && (
           <div className={classNames.checkboxWrapper}>
-            <Typography className={classNames.checkboxText}>{textConsts.makeMainSupplier}</Typography>
+            <Typography className={classNames.checkboxText}>{t(TranslationKey['Make the main supplier'])}</Typography>
 
             <Checkbox
               color="primary"
@@ -656,7 +658,7 @@ export const AddOrEditSupplierModalContent = observer(
               variant="contained"
               onClick={() => setShowPhotosModal(!showPhotosModal)}
             >
-              {textConsts.availablePhotos}
+              {t(TranslationKey['Available photos'])}
             </Button>
           </div>
         </div>

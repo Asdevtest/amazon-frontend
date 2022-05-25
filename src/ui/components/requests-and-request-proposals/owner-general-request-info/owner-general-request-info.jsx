@@ -5,12 +5,14 @@ import clsx from 'clsx'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 
 import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './owner-general-request-info.style'
 
@@ -40,38 +42,40 @@ export const OwnerGeneralRequestInfo = ({
           <div className={classNames.titleWrapper}>
             <Typography className={classNames.title}>{request?.request.title}</Typography>
 
-            <Typography className={classNames.subTitle}>{`Осталось ${
+            <Typography className={classNames.subTitle}>{` ${
               request?.request.maxAmountOfProposals -
               (requestProposals?.filter(
                 el =>
                   el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
                   el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
               ).length || 0)
-            } из ${request?.request.maxAmountOfProposals} предложений`}</Typography>
+            } ${t(TranslationKey['out of'])} ${request?.request.maxAmountOfProposals} ${t(
+              TranslationKey['suggestions left'],
+            )}`}</Typography>
           </div>
         </div>
 
         <div className={classNames.requestInfoWrapper}>
           <div className={classNames.blockInfoWrapper}>
             <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{'Время'}</Typography>
+              <Typography>{t(TranslationKey.Time)}</Typography>
               <Typography>{request && formatDateDistanceFromNowStrict(request?.request.timeoutAt, now)}</Typography>
             </div>
 
             <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{'Статус'}</Typography>
+              <Typography>{t(TranslationKey.Status)}</Typography>
               <Typography className={classNames.requestStatus}>{request?.request.status}</Typography>
             </div>
           </div>
 
           <div className={classNames.blockInfoWrapper}>
             <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{'Срок'}</Typography>
+              <Typography>{t(TranslationKey.Deadline)}</Typography>
               <Typography>{formatNormDateTime(request?.request.timeoutAt)}</Typography>
             </div>
 
             <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{'Стоимость'}</Typography>
+              <Typography>{t(TranslationKey['Total price'])}</Typography>
               <Typography className={classNames.price}>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
             </div>
           </div>
@@ -80,19 +84,19 @@ export const OwnerGeneralRequestInfo = ({
 
       <div className={classNames.middleBlockWrapper}>
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{'Всего'}</Typography>
+          <Typography>{t(TranslationKey.Total)}</Typography>
           <Typography>{requestProposals?.length || 0}</Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{'Подано'}</Typography>
+          <Typography>{t(TranslationKey.Submitted)}</Typography>
           <Typography>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.CREATED).length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{'В работе'}</Typography>
+          <Typography>{t(TranslationKey['In the work'])}</Typography>
           <Typography>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED)
               .length || 0}
@@ -100,21 +104,21 @@ export const OwnerGeneralRequestInfo = ({
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{'На доработке'}</Typography>
+          <Typography>{t(TranslationKey['On refinement'])}</Typography>
           <Typography>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.TO_CORRECT).length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{'Ожидают проверки'}</Typography>
+          <Typography>{t(TranslationKey['Waiting for checks'])}</Typography>
           <Typography>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.READY_TO_VERIFY).length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{'Принято'}</Typography>
+          <Typography>{t(TranslationKey.Accepted)}</Typography>
           <Typography>
             {requestProposals?.filter(
               el =>
@@ -125,7 +129,7 @@ export const OwnerGeneralRequestInfo = ({
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{'Отклонено'}</Typography>
+          <Typography>{t(TranslationKey.Rejected)}</Typography>
           <Typography>
             {requestProposals?.filter(
               el =>
@@ -147,7 +151,7 @@ export const OwnerGeneralRequestInfo = ({
                 className={classNames.button}
                 onClick={onClickEditBtn}
               >
-                {'Редактировать'}
+                {t(TranslationKey.Edit)}
               </Button>
               <Button
                 variant="contained"
@@ -156,7 +160,7 @@ export const OwnerGeneralRequestInfo = ({
                 className={[classNames.button, classNames.cancelBtn]}
                 onClick={onClickCancelBtn}
               >
-                {'Удалить'}
+                {t(TranslationKey.Delete)}
               </Button>
             </div>
             <div className={[classNames.btnsRow, classNames.btnsRowIsLast]}>
@@ -166,7 +170,7 @@ export const OwnerGeneralRequestInfo = ({
                 className={[classNames.button, classNames.successBtn]}
                 onClick={onClickPublishBtn}
               >
-                {'Опубликовать'}
+                {t(TranslationKey.Publish)}
               </Button>
             </div>
           </div>
@@ -185,7 +189,7 @@ export const OwnerGeneralRequestInfo = ({
                   className={classNames.button}
                   onClick={onClickCancelBtn}
                 >
-                  {'Удалить'}
+                  {t(TranslationKey.Delete)}
                 </Button>
               )}
 
@@ -199,7 +203,7 @@ export const OwnerGeneralRequestInfo = ({
                   })}
                   onClick={onClickEditBtn}
                 >
-                  {'Редактировать'}
+                  {t(TranslationKey.Edit)}
                 </Button>
               )}
             </div>
@@ -217,8 +221,8 @@ export const OwnerGeneralRequestInfo = ({
                 onClick={request?.request.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
               >
                 {request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS
-                  ? 'Возобновить прием заявок'
-                  : 'Остановить прием предложений'}
+                  ? t(TranslationKey['Resume accepting proposals'])
+                  : t(TranslationKey['Stop accepting proposals'])}
               </Button>
             </div>
           )}

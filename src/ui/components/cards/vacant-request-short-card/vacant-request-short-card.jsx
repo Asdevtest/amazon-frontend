@@ -4,11 +4,14 @@ import React from 'react'
 
 import {Divider, Grid, Typography, Avatar} from '@material-ui/core'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './vacant-request-short-card.style'
 
@@ -21,11 +24,17 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
         <div className={classNames.cardTitleBlockWrapper}>
           <Typography className={classNames.cardTitle}>{item.title}</Typography>
 
+<<<<<<< HEAD
           <Typography className={classNames.cardSubTitle}>{`Осталось ${
             item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals
           } из ${item.maxAmountOfProposals} предложений`}</Typography>
+=======
+          <Typography className={classNames.cardSubTitle}>{`${0} ${t(TranslationKey['out of'])} ${
+            item.maxAmountOfProposals
+          } ${t(TranslationKey['suggestions left'])}`}</Typography>
+>>>>>>> 74dd8ffa (translate client role)
 
-          <Typography>{`Срок до ${formatNormDateTime(item.timeoutAt)}`}</Typography>
+          <Typography>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(item.timeoutAt)}`}</Typography>
         </div>
 
         <Divider orientation={'horizontal'} />
@@ -46,7 +55,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
           <div className={classNames.timeInfoWrapper}>
             <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
 
-            <Typography className={classNames.cardTime}>{`Время на выполнение: ${toFixed(
+            <Typography className={classNames.cardTime}>{`${t(TranslationKey.Time)}: ${toFixed(
               item.timeLimitInMinutes / 60,
               2,
             )} ч. `}</Typography>
@@ -66,7 +75,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
             className={classNames.actionButton}
             onClick={() => onClickViewMore(item._id)}
           >
-            {'Подробнее...'}
+            {t(TranslationKey.Details)}
           </Button>
         </div>
       </div>

@@ -1,17 +1,15 @@
 import {Divider, InputBase, Paper, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SuccessButton} from '@components/buttons/success-button'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, toFixedWithKg, withAmount} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './private-label-card.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').privateLabelCard
 
 export const PrivateLabelCard = ({item, setProductToPay}) => {
   const classNames = useClassNames()
@@ -33,25 +31,31 @@ export const PrivateLabelCard = ({item, setProductToPay}) => {
 
         <Typography className={classNames.category}>{item.category}</Typography>
 
-        <InfoRow label={textConsts.price} value={toFixedWithDollarSign(item.amazon, 2)} />
+        <InfoRow label={t(TranslationKey.Price)} value={toFixedWithDollarSign(item.amazon, 2)} />
         <div className={classNames.textWrapper}>
-          <Typography className={clsx(classNames.text, classNames.label)}>{'Кол-во'}</Typography>
+          <Typography className={clsx(classNames.text, classNames.label)}>{t(TranslationKey.Quantity)}</Typography>
           <InputBase classes={{root: classNames.inputWrapper, input: classNames.input}} defaultValue={100} />
         </div>
 
         <Divider className={classNames.divider} />
 
-        <InfoRow label={textConsts.avgPrice} value={toFixedWithDollarSign(item.avgPrice, 2)} />
+        <InfoRow label={t(TranslationKey['Average Price'])} value={toFixedWithDollarSign(item.avgPrice, 2)} />
 
-        <InfoRow label={textConsts.recConsignmentQty} value={withAmount(item.fbaamount)} />
-        <InfoRow label={textConsts.recConsignmentWeight} value={toFixedWithKg(item.weight * item.fbaamount, 2)} />
+        <InfoRow
+          label={t(TranslationKey['Recommended batch to start']) + ' Private Label'}
+          value={withAmount(item.fbaamount)}
+        />
+        <InfoRow
+          label={t(TranslationKey['Recommended batch weight'])}
+          value={toFixedWithKg(item.weight * item.fbaamount, 2)}
+        />
 
         <Divider className={classNames.divider} />
 
-        <InfoRow label={textConsts.avgBSR} value={item.bsr} />
+        <InfoRow label={t(TranslationKey['Average BSR'])} value={item.bsr} />
 
-        <InfoRow label={textConsts.avgReviews} value={item.avgReviews} />
-        <InfoRow label={textConsts.avgRevenue} value={toFixedWithDollarSign(item.profit, 2)} />
+        <InfoRow label={t(TranslationKey['Average Review'])} value={item.avgReviews} />
+        <InfoRow label={t(TranslationKey['Average revenue'])} value={toFixedWithDollarSign(item.profit, 2)} />
 
         <div className={classNames.buttonsWrapper}>
           <SuccessButton
@@ -61,7 +65,7 @@ export const PrivateLabelCard = ({item, setProductToPay}) => {
               setProductToPay(item)
             }}
           >
-            {textConsts.launchBtn}
+            {t(TranslationKey.Start) + ' Private Label'}
           </SuccessButton>
           {/* <Button  // может пригодится
             disableElevation

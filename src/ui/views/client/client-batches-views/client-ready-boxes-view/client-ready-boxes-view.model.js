@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -42,6 +42,11 @@ export class ClientReadyBoxesViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
   }
 
   onChangeFilterModel(model) {
@@ -125,7 +130,7 @@ export class ClientReadyBoxesViewModel {
       await this.getStorekeepers()
 
       this.getBoxesMy()
-
+      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

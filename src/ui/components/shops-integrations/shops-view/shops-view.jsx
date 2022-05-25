@@ -8,6 +8,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {AddOrEditShopForm} from '@components/forms/add-or-edit-shop-form'
@@ -16,6 +17,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ShopsViewModel} from './shops-view.model'
 import {styles} from './shops-view.style'
@@ -72,7 +74,7 @@ class ShopsViewRaw extends Component {
         <div>
           <Box className={this.props.classes.buttonBox}>
             <Button color="primary" onClick={() => onClickAddBtn()}>
-              {textConsts.addShopBtn}
+              {t(TranslationKey['Add shop'])}
             </Button>
           </Box>
 

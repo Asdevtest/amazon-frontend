@@ -4,11 +4,14 @@ import React from 'react'
 
 import {Grid, Typography, Avatar} from '@material-ui/core'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './vacant-request-list-card.style'
 
@@ -31,9 +34,11 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
 
           <Typography className={classNames.cardTitle}>{item.title}</Typography>
 
-          <Typography className={classNames.cardSubTitle}>{`Осталось ${
+          <Typography className={classNames.cardSubTitle}>{`${
             item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals
-          } из ${item.maxAmountOfProposals} предложений`}</Typography>
+          } ${t(TranslationKey['out of'])} ${item.maxAmountOfProposals} ${t(
+            TranslationKey['suggestions left'],
+          )}`}</Typography>
 
           <div className={classNames.updatedAtWrapper}>
             <Typography className={classNames.updatedAtText}>{'Обновлено:'}</Typography>
@@ -46,25 +51,25 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
 
         <div className={classNames.middleBlockWrapper}>
           <div className={classNames.timeItemInfoWrapper}>
-            <Typography>{'Время на выполнение'}</Typography>
+            <Typography>{t(TranslationKey['Time to complete'])}</Typography>
 
-            <Typography>{`${toFixed(item.timeLimitInMinutes / 60, 2)} ч. `}</Typography>
+            <Typography>{`${toFixed(item.timeLimitInMinutes / 60, 2)} ${t(TranslationKey.hour)} `}</Typography>
           </div>
 
           <div className={classNames.timeItemInfoWrapper}>
-            <Typography>{'Срок'}</Typography>
+            <Typography>{t(TranslationKey.Deadline)}</Typography>
 
             <Typography>{formatNormDateTime(item.timeoutAt)}</Typography>
           </div>
 
           <div className={classNames.timeItemInfoWrapper}>
-            <Typography>{'Статус'}</Typography>
+            <Typography>{t(TranslationKey.Status)}</Typography>
 
             <Typography className={classNames.statusText}>{item.status}</Typography>
           </div>
 
           <div className={classNames.timeItemInfoWrapper}>
-            <Typography>{'Стоимость'}</Typography>
+            <Typography>{t(TranslationKey['Total price'])}</Typography>
 
             <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
           </div>
@@ -77,7 +82,7 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
             className={classNames.actionButton}
             onClick={() => onClickViewMore(item._id)}
           >
-            {'Подробнее...'}
+            {t(TranslationKey.Details)}
           </Button>
         </div>
       </div>

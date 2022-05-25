@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   NormalActionBtnCell,
@@ -11,42 +11,40 @@ import {
   WarehouseTariffRatesCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').selectStorkeeperAndTariffFormColumns
+import {t} from '@utils/translations'
 
 export const logisticsTariffsColumns = handlers => [
   {
     field: 'name',
-    headerName: textConsts.nameField,
+    headerName: t(TranslationKey['Service name']),
     width: 150,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'description',
-    headerName: textConsts.descriptionField,
+    headerName: t(TranslationKey['Service description']),
     width: 350,
     renderCell: params => <ScrollingCell value={params.value} />,
   },
 
   {
     field: 'deliveryTimeInDay',
-    headerName: textConsts.deliveryTimeInDayField,
+    headerName: t(TranslationKey['Time on the road, days']),
     width: 110,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'minWeightInKg',
-    headerName: textConsts.minWeightInKgField,
+    headerName: t(TranslationKey['Min. weight, kg']),
     width: 110,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'destination',
-    headerName: textConsts.destinationField,
+    headerName: t(TranslationKey.Region),
     renderCell: () => <WarehouseTariffDestinationCell />,
     width: 110,
     filterable: false,
@@ -55,7 +53,7 @@ export const logisticsTariffsColumns = handlers => [
 
   {
     field: 'rates',
-    headerName: textConsts.ratesField,
+    headerName: t(TranslationKey['Rate, $']),
     renderCell: params => <WarehouseTariffRatesCell conditionsByRegion={params.row.conditionsByRegion} />,
     width: 80,
     filterable: false,
@@ -64,7 +62,7 @@ export const logisticsTariffsColumns = handlers => [
 
   {
     field: 'dates',
-    headerName: textConsts.datesField,
+    headerName: t(TranslationKey.Dates),
     renderCell: params => <WarehouseTariffDatesCell row={params.row} />,
     width: 350,
     filterable: false,
@@ -73,11 +71,11 @@ export const logisticsTariffsColumns = handlers => [
 
   {
     field: 'action',
-    headerName: textConsts.actionField,
+    headerName: t(TranslationKey.Actions),
     width: 150,
     renderCell: params => (
       <NormalActionBtnCell
-        bTnText={'Выбрать тариф'}
+        bTnText={t(TranslationKey['Select Tariff'])}
         onClickOkBtn={() => handlers.onClickSelectTariff(params.row._id)}
       />
     ),
@@ -89,21 +87,21 @@ export const logisticsTariffsColumns = handlers => [
 export const warehouseTariffsColumns = () => [
   {
     field: 'name',
-    headerName: textConsts.nameField,
+    headerName: t(TranslationKey['Service name']),
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'description',
-    headerName: textConsts.descriptionField,
+    headerName: t(TranslationKey['Service description']),
     width: 600,
     renderCell: params => <ScrollingCell value={params.value} />,
   },
 
   {
     field: 'price',
-    headerName: textConsts.priceField,
+    headerName: t(TranslationKey['Service cost per kg, $']),
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },

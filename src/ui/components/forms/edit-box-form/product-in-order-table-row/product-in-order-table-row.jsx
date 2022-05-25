@@ -4,17 +4,15 @@ import {Checkbox, Chip, TableCell, TableRow, Typography} from '@material-ui/core
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './product-in-order-table-row.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').productInOrderTableRow
 
 export const ProductInOrderTableRow = observer(({item, handlers, ...restProps}) => {
   const classNames = useClassNames()
@@ -45,7 +43,13 @@ export const ProductInOrderTableRow = observer(({item, handlers, ...restProps}) 
           }}
           className={clsx({[classNames.barcodeChipExists]: item.barCode})}
           size="small"
-          label={item.tmpBarCode.length ? 'FILE IS ADDED' : item.barCode ? item.barCode : 'Set barcode label'}
+          label={
+            item.tmpBarCode.length
+              ? t(TranslationKey['File added'])
+              : item.barCode
+              ? item.barCode
+              : t(TranslationKey['Set Barcode Label'])
+          }
           onClick={() => restProps.onClickBarcode(item)}
           onDoubleClick={() => restProps.onDoubleClickBarcode(item)}
           onDelete={!item.barCode ? undefined : () => restProps.onDeleteBarcode(item.product._id)}
@@ -69,21 +73,21 @@ export const ProductInOrderTableRow = observer(({item, handlers, ...restProps}) 
         ) : null}
 
         {!item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper ? (
-          <Typography className={classNames.noBarCodeGlued}>{textConsts.noBarCodeGlued}</Typography>
+          <Typography className={classNames.noBarCodeGlued}>{t(TranslationKey['Not glued!'])}</Typography>
         ) : (
           <div>
             {item.isBarCodeAlreadyAttachedByTheSupplier ? (
               <Field
                 oneLine
                 containerClasses={classNames.checkboxContainer}
-                label={textConsts.isBarCodeAlreadyAttachedByTheSupplier}
+                label={t(TranslationKey['The barcode is glued by the supplier'])}
                 inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
               />
             ) : (
               <Field
                 oneLine
                 containerClasses={classNames.checkboxContainer}
-                label={textConsts.isBarCodeAttachedByTheStorekeeper}
+                label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
                 inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
               />
             )}
@@ -110,7 +114,7 @@ export const ProductInOrderTableRow = observer(({item, handlers, ...restProps}) 
             handlers.onSelectPhotos({images: item.product.images, imgIndex: 0})
           }}
         >
-          {'Фотографии'}
+          {t(TranslationKey.Photos)}
         </Button>
       </TableCell>
     </TableRow>

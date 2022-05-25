@@ -6,18 +6,16 @@ import {observer} from 'mobx-react'
 
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {productStatusButtonsConfigs} from '@constants/product-status-buttons-configs'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ErrorButton} from '@components/buttons/error-button'
 import {Field} from '@components/field'
 
 import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ProductStatusButtons} from './product-status-buttons'
 import {useClassNames} from './right-side-comments.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 const withoutStatus = true
 
@@ -62,7 +60,7 @@ export const RightSideComments = observer(
     return (
       <Grid item sm={5} xs={12}>
         <Box className={classNames.rightBoxComments}>
-          <Typography className={classNames.title}>{textConsts.typographyComments}</Typography>
+          <Typography className={classNames.title}>{t(TranslationKey.Comments)}</Typography>
           <Field
             multiline
             disabled={!checkIsResearcher(curUserRole)}
@@ -73,7 +71,7 @@ export const RightSideComments = observer(
             inputProps={{maxLength: 1000}}
             rows={4}
             rowsMax={6}
-            label={textConsts.fieldResearcher}
+            label={t(TranslationKey.Researcher)}
             value={product.icomment}
             onChange={onChangeField('icomment')}
           />
@@ -100,7 +98,7 @@ export const RightSideComments = observer(
             inputProps={{maxLength: 1000}}
             rows={4}
             rowsMax={6}
-            label={textConsts.fieldSoperviser}
+            label={t(TranslationKey.Supervisor)}
             value={product.checkednotes}
             onChange={onChangeField('checkednotes')}
           />
@@ -114,7 +112,7 @@ export const RightSideComments = observer(
             inputProps={{maxLength: 1000}}
             rows={4}
             rowsMax={6}
-            label={textConsts.fieldBuyer}
+            label={t(TranslationKey.Buyer)}
             value={product.buyersComment}
             onChange={onChangeField('buyersComment')}
           />
@@ -128,7 +126,7 @@ export const RightSideComments = observer(
             inputProps={{maxLength: 1000}}
             rows={4}
             rowsMax={6}
-            label={textConsts.fieldClient}
+            label={t(TranslationKey.Client)}
             value={product.clientComment}
             onChange={onChangeField('clientComment')}
           />
@@ -141,7 +139,7 @@ export const RightSideComments = observer(
                 variant="contained"
                 onClick={() => handleProductActionButtons('accept', false)}
               >
-                {checkIsClient(curUserRole) ? textConsts.buttonSave : textConsts.buttonAccept}
+                {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
               </Button>
               <ErrorButton
                 className={clsx(classNames.buttonNormal, {
@@ -150,7 +148,7 @@ export const RightSideComments = observer(
                 variant="contained"
                 onClick={() => handleProductActionButtons('cancel')}
               >
-                {checkIsClient(curUserRole) ? textConsts.buttonClose : textConsts.buttonCancel}
+                {checkIsClient(curUserRole) ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
               </ErrorButton>
 
               {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product.archive) ? (
@@ -159,7 +157,7 @@ export const RightSideComments = observer(
                   variant="contained"
                   onClick={() => handleProductActionButtons('delete')}
                 >
-                  {textConsts.buttonDelete}
+                  {t(TranslationKey.Delete)}
                 </ErrorButton>
               ) : undefined}
 
@@ -170,7 +168,7 @@ export const RightSideComments = observer(
                   variant="contained"
                   onClick={() => handleProductActionButtons('restore')}
                 >
-                  {textConsts.restoreBtn}
+                  {t(TranslationKey.Restore)}
                 </Button>
               )}
             </div>
@@ -183,7 +181,7 @@ export const RightSideComments = observer(
                 variant="contained"
                 onClick={() => handleProductActionButtons('cancel')}
               >
-                {textConsts.buttonClose}
+                {t(TranslationKey.Close)}
               </ErrorButton>
             </div>
           )}

@@ -8,6 +8,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -21,6 +22,7 @@ import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {ClientExchangeViewModel} from './client-exchange-view.model'
 import {styles} from './client-exchange-view.style'
@@ -85,7 +87,7 @@ export class ClientExchangeViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Surebets exchange'])}>
             <MainContent>
               <DataGrid
                 pagination
@@ -133,12 +135,12 @@ export class ClientExchangeViewRaw extends Component {
         <ConfirmationModal
           openModal={showConfirmPayModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}
-          title={textConsts.confirmTitle}
-          message={`${textConsts.confirmMessage} (${
+          title={t(TranslationKey['You buy a product card, are you sure?'])}
+          message={`${t(TranslationKey['You will be charged'])} (${
             selectedProduct && toFixedWithDollarSign(selectedProduct.priceForClient, 2)
           })`}
-          successBtnText={textConsts.confirmBtn}
-          cancelBtnText={textConsts.cancelBtn}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
           onClickSuccessBtn={() => {
             onClickBuyProductBtn(selectedProduct)
           }}

@@ -8,9 +8,12 @@ import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {Button} from '@components/buttons/button'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {t} from '@utils/translations'
 
 import {logisticsTariffsColumns, warehouseTariffsColumns} from './select-storkeeper-and-tariff-form-columns'
 import {useClassNames} from './select-storkeeper-and-tariff-form.style'
@@ -86,8 +89,8 @@ export const SelectStorekeeperAndTariffForm = observer(({storekeepers, curStorek
         value={tabIndex}
         onChange={(e, index) => setTabIndex(index)}
       >
-        <Tab classes={tabItemStyles} label={'Тарифы на логистику'} />
-        <Tab classes={tabItemStyles} label={'Тарифы на складские услуги'} />
+        <Tab classes={tabItemStyles} label={t(TranslationKey['Logistics tariffs'])} />
+        <Tab classes={tabItemStyles} label={t(TranslationKey['Tariffs of warehouse services'])} />
       </Tabs>
       <TabPanel value={tabIndex} index={0}>
         <div className={classNames.tableWrapper}>
@@ -103,7 +106,7 @@ export const SelectStorekeeperAndTariffForm = observer(({storekeepers, curStorek
         </div>
         <div className={classNames.clearBtnWrapper}>
           <Button disableElevation color="primary" variant={'outlined'} onClick={() => onSubmit('', '')}>
-            {'Сбросить'}
+            {t(TranslationKey.reset)}
           </Button>
         </div>
       </TabPanel>

@@ -22,6 +22,7 @@ class SettingsModelStatic {
     })
     reaction(
       () => this.isHydrated,
+
       isHydrated => {
         if (isHydrated) {
           setI18nConfig()

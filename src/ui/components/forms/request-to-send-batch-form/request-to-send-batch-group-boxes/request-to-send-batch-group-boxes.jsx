@@ -2,19 +2,17 @@ import React from 'react'
 
 import {Typography} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {RequestToSendBatchBox} from '../request-to-send-batch-box'
 import {useClassNames} from './request-to-send-batch-group-boxes.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').requestToSendBatchModal
 
 export const RequestToSendBatchesGroupBoxes = ({
   volumeWeightCoefficient,
@@ -45,7 +43,7 @@ export const RequestToSendBatchesGroupBoxes = ({
       {selectedGroup.price !== 0 && (
         <div className={classNames.headerWrapper}>
           <div className={classNames.headerSubWrapper}>
-            <Typography className={classNames.headerTitle}>{'Destination'}</Typography>
+            <Typography className={classNames.headerTitle}>{t(TranslationKey.Destination)}</Typography>
 
             <Typography className={classNames.headerSpanText}>{selectedGroup.destination?.name}</Typography>
           </div>
@@ -59,13 +57,15 @@ export const RequestToSendBatchesGroupBoxes = ({
           </div>
 
           <div className={classNames.headerSubWrapper}>
-            <Typography className={classNames.headerTitle}>{'Tariff'}</Typography>
+            <Typography className={classNames.headerTitle}>{t(TranslationKey.Tariff)}</Typography>
 
             <Typography className={classNames.headerSpanText}>{selectedGroup.logicsTariff?.name}</Typography>
           </div>
 
           <div className={classNames.headerSubWrapper}>
-            <Typography className={classNames.headerTitle}>{`Rate (US ${regionOfDeliveryName})`}</Typography>
+            <Typography className={classNames.headerTitle}>{`${t(
+              TranslationKey['Rate, $'],
+            )} (US ${regionOfDeliveryName})`}</Typography>
 
             <Typography className={classNames.headerSpanText}>
               {toFixedWithDollarSign(selectedGroup.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate, 2)}
@@ -97,13 +97,13 @@ export const RequestToSendBatchesGroupBoxes = ({
       {selectedGroup.price !== 0 && (
         <div className={classNames.footerWrapper}>
           <div className={classNames.footerSubWrapper}>
-            <Typography className={classNames.footerTitle}>{textConsts.totalWeight}</Typography>
+            <Typography className={classNames.footerTitle}>{t(TranslationKey['Total weight'])}</Typography>
 
             <Typography className={classNames.footerSpanText}>{toFixedWithKg(totalWeight, 2)}</Typography>
           </div>
 
           <div className={classNames.footerSubWrapper}>
-            <Typography className={classNames.footerTitle}>{textConsts.totalPrice}</Typography>
+            <Typography className={classNames.footerTitle}>{t(TranslationKey['Total cost of shipment'])}</Typography>
 
             <Typography className={classNames.footerSpanText}>{toFixedWithDollarSign(totalPrice, 2)}</Typography>
           </div>

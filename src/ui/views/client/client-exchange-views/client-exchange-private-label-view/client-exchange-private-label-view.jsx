@@ -6,6 +6,7 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -17,6 +18,7 @@ import {PrivateLabelCard} from '@components/private-label-card'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {ClientExchangePrivateLabelViewModel} from './client-exchange-private-label-view.model'
 import {styles} from './client-exchange-private-label-view.style'
@@ -56,14 +58,14 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={'Private Label'}>
             <MainContent>
               <div className={classNames.mb5}>
                 <div className={classNames.cardsWrapper}>
                   {productsVacant.length > 0 ? (
                     this.renderProductsVacant()
                   ) : (
-                    <Typography className={classNames.noRows}>{'Нет предложений...'}</Typography>
+                    <Typography className={classNames.noRows}>{t(TranslationKey['No suggestions'])}</Typography>
                   )}
                 </div>
               </div>
@@ -74,12 +76,12 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
         <ConfirmationModal
           openModal={showConfirmPayModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}
-          title={textConsts.confirmTitle}
-          message={`${textConsts.confirmMessage} (${
+          title={t(TranslationKey['You buy a product card, are you sure?'])}
+          message={`${t(TranslationKey['You will be charged'])} (${
             productToPay && toFixedWithDollarSign(productToPay.priceForClient, 2)
           })`}
-          successBtnText={textConsts.confirmBtn}
-          cancelBtnText={textConsts.cancelBtn}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.Cancel)}
           onClickSuccessBtn={() => {
             onClickBuyProductBtn(productToPay)
           }}

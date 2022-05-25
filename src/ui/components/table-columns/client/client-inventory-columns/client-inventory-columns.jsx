@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   AsinCell,
@@ -15,6 +16,7 @@ import {
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientInventoryColumns
 
@@ -28,21 +30,21 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'strategyStatus',
-    headerName: textConsts.strategyStatusField,
+    headerName: t(TranslationKey.Strategy),
     renderCell: params => <MultilineStatusCell status={params.value} />,
     width: 100,
   },
 
   {
     field: 'amountInOrders',
-    headerName: textConsts.amountInOrdersField,
+    headerName: t(TranslationKey.Quantity),
     renderCell: params => renderFieldValueCell(params.value),
     width: 80,
   },
 
   {
     field: 'amountInBoxes',
-    headerName: textConsts.amountInBoxesField,
+    headerName: t(TranslationKey.Stock),
     renderCell: params => renderFieldValueCell(params.value),
     width: 80,
   },
@@ -56,7 +58,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'reserved',
-    headerName: textConsts.reservedField,
+    headerName: t(TranslationKey.Reserved),
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
   },
@@ -70,7 +72,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'amazon',
-    headerName: textConsts.priceField,
+    headerName: t(TranslationKey['Amazon price']),
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
     width: 80,
     headerAlign: 'center',
@@ -78,7 +80,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'profit',
-    headerName: textConsts.profitField,
+    headerName: t(TranslationKey.Profit),
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
     width: 80,
     type: 'number',
@@ -87,7 +89,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'margin',
-    headerName: textConsts.marginField,
+    headerName: t(TranslationKey.Margin),
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
     width: 80,
     type: 'number',
@@ -123,7 +125,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'barCode',
-    headerName: textConsts.barcodeField,
+    headerName: t(TranslationKey.BarCode),
     renderCell: params =>
       params.row.originalData.archive ? (
         <ActiveBarcodeCell barCode={params.row.originalData.barCode} />
@@ -149,14 +151,14 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'status',
-    headerName: textConsts.statusField,
+    headerName: t(TranslationKey.Status),
     renderCell: params => <MultilineStatusCell status={params.value} />,
     width: 120,
   },
 
   {
     field: 'createdAt',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Created),
     renderCell: params => <ShortDateCell params={params} />,
     minWidth: 100,
     type: 'date',
@@ -164,7 +166,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updateDateField,
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <ShortDateCell params={params} />,
     minWidth: 100,
     type: 'date',

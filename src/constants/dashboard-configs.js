@@ -123,20 +123,20 @@ export const ClientDashboardCardDataKey = {
   IS_BEING_COLLECTED: 'IS_BEING_COLLECTED',
   SEND_BOXES: 'SEND_BOXES',
 }
-export const getClientDashboardCardConfig = textConsts => [
+export const getClientDashboardCardConfig = () => [
   {
     key: 'inventory',
-    title: textConsts.inventoryTitle,
+    title: t(TranslationKey.Inventory),
     items: [
       {
         dataKey: ClientDashboardCardDataKey.IN_INVENTORY,
-        title: textConsts.itemsInInventorySectionItemTitle,
+        title: t(TranslationKey['Goods in inventory']),
         color: '#20a8d8',
         route: '/client/inventory',
       },
       {
         dataKey: ClientDashboardCardDataKey.REPURCHASE_ITEMS,
-        title: textConsts.productPaid,
+        title: t(TranslationKey['Purchased product cards']),
         color: '#4dbd74',
         route: '/client/inventory',
       },
@@ -145,23 +145,23 @@ export const getClientDashboardCardConfig = textConsts => [
 
   {
     key: 'order',
-    title: textConsts.ordersTitle,
+    title: t(TranslationKey.Orders),
     items: [
       {
         dataKey: ClientDashboardCardDataKey.ALL_ORDERS,
-        title: textConsts.allOrders,
+        title: t(TranslationKey['Made orders']),
         color: '#ffc107',
         route: '/client/orders',
       },
       {
         dataKey: ClientDashboardCardDataKey.PAID_ORDERS,
-        title: textConsts.paidOrdersSectionItemTitle,
+        title: t(TranslationKey['Paid orders']),
         color: '#00B746',
         route: '/client/orders',
       },
       {
         dataKey: ClientDashboardCardDataKey.CANCELED_ORDERS,
-        title: textConsts.canceledOrdersSectionItemTitle,
+        title: t(TranslationKey['Canceled orders']),
         color: '#BC3030',
         route: '/client/orders',
       },
@@ -169,30 +169,30 @@ export const getClientDashboardCardConfig = textConsts => [
   },
   {
     key: 'boxes',
-    title: textConsts.boxesTitle,
+    title: t(TranslationKey.Warehouse),
     items: [
       {
         dataKey: ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE,
-        title: textConsts.boxesInWarehouse,
+        title: t(TranslationKey['Boxes in store']),
         color: '#C69109',
         route: '/client/warehouse',
       },
       {
         dataKey: ClientDashboardCardDataKey.READY_TO_SEND,
-        title: textConsts.readyToSend,
+        title: t(TranslationKey['Boxes ready to send']),
         color: '#C69109',
         route: '/client/boxes-ready-to-batch',
       },
       {
         dataKey: ClientDashboardCardDataKey.IS_BEING_COLLECTED,
-        title: textConsts.awaitingBoxes,
+        title: t(TranslationKey['Awaiting send']),
         color: '#ffc107',
         route: '/client/awaiting-batch',
       },
 
       {
         dataKey: ClientDashboardCardDataKey.SEND_BOXES,
-        title: textConsts.sendBoxes,
+        title: t(TranslationKey['Sent boxes']),
         color: '#00B746',
         route: '/client/batches',
       },

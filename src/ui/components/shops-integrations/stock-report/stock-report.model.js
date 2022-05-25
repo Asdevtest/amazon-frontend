@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -81,6 +81,11 @@ export class StockReportModel {
 
     this.currentShop = curShop
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
   }
 
   setDataGridState(state) {
@@ -150,7 +155,7 @@ export class StockReportModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getShops()
-
+      this.getDataGridState()
       await this.getStockGoods()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

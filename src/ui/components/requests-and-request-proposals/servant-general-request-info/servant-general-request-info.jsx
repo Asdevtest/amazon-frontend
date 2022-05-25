@@ -3,6 +3,7 @@ import React from 'react'
 import {Typography, Paper, Avatar} from '@material-ui/core'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 // import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
@@ -11,6 +12,7 @@ import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 // import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './servant-general-request-info.style'
 
@@ -28,38 +30,40 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
           <div className={classNames.titleWrapper}>
             <Typography className={classNames.title}>{request?.request.title}</Typography>
 
-            <Typography className={classNames.subTitle}>{`Осталось ${
+            <Typography className={classNames.subTitle}>{`${
               request?.request.maxAmountOfProposals -
               (requestProposals?.filter(
                 el =>
                   el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
                   el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
               ).length || 0)
-            } из ${request?.request.maxAmountOfProposals} предложений`}</Typography>
+            } ${t(TranslationKey['out of'])} ${request?.request.maxAmountOfProposals} ${t(
+              TranslationKey['suggestions left'],
+            )}`}</Typography>
           </div>
         </div>
 
         <div className={classNames.requestInfoWrapper}>
           <div className={classNames.blockInfoWrapper}>
             <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{'Время'}</Typography>
+              <Typography>{t(TranslationKey.Time)}</Typography>
               <Typography>{`${toFixed(request?.request.timeLimitInMinutes / 60, 2)} ч.`}</Typography>
             </div>
 
             <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{'Статус'}</Typography>
+              <Typography>{t(TranslationKey.Status)}</Typography>
               <Typography className={classNames.requestStatus}>{request?.request.status}</Typography>
             </div>
           </div>
 
           <div className={classNames.blockInfoWrapper}>
             <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{'Срок'}</Typography>
+              <Typography>{t(TranslationKey.Deadline)}</Typography>
               <Typography>{formatNormDateTime(request?.request.timeoutAt)}</Typography>
             </div>
 
             <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{'Стоимость'}</Typography>
+              <Typography>{t(TranslationKey['Total price'])}</Typography>
               <Typography>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
             </div>
           </div>
@@ -68,7 +72,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
 
       <div className={classNames.btnsBlockWrapper}>
         <Button variant="contained" color="primary" className={classNames.actionBtn} onClick={onSubmit}>
-          {'Предложить сделку'}
+          {t(TranslationKey['Suggest a deal'])}
         </Button>
       </div>
     </Paper>

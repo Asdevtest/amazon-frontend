@@ -11,6 +11,8 @@ import ImageUploading from 'react-images-uploading-alex76457-version'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
@@ -72,132 +74,134 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptT
   const [showImages, setShowImages] = useState(true)
 
   return (
-    <div>
-      {!withoutLinks && (
-        <Field
-          label={t(TranslationKey['Add file'])}
-          error={linkInputError && t(TranslationKey['Invalid link!'])}
-          inputComponent={
-            <div className={classNames.amazonLinkWrapper}>
-              <Input
-                placeholder={t(TranslationKey.Link)}
-                className={classNames.loadImageInput}
-                value={linkInput}
-                onChange={e => onChangeLinkInput(e.target.value)}
-              />
+    SettingsModel.languageTag && (
+      <div>
+        {!withoutLinks && (
+          <Field
+            label={t(TranslationKey['Add file'])}
+            error={linkInputError && t(TranslationKey['Invalid link!'])}
+            inputComponent={
+              <div className={classNames.amazonLinkWrapper}>
+                <Input
+                  placeholder={t(TranslationKey.Link)}
+                  className={classNames.loadImageInput}
+                  value={linkInput}
+                  onChange={e => onChangeLinkInput(e.target.value)}
+                />
 
-              <Button
-                disableElevation
-                disabled={linkInput === ''}
-                className={classNames.loadBtn}
-                variant="contained"
-                color="primary"
-                onClick={() => onClickLoadBtn()}
-              >
-                {t(TranslationKey.Add)}
-              </Button>
-            </div>
-          }
-        />
-      )}
-
-      <ImageUploading
-        multiple
-        acceptType={acceptType ? acceptType : ['jpg', 'gif', 'png', 'pdf', 'jpeg']}
-        value={images}
-        maxNumber={maxNumber}
-        dataURLKey="data_url"
-        maxFileSize={maxSizeInBytes}
-        onChange={onChange}
-      >
-        {({
-          imageList,
-          onImageUpload,
-          onImageRemoveAll,
-          onImageUpdate,
-          onImageRemove,
-          isDragging,
-          dragProps,
-          errors,
-        }) => (
-          <div className={classNames.mainWrapper}>
-            {errors?.maxNumber && (
-              <Typography className={classNames.errorText}>{t(TranslationKey['You cannot load more!'])}</Typography>
-            )}
-
-            <button
-              className={clsx(classNames.dragAndDropBtn, {[classNames.dragingOnDropBtn]: isDragging})}
-              onClick={onImageUpload}
-              {...dragProps}
-            >
-              {t(TranslationKey['Click or Drop here'])}
-            </button>
-
-            <div className={classNames.actionBtnsWrapper}>
-              <button
-                disabled={images.length === 0}
-                className={classNames.showImagesBtn}
-                onClick={() => setShowImages(!showImages)}
-              >
-                {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
-              </button>
-              <Typography className={classNames.imagesCount}>
-                {<span className={classNames.imagesCountSpan}>{`${images.length}/${maxNumber}`}</span>}
-                {` files`}{' '}
-              </Typography>
-              <button disabled={images.length === 0} className={classNames.removeAllBtn} onClick={onImageRemoveAll}>
-                {t(TranslationKey['Remove all'])}
-              </button>
-            </div>
-
-            {showImages && (
-              <Grid container className={classNames.imageListWrapper} justify="start" spacing={2} md={12}>
-                {imageList.map((image, index) =>
-                  typeof image === 'string' ? (
-                    <Grid key={index} item>
-                      <div className={classNames.imageLinkListItem}>
-                        <Tooltip title={renderImageInfo(image, image)} classes={{popper: classNames.imgTooltip}}>
-                          <Avatar className={classNames.image} src={image} alt={image} variant="square" />
-                        </Tooltip>
-
-                        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
-                          <Typography className={classNames.linkName}>{image}</Typography>
-                        </Link>
-
-                        <div className={classNames.actionIconsWrapper}>
-                          <HighlightOffIcon className={classNames.actionIcon} onClick={() => onImageRemove(index)} />
-                        </div>
-                      </div>
-                    </Grid>
-                  ) : (
-                    <Grid key={index} item>
-                      <div className={classNames.imageListItem}>
-                        <Tooltip
-                          title={renderImageInfo(image.data_url, image.file.name)}
-                          classes={{popper: classNames.imgTooltip}}
-                        >
-                          <img
-                            className={classNames.image}
-                            src={image.file.type.includes('image') ? image.data_url : '/assets/icons/file.png'}
-                            alt={image.file.name}
-                          />
-                        </Tooltip>
-
-                        <Typography className={classNames.fileName}>{image.file.name} </Typography>
-
-                        <div className={classNames.actionIconsWrapper}>
-                          <AutorenewIcon className={classNames.actionIcon} onClick={() => onImageUpdate(index)} />
-                          <HighlightOffIcon className={classNames.actionIcon} onClick={() => onImageRemove(index)} />
-                        </div>
-                      </div>
-                    </Grid>
-                  ),
-                )}
-              </Grid>
-            )}
-          </div>
+                <Button
+                  disableElevation
+                  disabled={linkInput === ''}
+                  className={classNames.loadBtn}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => onClickLoadBtn()}
+                >
+                  {t(TranslationKey.Add)}
+                </Button>
+              </div>
+            }
+          />
         )}
-      </ImageUploading>
-    </div>
+
+        <ImageUploading
+          multiple
+          acceptType={acceptType ? acceptType : ['jpg', 'gif', 'png', 'pdf', 'jpeg']}
+          value={images}
+          maxNumber={maxNumber}
+          dataURLKey="data_url"
+          maxFileSize={maxSizeInBytes}
+          onChange={onChange}
+        >
+          {({
+            imageList,
+            onImageUpload,
+            onImageRemoveAll,
+            onImageUpdate,
+            onImageRemove,
+            isDragging,
+            dragProps,
+            errors,
+          }) => (
+            <div className={classNames.mainWrapper}>
+              {errors?.maxNumber && (
+                <Typography className={classNames.errorText}>{t(TranslationKey['You cannot load more!'])}</Typography>
+              )}
+
+              <button
+                className={clsx(classNames.dragAndDropBtn, {[classNames.dragingOnDropBtn]: isDragging})}
+                onClick={onImageUpload}
+                {...dragProps}
+              >
+                {t(TranslationKey['Click or Drop here'])}
+              </button>
+
+              <div className={classNames.actionBtnsWrapper}>
+                <button
+                  disabled={images.length === 0}
+                  className={classNames.showImagesBtn}
+                  onClick={() => setShowImages(!showImages)}
+                >
+                  {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
+                </button>
+                <Typography className={classNames.imagesCount}>
+                  {<span className={classNames.imagesCountSpan}>{`${images.length}/${maxNumber}`}</span>}
+                  {` files`}{' '}
+                </Typography>
+                <button disabled={images.length === 0} className={classNames.removeAllBtn} onClick={onImageRemoveAll}>
+                  {t(TranslationKey['Remove all'])}
+                </button>
+              </div>
+
+              {showImages && (
+                <Grid container className={classNames.imageListWrapper} justify="start" spacing={2} md={12}>
+                  {imageList.map((image, index) =>
+                    typeof image === 'string' ? (
+                      <Grid key={index} item>
+                        <div className={classNames.imageLinkListItem}>
+                          <Tooltip title={renderImageInfo(image, image)} classes={{popper: classNames.imgTooltip}}>
+                            <Avatar className={classNames.image} src={image} alt={image} variant="square" />
+                          </Tooltip>
+
+                          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
+                            <Typography className={classNames.linkName}>{image}</Typography>
+                          </Link>
+
+                          <div className={classNames.actionIconsWrapper}>
+                            <HighlightOffIcon className={classNames.actionIcon} onClick={() => onImageRemove(index)} />
+                          </div>
+                        </div>
+                      </Grid>
+                    ) : (
+                      <Grid key={index} item>
+                        <div className={classNames.imageListItem}>
+                          <Tooltip
+                            title={renderImageInfo(image.data_url, image.file.name)}
+                            classes={{popper: classNames.imgTooltip}}
+                          >
+                            <img
+                              className={classNames.image}
+                              src={image.file.type.includes('image') ? image.data_url : '/assets/icons/file.png'}
+                              alt={image.file.name}
+                            />
+                          </Tooltip>
+
+                          <Typography className={classNames.fileName}>{image.file.name} </Typography>
+
+                          <div className={classNames.actionIconsWrapper}>
+                            <AutorenewIcon className={classNames.actionIcon} onClick={() => onImageUpdate(index)} />
+                            <HighlightOffIcon className={classNames.actionIcon} onClick={() => onImageRemove(index)} />
+                          </div>
+                        </div>
+                      </Grid>
+                    ),
+                  )}
+                </Grid>
+              )}
+            </div>
+          )}
+        </ImageUploading>
+      </div>
+    )
   )
 })

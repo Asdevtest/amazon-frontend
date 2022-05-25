@@ -1,3 +1,7 @@
+import {t} from '@utils/translations'
+
+import {TranslationKey} from './translations/translation-key'
+
 export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
   {id: 'asin', align: 'center', disablePadding: true, label: '#'},
   {id: 'action', align: 'center', disablePadding: true, label: 'Действие'},
@@ -43,19 +47,19 @@ export const CLIENT_EXCHANGE_HEAD_CELLS = [
   {id: 'buyer', label: 'Баер'},
 ]
 
-export const CLIENT_WAREHOUSE_HEAD_CELLS = [
+export const CLIENT_WAREHOUSE_HEAD_CELLS = () => [
   {id: 'img', label: '#'},
   {id: 'img', label: ''},
-  {id: 'img', label: 'CreatedAt'},
-  {id: 'img', label: 'Product'},
-  {id: 'img', label: 'Images'},
-  {id: 'img', label: 'Qty'},
-  {id: 'img', label: 'Material'},
-  {id: 'img', label: 'Warehouse'},
-  {id: 'img', label: 'Boxes'},
-  {id: 'img', label: 'Price'},
-  {id: 'img', label: 'Final Weight'},
-  {id: 'img', label: 'Gross Weight'},
+  {id: 'img', label: t(TranslationKey.Created)},
+  {id: 'img', label: t(TranslationKey.Product)},
+  {id: 'img', label: t(TranslationKey.Photos)},
+  {id: 'img', label: t(TranslationKey.Quantity)},
+  {id: 'img', label: t(TranslationKey.Material)},
+  {id: 'img', label: t(TranslationKey.Warehouse)},
+  {id: 'img', label: t(TranslationKey.Boxes)},
+  {id: 'img', label: t(TranslationKey.Price)},
+  {id: 'img', label: t(TranslationKey['Final weight'])},
+  {id: 'img', label: t(TranslationKey['Gross weight'])},
   {id: 'img', label: 'Track ID'},
 ]
 

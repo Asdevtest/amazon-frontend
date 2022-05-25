@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Modal} from '@components/modal'
@@ -22,12 +22,10 @@ import {OrderModalBodyRow} from '@components/table-rows/client/inventory/order-p
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {checkIsPositiveNum, isNotUndefined} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './order-product-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientOrderProductModal
 
 export const OrderProductModal = ({
   volumeWeightCoefficient,
@@ -132,24 +130,24 @@ export const OrderProductModal = ({
 
   return (
     <Container disableGutters maxWidth={'xl'}>
-      <Typography className={classNames.modalTitle}>{textConsts.mainTitle}</Typography>
+      <Typography className={classNames.modalTitle}>{t(TranslationKey['Order of goods'])}</Typography>
       <Divider className={classNames.divider} />
       <TableContainer className={classNames.tableWrapper}>
         <Table className={classNames.table}>
           <TableHead>
             <TableRow>
-              <TableCell className={(classNames.tableCell, classNames.imgCell)}>{textConsts.imgCell}</TableCell>
-              <TableCell className={classNames.tableCell}>{textConsts.product}</TableCell>
-              <TableCell className={classNames.tableCell}>{textConsts.price}</TableCell>
-              <TableCell className={classNames.tableCell}>{textConsts.avgDeliveryPrice}</TableCell>
-              <TableCell className={classNames.tableCell}>{textConsts.amount}</TableCell>
-              <TableCell className={classNames.tableCell}>{textConsts.total}</TableCell>
-              <TableCell className={classNames.tableCell}>{textConsts.barCode}</TableCell>
-              <TableCell className={classNames.tableCell}>{textConsts.warehouse}</TableCell>
+              <TableCell className={(classNames.tableCell, classNames.imgCell)}>{t(TranslationKey.Image)}</TableCell>
+              <TableCell className={classNames.tableCell}>{t(TranslationKey.Product)}</TableCell>
+              <TableCell className={classNames.tableCell}>{t(TranslationKey.Price)}</TableCell>
+              <TableCell className={classNames.tableCell}>{t(TranslationKey['Delivery cost per piece'])}</TableCell>
+              <TableCell className={classNames.tableCell}>{t(TranslationKey.Quantity)}</TableCell>
+              <TableCell className={classNames.tableCell}>{t(TranslationKey.Total)}</TableCell>
+              <TableCell className={classNames.tableCell}>{t(TranslationKey.BarCode)}</TableCell>
+              <TableCell className={classNames.tableCell}>{t(TranslationKey.Warehouse)}</TableCell>
 
-              <TableCell className={classNames.tableCell}>{'Storekeeper / Tariff'}</TableCell>
+              <TableCell className={classNames.tableCell}>{'Storekeeper / ' + t(TranslationKey.Tariff)}</TableCell>
 
-              <TableCell className={classNames.tableCell}>{textConsts.comment}</TableCell>
+              <TableCell className={classNames.tableCell}>{t(TranslationKey['Client comment'])}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -180,7 +178,9 @@ export const OrderProductModal = ({
       </TableContainer>
 
       <div className={classNames.sumWrapper}>
-        <Typography className={classNames.sumText}>{`Итого сумма заказов: ${toFixedWithDollarSign(
+        <Typography className={classNames.sumText}>{`${t(
+          TranslationKey['Total amount of orders'],
+        )}: ${toFixedWithDollarSign(
           productsForRender.reduce((ac, cur) => (ac += calcProductsPriceWithDelivery(cur, cur)), 0),
           2,
         )}`}</Typography>
@@ -194,7 +194,7 @@ export const OrderProductModal = ({
           disabled={disabledSubmit}
           onClick={onClickSubmit}
         >
-          {textConsts.buyNowBtn}
+          {t(TranslationKey['To order'])}
         </Button>
 
         <Button
@@ -204,7 +204,7 @@ export const OrderProductModal = ({
           className={(classNames.modalButton, classNames.cancelBtn)}
           onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}
         >
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Cancel)}
         </Button>
       </div>
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
