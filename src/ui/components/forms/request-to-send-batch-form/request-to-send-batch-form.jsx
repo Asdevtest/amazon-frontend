@@ -3,17 +3,15 @@ import React, {useEffect, useState} from 'react'
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './request-to-send-batch-form.style'
 import {RequestToSendBatchesGroupBoxes} from './request-to-send-batch-group-boxes'
-
-const textConsts = getLocalizedTexts(texts, 'ru').requestToSendBatchModal
 
 export const RequestToSendBatchForm = observer(
   ({
@@ -91,7 +89,7 @@ export const RequestToSendBatchForm = observer(
     return (
       <div className={classNames.content}>
         <Typography className={classNames.modalTitle} variant="h5">
-          {textConsts.modalTitle}
+          {t(TranslationKey['Sending boxes'])}
         </Typography>
         <div className={classNames.boxesWrapper}>
           {boxesGroupedByWarehouseAndDeliveryMethod.map((selectedGroup, i) => (
@@ -108,7 +106,12 @@ export const RequestToSendBatchForm = observer(
         </div>
         <div className={classNames.warningWrapper}>
           <Typography variant="subtitle1" className={classNames.warningText}>
-            {textConsts.noPrice}
+            {'*' +
+              t(
+                TranslationKey[
+                  'Boxes marked in red will not be shipped because they have no dimensions or insufficient data'
+                ],
+              )}
           </Typography>
         </div>
         <div className={classNames.btnsWrapper}>
@@ -119,7 +122,7 @@ export const RequestToSendBatchForm = observer(
             variant="contained"
             onClick={onClickSubmit}
           >
-            {textConsts.btnSend}
+            {t(TranslationKey.Send)}
           </Button>
           <ErrorButton
             disableElevation
@@ -128,7 +131,7 @@ export const RequestToSendBatchForm = observer(
             variant="contained"
             onClick={closeModal}
           >
-            {textConsts.btnClose}
+            {t(TranslationKey.Close)}
           </ErrorButton>
         </div>
       </div>

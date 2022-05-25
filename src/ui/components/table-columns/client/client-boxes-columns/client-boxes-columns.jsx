@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   ChangeChipCell,
@@ -14,6 +15,7 @@ import {
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientBoxesTableColumns
 
@@ -35,7 +37,7 @@ export const clientBoxesViewColumns = handlers => [
 
   {
     field: 'orders',
-    headerName: textConsts.ordersField,
+    headerName: t(TranslationKey.Product),
     width: 400,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
@@ -52,7 +54,7 @@ export const clientBoxesViewColumns = handlers => [
 
   {
     field: 'qty',
-    headerName: textConsts.qtyField,
+    headerName: t(TranslationKey.Quantity),
     renderCell: params =>
       params.row.originalData.amount > 1 ? (
         <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
@@ -65,14 +67,14 @@ export const clientBoxesViewColumns = handlers => [
 
   {
     field: 'destination',
-    headerName: textConsts.warehouseField,
+    headerName: t(TranslationKey.Warehouse),
     renderCell: params => renderFieldValueCell(params.value),
     width: 160,
   },
 
   {
     field: 'amazonPrice',
-    headerName: textConsts.priceField,
+    headerName: t(TranslationKey['Total price']),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 120,
     type: 'number',
@@ -108,7 +110,7 @@ export const clientBoxesViewColumns = handlers => [
 
   {
     field: 'dimansions',
-    headerName: textConsts.dimansionsField,
+    headerName: t(TranslationKey.Demensions),
     renderCell: params => (
       <ShortBoxDimensions box={params.row.originalData} volumeWeightCoefficient={params.row.volumeWeightCoefficient} />
     ),
@@ -117,7 +119,7 @@ export const clientBoxesViewColumns = handlers => [
 
   {
     field: 'createdAt',
-    headerName: textConsts.createdAtField,
+    headerName: t(TranslationKey.Created),
     renderCell: params => <NormDateCell params={params} />,
     width: 110,
     type: 'date',
@@ -125,7 +127,7 @@ export const clientBoxesViewColumns = handlers => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updatedAtField,
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     width: 110,
     type: 'date',

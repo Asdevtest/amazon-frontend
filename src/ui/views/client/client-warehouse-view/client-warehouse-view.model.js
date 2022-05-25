@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -148,6 +148,11 @@ export class ClientWarehouseViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
   }
 
   async updateUserInfo() {
@@ -180,6 +185,10 @@ export class ClientWarehouseViewModel {
 
       this.densityModel = state.density.value
       this.columnsModel = clientBoxesViewColumns(this.rowHandlers).map(el => ({
+        ...el,
+        hide: state.columns?.lookup[el?.field]?.hide,
+      }))
+      this.taskColumnsModel = clientTasksViewColumns(this.rowTaskHandlers).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -373,6 +382,7 @@ export class ClientWarehouseViewModel {
       await this.getStorekeepers()
 
       this.getBoxesMy()
+      this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
       this.getTasksMy()

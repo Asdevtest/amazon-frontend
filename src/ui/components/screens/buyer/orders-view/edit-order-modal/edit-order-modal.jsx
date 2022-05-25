@@ -31,7 +31,7 @@ const orderStatusesThatTriggersEditBoxBlock = [OrderStatusByKey[OrderStatus.TRAC
 
 const renderHeadRow = (
   <TableRow>
-    {CLIENT_WAREHOUSE_HEAD_CELLS.map((item, index) => (
+    {CLIENT_WAREHOUSE_HEAD_CELLS().map((item, index) => (
       <TableCell key={index}>{item.label}</TableCell>
     ))}
   </TableRow>

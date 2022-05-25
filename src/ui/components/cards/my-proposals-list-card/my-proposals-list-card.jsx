@@ -6,12 +6,14 @@ import {Grid, Typography, Avatar, Divider} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './my-proposals-list-card.style'
 
@@ -46,7 +48,9 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
             </div>
           </div>
 
-          <Typography className={classNames.cardSubTitle}>{`Кол-во общих успешных сделок: 0`}</Typography>
+          <Typography className={classNames.cardSubTitle}>{`${t(
+            TranslationKey['The number of total successful transactions:'],
+          )} 0`}</Typography>
 
           <Typography className={classNames.cardTitle}>{item.title}</Typography>
 
@@ -55,7 +59,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
           <Typography>{item.status}</Typography>
 
           <div className={classNames.updatedAtWrapper}>
-            <Typography className={classNames.updatedAtText}>{'Обновлено:'}</Typography>
+            <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ':'}</Typography>
 
             <Typography className={classNames.updatedAtText}>
               {formatNormDateTimeWithParseISO(item.updatedAt)}
@@ -68,18 +72,20 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
           <Carousel autoPlay={false} timeout={100} animation="fade" fullHeightHover={false}>
             {item.proposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
-                <Typography className={classNames.cardTitle}>{'Предложение'}</Typography>
+                <Typography className={classNames.cardTitle}>{t(TranslationKey.Suggest)}</Typography>
 
-                <Typography className={classNames.proposalComment}>{proposal.comment}</Typography>
+                <Typography className={classNames.proposalComment}>
+                  {t(TranslationKey['Proposal Description'])}
+                </Typography>
 
                 <div className={classNames.rightSubWrapper}>
                   <div className={classNames.timeWrapper}>
-                    <Typography>{'Время на выполнение в мин.'}</Typography>
+                    <Typography>{t(TranslationKey['Time to complete, min*'])}</Typography>
                     <Typography className={classNames.timeCount}>{minsToTimeRus(proposal.execution_time)}</Typography>
                   </div>
 
                   <div className={classNames.rightItemSubWrapper}>
-                    <Typography>{'Стоимость'}</Typography>
+                    <Typography>{t(TranslationKey['Total price'])}</Typography>
                     <Typography className={classNames.price}>{toFixedWithDollarSign(proposal.price, 2)}</Typography>
                   </div>
                 </div>
@@ -95,7 +101,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                       variant="text"
                       onClick={() => onClickDeleteBtn(proposal)}
                     >
-                      {'Отменить'}
+                      {t(TranslationKey.Cancel)}
                     </Button>
 
                     <Button
@@ -105,11 +111,11 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                       variant="contained"
                       onClick={() => onClickEditBtn(item, proposal)}
                     >
-                      {'Редактировать'}
+                      {t(TranslationKey.Edit)}
                     </Button>
 
                     <Button disableElevation color="primary" variant="contained" onClick={() => onClickOpenBtn(item)}>
-                      {'Открыть заявку'}
+                      {t(TranslationKey['Open a request'])}
                     </Button>
                   </div>
                 </div>

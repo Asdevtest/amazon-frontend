@@ -8,16 +8,14 @@ import React, {useState} from 'react'
 import {TextareaAutosize, Paper, Typography} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './custom-request-details.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').productSearchRequestContent
 
 export const CustomSearchRequestDetails = ({request}) => {
   const classNames = useClassNames()
@@ -36,7 +34,7 @@ export const CustomSearchRequestDetails = ({request}) => {
         onChange={() => setShowDetails(!showDetails)}
       >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classNames.title}>{'Подробное описание заявки'}</Typography>
+          <Typography className={classNames.title}>{t(TranslationKey['Detailed application description'])}</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -45,7 +43,7 @@ export const CustomSearchRequestDetails = ({request}) => {
               <div className={classNames.photoWrapper}>
                 <Field
                   multiline
-                  label={'Фотографии к заявке:'}
+                  label={t(TranslationKey['Task photos'])}
                   containerClasses={classNames.conditionsFieldWrapper}
                   inputComponent={
                     <Carousel autoPlay={false} timeout={100} animation="fade">
@@ -70,7 +68,7 @@ export const CustomSearchRequestDetails = ({request}) => {
 
             <Field
               multiline
-              label={textConsts.conditionsRequest}
+              label={t(TranslationKey.Description)}
               containerClasses={classNames.conditionsFieldWrapper}
               inputComponent={
                 <TextareaAutosize disabled className={classNames.conditionsField} value={request?.details.conditions} />

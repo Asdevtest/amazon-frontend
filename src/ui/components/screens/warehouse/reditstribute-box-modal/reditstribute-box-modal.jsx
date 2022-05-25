@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
@@ -21,6 +22,7 @@ import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './reditstribute-box-modal.style'
 
@@ -80,7 +82,9 @@ const Box = ({
 
   return (
     <div className={classNames.box}>
-      {!isNewBox && <Typography className={classNames.boxTitle}>{`Коробка № ${box.humanFriendlyId}`}</Typography>}
+      {!isNewBox && (
+        <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
+      )}
       <div className={classNames.itemWrapper}>
         <div>
           {box.items.map((order, orderIndex) => (
@@ -88,7 +92,7 @@ const Box = ({
               <div key={orderIndex} className={classNames.order}>
                 <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
                 <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
-                <Typography className={classNames.subTitle}>{textConsts.qtyLabel}</Typography>
+                <Typography className={classNames.subTitle}>{t(TranslationKey.Quantity)}</Typography>
                 <Input
                   classes={{root: classNames.inputWrapper, input: classNames.input}}
                   readOnly={readOnly}
@@ -97,7 +101,9 @@ const Box = ({
                 />
               </div>
               {isMasterBox ? (
-                <Typography className={classNames.subTitle}>{`Unites per box ${box.items[0].amount}`}</Typography>
+                <Typography className={classNames.subTitle}>{`${t(TranslationKey['Units in a box'])} ${
+                  box.items[0].amount
+                }`}</Typography>
               ) : undefined}
             </div>
           ))}
@@ -105,7 +111,7 @@ const Box = ({
           <div className={classNames.itemSubWrapper}>
             <Field
               containerClasses={classNames.field}
-              label={'Destination'}
+              label={t(TranslationKey.Destination)}
               inputComponent={
                 <NativeSelect
                   disabled={!isNewBox}
@@ -132,7 +138,7 @@ const Box = ({
 
             <Field
               containerClasses={classNames.field}
-              label={'Storekeeper / Tariff'}
+              label={'Storekeeper / ' + t(TranslationKey.Tariff)}
               inputComponent={
                 <div>
                   {isNewBox ? (
@@ -153,7 +159,7 @@ const Box = ({
                                   }`
                                 : 'none'
                             }`
-                        : 'Выбрать'}
+                        : t(TranslationKey.Select)}
                     </Button>
                   ) : (
                     <Typography className={classNames.storekeeperDisableBtn}>{`${
@@ -175,14 +181,14 @@ const Box = ({
               disabled={!isNewBox}
               inputProps={{maxLength: 255}}
               containerClasses={classNames.field}
-              label={'FBA SHIPMENT'}
+              label={t(TranslationKey['FBA Shipment'])}
               value={box.fbaShipment}
               onChange={e => onChangeField(e, 'fbaShipment', box._id)}
             />
 
             {isNewBox ? (
               <div>
-                <Typography className={classNames.linkTitle}>{'Шиппинг лейбл:'}</Typography>
+                <Typography className={classNames.linkTitle}>{t(TranslationKey['Shipping label']) + ':'}</Typography>
                 <Chip
                   classes={{
                     root: classNames.barcodeChip,
@@ -195,10 +201,10 @@ const Box = ({
                   size="small"
                   label={
                     box.tmpShippingLabel?.length
-                      ? 'FILE IS ADDED'
+                      ? t(TranslationKey['File added'])
                       : box.shippingLabel
                       ? box.shippingLabel
-                      : 'Set shipping label'
+                      : t(TranslationKey['Set Shipping Label'])
                   }
                   onClick={() => onClickShippingLabel()}
                   onDelete={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
@@ -206,7 +212,7 @@ const Box = ({
               </div>
             ) : (
               <div>
-                <Typography className={classNames.linkTitle}>{'Шиппинг лейбл:'}</Typography>
+                <Typography className={classNames.linkTitle}>{t(TranslationKey['Shipping label']) + ':'}</Typography>
                 <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
                   <Typography className={classNames.link}>{box.shippingLabel}</Typography>
                 </Link>
@@ -395,7 +401,7 @@ export const RedistributeBox = ({
 
   const CurrentBox = () => (
     <div className={classNames.currentBox}>
-      <Typography className={classNames.sectionTitle}>{textConsts.redistributionTitle}</Typography>
+      <Typography className={classNames.sectionTitle}>{t(TranslationKey.Redistribute)}</Typography>
 
       <Box
         readOnly
@@ -410,9 +416,9 @@ export const RedistributeBox = ({
       />
 
       <div className={classNames.currentBoxFooter}>
-        <Typography
-          className={classNames.footerTitle}
-        >{`${textConsts.productsLeftToRedistribute}: ${totalProductsAmount}`}</Typography>
+        <Typography className={classNames.footerTitle}>{`${t(
+          TranslationKey['Left to redistribute'],
+        )}: ${totalProductsAmount}`}</Typography>
       </div>
     </div>
   )
@@ -449,7 +455,8 @@ export const RedistributeBox = ({
           className={classNames.heightFieldAuto}
           rows={4}
           rowsMax={6}
-          label={'Комментарий клиента к задаче'}
+          label={t(TranslationKey['Client comment on the task'])}
+          placeholder={t(TranslationKey['Task commentary'])}
           value={comment}
           onChange={e => setComment(e.target.value)}
         />

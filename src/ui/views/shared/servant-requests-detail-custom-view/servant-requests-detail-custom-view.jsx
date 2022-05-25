@@ -6,6 +6,7 @@ import {observer} from 'mobx-react'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -19,6 +20,7 @@ import {CustomSearchRequestDetails} from '@components/requests-and-request-propo
 import {ServantGeneralRequestInfo} from '@components/requests-and-request-proposals/servant-general-request-info'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {RequestDetailCustomViewModel} from './servant-requests-detail-custom-view.model'
 import {styles} from './servant-requests-detail-custom-view.style'
@@ -90,7 +92,7 @@ export class RequestDetailCustomViewRaw extends Component {
             <MainContent>
               <div className={classNames.backBtnWrapper}>
                 <Button variant="contained" color="primary" onClick={onClickBackBtn}>
-                  {'Назад'}
+                  {t(TranslationKey.Back)}
                 </Button>
               </div>
 

@@ -505,7 +505,7 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
       className={classNames.infoBtn}
       onClick={() => handlers.onClickTaskInfo(row)}
     >
-      {textConsts.showDetails}
+      {t(TranslationKey.Details)}
     </Button>
   )
 
@@ -520,7 +520,7 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
                 className={classNames.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'merge')}
               >
-                {textConsts.cancelTaskBtn}
+                {t(TranslationKey.Cancel)}
               </ErrorButton>
             )}
           </React.Fragment>
@@ -534,7 +534,7 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
                 className={classNames.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'split')}
               >
-                {textConsts.cancelTaskBtn}
+                {t(TranslationKey.Cancel)}
               </ErrorButton>
             )}
           </React.Fragment>
@@ -550,7 +550,7 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
                 className={classNames.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'edit')}
               >
-                {textConsts.cancelTaskBtn}
+                {t(TranslationKey.Cancel)}
               </ErrorButton>
             )}
           </React.Fragment>
@@ -764,13 +764,13 @@ export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, val
   return (
     <div className={classNames.shopsReportBtnsWrapper}>
       <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
-        {'Скачать'}
+        {t(TranslationKey.download)}
       </a>
 
       <img className={classNames.copyImg} src="/assets/icons/copy-img.svg" alt="" onClick={copyValue} />
 
       <Button variant="contained" color="primary" onClick={onClickSeeMore}>
-        {'Смотреть'}
+        {t(TranslationKey.View)}
       </Button>
     </div>
   )

@@ -75,7 +75,7 @@ export const navbarConfig = () => ({
   [UserRole.CLIENT]: [
     {
       icon: InfoOutlinedIcon,
-      title: 'Главная страница',
+      title: t(TranslationKey.Dashboard),
       route: '/client/dashboard',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
@@ -83,22 +83,22 @@ export const navbarConfig = () => ({
     },
     {
       icon: Work,
-      title: 'Фриланс',
+      title: t(TranslationKey.Freelance),
       route: '/vacant-requests',
       subtitles: [
         {
-          subtitle: 'Мои заявки',
+          subtitle: t(TranslationKey['My requests']),
           subRoute: '/requests/my',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
         },
         {
-          subtitle: 'Вакантные заявки',
+          subtitle: t(TranslationKey['Vacant requests']),
           subRoute: '/vacant-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
         },
 
         {
-          subtitle: 'Мои предложения',
+          subtitle: t(TranslationKey['My suggestions']),
           subRoute: '/requests/my-proposals',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
         },
@@ -111,7 +111,7 @@ export const navbarConfig = () => ({
 
     {
       icon: InboxOutlinedIcon,
-      title: 'Инвентарь',
+      title: t(TranslationKey.Inventory),
       route: '/client/inventory',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_INVENTORY,
@@ -122,10 +122,10 @@ export const navbarConfig = () => ({
 
     {
       icon: GavelIcon,
-      title: 'Биржа товаров',
+      title: t(TranslationKey['Commodity exchange']),
       route: '/client/exchange',
       subtitles: [
-        {subtitle: 'Биржа вилок', subRoute: '/client/exchange'},
+        {subtitle: t(TranslationKey['Surebets exchange']), subRoute: '/client/exchange'},
         {subtitle: 'Private Label', subRoute: '/client/exchange/private-label'},
       ],
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
@@ -135,7 +135,7 @@ export const navbarConfig = () => ({
 
     {
       icon: AssignmentIcon,
-      title: 'Мои заказы',
+      title: t(TranslationKey['My orders']),
       route: '/client/orders',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MY_ORDERS,
@@ -144,7 +144,7 @@ export const navbarConfig = () => ({
     },
     {
       icon: ArchiveOutlinedIcon,
-      title: 'Мой склад',
+      title: t(TranslationKey['My warehouse']),
       route: '/client/warehouse',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
@@ -154,21 +154,21 @@ export const navbarConfig = () => ({
     },
     {
       icon: AllInboxIcon,
-      title: 'Мои партии',
+      title: t(TranslationKey['My batches']),
       route: '/client/boxes-ready-to-batch',
       subtitles: [
         {
-          subtitle: 'Коробки готовые к отправке',
+          subtitle: t(TranslationKey['Boxes ready to send']),
           subRoute: '/client/boxes-ready-to-batch',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
         },
         {
-          subtitle: 'Ожидают отправки',
+          subtitle: t(TranslationKey['Awaiting send']),
           subRoute: '/client/awaiting-batch',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH,
         },
         {
-          subtitle: 'Отправленные',
+          subtitle: t(TranslationKey['Sent boxes']),
           subRoute: '/client/batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES,
         },
@@ -179,9 +179,9 @@ export const navbarConfig = () => ({
     },
     {
       icon: PeopleIcon,
-      title: 'Пользователи',
+      title: t(TranslationKey.Users),
       route: '/client/users/sub-users',
-      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/client/users/sub-users'}],
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/client/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_USERS_CLIENT),
@@ -189,7 +189,7 @@ export const navbarConfig = () => ({
 
     {
       icon: LocalConvenienceStore,
-      title: 'Mагазины',
+      title: t(TranslationKey.Shops),
       route: '/client/shops',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_SHOPS,
@@ -221,7 +221,7 @@ export const navbarConfig = () => ({
     // },
     {
       icon: MonetizationOnOutlinedIcon,
-      title: 'Финансы',
+      title: t(TranslationKey.Finances),
       route: '/client/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
@@ -229,11 +229,11 @@ export const navbarConfig = () => ({
     },
     {
       icon: ChatBubbleOutlineOutlinedIcon,
-      title: 'Уведомления',
+      title: t(TranslationKey.Notifications),
       route: '/client/orders-notifications',
       subtitles: [
-        {subtitle: 'По заказам', subRoute: '/client/orders-notifications'},
-        {subtitle: 'По коробкам', subRoute: '/client/boxes-notifications'},
+        {subtitle: t(TranslationKey['On orders']), subRoute: '/client/orders-notifications'},
+        {subtitle: t(TranslationKey['On boxes']), subRoute: '/client/boxes-notifications'},
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>

@@ -5,6 +5,7 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -14,6 +15,7 @@ import {Navbar} from '@components/navbar'
 import {OrderContent} from '@components/screens/orders-view/order-content'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ClientOrderViewModel} from './client-order-view.model'
 
@@ -51,7 +53,7 @@ export class ClientOrderView extends Component {
         <Main>
           <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <Typography variant="h3">{textConsts.mainTitle}</Typography>
+              <Typography variant="h3">{t(TranslationKey.Order)}</Typography>
               {order ? (
                 <OrderContent
                   volumeWeightCoefficient={volumeWeightCoefficient}

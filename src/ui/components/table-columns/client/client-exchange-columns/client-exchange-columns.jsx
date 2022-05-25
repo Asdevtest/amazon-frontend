@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   NormDateCell,
@@ -12,15 +12,13 @@ import {
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientExchangeTableColumns
+import {t} from '@utils/translations'
 
 export const clientExchangeViewColumns = handlers => [
   {
     field: 'image',
-    headerName: textConsts.imageField,
+    headerName: t(TranslationKey.Image),
     width: 80,
     renderCell: params => <SmallRowImageCell images={params.row.images} />,
     filterable: false,
@@ -29,7 +27,7 @@ export const clientExchangeViewColumns = handlers => [
 
   {
     field: 'createdAt',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Created),
     renderCell: params => <NormDateCell params={params} />,
     minWidth: 110,
     type: 'date',
@@ -37,7 +35,7 @@ export const clientExchangeViewColumns = handlers => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updateDateField,
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     minWidth: 110,
     type: 'date',
@@ -45,21 +43,21 @@ export const clientExchangeViewColumns = handlers => [
 
   {
     field: 'strategyStatus',
-    headerName: textConsts.strategyStatusField,
+    headerName: t(TranslationKey.Strategy),
     renderCell: params => renderFieldValueCell(params.value),
     width: 210,
   },
 
   {
     field: 'category',
-    headerName: textConsts.categoryField,
+    headerName: t(TranslationKey.Category),
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 
   {
     field: 'amazon',
-    headerName: textConsts.priceField,
+    headerName: t(TranslationKey['Amazon price']),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 120,
     type: 'number',
@@ -67,7 +65,7 @@ export const clientExchangeViewColumns = handlers => [
 
   {
     field: 'weight',
-    headerName: textConsts.weightField,
+    headerName: t(TranslationKey.Weight),
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     width: 80,
     type: 'number',
@@ -75,7 +73,7 @@ export const clientExchangeViewColumns = handlers => [
 
   {
     field: 'bsr',
-    headerName: textConsts.bsrField,
+    headerName: t(TranslationKey.BSR),
     renderCell: params => renderFieldValueCell(params.value),
     width: 60,
     type: 'number',
@@ -83,7 +81,7 @@ export const clientExchangeViewColumns = handlers => [
 
   {
     field: 'fbaamount',
-    headerName: textConsts.fbaamountField,
+    headerName: t(TranslationKey['Recommend amount']),
     renderCell: params => renderFieldValueCell(params.value),
     width: 90,
     type: 'number',
@@ -91,32 +89,32 @@ export const clientExchangeViewColumns = handlers => [
 
   {
     field: 'researcherName',
-    headerName: textConsts.researcherField,
+    headerName: t(TranslationKey.Researcher),
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
     width: 120,
   },
 
   {
     field: 'buyerName',
-    headerName: textConsts.buyerField,
+    headerName: t(TranslationKey.Buyer),
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.buyer?._id} />,
     width: 120,
   },
 
   {
     field: 'supervisorName',
-    headerName: textConsts.supervisorField,
+    headerName: t(TranslationKey.Supervisor),
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.checkedBy?._id} />,
     width: 120,
   },
 
   {
     field: 'action',
-    headerName: textConsts.actionField,
+    headerName: t(TranslationKey.Action),
     width: 190,
     renderCell: params => (
       <SuccessActionBtnCell
-        bTnText={`${textConsts.byForBtn} ${toFixedWithDollarSign(params.row.originalData.priceForClient, 2)}`}
+        bTnText={`${t(TranslationKey['Buy for'])} ${toFixedWithDollarSign(params.row.originalData.priceForClient, 2)}`}
         onClickOkBtn={() => handlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}
       />
     ),

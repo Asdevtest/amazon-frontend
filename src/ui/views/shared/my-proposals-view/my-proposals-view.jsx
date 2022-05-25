@@ -11,6 +11,7 @@ import {observer} from 'mobx-react'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {tableViewMode} from '@constants/table-view-modes'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {MyProposalsListCard} from '@components/cards/my-proposals-list-card'
@@ -20,6 +21,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {MyProposalsViewModel} from './my-proposals-view.model'
 import {styles} from './my-proposals-view.style'
@@ -106,7 +108,7 @@ class MyProposalsViewRaw extends Component {
                 <div className={classNames.emptyTableWrapper}>
                   <img src="/assets/icons/empty-table.svg" />
                   <Typography variant="h5" className={classNames.emptyTableText}>
-                    {'Предложений пока нет.'}
+                    {t(TranslationKey['No suggestions'])}
                   </Typography>
                 </div>
               )}

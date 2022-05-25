@@ -11,6 +11,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -31,6 +32,7 @@ import {Navbar} from '@components/navbar'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ClientWarehouseViewModel} from './client-warehouse-view.model'
 import {styles} from './client-warehouse-view.style'
@@ -45,7 +47,6 @@ export class ClientWarehouseViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -129,7 +130,7 @@ export class ClientWarehouseViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
             <MainContent>
               <div className={classNames.boxesFiltersWrapper}>
                 <Button
@@ -139,7 +140,7 @@ export class ClientWarehouseViewRaw extends Component {
                   color="primary"
                   onClick={onClickStorekeeperBtn}
                 >
-                  {`Все склады`}
+                  {t(TranslationKey['All warehouses'])}
                 </Button>
 
                 {storekeepersData
@@ -218,7 +219,7 @@ export class ClientWarehouseViewRaw extends Component {
         </Main>
 
         <Modal openModal={showEditBoxModal} setOpenModal={() => onTriggerOpenModal('showEditBoxModal')}>
-          <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
+          <Typography variant="h5">{t(TranslationKey['Editing the box'])}</Typography>
 
           <EditBoxForm
             destinations={destinations}
@@ -234,7 +235,7 @@ export class ClientWarehouseViewRaw extends Component {
         <Modal openModal={showRedistributeBoxModal} setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}>
           <div className={classNames.redistributionWrapper}>
             <Typography paragraph variant="h5">
-              {textConsts.modalRedistributionTitle}
+              {t(TranslationKey['Box redistributing'])}
             </Typography>
             <RedistributeBox
               destinations={destinations}
@@ -417,7 +418,7 @@ export class ClientWarehouseViewRaw extends Component {
           variant="contained"
           onClick={onClickRequestToSendBatch}
         >
-          {textConsts.sendBatchBtn}
+          {t(TranslationKey['Send batch'])}
         </Button>
 
         <Button
@@ -427,7 +428,7 @@ export class ClientWarehouseViewRaw extends Component {
           variant="contained"
           onClick={onClickMergeBtn}
         >
-          {textConsts.mergeBtn}
+          {t(TranslationKey.Merge)}
         </Button>
 
         <Button
@@ -437,7 +438,7 @@ export class ClientWarehouseViewRaw extends Component {
           variant="contained"
           onClick={onClickSplitBtn}
         >
-          {textConsts.redistributeBtn}
+          {t(TranslationKey.Redistribute)}
         </Button>
         <Button
           disableElevation
@@ -446,7 +447,7 @@ export class ClientWarehouseViewRaw extends Component {
           variant="contained"
           onClick={onClickEditBtn}
         >
-          {textConsts.editBtn}
+          {t(TranslationKey.Edit)}
         </Button>
       </React.Fragment>
     )

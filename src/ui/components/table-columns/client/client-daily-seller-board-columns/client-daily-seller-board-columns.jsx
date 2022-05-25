@@ -1,10 +1,12 @@
 import React from 'react'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {renderFieldValueCell, ScrollingCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientDailySellerBoardColumns
 
@@ -25,21 +27,21 @@ export const clientDailySellerBoardColumns = () => [
 
   {
     field: 'title',
-    headerName: textConsts.titleField,
+    headerName: t(TranslationKey.Title),
     renderCell: params => <ScrollingCell value={params.value} />,
     width: 250,
   },
 
   {
     field: 'stockValue',
-    headerName: textConsts.stockValueField,
+    headerName: t(TranslationKey.Quantity),
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 
   {
     field: 'reserved',
-    headerName: textConsts.reservedField,
+    headerName: t(TranslationKey.Reserved),
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
@@ -53,7 +55,7 @@ export const clientDailySellerBoardColumns = () => [
 
   {
     field: 'comment',
-    headerName: textConsts.commentField,
+    headerName: t(TranslationKey.Comment),
     renderCell: params => <ScrollingCell value={params.value} />,
     width: 250,
   },
@@ -78,7 +80,7 @@ export const clientDailySellerBoardColumns = () => [
   },
   {
     field: 'ordered',
-    headerName: textConsts.orderedField,
+    headerName: t(TranslationKey.Ordered),
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },

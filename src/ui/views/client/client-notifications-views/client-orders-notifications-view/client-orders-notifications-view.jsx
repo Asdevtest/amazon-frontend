@@ -31,7 +31,6 @@ class ClientOrdersNotificationsViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {

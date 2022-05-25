@@ -8,6 +8,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {BindStockGoodsToInventoryForm} from '@components/forms/bind-stock-goods-to-inventory-form'
@@ -19,6 +20,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {StockReportModel} from './stock-report.model'
 import {styles} from './stock-report.style'
@@ -96,7 +98,7 @@ class StockReportRaw extends Component {
             color="primary"
             onClick={onClickShopBtn}
           >
-            {`Все магазины`}
+            {t(TranslationKey['All shops'])}
           </Button>
 
           {shopsData.map(shop => (
@@ -122,7 +124,7 @@ class StockReportRaw extends Component {
             color="primary"
             onClick={onSubmitMoveToInventoryGoods}
           >
-            {textConsts.moveToInventoryBtn}
+            {t(TranslationKey['Move to inventory'])}
           </Button>
 
           <Button
@@ -133,7 +135,7 @@ class StockReportRaw extends Component {
             color="primary"
             onClick={onClickBindStockGoodsToInventoryBtn}
           >
-            {textConsts.bindBtn}
+            {t(TranslationKey['Bind to an item in the inventory'])}
           </Button>
         </div>
 

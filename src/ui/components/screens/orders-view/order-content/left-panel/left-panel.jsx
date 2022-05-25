@@ -4,9 +4,11 @@ import {Divider, Typography, Button} from '@material-ui/core'
 import LaunchIcon from '@material-ui/icons/Launch'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './left-panel.style'
 import {ProductParameters} from './product-parameters'
@@ -31,7 +33,7 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
       <Divider orientation={'horizontal'} className={classNames.divider} />
 
       <Button className={classNames.documentsButton} variant="outlined" endIcon={<LaunchIcon fontSize="small" />}>
-        {'Документы'}
+        {t(TranslationKey.Documents)}
       </Button>
 
       <ProductParameters order={order} collapsed={collapsed} />
@@ -40,7 +42,7 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
 
       <div className={classNames.collapsedWrapper} onClick={() => setCollapsed(!collapsed)}>
         <Typography className={classNames.containerTitle}>
-          {!collapsed ? textConsts.allParameters : textConsts.close}
+          {!collapsed ? t(TranslationKey['All product parameters']) : t(TranslationKey.Collapse)}
         </Typography>
       </div>
       {narrow && <Divider orientation={'horizontal'} className={classNames.lastDivider} />}

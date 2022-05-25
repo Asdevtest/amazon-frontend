@@ -7,6 +7,7 @@ import {observer} from 'mobx-react'
 import {getClientDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
@@ -17,13 +18,14 @@ import {UserMoneyTransferModal} from '@components/modals/user-money-transfer-mod
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ClientDashboardViewModel} from './client-dashboard-view.model'
 import {styles} from './client-dashboard-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientDashboardView
 
-const dashboardCardConfig = getClientDashboardCardConfig(textConsts)
+// const dashboardCardConfig = getClientDashboardCardConfig()
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
 @observer
@@ -53,7 +55,7 @@ export class ClientDashboardViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle} balance={userInfo.balance}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Dashboard)} balance={userInfo.balance}>
             <MainContent>
               <div className={classes.mb5}>
                 <DashboardBalance user={userInfo} />
@@ -64,15 +66,15 @@ export class ClientDashboardViewRaw extends Component {
                   variant="contained"
                   onClick={() => onClickWithdrawMoney()}
                 >
-                  {textConsts.withdraw}
+                  {t(TranslationKey['Withdraw money'])}
                 </Button>
                 <Button disableElevation color="primary" onClick={() => onClickAddMoney()}>
-                  {textConsts.replenish}
+                  {t(TranslationKey['Add money'])}
                 </Button>
               </div>
 
               <SectionalDashboard
-                config={dashboardCardConfig}
+                config={getClientDashboardCardConfig(textConsts)}
                 valuesData={dashboardData}
                 onClickViewMore={onClickInfoCardViewMode}
               />

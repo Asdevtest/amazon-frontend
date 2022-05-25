@@ -6,6 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
@@ -18,6 +19,7 @@ import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed, trimBarcode} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './order-modal-body-row.style'
 
@@ -198,7 +200,7 @@ export const OrderModalBodyRow = ({
                       }`
                     : 'none'
                 }`
-              : 'Выбрать'}
+              : t(TranslationKey.Select)}
           </Button>
         </TableCell>
 
@@ -241,7 +243,7 @@ export const OrderModalBodyRow = ({
               oneLine
               containerClasses={classNames.containerField}
               labelClasses={classNames.labelField}
-              label={'Вес 1 ед.,кг'}
+              label={t(TranslationKey['Weight 1 unit'])}
               inputComponent={
                 <Typography className={classNames.sumText}>{toFixed(weightOfOneBox, 2) || 'Нет данных'}</Typography>
               }
@@ -251,7 +253,7 @@ export const OrderModalBodyRow = ({
               oneLine
               containerClasses={classNames.containerField}
               labelClasses={classNames.labelField}
-              label={'Вес партии,кг'}
+              label={t(TranslationKey['Batch weight'])}
               inputComponent={
                 <Typography className={classNames.sumText}>{toFixed(weightOfBatch, 2) || 'Нет данных'}</Typography>
               }
@@ -261,10 +263,10 @@ export const OrderModalBodyRow = ({
               oneLine
               containerClasses={classNames.containerField}
               labelClasses={classNames.labelField}
-              label={'Стоимость доставки партии,$'}
+              label={t(TranslationKey['Batch delivery cost']) + ',$'}
               inputComponent={
                 <Typography className={classNames.sumText}>
-                  {toFixed(costDeliveryOfBatch, 2) || 'Нет данных'}
+                  {toFixed(costDeliveryOfBatch, 2) || t(TranslationKey['No data'])}
                 </Typography>
               }
             />

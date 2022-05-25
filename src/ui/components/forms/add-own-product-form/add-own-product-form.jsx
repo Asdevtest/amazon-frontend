@@ -5,6 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
@@ -15,6 +16,7 @@ import {UploadFilesInput} from '@components/upload-files-input'
 
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './add-own-product-form.style'
 
@@ -74,15 +76,15 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
   return (
     <div className={classNames.root}>
       <Typography variant="h5" className={classNames.title}>
-        {textConsts.formTitle}
+        {t(TranslationKey['Add your product'])}
       </Typography>
 
       <Field
-        label={textConsts.linkLabel}
+        label={t(TranslationKey['Amazon product link'])}
         inputComponent={
           <div className={classNames.inputWrapper}>
             <Input
-              placeholder={textConsts.linkHolder}
+              placeholder={t(TranslationKey.Link)}
               value={formFields.lamazon}
               className={classNames.input}
               onChange={onChangeField('lamazon')}
@@ -110,7 +112,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
 
       <div className={classNames.checkboxWrapper} onClick={() => setIsNoAsin(!isNoAsin)}>
         <Checkbox color="primary" checked={isNoAsin} />
-        <Typography>{textConsts.noAsin}</Typography>
+        <Typography>{t(TranslationKey.No) + ' ASIN'}</Typography>
       </div>
 
       {isNoAsin && (
@@ -149,7 +151,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
                     color="primary"
                     onClick={onClickSkuBtn}
                   >
-                    {textConsts.addSkuBtn}
+                    {t(TranslationKey.Add)}
                   </Button>
                 </div>
               </div>
@@ -157,9 +159,9 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
           />
 
           <Field
-            label={textConsts.title}
+            label={t(TranslationKey.Title)}
             value={formFields.amazonTitle}
-            placeholder={textConsts.title}
+            placeholder={t(TranslationKey.Title)}
             onChange={onChangeField('amazonTitle')}
           />
 
@@ -185,7 +187,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
             setSubmitIsClicked(true)
           }}
         >
-          {textConsts.addAndBindBtn}
+          {t(TranslationKey.Add)}
         </SuccessButton>
       </div>
 

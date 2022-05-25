@@ -6,6 +6,8 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {Button} from '@components/buttons/button'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {Modal} from '@components/modal'
@@ -15,6 +17,7 @@ import {calcPriceForBox} from '@utils/calculation'
 import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {styles} from './warehouse-body-row.style'
 
@@ -101,7 +104,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
                   setShowPhotosModal(!showPhotosModal)
                 }}
               >
-                {'фотографии'}
+                {t(TranslationKey.Photos)}
               </Button>
             </TableCell>
           </React.Fragment>

@@ -1,4 +1,4 @@
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveBtnsCell,
@@ -7,14 +7,12 @@ import {
   ShortDateCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').shopsTableColumns
+import {t} from '@utils/translations'
 
 export const shopsColumns = handlers => [
   {
     field: 'updatedAt',
-    headerName: textConsts.updateDateField,
+    headerName: t(TranslationKey.Updated),
     minWidth: 120,
     renderCell: params => <ShortDateCell params={params} />,
     type: 'date',
@@ -22,14 +20,14 @@ export const shopsColumns = handlers => [
 
   {
     field: 'name',
-    headerName: textConsts.nameField,
+    headerName: t(TranslationKey.Title),
     width: 300,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'sellerBoardWarehouseReportUrlDaily',
-    headerName: textConsts.warehouseReportField,
+    headerName: t(TranslationKey['Warehouse report']),
     width: 350,
     renderCell: params => (
       <ShopsReportBtnsCell value={params.value} onClickSeeMore={() => handlers.onClickSeeStockReport(params.row)} />
@@ -38,7 +36,7 @@ export const shopsColumns = handlers => [
 
   {
     field: 'sellerBoardWarehouseReportUrlMonthly',
-    headerName: textConsts.dashboardField,
+    headerName: t(TranslationKey['Dashboard by goods/days']),
     width: 350,
     renderCell: params => (
       <ShopsReportBtnsCell
@@ -50,7 +48,7 @@ export const shopsColumns = handlers => [
 
   {
     field: 'action',
-    headerName: textConsts.actionField,
+    headerName: t(TranslationKey.Actions),
     width: 300,
     renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
     filterable: false,

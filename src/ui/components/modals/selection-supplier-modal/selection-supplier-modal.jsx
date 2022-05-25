@@ -5,11 +5,13 @@ import clsx from 'clsx'
 
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './selection-supplier-modal.style'
 
@@ -82,17 +84,17 @@ export const SelectionSupplierModal = ({
 
   return (
     <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={modalTitleClsx}>{textConsts.modalTitle}</Typography>
+      <Typography className={modalTitleClsx}>{t(TranslationKey['Select a supplier'])}</Typography>
 
       {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
         <div>
           <Field
             multiline
-            label={textConsts.modalSubTitle}
+            label={t(TranslationKey['Update product comment:'])}
             minRows={4}
             rowsMax={4}
             value={comment}
-            placeholder={textConsts.modalPlaceholder}
+            placeholder={t(TranslationKey.Comment) + '...'}
             className={classNames.modalTextArea}
             onChange={e => setComment(e.target.value)}
           />
@@ -100,21 +102,21 @@ export const SelectionSupplierModal = ({
       ) : (
         <div className={classNames.modalButtonsWrapper}>
           <Button
-            tooltipContent={textConsts.searchSupplierTooltip}
+            tooltipContent={t(TranslationKey['Paid service'])}
             disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
             className={buttonSendRequestClsx}
             onClick={() => onClickSendRequestButton()}
           >
-            {textConsts.sendRequest}
+            {t(TranslationKey['Send request for supplier search'])}
           </Button>
 
           <Button
-            tooltipContent={textConsts.newSupplierTooltip}
+            tooltipContent={t(TranslationKey['Free service'])}
             disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
             className={buttonAddSupplierClsx}
             onClick={() => onClickAddSupplierButton()}
           >
-            {textConsts.addNewSupplier}
+            {t(TranslationKey['Add a new supplier'])}
           </Button>
         </div>
       )}
@@ -123,7 +125,7 @@ export const SelectionSupplierModal = ({
         {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
           <Grid item>
             <Button className={classNames.modalButtonBack} onClick={() => setClickNextOrPrevButton(false)}>
-              {textConsts.backBtn}
+              {t(TranslationKey.Back)}
             </Button>
           </Grid>
         ) : null}
@@ -136,7 +138,7 @@ export const SelectionSupplierModal = ({
             className={classNames.modalButtonNext}
             onClick={() => onClickNextButton()}
           >
-            {textConsts.nextBtn}
+            {t(TranslationKey.Next)}
           </Button>
         </Grid>
       </Grid>

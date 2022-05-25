@@ -5,6 +5,7 @@ import clsx from 'clsx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
@@ -14,6 +15,7 @@ import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {SetShippingLabelModal} from '../set-shipping-label-modal'
 import {BoxForMerge} from './box-for-merge'
@@ -116,19 +118,19 @@ export const MergeBoxesModal = ({
 
   return (
     <div className={classNames.mainWrapper}>
-      <Typography variant="h5">{textConsts.mainTitle}</Typography>
+      <Typography variant="h5">{t(TranslationKey['Merging boxes'])}</Typography>
 
       {selectedBoxes.map((box, boxIndex) => (
         <BoxForMerge key={boxIndex} index={boxIndex} box={box} onRemoveBox={onRemoveBoxFromSelected} />
       ))}
 
-      <Typography variant="h5">{textConsts.boxData}</Typography>
+      <Typography variant="h5">{t(TranslationKey['Final box data'])}</Typography>
 
-      <Typography>{textConsts.attention}</Typography>
+      <Typography>{t(TranslationKey['Please note the change in stock and method of delivery!!!'])}</Typography>
 
       <Field
         containerClasses={classNames.field}
-        label={'Destination'}
+        label={t(TranslationKey.Destination)}
         inputComponent={
           <NativeSelect
             variant="filled"
@@ -154,7 +156,7 @@ export const MergeBoxesModal = ({
 
       <Field
         containerClasses={classNames.field}
-        label={'Storekeeper / Tariff'}
+        label={'Storekeeper / ' + t(TranslationKey.Tariff)}
         inputComponent={
           <Button
             disableElevation
@@ -173,7 +175,7 @@ export const MergeBoxesModal = ({
                       }`
                     : 'none'
                 }`
-              : 'Выбрать'}
+              : t(TranslationKey.Select)}
           </Button>
         }
       />
@@ -181,13 +183,13 @@ export const MergeBoxesModal = ({
       <Field
         containerClasses={classNames.field}
         inputProps={{maxLength: 255}}
-        label={'FBA SHIPMENT'}
+        label={t(TranslationKey['FBA Shipment'])}
         value={boxBody.fbaShipment}
         onChange={e => setBoxBody({...boxBody, fbaShipment: e.target.value})}
       />
 
       <div>
-        <Typography className={classNames.linkTitle}>{'Шиппинг лейбл:'}</Typography>
+        <Typography className={classNames.linkTitle}>{t(TranslationKey['Shipping label'])}</Typography>
         <Chip
           classes={{
             root: classNames.barcodeChip,
@@ -200,10 +202,10 @@ export const MergeBoxesModal = ({
           size="small"
           label={
             boxBody.tmpShippingLabel?.length
-              ? 'FILE IS ADDED'
+              ? t(TranslationKey['File added'])
               : boxBody.shippingLabel
               ? boxBody.shippingLabel
-              : 'Set shipping label'
+              : t(TranslationKey['Set Shipping Label'])
           }
           onClick={() => onClickShippingLabel()}
           onDelete={!boxBody.shippingLabel ? undefined : () => onDeleteShippingLabel()}
@@ -216,7 +218,8 @@ export const MergeBoxesModal = ({
         rows={4}
         rowsMax={6}
         inputProps={{maxLength: 2000}}
-        label={textConsts.comment}
+        label={t(TranslationKey['Client comment on the task'])}
+        placeholder={t(TranslationKey['Task commentary'])}
         value={comment}
         onChange={e => setComment(e.target.value)}
       />
@@ -235,7 +238,7 @@ export const MergeBoxesModal = ({
             onSubmitBoxesModal()
           }}
         >
-          {textConsts.saveBtn}
+          {t(TranslationKey.Merge)}
         </Button>
         <Button
           disabled={requestStatus === loadingStatuses.isLoading}
@@ -246,7 +249,7 @@ export const MergeBoxesModal = ({
             onCloseBoxesModal()
           }}
         >
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Cancel)}
         </Button>
       </div>
 

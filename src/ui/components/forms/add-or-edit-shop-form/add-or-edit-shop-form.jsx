@@ -3,16 +3,14 @@ import React, {useState} from 'react'
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './add-or-edit-shop-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').addOrEditShopForm
 
 export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit}) => {
   const classNames = useClassNames()
@@ -41,7 +39,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h5">{textConsts.mainTitle}</Typography>
+      <Typography variant="h5">{t(TranslationKey['Add shop'])}</Typography>
 
       <div className={classNames.form}>
         <Field
@@ -49,9 +47,9 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
           minRows={4}
           rowsMax={4}
           className={classNames.descriptionField}
-          label={textConsts.nameLabel}
+          label={t(TranslationKey.Title)}
           value={formFields.name}
-          placeholder={textConsts.nameHolder}
+          placeholder={t(TranslationKey['Store name'])}
           onChange={onChangeField('name')}
         />
 
@@ -60,8 +58,8 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
           minRows={4}
           rowsMax={4}
           className={classNames.descriptionField}
-          placeholder={textConsts.warehouseReportHolder}
-          label={textConsts.warehouseReportField}
+          placeholder={t(TranslationKey['Link to report from the warehouse'])}
+          label={t(TranslationKey['Warehouse report'])}
           value={formFields.sellerBoardWarehouseReportUrlDaily}
           onChange={onChangeField('sellerBoardWarehouseReportUrlDaily')}
         />
@@ -71,8 +69,8 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
           minRows={4}
           rowsMax={4}
           className={classNames.descriptionField}
-          label={textConsts.dashboardField}
-          placeholder={textConsts.dashboardHolder}
+          label={t(TranslationKey['Dashboard by goods/days'])}
+          placeholder={t(TranslationKey['Link to dashboard by item/day'])}
           value={formFields.sellerBoardWarehouseReportUrlMonthly}
           onChange={onChangeField('sellerBoardWarehouseReportUrlMonthly')}
         />
@@ -85,7 +83,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
         variant="contained"
         onClick={() => onSubmit(formFields, shopToEdit && shopToEdit._id)}
       >
-        {textConsts.saveBtn}
+        {t(TranslationKey.Save)}
       </Button>
 
       <Button
@@ -95,7 +93,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
         variant="contained"
         onClick={() => onCloseModal()}
       >
-        {textConsts.cancelBtn}
+        {t(TranslationKey.Cancel)}
       </Button>
     </div>
   )

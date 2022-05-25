@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   NormDateFromUnixCell,
@@ -8,16 +8,15 @@ import {
   renderFieldValueCell,
   ClientTasksActionBtnsCell,
   UserLinkCell,
+  TaskTypeCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientTasksTableColumns
+import {t} from '@utils/translations'
 
 export const clientTasksViewColumns = handlers => [
   {
     field: 'createdAt',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Created),
     width: 110,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
@@ -25,7 +24,7 @@ export const clientTasksViewColumns = handlers => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updateDateField,
+    headerName: t(TranslationKey.Updated),
     width: 110,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
@@ -33,14 +32,14 @@ export const clientTasksViewColumns = handlers => [
 
   {
     field: 'operationType',
-    headerName: textConsts.typeField,
+    headerName: t(TranslationKey.Type),
     width: 130,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 
   {
     field: 'description',
-    headerName: textConsts.descriptionField,
+    headerName: t(TranslationKey.Description),
     width: 450,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
@@ -49,14 +48,14 @@ export const clientTasksViewColumns = handlers => [
 
   {
     field: 'storekeeper',
-    headerName: textConsts.storekeeperField,
+    headerName: t(TranslationKey['Int warehouse']),
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
     width: 170,
   },
 
   {
     field: 'action',
-    headerName: textConsts.actionField,
+    headerName: t(TranslationKey.Action),
     width: 330,
 
     renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row.originalData} />,
@@ -65,7 +64,7 @@ export const clientTasksViewColumns = handlers => [
   },
   {
     field: 'status',
-    headerName: textConsts.statusField,
+    headerName: t(TranslationKey.Status),
     width: 130,
     renderCell: params => renderFieldValueCell(params.value),
     filterable: false,

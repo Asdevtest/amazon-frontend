@@ -7,6 +7,8 @@ import {useHistory} from 'react-router-dom'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {OrdersModel} from './orders.model'
 import {useClassNames} from './orders.style'
 
@@ -15,11 +17,15 @@ export const Orders = observer(({productId}) => {
   const history = useHistory()
   const model = useRef(new OrdersModel({history, productId}))
 
+  const {getCurrentData, requestStatus, columnsModel, onClickTableRow, updateColumnsModel} = model.current
+
   useEffect(() => {
     model.current.loadData()
   }, [])
 
-  const {getCurrentData, requestStatus, columnsModel, onClickTableRow} = model.current
+  useEffect(() => {
+    updateColumnsModel()
+  }, [SettingsModel.languageTag])
 
   return (
     <div className={classNames.mainWrapper}>

@@ -5,6 +5,12 @@ import React from 'react'
 import {Typography, Box, Tabs, Tab} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
+import {SettingsModel} from '@models/settings-model'
+
+import {t} from '@utils/translations'
+
 import {GoodsDaysReport} from './goods-days-report'
 import {useClassNames} from './shops-integrations.style'
 import {ShopsView} from './shops-view'
@@ -43,19 +49,25 @@ export const ShopsIntegrations = observer(() => {
 
   return (
     <React.Fragment>
-      <Tabs
-        variant={'fullWidth'}
-        classes={{
-          root: classNames.row,
-          indicator: classNames.indicator,
-        }}
-        value={tabIndex}
-        onChange={(e, index) => setTabIndex(index)}
-      >
-        <Tab classes={tabItemStyles} label={'Магазины'} value={tabsValues.SHOPS} />
-        <Tab classes={tabItemStyles} label={'Отчет со склада'} value={tabsValues.STOCK_REPORT} />
-        <Tab classes={tabItemStyles} label={'Dashboard по товарам/дням'} value={tabsValues.GOODS_DAYS_REPORT} />
-      </Tabs>
+      {SettingsModel.languageTag && (
+        <Tabs
+          variant={'fullWidth'}
+          classes={{
+            root: classNames.row,
+            indicator: classNames.indicator,
+          }}
+          value={tabIndex}
+          onChange={(e, index) => setTabIndex(index)}
+        >
+          <Tab classes={tabItemStyles} label={t(TranslationKey.Shops)} value={tabsValues.SHOPS} />
+          <Tab classes={tabItemStyles} label={t(TranslationKey['Warehouse report'])} value={tabsValues.STOCK_REPORT} />
+          <Tab
+            classes={tabItemStyles}
+            label={t(TranslationKey['Dashboard by goods/days'])}
+            value={tabsValues.GOODS_DAYS_REPORT}
+          />
+        </Tabs>
+      )}
 
       <TabPanel value={tabIndex} index={tabsValues.SHOPS}>
         <ShopsView tabsValues={tabsValues} onChangeTabIndex={setTabIndex} onChangeCurShop={setCurShop} />

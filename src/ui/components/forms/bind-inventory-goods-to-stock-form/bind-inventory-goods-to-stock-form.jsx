@@ -9,11 +9,13 @@ import {observer} from 'mobx-react'
 import qs from 'qs'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Input} from '@components/input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './bind-inventory-goods-to-stock-form.style'
 import {chosenGoodsColumns, sourceColumns} from './bind-stock-goods-to-inventory-columns'
@@ -89,19 +91,19 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h5">{textConsts.mainTitle}</Typography>
+      <Typography variant="h5">{t(TranslationKey['Bind goods from the warehouse'])}</Typography>
 
       <div className={classNames.form}>
         <div className={classNames.filtersWrapper}>
           <Chip
-            label={textConsts.recommend}
+            label={t(TranslationKey.Recommended)}
             className={clsx(classNames.chip, {[classNames.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED})}
             onClick={() => setRecommendChip()}
           />
-          <Typography className={classNames.betweenChipsText}>{textConsts.betweenChipsText}</Typography>
+          <Typography className={classNames.betweenChipsText}>{t(TranslationKey['or search by'])}</Typography>
 
           <Chip
-            label={textConsts.name}
+            label={t(TranslationKey.Title)}
             className={clsx(classNames.chip, {[classNames.chipActive]: chipConfig === chipConfigSettings.NAME})}
             onClick={() => setChipConfig(chipConfigSettings.NAME)}
           />
@@ -127,7 +129,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
           <Input
             disabled={chipConfig === chipConfigSettings.RECOMMENDED}
             inputProps={{maxLength: 200}}
-            placeholder={textConsts.searchHolder}
+            placeholder={t(TranslationKey.search) + '...'}
             className={classNames.searchInput}
             value={searchInputValue}
             onChange={e => setSearchInputValue(e.target.value)}
@@ -138,7 +140,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
             className={classNames.searchBtn}
             onClick={() => onClickSearch()}
           >
-            {textConsts.searchBtn}
+            {t(TranslationKey.search)}
           </button>
         </div>
 
@@ -153,7 +155,9 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
           />
         </div>
 
-        <Typography className={classNames.chosenGoodsTitle}>{textConsts.chosenGoods}</Typography>
+        <Typography className={classNames.chosenGoodsTitle}>
+          {t(TranslationKey['Selected products from stock'])}
+        </Typography>
 
         <div className={classNames.tableWrapper}>
           <DataGrid hideFooter rows={chosenGoods || []} columns={chosenGoodsColumns({onClickTrash})} rowHeight={60} />
@@ -167,7 +171,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
             color="primary"
             onClick={onClickSubmit}
           >
-            {textConsts.bindBtn}
+            {t(TranslationKey.Bind)}
           </SuccessButton>
         </div>
       </div>

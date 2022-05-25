@@ -1,8 +1,9 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {ClientModel} from '@models/client-model'
+import {SettingsModel} from '@models/settings-model'
 
 import {clientOrdersViewColumns} from '@components/table-columns/client/client-orders-columns'
 
@@ -25,6 +26,11 @@ export class OrdersModel {
 
     this.productId = productId
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
   }
 
   setRequestStatus(requestStatus) {
@@ -35,11 +41,14 @@ export class OrdersModel {
     return toJS(this.orders)
   }
 
+  updateColumnsModel() {
+    this.columnsModel = clientOrdersViewColumns()
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getOrdersByProductId()
-
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

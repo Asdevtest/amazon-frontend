@@ -6,11 +6,13 @@ import {Typography, Link} from '@material-ui/core'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed, checkAndMakeAbsoluteUrl} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './product-parameters.style'
 
@@ -37,13 +39,16 @@ export const ProductParameters = ({order, collapsed}) => {
 
   return (
     <div>
-      <OrderParameter label={textConsts.minPrice} value={toFixed(order.product.minpurchase, 2)} />
-      <OrderParameter label={textConsts.qty} value={order.amount} />
-      <OrderParameter label={textConsts.minBuyPrice} value={toFixed(order.product.currentSupplier?.price, 2)} />
+      <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.product.minpurchase, 2)} />
+      <OrderParameter label={t(TranslationKey['Quantity (pcs.)'])} value={order.amount} />
+      <OrderParameter
+        label={t(TranslationKey['Purchase price'])}
+        value={toFixed(order.product.currentSupplier?.price, 2)}
+      />
 
       <Field
         oneLine
-        label={textConsts.supplier}
+        label={t(TranslationKey.Supplier)}
         containerClasses={classNames.parameterTableCellWrapper}
         labelClasses={classNames.fieldLabel}
         inputComponent={
@@ -60,7 +65,7 @@ export const ProductParameters = ({order, collapsed}) => {
       />
 
       <OrderParameter
-        label={textConsts.maxDeliveryPrice}
+        label={t(TranslationKey['Maximum delivery price per unit'])}
         value={toFixed(
           order.product.currentSupplier.batchDeliveryCostInDollar / order.product.currentSupplier.amount,
           2,
@@ -69,7 +74,7 @@ export const ProductParameters = ({order, collapsed}) => {
 
       <Field
         oneLine
-        label={textConsts.sizes}
+        label={t(TranslationKey.Demensions)}
         containerClasses={classNames.parameterTableCellWrapper}
         labelClasses={classNames.fieldLabel}
         inputComponent={
@@ -97,11 +102,11 @@ export const ProductParameters = ({order, collapsed}) => {
         }
       />
 
-      <OrderParameter label={textConsts.weight} value={toFixed(order.product.weight, 2)} />
+      <OrderParameter label={t(TranslationKey['Weight, kg'])} value={toFixed(order.product.weight, 2)} />
 
       <Field
         oneLine
-        label={'Баркод'}
+        label={t(TranslationKey.BarCode)}
         containerClasses={classNames.parameterTableCellWrapper}
         labelClasses={classNames.fieldLabel}
         inputComponent={
@@ -117,7 +122,9 @@ export const ProductParameters = ({order, collapsed}) => {
         }
       />
 
-      {collapsed && <OrderParameter label={textConsts.extraParam} value={textConsts.extraParamValue} />}
+      {collapsed && (
+        <OrderParameter label={t(TranslationKey['Additional parameter'])} value={textConsts.extraParamValue} />
+      )}
     </div>
   )
 }

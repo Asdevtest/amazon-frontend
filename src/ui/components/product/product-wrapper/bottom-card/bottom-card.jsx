@@ -5,12 +5,14 @@ import {observer} from 'mobx-react'
 
 import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
 
 import {checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './bottom-card.style'
 
@@ -43,7 +45,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             <Field
               disabled={defaultFieldDisable}
               inputProps={{maxLength: 50}}
-              label={textConsts.category}
+              label={t(TranslationKey.Category)}
               value={product.category || ''}
               onChange={onChangeField('category')}
             />
@@ -58,7 +60,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             <Field
               disabled={defaultFieldDisable}
               inputProps={{maxLength: 12}}
-              label={textConsts.amazonPrice}
+              label={t(TranslationKey['Amazon price']) + '*'}
               error={formFieldsValidationErrors.amazon}
               value={product.amazon === 0 ? 0 : product.amazon || ''}
               onChange={onChangeField('amazon')}
@@ -67,7 +69,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.width}
               inputProps={{maxLength: 15}}
-              label={textConsts.fieldWidth}
+              label={t(TranslationKey['Width, inches']) + '*'}
               value={product.width === 0 ? 0 : toFixed(product.width, 5) || ''}
               onChange={onChangeField('width')}
             />
@@ -75,7 +77,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.height}
               inputProps={{maxLength: 15}}
-              label={textConsts.fieldHeight}
+              label={t(TranslationKey['Height, inches']) + '*'}
               value={product.height === 0 ? 0 : toFixed(product.height, 5) || ''}
               onChange={onChangeField('height')}
             />
@@ -83,7 +85,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.length}
               inputProps={{maxLength: 15}}
-              label={textConsts.fieldLength}
+              label={t(TranslationKey['Length, inches']) + '*'}
               value={product.length === 0 ? 0 : toFixed(product.length, 5) || ''}
               onChange={onChangeField('length')}
             />
@@ -91,7 +93,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.weight}
               inputProps={{maxLength: 15}}
-              label={textConsts.fieldWeight}
+              label={t(TranslationKey['Weight, kg']) + '*'}
               value={product.weight === 0 ? 0 : toFixed(product.weight, 5) || ''}
               onChange={onChangeField('weight')}
             />
@@ -100,14 +102,14 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               disabled
               error={formFieldsValidationErrors.minpurchase}
               inputProps={{maxLength: 15}}
-              label={textConsts.minpurchase}
+              label={t(TranslationKey['Min purchase price, $'])}
               value={product.minpurchase === 0 ? 0 : toFixed(product.minpurchase, 2) || ''}
               onChange={onChangeField('minpurchase')}
             />
             <Field
               disabled
               error={formFieldsValidationErrors.maxDelivery}
-              label={textConsts.maxDeliveryPrice}
+              label={t(TranslationKey['Max delivery price, $'])}
               value={product.maxDelivery === 0 ? 0 : toFixed(product.maxDelivery, 2) || 0}
               onChange={onChangeField('maxDelivery')}
             />
@@ -137,28 +139,28 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.fbaamount}
               inputProps={{maxLength: 15}}
-              label={textConsts.recommendedBatch}
+              label={t(TranslationKey['Recommended batch']) + ', FBA*'}
               value={product.fbaamount === 0 ? 0 : product.fbaamount || ''}
               onChange={onChangeField('fbaamount')}
             />
             <Field
               disabled
               error={formFieldsValidationErrors.profit}
-              label={textConsts.revenue}
+              label={t(TranslationKey['Profit, $'])}
               value={toFixed(product.profit, 2) || 0}
               onChange={onChangeField('profit')}
             />
             <Field
               disabled
               error={formFieldsValidationErrors.margin}
-              label={textConsts.fieldMargin}
+              label={t(TranslationKey['Margin, %'])}
               value={toFixed(product.margin, 2) || 0}
               onChange={onChangeField('margin')}
             />
             <Field
               disabled
               error={formFieldsValidationErrors.status}
-              label={textConsts.fieldStatus}
+              label={t(TranslationKey.Status)}
               value={ProductStatusByCode[product.status]}
               onChange={onChangeField('status')}
             />
@@ -166,10 +168,10 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
         </Grid>
         <Grid item sm={5} xs={12}>
           <Paper className={classNames.cardPadding}>
-            <Typography className={classNames.title}>{textConsts.descriptionOFGoods}</Typography>
+            <Typography className={classNames.title}>{t(TranslationKey['Product description'])}</Typography>
             <Field
               disabled={defaultFieldDisable}
-              label={textConsts.csCode}
+              label={t(TranslationKey['Product header on Amazon'])}
               value={product.amazonTitle || ''}
               onChange={onChangeField('amazonTitle')}
             />
@@ -180,7 +182,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               className={classNames.heightFieldAuto}
               rows={4}
               rowsMax={6}
-              label={textConsts.summary}
+              label={t(TranslationKey['Amazon Brief Description'])}
               value={product.amazonDescription || ''}
               onChange={onChangeField('amazonDescription')}
             />
@@ -191,7 +193,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               className={classNames.heightFieldAuto}
               rows={4}
               rowsMax={6}
-              label={textConsts.description}
+              label={t(TranslationKey.Details)}
               value={product.amazonDetail || ''}
               onChange={onChangeField('amazonDetail')}
             />

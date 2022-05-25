@@ -3,24 +3,22 @@ import React from 'react'
 import {IconButton, InputLabel, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Input} from '@components/input'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getFullTariffTextForBoxOrOrder} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './box-for-merge.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').mergeBoxModal
 
 export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
   const classNames = useClassNames()
 
   return (
     <div className={classNames.box}>
-      <Typography className={classNames.boxTitle}>{`Коробка № ${box.humanFriendlyId}`}</Typography>
+      <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
       <div className={classNames.itemsWrapper}>
         <div>
           {box.items.map((order, orderIndex) => (
@@ -31,7 +29,7 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
                   src={order.product.images && order.product.images[0] && getAmazonImageUrl(order.product.images[0])}
                 />
                 <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
-                <Typography className={classNames.subTitle}>{'qty'}</Typography>
+                <Typography className={classNames.subTitle}>{t(TranslationKey.Quantity)}</Typography>
                 <Input
                   disabled
                   classes={{root: classNames.inputWrapper, input: classNames.input}}
@@ -44,19 +42,19 @@ export const BoxForMerge = ({box, readOnly = false, index, onRemoveBox}) => {
         </div>
 
         <div>
-          <InputLabel className={classNames.modalText}>{textConsts.warehouse}</InputLabel>
+          <InputLabel className={classNames.modalText}>{t(TranslationKey.Warehouse)}</InputLabel>
 
           <Typography variant="h6">{box.destination?.name}</Typography>
         </div>
 
         <div>
-          <InputLabel className={classNames.modalText}>{textConsts.storekeeper}</InputLabel>
+          <InputLabel className={classNames.modalText}>{t(TranslationKey['Int warehouse'])}</InputLabel>
 
           <Typography variant="h6">{box.storekeeper?.name}</Typography>
         </div>
 
         <div>
-          <InputLabel className={classNames.modalText}>{textConsts.tariff}</InputLabel>
+          <InputLabel className={classNames.modalText}>{t(TranslationKey.Tariff)}</InputLabel>
 
           <Typography variant="h6">{getFullTariffTextForBoxOrOrder(box)}</Typography>
         </div>

@@ -3,12 +3,14 @@ import React, {useState} from 'react'
 import {Box, Container, Divider, Link, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './set-shipping-label-modal.style'
 
@@ -23,7 +25,7 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, i
 
   return (
     <Container disableGutters>
-      <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
+      <Typography className={classNames.modalTitle}>{t(TranslationKey['Set Shipping Label'])}</Typography>
       <Divider className={classNames.divider} />
 
       {item?.shippingLabel && (
@@ -47,9 +49,9 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, i
           className={classNames.saveBtn}
           onClick={() => onClickSaveShippingLabel([files[0]])}
         >
-          {textConsts.saveBtn}
+          {t(TranslationKey.Save)}
         </Button>
-        <Button onClick={onCloseModal}>{textConsts.closeBtn}</Button>
+        <Button onClick={onCloseModal}>{t(TranslationKey.Close)}</Button>
       </Box>
     </Container>
   )

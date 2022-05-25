@@ -1,10 +1,12 @@
 import {Radio} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {renderFieldValueCell, SmallRowImageCell, TrashCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 const textConsts = getLocalizedTexts(texts, 'en').bindStockGoodsToInventoryColumnsTexts
 
@@ -32,7 +34,7 @@ export const inventoryColumns = (handlers, selectedRow) => [
 
   {
     field: 'image',
-    headerName: textConsts.photoField,
+    headerName: t(TranslationKey.Image),
     width: 100,
     renderCell: params => <SmallRowImageCell images={params.row.images} />,
     filterable: false,
@@ -40,7 +42,7 @@ export const inventoryColumns = (handlers, selectedRow) => [
   },
   {
     field: 'amazonTitle',
-    headerName: textConsts.titleField,
+    headerName: t(TranslationKey.Title),
     width: 110,
     flex: 1,
   },
@@ -63,21 +65,21 @@ export const chosenGoodsColumns = handlers => [
 
   {
     field: 'title',
-    headerName: textConsts.titleField,
+    headerName: t(TranslationKey.Title),
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
 
   {
     field: 'stockValue',
-    headerName: textConsts.stockValueField,
+    headerName: t(TranslationKey.Quantity),
     renderCell: params => renderFieldValueCell(params.value),
     width: 110,
   },
 
   {
     field: 'reserved',
-    headerName: textConsts.reservedField,
+    headerName: t(TranslationKey.Reserved),
     renderCell: params => renderFieldValueCell(params.value),
     width: 110,
   },

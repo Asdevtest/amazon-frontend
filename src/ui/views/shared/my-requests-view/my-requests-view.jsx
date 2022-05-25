@@ -9,6 +9,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {SuccessButton} from '@components/buttons/success-button'
@@ -20,6 +21,7 @@ import {Navbar} from '@components/navbar'
 import {CustomSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {MyRequestsViewModel} from './my-requests-view.model'
 import {styles} from './my-requests-view.style'
@@ -35,7 +37,6 @@ class MyRequestsViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -78,10 +79,10 @@ class MyRequestsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My requests'])}>
             <MainContent>
               <div className={classNames.placeRequestBtnWrapper}>
-                <SuccessButton onClick={() => onClickAddBtn()}>{textConsts.placeOrderBtn}</SuccessButton>
+                <SuccessButton onClick={() => onClickAddBtn()}>{t(TranslationKey['Create a request'])}</SuccessButton>
               </div>
               <DataGrid
                 pagination

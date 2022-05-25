@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import {Checkbox, Divider, Typography, Select, ListItemText, MenuItem} from '@material-ui/core'
 import clsx from 'clsx'
 
+import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
@@ -15,6 +16,7 @@ import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './create-or-edit-request-content.style'
 
@@ -121,19 +123,23 @@ export const CreateOrEditRequestContent = ({
     <div className={classNames.mainWrapper}>
       <div className={classNames.mainLeftWrapper}>
         <Typography className={classNames.mainTitle}>
-          {curStep === stepVariant.STEP_TWO ? 'Заявка готова' : 'Мы найдем надежного исполнителя для Вас'}
+          {curStep === stepVariant.STEP_TWO
+            ? t(TranslationKey['The request is ready'])
+            : t(TranslationKey['We will find a reliable performer for you'])}
         </Typography>
 
         <Typography className={classNames.mainSubTitle}>
           {curStep === stepVariant.STEP_TWO
-            ? 'Осталось лишь сверить данные'
-            : 'Узнавая Ваши потребности мы подберем лучшего исполнителя Вашей задачи.'}
+            ? t(TranslationKey["All that's left is to check the data"])
+            : t(TranslationKey['By getting to know your needs, we will select the best performer for your task.'])}
         </Typography>
       </div>
 
       <div className={classNames.mainRightWrapper}>
         <Typography variant="h5" className={classNames.title}>
-          {curStep === stepVariant.STEP_TWO ? 'Краткая информация' : 'Создание заявки'}
+          {curStep === stepVariant.STEP_TWO
+            ? t(TranslationKey['Brief information'])
+            : t(TranslationKey['Creating a request'])}
         </Typography>
 
         {curStep === stepVariant.STEP_ONE && (
@@ -142,7 +148,7 @@ export const CreateOrEditRequestContent = ({
               <Field
                 multiline
                 inputProps={{maxLength: 250}}
-                label={'Название*'}
+                label={t(TranslationKey.Title) + '*'}
                 className={classNames.nameField}
                 minRows={2}
                 rowsMax={2}
@@ -155,7 +161,7 @@ export const CreateOrEditRequestContent = ({
                 className={classNames.descriptionField}
                 minRows={4}
                 rowsMax={4}
-                label={'Опишите свою задачу*'}
+                label={t(TranslationKey['Describe your request']) + ''}
                 value={formFields.details.conditions}
                 onChange={onChangeField('details')('conditions')}
               />
@@ -171,7 +177,7 @@ export const CreateOrEditRequestContent = ({
                   variant="contained"
                   onClick={() => setShowPhotosModal(!showPhotosModal)}
                 >
-                  {'Имеющиеся файлы'}
+                  {t(TranslationKey['Available files'])}
                 </Button>
               </div>
             </div>
@@ -179,7 +185,7 @@ export const CreateOrEditRequestContent = ({
             <div className={classNames.rightWrapper}>
               <Field
                 inputProps={{maxLength: 8}}
-                label={'Введите цену предложения $*'}
+                label={t(TranslationKey['Enter the offer price'])}
                 value={formFields.request.price}
                 onChange={onChangeField('request')('price')}
               />
@@ -194,20 +200,20 @@ export const CreateOrEditRequestContent = ({
 
               <Field
                 inputProps={{maxLength: 8}}
-                label={'Введите количество предложений*'}
+                label={t(TranslationKey['Enter the number of prsoposals']) + '*'}
                 value={formFields.request.maxAmountOfProposals}
                 onChange={onChangeField('request')('maxAmountOfProposals')}
               />
 
               <Field
                 inputProps={{maxLength: 8}}
-                label={'Время на выполнение (мин)*'}
+                label={t(TranslationKey['Time to complete, min*'])}
                 value={formFields.request.timeLimitInMinutes}
                 onChange={onChangeField('request')('timeLimitInMinutes')}
               />
 
               <Field
-                label={'Когда Вы хотите получить результат?*'}
+                label={t(TranslationKey['When do you want results?'])}
                 inputComponent={
                   <div className={clsx({[classNames.deadlineError]: deadlineError})}>
                     <DatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
@@ -221,7 +227,7 @@ export const CreateOrEditRequestContent = ({
               />
 
               <Field
-                label={'Смогут видеть роли:'}
+                label={t(TranslationKey['Can see the roles']) + ':'}
                 inputComponent={
                   <Select
                     multiple
@@ -242,7 +248,9 @@ export const CreateOrEditRequestContent = ({
               />
 
               <div className={classNames.checkboxWrapper}>
-                <Typography className={classNames.checkboxLabel}>{'Нужна проверка супервайзером'}</Typography>
+                <Typography className={classNames.checkboxLabel}>
+                  {t(TranslationKey['Need a supervisor check'])}
+                </Typography>
                 <Checkbox
                   color="primary"
                   checked={formFields.request.needCheckBySupervisor}
@@ -257,7 +265,7 @@ export const CreateOrEditRequestContent = ({
           <div className={classNames.mainSubRightTwoStepWrapper}>
             <div className={classNames.middleWrapper}>
               <Field
-                label={'Название заявки*'}
+                label={t(TranslationKey['Request title'])}
                 inputComponent={
                   <Typography className={classNames.twoStepFieldResult}>{formFields.request.title}</Typography>
                 }
@@ -268,7 +276,7 @@ export const CreateOrEditRequestContent = ({
                 className={classNames.descriptionField}
                 minRows={4}
                 rowsMax={4}
-                label={'Ваша заявка'}
+                label={t(TranslationKey['Your request'])}
                 inputComponent={
                   <Typography className={classNames.twoStepFieldResult}>{formFields.details.conditions}</Typography>
                 }
@@ -279,12 +287,12 @@ export const CreateOrEditRequestContent = ({
 
             <div className={classNames.rightTwoStepWrapper}>
               <Typography variant="h5" className={classNames.title}>
-                {'Цена и время'}
+                {t(TranslationKey['Price and time'])}
               </Typography>
 
               <div className={classNames.rightTwoStepSubFieldWrapper}>
                 <Field
-                  label={'Цена $'}
+                  label={t(TranslationKey.Price) + ' $'}
                   inputComponent={
                     <Typography className={classNames.twoStepFieldResult}>{formFields.request.price}</Typography>
                   }
@@ -292,7 +300,7 @@ export const CreateOrEditRequestContent = ({
 
                 <Field
                   containerClasses={classNames.twoStepDeadlineField}
-                  label={'Срок действия заявки'}
+                  label={t(TranslationKey['Deadline for the request'])}
                   inputComponent={
                     <Typography className={classNames.twoStepFieldResult}>
                       {formFields.request.timeoutAt && formatDateForShowWithoutParseISO(formFields.request.timeoutAt)}
@@ -302,7 +310,7 @@ export const CreateOrEditRequestContent = ({
               </div>
 
               <Field
-                label={'Количество предложений'}
+                label={t(TranslationKey['Number of proposals'])}
                 inputComponent={
                   <Typography className={classNames.twoStepFieldResult}>
                     {formFields.request.maxAmountOfProposals}
@@ -328,7 +336,7 @@ export const CreateOrEditRequestContent = ({
               {curStep === stepVariant.STEP_ONE && (
                 <div className={classNames.checkboxWrapper}>
                   <Typography className={classNames.checkboxLabel}>
-                    {'Разрешить многократное исполнение одному исполнителю'}
+                    {t(TranslationKey['Allow multiple performances by the same performer'])}
                   </Typography>
                   <Checkbox
                     color="primary"
@@ -340,7 +348,7 @@ export const CreateOrEditRequestContent = ({
 
               <div className={classNames.buttonsWrapper}>
                 <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
-                  {'Отмена'}
+                  {t(TranslationKey.Cancel)}
                 </Button>
 
                 <SuccessButton
@@ -348,7 +356,7 @@ export const CreateOrEditRequestContent = ({
                   className={classNames.successBtn}
                   onClick={() => onEditSubmit(formFields, images)}
                 >
-                  {'Редактировать'}
+                  {t(TranslationKey.Edit)}
                 </SuccessButton>
               </div>
             </div>
@@ -356,14 +364,16 @@ export const CreateOrEditRequestContent = ({
         ) : (
           <div className={classNames.footerWrapper}>
             <div className={classNames.stepsWrapper}>
-              <Typography>{curStep === stepVariant.STEP_TWO ? 'Шаг 2' : 'Шаг 1'}</Typography>
+              <Typography>
+                {curStep === stepVariant.STEP_TWO ? `${t(TranslationKey.Step)} 2` : `${t(TranslationKey.Step)} 1`}
+              </Typography>
             </div>
 
             <div className={classNames.footerRightWrapper}>
               {curStep === stepVariant.STEP_ONE && (
                 <div className={classNames.checkboxWrapper}>
                   <Typography className={classNames.checkboxLabel}>
-                    {'Разрешить многократное исполнение одному исполнителю'}
+                    {t(TranslationKey['Allow multiple performances by the same performer'])}
                   </Typography>
                   <Checkbox
                     color="primary"
@@ -379,15 +389,15 @@ export const CreateOrEditRequestContent = ({
                   className={classNames.backBtn}
                   onClick={onClickBackBtn}
                 >
-                  {curStep === stepVariant.STEP_TWO ? 'Назад к редактированию' : 'Отмена'}
+                  {curStep === stepVariant.STEP_TWO ? t(TranslationKey['Back to editing']) : t(TranslationKey.Cancel)}
                 </Button>
 
                 <SuccessButton disabled={disableSubmit} className={classNames.successBtn} onClick={onSuccessSubmit}>
                   {curStep === stepVariant.STEP_TWO ? (
-                    'Создать заявку'
+                    t(TranslationKey['Create a request'])
                   ) : (
                     <div className={classNames.successBtnTextWrapper}>
-                      <Typography>{'Далее'}</Typography>
+                      <Typography>{t(TranslationKey.Next)}</Typography>
                       <img src="/assets/icons/right-arrow.svg" className={classNames.successBtnArrow} />
                     </div>
                   )}
