@@ -2,8 +2,10 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {RequestSubType, RequestType} from '@constants/request-type'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
+import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
 import {RequestModel} from '@models/request-model'
+import {SettingsModel} from '@models/settings-model'
 
 export class VacantRequestsViewModel {
   history = undefined
@@ -24,8 +26,24 @@ export class VacantRequestsViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  setDataGridState() {
+    const state = {viewMode: this.viewMode, sortMode: this.sortMode}
+
+    SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.VACANT_REQUESTS)
+  }
+
+  getDataGridState() {
+    const state = SettingsModel.viewTableModeState[ViewTableModeStateKeys.VACANT_REQUESTS]
+
+    if (state) {
+      this.viewMode = state.viewMode
+      this.sortMode = state.sortMode
+    }
+  }
+
   onChangeViewMode(event, nextView) {
     this.viewMode = nextView
+    this.setDataGridState()
   }
 
   getCurrentData() {
@@ -35,6 +53,7 @@ export class VacantRequestsViewModel {
   async loadData() {
     try {
       await this.getRequestsVacant()
+      this.getDataGridState()
     } catch (error) {
       console.log(error)
     }
@@ -79,5 +98,7 @@ export class VacantRequestsViewModel {
     } else {
       this.sortMode = tableSortMode.DESK
     }
+
+    this.setDataGridState()
   }
 }

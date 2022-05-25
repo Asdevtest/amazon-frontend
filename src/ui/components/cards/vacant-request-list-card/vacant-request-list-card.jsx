@@ -46,7 +46,7 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
 
         <div className={classNames.middleBlockWrapper}>
           <div className={classNames.timeItemInfoWrapper}>
-            <Typography>{'Время'}</Typography>
+            <Typography>{'Время на выполнение'}</Typography>
 
             <Typography>{`${toFixed(item.timeLimitInMinutes / 60, 2)} ч. `}</Typography>
           </div>

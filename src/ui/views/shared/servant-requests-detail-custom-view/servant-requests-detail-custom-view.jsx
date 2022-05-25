@@ -53,7 +53,6 @@ export class RequestDetailCustomViewRaw extends Component {
   render() {
     const {classes: classNames} = this.props
     const {
-      proposalIsExist,
       drawerOpen,
       request,
       showWarningModal,
@@ -98,7 +97,7 @@ export class RequestDetailCustomViewRaw extends Component {
               {request ? (
                 <div className={classNames.requestInfoWrapper}>
                   <ServantGeneralRequestInfo
-                    proposalIsExist={proposalIsExist}
+                    requestProposals={requestProposals}
                     request={request}
                     onSubmit={onSubmitOfferDeal}
                   />

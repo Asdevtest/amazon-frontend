@@ -80,7 +80,7 @@ export const clientBoxesViewColumns = handlers => [
 
   {
     field: 'fbaShipment',
-    headerName: textConsts.fbaShipmentField,
+    headerName: 'FBA SHIPMENT/Shipping Label',
     renderCell: params => (
       <div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
         <ChangeChipCell
@@ -102,7 +102,7 @@ export const clientBoxesViewColumns = handlers => [
         />
       </div>
     ),
-    minWidth: 150,
+    minWidth: 250,
     headerAlign: 'center',
   },
 

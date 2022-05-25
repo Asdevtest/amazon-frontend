@@ -20,8 +20,6 @@ export class RequestDetailCustomViewModel {
   requestStatus = undefined
   error = undefined
 
-  proposalIsExist = false
-
   drawerOpen = false
   requestId = undefined
   request = undefined
@@ -42,8 +40,6 @@ export class RequestDetailCustomViewModel {
     this.history = history
     if (location.state) {
       this.requestId = location.state.requestId
-
-      this.proposalIsExist = location.state.proposalIsExist
     }
     makeAutoObservable(this, undefined, {autoBind: true})
     try {

@@ -61,7 +61,7 @@ export class MyProposalsViewModel {
   }
 
   onClickOpenBtn(request) {
-    this.history.push('/custom-search-request', {requestId: request._id, proposalIsExist: true})
+    this.history.push('/custom-search-request', {requestId: request._id})
   }
 
   async onSubmitDeleteProposal() {
