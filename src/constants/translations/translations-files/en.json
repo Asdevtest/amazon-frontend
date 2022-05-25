@@ -440,5 +440,7 @@
   "Stop accepting proposals": "Stop accepting proposals",
   "Resume accepting proposals": "Resume accepting proposals",
   "Deadline for the request": "Deadline for the request",
-  "Missing": "Missing"
+  "Missing": "Missing",
+  "Kg": "Kg",
+  "The tariff is invalid or has been removed!": "The tariff is invalid or has been removed!"
 }

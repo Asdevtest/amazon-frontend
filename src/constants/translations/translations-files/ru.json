@@ -441,5 +441,7 @@
   "Stop accepting proposals": "Остановить прием предложений",
   "Resume accepting proposals": "Возобновить прием предложений",
   "Deadline for the request": "Срок действия заявки",
-  "Missing": "Отсутствует"
+  "Missing": "Отсутствует",
+  "Kg": "Кг",
+  "The tariff is invalid or has been removed!": "Тариф неактуален или удален!"
 }

@@ -49,7 +49,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           inputProps={{maxLength: 4}}
           containerClasses={classNames.numberInputField}
-          label={t(TranslationKey.Weight) + ': '}
+          label={t(TranslationKey.Weight) + ', ' + t(TranslationKey.Kg) + ': '}
           value={box.weighGrossKgWarehouse}
           onChange={setNewBoxField('weighGrossKgWarehouse')}
         />
@@ -58,7 +58,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={t(TranslationKey['Volume weight']) + ': '}
+          label={t(TranslationKey['Volume weight']) + ', ' + t(TranslationKey.Kg) + ': '}
           value={toFixed(
             (sizeSetting === sizesType.INCHES
               ? box.heightCmWarehouse *
@@ -74,7 +74,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={t(TranslationKey['Final weight']) + ': '}
+          label={t(TranslationKey['Final weight']) + ', ' + t(TranslationKey.Kg) + ': '}
           value={Math.max(
             toFixed(
               (sizeSetting === sizesType.INCHES

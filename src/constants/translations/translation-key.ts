@@ -440,13 +440,13 @@ export enum TranslationKey {
   'Resume accepting proposals' = 'Resume accepting proposals',
   'Deadline for the request' = 'Deadline for the request',
   'Missing' = 'Missing',
-  // '' = '',
-  // '' = '',
+  'Kg' = 'Kg',
+  'The tariff is invalid or has been removed!' = 'The tariff is invalid or has been removed!',
   // '' = '',
   // '' = '',
 }
 
-// "Missing": "Missing"
+// "The tariff is invalid or has been removed!": "The tariff is invalid or has been removed!"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 
