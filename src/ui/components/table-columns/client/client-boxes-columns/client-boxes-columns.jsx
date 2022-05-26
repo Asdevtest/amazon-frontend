@@ -99,10 +99,11 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
   {
     field: 'fbaShipment',
-    headerName: 'FBA SHIPMENT/Shipping Label',
+    headerName: 'FBA Shipment / Shipping Label',
     renderCell: params => (
-      <div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
+      <div style={{display: 'flex', flexDirection: 'column', gap: '7px'}}>
         <ChangeChipCell
+          label={t(TranslationKey['Shipping label']) + ':'}
           disabled={params.row.originalData.isDraft}
           row={params.row.originalData}
           value={params.row.shippingLabel}
@@ -113,6 +114,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
         />
 
         <ChangeChipCell
+          label={t(TranslationKey['FBA Shipment']) + ':'}
           disabled={params.row.originalData.isDraft}
           row={params.row.originalData}
           value={params.row.fbaShipment}
@@ -123,7 +125,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
         />
       </div>
     ),
-    minWidth: 250,
+    minWidth: 230,
     headerAlign: 'center',
   },
 

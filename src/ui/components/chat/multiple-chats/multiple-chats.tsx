@@ -1,4 +1,4 @@
-import React, {forwardRef, ReactElement} from 'react'
+import React, {forwardRef, ReactElement, useEffect} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -17,6 +17,7 @@ interface Props {
   chatSelectedId?: string
   chatMessageHandlers?: ChatMessageUniversalHandlers
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
+  updateData: () => void
   onSubmitMessage: (message: string, links: string[], files: any, chat: string) => void
   onClickChat: (chat: ChatContract) => void
 }
@@ -24,11 +25,30 @@ interface Props {
 export const MultipleChats = observer(
   forwardRef<HTMLDivElement, Props>(
     (
-      {chats, userId, chatSelectedId, chatMessageHandlers, onSubmitMessage, onClickChat, renderAdditionalButtons},
+      {
+        chats,
+        userId,
+        chatSelectedId,
+        chatMessageHandlers,
+        updateData,
+        onSubmitMessage,
+        onClickChat,
+        renderAdditionalButtons,
+      },
       ref,
     ) => {
       const classNames = useClassNames()
       const findChatByChatId = chats.find((chat: ChatContract) => chat._id === chatSelectedId)
+
+      useEffect(() => {
+        if (
+          updateData &&
+          findChatByChatId?.messages?.[findChatByChatId?.messages.length - 1]?.text === 'PROPOSAL_STATUS_CHANGED'
+        ) {
+          updateData()
+        }
+      }, [findChatByChatId?.messages])
+
       return (
         <div ref={ref} className={classNames.root}>
           <div className={classNames.chatsWrapper}>

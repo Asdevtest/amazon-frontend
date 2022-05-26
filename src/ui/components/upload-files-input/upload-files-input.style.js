@@ -8,8 +8,17 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
     gap: '10px',
   },
+  mainSubWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  oneLineMainWrapper: {
+    flexDirection: 'row',
+  },
 
   dragAndDropBtn: {
+    minWidth: '250px',
     height: '100px',
     border: ' 3px dashed rgba(0,123, 255, .7)',
     transition: '0.3s ease',
@@ -22,11 +31,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   actionBtnsWrapper: {
+    marginTop: '10px',
+    minWidth: '250px',
     display: 'flex',
     justifyContent: 'space-between',
   },
 
   showImagesBtn: {
+    maxHeight: '32px',
     width: '110px',
     transition: '0.3s ease',
     border: ' 1px solid rgba(0,123, 255, .7)',
@@ -49,6 +61,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   removeAllBtn: {
+    maxHeight: '32px',
     width: '90px',
     transition: '0.3s ease',
     border: ' 1px solid rgba(0,123, 255, .7)',

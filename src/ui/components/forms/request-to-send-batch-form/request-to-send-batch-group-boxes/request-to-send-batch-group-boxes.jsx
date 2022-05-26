@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Typography} from '@material-ui/core'
+import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
@@ -8,6 +9,7 @@ import {zipCodeGroups} from '@constants/zip-code-groups'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
+import {findTariffInStorekeepersData} from '@utils/checks'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -15,6 +17,7 @@ import {RequestToSendBatchBox} from '../request-to-send-batch-box'
 import {useClassNames} from './request-to-send-batch-group-boxes.style'
 
 export const RequestToSendBatchesGroupBoxes = ({
+  storekeepersData,
   volumeWeightCoefficient,
   selectedGroup,
   boxesMy,
@@ -38,8 +41,14 @@ export const RequestToSendBatchesGroupBoxes = ({
   const regionOfDeliveryName =
     firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
+  const tariffIsInvalid = !findTariffInStorekeepersData(
+    storekeepersData,
+    selectedGroup.storekeeper?._id,
+    selectedGroup.logicsTariff?._id,
+  )
+
   return (
-    <div className={classNames.tableWrapper}>
+    <div className={clsx(classNames.tableWrapper, {[classNames.tableAlertWrapper]: tariffIsInvalid})}>
       {selectedGroup.price !== 0 && (
         <div className={classNames.headerWrapper}>
           <div className={classNames.headerSubWrapper}>
@@ -96,6 +105,12 @@ export const RequestToSendBatchesGroupBoxes = ({
       </table>
       {selectedGroup.price !== 0 && (
         <div className={classNames.footerWrapper}>
+          {tariffIsInvalid ? (
+            <Typography className={classNames.footerAlertSpanText}>
+              {t(TranslationKey['The tariff is invalid or has been removed!'])}
+            </Typography>
+          ) : null}
+
           <div className={classNames.footerSubWrapper}>
             <Typography className={classNames.footerTitle}>{t(TranslationKey['Total weight'])}</Typography>
 

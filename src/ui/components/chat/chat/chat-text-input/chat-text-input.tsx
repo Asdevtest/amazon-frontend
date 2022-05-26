@@ -9,13 +9,15 @@ import {ChatInputMode} from '../chat'
 import {useClassNames} from './chat-text-input.style'
 
 interface Props {
+  files: any[]
+  links: string[]
   message: string
   setMessage: (message: string) => void
   setInputMode: (inputMode: ChatInputMode) => void
   onSubmitKeyPress: () => void
 }
 
-export const ChatTextInput: FC<Props> = ({message, setMessage, setInputMode, onSubmitKeyPress}) => {
+export const ChatTextInput: FC<Props> = ({links, files, message, setMessage, setInputMode, onSubmitKeyPress}) => {
   const [mdeSelectedTab, setMdeSelectedTab] = React.useState<'write' | 'preview'>('write')
   const classNames = useClassNames()
 
@@ -27,14 +29,26 @@ export const ChatTextInput: FC<Props> = ({message, setMessage, setInputMode, onS
   }
 
   const linkCommand: Command = {
-    icon: (getIconFromProvider: GetIcon) => getIconFromProvider('link'),
+    icon: (getIconFromProvider: GetIcon) => (
+      <div className={classNames.iconWrapper}>
+        {getIconFromProvider('link')}
+        {links.filter(link => !!link).length ? (
+          <div className={classNames.badge}>{links.filter(link => !!link).length}</div>
+        ) : undefined}
+      </div>
+    ),
     execute: () => {
       setInputMode(ChatInputMode.LINKS)
     },
   }
 
   const fileCommand: Command = {
-    icon: (getIconFromProvider: GetIcon) => getIconFromProvider('image'),
+    icon: (getIconFromProvider: GetIcon) => (
+      <div className={classNames.iconWrapper}>
+        {getIconFromProvider('image')}
+        {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
+      </div>
+    ),
     execute: () => {
       setInputMode(ChatInputMode.FILES)
     },

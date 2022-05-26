@@ -1,3 +1,5 @@
+import {tooltipClasses} from '@mui/material/Tooltip'
+
 import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
@@ -69,5 +71,37 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  tooltipWrapper: {
+    padding: '0',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+
+  tooltipImg: {
+    width: '300px',
+    height: '200px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+
+  imgTooltip: {
+    [`& .${tooltipClasses.tooltip}`]: {
+      maxWidth: 450,
+    },
+  },
+
+  image: {
+    marginLeft: '20px',
+    width: '80px',
+    height: '70px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+
+  imageWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
   },
 }))

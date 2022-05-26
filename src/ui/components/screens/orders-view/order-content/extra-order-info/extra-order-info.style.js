@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(theme => ({
   orderContainer: {
-    padding: '16px 32px',
+    padding: '15px 15px',
     width: '100%',
   },
   orderBorderRightMdUp: {
@@ -91,7 +91,8 @@ export const useClassNames = makeStyles(theme => ({
 
   imagesWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+    gap: '20px',
   },
 
   subTitle: {
@@ -106,7 +107,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   imgBox: {
-    width: '200px',
+    width: '150px',
     height: '150px',
     objectFit: 'contain',
     objectPosition: 'center',
@@ -118,7 +119,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   noImgBox: {
-    width: '200px',
+    width: '150px',
     height: '150px',
     objectFit: 'contain',
   },

@@ -149,6 +149,7 @@ export class RequestDetailCustomViewRaw extends Component {
                         ) : undefined}
                       </div>
                     )}
+                    updateData={this.viewModel.loadData}
                     onSubmitMessage={onSubmitMessage}
                     onClickChat={onClickChat}
                   />

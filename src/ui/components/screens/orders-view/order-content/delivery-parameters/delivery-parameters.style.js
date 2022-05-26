@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    padding: '16px 32px',
+    padding: '15px 15px',
   },
 
   parameterTableCell: {
@@ -12,7 +12,7 @@ export const useClassNames = makeStyles(() => ({
 
   parameterTableCellWrapper: {
     display: 'flex',
-    width: '380px',
+    width: '350px',
     justifyContent: 'space-between',
   },
 

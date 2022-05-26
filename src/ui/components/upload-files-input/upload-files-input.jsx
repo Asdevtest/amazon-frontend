@@ -27,7 +27,7 @@ const regExpUriChecking =
 
 const maxSizeInBytes = 15728640
 
-export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptType, withoutLinks}) => {
+export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptType, withoutLinks, oneLine}) => {
   const classNames = useClassNames()
 
   const [linkInput, setLinkInput] = useState('')
@@ -123,34 +123,36 @@ export const UploadFilesInput = observer(({images, setImages, maxNumber, acceptT
             dragProps,
             errors,
           }) => (
-            <div className={classNames.mainWrapper}>
+            <div className={clsx(classNames.mainWrapper, {[classNames.oneLineMainWrapper]: oneLine})}>
               {errors?.maxNumber && (
                 <Typography className={classNames.errorText}>{t(TranslationKey['You cannot load more!'])}</Typography>
               )}
 
-              <button
-                className={clsx(classNames.dragAndDropBtn, {[classNames.dragingOnDropBtn]: isDragging})}
-                onClick={onImageUpload}
-                {...dragProps}
-              >
-                {t(TranslationKey['Click or Drop here'])}
-              </button>
-
-              <div className={classNames.actionBtnsWrapper}>
+              <div className={classNames.mainSubWrapper}>
                 <button
-                  disabled={images.length === 0}
-                  className={classNames.showImagesBtn}
-                  onClick={() => setShowImages(!showImages)}
+                  className={clsx(classNames.dragAndDropBtn, {[classNames.dragingOnDropBtn]: isDragging})}
+                  onClick={onImageUpload}
+                  {...dragProps}
                 >
-                  {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
+                  {t(TranslationKey['Click or Drop here'])}
                 </button>
-                <Typography className={classNames.imagesCount}>
-                  {<span className={classNames.imagesCountSpan}>{`${images.length}/${maxNumber}`}</span>}
-                  {` files`}{' '}
-                </Typography>
-                <button disabled={images.length === 0} className={classNames.removeAllBtn} onClick={onImageRemoveAll}>
-                  {t(TranslationKey['Remove all'])}
-                </button>
+
+                <div className={classNames.actionBtnsWrapper}>
+                  <button
+                    disabled={images.length === 0}
+                    className={classNames.showImagesBtn}
+                    onClick={() => setShowImages(!showImages)}
+                  >
+                    {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
+                  </button>
+                  <Typography className={classNames.imagesCount}>
+                    {<span className={classNames.imagesCountSpan}>{`${images.length}/${maxNumber}`}</span>}
+                    {` files`}{' '}
+                  </Typography>
+                  <button disabled={images.length === 0} className={classNames.removeAllBtn} onClick={onImageRemoveAll}>
+                    {t(TranslationKey['Remove all'])}
+                  </button>
+                </div>
               </div>
 
               {showImages && (

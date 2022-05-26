@@ -346,6 +346,7 @@ export class ClientWarehouseViewRaw extends Component {
 
         <Modal openModal={showRequestToSendBatchModal} setOpenModal={triggerRequestToSendBatchModal}>
           <RequestToSendBatchForm
+            storekeepersData={storekeepersData}
             closeModal={triggerRequestToSendBatchModal}
             boxesDeliveryCosts={boxesDeliveryCosts}
             selectedBoxes={selectedBoxes}

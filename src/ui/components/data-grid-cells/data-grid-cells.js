@@ -170,8 +170,9 @@ export const HsCodeCell = withStyles(styles)(({classes: classNames, product, han
 ))
 
 export const ChangeChipCell = withStyles(styles)(
-  ({classes: classNames, row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled}) => (
-    <React.Fragment>
+  ({classes: classNames, row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled, label}) => (
+    <div>
+      {label ? <Typography className={classNames.changeChipCellLabel}>{label}</Typography> : null}
       <Chip
         disabled={disabled}
         classes={{
@@ -187,7 +188,7 @@ export const ChangeChipCell = withStyles(styles)(
         onDoubleClick={() => onDoubleClickChip(row)}
         onDelete={!value ? undefined : () => onDeleteChip(row)}
       />
-    </React.Fragment>
+    </div>
   ),
 )
 
@@ -229,7 +230,7 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
     <div>
       <Typography className={classNames.orderTitle}>{product.amazonTitle}</Typography>
       <Typography className={classNames.orderText}>
-        <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN)}</span>
+        <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
         {product.asin}
       </Typography>
       {superbox && (
@@ -621,7 +622,7 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box,
           <div>
             <Typography className={classNames.manyItemsOrderTitle}>{item.product.amazonTitle}</Typography>
             <Typography className={classNames.orderText}>
-              <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN)}</span>
+              <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
               {item.product.asin}
             </Typography>
 

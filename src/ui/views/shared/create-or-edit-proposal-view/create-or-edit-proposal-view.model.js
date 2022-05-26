@@ -1,5 +1,6 @@
 import {makeAutoObservable} from 'mobx'
 
+import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {texts} from '@constants/texts'
 
 import {RequestModel} from '@models/request-model'
@@ -53,6 +54,12 @@ export class CreateOrEditProposalViewModel {
 
       await RequestProposalModel.updateRequestProposalCustom(this.proposalToEdit._id, dataWithFiles)
 
+      if (this.proposalToEdit.status === RequestProposalStatus.OFFER_CONDITIONS_REJECTED) {
+        await RequestProposalModel.requestProposalCorrected(this.proposalToEdit._id, {
+          reason: data.comment,
+          linksToMediaFiles: dataWithFiles.linksToMediaFiles,
+        })
+      }
       this.infoModalText = textConsts.infoEditRequest
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
