@@ -6,6 +6,7 @@ import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 import {useHistory} from 'react-router-dom'
 
+import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -18,6 +19,7 @@ import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsClient, checkIsSupervisor} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {Button} from '../../buttons/button'
 import {ListingModel} from './listing.model'
@@ -60,7 +62,7 @@ export const Listing = observer(({productId, onClickBack}) => {
     <div className={classNames.mainWrapper}>
       <div className={classNames.productBlockWrapper}>
         <Paper className={classNames.sideBlockWrapper}>
-          <Typography className={classNames.title}>{'Подробно о товаре:'}</Typography>
+          <Typography className={classNames.title}>{t(TranslationKey['Details about the product:'])}</Typography>
 
           <Field
             multiline
@@ -68,8 +70,8 @@ export const Listing = observer(({productId, onClickBack}) => {
             className={classNames.listingTitle}
             rows={4}
             inputProps={{maxLength: 1000}}
-            label={'Название листинга:'}
-            placeholder="введите название листинга, строка"
+            label={t(TranslationKey['Listing title'])}
+            placeholder={t(TranslationKey['Enter the title of the listing'])}
             value={listingProduct.listingName}
             onChange={e => onChangeField(e, 'listingName')}
           />
@@ -95,13 +97,13 @@ export const Listing = observer(({productId, onClickBack}) => {
 
           <Field
             multiline
-            label={'Подробно о товаре:'}
+            label={t(TranslationKey['Details about the product:'])}
             disabled={!userCanEdit}
             minRows={4}
             rowsMax={4}
             inputProps={{maxLength: 1000}}
             value={listingProduct.listingProductDetails}
-            placeholder={'введите описание'}
+            placeholder={t(TranslationKey['Enter a description'])}
             className={classNames.modalTextArea}
             onChange={e => onChangeField(e, 'listingProductDetails')}
           />
@@ -111,8 +113,8 @@ export const Listing = observer(({productId, onClickBack}) => {
             className={classNames.listingSearchTerms}
             disabled={!userCanEdit}
             inputProps={{maxLength: 1000}}
-            label={'Поисковые запросы:'}
-            placeholder="введите поисковые запросы"
+            label={t(TranslationKey['Search terms:'])}
+            placeholder={t(TranslationKey['Enter search terms'])}
             value={listingProduct.listingSearchTerms}
             onChange={e => onChangeField(e, 'listingSearchTerms')}
           />
@@ -153,7 +155,7 @@ export const Listing = observer(({productId, onClickBack}) => {
                 variant="contained"
                 onClick={onSaveSubmit}
               >
-                {'Сохранить'}
+                {t(TranslationKey.Save)}
               </Button>
 
               <Button
@@ -163,7 +165,7 @@ export const Listing = observer(({productId, onClickBack}) => {
                 variant="contained"
                 onClick={onCancel}
               >
-                {'Отменить'}
+                {t(TranslationKey.Cancel)}
               </Button>
 
               <Button
@@ -173,7 +175,7 @@ export const Listing = observer(({productId, onClickBack}) => {
                 variant="contained"
                 onClick={onClickBack}
               >
-                {'Назад'}
+                {t(TranslationKey.Back)}
               </Button>
             </div>
           ) : (
@@ -185,7 +187,7 @@ export const Listing = observer(({productId, onClickBack}) => {
                 variant="contained"
                 onClick={onClickBack ? onClickBack : onCancel}
               >
-                {'Назад'}
+                {t(TranslationKey.Back)}
               </Button>
             </div>
           )}
@@ -194,15 +196,17 @@ export const Listing = observer(({productId, onClickBack}) => {
         <Divider orientation="vertical" />
 
         <Paper className={classNames.sideBlockWrapper}>
-          <Typography className={classNames.title}>{'Ищем поставщика:'}</Typography>
+          <Typography className={classNames.title}>{t(TranslationKey['Searching for a supplier:'])}</Typography>
 
           <Field
             multiline
             disabled={!userCanEdit}
             className={classNames.searchSupplierField}
             inputProps={{maxLength: 1000}}
-            label={'Задание для поиска поставщика:'}
-            placeholder={`-цена до 1000$;\n-доставка: США, Европа;\n-расчеты через юр. лицо`}
+            label={t(TranslationKey['The task of finding a supplier:'])}
+            placeholder={`-${t(TranslationKey['price to'])} 1000$;\n-${t(
+              TranslationKey['Shipping: USA, Europe'],
+            )};\n-${t(TranslationKey['payment through a legal entity'])}`}
             value={listingProduct.listingTaskToFindSupplier}
             onChange={e => onChangeField(e, 'listingTaskToFindSupplier')}
           />
@@ -212,8 +216,10 @@ export const Listing = observer(({productId, onClickBack}) => {
             disabled={!userCanEdit}
             className={classNames.searchSupplierField}
             inputProps={{maxLength: 1000}}
-            label={'Обратить внимание:'}
-            placeholder={`-цены на товары;\n-минимальное количество товара для закупки и отгрузки...`}
+            label={t(TranslationKey['Notice:'])}
+            placeholder={`-${t(TranslationKey['product prices'])};\n-${t(
+              TranslationKey['minimum quantity of goods for purchase and shipment'],
+            )}...`}
             value={listingProduct.listingSupplierImportantPoints}
             onChange={e => onChangeField(e, 'listingSupplierImportantPoints')}
           />
@@ -223,19 +229,19 @@ export const Listing = observer(({productId, onClickBack}) => {
             disabled={!userCanEdit}
             className={classNames.searchSupplierField}
             inputProps={{maxLength: 1000}}
-            label={'Дополнительная информация:'}
-            placeholder={`дедлайн`}
+            label={t(TranslationKey['Additional information:'])}
+            placeholder={t(TranslationKey.Deadline)}
             value={listingProduct.listingExtraInfo}
             onChange={e => onChangeField(e, 'listingExtraInfo')}
           />
 
-          <Typography className={classNames.subTitle}>{'Конкуренты:'}</Typography>
+          <Typography className={classNames.subTitle}>{t(TranslationKey['Competitors:'])}</Typography>
 
           {listingProduct.listingSupplierCompetitors?.length > 0 ? (
             listingProduct.listingSupplierCompetitors.map((el, index) => (
               <div key={index} className={classNames.competitorMainWrapper}>
                 <div className={classNames.competitorWrapper}>
-                  <Typography>{'Ссылка:'}</Typography>
+                  <Typography>{t(TranslationKey.Link)}</Typography>
                   <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(el.link)}>
                     <Typography className={classNames.link}>{el.link}</Typography>
                   </Link>
@@ -243,7 +249,7 @@ export const Listing = observer(({productId, onClickBack}) => {
                   <Field
                     multiline
                     disabled
-                    label={'Комментарий:'}
+                    label={`${t(TranslationKey.Comment)} :`}
                     minRows={4}
                     rowsMax={4}
                     value={el.comments}
@@ -260,7 +266,7 @@ export const Listing = observer(({productId, onClickBack}) => {
             ))
           ) : (
             <div>
-              <Typography>{'Нет конкурентов...'}</Typography>
+              <Typography>{t(TranslationKey['no competitors']) + '...'}</Typography>
             </div>
           )}
           {userCanEdit && (
@@ -271,12 +277,14 @@ export const Listing = observer(({productId, onClickBack}) => {
               variant="contained"
               onClick={() => onTriggerOpenModal('showCompetitorModal')}
             >
-              {'Добавить конкурента'}
+              {t(TranslationKey['Add a competitor'])}
             </Button>
           )}
 
           <div>
-            <Typography className={classNames.subTitle}>{'Фотографии продукта в коробках:'}</Typography>
+            <Typography className={classNames.subTitle}>
+              {t(TranslationKey['Photos of the product in boxes:'])}
+            </Typography>
 
             {imagesFromBoxes.length > 0 ? (
               <div className={classNames.carouselWrapper}>
@@ -294,12 +302,12 @@ export const Listing = observer(({productId, onClickBack}) => {
                 </Carousel>
               </div>
             ) : (
-              <Typography>{'Фотографий пока нет...'}</Typography>
+              <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
             )}
           </div>
 
           <div>
-            <Typography className={classNames.subTitle}>{'Фотографии листинга:'}</Typography>
+            <Typography className={classNames.subTitle}>{t(TranslationKey['Listing photos:'])}</Typography>
 
             {listingProduct.listingImages?.length > 0 ? (
               <div className={classNames.carouselWrapper}>
@@ -317,13 +325,13 @@ export const Listing = observer(({productId, onClickBack}) => {
                 </Carousel>
               </div>
             ) : (
-              <Typography>{'Фотографий пока нет...'}</Typography>
+              <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
             )}
           </div>
         </Paper>
       </div>
 
-      <UserBalanceHistory historyData={payments} title="Транзакции:" />
+      <UserBalanceHistory historyData={payments} title={t(TranslationKey['Transactions:'])} />
 
       <BigImagesModal
         isAmazone
@@ -336,8 +344,8 @@ export const Listing = observer(({productId, onClickBack}) => {
       <SuccessInfoModal
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={'Данные успешно сохранены'}
-        successBtnText={'ок'}
+        title={t(TranslationKey['Data saved successfully'])}
+        successBtnText={'Oк'}
         onClickSuccessBtn={() => {
           onTriggerOpenModal('showSuccessModal')
         }}

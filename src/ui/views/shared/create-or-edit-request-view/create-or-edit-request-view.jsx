@@ -4,6 +4,7 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {CreateOrEditRequestContent} from '@components/contents/create-or-edit-request-content'
@@ -13,6 +14,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {CreateOrEditRequestViewModel} from './create-or-edit-request-view.model'
 
@@ -51,7 +53,11 @@ export class CreateOrEditRequestView extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar
+            title={t(TranslationKey['Create a request'])}
+            notificationCount={2}
+            setDrawerOpen={onTriggerDrawerOpen}
+          >
             <MainContent>
               <CreateOrEditRequestContent
                 progressValue={progressValue}

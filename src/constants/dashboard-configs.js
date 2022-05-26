@@ -15,46 +15,46 @@ export const ResearcherDashboardCardDataKey = {
   FINES: 'FINES',
 }
 
-export const getResearcherDashboardCardConfig = textConsts => [
+export const getResearcherDashboardCardConfig = () => [
   {
     key: 'PRODUCTS',
-    title: textConsts.productsTitle,
+    title: t(TranslationKey.Products),
     items: [
       {
         dataKey: ResearcherDashboardCardDataKey.ALL_PRODUCTS,
-        title: textConsts.allProducts,
+        title: t(TranslationKey['Total products']),
         color: '#006CFF',
         route: '/researcher/products',
       },
       {
         dataKey: ResearcherDashboardCardDataKey.SUCCESS_PRODUCTS,
-        title: textConsts.successProduts,
+        title: t(TranslationKey.Completed),
         color: '#00B746',
         route: '/researcher/products',
       },
 
       {
         dataKey: ResearcherDashboardCardDataKey.REJECTED_PRODUCTS,
-        title: textConsts.rejectedProduts,
+        title: t(TranslationKey['Rejected by supervisor/buyer']),
         color: '#BC3030',
         route: '/researcher/products',
       },
 
       {
         dataKey: ResearcherDashboardCardDataKey.ON_SUPERVISOR_CHECKING,
-        title: textConsts.onSupervisor,
+        title: t(TranslationKey["At the supervisor's check"]),
         color: '#00B746',
         route: '/researcher/products',
       },
 
       {
         dataKey: ResearcherDashboardCardDataKey.ON_SUPPLIER_SEEKING_BY_BUYER,
-        title: textConsts.seekingByBuyer,
+        title: t(TranslationKey["Buyer's search for a supplier"]),
         color: '#ffc107',
       },
       {
         dataKey: ResearcherDashboardCardDataKey.NO_STATUS,
-        title: textConsts.noStatus,
+        title: t(TranslationKey['No status']),
         color: '#4dbd74',
         route: '/researcher/products',
       },
@@ -63,17 +63,17 @@ export const getResearcherDashboardCardConfig = textConsts => [
 
   {
     key: 'FINANCES',
-    title: textConsts.financesTitle,
+    title: t(TranslationKey.Finances),
     items: [
       {
         dataKey: ResearcherDashboardCardDataKey.REPLENISH,
-        title: textConsts.replenish,
+        title: t(TranslationKey.Accruals),
         color: '#00B746',
         route: '/researcher/finances',
       },
       {
         dataKey: ResearcherDashboardCardDataKey.FINES,
-        title: textConsts.fines,
+        title: t(TranslationKey.Fines),
         color: '#BC3030',
         route: '/researcher/finances',
       },
@@ -89,13 +89,13 @@ export const FreelancerDashboardCardDataKey = {
 export const getFreelancerDashboardCardConfig = textConsts => [
   {
     dataKey: FreelancerDashboardCardDataKey.REQUESTS,
-    title: textConsts.myRequestsCardTitle,
+    title: t(TranslationKey['My requests']),
     color: '#63c2de',
     route: '/freelancer/exchange/requests/custom',
   },
   {
     dataKey: FreelancerDashboardCardDataKey.CUR_BALANCE,
-    title: textConsts.curBalanceCardTitle,
+    title: t(TranslationKey['Current balance']),
     color: '#4dbd74',
   },
   {

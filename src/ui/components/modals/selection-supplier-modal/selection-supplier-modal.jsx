@@ -4,18 +4,14 @@ import {Container, Grid, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './selection-supplier-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').selectionSupplierModal
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT],
@@ -133,7 +129,9 @@ export const SelectionSupplierModal = ({
         <Grid item>
           <Button
             success
-            tooltipContent={clickNextOrPrevButton && textConsts.seekSupplierTooltip}
+            tooltipContent={
+              clickNextOrPrevButton && t(TranslationKey['Click next to calculate the cost of your supplier search'])
+            }
             disabled={!selectedButtonValue}
             className={classNames.modalButtonNext}
             onClick={() => onClickNextButton()}

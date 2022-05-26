@@ -1,4 +1,4 @@
-import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
+import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -65,6 +65,11 @@ export class ResearcherProductsViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
   }
 
   onChangeFilterModel(model) {
@@ -128,6 +133,7 @@ export class ResearcherProductsViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
 
       await this.getPropductsVacant()
+      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

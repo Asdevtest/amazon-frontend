@@ -4,7 +4,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -12,12 +12,10 @@ import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 import {ShopsIntegrations} from '@components/shops-integrations'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ClientShopsViewModel} from './client-shops-view.model'
 import {styles} from './client-shops-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientShopsView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_SHOPS
 
@@ -32,7 +30,7 @@ class ClientShopsViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onChangeDrawerOpen} />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
+          <Appbar title={t(TranslationKey.Shops)} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <ShopsIntegrations />
             </MainContent>

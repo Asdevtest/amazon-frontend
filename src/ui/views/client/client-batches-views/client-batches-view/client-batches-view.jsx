@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -15,12 +15,10 @@ import {MainContent} from '@components/main-content'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ClientBatchesViewModel} from './client-batches-view.model'
 import {styles} from './client-batches-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientBatchesView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_BATCHES
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES
@@ -73,7 +71,7 @@ class ClientBatchesViewRaw extends Component {
         />
 
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawer}>
+          <Appbar title={t(TranslationKey['Sent boxes'])} notificationCount={2} setDrawerOpen={onTriggerDrawer}>
             <MainContent>
               <DataGrid
                 pagination

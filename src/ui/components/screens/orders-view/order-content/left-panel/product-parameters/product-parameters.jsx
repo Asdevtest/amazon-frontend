@@ -5,18 +5,14 @@ import React, {useState} from 'react'
 import {Typography, Link} from '@material-ui/core'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed, checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './product-parameters.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientOrderParameters
 
 export const ProductParameters = ({order, collapsed}) => {
   const classNames = useClassNames()
@@ -123,7 +119,7 @@ export const ProductParameters = ({order, collapsed}) => {
       />
 
       {collapsed && (
-        <OrderParameter label={t(TranslationKey['Additional parameter'])} value={textConsts.extraParamValue} />
+        <OrderParameter label={t(TranslationKey['Additional parameter'])} value={t(TranslationKey.Value)} />
       )}
     </div>
   )

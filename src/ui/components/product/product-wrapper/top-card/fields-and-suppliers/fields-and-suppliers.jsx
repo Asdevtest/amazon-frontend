@@ -53,6 +53,7 @@ export const FieldsAndSuppliers = observer(
     const classNames = useClassNames()
 
     const [skuLine, setSkuLine] = useState('')
+    const [edit, setEdit] = useState(true)
 
     const onClickSkuBtn = () => {
       onChangeField('skusByClient')({target: {value: [...product.skusByClient, skuLine.toUpperCase()]}})
@@ -102,25 +103,42 @@ export const FieldsAndSuppliers = observer(
           label={t(TranslationKey['Amazon product link'])}
           inputComponent={
             <div>
-              {product.lamazon ? (
-                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.lamazon)}>
-                  <Typography className={classNames.amazonLink}>{product.lamazon}</Typography>
-                </Link>
-              ) : (
-                <Typography className={classNames.amazonLink}>{'N/A'}</Typography>
-              )}
+              <Link
+                contentEditable={!edit}
+                target="_blank"
+                rel="noopener"
+                href={checkAndMakeAbsoluteUrl(product.lamazon)}
+              >
+                <Input
+                  disabled={edit}
+                  placeholder={!product.lamazon && t(TranslationKey['Enter link'])}
+                  value={product.lamazon}
+                  onChange={onChangeField('lamazon')}
+                />
+              </Link>
 
               {checkIsClient(curUserRole) &&
                 product.isCreatedByClient &&
                 !product.archive &&
-                clientToEditStatuses.includes(productBase.status) && (
-                  <Input
+                clientToEditStatuses.includes(productBase.status) &&
+                (edit ? (
+                  <Button
                     disabled={!checkIsClient(curUserRole)}
-                    placeholder={textConsts.linkPlaceholder}
-                    value={product.lamazon}
-                    onChange={onChangeField('lamazon')}
-                  />
-                )}
+                    className={classNames.editButton}
+                    onClick={() => setEdit(!edit)}
+                  >
+                    {t(TranslationKey.Edit)}
+                  </Button>
+                ) : (
+                  <Button
+                    success
+                    disabled={!checkIsClient(curUserRole)}
+                    className={classNames.editButton}
+                    onClick={() => setEdit(!edit)}
+                  >
+                    {t(TranslationKey.Save)}
+                  </Button>
+                ))}
             </div>
           }
         />

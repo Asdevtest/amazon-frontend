@@ -4,7 +4,6 @@ import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow
 
 import {OrderStatusByCode, OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
@@ -14,7 +13,6 @@ import {ErrorButton} from '@components/buttons/error-button'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -22,8 +20,6 @@ import {DeliveryParameters} from './delivery-parameters'
 import {ExtraOrderInfo} from './extra-order-info'
 import {LeftPanel} from './left-panel'
 import {useClassNames} from './order-content.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').orderContent
 
 const MEDIA_SCALE_POINTS = '1812'
 
@@ -85,7 +81,7 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder, volumeW
           <div className={classNames.btnsWrapper}>
             {order.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] && onClickCancelOrder && (
               <ErrorButton className={classNames.cancelBtn} onClick={onClickCancelOrder}>
-                {textConsts.cancelBtn}
+                {t(TranslationKey['Cancel order'])}
               </ErrorButton>
             )}
 

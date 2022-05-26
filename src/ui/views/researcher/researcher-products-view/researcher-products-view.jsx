@@ -34,7 +34,6 @@ class ResearcherProductsViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -75,7 +74,7 @@ class ResearcherProductsViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['My products'])} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <Paper className={classNames.card}>
                 <Typography variant="h6">{textConsts.cardMainTitle}</Typography>

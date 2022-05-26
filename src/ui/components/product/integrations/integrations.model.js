@@ -1,8 +1,9 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {SellerBoardModel} from '@models/seller-board-model'
+import {SettingsModel} from '@models/settings-model'
 
 import {productIntegrationsColumns} from '@components/table-columns/product/integrations-columns'
 
@@ -29,6 +30,15 @@ export class IntegrationsModel {
 
     this.productId = productId
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
+  }
+
+  updateColumnsModel() {
+    this.columnsModel = productIntegrationsColumns()
   }
 
   setRequestStatus(requestStatus) {
@@ -54,7 +64,7 @@ export class IntegrationsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getProductsWithSkuById()
-
+      this.updateColumnsModel()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

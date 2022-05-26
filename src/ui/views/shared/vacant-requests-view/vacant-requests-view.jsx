@@ -13,7 +13,6 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -24,13 +23,10 @@ import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {VacantRequestsViewModel} from './vacant-requests-view.model'
 import {styles} from './vacant-requests-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').freelancerProductsRequestsView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS
@@ -79,7 +75,11 @@ class VacantRequestsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar
+            title={t(TranslationKey['Vacant requests'])}
+            notificationCount={2}
+            setDrawerOpen={onTriggerDrawerOpen}
+          >
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.tablePanelViewWrapper}>

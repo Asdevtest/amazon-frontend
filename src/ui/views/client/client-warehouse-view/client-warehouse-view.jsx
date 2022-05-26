@@ -361,10 +361,10 @@ export class ClientWarehouseViewRaw extends Component {
           isWarning={confirmModalSettings.isWarning}
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
-          message={confirmModalSettings.confirmMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Shipping label has been stamped, a warehouse task will be created for labeling.'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
@@ -379,7 +379,7 @@ export class ClientWarehouseViewRaw extends Component {
 
         <Modal openModal={showSetChipValueModal} setOpenModal={() => onTriggerOpenModal('showSetChipValueModal')}>
           <SetChipValueModal
-            title={textConsts.setFbaShipment}
+            title={t(TranslationKey['Set FBA shipment'])}
             sourceValue={selectedBox?.fbaShipment}
             onSubmit={onClickSaveFbaShipment}
             onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}

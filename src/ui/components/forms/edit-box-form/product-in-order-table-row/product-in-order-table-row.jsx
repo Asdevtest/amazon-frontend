@@ -59,7 +59,7 @@ export const ProductInOrderTableRow = observer(({item, handlers, ...restProps}) 
           <Field
             oneLine
             containerClasses={classNames.checkboxContainer}
-            label={'Изменить в инвентаре'}
+            label={t(TranslationKey['Change in inventory'])}
             inputComponent={
               <Checkbox
                 color="primary"

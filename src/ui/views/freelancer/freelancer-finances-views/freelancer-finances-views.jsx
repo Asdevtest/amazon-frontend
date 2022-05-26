@@ -7,19 +7,17 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {FreelancerFinancesViewsModel} from './freelancer-finances-views.model'
 import {styles} from './freelancer-finances-views.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').freelancerFinancesView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_FINANCES
 
@@ -71,7 +69,7 @@ class FreelancerFinancesViewsRaw extends Component {
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
+          <Appbar title={t(TranslationKey.Finances)} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination
