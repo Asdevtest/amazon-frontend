@@ -7,6 +7,7 @@ import {observer} from 'mobx-react'
 import {getFreelancerDashboardCardConfig, FreelancerDashboardCardDataKey} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
@@ -16,6 +17,7 @@ import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {FreelancerDashboardViewModel} from './freelacer-dashboard-view.model'
 import {styles} from './freelancer-dashboard-view.style'
@@ -46,14 +48,14 @@ export class FreelancerDashboardViewRaw extends Component {
         />
         <Main>
           <Appbar
-            title={textConsts.appBarTitle}
+            title={t(TranslationKey.Dashboard)}
             notificationCount={2}
             drawerOpen={drawerOpen}
             setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
               <DashboardBalance user={userInfo} />
-              <Typography variant="h6">{textConsts.mainTitle}</Typography>
+              <Typography variant="h6">{t(TranslationKey.Dashboard)}</Typography>
               <Grid container className={classNames.dashboardCardWrapper} justify="center" spacing={3}>
                 {this.renderDashboardCards()}
               </Grid>

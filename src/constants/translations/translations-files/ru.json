@@ -222,7 +222,7 @@
   "Freelance": "Фриланс",
   "My requests": "Мои заявки",
   "Vacant requests": "Вакантные заявки",
-  "My suggestions": "Мои предложения",
+  "My proposals": "Мои предложения",
   "Commodity exchange": "Биржа товаров",
   "Surebets exchange": "Биржа вилок",
   "My orders": "Мои заказы",
@@ -443,5 +443,9 @@
   "Deadline for the request": "Срок действия заявки",
   "Missing": "Отсутствует",
   "Kg": "Кг",
-  "The tariff is invalid or has been removed!": "Тариф неактуален или удален!"
+  "The tariff is invalid or has been removed!": "Тариф неактуален или удален!",
+  "Requests": "Заявки",
+  "View more": "Смотреть подробнее",
+  "Current balance": "Текущий баланс",
+  "Enter link": "Введите ссылку"
 }

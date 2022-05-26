@@ -235,4 +235,8 @@ export const useClassNames = makeStyles(() => ({
   suppliersWrapper: {
     alignSelf: 'flex-end',
   },
+
+  editButton: {
+    marginTop: '15px',
+  },
 }))

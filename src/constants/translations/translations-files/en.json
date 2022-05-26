@@ -218,7 +218,7 @@
   "Freelance": "Freelance",
   "My requests": "My requests",
   "Vacant requests": "Vacant requests",
-  "My suggestions": "My proposals",
+  "My proposals": "My proposals",
   "Commodity exchange": "Commodity exchange",
   "Surebets exchange": "Surebets exchange",
   "My orders": "My orders",
@@ -443,4 +443,8 @@
   "Missing": "Missing",
   "Kg": "Kg",
   "The tariff is invalid or has been removed!": "The tariff is invalid or has been removed!"
+  "Requests": "Requests",
+  "View more": "View more",
+  "Current balance": "Current balance",
+  "Enter link": "Enter link"
 }
