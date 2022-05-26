@@ -3,6 +3,7 @@ ARG ENV_FILE
 RUN if [[ -z "$ENV_FILE" ]] ; then echo "ERROR: ENV_FILE argument is not provided" && exit 1 ; else echo "ENV_FILE argument is $ENV_FILE" ; fi 
 WORKDIR /app/builder
 COPY . .
+RUN apk add git
 RUN yarn install --network-timeout 100000
 RUN ./node_modules/.bin/env-cmd -f ${ENV_FILE} yarn build
 
