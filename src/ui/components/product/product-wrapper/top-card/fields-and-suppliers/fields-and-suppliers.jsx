@@ -103,7 +103,12 @@ export const FieldsAndSuppliers = observer(
           label={t(TranslationKey['Amazon product link'])}
           inputComponent={
             <div>
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.lamazon)}>
+              <Link
+                contentEditable={!edit}
+                target="_blank"
+                rel="noopener"
+                href={checkAndMakeAbsoluteUrl(product.lamazon)}
+              >
                 <Input
                   disabled={edit}
                   placeholder={!product.lamazon && t(TranslationKey['Enter link'])}

@@ -244,7 +244,7 @@ export const navbarConfig = () => ({
   [UserRole.RESEARCHER]: [
     {
       icon: InfoOutlinedIcon,
-      title: 'Главная страница',
+      title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/researcher/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
@@ -252,7 +252,7 @@ export const navbarConfig = () => ({
     },
     {
       icon: AssignmentIcon,
-      title: 'Мои товары',
+      title: t(TranslationKey['My products']),
       subtitles: null,
       route: '/researcher/products',
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
@@ -290,9 +290,9 @@ export const navbarConfig = () => ({
     // },
     {
       icon: PeopleIcon,
-      title: 'Пользователи',
+      title: t(TranslationKey.Users),
       route: '/researcher/users/sub-users',
-      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/researcher/users/sub-users'}],
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/researcher/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -301,7 +301,7 @@ export const navbarConfig = () => ({
 
     {
       icon: MonetizationOnOutlinedIcon,
-      title: 'Финансы',
+      title: t(TranslationKey.Finances),
       route: '/researcher/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>

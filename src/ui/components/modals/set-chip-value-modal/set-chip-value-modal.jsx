@@ -2,16 +2,14 @@ import React, {useState} from 'react'
 
 import {Box, Container, Divider, Typography} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './set-chip-value-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalSetHsCode
 
 export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue}) => {
   const classNames = useClassNames()
@@ -35,9 +33,9 @@ export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue}) 
 
       <Box className={classNames.saveBox}>
         <Button disabled={sourceValue === newValue} className={classNames.saveBtn} onClick={() => onSubmit(newValue)}>
-          {textConsts.saveBtn}
+          {t(TranslationKey.Save)}
         </Button>
-        <Button onClick={onCloseModal}>{textConsts.closeBtn}</Button>
+        <Button onClick={onCloseModal}>{t(TranslationKey.Close)}</Button>
       </Box>
     </Container>
   )

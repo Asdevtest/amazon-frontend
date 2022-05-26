@@ -87,7 +87,7 @@ export class ClientReadyBoxesViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Boxes ready to send'])}>
             <MainContent>
               <div className={classNames.boxesFiltersWrapper}>
                 <Button

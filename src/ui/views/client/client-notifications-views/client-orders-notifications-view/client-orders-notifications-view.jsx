@@ -8,6 +8,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -16,6 +17,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ClientOrdersNotificationsViewModel} from './client-orders-notifications-view.model'
 import {styles} from './client-orders-notifications-view.style'
@@ -68,7 +70,11 @@ class ClientOrdersNotificationsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar
+            title={t(TranslationKey['Order notifications'])}
+            notificationCount={2}
+            setDrawerOpen={onTriggerDrawerOpen}
+          >
             <MainContent>
               <div className={classNames.tableWrapper}>
                 <DataGrid

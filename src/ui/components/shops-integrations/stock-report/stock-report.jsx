@@ -118,7 +118,7 @@ class StockReportRaw extends Component {
         <div className={className.btnsWrapper}>
           <Button
             disableElevation
-            tooltipContent={textConsts.moveToInventoryBtnTooltip}
+            tooltipContent={t(TranslationKey['Move the selected item from the Seller Board to the inventory'])}
             disabled={selectedRows.length === 0}
             variant="contained"
             color="primary"

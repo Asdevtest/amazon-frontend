@@ -229,7 +229,7 @@ export class ClientInventoryViewRaw extends Component {
 
         <Modal openModal={showSetChipValueModal} setOpenModal={() => onTriggerOpenModal('showSetChipValueModal')}>
           <SetChipValueModal
-            title={textConsts.setHsCode}
+            title={t(TranslationKey['Set HS code'])}
             sourceValue={selectedProduct?.hsCode}
             onSubmit={onClickSaveHsCode}
             onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}
@@ -314,10 +314,10 @@ export class ClientInventoryViewRaw extends Component {
         <ConfirmationModal
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
+          title={t(TranslationKey.Attention)}
           message={confirmMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={() => {
             onSubmitSeekSupplier()
           }}

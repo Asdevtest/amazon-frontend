@@ -5,6 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus} from '@constants/product-status'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
@@ -23,6 +24,7 @@ import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
 const textConsts = getLocalizedTexts(texts, 'en').inventoryView
@@ -439,7 +441,7 @@ export class ClientInventoryViewModel {
         })
       }
 
-      this.successModalText = textConsts.successSupplierTitle
+      this.successModalText = t(TranslationKey['Supplier added'])
       this.onTriggerOpenModal('showSuccessModal')
 
       !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
@@ -475,10 +477,10 @@ export class ClientInventoryViewModel {
 
       this.priceForSeekSupplier = result.priceForClient
 
-      this.confirmMessage = `Стоимость услуги поиска поставщика составит $${toFixed(
+      this.confirmMessage = `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
         result.priceForClient,
         2,
-      )}.\n Подать заявку?`
+      )}.\n ${t(TranslationKey['Apply?'])}`
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -608,7 +610,7 @@ export class ClientInventoryViewModel {
         }
       }
 
-      this.successModalText = textConsts.successAddProductTitle
+      this.successModalText = t(TranslationKey['Product added'])
       this.onTriggerOpenModal('showSuccessModal')
 
       await this.getProductsMy()
@@ -685,7 +687,7 @@ export class ClientInventoryViewModel {
       await SellerBoardModel.bindStockProductsBySku(data)
       this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
 
-      this.successModalText = textConsts.successBindTitle
+      this.successModalText = t(TranslationKey['Goods are bound'])
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       this.showInfoModalTitle = textConsts.infoModalTitle

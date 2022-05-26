@@ -3,10 +3,14 @@ import React, {useState} from 'react'
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field/field'
 import {Modal} from '@components/modal'
+
+import {t} from '@utils/translations'
 
 import {useClassNames} from './add-competitor-modal.style'
 
@@ -26,7 +30,7 @@ export const AddCompetitorModal = observer(({openModal, setOpenModal, currentCom
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMessageWrapper}>
         <Typography paragraph variant="h5">
-          {'Добавить конкурента'}
+          {t(TranslationKey['Add a competitor'])}
         </Typography>
 
         <div className={classNames.fieldsWrapper}>
@@ -34,7 +38,7 @@ export const AddCompetitorModal = observer(({openModal, setOpenModal, currentCom
             multiline
             minRows={4}
             rowsMax={4}
-            label={'Ссылка'}
+            label={t(TranslationKey.Link)}
             className={classNames.linkField}
             value={competitor.link}
             onChange={e => setCompetitor({...competitor, link: e.target.value})}
@@ -42,7 +46,7 @@ export const AddCompetitorModal = observer(({openModal, setOpenModal, currentCom
 
           <Field
             multiline
-            label={'Комментарий'}
+            label={t(TranslationKey.Comment)}
             minRows={4}
             rowsMax={4}
             className={classNames.commentField}
@@ -58,7 +62,7 @@ export const AddCompetitorModal = observer(({openModal, setOpenModal, currentCom
             variant="contained"
             onClick={onSubmit}
           >
-            {'Добавить'}
+            {t(TranslationKey.Add)}
           </SuccessButton>
 
           <Button
@@ -71,7 +75,7 @@ export const AddCompetitorModal = observer(({openModal, setOpenModal, currentCom
               setCompetitor({link: '', comments: ''})
             }}
           >
-            {'Отмена'}
+            {t(TranslationKey.Cancel)}
           </Button>
         </div>
       </div>

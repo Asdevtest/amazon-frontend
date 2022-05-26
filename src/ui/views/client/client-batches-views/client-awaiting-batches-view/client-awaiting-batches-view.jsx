@@ -8,6 +8,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -18,6 +19,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ClientAwaitingBatchesViewModel} from './client-awaiting-batches-view.model'
 import {styles} from './client-awaiting-batches-view.style'
@@ -78,7 +80,7 @@ class ClientAwaitingBatchesViewRaw extends Component {
         />
 
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawer}>
+          <Appbar title={t(TranslationKey['Awaiting send'])} notificationCount={2} setDrawerOpen={onTriggerDrawer}>
             <MainContent>
               <div className={className.btnsWrapper}>
                 <Button
@@ -87,7 +89,7 @@ class ClientAwaitingBatchesViewRaw extends Component {
                   variant="contained"
                   onClick={() => onTriggerOpenModal('showConfirmModal')}
                 >
-                  {textConsts.cancelSendBatchBtn}
+                  {t(TranslationKey['Cancel Send'])}
                 </Button>
               </div>
 

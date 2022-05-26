@@ -7,6 +7,9 @@ import {useHistory} from 'react-router-dom'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
@@ -15,6 +18,7 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {IntegrationsModel} from './integrations.model'
 import {useClassNames} from './integrations.style'
@@ -46,17 +50,19 @@ export const Integrations = observer(({productId}) => {
 
   return (
     <div className={classNames.mainWrapper}>
-      <div className={classNames.addProductBtnsWrapper}>
-        <Button
-          disableElevation
-          className={classNames.buttonOffset}
-          variant="contained"
-          color="primary"
-          onClick={onClickBindInventoryGoodsToStockBtn}
-        >
-          {textConsts.bindGoodsBtn}
-        </Button>
-      </div>
+      {SettingsModel.languageTag && (
+        <div className={classNames.addProductBtnsWrapper}>
+          <Button
+            disableElevation
+            className={classNames.buttonOffset}
+            variant="contained"
+            color="primary"
+            onClick={onClickBindInventoryGoodsToStockBtn}
+          >
+            {t(TranslationKey['Bind goods from the warehouse'])}
+          </Button>
+        </div>
+      )}
 
       <DataGrid
         pagination

@@ -10,7 +10,6 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {tableViewMode} from '@constants/table-view-modes'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -20,13 +19,10 @@ import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {MyProposalsViewModel} from './my-proposals-view.model'
 import {styles} from './my-proposals-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').myProposalsView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS
@@ -66,7 +62,7 @@ class MyProposalsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['My proposals'])} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {/* <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.tablePanelViewWrapper}>
@@ -119,10 +115,10 @@ class MyProposalsViewRaw extends Component {
             isWarning
             openModal={showConfirmModal}
             setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            title={textConsts.confirmTitle}
-            message={textConsts.confirmMessage}
-            successBtnText={textConsts.yesBtn}
-            cancelBtnText={textConsts.noBtn}
+            title={t(TranslationKey.Attention)}
+            message={t(TranslationKey['Are you sure you want to cancel the proposal?'])}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
             onClickSuccessBtn={onSubmitDeleteProposal}
             onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
           />

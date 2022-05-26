@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   NormDateCell,
@@ -9,6 +10,7 @@ import {
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 const textConsts = getLocalizedTexts(texts, 'ru').researcherProductsTableColumns
 
@@ -23,14 +25,14 @@ export const researcherProductsViewColumns = () => [
 
   {
     field: 'status',
-    headerName: textConsts.statusField,
+    headerName: t(TranslationKey.Status),
     width: 350,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'createdAt',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Created),
     minWidth: 250,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
@@ -39,14 +41,14 @@ export const researcherProductsViewColumns = () => [
 
   {
     field: 'strategyStatus',
-    headerName: textConsts.strategyStatusField,
+    headerName: t(TranslationKey.Strategy),
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
 
   {
     field: 'amazon',
-    headerName: textConsts.amazonPriceField,
+    headerName: t(TranslationKey['Amazon price']),
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
     minWidth: 150,
     type: 'number',

@@ -319,7 +319,7 @@ export const CreateOrEditRequestContent = ({
               />
 
               <Field
-                label={'Время на выполнение предложения (мин)'}
+                label={t(TranslationKey['Time to complete the proposal (min)'])}
                 inputComponent={
                   <Typography className={classNames.twoStepFieldResult}>
                     {formFields.request.timeLimitInMinutes}
