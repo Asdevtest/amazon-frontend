@@ -1,3 +1,5 @@
+import Tooltip from '@mui/material/Tooltip'
+
 import React, {FC} from 'react'
 
 import {Avatar, Link, Typography} from '@material-ui/core'
@@ -70,6 +72,12 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
     }
   }
 
+  const renderImageInfo = (img: any) => (
+    <div className={classNames.tooltipWrapper}>
+      <Avatar variant="square" src={img} className={classNames.tooltipImg} />
+    </div>
+  )
+
   return (
     <div className={classNames.root}>
       <ScrollView width="100%" height="100%" style={{padding: '20px 12px'}}>
@@ -113,9 +121,14 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                           <Typography className={classNames.timeText}>{'ФАЙЛЫ:'}</Typography>
 
                           {messageItem.files.map((file, fileIndex) => (
-                            <Link key={fileIndex} target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(file)}>
-                              <Typography className={classNames.linkText}>{file}</Typography>
-                            </Link>
+                            <div key={fileIndex} className={classNames.imageWrapper}>
+                              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(file)}>
+                                <Typography className={classNames.linkText}>{file}</Typography>
+                              </Link>
+                              <Tooltip title={renderImageInfo(file)} classes={{popper: classNames.imgTooltip}}>
+                                <img className={classNames.image} src={file} />
+                              </Tooltip>
+                            </div>
                           ))}
                         </div>
                       ) : undefined}

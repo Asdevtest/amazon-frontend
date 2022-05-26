@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   orderContainer: {
-    padding: '16px 32px',
+    padding: '15px 15px',
     width: '500px',
   },
 

@@ -6,16 +6,12 @@ import Carousel from 'react-material-ui-carousel'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
-// import {texts} from '@constants/texts'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {t} from '@utils/translations'
 
-// import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {useClassNames} from './extra-order-info.style'
-
-// const textConsts = getLocalizedTexts(texts, 'ru').clientOrderInfo
 
 export const ExtraOrderInfo = ({order}) => {
   const classNames = useClassNames()

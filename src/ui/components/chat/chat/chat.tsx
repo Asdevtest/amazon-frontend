@@ -43,8 +43,8 @@ export const Chat: FC<Props> = observer(
 
     const resetAllInputs = () => {
       setMessage('')
-      setLinks([])
-      setFiles([])
+      setLinks(() => [])
+      setFiles(() => [])
     }
 
     const onSubmitMessageInternal = () => {
@@ -76,6 +76,8 @@ export const Chat: FC<Props> = observer(
               case ChatInputMode.TEXT:
                 return (
                   <ChatTextInput
+                    links={links}
+                    files={files}
                     message={message}
                     setMessage={setMessage}
                     setInputMode={setInputMode}

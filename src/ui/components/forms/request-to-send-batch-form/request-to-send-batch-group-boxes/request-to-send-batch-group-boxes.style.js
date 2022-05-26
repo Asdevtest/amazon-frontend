@@ -13,6 +13,9 @@ export const useClassNames = makeStyles(() => ({
     border: '1px solid #E0E0E0',
     marginBottom: '30px',
   },
+  tableAlertWrapper: {
+    border: '1px solid red',
+  },
   tableWrapperInfo: {
     fontSize: '16px',
     textAlign: 'center',
@@ -79,6 +82,13 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     color: '#0460DE',
+    marginLeft: '30px',
+  },
+
+  footerAlertSpanText: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: 'red',
     marginLeft: '30px',
   },
 

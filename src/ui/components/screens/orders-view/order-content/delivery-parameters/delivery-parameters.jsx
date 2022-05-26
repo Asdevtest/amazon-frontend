@@ -11,11 +11,7 @@ import {formatDateWithoutTime} from '@utils/date-time'
 import {getFullTariffTextForBoxOrOrder} from '@utils/text'
 import {t} from '@utils/translations'
 
-// import {texts} from '@constants/texts'
-// import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {useClassNames} from './delivery-parameters.style'
-
-// const textConsts = getLocalizedTexts(texts, 'ru').clientOrderParameters
 
 export const DeliveryParameters = ({order}) => {
   const classNames = useClassNames()

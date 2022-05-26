@@ -8,6 +8,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 
+import {findTariffInStorekeepersData} from '@utils/checks'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './request-to-send-batch-form.style'
@@ -15,6 +16,7 @@ import {RequestToSendBatchesGroupBoxes} from './request-to-send-batch-group-boxe
 
 export const RequestToSendBatchForm = observer(
   ({
+    storekeepersData,
     volumeWeightCoefficient,
     boxesMy,
     selectedBoxes,
@@ -82,7 +84,17 @@ export const RequestToSendBatchForm = observer(
     }
 
     const disabledSubmit =
-      boxesWithPriceRequest.length < 1 || boxesWithPriceRequest.some(el => !el.shippingLabel) || submitIsClicked
+      boxesWithPriceRequest.length < 1 ||
+      boxesWithPriceRequest.some(el => !el.shippingLabel) ||
+      boxesGroupedByWarehouseAndDeliveryMethod.some(
+        selectedGroup =>
+          !findTariffInStorekeepersData(
+            storekeepersData,
+            selectedGroup.storekeeper?._id,
+            selectedGroup.logicsTariff?._id,
+          ),
+      ) ||
+      submitIsClicked
 
     return (
       <div className={classNames.content}>
@@ -93,6 +105,7 @@ export const RequestToSendBatchForm = observer(
           {boxesGroupedByWarehouseAndDeliveryMethod.map((selectedGroup, i) => (
             <div key={i}>
               <RequestToSendBatchesGroupBoxes
+                storekeepersData={storekeepersData}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 boxesMy={boxesMy}
                 selectedGroup={selectedGroup}

@@ -26,4 +26,22 @@ export const useClassNames = makeStyles(() => ({
       },
     },
   },
+
+  iconWrapper: {
+    position: 'relative',
+  },
+
+  badge: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    height: 15,
+    width: 15,
+    backgroundColor: 'red',
+    borderRadius: 20,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+  },
 }))
