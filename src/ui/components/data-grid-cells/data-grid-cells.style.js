@@ -483,4 +483,8 @@ export const styles = createStyles(() => ({
       transform: 'scale(1.2)',
     },
   },
+
+  changeChipCellLabel: {
+    fontSize: '12px',
+  },
 }))

@@ -24,6 +24,7 @@ export class WarehouseDashboardViewModel {
     [WarehouseDashboardCardDataKey.BOXES_IN_STORE]: '',
     [WarehouseDashboardCardDataKey.SENT_BATCHES]: '',
     [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: '',
+    [WarehouseDashboardCardDataKey.REQUESTED_SEND_TO_BATCH]: '',
   }
 
   get userInfo() {
@@ -106,6 +107,9 @@ export class WarehouseDashboardViewModel {
         this.dashboardData = {
           ...this.dashboardData,
           [WarehouseDashboardCardDataKey.BOXES_IN_STORE]: result.length,
+          [WarehouseDashboardCardDataKey.REQUESTED_SEND_TO_BATCH]: result.filter(
+            box => box.status === WarehouseDashboardCardDataKey.REQUESTED_SEND_TO_BATCH,
+          ).length,
         }
       })
     } catch (error) {

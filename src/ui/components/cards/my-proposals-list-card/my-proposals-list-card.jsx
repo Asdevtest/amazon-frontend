@@ -76,9 +76,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
               <div key={index} className={classNames.proposalWrapper}>
                 <Typography className={classNames.cardTitle}>{t(TranslationKey.Suggest)}</Typography>
 
-                <Typography className={classNames.proposalComment}>
-                  {t(TranslationKey['Proposal Description'])}
-                </Typography>
+                <Typography className={classNames.proposalComment}>{proposal.comment}</Typography>
 
                 <div className={classNames.rightSubWrapper}>
                   <div className={classNames.timeWrapper}>

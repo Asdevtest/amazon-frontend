@@ -209,6 +209,7 @@ export const WarehouseDashboardCardDataKey = {
   SENT_BATCHES: 'SENT_BATCHES',
   NOT_SENT_BATCHES: 'NOT_SENT_BATCHES',
   TASKS_MY: 'TASKS_MY',
+  REQUESTED_SEND_TO_BATCH: 'REQUESTED_SEND_TO_BATCH',
 
   CANCELED_TASKS: 'CANCELED_TASKS',
 }
@@ -256,6 +257,13 @@ export const getWarehouseDashboardCardConfig = () => [
         color: '#63C2DE',
         route: '/warehouse/my-warehouse',
       },
+
+      {
+        dataKey: WarehouseDashboardCardDataKey.REQUESTED_SEND_TO_BATCH,
+        title: t(TranslationKey['Requested shipments']),
+        color: '#C69109',
+        route: '/warehouse/my-warehouse',
+      },
     ],
   },
 
@@ -265,7 +273,7 @@ export const getWarehouseDashboardCardConfig = () => [
     items: [
       {
         dataKey: WarehouseDashboardCardDataKey.NOT_SENT_BATCHES,
-        title: t(TranslationKey['Not sent']),
+        title: t(TranslationKey['Awaiting send']),
         color: '#C69109',
         route: '/warehouse/awaiting-batches',
       },

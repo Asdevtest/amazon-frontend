@@ -14,7 +14,7 @@ export enum TranslationKey {
   'Canceled tasks' = 'Canceled tasks',
   'Boxes in store' = 'Boxes in store',
   'Sent' = 'Sent',
-  'Not sent' = 'Not sent',
+  'Requested shipments' = 'Requested shipments',
   'Balance' = 'Balance',
   'your role:' = 'your role:',
   'Menu' = 'Menu',
