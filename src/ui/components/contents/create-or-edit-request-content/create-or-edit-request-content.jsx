@@ -111,13 +111,12 @@ export const CreateOrEditRequestContent = ({
   }
 
   const disableSubmit =
-    (formFields.request.title === '' ||
-      formFields.request.maxAmountOfProposals === '' ||
-      formFields.request.timeLimitInMinutes === '' ||
-      formFields.request.price === '' ||
-      formFields.request.timeoutAt === '' ||
-      formFields.details.conditions === '') &&
-    (curStep === stepVariant.STEP_TWO || requestToEdit)
+    formFields.request.title === '' ||
+    formFields.request.maxAmountOfProposals === '' ||
+    formFields.request.timeLimitInMinutes === '' ||
+    formFields.request.price === '' ||
+    formFields.request.timeoutAt === '' ||
+    formFields.details.conditions === ''
 
   return (
     <div className={classNames.mainWrapper}>
@@ -398,7 +397,10 @@ export const CreateOrEditRequestContent = ({
                   ) : (
                     <div className={classNames.successBtnTextWrapper}>
                       <Typography>{t(TranslationKey.Next)}</Typography>
-                      <img src="/assets/icons/right-arrow.svg" className={classNames.successBtnArrow} />
+                      <img
+                        src="/assets/icons/right-arrow.svg"
+                        className={clsx(classNames.successBtnArrow, {[classNames.disablesBtnArrow]: disableSubmit})}
+                      />
                     </div>
                   )}
                 </SuccessButton>

@@ -102,6 +102,10 @@ export const useClassNames = makeStyles(() => ({
     marginLeft: '15px',
   },
 
+  disablesBtnArrow: {
+    opacity: '.2',
+  },
+
   footerRightWrapper: {
     display: 'flex',
     flexDirection: 'column',

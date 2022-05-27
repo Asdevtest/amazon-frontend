@@ -5,18 +5,14 @@ import {Typography, Paper, Avatar} from '@material-ui/core'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-// import {texts} from '@constants/texts'
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-// import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './servant-general-request-info.style'
-
-// const textConsts = getLocalizedTexts(texts, 'en').productSearchRequestContent
 
 export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals}) => {
   const classNames = useClassNames()
@@ -48,7 +44,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
           <div className={classNames.blockInfoWrapper}>
             <div className={classNames.requestItemInfoWrapper}>
               <Typography>{t(TranslationKey.Time)}</Typography>
-              <Typography>{`${toFixed(request?.request.timeLimitInMinutes / 60, 2)} ч.`}</Typography>
+              <Typography>{minsToTime(request?.request.timeLimitInMinutes)}</Typography>
             </div>
 
             <div className={classNames.requestItemInfoWrapper}>

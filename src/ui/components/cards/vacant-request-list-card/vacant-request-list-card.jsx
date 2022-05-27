@@ -10,7 +10,7 @@ import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './vacant-request-list-card.style'
@@ -53,7 +53,7 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
           <div className={classNames.timeItemInfoWrapper}>
             <Typography>{t(TranslationKey['Time to complete'])}</Typography>
 
-            <Typography>{`${toFixed(item.timeLimitInMinutes / 60, 2)} ${t(TranslationKey.hour)} `}</Typography>
+            <Typography>{minsToTime(item.timeLimitInMinutes)}</Typography>
           </div>
 
           <div className={classNames.timeItemInfoWrapper}>

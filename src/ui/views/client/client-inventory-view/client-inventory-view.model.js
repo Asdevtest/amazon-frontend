@@ -444,6 +444,8 @@ export class ClientInventoryViewModel {
       this.successModalText = t(TranslationKey['Supplier added'])
       this.onTriggerOpenModal('showSuccessModal')
 
+      this.loadData()
+
       !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
       console.log(error)

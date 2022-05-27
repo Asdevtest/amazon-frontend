@@ -12,7 +12,7 @@ import {Button} from '@components/buttons/button'
 
 import {formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
+import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './my-proposals-list-card.style'
@@ -81,7 +81,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                 <div className={classNames.rightSubWrapper}>
                   <div className={classNames.timeWrapper}>
                     <Typography>{t(TranslationKey['Time to complete, min*'])}</Typography>
-                    <Typography className={classNames.timeCount}>{minsToTimeRus(proposal.execution_time)}</Typography>
+                    <Typography className={classNames.timeCount}>{minsToTime(proposal.execution_time)}</Typography>
                   </div>
 
                   <div className={classNames.rightItemSubWrapper}>
