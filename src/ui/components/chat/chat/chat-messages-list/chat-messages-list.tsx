@@ -1,13 +1,15 @@
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {FC} from 'react'
+import React, {FC, useState} from 'react'
 
-import {Avatar, Link, Typography} from '@material-ui/core'
+import {Avatar, Grid, Link, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
 
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+
+import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -78,6 +80,10 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
     </div>
   )
 
+  const [showImageModal, setShowImageModal] = useState(false)
+
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [] as string[], imgIndex: 0})
+
   return (
     <div className={classNames.root}>
       <ScrollView width="100%" height="100%" style={{padding: '20px 12px'}}>
@@ -120,16 +126,20 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                         <div>
                           <Typography className={classNames.timeText}>{'ФАЙЛЫ:'}</Typography>
 
-                          {messageItem.files.map((file, fileIndex) => (
-                            <div key={fileIndex} className={classNames.imageWrapper}>
-                              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(file)}>
-                                <Typography className={classNames.linkText}>{file}</Typography>
-                              </Link>
-                              <Tooltip title={renderImageInfo(file)} classes={{popper: classNames.imgTooltip}}>
-                                <img className={classNames.image} src={file} />
-                              </Tooltip>
-                            </div>
-                          ))}
+                          <Grid container className={classNames.filesWrapper}>
+                            {messageItem.files.map((file, fileIndex) => (
+                              <Grid key={fileIndex} item className={classNames.imageWrapper}>
+                                <img
+                                  className={classNames.image}
+                                  src={file}
+                                  onClick={() => {
+                                    setShowImageModal(!showImageModal)
+                                    setBigImagesOptions({images: messageItem.files, imgIndex: fileIndex})
+                                  }}
+                                />
+                              </Grid>
+                            ))}
+                          </Grid>
                         </div>
                       ) : undefined}
                     </div>
@@ -144,6 +154,14 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
             })
           : undefined}
       </ScrollView>
+
+      <BigImagesModal
+        isAmazone
+        openModal={showImageModal}
+        setOpenModal={() => setShowImageModal(!showImageModal)}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
+      />
     </div>
   )
 })

@@ -9,6 +9,7 @@ import Carousel from 'react-material-ui-carousel'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 
 import {Button} from '@components/buttons/button'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
@@ -40,7 +41,7 @@ export const OwnerRequestProposalsCard = ({
               <div className={classNames.userNameWrapper}>
                 <Typography>{item.proposal.createdBy.name}</Typography>
 
-                <Typography>{'Отзывы'}</Typography>
+                <UserLinkCell name={'Отзывы'} userId={item.proposal.createdBy._id} />
               </div>
 
               <Rating disabled className={classNames.userRating} value={item.proposal.createdBy.rating} />

@@ -98,10 +98,20 @@ export const useClassNames = makeStyles(() => ({
     height: '70px',
     objectFit: 'contain',
     objectPosition: 'center',
+    transition: '.2s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
   },
 
   imageWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
+  },
+
+  filesWrapper: {
+    display: 'flex',
+    maxWidth: '600px',
   },
 }))
