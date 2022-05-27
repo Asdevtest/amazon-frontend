@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   AsinCell,
@@ -11,13 +12,14 @@ import {
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 const textConsts = getLocalizedTexts(texts, 'ru').buyerProductsTableColumns
 
 export const buyerProductsViewColumns = handlers => [
   {
     field: 'createdAt',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Created),
     minWidth: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
@@ -25,7 +27,7 @@ export const buyerProductsViewColumns = handlers => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updateDateField,
+    headerName: t(TranslationKey.Updated),
     minWidth: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
@@ -33,7 +35,7 @@ export const buyerProductsViewColumns = handlers => [
 
   {
     field: 'asin',
-    headerName: textConsts.asinField,
+    headerName: t(TranslationKey.Product),
     renderCell: params => <AsinCell product={params.row.originalData} />,
     minWidth: 350,
     flex: 3,
@@ -41,21 +43,21 @@ export const buyerProductsViewColumns = handlers => [
 
   {
     field: 'status',
-    headerName: textConsts.statusField,
+    headerName: t(TranslationKey.Status),
     width: 300,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'strategyStatus',
-    headerName: textConsts.strategyStatusField,
+    headerName: t(TranslationKey.Strategy),
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
 
   {
     field: 'feesAndNet',
-    headerName: textConsts.feesAndNetField,
+    headerName: t(TranslationKey['Fees & Net']),
     renderCell: params => (
       <FeesValuesWithCalculateBtnCell
         noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
@@ -71,7 +73,7 @@ export const buyerProductsViewColumns = handlers => [
 
   {
     field: 'amazon',
-    headerName: textConsts.amazonPriceField,
+    headerName: t(TranslationKey['Amazon price']),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     minWidth: 130,
     type: 'number',
@@ -80,7 +82,7 @@ export const buyerProductsViewColumns = handlers => [
 
   {
     field: 'profit',
-    headerName: textConsts.profitField,
+    headerName: t(TranslationKey.Profit),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     minWidth: 130,
     type: 'number',
@@ -98,7 +100,7 @@ export const buyerProductsViewColumns = handlers => [
 
   {
     field: 'fbaamount',
-    headerName: textConsts.fbaamountField,
+    headerName: t(TranslationKey['Recommend amount']),
     renderCell: params => renderFieldValueCell(params.value),
     minWidth: 130,
     type: 'number',

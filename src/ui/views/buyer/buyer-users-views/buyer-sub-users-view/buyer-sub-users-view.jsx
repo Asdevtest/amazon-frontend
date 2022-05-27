@@ -9,6 +9,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
@@ -22,6 +23,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {BuyerSubUsersViewModel} from './buyer-sub-users-view.model'
 import {styles} from './buyer-sub-users-view.style'
@@ -85,11 +87,11 @@ class BuyerSubUsersViewRaw extends Component {
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
+          <Appbar title={t(TranslationKey.Users)} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <Box className={this.props.classes.buttonBox}>
                 <SuccessButton onClick={() => onTriggerOpenModal('showAddSubUserModal')}>
-                  {textConsts.addUserBtn}
+                  {t(TranslationKey['Add a sub-user'])}
                 </SuccessButton>
               </Box>
 

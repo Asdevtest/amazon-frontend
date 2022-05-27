@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {BigImagesModal} from '@components/modals/big-images-modal'
@@ -12,6 +13,7 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {priceCalculation} from '@utils/price-calculation'
 import {toFixedWithDollarSign, withDollarSign, checkAndMakeAbsoluteUrl} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './edit-order-suppliers-table.style'
 
@@ -29,16 +31,16 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
         <TableHead>
           <TableRow>
             <TableCell className={(classNames.tableCellPadding, classNames.alignCenter)}>
-              {textConsts.tableName}
+              {t(TranslationKey.Title)}
             </TableCell>
-            <TableCell className={classNames.alignCenter}>{textConsts.tableLink}</TableCell>
-            <TableCell className={classNames.alignCenter}>{textConsts.tablePrice}</TableCell>
-            <TableCell className={classNames.alignRight}>{textConsts.tableSheep}</TableCell>
-            <TableCell className={classNames.alignCenter}>{textConsts.tableCount}</TableCell>
-            <TableCell className={classNames.alignCenter}>{textConsts.tableMinBatch}</TableCell>
-            <TableCell className={classNames.alignCenter}>{textConsts.tableBatchCost}</TableCell>
-            <TableCell className={classNames.alignRight}>{textConsts.tableCost}</TableCell>
-            <TableCell className={classNames.alignCenter}>{textConsts.tableComment}</TableCell>
+            <TableCell className={classNames.alignCenter}>{t(TranslationKey.Link)}</TableCell>
+            <TableCell className={classNames.alignCenter}>{t(TranslationKey.Price)}</TableCell>
+            <TableCell className={classNames.alignRight}>{t(TranslationKey.Delivery)}</TableCell>
+            <TableCell className={classNames.alignCenter}>{t(TranslationKey.Quantity)}</TableCell>
+            <TableCell className={classNames.alignCenter}>{t(TranslationKey['Minimum batch'])}</TableCell>
+            <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
+            <TableCell className={classNames.alignRight}>{t(TranslationKey['Total price'])}</TableCell>
+            <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -84,7 +86,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                       setShowPhotosModal(!showPhotosModal)
                     }}
                   >
-                    {textConsts.supplierPhotos}
+                    {t(TranslationKey.Photos)}
                   </Button>
                 </TableCell>
                 <BigImagesModal

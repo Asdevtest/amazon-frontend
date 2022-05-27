@@ -59,11 +59,11 @@ export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
     <div className={classNames.feesTableCell}>
       <div className={classNames.feesTableWrapper}>
         <Typography className={classNames.typoCell}>
-          {textConsts.feesTypo}
+          {t(TranslationKey.Fees) + ': '}
           <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.fbafee, 2)}</span>
         </Typography>
         <Typography className={classNames.typoCell}>
-          {textConsts.netTypo}
+          {t(TranslationKey.Net) + ': '}
           <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.reffee, 2)}</span>
         </Typography>
         {!noCalculate && (

@@ -429,7 +429,7 @@ export const navbarConfig = () => ({
   [UserRole.BUYER]: [
     {
       icon: InfoOutlinedIcon,
-      title: 'Главная страница',
+      title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/buyer/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
@@ -438,7 +438,7 @@ export const navbarConfig = () => ({
 
     {
       icon: AssignmentIcon,
-      title: 'Свободные заказы',
+      title: t(TranslationKey['Free Orders']),
       route: '/buyer/free-orders',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
@@ -448,18 +448,18 @@ export const navbarConfig = () => ({
 
     {
       icon: InboxOutlinedIcon,
-      title: 'Поиск поставщика',
+      title: t(TranslationKey['Supplier search']),
       // route: '/buyer/search-supplier-by-supervisor',
       subtitles: [
         {
-          subtitle: 'От Супервайзера',
+          subtitle: t(TranslationKey['From the Supervisor']),
           subRoute: '/buyer/search-supplier-by-supervisor',
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_BY_SUP_BUYER),
         },
         {
-          subtitle: 'От Клиента',
+          subtitle: t(TranslationKey['From the Client']),
           subRoute: '/buyer/search-supplier-by-client',
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
@@ -478,7 +478,7 @@ export const navbarConfig = () => ({
 
     {
       icon: InboxOutlinedIcon,
-      title: 'Мои товары',
+      title: t(TranslationKey['My products']),
       route: '/buyer/my-products',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
@@ -488,7 +488,7 @@ export const navbarConfig = () => ({
 
     {
       icon: Work,
-      title: 'Мои заказы',
+      title: t(TranslationKey['My orders']),
       route: '/buyer/my-orders',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MY_ORDERS,
@@ -498,16 +498,16 @@ export const navbarConfig = () => ({
 
     {
       icon: PeopleIcon,
-      title: 'Пользователи',
+      title: t(TranslationKey.Users),
       route: '/buyer/users/sub-users',
-      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/buyer/users/sub-users'}],
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/buyer/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_USERS_BUYER),
     },
     {
       icon: MonetizationOnOutlinedIcon,
-      title: 'Финансы',
+      title: t(TranslationKey.Finances),
       route: '/buyer/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>

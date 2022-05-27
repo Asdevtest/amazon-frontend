@@ -5,6 +5,7 @@ import clsx from 'clsx'
 
 import {getOrderStatusOptionByCode, OrderStatusByCode, OrderStatusByKey, OrderStatus} from '@constants/order-status'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -23,6 +24,7 @@ import {
   toFixedWithDollarSign,
   toFixedWithYuanSign,
 } from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './select-fields.style'
 
@@ -73,7 +75,7 @@ export const SelectFields = ({
       <Grid item>
         <Box mt={3}>
           <InputLabel id="warehouse-select" className={classNames.modalText}>
-            {textConsts.warehouse}
+            {t(TranslationKey.Warehouse)}
           </InputLabel>
 
           <Input disabled variant="filled" value={order.destination?.name} className={classNames.nativeSelect} />
@@ -81,7 +83,7 @@ export const SelectFields = ({
 
         <Box mt={3}>
           <InputLabel id="warehouse-select" className={classNames.modalText}>
-            {textConsts.interimWarehouse}
+            {t(TranslationKey['Int warehouse'])}
           </InputLabel>
           <NativeSelect
             disabled
@@ -96,7 +98,7 @@ export const SelectFields = ({
 
         <Box mt={3}>
           <InputLabel id="tariff-select" className={classNames.modalText}>
-            {textConsts.tariff}
+            {t(TranslationKey.Tariff)}
           </InputLabel>
 
           <Input
@@ -109,7 +111,7 @@ export const SelectFields = ({
 
         <Box mt={3}>
           <InputLabel id="status-select" className={classNames.modalText}>
-            {textConsts.typoStatus}
+            {t(TranslationKey.Status)}
           </InputLabel>
           <NativeSelect
             disabled={order.status !== orderFields.status}
@@ -147,7 +149,7 @@ export const SelectFields = ({
           <Box className={classNames.noFlexElement}>
             <div className={classNames.onLineWrapper}>
               <div>
-                <Typography className={classNames.modalText}>{textConsts.priceYuansForBatchTypo}</Typography>
+                <Typography className={classNames.modalText}>{t(TranslationKey['Yuan per batch']) + ' ¥'}</Typography>
                 <Input
                   disabled={usePriceInDollars || checkIsPlanningPrice}
                   inputProps={{maxLength: 10}}
@@ -172,7 +174,7 @@ export const SelectFields = ({
 
               <div>
                 <Typography className={classNames.modalText}>
-                  {textConsts.priceYuansDeliveryCostToTheWarehouse}
+                  {t(TranslationKey['Of these, for shipping to a warehouse in China']) + ' ¥'}
                 </Typography>
                 <Input
                   disabled={usePriceInDollars || checkIsPlanningPrice}
@@ -215,11 +217,11 @@ export const SelectFields = ({
                   setUsePriceInDollars(!usePriceInDollars)
                 }}
               />
-              <Typography>{textConsts.usePriceInDollars}</Typography>
+              <Typography>{t(TranslationKey['Use the price in dollars'])}</Typography>
             </div>
           </Box>
           <Box className={classNames.noFlexElement}>
-            <Typography className={classNames.modalText}>{textConsts.yuansToDollarRateTypo}</Typography>
+            <Typography className={classNames.modalText}>{t(TranslationKey['Yuan to USD exchange rate'])}</Typography>
             <Input
               disabled={checkIsPlanningPrice}
               inputProps={{maxLength: 10}}
@@ -237,7 +239,9 @@ export const SelectFields = ({
           <Box className={classNames.noFlexElement}>
             <div className={classNames.onLineWrapper}>
               <div>
-                <Typography className={classNames.modalText}>{textConsts.totalPriceChanged}</Typography>
+                <Typography className={classNames.modalText}>
+                  {t(TranslationKey['Dollars per batch actually']) + ' $'}
+                </Typography>
                 <Input
                   disabled={!usePriceInDollars || checkIsPlanningPrice}
                   inputProps={{maxLength: 10}}
@@ -252,7 +256,9 @@ export const SelectFields = ({
               </div>
 
               <div>
-                <Typography className={classNames.modalText}>{textConsts.deliveryCostToTheWarehouse}</Typography>
+                <Typography className={classNames.modalText}>
+                  {t(TranslationKey['Of these, for shipping to a warehouse in China']) + ' $'}
+                </Typography>
                 <Input
                   disabled={!usePriceInDollars || checkIsPlanningPrice}
                   inputProps={{maxLength: 10}}
@@ -267,7 +273,7 @@ export const SelectFields = ({
             </div>
           </Box>
           <Box className={classNames.noFlexElement}>
-            <Typography className={classNames.modalText}>{textConsts.costPriceAmount}</Typography>
+            <Typography className={classNames.modalText}>{t(TranslationKey['Cost of purchase per pc.'])}</Typography>
             {calcPriceForItem(orderFields.totalPriceChanged, orderFields.amount)}
           </Box>
         </div>
@@ -292,12 +298,12 @@ export const SelectFields = ({
               )
             }}
           />
-          <Typography>{textConsts.checkIsPlanningPriceText}</Typography>
+          <Typography>{t(TranslationKey['The actual cost is the same as the planned'])}</Typography>
         </div>
 
         <div className={classNames.totalPriceWrapper}>
           <Box className={classNames.tableCell}>
-            <Typography className={classNames.totalPrice}>{textConsts.totalPriceInYuans}</Typography>
+            <Typography className={classNames.totalPrice}>{t(TranslationKey['Planned cost in yuan'])}</Typography>
             <Input
               disabled
               value={toFixedWithYuanSign(
@@ -309,7 +315,7 @@ export const SelectFields = ({
           </Box>
 
           <Box className={classNames.tableCell}>
-            <Typography className={classNames.totalPrice}>{textConsts.totalPrice}</Typography>
+            <Typography className={classNames.totalPrice}>{t(TranslationKey['Planned cost in USD'])}</Typography>
             <Input disabled value={toFixedWithDollarSign(orderFields.totalPrice, 2)} className={classNames.input} />
           </Box>
         </div>
@@ -317,7 +323,7 @@ export const SelectFields = ({
 
       <Grid item>
         <Box my={3}>
-          <Typography className={classNames.modalText}>{textConsts.typoClientComment}</Typography>
+          <Typography className={classNames.modalText}>{t(TranslationKey['Client comment'])}</Typography>
           <Input
             disabled
             multiline
@@ -329,7 +335,7 @@ export const SelectFields = ({
           />
         </Box>
         <Box my={3}>
-          <Typography className={classNames.modalText}>{textConsts.typoBuyerComment}</Typography>
+          <Typography className={classNames.modalText}>{t(TranslationKey['Buyer comment'])}</Typography>
           <Input
             multiline
             inputProps={{maxLength: 500}}
@@ -359,7 +365,7 @@ export const SelectFields = ({
 
             <div className={classNames.barCodeLinkWrapper}>
               <div>
-                <Typography>{'Баркод:'}</Typography>
+                <Typography>{t(TranslationKey.BarCode)}</Typography>
 
                 {orderFields.product.barCode ? (
                   <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(orderFields.product.barCode)}>
@@ -374,7 +380,7 @@ export const SelectFields = ({
         </Box>
 
         <Box my={3}>
-          <Typography className={classNames.modalText}>{textConsts.trackNumberTypo}</Typography>
+          <Typography className={classNames.modalText}>{t(TranslationKey['Track number'])}</Typography>
           <Input
             inputProps={{maxLength: 50}}
             value={orderFields.trackingNumberChina}
@@ -406,7 +412,7 @@ export const SelectFields = ({
             variant="contained"
             onClick={() => setShowPhotosModal(!showPhotosModal)}
           >
-            {textConsts.orderImagesBtn}
+            {t(TranslationKey['Available photos'])}
           </Button>
         </div>
       </Grid>

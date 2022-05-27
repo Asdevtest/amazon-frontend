@@ -9,7 +9,6 @@ import {observer} from 'mobx-react'
 
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SuccessButton} from '@components/buttons/success-button'
@@ -18,13 +17,10 @@ import {LabelField} from '@components/label-field/label-field'
 
 import {roundSafely} from '@utils/calculation'
 import {checkIsPositiveNum} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './create-box-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').buyerCreateBoxForm
 
 const BlockOfNewBox = ({
   orderBoxIndex,
@@ -43,14 +39,14 @@ const BlockOfNewBox = ({
         <Field
           containerClasses={classNames.numberInputField}
           inputProps={{maxLength: 4}}
-          label={textConsts.lengthCmSupplier}
+          label={t(TranslationKey['Box length in cm'])}
           value={orderBox.lengthCmSupplier}
           onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
           inputProps={{maxLength: 4}}
-          label={textConsts.widthCmSupplier}
+          label={t(TranslationKey['Box width in cm'])}
           value={orderBox.widthCmSupplier}
           onChange={setFormField('widthCmSupplier', orderBoxIndex)}
         />
@@ -59,14 +55,14 @@ const BlockOfNewBox = ({
         <Field
           containerClasses={classNames.numberInputField}
           inputProps={{maxLength: 4}}
-          label={textConsts.heightCmSupplier}
+          label={t(TranslationKey['Box height in cm'])}
           value={orderBox.heightCmSupplier}
           onChange={setFormField('heightCmSupplier', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
           inputProps={{maxLength: 4}}
-          label={textConsts.weighGrossKgSupplier}
+          label={t(TranslationKey['Real weight'])}
           value={orderBox.weighGrossKgSupplier}
           onChange={setFormField('weighGrossKgSupplier', orderBoxIndex)}
         />
@@ -75,7 +71,7 @@ const BlockOfNewBox = ({
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={textConsts.volumeWeightKgSupplier}
+          label={t(TranslationKey['Volume weight, kg'])}
           value={toFixed(
             (sizeSetting === sizesType.INCHES
               ? orderBox.heightCmSupplier *
@@ -92,7 +88,7 @@ const BlockOfNewBox = ({
         <Field
           disabled
           containerClasses={classNames.numberInputField}
-          label={textConsts.weightFinalAccountingKgSupplier}
+          label={t(TranslationKey['Final weight, kg'])}
           value={toFixed(
             Math.max(
               toFixed(
@@ -112,10 +108,15 @@ const BlockOfNewBox = ({
       </div>
 
       <div className={classNames.numberInputFieldsWrapper}>
-        <Field disabled containerClasses={classNames.numberInputField} label={textConsts.amountOfSubBoxes} value={1} />
+        <Field
+          disabled
+          containerClasses={classNames.numberInputField}
+          label={t(TranslationKey['Quantity of boxes'])}
+          value={1}
+        />
         <Field
           containerClasses={classNames.numberInputField}
-          label={textConsts.amountIfItemsInBox}
+          label={t(TranslationKey['Products in a box'])}
           value={orderBox.items[0].amount}
           onChange={setAmountField(orderBoxIndex)}
         />
@@ -293,19 +294,19 @@ export const CreateBoxForm = observer(
       <div className={classNames.root}>
         <div className={classNames.form}>
           <Typography paragraph className={classNames.subTitle}>
-            {textConsts.newBoxTitle}
+            {t(TranslationKey['Creating new boxes!'])}
           </Typography>
 
           <div className={classNames.labelFieldsWrapper}>
             <LabelField
               containerClasses={classNames.field}
-              label={textConsts.warehouseLabel}
+              label={t(TranslationKey.Warehouse)}
               value={formItem.destination?.name}
             />
 
             <LabelField
               containerClasses={classNames.field}
-              label={textConsts.statusLabel}
+              label={t(TranslationKey.Status)}
               value={formItem.status && getOrderStatusOptionByCode(formItem.status).label}
             />
           </div>
@@ -349,7 +350,7 @@ export const CreateBoxForm = observer(
                 setFormFieldsArr(formFieldsArr.concat({...sourceBox}))
               }}
             >
-              {textConsts.addBoxBtn}
+              {t(TranslationKey['Add another box'])}
             </Button>
           </div>
         </div>
@@ -363,7 +364,7 @@ export const CreateBoxForm = observer(
             variant="contained"
             onClick={onSubmit}
           >
-            {textConsts.saveChangesBtn}
+            {t(TranslationKey.Add)}
           </SuccessButton>
 
           <Button
@@ -373,7 +374,7 @@ export const CreateBoxForm = observer(
             variant="contained"
             onClick={() => onTriggerOpenModal()}
           >
-            {textConsts.cancelChangesBtn}
+            {t(TranslationKey.Cancel)}
           </Button>
         </div>
       </div>
