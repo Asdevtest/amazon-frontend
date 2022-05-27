@@ -1,7 +1,9 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, reaction, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {SUPERVISOR_PRODUCTS_HEAD_CELLS} from '@constants/table-head-cells'
 
+import {SettingsModel} from '@models/settings-model'
 import {SupervisorModel} from '@models/supervisor-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
@@ -16,16 +18,27 @@ export class SupervisorReadyToCheckByClientViewModel {
   curPage = 1
 
   productsReadyToCheck = []
+  productHead = []
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
+  }
+
+  updateProductHead() {
+    this.productHead = SUPERVISOR_PRODUCTS_HEAD_CELLS()
   }
 
   async loadData() {
     try {
       this.requestStatus = loadingStatuses.isLoading
-      this.getProductsReadyToCheck()
+      await this.getProductsReadyToCheck()
+      this.updateProductHead()
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed

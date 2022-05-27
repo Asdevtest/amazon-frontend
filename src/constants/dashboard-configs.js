@@ -490,67 +490,67 @@ export const SupervisorDashboardCardDataKey = {
   FINES: 'FINES',
 }
 
-export const getSupervisorDashboardCardConfig = textConsts => [
+export const getSupervisorDashboardCardConfig = () => [
   {
     key: 'PRODUCTS',
-    title: textConsts.productsTitle,
+    title: t(TranslationKey.Products),
     items: [
       {
         dataKey: SupervisorDashboardCardDataKey.ALL_PRODUCTS,
-        title: textConsts.allProducts,
+        title: t(TranslationKey['Total products']),
         color: '#006CFF',
         route: '/supervisor/products',
       },
       {
         dataKey: SupervisorDashboardCardDataKey.SUCCESS_PRODUCTS,
-        title: textConsts.successProduts,
+        title: t(TranslationKey['Published on the stock exchange']),
         color: '#FFC7C7',
         route: '/supervisor/products',
       },
       {
         dataKey: SupervisorDashboardCardDataKey.PAYED_PRODUCTS,
-        title: textConsts.payedProducts,
+        title: t(TranslationKey.Paid),
         color: '#00B746',
         route: '/supervisor/products',
       },
 
       {
         dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_RESEARCHER,
-        title: textConsts.produtsAtResearcher,
+        title: t(TranslationKey['To check from the resercher']),
         color: '#ffc107',
         route: '/supervisor/ready-to-check',
       },
       {
         dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT,
-        title: textConsts.produtsAtClient,
+        title: t(TranslationKey['New search from the client']),
         color: '#4dbd74',
         route: '/supervisor/ready-to-check-by-client',
       },
 
       {
         dataKey: SupervisorDashboardCardDataKey.ON_CHECKING,
-        title: textConsts.onChecking,
+        title: t(TranslationKey['On review']),
         color: '#FFC7C7',
         route: '/supervisor/products',
       },
 
       {
         dataKey: SupervisorDashboardCardDataKey.AWAIT_SOLVE,
-        title: textConsts.awaitingSolve,
+        title: t(TranslationKey['Waiting to be checked']),
         color: '#ffc107',
         route: '/supervisor/products',
       },
 
       {
         dataKey: SupervisorDashboardCardDataKey.IN_SEARCH_PRODUCTS,
-        title: textConsts.inSearchProduts,
+        title: t(TranslationKey['In the work of a Bayer']),
         color: '#ffc107',
         route: '/supervisor/products',
       },
 
       {
         dataKey: SupervisorDashboardCardDataKey.REJECTED_PRODUCTS,
-        title: textConsts.rejectedProduts,
+        title: t(TranslationKey.Rejected),
         color: '#BC3030',
         route: '/supervisor/products',
       },
@@ -559,17 +559,17 @@ export const getSupervisorDashboardCardConfig = textConsts => [
 
   {
     key: 'FINANCES',
-    title: textConsts.financesTitle,
+    title: t(TranslationKey.Finances),
     items: [
       {
         dataKey: SupervisorDashboardCardDataKey.REPLENISH,
-        title: textConsts.replenish,
+        title: t(TranslationKey.Accruals),
         color: '#00B746',
         route: '/supervisor/finances',
       },
       {
         dataKey: SupervisorDashboardCardDataKey.FINES,
-        title: textConsts.fines,
+        title: t(TranslationKey.Fines),
         color: '#BC3030',
         route: '/supervisor/finances',
       },

@@ -20,7 +20,6 @@ import {SupervisorDashboardViewModel} from './supervisor-dashboard-view.model'
 import {styles} from './supervisor-dashboard-view.style'
 
 const textConsts = getLocalizedTexts(texts, 'en').supervisorDashboardView
-const dashboardCardConfig = getSupervisorDashboardCardConfig(textConsts)
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
@@ -45,7 +44,7 @@ export class SupervisorDashboardViewRaw extends Component {
 
               <div className={classNames.amountWithLabelCardsWrapper}>
                 <SectionalDashboard
-                  config={dashboardCardConfig}
+                  config={getSupervisorDashboardCardConfig(textConsts)}
                   valuesData={dashboardData}
                   onClickViewMore={onClickInfoCardViewMode}
                 />

@@ -361,7 +361,7 @@ export const navbarConfig = () => ({
   [UserRole.SUPERVISOR]: [
     {
       icon: InfoOutlinedIcon,
-      title: 'Главная страница',
+      title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/supervisor/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
@@ -369,18 +369,18 @@ export const navbarConfig = () => ({
     },
     {
       icon: AssignmentIcon,
-      title: 'Готовые к проверке',
+      title: t(TranslationKey['Ready to check']),
       route: '/supervisor/ready-to-check',
       subtitles: [
         {
-          subtitle: 'От Ресерчера',
+          subtitle: t(TranslationKey['From the Researcher']),
           subRoute: '/supervisor/ready-to-check',
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_VAC_BY_RES_SUPERVISOR),
         },
         {
-          subtitle: 'От Клиента',
+          subtitle: t(TranslationKey['From the Client']),
           subRoute: '/supervisor/ready-to-check-by-client',
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
@@ -398,7 +398,7 @@ export const navbarConfig = () => ({
     },
     {
       icon: InboxOutlinedIcon,
-      title: 'Мои товары',
+      title: t(TranslationKey['My products']),
       subtitles: null,
       route: '/supervisor/products',
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
@@ -408,9 +408,9 @@ export const navbarConfig = () => ({
     },
     {
       icon: PeopleIcon,
-      title: 'Пользователи',
+      title: t(TranslationKey.Users),
       route: '/supervisor/users/sub-users',
-      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/supervisor/users/sub-users'}],
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/supervisor/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -418,7 +418,7 @@ export const navbarConfig = () => ({
     },
     {
       icon: MonetizationOnOutlinedIcon,
-      title: 'Финансы',
+      title: t(TranslationKey.Finances),
       route: '/supervisor/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>

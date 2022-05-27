@@ -1,10 +1,8 @@
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ProductStatus, ProductStatusByKey} from './product-status'
-import {texts} from './texts'
+import {TranslationKey} from './translations/translation-key'
 import {UserRole} from './user-roles'
-
-const textConfigs = getLocalizedTexts(texts, 'ru').productStatusButtonsConfigs
 
 export const productStatusButtonsConfigs = {
   [UserRole.RESEARCHER]: curStatus => {
@@ -12,14 +10,14 @@ export const productStatusButtonsConfigs = {
       return [
         {
           statusKey: ProductStatus.RESEARCHER_CREATED_PRODUCT,
-          label: textConfigs.sendToSupervisor,
+          label: t(TranslationKey['Create a product']),
           color: 'rgb(15, 169, 20)',
           colorHover: '#009a07',
         },
 
         {
           statusKey: ProductStatus.RESEARCHER_FOUND_SUPPLIER,
-          label: textConfigs.createWithSupplier,
+          label: t(TranslationKey['Create with a supplier']),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -34,14 +32,14 @@ export const productStatusButtonsConfigs = {
       return [
         {
           statusKey: ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH,
-          label: textConfigs.searchForSupplier,
+          label: t(TranslationKey['Finding a supplier (product fit)']),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
 
         {
           statusKey: ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND,
-          label: textConfigs.productNotAccept,
+          label: t(TranslationKey['The product is not suitable']),
           color: '#ff9800',
           colorHover: '#f57c00',
         },
@@ -50,19 +48,19 @@ export const productStatusButtonsConfigs = {
       return [
         {
           statusKey: ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS,
-          label: textConfigs.supplierFounded,
+          label: t(TranslationKey['Supplier found']),
           color: 'rgb(15, 169, 20)',
           colorHover: '#009a07',
         },
         {
           statusKey: ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND,
-          label: textConfigs.supplierWasNotFound,
+          label: t(TranslationKey['Supplier not found']),
           color: '#ff9800',
           colorHover: '#f57c00',
         },
         {
           statusKey: ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
-          label: textConfigs.supplierPriceNotAccepted,
+          label: t(TranslationKey["The supplier's price does not fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -71,13 +69,13 @@ export const productStatusButtonsConfigs = {
       return [
         {
           statusKey: ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND,
-          label: textConfigs.supplierWasNotFound,
+          label: t(TranslationKey['Supplier not found']),
           color: '#ff9800',
           colorHover: '#f57c00',
         },
         {
           statusKey: ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
-          label: textConfigs.supplierPriceNotAccepted,
+          label: t(TranslationKey["The supplier's price does not fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -90,20 +88,20 @@ export const productStatusButtonsConfigs = {
       return [
         {
           statusKey: ProductStatus.COMPLETE_SUCCESS,
-          label: textConfigs.publish,
+          label: t(TranslationKey['Publish on the exchange']),
           color: 'rgb(15, 169, 20)',
           colorHover: '#009a07',
         },
         {
           statusKey: ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND,
-          label: textConfigs.supplierWasNotFound,
+          label: t(TranslationKey['Supplier not found']),
           color: '#ff9800',
           colorHover: '#f57c00',
         },
 
         {
           statusKey: ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
-          label: textConfigs.supplierPriceNotAccepted,
+          label: t(TranslationKey["The supplier's price does not fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -112,19 +110,19 @@ export const productStatusButtonsConfigs = {
       return [
         {
           statusKey: ProductStatus.TO_BUYER_FOR_RESEARCH,
-          label: textConfigs.searchForSupplier,
+          label: t(TranslationKey['Finding a supplier (product fit)']),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
         {
           statusKey: ProductStatus.CHECKED_BY_SUPERVISOR,
-          label: textConfigs.checkedBySupervisor,
+          label: t(TranslationKey['The product is suitable']),
           color: 'rgb(15, 169, 20)',
           colorHover: '#009a07',
         },
         {
           statusKey: ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP,
-          label: textConfigs.rejectedBySupervisor,
+          label: t(TranslationKey["Doesn't fit"]),
           color: 'rgb(210, 35, 35)',
           colorHover: '#c51a1c',
         },
@@ -139,19 +137,19 @@ export const productStatusButtonsConfigs = {
       return [
         {
           statusKey: ProductStatus.BUYER_FOUND_SUPPLIER,
-          label: textConfigs.supplierWasFound,
+          label: t(TranslationKey['Supplier found']),
           color: 'rgb(15, 169, 20)',
           colorHover: '#009a07',
         },
         {
           statusKey: ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
-          label: textConfigs.supplierWasNotFound,
+          label: t(TranslationKey['Supplier not found']),
           color: 'rgb(210, 35, 35)',
           colorHover: '#c51a1c',
         },
         {
           statusKey: ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-          label: textConfigs.supplierPriceNotAccepted,
+          label: t(TranslationKey["The supplier's price does not fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },
@@ -163,19 +161,19 @@ export const productStatusButtonsConfigs = {
       return [
         {
           statusKey: ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
-          label: textConfigs.supplierWasFound,
+          label: t(TranslationKey['Supplier found']),
           color: 'rgb(15, 169, 20)',
           colorHover: '#009a07',
         },
         {
           statusKey: ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
-          label: textConfigs.supplierWasNotFound,
+          label: t(TranslationKey['Supplier not found']),
           color: 'rgb(210, 35, 35)',
           colorHover: '#c51a1c',
         },
         {
           statusKey: ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-          label: textConfigs.supplierPriceNotAccepted,
+          label: t(TranslationKey["The supplier's price does not fit"]),
           color: 'rgb(0, 123, 255)',
           colorHover: '#1269ec',
         },

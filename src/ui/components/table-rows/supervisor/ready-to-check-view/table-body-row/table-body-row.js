@@ -4,15 +4,13 @@ import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './table-body-row.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').supervisorReadyToCheckBodyRow
 
 export const TableBodyRow = ({item, itemIndex, handlers}) => {
   const classNames = useClassNames()
@@ -23,7 +21,7 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
       </TableCell>
       <TableCell className={classNames.indexCell}>
         <Button className={classNames.infoBtn} onClick={() => handlers.onClickTableRowBtn(item)}>
-          {textConsts.goToWorkBtn}
+          {t(TranslationKey['Get to work'])}
         </Button>
       </TableCell>
     </TableRow>

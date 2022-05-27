@@ -2,9 +2,9 @@ import {t} from '@utils/translations'
 
 import {TranslationKey} from './translations/translation-key'
 
-export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
+export const SUPERVISOR_PRODUCTS_HEAD_CELLS = () => [
   {id: 'asin', align: 'center', disablePadding: true, label: '#'},
-  {id: 'action', align: 'center', disablePadding: true, label: 'Действие'},
+  {id: 'action', align: 'center', disablePadding: true, label: t(TranslationKey.Action)},
 ]
 
 export const CLIENT_ORDERS_HEAD_CELL = [

@@ -1,11 +1,12 @@
 import {transformAndValidate} from 'class-transformer-validator'
-import {action, makeAutoObservable, runInAction} from 'mobx'
+import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 
 import {ProductModel} from '@models/product-model'
+import {SettingsModel} from '@models/settings-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
@@ -140,6 +141,11 @@ export class SupervisorProductViewModel {
     this.productId = history.location.search.slice(1)
 
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
   }
 
   async loadData() {
