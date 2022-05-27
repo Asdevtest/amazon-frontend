@@ -412,7 +412,7 @@ export const AddOrEditSupplierModalContent = observer(
             <Field
               oneLine
               label={t(TranslationKey['Yuan to USD exchange rate'])}
-              inputProps={{maxLength: 10}}
+              inputProps={{maxLength: 8}}
               containerClasses={classNames.rateContainer}
               labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
               inputClasses={classNames.middleInput}

@@ -113,9 +113,22 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.form}>
-        <Typography className={classNames.modalTitle} variant="h5">
-          {t(TranslationKey['Viewing the batch'])}
-        </Typography>
+        <div className={classNames.titleWrapper}>
+          <Typography className={classNames.modalTitle} variant="h5">
+            {t(TranslationKey['Viewing the batch'])}
+          </Typography>
+
+          <Field
+            oneLine
+            label={t(TranslationKey.Storekeeper) + ': '}
+            containerClasses={classNames.storekeeperField}
+            inputComponent={
+              <div className={classNames.userLinkWrapper}>
+                <UserLinkCell name={batch.storekeeper?.name} userId={batch.storekeeper?._id} />
+              </div>
+            }
+          />
+        </div>
 
         <div className={classNames.infoWrapper}>
           <Field

@@ -1,5 +1,6 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import SearchIcon from '@mui/icons-material/Search'
 import TableRowsIcon from '@mui/icons-material/TableRows'
 import ViewModuleIcon from '@mui/icons-material/ViewModule'
 import ToggleButton from '@mui/material/ToggleButton'
@@ -7,7 +8,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
 import React, {Component} from 'react'
 
-import {Grid, Typography} from '@material-ui/core'
+import {Grid, InputAdornment, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -18,6 +19,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
 import {VacantRequestShortCard} from '@components/cards/vacant-request-short-card'
+import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -41,6 +43,7 @@ class VacantRequestsViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       viewMode,
       getCurrentData,
       sortMode,
@@ -49,10 +52,9 @@ class VacantRequestsViewRaw extends Component {
       onTriggerDrawerOpen,
       onClickViewMore,
       onChangeViewMode,
+      onChangeNameSearchValue,
     } = this.viewModel
     const {classes: classNames} = this.props
-
-    // const currentData =  getCurrentData()
 
     const getSortedData = mode => {
       switch (mode) {
@@ -63,8 +65,6 @@ class VacantRequestsViewRaw extends Component {
           return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
       }
     }
-
-    // const currentSortedData =  getSortedData(sortMode) || []
 
     return (
       <React.Fragment>
@@ -93,6 +93,20 @@ class VacantRequestsViewRaw extends Component {
                       <ViewModuleIcon color="primary" />
                     </ToggleButton>
                   </ToggleButtonGroup>
+                </div>
+
+                <div>
+                  <Field
+                    containerClasses={classNames.searchcontainer}
+                    inputClasses={classNames.searchInput}
+                    value={nameSearchValue}
+                    endAdornment={
+                      <InputAdornment position="start">
+                        <SearchIcon color="primary" />
+                      </InputAdornment>
+                    }
+                    onChange={onChangeNameSearchValue}
+                  />
                 </div>
 
                 <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>

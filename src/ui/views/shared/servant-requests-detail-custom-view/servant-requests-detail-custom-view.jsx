@@ -128,11 +128,9 @@ export class RequestDetailCustomViewRaw extends Component {
                         ) : (
                           <div />
                         )}
-                        {findRequestProposalByChatSelectedId.proposal.status !==
-                          RequestProposalStatus.ACCEPTED_BY_CLIENT &&
-                        findRequestProposalByChatSelectedId.proposal.status !==
-                          RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST &&
-                        findRequestProposalByChatSelectedId.proposal.status !== RequestProposalStatus.CREATED ? (
+                        {findRequestProposalByChatSelectedId.proposal.status ===
+                          RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
+                        findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT ? (
                           <Button
                             disabled={!params.links.length && !params.files.length && !params.message}
                             onClick={() => {
@@ -143,7 +141,7 @@ export class RequestDetailCustomViewRaw extends Component {
                             Отправить как результат
                           </Button>
                         ) : undefined}
-                        {findRequestProposalByChatSelectedId?.status ===
+                        {findRequestProposalByChatSelectedId?.proposal.status ===
                         RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ? (
                           <Button onClick={onClickReadyToVerify}>Отправить на проверку</Button>
                         ) : undefined}

@@ -12,7 +12,7 @@ export const useClassNames = makeStyles(theme => ({
     flexDirection: 'column',
   },
   modalTitle: {
-    marginBottom: '20px',
+    marginRight: '100px',
   },
   subTitle: {
     color: 'rgba(61, 81, 112, 1)',
@@ -97,5 +97,22 @@ export const useClassNames = makeStyles(theme => ({
     color: 'red',
     fontWeight: 'bold',
     marginLeft: '15px',
+  },
+
+  titleWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginBottom: '20px',
+  },
+
+  storekeeperField: {
+    maxWidth: '250px',
+    margin: '0',
+  },
+  userLinkWrapper: {
+    marginLeft: '20px',
+    display: 'flex',
+    alignItems: 'flex-end',
   },
 }))

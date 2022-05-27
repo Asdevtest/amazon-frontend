@@ -7,10 +7,11 @@ import {Grid, Typography, Avatar} from '@material-ui/core'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './vacant-request-list-card.style'
@@ -26,7 +27,7 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
             <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
 
             <div className={classNames.nameWrapper}>
-              <Typography>{item.createdBy.name}</Typography>
+              <UserLinkCell name={item.createdBy.name} userId={item.createdBy._id} />
 
               <Rating disabled value={item.createdBy.rating} />
             </div>
@@ -53,7 +54,7 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
           <div className={classNames.timeItemInfoWrapper}>
             <Typography>{t(TranslationKey['Time to complete'])}</Typography>
 
-            <Typography>{`${toFixed(item.timeLimitInMinutes / 60, 2)} ${t(TranslationKey.hour)} `}</Typography>
+            <Typography>{minsToTime(item.timeLimitInMinutes)}</Typography>
           </div>
 
           <div className={classNames.timeItemInfoWrapper}>

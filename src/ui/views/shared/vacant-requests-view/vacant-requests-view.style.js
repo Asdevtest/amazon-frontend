@@ -71,4 +71,13 @@ export const styles = createStyles(() => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '400px',
+  },
+
+  searchcontainer: {
+    width: 'auto',
+  },
 }))

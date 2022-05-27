@@ -6,6 +6,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
+import {UserModel} from '@models/user-model'
 
 import {logisticsTariffsColumns} from '@components/table-columns/warehouse/logistics-tariffs-columns'
 
@@ -17,6 +18,8 @@ export class LogisticsTariffsModel {
   history = undefined
   requestStatus = undefined
   error = undefined
+
+  yuanToDollarRate = undefined
 
   logisticsTariffs = []
   tariffToEdit = undefined
@@ -140,10 +143,18 @@ export class LogisticsTariffsModel {
     }
   }
 
-  onClickEditBtn(row) {
-    this.tariffToEdit = row
+  async onClickEditBtn(row) {
+    try {
+      this.tariffToEdit = row
 
-    this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
+      const result = await UserModel.getPlatformSettings()
+
+      this.yuanToDollarRate = result.yuanToDollarRate
+
+      this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onSubmitCreateTariff(data) {

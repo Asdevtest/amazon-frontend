@@ -11,6 +11,8 @@ import {Avatar, Paper, Typography} from '@material-ui/core'
 
 import {texts} from '@constants/texts'
 
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+
 import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -46,7 +48,7 @@ export const DealsOfRequest = ({requestProposals}) => {
                 <div className={classNames.userInfoWrapper}>
                   <Avatar src={getUserAvatarSrc(deal.proposal.createdBy._id)} className={classNames.cardImg} />
                   <div className={classNames.userNameWrapper}>
-                    <Typography>{deal.proposal.createdBy.name}</Typography>
+                    <UserLinkCell name={deal.proposal.createdBy.name} userId={deal.proposal.createdBy._id} />
 
                     <Typography>{'Отзывы'}</Typography>
                   </div>

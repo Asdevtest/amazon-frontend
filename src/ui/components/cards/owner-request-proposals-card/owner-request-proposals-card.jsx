@@ -9,11 +9,12 @@ import Carousel from 'react-material-ui-carousel'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 
 import {Button} from '@components/buttons/button'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
+import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './owner-request-proposals-card.style'
 
@@ -40,7 +41,7 @@ export const OwnerRequestProposalsCard = ({
               <div className={classNames.userNameWrapper}>
                 <Typography>{item.proposal.createdBy.name}</Typography>
 
-                <Typography>{'Отзывы'}</Typography>
+                <UserLinkCell name={'Отзывы'} userId={item.proposal.createdBy._id} />
               </div>
 
               <Rating disabled className={classNames.userRating} value={item.proposal.createdBy.rating} />
@@ -83,7 +84,7 @@ export const OwnerRequestProposalsCard = ({
           <div className={classNames.timeItemInfoWrapper}>
             <Typography className={classNames.cardTime}>{`Время на выполнение: `}</Typography>
 
-            <Typography>{minsToTimeRus(item.proposal.execution_time)}</Typography>
+            <Typography>{minsToTime(item.proposal.execution_time)}</Typography>
           </div>
 
           <div className={classNames.timeItemInfoWrapper}>

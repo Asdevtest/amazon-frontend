@@ -96,7 +96,7 @@ export const useClassNames = makeStyles(() => ({
 
   proposalDescription: {
     marginTop: '10px',
-    height: '120px',
+    height: '110px',
     overflow: 'auto',
   },
 
@@ -121,13 +121,13 @@ export const useClassNames = makeStyles(() => ({
     borderRadius: '10px',
     marginLeft: '10px',
     width: '250px',
-    height: '130px',
+    height: '120px',
     display: 'flex',
     justifyContent: 'center',
   },
 
   photoSubWrapper: {
-    width: '250px',
+    width: '20px',
     display: 'flex',
     justifyContent: 'center',
   },

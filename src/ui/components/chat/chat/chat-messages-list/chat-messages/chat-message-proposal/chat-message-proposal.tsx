@@ -10,7 +10,7 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 import {Button} from '@components/buttons/button'
 
 import {formatNormDateTime} from '@utils/date-time'
-import {minsToTimeRus, toFixedWithDollarSign} from '@utils/text'
+import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 
 import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
@@ -31,10 +31,6 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
   const classNames = useClassNames()
 
-  console.log(
-    `chatRequestAndRequestProposal.requestProposal?.proposal?.status`,
-    chatRequestAndRequestProposal.requestProposal?.proposal?.status,
-  )
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
@@ -56,22 +52,29 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
       <div className={classNames.footerWrapper}>
         <div className={classNames.leftSide}>
           <div className={classNames.labelValueBlockWrapper}>
-            <LabelValuePairBlock label="Время на выполнение" value={minsToTimeRus(message.data.execution_time)} />
+            <LabelValuePairBlock label="Время на выполнение" value={minsToTime(message.data.execution_time)} />
           </div>
           <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
             <LabelValuePairBlock label="Стоимость" value={toFixedWithDollarSign(message.data.price, 2)} />
           </div>
         </div>
-        {chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ? (
+        {chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||
+        chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+          RequestProposalStatus.OFFER_CONDITIONS_REJECTED ||
+        chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+          RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ? (
           <div className={classNames.rightSide}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={clsx(classNames.actionButton, classNames.cancelBtn)}
-              onClick={() => handlers.onClickProposalRegect(message.data._id)}
-            >
-              Отклонить
-            </Button>
+            {chatRequestAndRequestProposal.requestProposal?.proposal?.status !==
+            RequestProposalStatus.OFFER_CONDITIONS_REJECTED ? (
+              <Button
+                variant="contained"
+                color="primary"
+                className={clsx(classNames.actionButton, classNames.cancelBtn)}
+                onClick={() => handlers.onClickProposalRegect(message.data._id)}
+              >
+                Отклонить
+              </Button>
+            ) : null}
             <Button
               variant="contained"
               color="primary"

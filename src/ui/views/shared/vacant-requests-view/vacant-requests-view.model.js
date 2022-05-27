@@ -13,6 +13,8 @@ export class VacantRequestsViewModel {
   error = undefined
   actionStatus = undefined
 
+  nameSearchValue = ''
+
   drawerOpen = false
 
   searchMyRequestsIds = []
@@ -47,7 +49,15 @@ export class VacantRequestsViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.requests)
+    if (this.nameSearchValue) {
+      return toJS(this.requests).filter(el => el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+    } else {
+      return toJS(this.requests)
+    }
+  }
+
+  onChangeNameSearchValue(e) {
+    this.nameSearchValue = e.target.value
   }
 
   async loadData() {
