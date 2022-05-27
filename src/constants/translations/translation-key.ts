@@ -503,14 +503,14 @@ export enum TranslationKey {
   'Product code' = 'Product code',
   'Check' = 'Check',
   'Add a product card' = 'Add a product card',
-  // '' = '',
-  // '' = '',
+  'Current exchange rate' = 'Current exchange rate',
+  'Storekeeper' = 'Storekeeper',
   // '' = '',
   // '' = '',
   // '' = '',
 }
 
-// "The tariff is invalid or has been removed!": "The tariff is invalid or has been removed!"
+// "Storekeeper": "Storekeeper"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

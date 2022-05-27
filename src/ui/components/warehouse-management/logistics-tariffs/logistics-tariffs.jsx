@@ -28,6 +28,7 @@ export const LogisticsTariffs = observer(() => {
   }, [])
 
   const {
+    yuanToDollarRate,
     tariffToEdit,
     requestStatus,
     getCurrentData,
@@ -89,6 +90,7 @@ export const LogisticsTariffs = observer(() => {
         setOpenModal={() => onTriggerOpenModal('showAddOrEditLogisticTariffModal')}
       >
         <AddOrEditLogisticTariffForm
+          sourceYuanToDollarRate={yuanToDollarRate}
           tariffToEdit={tariffToEdit}
           onCloseModal={() => onClickCancelBtn()}
           onCreateSubmit={onSubmitCreateTariff}

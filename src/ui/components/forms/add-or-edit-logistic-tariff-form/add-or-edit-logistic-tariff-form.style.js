@@ -87,4 +87,29 @@ export const useClassNames = makeStyles(() => ({
   deadlineErrorText: {
     color: 'red',
   },
+
+  costBlock: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+
+  rateContainer: {
+    width: 'auto',
+  },
+
+  rateLabel: {
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+    whiteSpace: 'nowrap',
+  },
+
+  rightMargin: {
+    marginRight: '10px',
+  },
+
+  middleInput: {
+    width: '80px',
+  },
 }))
