@@ -28,13 +28,13 @@ export class VacantRequestsViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  setDataGridState() {
+  setTableModeState() {
     const state = {viewMode: this.viewMode, sortMode: this.sortMode}
 
     SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.VACANT_REQUESTS)
   }
 
-  getDataGridState() {
+  getTableModeState() {
     const state = SettingsModel.viewTableModeState[ViewTableModeStateKeys.VACANT_REQUESTS]
 
     if (state) {
@@ -45,7 +45,7 @@ export class VacantRequestsViewModel {
 
   onChangeViewMode(event, nextView) {
     this.viewMode = nextView
-    this.setDataGridState()
+    this.setTableModeState()
   }
 
   getCurrentData() {
@@ -63,7 +63,7 @@ export class VacantRequestsViewModel {
   async loadData() {
     try {
       await this.getRequestsVacant()
-      this.getDataGridState()
+      this.getTableModeState()
     } catch (error) {
       console.log(error)
     }
@@ -109,6 +109,6 @@ export class VacantRequestsViewModel {
       this.sortMode = tableSortMode.DESK
     }
 
-    this.setDataGridState()
+    this.setTableModeState()
   }
 }

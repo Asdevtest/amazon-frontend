@@ -505,12 +505,12 @@ export enum TranslationKey {
   'Add a product card' = 'Add a product card',
   'Current exchange rate' = 'Current exchange rate',
   'Storekeeper' = 'Storekeeper',
-  // '' = '',
+  'Sort by date' = 'Sort by date',
   // '' = '',
   // '' = '',
 }
 
-// "Storekeeper": "Storekeeper"
+// "Sort by date": "Sort by date"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

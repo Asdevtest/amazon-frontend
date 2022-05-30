@@ -160,7 +160,7 @@ export const CreateOrEditRequestContent = ({
                 className={classNames.descriptionField}
                 minRows={4}
                 rowsMax={4}
-                label={t(TranslationKey['Describe your request']) + ''}
+                label={t(TranslationKey['Describe your request']) + '*'}
                 value={formFields.details.conditions}
                 onChange={onChangeField('details')('conditions')}
               />

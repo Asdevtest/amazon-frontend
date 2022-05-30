@@ -1,7 +1,6 @@
-// import TableRowsIcon from '@mui/icons-material/TableRows'
-// import ViewModuleIcon from '@mui/icons-material/ViewModule'
-// import ToggleButton from '@mui/material/ToggleButton'
-// import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+
 import React, {Component} from 'react'
 
 import {Grid, Typography} from '@material-ui/core'
@@ -9,7 +8,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {tableViewMode} from '@constants/table-view-modes'
+import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -19,6 +18,7 @@ import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
+import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 import {MyProposalsViewModel} from './my-proposals-view.model'
@@ -37,21 +37,30 @@ class MyProposalsViewRaw extends Component {
 
   render() {
     const {
+      sortMode,
       viewMode,
       getCurrentData,
       drawerOpen,
       showConfirmModal,
       onTriggerDrawerOpen,
-      // onChangeViewMode,
       onTriggerOpenModal,
       onSubmitDeleteProposal,
       onClickDeleteBtn,
       onClickEditBtn,
       onClickOpenBtn,
+      onTriggerSortMode,
     } = this.viewModel
     const {classes: classNames} = this.props
 
-    const currentData = getCurrentData()
+    const getSortedData = mode => {
+      switch (mode) {
+        case tableSortMode.DESK:
+          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+
+        case tableSortMode.ASC:
+          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+      }
+    }
 
     return (
       <React.Fragment>
@@ -64,11 +73,11 @@ class MyProposalsViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['My proposals'])} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              {/* <div className={classNames.tablePanelWrapper}>
-                <div className={classNames.tablePanelViewWrapper}>
-                  <Typography className={classNames.tablePanelViewText}>{'Вид'}</Typography>
+              <div className={classNames.tablePanelWrapper}>
+                {/* <div className={classNames.tablePanelViewWrapper}>
+                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey.Location)}</Typography>
 
-                  <ToggleButtonGroup  exclusive value={viewMode} onChange={onChangeViewMode}>
+                  <ToggleButtonGroup exclusive value={viewMode} onChange={onChangeViewMode}>
                     <ToggleButton value={tableViewMode.LIST}>
                       <TableRowsIcon color="primary" />
                     </ToggleButton>
@@ -76,10 +85,34 @@ class MyProposalsViewRaw extends Component {
                       <ViewModuleIcon color="primary" />
                     </ToggleButton>
                   </ToggleButtonGroup>
-                </div>
-              </div> */}
+                </div> */}
 
-              {currentData.length ? (
+                {/* <div>
+                  <Field
+                    containerClasses={classNames.searchcontainer}
+                    inputClasses={classNames.searchInput}
+                    value={nameSearchValue}
+                    endAdornment={
+                      <InputAdornment position="start">
+                        <SearchIcon color="primary" />
+                      </InputAdornment>
+                    }
+                    onChange={onChangeNameSearchValue}
+                  />
+                </div> */}
+
+                <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
+                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+
+                  {sortMode === tableSortMode.DESK ? (
+                    <KeyboardArrowDownIcon color="primary" />
+                  ) : (
+                    <KeyboardArrowUpIcon color="primary" />
+                  )}
+                </div>
+              </div>
+
+              {getSortedData(sortMode)?.length ? (
                 <Grid
                   container
                   classes={{root: classNames.dashboardCardWrapper}}
@@ -88,7 +121,7 @@ class MyProposalsViewRaw extends Component {
                   justifyContent="flex-start"
                   alignItems="flex-start"
                 >
-                  {currentData.map(item =>
+                  {getSortedData(sortMode)?.map(item =>
                     viewMode === tableViewMode.LIST ? (
                       <MyProposalsListCard
                         key={item._id}

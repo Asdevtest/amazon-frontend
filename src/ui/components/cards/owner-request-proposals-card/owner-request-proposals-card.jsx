@@ -39,7 +39,7 @@ export const OwnerRequestProposalsCard = ({
               <Avatar src={getUserAvatarSrc(item.proposal.createdBy._id)} className={classNames.cardImg} />
 
               <div className={classNames.userNameWrapper}>
-                <Typography>{item.proposal.createdBy.name}</Typography>
+                <UserLinkCell name={item.proposal.createdBy.name} userId={item.proposal.createdBy._id} />
 
                 <UserLinkCell name={'Отзывы'} userId={item.proposal.createdBy._id} />
               </div>

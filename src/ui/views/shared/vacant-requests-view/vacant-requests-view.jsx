@@ -110,7 +110,7 @@ class VacantRequestsViewRaw extends Component {
                 </div>
 
                 <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-                  <Typography className={classNames.tablePanelViewText}>{'Сортировать по дате'}</Typography>
+                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
                   {sortMode === tableSortMode.DESK ? (
                     <KeyboardArrowDownIcon color="primary" />
