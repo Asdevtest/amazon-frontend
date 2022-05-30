@@ -10,6 +10,7 @@ import {BoxesCreateBoxContract} from '@models/boxes-model/boxes-model.contracts'
 import {BuyerModel} from '@models/buyer-model'
 import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
+import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
 import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my-orders-columns'
@@ -256,6 +257,24 @@ export class BuyerMyOrdersViewModel {
         const elementOrderBox = formFieldsArr[i]
 
         await this.onCreateBox(elementOrderBox, order)
+
+        if (elementOrderBox.tmpUseToUpdateSupplierBoxDimensions) {
+          const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(
+            {
+              ...order.product.currentSupplier,
+              boxProperties: {
+                amountInBox: elementOrderBox.items[0].amount || 0,
+                boxHeightCm: parseFloat(elementOrderBox?.heightCmSupplier) || 0,
+                boxLengthCm: parseFloat(elementOrderBox?.lengthCmSupplier) || 0,
+                boxWeighGrossKg: parseFloat(elementOrderBox?.weighGrossKgSupplier) || 0,
+                boxWidthCm: parseFloat(elementOrderBox?.widthCmSupplier) || 0,
+              },
+            },
+            ['_id', 'yuanRate'],
+          )
+
+          await SupplierModel.updateSupplier(order.product.currentSupplier._id, supplierUpdateData)
+        }
       }
 
       if (!this.error) {
@@ -278,6 +297,8 @@ export class BuyerMyOrdersViewModel {
           'tmpDeliveryMethod',
           'tmpStatus',
           'weightFinalAccountingKgSupplier',
+          'tmpUseToUpdateSupplierBoxDimensions',
+          'tmpUseCurrentSupplierDimensions',
 
           'deliveryMethod',
           'volumeWeightKgSupplier',

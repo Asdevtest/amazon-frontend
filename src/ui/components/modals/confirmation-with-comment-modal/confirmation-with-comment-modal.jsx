@@ -36,35 +36,37 @@ export const ConfirmWithCommentModal = ({
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <Typography variant="h5">{titleText}</Typography>
-      <Field
-        multiline
-        className={classNames.heightFieldAuto}
-        rows={4}
-        rowsMax={6}
-        label={commentLabelText}
-        value={comment}
-        onChange={e => setComment(e.target.value)}
-      />
-      <div className={classNames.buttonsWrapper}>
-        <Button
-          disabled={submitIsClicked}
-          color="primary"
-          variant="contained"
-          className={classNames.button}
-          onClick={onClickSubmit}
-        >
-          {okBtnText}
-        </Button>
-        <Button
-          disabled={submitIsClicked}
-          color="primary"
-          variant="contained"
-          className={classNames.button}
-          onClick={setOpenModal}
-        >
-          {cancelBtnText}
-        </Button>
+      <div className={classNames.modalMessageWrapper}>
+        <Typography variant="h5">{titleText}</Typography>
+        <Field
+          multiline
+          className={classNames.heightFieldAuto}
+          rows={4}
+          rowsMax={6}
+          label={commentLabelText}
+          value={comment}
+          onChange={e => setComment(e.target.value)}
+        />
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            disabled={submitIsClicked}
+            color="primary"
+            variant="contained"
+            className={classNames.button}
+            onClick={onClickSubmit}
+          >
+            {okBtnText}
+          </Button>
+          <Button
+            disabled={submitIsClicked}
+            color="primary"
+            variant="contained"
+            className={classNames.button}
+            onClick={setOpenModal}
+          >
+            {cancelBtnText}
+          </Button>
+        </div>
       </div>
     </Modal>
   )

@@ -507,5 +507,8 @@
   "Add a product card": "Добавить карточку товара",
   "Current exchange rate": "Актуальный обменный курс",
   "Storekeeper": "Сторкипер",
-  "Sort by date": "Сортировать по дате"
+  "Sort by date": "Сортировать по дате",
+  "Proposals for the request": "Предложения по заявке",
+  "Use the supplier standard": "Использовать стандарт поставщика",
+  "Make the supplier standard": "Сделать стандартом поставщика"
 }

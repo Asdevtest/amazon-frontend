@@ -14,11 +14,11 @@ export const WarningInfoModal = ({openModal, setOpenModal, title, btnText, onCli
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMessageWrapper}>
-        <Typography paragraph variant="h5" className={clsx({[classNames.titleWarning]: isWarning})}>
+        <Typography variant="h6" className={clsx(classNames.title, {[classNames.titleWarning]: isWarning})}>
           {title}
         </Typography>
 
-        <Button disableElevation variant="contained" onClick={onClickBtn}>
+        <Button disableElevation variant="contained" className={classNames.button} onClick={onClickBtn}>
           {btnText}
         </Button>
       </div>

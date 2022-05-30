@@ -506,11 +506,27 @@ export enum TranslationKey {
   'Current exchange rate' = 'Current exchange rate',
   'Storekeeper' = 'Storekeeper',
   'Sort by date' = 'Sort by date',
+  'Proposals for the request' = 'Proposals for the request',
+  'Use the supplier standard' = 'Use the supplier standard',
+  'Make the supplier standard' = 'Make the supplier standard',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
   // '' = '',
   // '' = '',
 }
 
-// "Sort by date": "Sort by date"
+// "Make the supplier standard": "Make the supplier standard"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

@@ -1,5 +1,7 @@
 import {toFixed, toFixedWithDollarSign} from './text'
 
+export const roundSafely = num => Math.round(num * 100) / 100
+
 export const calcProductPrice = product =>
   ((parseInt(product.createdBy?.rate) || 0) +
     (parseInt(product.buyer?.rate) || 0) +
@@ -24,14 +26,9 @@ export const calcPriceForItem = (fullPrice, amount) =>
 
 export const calcVolumeWeightForBox = (box, coefficient) => {
   if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
-    return (
-      Math.round(((box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient) * 100) / 100 ||
-      0
-    )
+    return roundSafely((box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient) || 0
   } else {
-    return (
-      Math.round(((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) * 100) / 100 || 0
-    )
+    return roundSafely((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) || 0
   }
 }
 export const calcFinalWeightForBox = (box, coefficient) =>
@@ -130,8 +127,7 @@ export const calcPriceForBox = box => {
     (acc, cur) =>
       acc +
       (cur.product.currentSupplier.price +
-        Math.round((cur.product.currentSupplier.batchDeliveryCostInDollar / cur.product.currentSupplier.amount) * 100) /
-          100) *
+        roundSafely(cur.product.currentSupplier.batchDeliveryCostInDollar / cur.product.currentSupplier.amount)) *
         cur.amount,
     0,
   )

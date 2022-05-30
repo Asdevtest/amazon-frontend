@@ -87,6 +87,14 @@ export const EditOrderModal = ({
     setBoxesForCreation(newStateFormFields)
   }
 
+  const onClickUpdateSupplierStandart = boxIndex => e => {
+    const newStateFormFields = [...boxesForCreation].map(el => ({...el, tmpUseToUpdateSupplierBoxDimensions: false}))
+
+    newStateFormFields[boxIndex].tmpUseToUpdateSupplierBoxDimensions = e.target.checked
+
+    setBoxesForCreation(newStateFormFields)
+  }
+
   const [orderFields, setOrderFields] = useState({
     ...order,
     status: order?.status || undefined,
@@ -224,6 +232,7 @@ export const EditOrderModal = ({
           newBoxes={boxesForCreation}
           onRemoveBox={onRemoveForCreationBox}
           onClickBarcodeCheckbox={onClickBarcodeCheckbox}
+          onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
         />
       )}
 
@@ -250,6 +259,7 @@ export const EditOrderModal = ({
       >
         <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
         <CreateBoxForm
+          currentSupplier={order.product.currentSupplier}
           volumeWeightCoefficient={volumeWeightCoefficient}
           formItem={orderFields}
           boxesForCreation={boxesForCreation}

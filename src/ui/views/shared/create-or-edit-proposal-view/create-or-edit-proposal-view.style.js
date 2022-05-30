@@ -25,4 +25,13 @@ export const styles = createStyles(() => ({
     justifyContent: 'space-between',
     width: '100%',
   },
+
+  modalMessageWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '485px',
+    minHeight: '216px',
+  },
 }))

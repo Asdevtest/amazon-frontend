@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {Rating} from '@mui/material'
 import Accordion from '@mui/material/Accordion'
@@ -7,20 +6,15 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 
 import React, {useState} from 'react'
 
-import {Avatar, Paper, Typography} from '@material-ui/core'
-
-import {texts} from '@constants/texts'
+import {Avatar, Typography} from '@material-ui/core'
 
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './deals-of-request.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').productSearchRequestContent
 
 export const DealsOfRequest = ({requestProposals}) => {
   const classNames = useClassNames()
@@ -30,7 +24,7 @@ export const DealsOfRequest = ({requestProposals}) => {
   const now = new Date()
 
   return (
-    <Paper className={classNames.root}>
+    <div className={classNames.root}>
       <Accordion
         classes={{root: classNames.accordion}}
         expanded={showDetails}
@@ -95,6 +89,6 @@ export const DealsOfRequest = ({requestProposals}) => {
           </div>
         </AccordionDetails>
       </Accordion>
-    </Paper>
+    </div>
   )
 }

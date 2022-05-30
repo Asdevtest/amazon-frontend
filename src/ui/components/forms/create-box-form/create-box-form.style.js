@@ -103,4 +103,10 @@ export const useClassNames = makeStyles(theme => ({
     width: '50px',
     height: '50px',
   },
+
+  checkboxWithLabelWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    maxWidth: '200px',
+  },
 }))

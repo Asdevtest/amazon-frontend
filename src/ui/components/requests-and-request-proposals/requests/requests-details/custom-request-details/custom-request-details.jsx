@@ -5,7 +5,7 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 
 import React, {useState} from 'react'
 
-import {TextareaAutosize, Paper, Typography} from '@material-ui/core'
+import {TextareaAutosize, Typography} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -27,7 +27,7 @@ export const CustomSearchRequestDetails = ({request}) => {
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   return (
-    <Paper className={classNames.root}>
+    <div className={classNames.root}>
       <Accordion
         classes={{root: classNames.accordion}}
         expanded={showDetails}
@@ -85,6 +85,6 @@ export const CustomSearchRequestDetails = ({request}) => {
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
       />
-    </Paper>
+    </div>
   )
 }
