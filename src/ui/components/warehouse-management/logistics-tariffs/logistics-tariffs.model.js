@@ -181,10 +181,19 @@ export class LogisticsTariffsModel {
     }
   }
 
-  onClickAddBtn() {
-    this.tariffToEdit = undefined
+  async onClickAddBtn() {
+    try {
+      this.tariffToEdit = undefined
 
-    this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
+      const result = await UserModel.getPlatformSettings()
+
+      this.yuanToDollarRate = result.yuanToDollarRate
+
+      this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   onClickCancelBtn() {

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 
 import {Typography} from '@material-ui/core'
@@ -93,9 +92,9 @@ export const AddOrEditLogisticTariffForm = observer(
     }
     const onSubmit = () => {
       if (tariffToEdit) {
-        onEditSubmit(tariffToEdit._id, formFields)
+        onEditSubmit(tariffToEdit._id, calculateFieldsToSubmit())
       } else {
-        onCreateSubmit(formFields)
+        onCreateSubmit(calculateFieldsToSubmit())
       }
     }
 
@@ -104,7 +103,7 @@ export const AddOrEditLogisticTariffForm = observer(
     const disableSubmitBtn =
       JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
       formFields.yuanToDollarRate === '' ||
-      Number(formFields.yuanToDollarRate) > 0 ||
+      Number(formFields.yuanToDollarRate) <= 0 ||
       formFields.name === '' ||
       formFields.minWeightInKg === '' ||
       formFields.deliveryTimeInDay === '' ||

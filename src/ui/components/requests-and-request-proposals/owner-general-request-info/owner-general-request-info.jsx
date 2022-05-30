@@ -211,23 +211,24 @@ export const OwnerGeneralRequestInfo = ({
             </div>
           </div>
 
-          {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED && (
-            <div className={[classNames.btnsRow, classNames.btnsRowIsLast]}>
-              <Button
-                variant="contained"
-                color="primary"
-                btnWrapperStyle={classNames.buttonWrapperFullWidth}
-                className={clsx(classNames.button, {
-                  [classNames.stopBtn]: request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS,
-                })}
-                onClick={request?.request.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
-              >
-                {request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS
-                  ? t(TranslationKey['Resume accepting proposals'])
-                  : t(TranslationKey['Stop accepting proposals'])}
-              </Button>
-            </div>
-          )}
+          {request?.request.status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED &&
+            request?.request.status !== RequestStatus.EXPIRED && (
+              <div className={[classNames.btnsRow, classNames.btnsRowIsLast]}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  btnWrapperStyle={classNames.buttonWrapperFullWidth}
+                  className={clsx(classNames.button, {
+                    [classNames.stopBtn]: request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS,
+                  })}
+                  onClick={request?.request.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}
+                >
+                  {request?.request.status === RequestStatus.FORBID_NEW_PROPOSALS
+                    ? t(TranslationKey['Resume accepting proposals'])
+                    : t(TranslationKey['Stop accepting proposals'])}
+                </Button>
+              </div>
+            )}
         </div>
       )}
     </Paper>

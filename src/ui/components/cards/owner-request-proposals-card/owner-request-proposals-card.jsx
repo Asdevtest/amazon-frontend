@@ -99,7 +99,8 @@ export const OwnerRequestProposalsCard = ({
         <Typography>{item.proposal.status}</Typography>
 
         <div>
-          {item.proposal.status === RequestProposalStatus.CREATED ? (
+          {item.proposal.status === RequestProposalStatus.CREATED ||
+          item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ? (
             <>
               <Button
                 variant="contained"
