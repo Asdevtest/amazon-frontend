@@ -23,7 +23,7 @@ export const DashboardBalance = ({user}) => {
 
       {user.balanceFreeze !== 0 && (
         <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(user.balanceFreeze, 2)} -${t(
-          TranslationKey.freeze,
+          TranslationKey.Freeze,
         )}`}</Typography>
       )}
     </>

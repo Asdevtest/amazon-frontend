@@ -299,29 +299,29 @@ export const AdminDashboardCardDataKey = {
   FINANCES_RESEARCHERS_FINES: 'FINANCES_RESEARCHERS_FINES',
 }
 
-export const getAdminDashboardCardConfig = textConsts => [
+export const getAdminDashboardCardConfig = () => [
   {
     key: 'inventory',
-    title: textConsts.productsTitle,
+    title: t(TranslationKey.Products),
     items: [
       {
         dataKey: AdminDashboardCardDataKey.EXCHANGE_WAITING_TO_CHECK,
-        title: textConsts.prodcutsWaitingToCheckBySupervisorsTitle,
+        title: t(TranslationKey['Waiting for checks']),
         color: '#20a8d8',
       },
       {
         dataKey: AdminDashboardCardDataKey.EXCHANGE_BEING_CHECKED,
-        title: textConsts.productsBeingCheckedBySupervisorsTitle,
+        title: t(TranslationKey['Taken for review by supervisors']),
         color: '#63c2de',
       },
       {
         dataKey: AdminDashboardCardDataKey.EXCHANGE_CHECKED,
-        title: textConsts.productsCheckedBySupervisorsTitle,
+        title: t(TranslationKey['Confirmed by supervisors']),
         color: '#4dbd74',
       },
       {
         dataKey: AdminDashboardCardDataKey.EXCHANGE_REJECTED,
-        title: textConsts.productsRejectedBySupervisorsTitle,
+        title: t(TranslationKey['Rejected by supervisors']),
         color: '#ffc107',
       },
     ],
@@ -329,26 +329,26 @@ export const getAdminDashboardCardConfig = textConsts => [
 
   {
     key: 'suppliers-seek-statuses',
-    title: textConsts.accrualsAndFinesTitle,
+    title: t(TranslationKey['Accruals and fines']),
     items: [
       {
         dataKey: AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_RESEARCHERS,
-        title: textConsts.accruedToManagersTitle,
+        title: t(TranslationKey['Accrued to managers']),
         color: '#4dbd74',
       },
       {
         dataKey: AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_SUPERVISORS,
-        title: textConsts.accruedToSupervisorsTitle,
+        title: t(TranslationKey['Accrued to supervisors']),
         color: '#20a8d8',
       },
       {
         dataKey: AdminDashboardCardDataKey.FINANCES_SUPERVISORS_FINES,
-        title: textConsts.supervisorsFinesTitle,
+        title: t(TranslationKey['Fines for supervisors']),
         color: '#f86c6b',
       },
       {
         dataKey: AdminDashboardCardDataKey.FINANCES_RESEARCHERS_FINES,
-        title: textConsts.managersFinesTitle,
+        title: t(TranslationKey['Fines for managers']),
         color: '#f86c6b',
       },
     ],

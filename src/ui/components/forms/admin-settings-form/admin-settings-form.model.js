@@ -1,6 +1,10 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {AdministratorModel} from '@models/administrator-model'
+
+import {t} from '@utils/translations'
 
 export class AdminSettingsModel {
   history = undefined
@@ -42,14 +46,14 @@ export class AdminSettingsModel {
     try {
       await AdministratorModel.setSettings(data)
 
-      this.infoModalText = 'Настройки сохранены.'
+      this.infoModalText = t(TranslationKey['The settings are saved.'])
       this.onTriggerOpenModal('showInfoModal')
 
       await this.getAdminSettings()
     } catch (error) {
       console.log(error)
 
-      this.infoModalText = 'Настройки не сохранены!'
+      this.infoModalText = t(TranslationKey['The settings are not saved!'])
       this.onTriggerOpenModal('showInfoModal')
     }
   }

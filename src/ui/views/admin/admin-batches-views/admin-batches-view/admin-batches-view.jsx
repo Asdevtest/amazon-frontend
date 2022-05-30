@@ -8,6 +8,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -17,6 +18,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AdminBatchesViewModel} from './admin-batches-view.model'
 import {styles} from './admin-batches-view.style'
@@ -31,7 +33,6 @@ export class AdminBatchesViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -75,7 +76,7 @@ export class AdminBatchesViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Sent)}>
             <MainContent>
               <DataGrid
                 pagination

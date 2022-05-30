@@ -10,7 +10,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {adminExchangeBtnsConfig} from '@constants/tables-filter-btns-configs'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -18,12 +18,11 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AdminExchangeViewModel} from './admin-exchange-views.model'
 import {styles} from './admin-exchange-views.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').adminProductsWaitingView
 const activeCategory = navBarActiveCategory.NAVBAR_EXCHANGE
 
 @observer
@@ -69,10 +68,10 @@ class AdminExchangeViewsRaw extends Component {
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Commodity exchange'])}>
             <MainContent>
               <Grid container spacing={3} className={classNames.filterBtnWrapper}>
-                {adminExchangeBtnsConfig?.map((buttonConfig, index) => (
+                {adminExchangeBtnsConfig()?.map((buttonConfig, index) => (
                   <Grid key={buttonConfig.status} item>
                     <Button
                       variant={'text'}

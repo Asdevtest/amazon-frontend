@@ -6,7 +6,7 @@ import {observer} from 'mobx-react'
 
 import {AdminDashboardCardDataKey, getAdminDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {DashboardInfoCard} from '@components/dashboards/dashboard-info-card'
@@ -14,14 +14,11 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AdminDashboardViewModel} from './admin-dashboard-view.model'
 import {styles} from './admin-dashboard-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').adminDashboardView
-
-const dashboardCardConfig = getAdminDashboardCardConfig(textConsts)
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
 @observer
@@ -43,13 +40,10 @@ export class AdminDashboardViewRaw extends Component {
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
         <Main>
-          <Appbar setDrawerOpen={onChangeTriggerDrawerOpen} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onChangeTriggerDrawerOpen} title={t(TranslationKey.Dashboard)}>
             <MainContent>
-              <Typography paragraph variant="h5">
-                {textConsts.mainTitle}
-              </Typography>
               <Grid container className={classNames.dashboardCardWrapper} justify="center" spacing={3}>
-                {this.renderInfoCardsSections(dashboardCardConfig)}
+                {this.renderInfoCardsSections(getAdminDashboardCardConfig())}
               </Grid>
             </MainContent>
           </Appbar>

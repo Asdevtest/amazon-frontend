@@ -8,6 +8,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -17,6 +18,7 @@ import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AdminWarehouseTasksViewModel} from './admin-warehouse-tasks-view.model'
 import {styles} from './admin-warehouse-tasks-view.style'
@@ -32,7 +34,6 @@ export class AdminWarehouseTasksViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -74,7 +75,7 @@ export class AdminWarehouseTasksViewRaw extends Component {
         />
         <Main>
           <Appbar
-            title={textConsts.appBarTitle}
+            title={t(TranslationKey.Tasks)}
             notificationCount={2}
             history={history}
             setDrawerOpen={onChangeDrawerOpen}

@@ -3,17 +3,15 @@ import React, {useState} from 'react'
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Field} from '@components/field/field'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './add-or-edit-destination-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').addOrEditDestinationForm
 
 export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit, onEditSubmit, destinationToEdit}) => {
   const classNames = useClassNames()
@@ -58,55 +56,55 @@ export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit,
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h5">{textConsts.mainTitle}</Typography>
+      <Typography variant="h5">{t(TranslationKey['Add a new drop off location'])}</Typography>
 
       <div className={classNames.form}>
         <Field
-          label={textConsts.nameLabel}
+          label={t(TranslationKey.Title)}
           inputProps={{maxLength: 255}}
           value={formFields.name}
-          placeholder={textConsts.nameHolder}
+          placeholder={t(TranslationKey.Title) + '...'}
           onChange={onChangeField('name')}
         />
 
         <Field
-          label={textConsts.countryLabel}
+          label={t(TranslationKey.Country)}
           inputProps={{maxLength: 255}}
           value={formFields.country}
-          placeholder={textConsts.countryHolder}
+          placeholder={t(TranslationKey.Country) + '...'}
           onChange={onChangeField('country')}
         />
 
         <Field
-          label={textConsts.cityLabel}
+          label={t(TranslationKey.City)}
           inputProps={{maxLength: 255}}
           value={formFields.city}
-          placeholder={textConsts.cityHolder}
+          placeholder={t(TranslationKey.City) + '...'}
           onChange={onChangeField('city')}
         />
 
         <Field
-          label={textConsts.stateLabel}
+          label={t(TranslationKey.State)}
           inputProps={{maxLength: 255}}
           value={formFields.state}
-          placeholder={textConsts.stateHolder}
+          placeholder={t(TranslationKey.State) + '...'}
           onChange={onChangeField('state')}
         />
 
         <Field
-          label={textConsts.addressLabel}
+          label={t(TranslationKey.Address)}
           inputProps={{maxLength: 255}}
           value={formFields.address}
-          placeholder={textConsts.addressHolder}
+          placeholder={t(TranslationKey.Address) + '...'}
           onChange={onChangeField('address')}
         />
 
         <Field
-          label={textConsts.zipCodeLabel}
+          label={t(TranslationKey['ZIP code'])}
           inputProps={{maxLength: 255}}
-          error={!/^[0-9]{5}$/.test(formFields.zipCode) && 'формат в числах пример: 90001'}
+          error={!/^[0-9]{5}$/.test(formFields.zipCode) && t(TranslationKey['numeric format, example:']) + ' 90001'}
           value={formFields.zipCode}
-          placeholder={textConsts.zipCodeHolder}
+          placeholder={t(TranslationKey['ZIP code']) + '...'}
           onChange={onChangeField('zipCode')}
         />
       </div>
@@ -119,7 +117,7 @@ export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit,
           variant="contained"
           onClick={onSubmit}
         >
-          {textConsts.saveBtn}
+          {t(TranslationKey.Save)}
         </SuccessButton>
 
         <Button
@@ -129,7 +127,7 @@ export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit,
           variant="text"
           onClick={() => onCloseModal()}
         >
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Cancel)}
         </Button>
       </div>
     </div>

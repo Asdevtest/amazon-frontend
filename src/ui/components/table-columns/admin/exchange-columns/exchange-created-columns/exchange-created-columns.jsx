@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   AsinCell,
@@ -10,21 +10,19 @@ import {
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'en').exchangeCheckingColumns
+import {t} from '@utils/translations'
 
 export const exchangeСreatedColumns = () => [
   {
     field: 'createdAt',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Created),
     renderCell: params => <NormDateCell params={params} />,
     width: 100,
     type: 'date',
   },
   {
     field: 'updatedAt',
-    headerName: textConsts.updateDateField,
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     width: 100,
     type: 'date',
@@ -32,21 +30,21 @@ export const exchangeСreatedColumns = () => [
 
   {
     field: 'asin',
-    headerName: textConsts.asinField,
+    headerName: t(TranslationKey.Product),
     renderCell: params => <AsinCell product={params.row.originalData} />,
     width: 300,
   },
 
   {
     field: 'strategyStatus',
-    headerName: textConsts.strategyStatusField,
+    headerName: t(TranslationKey.Strategy),
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
 
   {
     field: 'amazon',
-    headerName: textConsts.priceField,
+    headerName: t(TranslationKey.Price),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
@@ -54,42 +52,42 @@ export const exchangeСreatedColumns = () => [
 
   {
     field: 'createdBy',
-    headerName: textConsts.researcherField,
+    headerName: t(TranslationKey['Created by']),
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
     width: 200,
   },
 
   {
     field: 'profit',
-    headerName: textConsts.profitField,
+    headerName: t(TranslationKey.Profit),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
   },
   {
     field: 'margin',
-    headerName: textConsts.marginField,
+    headerName: t(TranslationKey.Margin),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
   },
   {
     field: 'bsr',
-    headerName: textConsts.bsrField,
+    headerName: t(TranslationKey.BSR),
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
     type: 'number',
   },
   {
     field: 'fbafee',
-    headerName: textConsts.fbaField,
+    headerName: t(TranslationKey['FBA fee , $']),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
   },
   {
     field: 'fbaamount',
-    headerName: textConsts.fbaAmountField,
+    headerName: t(TranslationKey['FBA Amount']),
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
     type: 'number',

@@ -6,6 +6,7 @@ import {observer} from 'mobx-react'
 
 import {HttpMethod} from '@constants/http-method'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
@@ -15,6 +16,7 @@ import {Input} from '@components/input'
 import {checkIsPositiveNum} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {clearSpecialCharacters} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './add-or-edit-single-permission-form.style'
 
@@ -92,11 +94,13 @@ export const AddOrEditSinglePermissionForm = observer(
 
     return (
       <div className={classNames.root}>
-        <Typography variant="h5">{isEdit ? textConsts.editTitle : textConsts.addTitle}</Typography>
+        <Typography variant="h5">
+          {isEdit ? t(TranslationKey['Change permission']) : t(TranslationKey['New Permission'])}
+        </Typography>
 
         <div className={classNames.form}>
           <Field
-            label={textConsts.roleLabel}
+            label={t(TranslationKey.Role)}
             inputComponent={
               <NativeSelect
                 variant="filled"
@@ -116,9 +120,9 @@ export const AddOrEditSinglePermissionForm = observer(
 
           <Field
             disabled={isEdit}
-            label={textConsts.keyLabel}
+            label={t(TranslationKey.Key)}
             value={formFields.key}
-            placeholder={textConsts.keyHolder}
+            placeholder={`${t(TranslationKey.Key)}_${t(TranslationKey.Key)}_${t(TranslationKey.Key)}...`}
             error={
               (formFields.key.match(/[_]/) === null && onKeyFieldEditing && textConsts.keyFieldError) ||
               (isDoubleKey && textConsts.doubleKeyError)
@@ -127,9 +131,9 @@ export const AddOrEditSinglePermissionForm = observer(
           />
 
           <Field
-            label={textConsts.titleLabel}
+            label={t(TranslationKey.Title)}
             value={formFields.title}
-            placeholder={textConsts.titleHolder}
+            placeholder={t(TranslationKey['Permission №1'])}
             onChange={onChangeField('title')}
           />
 
@@ -138,22 +142,22 @@ export const AddOrEditSinglePermissionForm = observer(
             minRows={4}
             rowsMax={4}
             className={classNames.descriptionField}
-            label={textConsts.descriptionLabel}
-            placeholder={textConsts.descriptionHolder}
+            label={t(TranslationKey.Description)}
+            placeholder={t(TranslationKey.Description) + '...'}
             value={formFields.description}
             onChange={onChangeField('description')}
           />
 
           <Field
-            label={textConsts.hierarchyLabel}
-            placeholder={textConsts.hierarchyHolder}
+            label={t(TranslationKey.Position)}
+            placeholder={t(TranslationKey['Priority number'])}
             value={formFields.hierarchy}
             onChange={onChangeField('hierarchy')}
           />
 
           <Field
             containerClasses={classNames.field}
-            label={textConsts.allowUrlsLabel}
+            label={t(TranslationKey['Allowed Endpoints'])}
             inputComponent={
               <div className={classNames.allowUrlsWrapper}>
                 {formFields.allowedUrls.map((obj, index) => (
@@ -203,7 +207,7 @@ export const AddOrEditSinglePermissionForm = observer(
           variant="contained"
           onClick={() => onSubmit(formFields, permissionToEdit && permissionToEdit._id)}
         >
-          {isEdit ? textConsts.editBtn : textConsts.createBtn}
+          {isEdit ? t(TranslationKey.Edit) : t(TranslationKey['Create a permission'])}
         </Button>
 
         <Button
@@ -213,7 +217,7 @@ export const AddOrEditSinglePermissionForm = observer(
           variant="contained"
           onClick={() => onCloseModal()}
         >
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Cancel)}
         </Button>
       </div>
     )

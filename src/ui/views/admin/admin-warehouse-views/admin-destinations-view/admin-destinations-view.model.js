@@ -1,8 +1,8 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {ClientModel} from '@models/client-model'
@@ -11,10 +11,8 @@ import {SettingsModel} from '@models/settings-model'
 import {destinationsColumns} from '@components/table-columns/admin/destinations-columns'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-
-const textConsts = getLocalizedTexts(texts, 'ru').adminDestinationsView
+import {t} from '@utils/translations'
 
 export class AdminDestinationsViewModel {
   history = undefined
@@ -49,6 +47,16 @@ export class AdminDestinationsViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = destinationsColumns()
+    }
   }
 
   onChangeFilterModel(model) {
@@ -182,7 +190,7 @@ export class AdminDestinationsViewModel {
   onClickCancelBtn() {
     this.confirmModalSettings = {
       isWarning: false,
-      message: textConsts.confirmCloseModalMessage,
+      message: t(TranslationKey['The data will not be saved!']),
       onClickSuccess: () => this.cancelTheOrder(),
     }
 
@@ -199,7 +207,7 @@ export class AdminDestinationsViewModel {
 
     this.confirmModalSettings = {
       isWarning: true,
-      message: textConsts.confirmRemoveDestMessage,
+      message: t(TranslationKey['Are you sure you want to delete the destination?']),
       onClickSuccess: () => this.removeDestination(),
     }
 

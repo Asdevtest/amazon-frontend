@@ -8,6 +8,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Field} from '@components/field'
@@ -19,6 +20,7 @@ import {Navbar} from '@components/navbar'
 import {AdminContentModal} from '@components/screens/users-views/sub-users-view/admin-content-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AdminUsersViewModel} from './admin-users-view.model'
 import {styles} from './admin-users-view.style'
@@ -74,10 +76,14 @@ class AdminUsersViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Users)}>
             <MainContent>
               <div>
-                <Field label={'Быстрый поиск по имени:'} value={nameSearchValue} onChange={onChangeNameSearchValue} />
+                <Field
+                  label={t(TranslationKey['Quick search by name:'])}
+                  value={nameSearchValue}
+                  onChange={onChangeNameSearchValue}
+                />
               </div>
 
               <DataGrid
@@ -115,8 +121,8 @@ class AdminUsersViewRaw extends Component {
             singlePermissions={singlePermissions}
             groupPermissions={groupPermissions}
             editUserFormFields={editUserFormFields}
-            title={textConsts.modalEditTitle}
-            buttonLabel={textConsts.modalEditBtn}
+            title={t(TranslationKey['Edit user'])}
+            buttonLabel={t(TranslationKey.Save)}
             onSubmit={submitEditUserForm}
             onCloseModal={() => onTriggerOpenModal('showEditUserModal')}
           />

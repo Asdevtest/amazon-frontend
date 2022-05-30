@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {BatchStatus} from '@constants/batch-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -42,6 +42,16 @@ export class AdminAwaitingBatchesViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = adminBatchesViewColumns(this.rowHandlers)
+    }
   }
 
   setDataGridState(state) {
@@ -104,6 +114,7 @@ export class AdminAwaitingBatchesViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getBatches()
+      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

@@ -623,7 +623,7 @@ export const navbarConfig = () => ({
   [UserRole.ADMIN]: [
     {
       icon: InfoOutlinedIcon,
-      title: 'Главная страница',
+      title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/admin/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
@@ -631,7 +631,7 @@ export const navbarConfig = () => ({
     },
     {
       icon: GavelIcon,
-      title: 'Биржа товаров',
+      title: t(TranslationKey['Commodity exchange']),
       subtitles: null,
       route: '/admin/exchange',
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
@@ -640,7 +640,7 @@ export const navbarConfig = () => ({
 
     {
       icon: InboxOutlinedIcon,
-      title: 'Инвентарь',
+      title: t(TranslationKey.Inventory),
       route: '/admin/inventory',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_INVENTORY,
@@ -649,7 +649,7 @@ export const navbarConfig = () => ({
 
     {
       icon: AssignmentIcon,
-      title: 'Заказы',
+      title: t(TranslationKey.Orders),
       subtitles: null,
       route: '/admin/orders',
       key: navBarActiveCategory.NAVBAR_ORDERS,
@@ -658,12 +658,12 @@ export const navbarConfig = () => ({
 
     {
       icon: ArchiveOutlinedIcon,
-      title: 'Склад',
+      title: t(TranslationKey.Warehouse),
       route: '/admin/warehouse/tasks',
       subtitles: [
-        {subtitle: 'Задачи', subRoute: '/admin/warehouse/tasks'},
-        {subtitle: 'Коробки', subRoute: '/admin/warehouse/boxes'},
-        {subtitle: 'Destinations', subRoute: '/admin/warehouse/destinations'},
+        {subtitle: t(TranslationKey.Tasks), subRoute: '/admin/warehouse/tasks'},
+        {subtitle: t(TranslationKey.Boxes), subRoute: '/admin/warehouse/boxes'},
+        {subtitle: t(TranslationKey.Destinations), subRoute: '/admin/warehouse/destinations'},
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
       checkHideBlock: () => true,
@@ -671,15 +671,15 @@ export const navbarConfig = () => ({
 
     {
       icon: LocalConvenienceStore,
-      title: 'Партии',
+      title: t(TranslationKey.Batches),
       route: '/admin/awaiting-batches',
       subtitles: [
         {
-          subtitle: 'Ожидают отправки',
+          subtitle: t(TranslationKey['Awaiting send']),
           subRoute: '/admin/awaiting-batches',
         },
         {
-          subtitle: 'Отправленные',
+          subtitle: t(TranslationKey.Sent),
           subRoute: '/admin/batches',
         },
       ],
@@ -690,14 +690,14 @@ export const navbarConfig = () => ({
 
     {
       icon: MonetizationOnOutlinedIcon,
-      title: 'Финансы',
+      title: t(TranslationKey.Finances),
       route: '/admin/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: () => true,
     },
     {
       icon: PeopleIcon,
-      title: 'Пользователи',
+      title: t(TranslationKey.Users),
       route: '/admin/users',
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: () => true,
@@ -705,14 +705,14 @@ export const navbarConfig = () => ({
 
     {
       icon: PeopleIcon,
-      title: 'Разрешения пользователей',
+      title: t(TranslationKey['User permissions']),
       route: '/admin/permissions',
       key: navBarActiveCategory.NAVBAR_PERMISSIONS,
       checkHideBlock: () => true,
     },
     {
       icon: SettingsIcon,
-      title: 'Настройки',
+      title: t(TranslationKey.Settings),
       subtitles: null,
       route: '/admin/settings',
       key: navBarActiveCategory.NAVBAR_SETTINGS,

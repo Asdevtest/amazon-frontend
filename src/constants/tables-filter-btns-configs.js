@@ -1,95 +1,99 @@
-export const adminExchangeBtnsConfig = [
+import {t} from '@utils/translations'
+
+import {TranslationKey} from './translations/translation-key'
+
+export const adminExchangeBtnsConfig = () => [
   {
-    label: 'Созданные',
+    label: t(TranslationKey.Created),
     color: 'rgb(15, 169, 20)',
     colorHover: '#007a07',
   },
   {
-    label: 'Новые',
+    label: t(TranslationKey.New),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'Поиск поставщика',
+    label: t(TranslationKey['Supplier search']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'В работе у байера',
+    label: t(TranslationKey['In the work of a Bayer']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'Поставщик найден байером',
+    label: t(TranslationKey['Supplier found by Bayer']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'Поставщик не найден байером',
+    label: t(TranslationKey['Supplier not found by Bayer']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'Цена выше МЗЦ',
+    label: t(TranslationKey['Price is higher than MZC']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'Опубликованные',
+    label: t(TranslationKey.Published),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'Отклоненные',
+    label: t(TranslationKey.Rejected),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'Нет поставщика (закончено супервизором)',
+    label: t(TranslationKey['No supplier (completed by supervisor)']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
 ]
 
-export const adminOrdersBtnsConfig = [
+export const adminOrdersBtnsConfig = () => [
   {
-    label: 'Доступен к обработке',
+    label: t(TranslationKey['Available for processing']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#007a07',
   },
   {
-    label: 'Закупщик взял заказ',
+    label: t(TranslationKey['The buyer took the order']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'Закупщик оплатил заказ',
+    label: t(TranslationKey['The buyer paid for the order']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'Выдан трек номер',
+    label: t(TranslationKey['Track number issued']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'Пришёл на склад',
+    label: t(TranslationKey['Came to the warehouse']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'Возврат заказа',
+    label: t(TranslationKey['Return Order']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
 
   {
-    label: 'Необходима доплата',
+    label: t(TranslationKey['Additional payment required']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },
   {
-    label: 'Закрыт',
+    label: t(TranslationKey.Closed),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },

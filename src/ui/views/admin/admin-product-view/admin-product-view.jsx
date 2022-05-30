@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -11,11 +11,9 @@ import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 import {ProductWrapper} from '@components/product/product-wrapper'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AdminProductViewModel} from './admin-product-view.model'
-
-const textConsts = getLocalizedTexts(texts, 'en').adminProductView
 
 @observer
 export class AdminProductView extends Component {
@@ -50,7 +48,7 @@ export class AdminProductView extends Component {
         <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
-            title={textConsts.appBarTitle}
+            title={t(TranslationKey.Product)}
             notificationCount={2}
             history={history}
             setDrawerOpen={onTriggerDrawerOpen}

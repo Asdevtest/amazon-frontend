@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
@@ -18,12 +18,10 @@ import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AdminDestinationsViewModel} from './admin-destinations-view.model'
 import {styles} from './admin-destinations-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').adminDestinationsView
 
 const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 const activeSubCategory = 2
@@ -82,14 +80,14 @@ class AdminDestinationsViewRaw extends Component {
         />
         <Main>
           <Appbar
-            title={textConsts.appBarTitle}
+            title={t(TranslationKey.Destinations)}
             notificationCount={2}
             history={history}
             setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
               <div className={classNames.placeAddBtnWrapper}>
-                <SuccessButton onClick={() => onClickAddBtn()}>{textConsts.addBtn}</SuccessButton>
+                <SuccessButton onClick={() => onClickAddBtn()}>{t(TranslationKey['Add a destination'])}</SuccessButton>
               </div>
 
               <DataGrid
@@ -131,10 +129,10 @@ class AdminDestinationsViewRaw extends Component {
                 isWarning={confirmModalSettings.isWarning}
                 openModal={showConfirmModal}
                 setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-                title={textConsts.confirmTitle}
+                title={t(TranslationKey.Attention)}
                 message={confirmModalSettings.message}
-                successBtnText={textConsts.yesBtn}
-                cancelBtnText={textConsts.noBtn}
+                successBtnText={t(TranslationKey.Yes)}
+                cancelBtnText={t(TranslationKey.No)}
                 onClickSuccessBtn={confirmModalSettings.onClickSuccess}
                 onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
               />

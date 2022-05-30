@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -11,11 +11,9 @@ import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 import {UserPermissions} from '@components/user-permissions/user-permissions'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AdminUserPermissionsViewModel} from './admin-user-permissions-view.model'
-
-const textConsts = getLocalizedTexts(texts, 'ru').adminUserPermissionsView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_PERMISSIONS
 
@@ -38,7 +36,7 @@ export class AdminUserPermissionsView extends Component {
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar
-            title={textConsts.appBarTitle}
+            title={t(TranslationKey['User permissions'])}
             notificationCount={2}
             history={history}
             setDrawerOpen={onTriggerDrawerOpen}
