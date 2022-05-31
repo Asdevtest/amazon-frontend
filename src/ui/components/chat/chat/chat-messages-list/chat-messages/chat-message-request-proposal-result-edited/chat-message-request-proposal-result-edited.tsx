@@ -1,5 +1,6 @@
-import React, {FC, ReactElement} from 'react'
+import React, {useState, FC, ReactElement} from 'react'
 
+import {Grid} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
@@ -9,6 +10,7 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {formatNormDateTime} from '@utils/date-time'
 
@@ -35,6 +37,10 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
   const proposal = message.data.proposal
 
   const curUserId: string | undefined = UserModel.userId
+
+  const [showImageModal, setShowImageModal] = useState(false)
+
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [] as string[], imgIndex: 0})
 
   return (
     <div className={classNames.root}>
@@ -68,6 +74,21 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
               ),
             )}
           </div>
+
+          <Grid container className={classNames.filesWrapper}>
+            {message.images.map((file, fileIndex) => (
+              <Grid key={fileIndex} item className={classNames.imageWrapper}>
+                <img
+                  className={classNames.image}
+                  src={file}
+                  onClick={() => {
+                    setShowImageModal(!showImageModal)
+                    setBigImagesOptions({images: message.images, imgIndex: fileIndex})
+                  }}
+                />
+              </Grid>
+            ))}
+          </Grid>
         </div>
         <div className={classNames.resultRightSide}>
           <div className={classNames.timeToCheckBlockWrapper}>
@@ -105,6 +126,14 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
           </div>
         ) : undefined}
       </div>
+
+      <BigImagesModal
+        isAmazone
+        openModal={showImageModal}
+        setOpenModal={() => setShowImageModal(!showImageModal)}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
+      />
     </div>
   )
 }

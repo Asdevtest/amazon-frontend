@@ -1,5 +1,6 @@
-import React, {FC, useContext} from 'react'
+import React, {useState, FC, useContext} from 'react'
 
+import {Grid} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
@@ -8,6 +9,7 @@ import {ChatMessageDataCreatedNewProposalProposalDescriptionContract} from '@mod
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
 import {Button} from '@components/buttons/button'
+import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
@@ -31,6 +33,10 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
   const classNames = useClassNames()
 
+  const [showImageModal, setShowImageModal] = useState(false)
+
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [] as string[], imgIndex: 0})
+
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
@@ -42,12 +48,23 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
         </div>
       </div>
       <div className={classNames.mainInfoWrapper}>
-        {/* <div className={classNames.titleWrapper}>
-          <p className={classNames.titleText}>Сделаю за другую сумму</p>
-        </div> */}
         <div className={classNames.descriptionWrapper}>
           <p className={classNames.descriptionText}>{message.data.comment}</p>
         </div>
+        <Grid container className={classNames.filesWrapper}>
+          {message.images.map((file, fileIndex) => (
+            <Grid key={fileIndex} item className={classNames.imageWrapper}>
+              <img
+                className={classNames.image}
+                src={file}
+                onClick={() => {
+                  setShowImageModal(!showImageModal)
+                  setBigImagesOptions({images: message.images, imgIndex: fileIndex})
+                }}
+              />
+            </Grid>
+          ))}
+        </Grid>
       </div>
       <div className={classNames.footerWrapper}>
         <div className={classNames.leftSide}>
@@ -81,11 +98,18 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
               className={clsx(classNames.actionButton, classNames.successBtn)}
               onClick={() => handlers.onClickProposalAccept(message.data._id)}
             >
-              Принять
+              {`Принять за ${message.data.price}`}
             </Button>
           </div>
         ) : undefined}
       </div>
+      <BigImagesModal
+        isAmazone
+        openModal={showImageModal}
+        setOpenModal={() => setShowImageModal(!showImageModal)}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
+      />
     </div>
   )
 }

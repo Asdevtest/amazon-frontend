@@ -2,7 +2,8 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   modalWrapper: {
-    width: '548px',
+    width: '485',
+    minHeight: '216px',
   },
 
   modalTitle: {

@@ -1,22 +1,26 @@
+/* eslint-disable no-unused-vars */
 import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 
 import {useState} from 'react'
 
-import {Button, Divider, Typography, IconButton} from '@material-ui/core'
+import {Button, Divider, Typography, IconButton, Checkbox} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {LabelField} from '@components/label-field/label-field'
 
+import {roundSafely} from '@utils/calculation'
 import {checkIsPositiveNum} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './create-box-form.style'
 
@@ -27,6 +31,7 @@ const BlockOfNewBox = ({
   orderBox,
   setFormField,
   setAmountField,
+  setDimensionsOfSupplierField,
   onRemoveBox,
   sizeSetting,
   volumeWeightCoefficient,
@@ -81,7 +86,7 @@ const BlockOfNewBox = ({
                 inchesCoefficient
               : orderBox.heightCmSupplier * orderBox.widthCmSupplier * orderBox.lengthCmSupplier) /
               volumeWeightCoefficient,
-            4,
+            2,
           )}
         />
         <Field
@@ -92,19 +97,16 @@ const BlockOfNewBox = ({
             Math.max(
               toFixed(
                 (sizeSetting === sizesType.INCHES
-                  ? orderBox.heightCmSupplier *
-                    inchesCoefficient *
-                    orderBox.widthCmSupplier *
-                    inchesCoefficient *
-                    orderBox.lengthCmSupplier *
-                    inchesCoefficient
-                  : orderBox.heightCmSupplier * orderBox.widthCmSupplier * orderBox.lengthCmSupplier) /
+                  ? roundSafely(orderBox.heightCmSupplier * inchesCoefficient) *
+                    roundSafely(orderBox.widthCmSupplier * inchesCoefficient) *
+                    roundSafely(orderBox.lengthCmSupplier * inchesCoefficient)
+                  : roundSafely(orderBox.heightCmSupplier * orderBox.widthCmSupplier * orderBox.lengthCmSupplier)) /
                   volumeWeightCoefficient,
-                4,
+                2,
               ),
               orderBox.weighGrossKgSupplier,
             ),
-            4,
+            2,
           )}
         />
       </div>
@@ -118,6 +120,15 @@ const BlockOfNewBox = ({
           onChange={setAmountField(orderBoxIndex)}
         />
       </div>
+      <div className={classNames.checkboxWithLabelWrapper}>
+        <Checkbox
+          color="primary"
+          checked={orderBox.tmpUseCurrentSupplierDimensions}
+          onChange={setDimensionsOfSupplierField(orderBoxIndex)}
+        />
+        <Typography>{t(TranslationKey['Use the supplier standard'])}</Typography>
+      </div>
+
       <IconButton className={classNames.iconBtn} onClick={() => onRemoveBox(orderBoxIndex)}>
         <DeleteIcon className={classNames.deleteBtn} />
       </IconButton>
@@ -126,7 +137,7 @@ const BlockOfNewBox = ({
 }
 
 export const CreateBoxForm = observer(
-  ({formItem, boxesForCreation, onTriggerOpenModal, setBoxesForCreation, volumeWeightCoefficient}) => {
+  ({currentSupplier, formItem, boxesForCreation, onTriggerOpenModal, setBoxesForCreation, volumeWeightCoefficient}) => {
     const classNames = useClassNames()
 
     const sourceBox = {
@@ -147,7 +158,8 @@ export const CreateBoxForm = observer(
         },
       ],
 
-      // isBarCodeAlreadyAttachedByTheSupplier: formItem?.isBarCodeAlreadyAttachedByTheSupplier || false,
+      tmpUseToUpdateSupplierBoxDimensions: false,
+      tmpUseCurrentSupplierDimensions: false,
     }
 
     const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
@@ -159,6 +171,7 @@ export const CreateBoxForm = observer(
 
       const newFormFields = {...formFieldsArr[orderBoxIndex]}
       newFormFields[fieldName] = e.target.value
+      newFormFields.tmpUseCurrentSupplierDimensions = false
 
       const updatedNewBoxes = formFieldsArr.map((oldBox, index) => (index === orderBoxIndex ? newFormFields : oldBox))
       setFormFieldsArr(updatedNewBoxes)
@@ -188,6 +201,42 @@ export const CreateBoxForm = observer(
       onTriggerOpenModal()
     }
 
+    const setDimensionsOfSupplierField = orderBoxIndex => e => {
+      const newStateFormFields = [...formFieldsArr]
+      newStateFormFields[orderBoxIndex] = {
+        ...newStateFormFields[orderBoxIndex],
+        tmpUseCurrentSupplierDimensions: e.target.checked,
+
+        lengthCmSupplier: e.target.checked
+          ? (sizeSetting === sizesType.INCHES
+              ? roundSafely(currentSupplier.boxProperties.boxLengthCm / inchesCoefficient)
+              : currentSupplier.boxProperties.boxLengthCm) || 0
+          : '',
+
+        widthCmSupplier: e.target.checked
+          ? (sizeSetting === sizesType.INCHES
+              ? roundSafely(currentSupplier.boxProperties.boxWidthCm / inchesCoefficient)
+              : currentSupplier.boxProperties.boxWidthCm) || 0
+          : '',
+
+        heightCmSupplier: e.target.checked
+          ? (sizeSetting === sizesType.INCHES
+              ? roundSafely(currentSupplier.boxProperties.boxHeightCm / inchesCoefficient)
+              : currentSupplier.boxProperties.boxHeightCm) || 0
+          : '',
+
+        weighGrossKgSupplier: e.target.checked ? roundSafely(currentSupplier.boxProperties.boxWeighGrossKg) || 0 : '',
+        items: [
+          {
+            ...newStateFormFields[orderBoxIndex].items[0],
+            amount: e.target.checked ? currentSupplier.boxProperties.amountInBox || 0 : '',
+          },
+        ],
+      }
+
+      setFormFieldsArr(newStateFormFields)
+    }
+
     const setAmountField = orderBoxIndex => e => {
       if (!checkIsPositiveNum(e.target.value)) {
         return
@@ -202,6 +251,7 @@ export const CreateBoxForm = observer(
             amount: Number(e.target.value),
           },
         ],
+        tmpUseCurrentSupplierDimensions: false,
       }
       setFormFieldsArr(newStateFormFields)
     }
@@ -222,18 +272,18 @@ export const CreateBoxForm = observer(
         setFormFieldsArr(
           formFieldsArr.map(editingBox => ({
             ...editingBox,
-            lengthCmSupplier: toFixed(editingBox.lengthCmSupplier / inchesCoefficient, 4),
-            widthCmSupplier: toFixed(editingBox.widthCmSupplier / inchesCoefficient, 4),
-            heightCmSupplier: toFixed(editingBox.heightCmSupplier / inchesCoefficient, 4),
+            lengthCmSupplier: toFixed(roundSafely(editingBox.lengthCmSupplier / inchesCoefficient), 2),
+            widthCmSupplier: toFixed(roundSafely(editingBox.widthCmSupplier / inchesCoefficient), 2),
+            heightCmSupplier: toFixed(roundSafely(editingBox.heightCmSupplier / inchesCoefficient), 2),
           })),
         )
       } else {
         setFormFieldsArr(
           formFieldsArr.map(editingBox => ({
             ...editingBox,
-            lengthCmSupplier: toFixed(editingBox.lengthCmSupplier * inchesCoefficient, 4),
-            widthCmSupplier: toFixed(editingBox.widthCmSupplier * inchesCoefficient, 4),
-            heightCmSupplier: toFixed(editingBox.heightCmSupplier * inchesCoefficient, 4),
+            lengthCmSupplier: toFixed(roundSafely(editingBox.lengthCmSupplier * inchesCoefficient), 2),
+            widthCmSupplier: toFixed(roundSafely(editingBox.widthCmSupplier * inchesCoefficient), 2),
+            heightCmSupplier: toFixed(roundSafely(editingBox.heightCmSupplier * inchesCoefficient), 2),
           })),
         )
       }
@@ -283,6 +333,7 @@ export const CreateBoxForm = observer(
                 orderBox={orderBox}
                 setFormField={setFormField}
                 setAmountField={setAmountField}
+                setDimensionsOfSupplierField={setDimensionsOfSupplierField}
                 onRemoveBox={onRemoveBox}
               />
             ))}

@@ -6,6 +6,7 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {OwnerRequestProposalsCard} from '@components/cards/owner-request-proposals-card'
@@ -23,6 +24,7 @@ import {CustomSearchRequestForm} from '@components/requests-and-request-proposal
 import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ChatRequestAndRequestProposalContext} from '../../../../contexts/chat-request-and-request-proposal-context'
 import {OwnerRequestDetailCustomViewModel} from './owner-requests-detail-custom-view.model'
@@ -99,7 +101,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['My request'])} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {request ? (
                 <OwnerGeneralRequestInfo
@@ -121,6 +123,10 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                   <DealsOfRequest requestProposals={requestProposals} />
                 </div>
               ) : null}
+
+              <Typography variant="h6" className={classNames.proposalsTitle}>
+                {t(TranslationKey['Proposals for the request'])}
+              </Typography>
 
               <Paper className={classNames.proposalsWrapper}>
                 {requestProposals.map(item => (

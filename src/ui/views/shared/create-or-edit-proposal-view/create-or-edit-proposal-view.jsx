@@ -5,7 +5,6 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -17,13 +16,10 @@ import {Modal} from '@components/modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {CreateOrEditProposalViewModel} from './create-or-edit-proposal-view.model'
 import {styles} from './create-or-edit-proposal-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').freelancerCreateProposalView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = 0
@@ -89,7 +85,7 @@ export class CreateOrEditProposalViewRaw extends Component {
         </Main>
 
         <Modal openModal={showResultModal} setOpenModal={() => onTriggerOpenModal('showResultModal')}>
-          <div>
+          <div className={classNames.modalMessageWrapper}>
             <Typography variant="h5">{infoModalText}</Typography>
 
             <div className={classNames.resultButtonsWrapper}>
@@ -117,7 +113,7 @@ export class CreateOrEditProposalViewRaw extends Component {
           openModal={showInfoModal}
           setOpenModal={() => onTriggerOpenModal('showInfoModal')}
           title={infoModalText}
-          btnText={textConsts.closeBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={onClickOkInfoModal}
         />
       </React.Fragment>

@@ -22,7 +22,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   userInfoMainWrapper: {
-    width: '741px',
+    // width: '741px',
   },
 
   cardWrapper: {
@@ -95,6 +95,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   proposalDescription: {
+    minWidth: '300px',
+    maxWidth: '680px',
     marginTop: '10px',
     height: '110px',
     overflow: 'auto',
@@ -127,7 +129,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   photoSubWrapper: {
-    width: '20px',
+    width: '250px',
     display: 'flex',
     justifyContent: 'center',
   },

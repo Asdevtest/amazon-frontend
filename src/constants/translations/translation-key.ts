@@ -426,7 +426,7 @@ export enum TranslationKey {
   'Step' = 'Step',
   'Back to editing' = 'Back to editing',
   'Request title' = 'Request title',
-  'Your request' = 'Your request',
+  'Description of your request' = 'Description of your request',
   'Price and time' = 'Price and time',
   'Number of proposals' = 'Number of proposals',
   'Submitted' = 'Submitted',
@@ -505,12 +505,28 @@ export enum TranslationKey {
   'Add a product card' = 'Add a product card',
   'Current exchange rate' = 'Current exchange rate',
   'Storekeeper' = 'Storekeeper',
+  'Sort by date' = 'Sort by date',
+  'Proposals for the request' = 'Proposals for the request',
+  'Use the supplier standard' = 'Use the supplier standard',
+  'Make the supplier standard' = 'Make the supplier standard',
+  'My request' = 'My request',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',
 }
 
-// "Storekeeper": "Storekeeper"
+// "My request": "My request"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

@@ -74,8 +74,6 @@ export const CreateOrEditProposalContent = ({
     formFields.comment === '' ||
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
-  console.log('request', request)
-
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.mainLeftWrapper}>

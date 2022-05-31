@@ -16,8 +16,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   modalMessageWrapper: {
-    minWidth: '270px',
-    minHeight: '190px',
+    width: '485px',
+    minHeight: '216px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -32,7 +32,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   modalMessage: {
-    maxWidth: '400px',
+    maxWidth: '350px',
+    textAlign: 'center',
   },
 
   warningModalMessage: {
@@ -74,7 +75,12 @@ export const useClassNames = makeStyles(() => ({
   },
 
   title: {
-    width: '100%',
+    width: '350px',
+    textAlign: 'center',
+  },
+
+  warningTitle: {
+    // width: '100%',
     borderRadius: '10px',
     backgroundSize: '400% 400%',
     animation: 'animate_gradient 1.5s ease infinite',

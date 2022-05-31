@@ -120,4 +120,27 @@ export const useClassNames = makeStyles(() => ({
       backgroundColor: '#4CAF50',
     },
   },
+
+  image: {
+    marginLeft: '20px',
+    width: '80px',
+    height: '70px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+    transition: '.2s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
+  },
+
+  imageWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+
+  filesWrapper: {
+    display: 'flex',
+    maxWidth: '400px',
+  },
 }))

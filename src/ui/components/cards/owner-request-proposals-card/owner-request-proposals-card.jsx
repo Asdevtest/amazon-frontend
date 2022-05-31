@@ -39,7 +39,7 @@ export const OwnerRequestProposalsCard = ({
               <Avatar src={getUserAvatarSrc(item.proposal.createdBy._id)} className={classNames.cardImg} />
 
               <div className={classNames.userNameWrapper}>
-                <Typography>{item.proposal.createdBy.name}</Typography>
+                <UserLinkCell name={item.proposal.createdBy.name} userId={item.proposal.createdBy._id} />
 
                 <UserLinkCell name={'Отзывы'} userId={item.proposal.createdBy._id} />
               </div>
@@ -99,7 +99,8 @@ export const OwnerRequestProposalsCard = ({
         <Typography>{item.proposal.status}</Typography>
 
         <div>
-          {item.proposal.status === RequestProposalStatus.CREATED ? (
+          {item.proposal.status === RequestProposalStatus.CREATED ||
+          item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ? (
             <>
               <Button
                 variant="contained"

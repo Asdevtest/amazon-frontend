@@ -40,7 +40,7 @@ export const ConfirmationModal = ({
     <Modal isWarning={isWarning} openModal={openModal} setOpenModal={setOpenModal}>
       <div className={clsx(classNames.modalMessageWrapper, {[classNames.warningModalMessageWrapper]: isWarning})}>
         <div className={classNames.titleWrapper}>
-          <Typography paragraph variant="h5" className={clsx({[classNames.title]: isWarning})}>
+          <Typography paragraph variant="h5" className={clsx(classNames.title, {[classNames.warningTitle]: isWarning})}>
             {title}
           </Typography>
         </div>

@@ -1,10 +1,12 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {tableViewMode} from '@constants/table-view-modes'
+import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
+import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
 import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
+import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
@@ -24,6 +26,7 @@ export class MyProposalsViewModel {
   selectedProposal = undefined
 
   viewMode = tableViewMode.LIST
+  sortMode = tableSortMode.DESK
 
   get user() {
     return UserModel.userInfo
@@ -46,6 +49,31 @@ export class MyProposalsViewModel {
     this.selectedProposal = item
 
     this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  setTableModeState() {
+    const state = {viewMode: this.viewMode, sortMode: this.sortMode}
+
+    SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.MY_PROPOSALS)
+  }
+
+  getTableModeState() {
+    const state = SettingsModel.viewTableModeState[ViewTableModeStateKeys.MY_PROPOSALS]
+
+    if (state) {
+      this.viewMode = state.viewMode
+      this.sortMode = state.sortMode
+    }
+  }
+
+  onTriggerSortMode() {
+    if (this.sortMode === tableSortMode.DESK) {
+      this.sortMode = tableSortMode.ASC
+    } else {
+      this.sortMode = tableSortMode.DESK
+    }
+
+    this.setTableModeState()
   }
 
   onClickEditBtn(request, proposal) {
@@ -86,6 +114,8 @@ export class MyProposalsViewModel {
   async loadData() {
     try {
       await this.getRequestsCustom()
+
+      this.getTableModeState()
     } catch (error) {
       console.log(error)
     }

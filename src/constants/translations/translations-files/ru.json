@@ -431,7 +431,7 @@
   "Step": "Шаг",
   "Back to editing": "Назад к редактированию",
   "Request title": "Название заявки*",
-  "Your request": "Ваша заявка",
+  "Description of your request": "Описание вашей заявки",
   "Price and time": "Цена и время",
   "Number of proposals": "Количество предложений",
   "Submitted": "Подано",
@@ -506,5 +506,10 @@
   "Check": "Проверить",
   "Add a product card": "Добавить карточку товара",
   "Current exchange rate": "Актуальный обменный курс",
-  "Storekeeper": "Сторкипер"
+  "Storekeeper": "Сторкипер",
+  "Sort by date": "Сортировать по дате",
+  "Proposals for the request": "Предложения по заявке",
+  "Use the supplier standard": "Использовать стандарт поставщика",
+  "Make the supplier standard": "Сделать стандартом поставщика",
+  "My request": "Моя заявка"
 }

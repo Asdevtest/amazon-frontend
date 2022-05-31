@@ -4,11 +4,6 @@ export const useClassNames = makeStyles(() => ({
   root: {
     width: '100%',
     display: 'flex',
-
-    borderRadius: '4px',
-    border: '1px solid rgba(0,0,0, .3)',
-
-    padding: '10px 5px 10px',
   },
 
   mainWrapper: {

@@ -7,6 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Input} from '@components/input'
 import {Table} from '@components/table'
@@ -15,6 +16,7 @@ import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './boxes-to-create-table.style'
 
@@ -146,6 +148,15 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
           />
           <Typography>{textConsts.supplierAddBarCode}</Typography>
         </div>
+
+        <div className={classNames.checkboxWithLabelWrapper}>
+          <Checkbox
+            color="primary"
+            checked={item.tmpUseToUpdateSupplierBoxDimensions}
+            onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
+          />
+          <Typography>{t(TranslationKey['Make the supplier standard'])}</Typography>
+        </div>
       </TableCell>
 
       <TableCell>
@@ -164,6 +175,7 @@ export const BoxesToCreateTable = ({
   newBoxes,
   onRemoveBox,
   onClickBarcodeCheckbox,
+  onClickUpdateSupplierStandart,
   volumeWeightCoefficient,
 }) => {
   const classNames = useClassNames()
@@ -196,7 +208,7 @@ export const BoxesToCreateTable = ({
         data={newBoxes}
         BodyRow={TableBodyBoxRow}
         renderHeadRow={renderHeadRow}
-        rowsHandlers={{onRemoveBox, onClickBarcodeCheckbox}}
+        rowsHandlers={{onRemoveBox, onClickBarcodeCheckbox, onClickUpdateSupplierStandart}}
         barcodeIsExist={barcodeIsExist}
         volumeWeightCoefficient={volumeWeightCoefficient}
         sizeSetting={sizeSetting}

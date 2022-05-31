@@ -5,23 +5,22 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: '20px',
+    justifyContent: 'center',
+    gap: '40px',
+    width: '485px',
+    minHeight: '216px',
   },
-  modalMessage: {
-    maxWidth: '400px',
-  },
-  modalMessageBtn: {
-    alignSelf: 'flex-end',
-  },
-  buttonsWrapper: {
-    display: 'flex',
-    gap: '10px',
-  },
-  cancelBtn: {
-    marginLeft: '10px',
+  title: {
+    textAlign: 'center',
+    width: '350px',
   },
 
   titleWarning: {
     color: 'red',
+  },
+
+  button: {
+    minWidth: '130px',
+    fontSize: '18px',
   },
 }))

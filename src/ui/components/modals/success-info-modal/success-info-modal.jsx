@@ -13,11 +13,11 @@ export const SuccessInfoModal = ({openModal, setOpenModal, title, successBtnText
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMessageWrapper}>
-        <Typography paragraph variant="h5">
+        <Typography paragraph variant="h6" className={classNames.title}>
           {title}
         </Typography>
 
-        <SuccessButton disableElevation variant="contained" onClick={onClickSuccessBtn}>
+        <SuccessButton disableElevation variant="contained" className={classNames.button} onClick={onClickSuccessBtn}>
           {successBtnText}
         </SuccessButton>
       </div>
