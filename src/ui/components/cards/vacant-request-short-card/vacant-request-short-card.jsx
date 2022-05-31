@@ -55,11 +55,11 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
             <Typography className={classNames.cardTime}>{`${t(TranslationKey.Time)}: ${toFixed(
               item.timeLimitInMinutes / 60,
               2,
-            )} ч. `}</Typography>
+            )} ${t(TranslationKey.hour)} `}</Typography>
           </div>
 
           <div className={classNames.updatedAtWrapper}>
-            <Typography className={classNames.updatedAtText}>{'Обновлено:'}</Typography>
+            <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ':'}</Typography>
 
             <Typography className={classNames.updatedAtText}>
               {formatNormDateTimeWithParseISO(item.updatedAt)}

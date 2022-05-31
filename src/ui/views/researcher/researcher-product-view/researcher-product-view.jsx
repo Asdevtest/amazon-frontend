@@ -4,6 +4,7 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -16,6 +17,7 @@ import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-sup
 import {ProductWrapper} from '@components/product/product-wrapper'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ResearcherProductViewModel} from './researcher-product-view.model'
 
@@ -103,7 +105,7 @@ export class ResearcherProductView extends Component {
             requestStatus={requestStatus}
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}
-            title={textConsts.modalAddTitle}
+            title={t(TranslationKey['Adding and editing a supplier'])}
             supplier={selectedSupplier}
             showProgress={showProgress}
             progressValue={progressValue}
@@ -116,7 +118,7 @@ export class ResearcherProductView extends Component {
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
           title={warningModalTitle}
-          btnText={textConsts.okBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
           }}
@@ -126,10 +128,10 @@ export class ResearcherProductView extends Component {
           isWarning={confirmModalSettings.isWarning}
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
+          title={t(TranslationKey.Attention)}
           message={confirmModalSettings.message}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={() => {
             confirmModalSettings.onClickOkBtn()
             onTriggerOpenModal('showConfirmModal')

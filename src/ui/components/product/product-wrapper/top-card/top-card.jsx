@@ -9,6 +9,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -18,6 +19,7 @@ import {UploadFilesInput} from '@components/upload-files-input'
 import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {FieldsAndSuppliers} from './fields-and-suppliers'
 import {TableSupplier} from './fields-and-suppliers/table-supplier'
@@ -144,8 +146,8 @@ export const TopCard = observer(
                     severity={actionStatus === loadingStatuses.success ? 'success' : 'error'}
                   >
                     {actionStatus === loadingStatuses.success
-                      ? textConsts.alertSuccess
-                      : alertFailedText || textConsts.alertFailed}
+                      ? t(TranslationKey['Request processed'])
+                      : alertFailedText || t(TranslationKey['Fields not filled in'])}
                   </Alert>
                 ) : undefined}
               </Grid>

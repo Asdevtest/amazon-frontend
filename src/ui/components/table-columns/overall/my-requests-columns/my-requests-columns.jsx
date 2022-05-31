@@ -15,7 +15,7 @@ import {t} from '@utils/translations'
 export const myRequestsViewColumns = () => [
   {
     field: 'updatedAt',
-    headerName: 'Updated',
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     width: 110,
     type: 'date',
@@ -59,28 +59,28 @@ export const myRequestsViewColumns = () => [
 
   {
     field: 'verifyingProposals',
-    headerName: t(TranslationKey['Proposals are expected']),
+    headerName: t(TranslationKey.Awaiting),
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },
 
   {
     field: 'atWorkProposals',
-    headerName: t(TranslationKey['Proposals in the works']),
+    headerName: t(TranslationKey['In the work']),
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },
 
   {
     field: 'waitedProposals',
-    headerName: t(TranslationKey['Proposals at the checkout']),
+    headerName: t(TranslationKey['On review']),
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },
 
   {
     field: 'acceptedProposals',
-    headerName: t(TranslationKey['The proposals accepted']),
+    headerName: t(TranslationKey.Accepted),
     renderCell: params => renderFieldValueCell(params.value),
     width: 170,
   },

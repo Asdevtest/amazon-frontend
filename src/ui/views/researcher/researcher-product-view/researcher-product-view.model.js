@@ -4,7 +4,7 @@ import {action, makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ProductModel} from '@models/product-model'
 import {ResearcherModel} from '@models/researcher-model'
@@ -18,17 +18,15 @@ import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {
   getObjectFilteredByKeyArrayWhiteList,
   getObjectFilteredByKeyArrayBlackList,
   getNewObjectWithDefaultValue,
 } from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
+import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
-
-const textConsts = getLocalizedTexts(texts, 'en').researcherProductView
 
 const fieldsOfProductAllowedToForceUpdate = [
   'lamazon',
@@ -168,7 +166,7 @@ export class ResearcherProductViewModel {
 
   confirmModalSettings = {
     isWarning: false,
-    message: textConsts.confirmMessage,
+    message: t(TranslationKey['The product will be sent to Supervisor for review. Are you sure?']),
     onClickOkBtn: () => this.onSaveProductData(),
   }
 
@@ -312,7 +310,7 @@ export class ResearcherProductViewModel {
       case 'delete':
         this.confirmModalSettings = {
           isWarning: true,
-          message: textConsts.deleteSupplierMessage,
+          message: t(TranslationKey['Are you sure you want to remove the supplier?']),
           onClickOkBtn: () => this.onRemoveSupplier(),
         }
 
@@ -358,7 +356,7 @@ export class ResearcherProductViewModel {
       case 'delete':
         this.confirmModalSettings = {
           isWarning: true,
-          message: textConsts.deleteMessage,
+          message: t(TranslationKey['Are you sure you want to remove the product?']),
           onClickOkBtn: () => this.onDeleteProduct(),
         }
 

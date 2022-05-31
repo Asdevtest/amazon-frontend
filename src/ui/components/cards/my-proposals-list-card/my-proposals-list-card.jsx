@@ -76,7 +76,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
           <Carousel autoPlay={false} timeout={100} animation="fade" fullHeightHover={false}>
             {item.proposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
-                <Typography className={classNames.cardTitle}>{t(TranslationKey.Suggest)}</Typography>
+                <Typography className={classNames.cardTitle}>{t(TranslationKey.Proposal)}</Typography>
 
                 <Typography className={classNames.proposalComment}>{proposal.comment}</Typography>
 
