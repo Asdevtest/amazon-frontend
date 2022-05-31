@@ -1,12 +1,14 @@
 import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
 
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Typography, Box, Tabs, Tab} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {checkIsClient} from '@utils/checks'
 import {t} from '@utils/translations'
@@ -68,6 +70,11 @@ export const ProductWrapper = observer(
 
     const [tabIndex, setTabIndex] = React.useState(tabsValues.MAIN_INFO)
     const tabItemStyles = twitterTabsStylesHook.useTabItem()
+    const [updatedProduct, setUpdatedProduct] = useState(product)
+
+    useEffect(() => {
+      setUpdatedProduct(() => ({...product}))
+    }, [SettingsModel.languageTag])
 
     return (
       <React.Fragment>
@@ -97,7 +104,7 @@ export const ProductWrapper = observer(
             progressValue={progressValue}
             alertFailedText={alertFailedText}
             curUserRole={curUserRole}
-            product={product}
+            product={updatedProduct}
             productBase={productBase}
             selectedSupplier={selectedSupplier}
             actionStatus={actionStatus}
@@ -112,7 +119,7 @@ export const ProductWrapper = observer(
           />
           <BottomCard
             curUserRole={curUserRole}
-            product={product}
+            product={updatedProduct}
             productBase={productBase}
             formFieldsValidationErrors={formFieldsValidationErrors}
             onChangeField={onChangeField}
@@ -120,7 +127,7 @@ export const ProductWrapper = observer(
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
-          <Orders productId={product._id} />
+          <Orders productId={updatedProduct._id} />
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.INTEGRATIONS}>
