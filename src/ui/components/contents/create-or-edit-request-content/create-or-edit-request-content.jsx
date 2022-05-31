@@ -275,7 +275,7 @@ export const CreateOrEditRequestContent = ({
                 className={classNames.descriptionField}
                 minRows={4}
                 rowsMax={4}
-                label={t(TranslationKey['Your request'])}
+                label={t(TranslationKey['Description of your request'])}
                 inputComponent={
                   <Typography className={classNames.twoStepFieldResult}>{formFields.details.conditions}</Typography>
                 }

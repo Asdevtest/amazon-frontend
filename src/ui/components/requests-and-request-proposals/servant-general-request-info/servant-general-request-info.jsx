@@ -67,11 +67,13 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
         </div>
       </div>
 
-      <div className={classNames.btnsBlockWrapper}>
-        <Button variant="contained" color="primary" className={classNames.actionBtn} onClick={onSubmit}>
-          {t(TranslationKey['Suggest a deal'])}
-        </Button>
-      </div>
+      {request.request.status !== RequestProposalStatus.EXPIRED && (
+        <div className={classNames.btnsBlockWrapper}>
+          <Button variant="contained" color="primary" className={classNames.actionBtn} onClick={onSubmit}>
+            {t(TranslationKey['Suggest a deal'])}
+          </Button>
+        </div>
+      )}
     </Paper>
   )
 }

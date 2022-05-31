@@ -101,7 +101,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['My request'])} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {request ? (
                 <OwnerGeneralRequestInfo

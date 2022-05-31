@@ -431,7 +431,7 @@
   "Step": "Шаг",
   "Back to editing": "Назад к редактированию",
   "Request title": "Название заявки*",
-  "Your request": "Ваша заявка",
+  "Description of your request": "Описание вашей заявки",
   "Price and time": "Цена и время",
   "Number of proposals": "Количество предложений",
   "Submitted": "Подано",
@@ -510,5 +510,6 @@
   "Sort by date": "Сортировать по дате",
   "Proposals for the request": "Предложения по заявке",
   "Use the supplier standard": "Использовать стандарт поставщика",
-  "Make the supplier standard": "Сделать стандартом поставщика"
+  "Make the supplier standard": "Сделать стандартом поставщика",
+  "My request": "Моя заявка"
 }

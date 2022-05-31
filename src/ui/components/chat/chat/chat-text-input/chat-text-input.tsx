@@ -75,7 +75,7 @@ export const ChatTextInput: FC<Props> = ({links, files, message, setMessage, set
             onKeyPress: handleKeyPress,
           },
         }}
-        onChange={setMessage}
+        onChange={e => message.length < 1000 && setMessage(e)}
         onTabChange={setMdeSelectedTab}
       />
     </div>
