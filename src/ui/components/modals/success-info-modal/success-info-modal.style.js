@@ -7,8 +7,8 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'center',
     gap: '40px',
-    width: '485px',
-    minHeight: '216px',
+    width: '445px',
+    minHeight: '168px',
   },
   title: {
     textAlign: 'center',

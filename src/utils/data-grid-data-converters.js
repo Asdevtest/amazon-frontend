@@ -318,6 +318,7 @@ export const clientBatchesDataConverter = (data, volumeWeightCoefficient) =>
       0,
     ),
     totalPrice: item.boxes.reduce((prev, box) => (prev = prev + calcPriceForBox(box)), 0),
+    deliveryTotalPrice: item.boxes.reduce((prev, box) => (prev = prev + box.deliveryTotalPrice), 0),
   }))
 
 export const clientFinancesDataConverter = data =>
@@ -385,6 +386,7 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
       0,
     ),
     totalPrice: item.boxes.reduce((prev, box) => (prev = prev + calcPriceForBox(box)), 0),
+    deliveryTotalPrice: item.boxes.reduce((prev, box) => (prev = prev + box.deliveryTotalPrice), 0),
   }))
 
 export const warehouseTasksDataConverter = data =>

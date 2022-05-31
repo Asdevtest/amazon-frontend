@@ -11,6 +11,7 @@ import {
   ToFixedWithKgSignCell,
   UserLinkCell,
   WarehouseTariffDatesCell,
+  MultilineTextHeaderCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -38,7 +39,7 @@ export const clientBatchesViewColumns = () => [
 
   {
     field: 'destination',
-    headerName: t(TranslationKey.Destination),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
   },
@@ -66,8 +67,16 @@ export const clientBatchesViewColumns = () => [
 
   {
     field: 'finalWeight',
-    headerName: t(TranslationKey['Total weight']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
+    type: 'number',
+    width: 130,
+  },
+
+  {
+    field: 'deliveryTotalPrice',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
+    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 130,
   },

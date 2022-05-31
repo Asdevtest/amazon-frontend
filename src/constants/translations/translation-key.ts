@@ -675,14 +675,14 @@ export enum TranslationKey {
   'Are you sure you want to remove the supplier?' = 'Are you sure you want to remove the supplier?',
   'Are you sure you want to remove the product?' = 'Are you sure you want to remove the product?',
   'Awaiting' = 'Awaiting',
-  // '' = '',
-  // '' = '',
-  // '' = '',
+  'Delivery cost' = 'Delivery cost',
+  'Files' = 'Files',
+  'Available images' = 'Available images',
   // '' = '',
   // '' = '',
 }
 
-// "My request": "My request"
+// "Available images": "Available images"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

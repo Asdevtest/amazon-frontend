@@ -668,7 +668,6 @@
   "The settings are saved.": "Настройки сохранены.",
   "The settings are not saved!": "Настройки не сохранены!",
   "Proposal": "Предложение",
-  "Sort by date": "Сортировать по дате",
   "Request processed": "Запрос обработан",
   "Fields not filled in": "Не заполнены поля",
   "No suppliers": "Нет поставщиков",
@@ -676,5 +675,8 @@
   "The product will be sent to Supervisor for review. Are you sure?": "Товар будет отправлен на проверку к Supervisor. Вы уверены?",
   "Are you sure you want to remove the supplier?": "Вы точно хотите удалить поставщика?",
   "Are you sure you want to remove the product?": "Вы точно хотите удалить продукт?",
-  "Awaiting": "Oжидают"
+  "Awaiting": "Oжидают",
+  "Delivery cost": "Стоимость доставки",
+  "Files": "Файлы",
+  "Available images": "Имеющиеся изображения"
 }

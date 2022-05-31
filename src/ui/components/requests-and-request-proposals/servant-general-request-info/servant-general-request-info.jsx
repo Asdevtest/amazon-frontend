@@ -68,14 +68,13 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
         </div>
       </div>
 
-      {request.request.status === RequestStatus.PUBLISHED ||
-        (request.request.status === RequestStatus.IN_PROCESS && (
-          <div className={classNames.btnsBlockWrapper}>
-            <Button variant="contained" color="primary" className={classNames.actionBtn} onClick={onSubmit}>
-              {t(TranslationKey['Suggest a deal'])}
-            </Button>
-          </div>
-        ))}
+      {(request.request.status === RequestStatus.PUBLISHED || request.request.status === RequestStatus.IN_PROCESS) && (
+        <div className={classNames.btnsBlockWrapper}>
+          <Button variant="contained" color="primary" className={classNames.actionBtn} onClick={onSubmit}>
+            {t(TranslationKey['Suggest a deal'])}
+          </Button>
+        </div>
+      )}
     </Paper>
   )
 }

@@ -31,7 +31,7 @@ export const styles = createStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '485px',
-    minHeight: '216px',
+    width: '445px',
+    minHeight: '168px',
   },
 }))

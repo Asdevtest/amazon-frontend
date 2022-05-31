@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Checkbox, Divider, Typography, Select, ListItemText, MenuItem} from '@material-ui/core'
+import {Checkbox, Divider, Typography, Select, ListItemText, MenuItem, Link} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -14,7 +14,7 @@ import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {checkIsImageLink, checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
 import {t} from '@utils/translations'
 
@@ -176,8 +176,27 @@ export const CreateOrEditRequestContent = ({
                   variant="contained"
                   onClick={() => setShowPhotosModal(!showPhotosModal)}
                 >
-                  {t(TranslationKey['Available files'])}
+                  {t(TranslationKey['Available images'])}
                 </Button>
+
+                {formFields.details.linksToMediaFiles.filter(el => !checkIsImageLink(el)).length ? (
+                  <Field
+                    multiline
+                    label={t(TranslationKey.Files)}
+                    containerClasses={classNames.filesContainer}
+                    inputComponent={
+                      <div className={classNames.filesWrapper}>
+                        {formFields.details.linksToMediaFiles
+                          .filter(el => !checkIsImageLink(el))
+                          .map((file, index) => (
+                            <Link key={index} target="_blank" href={file}>
+                              <Typography className={classNames.linkText}>{file}</Typography>
+                            </Link>
+                          ))}
+                      </div>
+                    }
+                  />
+                ) : null}
               </div>
             </div>
 
@@ -188,14 +207,6 @@ export const CreateOrEditRequestContent = ({
                 value={formFields.request.price}
                 onChange={onChangeField('request')('price')}
               />
-
-              {/* <Field
-                oneLine
-                label={'Ограничить количество предложений?'}
-                inputComponent={
-                  <Checkbox color="primary" checked={formFields.fba} onChange={onChangeFormField('fba')} />
-                }
-              /> */}
 
               <Field
                 inputProps={{maxLength: 8}}
@@ -422,7 +433,7 @@ export const CreateOrEditRequestContent = ({
         isAmazone
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={formFields.details.linksToMediaFiles || []}
+        images={formFields.details.linksToMediaFiles.filter(el => checkIsImageLink(el)) || []}
       />
     </div>
   )
