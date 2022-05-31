@@ -8,7 +8,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
 import React, {Component} from 'react'
 
-import {Grid, InputAdornment, Typography} from '@material-ui/core'
+import {Box, InputAdornment, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -121,13 +121,12 @@ class VacantRequestsViewRaw extends Component {
               </div>
 
               {getSortedData(sortMode)?.length ? (
-                <Grid
+                <Box
                   container
                   classes={{root: classNames.dashboardCardWrapper}}
-                  spacing={3}
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="flex-start"
+                  display="grid"
+                  gridTemplateColumns="repeat(auto-fill, minmax(330px, 1fr))"
+                  gridGap="20px"
                 >
                   {getSortedData(sortMode)?.map(item =>
                     viewMode === tableViewMode.LIST ? (
@@ -136,7 +135,7 @@ class VacantRequestsViewRaw extends Component {
                       <VacantRequestShortCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
                     ),
                   )}
-                </Grid>
+                </Box>
               ) : (
                 <div className={classNames.emptyTableWrapper}>
                   <img src="/assets/icons/empty-table.svg" />

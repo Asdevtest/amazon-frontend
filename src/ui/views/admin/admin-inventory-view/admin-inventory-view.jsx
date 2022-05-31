@@ -7,19 +7,17 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AdminInventoryViewModel} from './admin-inventory-view.model'
 import {styles} from './admin-inventory-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').adminInventoryView
 
 @observer
 export class AdminInventoryViewRaw extends Component {
@@ -27,7 +25,6 @@ export class AdminInventoryViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.getProducts()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -59,7 +56,7 @@ export class AdminInventoryViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Inventory)}>
             <MainContent>
               <DataGrid
                 pagination

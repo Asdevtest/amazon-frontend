@@ -5,8 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {BUYER_PRODUCTS_HEAD_CELLS} from '@constants/table-head-cells'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -15,12 +14,10 @@ import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/buyer/products-view/table-body-row'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {BuyerSearchSupplierByClientModel} from './buyer-search-supplier-by-client-view.model'
 import {styles} from './buyer-search-supplier-by-client-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').buyerSearchSupplierByClientView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_NEW_PRODUCTS
 const navbarActiveSubCategory = 1
@@ -43,11 +40,23 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
+      productsHead,
     } = this.viewModel
     const {classes: classNames} = this.props
     const tableRowHandlers = {
       onClickTableRowBtn,
     }
+
+    const renderHeadRow = (
+      <TableRow>
+        {productsHead.map((el, i) => (
+          <TableCell key={i} align={el.align}>
+            {el.label}
+          </TableCell>
+        ))}
+      </TableRow>
+    )
+
     return (
       <React.Fragment>
         <Navbar
@@ -57,19 +66,23 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar
+            title={`${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['From the Client'])}`}
+            notificationCount={2}
+            setDrawerOpen={onTriggerDrawerOpen}
+          >
             <MainContent>
               <div className={classNames.tableWrapper}>
                 <Table
                   rowsOnly
-                  noRowsTitle={textConsts.noRowsTitle}
+                  noRowsTitle={t(TranslationKey['No new proposals at the moment'])}
                   currentPage={curPage}
                   data={productsVacant}
                   handlerPageChange={onChangeCurPage}
                   handlerRowsPerPage={onChangeRowsPerPage}
                   pageCount={Math.ceil(productsVacant.length / rowsPerPage)}
                   BodyRow={TableBodyRow}
-                  renderHeadRow={this.renderHeadRow}
+                  renderHeadRow={renderHeadRow}
                   rowsPerPage={rowsPerPage}
                   rowsHandlers={tableRowHandlers}
                 />
@@ -80,16 +93,6 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderHeadRow = (
-    <TableRow>
-      {BUYER_PRODUCTS_HEAD_CELLS.map((el, i) => (
-        <TableCell key={i} align={el.align}>
-          {el.label}
-        </TableCell>
-      ))}
-    </TableRow>
-  )
 }
 
 export const BuyerSearchSupplierByClientView = withStyles(styles)(BuyerSearchSupplierByClientViewRaw)

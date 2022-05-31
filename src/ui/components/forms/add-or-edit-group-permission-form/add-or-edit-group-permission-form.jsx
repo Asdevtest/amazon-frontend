@@ -11,6 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
@@ -19,6 +20,7 @@ import {Modal} from '@components/modal'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AddOrEditSinglePermissionForm} from '../add-or-edit-single-permission-form'
 import {useClassNames} from './add-or-edit-group-permission-form.style'
@@ -143,12 +145,17 @@ export const AddOrEditGroupPermissionForm = observer(
 
     return (
       <div className={classNames.root}>
-        <Typography variant="h5">{isEdit ? textConsts.editTitle : textConsts.addTitle}</Typography>
+        <Typography variant="h5">
+          {isEdit ? t(TranslationKey['Change permissions group']) : t(TranslationKey['New Permission Group'])}
+        </Typography>
 
         <div className={classNames.form}>
           <Field
-            label={textConsts.roleLabel}
-            error={isWrongPermissionsSelect && textConsts.isWrongPermissionsSelect}
+            label={t(TranslationKey.Role)}
+            error={
+              isWrongPermissionsSelect &&
+              t(TranslationKey['The selected permissions and the current role do not match!'])
+            }
             inputComponent={
               <NativeSelect
                 variant="filled"
@@ -168,9 +175,9 @@ export const AddOrEditGroupPermissionForm = observer(
 
           <Field
             disabled={isEdit}
-            label={textConsts.keyLabel}
+            label={t(TranslationKey.Key)}
             value={formFields.key}
-            placeholder={textConsts.keyHolder}
+            placeholder={`${t(TranslationKey.Key)}_${t(TranslationKey.Key)}_${t(TranslationKey.Key)}...`}
             error={
               (formFields.key.match(/[_]/) === null && onKeyFieldEditing && textConsts.keyFieldError) ||
               (isDoubleKey && textConsts.doubleKeyError)
@@ -179,9 +186,9 @@ export const AddOrEditGroupPermissionForm = observer(
           />
 
           <Field
-            label={textConsts.titleLabel}
+            label={t(TranslationKey.Title)}
             value={formFields.title}
-            placeholder={textConsts.titleHolder}
+            placeholder={t(TranslationKey['Group №1'])}
             onChange={onChangeField('title')}
           />
 
@@ -190,27 +197,32 @@ export const AddOrEditGroupPermissionForm = observer(
             minRows={4}
             rowsMax={4}
             className={classNames.descriptionField}
-            label={textConsts.descriptionLabel}
-            placeholder={textConsts.descriptionHolder}
+            label={t(TranslationKey.Description)}
+            placeholder={t(TranslationKey.Description) + '...'}
             value={formFields.description}
             onChange={onChangeField('description')}
           />
 
           <Field
-            label={textConsts.hierarchyLabel}
-            placeholder={textConsts.hierarchyHolder}
+            label={t(TranslationKey.Position)}
+            placeholder={t(TranslationKey['Priority number'])}
             value={formFields.hierarchy}
             onChange={onChangeField('hierarchy')}
           />
 
           <Field
             containerClasses={classNames.field}
-            label={textConsts.allowPermissions}
-            error={isWrongPermissionsSelect && textConsts.isWrongPermissionsSelect}
+            label={t(TranslationKey.Permissions)}
+            error={
+              isWrongPermissionsSelect &&
+              t(TranslationKey['The selected permissions and the current role do not match!'])
+            }
             inputComponent={
               <div className={classNames.allowPermissions}>
                 <div>
-                  <Typography className={classNames.permissionsSubTitle}>{textConsts.currentPermissions}</Typography>
+                  <Typography className={classNames.permissionsSubTitle}>
+                    {t(TranslationKey['Existing permissions:'])}
+                  </Typography>
 
                   {curPermissions.map((el, index) => (
                     <Tooltip key={index} title={renderPermissionInfo(el)}>
@@ -219,7 +231,9 @@ export const AddOrEditGroupPermissionForm = observer(
                   ))}
 
                   <div className={classNames.selectWrapper}>
-                    <Typography className={classNames.selectChoose}>{textConsts.selectChooseTitle}</Typography>
+                    <Typography className={classNames.selectChoose}>
+                      {t(TranslationKey['Select available:'])}
+                    </Typography>
                     <Select
                       multiple
                       open={openSinglePermissions}
@@ -286,7 +300,7 @@ export const AddOrEditGroupPermissionForm = observer(
                           variant="contained"
                           onClick={() => setOpenSinglePermissions(!openSinglePermissions)}
                         >
-                          {textConsts.closeBtn}
+                          {t(TranslationKey.Close)}
                         </Button>
 
                         <Button
@@ -297,7 +311,7 @@ export const AddOrEditGroupPermissionForm = observer(
                           variant="default"
                           onClick={() => onChangeField('permissions')({target: {value: []}})}
                         >
-                          {textConsts.clearBtn}
+                          {t(TranslationKey.reset)}
                         </Button>
                       </div>
                     </Select>
@@ -306,7 +320,7 @@ export const AddOrEditGroupPermissionForm = observer(
 
                 <div>
                   <Typography className={classNames.permissionsSubTitle}>
-                    {textConsts.permissionsWillbeCreated}
+                    {t(TranslationKey['Permissions will be created:'])}
                   </Typography>
 
                   {newSinglePermission.map((el, index) => (
@@ -329,7 +343,7 @@ export const AddOrEditGroupPermissionForm = observer(
                     variant="contained"
                     onClick={() => setShowAddOrEditSinglePermissionModal(!showAddOrEditSinglePermissionModal)}
                   >
-                    {textConsts.addNewPermBtn}
+                    {t(TranslationKey['Create New'])}
                   </Button>
                 </div>
               </div>
@@ -344,7 +358,7 @@ export const AddOrEditGroupPermissionForm = observer(
           variant="contained"
           onClick={() => onSubmit(formFields, newSinglePermission, permissionToEdit._id)}
         >
-          {isEdit ? textConsts.editBtn : textConsts.createBtn}
+          {isEdit ? t(TranslationKey['Edit a group']) : t(TranslationKey['Create a group'])}
         </Button>
 
         <Button
@@ -354,7 +368,7 @@ export const AddOrEditGroupPermissionForm = observer(
           variant="contained"
           onClick={() => onCloseModal()}
         >
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Cancel)}
         </Button>
 
         <Modal

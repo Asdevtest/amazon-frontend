@@ -8,7 +8,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -17,13 +17,12 @@ import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 import {AdminBalanceModal} from '@components/screens/users-views/sub-users-view/admin-balance-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {AdminUserBalanceViewModel} from './admin-user-balance-view.model'
 import {styles} from './admin-user-balance-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').adminUserBalanceView
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_USERS
 
 @observer
@@ -73,9 +72,9 @@ class AdminUserBalanceViewRaw extends Component {
       <>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['User balance'])}>
             <MainContent>
-              <Typography variant="h5">{`${textConsts.balance} of ${user.email}`}</Typography>
+              <Typography variant="h5">{`${t(TranslationKey.Balance)}  ${user.email}`}</Typography>
               <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</Typography>
               {user.balanceFreeze !== 0 && (
                 <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(
@@ -90,14 +89,14 @@ class AdminUserBalanceViewRaw extends Component {
                 variant="contained"
                 onClick={onTriggerReplenishModal}
               >
-                {textConsts.replenish}
+                {t(TranslationKey.Deposit)}
               </Button>
               <Button disableElevation color="primary" onClick={onTriggerWithdrawModal}>
-                {textConsts.withdraw}
+                {t(TranslationKey.Withdraw)}
               </Button>
 
               <div className={classNames.tableWrapper}>
-                <Typography variant="h6">{textConsts.balanceHistoryTitle}</Typography>
+                <Typography variant="h6">{t(TranslationKey['Balance changes'])}</Typography>
 
                 <DataGrid
                   pagination

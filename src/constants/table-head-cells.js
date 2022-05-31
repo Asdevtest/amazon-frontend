@@ -2,9 +2,9 @@ import {t} from '@utils/translations'
 
 import {TranslationKey} from './translations/translation-key'
 
-export const SUPERVISOR_PRODUCTS_HEAD_CELLS = [
+export const SUPERVISOR_PRODUCTS_HEAD_CELLS = () => [
   {id: 'asin', align: 'center', disablePadding: true, label: '#'},
-  {id: 'action', align: 'center', disablePadding: true, label: 'Действие'},
+  {id: 'action', align: 'center', disablePadding: true, label: t(TranslationKey.Action)},
 ]
 
 export const CLIENT_ORDERS_HEAD_CELL = [
@@ -87,14 +87,14 @@ export const BUYER_MY_ORDERS_HEAD_CELLS = [
   'Комментарий байера',
 ]
 
-export const BUYER_MY_ORDERS_MODAL_HEAD_CELLS = [
+export const BUYER_MY_ORDERS_MODAL_HEAD_CELLS = () => [
   '',
-  'Товар',
-  'Цена',
-  'Ср. стоимость доставки за 1 шт.',
-  'Количество',
-  'Итого',
-  'Поставщик',
+  t(TranslationKey.Title),
+  t(TranslationKey.Price),
+  t(TranslationKey['Avg. shipping cost per 1 pc.']),
+  t(TranslationKey.Quantity),
+  t(TranslationKey.Total),
+  t(TranslationKey.Supplier),
 ]
 
 export const BUYER_FREE_ORDERS_MODAL_HEAD_CELLS = [
@@ -121,7 +121,7 @@ export const ADMIN_ORDERS_HEAD_CELL = [
   'Трек номер',
 ]
 
-export const BUYER_PRODUCTS_HEAD_CELLS = [
+export const BUYER_PRODUCTS_HEAD_CELLS = () => [
   {id: 'asin', align: 'center', disablePadding: true, label: '#'},
-  {id: 'action', align: 'center', disablePadding: true, label: 'Действие'},
+  {id: 'action', align: 'center', disablePadding: true, label: t(TranslationKey.Action)},
 ]

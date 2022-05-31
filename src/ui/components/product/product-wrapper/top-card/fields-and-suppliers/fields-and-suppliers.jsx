@@ -104,7 +104,7 @@ export const FieldsAndSuppliers = observer(
           inputComponent={
             <div>
               <Link
-                contentEditable={!edit}
+                contentEditable={!edit || !product.lamazon}
                 target="_blank"
                 rel="noopener"
                 href={checkAndMakeAbsoluteUrl(product.lamazon)}

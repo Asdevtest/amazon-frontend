@@ -5,7 +5,7 @@ import React, {useState} from 'react'
 import {Container, Button, Typography, NativeSelect, Checkbox, Select, ListItemText, MenuItem} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
@@ -15,14 +15,13 @@ import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './admin-content-modal.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').subUsersModalContent
 const activeOptions = [
-  {value: true, label: textConsts.activeOption},
-  {value: false, label: textConsts.bannedOption},
+  {value: true, label: t(TranslationKey.Active)},
+  {value: false, label: t(TranslationKey.Banned)},
 ]
 
 export const AdminContentModal = observer(
@@ -48,7 +47,7 @@ export const AdminContentModal = observer(
         color="primary"
         onClick={() => setShowPermissionModal(!showPermissionModal)}
       >
-        {textConsts.manageBtn}
+        {t(TranslationKey['Manage permissions'])}
       </Button>
     )
 
@@ -144,7 +143,7 @@ export const AdminContentModal = observer(
 
         {editUserFormFields.masterUser ? (
           <Field
-            label={textConsts.masterUser}
+            label={t(TranslationKey['Master user'])}
             inputComponent={
               <div className={classNames.ratingWrapper}>
                 <UserLinkCell
@@ -153,7 +152,7 @@ export const AdminContentModal = observer(
                 />
 
                 <div className={classNames.ratingSubWrapper}>
-                  <Typography className={classNames.rating}>{textConsts.rating}</Typography>
+                  <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
 
                   <Rating disabled value={editUserFormFields.masterUserInfo?.rating} />
                 </div>
@@ -164,7 +163,7 @@ export const AdminContentModal = observer(
 
         {editUserFormFields.subUsers.length ? (
           <Field
-            label={textConsts.subUsers}
+            label={t(TranslationKey['Sub users'])}
             inputComponent={
               <div className={classNames.subUsersWrapper}>
                 {editUserFormFields.subUsers.map(subUser => (
@@ -172,7 +171,7 @@ export const AdminContentModal = observer(
                     <UserLinkCell name={subUser.name} userId={subUser._id} />
 
                     <div className={classNames.ratingSubWrapper}>
-                      <Typography className={classNames.rating}>{textConsts.rating}</Typography>
+                      <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
 
                       <Rating disabled value={subUser.rating} />
                     </div>
@@ -185,14 +184,14 @@ export const AdminContentModal = observer(
 
         <Field
           inputProps={{maxLength: 50}}
-          label={textConsts.name}
+          label={t(TranslationKey.Name)}
           error={checkValidationNameOrEmail.nameIsUnique && 'Пользователь с таким именем уже существует'}
           value={formFields.name}
           onChange={onChangeFormField('name')}
         />
         <Field
           inputProps={{maxLength: 50}}
-          label={textConsts.email}
+          label={t(TranslationKey.Email)}
           error={checkValidationNameOrEmail.emailIsUnique && 'Пользователь с таким email уже существует'}
           value={formFields.email}
           type="email"
@@ -201,7 +200,7 @@ export const AdminContentModal = observer(
 
         <Field
           inputProps={{maxLength: 10}}
-          label={textConsts.overdraft}
+          label={t(TranslationKey.Overdraft)}
           value={formFields.overdraft}
           onChange={onChangeFormField('overdraft')}
         />
@@ -209,15 +208,17 @@ export const AdminContentModal = observer(
         {!editUserFormFields.masterUser ? (
           <Field
             inputProps={{maxLength: 8}}
-            label={textConsts.rate}
+            label={t(TranslationKey.Rate)}
             value={formFields.rate}
             onChange={onChangeFormField('rate')}
           />
         ) : null}
 
         <Field
-          label={textConsts.role}
-          error={isWrongPermissionsSelect && textConsts.isWrongPermissionsSelect}
+          label={t(TranslationKey.Role)}
+          error={
+            isWrongPermissionsSelect && t(TranslationKey['The selected permissions and the current role do not match!'])
+          }
           inputComponent={
             <NativeSelect
               input={<Input fullWidth />}
@@ -241,7 +242,7 @@ export const AdminContentModal = observer(
 
         {!editUserFormFields.masterUser ? (
           <Field
-            label={textConsts.allowedRoles}
+            label={t(TranslationKey['Allowed Roles'])}
             inputComponent={
               <Select
                 multiple
@@ -265,7 +266,7 @@ export const AdminContentModal = observer(
         ) : null}
 
         <Field
-          label={textConsts.active}
+          label={t(TranslationKey['User status'])}
           inputComponent={
             <NativeSelect
               input={<Input fullWidth />}
@@ -288,7 +289,7 @@ export const AdminContentModal = observer(
             checked={formFields.fba}
             onChange={onChangeFormField('fba')}
           />
-          <Typography className={classNames.checkboxLabel}>{textConsts.fba}</Typography>
+          <Typography className={classNames.checkboxLabel}>{t(TranslationKey.FBA)}</Typography>
         </div>
 
         <div className={classNames.checkboxWrapper}>
@@ -298,7 +299,7 @@ export const AdminContentModal = observer(
             checked={formFields.canByMasterUser}
             onChange={onChangeFormField('canByMasterUser')}
           />
-          <Typography className={classNames.checkboxLabel}>{textConsts.canByMasterUser}</Typography>
+          <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Can be the master user'])}</Typography>
         </div>
 
         <div className={classNames.checkboxWrapper}>
@@ -308,14 +309,14 @@ export const AdminContentModal = observer(
             checked={formFields.hideSuppliers}
             onChange={onChangeFormField('hideSuppliers')}
           />
-          <Typography className={classNames.checkboxLabel}>{textConsts.hideSuppliers}</Typography>
+          <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Hide Suppliers'])}</Typography>
         </div>
 
-        <Field label={textConsts.fieldSecurity} inputComponent={renderPermissionBtn} />
+        <Field label={t(TranslationKey['Security/Sharing options'])} inputComponent={renderPermissionBtn} />
 
         {isWrongPermissionsSelect && (
           <Typography className={classNames.isWrongPermissionsSelectError}>
-            {textConsts.isWrongPermissionsSelect}
+            {t(TranslationKey['The selected permissions and the current role do not match!'])}
           </Typography>
         )}
 
@@ -341,7 +342,7 @@ export const AdminContentModal = observer(
               onCloseModal()
             }}
           >
-            {textConsts.closeBtn}
+            {t(TranslationKey.Close)}
           </Button>
         </div>
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>

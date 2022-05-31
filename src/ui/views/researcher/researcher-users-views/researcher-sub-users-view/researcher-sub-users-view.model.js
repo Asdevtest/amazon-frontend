@@ -2,7 +2,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 
 import {PermissionsModel} from '@models/permissions-model'
@@ -12,10 +12,9 @@ import {UserModel} from '@models/user-model'
 import {subUsersColumns} from '@components/table-columns/sub-users-columns/sub-users-columns'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 
-const textConsts = getLocalizedTexts(texts, 'en').researcherSubUsersView
 export class ResearcherSubUsersViewModel {
   history = undefined
   requestStatus = undefined
@@ -220,7 +219,7 @@ export class ResearcherSubUsersViewModel {
 
       this.warningInfoModalSettings = {
         isWarning: false,
-        title: textConsts.successTitle,
+        title: t(TranslationKey['Sab-user added']),
       }
 
       this.onTriggerOpenModal('showWarningModal')
@@ -230,7 +229,7 @@ export class ResearcherSubUsersViewModel {
 
       this.warningInfoModalSettings = {
         isWarning: true,
-        title: error.body.message || textConsts.failTitle,
+        title: error.body.message || t(TranslationKey['Sab-user not added!']),
       }
 
       this.onTriggerOpenModal('showWarningModal')
@@ -243,7 +242,7 @@ export class ResearcherSubUsersViewModel {
 
       this.warningInfoModalSettings = {
         isWarning: false,
-        title: textConsts.successRemoveTitle,
+        title: t(TranslationKey['Sab-user removed']),
       }
 
       this.onTriggerOpenModal('showWarningModal')

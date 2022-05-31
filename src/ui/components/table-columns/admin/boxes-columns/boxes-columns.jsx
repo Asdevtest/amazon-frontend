@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   NormDateCell,
@@ -13,9 +13,7 @@ import {
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').adminBoxesTableColumns
+import {t} from '@utils/translations'
 
 export const adminBoxesViewColumns = () => [
   {
@@ -28,7 +26,15 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'createdAt',
-    headerName: textConsts.createdAtField,
+    headerName: t(TranslationKey.Created),
+    renderCell: params => <NormDateCell params={params} />,
+    width: 110,
+    type: 'date',
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     width: 110,
     type: 'date',
@@ -36,14 +42,14 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'humanFriendlyId',
-    headerName: textConsts.boxIdField,
+    headerName: t(TranslationKey.ID),
     renderCell: params => renderFieldValueCell(params.value),
     width: 80,
   },
 
   {
     field: 'client',
-    headerName: textConsts.clientNameField,
+    headerName: t(TranslationKey.Client),
     renderCell: params => (
       <UserLinkCell name={params.value} userId={params.row.originalData.items[0].product.client?._id} />
     ),
@@ -51,14 +57,14 @@ export const adminBoxesViewColumns = () => [
   },
   {
     field: 'storekeeper',
-    headerName: textConsts.storekeeperNameField,
+    headerName: t(TranslationKey.Storekeeper),
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
     width: 250,
   },
 
   {
     field: 'orders',
-    headerName: textConsts.ordersField,
+    headerName: t(TranslationKey.Product),
     width: 350,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
@@ -72,17 +78,10 @@ export const adminBoxesViewColumns = () => [
     filterable: false,
     sortable: false,
   },
-  {
-    field: 'updatedAt',
-    headerName: textConsts.updatedAtField,
-    renderCell: params => <NormDateCell params={params} />,
-    width: 110,
-    type: 'date',
-  },
 
   {
     field: 'qty',
-    headerName: textConsts.qtyField,
+    headerName: t(TranslationKey.Quantity),
     renderCell: params =>
       params.row.originalData.amount > 1 ? (
         <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
@@ -95,14 +94,14 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'warehouses',
-    headerName: textConsts.warehouseField,
+    headerName: t(TranslationKey.Warehouse),
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
     field: 'amazonPrice',
-    headerName: textConsts.priceField,
+    headerName: t(TranslationKey['Total price']),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 130,
     type: 'number',
@@ -110,7 +109,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'finalWeight',
-    headerName: textConsts.weightField,
+    headerName: t(TranslationKey['Final weight']),
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 130,
@@ -118,7 +117,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'grossWeight',
-    headerName: textConsts.grossWeightField,
+    headerName: t(TranslationKey['Gross weight']),
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 130,
@@ -126,7 +125,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'trackingNumberChina',
-    headerName: textConsts.trackIdField,
+    headerName: t(TranslationKey['Track number']),
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },

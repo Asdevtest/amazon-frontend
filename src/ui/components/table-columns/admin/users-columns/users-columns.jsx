@@ -1,18 +1,16 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {AdminUsersActionBtnsCell, NormDateCell, renderFieldValueCell} from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
-
-const textConsts = getLocalizedTexts(texts, 'ru').adminUsersTableColumns
+import {t} from '@utils/translations'
 
 export const adminUsersViewColumns = handlers => [
   {
     field: 'createdAt',
-    headerName: textConsts.createdAtField,
+    headerName: t(TranslationKey.Created),
     renderCell: params => <NormDateCell params={params} />,
     width: 100,
     type: 'date',
@@ -20,16 +18,16 @@ export const adminUsersViewColumns = handlers => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updatedAtField,
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     width: 100,
     type: 'date',
   },
 
-  {field: 'name', headerName: 'Name', width: 150},
+  {field: 'name', headerName: t(TranslationKey.Name), width: 150},
   {
     field: 'balance',
-    headerName: textConsts.balanceField,
+    headerName: t(TranslationKey.Balance),
     renderCell: params => renderFieldValueCell(toFixed(params.value, 2)),
     width: 150,
     type: 'number',
@@ -37,17 +35,17 @@ export const adminUsersViewColumns = handlers => [
 
   {
     field: 'balanceFreeze',
-    headerName: textConsts.freezeField,
+    headerName: t(TranslationKey.Freeze),
     renderCell: params => renderFieldValueCell(toFixed(params.value, 2)),
     width: 150,
     type: 'number',
   },
 
-  {field: 'email', headerName: textConsts.emailField, width: 200},
+  {field: 'email', headerName: t(TranslationKey.Email), width: 200},
 
   {
     field: 'rate',
-    headerName: textConsts.rateField,
+    headerName: t(TranslationKey.Rate),
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
     type: 'number',
@@ -55,32 +53,32 @@ export const adminUsersViewColumns = handlers => [
 
   {
     field: 'role',
-    headerName: textConsts.roleField,
+    headerName: t(TranslationKey.Role),
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 
   {
     field: 'active',
-    headerName: textConsts.statusField,
+    headerName: t(TranslationKey['User status']),
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
 
   {
     field: 'isSubUser',
-    headerName: textConsts.subUserField,
+    headerName: t(TranslationKey['Sub status']),
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
 
   {
     field: 'actions',
-    headerName: textConsts.actionsField,
+    headerName: t(TranslationKey.Actions),
     renderCell: params => (
       <AdminUsersActionBtnsCell
-        editBtnText={textConsts.editBtnText}
-        balanceBtnText={textConsts.balanceBtnText}
+        editBtnText={t(TranslationKey['Edit user'])}
+        balanceBtnText={t(TranslationKey.Balance)}
         handlers={handlers}
         row={params.row.originalData}
       />

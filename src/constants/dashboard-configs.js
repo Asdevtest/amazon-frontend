@@ -299,29 +299,29 @@ export const AdminDashboardCardDataKey = {
   FINANCES_RESEARCHERS_FINES: 'FINANCES_RESEARCHERS_FINES',
 }
 
-export const getAdminDashboardCardConfig = textConsts => [
+export const getAdminDashboardCardConfig = () => [
   {
     key: 'inventory',
-    title: textConsts.productsTitle,
+    title: t(TranslationKey.Products),
     items: [
       {
         dataKey: AdminDashboardCardDataKey.EXCHANGE_WAITING_TO_CHECK,
-        title: textConsts.prodcutsWaitingToCheckBySupervisorsTitle,
+        title: t(TranslationKey['Waiting for checks']),
         color: '#20a8d8',
       },
       {
         dataKey: AdminDashboardCardDataKey.EXCHANGE_BEING_CHECKED,
-        title: textConsts.productsBeingCheckedBySupervisorsTitle,
+        title: t(TranslationKey['Taken for review by supervisors']),
         color: '#63c2de',
       },
       {
         dataKey: AdminDashboardCardDataKey.EXCHANGE_CHECKED,
-        title: textConsts.productsCheckedBySupervisorsTitle,
+        title: t(TranslationKey['Confirmed by supervisors']),
         color: '#4dbd74',
       },
       {
         dataKey: AdminDashboardCardDataKey.EXCHANGE_REJECTED,
-        title: textConsts.productsRejectedBySupervisorsTitle,
+        title: t(TranslationKey['Rejected by supervisors']),
         color: '#ffc107',
       },
     ],
@@ -329,26 +329,26 @@ export const getAdminDashboardCardConfig = textConsts => [
 
   {
     key: 'suppliers-seek-statuses',
-    title: textConsts.accrualsAndFinesTitle,
+    title: t(TranslationKey['Accruals and fines']),
     items: [
       {
         dataKey: AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_RESEARCHERS,
-        title: textConsts.accruedToManagersTitle,
+        title: t(TranslationKey['Accrued to managers']),
         color: '#4dbd74',
       },
       {
         dataKey: AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_SUPERVISORS,
-        title: textConsts.accruedToSupervisorsTitle,
+        title: t(TranslationKey['Accrued to supervisors']),
         color: '#20a8d8',
       },
       {
         dataKey: AdminDashboardCardDataKey.FINANCES_SUPERVISORS_FINES,
-        title: textConsts.supervisorsFinesTitle,
+        title: t(TranslationKey['Fines for supervisors']),
         color: '#f86c6b',
       },
       {
         dataKey: AdminDashboardCardDataKey.FINANCES_RESEARCHERS_FINES,
-        title: textConsts.managersFinesTitle,
+        title: t(TranslationKey['Fines for managers']),
         color: '#f86c6b',
       },
     ],
@@ -374,53 +374,53 @@ export const BuyerDashboardCardDataKey = {
   FINES: 'FINES',
 }
 
-export const getBuyerDashboardCardConfig = textConsts => [
+export const getBuyerDashboardCardConfig = () => [
   {
     key: 'PRODUCTS',
-    title: textConsts.productsTitle,
+    title: t(TranslationKey.Products),
     items: [
       {
         dataKey: BuyerDashboardCardDataKey.ALL_PRODUCTS,
-        title: textConsts.allProducts,
+        title: t(TranslationKey['Total products']),
         color: '#006CFF',
         route: '/buyer/my-products',
       },
       {
         dataKey: BuyerDashboardCardDataKey.SUCCESS_PRODUCTS,
-        title: textConsts.successProduts,
+        title: t(TranslationKey.Completed),
         color: '#00B746',
         route: '/buyer/my-products',
       },
       {
         dataKey: BuyerDashboardCardDataKey.PAYED_PRODUCTS,
-        title: textConsts.payedProducts,
+        title: t(TranslationKey.Paid),
         color: '#00B746',
         route: '/buyer/my-products',
       },
 
       {
         dataKey: BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_SUPERVISOR,
-        title: textConsts.produtsAtSupervisor,
+        title: t(TranslationKey['New search from the supervisor']),
         color: '#ffc107',
         route: '/buyer/search-supplier-by-supervisor',
       },
       {
         dataKey: BuyerDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT,
-        title: textConsts.produtsAtClient,
+        title: t(TranslationKey['New search from the client']),
         color: '#4dbd74',
         route: '/buyer/search-supplier-by-client',
       },
 
       {
         dataKey: BuyerDashboardCardDataKey.IN_SEARCH_PRODUCTS,
-        title: textConsts.inSearchProduts,
+        title: t(TranslationKey['In the process of searching']),
         color: '#ffc107',
         route: '/buyer/my-products',
       },
 
       {
         dataKey: BuyerDashboardCardDataKey.REJECTED_PRODUCTS,
-        title: textConsts.rejectedProduts,
+        title: t(TranslationKey.Rejected),
         color: '#BC3030',
         route: '/buyer/my-products',
       },
@@ -429,23 +429,23 @@ export const getBuyerDashboardCardConfig = textConsts => [
 
   {
     key: 'ORDERS',
-    title: textConsts.ordersTitle,
+    title: t(TranslationKey.Orders),
     items: [
       {
         dataKey: BuyerDashboardCardDataKey.IN_PROCESS_ORDERS,
-        title: textConsts.inProcessOrders,
+        title: t(TranslationKey['In the process of processing']),
         color: '#20a8d8',
         route: '/buyer/my-orders',
       },
       {
         dataKey: BuyerDashboardCardDataKey.FREE_ORDERS,
-        title: textConsts.freeOrders,
+        title: t(TranslationKey.Free),
         color: '#006CFF',
         route: '/buyer/free-orders',
       },
       {
         dataKey: BuyerDashboardCardDataKey.CLOSED_ORDERS,
-        title: textConsts.rejectedOrders,
+        title: t(TranslationKey.Completed),
         color: '#00B746',
         route: '/buyer/my-orders',
       },
@@ -454,17 +454,17 @@ export const getBuyerDashboardCardConfig = textConsts => [
 
   {
     key: 'FINANCES',
-    title: textConsts.financesTitle,
+    title: t(TranslationKey.Finances),
     items: [
       {
         dataKey: BuyerDashboardCardDataKey.REPLENISH,
-        title: textConsts.replenish,
+        title: t(TranslationKey.Accruals),
         color: '#00B746',
         route: '/buyer/finances',
       },
       {
         dataKey: BuyerDashboardCardDataKey.FINES,
-        title: textConsts.fines,
+        title: t(TranslationKey.Fines),
         color: '#BC3030',
         route: '/buyer/finances',
       },
@@ -490,67 +490,67 @@ export const SupervisorDashboardCardDataKey = {
   FINES: 'FINES',
 }
 
-export const getSupervisorDashboardCardConfig = textConsts => [
+export const getSupervisorDashboardCardConfig = () => [
   {
     key: 'PRODUCTS',
-    title: textConsts.productsTitle,
+    title: t(TranslationKey.Products),
     items: [
       {
         dataKey: SupervisorDashboardCardDataKey.ALL_PRODUCTS,
-        title: textConsts.allProducts,
+        title: t(TranslationKey['Total products']),
         color: '#006CFF',
         route: '/supervisor/products',
       },
       {
         dataKey: SupervisorDashboardCardDataKey.SUCCESS_PRODUCTS,
-        title: textConsts.successProduts,
+        title: t(TranslationKey['Published on the stock exchange']),
         color: '#FFC7C7',
         route: '/supervisor/products',
       },
       {
         dataKey: SupervisorDashboardCardDataKey.PAYED_PRODUCTS,
-        title: textConsts.payedProducts,
+        title: t(TranslationKey.Paid),
         color: '#00B746',
         route: '/supervisor/products',
       },
 
       {
         dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_RESEARCHER,
-        title: textConsts.produtsAtResearcher,
+        title: t(TranslationKey['To check from the resercher']),
         color: '#ffc107',
         route: '/supervisor/ready-to-check',
       },
       {
         dataKey: SupervisorDashboardCardDataKey.NEW_PRODUCTS_AT_CLIENT,
-        title: textConsts.produtsAtClient,
+        title: t(TranslationKey['New search from the client']),
         color: '#4dbd74',
         route: '/supervisor/ready-to-check-by-client',
       },
 
       {
         dataKey: SupervisorDashboardCardDataKey.ON_CHECKING,
-        title: textConsts.onChecking,
+        title: t(TranslationKey['On review']),
         color: '#FFC7C7',
         route: '/supervisor/products',
       },
 
       {
         dataKey: SupervisorDashboardCardDataKey.AWAIT_SOLVE,
-        title: textConsts.awaitingSolve,
+        title: t(TranslationKey['Waiting to be checked']),
         color: '#ffc107',
         route: '/supervisor/products',
       },
 
       {
         dataKey: SupervisorDashboardCardDataKey.IN_SEARCH_PRODUCTS,
-        title: textConsts.inSearchProduts,
+        title: t(TranslationKey['In the work of a Bayer']),
         color: '#ffc107',
         route: '/supervisor/products',
       },
 
       {
         dataKey: SupervisorDashboardCardDataKey.REJECTED_PRODUCTS,
-        title: textConsts.rejectedProduts,
+        title: t(TranslationKey.Rejected),
         color: '#BC3030',
         route: '/supervisor/products',
       },
@@ -559,17 +559,17 @@ export const getSupervisorDashboardCardConfig = textConsts => [
 
   {
     key: 'FINANCES',
-    title: textConsts.financesTitle,
+    title: t(TranslationKey.Finances),
     items: [
       {
         dataKey: SupervisorDashboardCardDataKey.REPLENISH,
-        title: textConsts.replenish,
+        title: t(TranslationKey.Accruals),
         color: '#00B746',
         route: '/supervisor/finances',
       },
       {
         dataKey: SupervisorDashboardCardDataKey.FINES,
-        title: textConsts.fines,
+        title: t(TranslationKey.Fines),
         color: '#BC3030',
         route: '/supervisor/finances',
       },

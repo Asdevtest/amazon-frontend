@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables-keys'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -51,6 +51,17 @@ export class AdminExchangeViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory})
+    }
   }
 
   onChangeFilterModel(model) {

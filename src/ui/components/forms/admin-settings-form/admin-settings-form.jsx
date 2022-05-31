@@ -2,19 +2,19 @@ import React, {useEffect, useRef, useState} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AdminSettingsModel} from './admin-settings-form.model'
 import {useClassNames} from './admin-settings-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').adminSettingsForm
 
 const fieldsWithoutCharactersAfterDote = [
   'requestPlatformMarginInPercent',
@@ -102,90 +102,94 @@ export const AdminSettingsForm = observer(() => {
   }
 
   return (
-    <div className={classNames.mainWrapper}>
-      <Field
-        label={textConsts.yuanToDollarRate}
-        className={classNames.textField}
-        value={formFields.yuanToDollarRate}
-        onChange={onChangeField('yuanToDollarRate')}
-      />
-      <Field
-        label={textConsts.costOfFindingSupplier}
-        className={classNames.textField}
-        value={formFields.costOfFindingSupplier}
-        onChange={onChangeField('costOfFindingSupplier')}
-      />
+    SettingsModel.languageTag && (
+      <div className={classNames.mainWrapper}>
+        <Field
+          label={t(TranslationKey['Yuan to USD exchange rate']) + ', ¥'}
+          className={classNames.textField}
+          value={formFields.yuanToDollarRate}
+          onChange={onChangeField('yuanToDollarRate')}
+        />
+        <Field
+          label={t(TranslationKey['Price to find a supplier']) + ', $'}
+          className={classNames.textField}
+          value={formFields.costOfFindingSupplier}
+          onChange={onChangeField('costOfFindingSupplier')}
+        />
 
-      <Field
-        label={textConsts.costOfCheckingProduct}
-        className={classNames.textField}
-        value={formFields.costOfCheckingProduct}
-        onChange={onChangeField('costOfCheckingProduct')}
-      />
+        <Field
+          label={
+            t(TranslationKey['Price for the Supervisor to check the search for a supplier from the Client']) + ', $'
+          }
+          className={classNames.textField}
+          value={formFields.costOfCheckingProduct}
+          onChange={onChangeField('costOfCheckingProduct')}
+        />
 
-      <Field
-        label={textConsts.requestMinAmountPriceOfProposal}
-        className={classNames.textField}
-        value={formFields.requestMinAmountPriceOfProposal}
-        onChange={onChangeField('requestMinAmountPriceOfProposal')}
-      />
-      <Field
-        label={textConsts.requestPlatformMarginInPercent}
-        className={classNames.textField}
-        value={formFields.requestPlatformMarginInPercent}
-        onChange={onChangeField('requestPlatformMarginInPercent')}
-      />
-      <Field
-        label={textConsts.requestSupervisorFeeInPercent}
-        className={classNames.textField}
-        value={formFields.requestSupervisorFeeInPercent}
-        onChange={onChangeField('requestSupervisorFeeInPercent')}
-      />
-      <Field
-        label={textConsts.requestTimeLimitInHourForCancelingProposalsByClient}
-        className={classNames.textField}
-        value={formFields.requestTimeLimitInHourForCancelingProposalsByClient}
-        onChange={onChangeField('requestTimeLimitInHourForCancelingProposalsByClient')}
-      />
-      <Field
-        label={textConsts.requestTimeLimitInHourForCheckingProposalBySuper}
-        className={classNames.textField}
-        value={formFields.requestTimeLimitInHourForCheckingProposalBySuper}
-        onChange={onChangeField('requestTimeLimitInHourForCheckingProposalBySuper')}
-      />
+        <Field
+          label={t(TranslationKey['Minimum price per proposal to the order']) + ', $'}
+          className={classNames.textField}
+          value={formFields.requestMinAmountPriceOfProposal}
+          onChange={onChangeField('requestMinAmountPriceOfProposal')}
+        />
+        <Field
+          label={t(TranslationKey['Percentage of each proposal']) + ', %'}
+          className={classNames.textField}
+          value={formFields.requestPlatformMarginInPercent}
+          onChange={onChangeField('requestPlatformMarginInPercent')}
+        />
+        <Field
+          label={t(TranslationKey['Percentage of each proposal for the supervisor']) + ', %'}
+          className={classNames.textField}
+          value={formFields.requestSupervisorFeeInPercent}
+          onChange={onChangeField('requestSupervisorFeeInPercent')}
+        />
+        <Field
+          label={t(TranslationKey['Time after which the offer will automatically be accepted, h'])}
+          className={classNames.textField}
+          value={formFields.requestTimeLimitInHourForCancelingProposalsByClient}
+          onChange={onChangeField('requestTimeLimitInHourForCancelingProposalsByClient')}
+        />
+        <Field
+          label={t(TranslationKey['Time after which the supervisor will automatically be removed from the check, h'])}
+          className={classNames.textField}
+          value={formFields.requestTimeLimitInHourForCheckingProposalBySuper}
+          onChange={onChangeField('requestTimeLimitInHourForCheckingProposalBySuper')}
+        />
 
-      <Field
-        label={textConsts.deadlineForFindingSupplier}
-        className={classNames.textField}
-        value={formFields.deadlineForFindingSupplier}
-        onChange={onChangeField('deadlineForFindingSupplier')}
-      />
+        <Field
+          label={t(TranslationKey['Time to find a supplier, h'])}
+          className={classNames.textField}
+          value={formFields.deadlineForFindingSupplier}
+          onChange={onChangeField('deadlineForFindingSupplier')}
+        />
 
-      <Field
-        label={textConsts.volumeWeightCoefficient}
-        className={classNames.textField}
-        value={formFields.volumeWeightCoefficient}
-        onChange={onChangeField('volumeWeightCoefficient')}
-      />
+        <Field
+          label={t(TranslationKey['Divider for calculating volume weight'])}
+          className={classNames.textField}
+          value={formFields.volumeWeightCoefficient}
+          onChange={onChangeField('volumeWeightCoefficient')}
+        />
 
-      <div className={classNames.placeAddBtnWrapper}>
-        <Button
-          disabled={JSON.stringify(adminSettings.dynamicSettings) === JSON.stringify(formFields)}
-          onClick={() => onCreateSubmit(/* dataKeys*/)}
-        >
-          {textConsts.saveBtn}
-        </Button>
+        <div className={classNames.placeAddBtnWrapper}>
+          <Button
+            disabled={JSON.stringify(adminSettings.dynamicSettings) === JSON.stringify(formFields)}
+            onClick={() => onCreateSubmit(/* dataKeys*/)}
+          >
+            {t(TranslationKey.Save)}
+          </Button>
+        </div>
+
+        <WarningInfoModal
+          openModal={showInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
+          title={infoModalText}
+          btnText={t(TranslationKey.Close)}
+          onClickBtn={() => {
+            onTriggerOpenModal('showInfoModal')
+          }}
+        />
       </div>
-
-      <WarningInfoModal
-        openModal={showInfoModal}
-        setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-        title={infoModalText}
-        btnText={textConsts.closeBtn}
-        onClickBtn={() => {
-          onTriggerOpenModal('showInfoModal')
-        }}
-      />
-    </div>
+    )
   )
 })

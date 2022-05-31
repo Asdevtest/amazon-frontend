@@ -3,15 +3,13 @@ import React from 'react'
 import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {formatNormDateTime} from '@utils/date-time'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './user-balance-history.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').userBalanceHistory
 
 export const UserBalanceHistory = ({historyData, title}) => {
   const classNames = useClassNames()
@@ -27,11 +25,11 @@ export const UserBalanceHistory = ({historyData, title}) => {
             <Table className={classNames.table}>
               <TableHead>
                 <TableRow>
-                  <TableCell className={classNames.centerTextCell}>{textConsts.date}</TableCell>
-                  <TableCell className={classNames.rightTextCell}>{textConsts.amount}</TableCell>
-                  <TableCell className={classNames.centerTextCell}>{textConsts.type}</TableCell>
-                  <TableCell className={classNames.centerTextCell}>{textConsts.comment}</TableCell>
-                  <TableCell className={classNames.centerTextCell}>{textConsts.username}</TableCell>
+                  <TableCell className={classNames.centerTextCell}>{t(TranslationKey.Date)}</TableCell>
+                  <TableCell className={classNames.rightTextCell}>{t(TranslationKey.Quantity)}</TableCell>
+                  <TableCell className={classNames.centerTextCell}>{t(TranslationKey.Type)}</TableCell>
+                  <TableCell className={classNames.centerTextCell}>{t(TranslationKey.Comment)}</TableCell>
+                  <TableCell className={classNames.centerTextCell}>{t(TranslationKey['User name'])}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -54,7 +52,7 @@ export const UserBalanceHistory = ({historyData, title}) => {
             </Table>
           </TableContainer>
         ) : (
-          <Typography>{textConsts.noPayments}</Typography>
+          <Typography>{t(TranslationKey['No transactions'])}</Typography>
         )}
       </Paper>
     </React.Fragment>

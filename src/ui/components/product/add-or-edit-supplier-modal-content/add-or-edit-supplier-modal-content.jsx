@@ -238,7 +238,7 @@ export const AddOrEditSupplierModalContent = observer(
                 setPhotosOfSupplier(() => [])
               }}
             >
-              {textConsts.saveBtn}
+              {t(TranslationKey.Save)}
             </Button>
             <Button
               disableElevation
@@ -246,7 +246,7 @@ export const AddOrEditSupplierModalContent = observer(
               variant="contained"
               onClick={() => onTriggerShowModal()}
             >
-              {textConsts.cancelBtn}
+              {t(TranslationKey.Cancel)}
             </Button>
           </div>
         )

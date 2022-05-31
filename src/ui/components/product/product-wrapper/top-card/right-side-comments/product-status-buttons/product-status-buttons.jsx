@@ -4,13 +4,11 @@ import {Box, Grid} from '@material-ui/core'
 
 import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ColoredChip} from '@components/colored-chip'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConfig = getLocalizedTexts(texts, 'en').productStatusButtons
+import {t} from '@utils/translations'
 
 const saveWithoutStatusBtnColor = '#adadad'
 const saveWithoutStatusBtnColorHover = '#8c8a8a'
@@ -48,7 +46,7 @@ export const ProductStatusButtons = ({
           <Grid item>
             <ColoredChip
               disabled={productStatus === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
-              label={textConfig.saveWithoutStatusBtn}
+              label={t(TranslationKey['Save without status'])}
               color={saveWithoutStatusBtnColor}
               colorHover={saveWithoutStatusBtnColorHover}
               onClick={onClickSaveWithoutStatusChange}

@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -15,12 +15,10 @@ import {MainContent} from '@components/main-content'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AdminAwaitingBatchesViewModel} from './admin-awaiting-batches-view.model'
 import {styles} from './admin-awaiting-batches-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').adminAwaitingBatchesView
 
 const activeCategory = navBarActiveCategory.NAVBAR_BATCHES
 const activeSubCategory = 0
@@ -30,7 +28,6 @@ export class AdminAwaitingBatchesViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -71,7 +68,7 @@ export class AdminAwaitingBatchesViewRaw extends Component {
           setDrawerOpen={onTriggerDrawer}
         />
         <Main>
-          <Appbar setDrawerOpen={onTriggerDrawer} title={textConsts.appbarTitle}>
+          <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Awaiting send'])}>
             <MainContent>
               <DataGrid
                 pagination

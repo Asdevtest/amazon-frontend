@@ -1,8 +1,8 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {PermissionsModel} from '@models/permissions-model'
 import {SettingsModel} from '@models/settings-model'
@@ -11,10 +11,8 @@ import {adminSinglePermissionsColumns} from '@components/table-columns/admin/sin
 
 import {adminSinglePermissionsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-
-const textConsts = getLocalizedTexts(texts, 'ru').singlePermissions
+import {t} from '@utils/translations'
 
 export class SinglePermissionsModel {
   history = undefined
@@ -53,6 +51,16 @@ export class SinglePermissionsModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = adminSinglePermissionsColumns(this.rowHandlers)
+    }
   }
 
   onChangeFilterModel(model) {
@@ -207,7 +215,7 @@ export class SinglePermissionsModel {
   onClickCancelBtn() {
     this.confirmModalSettings = {
       isWarning: false,
-      message: textConsts.confirmCloseModalMessage,
+      message: t(TranslationKey['Data will not be saved!']),
       onClickSuccess: () => this.cancelTheOrder(),
     }
 
@@ -233,7 +241,7 @@ export class SinglePermissionsModel {
 
     this.confirmModalSettings = {
       isWarning: true,
-      message: textConsts.confirmRemovePermMessage,
+      message: t(TranslationKey['Are you sure you want to delete the permission?']),
       onClickSuccess: () => this.removeSinglePermission(),
     }
 

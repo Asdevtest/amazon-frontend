@@ -10,6 +10,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {BUYER_MY_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -21,6 +22,7 @@ import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {BuyerMyOrdersViewModel} from './buyer-my-orders-view.model'
 import {styles} from './buyer-my-orders-view.style'
@@ -89,7 +91,7 @@ class BuyerMyOrdersViewRaw extends Component {
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
 
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['My orders'])} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination
@@ -136,7 +138,7 @@ class BuyerMyOrdersViewRaw extends Component {
             requestStatus={requestStatus}
             boxes={curBoxesOfOrder}
             order={selectedOrder}
-            modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS}
+            modalHeadCells={BUYER_MY_ORDERS_MODAL_HEAD_CELLS()}
             showProgress={showProgress}
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}

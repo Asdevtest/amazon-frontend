@@ -10,6 +10,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {BUYER_FREE_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {warehouses} from '@constants/warehouses'
 
 import {Appbar} from '@components/appbar'
@@ -21,6 +22,7 @@ import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {BuyerFreeOrdersViewModel} from './buyer-free-orders-view.model'
 import {styles} from './buyer-free-orders-view.style'
@@ -35,7 +37,6 @@ class BuyerFreeOrdersViewRaw extends Component {
 
   componentDidMount() {
     this.viewModel.loadData()
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -73,7 +74,7 @@ class BuyerFreeOrdersViewRaw extends Component {
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
 
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['Free Orders'])} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination

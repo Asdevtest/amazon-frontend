@@ -3,7 +3,7 @@ import {Component} from 'react'
 import {withStyles} from '@material-ui/styles'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {AdminSettingsForm} from '@components/forms/admin-settings-form'
@@ -11,11 +11,10 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {styles} from './admin-settings-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').adminSettingsView
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_SETTINGS
 export class AdminSettingsViewRaw extends Component {
   state = {
@@ -29,7 +28,7 @@ export class AdminSettingsViewRaw extends Component {
       <>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={this.onTriggerDrawer} />
         <Main>
-          <Appbar setDrawerOpen={this.onTriggerDrawer} title={textConsts.appBarTitle}>
+          <Appbar setDrawerOpen={this.onTriggerDrawer} title={t(TranslationKey.Settings)}>
             <MainContent>
               <AdminSettingsForm />
             </MainContent>

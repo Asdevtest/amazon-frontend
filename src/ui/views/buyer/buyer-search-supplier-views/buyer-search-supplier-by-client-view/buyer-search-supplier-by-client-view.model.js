@@ -1,8 +1,10 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, reaction, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {BUYER_PRODUCTS_HEAD_CELLS} from '@constants/table-head-cells'
 
 import {BuyerModel} from '@models/buyer-model'
+import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
@@ -13,6 +15,7 @@ export class BuyerSearchSupplierByClientModel {
   actionStatus = undefined
   balance = UserModel.userInfo?.balance
   productsVacant = []
+  productsHead = []
 
   drawerOpen = false
   rowsPerPage = 15
@@ -21,12 +24,22 @@ export class BuyerSearchSupplierByClientModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
+  }
+
+  updateProductsHead() {
+    this.productsHead = BUYER_PRODUCTS_HEAD_CELLS()
   }
 
   async loadData() {
     try {
       this.requestStatus = loadingStatuses.isLoading
-      this.getProductsVacant()
+      await this.getProductsVacant()
+      this.updateProductsHead()
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed

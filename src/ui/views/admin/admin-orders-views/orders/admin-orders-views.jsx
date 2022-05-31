@@ -10,7 +10,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {adminOrdersBtnsConfig} from '@constants/tables-filter-btns-configs'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -18,12 +18,10 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {AdminOrdersAllViewModel} from './admin-orders-views.model'
 import {styles} from './admin-orders-views.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').adminOrdersView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_ORDERS
 
@@ -33,7 +31,6 @@ class AdminOrdersViewsRaw extends Component {
 
   componentDidMount() {
     this.viewModel.getOrdersByStatus(this.viewModel.activeSubCategory)
-    this.viewModel.getDataGridState()
   }
 
   render() {
@@ -72,10 +69,10 @@ class AdminOrdersViewsRaw extends Component {
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
+          <Appbar title={t(TranslationKey.Orders)} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <Grid container spacing={3} className={classNames.filterBtnWrapper}>
-                {adminOrdersBtnsConfig?.map((buttonConfig, index) => (
+                {adminOrdersBtnsConfig()?.map((buttonConfig, index) => (
                   <Grid key={buttonConfig.status} item>
                     <Button
                       variant={'text'}

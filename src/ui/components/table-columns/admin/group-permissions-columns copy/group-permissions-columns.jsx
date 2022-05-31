@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveBtnsCell,
@@ -9,14 +9,12 @@ import {
   ScrollingCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').adminGroupPermissionsColumns
+import {t} from '@utils/translations'
 
 export const adminGroupPermissionsColumns = handlers => [
   {
     field: 'createdAt',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Created),
     renderCell: params => <NormDateCell params={params} />,
     width: 130,
     type: 'date',
@@ -24,7 +22,7 @@ export const adminGroupPermissionsColumns = handlers => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updateDateField,
+    headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     width: 130,
     type: 'date',
@@ -32,35 +30,35 @@ export const adminGroupPermissionsColumns = handlers => [
 
   {
     field: 'key',
-    headerName: textConsts.keyField,
+    headerName: t(TranslationKey.Key),
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'role',
-    headerName: 'Роль',
+    headerName: t(TranslationKey.Role),
     width: 140,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'title',
-    headerName: textConsts.titleField,
+    headerName: t(TranslationKey.Title),
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'description',
-    headerName: textConsts.descriptionField,
+    headerName: t(TranslationKey.Description),
     width: 400,
     renderCell: params => <ScrollingCell value={params.value} />,
   },
 
   {
     field: 'action',
-    headerName: textConsts.actionField,
+    headerName: t(TranslationKey.Actions),
     width: 200,
     renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,

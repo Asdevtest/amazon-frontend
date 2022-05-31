@@ -2,9 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   cardWrapper: {
-    width: '330px',
-    height: '360px',
-
+    minHeight: '373px',
     borderRadius: '4px',
     border: '1px solid rgba(0,0,0, .1)',
   },

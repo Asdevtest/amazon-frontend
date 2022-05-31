@@ -361,7 +361,7 @@ export const navbarConfig = () => ({
   [UserRole.SUPERVISOR]: [
     {
       icon: InfoOutlinedIcon,
-      title: 'Главная страница',
+      title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/supervisor/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
@@ -369,18 +369,18 @@ export const navbarConfig = () => ({
     },
     {
       icon: AssignmentIcon,
-      title: 'Готовые к проверке',
+      title: t(TranslationKey['Ready to check']),
       route: '/supervisor/ready-to-check',
       subtitles: [
         {
-          subtitle: 'От Ресерчера',
+          subtitle: t(TranslationKey['From the Researcher']),
           subRoute: '/supervisor/ready-to-check',
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_VAC_BY_RES_SUPERVISOR),
         },
         {
-          subtitle: 'От Клиента',
+          subtitle: t(TranslationKey['From the Client']),
           subRoute: '/supervisor/ready-to-check-by-client',
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
@@ -398,7 +398,7 @@ export const navbarConfig = () => ({
     },
     {
       icon: InboxOutlinedIcon,
-      title: 'Мои товары',
+      title: t(TranslationKey['My products']),
       subtitles: null,
       route: '/supervisor/products',
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
@@ -408,9 +408,9 @@ export const navbarConfig = () => ({
     },
     {
       icon: PeopleIcon,
-      title: 'Пользователи',
+      title: t(TranslationKey.Users),
       route: '/supervisor/users/sub-users',
-      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/supervisor/users/sub-users'}],
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/supervisor/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -418,7 +418,7 @@ export const navbarConfig = () => ({
     },
     {
       icon: MonetizationOnOutlinedIcon,
-      title: 'Финансы',
+      title: t(TranslationKey.Finances),
       route: '/supervisor/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
@@ -429,7 +429,7 @@ export const navbarConfig = () => ({
   [UserRole.BUYER]: [
     {
       icon: InfoOutlinedIcon,
-      title: 'Главная страница',
+      title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/buyer/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
@@ -438,7 +438,7 @@ export const navbarConfig = () => ({
 
     {
       icon: AssignmentIcon,
-      title: 'Свободные заказы',
+      title: t(TranslationKey['Free Orders']),
       route: '/buyer/free-orders',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
@@ -448,18 +448,18 @@ export const navbarConfig = () => ({
 
     {
       icon: InboxOutlinedIcon,
-      title: 'Поиск поставщика',
+      title: t(TranslationKey['Supplier search']),
       // route: '/buyer/search-supplier-by-supervisor',
       subtitles: [
         {
-          subtitle: 'От Супервайзера',
+          subtitle: t(TranslationKey['From the Supervisor']),
           subRoute: '/buyer/search-supplier-by-supervisor',
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_BY_SUP_BUYER),
         },
         {
-          subtitle: 'От Клиента',
+          subtitle: t(TranslationKey['From the Client']),
           subRoute: '/buyer/search-supplier-by-client',
           checkHideSubBlock: user =>
             !isMasterUser(user) ||
@@ -478,7 +478,7 @@ export const navbarConfig = () => ({
 
     {
       icon: InboxOutlinedIcon,
-      title: 'Мои товары',
+      title: t(TranslationKey['My products']),
       route: '/buyer/my-products',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
@@ -488,7 +488,7 @@ export const navbarConfig = () => ({
 
     {
       icon: Work,
-      title: 'Мои заказы',
+      title: t(TranslationKey['My orders']),
       route: '/buyer/my-orders',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MY_ORDERS,
@@ -498,16 +498,16 @@ export const navbarConfig = () => ({
 
     {
       icon: PeopleIcon,
-      title: 'Пользователи',
+      title: t(TranslationKey.Users),
       route: '/buyer/users/sub-users',
-      subtitles: [{subtitle: 'Мои пользователи', subRoute: '/buyer/users/sub-users'}],
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/buyer/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_USERS_BUYER),
     },
     {
       icon: MonetizationOnOutlinedIcon,
-      title: 'Финансы',
+      title: t(TranslationKey.Finances),
       route: '/buyer/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
@@ -623,7 +623,7 @@ export const navbarConfig = () => ({
   [UserRole.ADMIN]: [
     {
       icon: InfoOutlinedIcon,
-      title: 'Главная страница',
+      title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/admin/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
@@ -631,7 +631,7 @@ export const navbarConfig = () => ({
     },
     {
       icon: GavelIcon,
-      title: 'Биржа товаров',
+      title: t(TranslationKey['Commodity exchange']),
       subtitles: null,
       route: '/admin/exchange',
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
@@ -640,7 +640,7 @@ export const navbarConfig = () => ({
 
     {
       icon: InboxOutlinedIcon,
-      title: 'Инвентарь',
+      title: t(TranslationKey.Inventory),
       route: '/admin/inventory',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_INVENTORY,
@@ -649,7 +649,7 @@ export const navbarConfig = () => ({
 
     {
       icon: AssignmentIcon,
-      title: 'Заказы',
+      title: t(TranslationKey.Orders),
       subtitles: null,
       route: '/admin/orders',
       key: navBarActiveCategory.NAVBAR_ORDERS,
@@ -658,12 +658,12 @@ export const navbarConfig = () => ({
 
     {
       icon: ArchiveOutlinedIcon,
-      title: 'Склад',
+      title: t(TranslationKey.Warehouse),
       route: '/admin/warehouse/tasks',
       subtitles: [
-        {subtitle: 'Задачи', subRoute: '/admin/warehouse/tasks'},
-        {subtitle: 'Коробки', subRoute: '/admin/warehouse/boxes'},
-        {subtitle: 'Destinations', subRoute: '/admin/warehouse/destinations'},
+        {subtitle: t(TranslationKey.Tasks), subRoute: '/admin/warehouse/tasks'},
+        {subtitle: t(TranslationKey.Boxes), subRoute: '/admin/warehouse/boxes'},
+        {subtitle: t(TranslationKey.Destinations), subRoute: '/admin/warehouse/destinations'},
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
       checkHideBlock: () => true,
@@ -671,15 +671,15 @@ export const navbarConfig = () => ({
 
     {
       icon: LocalConvenienceStore,
-      title: 'Партии',
+      title: t(TranslationKey.Batches),
       route: '/admin/awaiting-batches',
       subtitles: [
         {
-          subtitle: 'Ожидают отправки',
+          subtitle: t(TranslationKey['Awaiting send']),
           subRoute: '/admin/awaiting-batches',
         },
         {
-          subtitle: 'Отправленные',
+          subtitle: t(TranslationKey.Sent),
           subRoute: '/admin/batches',
         },
       ],
@@ -690,14 +690,14 @@ export const navbarConfig = () => ({
 
     {
       icon: MonetizationOnOutlinedIcon,
-      title: 'Финансы',
+      title: t(TranslationKey.Finances),
       route: '/admin/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: () => true,
     },
     {
       icon: PeopleIcon,
-      title: 'Пользователи',
+      title: t(TranslationKey.Users),
       route: '/admin/users',
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: () => true,
@@ -705,14 +705,14 @@ export const navbarConfig = () => ({
 
     {
       icon: PeopleIcon,
-      title: 'Разрешения пользователей',
+      title: t(TranslationKey['User permissions']),
       route: '/admin/permissions',
       key: navBarActiveCategory.NAVBAR_PERMISSIONS,
       checkHideBlock: () => true,
     },
     {
       icon: SettingsIcon,
-      title: 'Настройки',
+      title: t(TranslationKey.Settings),
       subtitles: null,
       route: '/admin/settings',
       key: navBarActiveCategory.NAVBAR_SETTINGS,

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   AsinCell,
@@ -10,14 +10,12 @@ import {
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').supervisorProductsTableColumns
+import {t} from '@utils/translations'
 
 export const supervisorProductsViewColumns = () => [
   {
     field: 'createdAt',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Created),
     width: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
@@ -25,7 +23,7 @@ export const supervisorProductsViewColumns = () => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updateDateField,
+    headerName: t(TranslationKey.Updated),
     width: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
@@ -33,7 +31,7 @@ export const supervisorProductsViewColumns = () => [
 
   {
     field: 'asin',
-    headerName: textConsts.asinField,
+    headerName: t(TranslationKey.Product),
     renderCell: params => <AsinCell product={params.row.originalData} />,
     minWidth: 350,
     flex: 3,
@@ -41,21 +39,21 @@ export const supervisorProductsViewColumns = () => [
 
   {
     field: 'status',
-    headerName: textConsts.statusField,
+    headerName: t(TranslationKey.Status),
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'strategyStatus',
-    headerName: textConsts.strategyStatusField,
+    headerName: t(TranslationKey.Strategy),
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
 
   {
     field: 'amazon',
-    headerName: textConsts.amazonPriceField,
+    headerName: t(TranslationKey['Amazon price']),
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
     minWidth: 130,
     type: 'number',
@@ -64,21 +62,21 @@ export const supervisorProductsViewColumns = () => [
 
   {
     field: 'researcherName',
-    headerName: textConsts.researcherField,
+    headerName: t(TranslationKey['Created by']),
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
     width: 200,
   },
 
   {
     field: 'buyerName',
-    headerName: textConsts.buyerField,
+    headerName: t(TranslationKey.Buyer),
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.buyer?._id} />,
     width: 200,
   },
 
   {
     field: 'bsr',
-    headerName: textConsts.bsrField,
+    headerName: t(TranslationKey.BSR),
     renderCell: params => renderFieldValueCell(params.value),
     minWidth: 80,
     type: 'number',
@@ -87,7 +85,7 @@ export const supervisorProductsViewColumns = () => [
 
   {
     field: 'fbafee',
-    headerName: textConsts.fbafeeField,
+    headerName: t(TranslationKey['FBA fee , $']),
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
     minWidth: 90,
     type: 'number',

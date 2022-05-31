@@ -1,59 +1,57 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {EditOrRemoveBtnsCell, renderFieldValueCell} from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'ru').destinationsColumns
+import {t} from '@utils/translations'
 
 export const destinationsColumns = handlers => [
   {
     field: 'name',
-    headerName: textConsts.nameField,
+    headerName: t(TranslationKey.Title),
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'country',
-    headerName: textConsts.countryField,
+    headerName: t(TranslationKey.Country),
     width: 140,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'zipCode',
-    headerName: textConsts.zipCodeField,
+    headerName: t(TranslationKey['ZIP code']),
     width: 90,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'city',
-    headerName: textConsts.cityField,
+    headerName: t(TranslationKey.City),
     width: 200,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'state',
-    headerName: textConsts.stateField,
+    headerName: t(TranslationKey.State),
     width: 170,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'address',
-    headerName: textConsts.addressField,
+    headerName: t(TranslationKey.Address),
     width: 350,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'action',
-    headerName: textConsts.actionField,
+    headerName: t(TranslationKey.Actions),
     width: 200,
     renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
     filterable: false,

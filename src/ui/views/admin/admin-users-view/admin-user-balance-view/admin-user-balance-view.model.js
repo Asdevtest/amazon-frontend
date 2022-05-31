@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -39,6 +39,16 @@ export class AdminUserBalanceViewModel {
       this.userId = location.state.user._id
     }
     makeAutoObservable(this, undefined, {autoBind: true})
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = financesViewColumns()
+    }
   }
 
   onChangeFilterModel(model) {
@@ -83,6 +93,7 @@ export class AdminUserBalanceViewModel {
 
       await this.getUserInfo(this.userId)
       await this.getBalanceHistory(this.userId)
+      this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

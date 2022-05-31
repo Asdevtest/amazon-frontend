@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import {Container, Button, Typography, NativeSelect} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {Field} from '@components/field'
@@ -10,11 +10,9 @@ import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './admin-balance-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').adminBalanceModal
 
 export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSubmit}) => {
   const classNames = useClassNames()
@@ -46,19 +44,25 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
 
   const renderPositiveMessage = (
     <div className={classNames.positiveMsg}>
-      {`${textConsts.msgSubject} ${user.name} ${textConsts.msgPosPredicate} ${balanceValue}`}
+      {`${t(TranslationKey['The balance of the user'])} ${user.name} ${t(
+        TranslationKey['will be replenished by'],
+      )} ${balanceValue}`}
     </div>
   )
 
   const renderNegativeMessage = (
     <div className={classNames.negativeMsg}>
-      {`${textConsts.msgSubject} ${user.name} ${textConsts.msgNegPredicate} ${balanceValue}`}
+      {`${t(TranslationKey['From the balance of the user'])} ${user.name} ${t(
+        TranslationKey['will be debited by'],
+      )} ${balanceValue}`}
     </div>
   )
 
   const confirmMsg = () => {
-    const decreaseOrIncrease = isWithdraw ? textConsts.confirmMsgDecrease : textConsts.confirmMsgIncrease
-    return `${textConsts.confirmMsgAreYouSureYouWantTo} ${decreaseOrIncrease} ${textConsts.confirmMsgTheBalanceOfTheUser} ${user.name} ${textConsts.confirmMsgBy} ${balanceValue}?`
+    const decreaseOrIncrease = isWithdraw ? t(TranslationKey.Decrease) : t(TranslationKey.Increase)
+    return `${t(TranslationKey['Are you sure you want to'])} ${decreaseOrIncrease} ${t(
+      TranslationKey['user balance'],
+    )} ${user.name} ${t(TranslationKey.by)} ${balanceValue}?`
   }
 
   const disableButtonExecute = ['0', '0.', '0.0', ''].includes(balanceValue)
@@ -67,12 +71,12 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
     <>
       <Container disableGutters className={classNames.modalContainer}>
         <Typography paragraph variant="h3">
-          {isWithdraw ? textConsts.titleWithdraw : textConsts.titleReplenish}
+          {isWithdraw ? t(TranslationKey.Withdraw) : t(TranslationKey.Deposit)}
         </Typography>
 
         {isWithdraw && (
           <Field
-            label={textConsts.paymentType}
+            label={t(TranslationKey.Type)}
             inputComponent={
               <NativeSelect
                 input={<Input fullWidth />}
@@ -91,7 +95,7 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
         )}
 
         <Field
-          label={textConsts.balanceLabel}
+          label={t(TranslationKey.Amount)}
           value={balanceValue}
           onChange={e =>
             checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) && setBalanceValue(e.target.value)
@@ -100,11 +104,11 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
 
         <Field
           multiline
-          label={textConsts.reasonLabel}
+          label={t(TranslationKey.Reason)}
           minRows={4}
           rowsMax={4}
           value={reasonValue}
-          placeholder={textConsts.modalPlaceholder}
+          placeholder={t(TranslationKey['Enter the reason...'])}
           className={classNames.modalTextArea}
           onChange={e => setReasonValue(e.target.value)}
         />
@@ -119,7 +123,7 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
             variant="contained"
             onClick={onTriggerConfirmModal}
           >
-            {textConsts.executeBtn}
+            {t(TranslationKey.Execute)}
           </Button>
         </div>
       </Container>
@@ -129,10 +133,10 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
           <Typography paragraph>{confirmMsg()}</Typography>
           <div className={classNames.buttonWrapper}>
             <Button disableElevation color="primary" variant="contained" onClick={onConfirm}>
-              {textConsts.confirmBtn}
+              {t(TranslationKey.Yes)}
             </Button>
             <ErrorButton disableElevation onClick={onDecline}>
-              {textConsts.declineBtn}
+              {t(TranslationKey.Cancel)}
             </ErrorButton>
           </div>
         </div>

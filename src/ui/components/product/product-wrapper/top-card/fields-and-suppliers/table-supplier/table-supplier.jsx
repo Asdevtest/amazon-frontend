@@ -4,19 +4,15 @@ import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typogr
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './table-supplier.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 export const TableSupplier = observer(({product, selectedSupplier, onClickSupplier}) => {
   const classNames = useClassNames()
@@ -88,7 +84,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
           ) : (
             <TableRow>
               <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)} colSpan={8}>
-                {textConsts.tableCellNoVendors}
+                {t(TranslationKey['No suppliers'])}
               </TableCell>
             </TableRow>
           )}

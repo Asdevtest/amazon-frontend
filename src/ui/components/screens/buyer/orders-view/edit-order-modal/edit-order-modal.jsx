@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Box, Divider, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
 
@@ -6,6 +6,9 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
@@ -18,6 +21,7 @@ import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {BoxesToCreateTable} from './boxes-to-create-table'
 import {useClassNames} from './edit-order-modal.style'
@@ -28,14 +32,6 @@ import {SelectFields} from './select-fields'
 const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalEditOrder
 
 const orderStatusesThatTriggersEditBoxBlock = [OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]]
-
-const renderHeadRow = (
-  <TableRow>
-    {CLIENT_WAREHOUSE_HEAD_CELLS().map((item, index) => (
-      <TableCell key={index}>{item.label}</TableCell>
-    ))}
-  </TableRow>
-)
 
 const confirmModalModes = {
   STATUS: 'STATUS',
@@ -73,6 +69,20 @@ export const EditOrderModal = ({
   )
 
   const [boxesForCreation, setBoxesForCreation] = useState([])
+
+  const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
+
+  const renderHeadRow = () => (
+    <TableRow>
+      {headCells.map((item, index) => (
+        <TableCell key={index}>{item.label}</TableCell>
+      ))}
+    </TableRow>
+  )
+
+  useEffect(() => {
+    setHeadCells(CLIENT_WAREHOUSE_HEAD_CELLS)
+  }, [SettingsModel.languageTag])
 
   const onRemoveForCreationBox = boxIndex => {
     const updatedNewBoxes = boxesForCreation.filter((box, i) => i !== boxIndex)
@@ -161,10 +171,10 @@ export const EditOrderModal = ({
 
   return (
     <Box className={classNames.modalWrapper}>
-      <Typography className={classNames.modalTitle}>{textConsts.title}</Typography>
+      <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing an order'])}</Typography>
 
       <Paper elevation={0} className={classNames.paper}>
-        <Typography className={classNames.modalText}>{`${textConsts.orderNum} # ${order.id}`}</Typography>
+        <Typography className={classNames.modalText}>{`${t(TranslationKey.Order)} # ${order.id}`}</Typography>
 
         <SelectFields
           hsCode={hsCode}
@@ -189,7 +199,7 @@ export const EditOrderModal = ({
 
         <Divider className={classNames.divider} />
 
-        <Typography className={classNames.modalText}>{textConsts.suppliers}</Typography>
+        <Typography className={classNames.modalText}>{t(TranslationKey.Suppliers)}</Typography>
         <EditOrderSuppliersTable
           selectedSupplier={orderFields.orderSupplier}
           suppliers={orderFields.product.suppliers}
@@ -209,9 +219,9 @@ export const EditOrderModal = ({
             }
           }}
         >
-          {textConsts.saveBtn}
+          {t(TranslationKey.Save)}
         </Button>
-        <ErrorButton onClick={() => onTriggerOpenModal('showOrderModal')}>{textConsts.cancelBtn}</ErrorButton>
+        <ErrorButton onClick={() => onTriggerOpenModal('showOrderModal')}>{t(TranslationKey.Cancel)}</ErrorButton>
       </Box>
 
       {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) && (
@@ -221,7 +231,7 @@ export const EditOrderModal = ({
           variant="contained"
           onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
         >
-          {textConsts.addBoxBtn}
+          {t(TranslationKey['Add a box'])}
         </Button>
       )}
 
@@ -237,13 +247,13 @@ export const EditOrderModal = ({
       )}
 
       <div className={classNames.tableWrapper}>
-        <Typography className={classNames.modalTitle}>{textConsts.boxesTitle}</Typography>
+        <Typography className={classNames.modalTitle}>{t(TranslationKey['Boxes on this order:'])}</Typography>
         {boxes.length > 0 ? (
           <Table
             rowsOnly
             data={boxes}
             BodyRow={WarehouseBodyRow}
-            renderHeadRow={renderHeadRow}
+            renderHeadRow={renderHeadRow()}
             mainProductId={order.product._id}
             volumeWeightCoefficient={volumeWeightCoefficient}
           />

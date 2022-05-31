@@ -5,8 +5,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {SUPERVISOR_PRODUCTS_HEAD_CELLS} from '@constants/table-head-cells'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -15,12 +14,10 @@ import {Navbar} from '@components/navbar'
 import {Table} from '@components/table'
 import {TableBodyRow} from '@components/table-rows/supervisor/ready-to-check-view/table-body-row'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {SupervisorReadyToCheckByClientViewModel} from './supervisor-ready-to-check-by-client-view.model'
 import {styles} from './supervisor-ready-to-check-by-client-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').supervisorReadyToCheckByClientView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_READY_TO_CHECK
 const navbarActiveSubCategory = 1
@@ -43,11 +40,22 @@ class SupervisorReadyToCheckByClientViewRaw extends Component {
       onChangePage,
       onChangeRowsPerPage,
       onClickTableRowBtn,
+      productHead,
     } = this.viewModel
     const {classes: classNames} = this.props
     const tableRowHandlers = {
       onClickTableRowBtn,
     }
+
+    const renderHeadRow = (
+      <TableRow>
+        {productHead.map((el, i) => (
+          <TableCell key={i} align={el.align}>
+            {el.label}
+          </TableCell>
+        ))}
+      </TableRow>
+    )
     return (
       <React.Fragment>
         <Navbar
@@ -57,19 +65,23 @@ class SupervisorReadyToCheckByClientViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar
+            title={`${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['From the Client'])}`}
+            notificationCount={2}
+            setDrawerOpen={onTriggerDrawerOpen}
+          >
             <MainContent>
               <div className={classNames.tableWrapper}>
                 <Table
                   rowsOnly
-                  noRowsTitle={textConsts.noRowsTitle}
+                  noRowsTitle={t(TranslationKey['No new proposals at the moment'])}
                   currentPage={curPage}
                   data={productsReadyToCheck}
                   handlerPageChange={onChangePage}
                   handlerRowsPerPage={onChangeRowsPerPage}
                   pageCount={Math.ceil(productsReadyToCheck.length / rowsPerPage)}
                   BodyRow={TableBodyRow}
-                  renderHeadRow={this.renderHeadRow}
+                  renderHeadRow={renderHeadRow}
                   rowsPerPage={rowsPerPage}
                   rowsHandlers={tableRowHandlers}
                 />
@@ -80,16 +92,6 @@ class SupervisorReadyToCheckByClientViewRaw extends Component {
       </React.Fragment>
     )
   }
-
-  renderHeadRow = (
-    <TableRow>
-      {SUPERVISOR_PRODUCTS_HEAD_CELLS.map((el, i) => (
-        <TableCell key={i} align={el.align}>
-          {el.label}
-        </TableCell>
-      ))}
-    </TableRow>
-  )
 }
 
 export const SupervisorReadyToCheckByClientView = withStyles(styles)(SupervisorReadyToCheckByClientViewRaw)

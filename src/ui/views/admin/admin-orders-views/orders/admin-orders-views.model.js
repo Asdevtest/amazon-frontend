@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {ActiveSubCategoryTablesKeys} from '@constants/active-sub-category-tables-keys'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -47,6 +47,17 @@ export class AdminOrdersAllViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = adminOrdersViewColumns()
+    }
   }
 
   onChangeFilterModel(model) {
@@ -109,7 +120,7 @@ export class AdminOrdersAllViewModel {
       const result = await AdministratorModel.getOrdersByStatus(ordersStatusBySubCategory[activeSubCategory])
 
       const ordersData = adminOrdersDataConverter(result)
-
+      this.getDataGridState()
       runInAction(() => {
         this.currentOrdersData = ordersData.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })

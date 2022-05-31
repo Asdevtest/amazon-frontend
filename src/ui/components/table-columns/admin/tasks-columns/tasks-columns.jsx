@@ -1,6 +1,5 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -12,15 +11,12 @@ import {
   TaskTypeCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
-
-const textConsts = getLocalizedTexts(texts, 'ru').adminTasksTableColumns
 
 export const adminTasksViewColumns = handlers => [
   {
     field: 'createdAt',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Created),
     width: 110,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
@@ -28,7 +24,7 @@ export const adminTasksViewColumns = handlers => [
 
   {
     field: 'updatedAt',
-    headerName: textConsts.updateDateField,
+    headerName: t(TranslationKey.Updated),
     width: 110,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
@@ -43,7 +39,7 @@ export const adminTasksViewColumns = handlers => [
 
   {
     field: 'description',
-    headerName: textConsts.descriptionField,
+    headerName: t(TranslationKey.Description),
     width: 400,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
@@ -52,18 +48,18 @@ export const adminTasksViewColumns = handlers => [
 
   {
     field: 'storekeeper',
-    headerName: textConsts.storekeeperField,
+    headerName: t(TranslationKey.Storekeeper),
     width: 250,
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
   },
 
   {
     field: 'action',
-    headerName: textConsts.actionField,
+    headerName: t(TranslationKey.Action),
     width: 250,
     renderCell: params => (
       <NormalActionBtnCell
-        bTnText={textConsts.actionBtn}
+        bTnText={t(TranslationKey['View more'])}
         onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
       />
     ),
@@ -72,7 +68,7 @@ export const adminTasksViewColumns = handlers => [
   },
   {
     field: 'status',
-    headerName: textConsts.statusField,
+    headerName: t(TranslationKey.Status),
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
