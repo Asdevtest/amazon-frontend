@@ -90,7 +90,7 @@ export const addOrEditBatchFormColumns = () => [
   },
 
   {
-    field: 'amazonPrice',
+    field: 'deliveryTotalPrice',
     headerName: t(TranslationKey['Total price']),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 120,

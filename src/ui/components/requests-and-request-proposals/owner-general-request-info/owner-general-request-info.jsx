@@ -185,10 +185,10 @@ export const OwnerGeneralRequestInfo = ({
             <div className={classNames.btnsRow}>
               {requestIsNotDraftAndPublished && (
                 <Button
-                  variant="outlined"
-                  color="danger"
+                  variant="contained"
+                  color="default"
                   btnWrapperStyle={classNames.buttonWrapperFullWidth}
-                  className={classNames.button}
+                  className={[classNames.button, classNames.cancelBtn]}
                   onClick={onClickCancelBtn}
                 >
                   {t(TranslationKey.Delete)}

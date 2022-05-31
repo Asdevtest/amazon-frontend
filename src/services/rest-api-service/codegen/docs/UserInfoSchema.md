@@ -23,5 +23,6 @@ Name | Type | Description | Notes
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
 **needConfirmPriceChange** | [**UserInfoSchemaNeedConfirmPriceChange**](UserInfoSchemaNeedConfirmPriceChange.md) |  | [optional] 
+**needUpdateTariff** | [**UserInfoSchemaNeedUpdateTariff**](UserInfoSchemaNeedUpdateTariff.md) |  | [optional] 
 
 

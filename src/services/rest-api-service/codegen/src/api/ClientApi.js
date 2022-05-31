@@ -56,7 +56,7 @@ export default class ClientApi {
 
     /**
      * # Подтвердить измение цены доставки за коробки.
-     * ## Метод должен вычислять разницу между totalPriceChanged и totalPrice - (totalPriceChanged-totalPrice).   ## Если разница больше 0 то нужно у клиента, который привязан к этой коробке из поля balance вычесть эту разницу,  а в поле balanceFreeze прибавить  ## Если разница меньше 0 то нужно у клиента, который привязан к этому ордеру из поля balanceFreeze вычесть эту   разницу, а в поле balance прибавить   ## Далее нужно сделать у заказа totalPrice = totalPriceChanged   ## Проверки:Только для коробок со статусом: NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE
+     * ## Метод должен вычислять разницу между deliveryTotalPriceChanged и deliveryTotalPrice - (deliveryTotalPriceChanged-deliveryTotalPrice).   ## Если разница больше 0 то нужно у клиента, который привязан к этой коробке из поля balance вычесть эту разницу,  а в поле balanceFreeze прибавить  ## Если разница меньше 0 то нужно у клиента, который привязан к этому ордеру из поля balanceFreeze вычесть эту   разницу, а в поле balance прибавить   ## Далее нужно сделать у заказа deliveryTotalPrice = deliveryTotalPriceChanged   ## Проверки:Только для коробок со статусом: NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<module:model/InlineObject>} opts.body 
@@ -89,7 +89,7 @@ export default class ClientApi {
 
     /**
      * # Подтвердить измение цены доставки за коробки.
-     * ## Метод должен вычислять разницу между totalPriceChanged и totalPrice - (totalPriceChanged-totalPrice).   ## Если разница больше 0 то нужно у клиента, который привязан к этой коробке из поля balance вычесть эту разницу,  а в поле balanceFreeze прибавить  ## Если разница меньше 0 то нужно у клиента, который привязан к этому ордеру из поля balanceFreeze вычесть эту   разницу, а в поле balance прибавить   ## Далее нужно сделать у заказа totalPrice = totalPriceChanged   ## Проверки:Только для коробок со статусом: NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE
+     * ## Метод должен вычислять разницу между deliveryTotalPriceChanged и deliveryTotalPrice - (deliveryTotalPriceChanged-deliveryTotalPrice).   ## Если разница больше 0 то нужно у клиента, который привязан к этой коробке из поля balance вычесть эту разницу,  а в поле balanceFreeze прибавить  ## Если разница меньше 0 то нужно у клиента, который привязан к этому ордеру из поля balanceFreeze вычесть эту   разницу, а в поле balance прибавить   ## Далее нужно сделать у заказа deliveryTotalPrice = deliveryTotalPriceChanged   ## Проверки:Только для коробок со статусом: NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<module:model/InlineObject>} opts.body 

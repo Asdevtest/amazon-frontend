@@ -13,7 +13,7 @@ import {ErrorButton} from '@components/buttons/error-button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Field} from '@components/field/field'
 
-import {calcFinalWeightForBox, calcPriceForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getFullTariffTextForBoxOrOrder, toFixed} from '@utils/text'
@@ -279,7 +279,7 @@ export const AddOrEditBatchForm = observer(
               containerClasses={classNames.sumField}
               label={t(TranslationKey['Total price'])}
               value={toFixed(
-                chosenBoxes.reduce((ac, cur) => (ac += calcPriceForBox(cur.originalData)), 0),
+                chosenBoxes.reduce((ac, cur) => (ac += cur.deliveryTotalPrice), 0),
                 2,
               )}
               placeholder={'0'}

@@ -142,4 +142,9 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     overflowY: 'hidden',
   },
+
+  spanLabel: {
+    fontSize: '18px',
+    fontWeight: 'bold',
+  },
 }))

@@ -206,6 +206,7 @@ import UserAdminFullSchema from './model/UserAdminFullSchema';
 import UserFullSchema from './model/UserFullSchema';
 import UserInfoSchema from './model/UserInfoSchema';
 import UserInfoSchemaNeedConfirmPriceChange from './model/UserInfoSchemaNeedConfirmPriceChange';
+import UserInfoSchemaNeedUpdateTariff from './model/UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './model/UserInfoSchemaPermissionGroups';
 import UserInfoSchemaPermissions from './model/UserInfoSchemaPermissions';
 import UserRegisterSchema from './model/UserRegisterSchema';
@@ -1429,6 +1430,12 @@ export {
      * @property {module:model/UserInfoSchemaNeedConfirmPriceChange}
      */
     UserInfoSchemaNeedConfirmPriceChange,
+
+    /**
+     * The UserInfoSchemaNeedUpdateTariff model constructor.
+     * @property {module:model/UserInfoSchemaNeedUpdateTariff}
+     */
+    UserInfoSchemaNeedUpdateTariff,
 
     /**
      * The UserInfoSchemaPermissionGroups model constructor.

@@ -3,6 +3,7 @@ import React from 'react'
 import {Typography, Paper, Avatar} from '@material-ui/core'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {RequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -67,13 +68,14 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
         </div>
       </div>
 
-      {request.request.status !== RequestProposalStatus.EXPIRED && (
-        <div className={classNames.btnsBlockWrapper}>
-          <Button variant="contained" color="primary" className={classNames.actionBtn} onClick={onSubmit}>
-            {t(TranslationKey['Suggest a deal'])}
-          </Button>
-        </div>
-      )}
+      {request.request.status === RequestStatus.PUBLISHED ||
+        (request.request.status === RequestStatus.IN_PROCESS && (
+          <div className={classNames.btnsBlockWrapper}>
+            <Button variant="contained" color="primary" className={classNames.actionBtn} onClick={onSubmit}>
+              {t(TranslationKey['Suggest a deal'])}
+            </Button>
+          </div>
+        ))}
     </Paper>
   )
 }

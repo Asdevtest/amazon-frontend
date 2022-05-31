@@ -265,6 +265,7 @@ export const CreateOrEditRequestContent = ({
             <div className={classNames.middleWrapper}>
               <Field
                 label={t(TranslationKey['Request title'])}
+                labelClasses={classNames.spanLabel}
                 inputComponent={
                   <Typography className={classNames.twoStepFieldResult}>{formFields.request.title}</Typography>
                 }
@@ -273,6 +274,7 @@ export const CreateOrEditRequestContent = ({
               <Field
                 multiline
                 className={classNames.descriptionField}
+                labelClasses={classNames.spanLabel}
                 minRows={4}
                 rowsMax={4}
                 label={t(TranslationKey['Description of your request'])}
@@ -292,6 +294,7 @@ export const CreateOrEditRequestContent = ({
               <div className={classNames.rightTwoStepSubFieldWrapper}>
                 <Field
                   label={t(TranslationKey.Price) + ' $'}
+                  labelClasses={classNames.spanLabel}
                   inputComponent={
                     <Typography className={classNames.twoStepFieldResult}>{formFields.request.price}</Typography>
                   }
@@ -300,6 +303,7 @@ export const CreateOrEditRequestContent = ({
                 <Field
                   containerClasses={classNames.twoStepDeadlineField}
                   label={t(TranslationKey['Deadline for the request'])}
+                  labelClasses={classNames.spanLabel}
                   inputComponent={
                     <Typography className={classNames.twoStepFieldResult}>
                       {formFields.request.timeoutAt && formatDateForShowWithoutParseISO(formFields.request.timeoutAt)}
@@ -310,6 +314,7 @@ export const CreateOrEditRequestContent = ({
 
               <Field
                 label={t(TranslationKey['Number of proposals'])}
+                labelClasses={classNames.spanLabel}
                 inputComponent={
                   <Typography className={classNames.twoStepFieldResult}>
                     {formFields.request.maxAmountOfProposals}
@@ -319,6 +324,7 @@ export const CreateOrEditRequestContent = ({
 
               <Field
                 label={t(TranslationKey['Time to complete the proposal (min)'])}
+                labelClasses={classNames.spanLabel}
                 inputComponent={
                   <Typography className={classNames.twoStepFieldResult}>
                     {formFields.request.timeLimitInMinutes}

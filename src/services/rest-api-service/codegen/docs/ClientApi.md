@@ -35,7 +35,7 @@ Method | HTTP request | Description
 
 # Подтвердить измение цены доставки за коробки.
 
-## Метод должен вычислять разницу между totalPriceChanged и totalPrice - (totalPriceChanged-totalPrice).   ## Если разница больше 0 то нужно у клиента, который привязан к этой коробке из поля balance вычесть эту разницу,  а в поле balanceFreeze прибавить  ## Если разница меньше 0 то нужно у клиента, который привязан к этому ордеру из поля balanceFreeze вычесть эту   разницу, а в поле balance прибавить   ## Далее нужно сделать у заказа totalPrice &#x3D; totalPriceChanged   ## Проверки:Только для коробок со статусом: NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE
+## Метод должен вычислять разницу между deliveryTotalPriceChanged и deliveryTotalPrice - (deliveryTotalPriceChanged-deliveryTotalPrice).   ## Если разница больше 0 то нужно у клиента, который привязан к этой коробке из поля balance вычесть эту разницу,  а в поле balanceFreeze прибавить  ## Если разница меньше 0 то нужно у клиента, который привязан к этому ордеру из поля balanceFreeze вычесть эту   разницу, а в поле balance прибавить   ## Далее нужно сделать у заказа deliveryTotalPrice &#x3D; deliveryTotalPriceChanged   ## Проверки:Только для коробок со статусом: NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE
 
 ### Example
 

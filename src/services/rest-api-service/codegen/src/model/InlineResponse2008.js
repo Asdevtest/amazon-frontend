@@ -91,11 +91,11 @@ class InlineResponse2008 {
             if (data.hasOwnProperty('fbaShipment')) {
                 obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
             }
-            if (data.hasOwnProperty('totalPrice')) {
-                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
+            if (data.hasOwnProperty('deliveryTotalPrice')) {
+                obj['deliveryTotalPrice'] = ApiClient.convertToType(data['deliveryTotalPrice'], 'Number');
             }
-            if (data.hasOwnProperty('totalPriceChanged')) {
-                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
+            if (data.hasOwnProperty('deliveryTotalPriceChanged')) {
+                obj['deliveryTotalPriceChanged'] = ApiClient.convertToType(data['deliveryTotalPriceChanged'], 'Number');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
@@ -214,15 +214,15 @@ InlineResponse2008.prototype['fbaShipment'] = undefined;
 
 /**
  * Итого за доставку.
- * @member {Number} totalPrice
+ * @member {Number} deliveryTotalPrice
  */
-InlineResponse2008.prototype['totalPrice'] = undefined;
+InlineResponse2008.prototype['deliveryTotalPrice'] = undefined;
 
 /**
  * Обновление итога за доставку.
- * @member {Number} totalPriceChanged
+ * @member {Number} deliveryTotalPriceChanged
  */
-InlineResponse2008.prototype['totalPriceChanged'] = undefined;
+InlineResponse2008.prototype['deliveryTotalPriceChanged'] = undefined;
 
 /**
  * Массив картинок.
