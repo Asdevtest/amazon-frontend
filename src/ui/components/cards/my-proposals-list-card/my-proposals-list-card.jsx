@@ -12,8 +12,8 @@ import {
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CustomCarousel} from '@components/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
-import {MyCarousel} from '@components/my-carousel'
 
 import {formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -81,7 +81,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
           style={{minHeight: '293px', marginTop: '20px', marginBottom: '20px'}}
         />
         <div className={classNames.rightBlockWrapper}>
-          <MyCarousel>
+          <CustomCarousel title={t(TranslationKey.Proposal)}>
             {item.proposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
                 <Typography className={classNames.proposalComment}>{proposal.comment}</Typography>
@@ -145,7 +145,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                 </div>
               </div>
             ))}
-          </MyCarousel>
+          </CustomCarousel>
         </div>
       </div>
     </Grid>

@@ -5,17 +5,13 @@ import {Children, cloneElement, useEffect, useState} from 'react'
 
 import {Typography} from '@material-ui/core'
 
-import {TranslationKey} from '@constants/translations/translation-key'
-
 import {SettingsModel} from '@models/settings-model'
 
-import {t} from '@utils/translations'
-
-import {useClassNames} from './my-carousel.style'
+import {useClassNames} from './custom-carousel.style'
 
 export const RIGHT_BLOCK_WIDTH = 100
 
-export const MyCarousel = ({children}) => {
+export const CustomCarousel = ({children, title}) => {
   const classNames = useClassNames()
   const [clides, setClides] = useState([])
   const [offset, setOffset] = useState(0)
@@ -73,7 +69,7 @@ export const MyCarousel = ({children}) => {
             className={classNames.carouselBtn}
             onClick={handleLeftArrowClick}
           />
-          <Typography className={classNames.proposalCount}>{`${t(TranslationKey.Proposal)} №${slideCount}`}</Typography>
+          <Typography className={classNames.proposalCount}>{`${title} №${slideCount}`}</Typography>
 
           <ArrowRightIcon
             style={{cursor: 'pointer'}}
