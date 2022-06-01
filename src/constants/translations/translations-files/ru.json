@@ -696,5 +696,6 @@
   "Edit batch": "Редактировать партию",
   "Create a batch": "Создать партию товара",
   "What time do you want the result?": "Во сколько Вы хотите получить результат?",
-  "Limit the number of proposals?": "Ограничить количество предложений?"
+  "Limit the number of proposals?": "Ограничить количество предложений?",
+  "Minimum number of characters 150": "Минимальное количество символов 150"
 }

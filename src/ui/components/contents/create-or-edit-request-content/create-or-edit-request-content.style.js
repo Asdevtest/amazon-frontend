@@ -127,6 +127,10 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
   },
 
+  descriptionFieldWrapper: {
+    position: 'relative',
+  },
+
   descriptionField: {
     height: '81px',
     width: '100%',
@@ -204,5 +208,12 @@ export const useClassNames = makeStyles(() => ({
     gap: '30px',
     alignItems: 'center',
     marginBottom: '30px',
+  },
+
+  error: {
+    fontSize: '12px',
+    color: 'red',
+    position: 'absolute',
+    top: '112px',
   },
 }))

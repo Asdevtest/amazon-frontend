@@ -696,6 +696,7 @@ export enum TranslationKey {
   'Create a batch' = 'Create a batch',
   'What time do you want the result?' = 'What time do you want the result?',
   'Limit the number of proposals?' = 'Limit the number of proposals?',
+  'Minimum number of characters 150' = 'Minimum number of characters 150',
 
   // '' = '',
   // '' = '',

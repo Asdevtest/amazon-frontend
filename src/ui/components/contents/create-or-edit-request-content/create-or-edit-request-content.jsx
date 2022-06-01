@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Checkbox, Divider, Typography, Link} from '@material-ui/core'
 import clsx from 'clsx'
@@ -60,6 +60,7 @@ export const CreateOrEditRequestContent = ({
     },
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
+  const [error, setError] = useState(false)
 
   const [deadlineError, setDeadlineError] = useState(false)
 
@@ -110,6 +111,14 @@ export const CreateOrEditRequestContent = ({
     }
   }
 
+  useEffect(() => {
+    if (formFields.details.conditions.length < 150) {
+      setError(true)
+    } else {
+      setError(false)
+    }
+  }, [formFields.details.conditions.length])
+
   const disableSubmit =
     formFields.request.title === '' ||
     formFields.request.maxAmountOfProposals === '' ||
@@ -117,6 +126,7 @@ export const CreateOrEditRequestContent = ({
     formFields.request.price === '' ||
     formFields.request.timeoutAt === '' ||
     formFields.details.conditions === ''
+  formFields.details.conditions.length < 150
 
   const CustomLabel = ({label}) => {
     const labelStyle = {
@@ -163,16 +173,21 @@ export const CreateOrEditRequestContent = ({
                 value={formFields.request.title}
                 onChange={onChangeField('request')('title')}
               />
-
-              <Field
-                multiline
-                className={classNames.descriptionField}
-                minRows={4}
-                rowsMax={4}
-                label={<CustomLabel label={`${t(TranslationKey['Describe your request'])} *`} />}
-                value={formFields.details.conditions}
-                onChange={onChangeField('details')('conditions')}
-              />
+              <div className={classNames.descriptionFieldWrapper}>
+                <Field
+                  multiline
+                  inputProps={{maxLength: 1500}}
+                  className={classNames.descriptionField}
+                  minRows={4}
+                  rowsMax={4}
+                  label={<CustomLabel label={`${t(TranslationKey['Describe your request'])} *`} />}
+                  value={formFields.details.conditions}
+                  onChange={onChangeField('details')('conditions')}
+                />
+                {error && (
+                  <span className={classNames.error}>{t(TranslationKey['Minimum number of characters 150'])}</span>
+                )}
+              </div>
 
               <div className={classNames.imageFileInputWrapper}>
                 <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
