@@ -168,4 +168,14 @@ export const useClassNames = makeStyles(() => ({
       transform: 'scale(1.02)',
     },
   },
+
+  descriptionFieldWrapper: {
+    position: 'relative',
+  },
+  error: {
+    fontSize: '12px',
+    color: 'red',
+    position: 'absolute',
+    top: '232px',
+  },
 }))

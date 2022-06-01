@@ -35,7 +35,7 @@ export const RequestProposalStatusTranslate = s => {
     case RequestProposalStatus.CANCELED_BY_SUPERVISOR:
       return t(TranslationKey['Canceled by Supervisor'])
     case RequestProposalStatus.CORRECTED:
-      return t(TranslationKey.Correcred)
+      return t(TranslationKey.Corrected)
     case RequestProposalStatus.CREATED:
       return t(TranslationKey.Created)
     case RequestProposalStatus.EXPIRED:
