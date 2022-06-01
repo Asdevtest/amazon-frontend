@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Checkbox, Divider, Typography, Select, ListItemText, MenuItem} from '@material-ui/core'
+import {Checkbox, Divider, Typography, Select, ListItemText, MenuItem, Link} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -14,7 +14,7 @@ import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {checkIsImageLink, checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
 import {t} from '@utils/translations'
 
@@ -176,8 +176,27 @@ export const CreateOrEditRequestContent = ({
                   variant="contained"
                   onClick={() => setShowPhotosModal(!showPhotosModal)}
                 >
-                  {t(TranslationKey['Available files'])}
+                  {t(TranslationKey['Available images'])}
                 </Button>
+
+                {formFields.details.linksToMediaFiles.filter(el => !checkIsImageLink(el)).length ? (
+                  <Field
+                    multiline
+                    label={t(TranslationKey.Files)}
+                    containerClasses={classNames.filesContainer}
+                    inputComponent={
+                      <div className={classNames.filesWrapper}>
+                        {formFields.details.linksToMediaFiles
+                          .filter(el => !checkIsImageLink(el))
+                          .map((file, index) => (
+                            <Link key={index} target="_blank" href={file}>
+                              <Typography className={classNames.linkText}>{file}</Typography>
+                            </Link>
+                          ))}
+                      </div>
+                    }
+                  />
+                ) : null}
               </div>
             </div>
 
@@ -188,14 +207,6 @@ export const CreateOrEditRequestContent = ({
                 value={formFields.request.price}
                 onChange={onChangeField('request')('price')}
               />
-
-              {/* <Field
-                oneLine
-                label={'Ограничить количество предложений?'}
-                inputComponent={
-                  <Checkbox color="primary" checked={formFields.fba} onChange={onChangeFormField('fba')} />
-                }
-              /> */}
 
               <Field
                 inputProps={{maxLength: 8}}
@@ -265,6 +276,7 @@ export const CreateOrEditRequestContent = ({
             <div className={classNames.middleWrapper}>
               <Field
                 label={t(TranslationKey['Request title'])}
+                labelClasses={classNames.spanLabel}
                 inputComponent={
                   <Typography className={classNames.twoStepFieldResult}>{formFields.request.title}</Typography>
                 }
@@ -273,6 +285,7 @@ export const CreateOrEditRequestContent = ({
               <Field
                 multiline
                 className={classNames.descriptionField}
+                labelClasses={classNames.spanLabel}
                 minRows={4}
                 rowsMax={4}
                 label={t(TranslationKey['Description of your request'])}
@@ -292,6 +305,7 @@ export const CreateOrEditRequestContent = ({
               <div className={classNames.rightTwoStepSubFieldWrapper}>
                 <Field
                   label={t(TranslationKey.Price) + ' $'}
+                  labelClasses={classNames.spanLabel}
                   inputComponent={
                     <Typography className={classNames.twoStepFieldResult}>{formFields.request.price}</Typography>
                   }
@@ -300,6 +314,7 @@ export const CreateOrEditRequestContent = ({
                 <Field
                   containerClasses={classNames.twoStepDeadlineField}
                   label={t(TranslationKey['Deadline for the request'])}
+                  labelClasses={classNames.spanLabel}
                   inputComponent={
                     <Typography className={classNames.twoStepFieldResult}>
                       {formFields.request.timeoutAt && formatDateForShowWithoutParseISO(formFields.request.timeoutAt)}
@@ -310,6 +325,7 @@ export const CreateOrEditRequestContent = ({
 
               <Field
                 label={t(TranslationKey['Number of proposals'])}
+                labelClasses={classNames.spanLabel}
                 inputComponent={
                   <Typography className={classNames.twoStepFieldResult}>
                     {formFields.request.maxAmountOfProposals}
@@ -319,6 +335,7 @@ export const CreateOrEditRequestContent = ({
 
               <Field
                 label={t(TranslationKey['Time to complete the proposal (min)'])}
+                labelClasses={classNames.spanLabel}
                 inputComponent={
                   <Typography className={classNames.twoStepFieldResult}>
                     {formFields.request.timeLimitInMinutes}
@@ -416,7 +433,7 @@ export const CreateOrEditRequestContent = ({
         isAmazone
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={formFields.details.linksToMediaFiles || []}
+        images={formFields.details.linksToMediaFiles.filter(el => checkIsImageLink(el)) || []}
       />
     </div>
   )

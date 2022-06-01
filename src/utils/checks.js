@@ -46,3 +46,13 @@ export const noPermissionsUser = user => !user.permissions
 
 export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logicsTariffId) =>
   storekeepers.find(el => el._id === storekeeperId)?.tariffLogistics.find(el => el._id === logicsTariffId)
+
+export const checkIsImageLink = link =>
+  link.endsWith('.png') ||
+  link.endsWith('.jpg') ||
+  link.endsWith('.ico') ||
+  link.endsWith('.gif') ||
+  link.endsWith('.svg') ||
+  link.endsWith('.webp') ||
+  link.endsWith('.avif') ||
+  link.endsWith('.jpeg')

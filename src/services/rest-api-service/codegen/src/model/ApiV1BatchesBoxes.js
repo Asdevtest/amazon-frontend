@@ -106,11 +106,11 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('totalPrice')) {
-                obj['totalPrice'] = ApiClient.convertToType(data['totalPrice'], 'Number');
+            if (data.hasOwnProperty('deliveryTotalPrice')) {
+                obj['deliveryTotalPrice'] = ApiClient.convertToType(data['deliveryTotalPrice'], 'Number');
             }
-            if (data.hasOwnProperty('totalPriceChanged')) {
-                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
+            if (data.hasOwnProperty('deliveryTotalPriceChanged')) {
+                obj['deliveryTotalPriceChanged'] = ApiClient.convertToType(data['deliveryTotalPriceChanged'], 'Number');
             }
             if (data.hasOwnProperty('destinationId')) {
                 obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
@@ -280,15 +280,15 @@ ApiV1BatchesBoxes.prototype['images'] = undefined;
 
 /**
  * Итого за доставку.
- * @member {Number} totalPrice
+ * @member {Number} deliveryTotalPrice
  */
-ApiV1BatchesBoxes.prototype['totalPrice'] = undefined;
+ApiV1BatchesBoxes.prototype['deliveryTotalPrice'] = undefined;
 
 /**
  * Обновление итога за доставку.
- * @member {Number} totalPriceChanged
+ * @member {Number} deliveryTotalPriceChanged
  */
-ApiV1BatchesBoxes.prototype['totalPriceChanged'] = undefined;
+ApiV1BatchesBoxes.prototype['deliveryTotalPriceChanged'] = undefined;
 
 /**
  * id склада - склады куда отправляют 

@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import UserInfoSchemaNeedConfirmPriceChange from './UserInfoSchemaNeedConfirmPriceChange';
+import UserInfoSchemaNeedUpdateTariff from './UserInfoSchemaNeedUpdateTariff';
 import UserInfoSchemaPermissionGroups from './UserInfoSchemaPermissionGroups';
 import UserInfoSchemaPermissions from './UserInfoSchemaPermissions';
 
@@ -110,6 +111,9 @@ class UserInfoSchema {
             }
             if (data.hasOwnProperty('needConfirmPriceChange')) {
                 obj['needConfirmPriceChange'] = UserInfoSchemaNeedConfirmPriceChange.constructFromObject(data['needConfirmPriceChange']);
+            }
+            if (data.hasOwnProperty('needUpdateTariff')) {
+                obj['needUpdateTariff'] = UserInfoSchemaNeedUpdateTariff.constructFromObject(data['needUpdateTariff']);
             }
         }
         return obj;
@@ -229,6 +233,11 @@ UserInfoSchema.prototype['updatedAt'] = undefined;
  * @member {module:model/UserInfoSchemaNeedConfirmPriceChange} needConfirmPriceChange
  */
 UserInfoSchema.prototype['needConfirmPriceChange'] = undefined;
+
+/**
+ * @member {module:model/UserInfoSchemaNeedUpdateTariff} needUpdateTariff
+ */
+UserInfoSchema.prototype['needUpdateTariff'] = undefined;
 
 
 

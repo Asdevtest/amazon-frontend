@@ -413,6 +413,7 @@ export const styles = createStyles(() => ({
   },
 
   multilineText: {
+    width: '100%',
     textAlign: 'center',
     whiteSpace: 'normal',
 
@@ -421,6 +422,26 @@ export const styles = createStyles(() => ({
     lineHeight: '14px',
 
     color: '#354256',
+  },
+
+  multilineTextHeaderWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  multilineHeaderText: {
+    width: '100%',
+    textAlign: 'center',
+    whiteSpace: 'normal',
+
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+    fontWeight: '500',
+    fontSize: '0.875rem',
+    lineHeight: '1.1',
+    letterSpacing: '0.01071em',
   },
 
   multilineStatusText: {

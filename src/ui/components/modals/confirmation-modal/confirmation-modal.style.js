@@ -16,8 +16,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   modalMessageWrapper: {
-    width: '485px',
-    minHeight: '216px',
+    width: '445px',
+    minHeight: '168px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

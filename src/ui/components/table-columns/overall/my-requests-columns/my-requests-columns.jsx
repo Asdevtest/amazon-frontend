@@ -5,8 +5,9 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {
   MultilineRequestStatusCell,
   MultilineTextCell,
-  NormDateCell,
+  MultilineTextHeaderCell,
   renderFieldValueCell,
+  ShortDateCell,
   ToFixedWithDollarSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
@@ -16,8 +17,8 @@ export const myRequestsViewColumns = () => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
-    renderCell: params => <NormDateCell params={params} />,
-    width: 110,
+    renderCell: params => <ShortDateCell params={params} />,
+    width: 100,
     type: 'date',
   },
 
@@ -25,7 +26,7 @@ export const myRequestsViewColumns = () => [
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
-    width: 150,
+    width: 120,
   },
 
   {
@@ -39,49 +40,49 @@ export const myRequestsViewColumns = () => [
     field: 'price',
     headerName: t(TranslationKey.Price),
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
-    width: 150,
+    width: 100,
   },
 
   {
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
-    renderCell: params => <NormDateCell params={params} />,
-    width: 110,
+    renderCell: params => <ShortDateCell params={params} />,
+    width: 100,
     type: 'date',
   },
 
   {
     field: 'allProposals',
-    headerName: t(TranslationKey['Total proposals']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />, // ПРИМЕР МНОГОСТРОЧНОГО ХЕДЕРА
     renderCell: params => renderFieldValueCell(`${params.value} / ${params.row.originalData.maxAmountOfProposals} `),
-    width: 170,
+    width: 120,
   },
 
   {
     field: 'verifyingProposals',
     headerName: t(TranslationKey.Awaiting),
     renderCell: params => renderFieldValueCell(params.value),
-    width: 170,
+    width: 120,
   },
 
   {
     field: 'atWorkProposals',
     headerName: t(TranslationKey['In the work']),
     renderCell: params => renderFieldValueCell(params.value),
-    width: 170,
+    width: 120,
   },
 
   {
     field: 'waitedProposals',
     headerName: t(TranslationKey['On review']),
     renderCell: params => renderFieldValueCell(params.value),
-    width: 170,
+    width: 120,
   },
 
   {
     field: 'acceptedProposals',
     headerName: t(TranslationKey.Accepted),
     renderCell: params => renderFieldValueCell(params.value),
-    width: 170,
+    width: 120,
   },
 ]

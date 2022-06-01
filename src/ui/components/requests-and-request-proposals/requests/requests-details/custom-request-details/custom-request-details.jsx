@@ -5,7 +5,7 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 
 import React, {useState} from 'react'
 
-import {TextareaAutosize, Typography} from '@material-ui/core'
+import {Link, TextareaAutosize, Typography} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -13,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
+import {checkIsImageLink} from '@utils/checks'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './custom-request-details.style'
@@ -25,6 +26,14 @@ export const CustomSearchRequestDetails = ({request}) => {
   const [showImageModal, setShowImageModal] = useState(false)
 
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+
+  const images = request?.details.linksToMediaFiles.length
+    ? request?.details.linksToMediaFiles.filter(el => checkIsImageLink(el))
+    : []
+
+  const files = request?.details.linksToMediaFiles.length
+    ? request?.details.linksToMediaFiles.filter(el => !checkIsImageLink(el))
+    : []
 
   return (
     <div className={classNames.root}>
@@ -39,7 +48,7 @@ export const CustomSearchRequestDetails = ({request}) => {
 
         <AccordionDetails>
           <div className={classNames.mainWrapper}>
-            {request?.details.linksToMediaFiles.length ? (
+            {images ? (
               <div className={classNames.photoWrapper}>
                 <Field
                   multiline
@@ -47,7 +56,7 @@ export const CustomSearchRequestDetails = ({request}) => {
                   containerClasses={classNames.conditionsFieldWrapper}
                   inputComponent={
                     <Carousel autoPlay={false} timeout={100} animation="fade">
-                      {request.details.linksToMediaFiles.map((el, index) => (
+                      {images.map((el, index) => (
                         <div key={index}>
                           <img
                             alt=""
@@ -55,7 +64,7 @@ export const CustomSearchRequestDetails = ({request}) => {
                             src={el}
                             onClick={() => {
                               setShowImageModal(!showImageModal)
-                              setBigImagesOptions({images: request.details.linksToMediaFiles, imgIndex: index})
+                              setBigImagesOptions({images, imgIndex: index})
                             }}
                           />
                         </div>
@@ -64,6 +73,23 @@ export const CustomSearchRequestDetails = ({request}) => {
                   }
                 />
               </div>
+            ) : null}
+
+            {files.length ? (
+              <Field
+                multiline
+                label={t(TranslationKey.Files)}
+                containerClasses={classNames.filesContainer}
+                inputComponent={
+                  <div className={classNames.filesWrapper}>
+                    {files.map((file, index) => (
+                      <Link key={index} target="_blank" href={file}>
+                        <Typography className={classNames.linkText}>{file}</Typography>
+                      </Link>
+                    ))}
+                  </div>
+                }
+              />
             ) : null}
 
             <Field

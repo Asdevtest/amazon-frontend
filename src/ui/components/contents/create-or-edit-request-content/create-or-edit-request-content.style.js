@@ -142,4 +142,27 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     overflowY: 'hidden',
   },
+
+  spanLabel: {
+    fontSize: '18px',
+    fontWeight: 'bold',
+  },
+
+  filesContainer: {
+    marginTop: '20px',
+    width: 'auto',
+    marginRight: '50px',
+  },
+
+  linkText: {
+    color: '#007BFF',
+    cursor: 'pointer',
+    transition: '.3s ease',
+    whiteSpace: 'nowrap',
+    overflow: 'auto',
+
+    '&:hover': {
+      opacity: '0.8',
+    },
+  },
 }))

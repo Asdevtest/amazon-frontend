@@ -82,6 +82,7 @@ export const useClassNames = makeStyles(() => ({
   btnsRow: {
     display: 'flex',
     flexDirection: 'row',
+    gap: '10px',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 10,
@@ -114,7 +115,7 @@ export const useClassNames = makeStyles(() => ({
     },
   },
   cancelBtn: {
-    marginLeft: '10px',
+    // marginLeft: '10px',
     backgroundColor: '#F44336',
     '&:hover': {
       opacity: '0.8',

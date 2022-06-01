@@ -55,7 +55,30 @@ export const useClassNames = makeStyles(() => ({
     },
   },
   photoWrapper: {
-    marginRight: '100px',
+    marginRight: '50px',
     width: '200px',
+  },
+
+  filesWrapper: {
+    width: '350px',
+    maxHeight: '220px',
+    overflow: 'auto',
+  },
+
+  filesContainer: {
+    width: 'auto',
+    marginRight: '50px',
+  },
+
+  linkText: {
+    color: '#007BFF',
+    cursor: 'pointer',
+    transition: '.3s ease',
+    whiteSpace: 'nowrap',
+    overflow: 'auto',
+
+    '&:hover': {
+      opacity: '0.8',
+    },
   },
 }))
