@@ -1,4 +1,4 @@
-import React, {useState, FC, ReactElement} from 'react'
+import React, {useState, FC, ReactElement, useContext} from 'react'
 
 import {Grid} from '@material-ui/core'
 import clsx from 'clsx'
@@ -14,6 +14,8 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {formatNormDateTime} from '@utils/date-time'
 
+import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+
 import {useClassNames} from './chat-message-request-proposal-result-edited.style'
 
 export interface ChatMessageRequestProposalResultEditedHandlers {
@@ -26,15 +28,11 @@ interface Props {
   handlers: ChatMessageRequestProposalResultEditedHandlers
 }
 
-const showBtnsAllowedProposalStatuses = [
-  RequestProposalStatus.CORRECTED,
-  RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED,
-  RequestProposalStatus.READY_TO_VERIFY,
-]
-
 export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, handlers}) => {
   const classNames = useClassNames()
   const proposal = message.data.proposal
+
+  const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
   const curUserId: string | undefined = UserModel.userId
 
@@ -100,20 +98,25 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
         </div>
       </div>
       <div className={classNames.footerWrapper}>
-        {proposal &&
-        showBtnsAllowedProposalStatuses.includes(proposal.status) &&
+        {chatRequestAndRequestProposal &&
+        (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CORRECTED ||
+          chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+            RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
+          chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY) &&
         curUserId &&
         message.data.needApproveBy?.includes(curUserId) ? (
           <div className={classNames.btnsWrapper}>
-            <Button
-              variant="contained"
-              color="primary"
-              btnWrapperStyle={classNames.actionBtnWrapperStyle}
-              className={clsx(classNames.actionButton, classNames.cancelBtn)}
-              onClick={() => handlers.onClickProposalResultToCorrect(proposal._id)}
-            >
-              Отправить на доработку
-            </Button>
+            {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== RequestProposalStatus.TO_CORRECT && (
+              <Button
+                variant="contained"
+                color="primary"
+                btnWrapperStyle={classNames.actionBtnWrapperStyle}
+                className={clsx(classNames.actionButton, classNames.cancelBtn)}
+                onClick={() => handlers.onClickProposalResultToCorrect(proposal._id)}
+              >
+                Отправить на доработку
+              </Button>
+            )}
             <Button
               variant="contained"
               color="primary"

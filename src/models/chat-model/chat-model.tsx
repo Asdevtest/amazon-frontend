@@ -70,8 +70,6 @@ class ChatModelStatic {
           messages: chat.messages,
         }))
       })
-
-      console.log('this.chats', this.chats)
     } catch (error) {
       console.warn(error)
     }

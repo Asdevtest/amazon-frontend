@@ -4,16 +4,11 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 
 import {ChatModel} from '@models/chat-model'
-// import {texts} from '@constants/texts'
 import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'
 
 import {onSubmitPostImages} from '@utils/upload-files'
-
-// import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-// const textConsts = getLocalizedTexts(texts, 'ru').CustomRequestView
 
 export class RequestDetailCustomViewModel {
   history = undefined
@@ -35,6 +30,14 @@ export class RequestDetailCustomViewModel {
 
   chatSelectedId = undefined
   chatIsConnected = false
+
+  get chats() {
+    return ChatModel.chats
+  }
+
+  get userInfo() {
+    return UserModel.userInfo || {}
+  }
 
   constructor({history, location}) {
     this.history = history
@@ -67,10 +70,6 @@ export class RequestDetailCustomViewModel {
     }
   }
 
-  get chats() {
-    return ChatModel.chats || []
-  }
-
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -83,10 +82,6 @@ export class RequestDetailCustomViewModel {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
     }
-  }
-
-  get userInfo() {
-    return UserModel.userInfo || {}
   }
 
   onClickChat(chat) {
@@ -177,7 +172,7 @@ export class RequestDetailCustomViewModel {
         })
       }
 
-      this.loadData()
+      // this.loadData()
     } catch (error) {
       console.log(error)
       this.error = error

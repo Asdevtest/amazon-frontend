@@ -1,8 +1,6 @@
-import Tooltip from '@mui/material/Tooltip'
-
 import React, {FC, useState} from 'react'
 
-import {Avatar, Grid, Link, Typography} from '@material-ui/core'
+import {Avatar, Grid, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
@@ -13,7 +11,6 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {
   checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract,
   checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract,
@@ -42,7 +39,7 @@ interface Props {
 export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers}) => {
   const classNames = useClassNames()
 
-  console.log('messages', messages)
+  console.log('messages-ChatMessagesList', messages)
 
   const renderMessageByType = (isIncomming: boolean, messageItem: ChatMessageContract) => {
     if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
@@ -73,12 +70,6 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
       return <ChatMessageBasicText isIncomming={isIncomming} message={messageItem} />
     }
   }
-
-  const renderImageInfo = (img: any) => (
-    <div className={classNames.tooltipWrapper}>
-      <Avatar variant="square" src={img} className={classNames.tooltipImg} />
-    </div>
-  )
 
   const [showImageModal, setShowImageModal] = useState(false)
 
