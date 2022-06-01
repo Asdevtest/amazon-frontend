@@ -694,6 +694,11 @@ export enum TranslationKey {
   'Verifying by Supervisor' = 'Verifying by Supervisor',
   'Edit batch' = 'Edit batch',
   'Create a batch' = 'Create a batch',
+  'What time do you want the result?' = 'What time do you want the result?',
+  'Limit the number of proposals?' = 'Limit the number of proposals?',
+
+  // '' = '',
+  // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -3,16 +3,19 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(() => ({
   mainWrapper: {
     display: 'flex',
+    flexDirection: 'column',
   },
 
-  mainRightWrapper: {
+  mainContentWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    marginLeft: '80px',
   },
 
   mainSubRightWrapper: {
     display: 'flex',
+
+    width: '100%',
+    justifyContent: 'space-between',
   },
 
   mainSubRightTwoStepWrapper: {
@@ -20,35 +23,43 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
   },
 
-  mainLeftWrapper: {
-    width: '375px',
+  mainTitle: {
+    fontWeight: '400',
+    fontSize: '34px',
+    lineHeight: '40px',
+    color: '#354256',
   },
 
-  mainTitle: {
-    fontWeight: '600',
-    fontSize: '30px',
-    lineHeight: '35px',
-    color: '#354256',
+  headerWrapper: {
+    marginBottom: '30px',
   },
 
   title: {
-    marginBottom: '50px',
+    marginBottom: '20px',
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
   },
 
   mainSubTitle: {
-    fontSize: '18px',
-    lineHeight: '140%',
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
     color: '#354256',
-    marginTop: '47px',
+    marginTop: '30px',
+    width: '373px',
   },
 
   middleWrapper: {
-    width: '577px',
+    width: '50%',
   },
 
   rightWrapper: {
-    width: '377px',
-    marginLeft: '40px',
+    width: '50%',
+    marginLeft: '30px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 
   rightTwoStepWrapper: {
@@ -56,32 +67,36 @@ export const useClassNames = makeStyles(() => ({
   },
 
   checkboxWrapper: {
-    width: '377px',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifySelf: 'flex-end',
-    alignSelf: 'flex-end',
+    justifyContent: 'flex-end',
   },
 
   footerWrapper: {
     display: 'flex',
     alignSelf: 'flex-end',
-    justifySelf: 'flex-end',
-
-    alignItems: 'flex-end',
-
-    marginTop: '60px',
-  },
-
-  stepsWrapper: {
-    display: 'flex',
+    // justifySelf: 'flex-end',
 
     alignItems: 'center',
   },
 
+  stepsWrapper: {
+    display: 'flex',
+  },
+
+  step: {
+    margin: '0',
+    padding: '0',
+    marginTop: '20px',
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '400',
+  },
+
   buttonsWrapper: {
     display: 'flex',
-    margin: '20px 0 0 100px',
+    margin: '0 0 0 20px',
   },
 
   backBtn: {
@@ -108,11 +123,12 @@ export const useClassNames = makeStyles(() => ({
 
   footerRightWrapper: {
     display: 'flex',
+
     flexDirection: 'column',
   },
 
   descriptionField: {
-    height: '100px',
+    height: '81px',
     width: '100%',
     overflowY: 'hidden',
   },
@@ -138,7 +154,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   nameField: {
-    height: '60px',
+    height: '40px',
     width: '100%',
     overflowY: 'hidden',
   },
@@ -164,5 +180,29 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       opacity: '0.8',
     },
+  },
+
+  dateAndTimeWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '30px',
+    alignItems: 'center',
+  },
+  priceAndAmountWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '30px',
+    alignItems: 'center',
+  },
+
+  checkboxesWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '30px',
+    alignItems: 'center',
+    marginBottom: '30px',
   },
 }))

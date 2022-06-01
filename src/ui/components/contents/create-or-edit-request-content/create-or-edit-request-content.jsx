@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
 
-import {Checkbox, Divider, Typography, Select, ListItemText, MenuItem, Link} from '@material-ui/core'
+import {Checkbox, Divider, Typography, Link} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
+// import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {DatePicker} from '@components/date-picker'
+import {DatePickerDate, DatePickerTime} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
@@ -118,9 +118,18 @@ export const CreateOrEditRequestContent = ({
     formFields.request.timeoutAt === '' ||
     formFields.details.conditions === ''
 
+  const CustomLabel = ({label}) => {
+    const labelStyle = {
+      fontWeight: '600',
+      fontSize: '14px',
+      lineHeight: '17px',
+    }
+    return <label style={labelStyle}> {label} </label>
+  }
+
   return (
     <div className={classNames.mainWrapper}>
-      <div className={classNames.mainLeftWrapper}>
+      <div className={classNames.headerWrapper}>
         <Typography className={classNames.mainTitle}>
           {curStep === stepVariant.STEP_TWO
             ? t(TranslationKey['The request is ready'])
@@ -134,7 +143,7 @@ export const CreateOrEditRequestContent = ({
         </Typography>
       </div>
 
-      <div className={classNames.mainRightWrapper}>
+      <div className={classNames.mainContentWrapper}>
         <Typography variant="h5" className={classNames.title}>
           {curStep === stepVariant.STEP_TWO
             ? t(TranslationKey['Brief information'])
@@ -147,9 +156,9 @@ export const CreateOrEditRequestContent = ({
               <Field
                 multiline
                 inputProps={{maxLength: 250}}
-                label={t(TranslationKey.Title) + '*'}
+                label={<CustomLabel label={`${t(TranslationKey.Title)} *`} />}
                 className={classNames.nameField}
-                minRows={2}
+                minRows={1}
                 rowsMax={2}
                 value={formFields.request.title}
                 onChange={onChangeField('request')('title')}
@@ -160,7 +169,7 @@ export const CreateOrEditRequestContent = ({
                 className={classNames.descriptionField}
                 minRows={4}
                 rowsMax={4}
-                label={t(TranslationKey['Describe your request']) + '*'}
+                label={<CustomLabel label={`${t(TranslationKey['Describe your request'])} *`} />}
                 value={formFields.details.conditions}
                 onChange={onChangeField('details')('conditions')}
               />
@@ -201,43 +210,190 @@ export const CreateOrEditRequestContent = ({
             </div>
 
             <div className={classNames.rightWrapper}>
-              <Field
-                inputProps={{maxLength: 8}}
-                label={t(TranslationKey['Enter the offer price'])}
-                value={formFields.request.price}
-                onChange={onChangeField('request')('price')}
-              />
+              <div>
+                <div className={classNames.dateAndTimeWrapper}>
+                  <Field
+                    label={<CustomLabel label={`${t(TranslationKey['When do you want results?'])}`} />}
+                    inputComponent={
+                      <div className={clsx({[classNames.deadlineError]: deadlineError})}>
+                        <DatePickerDate
+                          value={formFields.request.timeoutAt}
+                          onChange={onChangeField('request')('timeoutAt')}
+                        />
+                        {deadlineError && (
+                          <p className={classNames.deadlineErrorText}>
+                            {'The deadline date cannot be later than the current date'}
+                          </p>
+                        )}
+                      </div>
+                    }
+                  />
+                  <Field
+                    label={<CustomLabel label={`${t(TranslationKey['What time do you want the result?'])}`} />}
+                    inputComponent={
+                      <div className={clsx({[classNames.deadlineError]: deadlineError})}>
+                        <DatePickerTime
+                          value={formFields.request.timeoutAt}
+                          onChange={onChangeField('request')('timeoutAt')}
+                        />
+                        {deadlineError && (
+                          <p className={classNames.deadlineErrorText}>
+                            {'The deadline date cannot be later than the current date'}
+                          </p>
+                        )}
+                      </div>
+                    }
+                  />
+                </div>
 
-              <Field
-                inputProps={{maxLength: 8}}
-                label={t(TranslationKey['Enter the number of proposals']) + '*'}
-                value={formFields.request.maxAmountOfProposals}
-                onChange={onChangeField('request')('maxAmountOfProposals')}
-              />
+                <div className={classNames.checkboxesWrapper}>
+                  <div className={classNames.checkboxWrapper}>
+                    <Typography className={classNames.checkboxLabel}>
+                      {t(TranslationKey['Limit the number of proposals?'])}
+                    </Typography>
+                    <Checkbox
+                      color="primary"
+                      checked={formFields.request.needCheckBySupervisor}
+                      onChange={onChangeField('request')('needCheckBySupervisor')}
+                    />
+                  </div>
+                  <div className={classNames.checkboxWrapper}>
+                    <Typography className={classNames.checkboxLabel}>
+                      {t(TranslationKey['Need a supervisor check'])}
+                    </Typography>
+                    <Checkbox
+                      color="primary"
+                      checked={formFields.request.needCheckBySupervisor}
+                      onChange={onChangeField('request')('needCheckBySupervisor')}
+                    />
+                  </div>
+                </div>
 
-              <Field
+                <div className={classNames.priceAndAmountWrapper}>
+                  <Field
+                    inputProps={{maxLength: 8}}
+                    label={<CustomLabel label={`${t(TranslationKey['Enter the offer price'])} *`} />}
+                    value={formFields.request.price}
+                    onChange={onChangeField('request')('price')}
+                  />
+
+                  <Field
+                    inputProps={{maxLength: 8}}
+                    label={<CustomLabel label={`${t(TranslationKey['Enter the number of proposals'])} *`} />}
+                    value={formFields.request.maxAmountOfProposals}
+                    onChange={onChangeField('request')('maxAmountOfProposals')}
+                  />
+                </div>
+
+                <div className={classNames.checkboxWrapper}>
+                  <Typography className={classNames.checkboxLabel}>
+                    {t(TranslationKey['Allow multiple performances by the same performer'])}
+                  </Typography>
+                  <Checkbox
+                    color="primary"
+                    checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+                    onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
+                  />
+                </div>
+              </div>
+
+              {requestToEdit ? (
+                <div className={classNames.footerWrapper}>
+                  <div className={classNames.footerRightWrapper}>
+                    {curStep === stepVariant.STEP_ONE && (
+                      <div className={classNames.checkboxWrapper}>
+                        <Typography className={classNames.checkboxLabel}>
+                          {t(TranslationKey['Allow multiple performances by the same performer'])}
+                        </Typography>
+                        <Checkbox
+                          color="primary"
+                          checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+                          onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
+                        />
+                      </div>
+                    )}
+
+                    <div className={classNames.buttonsWrapper}>
+                      <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
+                        {t(TranslationKey.Cancel)}
+                      </Button>
+
+                      <SuccessButton
+                        disabled={disableSubmit}
+                        className={classNames.successBtn}
+                        onClick={() => onEditSubmit(formFields, images)}
+                      >
+                        {t(TranslationKey.Edit)}
+                      </SuccessButton>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className={classNames.footerWrapper}>
+                  <div className={classNames.stepsWrapper}>
+                    <Typography className={classNames.step} color="primary">
+                      {curStep === stepVariant.STEP_TWO ? `${t(TranslationKey.Step)} 2` : `${t(TranslationKey.Step)} 1`}
+                    </Typography>
+                  </div>
+
+                  <div className={classNames.footerRightWrapper}>
+                    {/* {curStep === stepVariant.STEP_ONE && (
+                      <div className={classNames.checkboxWrapper}>
+                        <Typography className={classNames.checkboxLabel}>
+                          {t(TranslationKey['Allow multiple performances by the same performer'])}
+                        </Typography>
+                        <Checkbox
+                          color="primary"
+                          checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+                          onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
+                        />
+                      </div>
+                    )} */}
+
+                    <div className={classNames.buttonsWrapper}>
+                      <Button
+                        variant={curStep === stepVariant.STEP_TWO ? 'outlined' : 'text'}
+                        className={classNames.backBtn}
+                        onClick={onClickBackBtn}
+                      >
+                        {curStep === stepVariant.STEP_TWO
+                          ? t(TranslationKey['Back to editing'])
+                          : t(TranslationKey.Cancel)}
+                      </Button>
+
+                      <SuccessButton
+                        disabled={disableSubmit}
+                        className={classNames.successBtn}
+                        onClick={onSuccessSubmit}
+                      >
+                        {curStep === stepVariant.STEP_TWO ? (
+                          t(TranslationKey['Create a request'])
+                        ) : (
+                          <div className={classNames.successBtnTextWrapper}>
+                            <Typography>{t(TranslationKey.Next)}</Typography>
+                            <img
+                              src="/assets/icons/right-arrow.svg"
+                              className={clsx(classNames.successBtnArrow, {
+                                [classNames.disablesBtnArrow]: disableSubmit,
+                              })}
+                            />
+                          </div>
+                        )}
+                      </SuccessButton>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* <Field
                 inputProps={{maxLength: 8}}
-                label={t(TranslationKey['Time to complete, min*'])}
+                label={<CustomLabel label={`${t(TranslationKey['Time to complete, min*'])}`} />}
                 value={formFields.request.timeLimitInMinutes}
                 onChange={onChangeField('request')('timeLimitInMinutes')}
-              />
+              /> */}
 
-              <Field
-                label={t(TranslationKey['When do you want results?'])}
-                inputComponent={
-                  <div className={clsx({[classNames.deadlineError]: deadlineError})}>
-                    <DatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
-                    {deadlineError && (
-                      <p className={classNames.deadlineErrorText}>
-                        {'The deadline date cannot be later than the current date'}
-                      </p>
-                    )}
-                  </div>
-                }
-              />
-
-              <Field
-                label={t(TranslationKey['Can see the roles']) + ':'}
+              {/* <Field
+                label={<CustomLabel label={`${t(TranslationKey['Can see the roles'])} :`} />}
                 inputComponent={
                   <Select
                     multiple
@@ -255,18 +411,7 @@ export const CreateOrEditRequestContent = ({
                       ))}
                   </Select>
                 }
-              />
-
-              <div className={classNames.checkboxWrapper}>
-                <Typography className={classNames.checkboxLabel}>
-                  {t(TranslationKey['Need a supervisor check'])}
-                </Typography>
-                <Checkbox
-                  color="primary"
-                  checked={formFields.request.needCheckBySupervisor}
-                  onChange={onChangeField('request')('needCheckBySupervisor')}
-                />
-              </div>
+              /> */}
             </div>
           </div>
         )}
@@ -342,86 +487,6 @@ export const CreateOrEditRequestContent = ({
                   </Typography>
                 }
               />
-            </div>
-          </div>
-        )}
-
-        {requestToEdit ? (
-          <div className={classNames.footerWrapper}>
-            <div className={classNames.footerRightWrapper}>
-              {curStep === stepVariant.STEP_ONE && (
-                <div className={classNames.checkboxWrapper}>
-                  <Typography className={classNames.checkboxLabel}>
-                    {t(TranslationKey['Allow multiple performances by the same performer'])}
-                  </Typography>
-                  <Checkbox
-                    color="primary"
-                    checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
-                    onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
-                  />
-                </div>
-              )}
-
-              <div className={classNames.buttonsWrapper}>
-                <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
-                  {t(TranslationKey.Cancel)}
-                </Button>
-
-                <SuccessButton
-                  disabled={disableSubmit}
-                  className={classNames.successBtn}
-                  onClick={() => onEditSubmit(formFields, images)}
-                >
-                  {t(TranslationKey.Edit)}
-                </SuccessButton>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className={classNames.footerWrapper}>
-            <div className={classNames.stepsWrapper}>
-              <Typography>
-                {curStep === stepVariant.STEP_TWO ? `${t(TranslationKey.Step)} 2` : `${t(TranslationKey.Step)} 1`}
-              </Typography>
-            </div>
-
-            <div className={classNames.footerRightWrapper}>
-              {curStep === stepVariant.STEP_ONE && (
-                <div className={classNames.checkboxWrapper}>
-                  <Typography className={classNames.checkboxLabel}>
-                    {t(TranslationKey['Allow multiple performances by the same performer'])}
-                  </Typography>
-                  <Checkbox
-                    color="primary"
-                    checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
-                    onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
-                  />
-                </div>
-              )}
-
-              <div className={classNames.buttonsWrapper}>
-                <Button
-                  variant={curStep === stepVariant.STEP_TWO ? 'outlined' : 'text'}
-                  className={classNames.backBtn}
-                  onClick={onClickBackBtn}
-                >
-                  {curStep === stepVariant.STEP_TWO ? t(TranslationKey['Back to editing']) : t(TranslationKey.Cancel)}
-                </Button>
-
-                <SuccessButton disabled={disableSubmit} className={classNames.successBtn} onClick={onSuccessSubmit}>
-                  {curStep === stepVariant.STEP_TWO ? (
-                    t(TranslationKey['Create a request'])
-                  ) : (
-                    <div className={classNames.successBtnTextWrapper}>
-                      <Typography>{t(TranslationKey.Next)}</Typography>
-                      <img
-                        src="/assets/icons/right-arrow.svg"
-                        className={clsx(classNames.successBtnArrow, {[classNames.disablesBtnArrow]: disableSubmit})}
-                      />
-                    </div>
-                  )}
-                </SuccessButton>
-              </div>
             </div>
           </div>
         )}
