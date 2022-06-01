@@ -692,15 +692,14 @@ export enum TranslationKey {
   'Ready to verify' = 'Ready to verify',
   'To correct' = 'To correct',
   'Verifying by Supervisor' = 'Verifying by Supervisor',
-
-  // '' = '',
-  // '' = '',
+  'Edit batch' = 'Edit batch',
+  'Create a batch' = 'Create a batch',
   // '' = '',
   // '' = '',
   // '' = '',
 }
 
-// "Available images": "Available images"
+// "Create a batch": "Create a batch"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

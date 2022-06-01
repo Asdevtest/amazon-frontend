@@ -85,12 +85,13 @@ export const warehouseBoxesViewColumns = handlers => [
   },
 
   {
-    field: 'dimansions',
-    headerName: t(TranslationKey.Demensions),
-    renderCell: params => (
-      <ShortBoxDimensions box={params.row.originalData} volumeWeightCoefficient={params.row.volumeWeightCoefficient} />
-    ),
-    width: 230,
+    field: 'action',
+    headerName: t(TranslationKey.Action),
+    width: 200,
+
+    renderCell: params => <WarehouseBoxesBtnsCell row={params.row.originalData} handlers={handlers} />,
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -101,13 +102,12 @@ export const warehouseBoxesViewColumns = handlers => [
   },
 
   {
-    field: 'action',
-    headerName: t(TranslationKey.Action),
-    width: 200,
-
-    renderCell: params => <WarehouseBoxesBtnsCell row={params.row.originalData} handlers={handlers} />,
-    filterable: false,
-    sortable: false,
+    field: 'dimansions',
+    headerName: t(TranslationKey.Demensions),
+    renderCell: params => (
+      <ShortBoxDimensions box={params.row.originalData} volumeWeightCoefficient={params.row.volumeWeightCoefficient} />
+    ),
+    width: 230,
   },
 
   {

@@ -38,7 +38,11 @@ export const styles = createStyles(theme => ({
   leftBtnsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '400px',
+    minWidth: '400px',
+  },
+
+  editBtn: {
+    marginLeft: '30px',
   },
 
   addBtn: {
