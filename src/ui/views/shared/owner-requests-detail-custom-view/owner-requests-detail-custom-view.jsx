@@ -1,3 +1,5 @@
+import InboxIcon from '@mui/icons-material/Inbox'
+
 import React, {Component, createRef} from 'react'
 
 import {Typography, Paper} from '@material-ui/core'
@@ -140,7 +142,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                 ))}
               </Paper>
 
-              {chatIsConnected ? (
+              {chatIsConnected && requestProposals?.length ? (
                 <div className={classNames.chatWrapper}>
                   <ChatRequestAndRequestProposalContext.Provider
                     value={{
@@ -165,7 +167,16 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                     />
                   </ChatRequestAndRequestProposalContext.Provider>
                 </div>
-              ) : undefined}
+              ) : (
+                <div className={classNames.emptyProposalsIconWrapper}>
+                  <div className={classNames.emptyProposalsIcon}>
+                    <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
+                  </div>
+                  <Typography className={classNames.emptyProposalsDescription}>
+                    {t(TranslationKey['No new proposals at the moment'])}
+                  </Typography>
+                </div>
+              )}
             </MainContent>
           </Appbar>
 

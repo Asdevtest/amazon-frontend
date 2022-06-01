@@ -684,7 +684,7 @@ export enum TranslationKey {
   'Accepted by Supervisor' = 'Accepted by Supervisor',
   'Canceled by Supervisor' = 'Canceled by Supervisor',
   'Canceled by Executor' = 'Canceled by Executor',
-  'Correcred' = 'Correcred',
+  'Corrected' = 'Corrected',
   'Expired' = 'Expired',
   'Proposal conditions accepted' = 'Proposal conditions accepted',
   'Proposal conditions corrected' = 'Proposal conditions corrected',

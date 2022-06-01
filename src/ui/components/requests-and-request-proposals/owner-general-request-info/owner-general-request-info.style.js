@@ -5,7 +5,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     borderRadius: '4px',
     border: '1px solid rgba(0,0,0, .3)',
-    padding: '20px',
+    padding: '40px',
   },
   mainBlockWrapper: {
     minWidth: '660px',

@@ -34,4 +34,31 @@ export const styles = createStyles(() => ({
   proposalsTitle: {
     margin: '50px 0 20px',
   },
+
+  emptyProposalsIconWrapper: {
+    with: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  emptyProposalsIcon: {
+    width: '136px',
+    height: '136px',
+    backgroundColor: '#E0E0E0',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '50%',
+
+    marginTop: '90px',
+    marginBottom: '30px',
+  },
+  emptyProposalsDescription: {
+    fontWeight: '600',
+    fontSize: '24px',
+    lineHeight: '28px',
+    color: '#001029',
+  },
 }))
