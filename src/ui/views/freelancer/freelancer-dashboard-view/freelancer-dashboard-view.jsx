@@ -6,7 +6,6 @@ import {observer} from 'mobx-react'
 
 import {getFreelancerDashboardCardConfig, FreelancerDashboardCardDataKey} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -16,14 +15,11 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {FreelancerDashboardViewModel} from './freelacer-dashboard-view.model'
 import {styles} from './freelancer-dashboard-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').researcherDashboardView
-const dashboardCardConfig = getFreelancerDashboardCardConfig(textConsts)
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
 @observer
@@ -67,7 +63,7 @@ export class FreelancerDashboardViewRaw extends Component {
   }
 
   renderDashboardCards = () =>
-    dashboardCardConfig.map(item => (
+    getFreelancerDashboardCardConfig().map(item => (
       <Grid key={`dashboardCard_${item.dataKey}`} item xs={6} lg={4}>
         <DashboardInfoCard
           value={this.getCardValueByDataKey(item.dataKey)}
