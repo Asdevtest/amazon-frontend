@@ -121,6 +121,7 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   rightItemSubWrapper: {
@@ -176,9 +177,9 @@ export const useClassNames = makeStyles(() => ({
     marginTop: 'auto',
   },
 
-  // mainContainer: {
-  //   width: '100%',
-  // },
+  mainContainer: {
+    width: '100%',
+  },
 
   window: {
     width: '100%',
@@ -223,17 +224,18 @@ export const useClassNames = makeStyles(() => ({
   statusField: {
     display: 'flex',
     alignItems: 'center',
+    width: '300px',
   },
 
   timeAndPriceWrapper: {
     display: 'flex',
-    width: '50%',
+    width: '500px',
     justifyContent: 'space-between',
   },
 
   editAndOpenButtonWrapper: {
     display: 'flex',
-    width: '50%',
+    width: '500px',
     justifyContent: 'space-between',
   },
 
