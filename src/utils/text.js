@@ -54,7 +54,7 @@ const converter = new Showdown.Converter({
 export const getTextFromMarkdown = markdown => converter.makeHtml(markdown)
 
 export const minsToTime = mins =>
-  `${mins / 60 >= 1 ? Math.floor(mins / 60) : 0} ${t(TranslationKey.hour)} ${
+  `${mins / 60 >= 1 ? Math.floor(mins / 60) + t(TranslationKey.hour) : ''}  ${
     mins % 60 === 0 ? '' : (mins % 60) + ' ' + t(TranslationKey.minute) + '.'
   }`
 

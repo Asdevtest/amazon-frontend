@@ -125,7 +125,11 @@ class VacantRequestsViewRaw extends Component {
                   container
                   classes={{root: classNames.dashboardCardWrapper}}
                   display="grid"
-                  gridTemplateColumns="repeat(auto-fill, minmax(330px, 1fr))"
+                  gridTemplateColumns={
+                    viewMode === tableViewMode.LIST
+                      ? 'repeat(auto-fill, minmax(100%, 1fr))'
+                      : 'repeat(auto-fill, minmax(330px, 1fr))'
+                  }
                   gridGap="20px"
                 >
                   {getSortedData(sortMode)?.map(item =>

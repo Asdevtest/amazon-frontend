@@ -3,12 +3,16 @@ import Rating from '@mui/material/Rating'
 import React from 'react'
 
 import {Grid, Typography, Avatar, Divider} from '@material-ui/core'
-import Carousel from 'react-material-ui-carousel'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {
+  RequestProposalStatus,
+  RequestProposalStatusColor,
+  RequestProposalStatusTranslate,
+} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CustomCarousel} from '@components/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {formatNormDateTimeWithParseISO} from '@utils/date-time'
@@ -47,8 +51,10 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
             <div className={classNames.nameWrapper}>
               {/* <Typography>{item.createdBy.name}</Typography> */}
               <UserLinkCell name={item.createdBy.name} userId={item.createdBy._id} />
-
-              <Rating disabled value={item.createdBy.rating} />
+              <div className={classNames.ratingWrapper}>
+                <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
+                <Rating disabled value={item.createdBy.rating} />
+              </div>
             </div>
           </div>
 
@@ -58,9 +64,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
 
           <Typography className={classNames.cardTitle}>{item.title}</Typography>
 
-          <Typography className={classNames.cardSubTitle}>{item.detailsCustom.conditions}</Typography>
-
-          <Typography>{item.status}</Typography>
+          <Typography className={classNames.cardDescription}>{item.detailsCustom.conditions}</Typography>
 
           <div className={classNames.updatedAtWrapper}>
             <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ':'}</Typography>
@@ -71,59 +75,77 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
           </div>
         </div>
 
-        <Divider flexItem orientation="vertical" />
+        <Divider
+          flexItem
+          orientation="vertical"
+          style={{minHeight: '293px', marginTop: '20px', marginBottom: '20px'}}
+        />
         <div className={classNames.rightBlockWrapper}>
-          <Carousel autoPlay={false} timeout={100} animation="fade" fullHeightHover={false}>
+          <CustomCarousel title={t(TranslationKey.Proposal)}>
             {item.proposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
-                <Typography className={classNames.cardTitle}>{t(TranslationKey.Proposal)}</Typography>
-
                 <Typography className={classNames.proposalComment}>{proposal.comment}</Typography>
 
                 <div className={classNames.rightSubWrapper}>
-                  <div className={classNames.timeWrapper}>
-                    <Typography>{t(TranslationKey['Time to complete, min*'])}</Typography>
-                    <Typography className={classNames.timeCount}>{minsToTime(proposal.execution_time)}</Typography>
+                  <div className={classNames.statusField}>
+                    <span
+                      className={classNames.circleIndicator}
+                      style={{backgroundColor: RequestProposalStatusColor(proposal.status)}}
+                    />
+                    <Typography>{RequestProposalStatusTranslate(proposal.status)}</Typography>
                   </div>
+                  <div className={classNames.timeAndPriceWrapper}>
+                    <div className={classNames.timeWrapper}>
+                      <Typography>{t(TranslationKey['Time to complete'])}</Typography>
+                      <Typography className={classNames.timeCount}>{minsToTime(proposal.execution_time)}</Typography>
+                    </div>
 
-                  <div className={classNames.rightItemSubWrapper}>
-                    <Typography>{t(TranslationKey['Total price'])}</Typography>
-                    <Typography className={classNames.price}>{toFixedWithDollarSign(proposal.price, 2)}</Typography>
+                    <div className={classNames.rightItemSubWrapper}>
+                      <Typography>{t(TranslationKey['Total price'])}</Typography>
+                      <Typography className={classNames.price}>{toFixedWithDollarSign(proposal.price, 2)}</Typography>
+                    </div>
                   </div>
                 </div>
 
                 <div className={classNames.proposalFooter}>
-                  <Typography>{proposal.status}</Typography>
-
                   <div className={classNames.btnsWrapper}>
                     <Button
                       disableElevation
                       disabled={disabledCancelBtnStatuses.includes(proposal.status)}
                       color="primary"
+                      className={classNames.button}
                       variant="text"
                       onClick={() => onClickDeleteBtn(proposal)}
                     >
                       {t(TranslationKey.Cancel)}
                     </Button>
+                    <div className={classNames.editAndOpenButtonWrapper}>
+                      <Button
+                        disableElevation
+                        disabled={!noDisabledEditBtnStatuses.includes(proposal.status)}
+                        color="primary"
+                        className={classNames.button}
+                        variant="contained"
+                        onClick={() => onClickEditBtn(item, proposal)}
+                      >
+                        {t(TranslationKey.Edit)}
+                      </Button>
 
-                    <Button
-                      disableElevation
-                      disabled={!noDisabledEditBtnStatuses.includes(proposal.status)}
-                      color="primary"
-                      variant="contained"
-                      onClick={() => onClickEditBtn(item, proposal)}
-                    >
-                      {t(TranslationKey.Edit)}
-                    </Button>
-
-                    <Button disableElevation color="primary" variant="contained" onClick={() => onClickOpenBtn(item)}>
-                      {t(TranslationKey['Open a request'])}
-                    </Button>
+                      <Button
+                        disableElevation
+                        color="primary"
+                        variant="contained"
+                        className={classNames.button}
+                        onClick={() => onClickOpenBtn(item)}
+                      >
+                        {t(TranslationKey['Open a request'])}
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
-          </Carousel>
+          </CustomCarousel>
         </div>
       </div>
     </Grid>

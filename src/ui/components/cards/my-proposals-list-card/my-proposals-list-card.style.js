@@ -8,63 +8,74 @@ export const useClassNames = makeStyles(() => ({
   cardWrapper: {
     width: '100%',
 
-    borderRadius: '4px',
+    borderRadius: '8px',
     border: '1px solid rgba(0,0,0, .1)',
-
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     display: 'flex',
 
-    padding: '0 40px 0 20px',
+    padding: '0 37px 0 20px',
   },
 
   nameWrapper: {
     display: 'flex',
-
     flexDirection: 'column',
-
-    marginLeft: '15px',
   },
 
   cardTitleBlockWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    width: '650px',
-    padding: '20px 0 25px',
+    width: '40%',
+    padding: '20px  25px 0 0',
   },
 
   cardTitle: {
     fontWeight: 'bold',
-    fontSize: '14px',
-    lineHeight: '16px',
-    color: '#354256',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
     maxWidth: '420px',
-    marginBottom: '20px',
+    marginBottom: '10px',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
   },
 
+  cardDescription: {
+    fontSize: '16px',
+    lineHeight: '19px',
+    fontWeight: '400',
+    marginBottom: '36px',
+  },
+
   cardSubTitle: {
-    marginBottom: '15px',
-    maxWidth: '420px',
+    marginBottom: '20px',
+    // maxWidth: '420px',
     overflow: 'auto',
     maxHeight: '90px',
+    color: '#001029',
+    fontSize: '16px',
+    lineHeight: '19px',
+    fontWeight: '400',
   },
 
   proposalComment: {
-    marginBottom: '20px',
-    maxWidth: '720px',
+    marginTop: '30px',
+    marginBottom: '39px',
+    // maxWidth: '720px',
     overflow: 'auto',
     maxHeight: '90px',
   },
 
   rightBlockWrapper: {
-    padding: '20px 0 25px',
-    marginLeft: '40px',
+    padding: '30px 0 30px 20px',
+    // marginLeft: '40px',
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    overflow: 'hidden',
   },
 
   proposalWrapper: {
+    width: '100%',
     minHeight: '250px',
     display: 'flex',
     flexDirection: 'column',
@@ -82,10 +93,11 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cardImg: {
-    width: '40px',
-    height: '40px',
+    width: '60px',
+    height: '60px',
     objectFit: 'contain',
     objectPosition: 'center',
+    marginRight: '30px',
   },
 
   actionButton: {
@@ -109,32 +121,39 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   rightItemSubWrapper: {
-    minWidth: '280px',
     display: 'flex',
-    justifyContent: 'space-between',
   },
 
   timeWrapper: {
     display: 'flex',
+    alignItems: 'center',
   },
 
   timeCount: {
-    marginLeft: '10px',
+    marginLeft: '20px',
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
   },
 
   btnsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignSelf: 'flex-end',
-    width: '600px',
+    width: '100%',
     marginTop: 'auto',
   },
 
   price: {
-    color: '#006CFF',
+    marginLeft: '20px',
+    color: '#001029',
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
   },
 
   updatedAtWrapper: {
@@ -144,9 +163,10 @@ export const useClassNames = makeStyles(() => ({
   },
 
   updatedAtText: {
-    marginRight: '20px',
-    fontSize: '10px',
-    fontWeight: 'bold',
+    marginRight: '5px',
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
   },
 
   proposalFooter: {
@@ -155,5 +175,88 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-between',
     alignSelf: 'flex-end',
     marginTop: 'auto',
+  },
+
+  mainContainer: {
+    width: '100%',
+  },
+
+  window: {
+    width: '100%',
+    overflow: 'hidden',
+  },
+
+  allPages: {
+    display: 'flex',
+
+    transition: 'translate',
+    transitionProperty: 'transform',
+    transitionDuration: '300ms',
+    transitionTimingFunction: 'ease-in-out',
+  },
+
+  buttonWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  carouselBtn: {
+    backgroundColor: 'inherit',
+  },
+  headerCarouselWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  proposalCount: {
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+  },
+
+  circleIndicator: {
+    width: '12px',
+    height: '12px',
+    borderRadius: '50%',
+    marginRight: '10px',
+  },
+
+  statusField: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '300px',
+  },
+
+  timeAndPriceWrapper: {
+    display: 'flex',
+    width: '500px',
+    justifyContent: 'space-between',
+  },
+
+  editAndOpenButtonWrapper: {
+    display: 'flex',
+    width: '500px',
+    justifyContent: 'space-between',
+  },
+
+  button: {
+    padding: '13px 50px',
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '400',
+  },
+
+  ratingWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: '16px',
+  },
+
+  rating: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '400',
+    color: '#001029',
+    marginRight: '20px',
   },
 }))
