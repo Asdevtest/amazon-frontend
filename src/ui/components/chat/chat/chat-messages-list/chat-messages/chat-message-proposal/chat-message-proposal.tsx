@@ -98,7 +98,7 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
               className={clsx(classNames.actionButton, classNames.successBtn)}
               onClick={() => handlers.onClickProposalAccept(message.data._id)}
             >
-              {`Принять за ${message.data.price}`}
+              {`Принять за $${message.data.price}`}
             </Button>
           </div>
         ) : undefined}

@@ -103,6 +103,12 @@ export const Chat: FC<Props> = observer(
             {inputMode === ChatInputMode.TEXT && renderAdditionalButtons
               ? renderAdditionalButtons({message, links, files}, resetAllInputs)
               : undefined}
+
+            {(inputMode === ChatInputMode.FILES || inputMode === ChatInputMode.LINKS) && (
+              <Button className={classNames.backBtn} onClick={() => setInputMode(ChatInputMode.TEXT)}>
+                {'Назад'}
+              </Button>
+            )}
             <Button
               disabled={!message && inputMode === ChatInputMode.TEXT && !files.length}
               onClick={() => {
