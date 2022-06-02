@@ -216,6 +216,7 @@
   "Sent boxes": "Sent boxes",
   "Freelance": "Freelance",
   "My requests": "My requests",
+  "My request": "My request",
   "Vacant requests": "Vacant requests",
   "My proposals": "My proposals",
   "Commodity exchange": "Commodity exchange",
@@ -700,5 +701,8 @@
   "Training": "Training",
   "on our freelance exchange.": "on our freelance exchange.",
   "Supervisor check": "Supervisor check",
-  "Multiple performances by the same performer are allowed": "Multiple performances by the same performer are allowed"
+  "Multiple performances by the same performer are allowed": "Multiple performances by the same performer are allowed",
+  "Proposals for the request": "Proposals for the request",
+  "Use the supplier standard": "Use the supplier standard",
+  "Make the supplier standard": "Make the supplier standard"
 }

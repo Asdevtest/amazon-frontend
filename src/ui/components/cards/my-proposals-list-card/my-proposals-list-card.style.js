@@ -29,7 +29,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cardTitle: {
-    fontWeight: 'bold',
+    fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
     color: '#001029',
@@ -240,8 +240,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   button: {
-    padding: '13px 50px',
-    fontSize: '18px',
+    padding: '10px 50px',
+    fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '400',
   },

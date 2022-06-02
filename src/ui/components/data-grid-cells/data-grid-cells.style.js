@@ -450,10 +450,10 @@ export const styles = createStyles(() => ({
   },
 
   linkText: {
-    color: '#001029',
-    fontSize: '18px',
+    color: '#007BFF',
+    fontSize: '16px',
     lineHeight: '140%',
-    fontWeight: '600',
+    fontWeight: '400',
     cursor: 'pointer',
     transition: '.3s ease',
 
