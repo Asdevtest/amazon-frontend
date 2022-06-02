@@ -714,6 +714,7 @@ export enum TranslationKey {
   'Reviews' = 'Reviews',
   'Order for' = 'Order for',
   'Contact the performer' = 'Contact the performer',
+  'Hide chat' = 'Hide chat',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -2,7 +2,7 @@ import InboxIcon from '@mui/icons-material/Inbox'
 
 import React, {Component, createRef} from 'react'
 
-import {Typography, Paper} from '@material-ui/core'
+import {Typography, Paper, Accordion, AccordionDetails, AccordionSummary} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -11,6 +11,7 @@ import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {OwnerRequestProposalsCard} from '@components/cards/owner-request-proposals-card'
 import {MultipleChats} from '@components/chat/multiple-chats'
 import {RequestProposalResultToCorrectForm} from '@components/forms/request-proposal-result-to-correct-form'
@@ -88,6 +89,8 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       onClickProposalResultToCorrect,
       onPressSubmitRequestProposalResultToCorrectForm,
       triggerShowResultToCorrectFormModal,
+      showChat,
+      onClickHideChat,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -131,52 +134,63 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
               </Typography>
               <div className={classNames.proposalsWrapper}>
                 {requestProposals.map(item => (
-                  <Paper key={item.proposal._id}>
-                    <OwnerRequestProposalsCard
-                      item={item}
-                      onClickContactWithExecutor={onClickContactWithExecutor}
-                      onClickAcceptProposal={onClickAcceptProposal}
-                      onClickRejectProposal={onClickRejectProposal}
-                    />
-                  </Paper>
+                  <div key={item.proposal._id} className={classNames.proposalAndChatWrapper}>
+                    <Paper>
+                      <OwnerRequestProposalsCard
+                        item={item}
+                        onClickContactWithExecutor={onClickContactWithExecutor}
+                        onClickAcceptProposal={onClickAcceptProposal}
+                        onClickRejectProposal={onClickRejectProposal}
+                      />
+                    </Paper>
+                    <Accordion expanded={showChat}>
+                      <AccordionSummary style={{display: 'none'}} />
+                      <AccordionDetails>
+                        {chatIsConnected && requestProposals?.length ? (
+                          <div className={classNames.chatWrapper}>
+                            <ChatRequestAndRequestProposalContext.Provider
+                              value={{
+                                request,
+                                requestProposal: findRequestProposalForCurChat,
+                              }}
+                            >
+                              <MultipleChats
+                                ref={this.chatRef}
+                                chats={chats}
+                                userId={userInfo._id}
+                                chatSelectedId={chatSelectedId}
+                                chatMessageHandlers={{
+                                  onClickProposalAccept: onClickAcceptProposal,
+                                  onClickProposalRegect: onClickRejectProposal,
+                                  onClickProposalResultToCorrect,
+                                  onClickProposalResultAccept,
+                                }}
+                                onSubmitMessage={onSubmitMessage}
+                                updateData={this.viewModel.loadData}
+                                onClickChat={onClickChat}
+                              />
+                            </ChatRequestAndRequestProposalContext.Provider>
+                          </div>
+                        ) : (
+                          <div className={classNames.emptyProposalsIconWrapper}>
+                            <div className={classNames.emptyProposalsIcon}>
+                              <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
+                            </div>
+                            <Typography className={classNames.emptyProposalsDescription}>
+                              {t(TranslationKey['No new proposals at the moment'])}
+                            </Typography>
+                          </div>
+                        )}
+                      </AccordionDetails>
+                    </Accordion>
+                    {showChat && (
+                      <Button className={classNames.hideChatButton} onClick={onClickHideChat}>
+                        {t(TranslationKey['Hide chat'])}
+                      </Button>
+                    )}
+                  </div>
                 ))}
               </div>
-
-              {chatIsConnected && requestProposals?.length ? (
-                <div className={classNames.chatWrapper}>
-                  <ChatRequestAndRequestProposalContext.Provider
-                    value={{
-                      request,
-                      requestProposal: findRequestProposalForCurChat,
-                    }}
-                  >
-                    <MultipleChats
-                      ref={this.chatRef}
-                      chats={chats}
-                      userId={userInfo._id}
-                      chatSelectedId={chatSelectedId}
-                      chatMessageHandlers={{
-                        onClickProposalAccept: onClickAcceptProposal,
-                        onClickProposalRegect: onClickRejectProposal,
-                        onClickProposalResultToCorrect,
-                        onClickProposalResultAccept,
-                      }}
-                      updateData={this.viewModel.loadData}
-                      onSubmitMessage={onSubmitMessage}
-                      onClickChat={onClickChat}
-                    />
-                  </ChatRequestAndRequestProposalContext.Provider>
-                </div>
-              ) : (
-                <div className={classNames.emptyProposalsIconWrapper}>
-                  <div className={classNames.emptyProposalsIcon}>
-                    <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
-                  </div>
-                  <Typography className={classNames.emptyProposalsDescription}>
-                    {t(TranslationKey['No new proposals at the moment'])}
-                  </Typography>
-                </div>
-              )}
             </MainContent>
           </Appbar>
 

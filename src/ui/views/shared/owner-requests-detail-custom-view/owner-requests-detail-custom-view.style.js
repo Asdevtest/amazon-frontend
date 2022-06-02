@@ -65,4 +65,17 @@ export const styles = createStyles(() => ({
     lineHeight: '28px',
     color: '#001029',
   },
+
+  proposalAndChatWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  hideChatButton: {
+    margin: '0 auto',
+    padding: '14px 77px',
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
 }))

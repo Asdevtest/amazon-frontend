@@ -22,6 +22,7 @@ export class OwnerRequestDetailCustomViewModel {
   showConfirmModal = false
   showRequestForm = false
   showConfirmWithCommentModal = false
+  showChat = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -182,10 +183,15 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickContactWithExecutor(proposal) {
+    this.showChat = true
     this.chatSelectedId = proposal.chatId
     if (this.scrollToChat) {
       this.scrollToChat()
     }
+  }
+
+  onClickHideChat() {
+    this.showChat = false
   }
 
   async onClickAcceptProposal(proposalId) {
