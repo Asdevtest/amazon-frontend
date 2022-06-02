@@ -24,7 +24,11 @@ export const styles = createStyles(() => ({
   detailsWrapper: {
     marginTop: '10px',
   },
-  proposalsWrapper: {},
+  proposalsWrapper: {
+    '& > :not(:last-child)': {
+      marginBottom: '20px',
+    },
+  },
   chatWrapper: {
     marginTop: '20px',
     width: '100%',

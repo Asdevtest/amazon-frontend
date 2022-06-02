@@ -163,13 +163,12 @@ export const useClassNames = makeStyles(() => ({
     // background: 'rgba(200,200,200, .1)',
   },
 
-  twoStepDescriptionFieldResult: {
-    minHeight: '40px',
-    maxHeight: '200px',
-    overflowY: 'scroll',
-
-    // background: 'rgba(200,200,200, .1)',
+  descriptionStepTwoField: {
+    width: '240%',
+    overflow: 'auto',
   },
+
+  twoStepDescriptionFieldResult: {},
 
   deadlineError: {
     borderBottom: '1px solid red',
@@ -298,12 +297,18 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
   },
   imagesWrapper: {
-    margin: '40px 0',
+    height: '108px',
+    margin: '40px 0 100px 0',
   },
   imagesTitle: {
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
     color: '#001029',
+  },
+
+  mainTwoStepWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 }))

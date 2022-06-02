@@ -574,7 +574,7 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
 export const ClientNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
   <div>
     <Button variant="contained" color="primary" onClick={() => handlers.onTriggerOpenConfirmModal(row)}>
-      {textConsts.confirmBtn}
+      {t(TranslationKey.Confirm)}
     </Button>
     <ErrorButton
       className={classNames.rowCancelBtn}
@@ -582,7 +582,7 @@ export const ClientNotificationsBtnsCell = withStyles(styles)(({classes: classNa
         handlers.onTriggerOpenRejectModal(row)
       }}
     >
-      {textConsts.rejectBtn}
+      {t(TranslationKey.Reject)}
     </ErrorButton>
   </div>
 ))

@@ -128,8 +128,8 @@ export const CreateOrEditRequestContent = ({
     formFields.request.timeLimitInMinutes === '' ||
     formFields.request.price === '' ||
     formFields.request.timeoutAt === '' ||
-    formFields.details.conditions === ''
-  formFields.details.conditions.length < 150
+    formFields.details.conditions === '' ||
+    formFields.details.conditions.length < 150
 
   return (
     <div className={classNames.mainWrapper}>
@@ -392,7 +392,7 @@ export const CreateOrEditRequestContent = ({
         )}
 
         {curStep === stepVariant.STEP_TWO && (
-          <div>
+          <div className={classNames.mainTwoStepWrapper}>
             <div className={classNames.mainSubRightTwoStepWrapper}>
               <div className={classNames.adviceWrapper}>
                 <Typography className={classNames.adviceTitle}>{t(TranslationKey['Choosing a performer:'])}</Typography>
@@ -448,7 +448,7 @@ export const CreateOrEditRequestContent = ({
                     {images
                       .filter(el => checkIsImageLink(el.file.name))
                       .map((photo, index) => (
-                        <img key={index} src={photo.data_url} height="150px" />
+                        <img key={index} src={photo.data_url} height="108px" />
                       ))}
                   </Carousel>
                 </div>

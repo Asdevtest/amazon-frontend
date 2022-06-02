@@ -2,27 +2,23 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   cardMainWrapper: {
-    height: '280px',
-
+    height: '320px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-
-    borderRadius: '4px',
-    border: '1px solid rgba(0,0,0, .3)',
-
-    padding: '25px 40px 40px 25px',
+    borderRadius: '8px',
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    padding: '30px 40px',
   },
 
   cardFooter: {
-    marginTop: '20px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
 
   userInfoMainWrapper: {
-    // width: '741px',
+    width: '100%',
   },
 
   cardWrapper: {
@@ -39,9 +35,12 @@ export const useClassNames = makeStyles(() => ({
 
   userInfoWrapper: {
     display: 'flex',
+    marginBottom: '20px',
   },
   userWrapper: {
+    width: '100%',
     display: 'flex',
+    justifyContent: 'space-between',
   },
 
   actionButton: {
@@ -76,30 +75,61 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cardPrice: {
-    fontWeight: 'bold',
-    fontSize: '20px',
-    lineHeight: '23px',
-    color: '#354256',
+    fontWeight: '400',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+  },
+
+  cardPriceValue: {
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+  },
+
+  cardTime: {
+    fontWeight: '400',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+  },
+
+  cardTimeValue: {
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
   },
 
   successDeals: {
-    marginLeft: '50px',
+    fontWeight: '400',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
   },
 
   userRating: {
-    marginLeft: '50px',
+    marginLeft: '49px',
   },
 
   userNameWrapper: {
     marginLeft: '10px',
+
+    '& > :first-child': {
+      marginBottom: '13px',
+    },
   },
 
   proposalDescription: {
-    minWidth: '300px',
-    maxWidth: '680px',
+    width: '100%',
     marginTop: '10px',
     height: '110px',
     overflow: 'auto',
+    fontWeight: '400',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
   },
 
   proposalDescriptionWrapper: {
@@ -108,8 +138,8 @@ export const useClassNames = makeStyles(() => ({
 
   imgBox: {
     textAlign: 'center',
-    width: '160px',
-    height: '50px',
+    width: '200px',
+    height: '90px',
     objectFit: 'contain',
     objectPosition: 'center',
     transition: '.2s ease',
@@ -121,16 +151,39 @@ export const useClassNames = makeStyles(() => ({
   photoWrapper: {
     border: '1px solid rgba(0,0,0, .1)',
     borderRadius: '10px',
-    marginLeft: '10px',
-    width: '250px',
-    height: '120px',
+    marginLeft: '60px',
+    width: '391px',
+    height: '152px',
     display: 'flex',
     justifyContent: 'center',
   },
 
   photoSubWrapper: {
-    width: '250px',
+    width: '391px',
     display: 'flex',
     justifyContent: 'center',
+  },
+
+  cardContentWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  cardSubContentWrapper: {
+    width: '100%',
+  },
+  circleIndicator: {
+    display: 'block',
+    width: '12px',
+    height: '12px',
+    borderRadius: '50%',
+  },
+
+  statusField: {
+    display: 'flex',
+    alignItems: 'center',
+
+    '& > span': {
+      marginRight: '19px',
+    },
   },
 }))

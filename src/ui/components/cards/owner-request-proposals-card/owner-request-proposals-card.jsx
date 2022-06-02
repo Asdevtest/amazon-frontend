@@ -6,7 +6,12 @@ import {Typography, Avatar} from '@material-ui/core'
 import clsx from 'clsx'
 import Carousel from 'react-material-ui-carousel'
 
-import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {
+  RequestProposalStatus,
+  RequestProposalStatusColor,
+  RequestProposalStatusTranslate,
+} from '@constants/request-proposal-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
@@ -15,6 +20,7 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './owner-request-proposals-card.style'
 
@@ -34,25 +40,47 @@ export const OwnerRequestProposalsCard = ({
     <div className={classNames.cardMainWrapper}>
       <div className={classNames.cardWrapper}>
         <div className={classNames.userInfoMainWrapper}>
-          <div className={classNames.userWrapper}>
-            <div className={classNames.userInfoWrapper}>
-              <Avatar src={getUserAvatarSrc(item.proposal.createdBy._id)} className={classNames.cardImg} />
+          <div className={classNames.cardContentWrapper}>
+            <div className={classNames.cardSubContentWrapper}>
+              <div className={classNames.userWrapper}>
+                <div className={classNames.userInfoWrapper}>
+                  <Avatar src={getUserAvatarSrc(item.proposal.createdBy._id)} className={classNames.cardImg} />
 
-              <div className={classNames.userNameWrapper}>
-                <UserLinkCell name={item.proposal.createdBy.name} userId={item.proposal.createdBy._id} />
+                  <div className={classNames.userNameWrapper}>
+                    <UserLinkCell name={item.proposal.createdBy.name} userId={item.proposal.createdBy._id} />
 
-                <UserLinkCell name={'Отзывы'} userId={item.proposal.createdBy._id} />
+                    <UserLinkCell name={t(TranslationKey.Reviews)} userId={item.proposal.createdBy._id} />
+                  </div>
+
+                  <Rating disabled className={classNames.userRating} value={item.proposal.createdBy.rating} />
+                </div>
+
+                <Typography className={classNames.successDeals}>{`${t(
+                  TranslationKey['The number of total successful transactions:'],
+                )} n/a`}</Typography>
+
+                <div className={classNames.timeInfoWrapper}>
+                  <div className={classNames.timeItemInfoWrapper}>
+                    <Typography className={classNames.cardTime}>
+                      {t(TranslationKey['Time to complete']) + ':'}
+                    </Typography>
+
+                    <Typography className={classNames.cardTimeValue}>
+                      {minsToTime(item.proposal.execution_time)}
+                    </Typography>
+                  </div>
+
+                  <div className={classNames.timeItemInfoWrapper}>
+                    <Typography className={classNames.cardPrice}>{t(TranslationKey['Total price']) + ':'}</Typography>
+
+                    <Typography className={classNames.cardPriceValue}>
+                      {toFixedWithDollarSign(item.proposal.price, 2)}
+                    </Typography>
+                  </div>
+                </div>
               </div>
-
-              <Rating disabled className={classNames.userRating} value={item.proposal.createdBy.rating} />
+              <Typography className={classNames.proposalDescription}>{item.proposal.comment}</Typography>
             </div>
-
-            <Typography className={classNames.successDeals}>{`Количество общих успешных сделок: n/a`}</Typography>
-          </div>
-
-          <div className={classNames.proposalDescriptionWrapper}>
-            <Typography className={classNames.proposalDescription}>{item.proposal.comment}</Typography>
-
             {item.proposal.linksToMediaFiles.length ? (
               <div className={classNames.photoWrapper}>
                 <Field
@@ -79,24 +107,16 @@ export const OwnerRequestProposalsCard = ({
             ) : null}
           </div>
         </div>
-
-        <div className={classNames.timeInfoWrapper}>
-          <div className={classNames.timeItemInfoWrapper}>
-            <Typography className={classNames.cardTime}>{`Время на выполнение: `}</Typography>
-
-            <Typography>{minsToTime(item.proposal.execution_time)}</Typography>
-          </div>
-
-          <div className={classNames.timeItemInfoWrapper}>
-            <Typography className={classNames.cardPrice}>{'Стоимость'}</Typography>
-
-            <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.proposal.price, 2)}</Typography>
-          </div>
-        </div>
       </div>
 
       <div className={classNames.cardFooter}>
-        <Typography>{item.proposal.status}</Typography>
+        <div className={classNames.statusField}>
+          <span
+            className={classNames.circleIndicator}
+            style={{backgroundColor: RequestProposalStatusColor(item.proposal.status)}}
+          />
+          <Typography>{RequestProposalStatusTranslate(item.proposal.status)}</Typography>
+        </div>
 
         <div>
           {item.proposal.status === RequestProposalStatus.CREATED ||
@@ -108,7 +128,7 @@ export const OwnerRequestProposalsCard = ({
                 className={clsx(classNames.actionButton, classNames.cancelBtn)}
                 onClick={() => onClickRejectProposal(item.proposal._id)}
               >
-                {'Отклонить'}
+                {t(TranslationKey.Reject)}
               </Button>
               <Button
                 variant="contained"
@@ -116,7 +136,7 @@ export const OwnerRequestProposalsCard = ({
                 className={clsx(classNames.actionButton, classNames.successBtn)}
                 onClick={() => onClickAcceptProposal(item.proposal._id)}
               >
-                {`Заказать за ${toFixedWithDollarSign(item.proposal.price)}`}
+                {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price)}`}
               </Button>
             </>
           ) : undefined}
@@ -127,7 +147,7 @@ export const OwnerRequestProposalsCard = ({
             className={classNames.actionButton}
             onClick={() => onClickContactWithExecutor(item.proposal)}
           >
-            {'Связаться с исполнителем'}
+            {t(TranslationKey['Contact the performer'])}
           </Button>
         </div>
       </div>

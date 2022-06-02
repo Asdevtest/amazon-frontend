@@ -129,18 +129,18 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
               <Typography variant="h6" className={classNames.proposalsTitle}>
                 {t(TranslationKey['Proposals for the request'])}
               </Typography>
-
-              <Paper className={classNames.proposalsWrapper}>
+              <div className={classNames.proposalsWrapper}>
                 {requestProposals.map(item => (
-                  <OwnerRequestProposalsCard
-                    key={item.proposal._id}
-                    item={item}
-                    onClickContactWithExecutor={onClickContactWithExecutor}
-                    onClickAcceptProposal={onClickAcceptProposal}
-                    onClickRejectProposal={onClickRejectProposal}
-                  />
+                  <Paper key={item.proposal._id}>
+                    <OwnerRequestProposalsCard
+                      item={item}
+                      onClickContactWithExecutor={onClickContactWithExecutor}
+                      onClickAcceptProposal={onClickAcceptProposal}
+                      onClickRejectProposal={onClickRejectProposal}
+                    />
+                  </Paper>
                 ))}
-              </Paper>
+              </div>
 
               {chatIsConnected && requestProposals?.length ? (
                 <div className={classNames.chatWrapper}>

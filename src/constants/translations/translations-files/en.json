@@ -704,5 +704,13 @@
   "Multiple performances by the same performer are allowed": "Multiple performances by the same performer are allowed",
   "Proposals for the request": "Proposals for the request",
   "Use the supplier standard": "Use the supplier standard",
-  "Make the supplier standard": "Make the supplier standard"
+  "Make the supplier standard": "Make the supplier standard",
+  "Reject": "Reject",
+  "Confirm": "Confirm",
+  "Do you want to cancel?": "Do you want to cancel?",
+  "Additional payment is required:": "Additional payment is required:",
+  "Do you confirm the extra payment?": "Do you confirm the extra payment?",
+  "Reviews": "Reviews",
+  "Order for": "Order for",
+  "Contact the performer": "Contact the performer"
 }

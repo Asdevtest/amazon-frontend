@@ -3,7 +3,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
@@ -14,11 +14,9 @@ import {clientBoxesNotificationsViewColumns} from '@components/table-columns/cli
 
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixedWithDollarSign} from '@utils/text'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersNotificationsView
+import {t} from '@utils/translations'
 
 export class ClientBoxesNotificationsViewModel {
   history = undefined
@@ -96,9 +94,10 @@ export class ClientBoxesNotificationsViewModel {
   onTriggerOpenConfirmModal(row) {
     this.confirmModalSettings = {
       isWarning: false,
-      message: `Необходимо доплатить: ${toFixedWithDollarSign(row.totalPriceChanged - row.totalPrice, 2)} ${
-        textConsts.confirmMessage
-      }`,
+      message: `${t(TranslationKey['Additional payment is required:'])} ${toFixedWithDollarSign(
+        row.totalPriceChanged - row.totalPrice,
+        2,
+      )} ${t(TranslationKey['Do you confirm the extra payment?'])}`,
       onClickOkBtn: () => this.onClickConfirmOrderPriceChangeBtn(row),
     }
     this.onTriggerOpenModal('showConfirmModal')
@@ -107,7 +106,7 @@ export class ClientBoxesNotificationsViewModel {
   onTriggerOpenRejectModal(row) {
     this.confirmModalSettings = {
       isWarning: true,
-      message: textConsts.errorMessage,
+      message: t(TranslationKey['Do you want to cancel?']),
       onClickOkBtn: () => this.onClickRejectOrderPriceChangeBtn(row),
     }
     this.onTriggerOpenModal('showConfirmModal')

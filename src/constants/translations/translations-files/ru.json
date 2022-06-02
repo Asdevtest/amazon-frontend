@@ -706,5 +706,13 @@
   "Training": "Обучение",
   "on our freelance exchange.": "по работе на нашей фриланс бирже.",
   "Supervisor check": "Проверка Супервайзером",
-  "Multiple performances by the same performer are allowed": "Разрешено многократное исполнение одному исполнителю"
+  "Multiple performances by the same performer are allowed": "Разрешено многократное исполнение одному исполнителю",
+  "Reject": "Отклонить",
+  "Confirm": "Подтвердить",
+  "Do you want to cancel?": "Вы хотите отменить?",
+  "Additional payment is required:": "Необходимо доплатить:",
+  "Do you confirm the extra payment?": "Вы подтверждаете доплату?",
+  "Reviews": "Отзывы",
+  "Order for": "Заказать за",
+  "Contact the performer": "Связаться с исполнителем"
 }
