@@ -4,6 +4,7 @@ export const useClassNames = makeStyles(() => ({
   root: {
     backgroundColor: '#D9FAE5',
     padding: '15px 14px',
+    width: '842px',
     borderRadius: '4px',
     '& p, h1, h2, h3, h4, h5, span': {
       margin: 0,
