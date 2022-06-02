@@ -135,6 +135,7 @@ import InlineObject71 from './model/InlineObject71';
 import InlineObject72 from './model/InlineObject72';
 import InlineObject73 from './model/InlineObject73';
 import InlineObject74 from './model/InlineObject74';
+import InlineObject75 from './model/InlineObject75';
 import InlineObject8 from './model/InlineObject8';
 import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
@@ -1004,6 +1005,12 @@ export {
      * @property {module:model/InlineObject74}
      */
     InlineObject74,
+
+    /**
+     * The InlineObject75 model constructor.
+     * @property {module:model/InlineObject75}
+     */
+    InlineObject75,
 
     /**
      * The InlineObject8 model constructor.

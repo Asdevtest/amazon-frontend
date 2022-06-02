@@ -13,6 +13,7 @@ import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
 import {clientWarehouseDataConverter, warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 export class WarehouseAwaitingBatchesViewModel {
   history = undefined
@@ -32,6 +33,10 @@ export class WarehouseAwaitingBatchesViewModel {
   showBatchInfoModal = false
 
   showAddOrEditBatchModal = false
+
+  uploadedFiles = []
+  progressValue = 0
+  showProgress = false
 
   sortModel = []
   filterModel = {items: []}
@@ -169,19 +174,36 @@ export class WarehouseAwaitingBatchesViewModel {
     }
   }
 
-  async onSubmitAddOrEditBatch(boxesIds, sourceBoxesIds, batchToEditId) {
+  async onSubmitAddOrEditBatch(boxesIds, sourceBoxesIds, filesToAdd, batchToEdit) {
     try {
-      if (!batchToEditId) {
-        await BatchesModel.createBatch(boxesIds)
+      this.uploadedFiles = []
+
+      if (filesToAdd.length) {
+        await onSubmitPostImages.call(this, {images: filesToAdd, type: 'uploadedFiles'})
+      }
+
+      if (!batchToEdit) {
+        const batchId = await BatchesModel.createBatch(boxesIds)
+
+        if (filesToAdd.length) {
+          await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
+        }
       } else {
         const newBoxesIds = boxesIds.filter(boxId => !sourceBoxesIds.includes(boxId))
         const boxesToRemoveIds = sourceBoxesIds.filter(boxId => !boxesIds.includes(boxId))
 
         if (newBoxesIds.length) {
-          await BatchesModel.addBoxToBatch(batchToEditId, newBoxesIds)
+          await BatchesModel.addBoxToBatch(batchToEdit.id, newBoxesIds)
         }
         if (boxesToRemoveIds.length) {
-          await BatchesModel.removeBoxFromBatch(batchToEditId, boxesToRemoveIds)
+          await BatchesModel.removeBoxFromBatch(batchToEdit.id, boxesToRemoveIds)
+        }
+
+        if (filesToAdd.length) {
+          await BatchesModel.editAttachedDocuments(batchToEdit.id, [
+            ...batchToEdit.originalData.attachedDocuments,
+            ...this.uploadedFiles,
+          ])
         }
       }
 

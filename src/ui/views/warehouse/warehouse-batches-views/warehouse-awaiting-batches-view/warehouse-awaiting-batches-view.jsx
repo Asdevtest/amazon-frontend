@@ -37,6 +37,8 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
   render() {
     const {
+      showProgress,
+      progressValue,
       volumeWeightCoefficient,
       boxesData,
       selectedBatches,
@@ -148,6 +150,8 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
         <Modal openModal={showAddOrEditBatchModal} setOpenModal={() => onTriggerOpenModal('showAddOrEditBatchModal')}>
           <AddOrEditBatchForm
+            progressValue={progressValue}
+            showProgress={showProgress}
             volumeWeightCoefficient={volumeWeightCoefficient}
             batchToEdit={getCurrentData().find(batch => batch.id === selectedBatches[0])}
             boxesData={boxesData}

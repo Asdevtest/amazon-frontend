@@ -46,7 +46,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
         <Typography className={classNames.typoCell}>
           {textConsts.asinTypo}
           <span className={classNames.typoSpan}>{product.asin}</span>
-          {` | ${formatDateDistanceFromNow(product.createdAt)}`}
+          {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
         </Typography>
         <Typography className={classNames.csCodeTypo}>{product.category}</Typography>
       </div>

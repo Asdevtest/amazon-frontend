@@ -99,12 +99,6 @@ class InlineObject13 {
             if (data.hasOwnProperty('logicsTariffId')) {
                 obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('shippingLabel')) {
-                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
-            }
         }
         return obj;
     }
@@ -197,28 +191,16 @@ InlineObject13.prototype['items'] = undefined;
 InlineObject13.prototype['images'] = undefined;
 
 /**
- * id склада - склады куда отправляют 
+ * destination GUID 
  * @member {String} destinationId
  */
 InlineObject13.prototype['destinationId'] = undefined;
 
 /**
- * GUID тарифа доставки 
+ *  logicsTariff GUID
  * @member {String} logicsTariffId
  */
 InlineObject13.prototype['logicsTariffId'] = undefined;
-
-/**
- * GUID сторкипера
- * @member {String} storekeeperId
- */
-InlineObject13.prototype['storekeeperId'] = undefined;
-
-/**
- * Шипингш лейбл
- * @member {String} shippingLabel
- */
-InlineObject13.prototype['shippingLabel'] = undefined;
 
 
 

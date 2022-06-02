@@ -2,7 +2,7 @@ import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
-import {Typography} from '@material-ui/core'
+import {Link, Typography} from '@material-ui/core'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -11,9 +11,13 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field/field'
+import {BigImagesModal} from '@components/modals/big-images-modal'
+import {UploadFilesInput} from '@components/upload-files-input'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {checkIsImageLink} from '@utils/checks'
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getFullTariffTextForBoxOrOrder, toFixed} from '@utils/text'
@@ -23,12 +27,15 @@ import {addOrEditBatchFormColumns} from './add-or-edit-batch-form-columns'
 import {useClassNames} from './add-or-edit-batch-form.style'
 
 export const AddOrEditBatchForm = observer(
-  ({boxesData, onClose, volumeWeightCoefficient, onSubmit, batchToEdit, sourceBox}) => {
+  ({boxesData, onClose, volumeWeightCoefficient, onSubmit, batchToEdit, sourceBox, showProgress, progressValue}) => {
     const classNames = useClassNames()
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
     const [boxesToAddData, setBoxesToAddData] = useState([...boxesData])
+
+    const [filesToAdd, setfilesToAdd] = useState([])
+    const [showPhotosModal, setShowPhotosModal] = useState(false)
 
     const [chosenBoxes, setChosenBoxes] = useState(
       batchToEdit
@@ -119,7 +126,7 @@ export const AddOrEditBatchForm = observer(
 
       const sourceBoxesIds = batchToEdit?.originalData.boxes.map(el => el._id) || []
 
-      onSubmit(chosenBoxesIds, sourceBoxesIds, batchToEdit?.id)
+      onSubmit(chosenBoxesIds, sourceBoxesIds, filesToAdd, batchToEdit)
 
       setSubmitIsClicked(true)
     }
@@ -286,6 +293,40 @@ export const AddOrEditBatchForm = observer(
             />
           </div>
 
+          <div className={classNames.imageFileInputWrapper}>
+            <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} maxNumber={50} />
+
+            <Button
+              disableElevation
+              disabled={!batchToEdit?.originalData.attachedDocuments?.filter(el => checkIsImageLink(el)).length}
+              color="primary"
+              className={classNames.imagesButton}
+              variant="contained"
+              onClick={() => setShowPhotosModal(!showPhotosModal)}
+            >
+              {t(TranslationKey['Available images'])}
+            </Button>
+
+            {batchToEdit?.originalData.attachedDocuments?.filter(el => !checkIsImageLink(el)).length ? (
+              <Field
+                multiline
+                label={t(TranslationKey.Files)}
+                containerClasses={classNames.filesContainer}
+                inputComponent={
+                  <div className={classNames.filesWrapper}>
+                    {batchToEdit?.originalData.attachedDocuments
+                      ?.filter(el => !checkIsImageLink(el))
+                      .map((file, index) => (
+                        <Link key={index} target="_blank" href={file}>
+                          <Typography className={classNames.linkText}>{file}</Typography>
+                        </Link>
+                      ))}
+                  </div>
+                }
+              />
+            ) : null}
+          </div>
+
           <div className={classNames.btnsWrapper}>
             <SuccessButton
               disableElevation
@@ -302,6 +343,15 @@ export const AddOrEditBatchForm = observer(
             </Button>
           </div>
         </div>
+
+        {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
+
+        <BigImagesModal
+          isAmazone
+          openModal={showPhotosModal}
+          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          images={batchToEdit?.originalData.attachedDocuments?.filter(el => checkIsImageLink(el)) || []}
+        />
       </div>
     )
   },

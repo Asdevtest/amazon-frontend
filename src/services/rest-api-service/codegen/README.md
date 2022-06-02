@@ -151,6 +151,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BatchesApi* | [**apiV1BatchesGet**](docs/BatchesApi.md#apiV1BatchesGet) | **GET** /api/v1/batches/ | # Получить партии.
 *TestSwagger.BatchesApi* | [**apiV1BatchesGuidAddBoxesPatch**](docs/BatchesApi.md#apiV1BatchesGuidAddBoxesPatch) | **PATCH** /api/v1/batches/{guid}/add_boxes | # Добавить коробки в партию.
 *TestSwagger.BatchesApi* | [**apiV1BatchesGuidBatchHasDispatchedPatch**](docs/BatchesApi.md#apiV1BatchesGuidBatchHasDispatchedPatch) | **PATCH** /api/v1/batches/{guid}/batch_has_dispatched | # Выставить статус отбытия партии из склада.
+*TestSwagger.BatchesApi* | [**apiV1BatchesGuidEditAttachedDocumentsPatch**](docs/BatchesApi.md#apiV1BatchesGuidEditAttachedDocumentsPatch) | **PATCH** /api/v1/batches/{guid}/edit_attachedDocuments | # Редактировать прикрепленные документы партии.
 *TestSwagger.BatchesApi* | [**apiV1BatchesGuidRemoveBoxesPatch**](docs/BatchesApi.md#apiV1BatchesGuidRemoveBoxesPatch) | **PATCH** /api/v1/batches/{guid}/remove_boxes | # Удалить коробки из партии.
 *TestSwagger.BatchesApi* | [**apiV1BatchesPost**](docs/BatchesApi.md#apiV1BatchesPost) | **POST** /api/v1/batches/ | # Создать партию.
 *TestSwagger.BatchesApi* | [**apiV1BatchesRequestSendBoxesToBatchPost**](docs/BatchesApi.md#apiV1BatchesRequestSendBoxesToBatchPost) | **POST** /api/v1/batches/request_send_boxes_to_batch | # Запросить отправку набора коробок в партию.
@@ -449,6 +450,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject72](docs/InlineObject72.md)
  - [TestSwagger.InlineObject73](docs/InlineObject73.md)
  - [TestSwagger.InlineObject74](docs/InlineObject74.md)
+ - [TestSwagger.InlineObject75](docs/InlineObject75.md)
  - [TestSwagger.InlineObject8](docs/InlineObject8.md)
  - [TestSwagger.InlineObject9](docs/InlineObject9.md)
  - [TestSwagger.InlineResponse200](docs/InlineResponse200.md)

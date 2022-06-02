@@ -45,6 +45,13 @@ export class BatchesModelStatic {
     const response = await restApiService.batchesApi.apiV1BatchesGuidBatchHasDispatchedPatch(id)
     return response
   }
+
+  editAttachedDocuments = async (id, data) => {
+    const response = await restApiService.batchesApi.apiV1BatchesGuidEditAttachedDocumentsPatch(id, {
+      body: {attachedDocuments: data},
+    })
+    return response
+  }
 }
 
 export const BatchesModel = new BatchesModelStatic()

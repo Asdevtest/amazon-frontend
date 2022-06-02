@@ -126,4 +126,28 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-between',
     width: '720px',
   },
+
+  filesContainer: {
+    marginTop: '20px',
+    width: 'auto',
+    marginRight: '50px',
+  },
+
+  filesWrapper: {
+    width: '450px',
+    maxHeight: '200px',
+    overflow: 'auto',
+  },
+
+  linkText: {
+    color: '#007BFF',
+    cursor: 'pointer',
+    transition: '.3s ease',
+    whiteSpace: 'nowrap',
+    overflow: 'auto',
+
+    '&:hover': {
+      opacity: '0.8',
+    },
+  },
 }))

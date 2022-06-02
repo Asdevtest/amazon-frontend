@@ -115,4 +115,34 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
   },
+
+  imageFileInputWrapper: {
+    width: '100%',
+    display: 'flex',
+    marginTop: '20px',
+    alignItems: 'flex-start',
+  },
+
+  filesWrapper: {
+    width: '450px',
+    maxHeight: '220px',
+    overflow: 'auto',
+  },
+
+  filesContainer: {
+    width: 'auto',
+    marginLeft: '30px',
+  },
+
+  linkText: {
+    color: '#007BFF',
+    cursor: 'pointer',
+    transition: '.3s ease',
+    whiteSpace: 'nowrap',
+    overflow: 'auto',
+
+    '&:hover': {
+      opacity: '0.8',
+    },
+  },
 }))

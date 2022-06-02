@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**apiV1BatchesGet**](BatchesApi.md#apiV1BatchesGet) | **GET** /api/v1/batches/ | # Получить партии.
 [**apiV1BatchesGuidAddBoxesPatch**](BatchesApi.md#apiV1BatchesGuidAddBoxesPatch) | **PATCH** /api/v1/batches/{guid}/add_boxes | # Добавить коробки в партию.
 [**apiV1BatchesGuidBatchHasDispatchedPatch**](BatchesApi.md#apiV1BatchesGuidBatchHasDispatchedPatch) | **PATCH** /api/v1/batches/{guid}/batch_has_dispatched | # Выставить статус отбытия партии из склада.
+[**apiV1BatchesGuidEditAttachedDocumentsPatch**](BatchesApi.md#apiV1BatchesGuidEditAttachedDocumentsPatch) | **PATCH** /api/v1/batches/{guid}/edit_attachedDocuments | # Редактировать прикрепленные документы партии.
 [**apiV1BatchesGuidRemoveBoxesPatch**](BatchesApi.md#apiV1BatchesGuidRemoveBoxesPatch) | **PATCH** /api/v1/batches/{guid}/remove_boxes | # Удалить коробки из партии.
 [**apiV1BatchesPost**](BatchesApi.md#apiV1BatchesPost) | **POST** /api/v1/batches/ | # Создать партию.
 [**apiV1BatchesRequestSendBoxesToBatchPost**](BatchesApi.md#apiV1BatchesRequestSendBoxesToBatchPost) | **POST** /api/v1/batches/request_send_boxes_to_batch | # Запросить отправку набора коробок в партию.
@@ -231,6 +232,62 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1BatchesGuidEditAttachedDocumentsPatch
+
+> InlineResponse201 apiV1BatchesGuidEditAttachedDocumentsPatch(guid, opts)
+
+# Редактировать прикрепленные документы партии.
+
+## Редактировать прикрепленные документы партии.            Проверки:         Доступно только для сторкипера        
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BatchesApi();
+let guid = null; // String | GUID партии.
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject12() // InlineObject12 | 
+};
+apiInstance.apiV1BatchesGuidEditAttachedDocumentsPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID партии. | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject12**](InlineObject12.md)|  | [optional] 
+
+### Return type
+
+[**InlineResponse201**](InlineResponse201.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

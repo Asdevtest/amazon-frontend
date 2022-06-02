@@ -16,6 +16,7 @@ import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import InlineObject10 from '../model/InlineObject10';
 import InlineObject11 from '../model/InlineObject11';
+import InlineObject12 from '../model/InlineObject12';
 import InlineObject7 from '../model/InlineObject7';
 import InlineObject8 from '../model/InlineObject8';
 import InlineObject9 from '../model/InlineObject9';
@@ -251,6 +252,62 @@ export default class BatchesApi {
      */
     apiV1BatchesGuidBatchHasDispatchedPatch(guid, opts) {
       return this.apiV1BatchesGuidBatchHasDispatchedPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Редактировать прикрепленные документы партии.
+     * ## Редактировать прикрепленные документы партии.            Проверки:         Доступно только для сторкипера        
+     * @param {String} guid GUID партии.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject12} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse201} and HTTP response
+     */
+    apiV1BatchesGuidEditAttachedDocumentsPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BatchesGuidEditAttachedDocumentsPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse201;
+      return this.apiClient.callApi(
+        '/api/v1/batches/{guid}/edit_attachedDocuments', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Редактировать прикрепленные документы партии.
+     * ## Редактировать прикрепленные документы партии.            Проверки:         Доступно только для сторкипера        
+     * @param {String} guid GUID партии.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject12} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse201}
+     */
+    apiV1BatchesGuidEditAttachedDocumentsPatch(guid, opts) {
+      return this.apiV1BatchesGuidEditAttachedDocumentsPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

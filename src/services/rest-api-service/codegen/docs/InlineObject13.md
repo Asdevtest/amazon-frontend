@@ -18,9 +18,7 @@ Name | Type | Description | Notes
 **fbaShipment** | **String** | Это номер конкретной коробки при отправке в амазон. | [optional] 
 **items** | [**[ApiV1BoxesItems]**](ApiV1BoxesItems.md) | Массив коробок. | 
 **images** | **[String]** | Массив ссылок на фотографии. | [optional] 
-**destinationId** | **String** | id склада - склады куда отправляют  | [optional] 
-**logicsTariffId** | **String** | GUID тарифа доставки  | [optional] 
-**storekeeperId** | **String** | GUID сторкипера | [optional] 
-**shippingLabel** | **String** | Шипингш лейбл | [optional] 
+**destinationId** | **String** | destination GUID  | [optional] 
+**logicsTariffId** | **String** |  logicsTariff GUID | [optional] 
 
 
