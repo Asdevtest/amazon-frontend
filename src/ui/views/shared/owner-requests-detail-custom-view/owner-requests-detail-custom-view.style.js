@@ -28,7 +28,7 @@ export const styles = createStyles(() => ({
   chatWrapper: {
     marginTop: '20px',
     width: '100%',
-    height: '800px',
+    height: '880px',
   },
 
   proposalsTitle: {

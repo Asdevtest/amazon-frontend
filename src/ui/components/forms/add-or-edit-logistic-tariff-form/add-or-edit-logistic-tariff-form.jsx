@@ -31,18 +31,29 @@ export const AddOrEditLogisticTariffForm = observer(
       conditionsByRegion: {
         west: {
           rate: tariffToEdit
-            ? Math.round(tariffToEdit.conditionsByRegion.west.rate * (tariffToEdit?.yuanToDollarRate || 1) * 100) / 100
+            ? Math.round(
+                tariffToEdit.conditionsByRegion.west.rate *
+                  (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
+                  100,
+              ) / 100
             : '',
         },
         central: {
           rate: tariffToEdit
-            ? Math.round(tariffToEdit.conditionsByRegion.central.rate * (tariffToEdit?.yuanToDollarRate || 1) * 100) /
-              100
+            ? Math.round(
+                tariffToEdit.conditionsByRegion.central.rate *
+                  (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
+                  100,
+              ) / 100
             : '',
         },
         east: {
           rate: tariffToEdit
-            ? Math.round(tariffToEdit.conditionsByRegion.east.rate * (tariffToEdit?.yuanToDollarRate || 1) * 100) / 100
+            ? Math.round(
+                tariffToEdit.conditionsByRegion.east.rate *
+                  (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
+                  100,
+              ) / 100
             : '',
         },
         yuanToDollarRate: tariffToEdit?.conditionsByRegion.yuanToDollarRate || sourceYuanToDollarRate,

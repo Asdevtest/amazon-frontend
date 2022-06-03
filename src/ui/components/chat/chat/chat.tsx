@@ -72,7 +72,7 @@ export const Chat: FC<Props> = observer(
       if (updateData && messages?.[messages.length - 1]?.text === 'PROPOSAL_STATUS_CHANGED') {
         updateData()
       }
-    }, [messages])
+    }, [messages?.length])
 
     return (
       <div className={classNames.root}>

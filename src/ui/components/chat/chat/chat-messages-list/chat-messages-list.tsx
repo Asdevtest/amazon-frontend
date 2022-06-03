@@ -54,8 +54,16 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
           }}
         />
       )
-    } else if (checkIsChatMessageDataProposalStatusChangedContract(messageItem)) {
-      return <ChatMessageProposalStatusChanged message={messageItem} />
+    } else if (handlers && checkIsChatMessageDataProposalStatusChangedContract(messageItem)) {
+      return (
+        <ChatMessageProposalStatusChanged
+          message={messageItem}
+          handlers={{
+            onClickProposalResultAccept: handlers.onClickProposalResultAccept,
+            onClickProposalResultToCorrect: handlers.onClickProposalResultToCorrect,
+          }}
+        />
+      )
     } else if (handlers && checkIsChatMessageDataProposalResultEditedContract(messageItem)) {
       return (
         <ChatMessageRequestProposalResultEdited

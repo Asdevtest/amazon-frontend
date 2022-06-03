@@ -159,6 +159,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                         onClickProposalResultToCorrect,
                         onClickProposalResultAccept,
                       }}
+                      updateData={this.viewModel.loadData}
                       onSubmitMessage={onSubmitMessage}
                       onClickChat={onClickChat}
                     />
