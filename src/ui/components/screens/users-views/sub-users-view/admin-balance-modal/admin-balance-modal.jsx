@@ -65,7 +65,7 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
     )} ${user.name} ${t(TranslationKey.by)} ${balanceValue}?`
   }
 
-  const disableButtonExecute = ['0', '0.', '0.0', ''].includes(balanceValue)
+  const disableButtonExecute = Number(balanceValue) <= 0
 
   return (
     <>

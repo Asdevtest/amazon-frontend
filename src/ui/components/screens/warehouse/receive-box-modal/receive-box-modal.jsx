@@ -29,10 +29,10 @@ const WAREHOUSE_RECEIVE_HEAD_CELLS = [
   {title: 'QTY'},
   {title: 'Count superbox'},
   {title: 'TOTAL'},
-  {title: 'Sizes'},
-  {title: 'Weight'},
-  {title: 'Volume weight'},
-  {title: 'Final weight'},
+  {title: 'Sizes cm'},
+  {title: 'Weight kg'},
+  {title: 'Volume weight kg'},
+  {title: 'Final weight kg'},
 ]
 
 const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
