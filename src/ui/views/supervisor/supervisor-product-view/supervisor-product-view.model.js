@@ -4,6 +4,7 @@ import {action, makeAutoObservable, runInAction} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ProductModel} from '@models/product-model'
 import {SupervisorModel} from '@models/supervisor-model'
@@ -22,6 +23,7 @@ import {
   getObjectFilteredByKeyArrayBlackList,
 } from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
+import {t} from '@utils/translations'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const fieldsOfProductAllowedToUpdate = [
@@ -85,26 +87,26 @@ const formFieldsDefault = {
 }
 
 const confirmMessageByProductStatus = {
-  15: 'Продукт подходит?',
-  30: 'Отправить на поиск поставщика?',
-  20: 'Товар не подходит?',
-  70: 'Опубликовать на бирже?',
-  80: 'Поставщик не найден?',
-  90: 'Прайс поставщика не подходит?',
-  230: 'Отправить на поиск поставщика?',
-  270: 'Подтвердить выполнение заявки на "Поиск поставщика"?',
-  280: 'Поставщик не найден?',
-  290: 'Цена поставщика неприемлема?',
+  15: t(TranslationKey['The product is suitable']) + '?',
+  30: t(TranslationKey['Send to find a supplier?']),
+  20: t(TranslationKey['The product is not suitable']) + '?',
+  70: t(TranslationKey['Publish on the exchange']) + '?',
+  80: t(TranslationKey['Supplier not found']) + '?',
+  90: t(TranslationKey["The supplier's price is not acceptable?"]),
+  230: t(TranslationKey['Send to find a supplier?']),
+  270: t(TranslationKey['Confirm the execution of the Supplier Search request?']),
+  280: t(TranslationKey['Supplier found']) + '?',
+  290: t(TranslationKey["Is the supplier's price unacceptable"]) + '?',
 }
 
-const confirmMessageWithoutStatus = 'Сохранить без статуса?'
+const confirmMessageWithoutStatus = t(TranslationKey['Save without status']) + '?'
 
 const warningModalTitleVariants = {
-  NO_SUPPLIER: 'Нельзя выбрать без поставщика.',
-  CHOOSE_STATUS: 'Нужно выбрать статус',
-  PRICE_WAS_NOT_ACCEPTABLE: 'Неприемлемая цена поставщика.',
-  SUPPLIER_WAS_NOT_FOUND_BY_BUYER: 'Поставщик не найден',
-  ERROR: 'Ошибка',
+  NO_SUPPLIER: t(TranslationKey["You can't choose without a supplier"]),
+  CHOOSE_STATUS: t(TranslationKey['We need to choose a status']),
+  PRICE_WAS_NOT_ACCEPTABLE: t(TranslationKey["Is the supplier's price unacceptable"]),
+  SUPPLIER_WAS_NOT_FOUND_BY_BUYER: t(TranslationKey['Supplier not found']),
+  ERROR: t(TranslationKey.Error),
 }
 
 export class SupervisorProductViewModel {

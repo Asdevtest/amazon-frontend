@@ -3,7 +3,7 @@ import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BuyerModel} from '@models/buyer-model'
 import {BuyerUpdateProductContract} from '@models/buyer-model/buyer-model.contracts'
@@ -13,16 +13,14 @@ import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {isUndefined} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayBlackList,
   getObjectFilteredByKeyArrayWhiteList,
 } from '@utils/object'
+import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
-
-const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
 
 const fieldsOfProductAllowedToUpdate = [
   'reffee',
@@ -74,17 +72,17 @@ const formFieldsDefault = {
 }
 
 const confirmMessageByProductStatus = {
-  60: 'Прайс поставщика не подходит?',
-  50: 'Поставщик не найден?',
-  40: 'Поставщик найден?',
-  240: 'Поставщик найден?',
-  260: 'Прайс поставщика не подходит?',
-  250: 'Поставщик не найден?',
+  60: t(TranslationKey["The supplier's price is not acceptable?"]),
+  50: t(TranslationKey['Supplier not found']) + '?',
+  40: t(TranslationKey['Supplier found']) + '?',
+  240: t(TranslationKey['Supplier found']) + '?',
+  260: t(TranslationKey["The supplier's price is not acceptable?"]),
+  250: t(TranslationKey['Supplier not found']) + '?',
 }
 
 const warningModalTitleVariants = {
-  NO_SUPPLIER: 'Нельзя выбрать без поставщика.',
-  CHOOSE_STATUS: 'Нужно выбрать статус',
+  NO_SUPPLIER: t(TranslationKey["You can't choose without a supplier"]),
+  CHOOSE_STATUS: t(TranslationKey['We need to choose a status']),
 }
 
 export class BuyerProductViewModel {
@@ -211,7 +209,7 @@ export class BuyerProductViewModel {
         runInAction(() => {
           this.confirmModalSettings = {
             isWarning: true,
-            message: textConsts.deleteSupplierMessage,
+            message: t(TranslationKey['Are you sure you want to remove the supplier?']),
             onClickOkBtn: () => this.onRemoveSupplier(),
           }
         })

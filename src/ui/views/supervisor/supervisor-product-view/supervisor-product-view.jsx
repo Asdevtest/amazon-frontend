@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
@@ -14,12 +14,11 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {ProductWrapper} from '@components/product/product-wrapper'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {SupervisorProductViewModel} from './supervisor-product-view.model'
 
 const curUserRole = UserRole.SUPERVISOR
-const textConsts = getLocalizedTexts(texts, 'en').supervisorProductView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
@@ -66,7 +65,7 @@ export class SupervisorProductView extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey.Product)} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {product ? (
                 <ProductWrapper
@@ -91,7 +90,7 @@ export class SupervisorProductView extends Component {
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
           title={warningModalTitle}
-          btnText={textConsts.okBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
           }}
@@ -99,10 +98,10 @@ export class SupervisorProductView extends Component {
         <ConfirmationModal
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
+          title={t(TranslationKey.Attention)}
           message={confirmMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={() => {
             onSaveProductData()
             onTriggerOpenModal('showConfirmModal')

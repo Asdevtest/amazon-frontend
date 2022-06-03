@@ -9,7 +9,6 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {BUYER_MY_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -21,13 +20,10 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {BuyerMyOrdersViewModel} from './buyer-my-orders-view.model'
 import {styles} from './buyer-my-orders-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').myOrdersView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_ORDERS
 
@@ -150,7 +146,7 @@ class BuyerMyOrdersViewRaw extends Component {
         <WarningInfoModal
           openModal={showNoDimensionsErrorModal}
           setOpenModal={() => onTriggerOpenModal('showNoDimensionsErrorModal')}
-          title={textConsts.dimensionsMessage}
+          title={t(TranslationKey['The fields must be filled in to create the box!'])}
           btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showNoDimensionsErrorModal')
@@ -160,7 +156,7 @@ class BuyerMyOrdersViewRaw extends Component {
         <WarningInfoModal
           openModal={showWarningNewBoxesModal}
           setOpenModal={() => onTriggerOpenModal('showWarningNewBoxesModal')}
-          title={'Создание новых коробок. Будьте внимательны!'}
+          title={t(TranslationKey['Creating new boxes. Be careful!'])}
           btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningNewBoxesModal')
@@ -170,8 +166,12 @@ class BuyerMyOrdersViewRaw extends Component {
         <WarningInfoModal
           openModal={showOrderPriceMismatchModal}
           setOpenModal={() => onTriggerOpenModal('showOrderPriceMismatchModal')}
-          title={textConsts.warningMessage}
-          btnText={textConsts.okBtn}
+          title={t(
+            TranslationKey[
+              'The "Paid" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created'
+            ],
+          )}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showOrderPriceMismatchModal')
           }}
@@ -180,8 +180,8 @@ class BuyerMyOrdersViewRaw extends Component {
         <SuccessInfoModal
           openModal={showSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={textConsts.successMessage}
-          successBtnText={textConsts.okBtn}
+          title={t(TranslationKey['A task was created for the warehouse: "Receive a box"'])}
+          successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showSuccessModal')
           }}

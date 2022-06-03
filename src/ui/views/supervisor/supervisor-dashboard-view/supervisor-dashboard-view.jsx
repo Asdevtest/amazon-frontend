@@ -5,7 +5,7 @@ import {observer} from 'mobx-react'
 
 import {getSupervisorDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
@@ -14,12 +14,10 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {SupervisorDashboardViewModel} from './supervisor-dashboard-view.model'
 import {styles} from './supervisor-dashboard-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').supervisorDashboardView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
@@ -38,13 +36,13 @@ export class SupervisorDashboardViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey.Dashboard)} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DashboardBalance user={userInfo} />
 
               <div className={classNames.amountWithLabelCardsWrapper}>
                 <SectionalDashboard
-                  config={getSupervisorDashboardCardConfig(textConsts)}
+                  config={getSupervisorDashboardCardConfig()}
                   valuesData={dashboardData}
                   onClickViewMore={onClickInfoCardViewMode}
                 />

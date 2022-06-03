@@ -722,5 +722,16 @@
   "Attention. Are you sure?": "Внимание.Вы уверены?",
   "Within the current edit, you can only change once!": "В рамках текущего редактирования изменить можно только единожды!",
   "Are you sure you entered all the data correctly?": "Вы уверены что все данные внесены верно?",
-  "PAY ATTENTION!!!": "БУДЬТЕ ВНИМАТЕЛЬНЫ!!!"
+  "PAY ATTENTION!!!": "БУДЬТЕ ВНИМАТЕЛЬНЫ!!!",
+  "Creating new boxes. Be careful!": "Создание новых коробок. Будьте внимательны!",
+  "The fields must be filled in to create the box!": "Для создания коробки поля должны быть заполнены!",
+  "The \"Paid\" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created": "Статус \"Оплачено\" станет доступным после подтверждения изменения стоимости заказа клиентом. Текущий статус не будет изменен! Коробки не будут созданы",
+  "A task was created for the warehouse: \"Receive a box\"": "Создана задача складу: \"Принять коробку\"",
+  "The supplier's price is not acceptable?": "Прайс поставщика не подходит?",
+  "You can't choose without a supplier": "Нельзя выбрать без поставщика",
+  "We need to choose a status": "Нужно выбрать статус",
+  "Send to find a supplier?": "Отправить на поиск поставщика?",
+  "Confirm the execution of the Supplier Search request?": "Подтвердить выполнение заявки на \"Поиск поставщика\"?",
+  "Is the supplier's price unacceptable": "Цена поставщика неприемлема",
+  "Error": "Ошибка"
 }

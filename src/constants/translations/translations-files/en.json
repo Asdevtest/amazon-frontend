@@ -720,5 +720,16 @@
   "Attention. Are you sure?": "Attention. Are you sure?",
   "Within the current edit, you can only change once!": "Within the current edit, you can only change once!",
   "Are you sure you entered all the data correctly?": "Are you sure you entered all the data correctly?",
-  "PAY ATTENTION!!!": "PAY ATTENTION!!!"
+  "PAY ATTENTION!!!": "PAY ATTENTION!!!",
+  "Creating new boxes. Be careful!": "Creating new boxes. Be careful!",
+  "The fields must be filled in to create the box!": "The fields must be filled in to create the box!",
+  "The \"Paid\" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created": "The \"Paid\" status will become available after the client confirms the change of the cost of the order. The current status will not be changed! Boxes will not be created",
+  "A task was created for the warehouse: \"Receive a box\"": "A task was created for the warehouse: \"Receive a box\"",
+  "The supplier's price is not acceptable?": "The supplier's price is not acceptable?",
+  "You can't choose without a supplier": "You can't choose without a supplier",
+  "We need to choose a status": "We need to choose a status",
+  "Send to find a supplier?": "Send to find a supplier?",
+  "Confirm the execution of the Supplier Search request?": "Confirm the execution of the Supplier Search request?",
+  "Is the supplier's price unacceptable": "Is the supplier's price unacceptable",
+  "Error": "Error"
 }
