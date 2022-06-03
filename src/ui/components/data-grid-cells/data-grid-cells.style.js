@@ -438,7 +438,7 @@ export const styles = createStyles(() => ({
 
     color: 'rgba(0, 0, 0, 0.87)',
     fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
-    fontWeight: '500',
+    fontWeight: '600',
     fontSize: '0.875rem',
     lineHeight: '1.1',
     letterSpacing: '0.01071em',
@@ -450,10 +450,10 @@ export const styles = createStyles(() => ({
   },
 
   linkText: {
-    color: '#001029',
-    fontSize: '18px',
+    color: '#007BFF',
+    fontSize: '16px',
     lineHeight: '140%',
-    fontWeight: '600',
+    fontWeight: '400',
     cursor: 'pointer',
     transition: '.3s ease',
 

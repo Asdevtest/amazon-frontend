@@ -24,7 +24,11 @@ export const styles = createStyles(() => ({
   detailsWrapper: {
     marginTop: '10px',
   },
-  proposalsWrapper: {},
+  proposalsWrapper: {
+    '& > :not(:last-child)': {
+      marginBottom: '20px',
+    },
+  },
   chatWrapper: {
     marginTop: '20px',
     width: '100%',
@@ -33,5 +37,43 @@ export const styles = createStyles(() => ({
 
   proposalsTitle: {
     margin: '50px 0 20px',
+  },
+
+  emptyProposalsIconWrapper: {
+    with: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  emptyProposalsIcon: {
+    width: '136px',
+    height: '136px',
+    backgroundColor: '#E0E0E0',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '50%',
+
+    marginTop: '90px',
+    marginBottom: '30px',
+  },
+  emptyProposalsDescription: {
+    fontWeight: '600',
+    fontSize: '24px',
+    lineHeight: '28px',
+    color: '#001029',
+  },
+
+  proposalAndChatWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  hideChatButton: {
+    margin: '0 auto',
+    padding: '5px 77px',
+    fontWeight: '400',
   },
 }))

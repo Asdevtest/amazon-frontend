@@ -86,7 +86,7 @@ export const FreelancerDashboardCardDataKey = {
   CUR_BALANCE: 'CUR_BALANCE',
   FINES: 'FINES',
 }
-export const getFreelancerDashboardCardConfig = textConsts => [
+export const getFreelancerDashboardCardConfig = () => [
   {
     dataKey: FreelancerDashboardCardDataKey.REQUESTS,
     title: t(TranslationKey['My requests']),
@@ -100,7 +100,7 @@ export const getFreelancerDashboardCardConfig = textConsts => [
   },
   {
     dataKey: FreelancerDashboardCardDataKey.FINES,
-    title: textConsts.finesCardTitle,
+    title: t(TranslationKey.Fines),
     color: '#f86c6b',
   },
 ]

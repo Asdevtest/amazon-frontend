@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
@@ -43,6 +43,7 @@ export const CreateOrEditProposalContent = ({
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
+  const [error, setError] = useState(false)
 
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
@@ -68,10 +69,19 @@ export const CreateOrEditProposalContent = ({
     onEditSubmit(formFields, images)
   }
 
+  useEffect(() => {
+    if (formFields.comment.length < 150) {
+      setError(true)
+    } else {
+      setError(false)
+    }
+  }, [formFields.comment.length])
+
   const disableSubmit =
     formFields.execution_time === '' ||
     formFields.price === '' ||
     formFields.comment === '' ||
+    formFields.comment.length < 150 ||
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
   return (
@@ -141,16 +151,19 @@ export const CreateOrEditProposalContent = ({
 
       <div className={classNames.mainRightWrapper}>
         <div className={classNames.middleWrapper}>
-          <Field
-            multiline
-            className={classNames.descriptionField}
-            inputProps={{maxLength: 1000}}
-            minRows={8}
-            rowsMax={8}
-            label={t(TranslationKey['Describe your proposal'])}
-            value={formFields.comment}
-            onChange={onChangeField('comment')}
-          />
+          <div className={classNames.descriptionFieldWrapper}>
+            <Field
+              multiline
+              className={classNames.descriptionField}
+              inputProps={{maxLength: 1500}}
+              minRows={8}
+              rowsMax={8}
+              label={t(TranslationKey['Describe your proposal'])}
+              value={formFields.comment}
+              onChange={onChangeField('comment')}
+            />
+            {error && <span className={classNames.error}>{t(TranslationKey['Minimum number of characters 150'])}</span>}
+          </div>
 
           <div className={classNames.middleSubWrapper}>
             <Field

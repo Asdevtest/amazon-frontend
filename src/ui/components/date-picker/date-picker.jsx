@@ -25,7 +25,7 @@ export const DatePickerDate = ({value, onChange}) => (
     <KeyboardDatePicker
       clearable
       value={value}
-      placeholder="10/10/2018 10:00"
+      placeholder="10/10/2018"
       // minDate={new Date()}
       format="dd/MM/yyyy"
       onChange={date => onChange(date)}
@@ -37,7 +37,7 @@ export const DatePickerTime = ({value, onChange}) => (
     <KeyboardTimePicker
       clearable
       value={value}
-      placeholder="10/10/2018 10:00"
+      placeholder="10:00"
       // minDate={new Date()}
       format="HH:mm"
       onChange={date => onChange(date)}

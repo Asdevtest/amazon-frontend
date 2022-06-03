@@ -3,85 +3,115 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(() => ({
   mainWrapper: {
     display: 'flex',
+    flexDirection: 'column',
   },
 
-  mainRightWrapper: {
+  mainContentWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    marginLeft: '80px',
   },
 
   mainSubRightWrapper: {
     display: 'flex',
+
+    width: '100%',
+    height: '100%',
+    justifyContent: 'space-between',
   },
 
   mainSubRightTwoStepWrapper: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
   },
 
-  mainLeftWrapper: {
-    width: '375px',
+  middleStepTwoWrapper: {
+    width: '27%',
   },
 
   mainTitle: {
-    fontWeight: '600',
-    fontSize: '30px',
-    lineHeight: '35px',
-    color: '#354256',
+    fontWeight: '400',
+    fontSize: '34px',
+    lineHeight: '40px',
+    color: '#001029',
+  },
+
+  headerWrapper: {
+    marginBottom: '30px',
   },
 
   title: {
-    marginBottom: '50px',
+    marginBottom: '20px',
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
   },
 
   mainSubTitle: {
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#001029',
+    marginTop: '30px',
+    width: '373px',
+  },
+
+  mainSubStepTwoTitle: {
+    fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#354256',
-    marginTop: '47px',
+    color: '#001029',
+    marginTop: '20px',
   },
 
   middleWrapper: {
-    width: '577px',
+    width: '50%',
   },
 
   rightWrapper: {
-    width: '377px',
-    marginLeft: '40px',
+    width: '50%',
+    marginLeft: '30px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 
   rightTwoStepWrapper: {
-    width: '377px',
+    width: '35%',
   },
 
   checkboxWrapper: {
-    width: '377px',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifySelf: 'flex-end',
-    alignSelf: 'flex-end',
+    justifyContent: 'flex-end',
   },
 
   footerWrapper: {
     display: 'flex',
     alignSelf: 'flex-end',
-    justifySelf: 'flex-end',
-
-    alignItems: 'flex-end',
-
-    marginTop: '60px',
-  },
-
-  stepsWrapper: {
-    display: 'flex',
+    justifyContent: 'flex-end',
 
     alignItems: 'center',
   },
 
+  stepsWrapper: {
+    display: 'flex',
+  },
+
+  step: {
+    margin: '0',
+    padding: '0',
+    marginTop: '20px',
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '400',
+  },
+
   buttonsWrapper: {
     display: 'flex',
-    margin: '20px 0 0 100px',
+    margin: '0 0 0 20px',
   },
 
   backBtn: {
@@ -108,26 +138,41 @@ export const useClassNames = makeStyles(() => ({
 
   footerRightWrapper: {
     display: 'flex',
+
     flexDirection: 'column',
   },
 
+  descriptionFieldWrapper: {
+    position: 'relative',
+  },
+
   descriptionField: {
-    height: '100px',
+    height: '81px',
     width: '100%',
     overflowY: 'hidden',
   },
 
   rightTwoStepSubFieldWrapper: {
     display: 'flex',
+    alignItems: 'center',
+    gap: '90px',
   },
 
   twoStepFieldResult: {
     minHeight: '40px',
-    background: 'rgba(200,200,200, .1)',
+
+    // background: 'rgba(200,200,200, .1)',
   },
 
-  twoStepDeadlineField: {
-    marginLeft: '30px',
+  descriptionStepTwoField: {
+    width: '240%',
+    overflow: 'hidden',
+  },
+
+  twoStepDescriptionFieldResult: {
+    width: '100%',
+    height: '200px',
+    whiteSpace: 'pre-wrap',
   },
 
   deadlineError: {
@@ -138,14 +183,23 @@ export const useClassNames = makeStyles(() => ({
   },
 
   nameField: {
-    height: '60px',
+    height: '40px',
     width: '100%',
     overflowY: 'hidden',
   },
 
   spanLabel: {
     fontSize: '18px',
+    lineHeight: '140%',
     fontWeight: 'bold',
+    color: '#001029',
+  },
+
+  spanLabelSmall: {
+    fontWeight: '600',
+    fontSize: '14px',
+    lineHeight: '17px',
+    color: '#001029',
   },
 
   filesContainer: {
@@ -163,6 +217,115 @@ export const useClassNames = makeStyles(() => ({
 
     '&:hover': {
       opacity: '0.8',
+    },
+  },
+
+  dateAndTimeWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '30px',
+    alignItems: 'center',
+  },
+  priceAndAmountWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '30px',
+    alignItems: 'center',
+  },
+
+  checkboxesWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '30px',
+    alignItems: 'center',
+    marginBottom: '30px',
+  },
+
+  error: {
+    fontSize: '12px',
+    color: 'red',
+    position: 'absolute',
+    top: '112px',
+  },
+
+  adviceWrapper: {
+    width: '30%',
+  },
+
+  adviceTitle: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '600',
+    marginBottom: '22px',
+    color: '#001029',
+  },
+  adviceListItem: {
+    padding: '0',
+  },
+
+  adviceListItemText: {
+    marginLeft: '27px',
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#001029',
+  },
+
+  trainingTextWrapper: {
+    width: '90%',
+    display: 'flex',
+    flexWrap: 'wrap',
+    marginLeft: '35px',
+    marginTop: '18px',
+  },
+
+  trainingText: {
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#656565',
+  },
+
+  trainingLink: {
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+    margin: '0 5px',
+  },
+
+  carouselWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  imagesWrapper: {
+    height: '108px',
+    margin: '40px 0 100px 0',
+  },
+  imagesTitle: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '600',
+    color: '#001029',
+  },
+
+  mainTwoStepWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  inputDescriptionStepTwoField: {
+    height: '152px',
+    width: '240%',
+    padding: '15px 0',
+    margin: '0 -1px',
+
+    backgroundColor: '#fafafa',
+    '& :disabled': {
+      backgroundColor: '#fafafa',
     },
   },
 }))

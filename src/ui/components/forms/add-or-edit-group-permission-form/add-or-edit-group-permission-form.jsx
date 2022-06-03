@@ -239,7 +239,7 @@ export const AddOrEditGroupPermissionForm = observer(
                       open={openSinglePermissions}
                       className={classNames.permissionSelect}
                       value={formFields.permissions}
-                      renderValue={() => textConsts.choose}
+                      renderValue={() => t(TranslationKey.Choose)}
                       MenuProps={{
                         PaperProps: {
                           style: {

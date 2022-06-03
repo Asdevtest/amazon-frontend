@@ -5,7 +5,6 @@ import {Box, Divider, Paper, TableCell, TableRow, Typography} from '@material-ui
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
@@ -20,7 +19,6 @@ import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {BoxesToCreateTable} from './boxes-to-create-table'
@@ -28,8 +26,6 @@ import {useClassNames} from './edit-order-modal.style'
 import {EditOrderSuppliersTable} from './edit-order-suppliers-table'
 import {ProductTable} from './product-table'
 import {SelectFields} from './select-fields'
-
-const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalEditOrder
 
 const orderStatusesThatTriggersEditBoxBlock = [OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]]
 
@@ -146,10 +142,10 @@ export const EditOrderModal = ({
   const confirmModalMessageByMode = () => {
     switch (confirmModalMode) {
       case 'STATUS':
-        return textConsts.confirmStatusMessage
+        return t(TranslationKey['Within the current edit, you can only change once!'])
 
       case 'SUBMIT':
-        return textConsts.confirmSubmitMessage
+        return t(TranslationKey['Are you sure you entered all the data correctly?'])
     }
   }
 
@@ -258,7 +254,7 @@ export const EditOrderModal = ({
             volumeWeightCoefficient={volumeWeightCoefficient}
           />
         ) : (
-          <Typography className={classNames.noBoxesText}>{textConsts.noBoxesYat}</Typography>
+          <Typography className={classNames.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
         )}
       </div>
 
@@ -267,7 +263,7 @@ export const EditOrderModal = ({
         setOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
         dialogContextClassName={classNames.dialogContextClassName}
       >
-        <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography>
+        {/* <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography> */}
         <CreateBoxForm
           currentSupplier={order.product.currentSupplier}
           volumeWeightCoefficient={volumeWeightCoefficient}
@@ -281,10 +277,10 @@ export const EditOrderModal = ({
       <ConfirmationModal
         openModal={showConfirmModal}
         setOpenModal={() => setShowConfirmModal(!showConfirmModal)}
-        title={textConsts.confirmTitle}
+        title={t(TranslationKey['Attention. Are you sure?'])}
         message={confirmModalMessageByMode(confirmModalMode)}
-        successBtnText={textConsts.yesBtn}
-        cancelBtnText={textConsts.noBtn}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
         onClickSuccessBtn={() => {
           confirmModalActionByMode(confirmModalMode)
           setShowConfirmModal(!showConfirmModal)
@@ -295,8 +291,8 @@ export const EditOrderModal = ({
       <WarningInfoModal
         openModal={showWarningInfoModal}
         setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
-        title={textConsts.firstWarning}
-        btnText={textConsts.okBtn}
+        title={t(TranslationKey['PAY ATTENTION!!!'])}
+        btnText={t(TranslationKey.Ok)}
         onClickBtn={() => {
           setShowWarningInfoModal(!showWarningInfoModal)
         }}

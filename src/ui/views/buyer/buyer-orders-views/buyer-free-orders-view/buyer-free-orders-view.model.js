@@ -2,7 +2,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BuyerModel} from '@models/buyer-model'
 import {SettingsModel} from '@models/settings-model'
@@ -11,10 +11,8 @@ import {buyerFreeOrdersViewColumns} from '@components/table-columns/buyer/buyer-
 
 import {buyerVacantOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-
-const textConsts = getLocalizedTexts(texts, 'ru').freeOrdersView
+import {t} from '@utils/translations'
 
 export class BuyerFreeOrdersViewModel {
   history = undefined
@@ -145,7 +143,7 @@ export class BuyerFreeOrdersViewModel {
       this.setActionStatus(loadingStatuses.isLoading)
       await BuyerModel.pickupOrder(order.originalData._id)
 
-      this.warningTitle = textConsts.warningTitleSuccess
+      this.warningTitle = t(TranslationKey['The order is in progress and has been moved to "My Orders"'])
 
       this.onTriggerOpenModal('showWarningModal')
       this.setActionStatus(loadingStatuses.success)
@@ -153,7 +151,7 @@ export class BuyerFreeOrdersViewModel {
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
 
-      this.warningTitle = textConsts.warningTitleFail
+      this.warningTitle = t(TranslationKey['Not found'])
 
       this.onTriggerOpenModal('showWarningModal')
 

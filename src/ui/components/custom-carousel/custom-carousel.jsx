@@ -58,23 +58,22 @@ export const CustomCarousel = ({children, title}) => {
       ),
     )
   }, [SettingsModel.languageTag])
+
   return (
     <div className={classNames.mainContainer}>
       <div className={classNames.headerCarouselWrapper}>
         <div className={classNames.buttonWrapper}>
           <ArrowLeftIcon
-            style={{cursor: 'pointer'}}
-            color="primary"
-            disabled={offset === 0}
+            style={{cursor: offset === 0 ? 'initial' : 'pointer'}}
+            color={offset === 0 ? 'disabled' : 'primary'}
             className={classNames.carouselBtn}
             onClick={handleLeftArrowClick}
           />
           <Typography className={classNames.proposalCount}>{`${title} №${slideCount}`}</Typography>
 
           <ArrowRightIcon
-            style={{cursor: 'pointer'}}
-            color="primary"
-            disabled={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100}
+            style={{cursor: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'initial' : 'pointer'}}
+            color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
             onClick={handleRightArrowClick}
           />
         </div>

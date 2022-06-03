@@ -7,7 +7,7 @@ export const useClassNames = makeStyles(() => ({
 
   cardWrapper: {
     width: '100%',
-
+    height: '320px',
     borderRadius: '8px',
     border: '1px solid rgba(0,0,0, .1)',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
@@ -24,12 +24,14 @@ export const useClassNames = makeStyles(() => ({
   cardTitleBlockWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     width: '40%',
+    height: '100%',
     padding: '20px  25px 0 0',
   },
 
   cardTitle: {
-    fontWeight: 'bold',
+    fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
     color: '#001029',
@@ -43,14 +45,11 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: '400',
-    marginBottom: '36px',
+    // marginBottom: '36px',
   },
 
   cardSubTitle: {
-    marginBottom: '20px',
-    // maxWidth: '420px',
-    overflow: 'auto',
-    maxHeight: '90px',
+    // marginBottom: '20px',
     color: '#001029',
     fontSize: '16px',
     lineHeight: '19px',
@@ -85,7 +84,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
 
-    marginBottom: '30px',
+    // marginBottom: '30px',
   },
 
   userRating: {
@@ -160,6 +159,7 @@ export const useClassNames = makeStyles(() => ({
     alignSelf: 'flex-end',
     display: 'flex',
     alignItems: 'center',
+    marginBottom: '20px',
   },
 
   updatedAtText: {
@@ -224,7 +224,6 @@ export const useClassNames = makeStyles(() => ({
   statusField: {
     display: 'flex',
     alignItems: 'center',
-    width: '300px',
   },
 
   timeAndPriceWrapper: {
@@ -240,8 +239,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   button: {
-    padding: '13px 50px',
-    fontSize: '18px',
+    padding: '10px 50px',
+    fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '400',
   },

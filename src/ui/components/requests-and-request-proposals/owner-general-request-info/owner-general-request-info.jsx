@@ -31,8 +31,6 @@ export const OwnerGeneralRequestInfo = ({
   const requestIsNotDraftAndPublished =
     !request?.request.status === RequestStatus.DRAFT || request?.request.status === RequestStatus.PUBLISHED
 
-  console.log('requestProposals', requestProposals)
-
   return (
     <Paper className={classNames.root}>
       <div className={classNames.mainBlockWrapper}>
@@ -195,9 +193,9 @@ export const OwnerGeneralRequestInfo = ({
                 </Button>
               )}
 
-              {request?.request.status === RequestStatus.PUBLISHED && (
+              {request && request?.request.status === RequestStatus.PUBLISHED && (
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   color="primary"
                   btnWrapperStyle={classNames.buttonWrapperFullWidth}
                   className={clsx(classNames.button, {
