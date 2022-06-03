@@ -7,7 +7,6 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -26,14 +25,11 @@ import {DealsOfRequest} from '@components/requests-and-request-proposals/request
 import {CustomSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {ChatRequestAndRequestProposalContext} from '../../../../contexts/chat-request-and-request-proposal-context'
 import {OwnerRequestDetailCustomViewModel} from './owner-requests-detail-custom-view.model'
 import {styles} from './owner-requests-detail-custom-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').CustomRequestView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
@@ -195,7 +191,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
           </Appbar>
 
           <Modal openModal={showRequestForm} setOpenModal={() => onTriggerOpenModal('showRequestForm')}>
-            <Typography variant="h5">{textConsts.modalNewRequestTitle}</Typography>
+            <Typography variant="h5">{t(TranslationKey['New request'])}</Typography>
             <CustomSearchRequestForm
               isEdit
               setOpenModal={() => onTriggerOpenModal('showRequestForm')}
@@ -211,10 +207,10 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             isWarning={confirmModalSettings.isWarning}
             openModal={showConfirmModal}
             setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            title={textConsts.confirmTitle}
+            title={t(TranslationKey.Attention)}
             message={confirmModalSettings.message}
-            successBtnText={textConsts.yesBtn}
-            cancelBtnText={textConsts.noBtn}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
             onClickSuccessBtn={confirmModalSettings.onSubmit}
             onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
           />
@@ -222,10 +218,10 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
           <ConfirmWithCommentModal
             openModal={showConfirmWithCommentModal}
             setOpenModal={() => onTriggerOpenModal('showConfirmWithCommentModal')}
-            titleText={textConsts.commentModalTitle}
-            commentLabelText={textConsts.commentModalLabel}
-            okBtnText={textConsts.okBtn}
-            cancelBtnText={textConsts.cancelBtn}
+            titleText={t(TranslationKey['Suspend the acceptance of proposals?'])}
+            commentLabelText={t(TranslationKey['Reason for the stop:'])}
+            okBtnText={t(TranslationKey.Ok)}
+            cancelBtnText={t(TranslationKey.Cancel)}
             onSubmit={onSubmitAbortRequest}
           />
         </Main>

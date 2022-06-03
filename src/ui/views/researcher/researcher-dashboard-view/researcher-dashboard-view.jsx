@@ -5,7 +5,6 @@ import {observer} from 'mobx-react'
 
 import {getResearcherDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -15,13 +14,10 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {ResearcherDashboardViewModel} from './researcher-dashboard-view.model'
 import {styles} from './researcher-dashboard-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').researcherDashboardView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
@@ -52,7 +48,7 @@ export class ResearcherDashboardViewRaw extends Component {
 
               <div className={classNames.amountWithLabelCardsWrapper}>
                 <SectionalDashboard
-                  config={getResearcherDashboardCardConfig(textConsts)}
+                  config={getResearcherDashboardCardConfig()}
                   valuesData={dashboardData}
                   onClickViewMore={onClickInfoCardViewMode}
                 />

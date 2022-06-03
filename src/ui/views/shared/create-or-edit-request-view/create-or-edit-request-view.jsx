@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -13,12 +12,9 @@ import {MainContent} from '@components/main-content'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {CreateOrEditRequestViewModel} from './create-or-edit-request-view.model'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientCreateRequestView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = 1
@@ -75,7 +71,7 @@ export class CreateOrEditRequestView extends Component {
           openModal={showInfoModal}
           setOpenModal={() => onTriggerOpenModal('showInfoModal')}
           title={infoModalText}
-          btnText={textConsts.closeBtn}
+          btnText={t(TranslationKey.Close)}
           onClickBtn={onClickOkInfoModal}
         />
       </React.Fragment>

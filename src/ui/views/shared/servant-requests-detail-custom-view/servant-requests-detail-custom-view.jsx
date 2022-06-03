@@ -5,7 +5,6 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -19,13 +18,10 @@ import {Navbar} from '@components/navbar'
 import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import {ServantGeneralRequestInfo} from '@components/requests-and-request-proposals/servant-general-request-info'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {RequestDetailCustomViewModel} from './servant-requests-detail-custom-view.model'
 import {styles} from './servant-requests-detail-custom-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').CustomRequestView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS
@@ -162,7 +158,7 @@ export class RequestDetailCustomViewRaw extends Component {
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
           title={warningInfoModalSettings.title}
-          btnText={textConsts.okBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
           }}

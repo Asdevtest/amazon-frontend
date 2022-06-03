@@ -1,15 +1,13 @@
 import {makeAutoObservable} from 'mobx'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
-
-const textConsts = getLocalizedTexts(texts, 'en').freelancerCreateProposalView
 
 export class CreateOrEditProposalViewModel {
   history = undefined
@@ -60,7 +58,7 @@ export class CreateOrEditProposalViewModel {
           linksToMediaFiles: dataWithFiles.linksToMediaFiles,
         })
       }
-      this.infoModalText = textConsts.infoEditRequest
+      this.infoModalText = t(TranslationKey['Proposal changed'])
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
       console.log(error)
@@ -84,7 +82,7 @@ export class CreateOrEditProposalViewModel {
 
       await RequestModel.pickupRequestById(this.request.request._id, dataWithFiles)
 
-      this.infoModalText = textConsts.infoCreateRequest
+      this.infoModalText = t(TranslationKey['Proposal created by'])
       this.onTriggerOpenModal('showResultModal')
     } catch (error) {
       console.log(error)

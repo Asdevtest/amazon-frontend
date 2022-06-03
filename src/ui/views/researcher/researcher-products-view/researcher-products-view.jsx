@@ -2,13 +2,12 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {Typography, Paper} from '@material-ui/core'
+import {Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -18,13 +17,10 @@ import {MainContent} from '@components/main-content'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {ResearcherProductsViewModel} from './researcher-products-view.model'
 import {styles} from './researcher-products-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').researcherProductsView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
@@ -77,7 +73,6 @@ class ResearcherProductsViewRaw extends Component {
           <Appbar title={t(TranslationKey['My products'])} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <Paper className={classNames.card}>
-                <Typography variant="h6">{textConsts.cardMainTitle}</Typography>
                 <div className={classNames.formWrapper}>
                   <ResearcherAddProductForm
                     formFields={formFields}
