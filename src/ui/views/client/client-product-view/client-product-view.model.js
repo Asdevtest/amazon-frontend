@@ -166,7 +166,6 @@ export class ClientProductViewModel {
   onChangeProductFields = fieldName =>
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
-
       if (
         [
           'icomment',
@@ -212,6 +211,8 @@ export class ClientProductViewModel {
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba'].includes(fieldName)) {
         updateProductAutoCalculatedFields.call(this)
       }
+
+      console.log('this.product', this.product)
     })
 
   onChangeProduct(e, value) {

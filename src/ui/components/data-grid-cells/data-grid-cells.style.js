@@ -52,10 +52,10 @@ export const styles = createStyles(() => ({
     textTransform: 'none',
   },
   priceTableCell: {
-    textAlign: 'right',
+    textAlign: 'center',
   },
   feesTableCell: {
-    textAlign: 'left',
+    textAlign: 'center',
   },
   feesTableWrapper: {
     maxHeight: '100px',
@@ -65,7 +65,7 @@ export const styles = createStyles(() => ({
   },
 
   rankTableCell: {
-    textAlign: 'right',
+    textAlign: 'center',
   },
   ratingTableCell: {
     textAlign: 'right',
@@ -88,25 +88,25 @@ export const styles = createStyles(() => ({
     textAlign: 'left',
   },
   salesCell: {
-    textAlign: 'right',
+    textAlign: 'center',
   },
   salersTotal: {
     textAlign: 'center',
   },
   typoTableCell: {
-    textAlign: 'right',
+    textAlign: 'center',
   },
   revenueCell: {
-    textAlign: 'right',
+    textAlign: 'center',
   },
   amazonCell: {
-    textAlign: 'right',
+    textAlign: 'center',
   },
   bsrCell: {
-    textAlign: 'right',
+    textAlign: 'center',
   },
   fbaCell: {
-    textAlign: 'right',
+    textAlign: 'center',
   },
   deleteBtnCell: {
     textAlign: 'center',

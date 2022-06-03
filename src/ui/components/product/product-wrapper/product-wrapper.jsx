@@ -74,7 +74,7 @@ export const ProductWrapper = observer(
 
     useEffect(() => {
       setUpdatedProduct(() => ({...product}))
-    }, [SettingsModel.languageTag])
+    }, [SettingsModel.languageTag, product])
 
     return (
       <React.Fragment>

@@ -37,6 +37,8 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
   render() {
     const {
+      showProgress,
+      progressValue,
       volumeWeightCoefficient,
       boxesData,
       selectedBatches,
@@ -97,16 +99,17 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
                   <Button
                     disabled={selectedBatches.length !== 1}
+                    className={classNames.editBtn}
                     color="primary"
                     variant="contained"
                     onClick={() => onClickAddOrEditBatch({isAdding: false})}
                   >
-                    {t(TranslationKey.Edit)}
+                    {t(TranslationKey['Edit batch'])}
                   </Button>
                 </div>
 
                 <SuccessButton className={classNames.addBtn} onClick={() => onClickAddOrEditBatch({isAdding: true})}>
-                  {t(TranslationKey.Add)}
+                  {t(TranslationKey['Create a batch'])}
                 </SuccessButton>
               </div>
 
@@ -147,6 +150,8 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
         <Modal openModal={showAddOrEditBatchModal} setOpenModal={() => onTriggerOpenModal('showAddOrEditBatchModal')}>
           <AddOrEditBatchForm
+            progressValue={progressValue}
+            showProgress={showProgress}
             volumeWeightCoefficient={volumeWeightCoefficient}
             batchToEdit={getCurrentData().find(batch => batch.id === selectedBatches[0])}
             boxesData={boxesData}

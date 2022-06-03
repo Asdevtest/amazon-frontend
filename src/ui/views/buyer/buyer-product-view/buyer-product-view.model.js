@@ -1,5 +1,5 @@
 import {transformAndValidate} from 'class-transformer-validator'
-import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
+import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
@@ -8,7 +8,6 @@ import {texts} from '@constants/texts'
 import {BuyerModel} from '@models/buyer-model'
 import {BuyerUpdateProductContract} from '@models/buyer-model/buyer-model.contracts'
 import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
@@ -134,11 +133,6 @@ export class BuyerProductViewModel {
     this.productId = history.location.search.slice(1)
 
     makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.loadData(),
-    )
   }
 
   async loadData() {
@@ -168,7 +162,7 @@ export class BuyerProductViewModel {
     action(e => {
       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldsName]: ''}
 
-      this.product[fieldsName] = e.target.value
+      this.product = {...this.product, [fieldsName]: e.target.value}
       updateProductAutoCalculatedFields.call(this)
     })
 

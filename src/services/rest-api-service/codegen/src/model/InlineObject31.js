@@ -22,10 +22,15 @@ class InlineObject31 {
     /**
      * Constructs a new <code>InlineObject31</code>.
      * @alias module:model/InlineObject31
+     * @param storekeeperId {String} GUID storekeeper-a
+     * @param logicsTariffId {String} GUID тарифа доставки
+     * @param destinationId {String} GUID пункта назначения.
+     * @param amount {Number} Кол-во продукта по этой позиции.
+     * @param productId {String} GUID заказанного продукта
      */
-    constructor() { 
+    constructor(storekeeperId, logicsTariffId, destinationId, amount, productId) { 
         
-        InlineObject31.initialize(this);
+        InlineObject31.initialize(this, storekeeperId, logicsTariffId, destinationId, amount, productId);
     }
 
     /**
@@ -33,7 +38,12 @@ class InlineObject31 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, storekeeperId, logicsTariffId, destinationId, amount, productId) { 
+        obj['storekeeperId'] = storekeeperId;
+        obj['logicsTariffId'] = logicsTariffId;
+        obj['destinationId'] = destinationId;
+        obj['amount'] = amount;
+        obj['productId'] = productId;
     }
 
     /**
@@ -64,6 +74,9 @@ class InlineObject31 {
             }
             if (data.hasOwnProperty('clientComment')) {
                 obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
@@ -110,6 +123,12 @@ InlineObject31.prototype['deliveryCostToTheWarehouse'] = undefined;
  * @member {String} clientComment
  */
 InlineObject31.prototype['clientComment'] = undefined;
+
+/**
+ * GUID заказанного продукта
+ * @member {String} productId
+ */
+InlineObject31.prototype['productId'] = undefined;
 
 /**
  * Массив изображений.

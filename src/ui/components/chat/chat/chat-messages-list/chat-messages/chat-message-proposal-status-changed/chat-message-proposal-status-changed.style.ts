@@ -54,4 +54,45 @@ export const useClassNames = makeStyles(() => ({
     },
   },
   labelValueBlockWrapper: {},
+
+  rightSide: {
+    alignItems: 'flex-end',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+
+  actionButton: {
+    minWidth: '240px',
+  },
+  successBtn: {
+    marginLeft: '30px',
+    backgroundColor: '#4CAF50',
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#4CAF50',
+    },
+  },
+  cancelBtn: {
+    backgroundColor: '#F44336',
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#F44336',
+    },
+  },
+
+  btnsWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  actionBtnWrapperStyle: {
+    flex: 1,
+    display: 'flex',
+  },
+
+  actionBtnWrapperStyleNotFirst: {
+    // marginLeft: '50px',
+  },
 }))

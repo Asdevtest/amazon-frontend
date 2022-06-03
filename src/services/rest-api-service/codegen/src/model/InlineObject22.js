@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
 
 /**
  * The InlineObject22 model module.
@@ -23,11 +22,10 @@ class InlineObject22 {
     /**
      * Constructs a new <code>InlineObject22</code>.
      * @alias module:model/InlineObject22
-     * @param itemsBarCodeChanges {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} 
      */
-    constructor(itemsBarCodeChanges) { 
+    constructor() { 
         
-        InlineObject22.initialize(this, itemsBarCodeChanges);
+        InlineObject22.initialize(this);
     }
 
     /**
@@ -35,8 +33,7 @@ class InlineObject22 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, itemsBarCodeChanges) { 
-        obj['itemsBarCodeChanges'] = itemsBarCodeChanges;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,8 +47,26 @@ class InlineObject22 {
         if (data) {
             obj = obj || new InlineObject22();
 
-            if (data.hasOwnProperty('itemsBarCodeChanges')) {
-                obj['itemsBarCodeChanges'] = ApiClient.convertToType(data['itemsBarCodeChanges'], [ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges]);
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('volumeWeightKgWarehouse')) {
+                obj['volumeWeightKgWarehouse'] = ApiClient.convertToType(data['volumeWeightKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
         }
         return obj;
@@ -61,9 +76,41 @@ class InlineObject22 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges>} itemsBarCodeChanges
+ * @member {Number} lengthCmWarehouse
  */
-InlineObject22.prototype['itemsBarCodeChanges'] = undefined;
+InlineObject22.prototype['lengthCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} widthCmWarehouse
+ */
+InlineObject22.prototype['widthCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} heightCmWarehouse
+ */
+InlineObject22.prototype['heightCmWarehouse'] = undefined;
+
+/**
+ * @member {Number} weighGrossKgWarehouse
+ */
+InlineObject22.prototype['weighGrossKgWarehouse'] = undefined;
+
+/**
+ * @member {Number} volumeWeightKgWarehouse
+ */
+InlineObject22.prototype['volumeWeightKgWarehouse'] = undefined;
+
+/**
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineObject22.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Массив ссылок на фотографии.
+ * @member {Array.<String>} images
+ */
+InlineObject22.prototype['images'] = undefined;
 
 
 

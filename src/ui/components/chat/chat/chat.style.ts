@@ -7,11 +7,11 @@ export const useClassNames = makeStyles(() => ({
   },
   scrollViewWrapper: {
     width: '100%',
-    height: '60%',
+    height: '640px',
   },
   bottomPartWrapper: {
     backgroundColor: 'white',
-    height: '40%',
+    height: '240px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -22,5 +22,9 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: '10px',
+  },
+
+  backBtn: {
+    marginRight: '10px',
   },
 }))

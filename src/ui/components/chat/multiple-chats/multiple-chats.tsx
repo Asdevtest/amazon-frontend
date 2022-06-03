@@ -1,4 +1,4 @@
-import React, {forwardRef, ReactElement, useEffect} from 'react'
+import React, {forwardRef, ReactElement} from 'react'
 
 import {observer} from 'mobx-react'
 
@@ -40,15 +40,6 @@ export const MultipleChats = observer(
       const classNames = useClassNames()
       const findChatByChatId = chats.find((chat: ChatContract) => chat._id === chatSelectedId)
 
-      useEffect(() => {
-        if (
-          updateData &&
-          findChatByChatId?.messages?.[findChatByChatId?.messages.length - 1]?.text === 'PROPOSAL_STATUS_CHANGED'
-        ) {
-          updateData()
-        }
-      }, [findChatByChatId?.messages])
-
       return (
         <div ref={ref} className={classNames.root}>
           <div className={classNames.chatsWrapper}>
@@ -61,6 +52,7 @@ export const MultipleChats = observer(
                 messages={findChatByChatId.messages}
                 chatMessageHandlers={chatMessageHandlers}
                 renderAdditionalButtons={renderAdditionalButtons}
+                updateData={updateData}
                 onSubmitMessage={(message: string, links: string[], files: any) =>
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   onSubmitMessage(message, links, files, chatSelectedId!)

@@ -1,4 +1,4 @@
-import React, {FC, ReactElement, useState} from 'react'
+import React, {FC, ReactElement, useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
@@ -31,10 +31,11 @@ interface Props {
   chatMessageHandlers?: ChatMessageUniversalHandlers
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, links: string[], files: any[]) => void
+  updateData: () => void
 }
 
 export const Chat: FC<Props> = observer(
-  ({messages, userId, chatMessageHandlers, onSubmitMessage, renderAdditionalButtons}) => {
+  ({messages, userId, chatMessageHandlers, onSubmitMessage, renderAdditionalButtons, updateData}) => {
     const [inputMode, setInputMode] = useState<ChatInputMode>(ChatInputMode.TEXT)
     const [message, setMessage] = useState('')
     const [links, setLinks] = useState<string[]>([])
@@ -45,6 +46,8 @@ export const Chat: FC<Props> = observer(
       setMessage('')
       setLinks(() => [])
       setFiles(() => [])
+      setInputMode(ChatInputMode.FILES) // КОСТЫЛЬ
+      setTimeout(() => setInputMode(ChatInputMode.TEXT)) // СКИДЫВАЕТ СЧЕТЧИКИ С ИКОНКИ ФАЙЛОВ И ССЫЛОК
     }
 
     const onSubmitMessageInternal = () => {
@@ -64,6 +67,12 @@ export const Chat: FC<Props> = observer(
         ),
       )
     }
+
+    useEffect(() => {
+      if (updateData && messages?.[messages.length - 1]?.text === 'PROPOSAL_STATUS_CHANGED') {
+        updateData()
+      }
+    }, [messages?.length])
 
     return (
       <div className={classNames.root}>
@@ -94,6 +103,12 @@ export const Chat: FC<Props> = observer(
             {inputMode === ChatInputMode.TEXT && renderAdditionalButtons
               ? renderAdditionalButtons({message, links, files}, resetAllInputs)
               : undefined}
+
+            {(inputMode === ChatInputMode.FILES || inputMode === ChatInputMode.LINKS) && (
+              <Button className={classNames.backBtn} onClick={() => setInputMode(ChatInputMode.TEXT)}>
+                {'Назад'}
+              </Button>
+            )}
             <Button
               disabled={!message && inputMode === ChatInputMode.TEXT && !files.length}
               onClick={() => {

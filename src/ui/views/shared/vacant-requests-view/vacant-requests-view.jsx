@@ -83,8 +83,6 @@ class VacantRequestsViewRaw extends Component {
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.tablePanelViewWrapper}>
-                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey.Location)}</Typography>
-
                   <ToggleButtonGroup exclusive value={viewMode} onChange={onChangeViewMode}>
                     <ToggleButton value={tableViewMode.LIST}>
                       <TableRowsIcon color="primary" />

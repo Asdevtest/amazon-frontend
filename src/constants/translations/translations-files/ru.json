@@ -692,5 +692,7 @@
   "Proposal conditions rejected": "Условия предложения отменены",
   "Ready to verify": "Готово к проверке",
   "To correct": "На доработке",
-  "Verifying by Supervisor": "На проверке у Супервайзера"
+  "Verifying by Supervisor": "На проверке у Супервайзера",
+  "Edit batch": "Редактировать партию",
+  "Create a batch": "Создать партию товара"
 }

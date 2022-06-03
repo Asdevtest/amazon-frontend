@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1BoxesMergeBoxBody from './ApiV1BoxesMergeBoxBody';
 
 /**
  * The InlineObject17 model module.
@@ -22,10 +23,12 @@ class InlineObject17 {
     /**
      * Constructs a new <code>InlineObject17</code>.
      * @alias module:model/InlineObject17
+     * @param guids {Array.<String>} Массив коробок.
+     * @param boxBody {module:model/ApiV1BoxesMergeBoxBody} 
      */
-    constructor() { 
+    constructor(guids, boxBody) { 
         
-        InlineObject17.initialize(this);
+        InlineObject17.initialize(this, guids, boxBody);
     }
 
     /**
@@ -33,7 +36,9 @@ class InlineObject17 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, guids, boxBody) { 
+        obj['guids'] = guids;
+        obj['boxBody'] = boxBody;
     }
 
     /**
@@ -47,8 +52,11 @@ class InlineObject17 {
         if (data) {
             obj = obj || new InlineObject17();
 
-            if (data.hasOwnProperty('guid')) {
-                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
+            if (data.hasOwnProperty('guids')) {
+                obj['guids'] = ApiClient.convertToType(data['guids'], ['String']);
+            }
+            if (data.hasOwnProperty('boxBody')) {
+                obj['boxBody'] = ApiV1BoxesMergeBoxBody.constructFromObject(data['boxBody']);
             }
         }
         return obj;
@@ -58,10 +66,15 @@ class InlineObject17 {
 }
 
 /**
- * GUID коробки, объединение которой нужно отменить
- * @member {String} guid
+ * Массив коробок.
+ * @member {Array.<String>} guids
  */
-InlineObject17.prototype['guid'] = undefined;
+InlineObject17.prototype['guids'] = undefined;
+
+/**
+ * @member {module:model/ApiV1BoxesMergeBoxBody} boxBody
+ */
+InlineObject17.prototype['boxBody'] = undefined;
 
 
 

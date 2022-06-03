@@ -21,7 +21,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
   const [formFields, setFormFields] = useState<FormFileds>({
     reason: '',
     linksToMediaFiles: [],
-    timeLimitInMinutes: '10',
+    timeLimitInMinutes: '',
   })
   const classNames = useClassNames()
   const onChangeField =

@@ -72,7 +72,7 @@ export class RequestDetailCustomViewRaw extends Component {
       onSubmitOfferDeal,
       onClickSendAsResult,
       onClickCancelRequestProposal,
-      onClickReadyToVerify,
+      // onClickReadyToVerify,
     } = this.viewModel
 
     const findRequestProposalByChatSelectedId = requestProposals.find(
@@ -141,10 +141,10 @@ export class RequestDetailCustomViewRaw extends Component {
                             Отправить как результат
                           </Button>
                         ) : undefined}
-                        {findRequestProposalByChatSelectedId?.proposal.status ===
+                        {/* {findRequestProposalByChatSelectedId?.proposal.status ===
                         RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ? (
                           <Button onClick={onClickReadyToVerify}>Отправить на проверку</Button>
-                        ) : undefined}
+                        ) : undefined} */}
                       </div>
                     )}
                     updateData={this.viewModel.loadData}

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {TableCell, TableRow, Typography} from '@material-ui/core'
+import {Link, TableCell, TableRow, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -14,11 +14,13 @@ import {Table} from '@components/table'
 import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
 import {calcFinalWeightForBox, calcPriceForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {checkIsImageLink} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithKg, toFixedWithDollarSign, toFixed, getFullTariffTextForBoxOrOrder} from '@utils/text'
 import {t} from '@utils/translations'
 
+import {BigImagesModal} from '../big-images-modal'
 import {useClassNames} from './batch-info-modal.style'
 
 const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
@@ -104,6 +106,8 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
   const [curBox, setCurBox] = useState({})
+
+  const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const openBoxView = box => {
     setShowBoxViewModal(!showBoxViewModal)
@@ -198,6 +202,38 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
           volumeWeightCoefficient={volumeWeightCoefficient}
         />
 
+        <div className={classNames.imageFileInputWrapper}>
+          <Button
+            disableElevation
+            disabled={!batch.attachedDocuments?.filter(el => checkIsImageLink(el)).length}
+            color="primary"
+            className={classNames.imagesButton}
+            variant="contained"
+            onClick={() => setShowPhotosModal(!showPhotosModal)}
+          >
+            {t(TranslationKey['Available images'])}
+          </Button>
+
+          {batch.attachedDocuments?.filter(el => !checkIsImageLink(el)).length ? (
+            <Field
+              multiline
+              label={t(TranslationKey.Files)}
+              containerClasses={classNames.filesContainer}
+              inputComponent={
+                <div className={classNames.filesWrapper}>
+                  {batch.attachedDocuments
+                    ?.filter(el => !checkIsImageLink(el))
+                    .map((file, index) => (
+                      <Link key={index} target="_blank" href={file}>
+                        <Typography className={classNames.linkText}>{file}</Typography>
+                      </Link>
+                    ))}
+                </div>
+              }
+            />
+          ) : null}
+        </div>
+
         <div className={classNames.buttonsWrapper}>
           <Button disableElevation color="primary" variant="contained" onClick={setOpenModal}>
             {t(TranslationKey.Close)}
@@ -213,6 +249,13 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
             setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
           />
         </Modal>
+
+        <BigImagesModal
+          isAmazone
+          openModal={showPhotosModal}
+          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          images={batch.attachedDocuments?.filter(el => checkIsImageLink(el)) || []}
+        />
       </div>
     </Modal>
   )

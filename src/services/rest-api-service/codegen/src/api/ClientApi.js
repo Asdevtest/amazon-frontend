@@ -17,7 +17,6 @@ import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject from '../model/InlineObject';
 import InlineObject1 from '../model/InlineObject1';
-import InlineObject28 from '../model/InlineObject28';
 import InlineObject29 from '../model/InlineObject29';
 import InlineObject30 from '../model/InlineObject30';
 import InlineObject31 from '../model/InlineObject31';
@@ -25,6 +24,7 @@ import InlineObject32 from '../model/InlineObject32';
 import InlineObject33 from '../model/InlineObject33';
 import InlineObject34 from '../model/InlineObject34';
 import InlineObject35 from '../model/InlineObject35';
+import InlineObject36 from '../model/InlineObject36';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse20010 from '../model/InlineResponse20010';
 import InlineResponse20011 from '../model/InlineResponse20011';
@@ -109,7 +109,7 @@ export default class ClientApi {
      * @param {String} guid GUID коробки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject35} opts.body 
+     * @param {module:model/InlineObject36} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatchWithHttpInfo(guid, opts) {
@@ -148,7 +148,7 @@ export default class ClientApi {
      * @param {String} guid GUID коробки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject35} opts.body 
+     * @param {module:model/InlineObject36} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch(guid, opts) {
@@ -314,7 +314,7 @@ export default class ClientApi {
      * ## Оплатить товары.   ## Данный эндпоинт выбросит ошибку если хотябы один из продуктов не будет валидным   ## Прижимаются товары со статусами [70, 110]  ## Товары со статусом 70 (созданные фрилансером) получают статус 275, товар полностью переходит к клиенту: createdById меняется на id клиента, isCreatedByClient меняется на true, needCheckBySupervisor меняется на true,  ## Проверка продуктов(валидация): Нельзя повторно покупать товар который был оплачен (product.status === 70 && product.paidById !== null)  ## Товары со статусом 110 (бесплатные от платформы) получают статус 76, клиент получает копию продукта без данных о ресерчере, баере и супервайзере.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject29} opts.body 
+     * @param {module:model/InlineObject30} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsMakePaymentsPostWithHttpInfo(opts) {
@@ -347,7 +347,7 @@ export default class ClientApi {
      * ## Оплатить товары.   ## Данный эндпоинт выбросит ошибку если хотябы один из продуктов не будет валидным   ## Прижимаются товары со статусами [70, 110]  ## Товары со статусом 70 (созданные фрилансером) получают статус 275, товар полностью переходит к клиенту: createdById меняется на id клиента, isCreatedByClient меняется на true, needCheckBySupervisor меняется на true,  ## Проверка продуктов(валидация): Нельзя повторно покупать товар который был оплачен (product.status === 70 && product.paidById !== null)  ## Товары со статусом 110 (бесплатные от платформы) получают статус 76, клиент получает копию продукта без данных о ресерчере, баере и супервайзере.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject29} opts.body 
+     * @param {module:model/InlineObject30} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsMakePaymentsPost(opts) {
@@ -577,7 +577,7 @@ export default class ClientApi {
      * @param {String} guid GUID заказа, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject31} opts.body 
+     * @param {module:model/InlineObject32} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsOrdersGuidPatchWithHttpInfo(guid, opts) {
@@ -616,7 +616,7 @@ export default class ClientApi {
      * @param {String} guid GUID заказа, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject31} opts.body 
+     * @param {module:model/InlineObject32} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsOrdersGuidPatch(guid, opts) {
@@ -632,7 +632,7 @@ export default class ClientApi {
      * ## Создать заказ.   ## Статус автоматом ставиться readyToProcess: 10  Стоимость заказа = количество * (цена товара + (цена доставки паритии / количество товара в партии)):  Эта сумма будет заморожена у клиента. Курс записывается из админки Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика тариф доставки должен принадлежать данному сторкиперу
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject30} opts.body 
+     * @param {module:model/InlineObject31} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
     apiV1ClientsOrdersPostWithHttpInfo(opts) {
@@ -665,7 +665,7 @@ export default class ClientApi {
      * ## Создать заказ.   ## Статус автоматом ставиться readyToProcess: 10  Стоимость заказа = количество * (цена товара + (цена доставки паритии / количество товара в партии)):  Эта сумма будет заморожена у клиента. Курс записывается из админки Проверки:  Наличие продукта по guid,  Наличие у продукта поставщика тариф доставки должен принадлежать данному сторкиперу
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject30} opts.body 
+     * @param {module:model/InlineObject31} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
     apiV1ClientsOrdersPost(opts) {
@@ -738,7 +738,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject34} opts.body 
+     * @param {module:model/InlineObject35} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatchWithHttpInfo(guid, opts) {
@@ -777,7 +777,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject34} opts.body 
+     * @param {module:model/InlineObject35} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch(guid, opts) {
@@ -848,7 +848,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject28} opts.body 
+     * @param {module:model/InlineObject29} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -887,7 +887,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject28} opts.body 
+     * @param {module:model/InlineObject29} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsProductsGuidPatch(guid, opts) {
@@ -953,7 +953,7 @@ export default class ClientApi {
      * # Добавить новый продукт клиентом.  ## В отличии от метода ресерчера, статус продукта ставиться автоматом  CREATED_BY_CLIENT 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject33} opts.body 
+     * @param {module:model/InlineObject34} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
     apiV1ClientsProductsPostWithHttpInfo(opts) {
@@ -986,7 +986,7 @@ export default class ClientApi {
      * # Добавить новый продукт клиентом.  ## В отличии от метода ресерчера, статус продукта ставиться автоматом  CREATED_BY_CLIENT 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject33} opts.body 
+     * @param {module:model/InlineObject34} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
     apiV1ClientsProductsPost(opts) {
@@ -1153,7 +1153,7 @@ export default class ClientApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject32} opts.body 
+     * @param {module:model/InlineObject33} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
     apiV1ClientsTasksPostWithHttpInfo(opts) {
@@ -1186,7 +1186,7 @@ export default class ClientApi {
      * ## Создать задачу.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject32} opts.body 
+     * @param {module:model/InlineObject33} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
     apiV1ClientsTasksPost(opts) {

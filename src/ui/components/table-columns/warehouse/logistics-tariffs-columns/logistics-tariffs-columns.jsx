@@ -18,7 +18,7 @@ export const logisticsTariffsColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
-    width: 200,
+    width: 250,
     renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
     filterable: false,
     sortable: false,

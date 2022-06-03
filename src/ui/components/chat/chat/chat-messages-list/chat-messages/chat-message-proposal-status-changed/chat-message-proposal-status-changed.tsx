@@ -1,21 +1,35 @@
-import React, {FC} from 'react'
+import React, {FC, useContext} from 'react'
+
+import clsx from 'clsx'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 
 import {ChatMessageDataProposalStatusChangedContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import {UserModel} from '@models/user-model'
+
+import {Button} from '@components/buttons/button'
 
 import {formatDateTime} from '@utils/date-time'
 
+import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
+
+import {ChatMessageRequestProposalResultEditedHandlers} from '../chat-message-request-proposal-result-edited'
 import {LabelValuePairBlock} from '../label-value-pair-block'
 import {useClassNames} from './chat-message-proposal-status-changed.style'
 
 interface Props {
   message: ChatMessageContract<ChatMessageDataProposalStatusChangedContract>
+  handlers: ChatMessageRequestProposalResultEditedHandlers
 }
 
-export const ChatMessageProposalStatusChanged: FC<Props> = ({message}) => {
+export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers}) => {
   const classNames = useClassNames()
+
+  const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
+
+  const curUserId: string | undefined = UserModel.userId
+
   if (message.data.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED) {
     return (
       <div className={classNames.root}>
@@ -60,6 +74,48 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message}) => {
             </div>
             <div className={classNames.reasonWrapper}>
               <p className={classNames.reasonText}>{message.data.reason}</p>
+            </div>
+
+            <div className={classNames.footerWrapper}>
+              {chatRequestAndRequestProposal &&
+              (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CORRECTED ||
+                chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+                  RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
+                chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+                  RequestProposalStatus.READY_TO_VERIFY) &&
+              curUserId ? (
+                <div className={classNames.btnsWrapper}>
+                  {chatRequestAndRequestProposal.requestProposal?.proposal?.status !==
+                    RequestProposalStatus.TO_CORRECT && (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      btnWrapperStyle={classNames.actionBtnWrapperStyle}
+                      className={clsx(classNames.actionButton, classNames.cancelBtn)}
+                      onClick={() =>
+                        chatRequestAndRequestProposal.requestProposal &&
+                        handlers.onClickProposalResultToCorrect(
+                          chatRequestAndRequestProposal.requestProposal.proposal._id,
+                        )
+                      }
+                    >
+                      Отправить на доработку
+                    </Button>
+                  )}
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    btnWrapperStyle={clsx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
+                    className={clsx(classNames.actionButton, classNames.successBtn)}
+                    onClick={() =>
+                      chatRequestAndRequestProposal.requestProposal &&
+                      handlers.onClickProposalResultAccept(chatRequestAndRequestProposal.requestProposal.proposal._id)
+                    }
+                  >
+                    Принять
+                  </Button>
+                </div>
+              ) : undefined}
             </div>
           </div>
         )

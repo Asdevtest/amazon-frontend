@@ -21,7 +21,6 @@ export const AddOrEditLogisticTariffForm = observer(
     const classNames = useClassNames()
 
     const sourceFormFields = {
-      yuanToDollarRate: tariffToEdit?.yuanToDollarRate || 1,
       name: tariffToEdit?.name || '',
       description: tariffToEdit?.description || '',
       deliveryTimeInDay: tariffToEdit?.deliveryTimeInDay || '',
@@ -32,20 +31,32 @@ export const AddOrEditLogisticTariffForm = observer(
       conditionsByRegion: {
         west: {
           rate: tariffToEdit
-            ? Math.round(tariffToEdit.conditionsByRegion.west.rate * (tariffToEdit?.yuanToDollarRate || 1) * 100) / 100
+            ? Math.round(
+                tariffToEdit.conditionsByRegion.west.rate *
+                  (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
+                  100,
+              ) / 100
             : '',
         },
         central: {
           rate: tariffToEdit
-            ? Math.round(tariffToEdit.conditionsByRegion.central.rate * (tariffToEdit?.yuanToDollarRate || 1) * 100) /
-              100
+            ? Math.round(
+                tariffToEdit.conditionsByRegion.central.rate *
+                  (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
+                  100,
+              ) / 100
             : '',
         },
         east: {
           rate: tariffToEdit
-            ? Math.round(tariffToEdit.conditionsByRegion.east.rate * (tariffToEdit?.yuanToDollarRate || 1) * 100) / 100
+            ? Math.round(
+                tariffToEdit.conditionsByRegion.east.rate *
+                  (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
+                  100,
+              ) / 100
             : '',
         },
+        yuanToDollarRate: tariffToEdit?.conditionsByRegion.yuanToDollarRate || sourceYuanToDollarRate,
       },
     }
 
@@ -61,6 +72,8 @@ export const AddOrEditLogisticTariffForm = observer(
           return
         } else if (['rate'].includes(fieldName)) {
           newFormFields.conditionsByRegion[direction][fieldName] = event.target.value
+        } else if (['yuanToDollarRate'].includes(fieldName)) {
+          newFormFields.conditionsByRegion[fieldName] = event.target.value
         } else {
           newFormFields[fieldName] = event.target.value
         }
@@ -77,14 +90,24 @@ export const AddOrEditLogisticTariffForm = observer(
 
         conditionsByRegion: {
           west: {
-            rate: Math.round((formFields.conditionsByRegion.west.rate / formFields.yuanToDollarRate) * 100) / 100,
+            rate:
+              Math.round(
+                (formFields.conditionsByRegion.west.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
+              ) / 100,
           },
           central: {
-            rate: Math.round((formFields.conditionsByRegion.central.rate / formFields.yuanToDollarRate) * 100) / 100,
+            rate:
+              Math.round(
+                (formFields.conditionsByRegion.central.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
+              ) / 100,
           },
           east: {
-            rate: Math.round((formFields.conditionsByRegion.east.rate / formFields.yuanToDollarRate) * 100) / 100,
+            rate:
+              Math.round(
+                (formFields.conditionsByRegion.east.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
+              ) / 100,
           },
+          yuanToDollarRate: formFields.conditionsByRegion.yuanToDollarRate,
         },
       }
 
@@ -102,8 +125,8 @@ export const AddOrEditLogisticTariffForm = observer(
 
     const disableSubmitBtn =
       JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
-      formFields.yuanToDollarRate === '' ||
-      Number(formFields.yuanToDollarRate) <= 0 ||
+      formFields.conditionsByRegion.yuanToDollarRate === '' ||
+      Number(formFields.conditionsByRegion.yuanToDollarRate) <= 0 ||
       formFields.name === '' ||
       formFields.minWeightInKg === '' ||
       formFields.deliveryTimeInDay === '' ||
@@ -172,7 +195,7 @@ export const AddOrEditLogisticTariffForm = observer(
               containerClasses={classNames.rateContainer}
               labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
               inputClasses={classNames.middleInput}
-              value={formFields.yuanToDollarRate}
+              value={formFields.conditionsByRegion.yuanToDollarRate}
               onChange={onChangeField('yuanToDollarRate')}
             />
           </div>
@@ -190,7 +213,10 @@ export const AddOrEditLogisticTariffForm = observer(
                 disabled
                 labelClasses={classNames.fieldLabel}
                 value={
-                  Math.round((formFields.conditionsByRegion.west.rate / (formFields.yuanToDollarRate || 1)) * 100) /
+                  Math.round(
+                    (formFields.conditionsByRegion.west.rate / (formFields.conditionsByRegion.yuanToDollarRate || 1)) *
+                      100,
+                  ) /
                     100 +
                   '$'
                 }
@@ -209,7 +235,11 @@ export const AddOrEditLogisticTariffForm = observer(
                 disabled
                 labelClasses={classNames.fieldLabel}
                 value={
-                  Math.round((formFields.conditionsByRegion.central.rate / (formFields.yuanToDollarRate || 1)) * 100) /
+                  Math.round(
+                    (formFields.conditionsByRegion.central.rate /
+                      (formFields.conditionsByRegion.yuanToDollarRate || 1)) *
+                      100,
+                  ) /
                     100 +
                   '$'
                 }
@@ -228,7 +258,10 @@ export const AddOrEditLogisticTariffForm = observer(
                 disabled
                 labelClasses={classNames.fieldLabel}
                 value={
-                  Math.round((formFields.conditionsByRegion.east.rate / (formFields.yuanToDollarRate || 1)) * 100) /
+                  Math.round(
+                    (formFields.conditionsByRegion.east.rate / (formFields.conditionsByRegion.yuanToDollarRate || 1)) *
+                      100,
+                  ) /
                     100 +
                   '$'
                 }
