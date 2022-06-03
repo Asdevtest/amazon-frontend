@@ -151,7 +151,7 @@ class BuyerMyOrdersViewRaw extends Component {
           openModal={showNoDimensionsErrorModal}
           setOpenModal={() => onTriggerOpenModal('showNoDimensionsErrorModal')}
           title={textConsts.dimensionsMessage}
-          btnText={textConsts.okBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showNoDimensionsErrorModal')
           }}
@@ -161,7 +161,7 @@ class BuyerMyOrdersViewRaw extends Component {
           openModal={showWarningNewBoxesModal}
           setOpenModal={() => onTriggerOpenModal('showWarningNewBoxesModal')}
           title={'Создание новых коробок. Будьте внимательны!'}
-          btnText={textConsts.okBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningNewBoxesModal')
           }}
