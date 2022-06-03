@@ -136,6 +136,10 @@ export const EditOrderModal = ({
       newOrderFieldsState[filedName] = e.target.value
     }
 
+    if (filedName === 'totalPriceChanged' && Number(e.target.value) - orderFields.totalPrice > 0) {
+      newOrderFieldsState.status = order.status
+    }
+
     setOrderFields(newOrderFieldsState)
   }
 

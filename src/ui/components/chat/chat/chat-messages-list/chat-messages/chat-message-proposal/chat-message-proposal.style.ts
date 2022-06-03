@@ -2,9 +2,9 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    backgroundColor: '#D9FAE5',
+    backgroundColor: '#fff',
     padding: '15px 14px',
-    width: '842px',
+    width: '100%',
     borderRadius: '4px',
     '& p, h1, h2, h3, h4, h5, span': {
       margin: 0,
@@ -49,7 +49,9 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
   },
-  leftSide: {},
+  leftSide: {
+    display: 'flex',
+  },
   rightSide: {
     alignItems: 'flex-end',
     display: 'flex',
@@ -57,7 +59,7 @@ export const useClassNames = makeStyles(() => ({
   },
   labelValueBlockWrapper: {},
   labelValueBlockWrapperNotFirst: {
-    marginTop: 20,
+    marginLeft: 20,
   },
   actionButton: {
     marginLeft: '50px',

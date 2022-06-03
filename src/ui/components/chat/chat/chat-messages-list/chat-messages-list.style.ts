@@ -5,10 +5,12 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(() => ({
   root: {
     height: '100%',
+    width: '100%',
 
     backgroundColor: '#EBEBEB',
   },
   messageWrapper: {
+    width: '100%',
     display: 'flex',
     alignItems: 'flex-end',
     marginBottom: '30px',
@@ -29,11 +31,13 @@ export const useClassNames = makeStyles(() => ({
   },
   messageInner: {
     marginRight: '12px',
-    maxWidth: '80%',
+    marginBottom: '40px',
+    // maxWidth: '80%',
     wordBreak: 'break-word',
     whiteSpace: 'normal',
     position: 'relative',
-    minWidth: '50%',
+    // minWidth: '50%',
+    width: '90%',
   },
   messageInnerContentWrapper: {
     overflow: 'hidden',
@@ -67,7 +71,7 @@ export const useClassNames = makeStyles(() => ({
   },
   timeTextWrapper: {
     position: 'absolute',
-    bottom: '-15px',
+    bottom: '-30px',
     left: 0,
     width: '100%',
     justifyContent: 'center',

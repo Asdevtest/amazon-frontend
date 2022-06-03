@@ -764,6 +764,8 @@ export enum TranslationKey {
   'To add files go back to editing' = 'To add files go back to editing',
   'Are you sure you want to cancel the send?' = 'Are you sure you want to cancel the send?',
   'Are you sure you want to return the boxes to the warehouse?' = 'Are you sure you want to return the boxes to the warehouse?',
+  'Content' = 'Content',
+  'Suppliers and Ideas' = 'Suppliers and Ideas',
   // '' = '',
   // '' = '',
   // '' = '',

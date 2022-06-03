@@ -8,9 +8,15 @@ export const useClassNames = makeStyles(() => ({
   },
   productBlockWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     gap: '5px',
+    width: '100%',
+  },
+
+  productSubBlockWrapper: {
+    display: 'flex',
     width: '100%',
   },
 
@@ -133,7 +139,7 @@ export const useClassNames = makeStyles(() => ({
   },
   imgBox: {
     width: '200px',
-    height: '200px',
+    height: '80px',
     objectFit: 'contain',
     objectPosition: 'center',
     transition: '.2s ease',
@@ -196,7 +202,9 @@ export const useClassNames = makeStyles(() => ({
     padding: '0',
   },
   buttonsWrapper: {
+    width: '100%',
     display: 'flex',
+    justifyContent: 'flex-end',
     marginTop: '15px',
   },
   button: {
@@ -214,6 +222,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   descriptionProduct: {
-    width: '80%',
+    width: '90%',
+  },
+
+  photosWrapper: {
+    display: 'flex',
+  },
+
+  photosLeftSubWrapper: {
+    marginRight: 40,
   },
 }))

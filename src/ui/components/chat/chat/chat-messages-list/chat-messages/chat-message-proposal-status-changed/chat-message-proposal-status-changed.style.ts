@@ -21,8 +21,8 @@ export const useClassNames = makeStyles(() => ({
   },
   detailsWrapper: {
     marginTop: '5px',
-    minWidth: '70%',
-    backgroundColor: '#D9FAE5',
+    width: '100%',
+    backgroundColor: '#fff',
     padding: '15px 14px',
     borderRadius: '4px',
     '& p, h1, h2, h3, h4, h5, span': {

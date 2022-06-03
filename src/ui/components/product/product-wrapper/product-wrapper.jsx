@@ -94,7 +94,7 @@ export const ProductWrapper = observer(
           {checkIsClient(curUserRole) && (
             <Tab classes={tabItemStyles} label={t(TranslationKey.Integrations)} value={tabsValues.INTEGRATIONS} />
           )}
-          <Tab classes={tabItemStyles} label={t(TranslationKey.Listing)} value={tabsValues.LISTING} />
+          <Tab classes={tabItemStyles} label={t(TranslationKey.Content)} value={tabsValues.LISTING} />
         </Tabs>
 
         <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>

@@ -183,6 +183,7 @@ export class ClientInventoryViewRaw extends Component {
                 pagination
                 useResizeContainer
                 checkboxSelection
+                disableSelectionOnClick
                 classes={{
                   row: classNames.row,
                 }}
@@ -205,7 +206,7 @@ export class ClientInventoryViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
-                onRowDoubleClick={e => onClickShowProduct(e.row)}
+                onRowClick={(params, event) => event.target.checked === undefined && onClickShowProduct(params.row)}
               />
             </MainContent>
           </Appbar>

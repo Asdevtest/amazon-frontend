@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    backgroundColor: '#D9FAE5',
+    backgroundColor: '#fff',
     padding: '15px 14px',
     borderRadius: '4px',
     '& p, h1, h2, h3, h4, h5, span': {
@@ -78,7 +78,7 @@ export const useClassNames = makeStyles(() => ({
   },
   timeToCheckBlockValueWrapper: {
     padding: '8px 25px 6px 56px',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#D9FAE5',
     borderRadius: '4px',
     marginTop: 15,
   },

@@ -485,7 +485,7 @@
   "Add a competitor": "Add a competitor",
   "Photos of the product in boxes:": "Photos of the product in boxes:",
   "Listing photos:": "Listing photos:",
-  "Transactions:": "Transactions:",
+  "Transactions": "Transactions",
   "No transactions": "No transactions",
   "Data saved successfully": "Data saved successfully",
   "Proposal Creation": "Proposal Creation",
@@ -763,5 +763,6 @@
   "No files added": "No files added",
   "To add files go back to editing": "To add files go back to editing",
   "Are you sure you want to cancel the send?": "Are you sure you want to cancel the send?",
-  "Are you sure you want to return the boxes to the warehouse?": "Are you sure you want to return the boxes to the warehouse?"
+  "Are you sure you want to return the boxes to the warehouse?": "Are you sure you want to return the boxes to the warehouse?",
+  "Content": "Content"
 }
