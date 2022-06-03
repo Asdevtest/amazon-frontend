@@ -9,7 +9,6 @@ import {DELIVERY_OPTIONS} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {BUYER_FREE_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {warehouses} from '@constants/warehouses'
 
@@ -21,13 +20,10 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {BuyerFreeOrdersViewModel} from './buyer-free-orders-view.model'
 import {styles} from './buyer-free-orders-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').freeOrdersView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_FREE_ORDERS
 
@@ -122,7 +118,7 @@ class BuyerFreeOrdersViewRaw extends Component {
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
           title={warningTitle}
-          btnText={textConsts.okBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
           }}

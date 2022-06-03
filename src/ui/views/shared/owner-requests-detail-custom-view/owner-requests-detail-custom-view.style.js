@@ -73,9 +73,7 @@ export const styles = createStyles(() => ({
 
   hideChatButton: {
     margin: '0 auto',
-    padding: '14px 77px',
+    padding: '5px 77px',
     fontWeight: '400',
-    fontSize: '16px',
-    lineHeight: '19px',
   },
 }))

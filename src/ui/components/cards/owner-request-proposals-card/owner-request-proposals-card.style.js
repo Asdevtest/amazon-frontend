@@ -76,8 +76,8 @@ export const useClassNames = makeStyles(() => ({
 
   cardPrice: {
     fontWeight: '400',
-    fontSize: '18px',
-    lineHeight: '140%',
+    fontSize: '16px',
+    lineHeight: '19px',
     color: '#001029',
   },
 
@@ -90,15 +90,15 @@ export const useClassNames = makeStyles(() => ({
 
   cardTime: {
     fontWeight: '400',
-    fontSize: '18px',
-    lineHeight: '140%',
+    fontSize: '16px',
+    lineHeight: '19px',
     color: '#001029',
   },
 
   cardTimeValue: {
     fontWeight: '600',
-    fontSize: '18px',
-    lineHeight: '140%',
+    fontSize: '16px',
+    lineHeight: '19px',
     color: '#001029',
   },
 
@@ -127,8 +127,8 @@ export const useClassNames = makeStyles(() => ({
     height: '110px',
     overflow: 'auto',
     fontWeight: '400',
-    fontSize: '18px',
-    lineHeight: '140%',
+    fontSize: '16px',
+    lineHeight: '19px',
     color: '#001029',
   },
 

@@ -15,6 +15,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
 
     width: '100%',
+    height: '100%',
     justifyContent: 'space-between',
   },
 
@@ -165,10 +166,14 @@ export const useClassNames = makeStyles(() => ({
 
   descriptionStepTwoField: {
     width: '240%',
-    overflow: 'auto',
+    overflow: 'hidden',
   },
 
-  twoStepDescriptionFieldResult: {},
+  twoStepDescriptionFieldResult: {
+    width: '100%',
+    height: '200px',
+    whiteSpace: 'pre-wrap',
+  },
 
   deadlineError: {
     borderBottom: '1px solid red',
@@ -310,5 +315,17 @@ export const useClassNames = makeStyles(() => ({
   mainTwoStepWrapper: {
     display: 'flex',
     flexDirection: 'column',
+  },
+
+  inputDescriptionStepTwoField: {
+    height: '152px',
+    width: '240%',
+    padding: '15px 0',
+    margin: '0 -1px',
+
+    backgroundColor: '#fafafa',
+    '& :disabled': {
+      backgroundColor: '#fafafa',
+    },
   },
 }))

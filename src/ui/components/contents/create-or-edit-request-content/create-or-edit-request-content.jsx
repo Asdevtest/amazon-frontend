@@ -1,6 +1,6 @@
 import CircleIcon from '@mui/icons-material/Circle'
 
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 
 import {Checkbox, Typography, Link, List, ListItem, ListItemText} from '@material-ui/core'
 import clsx from 'clsx'
@@ -63,7 +63,6 @@ export const CreateOrEditRequestContent = ({
     },
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
-  const [error, setError] = useState(false)
 
   const [deadlineError, setDeadlineError] = useState(false)
 
@@ -114,22 +113,13 @@ export const CreateOrEditRequestContent = ({
     }
   }
 
-  useEffect(() => {
-    if (formFields.details.conditions.length < 150) {
-      setError(true)
-    } else {
-      setError(false)
-    }
-  }, [formFields.details.conditions.length])
-
   const disableSubmit =
     formFields.request.title === '' ||
     formFields.request.maxAmountOfProposals === '' ||
     formFields.request.timeLimitInMinutes === '' ||
     formFields.request.price === '' ||
     formFields.request.timeoutAt === '' ||
-    formFields.details.conditions === '' ||
-    formFields.details.conditions.length < 150
+    formFields.details.conditions === ''
 
   return (
     <div className={classNames.mainWrapper}>
@@ -182,9 +172,6 @@ export const CreateOrEditRequestContent = ({
                   value={formFields.details.conditions}
                   onChange={onChangeField('details')('conditions')}
                 />
-                {error && (
-                  <span className={classNames.error}>{t(TranslationKey['Minimum number of characters 150'])}</span>
-                )}
               </div>
 
               <div className={classNames.imageFileInputWrapper}>
@@ -455,16 +442,14 @@ export const CreateOrEditRequestContent = ({
 
                 <Field
                   multiline
+                  disabled
+                  inputClasses={classNames.inputDescriptionStepTwoField}
                   containerClasses={classNames.descriptionStepTwoField}
                   labelClasses={classNames.spanLabel}
-                  minRows={4}
-                  rowsMax={4}
+                  minRows={11}
+                  rowsMax={11}
                   label={t(TranslationKey['Description of your request'])}
-                  inputComponent={
-                    <Typography className={classNames.twoStepDescriptionFieldResult}>
-                      {formFields.details.conditions}
-                    </Typography>
-                  }
+                  value={formFields.details.conditions}
                 />
               </div>
 

@@ -715,5 +715,12 @@
   "Reviews": "Отзывы",
   "Order for": "Заказать за",
   "Contact the performer": "Связаться с исполнителем",
-  "Hide chat": "Скрыть чат"
+  "Hide chat": "Скрыть чат",
+  "Choose": "Выбрать",
+  "The order is in progress and has been moved to \"My Orders\"": "Заказ взят в работу и перенесен в раздел \"Мои заказы\"",
+  "Not found": "Не найдено",
+  "Attention. Are you sure?": "Внимание.Вы уверены?",
+  "Within the current edit, you can only change once!": "В рамках текущего редактирования изменить можно только единожды!",
+  "Are you sure you entered all the data correctly?": "Вы уверены что все данные внесены верно?",
+  "PAY ATTENTION!!!": "БУДЬТЕ ВНИМАТЕЛЬНЫ!!!"
 }

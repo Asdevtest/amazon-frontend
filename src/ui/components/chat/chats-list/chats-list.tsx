@@ -21,6 +21,7 @@ export const ChatsList: FC<Props> = observer(({chats, userId, chatSelectedId, on
     <div className={classNames.root}>
       {chats.map((chat: ChatContract) => {
         const isSelected = chatSelectedId === chat._id
+
         return (
           <div
             key={`chat_${chat._id}`}

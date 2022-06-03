@@ -92,7 +92,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       showChat,
       onClickHideChat,
     } = this.viewModel
-
+    console.log(requestProposals)
     const {classes: classNames} = this.props
 
     const findRequestProposalForCurChat =
