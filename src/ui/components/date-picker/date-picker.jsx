@@ -1,4 +1,5 @@
 import DateFnsUtils from '@date-io/date-fns'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
 
 import {
   KeyboardDatePicker,
@@ -25,6 +26,7 @@ export const DatePickerDate = ({value, onChange}) => (
     <KeyboardDatePicker
       clearable
       value={value}
+      style={{width: '100%'}}
       placeholder="10/10/2018"
       // minDate={new Date()}
       format="dd/MM/yyyy"
@@ -36,6 +38,8 @@ export const DatePickerTime = ({value, onChange}) => (
   <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
     <KeyboardTimePicker
       clearable
+      keyboardIcon={<AccessTimeIcon />}
+      style={{width: '100%'}}
       value={value}
       placeholder="10:00"
       // minDate={new Date()}

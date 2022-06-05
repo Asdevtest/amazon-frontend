@@ -752,5 +752,6 @@
   "Reason for the stop:": "Причина остановки:",
   "The exact cost of the request will be:": "Точная стоимость заявки составит:",
   "Confirm the publication?": "Подтвердить публикацию?",
-  "Delete request?": "Удалить заявку?"
+  "Delete request?": "Удалить заявку?",
+  "Transactions on the request": "Transactions on the request"
 }

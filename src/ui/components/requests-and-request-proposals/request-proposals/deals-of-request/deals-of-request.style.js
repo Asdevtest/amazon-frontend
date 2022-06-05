@@ -72,17 +72,33 @@ export const useClassNames = makeStyles(() => ({
   requestItemInfoWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
     padding: '15px',
   },
 
+  requestStatusWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
   requestStatus: {
-    width: '235px',
+    display: 'flex',
+    alignItems: 'center',
+    // width: '300px',
     textAlign: 'center',
 
     marginLeft: '15px',
     fontSize: '18px',
     lineHeight: '140%',
     color: '#00B746',
+
+    '& > span': {
+      display: 'block',
+      width: '13px',
+      height: '13px',
+      borderRadius: '50%',
+      marginRight: '10px',
+    },
   },
 
   price: {

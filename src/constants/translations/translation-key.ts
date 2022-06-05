@@ -751,6 +751,7 @@ export enum TranslationKey {
   'The exact cost of the request will be:' = 'The exact cost of the request will be:',
   'Confirm the publication?' = 'Confirm the publication?',
   'Delete request?' = 'Delete request?',
+  'Transactions on the request' = 'Transactions on the request',
   // '' = '',
   // '' = '',
   // '' = '',

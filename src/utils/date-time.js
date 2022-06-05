@@ -1,5 +1,8 @@
 import {format, formatDistance, compareDesc, compareAsc, parseISO, formatDistanceStrict} from 'date-fns'
+import enUS from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
+
+import {SettingsModel} from '@models/settings-model'
 
 export const formatDate = dateString => format(parseISO(dateString), 'dd-MM-yyyy') // предпочтительный формат
 export const formatDateForBackend = dateString => format(parseISO(dateString), 'yyyy-MM-dd')
@@ -28,7 +31,7 @@ const now = new Date()
 export const formatDateDistanceFromNowStrict = (date, tryNow) =>
   formatDistanceStrict(parseISO(date), tryNow ? tryNow : now, {
     addSuffix: true,
-    locale: ruLocale,
+    locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
     partialMethod: 'ceil',
   })
 
