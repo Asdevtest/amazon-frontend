@@ -760,5 +760,8 @@
   "Try to research market prices and make your offer based on the amount of work and your skills.": "Старайтесь изучить рыночные цены и делать свое предложение на основе объема работы и Ваших навыков.",
   "Attach a file (link to your portfolio, examples of work)": "Прикрепить файл (ссылка на Ваше портфолио, примеры работ)",
   "Proposal Name*": "Имя предложения*",
-  "Offer your price?": "Предложить свою цену?"
+  "Offer your price?": "Предложить свою цену?",
+  "Document": "Документ",
+  "No files added": "Файлы не добавлены",
+  "To add files go back to editing": "Для добавления файлов вернитесь к редактированию"
 }
