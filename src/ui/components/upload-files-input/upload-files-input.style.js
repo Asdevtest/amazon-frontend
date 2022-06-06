@@ -181,7 +181,7 @@ export const useClassNames = makeStyles(() => ({
 
   loadBtn: {
     marginLeft: '10px',
-    borderRadius: '8px',
+    borderRadius: '4px',
     height: '26px',
     width: '172px',
   },

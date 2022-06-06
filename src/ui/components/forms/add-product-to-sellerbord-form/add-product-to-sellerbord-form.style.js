@@ -59,26 +59,26 @@ export const useClassNames = makeStyles(() => ({
 
   input: {
     height: '32px',
-    borderRadius: '8px',
+    borderRadius: '4px',
     width: 'calc(100% - 110px)',
   },
 
   loadImageInput: {
     height: '26px',
-    borderRadius: '8px',
+    borderRadius: '4px',
     width: 'calc(100% - 182px)',
   },
 
   defaultBtn: {
     marginLeft: '10px',
-    borderRadius: '8px',
+    borderRadius: '4px',
     height: '32px',
     width: '100px',
   },
 
   loadBtn: {
     marginLeft: '10px',
-    borderRadius: '8px',
+    borderRadius: '4px',
     height: '26px',
     width: '172px',
   },

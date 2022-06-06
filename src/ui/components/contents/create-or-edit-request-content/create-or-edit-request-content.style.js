@@ -379,6 +379,17 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  emptyDocumentIcon: {
+    width: '60px',
+    height: '60px',
+    backgroundColor: '#e0e0e0',
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   emptyProposalsDescriptionWrapper: {
     width: '70%',
   },
@@ -396,5 +407,13 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '16px',
     fontWeight: '400',
     color: '#001029',
+  },
+
+  documentEmpty: {
+    fontSize: '16px',
+    lineHeight: '19px',
+    fontWeight: '400',
+    color: '#001029',
+    marginTop: '10px',
   },
 }))

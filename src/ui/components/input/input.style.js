@@ -18,7 +18,7 @@ export const styles = () =>
       color: 'rgba(61, 81, 112, 1)',
 
       '&:-webkit-autofill': {
-        borderRadius: '8px',
+        borderRadius: '4px',
       },
     },
     focused: {

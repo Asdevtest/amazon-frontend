@@ -45,7 +45,7 @@ export const useClassNames = makeStyles(() => ({
     padding: '0 25px',
     height: '30px',
     border: '1px solid #006CFF',
-    borderRadius: '8px',
+    borderRadius: '4px',
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',

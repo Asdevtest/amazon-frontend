@@ -17,7 +17,7 @@ export const useClassNames = makeStyles(() => ({
 
   input: {
     height: '32px',
-    borderRadius: '8px',
+    borderRadius: '4px',
     width: 'calc(100% - 110px)',
   },
 
@@ -172,7 +172,7 @@ export const useClassNames = makeStyles(() => ({
 
   defaultBtn: {
     marginLeft: '10px',
-    borderRadius: '8px',
+    borderRadius: '4px',
     height: '32px',
     width: '100px',
   },

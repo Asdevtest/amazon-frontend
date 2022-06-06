@@ -6,13 +6,13 @@ export const useClassNames = makeStyles(() => ({
     borderRadius: '4px',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     padding: '40px',
+    justifyContent: 'space-between',
   },
   mainBlockWrapper: {
-    minWidth: '660px',
+    minWidth: '45%',
   },
   middleBlockWrapper: {
-    marginLeft: '100px',
-    width: '350px',
+    width: '26.3%',
     borderRadius: '4px',
     border: '1px solid rgba(0,0,0, .1)',
     padding: '10px',
@@ -44,7 +44,7 @@ export const useClassNames = makeStyles(() => ({
     padding: '15px',
   },
   blockInfoWrapper: {
-    minWidth: '322px',
+    width: '47%',
     height: '120px',
     border: '1px solid rgba(0,0,0, .1)',
     borderRadius: '4px',
@@ -63,8 +63,7 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '10px',
   },
   btnsBlockWrapper: {
-    marginLeft: '40px',
-    width: '300px',
+    width: '23%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',

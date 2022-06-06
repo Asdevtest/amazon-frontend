@@ -124,6 +124,9 @@ export const CreateOrEditRequestContent = ({
     pdfWindow.document.write(`<iframe width='100%' height='1000%' src='${url}'></iframe>`)
   }
 
+  const notIsEmptyFile = images.filter(el => !checkIsImageLink(el.file.name))
+  // const IsEmptyFile = ['Empty']
+
   const disableSubmit =
     formFields.request.title === '' ||
     formFields.request.maxAmountOfProposals === '' ||
@@ -460,10 +463,9 @@ export const CreateOrEditRequestContent = ({
 
                     <div className={classNames.documentsWrapper}>
                       <Typography className={classNames.documentsTitle}>{t(TranslationKey.Documents)}</Typography>
-                      <CustomCarousel title={t(TranslationKey.Document)}>
-                        {images
-                          .filter(el => !checkIsImageLink(el.file.name))
-                          .map((file, index) => (
+                      {notIsEmptyFile?.length ? (
+                        <CustomCarousel title={t(TranslationKey.Document)}>
+                          {notIsEmptyFile.map((file, index) => (
                             <div
                               key={index}
                               className={classNames.documentWrapper}
@@ -473,7 +475,19 @@ export const CreateOrEditRequestContent = ({
                               <Typography className={classNames.documentTitle}>{file.file.name}</Typography>
                             </div>
                           ))}
-                      </CustomCarousel>
+                        </CustomCarousel>
+                      ) : (
+                        <div>
+                          <div className={classNames.documentWrapper}>
+                            <div className={classNames.emptyDocumentIcon}>
+                              <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+                            </div>
+                            <Typography className={classNames.documentEmpty}>
+                              {t(TranslationKey['No document'])}
+                            </Typography>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ) : (
