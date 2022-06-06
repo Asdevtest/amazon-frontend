@@ -128,65 +128,67 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
               <Typography variant="h6" className={classNames.proposalsTitle}>
                 {t(TranslationKey['Proposals for the request'])}
               </Typography>
-              <div className={classNames.proposalsWrapper}>
-                {requestProposals.map(item => (
-                  <div key={item.proposal._id} className={classNames.proposalAndChatWrapper}>
-                    <Paper>
-                      <OwnerRequestProposalsCard
-                        item={item}
-                        onClickContactWithExecutor={onClickContactWithExecutor}
-                        onClickAcceptProposal={onClickAcceptProposal}
-                        onClickRejectProposal={onClickRejectProposal}
-                      />
-                    </Paper>
-                    <Accordion expanded={showChat}>
-                      <AccordionSummary style={{display: 'none'}} />
-                      <AccordionDetails>
-                        {chatIsConnected && requestProposals?.length ? (
-                          <div className={classNames.chatWrapper}>
-                            <ChatRequestAndRequestProposalContext.Provider
-                              value={{
-                                request,
-                                requestProposal: findRequestProposalForCurChat,
-                              }}
-                            >
-                              <MultipleChats
-                                ref={this.chatRef}
-                                chats={chats}
-                                userId={userInfo._id}
-                                chatSelectedId={chatSelectedId}
-                                chatMessageHandlers={{
-                                  onClickProposalAccept: onClickAcceptProposal,
-                                  onClickProposalRegect: onClickRejectProposal,
-                                  onClickProposalResultToCorrect,
-                                  onClickProposalResultAccept,
+              {requestProposals?.length ? (
+                <div className={classNames.proposalsWrapper}>
+                  {requestProposals.map(item => (
+                    <div key={item.proposal._id} className={classNames.proposalAndChatWrapper}>
+                      <Paper>
+                        <OwnerRequestProposalsCard
+                          item={item}
+                          onClickContactWithExecutor={onClickContactWithExecutor}
+                          onClickAcceptProposal={onClickAcceptProposal}
+                          onClickRejectProposal={onClickRejectProposal}
+                        />
+                      </Paper>
+                      <Accordion expanded={showChat}>
+                        <AccordionSummary style={{display: 'none'}} />
+                        <AccordionDetails>
+                          {chatIsConnected && (
+                            <div className={classNames.chatWrapper}>
+                              <ChatRequestAndRequestProposalContext.Provider
+                                value={{
+                                  request,
+                                  requestProposal: findRequestProposalForCurChat,
                                 }}
-                                updateData={this.viewModel.loadData}
-                                onSubmitMessage={onSubmitMessage}
-                                onClickChat={onClickChat}
-                              />
-                            </ChatRequestAndRequestProposalContext.Provider>
-                          </div>
-                        ) : (
-                          <div className={classNames.emptyProposalsIconWrapper}>
-                            <div className={classNames.emptyProposalsIcon}>
-                              <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
+                              >
+                                <MultipleChats
+                                  ref={this.chatRef}
+                                  chats={chats}
+                                  userId={userInfo._id}
+                                  chatSelectedId={chatSelectedId}
+                                  chatMessageHandlers={{
+                                    onClickProposalAccept: onClickAcceptProposal,
+                                    onClickProposalRegect: onClickRejectProposal,
+                                    onClickProposalResultToCorrect,
+                                    onClickProposalResultAccept,
+                                  }}
+                                  updateData={this.viewModel.loadData}
+                                  onSubmitMessage={onSubmitMessage}
+                                  onClickChat={onClickChat}
+                                />
+                              </ChatRequestAndRequestProposalContext.Provider>
                             </div>
-                            <Typography className={classNames.emptyProposalsDescription}>
-                              {t(TranslationKey['No new proposals at the moment'])}
-                            </Typography>
-                          </div>
-                        )}
-                      </AccordionDetails>
-                    </Accordion>
-                    {showChat && (
-                      <Button className={classNames.hideChatButton} onClick={onClickHideChat}>
-                        {t(TranslationKey['Hide chat'])}
-                      </Button>
-                    )}
+                          )}
+                        </AccordionDetails>
+                      </Accordion>
+                      {showChat && (
+                        <Button className={classNames.hideChatButton} onClick={onClickHideChat}>
+                          {t(TranslationKey['Hide chat'])}
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className={classNames.emptyProposalsIconWrapper}>
+                  <div className={classNames.emptyProposalsIcon}>
+                    <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
                   </div>
-                ))}
-              </div>
+                  <Typography className={classNames.emptyProposalsDescription}>
+                    {t(TranslationKey['No new proposals at the moment'])}
+                  </Typography>
+                </div>
+              )}
             </MainContent>
           </Appbar>
 

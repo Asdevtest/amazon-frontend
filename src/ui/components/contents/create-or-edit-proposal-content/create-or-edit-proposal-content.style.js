@@ -2,11 +2,13 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   mainWrapper: {
+    width: '100%',
     display: 'flex',
+    justifyContent: 'space-between',
   },
 
   mainRightWrapper: {
-    marginLeft: '150px',
+    width: '40%',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -21,7 +23,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   mainLeftWrapper: {
-    width: '550px',
+    width: '25%',
   },
 
   mainTitle: {
@@ -42,10 +44,6 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '47px',
   },
 
-  middleWrapper: {
-    width: '577px',
-  },
-
   rightWrapper: {
     width: '377px',
     marginLeft: '40px',
@@ -56,11 +54,11 @@ export const useClassNames = makeStyles(() => ({
   },
 
   checkboxWrapper: {
-    width: '377px',
     display: 'flex',
     alignItems: 'center',
     justifySelf: 'flex-end',
     alignSelf: 'flex-end',
+    marginBottom: '20px',
   },
 
   footerWrapper: {
@@ -70,7 +68,7 @@ export const useClassNames = makeStyles(() => ({
 
     alignItems: 'flex-end',
 
-    marginTop: '60px',
+    marginTop: '56px',
   },
 
   stepsWrapper: {
@@ -90,7 +88,7 @@ export const useClassNames = makeStyles(() => ({
 
   successBtn: {
     marginLeft: '60px',
-    minWidth: '210px',
+    width: '210px',
   },
 
   successBtnTextWrapper: {
@@ -108,15 +106,15 @@ export const useClassNames = makeStyles(() => ({
   },
 
   requestDescriptionField: {
-    height: '400px',
+    height: '76px',
     width: '100%',
     overflow: 'auto',
   },
 
   descriptionField: {
-    height: '200px',
+    height: '115px',
     width: '100%',
-    overflow: 'auto',
+    marginBottom: '25px',
   },
 
   rightTwoStepSubFieldWrapper: {
@@ -177,5 +175,100 @@ export const useClassNames = makeStyles(() => ({
     color: 'red',
     position: 'absolute',
     top: '232px',
+  },
+
+  adviceWrapper: {
+    width: '25%',
+  },
+  adviceTitle: {
+    fontSize: '30px',
+    lineHeight: '35px',
+    fontWeight: '600',
+    marginBottom: '22px',
+    color: '#001029',
+  },
+  adviceListItem: {
+    padding: '0',
+  },
+
+  adviceListItemText: {
+    marginLeft: '27px',
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#001029',
+  },
+
+  trainingTextWrapper: {
+    width: '90%',
+    display: 'flex',
+    flexWrap: 'wrap',
+    marginLeft: '35px',
+    marginTop: '18px',
+  },
+
+  trainingText: {
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#656565',
+  },
+
+  trainingLink: {
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+    margin: '0 5px',
+  },
+
+  clientInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  userPhoto: {
+    width: '60px',
+    height: '60px',
+    marginRight: '30px',
+  },
+  ratingWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+
+    '& > :first-child': {
+      marginRight: '60px',
+      fontSize: '16px',
+      lineHeight: '19px',
+      color: '#001029',
+    },
+  },
+  subTitle: {
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+    marginTop: '10px',
+    marginBottom: '30px',
+  },
+
+  spanLabel: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '600',
+    color: '#001029',
+  },
+
+  imageFileInputTitle: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '600',
+    color: '#001029',
+  },
+
+  checkboxLabel: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '600',
+    color: '#001029',
+    marginRight: '83px',
   },
 }))
