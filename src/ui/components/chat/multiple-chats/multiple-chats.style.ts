@@ -5,9 +5,10 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     flex: 1,
     display: 'flex',
-    border: '1px solid #C4C4C4',
+    borderRadius: '4px',
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     height: '100%',
-    borderRadius: '5px',
+
     overflow: 'hidden',
   },
   chatsWrapper: {

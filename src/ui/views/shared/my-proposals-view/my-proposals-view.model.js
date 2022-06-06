@@ -78,6 +78,13 @@ export class MyProposalsViewModel {
 
   onClickEditBtn(request, proposal) {
     const convertedRequest = {
+      createdById: request.createdById,
+      maxAmountOfProposals: request.maxAmountOfProposals,
+      createdBy: {
+        name: request.createdBy.name,
+        rating: request.createdBy.rating,
+        _id: request.createdBy._id,
+      },
       details: {conditions: request.detailsCustom.conditions},
       request: {
         price: request.price,

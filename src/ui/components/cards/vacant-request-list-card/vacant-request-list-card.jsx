@@ -18,7 +18,7 @@ import {useClassNames} from './vacant-request-list-card.style'
 
 export const VacantRequestListCard = ({item, onClickViewMore}) => {
   const classNames = useClassNames()
-
+  console.log(item)
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>

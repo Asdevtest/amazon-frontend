@@ -122,19 +122,19 @@ const formFieldsDefault = {
   fbaamount: '',
 }
 
-const fieldsNotFilledText = 'Не заполнены поля'
+const fieldsNotFilledText = t(TranslationKey['Fields not filled in'])
 
 const warningModalTitleVariants = {
-  NO_SUPPLIER: 'Нельзя выбрать без поставщика.',
-  CHOOSE_STATUS: 'Нужно выбрать статус',
+  NO_SUPPLIER: t(TranslationKey["You can't choose without a supplier"]),
+  CHOOSE_STATUS: t(TranslationKey['We need to choose a status']),
 }
 
 const confirmMessageByProductStatus = {
-  5: 'Отправить на проверку супервизору?',
-  10: 'Отправить на проверку с поставщиком?',
+  5: t(TranslationKey['Send to the Supervisor for review']) + '?',
+  10: t(TranslationKey['Send to check with the supplier']) + '?',
 }
 
-const confirmMessageWithoutStatus = 'Сохранить без статуса?'
+const confirmMessageWithoutStatus = t(TranslationKey['Save without status']) + '?'
 
 export class ResearcherProductViewModel {
   history = undefined

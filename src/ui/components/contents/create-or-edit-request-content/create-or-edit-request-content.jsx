@@ -1,4 +1,6 @@
 import CircleIcon from '@mui/icons-material/Circle'
+import InboxIcon from '@mui/icons-material/Inbox'
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 
 import React, {useState} from 'react'
 
@@ -12,6 +14,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {CustomCarousel} from '@components/custom-carousel'
 import {DatePickerDate, DatePickerTime} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
@@ -39,6 +42,7 @@ export const CreateOrEditRequestContent = ({
   const classNames = useClassNames()
 
   const [images, setImages] = useState([])
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
 
@@ -65,6 +69,7 @@ export const CreateOrEditRequestContent = ({
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const [deadlineError, setDeadlineError] = useState(false)
+  console.log(images)
 
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
@@ -111,6 +116,12 @@ export const CreateOrEditRequestContent = ({
         setCurStep(stepVariant.STEP_ONE)
       }
     }
+  }
+
+  const openPdfFile = url => {
+    const pdfWindow = window.open('')
+
+    pdfWindow.document.write(`<iframe width='100%' height='1000%' src='${url}'></iframe>`)
   }
 
   const disableSubmit =
@@ -341,11 +352,7 @@ export const CreateOrEditRequestContent = ({
 
                   <div className={classNames.footerRightWrapper}>
                     <div className={classNames.buttonsWrapper}>
-                      <Button
-                        variant={curStep === stepVariant.STEP_TWO ? 'outlined' : 'text'}
-                        className={classNames.backBtn}
-                        onClick={onClickBackBtn}
-                      >
+                      <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
                         {curStep === stepVariant.STEP_TWO
                           ? t(TranslationKey['Back to editing'])
                           : t(TranslationKey.Cancel)}
@@ -429,16 +436,61 @@ export const CreateOrEditRequestContent = ({
                     <Typography className={classNames.twoStepFieldResult}>{formFields.request.title}</Typography>
                   }
                 />
-                <div className={classNames.imagesWrapper}>
-                  <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>
-                  <Carousel autoPlay={false} className={classNames.carouselWrapper}>
-                    {images
-                      .filter(el => checkIsImageLink(el.file.name))
-                      .map((photo, index) => (
-                        <img key={index} src={photo.data_url} height="108px" />
-                      ))}
-                  </Carousel>
-                </div>
+                <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>
+                {images?.length ? (
+                  <div className={classNames.imagesAndFilesWrapper}>
+                    <div className={classNames.imagesWrapper}>
+                      <Typography className={classNames.photoTitle}>{t(TranslationKey.Photos)}</Typography>
+                      <Carousel autoPlay={false} className={classNames.carouselWrapper}>
+                        {images
+                          .filter(el => checkIsImageLink(el.file.name))
+                          .map((photo, index) => (
+                            <img
+                              key={index}
+                              src={photo.data_url}
+                              height="108px"
+                              onClick={() => {
+                                setShowPhotosModal(!showPhotosModal)
+                                setBigImagesOptions({images: images.map(img => img.data_url), imgIndex: index})
+                              }}
+                            />
+                          ))}
+                      </Carousel>
+                    </div>
+
+                    <div className={classNames.documentsWrapper}>
+                      <Typography className={classNames.documentsTitle}>{t(TranslationKey.Documents)}</Typography>
+                      <CustomCarousel title={t(TranslationKey.Document)}>
+                        {images
+                          .filter(el => !checkIsImageLink(el.file.name))
+                          .map((file, index) => (
+                            <div
+                              key={index}
+                              className={classNames.documentWrapper}
+                              onClick={() => openPdfFile(file.data_url)}
+                            >
+                              <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                              <Typography className={classNames.documentTitle}>{file.file.name}</Typography>
+                            </div>
+                          ))}
+                      </CustomCarousel>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={classNames.emptyProposalsIconWrapper}>
+                    <div className={classNames.emptyProposalsIcon}>
+                      <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
+                    </div>
+                    <div className={classNames.emptyProposalsDescriptionWrapper}>
+                      <Typography className={classNames.emptyProposalsTitle}>
+                        {t(TranslationKey['No files added'])}
+                      </Typography>
+                      <Typography className={classNames.emptyProposalsDescription}>
+                        {t(TranslationKey['To add files go back to editing'])}
+                      </Typography>
+                    </div>
+                  </div>
+                )}
 
                 <Field
                   multiline
@@ -511,12 +563,8 @@ export const CreateOrEditRequestContent = ({
 
               <div className={classNames.footerRightWrapper}>
                 <div className={classNames.buttonsWrapper}>
-                  <Button
-                    variant={curStep === stepVariant.STEP_TWO ? 'outlined' : 'text'}
-                    className={classNames.backBtn}
-                    onClick={onClickBackBtn}
-                  >
-                    {curStep === stepVariant.STEP_TWO ? t(TranslationKey['Back to editing']) : t(TranslationKey.Cancel)}
+                  <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
+                    {curStep === stepVariant.STEP_TWO ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
                   </Button>
 
                   <SuccessButton disabled={disableSubmit} className={classNames.successBtn} onClick={onSuccessSubmit}>
@@ -544,10 +592,9 @@ export const CreateOrEditRequestContent = ({
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
 
       <BigImagesModal
-        isAmazone
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={formFields.details.linksToMediaFiles.filter(el => checkIsImageLink(el)) || []}
+        images={bigImagesOptions.images}
       />
     </div>
   )

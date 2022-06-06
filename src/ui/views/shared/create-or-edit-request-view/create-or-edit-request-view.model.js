@@ -1,13 +1,11 @@
 import {makeAutoObservable} from 'mobx'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {RequestModel} from '@models/request-model'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientCreateRequestView
 
 export class CreateOrEditRequestViewModel {
   history = undefined
@@ -50,12 +48,12 @@ export class CreateOrEditRequestViewModel {
 
       await RequestModel.createRequest(dataWithFiles)
 
-      this.infoModalText = textConsts.infoCreateRequest
+      this.infoModalText = t(TranslationKey['An request has been created'])
       this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
       console.log(error)
 
-      this.infoModalText = textConsts.infoNoCreateRequest
+      this.infoModalText = t(TranslationKey['The request was not created'])
       this.onTriggerOpenModal('showInfoModal')
 
       this.error = error
@@ -75,12 +73,12 @@ export class CreateOrEditRequestViewModel {
 
       await RequestModel.editRequest(this.requestToEdit.request._id, dataWithFiles)
 
-      this.infoModalText = textConsts.infoEditRequest
+      this.infoModalText = t(TranslationKey['The request has been changed'])
       this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
       console.log(error)
 
-      this.infoModalText = textConsts.infoNoEditRequest
+      this.infoModalText = t(TranslationKey['The request has not been changed'])
       this.onTriggerOpenModal('showInfoModal')
 
       this.error = error

@@ -1,20 +1,25 @@
-import React, {useEffect, useState} from 'react'
+import CircleIcon from '@mui/icons-material/Circle'
+import {Rating} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
+import React, {useState} from 'react'
+
+import {Avatar, Checkbox, Link, List, ListItem, ListItemText, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import Carousel from 'react-material-ui-carousel'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
+// import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -43,7 +48,6 @@ export const CreateOrEditProposalContent = ({
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
-  const [error, setError] = useState(false)
 
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
@@ -69,28 +73,77 @@ export const CreateOrEditProposalContent = ({
     onEditSubmit(formFields, images)
   }
 
-  useEffect(() => {
-    if (formFields.comment.length < 150) {
-      setError(true)
-    } else {
-      setError(false)
-    }
-  }, [formFields.comment.length])
-
   const disableSubmit =
     formFields.execution_time === '' ||
     formFields.price === '' ||
     formFields.comment === '' ||
-    formFields.comment.length < 150 ||
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
   return (
     <div className={classNames.mainWrapper}>
+      <div className={classNames.adviceWrapper}>
+        <Typography className={classNames.adviceTitle}>
+          {t(TranslationKey['Offering a Service to the Client:'])}
+        </Typography>
+
+        <List>
+          <ListItem className={classNames.adviceListItem}>
+            <CircleIcon color="primary" style={{width: '8px'}} />
+
+            <ListItemText className={classNames.adviceListItemText}>
+              {t(TranslationKey['Specify exactly how you are going to perform this task. Describe the key points.'])}
+            </ListItemText>
+          </ListItem>
+          <ListItem className={classNames.adviceListItem}>
+            <CircleIcon color="primary" style={{width: '8px'}} />
+
+            <ListItemText className={classNames.adviceListItemText}>
+              {t(TranslationKey['Compose unique feedback that shows your competence and interest in the project.'])}
+            </ListItemText>
+          </ListItem>
+          <ListItem className={classNames.adviceListItem}>
+            <CircleIcon color="primary" style={{width: '8px'}} />
+
+            <ListItemText className={classNames.adviceListItemText}>
+              {t(
+                TranslationKey[
+                  'Try to research market prices and make your offer based on the amount of work and your skills.'
+                ],
+              )}
+            </ListItemText>
+          </ListItem>
+        </List>
+        <div className={classNames.trainingTextWrapper}>
+          <Typography className={classNames.trainingText}>
+            {t(TranslationKey['You can also take a free'])}
+            <Link className={classNames.trainingLink}>{t(TranslationKey.Training)}</Link>
+            {t(TranslationKey['on our freelance exchange.'])}
+          </Typography>
+        </div>
+      </div>
       <div className={classNames.mainLeftWrapper}>
+        <div className={classNames.clientInfoWrapper}>
+          <div className={classNames.clientInfo}>
+            <Avatar src={getUserAvatarSrc(request?.createdById)} className={classNames.userPhoto} />
+            <div>
+              <UserLinkCell name={request.createdBy.name} userId={request.createdBy._id} />
+              <div className={classNames.ratingWrapper}>
+                <Typography>{t(TranslationKey.Rating)}</Typography>
+                <Rating disabled value={request.createdBy.rating} />
+              </div>
+            </div>
+          </div>
+
+          <Typography className={classNames.subTitle}>{` ${'0'} ${t(TranslationKey['out of'])} ${
+            request.maxAmountOfProposals
+          } ${t(TranslationKey['suggestions left'])}`}</Typography>
+        </div>
+
         <Field
           multiline
           className={classNames.descriptionField}
           label={t(TranslationKey['Application details'])}
+          labelClasses={classNames.spanLabel}
           inputComponent={
             <Typography
               minRows={16}
@@ -131,6 +184,7 @@ export const CreateOrEditProposalContent = ({
         <div className={classNames.mainLeftSubWrapper}>
           <Field
             label={t(TranslationKey.Price)}
+            labelClasses={classNames.spanLabel}
             inputComponent={
               <Typography className={clsx(classNames.twoStepFieldResult, classNames.price)}>
                 {toFixedWithDollarSign(request?.request.price, 2)}
@@ -140,6 +194,7 @@ export const CreateOrEditProposalContent = ({
 
           <Field
             label={t(TranslationKey.Deadline)}
+            labelClasses={classNames.spanLabel}
             inputComponent={
               <Typography className={classNames.twoStepFieldResult}>
                 {request.request.timeoutAt && formatNormDateTime(request?.request.timeoutAt)}
@@ -154,15 +209,53 @@ export const CreateOrEditProposalContent = ({
           <div className={classNames.descriptionFieldWrapper}>
             <Field
               multiline
-              className={classNames.descriptionField}
+              className={classNames.nameField}
+              labelClasses={classNames.spanLabel}
               inputProps={{maxLength: 1500}}
-              minRows={8}
+              minRows={1}
+              rowsMax={2}
+              label={t(TranslationKey['Proposal Name*'])}
+            />
+            <div className={classNames.imageFileInputWrapper}>
+              <Typography className={classNames.imageFileInputTitle}>
+                {t(TranslationKey['Attach a file (link to your portfolio, examples of work)'])}
+              </Typography>
+              <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
+
+              {/* <Button
+              disableElevation
+              disabled={!formFields.linksToMediaFiles?.length}
+              color="primary"
+              className={classNames.imagesButton}
+              variant="contained"
+              onClick={() => {
+                setShowPhotosModal(!showPhotosModal)
+                setBigImagesOptions({images: formFields.linksToMediaFiles})
+              }}
+            >
+              {t(TranslationKey['Available files'])}
+            </Button> */}
+            </div>
+            <Field
+              multiline
+              className={classNames.descriptionField}
+              labelClasses={classNames.spanLabel}
+              inputProps={{maxLength: 1500}}
+              minRows={1}
               rowsMax={8}
               label={t(TranslationKey['Describe your proposal'])}
               value={formFields.comment}
               onChange={onChangeField('comment')}
             />
-            {error && <span className={classNames.error}>{t(TranslationKey['Minimum number of characters 150'])}</span>}
+          </div>
+
+          <div className={classNames.checkboxWrapper}>
+            <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Offer your price?'])}</Typography>
+            <Checkbox
+              color="primary"
+              // checked={formFields.request.needCheckBySupervisor}
+              // onChange={onChangeField('request')('needCheckBySupervisor')}
+            />
           </div>
 
           <div className={classNames.middleSubWrapper}>
@@ -180,24 +273,6 @@ export const CreateOrEditProposalContent = ({
               value={formFields.execution_time}
               onChange={onChangeField('execution_time')}
             />
-          </div>
-
-          <div className={classNames.imageFileInputWrapper}>
-            <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
-
-            <Button
-              disableElevation
-              disabled={!formFields.linksToMediaFiles?.length}
-              color="primary"
-              className={classNames.imagesButton}
-              variant="contained"
-              onClick={() => {
-                setShowPhotosModal(!showPhotosModal)
-                setBigImagesOptions({images: formFields.linksToMediaFiles})
-              }}
-            >
-              {t(TranslationKey['Available files'])}
-            </Button>
           </div>
         </div>
 

@@ -96,9 +96,7 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
   },
 
-  stepsWrapper: {
-    display: 'flex',
-  },
+  stepsWrapper: {},
 
   step: {
     margin: '0',
@@ -115,12 +113,12 @@ export const useClassNames = makeStyles(() => ({
   },
 
   backBtn: {
-    minWidth: '210px',
+    width: '211px',
   },
 
   successBtn: {
     marginLeft: '60px',
-    minWidth: '210px',
+    width: '211px',
   },
 
   successBtnTextWrapper: {
@@ -302,8 +300,8 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
   },
   imagesWrapper: {
-    height: '108px',
-    margin: '40px 0 100px 0',
+    width: '50%',
+    height: '113px',
   },
   imagesTitle: {
     fontSize: '18px',
@@ -319,7 +317,7 @@ export const useClassNames = makeStyles(() => ({
 
   inputDescriptionStepTwoField: {
     height: '152px',
-    width: '240%',
+    width: '101%',
     padding: '15px 0',
     margin: '0 -1px',
 
@@ -327,5 +325,76 @@ export const useClassNames = makeStyles(() => ({
     '& :disabled': {
       backgroundColor: '#fafafa',
     },
+  },
+
+  imagesAndFilesWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: '40px 0 100px 0',
+  },
+
+  documentsWrapper: {
+    width: '50%',
+    height: '113px',
+  },
+
+  documentWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '20px',
+  },
+
+  documentTitle: {
+    fontSize: '12px',
+    marginTop: '10px',
+    maxHeight: '20px',
+    overflow: 'auto',
+  },
+
+  documentsTitle: {
+    marginBottom: '10px',
+  },
+
+  photoTitle: {
+    marginBottom: '10px',
+  },
+
+  emptyProposalsIconWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: '24px 0 24px 0',
+  },
+
+  emptyProposalsIcon: {
+    width: '100px',
+    height: '100px',
+    backgroundColor: '#e0e0e0',
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyProposalsDescriptionWrapper: {
+    width: '70%',
+  },
+
+  emptyProposalsTitle: {
+    fontSize: '16px',
+    lineHeight: '19px',
+    fontWeight: '400',
+    color: '#001029',
+    marginBottom: '10px',
+  },
+
+  emptyProposalsDescription: {
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: '#001029',
   },
 }))

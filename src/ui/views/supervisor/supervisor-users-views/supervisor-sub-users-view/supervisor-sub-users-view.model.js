@@ -2,7 +2,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 
 import {PermissionsModel} from '@models/permissions-model'
@@ -12,10 +12,8 @@ import {UserModel} from '@models/user-model'
 import {subUsersColumns} from '@components/table-columns/sub-users-columns/sub-users-columns'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-
-const textConsts = getLocalizedTexts(texts, 'en').supervisorSubUsersView
+import {t} from '@utils/translations'
 
 export class SupervisorSubUsersViewModel {
   history = undefined
@@ -223,7 +221,7 @@ export class SupervisorSubUsersViewModel {
 
       this.warningInfoModalSettings = {
         isWarning: false,
-        title: textConsts.successTitle,
+        title: t(TranslationKey['Sab-user added']),
       }
 
       this.onTriggerOpenModal('showWarningModal')
@@ -233,7 +231,7 @@ export class SupervisorSubUsersViewModel {
 
       this.warningInfoModalSettings = {
         isWarning: true,
-        title: error.body.message || textConsts.failTitle,
+        title: error.body.message || t(TranslationKey['Sab-user not added!']),
       }
 
       this.onTriggerOpenModal('showWarningModal')
@@ -246,7 +244,7 @@ export class SupervisorSubUsersViewModel {
 
       this.warningInfoModalSettings = {
         isWarning: false,
-        title: textConsts.successRemoveTitle,
+        title: t(TranslationKey['Sab-user removed']),
       }
 
       this.onTriggerOpenModal('showWarningModal')

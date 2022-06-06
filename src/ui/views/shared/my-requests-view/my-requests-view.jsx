@@ -8,7 +8,6 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -20,13 +19,10 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {CustomSearchRequestForm} from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {MyRequestsViewModel} from './my-requests-view.model'
 import {styles} from './my-requests-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientExchangeRequestsView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
@@ -114,7 +110,7 @@ class MyRequestsViewRaw extends Component {
           </Appbar>
         </Main>
         <Modal openModal={showRequestForm} setOpenModal={() => onTriggerOpenModal('showRequestForm')}>
-          <Typography variant="h5">{textConsts.modalNewRequestTitle}</Typography>
+          <Typography variant="h5">{t(TranslationKey['New request'])}</Typography>
           <CustomSearchRequestForm
             setOpenModal={() => onTriggerOpenModal('showRequestForm')}
             requestToEdit={requestFormSettings.request}
@@ -127,10 +123,10 @@ class MyRequestsViewRaw extends Component {
           isWarning
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
-          message={textConsts.confirmMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Are you sure you want to cancel the search request?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={() => {
             removeCustomSearchRequest()
           }}

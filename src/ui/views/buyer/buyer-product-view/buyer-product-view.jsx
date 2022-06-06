@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -14,11 +14,9 @@ import {Navbar} from '@components/navbar'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {ProductWrapper} from '@components/product/product-wrapper'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {BuyerProductViewModel} from './buyer-product-view.model'
-
-const textConsts = getLocalizedTexts(texts, 'en').buyerProductView
 
 @observer
 export class BuyerProductView extends Component {
@@ -64,7 +62,7 @@ export class BuyerProductView extends Component {
       <React.Fragment>
         <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey.Product)} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {product ? (
                 <ProductWrapper
@@ -88,7 +86,7 @@ export class BuyerProductView extends Component {
             requestStatus={requestStatus}
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}
-            title={textConsts.modalAddTitle}
+            title={t(TranslationKey['Adding and editing a supplier'])}
             supplier={selectedSupplier}
             showProgress={showProgress}
             progressValue={progressValue}
@@ -101,7 +99,7 @@ export class BuyerProductView extends Component {
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
           title={warningModalTitle}
-          btnText={textConsts.okBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
           }}
@@ -111,10 +109,10 @@ export class BuyerProductView extends Component {
           isWarning={confirmModalSettings.isWarning}
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
+          title={t(TranslationKey.Attention)}
           message={confirmModalSettings.message}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={() => {
             confirmModalSettings.onClickOkBtn()
             onTriggerOpenModal('showConfirmModal')

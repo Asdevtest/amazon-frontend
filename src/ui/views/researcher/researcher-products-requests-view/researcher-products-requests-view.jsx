@@ -8,6 +8,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -16,6 +17,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ResearcherProductsRequestsViewModel} from './researcher-products-requests-view.model'
 import {styles} from './researcher-products-requests-view.style'
@@ -63,7 +65,7 @@ class ResearcherProductsRequestsViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey.Requests)} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination
@@ -100,10 +102,14 @@ class ResearcherProductsRequestsViewRaw extends Component {
         <ConfirmationModal
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
-          message={textConsts.confirmMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          title={t(TranslationKey['Are you ready to begin the work of forming a proposal?'])}
+          message={t(
+            TranslationKey[
+              'It will take N hours to process the request. If If the request is not completed in the specified time, the task will be cancelled automatically and a fine of N $'
+            ],
+          )}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={() => {
             pushToRequestContent()
           }}

@@ -1,6 +1,7 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatModel} from '@models/chat-model'
 import {RequestModel} from '@models/request-model'
@@ -8,6 +9,7 @@ import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'
 
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
@@ -222,7 +224,9 @@ export class OwnerRequestDetailCustomViewModel {
 
       this.confirmModalSettings = {
         isWarning: false,
-        message: `Точная стоимость заявки составит: ${toFixed(result.totalCost, 2)} $. Подтвердить публикацию?`,
+        message: `${t(TranslationKey['The exact cost of the request will be:'])} ${toFixed(result.totalCost, 2)} $. ${t(
+          TranslationKey['Confirm the publication?'],
+        )}`,
         onSubmit: () => this.toPublishRequest(result.totalCost),
       }
 
@@ -270,7 +274,7 @@ export class OwnerRequestDetailCustomViewModel {
   onClickCancelBtn() {
     this.confirmModalSettings = {
       isWarning: true,
-      message: `Удалить заявку?`,
+      message: t(TranslationKey['Delete request?']),
       onSubmit: () => this.onDeleteRequest(),
     }
     this.onTriggerOpenModal('showConfirmModal')

@@ -17,7 +17,7 @@ import {t} from '@utils/translations'
 export const batchesViewColumns = () => [
   {
     field: 'orders',
-    headerName: t(TranslationKey.Product),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     width: 550,
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
     filterable: false,
@@ -26,7 +26,7 @@ export const batchesViewColumns = () => [
 
   {
     field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell params={params} />,
     width: 110,
     type: 'date',
@@ -41,14 +41,14 @@ export const batchesViewColumns = () => [
 
   {
     field: 'humanFriendlyId',
-    headerName: t(TranslationKey.ID),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => renderFieldValueCell(params.value),
     width: 80,
   },
 
   {
     field: 'tariff',
-    headerName: t(TranslationKey.Tariff),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
@@ -71,7 +71,7 @@ export const batchesViewColumns = () => [
 
   {
     field: 'totalPrice',
-    headerName: t(TranslationKey['Total price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 130,
@@ -79,7 +79,7 @@ export const batchesViewColumns = () => [
 
   {
     field: 'dates',
-    headerName: t(TranslationKey.Dates),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
     renderCell: params => <WarehouseTariffDatesCell row={params.row.originalData.boxes[0].logicsTariff} />,
     width: 350,
     filterable: false,

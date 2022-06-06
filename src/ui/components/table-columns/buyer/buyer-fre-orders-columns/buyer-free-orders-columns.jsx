@@ -1,6 +1,5 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -12,10 +11,7 @@ import {
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
-
-const textConsts = getLocalizedTexts(texts, 'ru').buyerFreeOrdersTableColumns
 
 export const buyerFreeOrdersViewColumns = handlers => [
   {
@@ -31,7 +27,10 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     width: 170,
     renderCell: params => (
-      <NormalActionBtnCell bTnText={textConsts.pickUp} onClickOkBtn={() => handlers.onClickTableRowBtn(params.row)} />
+      <NormalActionBtnCell
+        bTnText={t(TranslationKey['Get to work'])}
+        onClickOkBtn={() => handlers.onClickTableRowBtn(params.row)}
+      />
     ),
     filterable: false,
     sortable: false,
