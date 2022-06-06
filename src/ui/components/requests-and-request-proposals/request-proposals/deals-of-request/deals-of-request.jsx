@@ -32,6 +32,7 @@ export const DealsOfRequest = ({requestProposals}) => {
       <Accordion
         classes={{root: classNames.accordion}}
         expanded={showDetails}
+        style={{borderRadius: '4px', boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)'}}
         disabled={!requestProposals.length}
         onChange={() => setShowDetails(!showDetails)}
       >
