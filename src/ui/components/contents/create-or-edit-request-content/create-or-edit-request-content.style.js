@@ -96,9 +96,7 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
   },
 
-  stepsWrapper: {
-    display: 'flex',
-  },
+  stepsWrapper: {},
 
   step: {
     margin: '0',
@@ -115,12 +113,12 @@ export const useClassNames = makeStyles(() => ({
   },
 
   backBtn: {
-    minWidth: '210px',
+    width: '211px',
   },
 
   successBtn: {
     marginLeft: '60px',
-    minWidth: '210px',
+    width: '211px',
   },
 
   successBtnTextWrapper: {

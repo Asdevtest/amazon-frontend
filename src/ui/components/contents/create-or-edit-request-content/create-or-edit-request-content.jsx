@@ -39,6 +39,7 @@ export const CreateOrEditRequestContent = ({
   const classNames = useClassNames()
 
   const [images, setImages] = useState([])
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
 
@@ -65,6 +66,7 @@ export const CreateOrEditRequestContent = ({
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const [deadlineError, setDeadlineError] = useState(false)
+  console.log(images.map(img => img.data_url))
 
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
@@ -341,11 +343,7 @@ export const CreateOrEditRequestContent = ({
 
                   <div className={classNames.footerRightWrapper}>
                     <div className={classNames.buttonsWrapper}>
-                      <Button
-                        variant={curStep === stepVariant.STEP_TWO ? 'outlined' : 'text'}
-                        className={classNames.backBtn}
-                        onClick={onClickBackBtn}
-                      >
+                      <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
                         {curStep === stepVariant.STEP_TWO
                           ? t(TranslationKey['Back to editing'])
                           : t(TranslationKey.Cancel)}
@@ -435,7 +433,15 @@ export const CreateOrEditRequestContent = ({
                     {images
                       .filter(el => checkIsImageLink(el.file.name))
                       .map((photo, index) => (
-                        <img key={index} src={photo.data_url} height="108px" />
+                        <img
+                          key={index}
+                          src={photo.data_url}
+                          height="108px"
+                          onClick={() => {
+                            setShowPhotosModal(!showPhotosModal)
+                            setBigImagesOptions({images: images.map(img => img.data_url), imgIndex: index})
+                          }}
+                        />
                       ))}
                   </Carousel>
                 </div>
@@ -511,12 +517,8 @@ export const CreateOrEditRequestContent = ({
 
               <div className={classNames.footerRightWrapper}>
                 <div className={classNames.buttonsWrapper}>
-                  <Button
-                    variant={curStep === stepVariant.STEP_TWO ? 'outlined' : 'text'}
-                    className={classNames.backBtn}
-                    onClick={onClickBackBtn}
-                  >
-                    {curStep === stepVariant.STEP_TWO ? t(TranslationKey['Back to editing']) : t(TranslationKey.Cancel)}
+                  <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
+                    {curStep === stepVariant.STEP_TWO ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
                   </Button>
 
                   <SuccessButton disabled={disableSubmit} className={classNames.successBtn} onClick={onSuccessSubmit}>
@@ -544,10 +546,9 @@ export const CreateOrEditRequestContent = ({
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
 
       <BigImagesModal
-        isAmazone
         openModal={showPhotosModal}
         setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={formFields.details.linksToMediaFiles.filter(el => checkIsImageLink(el)) || []}
+        images={bigImagesOptions.images}
       />
     </div>
   )
