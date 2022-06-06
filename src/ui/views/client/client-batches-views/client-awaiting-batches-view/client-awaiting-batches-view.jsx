@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -18,13 +17,10 @@ import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {ClientAwaitingBatchesViewModel} from './client-awaiting-batches-view.model'
 import {styles} from './client-awaiting-batches-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientAwaitingBatchesView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_BATCHES
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH
@@ -138,10 +134,10 @@ class ClientAwaitingBatchesViewRaw extends Component {
           isWarning
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
-          message={textConsts.confirmMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Are you sure you want to cancel the send?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={onClickCancelSendToBatchBtn}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
