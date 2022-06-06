@@ -4,7 +4,7 @@ export const useClassNames = makeStyles(() => ({
   root: {
     padding: '10px 26px',
     backgroundColor: '#ffffff',
-    borderRadius: 8,
+    borderRadius: 4,
   },
   rootGreen: {
     backgroundColor: '#D9FAE5',

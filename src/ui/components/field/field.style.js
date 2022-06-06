@@ -22,7 +22,7 @@ export const useClassNames = makeStyles({
   input: {
     width: '100%',
     height: '32px',
-    borderRadius: '8px',
+    borderRadius: '4px',
   },
   errorText: {
     marginTop: '2px',

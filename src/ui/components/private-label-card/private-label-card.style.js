@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/styles'
 
 export const useClassNames = makeStyles(theme => ({
   root: {
-    borderRadius: '8px',
+    borderRadius: '4px',
     minHeight: '380px',
     width: '440px',
     display: 'flex',
@@ -19,7 +19,7 @@ export const useClassNames = makeStyles(theme => ({
   img: {
     height: '100%',
     width: '100%',
-    borderRadius: '8px 8px 0px 0px',
+    borderRadius: '4px 4px 0px 0px',
     objectFit: 'contain',
     objectPosition: 'center',
   },

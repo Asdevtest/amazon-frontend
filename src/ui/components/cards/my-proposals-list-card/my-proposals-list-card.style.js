@@ -8,7 +8,7 @@ export const useClassNames = makeStyles(() => ({
   cardWrapper: {
     width: '100%',
     height: '320px',
-    borderRadius: '8px',
+    borderRadius: '4px',
     border: '1px solid rgba(0,0,0, .1)',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     display: 'flex',
