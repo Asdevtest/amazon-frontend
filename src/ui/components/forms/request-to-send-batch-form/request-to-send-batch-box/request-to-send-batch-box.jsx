@@ -32,11 +32,9 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
     item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper,
   )
 
-  const isBadBox = isNoBarCodGlued || !box.isShippingLabelAttachedByStorekeeper
-
   return (
     <div
-      className={clsx(classNames.box, classNames.row, {[classNames.badBox]: isBadBox})}
+      className={clsx(classNames.box, classNames.row, {[classNames.badBox]: isNoBarCodGlued})}
       onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
     >
       <div className={clsx(tableCellClsx, classNames.indexCell)}>

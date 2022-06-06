@@ -58,7 +58,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
                     <LabelValuePairBlock
                       label="Ограничение по времени на исправление (мин)"
                       value={message.data.timeLimitInMinutes.toString()}
-                      bgColor="white"
+                      bgColor="green"
                     />
                   </div>
                 ) : undefined}

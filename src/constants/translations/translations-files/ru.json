@@ -487,7 +487,7 @@
   "Add a competitor": "Добавить конкурента",
   "Photos of the product in boxes:": "Фотографии продукта в коробках:",
   "Listing photos:": "Фотографии листинга:",
-  "Transactions:": "Транзакции:",
+  "Transactions": "Транзакции",
   "No transactions": "Транзакций нет",
   "Data saved successfully": "Данные успешно сохранены",
   "Proposal Creation": "Создание предложения",
@@ -634,7 +634,7 @@
   "Amount": "Сумма",
   "Reason": "Причина",
   "Execute": "Выполнить",
-  "Enter the reason...": "Ввелите причину...",
+  "Enter the reason...": "Введите причину...",
   "Permissions": "Разрешения",
   "Permission Groups": "Группы разрешений",
   "Key": "Ключ",
@@ -765,5 +765,8 @@
   "No files added": "Файлы не добавлены",
   "To add files go back to editing": "Для добавления файлов вернитесь к редактированию",
   "Are you sure you want to cancel the send?": "Вы точно хотите отменить отправку?",
-  "Are you sure you want to return the boxes to the warehouse?": "Вы точно хотите вернуть коробки на склад?"
+  "Are you sure you want to return the boxes to the warehouse?": "Вы точно хотите вернуть коробки на склад?",
+  "Content": "Контент",
+  "Suppliers and Ideas": "Поставщики и идеи",
+  "Add a product idea": "Добавить идею товара"
 }

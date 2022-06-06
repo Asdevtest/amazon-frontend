@@ -16,6 +16,7 @@ import {t} from '@utils/translations'
 import {Integrations} from '../integrations'
 import {Listing} from '../listing'
 import {Orders} from '../orders'
+import {SuppliersAndIdeas} from '../suppliers-and-ideas'
 import {BottomCard} from './bottom-card'
 import {useClassNames} from './product-wrapper.style'
 import {TopCard} from './top-card'
@@ -25,6 +26,7 @@ const tabsValues = {
   ORDERS: 'ORDERS',
   INTEGRATIONS: 'INTEGRATIONS',
   LISTING: 'LISTING',
+  SUPPLIERS_AND_IDEAS: 'SUPPLIERS_AND_IDEAS',
 }
 
 const TabPanel = ({children, value, index, ...other}) => (
@@ -94,7 +96,13 @@ export const ProductWrapper = observer(
           {checkIsClient(curUserRole) && (
             <Tab classes={tabItemStyles} label={t(TranslationKey.Integrations)} value={tabsValues.INTEGRATIONS} />
           )}
-          <Tab classes={tabItemStyles} label={t(TranslationKey.Listing)} value={tabsValues.LISTING} />
+          <Tab classes={tabItemStyles} label={t(TranslationKey.Content)} value={tabsValues.LISTING} />
+
+          <Tab
+            classes={tabItemStyles}
+            label={t(TranslationKey['Suppliers and Ideas'])}
+            value={tabsValues.SUPPLIERS_AND_IDEAS}
+          />
         </Tabs>
 
         <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
@@ -136,6 +144,10 @@ export const ProductWrapper = observer(
 
         <TabPanel value={tabIndex} index={tabsValues.LISTING}>
           <Listing productId={product._id} onClickBack={() => setTabIndex(tabsValues.MAIN_INFO)} />
+        </TabPanel>
+
+        <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
+          <SuppliersAndIdeas />
         </TabPanel>
       </React.Fragment>
     )

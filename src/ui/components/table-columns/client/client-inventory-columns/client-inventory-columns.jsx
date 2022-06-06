@@ -134,6 +134,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
       ),
     minWidth: 100,
     headerAlign: 'center',
+    type: 'actions',
   },
 
   {

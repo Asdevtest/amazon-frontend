@@ -1,7 +1,6 @@
 import React, {useEffect, useRef} from 'react'
 
-import {Typography, Divider, Paper, Link, IconButton} from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
+import {Typography, Divider, Paper} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 import {useHistory} from 'react-router-dom'
@@ -18,7 +17,6 @@ import {UserBalanceHistory} from '@components/screens/user-balance-history'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsClient, checkIsSupervisor} from '@utils/checks'
-import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {Button} from '../../buttons/button'
@@ -53,285 +51,203 @@ export const Listing = observer(({productId, onClickBack}) => {
     setTmpListingImages,
     onSaveSubmit,
     onCancel,
-    onRemoveCompetitor,
   } = listingModel.current
 
   const userCanEdit = checkIsSupervisor(UserRoleCodeMap[userRole]) || checkIsClient(UserRoleCodeMap[userRole])
 
   return (
     <div className={classNames.mainWrapper}>
-      <div className={classNames.productBlockWrapper}>
-        <Paper className={classNames.sideBlockWrapper}>
-          <Typography className={classNames.title}>{t(TranslationKey['Details about the product:'])}</Typography>
+      <Paper className={classNames.productBlockWrapper}>
+        <Typography className={classNames.title}>{t(TranslationKey['Details about the product:'])}</Typography>
 
-          <Field
-            multiline
-            disabled={!userCanEdit}
-            className={classNames.listingTitle}
-            rows={4}
-            inputProps={{maxLength: 1000}}
-            label={t(TranslationKey['Listing title'])}
-            placeholder={t(TranslationKey['Enter the title of the listing'])}
-            value={listingProduct.listingName}
-            onChange={e => onChangeField(e, 'listingName')}
-          />
-
-          {[1, 2, 3, 4, 5].map((el, index) => (
+        <div className={classNames.productSubBlockWrapper}>
+          <div className={classNames.sideBlockWrapper}>
             <Field
-              key={index}
-              oneLine
-              disabled={
-                (index === 0
-                  ? index !== 0
-                  : listingProduct.listingBulletPoints?.[index]
-                  ? false
-                  : !listingProduct.listingBulletPoints?.[index - 1]) || !userCanEdit
-              }
-              className={classNames.descriptionProduct}
+              multiline
+              disabled={!userCanEdit}
+              className={classNames.listingTitle}
+              rows={4}
               inputProps={{maxLength: 1000}}
-              label={`Bullet Point #${el}: `}
-              value={listingProduct.listingBulletPoints?.[index] || ''}
-              onChange={e => onChangeArrayField(e, 'listingBulletPoints', index)}
+              label={t(TranslationKey['Listing title'])}
+              placeholder={t(TranslationKey['Enter the title of the listing'])}
+              value={listingProduct.listingName}
+              onChange={e => onChangeField(e, 'listingName')}
             />
-          ))}
 
-          <Field
-            multiline
-            label={t(TranslationKey['Details about the product:'])}
-            disabled={!userCanEdit}
-            minRows={4}
-            rowsMax={4}
-            inputProps={{maxLength: 1000}}
-            value={listingProduct.listingProductDetails}
-            placeholder={t(TranslationKey['Enter a description'])}
-            className={classNames.modalTextArea}
-            onChange={e => onChangeField(e, 'listingProductDetails')}
-          />
+            {[1, 2, 3, 4, 5].map((el, index) => (
+              <Field
+                key={index}
+                oneLine
+                disabled={
+                  (index === 0
+                    ? index !== 0
+                    : listingProduct.listingBulletPoints?.[index]
+                    ? false
+                    : !listingProduct.listingBulletPoints?.[index - 1]) || !userCanEdit
+                }
+                className={classNames.descriptionProduct}
+                inputProps={{maxLength: 1000}}
+                label={`Bullet Point #${el}: `}
+                value={listingProduct.listingBulletPoints?.[index] || ''}
+                onChange={e => onChangeArrayField(e, 'listingBulletPoints', index)}
+              />
+            ))}
 
-          <Field
-            multiline
-            className={classNames.listingSearchTerms}
-            disabled={!userCanEdit}
-            inputProps={{maxLength: 1000}}
-            label={t(TranslationKey['Search terms:'])}
-            placeholder={t(TranslationKey['Enter search terms'])}
-            value={listingProduct.listingSearchTerms}
-            onChange={e => onChangeField(e, 'listingSearchTerms')}
-          />
-
-          {[1, 2, 3, 4, 5].map((el, index) => (
             <Field
-              key={index}
-              oneLine
-              disabled={
-                (index === 0
-                  ? index !== 0
-                  : listingProduct.listingSubjectMatters?.[index]
-                  ? false
-                  : !listingProduct.listingSubjectMatters?.[index - 1]) || !userCanEdit
-              }
+              multiline
+              label={t(TranslationKey['Details about the product:'])}
+              disabled={!userCanEdit}
+              minRows={4}
+              rowsMax={4}
               inputProps={{maxLength: 1000}}
-              className={classNames.descriptionProduct}
-              label={`Subject Matter #${el}: `}
-              value={listingProduct.listingSubjectMatters?.[index] || ''}
-              onChange={e => onChangeArrayField(e, 'listingSubjectMatters', index)}
+              value={listingProduct.listingProductDetails}
+              placeholder={t(TranslationKey['Enter a description'])}
+              className={classNames.modalTextArea}
+              onChange={e => onChangeField(e, 'listingProductDetails')}
             />
-          ))}
+          </div>
 
-          {userCanEdit && (
-            <div>
-              <div className={classNames.imageFileInputWrapper}>
-                <UploadFilesInput images={tmpListingImages} setImages={setTmpListingImages} maxNumber={50} />
-              </div>
-            </div>
-          )}
+          <Divider orientation="vertical" />
 
-          {userCanEdit ? (
-            <div className={classNames.buttonsWrapper}>
-              <Button
-                disableElevation
-                className={classNames.button}
-                color="primary"
-                variant="contained"
-                onClick={onSaveSubmit}
-              >
-                {t(TranslationKey.Save)}
-              </Button>
+          <div className={classNames.sideBlockWrapper}>
+            <Field
+              multiline
+              className={classNames.listingSearchTerms}
+              disabled={!userCanEdit}
+              inputProps={{maxLength: 1000}}
+              label={t(TranslationKey['Search terms:'])}
+              placeholder={t(TranslationKey['Enter search terms'])}
+              value={listingProduct.listingSearchTerms}
+              onChange={e => onChangeField(e, 'listingSearchTerms')}
+            />
 
-              <Button
-                disableElevation
-                className={classNames.button}
-                color="primary"
-                variant="contained"
-                onClick={onCancel}
-              >
-                {t(TranslationKey.Cancel)}
-              </Button>
+            {[1, 2, 3, 4, 5].map((el, index) => (
+              <Field
+                key={index}
+                oneLine
+                disabled={
+                  (index === 0
+                    ? index !== 0
+                    : listingProduct.listingSubjectMatters?.[index]
+                    ? false
+                    : !listingProduct.listingSubjectMatters?.[index - 1]) || !userCanEdit
+                }
+                inputProps={{maxLength: 1000}}
+                className={classNames.descriptionProduct}
+                label={`Subject Matter #${el}: `}
+                value={listingProduct.listingSubjectMatters?.[index] || ''}
+                onChange={e => onChangeArrayField(e, 'listingSubjectMatters', index)}
+              />
+            ))}
 
-              <Button
-                disableElevation
-                className={classNames.button}
-                color="primary"
-                variant="contained"
-                onClick={onClickBack}
-              >
-                {t(TranslationKey.Back)}
-              </Button>
-            </div>
-          ) : (
-            <div className={classNames.buttonsWrapper}>
-              <Button
-                disableElevation
-                className={classNames.button}
-                color="primary"
-                variant="contained"
-                onClick={onClickBack ? onClickBack : onCancel}
-              >
-                {t(TranslationKey.Back)}
-              </Button>
-            </div>
-          )}
-        </Paper>
+            <div className={classNames.photosWrapper}>
+              <div className={classNames.photosLeftSubWrapper}>
+                <Typography className={classNames.subTitle}>
+                  {t(TranslationKey['Photos of the product in boxes:'])}
+                </Typography>
 
-        <Divider orientation="vertical" />
-
-        <Paper className={classNames.sideBlockWrapper}>
-          <Typography className={classNames.title}>{t(TranslationKey['Searching for a supplier:'])}</Typography>
-
-          <Field
-            multiline
-            disabled={!userCanEdit}
-            className={classNames.searchSupplierField}
-            inputProps={{maxLength: 1000}}
-            label={t(TranslationKey['The task of finding a supplier:'])}
-            placeholder={`-${t(TranslationKey['price to'])} 1000$;\n-${t(
-              TranslationKey['Shipping: USA, Europe'],
-            )};\n-${t(TranslationKey['payment through a legal entity'])}`}
-            value={listingProduct.listingTaskToFindSupplier}
-            onChange={e => onChangeField(e, 'listingTaskToFindSupplier')}
-          />
-
-          <Field
-            multiline
-            disabled={!userCanEdit}
-            className={classNames.searchSupplierField}
-            inputProps={{maxLength: 1000}}
-            label={t(TranslationKey['Notice:'])}
-            placeholder={`-${t(TranslationKey['product prices'])};\n-${t(
-              TranslationKey['minimum quantity of goods for purchase and shipment'],
-            )}...`}
-            value={listingProduct.listingSupplierImportantPoints}
-            onChange={e => onChangeField(e, 'listingSupplierImportantPoints')}
-          />
-
-          <Field
-            multiline
-            disabled={!userCanEdit}
-            className={classNames.searchSupplierField}
-            inputProps={{maxLength: 1000}}
-            label={t(TranslationKey['Additional information:'])}
-            placeholder={t(TranslationKey.Deadline)}
-            value={listingProduct.listingExtraInfo}
-            onChange={e => onChangeField(e, 'listingExtraInfo')}
-          />
-
-          <Typography className={classNames.subTitle}>{t(TranslationKey['Competitors:'])}</Typography>
-
-          {listingProduct.listingSupplierCompetitors?.length > 0 ? (
-            listingProduct.listingSupplierCompetitors.map((el, index) => (
-              <div key={index} className={classNames.competitorMainWrapper}>
-                <div className={classNames.competitorWrapper}>
-                  <Typography>{t(TranslationKey.Link)}</Typography>
-                  <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(el.link)}>
-                    <Typography className={classNames.link}>{el.link}</Typography>
-                  </Link>
-
-                  <Field
-                    multiline
-                    disabled
-                    label={`${t(TranslationKey.Comment)} :`}
-                    minRows={4}
-                    rowsMax={4}
-                    value={el.comments}
-                    className={classNames.modalTextArea}
-                  />
-                </div>
-
-                {userCanEdit && (
-                  <IconButton onClick={() => onRemoveCompetitor(index)}>
-                    <DeleteIcon className={classNames.deleteBtn} />
-                  </IconButton>
+                {imagesFromBoxes.length > 0 ? (
+                  <div className={classNames.carouselWrapper}>
+                    <Carousel autoPlay={false} timeout={100} animation="fade">
+                      {imagesFromBoxes.map((el, index) => (
+                        <div key={index}>
+                          <img
+                            alt=""
+                            className={classNames.imgBox}
+                            src={el}
+                            onClick={() => onClickImg({images: imagesFromBoxes, imgIndex: index})}
+                          />
+                        </div>
+                      ))}
+                    </Carousel>
+                  </div>
+                ) : (
+                  <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
                 )}
               </div>
-            ))
-          ) : (
-            <div>
-              <Typography>{t(TranslationKey['no competitors']) + '...'}</Typography>
+
+              <div>
+                <Typography className={classNames.subTitle}>{t(TranslationKey['Listing photos:'])}</Typography>
+
+                {listingProduct.listingImages?.length > 0 ? (
+                  <div className={classNames.carouselWrapper}>
+                    <Carousel autoPlay={false} timeout={100} animation="fade">
+                      {listingProduct.listingImages.map((el, index) => (
+                        <div key={index}>
+                          <img
+                            alt=""
+                            className={classNames.imgBox}
+                            src={el}
+                            onClick={() => onClickImg({images: listingProduct.listingImages, imgIndex: index})}
+                          />
+                        </div>
+                      ))}
+                    </Carousel>
+                  </div>
+                ) : (
+                  <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
+                )}
+              </div>
             </div>
-          )}
-          {userCanEdit && (
-            <Button
-              disableElevation
-              className={classNames.button}
-              color="primary"
-              variant="contained"
-              onClick={() => onTriggerOpenModal('showCompetitorModal')}
-            >
-              {t(TranslationKey['Add a competitor'])}
-            </Button>
-          )}
 
-          <div>
-            <Typography className={classNames.subTitle}>
-              {t(TranslationKey['Photos of the product in boxes:'])}
-            </Typography>
+            {userCanEdit && (
+              <div>
+                <div className={classNames.imageFileInputWrapper}>
+                  <UploadFilesInput images={tmpListingImages} setImages={setTmpListingImages} maxNumber={50} />
+                </div>
+              </div>
+            )}
 
-            {imagesFromBoxes.length > 0 ? (
-              <div className={classNames.carouselWrapper}>
-                <Carousel autoPlay={false} timeout={100} animation="fade">
-                  {imagesFromBoxes.map((el, index) => (
-                    <div key={index}>
-                      <img
-                        alt=""
-                        className={classNames.imgBox}
-                        src={el}
-                        onClick={() => onClickImg({images: imagesFromBoxes, imgIndex: index})}
-                      />
-                    </div>
-                  ))}
-                </Carousel>
+            {userCanEdit ? (
+              <div className={classNames.buttonsWrapper}>
+                <Button
+                  disableElevation
+                  className={classNames.button}
+                  color="primary"
+                  variant="contained"
+                  onClick={onSaveSubmit}
+                >
+                  {t(TranslationKey.Save)}
+                </Button>
+
+                <Button
+                  disableElevation
+                  className={classNames.button}
+                  color="primary"
+                  variant="contained"
+                  onClick={onCancel}
+                >
+                  {t(TranslationKey.Cancel)}
+                </Button>
+
+                <Button
+                  disableElevation
+                  className={classNames.button}
+                  color="primary"
+                  variant="contained"
+                  onClick={onClickBack}
+                >
+                  {t(TranslationKey.Back)}
+                </Button>
               </div>
             ) : (
-              <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
-            )}
-          </div>
-
-          <div>
-            <Typography className={classNames.subTitle}>{t(TranslationKey['Listing photos:'])}</Typography>
-
-            {listingProduct.listingImages?.length > 0 ? (
-              <div className={classNames.carouselWrapper}>
-                <Carousel autoPlay={false} timeout={100} animation="fade">
-                  {listingProduct.listingImages.map((el, index) => (
-                    <div key={index}>
-                      <img
-                        alt=""
-                        className={classNames.imgBox}
-                        src={el}
-                        onClick={() => onClickImg({images: listingProduct.listingImages, imgIndex: index})}
-                      />
-                    </div>
-                  ))}
-                </Carousel>
+              <div className={classNames.buttonsWrapper}>
+                <Button
+                  disableElevation
+                  className={classNames.button}
+                  color="primary"
+                  variant="contained"
+                  onClick={onClickBack ? onClickBack : onCancel}
+                >
+                  {t(TranslationKey.Back)}
+                </Button>
               </div>
-            ) : (
-              <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
             )}
           </div>
-        </Paper>
-      </div>
+        </div>
+      </Paper>
 
-      <UserBalanceHistory historyData={payments} title={t(TranslationKey['Transactions:'])} />
+      <UserBalanceHistory historyData={payments} title={t(TranslationKey.Transactions)} />
 
       <BigImagesModal
         isAmazone

@@ -69,10 +69,18 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
       <div className={classNames.footerWrapper}>
         <div className={classNames.leftSide}>
           <div className={classNames.labelValueBlockWrapper}>
-            <LabelValuePairBlock label="Время на выполнение" value={minsToTime(message.data.execution_time)} />
+            <LabelValuePairBlock
+              label="Время на выполнение"
+              value={minsToTime(message.data.execution_time)}
+              bgColor="green"
+            />
           </div>
           <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
-            <LabelValuePairBlock label="Стоимость" value={toFixedWithDollarSign(message.data.price, 2)} />
+            <LabelValuePairBlock
+              label="Стоимость"
+              value={toFixedWithDollarSign(message.data.price, 2)}
+              bgColor="green"
+            />
           </div>
         </div>
         {chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||

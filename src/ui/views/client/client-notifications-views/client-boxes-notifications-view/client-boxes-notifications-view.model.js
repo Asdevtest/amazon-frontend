@@ -95,7 +95,7 @@ export class ClientBoxesNotificationsViewModel {
     this.confirmModalSettings = {
       isWarning: false,
       message: `${t(TranslationKey['Additional payment is required:'])} ${toFixedWithDollarSign(
-        row.totalPriceChanged - row.totalPrice,
+        row.deliveryTotalPriceChanged - row.deliveryTotalPrice,
         2,
       )} ${t(TranslationKey['Do you confirm the extra payment?'])}`,
       onClickOkBtn: () => this.onClickConfirmOrderPriceChangeBtn(row),

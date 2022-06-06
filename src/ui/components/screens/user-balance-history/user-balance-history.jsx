@@ -15,11 +15,11 @@ export const UserBalanceHistory = ({historyData, title}) => {
   const classNames = useClassNames()
 
   return (
-    <React.Fragment>
+    <Paper>
       <Typography paragraph variant="h5" className={classNames.mainTitle}>
         {title}
       </Typography>
-      <Paper>
+      <div>
         {historyData.length > 0 ? (
           <TableContainer>
             <Table className={classNames.table}>
@@ -54,7 +54,7 @@ export const UserBalanceHistory = ({historyData, title}) => {
         ) : (
           <Typography>{t(TranslationKey['No transactions'])}</Typography>
         )}
-      </Paper>
-    </React.Fragment>
+      </div>
+    </Paper>
   )
 }

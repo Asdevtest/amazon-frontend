@@ -764,12 +764,15 @@ export enum TranslationKey {
   'To add files go back to editing' = 'To add files go back to editing',
   'Are you sure you want to cancel the send?' = 'Are you sure you want to cancel the send?',
   'Are you sure you want to return the boxes to the warehouse?' = 'Are you sure you want to return the boxes to the warehouse?',
-  // '' = '',
+  'Content' = 'Content',
+  'Suppliers and Ideas' = 'Suppliers and Ideas',
+  'Add a product idea' = 'Add a product idea',
   // '' = '',
   // '' = '',
 }
 
 // "Create a batch": "Create a batch"
+// "Add a product idea": "Add a product idea"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

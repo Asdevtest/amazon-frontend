@@ -114,7 +114,9 @@ export const SelectFields = ({
             {t(TranslationKey.Status)}
           </InputLabel>
           <NativeSelect
-            disabled={order.status !== orderFields.status}
+            disabled={
+              order.status !== orderFields.status || +orderFields.totalPriceChanged - orderFields.totalPrice > 0
+            }
             variant="filled"
             value={orderFields.status}
             className={classNames.nativeSelect}

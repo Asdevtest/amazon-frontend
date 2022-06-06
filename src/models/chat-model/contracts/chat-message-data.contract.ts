@@ -32,6 +32,9 @@ export class ChatMessageDataCreatedNewProposalRequestDescriptionDetailsContract
   @IsNotEmpty()
   @IsString()
   public conditions!: string
+
+  @IsOptional()
+  public linksToMediaFiles?: string[] | null
 }
 
 export class ChatMessageDataCreatedNewProposalRequestDescriptionContract

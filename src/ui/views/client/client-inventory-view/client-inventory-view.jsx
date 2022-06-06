@@ -119,6 +119,8 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerOpenModal('showSelectionSupplierModal')
     }
 
+    // console.log('columnsModel', columnsModel)
+
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
@@ -183,6 +185,7 @@ export class ClientInventoryViewRaw extends Component {
                 pagination
                 useResizeContainer
                 checkboxSelection
+                disableSelectionOnClick
                 classes={{
                   row: classNames.row,
                 }}
@@ -205,7 +208,11 @@ export class ClientInventoryViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
-                onRowDoubleClick={e => onClickShowProduct(e.row)}
+                onRowClick={(params, event) =>
+                  event.target.checked === undefined &&
+                  !event.target.className.includes('Chip') &&
+                  onClickShowProduct(params.row)
+                }
               />
             </MainContent>
           </Appbar>
