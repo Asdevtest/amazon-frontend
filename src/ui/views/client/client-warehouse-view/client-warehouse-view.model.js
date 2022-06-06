@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {BoxStatus} from '@constants/box-status'
@@ -7,6 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
@@ -22,6 +22,7 @@ import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/
 import {sortObjectsArrayByFiledDate, sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientWarehouseView
@@ -285,7 +286,9 @@ export class ClientWarehouseViewModel {
     } else {
       this.confirmModalSettings = {
         iWarning: false,
-        confirmMessage: 'Shipping label был проставлен, для проклейки будет создана задача складу.',
+        confirmMessage: t(
+          TranslationKey['Shipping label has been stamped, a warehouse task will be created for labeling.'],
+        ),
         onClickConfirm: () => this.onSaveShippingLabelInTableSubmit(),
       }
 
@@ -843,8 +846,8 @@ export class ClientWarehouseViewModel {
     this.toCancelData = {id, taskId, type}
 
     this.confirmModalSettings = {
-      iWarning: true,
-      confirmMessage: 'Вы точно хотите отменить заказ?',
+      isWarning: true,
+      confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
       onClickConfirm: () => this.onClickCancelAfterConfirm(),
     }
 

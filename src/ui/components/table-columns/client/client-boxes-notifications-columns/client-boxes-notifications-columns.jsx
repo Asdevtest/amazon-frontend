@@ -37,11 +37,10 @@ export const clientBoxesNotificationsViewColumns = handlers => [
   },
 
   {
-    field: 'deliveryTotalPrice',
+    field: 'deliveryTotalPriceChanged',
     headerName: t(TranslationKey['Pay more']),
     width: 100,
-    renderCell: params =>
-      renderFieldValueCell((params.value - params.row.originalData.deliveryTotalPriceChanged).toFixed(2)),
+    renderCell: params => renderFieldValueCell((params.value - params.row.originalData.deliveryTotalPrice).toFixed(2)),
   },
 
   {

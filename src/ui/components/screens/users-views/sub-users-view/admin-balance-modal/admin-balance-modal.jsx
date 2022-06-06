@@ -14,6 +14,12 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './admin-balance-modal.style'
 
+const paymentTypeSettings = {
+  DEPOSIT: 'DEPOSIT',
+  WITHDRAW: 'WITHDRAW',
+  FINE: 'FINE',
+}
+
 export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSubmit}) => {
   const classNames = useClassNames()
 
@@ -21,7 +27,9 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
 
   const [reasonValue, setReasonValue] = useState('')
 
-  const [paymentType, setPaymentType] = useState('DEPOSIT')
+  const [paymentType, setPaymentType] = useState(
+    isWithdraw ? paymentTypeSettings.WITHDRAW : paymentTypeSettings.DEPOSIT,
+  )
 
   const [showConfirmModal, setConfirmModal] = useState(false)
   const onTriggerConfirmModal = () => setConfirmModal(prevState => !prevState)
@@ -84,7 +92,7 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
                 value={paymentType}
                 onChange={e => setPaymentType(e.target.value)}
               >
-                {['WITHDRAW', 'FINE'].map(type => (
+                {[paymentTypeSettings.WITHDRAW, paymentTypeSettings.FINE].map(type => (
                   <option key={type} value={type}>
                     {type}
                   </option>

@@ -362,7 +362,7 @@ export class ClientWarehouseViewRaw extends Component {
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
           title={t(TranslationKey.Attention)}
-          message={t(TranslationKey['Shipping label has been stamped, a warehouse task will be created for labeling.'])}
+          message={confirmModalSettings.confirmMessage}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={confirmModalSettings.onClickConfirm}
