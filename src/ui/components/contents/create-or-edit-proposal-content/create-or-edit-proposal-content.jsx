@@ -126,10 +126,10 @@ export const CreateOrEditProposalContent = ({
           <div className={classNames.clientInfo}>
             <Avatar src={getUserAvatarSrc(request?.createdById)} className={classNames.userPhoto} />
             <div>
-              <UserLinkCell name={request.createdBy.name} userId={request.createdBy._id} />
+              <UserLinkCell name={request.createdBy?.name} userId={request.createdBy?._id} />
               <div className={classNames.ratingWrapper}>
                 <Typography>{t(TranslationKey.Rating)}</Typography>
-                <Rating disabled value={request.createdBy.rating} />
+                <Rating disabled value={request.createdBy?.rating} />
               </div>
             </div>
           </div>
@@ -241,8 +241,8 @@ export const CreateOrEditProposalContent = ({
               className={classNames.descriptionField}
               labelClasses={classNames.spanLabel}
               inputProps={{maxLength: 1500}}
-              minRows={1}
-              rowsMax={8}
+              minRows={5}
+              rowsMax={5}
               label={t(TranslationKey['Describe your proposal'])}
               value={formFields.comment}
               onChange={onChangeField('comment')}

@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -16,13 +15,10 @@ import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {ResearcherProductsRequestsViewModel} from './researcher-products-requests-view.model'
 import {styles} from './researcher-products-requests-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').researcherProductsRequestsView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_REQUESTS
 

@@ -119,8 +119,6 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerOpenModal('showSelectionSupplierModal')
     }
 
-    // console.log('columnsModel', columnsModel)
-
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
