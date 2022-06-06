@@ -767,6 +767,8 @@ export enum TranslationKey {
   'Content' = 'Content',
   'Suppliers and Ideas' = 'Suppliers and Ideas',
   'Add a product idea' = 'Add a product idea',
+  'No document' = 'No document',
+
   // '' = '',
   // '' = '',
 }
