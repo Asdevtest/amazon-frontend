@@ -239,4 +239,10 @@ export const useClassNames = makeStyles(() => ({
   editButton: {
     marginTop: '15px',
   },
+
+  link: {
+    // '&:hover': {
+    cursor: 'pointer',
+    // }
+  },
 }))

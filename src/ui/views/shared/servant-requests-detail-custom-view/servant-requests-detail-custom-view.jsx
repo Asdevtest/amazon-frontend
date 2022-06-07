@@ -84,7 +84,7 @@ export class RequestDetailCustomViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={'Request'} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey.Request)} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.backBtnWrapper}>
                 <Button variant="contained" color="primary" onClick={onClickBackBtn}>

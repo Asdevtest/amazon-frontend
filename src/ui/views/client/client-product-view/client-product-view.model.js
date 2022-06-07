@@ -3,6 +3,7 @@ import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
@@ -21,6 +22,7 @@ import {
   getObjectFilteredByKeyArrayWhiteList,
 } from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
+import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientProductView
@@ -369,7 +371,7 @@ export class ClientProductViewModel {
       )
       this.setActionStatus(loadingStatuses.success)
 
-      this.warningModalTitle = 'Данные сохранены'
+      this.warningModalTitle = t(TranslationKey['Data saved'])
       this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)

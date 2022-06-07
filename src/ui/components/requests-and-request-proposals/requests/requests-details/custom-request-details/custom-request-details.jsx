@@ -49,7 +49,7 @@ export const CustomSearchRequestDetails = ({request}) => {
 
         <AccordionDetails>
           <div className={classNames.mainWrapper}>
-            {images ? (
+            {images.length ? (
               <div className={classNames.photoWrapper}>
                 <Field
                   multiline
