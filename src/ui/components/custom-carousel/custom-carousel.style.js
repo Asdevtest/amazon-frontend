@@ -23,9 +23,6 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
   },
 
-  carouselBtn: {
-    backgroundColor: 'inherit',
-  },
   headerCarouselWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -34,5 +31,15 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
+  },
+
+  buttonDocumentsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  headerCarouselDocumentsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 }))

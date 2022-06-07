@@ -74,8 +74,7 @@ export const CreateOrEditProposalContent = ({
     onEditSubmit(formFields, images)
   }
 
-  const disableSubmit =
-    formFields.execution_time === '' || formFields.price === '' || formFields.comment === '' || images?.length === 0
+  const disableSubmit = formFields.execution_time === '' || formFields.comment === '' || images?.length === 0
   JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
   return (

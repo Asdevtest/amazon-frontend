@@ -36,12 +36,12 @@ export const CustomSearchRequestDetails = ({request, requestProposals}) => {
     : []
 
   useEffect(() => {
-    if (!requestProposals.length) {
+    if (!requestProposals?.length) {
       setShowDetails(true)
     } else {
       setShowDetails(false)
     }
-  }, [requestProposals.length])
+  }, [requestProposals?.length])
 
   const onClickToShowDetails = () => {
     setShowDetails(!showDetails)

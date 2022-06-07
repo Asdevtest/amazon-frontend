@@ -69,7 +69,6 @@ export const CreateOrEditRequestContent = ({
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const [deadlineError, setDeadlineError] = useState(false)
-  console.log(images)
 
   const onChangeField = section => fieldName => event => {
     const newFormFields = {...formFields}
@@ -452,7 +451,7 @@ export const CreateOrEditRequestContent = ({
                     <div className={classNames.documentsWrapper}>
                       <Typography className={classNames.documentsTitle}>{t(TranslationKey.Documents)}</Typography>
                       {notIsEmptyFile?.length ? (
-                        <CustomCarousel title={t(TranslationKey.Document)}>
+                        <CustomCarousel documents title={t(TranslationKey.Document)}>
                           {notIsEmptyFile.map((file, index) => (
                             <div
                               key={index}

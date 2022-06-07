@@ -775,6 +775,7 @@ export enum TranslationKey {
   'Are you sure you want to cancel the task?' = 'Are you sure you want to cancel the task?',
   'Are you sure you want to remove the idea?' = 'Are you sure you want to remove the idea?',
   'The order has been created' = 'The order has been created',
+  'Result' = 'Result',
   // '' = '',
   // '' = '',
   // '' = '',

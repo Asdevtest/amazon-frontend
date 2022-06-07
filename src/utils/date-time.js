@@ -20,6 +20,8 @@ export const formatNormDateTime = dateString => {
   }
 }
 
+export const formatDateTimeHourAndMinutes = dateString => format(parseISO(dateString), 'HH:mm')
+
 export const formatShortDateTime = dateString => format(parseISO(dateString), 'dd-MM HH:mm')
 export const formatDateWithoutTime = dateString => format(parseISO(dateString), 'dd-MM-yyyy')
 
