@@ -768,12 +768,28 @@ export enum TranslationKey {
   'Suppliers and Ideas' = 'Suppliers and Ideas',
   'Add a product idea' = 'Add a product idea',
   'No document' = 'No document',
-
+  'Request' = 'Request',
+  'Data saved' = 'Data saved',
+  'Corrected' = 'Corrected',
+  'Links' = 'Links',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
   // '' = '',
   // '' = '',
 }
 
-// "Create a batch": "Create a batch"
+// "Links": "Links"
 // "Add a product idea": "Add a product idea"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР

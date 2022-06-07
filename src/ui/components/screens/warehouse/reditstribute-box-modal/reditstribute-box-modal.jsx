@@ -429,7 +429,7 @@ export const RedistributeBox = ({
     filterEmptyBoxes(newBoxes).length < 2 ||
     filterEmptyBoxes(newBoxes).some(
       el =>
-        (el.shippingLabel.length < 5 && el.shippingLabel.length > 0) ||
+        (el.shippingLabel?.length < 5 && el.shippingLabel?.length > 0) ||
         el.logicsTariffId === '' ||
         el.destinationId === '',
     )

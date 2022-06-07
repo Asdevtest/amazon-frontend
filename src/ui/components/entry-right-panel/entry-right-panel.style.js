@@ -30,9 +30,9 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '32px',
     fontWeight: '600',
   },
-  divider: {
-    margin: '8px 0px 16px',
-  },
+  // divider: {
+  //   margin: '8px 10px 16px'
+  // },
   redirect: {
     margin: '0 30px',
     transition: '0.3s ease',
