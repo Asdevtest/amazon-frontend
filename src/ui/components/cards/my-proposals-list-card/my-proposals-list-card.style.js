@@ -9,7 +9,7 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     height: '320px',
     borderRadius: '4px',
-    border: '1px solid rgba(0,0,0, .1)',
+
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     display: 'flex',
 
@@ -45,6 +45,8 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: '400',
+    maxHeight: '100px',
+    overflowY: 'auto',
     // marginBottom: '36px',
   },
 

@@ -484,7 +484,7 @@ export enum TranslationKey {
   'Add a competitor' = 'Add a competitor',
   'Photos of the product in boxes:' = 'Photos of the product in boxes:',
   'Listing photos:' = 'Listing photos:',
-  'Transactions:' = 'Transactions:',
+  'Transactions' = 'Transactions',
   'No transactions' = 'No transactions',
   'Data saved successfully' = 'Data saved successfully',
   'Proposal Creation' = 'Proposal Creation',
@@ -774,6 +774,7 @@ export enum TranslationKey {
   'Links' = 'Links',
   'Are you sure you want to cancel the task?' = 'Are you sure you want to cancel the task?',
   'Are you sure you want to remove the idea?' = 'Are you sure you want to remove the idea?',
+  'The order has been created' = 'The order has been created',
   // '' = '',
   // '' = '',
   // '' = '',
@@ -785,6 +786,7 @@ export enum TranslationKey {
   // '' = '',
   // '' = '',
   // '' = '',
+
   // '' = '',
   // '' = '',
 }

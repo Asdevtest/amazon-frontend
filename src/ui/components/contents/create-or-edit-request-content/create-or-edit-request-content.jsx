@@ -288,7 +288,7 @@ export const CreateOrEditRequestContent = ({
                 <div className={classNames.priceAndAmountWrapper}>
                   <Field
                     inputProps={{maxLength: 8}}
-                    label={`${t(TranslationKey['Enter the offer price'])} *`}
+                    label={`${t(TranslationKey['Enter the offer price'])}`}
                     labelClasses={classNames.spanLabelSmall}
                     value={formFields.request.price}
                     onChange={onChangeField('request')('price')}
@@ -317,19 +317,6 @@ export const CreateOrEditRequestContent = ({
               {requestToEdit ? (
                 <div className={classNames.footerWrapper}>
                   <div className={classNames.footerRightWrapper}>
-                    {curStep === stepVariant.STEP_ONE && (
-                      <div className={classNames.checkboxWrapper}>
-                        <Typography className={classNames.checkboxLabel}>
-                          {t(TranslationKey['Allow multiple performances by the same performer'])}
-                        </Typography>
-                        <Checkbox
-                          color="primary"
-                          checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
-                          onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
-                        />
-                      </div>
-                    )}
-
                     <div className={classNames.buttonsWrapper}>
                       <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
                         {t(TranslationKey.Cancel)}

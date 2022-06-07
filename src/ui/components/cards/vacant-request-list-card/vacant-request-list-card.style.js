@@ -10,11 +10,11 @@ export const useClassNames = makeStyles(() => ({
     height: '230px',
 
     borderRadius: '4px',
-    border: '1px solid rgba(0,0,0, .1)',
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
 
     display: 'flex',
-
-    padding: '20px 40px 25px 20px',
+    justifyContent: 'space-between',
+    padding: '30px',
   },
 
   nameWrapper: {
@@ -26,7 +26,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cardTitleBlockWrapper: {
-    width: '480px',
+    width: '30%',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -48,7 +48,7 @@ export const useClassNames = makeStyles(() => ({
 
   rightBlockWrapper: {
     marginLeft: '40px',
-    width: '300px',
+    width: '30%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
@@ -73,7 +73,7 @@ export const useClassNames = makeStyles(() => ({
   middleBlockWrapper: {
     borderRadius: '4px',
     border: '1px solid rgba(0,0,0, .1)',
-    width: '370px',
+    width: '30%',
     padding: '20px 25px',
 
     display: 'flex',

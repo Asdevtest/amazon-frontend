@@ -260,7 +260,7 @@ export default class BatchesApi {
 
     /**
      * # Редактировать прикрепленные документы партии.
-     * ## Редактировать прикрепленные документы партии.            Проверки:         Доступно только для сторкипера        
+     * ## Редактировать прикрепленные документы партии.   ## Проверки:         Доступно только для сторкипера
      * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -299,7 +299,7 @@ export default class BatchesApi {
 
     /**
      * # Редактировать прикрепленные документы партии.
-     * ## Редактировать прикрепленные документы партии.            Проверки:         Доступно только для сторкипера        
+     * ## Редактировать прикрепленные документы партии.   ## Проверки:         Доступно только для сторкипера
      * @param {String} guid GUID партии.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 

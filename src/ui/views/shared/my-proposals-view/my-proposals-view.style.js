@@ -54,7 +54,7 @@ export const styles = createStyles(() => ({
   tablePanelSortWrapper: {
     display: 'flex',
     alignItems: 'center',
-
+    padding: '0 20px',
     marginBottom: '20px',
     transition: '0.3s ease',
     cursor: 'pointer',
@@ -64,8 +64,8 @@ export const styles = createStyles(() => ({
   },
 
   tablePanelViewText: {
-    fontSize: '20px',
-    lineHeight: '23px',
+    fontSize: '16px',
+    lineHeight: '19px',
     color: '#006CFF',
 
     marginRight: '15px',

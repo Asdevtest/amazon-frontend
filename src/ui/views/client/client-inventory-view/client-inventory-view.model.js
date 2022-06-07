@@ -388,7 +388,7 @@ export class ClientInventoryViewModel {
       }
 
       if (!this.error) {
-        this.successModalText = textConsts.successOrderTitle
+        this.successModalText = t(TranslationKey['The order has been created'])
         this.onTriggerOpenModal('showSuccessModal')
       }
 
