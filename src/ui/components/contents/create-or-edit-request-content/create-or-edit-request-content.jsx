@@ -263,7 +263,8 @@ export const CreateOrEditRequestContent = ({
                 </div>
 
                 <div className={classNames.checkboxesWrapper}>
-                  <div className={classNames.checkboxWrapper}>
+                  {/* может пригодиться
+                   <div className={classNames.checkboxWrapper}>
                     <Typography className={classNames.checkboxLabel}>
                       {t(TranslationKey['Limit the number of proposals?'])}
                     </Typography>
@@ -272,7 +273,7 @@ export const CreateOrEditRequestContent = ({
                       checked={formFields.request.needCheckBySupervisor}
                       onChange={onChangeField('request')('needCheckBySupervisor')}
                     />
-                  </div>
+                  </div> */}
                   <div className={classNames.checkboxWrapper}>
                     <Typography className={classNames.checkboxLabel}>
                       {t(TranslationKey['Need a supervisor check'])}

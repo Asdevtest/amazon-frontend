@@ -116,7 +116,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
               ) : null}
 
               <div className={classNames.detailsWrapper}>
-                <CustomSearchRequestDetails request={request} />
+                <CustomSearchRequestDetails request={request} requestProposals={requestProposals} />
               </div>
 
               {requestProposals ? (
@@ -125,9 +125,9 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                 </div>
               ) : null}
 
-              <Typography variant="h6" className={classNames.proposalsTitle}>
+              {/* <Typography variant="h6" className={classNames.proposalsTitle}>
                 {t(TranslationKey['Proposals for the request'])}
-              </Typography>
+              </Typography> */}
               {requestProposals?.length ? (
                 <div className={classNames.proposalsWrapper}>
                   {requestProposals.map(item => (
@@ -140,42 +140,6 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                           onClickRejectProposal={onClickRejectProposal}
                         />
                       </Paper>
-                      <Accordion expanded={showChat}>
-                        <AccordionSummary style={{display: 'none'}} />
-                        <AccordionDetails style={{padding: '0'}}>
-                          {chatIsConnected && (
-                            <div className={classNames.chatWrapper}>
-                              <ChatRequestAndRequestProposalContext.Provider
-                                value={{
-                                  request,
-                                  requestProposal: findRequestProposalForCurChat,
-                                }}
-                              >
-                                <MultipleChats
-                                  ref={this.chatRef}
-                                  chats={chats}
-                                  userId={userInfo._id}
-                                  chatSelectedId={chatSelectedId}
-                                  chatMessageHandlers={{
-                                    onClickProposalAccept: onClickAcceptProposal,
-                                    onClickProposalRegect: onClickRejectProposal,
-                                    onClickProposalResultToCorrect,
-                                    onClickProposalResultAccept,
-                                  }}
-                                  updateData={this.viewModel.loadData}
-                                  onSubmitMessage={onSubmitMessage}
-                                  onClickChat={onClickChat}
-                                />
-                              </ChatRequestAndRequestProposalContext.Provider>
-                            </div>
-                          )}
-                        </AccordionDetails>
-                      </Accordion>
-                      {showChat && (
-                        <Button className={classNames.hideChatButton} onClick={onClickHideChat}>
-                          {t(TranslationKey['Hide chat'])}
-                        </Button>
-                      )}
                     </div>
                   ))}
                 </div>
@@ -187,6 +151,45 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                   <Typography className={classNames.emptyProposalsDescription}>
                     {t(TranslationKey['No new proposals at the moment'])}
                   </Typography>
+                </div>
+              )}
+
+              <Accordion expanded={showChat}>
+                <AccordionSummary style={{display: 'none'}} />
+                <AccordionDetails style={{padding: '0'}}>
+                  {chatIsConnected && (
+                    <div className={classNames.chatWrapper}>
+                      <ChatRequestAndRequestProposalContext.Provider
+                        value={{
+                          request,
+                          requestProposal: findRequestProposalForCurChat,
+                        }}
+                      >
+                        <MultipleChats
+                          ref={this.chatRef}
+                          chats={chats}
+                          userId={userInfo._id}
+                          chatSelectedId={chatSelectedId}
+                          chatMessageHandlers={{
+                            onClickProposalAccept: onClickAcceptProposal,
+                            onClickProposalRegect: onClickRejectProposal,
+                            onClickProposalResultToCorrect,
+                            onClickProposalResultAccept,
+                          }}
+                          updateData={this.viewModel.loadData}
+                          onSubmitMessage={onSubmitMessage}
+                          onClickChat={onClickChat}
+                        />
+                      </ChatRequestAndRequestProposalContext.Provider>
+                    </div>
+                  )}
+                </AccordionDetails>
+              </Accordion>
+              {showChat && (
+                <div className={classNames.hideChatButtonWrapper}>
+                  <Button className={classNames.hideChatButton} onClick={onClickHideChat}>
+                    {t(TranslationKey['Hide chat'])}
+                  </Button>
                 </div>
               )}
             </MainContent>

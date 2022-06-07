@@ -86,20 +86,22 @@ const formFieldsDefault = {
   fbaamount: 0,
 }
 
-const confirmMessageByProductStatus = {
+const confirmMessageByProductStatus = () => ({
   15: t(TranslationKey['The product is suitable']) + '?',
-  30: t(TranslationKey['Send to find a supplier?']),
   20: t(TranslationKey['The product is not suitable']) + '?',
+  30: t(TranslationKey['Send to find a supplier?']),
   70: t(TranslationKey['Publish on the exchange']) + '?',
   80: t(TranslationKey['Supplier not found']) + '?',
   90: t(TranslationKey["The supplier's price is not acceptable?"]),
   230: t(TranslationKey['Send to find a supplier?']),
-  270: t(TranslationKey['Confirm the execution of the Supplier Search request?']),
-  280: t(TranslationKey['Supplier found']) + '?',
+  250: t(TranslationKey['The product is not suitable']) + '?',
+  // 280: t(TranslationKey['Confirm the execution of the Supplier Search request?']),
+  280: t(TranslationKey['Supplier not found']) + '?',
+  270: t(TranslationKey['Supplier found']) + '?',
   290: t(TranslationKey["Is the supplier's price unacceptable"]) + '?',
-}
+})
 
-const confirmMessageWithoutStatus = t(TranslationKey['Save without status']) + '?'
+const confirmMessageWithoutStatus = () => t(TranslationKey['Save without status']) + '?'
 
 const warningModalTitleVariants = {
   NO_SUPPLIER: t(TranslationKey["You can't choose without a supplier"]),
@@ -277,8 +279,8 @@ export class SupervisorProductViewModel {
       await transformAndValidate(SupervisorUpdateProductContract, this.curUpdateProductData)
 
       this.confirmMessage = withoutStatus
-        ? confirmMessageWithoutStatus
-        : confirmMessageByProductStatus[this.curUpdateProductData.status]
+        ? confirmMessageWithoutStatus()
+        : confirmMessageByProductStatus()[this.curUpdateProductData.status]
 
       if (this.confirmMessage) {
         this.onTriggerOpenModal('showConfirmModal')

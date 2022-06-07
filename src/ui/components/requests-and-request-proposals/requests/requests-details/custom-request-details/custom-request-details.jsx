@@ -3,7 +3,7 @@ import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Link, TextareaAutosize, Typography} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
@@ -18,7 +18,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './custom-request-details.style'
 
-export const CustomSearchRequestDetails = ({request}) => {
+export const CustomSearchRequestDetails = ({request, requestProposals}) => {
   const classNames = useClassNames()
 
   const [showDetails, setShowDetails] = useState(false)
@@ -35,13 +35,25 @@ export const CustomSearchRequestDetails = ({request}) => {
     ? request?.details.linksToMediaFiles.filter(el => !checkIsImageLink(el))
     : []
 
+  useEffect(() => {
+    if (!requestProposals.length) {
+      setShowDetails(true)
+    } else {
+      setShowDetails(false)
+    }
+  }, [requestProposals.length])
+
+  const onClickToShowDetails = () => {
+    setShowDetails(!showDetails)
+  }
+
   return (
     <div className={classNames.root}>
       <Accordion
         classes={{root: classNames.accordion}}
         style={{borderRadius: '4px', boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)'}}
         expanded={showDetails}
-        onChange={() => setShowDetails(!showDetails)}
+        onChange={onClickToShowDetails}
       >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classNames.title}>{t(TranslationKey['Detailed application description'])}</Typography>

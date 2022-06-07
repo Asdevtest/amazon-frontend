@@ -184,12 +184,12 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  onClickContactWithExecutor(proposal) {
-    this.showChat = true
+  async onClickContactWithExecutor(proposal) {
     this.chatSelectedId = proposal.chatId
     if (this.scrollToChat) {
       this.scrollToChat()
     }
+    this.showChat = true
   }
 
   onClickHideChat() {
