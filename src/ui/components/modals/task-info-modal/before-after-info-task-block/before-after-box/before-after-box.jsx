@@ -10,6 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
+import {checkIsImageLink} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixedWithCm, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -170,19 +171,21 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
 
                 {box.images.length > 0 ? (
                   <Carousel autoPlay={false} timeout={100} animation="fade">
-                    {box.images.map((el, index) => (
-                      <div key={index}>
-                        <img
-                          alt=""
-                          className={classNames.imgBox}
-                          src={el}
-                          onClick={() => {
-                            setShowImageModal(!showImageModal)
-                            setBigImagesOptions({images: box.images, imgIndex: index})
-                          }}
-                        />
-                      </div>
-                    ))}
+                    {box.images
+                      ?.filter(el => checkIsImageLink(el))
+                      .map((el, index) => (
+                        <div key={index}>
+                          <img
+                            alt=""
+                            className={classNames.imgBox}
+                            src={el}
+                            onClick={() => {
+                              setShowImageModal(!showImageModal)
+                              setBigImagesOptions({images: box.images, imgIndex: index})
+                            }}
+                          />
+                        </div>
+                      ))}
                   </Carousel>
                 ) : (
                   <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
@@ -196,19 +199,21 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
 
                 {box.items[0].order.images.length > 0 ? (
                   <Carousel autoPlay={false} timeout={100} animation="fade">
-                    {box.items[0].order.images.map((el, index) => (
-                      <div key={index}>
-                        <img
-                          alt=""
-                          className={classNames.imgBox}
-                          src={el}
-                          onClick={() => {
-                            setShowImageModal(!showImageModal)
-                            setBigImagesOptions({images: box.items[0].order.images, imgIndex: index})
-                          }}
-                        />
-                      </div>
-                    ))}
+                    {box.items[0].order.images
+                      ?.filter(el => checkIsImageLink(el))
+                      .map((el, index) => (
+                        <div key={index}>
+                          <img
+                            alt=""
+                            className={classNames.imgBox}
+                            src={el}
+                            onClick={() => {
+                              setShowImageModal(!showImageModal)
+                              setBigImagesOptions({images: box.items[0].order.images, imgIndex: index})
+                            }}
+                          />
+                        </div>
+                      ))}
                   </Carousel>
                 ) : (
                   <Typography>{t(TranslationKey['No photos yet...'])}</Typography>

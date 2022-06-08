@@ -15,6 +15,7 @@ import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {checkIsImageLink} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
@@ -96,19 +97,21 @@ export const BoxViewForm = observer(
                             animation="fade"
                             className={classNames.imgBoxWrapper}
                           >
-                            {item.product.images.map((el, index) => (
-                              <div key={index}>
-                                <img
-                                  alt=""
-                                  className={classNames.imgBox}
-                                  src={getAmazonImageUrl(el)}
-                                  onClick={() => {
-                                    setShowImageModal(!showImageModal)
-                                    setBigImagesOptions({images: item.product.images, imgIndex: index})
-                                  }}
-                                />
-                              </div>
-                            ))}
+                            {item.product.images
+                              ?.filter(el => checkIsImageLink(el))
+                              .map((el, index) => (
+                                <div key={index}>
+                                  <img
+                                    alt=""
+                                    className={classNames.imgBox}
+                                    src={getAmazonImageUrl(el)}
+                                    onClick={() => {
+                                      setShowImageModal(!showImageModal)
+                                      setBigImagesOptions({images: item.product.images, imgIndex: index})
+                                    }}
+                                  />
+                                </div>
+                              ))}
                           </Carousel>
                         </div>
                       ) : (
@@ -182,19 +185,21 @@ export const BoxViewForm = observer(
 
                 {box.images?.length > 0 ? (
                   <Carousel autoPlay={false} timeout={100} animation="fade" className={classNames.imgBoxWrapper}>
-                    {box.images.map((el, index) => (
-                      <div key={index}>
-                        <img
-                          alt=""
-                          className={classNames.imgBox}
-                          src={getAmazonImageUrl(el)}
-                          onClick={() => {
-                            setShowImageModal(!showImageModal)
-                            setBigImagesOptions({images: box.images, imgIndex: index})
-                          }}
-                        />
-                      </div>
-                    ))}
+                    {box.images
+                      ?.filter(el => checkIsImageLink(el))
+                      .map((el, index) => (
+                        <div key={index}>
+                          <img
+                            alt=""
+                            className={classNames.imgBox}
+                            src={getAmazonImageUrl(el)}
+                            onClick={() => {
+                              setShowImageModal(!showImageModal)
+                              setBigImagesOptions({images: box.images, imgIndex: index})
+                            }}
+                          />
+                        </div>
+                      ))}
                   </Carousel>
                 ) : (
                   <img alt="" className={classNames.noImgBox} src={'/assets/img/no-photo.jpg'} />

@@ -8,6 +8,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
+import {checkIsImageLink} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {t} from '@utils/translations'
 
@@ -32,16 +33,18 @@ export const ExtraOrderInfo = ({order}) => {
 
           {(order.images === null ? false : order.images?.length > 0) ? (
             <Carousel autoPlay={false} timeout={100} animation="fade" className={classNames.imgBoxWrapper}>
-              {order.images.map((el, index) => (
-                <div key={index}>
-                  <img
-                    alt=""
-                    className={classNames.imgBox}
-                    src={getAmazonImageUrl(el)}
-                    onClick={() => onClickImg({images: order.images, imgIndex: index})}
-                  />
-                </div>
-              ))}
+              {order.images
+                ?.filter(el => checkIsImageLink(el))
+                .map((el, index) => (
+                  <div key={index}>
+                    <img
+                      alt=""
+                      className={classNames.imgBox}
+                      src={getAmazonImageUrl(el)}
+                      onClick={() => onClickImg({images: order.images, imgIndex: index})}
+                    />
+                  </div>
+                ))}
             </Carousel>
           ) : (
             <div className={classNames.imgBoxWrapper}>
@@ -58,16 +61,18 @@ export const ExtraOrderInfo = ({order}) => {
             order.product.currentSupplier?.images === null ? false : order.product.currentSupplier?.images.length > 0
           ) ? (
             <Carousel autoPlay={false} timeout={100} animation="fade" className={classNames.imgBoxWrapper}>
-              {order.product.currentSupplier?.images.map((el, index) => (
-                <div key={index}>
-                  <img
-                    alt=""
-                    className={classNames.imgBox}
-                    src={getAmazonImageUrl(el)}
-                    onClick={() => onClickImg({images: order.product.currentSupplier?.images, imgIndex: index})}
-                  />
-                </div>
-              ))}
+              {order.product.currentSupplier?.images
+                ?.filter(el => checkIsImageLink(el))
+                .map((el, index) => (
+                  <div key={index}>
+                    <img
+                      alt=""
+                      className={classNames.imgBox}
+                      src={getAmazonImageUrl(el)}
+                      onClick={() => onClickImg({images: order.product.currentSupplier?.images, imgIndex: index})}
+                    />
+                  </div>
+                ))}
             </Carousel>
           ) : (
             <div className={classNames.imgBoxWrapper}>

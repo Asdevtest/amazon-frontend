@@ -16,7 +16,7 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
+import {checkIsBuyer, checkIsClient, checkIsImageLink, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
@@ -91,19 +91,21 @@ export const TopCard = observer(
                   {product.images && product.images.length ? (
                     <div className={classNames.carouselWrapper}>
                       <Carousel animation="slide" /* autoPlay={true}*/ timeout={500}>
-                        {product.images.map((imageHash, index) => (
-                          <Box key={index} textAlign="center" className={classNames.carouselImageWrapper}>
-                            <img
-                              alt=""
-                              className={classNames.carouselImage}
-                              src={getAmazonImageUrl(imageHash)}
-                              onClick={() => {
-                                setShowImageModal(!showImageModal)
-                                setBigImagesOptions({images: product.images, imgIndex: index})
-                              }}
-                            />
-                          </Box>
-                        ))}
+                        {product.images
+                          ?.filter(el => checkIsImageLink(el))
+                          .map((imageHash, index) => (
+                            <Box key={index} textAlign="center" className={classNames.carouselImageWrapper}>
+                              <img
+                                alt=""
+                                className={classNames.carouselImage}
+                                src={getAmazonImageUrl(imageHash)}
+                                onClick={() => {
+                                  setShowImageModal(!showImageModal)
+                                  setBigImagesOptions({images: product.images, imgIndex: index})
+                                }}
+                              />
+                            </Box>
+                          ))}
                       </Carousel>
                     </div>
                   ) : undefined}

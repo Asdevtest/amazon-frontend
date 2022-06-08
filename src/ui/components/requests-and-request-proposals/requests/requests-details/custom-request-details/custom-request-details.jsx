@@ -69,19 +69,21 @@ export const CustomSearchRequestDetails = ({request, requestProposals}) => {
                   containerClasses={classNames.conditionsFieldWrapper}
                   inputComponent={
                     <Carousel autoPlay={false} timeout={100} animation="fade">
-                      {images.map((el, index) => (
-                        <div key={index}>
-                          <img
-                            alt=""
-                            className={classNames.imgBox}
-                            src={el}
-                            onClick={() => {
-                              setShowImageModal(!showImageModal)
-                              setBigImagesOptions({images, imgIndex: index})
-                            }}
-                          />
-                        </div>
-                      ))}
+                      {images
+                        ?.filter(el => checkIsImageLink(el))
+                        .map((el, index) => (
+                          <div key={index}>
+                            <img
+                              alt=""
+                              className={classNames.imgBox}
+                              src={el}
+                              onClick={() => {
+                                setShowImageModal(!showImageModal)
+                                setBigImagesOptions({images, imgIndex: index})
+                              }}
+                            />
+                          </div>
+                        ))}
                     </Carousel>
                   }
                 />

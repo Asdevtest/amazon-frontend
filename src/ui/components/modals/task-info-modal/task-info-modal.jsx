@@ -10,6 +10,7 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 
+import {checkIsImageLink} from '@utils/checks'
 import {t} from '@utils/translations'
 
 import {BigImagesModal} from '../big-images-modal'
@@ -71,19 +72,21 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWei
 
             {task.images.length > 0 ? (
               <Carousel autoPlay={false} timeout={100} animation="fade">
-                {task.images.map((el, index) => (
-                  <div key={index}>
-                    <img
-                      alt=""
-                      className={classNames.imgBox}
-                      src={el}
-                      onClick={() => {
-                        setShowImageModal(!showImageModal)
-                        setBigImagesOptions({images: task.images, imgIndex: index})
-                      }}
-                    />
-                  </div>
-                ))}
+                {task.images
+                  ?.filter(el => checkIsImageLink(el))
+                  .map((el, index) => (
+                    <div key={index}>
+                      <img
+                        alt=""
+                        className={classNames.imgBox}
+                        src={el}
+                        onClick={() => {
+                          setShowImageModal(!showImageModal)
+                          setBigImagesOptions({images: task.images, imgIndex: index})
+                        }}
+                      />
+                    </div>
+                  ))}
               </Carousel>
             ) : (
               <Typography>{t(TranslationKey['No photos yet...'])}</Typography>

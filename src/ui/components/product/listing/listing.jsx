@@ -16,7 +16,7 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {UserBalanceHistory} from '@components/screens/user-balance-history'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsClient, checkIsSupervisor} from '@utils/checks'
+import {checkIsClient, checkIsImageLink, checkIsSupervisor} from '@utils/checks'
 import {t} from '@utils/translations'
 
 import {Button} from '../../buttons/button'
@@ -149,16 +149,18 @@ export const Listing = observer(({productId, onClickBack}) => {
                 {imagesFromBoxes.length > 0 ? (
                   <div className={classNames.carouselWrapper}>
                     <Carousel autoPlay={false} timeout={100} animation="fade">
-                      {imagesFromBoxes.map((el, index) => (
-                        <div key={index}>
-                          <img
-                            alt=""
-                            className={classNames.imgBox}
-                            src={el}
-                            onClick={() => onClickImg({images: imagesFromBoxes, imgIndex: index})}
-                          />
-                        </div>
-                      ))}
+                      {imagesFromBoxes
+                        ?.filter(el => checkIsImageLink(el))
+                        .map((el, index) => (
+                          <div key={index}>
+                            <img
+                              alt=""
+                              className={classNames.imgBox}
+                              src={el}
+                              onClick={() => onClickImg({images: imagesFromBoxes, imgIndex: index})}
+                            />
+                          </div>
+                        ))}
                     </Carousel>
                   </div>
                 ) : (
@@ -172,16 +174,18 @@ export const Listing = observer(({productId, onClickBack}) => {
                 {listingProduct.listingImages?.length > 0 ? (
                   <div className={classNames.carouselWrapper}>
                     <Carousel autoPlay={false} timeout={100} animation="fade">
-                      {listingProduct.listingImages.map((el, index) => (
-                        <div key={index}>
-                          <img
-                            alt=""
-                            className={classNames.imgBox}
-                            src={el}
-                            onClick={() => onClickImg({images: listingProduct.listingImages, imgIndex: index})}
-                          />
-                        </div>
-                      ))}
+                      {listingProduct.listingImages
+                        ?.filter(el => checkIsImageLink(el))
+                        .map((el, index) => (
+                          <div key={index}>
+                            <img
+                              alt=""
+                              className={classNames.imgBox}
+                              src={el}
+                              onClick={() => onClickImg({images: listingProduct.listingImages, imgIndex: index})}
+                            />
+                          </div>
+                        ))}
                     </Carousel>
                   </div>
                 ) : (
