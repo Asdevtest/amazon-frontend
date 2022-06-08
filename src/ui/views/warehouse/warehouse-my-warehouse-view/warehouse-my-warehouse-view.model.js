@@ -20,6 +20,7 @@ import {
 } from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 export class WarehouseMyWarehouseViewModel {
   history = undefined
@@ -51,6 +52,10 @@ export class WarehouseMyWarehouseViewModel {
     moveBox: item => this.moveBox(item),
     setHsCode: item => this.setHsCode(item),
   }
+
+  uploadedFiles = []
+  progressValue = 0
+  showProgress = false
 
   sortModel = []
   filterModel = {items: []}
@@ -194,9 +199,19 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onSubmitAddBatch(boxesIds) {
+  async onSubmitAddBatch(boxesIds, filesToAdd) {
     try {
-      await BatchesModel.createBatch(boxesIds)
+      this.uploadedFiles = []
+
+      if (filesToAdd.length) {
+        await onSubmitPostImages.call(this, {images: filesToAdd, type: 'uploadedFiles'})
+      }
+
+      const batchId = await BatchesModel.createBatch(boxesIds)
+
+      if (filesToAdd.length) {
+        await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
+      }
 
       this.loadData()
       this.onTriggerOpenModal('showAddBatchModal')

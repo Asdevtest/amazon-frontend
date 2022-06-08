@@ -786,6 +786,7 @@ export enum TranslationKey {
   'Weight, Lbs' = 'Weight, Lbs',
   'Task created to change the box' = 'Task created to change the box',
   'The box has been changed' = 'The box has been changed',
+  'On boxes tariffs' = 'On boxes tariffs',
   // '' = '',
   // '' = '',
   // '' = '',
@@ -794,15 +795,11 @@ export enum TranslationKey {
   // '' = '',
   // '' = '',
   // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-
   // '' = '',
   // '' = '',
 }
 
-// "Weight, Lbs": "Weight, Lbs"
+// "On tariffs": "On tariffs"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

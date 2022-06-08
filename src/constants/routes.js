@@ -33,6 +33,7 @@ import {ClientExchangeView} from '@views/client/client-exchange-views/client-exc
 import {ClientFinancesViews} from '@views/client/client-finances-views'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
 import {ClientBoxesNotificationsView} from '@views/client/client-notifications-views/client-boxes-notifications-view'
+import {ClientBoxesTariffsNotificationsView} from '@views/client/client-notifications-views/client-boxes-tariffs-notifications-view'
 import {ClientOrdersNotificationsView} from '@views/client/client-notifications-views/client-orders-notifications-view'
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
@@ -437,6 +438,13 @@ export const privateRoutesConfigs = [
   {
     routePath: '/client/boxes-notifications',
     component: ClientBoxesNotificationsView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+  },
+
+  {
+    routePath: '/client/tariffs-notifications',
+    component: ClientBoxesTariffsNotificationsView,
     exact: false,
     permission: [UserRole.CLIENT],
   },

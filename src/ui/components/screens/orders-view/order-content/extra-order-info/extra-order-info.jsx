@@ -57,11 +57,9 @@ export const ExtraOrderInfo = ({order}) => {
         <div className={classNames.photoWrapper}>
           <Typography className={classNames.subTitle}>{t(TranslationKey['Photos of current supplier'])}</Typography>
 
-          {(
-            order.product.currentSupplier?.images === null ? false : order.product.currentSupplier?.images.length > 0
-          ) ? (
+          {(order.orderSupplier?.images === null ? false : order.orderSupplier?.images.length > 0) ? (
             <Carousel autoPlay={false} timeout={100} animation="fade" className={classNames.imgBoxWrapper}>
-              {order.product.currentSupplier?.images
+              {order.orderSupplier?.images
                 ?.filter(el => checkIsImageLink(el))
                 .map((el, index) => (
                   <div key={index}>
@@ -69,7 +67,7 @@ export const ExtraOrderInfo = ({order}) => {
                       alt=""
                       className={classNames.imgBox}
                       src={getAmazonImageUrl(el)}
-                      onClick={() => onClickImg({images: order.product.currentSupplier?.images, imgIndex: index})}
+                      onClick={() => onClickImg({images: order.orderSupplier?.images, imgIndex: index})}
                     />
                   </div>
                 ))}

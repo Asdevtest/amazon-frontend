@@ -15,6 +15,8 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './edit-order-suppliers-table.style'
 
+// import { UserLinkCell } from '@components/data-grid-cells/data-grid-cells'
+
 export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) => {
   const classNames = useClassNames()
 
@@ -36,6 +38,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
             <TableCell className={classNames.alignCenter}>{t(TranslationKey['Minimum batch'])}</TableCell>
             <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
             <TableCell className={classNames.alignRight}>{t(TranslationKey['Total price'])}</TableCell>
+            {/* <TableCell className={classNames.alignRight}>{t(TranslationKey['Created by'])}</TableCell> */}
             <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
           </TableRow>
         </TableHead>
@@ -67,6 +70,9 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                 <TableCell className={classNames.alignCenter}>
                   {withDollarSign(priceCalculation(supplier.price, supplier.delivery, supplier.amount))}
                 </TableCell>
+                {/* <TableCell className={classNames.alignCenter}>
+                  <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
+                </TableCell> */}
                 <TableCell className={classNames.alignCenter}>
                   <Typography className={classNames.textCell}>{supplier.comment}</Typography>
                 </TableCell>

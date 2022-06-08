@@ -126,7 +126,7 @@ export const AddOrEditBatchForm = observer(
 
       const sourceBoxesIds = batchToEdit?.originalData.boxes.map(el => el._id) || []
 
-      onSubmit(chosenBoxesIds, sourceBoxesIds, filesToAdd, batchToEdit)
+      onSubmit(chosenBoxesIds, filesToAdd, sourceBoxesIds, batchToEdit)
 
       setSubmitIsClicked(true)
     }

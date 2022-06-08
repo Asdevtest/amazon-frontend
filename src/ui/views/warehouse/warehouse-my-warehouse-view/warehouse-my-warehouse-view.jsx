@@ -35,6 +35,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
   render() {
     const {
+      showProgress,
+      progressValue,
       sourceBoxForBatch,
       boxesData,
       curBoxToMove,
@@ -138,6 +140,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
         <Modal openModal={showAddBatchModal} setOpenModal={() => onTriggerOpenModal('showAddBatchModal')}>
           <AddOrEditBatchForm
+            progressValue={progressValue}
+            showProgress={showProgress}
             volumeWeightCoefficient={volumeWeightCoefficient}
             sourceBox={sourceBoxForBatch}
             boxesData={boxesData}
