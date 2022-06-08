@@ -15,6 +15,7 @@ import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
+import {checkIsImageLink} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -217,19 +218,21 @@ const Box = ({
 
               {box.images.length > 0 ? (
                 <Carousel autoPlay={false} timeout={100} animation="fade">
-                  {box.images.map((el, index) => (
-                    <div key={index}>
-                      <img
-                        alt=""
-                        className={classNames.imgBox}
-                        src={el}
-                        onClick={() => {
-                          setShowImageModal(!showImageModal)
-                          setBigImagesOptions({images: box.images, imgIndex: index})
-                        }}
-                      />
-                    </div>
-                  ))}
+                  {box.images
+                    ?.filter(el => checkIsImageLink(el))
+                    .map((el, index) => (
+                      <div key={index}>
+                        <img
+                          alt=""
+                          className={classNames.imgBox}
+                          src={el}
+                          onClick={() => {
+                            setShowImageModal(!showImageModal)
+                            setBigImagesOptions({images: box.images, imgIndex: index})
+                          }}
+                        />
+                      </div>
+                    ))}
                 </Carousel>
               ) : (
                 <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
@@ -243,19 +246,21 @@ const Box = ({
 
               {box.items[0].order.images.length > 0 ? (
                 <Carousel autoPlay={false} timeout={100} animation="fade">
-                  {box.items[0].order.images.map((el, index) => (
-                    <div key={index}>
-                      <img
-                        alt=""
-                        className={classNames.imgBox}
-                        src={el}
-                        onClick={() => {
-                          setShowImageModal(!showImageModal)
-                          setBigImagesOptions({images: box.items[0].order.images, imgIndex: index})
-                        }}
-                      />
-                    </div>
-                  ))}
+                  {box.items[0].order.images
+                    ?.filter(el => checkIsImageLink(el))
+                    .map((el, index) => (
+                      <div key={index}>
+                        <img
+                          alt=""
+                          className={classNames.imgBox}
+                          src={el}
+                          onClick={() => {
+                            setShowImageModal(!showImageModal)
+                            setBigImagesOptions({images: box.items[0].order.images, imgIndex: index})
+                          }}
+                        />
+                      </div>
+                    ))}
                 </Carousel>
               ) : (
                 <Typography>{t(TranslationKey['No photos yet...'])}</Typography>

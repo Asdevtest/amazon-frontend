@@ -122,19 +122,19 @@ const formFieldsDefault = {
   fbaamount: '',
 }
 
-const fieldsNotFilledText = t(TranslationKey['Fields not filled in'])
+const fieldsNotFilledText = () => t(TranslationKey['Fields not filled in'])
 
-const warningModalTitleVariants = {
+const warningModalTitleVariants = () => ({
   NO_SUPPLIER: t(TranslationKey["You can't choose without a supplier"]),
   CHOOSE_STATUS: t(TranslationKey['We need to choose a status']),
-}
+})
 
-const confirmMessageByProductStatus = {
+const confirmMessageByProductStatus = () => ({
   5: t(TranslationKey['Send to the Supervisor for review']) + '?',
   10: t(TranslationKey['Send to check with the supplier']) + '?',
-}
+})
 
-const confirmMessageWithoutStatus = t(TranslationKey['Save without status']) + '?'
+const confirmMessageWithoutStatus = () => t(TranslationKey['Save without status']) + '?'
 
 export class ResearcherProductViewModel {
   history = undefined
@@ -362,7 +362,7 @@ export class ResearcherProductViewModel {
 
   onClickSetProductStatusBtn(statusKey) {
     if (statusKey === ProductStatus.RESEARCHER_FOUND_SUPPLIER && !this.product.currentSupplierId) {
-      this.warningModalTitle = warningModalTitleVariants.NO_SUPPLIER
+      this.warningModalTitle = warningModalTitleVariants().NO_SUPPLIER
 
       this.onTriggerOpenModal('showWarningModal')
     } else {
@@ -417,15 +417,15 @@ export class ResearcherProductViewModel {
       this.confirmModalSettings = {
         isWarning: false,
         message: withoutStatus
-          ? confirmMessageWithoutStatus
-          : confirmMessageByProductStatus[this.curUpdateProductData.status],
+          ? confirmMessageWithoutStatus()
+          : confirmMessageByProductStatus()[this.curUpdateProductData.status],
         onClickOkBtn: () => this.onSaveProductData(),
       }
 
       if (this.confirmModalSettings.message) {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        this.warningModalTitle = warningModalTitleVariants.CHOOSE_STATUS
+        this.warningModalTitle = warningModalTitleVariants().CHOOSE_STATUS
         this.onTriggerOpenModal('showWarningModal')
       }
     } catch (error) {
@@ -436,7 +436,7 @@ export class ResearcherProductViewModel {
         plainValidationErrorAndApplyFuncForEachError(error, ({errorProperty, constraint}) => {
           runInAction(() => {
             this.formFieldsValidationErrors[errorProperty] = constraint
-            this.alertFailedText = fieldsNotFilledText
+            this.alertFailedText = fieldsNotFilledText()
           })
         })
       } else {

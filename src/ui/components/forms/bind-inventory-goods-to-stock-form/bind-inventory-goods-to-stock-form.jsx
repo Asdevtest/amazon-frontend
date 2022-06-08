@@ -91,7 +91,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h5">{t(TranslationKey['Bind goods from the warehouse'])}</Typography>
+      <Typography variant="h5">{t(TranslationKey['Bind an product from Amazon'])}</Typography>
 
       <div className={classNames.form}>
         <div className={classNames.filtersWrapper}>

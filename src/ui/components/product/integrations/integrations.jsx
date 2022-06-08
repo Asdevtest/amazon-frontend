@@ -59,7 +59,7 @@ export const Integrations = observer(({productId}) => {
             color="primary"
             onClick={onClickBindInventoryGoodsToStockBtn}
           >
-            {t(TranslationKey['Bind goods from the warehouse'])}
+            {t(TranslationKey['Bind an product from Amazon'])}
           </Button>
         </div>
       )}

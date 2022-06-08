@@ -5,7 +5,6 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {TaskOperationType} from '@constants/task-operation-type'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
@@ -20,12 +19,9 @@ import {clientTasksViewColumns} from '@components/table-columns/client/client-ta
 
 import {clientWarehouseDataConverter, warehouseTasksDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDate, sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostFilesInData, onSubmitPostImages} from '@utils/upload-files'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientWarehouseView
 
 const updateBoxWhiteList = [
   'amount',
@@ -341,7 +337,7 @@ export class ClientWarehouseViewModel {
         clientComment: boxData.clientComment,
       })
 
-      this.modalEditSuccessMessage = textConsts.modalEditSuccessMessageAndTask
+      this.modalEditSuccessMessage = t(TranslationKey['Task created to change the box'])
 
       this.onTriggerOpenModal('showEditBoxSuccessModal')
       this.onTriggerOpenModal('showConfirmModal')
@@ -578,7 +574,7 @@ export class ClientWarehouseViewModel {
               : sourceData.isShippingLabelAttachedByStorekeeper,
         })
 
-        this.modalEditSuccessMessage = textConsts.modalEditSuccessMessage
+        this.modalEditSuccessMessage = t(TranslationKey['The box has been changed'])
 
         this.onTriggerOpenModal('showEditBoxSuccessModal')
       } else {
@@ -642,7 +638,7 @@ export class ClientWarehouseViewModel {
           clientComment: boxData.clientComment,
         })
 
-        this.modalEditSuccessMessage = textConsts.modalEditSuccessMessageAndTask
+        this.modalEditSuccessMessage = t(TranslationKey['Task created to change the box'])
 
         this.onTriggerOpenModal('showEditBoxSuccessModal')
       }

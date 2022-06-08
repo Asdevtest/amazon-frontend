@@ -13,6 +13,7 @@ import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
+import {checkIsImageLink} from '@utils/checks'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -208,20 +209,22 @@ export const EditBoxTasksModal = ({
 
         {box.images.length > 0 ? (
           <Carousel autoPlay timeout={100} animation="fade">
-            {box.images.map((el, index) => (
-              <div key={index}>
-                <img
-                  alt=""
-                  className={classNames.imgBox}
-                  src={el}
-                  onClick={() => {
-                    setShowPhotosModal(!showPhotosModal)
+            {box.images
+              ?.filter(el => checkIsImageLink(el))
+              .map((el, index) => (
+                <div key={index}>
+                  <img
+                    alt=""
+                    className={classNames.imgBox}
+                    src={el}
+                    onClick={() => {
+                      setShowPhotosModal(!showPhotosModal)
 
-                    setBigImagesOptions({images: box.images, imgIndex: index})
-                  }}
-                />
-              </div>
-            ))}
+                      setBigImagesOptions({images: box.images, imgIndex: index})
+                    }}
+                  />
+                </div>
+              ))}
           </Carousel>
         ) : (
           <Typography>{t(TranslationKey['No photos yet...'])}</Typography>

@@ -16,14 +16,14 @@ import {t} from '@utils/translations'
 export const logisticsTariffsColumns = handlers => [
   {
     field: 'name',
-    headerName: t(TranslationKey['Service name']),
+    headerName: t(TranslationKey['Tariff name']),
     width: 150,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'description',
-    headerName: t(TranslationKey['Service description']),
+    headerName: t(TranslationKey['Tariff description']),
     width: 350,
     renderCell: params => <ScrollingCell value={params.value} />,
   },
@@ -87,14 +87,14 @@ export const logisticsTariffsColumns = handlers => [
 export const warehouseTariffsColumns = () => [
   {
     field: 'name',
-    headerName: t(TranslationKey['Service name']),
+    headerName: t(TranslationKey['Tariff name']),
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
 
   {
     field: 'description',
-    headerName: t(TranslationKey['Service description']),
+    headerName: t(TranslationKey['Tariff description']),
     width: 600,
     renderCell: params => <ScrollingCell value={params.value} />,
   },

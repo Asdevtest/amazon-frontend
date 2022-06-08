@@ -17,7 +17,7 @@ import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {checkIsImageLink, checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign} from '@utils/text'
@@ -159,20 +159,22 @@ export const CreateOrEditProposalContent = ({
             inputComponent={
               <div className={classNames.photoWrapper}>
                 <Carousel autoPlay timeout={100} animation="fade">
-                  {request.details.linksToMediaFiles.map((el, index) => (
-                    <div key={index}>
-                      <img
-                        alt=""
-                        className={classNames.imgBox}
-                        src={el}
-                        onClick={() => {
-                          setShowPhotosModal(!showPhotosModal)
+                  {request.details.linksToMediaFiles
+                    ?.filter(el => checkIsImageLink(el))
+                    .map((el, index) => (
+                      <div key={index}>
+                        <img
+                          alt=""
+                          className={classNames.imgBox}
+                          src={el}
+                          onClick={() => {
+                            setShowPhotosModal(!showPhotosModal)
 
-                          setBigImagesOptions({images: request.details.linksToMediaFiles, imgIndex: index})
-                        }}
-                      />
-                    </div>
-                  ))}
+                            setBigImagesOptions({images: request.details.linksToMediaFiles, imgIndex: index})
+                          }}
+                        />
+                      </div>
+                    ))}
                 </Carousel>
               </div>
             }

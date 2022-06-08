@@ -227,7 +227,7 @@
   "On orders": "On orders",
   "On boxes": "On boxes",
   "To order": "To order",
-  "Bind goods from the warehouse": "Bind goods from the warehouse",
+  "Bind an product from Amazon": "Bind an product from Amazon",
   "Supplier search": "Supplier search",
   "Open inventory": "Open inventory",
   "Open archive": "Open archive",
@@ -322,8 +322,8 @@
   "No data": "No data",
   "Total amount of orders": "Total amount of orders",
   "Add barcode": "Add barcode",
-  "Service name": "Service name",
-  "Service description": "Service description",
+  "Tariff name": "Tariff name",
+  "Tariff description": "Tariff description",
   "Select Tariff": "Select Tariff",
   "reset": "Reset",
   "Recommended": "Recommended",
@@ -782,5 +782,8 @@
   "Continue": "Continue",
   "Put the card in the archive": "Put the card in the archive",
   "Add files": "Add files",
-  "Weight, Lbs": "Weight, Lbs"
+  "Weight, Lbs": "Weight, Lbs",
+  "Task created to change the box": "Task created to change the box",
+  "The box has been changed": "The box has been changed",
+  "Current exchange rate": "Current exchange rate"
 }

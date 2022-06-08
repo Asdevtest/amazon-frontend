@@ -23,6 +23,7 @@ import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal
 import {Table} from '@components/table'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {checkIsImageLink} from '@utils/checks'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -367,20 +368,22 @@ export const EditBoxForm = observer(
 
                 {boxFields.images.length > 0 ? (
                   <Carousel autoPlay timeout={100} animation="fade">
-                    {boxFields.images.map((el, index) => (
-                      <div key={index}>
-                        <img
-                          alt=""
-                          className={classNames.imgBox}
-                          src={el}
-                          onClick={() => {
-                            setShowPhotosModal(!showPhotosModal)
+                    {boxFields.images
+                      ?.filter(el => checkIsImageLink(el))
+                      .map((el, index) => (
+                        <div key={index}>
+                          <img
+                            alt=""
+                            className={classNames.imgBox}
+                            src={el}
+                            onClick={() => {
+                              setShowPhotosModal(!showPhotosModal)
 
-                            setBigImagesOptions({images: boxFields.images, imgIndex: index})
-                          }}
-                        />
-                      </div>
-                    ))}
+                              setBigImagesOptions({images: boxFields.images, imgIndex: index})
+                            }}
+                          />
+                        </div>
+                      ))}
                   </Carousel>
                 ) : (
                   <Typography>{t(TranslationKey['No photos yet...'])}</Typography>

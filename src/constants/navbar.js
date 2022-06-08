@@ -437,6 +437,16 @@ export const navbarConfig = () => ({
     },
 
     {
+      icon: Work,
+      title: t(TranslationKey['My orders']),
+      route: '/buyer/my-orders',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_MY_ORDERS,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_BUYER),
+    },
+
+    {
       icon: AssignmentIcon,
       title: t(TranslationKey['Free Orders']),
       route: '/buyer/free-orders',
@@ -444,6 +454,16 @@ export const navbarConfig = () => ({
       key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER),
+    },
+
+    {
+      icon: InboxOutlinedIcon,
+      title: t(TranslationKey['My products']),
+      route: '/buyer/my-products',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
     },
 
     {
@@ -474,26 +494,6 @@ export const navbarConfig = () => ({
             item.key === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER ||
             item.key === permissionsKeys.buyer.SHOW_VAC_BY_SUP_BUYER,
         ),
-    },
-
-    {
-      icon: InboxOutlinedIcon,
-      title: t(TranslationKey['My products']),
-      route: '/buyer/my-products',
-      subtitles: null,
-      key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
-      checkHideBlock: user =>
-        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
-    },
-
-    {
-      icon: Work,
-      title: t(TranslationKey['My orders']),
-      route: '/buyer/my-orders',
-      subtitles: null,
-      key: navBarActiveCategory.NAVBAR_MY_ORDERS,
-      checkHideBlock: user =>
-        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_ORDERS_BUYER),
     },
 
     {
