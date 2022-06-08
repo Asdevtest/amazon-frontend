@@ -122,18 +122,24 @@ export const CreateOrEditProposalContent = ({
       <div className={classNames.mainLeftWrapper}>
         <div className={classNames.clientInfoWrapper}>
           <div className={classNames.clientInfo}>
-            <Avatar src={getUserAvatarSrc(request?.createdById)} className={classNames.userPhoto} />
+            <Avatar
+              src={getUserAvatarSrc(request?.request?.createdById || request?.createdById)}
+              className={classNames.userPhoto}
+            />
             <div>
-              <UserLinkCell name={request.createdBy?.name} userId={request.createdBy?._id} />
+              <UserLinkCell
+                name={request?.request.createdBy?.name || request.createdBy?.name}
+                userId={request.createdBy?._id}
+              />
               <div className={classNames.ratingWrapper}>
                 <Typography>{t(TranslationKey.Rating)}</Typography>
-                <Rating disabled value={request.createdBy?.rating} />
+                <Rating disabled value={request?.request.createdBy?.rating || request.createdBy?.rating} />
               </div>
             </div>
           </div>
 
           <Typography className={classNames.subTitle}>{` ${'0'} ${t(TranslationKey['out of'])} ${
-            request.maxAmountOfProposals
+            request?.request.maxAmountOfProposals || request.maxAmountOfProposals
           } ${t(TranslationKey['suggestions left'])}`}</Typography>
         </div>
 
