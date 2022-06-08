@@ -51,8 +51,14 @@ export class WarehouseAwaitingBatchesViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = batchesViewColumns(this.rowHandlers)
+    }
   }
 
   setDataGridState(state) {

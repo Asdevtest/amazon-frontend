@@ -31,7 +31,7 @@ export const styles = createStyles(() => ({
   },
   chatWrapper: {
     width: '100%',
-    height: '880px',
+    height: '778px',
   },
 
   proposalsTitle: {
@@ -44,6 +44,7 @@ export const styles = createStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: '40px 0',
   },
 
   emptyProposalsIcon: {
@@ -55,7 +56,6 @@ export const styles = createStyles(() => ({
     justifyContent: 'center',
     borderRadius: '50%',
 
-    marginTop: '90px',
     marginBottom: '30px',
   },
   emptyProposalsDescription: {
@@ -68,11 +68,24 @@ export const styles = createStyles(() => ({
   proposalAndChatWrapper: {
     display: 'flex',
     flexDirection: 'column',
+
+    '&:nth-child(n)': {
+      marginBottom: '30px',
+    },
+  },
+
+  hideChatButtonWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   hideChatButton: {
-    margin: '0 auto',
-    padding: '5px 77px',
+    width: '250px',
+    height: '52px',
+    fontSize: '16px',
+    lineHeight: '19px',
     fontWeight: '400',
+    marginTop: '10px',
   },
 }))

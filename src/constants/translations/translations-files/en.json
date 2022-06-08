@@ -772,5 +772,14 @@
   "Data saved": "Data saved",
   "Links": "Links",
   "Are you sure you want to cancel the task?": "Are you sure you want to cancel the task?",
-  "Are you sure you want to remove the idea?": "Are you sure you want to remove the idea?"
+  "Are you sure you want to remove the idea?": "Are you sure you want to remove the idea?",
+  "The order has been created": "The order has been created",
+  "Result": "Result",
+  "Supplier glued the barcode": "Supplier glued the barcode",
+  "The supplier stuck a barcode on the shipment": "The supplier stuck a barcode on the shipment",
+  "Boxes will be created": "Boxes will be created",
+  "After confirmation from your account will be frozen": "After confirmation from your account will be frozen",
+  "Continue": "Continue",
+  "Put the card in the archive": "Put the card in the archive",
+  "Add files": "Add files"
 }

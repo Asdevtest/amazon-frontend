@@ -4,6 +4,7 @@ export const useClassNames = makeStyles(() => ({
   root: {
     width: '100%',
     display: 'flex',
+    marginBottom: '30px',
   },
 
   mainWrapper: {

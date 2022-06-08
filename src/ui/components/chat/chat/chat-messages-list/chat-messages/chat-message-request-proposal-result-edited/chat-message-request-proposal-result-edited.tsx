@@ -1,18 +1,26 @@
+import InboxIcon from '@mui/icons-material/Inbox'
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
+
 import React, {useState, FC, ReactElement, useContext} from 'react'
 
-import {Grid} from '@material-ui/core'
+import {Grid, Link, Typography} from '@material-ui/core'
 import clsx from 'clsx'
+import Carousel from 'react-material-ui-carousel'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
+import {CustomCarousel} from '@components/custom-carousel'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
-import {formatNormDateTime} from '@utils/date-time'
+import {checkIsImageLink} from '@utils/checks'
+import {formatDateTimeHourAndMinutes} from '@utils/date-time'
+import {t} from '@utils/translations'
 
 import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
@@ -40,53 +48,76 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
 
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [] as string[], imgIndex: 0})
 
+  const notIsEmptyFile = message.data.edited.linksToMediaFiles?.filter(el => !checkIsImageLink(el))
+
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
         <div className={classNames.headerWrapper}>
-          <p className={classNames.headerText}>РЕЗУЛЬТАТ</p>
+          <p className={classNames.headerText}>Результат</p>
         </div>
         <div className={classNames.timeWrapper}>
-          <p className={classNames.timeText}>{formatNormDateTime(message.updatedAt)}</p>
+          <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</p>
         </div>
       </div>
       <div className={classNames.mainInfoWrapper}>
-        <div className={classNames.titleWrapper}>
+        {/* <div className={classNames.titleWrapper}>
           <p className={classNames.titleText}>{message.data.request.title}</p>
-        </div>
+        </div> */}
         <div className={classNames.descriptionWrapper}>
           <p className={classNames.descriptionText}>{}</p>
         </div>
       </div>
+      <div className={classNames.resultTextWrapper}>
+        <p className={classNames.resultText}>{message.data.edited.result}</p>
+      </div>
       <div className={classNames.resultWrapper}>
         <div className={classNames.resultLeftSide}>
-          <div className={classNames.resultTextWrapper}>
-            <p className={classNames.resultText}>{message.data.edited.result}</p>
-          </div>
-          <div className={classNames.resultLinksWrapper}>
-            {message.data.edited.linksToMediaFiles?.map(
-              (link: string, index: number): ReactElement => (
-                <div key={`${message.createdAt}_resultLink_${index}`} className={classNames.linkWrapper}>
-                  <a href={link}>{`Ссылка №${index}`}</a>
-                </div>
-              ),
-            )}
-          </div>
+          <div className={classNames.imagesAndFilesWrapper}>
+            <div className={classNames.imagesWrapper}>
+              <Typography className={classNames.photoTitle}>{t(TranslationKey.Photos)}</Typography>
+              <Carousel autoPlay={false} className={classNames.carouselWrapper}>
+                {message.data.edited.linksToMediaFiles
+                  ?.filter(el => checkIsImageLink(el))
+                  .map((photo, index) => (
+                    <img
+                      key={index}
+                      src={photo}
+                      height="108px"
+                      onClick={() => {
+                        setShowImageModal(!showImageModal)
+                        setBigImagesOptions({images: message.images, imgIndex: index})
+                      }}
+                    />
+                  ))}
+              </Carousel>
+            </div>
 
-          <Grid container className={classNames.filesWrapper}>
-            {message.images.map((file, fileIndex) => (
-              <Grid key={fileIndex} item className={classNames.imageWrapper}>
-                <img
-                  className={classNames.image}
-                  src={file}
-                  onClick={() => {
-                    setShowImageModal(!showImageModal)
-                    setBigImagesOptions({images: message.images, imgIndex: fileIndex})
-                  }}
-                />
-              </Grid>
-            ))}
-          </Grid>
+            <div className={classNames.documentsWrapper}>
+              <Typography className={classNames.documentsTitle}>{t(TranslationKey.Documents)}</Typography>
+              {notIsEmptyFile?.length ? (
+                <CustomCarousel title={t(TranslationKey.Document)}>
+                  {notIsEmptyFile?.map((file, index) => (
+                    <div key={index} className={classNames.documentWrapper}>
+                      <Link className={classNames.documentTitle} href={file}>
+                        <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                      </Link>
+                      <Typography className={classNames.documentTitle}>{file}</Typography>
+                    </div>
+                  ))}
+                </CustomCarousel>
+              ) : (
+                <div>
+                  <div className={classNames.documentWrapper}>
+                    <div className={classNames.emptyDocumentIcon}>
+                      <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+                    </div>
+                    <Typography className={classNames.documentEmpty}>{t(TranslationKey['No document'])}</Typography>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
         <div className={classNames.resultRightSide}>
           <div className={classNames.timeToCheckBlockWrapper}>
@@ -111,7 +142,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
                 variant="contained"
                 color="primary"
                 btnWrapperStyle={classNames.actionBtnWrapperStyle}
-                className={clsx(classNames.actionButton, classNames.cancelBtn)}
+                className={clsx(classNames.actionButton)}
                 onClick={() => handlers.onClickProposalResultToCorrect(proposal._id)}
               >
                 Отправить на доработку

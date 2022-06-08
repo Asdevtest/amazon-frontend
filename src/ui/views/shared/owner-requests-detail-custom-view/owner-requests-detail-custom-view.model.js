@@ -22,11 +22,18 @@ export class OwnerRequestDetailCustomViewModel {
   requestProposals = []
 
   showConfirmModal = false
+  showOrderModal = false
   showRequestForm = false
   showConfirmWithCommentModal = false
   showChat = false
 
   confirmModalSettings = {
+    isWarning: false,
+    message: '',
+    onSubmit: () => {},
+  }
+
+  confirmOrderSettings = {
     isWarning: false,
     message: '',
     onSubmit: () => {},
@@ -184,12 +191,12 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  onClickContactWithExecutor(proposal) {
-    this.showChat = true
+  async onClickContactWithExecutor(proposal) {
     this.chatSelectedId = proposal.chatId
     if (this.scrollToChat) {
       this.scrollToChat()
     }
+    this.showChat = true
   }
 
   onClickHideChat() {
@@ -205,6 +212,18 @@ export class OwnerRequestDetailCustomViewModel {
       console.log(error)
       this.error = error
     }
+  }
+
+  onClickOrderProposal(proposalId, price) {
+    this.confirmOrderSettings = {
+      isWarning: false,
+      message: `${t(TranslationKey['After confirmation from your account will be frozen'])} ${toFixed(price, 2)} $. ${t(
+        TranslationKey.Continue,
+      )} ?`,
+      onSubmit: () => this.onClickAcceptProposal(proposalId),
+    }
+
+    this.onTriggerOpenModal('showOrderModal')
   }
 
   async onClickRejectProposal(proposalId) {

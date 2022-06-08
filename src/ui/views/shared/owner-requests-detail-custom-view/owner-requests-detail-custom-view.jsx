@@ -60,7 +60,9 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       drawerOpen,
       request,
       confirmModalSettings,
+      confirmOrderSettings,
       showRequestForm,
+      showOrderModal,
       showConfirmModal,
       showConfirmWithCommentModal,
       chatSelectedId,
@@ -79,7 +81,6 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       onSubmitAbortRequest,
       onClickChat,
       onClickContactWithExecutor,
-      onClickAcceptProposal,
       onClickRejectProposal,
       onClickProposalResultAccept,
       onClickProposalResultToCorrect,
@@ -87,6 +88,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       triggerShowResultToCorrectFormModal,
       showChat,
       onClickHideChat,
+      onClickOrderProposal,
     } = this.viewModel
     console.log(requestProposals)
     const {classes: classNames} = this.props
@@ -116,18 +118,18 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
               ) : null}
 
               <div className={classNames.detailsWrapper}>
-                <CustomSearchRequestDetails request={request} />
+                <CustomSearchRequestDetails request={request} requestProposals={requestProposals} />
               </div>
 
-              {requestProposals ? (
+              {requestProposals?.length ? (
                 <div className={classNames.detailsWrapper}>
                   <DealsOfRequest requestProposals={requestProposals} />
                 </div>
               ) : null}
 
-              <Typography variant="h6" className={classNames.proposalsTitle}>
+              {/* <Typography variant="h6" className={classNames.proposalsTitle}>
                 {t(TranslationKey['Proposals for the request'])}
-              </Typography>
+              </Typography> */}
               {requestProposals?.length ? (
                 <div className={classNames.proposalsWrapper}>
                   {requestProposals.map(item => (
@@ -136,46 +138,10 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                         <OwnerRequestProposalsCard
                           item={item}
                           onClickContactWithExecutor={onClickContactWithExecutor}
-                          onClickAcceptProposal={onClickAcceptProposal}
+                          onClickOrderProposal={onClickOrderProposal}
                           onClickRejectProposal={onClickRejectProposal}
                         />
                       </Paper>
-                      <Accordion expanded={showChat}>
-                        <AccordionSummary style={{display: 'none'}} />
-                        <AccordionDetails style={{padding: '0'}}>
-                          {chatIsConnected && (
-                            <div className={classNames.chatWrapper}>
-                              <ChatRequestAndRequestProposalContext.Provider
-                                value={{
-                                  request,
-                                  requestProposal: findRequestProposalForCurChat,
-                                }}
-                              >
-                                <MultipleChats
-                                  ref={this.chatRef}
-                                  chats={chats}
-                                  userId={userInfo._id}
-                                  chatSelectedId={chatSelectedId}
-                                  chatMessageHandlers={{
-                                    onClickProposalAccept: onClickAcceptProposal,
-                                    onClickProposalRegect: onClickRejectProposal,
-                                    onClickProposalResultToCorrect,
-                                    onClickProposalResultAccept,
-                                  }}
-                                  updateData={this.viewModel.loadData}
-                                  onSubmitMessage={onSubmitMessage}
-                                  onClickChat={onClickChat}
-                                />
-                              </ChatRequestAndRequestProposalContext.Provider>
-                            </div>
-                          )}
-                        </AccordionDetails>
-                      </Accordion>
-                      {showChat && (
-                        <Button className={classNames.hideChatButton} onClick={onClickHideChat}>
-                          {t(TranslationKey['Hide chat'])}
-                        </Button>
-                      )}
                     </div>
                   ))}
                 </div>
@@ -187,6 +153,46 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                   <Typography className={classNames.emptyProposalsDescription}>
                     {t(TranslationKey['No new proposals at the moment'])}
                   </Typography>
+                </div>
+              )}
+
+              <Accordion expanded={showChat}>
+                <AccordionSummary style={{display: 'none'}} />
+                <AccordionDetails style={{padding: '0'}}>
+                  {chatIsConnected && (
+                    <div className={classNames.chatWrapper}>
+                      <ChatRequestAndRequestProposalContext.Provider
+                        value={{
+                          request,
+                          requestProposal: findRequestProposalForCurChat,
+                        }}
+                      >
+                        <MultipleChats
+                          ref={this.chatRef}
+                          chats={chats}
+                          userId={userInfo._id}
+                          chatSelectedId={chatSelectedId}
+                          chatMessageHandlers={{
+                            onClickProposalAccept: onClickOrderProposal,
+                            onClickProposalRegect: onClickRejectProposal,
+                            onClickProposalResultToCorrect,
+                            onClickProposalResultAccept,
+                            onClickOrderProposal,
+                          }}
+                          updateData={this.viewModel.loadData}
+                          onSubmitMessage={onSubmitMessage}
+                          onClickChat={onClickChat}
+                        />
+                      </ChatRequestAndRequestProposalContext.Provider>
+                    </div>
+                  )}
+                </AccordionDetails>
+              </Accordion>
+              {showChat && (
+                <div className={classNames.hideChatButtonWrapper}>
+                  <Button className={classNames.hideChatButton} onClick={onClickHideChat}>
+                    {t(TranslationKey['Hide chat'])}
+                  </Button>
                 </div>
               )}
             </MainContent>
@@ -215,6 +221,18 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             cancelBtnText={t(TranslationKey.No)}
             onClickSuccessBtn={confirmModalSettings.onSubmit}
             onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+          />
+
+          <ConfirmationModal
+            isWarning={confirmModalSettings.isWarning}
+            openModal={showOrderModal}
+            setOpenModal={() => onTriggerOpenModal('showOrderModal')}
+            title={t(TranslationKey.Attention)}
+            message={confirmOrderSettings.message}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmOrderSettings.onSubmit}
+            onClickCancelBtn={() => onTriggerOpenModal('showOrderModal')}
           />
 
           <ConfirmWithCommentModal

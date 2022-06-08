@@ -6,7 +6,6 @@ import {Checkbox, IconButton, TableCell, TableRow, Typography} from '@material-u
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Input} from '@components/input'
@@ -14,13 +13,10 @@ import {Table} from '@components/table'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './boxes-to-create-table.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').boxesToCreateTable
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = [
   {align: 'center', title: 'BOX'},
@@ -146,7 +142,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             checked={item.isBarCodeAlreadyAttachedByTheSupplier}
             onChange={e => handlers.onClickBarcodeCheckbox(itemIndex)(e)}
           />
-          <Typography>{textConsts.supplierAddBarCode}</Typography>
+          <Typography>{t(TranslationKey['Supplier glued the barcode'])}</Typography>
         </div>
 
         <div className={classNames.checkboxWithLabelWrapper}>
@@ -189,7 +185,7 @@ export const BoxesToCreateTable = ({
   return (
     <div className={classNames.newBoxes}>
       <Typography className={classNames.sectionTitle} variant="h6">
-        {textConsts.newBoxesTitle}
+        {t(TranslationKey['Boxes will be created'])}
       </Typography>
 
       <div className={classNames.sizesSubWrapper}>

@@ -6,6 +6,7 @@ import {observer} from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
 
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import {SettingsModel} from '@models/settings-model'
 
 import {BigImagesModal} from '@components/modals/big-images-modal'
 

@@ -2,8 +2,10 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    backgroundColor: '#fff',
-    padding: '15px 14px',
+    backgroundColor: '#D9FAE5',
+    padding: '40px 30px',
+    width: '869px',
+    margin: '0 auto',
     borderRadius: '4px',
     '& p, h1, h2, h3, h4, h5, span': {
       margin: 0,
@@ -17,19 +19,24 @@ export const useClassNames = makeStyles(() => ({
   },
   headerWrapper: {},
   headerText: {
-    color: '#354256',
+    color: '#001029',
     fontSize: 18,
     fontWeight: 600,
+    lineHeight: '140%',
+    textTransform: 'uppercase',
   },
   timeWrapper: {
     marginLeft: '20px',
   },
   timeText: {
     color: '#5F5F5F',
-    fontSize: 18,
+    fontSize: 14,
+    fontWeight: 400,
+    lineHeight: '16px',
   },
   mainInfoWrapper: {
-    marginTop: 16,
+    width: '100%',
+    marginTop: 20,
   },
   titleWrapper: {},
   titleText: {
@@ -57,7 +64,9 @@ export const useClassNames = makeStyles(() => ({
   resultTextWrapper: {},
   resultText: {
     fontSize: 18,
-    color: '#354256',
+    fontWeight: 400,
+    lineHeight: '140%',
+    color: '#001029',
   },
   resultLinksWrapper: {
     marginTop: 20,
@@ -65,22 +74,25 @@ export const useClassNames = makeStyles(() => ({
   linkWrapper: {
     padding: '10px 0',
   },
-  resultRightSide: {
+  resultRightSide: {},
+  timeToCheckBlockWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'end',
   },
-  timeToCheckBlockWrapper: {},
   timeToCheckBlockLabelText: {
-    fontSize: '15px',
-    color: '#5F5F5F',
+    fontWeight: 600,
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
   },
   timeToCheckBlockValueWrapper: {
-    padding: '8px 25px 6px 56px',
-    backgroundColor: '#D9FAE5',
+    width: '146px',
+    padding: '8px 16px 7px 56px',
+    backgroundColor: '#fff',
     borderRadius: '4px',
     marginTop: 15,
+    textAlign: 'end',
   },
   timeToCheckBlockValueText: {
     fontSize: '15px',
@@ -94,6 +106,7 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: '48px',
   },
   actionBtnWrapperStyle: {
     flex: 1,
@@ -106,13 +119,7 @@ export const useClassNames = makeStyles(() => ({
     flex: 1,
     display: 'flex',
   },
-  cancelBtn: {
-    backgroundColor: '#F44336',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#F44336',
-    },
-  },
+
   successBtn: {
     backgroundColor: '#4CAF50',
     '&:hover': {
@@ -143,4 +150,37 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     maxWidth: '400px',
   },
+
+  imagesAndFilesWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '60%',
+  },
+
+  imagesWrapper: {},
+  photoTitle: {
+    fontWeight: 600,
+    fontSize: '18px',
+    lineHeight: '140%',
+  },
+  carouselWrapper: {
+    marginTop: '10px',
+  },
+  documentsWrapper: {},
+  documentsTitle: {
+    fontWeight: 600,
+    fontSize: '18px',
+    lineHeight: '140%',
+  },
+  documentWrapper: {
+    marginTop: '10px',
+  },
+  documentTitle: {},
+  emptyDocumentIcon: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '30px',
+  },
+  documentEmpty: {},
 }))

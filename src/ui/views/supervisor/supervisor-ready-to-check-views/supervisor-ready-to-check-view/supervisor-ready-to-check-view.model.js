@@ -27,8 +27,14 @@ export class SupervisorReadyToCheckViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.productHead = SUPERVISOR_PRODUCTS_HEAD_CELLS()
+    }
   }
 
   updateProductHead() {

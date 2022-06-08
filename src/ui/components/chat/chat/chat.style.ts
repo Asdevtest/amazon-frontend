@@ -7,11 +7,11 @@ export const useClassNames = makeStyles(() => ({
   },
   scrollViewWrapper: {
     width: '100%',
-    height: '640px',
+    height: '556px',
   },
   bottomPartWrapper: {
     backgroundColor: 'white',
-    height: '240px',
+    height: '227px',
     display: 'flex',
     flexDirection: 'column',
   },

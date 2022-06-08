@@ -39,7 +39,7 @@ export const productStatusButtonsConfigs = {
 
         {
           statusKey: ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND,
-          label: t(TranslationKey['The product is not suitable']),
+          label: t(TranslationKey['Supplier not found']),
           color: '#ff9800',
           colorHover: '#f57c00',
         },

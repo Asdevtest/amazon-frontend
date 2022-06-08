@@ -46,8 +46,14 @@ export class BuyerFreeOrdersViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
+    }
   }
 
   onChangeFilterModel(model) {

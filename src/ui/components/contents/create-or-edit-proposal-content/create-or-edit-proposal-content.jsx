@@ -48,6 +48,7 @@ export const CreateOrEditProposalContent = ({
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
+  const [checked, setChecked] = useState(false)
 
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
@@ -73,11 +74,8 @@ export const CreateOrEditProposalContent = ({
     onEditSubmit(formFields, images)
   }
 
-  const disableSubmit =
-    formFields.execution_time === '' ||
-    formFields.price === '' ||
-    formFields.comment === '' ||
-    JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
+  const disableSubmit = formFields.execution_time === '' || formFields.comment === '' || images?.length === 0
+  JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
   return (
     <div className={classNames.mainWrapper}>
@@ -251,18 +249,15 @@ export const CreateOrEditProposalContent = ({
 
           <div className={classNames.checkboxWrapper}>
             <Typography className={classNames.checkboxLabel}>{t(TranslationKey['Offer your price?'])}</Typography>
-            <Checkbox
-              color="primary"
-              // checked={formFields.request.needCheckBySupervisor}
-              // onChange={onChangeField('request')('needCheckBySupervisor')}
-            />
+            <Checkbox color="primary" checked={checked} onChange={() => setChecked(!checked)} />
           </div>
 
           <div className={classNames.middleSubWrapper}>
             <Field
+              disabled={!checked}
               label={t(TranslationKey['Enter the offer price'])}
               inputProps={{maxLength: 8}}
-              value={formFields.price}
+              value={formFields.price || toFixedWithDollarSign(request?.request.price, 2)}
               onChange={onChangeField('price')}
             />
 

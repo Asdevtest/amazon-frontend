@@ -1,6 +1,7 @@
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
+// import InboxIcon from '@mui/icons-material/Inbox'
 import {Children, cloneElement, useEffect, useState} from 'react'
 
 import {Typography} from '@material-ui/core'
@@ -11,12 +12,12 @@ import {useClassNames} from './custom-carousel.style'
 
 export const RIGHT_BLOCK_WIDTH = 100
 
-export const CustomCarousel = ({children, title}) => {
+export const CustomCarousel = ({children, title, view = 'simple'}) => {
   const classNames = useClassNames()
   const [clides, setClides] = useState([])
   const [offset, setOffset] = useState(0)
 
-  const firstSlide = parseInt(children[0].key) + 1
+  const firstSlide = children?.length ? parseInt(children[0].key) + 1 : ''
   const [slideCount, setSlideCount] = useState(firstSlide)
 
   const handleLeftArrowClick = () => {
@@ -61,32 +62,76 @@ export const CustomCarousel = ({children, title}) => {
 
   return (
     <div className={classNames.mainContainer}>
-      <div className={classNames.headerCarouselWrapper}>
-        <div className={classNames.buttonWrapper}>
-          <ArrowLeftIcon
-            style={{cursor: offset === 0 ? 'initial' : 'pointer'}}
-            color={offset === 0 ? 'disabled' : 'primary'}
-            className={classNames.carouselBtn}
-            onClick={handleLeftArrowClick}
-          />
-          <Typography className={classNames.proposalCount}>{`${title} №${slideCount}`}</Typography>
+      {view === 'simple' && children.length !== 0 && (
+        <div className={classNames.headerCarouselDocumentsWrapper}>
+          <div className={classNames.buttonDocumentsWrapper}>
+            <ArrowLeftIcon
+              style={{cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px'}}
+              color={offset === 0 ? 'disabled' : 'primary'}
+              className={classNames.carouselBtn}
+              onClick={handleLeftArrowClick}
+            />
+            <div className={classNames.window}>
+              <div className={classNames.allPages} style={{transform: `translateX(${offset}%)`}}>
+                {clides}
+              </div>
+            </div>
 
-          <ArrowRightIcon
-            style={{cursor: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'initial' : 'pointer'}}
-            color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
-            onClick={handleRightArrowClick}
-          />
+            <ArrowRightIcon
+              style={{
+                cursor: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'initial' : 'pointer',
+                width: '40px',
+                height: '40px',
+              }}
+              color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+              onClick={handleRightArrowClick}
+            />
+          </div>
+          <div className={classNames.numberOfFiles}>
+            <Typography color="primary">{`${slideCount}/${children.length}`}</Typography>
+          </div>
         </div>
-        <div className={classNames.numberOfProposals}>
-          <Typography color="primary">{`${slideCount}/${children.length}`}</Typography>
-        </div>
-      </div>
+      )}
+      {view === 'complex' && children?.length && (
+        <div>
+          <div className={classNames.headerCarouselWrapper}>
+            <div className={classNames.buttonWrapper}>
+              <ArrowLeftIcon
+                style={{cursor: offset === 0 ? 'initial' : 'pointer'}}
+                color={offset === 0 ? 'disabled' : 'primary'}
+                className={classNames.carouselBtn}
+                onClick={handleLeftArrowClick}
+              />
+              <Typography className={classNames.proposalCount}>{`${title} №${slideCount}`}</Typography>
 
-      <div className={classNames.window}>
-        <div className={classNames.allPages} style={{transform: `translateX(${offset}%)`}}>
-          {clides}
+              <ArrowRightIcon
+                style={{cursor: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'initial' : 'pointer'}}
+                color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+                onClick={handleRightArrowClick}
+              />
+            </div>
+            <div className={classNames.numberOfProposals}>
+              <Typography color="primary">{`${slideCount}/${children.length}`}</Typography>
+            </div>
+          </div>
+
+          <div className={classNames.window}>
+            <div className={classNames.allPages} style={{transform: `translateX(${offset}%)`}}>
+              {clides}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* <div className={classNames.headerCarouselWrapper}>
+          <div className={classNames.window}>
+            <div className={classNames.emptyPages}>
+              <div className={classNames.emptyDocumentIcon}>
+                <InboxIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
+              </div>
+            </div>
+          </div>
+        </div> */}
     </div>
   )
 }

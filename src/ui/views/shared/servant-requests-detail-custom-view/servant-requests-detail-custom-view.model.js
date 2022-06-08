@@ -227,6 +227,7 @@ export class RequestDetailCustomViewModel {
   }
 
   onSubmitOfferDeal() {
+    console.log(this.request)
     this.history.push('/create-or-edit-proposal', {request: toJS(this.request)})
   }
 

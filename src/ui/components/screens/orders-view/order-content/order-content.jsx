@@ -27,6 +27,7 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder, volumeW
   const classNames = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
+  const [updatedOrder, setUpdatedOrder] = useState(order)
   const theme = useTheme()
   const narrow = useMediaQuery(theme.breakpoints.down(MEDIA_SCALE_POINTS))
 
@@ -48,38 +49,44 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder, volumeW
     setHeadCells(CLIENT_WAREHOUSE_HEAD_CELLS)
   }, [SettingsModel.languageTag])
 
+  useEffect(() => {
+    setUpdatedOrder(() => ({...order}))
+  }, [SettingsModel.languageTag, order])
+
   return (
     <Paper>
       <Container disableGutters maxWidth={false}>
         <div>
           <div className={classNames.orderContainer}>
-            <Typography className={classNames.containerTitle}>{OrderStatusByCode[order.status]}</Typography>
+            <Typography className={classNames.containerTitle}>{OrderStatusByCode[updatedOrder.status]}</Typography>
 
             <div className={classNames.orderNumWrapper}>
               <Typography className={classNames.orderNum}>{t(TranslationKey['Order number'])}</Typography>
-              <Typography className={classNames.titleSpan}>{`№ ${order.id}`}</Typography>
+              <Typography className={classNames.titleSpan}>{`№ ${updatedOrder.id}`}</Typography>
             </div>
 
             <div className={classNames.orderPriceWrapper}>
               <Typography className={classNames.orderPrice}>{t(TranslationKey['Order amount'])}</Typography>
-              <Typography className={classNames.titleSpan}>{toFixedWithDollarSign(order.totalPrice, 2)}</Typography>
+              <Typography className={classNames.titleSpan}>
+                {toFixedWithDollarSign(updatedOrder.totalPrice, 2)}
+              </Typography>
             </div>
           </div>
 
           <Divider orientation={'horizontal'} />
 
           <div className={classNames.panelsWrapper}>
-            <LeftPanel order={order} collapsed={collapsed} narrow={narrow} setCollapsed={setCollapsed} />
+            <LeftPanel order={updatedOrder} collapsed={collapsed} narrow={narrow} setCollapsed={setCollapsed} />
 
-            <DeliveryParameters order={order} />
+            <DeliveryParameters order={updatedOrder} />
 
-            <ExtraOrderInfo order={order} />
+            <ExtraOrderInfo order={updatedOrder} />
           </div>
 
           <Divider orientation={'horizontal'} />
 
           <div className={classNames.btnsWrapper}>
-            {order.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] && onClickCancelOrder && (
+            {updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] && onClickCancelOrder && (
               <ErrorButton className={classNames.cancelBtn} onClick={onClickCancelOrder}>
                 {t(TranslationKey['Cancel order'])}
               </ErrorButton>
@@ -104,7 +111,7 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder, volumeW
                 data={boxes}
                 BodyRow={WarehouseBodyRow}
                 renderHeadRow={renderHeadRow()}
-                mainProductId={order.product._id}
+                mainProductId={updatedOrder.product._id}
                 volumeWeightCoefficient={volumeWeightCoefficient}
               />
             ) : (

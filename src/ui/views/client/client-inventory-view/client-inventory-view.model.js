@@ -155,8 +155,14 @@ export class ClientInventoryViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = clientInventoryColumns(this.barCodeHandlers, this.hsCodeHandlers)
+    }
   }
 
   onChangeFilterModel(model) {
@@ -388,7 +394,7 @@ export class ClientInventoryViewModel {
       }
 
       if (!this.error) {
-        this.successModalText = textConsts.successOrderTitle
+        this.successModalText = t(TranslationKey['The order has been created'])
         this.onTriggerOpenModal('showSuccessModal')
       }
 

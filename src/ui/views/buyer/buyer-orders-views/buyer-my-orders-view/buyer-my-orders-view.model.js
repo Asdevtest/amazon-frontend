@@ -70,8 +70,14 @@ export class BuyerMyOrdersViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = buyerMyOrdersViewColumns()
+    }
   }
 
   onChangeFilterModel(model) {

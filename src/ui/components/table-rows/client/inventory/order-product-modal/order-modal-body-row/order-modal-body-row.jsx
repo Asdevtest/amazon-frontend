@@ -245,7 +245,9 @@ export const OrderModalBodyRow = ({
               labelClasses={classNames.labelField}
               label={t(TranslationKey['Weight 1 unit'])}
               inputComponent={
-                <Typography className={classNames.sumText}>{toFixed(weightOfOneBox, 2) || 'Нет данных'}</Typography>
+                <Typography className={classNames.sumText}>
+                  {toFixed(weightOfOneBox, 2) || t(TranslationKey['No data'])}
+                </Typography>
               }
             />
 
@@ -255,7 +257,9 @@ export const OrderModalBodyRow = ({
               labelClasses={classNames.labelField}
               label={t(TranslationKey['Batch weight'])}
               inputComponent={
-                <Typography className={classNames.sumText}>{toFixed(weightOfBatch, 2) || 'Нет данных'}</Typography>
+                <Typography className={classNames.sumText}>
+                  {toFixed(weightOfBatch, 2) || t(TranslationKey['No data'])}
+                </Typography>
               }
             />
 

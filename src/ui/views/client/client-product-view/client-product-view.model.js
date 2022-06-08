@@ -241,7 +241,7 @@ export class ClientProductViewModel {
       case 'delete':
         this.confirmModalSettings = {
           isWarning: true,
-          message: textConsts.deleteMessage,
+          message: t(TranslationKey['Put the card in the archive']) + '?',
           onClickOkBtn: () => this.onDeleteProduct(),
         }
 

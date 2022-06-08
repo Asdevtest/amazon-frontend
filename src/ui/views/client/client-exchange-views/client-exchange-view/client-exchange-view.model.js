@@ -62,8 +62,14 @@ export class ClientExchangeViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = clientExchangeViewColumns(this.rowHandlers)
+    }
   }
 
   onChangeFilterModel(model) {

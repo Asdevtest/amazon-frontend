@@ -52,8 +52,14 @@ export class WarehouseCompletedViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers)
+    }
   }
 
   // disposeReactionLanguageTagDisposer(){

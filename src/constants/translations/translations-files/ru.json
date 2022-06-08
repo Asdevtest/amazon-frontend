@@ -774,5 +774,14 @@
   "Data saved": "Данные сохранены",
   "Links": "Ссылки",
   "Are you sure you want to cancel the task?": "Вы уверены, что хотите отменить задачу?",
-  "Are you sure you want to remove the idea?": "Вы уверены, что хотите удалить идею?"
+  "Are you sure you want to remove the idea?": "Вы уверены, что хотите удалить идею?",
+  "The order has been created": "Заказ создан",
+  "Result": "Result",
+  "Supplier glued the barcode": "Поставщик проклеил баркод",
+  "The supplier stuck a barcode on the shipment": "Поставщик поклеил баркод при отправке",
+  "Boxes will be created": "Будут созданы коробки",
+  "After confirmation from your account will be frozen": "После подтверждения с Вашего счета будут заморожены",
+  "Continue": "Продолжить",
+  "Put the card in the archive": "Поместить карточку в архив",
+  "Add files": "Добавьте файлы"
 }
