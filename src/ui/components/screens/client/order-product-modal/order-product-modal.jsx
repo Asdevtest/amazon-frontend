@@ -119,7 +119,7 @@ export const OrderProductModal = ({
       order =>
         order.storekeeperId === '' ||
         order.logicsTariffId === '' ||
-        order.destinationId === '' ||
+        // order.destinationId === '' ||
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)),
     ) ||

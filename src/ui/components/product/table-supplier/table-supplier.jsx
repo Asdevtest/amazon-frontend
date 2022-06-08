@@ -7,6 +7,7 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {toFixedWithDollarSign, checkAndMakeAbsoluteUrl} from '@utils/text'
@@ -33,7 +34,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
             <TableCell className={classNames.alignCenter}>{t(TranslationKey.Quantity)}</TableCell>
             <TableCell className={classNames.alignCenter}>{t(TranslationKey['Minimum batch'])}</TableCell>
             <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
-            {/* <TableCell className={classNames.alignRight}>{textConsts.tableCost}</TableCell> */}
+            <TableCell className={classNames.alignRight}>{t(TranslationKey['Created by'])}</TableCell>
             <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
           </TableRow>
         </TableHead>
@@ -62,7 +63,11 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                 <TableCell className={classNames.alignCenter}>{supplier.amount}</TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.minlot}</TableCell>
                 <TableCell className={classNames.alignCenter}>{toFixedWithDollarSign(supplier.lotcost, 2)}</TableCell>
+                <TableCell className={classNames.alignCenter}>
+                  <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
+                </TableCell>
                 <TableCell className={classNames.alignCenter}>{supplier.comment}</TableCell>
+
                 <TableCell>
                   <Button
                     disableElevation

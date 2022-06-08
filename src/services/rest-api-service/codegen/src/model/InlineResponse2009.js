@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
 
 /**
@@ -80,7 +80,7 @@ class InlineResponse2009 {
                 obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
             }
             if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
             }
             if (data.hasOwnProperty('createdAt')) {
                 obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
@@ -156,7 +156,7 @@ InlineResponse2009.prototype['images'] = undefined;
 InlineResponse2009.prototype['storekeeperId'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} storekeeper
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
  */
 InlineResponse2009.prototype['storekeeper'] = undefined;
 

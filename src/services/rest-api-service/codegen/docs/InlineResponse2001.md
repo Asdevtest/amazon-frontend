@@ -26,9 +26,9 @@ Name | Type | Description | Notes
 **destination** | [**ApiV1AdminsOrdersDestination**](ApiV1AdminsOrdersDestination.md) |  | [optional] 
 **logicsTariff** | [**ApiV1AdminsOrdersLogicsTariff**](ApiV1AdminsOrdersLogicsTariff.md) |  | [optional] 
 **product** | [**InlineResponse200**](InlineResponse200.md) |  | [optional] 
-**storekeeper** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
-**buyer** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**storekeeper** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
+**buyer** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **orderSupplier** | [**ApiV1AdminsOrdersOrderSupplier**](ApiV1AdminsOrdersOrderSupplier.md) |  | [optional] 
-**createdBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 
 

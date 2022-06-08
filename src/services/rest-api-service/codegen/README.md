@@ -330,7 +330,7 @@ Class | Method | HTTP request | Description
 
  - [TestSwagger.AdminUserPatchDtoSchema](docs/AdminUserPatchDtoSchema.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusBoxProperties](docs/ApiV1AdminsGetProductsByStatusBoxProperties.md)
- - [TestSwagger.ApiV1AdminsGetProductsByStatusClient](docs/ApiV1AdminsGetProductsByStatusClient.md)
+ - [TestSwagger.ApiV1AdminsGetProductsByStatusCreatedBy](docs/ApiV1AdminsGetProductsByStatusCreatedBy.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusListingSupplierCompetitors](docs/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md)
  - [TestSwagger.ApiV1AdminsGetProductsByStatusSuppliers](docs/ApiV1AdminsGetProductsByStatusSuppliers.md)
  - [TestSwagger.ApiV1AdminsOrdersDestination](docs/ApiV1AdminsOrdersDestination.md)

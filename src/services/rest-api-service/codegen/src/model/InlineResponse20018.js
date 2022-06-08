@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1RequestsCountProposalsByStatuses from './ApiV1RequestsCountProposalsByStatuses';
 
 /**
@@ -114,7 +114,7 @@ class InlineResponse20018 {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
             if (data.hasOwnProperty('countProposalsByStatuses')) {
                 obj['countProposalsByStatuses'] = ApiV1RequestsCountProposalsByStatuses.constructFromObject(data['countProposalsByStatuses']);
@@ -229,7 +229,7 @@ InlineResponse20018.prototype['createdAt'] = undefined;
 InlineResponse20018.prototype['updatedAt'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} createdBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
 InlineResponse20018.prototype['createdBy'] = undefined;
 

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **clientComment** | **String** | Комментарий клиента. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
 **storekeeperId** | **String** | GUID сотрудника склада, который выполняет задачу. | [optional] 
-**storekeeper** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**storekeeper** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **createdAt** | **Date** | Дата создания. | [optional] 
 **updateDate** | **Date** | Дата обновления. | [optional] 
 
