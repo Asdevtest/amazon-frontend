@@ -37,14 +37,14 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'amountInOrders',
-    headerName: t(TranslationKey.Quantity),
+    headerName: 'Order',
     renderCell: params => renderFieldValueCell(params.value),
     width: 80,
   },
 
   {
     field: 'amountInBoxes',
-    headerName: t(TranslationKey.Stock),
+    headerName: 'In stock',
     renderCell: params => renderFieldValueCell(params.value),
     width: 80,
   },

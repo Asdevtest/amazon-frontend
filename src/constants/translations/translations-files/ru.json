@@ -232,7 +232,7 @@
   "On orders": "По заказам",
   "On boxes": "По коробкам",
   "To order": "Заказать",
-  "Bind goods from the warehouse": "Привязать товар со склада",
+  "Bind an product from Amazon": "Привязать товар с Амазона",
   "Supplier search": "Поиск поставщика",
   "Open inventory": "Открыть инвентарь",
   "Open archive": "Открыть архив",
@@ -326,8 +326,8 @@
   "No data": "Нет данных",
   "Total amount of orders": "Итого сумма заказов",
   "Add barcode": "Добавить barcode",
-  "Service name": "Название услуги",
-  "Service description": "Описание услуги",
+  "Tariff name": "Название тарифа",
+  "Tariff description": "Описание тарифа",
   "Select Tariff": "Выбрать тариф",
   "reset": "Сбросить",
   "Recommended": "Рекомендованные",
@@ -753,7 +753,7 @@
   "The exact cost of the request will be:": "Точная стоимость заявки составит:",
   "Confirm the publication?": "Подтвердить публикацию?",
   "Delete request?": "Удалить заявку?",
-  "Transactions on the request": "Transactions on the request",
+  "Transactions on the request": "Операции по заявке",
   "Specify exactly how you are going to perform this task. Describe the key points.": "Укажите, как именно вы собираетесь выполнять это задание. Опишите ключевые моменты.",
   "Offering a Service to the Client:": "Предлагая услугу Клиенту:",
   "Compose unique feedback that shows your competence and interest in the project.": "Составляйте уникальные отклики, которые покажут вашу компетентность и заинтересованность в проекте.",
@@ -784,5 +784,7 @@
   "Continue": "Продолжить",
   "Put the card in the archive": "Поместить карточку в архив",
   "Add files": "Добавьте файлы",
-  "Weight, Lbs": "Вес, фунт"
+  "Weight, Lbs": "Вес, фунт",
+  "Task created to change the box": "Создана задача на изменение коробки",
+  "The box has been changed": "Коробка изменена"
 }
