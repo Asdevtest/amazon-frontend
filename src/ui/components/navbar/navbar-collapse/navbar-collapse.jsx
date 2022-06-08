@@ -38,6 +38,13 @@ export const NavbarCollapse = ({
           </ListItemIcon>
         )
 
+      case '/client/tariffs-notifications':
+        return (
+          <ListItemIcon>
+            {<div className={classNames.badge}>{currentViewModel.userInfo.needUpdateTariff.boxes}</div>}
+          </ListItemIcon>
+        )
+
       default:
         return null
     }

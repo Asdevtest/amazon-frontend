@@ -44,7 +44,8 @@ export const Navbar = observer(
                   badge={
                     category.route === '/client/orders-notifications' &&
                     viewModel.current.userInfo.needConfirmPriceChange.boxes +
-                      viewModel.current.userInfo.needConfirmPriceChange.orders
+                      viewModel.current.userInfo.needConfirmPriceChange.orders +
+                      viewModel.current.userInfo.needUpdateTariff.boxes
                   }
                 />
 

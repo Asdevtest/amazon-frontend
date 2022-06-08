@@ -180,7 +180,7 @@ export class WarehouseAwaitingBatchesViewModel {
     }
   }
 
-  async onSubmitAddOrEditBatch(boxesIds, sourceBoxesIds, filesToAdd, batchToEdit) {
+  async onSubmitAddOrEditBatch(boxesIds, filesToAdd, sourceBoxesIds, batchToEdit) {
     try {
       this.uploadedFiles = []
 
