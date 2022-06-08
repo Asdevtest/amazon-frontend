@@ -98,7 +98,7 @@ export const BoxViewForm = observer(
                             className={classNames.imgBoxWrapper}
                           >
                             {item.product.images
-                              ?.filter(el => checkIsImageLink(el))
+                              ?.filter(el => !checkIsImageLink(el))
                               .map((el, index) => (
                                 <div key={index}>
                                   <img
