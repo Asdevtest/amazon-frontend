@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusBoxProperties from './ApiV1AdminsGetProductsByStatusBoxProperties';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 
 /**
  * The ApiV1AdminsGetProductsByStatusSuppliers model module.
@@ -96,6 +97,9 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
             }
             if (data.hasOwnProperty('boxProperties')) {
                 obj['boxProperties'] = ApiV1AdminsGetProductsByStatusBoxProperties.constructFromObject(data['boxProperties']);
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
         }
         return obj;
@@ -198,6 +202,11 @@ ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchTotalCostInYuan'] = unde
  * @member {module:model/ApiV1AdminsGetProductsByStatusBoxProperties} boxProperties
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxProperties'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
+ */
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['createdBy'] = undefined;
 
 
 

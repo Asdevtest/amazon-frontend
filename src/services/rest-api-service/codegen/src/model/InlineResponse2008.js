@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1BoxesClientsLightBatch from './ApiV1BoxesClientsLightBatch';
 import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
 import ApiV1BoxesClientsLightItems from './ApiV1BoxesClientsLightItems';
@@ -110,13 +110,13 @@ class InlineResponse2008 {
                 obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesClientsLightItems]);
             }
             if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
             }
             if (data.hasOwnProperty('client')) {
-                obj['client'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['client']);
+                obj['client'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['client']);
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
             if (data.hasOwnProperty('destination')) {
                 obj['destination'] = ApiV1BoxesClientsLightDestination.constructFromObject(data['destination']);
@@ -247,17 +247,17 @@ InlineResponse2008.prototype['updatedAt'] = undefined;
 InlineResponse2008.prototype['items'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} storekeeper
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
  */
 InlineResponse2008.prototype['storekeeper'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} client
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} client
  */
 InlineResponse2008.prototype['client'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} createdBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
 InlineResponse2008.prototype['createdBy'] = undefined;
 

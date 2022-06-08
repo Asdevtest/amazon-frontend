@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 
 import {React, useState} from 'react'
@@ -8,7 +7,7 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
+import {inchesCoefficient, sizesType, poundsCoefficient} from '@constants/sizes-settings'
 import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -21,8 +20,6 @@ import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
-import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {priceCalculation} from '@utils/price-calculation'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -574,43 +571,57 @@ export const AddOrEditSupplierModalContent = observer(
                 </div>
               </div>
 
-              <Field
-                label={t(TranslationKey['Weight, kg'])}
-                inputProps={{maxLength: 10}}
-                containerClasses={classNames.shortContainer}
-                labelClasses={classNames.normalLabel}
-                value={tmpSupplier.boxProperties.boxWeighGrossKg}
-                onChange={onChangeField('boxWeighGrossKg')}
-              />
-              <Field
-                label={t(TranslationKey['Number of units in box'])}
-                inputProps={{maxLength: 10}}
-                containerClasses={classNames.shortContainer}
-                labelClasses={classNames.normalLabel}
-                value={tmpSupplier.boxProperties.amountInBox}
-                onChange={onChangeField('amountInBox')}
-              />
+              <div className={classNames.boxInfoSubWrapper}>
+                <div>
+                  <Field
+                    disabled
+                    label={t(TranslationKey['Weight, Lbs'])}
+                    inputProps={{maxLength: 10}}
+                    containerClasses={classNames.shortContainer}
+                    labelClasses={classNames.normalLabel}
+                    value={toFixed(tmpSupplier.boxProperties.boxWeighGrossKg * poundsCoefficient, 2) || ''}
+                  />
 
-              <Field
-                disabled
-                label={t(TranslationKey['Volume weight, kg'])}
-                inputProps={{maxLength: 15}}
-                containerClasses={classNames.shortContainer}
-                labelClasses={classNames.normalLabel}
-                value={toFixed(
-                  (sizeSetting === sizesType.INCHES
-                    ? tmpSupplier.boxProperties.boxHeightCm *
-                      inchesCoefficient *
-                      tmpSupplier.boxProperties.boxWidthCm *
-                      inchesCoefficient *
-                      tmpSupplier.boxProperties.boxLengthCm *
-                      inchesCoefficient
-                    : tmpSupplier.boxProperties.boxHeightCm *
-                      tmpSupplier.boxProperties.boxWidthCm *
-                      tmpSupplier.boxProperties.boxLengthCm) / volumeWeightCoefficient,
-                  2,
-                )}
-              />
+                  <Field
+                    label={t(TranslationKey['Weight, kg'])}
+                    inputProps={{maxLength: 10}}
+                    containerClasses={classNames.shortContainer}
+                    labelClasses={classNames.normalLabel}
+                    value={tmpSupplier.boxProperties.boxWeighGrossKg}
+                    onChange={onChangeField('boxWeighGrossKg')}
+                  />
+                </div>
+
+                <Field
+                  label={t(TranslationKey['Number of units in box'])}
+                  inputProps={{maxLength: 10}}
+                  containerClasses={classNames.shortContainer}
+                  labelClasses={classNames.normalLabel}
+                  value={tmpSupplier.boxProperties.amountInBox}
+                  onChange={onChangeField('amountInBox')}
+                />
+
+                <Field
+                  disabled
+                  label={t(TranslationKey['Volume weight, kg'])}
+                  inputProps={{maxLength: 15}}
+                  containerClasses={classNames.shortContainer}
+                  labelClasses={classNames.normalLabel}
+                  value={toFixed(
+                    (sizeSetting === sizesType.INCHES
+                      ? tmpSupplier.boxProperties.boxHeightCm *
+                        inchesCoefficient *
+                        tmpSupplier.boxProperties.boxWidthCm *
+                        inchesCoefficient *
+                        tmpSupplier.boxProperties.boxLengthCm *
+                        inchesCoefficient
+                      : tmpSupplier.boxProperties.boxHeightCm *
+                        tmpSupplier.boxProperties.boxWidthCm *
+                        tmpSupplier.boxProperties.boxLengthCm) / volumeWeightCoefficient,
+                    2,
+                  )}
+                />
+              </div>
             </div>
           </div>
         </div>

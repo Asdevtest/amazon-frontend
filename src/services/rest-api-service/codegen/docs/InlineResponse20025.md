@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **lastModifiedById** | **String** | GUID клиента, который обновил запрос на поиск товара. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
-**createdBy** | [**ApiV1AdminsGetProductsByStatusClient**](ApiV1AdminsGetProductsByStatusClient.md) |  | [optional] 
+**createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **countProposalsByStatuses** | [**ApiV1RequestsCountProposalsByStatuses**](ApiV1RequestsCountProposalsByStatuses.md) |  | [optional] 
 **detailsCustom** | [**ApiV1RequestsCustomDetailsCustom**](ApiV1RequestsCustomDetailsCustom.md) |  | [optional] 
 **proposals** | **[Object]** |  | [optional] 

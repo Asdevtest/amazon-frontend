@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusClient from './ApiV1AdminsGetProductsByStatusClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1AdminsOrdersDestination from './ApiV1AdminsOrdersDestination';
 import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
 import ApiV1AdminsOrdersOrderSupplier from './ApiV1AdminsOrdersOrderSupplier';
@@ -120,16 +120,16 @@ class InlineResponse2001 {
                 obj['product'] = InlineResponse200.constructFromObject(data['product']);
             }
             if (data.hasOwnProperty('storekeeper')) {
-                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['storekeeper']);
+                obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
             }
             if (data.hasOwnProperty('buyer')) {
-                obj['buyer'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['buyer']);
+                obj['buyer'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['buyer']);
             }
             if (data.hasOwnProperty('orderSupplier')) {
                 obj['orderSupplier'] = ApiV1AdminsOrdersOrderSupplier.constructFromObject(data['orderSupplier']);
             }
             if (data.hasOwnProperty('createdBy')) {
-                obj['createdBy'] = ApiV1AdminsGetProductsByStatusClient.constructFromObject(data['createdBy']);
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
         }
         return obj;
@@ -264,12 +264,12 @@ InlineResponse2001.prototype['logicsTariff'] = undefined;
 InlineResponse2001.prototype['product'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} storekeeper
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
  */
 InlineResponse2001.prototype['storekeeper'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} buyer
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} buyer
  */
 InlineResponse2001.prototype['buyer'] = undefined;
 
@@ -279,7 +279,7 @@ InlineResponse2001.prototype['buyer'] = undefined;
 InlineResponse2001.prototype['orderSupplier'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusClient} createdBy
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
 InlineResponse2001.prototype['createdBy'] = undefined;
 

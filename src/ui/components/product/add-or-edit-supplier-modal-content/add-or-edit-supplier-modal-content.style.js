@@ -200,8 +200,17 @@ export const useClassNames = makeStyles(() => ({
   },
 
   boxInfoWrapper: {
+    width: '100%',
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
+  },
+
+  boxInfoSubWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    marginLeft: 20,
   },
 }))

@@ -24,13 +24,12 @@ class InlineObject31 {
      * @alias module:model/InlineObject31
      * @param storekeeperId {String} GUID storekeeper-a
      * @param logicsTariffId {String} GUID тарифа доставки
-     * @param destinationId {String} GUID пункта назначения.
      * @param amount {Number} Кол-во продукта по этой позиции.
      * @param productId {String} GUID заказанного продукта
      */
-    constructor(storekeeperId, logicsTariffId, destinationId, amount, productId) { 
+    constructor(storekeeperId, logicsTariffId, amount, productId) { 
         
-        InlineObject31.initialize(this, storekeeperId, logicsTariffId, destinationId, amount, productId);
+        InlineObject31.initialize(this, storekeeperId, logicsTariffId, amount, productId);
     }
 
     /**
@@ -38,10 +37,9 @@ class InlineObject31 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, storekeeperId, logicsTariffId, destinationId, amount, productId) { 
+    static initialize(obj, storekeeperId, logicsTariffId, amount, productId) { 
         obj['storekeeperId'] = storekeeperId;
         obj['logicsTariffId'] = logicsTariffId;
-        obj['destinationId'] = destinationId;
         obj['amount'] = amount;
         obj['productId'] = productId;
     }

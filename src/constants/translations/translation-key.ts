@@ -783,7 +783,7 @@ export enum TranslationKey {
   'Continue' = 'Continue',
   'Put the card in the archive' = 'Put the card in the archive',
   'Add files' = 'Add files',
-  // '' = '',
+  'Weight, Lbs' = 'Weight, Lbs',
   // '' = '',
   // '' = '',
   // '' = '',
@@ -799,8 +799,7 @@ export enum TranslationKey {
   // '' = '',
 }
 
-// "Are you sure you want to cancel the task?": "Are you sure you want to cancel the task?"
-// "Add a product idea": "Add a product idea"
+// "Weight, Lbs": "Weight, Lbs"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

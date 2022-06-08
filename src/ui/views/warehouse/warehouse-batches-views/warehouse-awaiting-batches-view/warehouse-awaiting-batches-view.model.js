@@ -206,10 +206,12 @@ export class WarehouseAwaitingBatchesViewModel {
         }
 
         if (filesToAdd.length) {
-          await BatchesModel.editAttachedDocuments(batchToEdit.id, [
-            ...batchToEdit.originalData.attachedDocuments,
-            ...this.uploadedFiles,
-          ])
+          await BatchesModel.editAttachedDocuments(
+            batchToEdit.id,
+            batchToEdit.originalData.attachedDocuments
+              ? [...batchToEdit.originalData.attachedDocuments, ...this.uploadedFiles]
+              : [...this.uploadedFiles],
+          )
         }
       }
 
