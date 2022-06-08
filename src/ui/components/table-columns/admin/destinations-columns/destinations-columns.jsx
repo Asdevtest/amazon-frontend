@@ -52,7 +52,7 @@ export const destinationsColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Actions),
-    width: 200,
+    width: 250,
     renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
     filterable: false,
     sortable: false,

@@ -13,22 +13,6 @@ import {t} from '@utils/translations'
 
 export const adminGroupPermissionsColumns = handlers => [
   {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderCell: params => <NormDateCell params={params} />,
-    width: 130,
-    type: 'date',
-  },
-
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderCell: params => <NormDateCell params={params} />,
-    width: 130,
-    type: 'date',
-  },
-
-  {
     field: 'key',
     headerName: t(TranslationKey.Key),
     width: 250,
@@ -59,9 +43,25 @@ export const adminGroupPermissionsColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Actions),
-    width: 200,
+    width: 250,
     renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,
     sortable: false,
+  },
+
+  {
+    field: 'createdAt',
+    headerName: t(TranslationKey.Created),
+    renderCell: params => <NormDateCell params={params} />,
+    width: 130,
+    type: 'date',
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderCell: params => <NormDateCell params={params} />,
+    width: 130,
+    type: 'date',
   },
 ]

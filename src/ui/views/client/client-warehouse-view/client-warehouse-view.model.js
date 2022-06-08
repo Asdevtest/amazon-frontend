@@ -285,7 +285,7 @@ export class ClientWarehouseViewModel {
       this.loadData()
     } else {
       this.confirmModalSettings = {
-        iWarning: false,
+        isWarning: false,
         confirmMessage: t(
           TranslationKey['Shipping label has been stamped, a warehouse task will be created for labeling.'],
         ),
@@ -558,7 +558,7 @@ export class ClientWarehouseViewModel {
 
       if (
         !boxData.clientComment &&
-        boxData.shippingLabel === null &&
+        (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel) &&
         boxData.items.every(item => !item.tmpBarCode.length)
       ) {
         await BoxesModel.editBoxAtClient(id, {
@@ -847,7 +847,7 @@ export class ClientWarehouseViewModel {
 
     this.confirmModalSettings = {
       isWarning: true,
-      confirmMessage: t(TranslationKey['Are you sure you want to cancel the order?']),
+      confirmMessage: t(TranslationKey['Are you sure you want to cancel the task?']),
       onClickConfirm: () => this.onClickCancelAfterConfirm(),
     }
 

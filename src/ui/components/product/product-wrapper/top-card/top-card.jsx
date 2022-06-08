@@ -21,8 +21,8 @@ import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
+import {TableSupplier} from '../../table-supplier'
 import {FieldsAndSuppliers} from './fields-and-suppliers'
-import {TableSupplier} from './fields-and-suppliers/table-supplier'
 import {RightSideComments} from './right-side-comments'
 import {useClassNames} from './top-card.style'
 

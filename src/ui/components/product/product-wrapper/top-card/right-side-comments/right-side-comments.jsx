@@ -44,11 +44,11 @@ export const RightSideComments = observer(
     const showActionBtns =
       (checkIsSupervisor(curUserRole) &&
         productBase.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
-        checkIsSupervisor(curUserRole) &&
         productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
       (checkIsSupervisor(curUserRole) &&
         productBase.status >= ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
-        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS]) ||
+        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS] &&
+        productBase.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]) ||
       (checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)) ||
       (checkIsResearcher(curUserRole) &&
         productBase.status < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) ||
@@ -63,7 +63,7 @@ export const RightSideComments = observer(
           <Typography className={classNames.title}>{t(TranslationKey.Comments)}</Typography>
           <Field
             multiline
-            disabled={!checkIsResearcher(curUserRole)}
+            disabled={!checkIsResearcher(curUserRole) || !showActionBtns}
             error={formFieldsValidationErrors.icomment}
             className={clsx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.icomment,
@@ -90,7 +90,7 @@ export const RightSideComments = observer(
           )}
           <Field
             multiline
-            disabled={!checkIsSupervisor(curUserRole)}
+            disabled={!checkIsSupervisor(curUserRole) || !showActionBtns}
             error={formFieldsValidationErrors.checkednotes}
             className={clsx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.checkednotes,
@@ -104,7 +104,7 @@ export const RightSideComments = observer(
           />
           <Field
             multiline
-            disabled={!checkIsBuyer(curUserRole)}
+            disabled={!checkIsBuyer(curUserRole) || !showActionBtns}
             error={formFieldsValidationErrors.buyersComment}
             className={clsx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.buyersComment,
