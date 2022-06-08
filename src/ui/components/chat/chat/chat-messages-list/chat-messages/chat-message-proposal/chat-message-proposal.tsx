@@ -20,7 +20,7 @@ import {LabelValuePairBlock} from '../label-value-pair-block'
 import {useClassNames} from './chat-message-proposal.style'
 
 export interface ChatMessageProposalHandlers {
-  onClickProposalAccept: (proposalId: string) => void
+  onClickProposalAccept: (proposalId: string, price: number) => void
   onClickProposalRegect: (proposalId: string) => void
 }
 
@@ -104,7 +104,7 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
               variant="contained"
               color="primary"
               className={clsx(classNames.actionButton, classNames.successBtn)}
-              onClick={() => handlers.onClickProposalAccept(message.data._id)}
+              onClick={() => handlers.onClickProposalAccept(message.data._id, message.data.price)}
             >
               {`Принять за $${message.data.price}`}
             </Button>

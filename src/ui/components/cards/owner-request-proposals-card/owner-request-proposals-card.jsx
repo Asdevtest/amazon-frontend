@@ -27,7 +27,8 @@ import {useClassNames} from './owner-request-proposals-card.style'
 export const OwnerRequestProposalsCard = ({
   item,
   onClickContactWithExecutor,
-  onClickAcceptProposal,
+
+  onClickOrderProposal,
   onClickRejectProposal,
 }) => {
   const classNames = useClassNames()
@@ -134,7 +135,7 @@ export const OwnerRequestProposalsCard = ({
                 variant="contained"
                 color="primary"
                 className={clsx(classNames.actionButton, classNames.successBtn)}
-                onClick={() => onClickAcceptProposal(item.proposal._id)}
+                onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
               >
                 {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price)}`}
               </Button>

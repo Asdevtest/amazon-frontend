@@ -27,8 +27,14 @@ export class BuyerSearchSupplierBySupervisorModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.productsHead = BUYER_PRODUCTS_HEAD_CELLS()
+    }
   }
 
   updateProductsHead() {

@@ -2,16 +2,14 @@ import React, {useState} from 'react'
 
 import {Box, Typography} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './add-files-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').addFilesFormText
 
 export const AddFilesForm = ({item, allItemsArray, setAllItemsArray, onCloseModal}) => {
   const classNames = useClassNames()
@@ -37,14 +35,16 @@ export const AddFilesForm = ({item, allItemsArray, setAllItemsArray, onCloseModa
   return (
     <div className={classNames.root}>
       <Box className={classNames.boxCode}>
-        <Typography className={(classNames.modalText, classNames.typoCode)}>{textConsts.addFiles}</Typography>
+        <Typography className={(classNames.modalText, classNames.typoCode)}>
+          {t(TranslationKey['Add files'])}
+        </Typography>
 
         <div className={classNames.imageFileInputWrapper}>
           <UploadFilesInput images={editingItem.tmpImages} setImages={setImagesOfItem} maxNumber={50} />
         </div>
       </Box>
 
-      <Button onClick={() => onSubmith()}>{textConsts.saveBtn}</Button>
+      <Button onClick={() => onSubmith()}>{t(TranslationKey.Save)}</Button>
     </div>
   )
 }

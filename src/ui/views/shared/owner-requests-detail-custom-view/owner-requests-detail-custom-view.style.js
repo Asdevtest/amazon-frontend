@@ -44,6 +44,7 @@ export const styles = createStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: '40px 0',
   },
 
   emptyProposalsIcon: {
@@ -55,7 +56,6 @@ export const styles = createStyles(() => ({
     justifyContent: 'center',
     borderRadius: '50%',
 
-    marginTop: '90px',
     marginBottom: '30px',
   },
   emptyProposalsDescription: {

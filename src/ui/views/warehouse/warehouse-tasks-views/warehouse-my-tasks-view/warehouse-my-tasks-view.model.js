@@ -68,8 +68,14 @@ export class WarehouseVacantViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers)
+    }
   }
 
   onChangeFilterModel(model) {

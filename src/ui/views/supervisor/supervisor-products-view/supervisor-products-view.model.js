@@ -34,8 +34,14 @@ export class SupervisorProductsViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = supervisorProductsViewColumns()
+    }
   }
 
   onChangeFilterModel(model) {

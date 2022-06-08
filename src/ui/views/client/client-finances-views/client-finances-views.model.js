@@ -36,8 +36,14 @@ export class ClientFinancesViewsModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.getPayments(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = financesViewColumns()
+    }
   }
 
   onChangeFilterModel(model) {

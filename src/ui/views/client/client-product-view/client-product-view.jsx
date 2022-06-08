@@ -4,6 +4,7 @@ import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
@@ -16,6 +17,7 @@ import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-sup
 import {ProductWrapper} from '@components/product/product-wrapper'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {ClientProductViewModel} from './client-product-view.model'
 
@@ -119,10 +121,10 @@ export class ClientProductView extends Component {
           isWarning={confirmModalSettings.isWarning}
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
+          title={t(TranslationKey.Attention)}
           message={confirmModalSettings.message}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={() => {
             confirmModalSettings.onClickOkBtn()
             onTriggerOpenModal('showConfirmModal')

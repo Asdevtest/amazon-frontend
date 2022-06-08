@@ -96,7 +96,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
             <div className={classNames.documentsWrapper}>
               <Typography className={classNames.documentsTitle}>{t(TranslationKey.Documents)}</Typography>
               {notIsEmptyFile?.length ? (
-                <CustomCarousel documents title={t(TranslationKey.Document)}>
+                <CustomCarousel title={t(TranslationKey.Document)}>
                   {notIsEmptyFile?.map((file, index) => (
                     <div key={index} className={classNames.documentWrapper}>
                       <Link className={classNames.documentTitle} href={file}>

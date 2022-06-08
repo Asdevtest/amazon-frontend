@@ -294,15 +294,15 @@ export const useClassNames = makeStyles(() => ({
     margin: '0 5px',
   },
 
-  carouselWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
+  // carouselWrapper: {
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   alignItems: 'center',
+  // },
   imagesWrapper: {
     width: '50%',
-    height: '113px',
   },
+
   imagesTitle: {
     fontSize: '18px',
     lineHeight: '140%',
@@ -330,37 +330,35 @@ export const useClassNames = makeStyles(() => ({
   imagesAndFilesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: '40px 0 100px 0',
+    alignItems: 'start',
+    margin: '40px 0 40px 0',
   },
 
   documentsWrapper: {
     width: '50%',
-    height: '113px',
   },
 
   documentWrapper: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: '20px',
   },
 
   documentTitle: {
     fontSize: '12px',
-    marginTop: '10px',
-    maxHeight: '20px',
+    textAlign: 'center',
+    maxHeight: '40px',
     overflow: 'auto',
   },
 
   documentsTitle: {
-    marginBottom: '10px',
+    marginBottom: '22px',
   },
 
   photoTitle: {
-    marginBottom: '10px',
+    marginBottom: '20px',
   },
 
   emptyProposalsIconWrapper: {

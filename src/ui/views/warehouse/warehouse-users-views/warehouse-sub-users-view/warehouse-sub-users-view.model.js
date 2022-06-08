@@ -61,8 +61,14 @@ export class WarehouseSubUsersViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = subUsersColumns(this.rowHandlers)
+    }
   }
 
   onChangeFilterModel(model) {

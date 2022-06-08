@@ -60,7 +60,9 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       drawerOpen,
       request,
       confirmModalSettings,
+      confirmOrderSettings,
       showRequestForm,
+      showOrderModal,
       showConfirmModal,
       showConfirmWithCommentModal,
       chatSelectedId,
@@ -79,7 +81,6 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       onSubmitAbortRequest,
       onClickChat,
       onClickContactWithExecutor,
-      onClickAcceptProposal,
       onClickRejectProposal,
       onClickProposalResultAccept,
       onClickProposalResultToCorrect,
@@ -87,6 +88,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       triggerShowResultToCorrectFormModal,
       showChat,
       onClickHideChat,
+      onClickOrderProposal,
     } = this.viewModel
     console.log(requestProposals)
     const {classes: classNames} = this.props
@@ -119,7 +121,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                 <CustomSearchRequestDetails request={request} requestProposals={requestProposals} />
               </div>
 
-              {requestProposals ? (
+              {requestProposals?.length ? (
                 <div className={classNames.detailsWrapper}>
                   <DealsOfRequest requestProposals={requestProposals} />
                 </div>
@@ -136,7 +138,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                         <OwnerRequestProposalsCard
                           item={item}
                           onClickContactWithExecutor={onClickContactWithExecutor}
-                          onClickAcceptProposal={onClickAcceptProposal}
+                          onClickOrderProposal={onClickOrderProposal}
                           onClickRejectProposal={onClickRejectProposal}
                         />
                       </Paper>
@@ -171,10 +173,11 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                           userId={userInfo._id}
                           chatSelectedId={chatSelectedId}
                           chatMessageHandlers={{
-                            onClickProposalAccept: onClickAcceptProposal,
+                            onClickProposalAccept: onClickOrderProposal,
                             onClickProposalRegect: onClickRejectProposal,
                             onClickProposalResultToCorrect,
                             onClickProposalResultAccept,
+                            onClickOrderProposal,
                           }}
                           updateData={this.viewModel.loadData}
                           onSubmitMessage={onSubmitMessage}
@@ -218,6 +221,18 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             cancelBtnText={t(TranslationKey.No)}
             onClickSuccessBtn={confirmModalSettings.onSubmit}
             onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+          />
+
+          <ConfirmationModal
+            isWarning={confirmModalSettings.isWarning}
+            openModal={showOrderModal}
+            setOpenModal={() => onTriggerOpenModal('showOrderModal')}
+            title={t(TranslationKey.Attention)}
+            message={confirmOrderSettings.message}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            onClickSuccessBtn={confirmOrderSettings.onSubmit}
+            onClickCancelBtn={() => onTriggerOpenModal('showOrderModal')}
           />
 
           <ConfirmWithCommentModal

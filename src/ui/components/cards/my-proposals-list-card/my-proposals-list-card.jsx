@@ -81,7 +81,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
           style={{minHeight: '293px', marginTop: '20px', marginBottom: '20px'}}
         />
         <div className={classNames.rightBlockWrapper}>
-          <CustomCarousel title={t(TranslationKey.Proposal)}>
+          <CustomCarousel title={t(TranslationKey.Proposal)} view="complex">
             {item.proposals.map((proposal, index) => (
               <div key={index} className={classNames.proposalWrapper}>
                 <Typography className={classNames.proposalComment}>{proposal.comment}</Typography>

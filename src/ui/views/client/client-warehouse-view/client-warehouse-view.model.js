@@ -152,8 +152,14 @@ export class ClientWarehouseViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = clientBoxesViewColumns(this.rowHandlers, this.storekeepersData)
+    }
   }
 
   async updateUserInfo() {

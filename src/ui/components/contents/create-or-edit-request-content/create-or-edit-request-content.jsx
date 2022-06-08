@@ -6,7 +6,6 @@ import React, {useState} from 'react'
 
 import {Checkbox, Typography, Link, List, ListItem, ListItemText} from '@material-ui/core'
 import clsx from 'clsx'
-import Carousel from 'react-material-ui-carousel'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -123,7 +122,7 @@ export const CreateOrEditRequestContent = ({
     pdfWindow.document.write(`<iframe width='100%' height='1000%' src='${url}'></iframe>`)
   }
 
-  const notIsEmptyFile = images.filter(el => !checkIsImageLink(el.file.name))
+  // const notIsEmptyFile = images.filter(el => !checkIsImageLink(el.file.name))
   // const IsEmptyFile = ['Empty']
 
   const disableSubmit =
@@ -431,28 +430,29 @@ export const CreateOrEditRequestContent = ({
                   <div className={classNames.imagesAndFilesWrapper}>
                     <div className={classNames.imagesWrapper}>
                       <Typography className={classNames.photoTitle}>{t(TranslationKey.Photos)}</Typography>
-                      <Carousel autoPlay={false} className={classNames.carouselWrapper}>
+                      <CustomCarousel>
                         {images
                           .filter(el => checkIsImageLink(el.file.name))
                           .map((photo, index) => (
                             <img
                               key={index}
                               src={photo.data_url}
-                              height="108px"
+                              className={classNames.imageWrapper}
                               onClick={() => {
                                 setShowPhotosModal(!showPhotosModal)
                                 setBigImagesOptions({images: images.map(img => img.data_url), imgIndex: index})
                               }}
                             />
                           ))}
-                      </Carousel>
+                      </CustomCarousel>
                     </div>
 
                     <div className={classNames.documentsWrapper}>
                       <Typography className={classNames.documentsTitle}>{t(TranslationKey.Documents)}</Typography>
-                      {notIsEmptyFile?.length ? (
-                        <CustomCarousel documents title={t(TranslationKey.Document)}>
-                          {notIsEmptyFile.map((file, index) => (
+                      <CustomCarousel>
+                        {images
+                          .filter(el => !checkIsImageLink(el.file.name))
+                          .map((file, index) => (
                             <div
                               key={index}
                               className={classNames.documentWrapper}
@@ -462,19 +462,7 @@ export const CreateOrEditRequestContent = ({
                               <Typography className={classNames.documentTitle}>{file.file.name}</Typography>
                             </div>
                           ))}
-                        </CustomCarousel>
-                      ) : (
-                        <div>
-                          <div className={classNames.documentWrapper}>
-                            <div className={classNames.emptyDocumentIcon}>
-                              <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
-                            </div>
-                            <Typography className={classNames.documentEmpty}>
-                              {t(TranslationKey['No document'])}
-                            </Typography>
-                          </div>
-                        </div>
-                      )}
+                      </CustomCarousel>
                     </div>
                   </div>
                 ) : (

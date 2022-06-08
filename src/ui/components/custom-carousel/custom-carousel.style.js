@@ -12,7 +12,7 @@ export const useClassNames = makeStyles(() => ({
 
   allPages: {
     display: 'flex',
-
+    alignItems: 'center',
     transition: 'translate',
     transitionProperty: 'transform',
     transitionDuration: '300ms',
@@ -41,5 +41,14 @@ export const useClassNames = makeStyles(() => ({
   headerCarouselDocumentsWrapper: {
     display: 'flex',
     flexDirection: 'column',
+  },
+
+  numberOfFiles: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '10px',
+    '& > :first-child': {
+      fontSize: '14px',
+    },
   },
 }))

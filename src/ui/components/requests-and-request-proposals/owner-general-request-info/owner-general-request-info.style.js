@@ -115,6 +115,7 @@ export const useClassNames = makeStyles(() => ({
     },
   },
   cancelBtn: {
+    color: '#fff',
     // marginLeft: '10px',
     backgroundColor: '#F44336',
     '&:hover': {
