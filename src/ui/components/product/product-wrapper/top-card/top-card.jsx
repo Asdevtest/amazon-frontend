@@ -92,7 +92,7 @@ export const TopCard = observer(
                     <div className={classNames.carouselWrapper}>
                       <Carousel animation="slide" /* autoPlay={true}*/ timeout={500}>
                         {product.images
-                          ?.filter(el => checkIsImageLink(el))
+                          ?.filter(el => !checkIsImageLink(el))
                           .map((imageHash, index) => (
                             <Box key={index} textAlign="center" className={classNames.carouselImageWrapper}>
                               <img

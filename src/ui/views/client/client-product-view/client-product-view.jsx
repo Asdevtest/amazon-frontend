@@ -98,7 +98,7 @@ export class ClientProductView extends Component {
             requestStatus={requestStatus}
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}
-            title={textConsts.modalAddTitle}
+            title={t(TranslationKey['Adding and editing a supplier'])}
             supplier={selectedSupplier}
             showProgress={showProgress}
             progressValue={progressValue}
