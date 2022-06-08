@@ -772,8 +772,8 @@ export enum TranslationKey {
   'Data saved' = 'Data saved',
   'Corrected' = 'Corrected',
   'Links' = 'Links',
-  // '' = '',
-  // '' = '',
+  'Are you sure you want to cancel the task?' = 'Are you sure you want to cancel the task?',
+  'Are you sure you want to remove the idea?' = 'Are you sure you want to remove the idea?',
   // '' = '',
   // '' = '',
   // '' = '',
@@ -789,7 +789,7 @@ export enum TranslationKey {
   // '' = '',
 }
 
-// "Links": "Links"
+// "Are you sure you want to cancel the task?": "Are you sure you want to cancel the task?"
 // "Add a product idea": "Add a product idea"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР

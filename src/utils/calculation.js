@@ -42,6 +42,7 @@ export const calcTotalFbaForProduct = product =>
 
 export const calcMaxDeliveryForProduct = product =>
   product.express ? (product.weight || 0) * 7 : (product.weight || 0) * 5
+// (product.weight || 0) * (product.currentSupplier.batchDeliveryCostInDollar / product.currentSupplier.amount)
 
 export function updateProductAutoCalculatedFields() {
   const strBsr = this.product.bsr + ''
@@ -66,7 +67,10 @@ export function updateProductAutoCalculatedFields() {
       this.product.profit = (
         (parseFloat(this.product.amazon) || 0).toFixed(2) -
           (this.product.reffee || 0).toFixed(2) -
-          (parseFloat(this.product.currentSupplier.delivery) || 0).toFixed(2) -
+          (
+            parseFloat(this.product.currentSupplier.batchDeliveryCostInDollar / this.product.currentSupplier.amount) ||
+            0
+          ).toFixed(2) -
           (parseFloat(this.product.currentSupplier.price) || 0).toFixed(2) -
           (parseFloat(this.product.fbafee) || 0).toFixed(2) || 0
       ).toFixed(2)
@@ -74,14 +78,18 @@ export function updateProductAutoCalculatedFields() {
       this.product.profit = (
         (parseFloat(this.product.amazon) || 0).toFixed(2) -
           (this.product.reffee || 0).toFixed(2) -
-          (parseFloat(this.product.currentSupplier.delivery) || 0).toFixed(2) -
+          (
+            parseFloat(this.product.currentSupplier.batchDeliveryCostInDollar / this.product.currentSupplier.amount) ||
+            0
+          ).toFixed(2) -
           (parseFloat(this.product.currentSupplier.price) || 0).toFixed(2) || 0
       ).toFixed(2)
     }
     this.product.margin =
       (this.product.profit /
         ((parseFloat(this.product.currentSupplier.price) || 0) +
-          (parseFloat(this.product.currentSupplier.delivery) || 0))) *
+          (parseFloat(this.product.currentSupplier.batchDeliveryCostInDollar / this.product.currentSupplier.amount) ||
+            0))) *
       100
   } else {
     this.product.profit = 0

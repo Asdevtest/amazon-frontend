@@ -770,5 +770,7 @@
   "No document": "No document",
   "Request": "Request",
   "Data saved": "Data saved",
-  "Links": "Links"
+  "Links": "Links",
+  "Are you sure you want to cancel the task?": "Are you sure you want to cancel the task?",
+  "Are you sure you want to remove the idea?": "Are you sure you want to remove the idea?"
 }

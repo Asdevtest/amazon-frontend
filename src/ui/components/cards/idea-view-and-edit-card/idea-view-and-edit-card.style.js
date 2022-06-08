@@ -126,20 +126,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   middleBlock: {
-    // display: 'none',
-    height: 0,
+    maxHeight: 0,
     overflow: 'hidden',
     transition: ' .3s ease',
   },
 
   fullMiddleBlock: {
-    // display: 'contents',
-
-    height: 350,
-    // height: 'auto',
+    maxHeight: '100vh',
     overflow: 'visible',
-
-    // transition: 'height 4s ease',
   },
 
   linksContainer: {

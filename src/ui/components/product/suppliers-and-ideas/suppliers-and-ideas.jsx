@@ -10,27 +10,13 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {IdeaViewAndEditCard} from '@components/cards/idea-view-and-edit-card'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
 import {t} from '@utils/translations'
 
 import {Button} from '../../buttons/button'
 import {SuppliersAndIdeasModel} from './suppliers-and-ideas.model'
 import {useClassNames} from './suppliers-and-ideas.style'
-
-const ideaMock = {
-  images: ['https://amazonapi.fvds.ru/uploads/82e688c1-3546-4133-977a-623d0a49b6c6.6lWa9pt.jpg'],
-  title: 'Тестовая идея №1',
-  links: [
-    'https://amazonapi.fvds.ru/uploads/82e688c1-3546-4133-977a-623d0a49b6c6.6lWa9pt.jpg',
-    'https://amazonapi.fvds.ru/uploads/82e688c1-3546-4133-977a-623d0a49b6c6.6lWa9pt.jpg',
-  ],
-  comment: 'Комментарий к идее.',
-  name: 'Название нашего товара',
-  criterions: 'Список ажных критериев в свободной форме',
-  count: 42,
-  price: 10,
-  dimensions: '4x4x4',
-}
 
 export const SuppliersAndIdeas = observer(({productId}) => {
   const classNames = useClassNames()
@@ -41,15 +27,41 @@ export const SuppliersAndIdeas = observer(({productId}) => {
     model.current.loadData()
   }, [])
 
-  // const {} = model.current
+  const {
+    inCreate,
+    ideasData,
+    showConfirmModal,
+    confirmModalSettings,
+    onTriggerOpenModal,
+    onClickRemoveIdea,
+    onCreateIdea,
+  } = model.current
 
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.btnsWrapper}>
-        <SuccessButton variant="contained">{t(TranslationKey['Add a product idea'])}</SuccessButton>
+        <SuccessButton variant="contained" onClick={onCreateIdea}>
+          {t(TranslationKey['Add a product idea'])}{' '}
+        </SuccessButton>
       </div>
 
-      <IdeaViewAndEditCard idea={ideaMock} />
+      {inCreate ? <IdeaViewAndEditCard /> : null}
+
+      {ideasData.map((idea, index) => (
+        <IdeaViewAndEditCard key={index} idea={idea} onRemove={onClickRemoveIdea} />
+      ))}
+
+      <ConfirmationModal
+        isWarning={confirmModalSettings.isWarning}
+        openModal={showConfirmModal}
+        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+        title={t(TranslationKey.Attention)}
+        message={confirmModalSettings.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.No)}
+        onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+      />
     </div>
   )
 })
