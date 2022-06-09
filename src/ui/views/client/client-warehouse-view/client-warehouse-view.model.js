@@ -918,7 +918,6 @@ export class ClientWarehouseViewModel {
   async onClickRequestToSendBatch() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      this.triggerRequestToSendBatchModal()
 
       const boxesDeliveryCosts = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
 
@@ -931,7 +930,7 @@ export class ClientWarehouseViewModel {
       })
 
       this.setRequestStatus(loadingStatuses.success)
-      // this.triggerRequestToSendBatchModal()
+      this.triggerRequestToSendBatchModal()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
