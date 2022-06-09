@@ -811,6 +811,7 @@ export enum TranslationKey {
   'inches' = 'inches',
   'Box merge task created' = 'Box merge task created',
   'Box splitting task created' = 'Box splitting task created',
+  'Average delivery cost per pc' = 'Average delivery cost per pc',
   // '' = '',
   // '' = '',
   // '' = '',

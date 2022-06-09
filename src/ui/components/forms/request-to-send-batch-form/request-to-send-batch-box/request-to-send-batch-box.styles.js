@@ -24,7 +24,7 @@ export const useClassNames = makeStyles(() => ({
   },
   priceCellRight: {
     textAlign: 'center',
-    width: '150px',
+    width: '100px',
   },
   imgWrapper: {
     minHeight: '50px',
@@ -57,7 +57,7 @@ export const useClassNames = makeStyles(() => ({
   boxItemWrapper: {
     display: 'flex',
     alignItems: 'center',
-    width: '450px',
+    width: '420px',
     gap: '5px',
   },
 
@@ -210,5 +210,6 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     height: '100%',
+    gap: '60px',
   },
 }))

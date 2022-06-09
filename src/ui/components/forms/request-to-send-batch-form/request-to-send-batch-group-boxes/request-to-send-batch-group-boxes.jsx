@@ -37,7 +37,7 @@ export const RequestToSendBatchesGroupBoxes = ({
   )
 
   const firstNumOfCode = selectedGroup.destination?.zipCode?.[0] || null
-
+  console.log(boxesDeliveryCosts)
   const regionOfDeliveryName =
     firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
@@ -46,6 +46,8 @@ export const RequestToSendBatchesGroupBoxes = ({
     selectedGroup.storekeeper?._id,
     selectedGroup.logicsTariff?._id,
   )
+
+  const currentTariff = selectedGroup.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
 
   return (
     <div className={clsx(classNames.tableWrapper, {[classNames.tableAlertWrapper]: tariffIsInvalid})}>
@@ -76,9 +78,7 @@ export const RequestToSendBatchesGroupBoxes = ({
               TranslationKey['Rate, $'],
             )} (US ${regionOfDeliveryName})`}</Typography>
 
-            <Typography className={classNames.headerSpanText}>
-              {toFixedWithDollarSign(selectedGroup.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate, 2)}
-            </Typography>
+            <Typography className={classNames.headerSpanText}>{toFixedWithDollarSign(currentTariff, 2)}</Typography>
           </div>
         </div>
       )}
@@ -97,6 +97,7 @@ export const RequestToSendBatchesGroupBoxes = ({
                 box={findBox}
                 index={index}
                 price={findRequestToSendBatchPriceForCurBox?.deliveryCost}
+                currentTariff={currentTariff}
                 onClickRemoveBoxFromBatch={() => onClickRemoveBoxFromBatch(boxId._id)}
               />
             </div>
