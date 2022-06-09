@@ -383,7 +383,13 @@ export const RedistributeBox = ({
       newBoxesWithoutEmptyOrders.push(beforeBox)
     }
 
-    onRedistribute(selectedBox._id, newBoxesWithoutEmptyOrders, operationTypes.SPLIT, isMasterBox, comment)
+    onRedistribute(
+      selectedBox._id,
+      newBoxesWithoutEmptyOrders.map(el => ({...el, destinationId: el.destinationId || null})),
+      operationTypes.SPLIT,
+      isMasterBox,
+      comment,
+    )
   }
 
   const onRemoveBox = boxId => {

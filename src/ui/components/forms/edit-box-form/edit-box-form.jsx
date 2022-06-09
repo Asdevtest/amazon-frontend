@@ -226,7 +226,6 @@ export const EditBoxForm = observer(
     const disableSubmit =
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
       requestStatus === loadingStatuses.isLoading ||
-      // boxFields.destinationId === '' ||
       boxFields.storekeeperId === '' ||
       boxFields.logicsTariffId === ''
 
@@ -243,6 +242,8 @@ export const EditBoxForm = observer(
     const tariffRate = storekeepers
       .find(el => el._id === boxFields.storekeeperId)
       ?.tariffLogistics.find(el => el._id === boxFields.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
+
+    console.log(boxFields, boxFields)
 
     return (
       <div className={classNames.root}>
@@ -442,7 +443,7 @@ export const EditBoxForm = observer(
             color="primary"
             variant="contained"
             onClick={() => {
-              onSubmit(formItem._id, boxFields, formItem)
+              onSubmit(formItem?._id, {...boxFields, destinationId: boxFields.destinationId || null}, formItem)
             }}
           >
             {t(TranslationKey.Save)}

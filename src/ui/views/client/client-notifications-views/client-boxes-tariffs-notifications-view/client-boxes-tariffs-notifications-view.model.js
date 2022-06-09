@@ -27,6 +27,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
   error = undefined
   loadingStatus = undefined
 
+  tariffIdToChange = undefined
   curBox = undefined
   showBoxViewModal = false
   showSelectionStorekeeperAndTariffModal = false
@@ -122,14 +123,31 @@ export class ClientBoxesTariffsNotificationsViewModel {
     }
   }
 
-  async onSubmitSelectTariff(storekeeperId, tariffId) {
+  async onSubmitSelectTariff() {
     try {
-      await ClientModel.updateTariffIfTariffWasDeleted({boxId: this.curBox._id, logicsTariffId: tariffId})
+      await ClientModel.updateTariffIfTariffWasDeleted({boxId: this.curBox._id, logicsTariffId: this.tariffIdToChange})
 
       this.loadData()
+      this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  async onClickConfirmTarrifChangeBtn(storekeeperId, tariffId) {
+    try {
+      this.tariffIdToChange = tariffId
+
+      this.confirmModalSettings = {
+        isWarning: false,
+        message: t(TranslationKey['Confirm tariff selection']),
+        onClickOkBtn: () => this.onSubmitSelectTariff(),
+      }
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.warn(error)
     }
   }
 
@@ -221,17 +239,6 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   onChangeCurPage(e) {
     this.curPage = e
-  }
-
-  async onClickConfirmOrderPriceChangeBtn(box) {
-    try {
-      await ClientModel.boxConfirmPriceChange(box._id)
-
-      this.onTriggerOpenModal('showConfirmModal')
-      this.loadData()
-    } catch (error) {
-      console.warn(error)
-    }
   }
 
   async onClickRejectOrderPriceChangeBtn(box) {
