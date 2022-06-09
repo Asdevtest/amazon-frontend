@@ -41,7 +41,7 @@ export const CreateOrEditProposalContent = ({
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   const sourceFormFields = {
-    price: proposalToEdit?.price || '',
+    price: proposalToEdit?.price || parseInt(request?.request.price),
     execution_time: proposalToEdit?.execution_time || '',
     comment: proposalToEdit?.comment || '',
     linksToMediaFiles: proposalToEdit?.linksToMediaFiles || [],
@@ -265,7 +265,7 @@ export const CreateOrEditProposalContent = ({
               disabled={!checked}
               label={t(TranslationKey['Enter the offer price'])}
               inputProps={{maxLength: 8}}
-              value={formFields.price || toFixedWithDollarSign(request?.request.price, 2)}
+              value={formFields.price}
               onChange={onChangeField('price')}
             />
 

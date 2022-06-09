@@ -2,6 +2,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 import {ShopModel} from '@models/shop-model'
@@ -10,6 +11,7 @@ import {shopsColumns} from '@components/table-columns/shops-columns'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 
 export class ShopsViewModel {
   history = undefined
@@ -200,7 +202,7 @@ export class ShopsViewModel {
 
         this.warningInfoModalSettings = {
           isWarning: false,
-          title: 'Магазин изменен',
+          title: t(TranslationKey['Store changed']),
         }
         this.onTriggerOpenModal('showWarningModal')
       } else {
@@ -208,7 +210,7 @@ export class ShopsViewModel {
 
         this.warningInfoModalSettings = {
           isWarning: false,
-          title: 'Магазин создан',
+          title: t(TranslationKey['Store created']),
         }
         this.onTriggerOpenModal('showWarningModal')
       }

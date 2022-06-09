@@ -812,5 +812,12 @@
   "inches": "дюймах",
   "Box merge task created": "Создана задача на объединение коробок",
   "Box splitting task created": "Создана задача на разъединение коробки",
-  "Average delivery cost per pc": "Средняя стоимость доставки за шт"
+  "Average delivery cost per pc": "Средняя стоимость доставки за шт",
+  "to redistribute": "перераспределить",
+  "Are you sure you want to delete the store?": "Вы точно хотите удалить магазин?",
+  "Store created": "Магазин создан",
+  "Store changed": "Магазин изменен",
+  "The product is bound": "Товар привязан",
+  "Restore the card?": "Восстановить карточку?",
+  "The products will appear in the inventory soon": "Продукты появятся в инвентаре в ближайшее время"
 }

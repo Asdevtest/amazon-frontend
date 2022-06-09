@@ -469,7 +469,7 @@ export const RedistributeBox = ({
             onClickRedistributeBtn()
           }}
         >
-          {textConsts.toRedistributeBtn}
+          {t(TranslationKey['to redistribute'])}
         </Button>
         <Button
           disabled={totalProductsAmount < 1 && isMasterBox}
@@ -480,7 +480,7 @@ export const RedistributeBox = ({
             setNewBoxes(newBoxes.concat(getEmptyBox()))
           }}
         >
-          {textConsts.newBoxBtn}
+          {t(TranslationKey['New box'])}
         </Button>
         <Button
           color="primary"
@@ -490,7 +490,7 @@ export const RedistributeBox = ({
             setAddNewBoxModal(null)
           }}
         >
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Cancel)}
         </Button>
       </div>
     </React.Fragment>

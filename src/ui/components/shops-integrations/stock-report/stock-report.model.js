@@ -3,6 +3,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
@@ -19,6 +20,7 @@ import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
 const textConsts = getLocalizedTexts(texts, 'ru').clientDailySellerBoardView
@@ -204,7 +206,7 @@ export class StockReportModel {
 
       await SellerBoardModel.createAndLinkSkuProducts({payload: productsToCreate})
 
-      this.infoModalText = textConsts.infoModalTitleMoveSuccess
+      this.infoModalText = t(TranslationKey['The products will appear in the inventory soon'])
       this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
       console.log(error)
@@ -385,7 +387,7 @@ export class StockReportModel {
       await SellerBoardModel.bindStockProductsBySku(data)
       this.onTriggerOpenModal('showBindStockGoodsToInventoryModal')
 
-      this.successModalText = textConsts.successBindTitle
+      this.successModalText = t(TranslationKey['The product is bound'])
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       this.infoModalText = textConsts.infoModalTitleNoBind
