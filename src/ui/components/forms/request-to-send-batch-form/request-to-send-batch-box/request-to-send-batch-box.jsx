@@ -19,7 +19,7 @@ import {useClassNames} from './request-to-send-batch-box.styles'
 
 export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
-
+  console.log(box)
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
   const tableCellClsx = clsx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
@@ -217,6 +217,19 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
             <Typography className={classNames.alertSpan}>{t(TranslationKey.Missing)}</Typography>
           )}
         </div>
+      </div>
+      <div className={clsx(tableCellClsx, classNames.pricePerAmoutCell)}>
+        {box.items.map((item, index) => (
+          <div key={index}>
+            <div className={clsx(tableCellClsx, classNames.priceCell)}>
+              <Typography className={classNames.spanText}>{'Стоимость доставки за шт'}</Typography>
+            </div>
+
+            <div className={clsx(tableCellClsx, classNames.priceCellRight)}>
+              <Typography variant="h5">{item.amount}</Typography>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className={clsx(tableCellClsx, classNames.priceCell)}>

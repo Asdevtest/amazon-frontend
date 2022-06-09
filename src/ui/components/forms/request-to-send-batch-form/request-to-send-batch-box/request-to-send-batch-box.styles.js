@@ -205,4 +205,10 @@ export const useClassNames = makeStyles(() => ({
   boxItemSubSubInfoWrapper: {
     width: '100%',
   },
+  pricePerAmoutCell: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100%',
+  },
 }))
