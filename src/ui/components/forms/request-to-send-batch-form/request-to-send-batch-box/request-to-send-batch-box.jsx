@@ -235,7 +235,9 @@ export const RequestToSendBatchBox = ({
 
             <div className={clsx(tableCellClsx, classNames.priceCellRight)}>
               <Typography variant="h5">
-                {toFixedWithDollarSign(toFixed(currentTariff, 2) * toFixed(item.product.weight, 2), 2)}
+                {item.product.weight
+                  ? toFixedWithDollarSign(toFixed(currentTariff, 2) * toFixed(item.product.weight, 2), 2)
+                  : t(TranslationKey['No data'])}
               </Typography>
             </div>
           </div>
