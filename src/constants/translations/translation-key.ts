@@ -787,7 +787,7 @@ export enum TranslationKey {
   'Task created to change the box' = 'Task created to change the box',
   'The box has been changed' = 'The box has been changed',
   'On boxes tariffs' = 'On boxes tariffs',
-  // '' = '',
+  'Selected box with no destination' = 'Selected box with no destination',
   // '' = '',
   // '' = '',
   // '' = '',
@@ -799,7 +799,7 @@ export enum TranslationKey {
   // '' = '',
 }
 
-// "On tariffs": "On tariffs"
+// "Selected box with no destination": "Selected box with no destination"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

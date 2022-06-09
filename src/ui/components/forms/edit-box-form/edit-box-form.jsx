@@ -226,7 +226,7 @@ export const EditBoxForm = observer(
     const disableSubmit =
       JSON.stringify(boxInitialState) === JSON.stringify(boxFields) ||
       requestStatus === loadingStatuses.isLoading ||
-      boxFields.destinationId === '' ||
+      // boxFields.destinationId === '' ||
       boxFields.storekeeperId === '' ||
       boxFields.logicsTariffId === ''
 

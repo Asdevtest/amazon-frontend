@@ -404,6 +404,7 @@ export class ClientWarehouseViewRaw extends Component {
     const {
       selectedBoxes,
       isMasterBoxSelected,
+      isNoDestinationBoxSelected,
       isOneItemInBox,
       onClickRequestToSendBatch,
       onClickEditBtn,
@@ -414,7 +415,8 @@ export class ClientWarehouseViewRaw extends Component {
       <React.Fragment>
         <Button
           disableElevation
-          disabled={!selectedBoxes.length}
+          tooltipContent={isNoDestinationBoxSelected && t(TranslationKey['Selected box with no destination'])}
+          disabled={!selectedBoxes.length || isNoDestinationBoxSelected}
           color="primary"
           variant="contained"
           onClick={onClickRequestToSendBatch}

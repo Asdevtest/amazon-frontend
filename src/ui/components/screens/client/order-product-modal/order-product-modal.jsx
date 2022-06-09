@@ -64,7 +64,7 @@ export const OrderProductModal = ({
       images: [],
       tmpBarCode: [],
 
-      destinationId: '',
+      destinationId: null,
 
       storekeeperId: '',
       logicsTariffId: '',

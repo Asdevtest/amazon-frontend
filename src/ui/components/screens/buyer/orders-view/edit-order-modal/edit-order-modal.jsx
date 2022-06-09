@@ -267,8 +267,8 @@ export const EditOrderModal = ({
         setOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
         dialogContextClassName={classNames.dialogContextClassName}
       >
-        {/* <Typography variant="h5">{textConsts.modalEditBoxTitle}</Typography> */}
         <CreateBoxForm
+          order={order}
           currentSupplier={order.product.currentSupplier}
           volumeWeightCoefficient={volumeWeightCoefficient}
           formItem={orderFields}

@@ -35,7 +35,7 @@ export const MergeBoxesModal = ({
   const classNames = useClassNames()
 
   const [boxBody, setBoxBody] = useState({
-    shippingLabel: '',
+    shippingLabel: null,
     destinationId: selectedBoxes.some(box => box.destinationId !== selectedBoxes[0].destinationId)
       ? ''
       : selectedBoxes[0].destinationId,
@@ -96,10 +96,10 @@ export const MergeBoxesModal = ({
 
   const disabledSubmit =
     requestStatus === loadingStatuses.isLoading ||
-    boxBody.destinationId === '' ||
+    // boxBody.destinationId === '' ||
     boxBody.logicsTariffId === '' ||
     selectedBoxes.length < 2 ||
-    (boxBody.shippingLabel.length < 5 && boxBody.shippingLabel.length > 0) ||
+    (boxBody.shippingLabel?.length < 5 && boxBody.shippingLabel?.length > 0) ||
     isDifferentStorekeepers
 
   const curDestination = destinations.find(el => el._id === boxBody.destinationId)

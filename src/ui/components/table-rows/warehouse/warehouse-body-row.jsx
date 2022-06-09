@@ -118,7 +118,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
         {orderIndex === 0 && (
           <React.Fragment>
-            <TableCell rowSpan={ordersQty}>{box.destination.name}</TableCell>
+            <TableCell rowSpan={ordersQty}>{box.destination?.name}</TableCell>
             <TableCell rowSpan={ordersQty}>{'ID: ' + box.humanFriendlyId}</TableCell>
           </React.Fragment>
         )}
