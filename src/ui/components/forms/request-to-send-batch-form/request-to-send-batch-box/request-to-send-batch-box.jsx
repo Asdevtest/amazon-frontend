@@ -12,12 +12,18 @@ import {Modal} from '@components/modal'
 import {calcVolumeWeightForBox, calcFinalWeightForBox} from '@utils/calculation'
 import {getShortenStringIfLongerThanCount} from '@utils/change-string-length'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
+import {toFixed, toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './request-to-send-batch-box.styles'
 
-export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, volumeWeightCoefficient}) => {
+export const RequestToSendBatchBox = ({
+  box,
+  price,
+  onClickRemoveBoxFromBatch,
+  volumeWeightCoefficient,
+  currentTariff,
+}) => {
   const classNames = useClassNames()
   console.log(box)
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
@@ -222,11 +228,15 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
         {box.items.map((item, index) => (
           <div key={index}>
             <div className={clsx(tableCellClsx, classNames.priceCell)}>
-              <Typography className={classNames.spanText}>{'Стоимость доставки за шт'}</Typography>
+              <Typography className={classNames.spanText}>
+                {t(TranslationKey['Average delivery cost per pc'])}
+              </Typography>
             </div>
 
             <div className={clsx(tableCellClsx, classNames.priceCellRight)}>
-              <Typography variant="h5">{item.amount}</Typography>
+              <Typography variant="h5">
+                {toFixedWithDollarSign(toFixed(currentTariff, 2) * toFixed(item.product.weight, 2), 2)}
+              </Typography>
             </div>
           </div>
         ))}

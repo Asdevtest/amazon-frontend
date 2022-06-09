@@ -811,5 +811,6 @@
   "Box height in ": "Высота коробки в ",
   "inches": "дюймах",
   "Box merge task created": "Создана задача на объединение коробок",
-  "Box splitting task created": "Создана задача на разъединение коробки"
+  "Box splitting task created": "Создана задача на разъединение коробки",
+  "Average delivery cost per pc": "Средняя стоимость доставки за шт"
 }
