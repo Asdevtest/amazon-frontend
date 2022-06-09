@@ -367,6 +367,7 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
   data.map(item => ({
     originalData: item,
     id: item._id,
+    _id: item._id,
 
     destination: item.boxes[0].destination?.name,
     tariff: getFullTariffTextForBoxOrOrder(item.boxes[0]),

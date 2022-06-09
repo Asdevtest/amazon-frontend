@@ -37,6 +37,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
   render() {
     const {
+      isInvalidTariffBoxSelected,
       showProgress,
       progressValue,
       volumeWeightCoefficient,
@@ -89,7 +90,11 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>
                   <Button
-                    disabled={!selectedBatches.length}
+                    disabled={!selectedBatches.length || isInvalidTariffBoxSelected}
+                    tooltipContent={
+                      isInvalidTariffBoxSelected &&
+                      t(TranslationKey['Selected a batch contains a box with an invalid tariff'])
+                    }
                     color="primary"
                     variant="contained"
                     onClick={() => onTriggerOpenModal('showConfirmModal')}

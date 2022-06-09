@@ -820,5 +820,6 @@
   "The product is bound": "Товар привязан",
   "Restore the card?": "Восстановить карточку?",
   "The products will appear in the inventory soon": "Продукты появятся в инвентаре в ближайшее время",
-  "Confirm tariff selection": "Подтвердить выбор тарифа"
+  "Confirm tariff selection": "Подтвердить выбор тарифа",
+  "Selected a batch contains a box with an invalid tariff": "Выбрана партия содержащая коробку с невалидным тарифом"
 }

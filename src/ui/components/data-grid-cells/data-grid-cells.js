@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
-import {Button, Chip, Link, Tooltip, Typography} from '@material-ui/core'
+import {Chip, Link, Tooltip, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
@@ -15,6 +15,7 @@ import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 
+import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 
@@ -243,6 +244,10 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
           box.totalPriceChanged - box.totalPrice,
           2,
         )})`}</span>
+      )}
+
+      {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
+        <span className={classNames.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
       )}
 
       {error && <span className={classNames.OrderCellError}>{error}</span>}
@@ -639,10 +644,16 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box,
               {item.product.asin}
             </Typography>
 
-            {item.totalPrice - item.totalPriceChanged < 0 && itemIndex === 0 && (
+            {item.deliveryTotalPrice - item.deliveryTotalPriceChanged < 0 && itemIndex === 0 && (
               <span className={classNames.needPay}>{`${t(
                 TranslationKey['Extra payment required!'],
-              )} (${toFixedWithDollarSign(item.totalPriceChanged - item.totalPrice, 2)})`}</span>
+              )} (${toFixedWithDollarSign(item.deliveryTotalPriceChanged - item.deliveryTotalPrice, 2)})`}</span>
+            )}
+
+            {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
+              <span className={classNames.needPay}>
+                {t(TranslationKey['The tariff is invalid or has been removed!'])}
+              </span>
             )}
           </div>
         </div>
@@ -733,6 +744,10 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
           </div>
         </div>
       ))}
+
+      {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
+        <span className={classNames.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
+      )}
     </div>
   )
 
@@ -758,7 +773,16 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
     )}
 
     {row.batchId && row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE && (
-      <Button variant="contained" color="primary" onClick={() => handlers.moveBox(row)}>
+      <Button
+        tooltipContent={
+          row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF &&
+          t(TranslationKey['The tariff is invalid or has been removed!'])
+        }
+        disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF}
+        variant="contained"
+        color="primary"
+        onClick={() => handlers.moveBox(row)}
+      >
         {t(TranslationKey['Move box'])}
       </Button>
     )}

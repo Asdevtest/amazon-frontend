@@ -820,7 +820,7 @@ export enum TranslationKey {
   'Restore the card?' = 'Restore the card?',
   'The products will appear in the inventory soon' = 'The products will appear in the inventory soon',
   'Confirm tariff selection' = 'Confirm tariff selection',
-  // '' = '',
+  'Selected a batch contains a box with an invalid tariff' = 'Selected a batch contains a box with an invalid tariff',
   // '' = '',
   // '' = '',
   // '' = '',
@@ -831,7 +831,7 @@ export enum TranslationKey {
   // '' = '',
 }
 
-// "Confirm tariff selection": "Confirm tariff selection"
+// "Selected a batch contains a box with an invalid tariff": "Selected a batch contains a box with an invalid tariff"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

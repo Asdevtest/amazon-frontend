@@ -40,6 +40,7 @@ export const warehouseBoxesViewColumns = handlers => [
         <OrderManyItemsCell box={params.row.originalData} />
       ) : (
         <OrderCell
+          box={params.row.originalData}
           product={params.row.originalData.items[0].product}
           superbox={params.row.originalData.amount > 1 && params.row.originalData.amount}
         />

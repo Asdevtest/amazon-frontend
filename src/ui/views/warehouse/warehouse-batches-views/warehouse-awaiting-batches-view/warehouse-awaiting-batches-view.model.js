@@ -1,6 +1,7 @@
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {BatchStatus} from '@constants/batch-status'
+import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
@@ -44,6 +45,13 @@ export class WarehouseAwaitingBatchesViewModel {
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = batchesViewColumns(this.rowHandlers)
+
+  get isInvalidTariffBoxSelected() {
+    return this.selectedBatches.some(batchId => {
+      const findBatch = this.batches.find(batch => batch._id === batchId)
+      return findBatch?.originalData?.boxes.some(box => box.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF)
+    })
+  }
 
   constructor({history}) {
     this.history = history
