@@ -339,18 +339,26 @@ export const useClassNames = makeStyles(() => ({
   },
 
   documentWrapper: {
+    position: 'relative',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
+
+    '&:hover > span': {
+      display: 'block',
+      position: 'absolute',
+    },
+  },
+
+  documentHover: {
+    display: 'none',
   },
 
   documentTitle: {
     fontSize: '12px',
     textAlign: 'center',
-    maxHeight: '40px',
-    overflow: 'auto',
   },
 
   documentsTitle: {

@@ -91,7 +91,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
         <SuccessInfoModal
           openModal={showSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={textConsts.successTitle}
+          title={t(TranslationKey['Product paid'])}
           successBtnText={textConsts.successBtn}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showSuccessModal')

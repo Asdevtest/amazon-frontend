@@ -127,7 +127,9 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                     <div className={classNames.boxItemSubSubInfoWrapper}>
                       <Typography variant="subtitle1">{`ASIN: ${box.items[0].product.asin}`}</Typography>
 
-                      <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${item.amount} шт.`}</Typography>
+                      <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${item.amount} ${t(
+                        TranslationKey['pcs.'],
+                      )}`}</Typography>
                     </div>
 
                     <div className={classNames.barCodeLabelWrapper}>

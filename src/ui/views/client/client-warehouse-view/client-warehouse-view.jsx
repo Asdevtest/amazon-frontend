@@ -277,7 +277,7 @@ export class ClientWarehouseViewRaw extends Component {
           openModal={showEditBoxSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showEditBoxSuccessModal')}
           title={modalEditSuccessMessage}
-          successBtnText={textConsts.closeBtn}
+          successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showEditBoxSuccessModal')
           }}
@@ -286,8 +286,8 @@ export class ClientWarehouseViewRaw extends Component {
         <SuccessInfoModal
           openModal={showMergeBoxSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showMergeBoxSuccessModal')}
-          title={textConsts.modalMergeSuccessMessage}
-          successBtnText={textConsts.closeBtn}
+          title={t(TranslationKey['Box merge task created'])}
+          successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showMergeBoxSuccessModal')
           }}
@@ -296,8 +296,8 @@ export class ClientWarehouseViewRaw extends Component {
         <SuccessInfoModal
           openModal={showRedistributeBoxSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxSuccessModal')}
-          title={textConsts.modalRedistributionSuccessMessage}
-          successBtnText={textConsts.closeBtn}
+          title={t(TranslationKey['Box splitting task created'])}
+          successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showRedistributeBoxSuccessModal')
           }}
@@ -308,7 +308,7 @@ export class ClientWarehouseViewRaw extends Component {
           openModal={showWarningInfoModal}
           setOpenModal={() => onTriggerOpenModal('showWarningInfoModal')}
           title={warningInfoModalSettings.title}
-          btnText={textConsts.closeBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningInfoModal')
           }}
