@@ -11,228 +11,231 @@
  *
  */
 
-import ApiClient from './ApiClient'
-import AdminUserPatchDtoSchema from './model/AdminUserPatchDtoSchema'
-import ApiV1AdminsGetProductsByStatusBoxProperties from './model/ApiV1AdminsGetProductsByStatusBoxProperties'
-import ApiV1AdminsGetProductsByStatusCreatedBy from './model/ApiV1AdminsGetProductsByStatusStatusCreatedBy'
-import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors'
-import ApiV1AdminsGetProductsByStatusSuppliers from './model/ApiV1AdminsGetProductsByStatusSuppliers'
-import ApiV1AdminsOrdersDestination from './model/ApiV1AdminsOrdersDestination'
-import ApiV1AdminsOrdersLogicsTariff from './model/ApiV1AdminsOrdersLogicsTariff'
-import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion'
-import ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest'
-import ApiV1AdminsOrdersOrderSupplier from './model/ApiV1AdminsOrdersOrderSupplier'
-import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy'
-import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby'
-import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes'
-import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper'
-import ApiV1BatchesBatch from './model/ApiV1BatchesBatch'
-import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes'
-import ApiV1BatchesItems from './model/ApiV1BatchesItems'
-import ApiV1BatchesStorekeeper from './model/ApiV1BatchesStorekeeper'
-import ApiV1BoxesClientsLightBatch from './model/ApiV1BoxesClientsLightBatch'
-import ApiV1BoxesClientsLightDestination from './model/ApiV1BoxesClientsLightDestination'
-import ApiV1BoxesClientsLightItems from './model/ApiV1BoxesClientsLightItems'
-import ApiV1BoxesClientsLightLogicsTariff from './model/ApiV1BoxesClientsLightLogicsTariff'
-import ApiV1BoxesClientsLightOrder from './model/ApiV1BoxesClientsLightOrder'
-import ApiV1BoxesClientsLightProduct from './model/ApiV1BoxesClientsLightProduct'
-import ApiV1BoxesItems from './model/ApiV1BoxesItems'
-import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody'
-import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems'
-import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams'
-import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges'
-import ApiV1GologinProfileNavigator from './model/ApiV1GologinProfileNavigator'
-import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload'
-import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks'
-import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1IntegrationsSellerboardWarehouseStocksShop'
-import ApiV1RequestProposalsCreatedBy from './model/ApiV1RequestProposalsCreatedBy'
-import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1RequestProposalsCustomByRequestIdGuidDetails'
-import ApiV1RequestsCountProposalsByStatuses from './model/ApiV1RequestsCountProposalsByStatuses'
-import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails'
-import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom'
-import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails'
-import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest'
-import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest'
-import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses'
-import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties'
-import BadRequestError from './model/BadRequestError'
-import CheckIsUniqueNameOrEmailReqSchema from './model/CheckIsUniqueNameOrEmailReqSchema'
-import CheckIsUniqueNameOrEmailSchema from './model/CheckIsUniqueNameOrEmailSchema'
-import ConflictInTheState from './model/ConflictInTheState'
-import DefaultHeaders from './model/DefaultHeaders'
-import ForbiddenError from './model/ForbiddenError'
-import InlineObject from './model/InlineObject'
-import InlineObject1 from './model/InlineObject1'
-import InlineObject10 from './model/InlineObject10'
-import InlineObject11 from './model/InlineObject11'
-import InlineObject12 from './model/InlineObject12'
-import InlineObject13 from './model/InlineObject13'
-import InlineObject14 from './model/InlineObject14'
-import InlineObject15 from './model/InlineObject15'
-import InlineObject16 from './model/InlineObject16'
-import InlineObject17 from './model/InlineObject17'
-import InlineObject18 from './model/InlineObject18'
-import InlineObject19 from './model/InlineObject19'
-import InlineObject2 from './model/InlineObject2'
-import InlineObject20 from './model/InlineObject20'
-import InlineObject21 from './model/InlineObject21'
-import InlineObject22 from './model/InlineObject22'
-import InlineObject23 from './model/InlineObject23'
-import InlineObject24 from './model/InlineObject24'
-import InlineObject25 from './model/InlineObject25'
-import InlineObject26 from './model/InlineObject26'
-import InlineObject27 from './model/InlineObject27'
-import InlineObject28 from './model/InlineObject28'
-import InlineObject29 from './model/InlineObject29'
-import InlineObject3 from './model/InlineObject3'
-import InlineObject30 from './model/InlineObject30'
-import InlineObject31 from './model/InlineObject31'
-import InlineObject32 from './model/InlineObject32'
-import InlineObject33 from './model/InlineObject33'
-import InlineObject34 from './model/InlineObject34'
-import InlineObject35 from './model/InlineObject35'
-import InlineObject36 from './model/InlineObject36'
-import InlineObject37 from './model/InlineObject37'
-import InlineObject38 from './model/InlineObject38'
-import InlineObject39 from './model/InlineObject39'
-import InlineObject4 from './model/InlineObject4'
-import InlineObject40 from './model/InlineObject40'
-import InlineObject41 from './model/InlineObject41'
-import InlineObject42 from './model/InlineObject42'
-import InlineObject43 from './model/InlineObject43'
-import InlineObject44 from './model/InlineObject44'
-import InlineObject45 from './model/InlineObject45'
-import InlineObject46 from './model/InlineObject46'
-import InlineObject47 from './model/InlineObject47'
-import InlineObject48 from './model/InlineObject48'
-import InlineObject49 from './model/InlineObject49'
-import InlineObject5 from './model/InlineObject5'
-import InlineObject50 from './model/InlineObject50'
-import InlineObject51 from './model/InlineObject51'
-import InlineObject52 from './model/InlineObject52'
-import InlineObject53 from './model/InlineObject53'
-import InlineObject54 from './model/InlineObject54'
-import InlineObject55 from './model/InlineObject55'
-import InlineObject56 from './model/InlineObject56'
-import InlineObject57 from './model/InlineObject57'
-import InlineObject58 from './model/InlineObject58'
-import InlineObject59 from './model/InlineObject59'
-import InlineObject6 from './model/InlineObject6'
-import InlineObject60 from './model/InlineObject60'
-import InlineObject61 from './model/InlineObject61'
-import InlineObject62 from './model/InlineObject62'
-import InlineObject63 from './model/InlineObject63'
-import InlineObject64 from './model/InlineObject64'
-import InlineObject65 from './model/InlineObject65'
-import InlineObject66 from './model/InlineObject66'
-import InlineObject67 from './model/InlineObject67'
-import InlineObject68 from './model/InlineObject68'
-import InlineObject69 from './model/InlineObject69'
-import InlineObject7 from './model/InlineObject7'
-import InlineObject70 from './model/InlineObject70'
-import InlineObject71 from './model/InlineObject71'
-import InlineObject72 from './model/InlineObject72'
-import InlineObject73 from './model/InlineObject73'
-import InlineObject74 from './model/InlineObject74'
-import InlineObject75 from './model/InlineObject75'
-import InlineObject8 from './model/InlineObject8'
-import InlineObject9 from './model/InlineObject9'
-import InlineResponse200 from './model/InlineResponse200'
-import InlineResponse2001 from './model/InlineResponse2001'
-import InlineResponse20010 from './model/InlineResponse20010'
-import InlineResponse20011 from './model/InlineResponse20011'
-import InlineResponse20012 from './model/InlineResponse20012'
-import InlineResponse20013 from './model/InlineResponse20013'
-import InlineResponse20014 from './model/InlineResponse20014'
-import InlineResponse20015 from './model/InlineResponse20015'
-import InlineResponse20016 from './model/InlineResponse20016'
-import InlineResponse20017 from './model/InlineResponse20017'
-import InlineResponse20018 from './model/InlineResponse20018'
-import InlineResponse20019 from './model/InlineResponse20019'
-import InlineResponse2002 from './model/InlineResponse2002'
-import InlineResponse20020 from './model/InlineResponse20020'
-import InlineResponse20021 from './model/InlineResponse20021'
-import InlineResponse20022 from './model/InlineResponse20022'
-import InlineResponse20023 from './model/InlineResponse20023'
-import InlineResponse20024 from './model/InlineResponse20024'
-import InlineResponse20025 from './model/InlineResponse20025'
-import InlineResponse20026 from './model/InlineResponse20026'
-import InlineResponse20026Details from './model/InlineResponse20026Details'
-import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls'
-import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups'
-import InlineResponse2002Permissions from './model/InlineResponse2002Permissions'
-import InlineResponse2003 from './model/InlineResponse2003'
-import InlineResponse2004 from './model/InlineResponse2004'
-import InlineResponse2005 from './model/InlineResponse2005'
-import InlineResponse2006 from './model/InlineResponse2006'
-import InlineResponse2007 from './model/InlineResponse2007'
-import InlineResponse2008 from './model/InlineResponse2008'
-import InlineResponse2009 from './model/InlineResponse2009'
-import InlineResponse201 from './model/InlineResponse201'
-import InlineResponse2011 from './model/InlineResponse2011'
-import InlineResponse2012 from './model/InlineResponse2012'
-import InlineResponse2013 from './model/InlineResponse2013'
-import InlineResponse2014 from './model/InlineResponse2014'
-import InlineResponse2015 from './model/InlineResponse2015'
-import InlineResponse2016 from './model/InlineResponse2016'
-import InlineResponse2017 from './model/InlineResponse2017'
-import InlineResponse2018 from './model/InlineResponse2018'
-import InlineResponse2019 from './model/InlineResponse2019'
-import InternalServerError from './model/InternalServerError'
-import LinkSubuserInputSchema from './model/LinkSubuserInputSchema'
-import MePatchInputSchema from './model/MePatchInputSchema'
-import NotFoundError from './model/NotFoundError'
-import ParamsGuid from './model/ParamsGuid'
-import PasteSuccessfully from './model/PasteSuccessfully'
-import PayloadTooLarge from './model/PayloadTooLarge'
-import PermissionGetDtoSchema from './model/PermissionGetDtoSchema'
-import PermissionGroupGetDtoSchema from './model/PermissionGroupGetDtoSchema'
-import PermissionGroupGetDtoSchemaPermissions from './model/PermissionGroupGetDtoSchemaPermissions'
-import PermissionGroupPatchDtoSchema from './model/PermissionGroupPatchDtoSchema'
-import PermissionGroupPostDtoSchema from './model/PermissionGroupPostDtoSchema'
-import PermissionPatchDtoSchema from './model/PermissionPatchDtoSchema'
-import PermissionPatchDtoSchemaAllowedUrls from './model/PermissionPatchDtoSchemaAllowedUrls'
-import PermissionPostDtoSchema from './model/PermissionPostDtoSchema'
-import QuerystringGetDTOSchema from './model/QuerystringGetDTOSchema'
-import SetPermissionsForUsersPathDTOSchema from './model/SetPermissionsForUsersPathDTOSchema'
-import SignInResponseSchema from './model/SignInResponseSchema'
-import SigninInputSchema from './model/SigninInputSchema'
-import SubUserPatchDtoSchema from './model/SubUserPatchDtoSchema'
-import SuccessResponseBodyWithGuid from './model/SuccessResponseBodyWithGuid'
-import UnLinkSubuserInputSchema from './model/UnLinkSubuserInputSchema'
-import UnauthorizedError from './model/UnauthorizedError'
-import UpdatedSuccessfully from './model/UpdatedSuccessfully'
-import UserAdminFullSchema from './model/UserAdminFullSchema'
-import UserFullSchema from './model/UserFullSchema'
-import UserInfoSchema from './model/UserInfoSchema'
-import UserInfoSchemaNeedConfirmPriceChange from './model/UserInfoSchemaNeedConfirmPriceChange'
-import UserInfoSchemaNeedUpdateTariff from './model/UserInfoSchemaNeedUpdateTariff'
-import UserInfoSchemaPermissionGroups from './model/UserInfoSchemaPermissionGroups'
-import UserInfoSchemaPermissions from './model/UserInfoSchemaPermissions'
-import UserRegisterSchema from './model/UserRegisterSchema'
-import UserSettingInputSchema from './model/UserSettingInputSchema'
-import UserSettingInputSchemaData from './model/UserSettingInputSchemaData'
-import UserSettingPatchSchema from './model/UserSettingPatchSchema'
-import UserSettingPostResponseSchema from './model/UserSettingPostResponseSchema'
-import UserSettingResponseSchema from './model/UserSettingResponseSchema'
-import AdministratorApi from './api/AdministratorApi'
-import BatchesApi from './api/BatchesApi'
-import BoxesApi from './api/BoxesApi'
-import BuyerApi from './api/BuyerApi'
-import ClientApi from './api/ClientApi'
-import GoLoginApi from './api/GoLoginApi'
-import IntegrationsApi from './api/IntegrationsApi'
-import OtherApi from './api/OtherApi'
-import PermissionsApi from './api/PermissionsApi'
-import ProductApi from './api/ProductApi'
-import RequestProposalsApi from './api/RequestProposalsApi'
-import RequestsApi from './api/RequestsApi'
-import ResearcherApi from './api/ResearcherApi'
-import ShopApi from './api/ShopApi'
-import StorekeepersApi from './api/StorekeepersApi'
-import SupervisorApi from './api/SupervisorApi'
-import SupplierApi from './api/SupplierApi'
-import UserApi from './api/UserApi'
+
+import ApiClient from './ApiClient';
+import AdminUserPatchDtoSchema from './model/AdminUserPatchDtoSchema';
+import ApiV1AdminsGetProductsByStatusBoxProperties from './model/ApiV1AdminsGetProductsByStatusBoxProperties';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './model/ApiV1AdminsGetProductsByStatusCreatedBy';
+import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
+import ApiV1AdminsGetProductsByStatusSuppliers from './model/ApiV1AdminsGetProductsByStatusSuppliers';
+import ApiV1AdminsOrdersDestination from './model/ApiV1AdminsOrdersDestination';
+import ApiV1AdminsOrdersLogicsTariff from './model/ApiV1AdminsOrdersLogicsTariff';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
+import ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest';
+import ApiV1AdminsOrdersOrderSupplier from './model/ApiV1AdminsOrdersOrderSupplier';
+import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
+import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
+import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
+import ApiV1AdminsTasksLightStorekeeper from './model/ApiV1AdminsTasksLightStorekeeper';
+import ApiV1BatchesBatch from './model/ApiV1BatchesBatch';
+import ApiV1BatchesBoxes from './model/ApiV1BatchesBoxes';
+import ApiV1BatchesItems from './model/ApiV1BatchesItems';
+import ApiV1BatchesStorekeeper from './model/ApiV1BatchesStorekeeper';
+import ApiV1BoxesClientsLightBatch from './model/ApiV1BoxesClientsLightBatch';
+import ApiV1BoxesClientsLightDestination from './model/ApiV1BoxesClientsLightDestination';
+import ApiV1BoxesClientsLightItems from './model/ApiV1BoxesClientsLightItems';
+import ApiV1BoxesClientsLightLogicsTariff from './model/ApiV1BoxesClientsLightLogicsTariff';
+import ApiV1BoxesClientsLightOrder from './model/ApiV1BoxesClientsLightOrder';
+import ApiV1BoxesClientsLightProduct from './model/ApiV1BoxesClientsLightProduct';
+import ApiV1BoxesItems from './model/ApiV1BoxesItems';
+import ApiV1BoxesMergeBoxBody from './model/ApiV1BoxesMergeBoxBody';
+import ApiV1BoxesSplitBoxItems from './model/ApiV1BoxesSplitBoxItems';
+import ApiV1BoxesSplitNewBoxesParams from './model/ApiV1BoxesSplitNewBoxesParams';
+import ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges from './model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges';
+import ApiV1GologinProfileNavigator from './model/ApiV1GologinProfileNavigator';
+import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
+import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
+import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1IntegrationsSellerboardWarehouseStocksShop';
+import ApiV1RequestProposalsCreatedBy from './model/ApiV1RequestProposalsCreatedBy';
+import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1RequestProposalsCustomByRequestIdGuidDetails';
+import ApiV1RequestsCountProposalsByStatuses from './model/ApiV1RequestsCountProposalsByStatuses';
+import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
+import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
+import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails';
+import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
+import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
+import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
+import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
+import BadRequestError from './model/BadRequestError';
+import CheckIsUniqueNameOrEmailReqSchema from './model/CheckIsUniqueNameOrEmailReqSchema';
+import CheckIsUniqueNameOrEmailSchema from './model/CheckIsUniqueNameOrEmailSchema';
+import ConflictInTheState from './model/ConflictInTheState';
+import DefaultHeaders from './model/DefaultHeaders';
+import ForbiddenError from './model/ForbiddenError';
+import InlineObject from './model/InlineObject';
+import InlineObject1 from './model/InlineObject1';
+import InlineObject10 from './model/InlineObject10';
+import InlineObject11 from './model/InlineObject11';
+import InlineObject12 from './model/InlineObject12';
+import InlineObject13 from './model/InlineObject13';
+import InlineObject14 from './model/InlineObject14';
+import InlineObject15 from './model/InlineObject15';
+import InlineObject16 from './model/InlineObject16';
+import InlineObject17 from './model/InlineObject17';
+import InlineObject18 from './model/InlineObject18';
+import InlineObject19 from './model/InlineObject19';
+import InlineObject2 from './model/InlineObject2';
+import InlineObject20 from './model/InlineObject20';
+import InlineObject21 from './model/InlineObject21';
+import InlineObject22 from './model/InlineObject22';
+import InlineObject23 from './model/InlineObject23';
+import InlineObject24 from './model/InlineObject24';
+import InlineObject25 from './model/InlineObject25';
+import InlineObject26 from './model/InlineObject26';
+import InlineObject27 from './model/InlineObject27';
+import InlineObject28 from './model/InlineObject28';
+import InlineObject29 from './model/InlineObject29';
+import InlineObject3 from './model/InlineObject3';
+import InlineObject30 from './model/InlineObject30';
+import InlineObject31 from './model/InlineObject31';
+import InlineObject32 from './model/InlineObject32';
+import InlineObject33 from './model/InlineObject33';
+import InlineObject34 from './model/InlineObject34';
+import InlineObject35 from './model/InlineObject35';
+import InlineObject36 from './model/InlineObject36';
+import InlineObject37 from './model/InlineObject37';
+import InlineObject38 from './model/InlineObject38';
+import InlineObject39 from './model/InlineObject39';
+import InlineObject4 from './model/InlineObject4';
+import InlineObject40 from './model/InlineObject40';
+import InlineObject41 from './model/InlineObject41';
+import InlineObject42 from './model/InlineObject42';
+import InlineObject43 from './model/InlineObject43';
+import InlineObject44 from './model/InlineObject44';
+import InlineObject45 from './model/InlineObject45';
+import InlineObject46 from './model/InlineObject46';
+import InlineObject47 from './model/InlineObject47';
+import InlineObject48 from './model/InlineObject48';
+import InlineObject49 from './model/InlineObject49';
+import InlineObject5 from './model/InlineObject5';
+import InlineObject50 from './model/InlineObject50';
+import InlineObject51 from './model/InlineObject51';
+import InlineObject52 from './model/InlineObject52';
+import InlineObject53 from './model/InlineObject53';
+import InlineObject54 from './model/InlineObject54';
+import InlineObject55 from './model/InlineObject55';
+import InlineObject56 from './model/InlineObject56';
+import InlineObject57 from './model/InlineObject57';
+import InlineObject58 from './model/InlineObject58';
+import InlineObject59 from './model/InlineObject59';
+import InlineObject6 from './model/InlineObject6';
+import InlineObject60 from './model/InlineObject60';
+import InlineObject61 from './model/InlineObject61';
+import InlineObject62 from './model/InlineObject62';
+import InlineObject63 from './model/InlineObject63';
+import InlineObject64 from './model/InlineObject64';
+import InlineObject65 from './model/InlineObject65';
+import InlineObject66 from './model/InlineObject66';
+import InlineObject67 from './model/InlineObject67';
+import InlineObject68 from './model/InlineObject68';
+import InlineObject69 from './model/InlineObject69';
+import InlineObject7 from './model/InlineObject7';
+import InlineObject70 from './model/InlineObject70';
+import InlineObject71 from './model/InlineObject71';
+import InlineObject72 from './model/InlineObject72';
+import InlineObject73 from './model/InlineObject73';
+import InlineObject74 from './model/InlineObject74';
+import InlineObject75 from './model/InlineObject75';
+import InlineObject76 from './model/InlineObject76';
+import InlineObject8 from './model/InlineObject8';
+import InlineObject9 from './model/InlineObject9';
+import InlineResponse200 from './model/InlineResponse200';
+import InlineResponse2001 from './model/InlineResponse2001';
+import InlineResponse20010 from './model/InlineResponse20010';
+import InlineResponse20011 from './model/InlineResponse20011';
+import InlineResponse20012 from './model/InlineResponse20012';
+import InlineResponse20013 from './model/InlineResponse20013';
+import InlineResponse20014 from './model/InlineResponse20014';
+import InlineResponse20015 from './model/InlineResponse20015';
+import InlineResponse20016 from './model/InlineResponse20016';
+import InlineResponse20017 from './model/InlineResponse20017';
+import InlineResponse20018 from './model/InlineResponse20018';
+import InlineResponse20019 from './model/InlineResponse20019';
+import InlineResponse2002 from './model/InlineResponse2002';
+import InlineResponse20020 from './model/InlineResponse20020';
+import InlineResponse20021 from './model/InlineResponse20021';
+import InlineResponse20022 from './model/InlineResponse20022';
+import InlineResponse20023 from './model/InlineResponse20023';
+import InlineResponse20024 from './model/InlineResponse20024';
+import InlineResponse20025 from './model/InlineResponse20025';
+import InlineResponse20026 from './model/InlineResponse20026';
+import InlineResponse20026Details from './model/InlineResponse20026Details';
+import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
+import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
+import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
+import InlineResponse2003 from './model/InlineResponse2003';
+import InlineResponse2004 from './model/InlineResponse2004';
+import InlineResponse2005 from './model/InlineResponse2005';
+import InlineResponse2006 from './model/InlineResponse2006';
+import InlineResponse2007 from './model/InlineResponse2007';
+import InlineResponse2008 from './model/InlineResponse2008';
+import InlineResponse2009 from './model/InlineResponse2009';
+import InlineResponse201 from './model/InlineResponse201';
+import InlineResponse2011 from './model/InlineResponse2011';
+import InlineResponse2012 from './model/InlineResponse2012';
+import InlineResponse2013 from './model/InlineResponse2013';
+import InlineResponse2014 from './model/InlineResponse2014';
+import InlineResponse2015 from './model/InlineResponse2015';
+import InlineResponse2016 from './model/InlineResponse2016';
+import InlineResponse2017 from './model/InlineResponse2017';
+import InlineResponse2018 from './model/InlineResponse2018';
+import InlineResponse2019 from './model/InlineResponse2019';
+import InternalServerError from './model/InternalServerError';
+import LinkSubuserInputSchema from './model/LinkSubuserInputSchema';
+import MePatchInputSchema from './model/MePatchInputSchema';
+import NotFoundError from './model/NotFoundError';
+import ParamsGuid from './model/ParamsGuid';
+import PasteSuccessfully from './model/PasteSuccessfully';
+import PayloadTooLarge from './model/PayloadTooLarge';
+import PermissionGetDtoSchema from './model/PermissionGetDtoSchema';
+import PermissionGroupGetDtoSchema from './model/PermissionGroupGetDtoSchema';
+import PermissionGroupGetDtoSchemaPermissions from './model/PermissionGroupGetDtoSchemaPermissions';
+import PermissionGroupPatchDtoSchema from './model/PermissionGroupPatchDtoSchema';
+import PermissionGroupPostDtoSchema from './model/PermissionGroupPostDtoSchema';
+import PermissionPatchDtoSchema from './model/PermissionPatchDtoSchema';
+import PermissionPatchDtoSchemaAllowedUrls from './model/PermissionPatchDtoSchemaAllowedUrls';
+import PermissionPostDtoSchema from './model/PermissionPostDtoSchema';
+import QuerystringGetDTOSchema from './model/QuerystringGetDTOSchema';
+import SetPermissionsForUsersPathDTOSchema from './model/SetPermissionsForUsersPathDTOSchema';
+import SignInResponseSchema from './model/SignInResponseSchema';
+import SigninInputSchema from './model/SigninInputSchema';
+import SubUserPatchDtoSchema from './model/SubUserPatchDtoSchema';
+import SuccessResponseBodyWithGuid from './model/SuccessResponseBodyWithGuid';
+import UnLinkSubuserInputSchema from './model/UnLinkSubuserInputSchema';
+import UnauthorizedError from './model/UnauthorizedError';
+import UpdatedSuccessfully from './model/UpdatedSuccessfully';
+import UserAdminFullSchema from './model/UserAdminFullSchema';
+import UserFullSchema from './model/UserFullSchema';
+import UserInfoSchema from './model/UserInfoSchema';
+import UserInfoSchemaNeedConfirmPriceChange from './model/UserInfoSchemaNeedConfirmPriceChange';
+import UserInfoSchemaNeedUpdateTariff from './model/UserInfoSchemaNeedUpdateTariff';
+import UserInfoSchemaPermissionGroups from './model/UserInfoSchemaPermissionGroups';
+import UserInfoSchemaPermissions from './model/UserInfoSchemaPermissions';
+import UserRegisterSchema from './model/UserRegisterSchema';
+import UserSettingInputSchema from './model/UserSettingInputSchema';
+import UserSettingInputSchemaData from './model/UserSettingInputSchemaData';
+import UserSettingPatchSchema from './model/UserSettingPatchSchema';
+import UserSettingPostResponseSchema from './model/UserSettingPostResponseSchema';
+import UserSettingResponseSchema from './model/UserSettingResponseSchema';
+import AdministratorApi from './api/AdministratorApi';
+import BatchesApi from './api/BatchesApi';
+import BoxesApi from './api/BoxesApi';
+import BuyerApi from './api/BuyerApi';
+import ClientApi from './api/ClientApi';
+import GoLoginApi from './api/GoLoginApi';
+import IntegrationsApi from './api/IntegrationsApi';
+import OtherApi from './api/OtherApi';
+import PermissionsApi from './api/PermissionsApi';
+import ProductApi from './api/ProductApi';
+import RequestProposalsApi from './api/RequestProposalsApi';
+import RequestsApi from './api/RequestsApi';
+import ResearcherApi from './api/ResearcherApi';
+import ShopApi from './api/ShopApi';
+import StorekeepersApi from './api/StorekeepersApi';
+import SupervisorApi from './api/SupervisorApi';
+import SupplierApi from './api/SupplierApi';
+import UserApi from './api/UserApi';
+
 
 /**
 * testing_the_fastify_swagger_api.<br>
@@ -266,1114 +269,1341 @@ import UserApi from './api/UserApi'
 * @version 0.1.0
 */
 export {
-  /**
+    /**
      * The ApiClient constructor.
      * @property {module:ApiClient}
      */
-  ApiClient,
-  /**
+    ApiClient,
+
+    /**
      * The AdminUserPatchDtoSchema model constructor.
      * @property {module:model/AdminUserPatchDtoSchema}
      */
-  AdminUserPatchDtoSchema,
-  /**
+    AdminUserPatchDtoSchema,
+
+    /**
      * The ApiV1AdminsGetProductsByStatusBoxProperties model constructor.
      * @property {module:model/ApiV1AdminsGetProductsByStatusBoxProperties}
      */
-  ApiV1AdminsGetProductsByStatusBoxProperties,
-  /**
+    ApiV1AdminsGetProductsByStatusBoxProperties,
+
+    /**
      * The ApiV1AdminsGetProductsByStatusCreatedBy model constructor.
      * @property {module:model/ApiV1AdminsGetProductsByStatusCreatedBy}
      */
-  ApiV1AdminsGetProductsByStatusCreatedBy,
-  /**
+    ApiV1AdminsGetProductsByStatusCreatedBy,
+
+    /**
      * The ApiV1AdminsGetProductsByStatusListingSupplierCompetitors model constructor.
      * @property {module:model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors}
      */
-  ApiV1AdminsGetProductsByStatusListingSupplierCompetitors,
-  /**
+    ApiV1AdminsGetProductsByStatusListingSupplierCompetitors,
+
+    /**
      * The ApiV1AdminsGetProductsByStatusSuppliers model constructor.
      * @property {module:model/ApiV1AdminsGetProductsByStatusSuppliers}
      */
-  ApiV1AdminsGetProductsByStatusSuppliers,
-  /**
+    ApiV1AdminsGetProductsByStatusSuppliers,
+
+    /**
      * The ApiV1AdminsOrdersDestination model constructor.
      * @property {module:model/ApiV1AdminsOrdersDestination}
      */
-  ApiV1AdminsOrdersDestination,
-  /**
+    ApiV1AdminsOrdersDestination,
+
+    /**
      * The ApiV1AdminsOrdersLogicsTariff model constructor.
      * @property {module:model/ApiV1AdminsOrdersLogicsTariff}
      */
-  ApiV1AdminsOrdersLogicsTariff,
-  /**
+    ApiV1AdminsOrdersLogicsTariff,
+
+    /**
      * The ApiV1AdminsOrdersLogicsTariffConditionsByRegion model constructor.
      * @property {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion}
      */
-  ApiV1AdminsOrdersLogicsTariffConditionsByRegion,
-  /**
+    ApiV1AdminsOrdersLogicsTariffConditionsByRegion,
+
+    /**
      * The ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest model constructor.
      * @property {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest}
      */
-  ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest,
-  /**
+    ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest,
+
+    /**
      * The ApiV1AdminsOrdersOrderSupplier model constructor.
      * @property {module:model/ApiV1AdminsOrdersOrderSupplier}
      */
-  ApiV1AdminsOrdersOrderSupplier,
-  /**
+    ApiV1AdminsOrdersOrderSupplier,
+
+    /**
      * The ApiV1AdminsPaymentsCreatedBy model constructor.
      * @property {module:model/ApiV1AdminsPaymentsCreatedBy}
      */
-  ApiV1AdminsPaymentsCreatedBy,
-  /**
+    ApiV1AdminsPaymentsCreatedBy,
+
+    /**
      * The ApiV1AdminsProductsVacCheckedby model constructor.
      * @property {module:model/ApiV1AdminsProductsVacCheckedby}
      */
-  ApiV1AdminsProductsVacCheckedby,
-  /**
+    ApiV1AdminsProductsVacCheckedby,
+
+    /**
      * The ApiV1AdminsTasksLightBoxes model constructor.
      * @property {module:model/ApiV1AdminsTasksLightBoxes}
      */
-  ApiV1AdminsTasksLightBoxes,
-  /**
+    ApiV1AdminsTasksLightBoxes,
+
+    /**
      * The ApiV1AdminsTasksLightStorekeeper model constructor.
      * @property {module:model/ApiV1AdminsTasksLightStorekeeper}
      */
-  ApiV1AdminsTasksLightStorekeeper,
-  /**
+    ApiV1AdminsTasksLightStorekeeper,
+
+    /**
      * The ApiV1BatchesBatch model constructor.
      * @property {module:model/ApiV1BatchesBatch}
      */
-  ApiV1BatchesBatch,
-  /**
+    ApiV1BatchesBatch,
+
+    /**
      * The ApiV1BatchesBoxes model constructor.
      * @property {module:model/ApiV1BatchesBoxes}
      */
-  ApiV1BatchesBoxes,
-  /**
+    ApiV1BatchesBoxes,
+
+    /**
      * The ApiV1BatchesItems model constructor.
      * @property {module:model/ApiV1BatchesItems}
      */
-  ApiV1BatchesItems,
-  /**
+    ApiV1BatchesItems,
+
+    /**
      * The ApiV1BatchesStorekeeper model constructor.
      * @property {module:model/ApiV1BatchesStorekeeper}
      */
-  ApiV1BatchesStorekeeper,
-  /**
+    ApiV1BatchesStorekeeper,
+
+    /**
      * The ApiV1BoxesClientsLightBatch model constructor.
      * @property {module:model/ApiV1BoxesClientsLightBatch}
      */
-  ApiV1BoxesClientsLightBatch,
-  /**
+    ApiV1BoxesClientsLightBatch,
+
+    /**
      * The ApiV1BoxesClientsLightDestination model constructor.
      * @property {module:model/ApiV1BoxesClientsLightDestination}
      */
-  ApiV1BoxesClientsLightDestination,
-  /**
+    ApiV1BoxesClientsLightDestination,
+
+    /**
      * The ApiV1BoxesClientsLightItems model constructor.
      * @property {module:model/ApiV1BoxesClientsLightItems}
      */
-  ApiV1BoxesClientsLightItems,
-  /**
+    ApiV1BoxesClientsLightItems,
+
+    /**
      * The ApiV1BoxesClientsLightLogicsTariff model constructor.
      * @property {module:model/ApiV1BoxesClientsLightLogicsTariff}
      */
-  ApiV1BoxesClientsLightLogicsTariff,
-  /**
+    ApiV1BoxesClientsLightLogicsTariff,
+
+    /**
      * The ApiV1BoxesClientsLightOrder model constructor.
      * @property {module:model/ApiV1BoxesClientsLightOrder}
      */
-  ApiV1BoxesClientsLightOrder,
-  /**
+    ApiV1BoxesClientsLightOrder,
+
+    /**
      * The ApiV1BoxesClientsLightProduct model constructor.
      * @property {module:model/ApiV1BoxesClientsLightProduct}
      */
-  ApiV1BoxesClientsLightProduct,
-  /**
+    ApiV1BoxesClientsLightProduct,
+
+    /**
      * The ApiV1BoxesItems model constructor.
      * @property {module:model/ApiV1BoxesItems}
      */
-  ApiV1BoxesItems,
-  /**
+    ApiV1BoxesItems,
+
+    /**
      * The ApiV1BoxesMergeBoxBody model constructor.
      * @property {module:model/ApiV1BoxesMergeBoxBody}
      */
-  ApiV1BoxesMergeBoxBody,
-  /**
+    ApiV1BoxesMergeBoxBody,
+
+    /**
      * The ApiV1BoxesSplitBoxItems model constructor.
      * @property {module:model/ApiV1BoxesSplitBoxItems}
      */
-  ApiV1BoxesSplitBoxItems,
-  /**
+    ApiV1BoxesSplitBoxItems,
+
+    /**
      * The ApiV1BoxesSplitNewBoxesParams model constructor.
      * @property {module:model/ApiV1BoxesSplitNewBoxesParams}
      */
-  ApiV1BoxesSplitNewBoxesParams,
-  /**
+    ApiV1BoxesSplitNewBoxesParams,
+
+    /**
      * The ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges model constructor.
      * @property {module:model/ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges}
      */
-  ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges,
-  /**
+    ApiV1BoxesStorekeepersGuidSetItemsBarCodeItemsBarCodeChanges,
+
+    /**
      * The ApiV1GologinProfileNavigator model constructor.
      * @property {module:model/ApiV1GologinProfileNavigator}
      */
-  ApiV1GologinProfileNavigator,
-  /**
+    ApiV1GologinProfileNavigator,
+
+    /**
      * The ApiV1IntegrationsCreateAndLinkSkuProductsPayload model constructor.
      * @property {module:model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload}
      */
-  ApiV1IntegrationsCreateAndLinkSkuProductsPayload,
-  /**
+    ApiV1IntegrationsCreateAndLinkSkuProductsPayload,
+
+    /**
      * The ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks model constructor.
      * @property {module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks}
      */
-  ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks,
-  /**
+    ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks,
+
+    /**
      * The ApiV1IntegrationsSellerboardWarehouseStocksShop model constructor.
      * @property {module:model/ApiV1IntegrationsSellerboardWarehouseStocksShop}
      */
-  ApiV1IntegrationsSellerboardWarehouseStocksShop,
-  /**
+    ApiV1IntegrationsSellerboardWarehouseStocksShop,
+
+    /**
      * The ApiV1RequestProposalsCreatedBy model constructor.
      * @property {module:model/ApiV1RequestProposalsCreatedBy}
      */
-  ApiV1RequestProposalsCreatedBy,
-  /**
+    ApiV1RequestProposalsCreatedBy,
+
+    /**
      * The ApiV1RequestProposalsCustomByRequestIdGuidDetails model constructor.
      * @property {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails}
      */
-  ApiV1RequestProposalsCustomByRequestIdGuidDetails,
-  /**
+    ApiV1RequestProposalsCustomByRequestIdGuidDetails,
+
+    /**
      * The ApiV1RequestsCountProposalsByStatuses model constructor.
      * @property {module:model/ApiV1RequestsCountProposalsByStatuses}
      */
-  ApiV1RequestsCountProposalsByStatuses,
-  /**
+    ApiV1RequestsCountProposalsByStatuses,
+
+    /**
      * The ApiV1RequestsCustomDetails model constructor.
      * @property {module:model/ApiV1RequestsCustomDetails}
      */
-  ApiV1RequestsCustomDetails,
-  /**
+    ApiV1RequestsCustomDetails,
+
+    /**
      * The ApiV1RequestsCustomDetailsCustom model constructor.
      * @property {module:model/ApiV1RequestsCustomDetailsCustom}
      */
-  ApiV1RequestsCustomDetailsCustom,
-  /**
+    ApiV1RequestsCustomDetailsCustom,
+
+    /**
      * The ApiV1RequestsCustomGuidDetails model constructor.
      * @property {module:model/ApiV1RequestsCustomGuidDetails}
      */
-  ApiV1RequestsCustomGuidDetails,
-  /**
+    ApiV1RequestsCustomGuidDetails,
+
+    /**
      * The ApiV1RequestsCustomGuidRequest model constructor.
      * @property {module:model/ApiV1RequestsCustomGuidRequest}
      */
-  ApiV1RequestsCustomGuidRequest,
-  /**
+    ApiV1RequestsCustomGuidRequest,
+
+    /**
      * The ApiV1RequestsCustomRequest model constructor.
      * @property {module:model/ApiV1RequestsCustomRequest}
      */
-  ApiV1RequestsCustomRequest,
-  /**
+    ApiV1RequestsCustomRequest,
+
+    /**
      * The ApiV1StorekeepersTariffWarehouses model constructor.
      * @property {module:model/ApiV1StorekeepersTariffWarehouses}
      */
-  ApiV1StorekeepersTariffWarehouses,
-  /**
+    ApiV1StorekeepersTariffWarehouses,
+
+    /**
      * The ApiV1SuppliersBoxProperties model constructor.
      * @property {module:model/ApiV1SuppliersBoxProperties}
      */
-  ApiV1SuppliersBoxProperties,
-  /**
+    ApiV1SuppliersBoxProperties,
+
+    /**
      * The BadRequestError model constructor.
      * @property {module:model/BadRequestError}
      */
-  BadRequestError,
-  /**
+    BadRequestError,
+
+    /**
      * The CheckIsUniqueNameOrEmailReqSchema model constructor.
      * @property {module:model/CheckIsUniqueNameOrEmailReqSchema}
      */
-  CheckIsUniqueNameOrEmailReqSchema,
-  /**
+    CheckIsUniqueNameOrEmailReqSchema,
+
+    /**
      * The CheckIsUniqueNameOrEmailSchema model constructor.
      * @property {module:model/CheckIsUniqueNameOrEmailSchema}
      */
-  CheckIsUniqueNameOrEmailSchema,
-  /**
+    CheckIsUniqueNameOrEmailSchema,
+
+    /**
      * The ConflictInTheState model constructor.
      * @property {module:model/ConflictInTheState}
      */
-  ConflictInTheState,
-  /**
+    ConflictInTheState,
+
+    /**
      * The DefaultHeaders model constructor.
      * @property {module:model/DefaultHeaders}
      */
-  DefaultHeaders,
-  /**
+    DefaultHeaders,
+
+    /**
      * The ForbiddenError model constructor.
      * @property {module:model/ForbiddenError}
      */
-  ForbiddenError,
-  /**
+    ForbiddenError,
+
+    /**
      * The InlineObject model constructor.
      * @property {module:model/InlineObject}
      */
-  InlineObject,
-  /**
+    InlineObject,
+
+    /**
      * The InlineObject1 model constructor.
      * @property {module:model/InlineObject1}
      */
-  InlineObject1,
-  /**
+    InlineObject1,
+
+    /**
      * The InlineObject10 model constructor.
      * @property {module:model/InlineObject10}
      */
-  InlineObject10,
-  /**
+    InlineObject10,
+
+    /**
      * The InlineObject11 model constructor.
      * @property {module:model/InlineObject11}
      */
-  InlineObject11,
-  /**
+    InlineObject11,
+
+    /**
      * The InlineObject12 model constructor.
      * @property {module:model/InlineObject12}
      */
-  InlineObject12,
-  /**
+    InlineObject12,
+
+    /**
      * The InlineObject13 model constructor.
      * @property {module:model/InlineObject13}
      */
-  InlineObject13,
-  /**
+    InlineObject13,
+
+    /**
      * The InlineObject14 model constructor.
      * @property {module:model/InlineObject14}
      */
-  InlineObject14,
-  /**
+    InlineObject14,
+
+    /**
      * The InlineObject15 model constructor.
      * @property {module:model/InlineObject15}
      */
-  InlineObject15,
-  /**
+    InlineObject15,
+
+    /**
      * The InlineObject16 model constructor.
      * @property {module:model/InlineObject16}
      */
-  InlineObject16,
-  /**
+    InlineObject16,
+
+    /**
      * The InlineObject17 model constructor.
      * @property {module:model/InlineObject17}
      */
-  InlineObject17,
-  /**
+    InlineObject17,
+
+    /**
      * The InlineObject18 model constructor.
      * @property {module:model/InlineObject18}
      */
-  InlineObject18,
-  /**
+    InlineObject18,
+
+    /**
      * The InlineObject19 model constructor.
      * @property {module:model/InlineObject19}
      */
-  InlineObject19,
-  /**
+    InlineObject19,
+
+    /**
      * The InlineObject2 model constructor.
      * @property {module:model/InlineObject2}
      */
-  InlineObject2,
-  /**
+    InlineObject2,
+
+    /**
      * The InlineObject20 model constructor.
      * @property {module:model/InlineObject20}
      */
-  InlineObject20,
-  /**
+    InlineObject20,
+
+    /**
      * The InlineObject21 model constructor.
      * @property {module:model/InlineObject21}
      */
-  InlineObject21,
-  /**
+    InlineObject21,
+
+    /**
      * The InlineObject22 model constructor.
      * @property {module:model/InlineObject22}
      */
-  InlineObject22,
-  /**
+    InlineObject22,
+
+    /**
      * The InlineObject23 model constructor.
      * @property {module:model/InlineObject23}
      */
-  InlineObject23,
-  /**
+    InlineObject23,
+
+    /**
      * The InlineObject24 model constructor.
      * @property {module:model/InlineObject24}
      */
-  InlineObject24,
-  /**
+    InlineObject24,
+
+    /**
      * The InlineObject25 model constructor.
      * @property {module:model/InlineObject25}
      */
-  InlineObject25,
-  /**
+    InlineObject25,
+
+    /**
      * The InlineObject26 model constructor.
      * @property {module:model/InlineObject26}
      */
-  InlineObject26,
-  /**
+    InlineObject26,
+
+    /**
      * The InlineObject27 model constructor.
      * @property {module:model/InlineObject27}
      */
-  InlineObject27,
-  /**
+    InlineObject27,
+
+    /**
      * The InlineObject28 model constructor.
      * @property {module:model/InlineObject28}
      */
-  InlineObject28,
-  /**
+    InlineObject28,
+
+    /**
      * The InlineObject29 model constructor.
      * @property {module:model/InlineObject29}
      */
-  InlineObject29,
-  /**
+    InlineObject29,
+
+    /**
      * The InlineObject3 model constructor.
      * @property {module:model/InlineObject3}
      */
-  InlineObject3,
-  /**
+    InlineObject3,
+
+    /**
      * The InlineObject30 model constructor.
      * @property {module:model/InlineObject30}
      */
-  InlineObject30,
-  /**
+    InlineObject30,
+
+    /**
      * The InlineObject31 model constructor.
      * @property {module:model/InlineObject31}
      */
-  InlineObject31,
-  /**
+    InlineObject31,
+
+    /**
      * The InlineObject32 model constructor.
      * @property {module:model/InlineObject32}
      */
-  InlineObject32,
-  /**
+    InlineObject32,
+
+    /**
      * The InlineObject33 model constructor.
      * @property {module:model/InlineObject33}
      */
-  InlineObject33,
-  /**
+    InlineObject33,
+
+    /**
      * The InlineObject34 model constructor.
      * @property {module:model/InlineObject34}
      */
-  InlineObject34,
-  /**
+    InlineObject34,
+
+    /**
      * The InlineObject35 model constructor.
      * @property {module:model/InlineObject35}
      */
-  InlineObject35,
-  /**
+    InlineObject35,
+
+    /**
      * The InlineObject36 model constructor.
      * @property {module:model/InlineObject36}
      */
-  InlineObject36,
-  /**
+    InlineObject36,
+
+    /**
      * The InlineObject37 model constructor.
      * @property {module:model/InlineObject37}
      */
-  InlineObject37,
-  /**
+    InlineObject37,
+
+    /**
      * The InlineObject38 model constructor.
      * @property {module:model/InlineObject38}
      */
-  InlineObject38,
-  /**
+    InlineObject38,
+
+    /**
      * The InlineObject39 model constructor.
      * @property {module:model/InlineObject39}
      */
-  InlineObject39,
-  /**
+    InlineObject39,
+
+    /**
      * The InlineObject4 model constructor.
      * @property {module:model/InlineObject4}
      */
-  InlineObject4,
-  /**
+    InlineObject4,
+
+    /**
      * The InlineObject40 model constructor.
      * @property {module:model/InlineObject40}
      */
-  InlineObject40,
-  /**
+    InlineObject40,
+
+    /**
      * The InlineObject41 model constructor.
      * @property {module:model/InlineObject41}
      */
-  InlineObject41,
-  /**
+    InlineObject41,
+
+    /**
      * The InlineObject42 model constructor.
      * @property {module:model/InlineObject42}
      */
-  InlineObject42,
-  /**
+    InlineObject42,
+
+    /**
      * The InlineObject43 model constructor.
      * @property {module:model/InlineObject43}
      */
-  InlineObject43,
-  /**
+    InlineObject43,
+
+    /**
      * The InlineObject44 model constructor.
      * @property {module:model/InlineObject44}
      */
-  InlineObject44,
-  /**
+    InlineObject44,
+
+    /**
      * The InlineObject45 model constructor.
      * @property {module:model/InlineObject45}
      */
-  InlineObject45,
-  /**
+    InlineObject45,
+
+    /**
      * The InlineObject46 model constructor.
      * @property {module:model/InlineObject46}
      */
-  InlineObject46,
-  /**
+    InlineObject46,
+
+    /**
      * The InlineObject47 model constructor.
      * @property {module:model/InlineObject47}
      */
-  InlineObject47,
-  /**
+    InlineObject47,
+
+    /**
      * The InlineObject48 model constructor.
      * @property {module:model/InlineObject48}
      */
-  InlineObject48,
-  /**
+    InlineObject48,
+
+    /**
      * The InlineObject49 model constructor.
      * @property {module:model/InlineObject49}
      */
-  InlineObject49,
-  /**
+    InlineObject49,
+
+    /**
      * The InlineObject5 model constructor.
      * @property {module:model/InlineObject5}
      */
-  InlineObject5,
-  /**
+    InlineObject5,
+
+    /**
      * The InlineObject50 model constructor.
      * @property {module:model/InlineObject50}
      */
-  InlineObject50,
-  /**
+    InlineObject50,
+
+    /**
      * The InlineObject51 model constructor.
      * @property {module:model/InlineObject51}
      */
-  InlineObject51,
-  /**
+    InlineObject51,
+
+    /**
      * The InlineObject52 model constructor.
      * @property {module:model/InlineObject52}
      */
-  InlineObject52,
-  /**
+    InlineObject52,
+
+    /**
      * The InlineObject53 model constructor.
      * @property {module:model/InlineObject53}
      */
-  InlineObject53,
-  /**
+    InlineObject53,
+
+    /**
      * The InlineObject54 model constructor.
      * @property {module:model/InlineObject54}
      */
-  InlineObject54,
-  /**
+    InlineObject54,
+
+    /**
      * The InlineObject55 model constructor.
      * @property {module:model/InlineObject55}
      */
-  InlineObject55,
-  /**
+    InlineObject55,
+
+    /**
      * The InlineObject56 model constructor.
      * @property {module:model/InlineObject56}
      */
-  InlineObject56,
-  /**
+    InlineObject56,
+
+    /**
      * The InlineObject57 model constructor.
      * @property {module:model/InlineObject57}
      */
-  InlineObject57,
-  /**
+    InlineObject57,
+
+    /**
      * The InlineObject58 model constructor.
      * @property {module:model/InlineObject58}
      */
-  InlineObject58,
-  /**
+    InlineObject58,
+
+    /**
      * The InlineObject59 model constructor.
      * @property {module:model/InlineObject59}
      */
-  InlineObject59,
-  /**
+    InlineObject59,
+
+    /**
      * The InlineObject6 model constructor.
      * @property {module:model/InlineObject6}
      */
-  InlineObject6,
-  /**
+    InlineObject6,
+
+    /**
      * The InlineObject60 model constructor.
      * @property {module:model/InlineObject60}
      */
-  InlineObject60,
-  /**
+    InlineObject60,
+
+    /**
      * The InlineObject61 model constructor.
      * @property {module:model/InlineObject61}
      */
-  InlineObject61,
-  /**
+    InlineObject61,
+
+    /**
      * The InlineObject62 model constructor.
      * @property {module:model/InlineObject62}
      */
-  InlineObject62,
-  /**
+    InlineObject62,
+
+    /**
      * The InlineObject63 model constructor.
      * @property {module:model/InlineObject63}
      */
-  InlineObject63,
-  /**
+    InlineObject63,
+
+    /**
      * The InlineObject64 model constructor.
      * @property {module:model/InlineObject64}
      */
-  InlineObject64,
-  /**
+    InlineObject64,
+
+    /**
      * The InlineObject65 model constructor.
      * @property {module:model/InlineObject65}
      */
-  InlineObject65,
-  /**
+    InlineObject65,
+
+    /**
      * The InlineObject66 model constructor.
      * @property {module:model/InlineObject66}
      */
-  InlineObject66,
-  /**
+    InlineObject66,
+
+    /**
      * The InlineObject67 model constructor.
      * @property {module:model/InlineObject67}
      */
-  InlineObject67,
-  /**
+    InlineObject67,
+
+    /**
      * The InlineObject68 model constructor.
      * @property {module:model/InlineObject68}
      */
-  InlineObject68,
-  /**
+    InlineObject68,
+
+    /**
      * The InlineObject69 model constructor.
      * @property {module:model/InlineObject69}
      */
-  InlineObject69,
-  /**
+    InlineObject69,
+
+    /**
      * The InlineObject7 model constructor.
      * @property {module:model/InlineObject7}
      */
-  InlineObject7,
-  /**
+    InlineObject7,
+
+    /**
      * The InlineObject70 model constructor.
      * @property {module:model/InlineObject70}
      */
-  InlineObject70,
-  /**
+    InlineObject70,
+
+    /**
      * The InlineObject71 model constructor.
      * @property {module:model/InlineObject71}
      */
-  InlineObject71,
-  /**
+    InlineObject71,
+
+    /**
      * The InlineObject72 model constructor.
      * @property {module:model/InlineObject72}
      */
-  InlineObject72,
-  /**
+    InlineObject72,
+
+    /**
      * The InlineObject73 model constructor.
      * @property {module:model/InlineObject73}
      */
-  InlineObject73,
-  /**
+    InlineObject73,
+
+    /**
      * The InlineObject74 model constructor.
      * @property {module:model/InlineObject74}
      */
-  InlineObject74,
-  /**
+    InlineObject74,
+
+    /**
      * The InlineObject75 model constructor.
      * @property {module:model/InlineObject75}
      */
-  InlineObject75,
-  /**
+    InlineObject75,
+
+    /**
+     * The InlineObject76 model constructor.
+     * @property {module:model/InlineObject76}
+     */
+    InlineObject76,
+
+    /**
      * The InlineObject8 model constructor.
      * @property {module:model/InlineObject8}
      */
-  InlineObject8,
-  /**
+    InlineObject8,
+
+    /**
      * The InlineObject9 model constructor.
      * @property {module:model/InlineObject9}
      */
-  InlineObject9,
-  /**
+    InlineObject9,
+
+    /**
      * The InlineResponse200 model constructor.
      * @property {module:model/InlineResponse200}
      */
-  InlineResponse200,
-  /**
+    InlineResponse200,
+
+    /**
      * The InlineResponse2001 model constructor.
      * @property {module:model/InlineResponse2001}
      */
-  InlineResponse2001,
-  /**
+    InlineResponse2001,
+
+    /**
      * The InlineResponse20010 model constructor.
      * @property {module:model/InlineResponse20010}
      */
-  InlineResponse20010,
-  /**
+    InlineResponse20010,
+
+    /**
      * The InlineResponse20011 model constructor.
      * @property {module:model/InlineResponse20011}
      */
-  InlineResponse20011,
-  /**
+    InlineResponse20011,
+
+    /**
      * The InlineResponse20012 model constructor.
      * @property {module:model/InlineResponse20012}
      */
-  InlineResponse20012,
-  /**
+    InlineResponse20012,
+
+    /**
      * The InlineResponse20013 model constructor.
      * @property {module:model/InlineResponse20013}
      */
-  InlineResponse20013,
-  /**
+    InlineResponse20013,
+
+    /**
      * The InlineResponse20014 model constructor.
      * @property {module:model/InlineResponse20014}
      */
-  InlineResponse20014,
-  /**
+    InlineResponse20014,
+
+    /**
      * The InlineResponse20015 model constructor.
      * @property {module:model/InlineResponse20015}
      */
-  InlineResponse20015,
-  /**
+    InlineResponse20015,
+
+    /**
      * The InlineResponse20016 model constructor.
      * @property {module:model/InlineResponse20016}
      */
-  InlineResponse20016,
-  /**
+    InlineResponse20016,
+
+    /**
      * The InlineResponse20017 model constructor.
      * @property {module:model/InlineResponse20017}
      */
-  InlineResponse20017,
-  /**
+    InlineResponse20017,
+
+    /**
      * The InlineResponse20018 model constructor.
      * @property {module:model/InlineResponse20018}
      */
-  InlineResponse20018,
-  /**
+    InlineResponse20018,
+
+    /**
      * The InlineResponse20019 model constructor.
      * @property {module:model/InlineResponse20019}
      */
-  InlineResponse20019,
-  /**
+    InlineResponse20019,
+
+    /**
      * The InlineResponse2002 model constructor.
      * @property {module:model/InlineResponse2002}
      */
-  InlineResponse2002,
-  /**
+    InlineResponse2002,
+
+    /**
      * The InlineResponse20020 model constructor.
      * @property {module:model/InlineResponse20020}
      */
-  InlineResponse20020,
-  /**
+    InlineResponse20020,
+
+    /**
      * The InlineResponse20021 model constructor.
      * @property {module:model/InlineResponse20021}
      */
-  InlineResponse20021,
-  /**
+    InlineResponse20021,
+
+    /**
      * The InlineResponse20022 model constructor.
      * @property {module:model/InlineResponse20022}
      */
-  InlineResponse20022,
-  /**
+    InlineResponse20022,
+
+    /**
      * The InlineResponse20023 model constructor.
      * @property {module:model/InlineResponse20023}
      */
-  InlineResponse20023,
-  /**
+    InlineResponse20023,
+
+    /**
      * The InlineResponse20024 model constructor.
      * @property {module:model/InlineResponse20024}
      */
-  InlineResponse20024,
-  /**
+    InlineResponse20024,
+
+    /**
      * The InlineResponse20025 model constructor.
      * @property {module:model/InlineResponse20025}
      */
-  InlineResponse20025,
-  /**
+    InlineResponse20025,
+
+    /**
      * The InlineResponse20026 model constructor.
      * @property {module:model/InlineResponse20026}
      */
-  InlineResponse20026,
-  /**
+    InlineResponse20026,
+
+    /**
      * The InlineResponse20026Details model constructor.
      * @property {module:model/InlineResponse20026Details}
      */
-  InlineResponse20026Details,
-  /**
+    InlineResponse20026Details,
+
+    /**
      * The InlineResponse2002AllowedUrls model constructor.
      * @property {module:model/InlineResponse2002AllowedUrls}
      */
-  InlineResponse2002AllowedUrls,
-  /**
+    InlineResponse2002AllowedUrls,
+
+    /**
      * The InlineResponse2002PermissionGroups model constructor.
      * @property {module:model/InlineResponse2002PermissionGroups}
      */
-  InlineResponse2002PermissionGroups,
-  /**
+    InlineResponse2002PermissionGroups,
+
+    /**
      * The InlineResponse2002Permissions model constructor.
      * @property {module:model/InlineResponse2002Permissions}
      */
-  InlineResponse2002Permissions,
-  /**
+    InlineResponse2002Permissions,
+
+    /**
      * The InlineResponse2003 model constructor.
      * @property {module:model/InlineResponse2003}
      */
-  InlineResponse2003,
-  /**
+    InlineResponse2003,
+
+    /**
      * The InlineResponse2004 model constructor.
      * @property {module:model/InlineResponse2004}
      */
-  InlineResponse2004,
-  /**
+    InlineResponse2004,
+
+    /**
      * The InlineResponse2005 model constructor.
      * @property {module:model/InlineResponse2005}
      */
-  InlineResponse2005,
-  /**
+    InlineResponse2005,
+
+    /**
      * The InlineResponse2006 model constructor.
      * @property {module:model/InlineResponse2006}
      */
-  InlineResponse2006,
-  /**
+    InlineResponse2006,
+
+    /**
      * The InlineResponse2007 model constructor.
      * @property {module:model/InlineResponse2007}
      */
-  InlineResponse2007,
-  /**
+    InlineResponse2007,
+
+    /**
      * The InlineResponse2008 model constructor.
      * @property {module:model/InlineResponse2008}
      */
-  InlineResponse2008,
-  /**
+    InlineResponse2008,
+
+    /**
      * The InlineResponse2009 model constructor.
      * @property {module:model/InlineResponse2009}
      */
-  InlineResponse2009,
-  /**
+    InlineResponse2009,
+
+    /**
      * The InlineResponse201 model constructor.
      * @property {module:model/InlineResponse201}
      */
-  InlineResponse201,
-  /**
+    InlineResponse201,
+
+    /**
      * The InlineResponse2011 model constructor.
      * @property {module:model/InlineResponse2011}
      */
-  InlineResponse2011,
-  /**
+    InlineResponse2011,
+
+    /**
      * The InlineResponse2012 model constructor.
      * @property {module:model/InlineResponse2012}
      */
-  InlineResponse2012,
-  /**
+    InlineResponse2012,
+
+    /**
      * The InlineResponse2013 model constructor.
      * @property {module:model/InlineResponse2013}
      */
-  InlineResponse2013,
-  /**
+    InlineResponse2013,
+
+    /**
      * The InlineResponse2014 model constructor.
      * @property {module:model/InlineResponse2014}
      */
-  InlineResponse2014,
-  /**
+    InlineResponse2014,
+
+    /**
      * The InlineResponse2015 model constructor.
      * @property {module:model/InlineResponse2015}
      */
-  InlineResponse2015,
-  /**
+    InlineResponse2015,
+
+    /**
      * The InlineResponse2016 model constructor.
      * @property {module:model/InlineResponse2016}
      */
-  InlineResponse2016,
-  /**
+    InlineResponse2016,
+
+    /**
      * The InlineResponse2017 model constructor.
      * @property {module:model/InlineResponse2017}
      */
-  InlineResponse2017,
-  /**
+    InlineResponse2017,
+
+    /**
      * The InlineResponse2018 model constructor.
      * @property {module:model/InlineResponse2018}
      */
-  InlineResponse2018,
-  /**
+    InlineResponse2018,
+
+    /**
      * The InlineResponse2019 model constructor.
      * @property {module:model/InlineResponse2019}
      */
-  InlineResponse2019,
-  /**
+    InlineResponse2019,
+
+    /**
      * The InternalServerError model constructor.
      * @property {module:model/InternalServerError}
      */
-  InternalServerError,
-  /**
+    InternalServerError,
+
+    /**
      * The LinkSubuserInputSchema model constructor.
      * @property {module:model/LinkSubuserInputSchema}
      */
-  LinkSubuserInputSchema,
-  /**
+    LinkSubuserInputSchema,
+
+    /**
      * The MePatchInputSchema model constructor.
      * @property {module:model/MePatchInputSchema}
      */
-  MePatchInputSchema,
-  /**
+    MePatchInputSchema,
+
+    /**
      * The NotFoundError model constructor.
      * @property {module:model/NotFoundError}
      */
-  NotFoundError,
-  /**
+    NotFoundError,
+
+    /**
      * The ParamsGuid model constructor.
      * @property {module:model/ParamsGuid}
      */
-  ParamsGuid,
-  /**
+    ParamsGuid,
+
+    /**
      * The PasteSuccessfully model constructor.
      * @property {module:model/PasteSuccessfully}
      */
-  PasteSuccessfully,
-  /**
+    PasteSuccessfully,
+
+    /**
      * The PayloadTooLarge model constructor.
      * @property {module:model/PayloadTooLarge}
      */
-  PayloadTooLarge,
-  /**
+    PayloadTooLarge,
+
+    /**
      * The PermissionGetDtoSchema model constructor.
      * @property {module:model/PermissionGetDtoSchema}
      */
-  PermissionGetDtoSchema,
-  /**
+    PermissionGetDtoSchema,
+
+    /**
      * The PermissionGroupGetDtoSchema model constructor.
      * @property {module:model/PermissionGroupGetDtoSchema}
      */
-  PermissionGroupGetDtoSchema,
-  /**
+    PermissionGroupGetDtoSchema,
+
+    /**
      * The PermissionGroupGetDtoSchemaPermissions model constructor.
      * @property {module:model/PermissionGroupGetDtoSchemaPermissions}
      */
-  PermissionGroupGetDtoSchemaPermissions,
-  /**
+    PermissionGroupGetDtoSchemaPermissions,
+
+    /**
      * The PermissionGroupPatchDtoSchema model constructor.
      * @property {module:model/PermissionGroupPatchDtoSchema}
      */
-  PermissionGroupPatchDtoSchema,
-  /**
+    PermissionGroupPatchDtoSchema,
+
+    /**
      * The PermissionGroupPostDtoSchema model constructor.
      * @property {module:model/PermissionGroupPostDtoSchema}
      */
-  PermissionGroupPostDtoSchema,
-  /**
+    PermissionGroupPostDtoSchema,
+
+    /**
      * The PermissionPatchDtoSchema model constructor.
      * @property {module:model/PermissionPatchDtoSchema}
      */
-  PermissionPatchDtoSchema,
-  /**
+    PermissionPatchDtoSchema,
+
+    /**
      * The PermissionPatchDtoSchemaAllowedUrls model constructor.
      * @property {module:model/PermissionPatchDtoSchemaAllowedUrls}
      */
-  PermissionPatchDtoSchemaAllowedUrls,
-  /**
+    PermissionPatchDtoSchemaAllowedUrls,
+
+    /**
      * The PermissionPostDtoSchema model constructor.
      * @property {module:model/PermissionPostDtoSchema}
      */
-  PermissionPostDtoSchema,
-  /**
+    PermissionPostDtoSchema,
+
+    /**
      * The QuerystringGetDTOSchema model constructor.
      * @property {module:model/QuerystringGetDTOSchema}
      */
-  QuerystringGetDTOSchema,
-  /**
+    QuerystringGetDTOSchema,
+
+    /**
      * The SetPermissionsForUsersPathDTOSchema model constructor.
      * @property {module:model/SetPermissionsForUsersPathDTOSchema}
      */
-  SetPermissionsForUsersPathDTOSchema,
-  /**
+    SetPermissionsForUsersPathDTOSchema,
+
+    /**
      * The SignInResponseSchema model constructor.
      * @property {module:model/SignInResponseSchema}
      */
-  SignInResponseSchema,
-  /**
+    SignInResponseSchema,
+
+    /**
      * The SigninInputSchema model constructor.
      * @property {module:model/SigninInputSchema}
      */
-  SigninInputSchema,
-  /**
+    SigninInputSchema,
+
+    /**
      * The SubUserPatchDtoSchema model constructor.
      * @property {module:model/SubUserPatchDtoSchema}
      */
-  SubUserPatchDtoSchema,
-  /**
+    SubUserPatchDtoSchema,
+
+    /**
      * The SuccessResponseBodyWithGuid model constructor.
      * @property {module:model/SuccessResponseBodyWithGuid}
      */
-  SuccessResponseBodyWithGuid,
-  /**
+    SuccessResponseBodyWithGuid,
+
+    /**
      * The UnLinkSubuserInputSchema model constructor.
      * @property {module:model/UnLinkSubuserInputSchema}
      */
-  UnLinkSubuserInputSchema,
-  /**
+    UnLinkSubuserInputSchema,
+
+    /**
      * The UnauthorizedError model constructor.
      * @property {module:model/UnauthorizedError}
      */
-  UnauthorizedError,
-  /**
+    UnauthorizedError,
+
+    /**
      * The UpdatedSuccessfully model constructor.
      * @property {module:model/UpdatedSuccessfully}
      */
-  UpdatedSuccessfully,
-  /**
+    UpdatedSuccessfully,
+
+    /**
      * The UserAdminFullSchema model constructor.
      * @property {module:model/UserAdminFullSchema}
      */
-  UserAdminFullSchema,
-  /**
+    UserAdminFullSchema,
+
+    /**
      * The UserFullSchema model constructor.
      * @property {module:model/UserFullSchema}
      */
-  UserFullSchema,
-  /**
+    UserFullSchema,
+
+    /**
      * The UserInfoSchema model constructor.
      * @property {module:model/UserInfoSchema}
      */
-  UserInfoSchema,
-  /**
+    UserInfoSchema,
+
+    /**
      * The UserInfoSchemaNeedConfirmPriceChange model constructor.
      * @property {module:model/UserInfoSchemaNeedConfirmPriceChange}
      */
-  UserInfoSchemaNeedConfirmPriceChange,
-  /**
+    UserInfoSchemaNeedConfirmPriceChange,
+
+    /**
      * The UserInfoSchemaNeedUpdateTariff model constructor.
      * @property {module:model/UserInfoSchemaNeedUpdateTariff}
      */
-  UserInfoSchemaNeedUpdateTariff,
-  /**
+    UserInfoSchemaNeedUpdateTariff,
+
+    /**
      * The UserInfoSchemaPermissionGroups model constructor.
      * @property {module:model/UserInfoSchemaPermissionGroups}
      */
-  UserInfoSchemaPermissionGroups,
-  /**
+    UserInfoSchemaPermissionGroups,
+
+    /**
      * The UserInfoSchemaPermissions model constructor.
      * @property {module:model/UserInfoSchemaPermissions}
      */
-  UserInfoSchemaPermissions,
-  /**
+    UserInfoSchemaPermissions,
+
+    /**
      * The UserRegisterSchema model constructor.
      * @property {module:model/UserRegisterSchema}
      */
-  UserRegisterSchema,
-  /**
+    UserRegisterSchema,
+
+    /**
      * The UserSettingInputSchema model constructor.
      * @property {module:model/UserSettingInputSchema}
      */
-  UserSettingInputSchema,
-  /**
+    UserSettingInputSchema,
+
+    /**
      * The UserSettingInputSchemaData model constructor.
      * @property {module:model/UserSettingInputSchemaData}
      */
-  UserSettingInputSchemaData,
-  /**
+    UserSettingInputSchemaData,
+
+    /**
      * The UserSettingPatchSchema model constructor.
      * @property {module:model/UserSettingPatchSchema}
      */
-  UserSettingPatchSchema,
-  /**
+    UserSettingPatchSchema,
+
+    /**
      * The UserSettingPostResponseSchema model constructor.
      * @property {module:model/UserSettingPostResponseSchema}
      */
-  UserSettingPostResponseSchema,
-  /**
+    UserSettingPostResponseSchema,
+
+    /**
      * The UserSettingResponseSchema model constructor.
      * @property {module:model/UserSettingResponseSchema}
      */
-  UserSettingResponseSchema,
-  /**
+    UserSettingResponseSchema,
+
+    /**
     * The AdministratorApi service constructor.
     * @property {module:api/AdministratorApi}
     */
-  AdministratorApi,
-  /**
+    AdministratorApi,
+
+    /**
     * The BatchesApi service constructor.
     * @property {module:api/BatchesApi}
     */
-  BatchesApi,
-  /**
+    BatchesApi,
+
+    /**
     * The BoxesApi service constructor.
     * @property {module:api/BoxesApi}
     */
-  BoxesApi,
-  /**
+    BoxesApi,
+
+    /**
     * The BuyerApi service constructor.
     * @property {module:api/BuyerApi}
     */
-  BuyerApi,
-  /**
+    BuyerApi,
+
+    /**
     * The ClientApi service constructor.
     * @property {module:api/ClientApi}
     */
-  ClientApi,
-  /**
+    ClientApi,
+
+    /**
     * The GoLoginApi service constructor.
     * @property {module:api/GoLoginApi}
     */
-  GoLoginApi,
-  /**
+    GoLoginApi,
+
+    /**
     * The IntegrationsApi service constructor.
     * @property {module:api/IntegrationsApi}
     */
-  IntegrationsApi,
-  /**
+    IntegrationsApi,
+
+    /**
     * The OtherApi service constructor.
     * @property {module:api/OtherApi}
     */
-  OtherApi,
-  /**
+    OtherApi,
+
+    /**
     * The PermissionsApi service constructor.
     * @property {module:api/PermissionsApi}
     */
-  PermissionsApi,
-  /**
+    PermissionsApi,
+
+    /**
     * The ProductApi service constructor.
     * @property {module:api/ProductApi}
     */
-  ProductApi,
-  /**
+    ProductApi,
+
+    /**
     * The RequestProposalsApi service constructor.
     * @property {module:api/RequestProposalsApi}
     */
-  RequestProposalsApi,
-  /**
+    RequestProposalsApi,
+
+    /**
     * The RequestsApi service constructor.
     * @property {module:api/RequestsApi}
     */
-  RequestsApi,
-  /**
+    RequestsApi,
+
+    /**
     * The ResearcherApi service constructor.
     * @property {module:api/ResearcherApi}
     */
-  ResearcherApi,
-  /**
+    ResearcherApi,
+
+    /**
     * The ShopApi service constructor.
     * @property {module:api/ShopApi}
     */
-  ShopApi,
-  /**
+    ShopApi,
+
+    /**
     * The StorekeepersApi service constructor.
     * @property {module:api/StorekeepersApi}
     */
-  StorekeepersApi,
-  /**
+    StorekeepersApi,
+
+    /**
     * The SupervisorApi service constructor.
     * @property {module:api/SupervisorApi}
     */
-  SupervisorApi,
-  /**
+    SupervisorApi,
+
+    /**
     * The SupplierApi service constructor.
     * @property {module:api/SupplierApi}
     */
-  SupplierApi,
-  /**
+    SupplierApi,
+
+    /**
     * The UserApi service constructor.
     * @property {module:api/UserApi}
     */
-  UserApi,
-}
+    UserApi
+};

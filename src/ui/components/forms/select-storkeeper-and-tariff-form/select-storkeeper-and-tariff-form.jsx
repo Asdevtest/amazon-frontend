@@ -34,94 +34,98 @@ const TabPanel = ({children, value, index, ...other}) => (
   </div>
 )
 
-export const SelectStorekeeperAndTariffForm = observer(({storekeepers, curStorekeeperId, curTariffId, onSubmit}) => {
-  const classNames = useClassNames()
+export const SelectStorekeeperAndTariffForm = observer(
+  ({storekeepers, curStorekeeperId, curTariffId, onSubmit, inNotifications}) => {
+    const classNames = useClassNames()
 
-  const [tabIndex, setTabIndex] = React.useState(0)
-  const tabItemStyles = twitterTabsStylesHook.useTabItem()
+    const [tabIndex, setTabIndex] = React.useState(0)
+    const tabItemStyles = twitterTabsStylesHook.useTabItem()
 
-  const [curStorekeeper, setCurStorekeeper] = useState(
-    curStorekeeperId
-      ? storekeepers.find(el => el._id === curStorekeeperId)
-      : storekeepers.slice().sort((a, b) => a.name.localeCompare(b.name))[0],
-  )
+    const [curStorekeeper, setCurStorekeeper] = useState(
+      curStorekeeperId
+        ? storekeepers.find(el => el._id === curStorekeeperId)
+        : storekeepers.slice().sort((a, b) => a.name.localeCompare(b.name))[0],
+    )
 
-  const onClickSelectTariff = tariffId => {
-    onSubmit(curStorekeeper._id, tariffId)
-  }
+    const onClickSelectTariff = tariffId => {
+      onSubmit(curStorekeeper._id, tariffId)
+    }
 
-  const getRowClassName = params => curTariffId === params.getValue(params.id, '_id') && classNames.attentionRow
+    const getRowClassName = params => curTariffId === params.getValue(params.id, '_id') && classNames.attentionRow
 
-  return (
-    <div className={classNames.root}>
-      <div className={classNames.boxesFiltersWrapper}>
-        {storekeepers
-          .slice()
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .map(storekeeper => (
-            <Button
-              key={storekeeper._id}
-              disabled={curStorekeeper?._id === storekeeper._id}
-              className={clsx(
-                classNames.button,
-                {
-                  [classNames.selectedBoxesBtn]: curStorekeeper?._id === storekeeper._id,
-                },
-                {
-                  [classNames.selectedStorekeeperBtn]: curStorekeeperId === storekeeper._id,
-                },
-              )}
-              variant="text"
-              color="primary"
-              onClick={() => setCurStorekeeper(storekeeper)}
-            >
-              {storekeeper.name}
-            </Button>
-          ))}
+    return (
+      <div className={classNames.root}>
+        <div className={classNames.boxesFiltersWrapper}>
+          {storekeepers
+            .slice()
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(storekeeper => (
+              <Button
+                key={storekeeper._id}
+                disabled={curStorekeeper?._id === storekeeper._id}
+                className={clsx(
+                  classNames.button,
+                  {
+                    [classNames.selectedBoxesBtn]: curStorekeeper?._id === storekeeper._id,
+                  },
+                  {
+                    [classNames.selectedStorekeeperBtn]: curStorekeeperId === storekeeper._id,
+                  },
+                )}
+                variant="text"
+                color="primary"
+                onClick={() => setCurStorekeeper(storekeeper)}
+              >
+                {storekeeper.name}
+              </Button>
+            ))}
+        </div>
+
+        <Tabs
+          variant={'fullWidth'}
+          classes={{
+            root: classNames.row,
+            indicator: classNames.indicator,
+          }}
+          value={tabIndex}
+          onChange={(e, index) => setTabIndex(index)}
+        >
+          <Tab classes={tabItemStyles} label={t(TranslationKey['Logistics tariffs'])} />
+          <Tab classes={tabItemStyles} label={t(TranslationKey['Tariffs of warehouse services'])} />
+        </Tabs>
+        <TabPanel value={tabIndex} index={0}>
+          <div className={classNames.tableWrapper}>
+            <DataGrid
+              hideFooter
+              getRowClassName={getRowClassName}
+              rows={
+                curStorekeeper.tariffLogistics?.length ? toJS(addIdDataConverter(curStorekeeper.tariffLogistics)) : []
+              }
+              columns={logisticsTariffsColumns({onClickSelectTariff})}
+              rowHeight={100}
+            />
+          </div>
+          {!inNotifications ? (
+            <div className={classNames.clearBtnWrapper}>
+              <Button disableElevation color="primary" variant={'outlined'} onClick={() => onSubmit('', '')}>
+                {t(TranslationKey.reset)}
+              </Button>
+            </div>
+          ) : null}
+        </TabPanel>
+        <TabPanel value={tabIndex} index={1}>
+          <div className={classNames.tableWrapper}>
+            <DataGrid
+              hideFooter
+              rows={
+                curStorekeeper.tariffWarehouses?.length ? toJS(addIdDataConverter(curStorekeeper.tariffWarehouses)) : []
+              }
+              columns={warehouseTariffsColumns()}
+              rowHeight={100}
+            />
+          </div>
+        </TabPanel>
       </div>
-
-      <Tabs
-        variant={'fullWidth'}
-        classes={{
-          root: classNames.row,
-          indicator: classNames.indicator,
-        }}
-        value={tabIndex}
-        onChange={(e, index) => setTabIndex(index)}
-      >
-        <Tab classes={tabItemStyles} label={t(TranslationKey['Logistics tariffs'])} />
-        <Tab classes={tabItemStyles} label={t(TranslationKey['Tariffs of warehouse services'])} />
-      </Tabs>
-      <TabPanel value={tabIndex} index={0}>
-        <div className={classNames.tableWrapper}>
-          <DataGrid
-            hideFooter
-            getRowClassName={getRowClassName}
-            rows={
-              curStorekeeper.tariffLogistics?.length ? toJS(addIdDataConverter(curStorekeeper.tariffLogistics)) : []
-            }
-            columns={logisticsTariffsColumns({onClickSelectTariff})}
-            rowHeight={100}
-          />
-        </div>
-        <div className={classNames.clearBtnWrapper}>
-          <Button disableElevation color="primary" variant={'outlined'} onClick={() => onSubmit('', '')}>
-            {t(TranslationKey.reset)}
-          </Button>
-        </div>
-      </TabPanel>
-      <TabPanel value={tabIndex} index={1}>
-        <div className={classNames.tableWrapper}>
-          <DataGrid
-            hideFooter
-            rows={
-              curStorekeeper.tariffWarehouses?.length ? toJS(addIdDataConverter(curStorekeeper.tariffWarehouses)) : []
-            }
-            columns={warehouseTariffsColumns()}
-            rowHeight={100}
-          />
-        </div>
-      </TabPanel>
-    </div>
-  )
-})
+    )
+  },
+)

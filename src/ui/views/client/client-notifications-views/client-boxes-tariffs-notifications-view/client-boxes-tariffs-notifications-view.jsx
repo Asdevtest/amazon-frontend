@@ -11,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {BoxViewForm} from '@components/forms/box-view-form'
+import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -35,6 +36,7 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
 
   render() {
     const {
+      storekeepersData,
       volumeWeightCoefficient,
       curBox,
       showBoxViewModal,
@@ -53,12 +55,14 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
       onChangeRowsPerPage,
       setCurrentOpenedBox,
       showConfirmModal,
+      showSelectionStorekeeperAndTariffModal,
       confirmModalSettings,
       onTriggerOpenModal,
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      onSubmitSelectTariff,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -125,6 +129,19 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
           }}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
+
+        <Modal
+          openModal={showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')}
+        >
+          <SelectStorekeeperAndTariffForm
+            inNotifications
+            storekeepers={storekeepersData.filter(el => el._id === curBox?.storekeeper._id)}
+            curStorekeeperId={curBox?.storekeeperId}
+            curTariffId={curBox?.logicsTariffId}
+            onSubmit={onSubmitSelectTariff}
+          />
+        </Modal>
 
         <Modal openModal={showBoxViewModal} setOpenModal={() => onTriggerOpenModal('showBoxViewModal')}>
           <BoxViewForm

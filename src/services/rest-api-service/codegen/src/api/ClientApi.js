@@ -25,6 +25,7 @@ import InlineObject33 from '../model/InlineObject33';
 import InlineObject34 from '../model/InlineObject34';
 import InlineObject35 from '../model/InlineObject35';
 import InlineObject36 from '../model/InlineObject36';
+import InlineObject37 from '../model/InlineObject37';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse20010 from '../model/InlineResponse20010';
 import InlineResponse20011 from '../model/InlineResponse20011';
@@ -109,7 +110,7 @@ export default class ClientApi {
      * @param {String} guid GUID коробки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject36} opts.body 
+     * @param {module:model/InlineObject37} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatchWithHttpInfo(guid, opts) {
@@ -148,7 +149,7 @@ export default class ClientApi {
      * @param {String} guid GUID коробки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject36} opts.body 
+     * @param {module:model/InlineObject37} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch(guid, opts) {
@@ -161,7 +162,7 @@ export default class ClientApi {
 
     /**
      * Вернуть коробки обратно на склад.
-     * ## Вернуть коробки обратно на склад  Данный метод нужен чтобы отменить запрос на отправку в партию или при отказе клиентом изменения цены          У клиента будут разморожены средства на доставку.         У коробок статус вернется на статус IN_STOCK         затирается партия (batchId = null)         Проверки:         Доступен только для коробок со статусами REQUESTED_SEND_TO_BATCH, NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE
+     * ## Вернуть коробки обратно на склад  Данный метод нужен чтобы отменить запрос на отправку в партию или при отказе клиентом изменения цены          У клиента будут разморожены средства на доставку.         У коробок статус вернется на статус IN_STOCK         затирается партия (batchId = null)         Проверки:         Доступен только для коробок со статусами REQUESTED_SEND_TO_BATCH, NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE, NEED_TO_UPDATE_THE_TARIFF
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<module:model/InlineObject1>} opts.body 
@@ -194,7 +195,7 @@ export default class ClientApi {
 
     /**
      * Вернуть коробки обратно на склад.
-     * ## Вернуть коробки обратно на склад  Данный метод нужен чтобы отменить запрос на отправку в партию или при отказе клиентом изменения цены          У клиента будут разморожены средства на доставку.         У коробок статус вернется на статус IN_STOCK         затирается партия (batchId = null)         Проверки:         Доступен только для коробок со статусами REQUESTED_SEND_TO_BATCH, NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE
+     * ## Вернуть коробки обратно на склад  Данный метод нужен чтобы отменить запрос на отправку в партию или при отказе клиентом изменения цены          У клиента будут разморожены средства на доставку.         У коробок статус вернется на статус IN_STOCK         затирается партия (batchId = null)         Проверки:         Доступен только для коробок со статусами REQUESTED_SEND_TO_BATCH, NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE, NEED_TO_UPDATE_THE_TARIFF
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<module:model/InlineObject1>} opts.body 
@@ -202,6 +203,55 @@ export default class ClientApi {
      */
     apiV1ClientsBoxesReturnBoxesToStockPost(opts) {
       return this.apiV1ClientsBoxesReturnBoxesToStockPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Обновить тариф если тариф был удален.
+     * ## Обновить тариф если тариф был удален.  У коробок статус вернется на статус IN_BATCH или REQUESTED_SEND_TO_BATCH, в зависимости от того есть у коробки batchId         У клиента будут разморожены/разморожены средства на доставку в зависимости разницы стоимости.         Проверки:         Доступен только для коробок со статусами NEED_TO_UPDATE_THE_TARIFF
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject36} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/clients/boxes/update_tariff_if_tariff_was_deleted', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Обновить тариф если тариф был удален.
+     * ## Обновить тариф если тариф был удален.  У коробок статус вернется на статус IN_BATCH или REQUESTED_SEND_TO_BATCH, в зависимости от того есть у коробки batchId         У клиента будут разморожены/разморожены средства на доставку в зависимости разницы стоимости.         Проверки:         Доступен только для коробок со статусами NEED_TO_UPDATE_THE_TARIFF
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject36} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost(opts) {
+      return this.apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPostWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

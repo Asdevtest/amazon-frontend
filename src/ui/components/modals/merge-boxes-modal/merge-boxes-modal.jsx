@@ -37,7 +37,7 @@ export const MergeBoxesModal = ({
   const [boxBody, setBoxBody] = useState({
     shippingLabel: null,
     destinationId: selectedBoxes.some(box => box.destinationId !== selectedBoxes[0].destinationId)
-      ? ''
+      ? null
       : selectedBoxes[0].destinationId,
 
     storekeeperId: selectedBoxes.some(box => box.storekeeperId !== selectedBoxes[0].storekeeperId)
@@ -55,13 +55,13 @@ export const MergeBoxesModal = ({
   const [comment, setComment] = useState('')
   const onSubmitBoxesModal = () => {
     onSubmit(boxBody, comment)
-    setBoxBody({shippingLabel: '', destinationId: '', logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
+    setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
     setComment('')
   }
 
   const onCloseBoxesModal = () => {
     setOpenModal()
-    setBoxBody({shippingLabel: '', destinationId: '', logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
+    setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
     setComment('')
   }
 
@@ -96,7 +96,6 @@ export const MergeBoxesModal = ({
 
   const disabledSubmit =
     requestStatus === loadingStatuses.isLoading ||
-    // boxBody.destinationId === '' ||
     boxBody.logicsTariffId === '' ||
     selectedBoxes.length < 2 ||
     (boxBody.shippingLabel?.length < 5 && boxBody.shippingLabel?.length > 0) ||

@@ -107,6 +107,11 @@ class ClientModelStatic {
     return response
   }
 
+  updateTariffIfTariffWasDeleted = async data => {
+    const response = await restApiService.clientApi.apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost({body: data})
+    return response
+  }
+
   boxConfirmPriceChange = async boxId => {
     const response = await restApiService.clientApi.apiV1ClientsBoxesConfirmDeliveryPriceChangePost({body: [{boxId}]})
     return response
