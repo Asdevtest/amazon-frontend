@@ -12,7 +12,7 @@ import {Modal} from '@components/modal'
 import {calcVolumeWeightForBox, calcFinalWeightForBox} from '@utils/calculation'
 import {getShortenStringIfLongerThanCount} from '@utils/change-string-length'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {toFixed, toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
+import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './request-to-send-batch-box.styles'
@@ -219,7 +219,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
           )}
         </div>
       </div>
-      <div className={clsx(tableCellClsx, classNames.pricePerAmoutCell)}>
+      {/* <div className={clsx(tableCellClsx, classNames.pricePerAmoutCell)}>
         {box.items.map((item, index) => (
           <div key={index}>
             <div className={clsx(tableCellClsx, classNames.priceCell)}>
@@ -230,12 +230,12 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
             <div className={clsx(tableCellClsx, classNames.priceCellRight)}>
               <Typography variant="h5">
-                {item.product.currentSupplier.boxProperties.boxWeighGrossKg
+                {item.product.currentSupplier.boxProperties?.boxWeighGrossKg
                   ? toFixedWithDollarSign(
                       (price *
                         toFixed(
-                          ((item.product.currentSupplier.boxProperties.boxWeighGrossKg /
-                            item.product.currentSupplier.boxProperties.amountInBox) *
+                          ((item.product.currentSupplier.boxProperties?.boxWeighGrossKg /
+                            item.product.currentSupplier.boxProperties?.amountInBox) *
                             item.amount) /
                             toFixed(box.weighGrossKgWarehouse, 2),
                         )) /
@@ -247,7 +247,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
       <div className={clsx(tableCellClsx, classNames.priceCell)}>
         <Typography className={classNames.spanText}>{t(TranslationKey['Box delivery cost'])}</Typography>

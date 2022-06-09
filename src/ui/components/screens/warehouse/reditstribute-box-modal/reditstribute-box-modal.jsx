@@ -457,8 +457,8 @@ export const RedistributeBox = ({
         <Field
           multiline
           className={classNames.heightFieldAuto}
-          rows={4}
-          rowsMax={6}
+          rows={15}
+          rowsMax={15}
           label={t(TranslationKey['Client comment on the task'])}
           placeholder={t(TranslationKey['Task commentary'])}
           value={comment}

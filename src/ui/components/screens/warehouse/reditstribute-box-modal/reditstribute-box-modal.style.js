@@ -8,7 +8,7 @@ export const useClassNames = makeStyles(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '320px',
+    width: 410,
   },
   currentBox: {
     marginBottom: '20px',
@@ -22,7 +22,7 @@ export const useClassNames = makeStyles(theme => ({
     marginBottom: '20px',
   },
   box: {
-    minWidth: '300px',
+    minWidth: 390,
   },
   order: {
     display: 'flex',
@@ -93,7 +93,7 @@ export const useClassNames = makeStyles(theme => ({
     color: 'white',
     fontSize: '13px',
     borderRadius: '4px',
-    width: '300px',
+    width: 350,
     height: '30px',
   },
   barcodeChipHover: {
@@ -108,7 +108,7 @@ export const useClassNames = makeStyles(theme => ({
     },
   },
   barcodeChiplabel: {
-    width: '300px',
+    width: 350,
     textAlign: 'center',
   },
 
@@ -117,7 +117,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   link: {
-    maxWidth: '325px',
+    maxWidth: 370,
     whiteSpace: 'nowrap',
     overflowX: 'auto',
   },
