@@ -45,14 +45,12 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: '400',
-    minHeight: '20px',
-    maxHeight: '100px',
+    height: 100,
     overflow: 'auto',
-    // marginBottom: '36px',
+    maxWidth: '400px',
   },
 
   cardSubTitle: {
-    // marginBottom: '20px',
     color: '#001029',
     fontSize: '16px',
     lineHeight: '19px',
@@ -62,14 +60,12 @@ export const useClassNames = makeStyles(() => ({
   proposalComment: {
     marginTop: '30px',
     marginBottom: '39px',
-    // maxWidth: '720px',
     overflow: 'auto',
     maxHeight: '90px',
   },
 
   rightBlockWrapper: {
     padding: '30px 0 30px 20px',
-    // marginLeft: '40px',
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
@@ -86,8 +82,6 @@ export const useClassNames = makeStyles(() => ({
   userInfoWrapper: {
     display: 'flex',
     alignItems: 'center',
-
-    // marginBottom: '30px',
   },
 
   userRating: {

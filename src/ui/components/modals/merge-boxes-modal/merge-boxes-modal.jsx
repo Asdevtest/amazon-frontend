@@ -54,7 +54,7 @@ export const MergeBoxesModal = ({
 
   const [comment, setComment] = useState('')
   const onSubmitBoxesModal = () => {
-    onSubmit(boxBody, comment)
+    onSubmit({...boxBody, destinationId: boxBody.destinationId || null}, comment)
     setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
     setComment('')
   }

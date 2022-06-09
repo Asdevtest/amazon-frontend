@@ -62,7 +62,7 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
-      onSubmitSelectTariff,
+      onClickConfirmTarrifChangeBtn,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -139,7 +139,7 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
             storekeepers={storekeepersData.filter(el => el._id === curBox?.storekeeper._id)}
             curStorekeeperId={curBox?.storekeeperId}
             curTariffId={curBox?.logicsTariffId}
-            onSubmit={onSubmitSelectTariff}
+            onSubmit={onClickConfirmTarrifChangeBtn}
           />
         </Modal>
 

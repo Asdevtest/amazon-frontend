@@ -819,7 +819,7 @@ export enum TranslationKey {
   'The product is bound' = 'The product is bound',
   'Restore the card?' = 'Restore the card?',
   'The products will appear in the inventory soon' = 'The products will appear in the inventory soon',
-  // '' = '',
+  'Confirm tariff selection' = 'Confirm tariff selection',
   // '' = '',
   // '' = '',
   // '' = '',
@@ -831,7 +831,7 @@ export enum TranslationKey {
   // '' = '',
 }
 
-// "Selected box with no destination": "Selected box with no destination"
+// "Confirm tariff selection": "Confirm tariff selection"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 
