@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {BoxStatus} from '@constants/box-status'
@@ -8,6 +9,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {clientBoxesTariffsNotificationsViewColumns} from '@components/table-columns/client/client-boxes-tariffs-notifications-columns'
@@ -27,7 +29,9 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
   curBox = undefined
   showBoxViewModal = false
+  showSelectionStorekeeperAndTariffModal = false
 
+  storekeepersData = []
   boxes = []
   drawerOpen = false
   showConfirmModal = false
@@ -97,16 +101,36 @@ export class ClientBoxesTariffsNotificationsViewModel {
     this.rowsPerPage = e
   }
 
-  onTriggerOpenConfirmModal(row) {
-    this.confirmModalSettings = {
-      isWarning: false,
-      message: `${t(TranslationKey['Additional payment is required:'])} ${toFixedWithDollarSign(
-        row.deliveryTotalPriceChanged - row.deliveryTotalPrice,
-        2,
-      )} ${t(TranslationKey['Do you confirm the extra payment?'])}`,
-      onClickOkBtn: () => this.onClickConfirmOrderPriceChangeBtn(row),
+  async getStorekeepers() {
+    try {
+      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
+
+      this.storekeepersData = result
+    } catch (error) {
+      console.log(error)
     }
-    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onTriggerOpenConfirmModal(row) {
+    try {
+      this.curBox = row
+
+      await this.getStorekeepers()
+      this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitSelectTariff(storekeeperId, tariffId) {
+    try {
+      await ClientModel.updateTariffIfTariffWasDeleted({boxId: this.curBox._id, logicsTariffId: tariffId})
+
+      this.loadData()
+      this.onTriggerOpenModal('showSelectionStorekeeperAndTariffModal')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onTriggerOpenRejectModal(row) {

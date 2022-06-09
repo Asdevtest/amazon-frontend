@@ -317,6 +317,7 @@ export const RedistributeBox = ({
     _id: 'new_id_' + Date.now(),
     items: emptyProducts,
     amount: 1,
+    destinationId: currentBox.destinationId || null,
     tmpShippingLabel: [],
   })
 
@@ -429,7 +430,6 @@ export const RedistributeBox = ({
     filterEmptyBoxes(newBoxes).length < 2 ||
     filterEmptyBoxes(newBoxes).some(
       el => (el.shippingLabel?.length < 5 && el.shippingLabel?.length > 0) || el.logicsTariffId === '',
-      // el.destinationId === '',
     )
 
   return (

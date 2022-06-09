@@ -11,9 +11,9 @@
  *
  */
 
-import ApiClient from '../ApiClient'
-import ApiV1AdminsGetProductsByStatusBoxProperties from './ApiV1AdminsGetProductsByStatusBoxProperties'
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy'
+import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusBoxProperties from './ApiV1AdminsGetProductsByStatusBoxProperties';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 
 /**
  * The ApiV1AdminsGetProductsByStatusSuppliers model module.
@@ -21,187 +21,197 @@ import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByS
  * @version 0.1.0
  */
 class ApiV1AdminsGetProductsByStatusSuppliers {
-  /**
+    /**
      * Constructs a new <code>ApiV1AdminsGetProductsByStatusSuppliers</code>.
      * Новый поставщик.
      * @alias module:model/ApiV1AdminsGetProductsByStatusSuppliers
      */
-  constructor() {
-    ApiV1AdminsGetProductsByStatusSuppliers.initialize(this)
-  }
+    constructor() { 
+        
+        ApiV1AdminsGetProductsByStatusSuppliers.initialize(this);
+    }
 
-  /**
+    /**
      * Initializes the fields of this object.
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-  static initialize(obj) {}
+    static initialize(obj) { 
+    }
 
-  /**
+    /**
      * Constructs a <code>ApiV1AdminsGetProductsByStatusSuppliers</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
      * @param {module:model/ApiV1AdminsGetProductsByStatusSuppliers} obj Optional instance to populate.
      * @return {module:model/ApiV1AdminsGetProductsByStatusSuppliers} The populated <code>ApiV1AdminsGetProductsByStatusSuppliers</code> instance.
      */
-  static constructFromObject(data, obj) {
-    if (data) {
-      obj = obj || new ApiV1AdminsGetProductsByStatusSuppliers()
+    static constructFromObject(data, obj) {
+        if (data) {
+            obj = obj || new ApiV1AdminsGetProductsByStatusSuppliers();
 
-      if (data.hasOwnProperty('_id')) {
-        obj['_id'] = ApiClient.convertToType(data['_id'], 'String')
-      }
-      if (data.hasOwnProperty('name')) {
-        obj['name'] = ApiClient.convertToType(data['name'], 'String')
-      }
-      if (data.hasOwnProperty('link')) {
-        obj['link'] = ApiClient.convertToType(data['link'], 'String')
-      }
-      if (data.hasOwnProperty('price')) {
-        obj['price'] = ApiClient.convertToType(data['price'], 'Number')
-      }
-      if (data.hasOwnProperty('amount')) {
-        obj['amount'] = ApiClient.convertToType(data['amount'], 'Number')
-      }
-      if (data.hasOwnProperty('minlot')) {
-        obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number')
-      }
-      if (data.hasOwnProperty('lotcost')) {
-        obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number')
-      }
-      if (data.hasOwnProperty('images')) {
-        obj['images'] = ApiClient.convertToType(data['images'], [ 'String' ])
-      }
-      if (data.hasOwnProperty('comment')) {
-        obj['comment'] = ApiClient.convertToType(data['comment'], 'String')
-      }
-      if (data.hasOwnProperty('yuanRate')) {
-        obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number')
-      }
-      if (data.hasOwnProperty('priceInYuan')) {
-        obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number')
-      }
-      if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
-        obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number')
-      }
-      if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
-        obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number')
-      }
-      if (data.hasOwnProperty('batchTotalCostInDollar')) {
-        obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number')
-      }
-      if (data.hasOwnProperty('batchTotalCostInYuan')) {
-        obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number')
-      }
-      if (data.hasOwnProperty('boxProperties')) {
-        obj['boxProperties'] = ApiV1AdminsGetProductsByStatusBoxProperties.constructFromObject(data['boxProperties'])
-      }
-      if (data.hasOwnProperty('createdBy')) {
-        obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy'])
-      }
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            }
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            }
+            if (data.hasOwnProperty('lotcost')) {
+                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('yuanRate')) {
+                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
+            }
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
+                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
+                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInDollar')) {
+                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInYuan')) {
+                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('boxProperties')) {
+                obj['boxProperties'] = ApiV1AdminsGetProductsByStatusBoxProperties.constructFromObject(data['boxProperties']);
+            }
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+            }
+        }
+        return obj;
     }
-    return obj
-  }
+
+
 }
 
 /**
  * GUID поставщика в БД
  * @member {String} _id
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['_id'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['_id'] = undefined;
 
 /**
  * Название поставщика.
  * @member {String} name
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['name'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['name'] = undefined;
 
 /**
  * Ссылка на поставщика.
  * @member {String} link
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['link'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['link'] = undefined;
 
 /**
  * Цена за еденицу, dollar
  * @member {Number} price
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['price'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['price'] = undefined;
 
 /**
  * кол-во
  * @member {Number} amount
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['amount'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['amount'] = undefined;
 
 /**
  * Минимальный лот.
  * @member {Number} minlot
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['minlot'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['minlot'] = undefined;
 
 /**
  * Стоимость лота.
  * @member {Number} lotcost
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['lotcost'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['lotcost'] = undefined;
 
 /**
  * Массив картинок.
  * @member {Array.<String>} images
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['images'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['images'] = undefined;
 
 /**
  * Комментарий
  * @member {String} comment
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['comment'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['comment'] = undefined;
 
 /**
  * Курс доллара к юаню поставщика. 
  * @member {Number} yuanRate
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['yuanRate'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['yuanRate'] = undefined;
 
 /**
  * Цена за еденицу, yuan
  * @member {Number} priceInYuan
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['priceInYuan'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['priceInYuan'] = undefined;
 
 /**
  * Доставка партии, dollar
  * @member {Number} batchDeliveryCostInDollar
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchDeliveryCostInDollar'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchDeliveryCostInDollar'] = undefined;
 
 /**
  * Доставка партии, yuan
  * @member {Number} batchDeliveryCostInYuan
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchDeliveryCostInYuan'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchDeliveryCostInYuan'] = undefined;
 
 /**
  * Цена партии, dollar
  * @member {Number} batchTotalCostInDollar
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchTotalCostInDollar'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchTotalCostInDollar'] = undefined;
 
 /**
  * Цена партии, yuan
  * @member {Number} batchTotalCostInYuan
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchTotalCostInYuan'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchTotalCostInYuan'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusBoxProperties} boxProperties
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxProperties'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxProperties'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['createdBy'] = undefined
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['createdBy'] = undefined;
 
-export default ApiV1AdminsGetProductsByStatusSuppliers
+
+
+
+
+
+export default ApiV1AdminsGetProductsByStatusSuppliers;
+

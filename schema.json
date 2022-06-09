@@ -27512,7 +27512,7 @@
                 },
                 "destinationId": {
                   "type": "string",
-                  "format": "uuid",
+                  "nullable": true,
                   "example": "ca67553b-dce5-42ca-98e6-0ab7c5560eee",
                   "description": "GUID пункта назначения."
                 },
@@ -28323,7 +28323,7 @@
                 },
                 "destinationId": {
                   "type": "string",
-                  "format": "uuid",
+                  "nullable": true,
                   "example": "ca67553b-dce5-42ca-98e6-0ab7c5560eee",
                   "description": "GUID пункта назначения."
                 },
@@ -30432,7 +30432,7 @@
     "/api/v1/clients/boxes/return_boxes_to_stock": {
       "post": {
         "summary": "Вернуть коробки обратно на склад.",
-        "description": "## Вернуть коробки обратно на склад \nДанный метод нужен чтобы отменить запрос на отправку в партию или при отказе клиентом изменения цены \n        У клиента будут разморожены средства на доставку.\n        У коробок статус вернется на статус IN_STOCK\n        затирается партия (batchId = null)\n        Проверки:\n        Доступен только для коробок со статусами REQUESTED_SEND_TO_BATCH, NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE",
+        "description": "## Вернуть коробки обратно на склад \nДанный метод нужен чтобы отменить запрос на отправку в партию или при отказе клиентом изменения цены \n        У клиента будут разморожены средства на доставку.\n        У коробок статус вернется на статус IN_STOCK\n        затирается партия (batchId = null)\n        Проверки:\n        Доступен только для коробок со статусами REQUESTED_SEND_TO_BATCH, NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE, NEED_TO_UPDATE_THE_TARIFF",
         "tags": [ "Client" ],
         "produces": [ "application/json" ],
         "parameters": [
@@ -30453,6 +30453,46 @@
                     "format": "uuid",
                     "description": "GUID коробки, который планируем изменить"
                   }
+                }
+              }
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [ {"AccessTokenBearer": []} ],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/clients/boxes/update_tariff_if_tariff_was_deleted": {
+      "post": {
+        "summary": "Обновить тариф если тариф был удален.",
+        "description": "## Обновить тариф если тариф был удален. \nУ коробок статус вернется на статус IN_BATCH или REQUESTED_SEND_TO_BATCH, в зависимости от того есть у коробки batchId\n        У клиента будут разморожены/разморожены средства на доставку в зависимости разницы стоимости.\n        Проверки:\n        Доступен только для коробок со статусами NEED_TO_UPDATE_THE_TARIFF",
+        "tags": [ "Client" ],
+        "produces": [ "application/json" ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "description": "Схема подтверждения возрата коробок на склад",
+              "required": [ "boxId", "logicsTariffId" ],
+              "additionalProperties": false,
+              "properties": {
+                "boxId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "GUID коробки, который планируем изменить"
+                },
+                "logicsTariffId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "GUID тарифа, на которую планируем изменить"
                 }
               }
             }

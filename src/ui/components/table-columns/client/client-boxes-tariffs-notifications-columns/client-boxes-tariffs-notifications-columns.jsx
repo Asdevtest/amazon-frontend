@@ -10,7 +10,6 @@ import {
   OrderManyItemsCell,
   renderFieldValueCell,
   SuperboxQtyCell,
-  ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -40,7 +39,7 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     field: 'action',
     headerName: t(TranslationKey.Action),
     width: 250,
-    renderCell: params => <ClientNotificationsBtnsCell disabled handlers={handlers} row={params.row.originalData} />,
+    renderCell: params => <ClientNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },
@@ -94,14 +93,6 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Tariff),
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
-  },
-
-  {
-    field: 'amazonPrice',
-    headerName: t(TranslationKey['Total price']),
-    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
-    width: 120,
-    type: 'number',
   },
 
   {
