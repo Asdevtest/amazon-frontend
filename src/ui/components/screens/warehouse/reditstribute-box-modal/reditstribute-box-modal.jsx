@@ -475,7 +475,7 @@ export const RedistributeBox = ({
             onClickRedistributeBtn()
           }}
         >
-          {t(TranslationKey['to redistribute'])}
+          {t(TranslationKey.Redistribute)}
         </Button>
         <Button
           disabled={totalProductsAmount < 1 && isMasterBox}

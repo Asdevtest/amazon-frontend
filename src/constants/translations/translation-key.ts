@@ -812,7 +812,7 @@ export enum TranslationKey {
   'Box merge task created' = 'Box merge task created',
   'Box splitting task created' = 'Box splitting task created',
   'Average delivery cost per pc' = 'Average delivery cost per pc',
-  'to redistribute' = 'to redistribute',
+  'To redistribute' = 'To redistribute',
   'Are you sure you want to delete the store?' = 'Are you sure you want to delete the store?',
   'Store created' = 'Store created',
   'Store changed' = 'Store changed',
