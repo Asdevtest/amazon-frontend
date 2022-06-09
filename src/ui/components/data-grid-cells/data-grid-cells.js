@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
 
 import {BoxStatus} from '@constants/box-status'
+import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
@@ -328,7 +329,7 @@ export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNam
   return (
     <div className={classNames.multilineTextWrapper}>
       <Typography className={classNames.multilineStatusText} style={{color: colorStatus}}>
-        {status.replace(/_/g, ' ')}
+        {MyRequestStatusTranslate(status)}
       </Typography>
     </div>
   )

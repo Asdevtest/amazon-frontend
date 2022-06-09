@@ -89,3 +89,53 @@ export const RequestProposalStatusColor = s => {
       return 'orange'
   }
 }
+
+export const MyRequestStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  IN_PROCESS: 'IN_PROCESS',
+  FORBID_NEW_PROPOSALS: 'FORBID_NEW_PROPOSALS',
+  COMPLETE_PROPOSALS_AMOUNT_ACHIEVED: 'COMPLETE_PROPOSALS_AMOUNT_ACHIEVED',
+  CANCELED_BY_CREATOR: 'CANCELED_BY_CREATOR',
+  VERIFYING_BY_ADMIN: 'VERIFYING_BY_ADMIN',
+  TO_CORRECT_BY_ADMIN: 'TO_CORRECT_BY_ADMIN',
+  READY_TO_VERIFY_BY_ADMIN: 'READY_TO_VERIFY_BY_ADMIN',
+  CANCELED_BY_ADMIN: 'CANCELED_BY_ADMIN',
+  READY_TO_VERIFY_BY_SUPERVISOR: 'READY_TO_VERIFY_BY_SUPERVISOR',
+  VERIFYING_BY_SUPERVISOR: 'VERIFYING_BY_SUPERVISOR',
+  TO_CORRECT_BY_SUPERVISOR: 'TO_CORRECT_BY_SUPERVISOR',
+  EXPIRED: 'EXPIRED',
+}
+
+export const MyRequestStatusTranslate = s => {
+  switch (s) {
+    case MyRequestStatus.DRAFT:
+      return t(TranslationKey.DRAFT)
+    case MyRequestStatus.PUBLISHED:
+      return t(TranslationKey.PUBLISHED)
+    case MyRequestStatus.IN_PROCESS:
+      return t(TranslationKey['IN PROCESS'])
+    case MyRequestStatus.FORBID_NEW_PROPOSALS:
+      return t(TranslationKey['FORBID NEW PROPOSALS'])
+    case MyRequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED:
+      return t(TranslationKey['COMPLETE PROPOSALS AMOUNT ACHIEVED'])
+    case MyRequestStatus.CANCELED_BY_CREATOR:
+      return t(TranslationKey['CANCELED BY CREATOR'])
+    case MyRequestStatus.VERIFYING_BY_ADMIN:
+      return t(TranslationKey['VERIFYING BY ADMIN'])
+    case MyRequestStatus.TO_CORRECT_BY_ADMIN:
+      return t(TranslationKey['TO CORRECT BY ADMIN'])
+    case MyRequestStatus.READY_TO_VERIFY_BY_ADMIN:
+      return t(TranslationKey['READY TO VERIFY BY ADMIN'])
+    case MyRequestStatus.CANCELED_BY_ADMIN:
+      return t(TranslationKey['CANCELED BY ADMIN'])
+    case MyRequestStatus.READY_TO_VERIFY_BY_SUPERVISOR:
+      return t(TranslationKey['READY TO VERIFY BY SUPERVISOR'])
+    case MyRequestStatus.VERIFYING_BY_SUPERVISOR:
+      return t(TranslationKey['VERIFYING BY SUPERVISOR'])
+    case MyRequestStatus.TO_CORRECT_BY_SUPERVISOR:
+      return t(TranslationKey['TO CORRECT BY SUPERVISOR'])
+    case MyRequestStatus.EXPIRED:
+      return t(TranslationKey.EXPIRED)
+  }
+}

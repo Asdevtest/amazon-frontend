@@ -43,6 +43,12 @@ export const clearSpecialCharacters = str => str.replace(/[{}"!@#$%^&*()+=;:`~|'
 export const shortenLongString = (value, lengthBreakpoint) =>
   value.length > lengthBreakpoint ? `${value.slice(0, lengthBreakpoint)}...` : value
 
+export const shortenDocumentString = value => {
+  const strAfterPdf = value.slice(0, 4)
+  const strPdf = value.slice(-4, value.length)
+  return `${strAfterPdf}...${strPdf}`
+}
+
 const converter = new Showdown.Converter({
   tables: true,
   simplifiedAutoLink: true,

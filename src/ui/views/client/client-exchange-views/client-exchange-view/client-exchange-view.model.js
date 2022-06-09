@@ -3,6 +3,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
 import {SettingsModel} from '@models/settings-model'
@@ -15,6 +16,7 @@ import {clientProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
 const textConsts = getLocalizedTexts(texts, 'en').clientExchangeView
@@ -301,7 +303,7 @@ export class ClientExchangeViewModel {
 
     this.selectedProduct = {}
 
-    this.showWarningModalText = textConsts.productIsMoveToInventoryTitle
+    this.showWarningModalText = t(TranslationKey['This item has been moved to Inventory'])
     this.onTriggerOpenModal('showWarningModal')
   }
 

@@ -19,7 +19,7 @@ import {useClassNames} from './request-to-send-batch-box.styles'
 
 export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
-
+  console.log(box)
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
   const tableCellClsx = clsx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
@@ -127,7 +127,9 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                     <div className={classNames.boxItemSubSubInfoWrapper}>
                       <Typography variant="subtitle1">{`ASIN: ${box.items[0].product.asin}`}</Typography>
 
-                      <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${item.amount} шт.`}</Typography>
+                      <Typography variant="subtitle1">{`${t(TranslationKey.Quantity)} ${item.amount} ${t(
+                        TranslationKey['pcs.'],
+                      )}`}</Typography>
                     </div>
 
                     <div className={classNames.barCodeLabelWrapper}>
@@ -215,6 +217,19 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
             <Typography className={classNames.alertSpan}>{t(TranslationKey.Missing)}</Typography>
           )}
         </div>
+      </div>
+      <div className={clsx(tableCellClsx, classNames.pricePerAmoutCell)}>
+        {box.items.map((item, index) => (
+          <div key={index}>
+            <div className={clsx(tableCellClsx, classNames.priceCell)}>
+              <Typography className={classNames.spanText}>{'Стоимость доставки за шт'}</Typography>
+            </div>
+
+            <div className={clsx(tableCellClsx, classNames.priceCellRight)}>
+              <Typography variant="h5">{item.amount}</Typography>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className={clsx(tableCellClsx, classNames.priceCell)}>

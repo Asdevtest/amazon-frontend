@@ -25,7 +25,7 @@ export const myRequestsViewColumns = () => [
     field: 'status',
     headerName: t(TranslationKey.Status),
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
-    width: 120,
+    width: 150,
   },
 
   {

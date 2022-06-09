@@ -129,7 +129,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       </TableCell>
 
       <TableCell>
-        <Button onClick={() => handlers.onAddImages(item._id)}>{'Фотографии'}</Button>
+        <Button onClick={() => handlers.onAddImages(item._id)}>{t(TranslationKey.Photos)}</Button>
       </TableCell>
 
       <TableCell>

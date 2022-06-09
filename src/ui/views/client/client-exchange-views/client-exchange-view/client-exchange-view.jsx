@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -20,14 +19,11 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {ClientExchangeViewModel} from './client-exchange-view.model'
 import {styles} from './client-exchange-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientExchangeView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_EXCHANGE
 const navbarActiveSubCategory = 0
@@ -150,7 +146,7 @@ export class ClientExchangeViewRaw extends Component {
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
           title={showWarningModalText}
-          btnText={textConsts.okBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
           }}
@@ -159,8 +155,8 @@ export class ClientExchangeViewRaw extends Component {
         <SuccessInfoModal
           openModal={showSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-          title={textConsts.successTitle}
-          successBtnText={textConsts.successBtn}
+          title={t(TranslationKey['Order successfully created!'])}
+          successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showSuccessModal')
           }}

@@ -21,6 +21,7 @@ import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsImageLink, checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
+import {shortenDocumentString} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './create-or-edit-request-content.style'
@@ -459,7 +460,10 @@ export const CreateOrEditRequestContent = ({
                               onClick={() => openPdfFile(file.data_url)}
                             >
                               <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
-                              <Typography className={classNames.documentTitle}>{file.file.name}</Typography>
+                              <Typography className={classNames.documentTitle}>
+                                {shortenDocumentString(file.file.name)}
+                              </Typography>
+                              <span className={classNames.documentHover}>{file.file.name}</span>
                             </div>
                           ))}
                       </CustomCarousel>
