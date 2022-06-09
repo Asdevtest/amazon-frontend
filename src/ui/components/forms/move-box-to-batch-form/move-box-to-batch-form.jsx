@@ -23,7 +23,7 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
 
   const filteredBatches = batches.filter(
     batch =>
-      batch.originalData.boxes[0].destination?.name === box.destination.name &&
+      batch.originalData.boxes[0].destination?.name === box.destination?.name &&
       batch.originalData.boxes[0].logicsTariff?.name === box.logicsTariff.name &&
       batch.originalData._id !== box.batchId,
   )

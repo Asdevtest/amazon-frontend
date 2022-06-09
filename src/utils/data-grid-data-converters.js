@@ -340,7 +340,7 @@ export const clientOrdersNotificationsDataConverter = data =>
     barCode: item.product.barCode,
     totalPrice: item.totalPrice,
     grossWeightKg: item.product.weight * item.amount,
-    warehouses: item.destination.name,
+    warehouses: item.destination?.name,
     status: OrderStatusByCode[item.status],
 
     createdAt: item.createdAt,

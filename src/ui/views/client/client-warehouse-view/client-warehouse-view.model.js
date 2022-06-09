@@ -137,6 +137,13 @@ export class ClientWarehouseViewModel {
     })
   }
 
+  get isNoDestinationBoxSelected() {
+    return this.selectedBoxes.some(boxId => {
+      const findBox = this.boxesMy.find(box => box._id === boxId)
+      return !findBox?.originalData?.destination
+    })
+  }
+
   get isOneItemInBox() {
     const findBox = this.boxesMy.find(box => box._id === this.selectedBoxes[0])
     return findBox?.originalData.items.reduce((ac, cur) => (ac += cur.amount), 0) <= 1
@@ -911,6 +918,8 @@ export class ClientWarehouseViewModel {
   async onClickRequestToSendBatch() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.triggerRequestToSendBatchModal()
+
       const boxesDeliveryCosts = await BatchesModel.calculateBoxDeliveryCostsInBatch(toJS(this.selectedBoxes))
 
       const result = await UserModel.getPlatformSettings()
@@ -922,7 +931,7 @@ export class ClientWarehouseViewModel {
       })
 
       this.setRequestStatus(loadingStatuses.success)
-      this.triggerRequestToSendBatchModal()
+      // this.triggerRequestToSendBatchModal()
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)

@@ -199,8 +199,8 @@ export const AddOrEditBatchForm = observer(
               label={t(TranslationKey.Destination)}
               value={
                 (sourceDataForFilters
-                  ? sourceDataForFilters.destination.name
-                  : chosenBoxes[0]?.originalData?.destination.name) || ''
+                  ? sourceDataForFilters.destination?.name
+                  : chosenBoxes[0]?.originalData?.destination?.name) || ''
               }
               placeholder={'N/A'}
             />

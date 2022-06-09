@@ -29,12 +29,12 @@ export const DeliveryParameters = ({order}) => {
   return (
     <div className={classNames.root}>
       <div className={classNames.destinationWrapper}>
-        <OrderParameter label={t(TranslationKey.Destination)} value={order.destination.name} />
-        <OrderParameter label={'Zip Code'} value={order.destination.zipCode} />
-        <OrderParameter label={t(TranslationKey.Country)} value={order.destination.country} />
-        <OrderParameter label={t(TranslationKey.City)} value={order.destination.city} />
-        <OrderParameter label={t(TranslationKey.State)} value={order.destination.state} />
-        <OrderParameter label={t(TranslationKey.Address)} value={order.destination.address} />
+        <OrderParameter label={t(TranslationKey.Destination)} value={order.destination?.name} />
+        <OrderParameter label={'Zip Code'} value={order.destination?.zipCode} />
+        <OrderParameter label={t(TranslationKey.Country)} value={order.destination?.country} />
+        <OrderParameter label={t(TranslationKey.City)} value={order.destination?.city} />
+        <OrderParameter label={t(TranslationKey.State)} value={order.destination?.state} />
+        <OrderParameter label={t(TranslationKey.Address)} value={order.destination?.address} />
       </div>
 
       <div className={classNames.storekeeperWrapper}>

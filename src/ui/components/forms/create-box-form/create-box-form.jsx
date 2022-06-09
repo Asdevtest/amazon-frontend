@@ -23,6 +23,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './create-box-form.style'
 
 const BlockOfNewBox = ({
+  order,
   orderBoxIndex,
   orderBox,
   setFormField,
@@ -33,6 +34,8 @@ const BlockOfNewBox = ({
   volumeWeightCoefficient,
 }) => {
   const classNames = useClassNames()
+
+  console.log('orderBox', orderBox)
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
@@ -124,6 +127,7 @@ const BlockOfNewBox = ({
       <div className={classNames.checkboxWithLabelWrapper}>
         <Checkbox
           color="primary"
+          disabled={!order.orderSupplier.boxProperties}
           checked={orderBox.tmpUseCurrentSupplierDimensions}
           onChange={setDimensionsOfSupplierField(orderBoxIndex)}
         />
@@ -138,7 +142,15 @@ const BlockOfNewBox = ({
 }
 
 export const CreateBoxForm = observer(
-  ({currentSupplier, formItem, boxesForCreation, onTriggerOpenModal, setBoxesForCreation, volumeWeightCoefficient}) => {
+  ({
+    currentSupplier,
+    formItem,
+    boxesForCreation,
+    onTriggerOpenModal,
+    setBoxesForCreation,
+    volumeWeightCoefficient,
+    order,
+  }) => {
     const classNames = useClassNames()
 
     const sourceBox = {
@@ -328,6 +340,7 @@ export const CreateBoxForm = observer(
             {formFieldsArr.map((orderBox, orderBoxIndex) => (
               <BlockOfNewBox
                 key={orderBoxIndex}
+                order={order}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 sizeSetting={sizeSetting}
                 orderBoxIndex={orderBoxIndex}
