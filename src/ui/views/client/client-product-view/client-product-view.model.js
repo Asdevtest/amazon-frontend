@@ -252,7 +252,7 @@ export class ClientProductViewModel {
       case 'restore':
         this.confirmModalSettings = {
           isWarning: false,
-          message: textConsts.restoreMessage,
+          message: t(TranslationKey['Restore the card?']),
           onClickOkBtn: () => this.onRestoreProduct(),
         }
 

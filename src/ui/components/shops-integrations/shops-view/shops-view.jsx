@@ -126,10 +126,10 @@ class ShopsViewRaw extends Component {
             isWarning
             openModal={showConfirmModal}
             setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            title={textConsts.confirmTitle}
-            message={textConsts.confirmRemoveMessage}
-            successBtnText={textConsts.yesBtn}
-            cancelBtnText={textConsts.noBtn}
+            title={t(TranslationKey.Attention)}
+            message={t(TranslationKey['Are you sure you want to delete the store?'])}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
             onClickSuccessBtn={onSubmitRemoveShop}
             onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
           />

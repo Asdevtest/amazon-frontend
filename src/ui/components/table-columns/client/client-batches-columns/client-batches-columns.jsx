@@ -23,7 +23,7 @@ export const clientBatchesViewColumns = () => [
   {
     field: 'orders',
     headerName: t(TranslationKey.Product),
-    width: 530,
+    width: 540,
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
     filterable: false,
     sortable: false,

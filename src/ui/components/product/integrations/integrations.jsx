@@ -95,8 +95,8 @@ export const Integrations = observer(({productId}) => {
       <SuccessInfoModal
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={textConsts.successBindTitle}
-        successBtnText={textConsts.successBtn}
+        title={t(TranslationKey['The product is bound'])}
+        successBtnText={t(TranslationKey.Ok)}
         onClickSuccessBtn={() => {
           onTriggerOpenModal('showSuccessModal')
         }}
@@ -106,7 +106,7 @@ export const Integrations = observer(({productId}) => {
         openModal={showInfoModal}
         setOpenModal={() => onTriggerOpenModal('showInfoModal')}
         title={textConsts.infoModalTitle}
-        btnText={textConsts.okBtn}
+        btnText={t(TranslationKey.Ok)}
         onClickBtn={() => {
           onTriggerOpenModal('showInfoModal')
         }}
