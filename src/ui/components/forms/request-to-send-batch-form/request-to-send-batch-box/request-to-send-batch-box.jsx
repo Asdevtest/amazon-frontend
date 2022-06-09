@@ -17,13 +17,8 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './request-to-send-batch-box.styles'
 
-export const RequestToSendBatchBox = ({
-  box,
-  price,
-  onClickRemoveBoxFromBatch,
-  volumeWeightCoefficient,
-  currentTariff,
-}) => {
+export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, volumeWeightCoefficient}) => {
+  console.log(price)
   const classNames = useClassNames()
   console.log(box)
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
@@ -235,8 +230,18 @@ export const RequestToSendBatchBox = ({
 
             <div className={clsx(tableCellClsx, classNames.priceCellRight)}>
               <Typography variant="h5">
-                {item.product.weight
-                  ? toFixedWithDollarSign(toFixed(currentTariff, 2) * toFixed(item.product.weight, 2), 2)
+                {item.product.currentSupplier.boxProperties.boxWeighGrossKg
+                  ? toFixedWithDollarSign(
+                      (price *
+                        toFixed(
+                          ((item.product.currentSupplier.boxProperties.boxWeighGrossKg /
+                            item.product.currentSupplier.boxProperties.amountInBox) *
+                            item.amount) /
+                            toFixed(box.weighGrossKgWarehouse, 2),
+                        )) /
+                        item.amount,
+                      2,
+                    )
                   : t(TranslationKey['No data'])}
               </Typography>
             </div>
