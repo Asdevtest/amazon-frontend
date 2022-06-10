@@ -15,6 +15,7 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -59,6 +60,7 @@ class BuyerMyOrdersViewRaw extends Component {
       showNoDimensionsErrorModal,
       showWarningNewBoxesModal,
       showOrderPriceMismatchModal,
+      showConfirmModal,
 
       showProgress,
       progressValue,
@@ -74,6 +76,7 @@ class BuyerMyOrdersViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      onSubmitCancelOrder,
 
       setPhotosToLoad,
     } = this.viewModel
@@ -142,6 +145,18 @@ class BuyerMyOrdersViewRaw extends Component {
             onSubmitSaveOrder={onSubmitSaveOrder}
           />
         </Modal>
+
+        <ConfirmationModal
+          isWarning
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey['Attention. Are you sure?'])}
+          message={t(TranslationKey['Are you sure you want to cancel the order?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={onSubmitCancelOrder}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
 
         <WarningInfoModal
           openModal={showNoDimensionsErrorModal}

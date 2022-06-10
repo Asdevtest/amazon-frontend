@@ -65,13 +65,16 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cancelBtn: {
-    marginLeft: '40px',
     color: '#fff',
     backgroundColor: '#F44336',
     '&:hover': {
       opacity: '0.8',
       backgroundColor: '#F44336',
     },
+  },
+
+  btnLeftMargin: {
+    marginLeft: '40px',
   },
 
   successBtn: {
@@ -142,14 +145,24 @@ export const useClassNames = makeStyles(() => ({
 
   linksWrapper: {
     width: '100%',
-    maxHeight: '220px',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  linksSubWrapper: {
+    width: '100%',
+    maxHeight: '200px',
     overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 10,
   },
 
   linkWrapper: {
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
+    marginBottom: 7,
   },
 
   linkTextWrapper: {
@@ -164,6 +177,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   copyImg: {
+    marginRight: 15,
     width: '20px',
     height: '20px',
     transition: '0.3s ease',
@@ -179,5 +193,39 @@ export const useClassNames = makeStyles(() => ({
 
   shortInput: {
     width: '341px',
+  },
+
+  addOrEditBtnsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+
+  defaultBtn: {
+    marginLeft: '10px',
+    borderRadius: '4px',
+    height: '32px',
+    width: '100px',
+  },
+
+  input: {
+    height: '32px',
+    borderRadius: '4px',
+    width: 'calc(100% - 110px)',
+  },
+
+  inputWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+  },
+
+  linksBtnsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  deleteBtn: {
+    width: '20px',
+    height: '20px',
   },
 }))

@@ -52,6 +52,9 @@ export class BuyerMyOrdersViewModel {
   showWarningNewBoxesModal = false
   showSuccessModal = false
   showOrderPriceMismatchModal = false
+  showConfirmModal = false
+
+  dataToCancelOrder = {orderId: undefined, buyerComment: undefined}
 
   sortModel = []
   filterModel = {items: []}
@@ -188,6 +191,17 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
+  async onSubmitCancelOrder() {
+    try {
+      await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {buyerComment: this.dataToCancelOrder.buyerComment})
+
+      this.loadData()
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
@@ -214,7 +228,11 @@ export class BuyerMyOrdersViewModel {
         await this.onSubmitSaveHsCode(order.product._id, hsCode)
       }
 
-      if (boxesForCreation.length > 0 && !isMismatchOrderPrice) {
+      if (
+        boxesForCreation.length > 0 &&
+        !isMismatchOrderPrice &&
+        orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`
+      ) {
         await this.onSubmitCreateBoxes(order, boxesForCreation)
       }
 
@@ -234,7 +252,9 @@ export class BuyerMyOrdersViewModel {
         }
 
         if (orderFields.status === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
-          await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
+          this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
+          this.onTriggerOpenModal('showConfirmModal')
+          // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
         }
       }
 

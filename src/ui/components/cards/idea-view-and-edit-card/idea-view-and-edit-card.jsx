@@ -2,9 +2,10 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
-import {Divider, Grid, Link, Typography} from '@material-ui/core'
+import {Divider, Grid, Link, Typography, IconButton} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 import Carousel from 'react-material-ui-carousel'
 
@@ -12,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
+import {Input} from '@components/input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {TableSupplier} from '@components/product/table-supplier'
 import {UploadFilesInput} from '@components/upload-files-input'
@@ -21,10 +23,41 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './idea-view-and-edit-card.style'
 
-export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
+export const IdeaViewAndEditCard = ({
+  inEdit,
+  inCreate,
+  idea,
+  curIdea,
+  onRemove,
+  onClickCancelBtn,
+  onClickSaveBtn,
+  onSetCurIdea,
+  onEditIdea,
+}) => {
   const classNames = useClassNames()
 
+  const [linkLine, setLinkLine] = useState('')
+
   const [showFullCard, setShowFullCard] = useState(idea ? false : true)
+
+  const setShowFullCardByCurIdea = () => {
+    if (curIdea?._id === idea?._id) {
+      setShowFullCard(!showFullCard)
+    } else {
+      onSetCurIdea(idea)
+      setShowFullCard(true)
+    }
+  }
+
+  useEffect(() => {
+    if (curIdea?._id !== idea?._id && !inEdit) {
+      setShowFullCard(idea ? false : true)
+    } else if (curIdea?._id === idea?._id && inEdit) {
+      setShowFullCard(true)
+    } else if (curIdea?._id !== idea?._id && inEdit) {
+      setShowFullCard(false)
+    }
+  }, [curIdea, inEdit])
 
   const [images, setImages] = useState([])
 
@@ -47,16 +80,18 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
     price: idea?.price || '',
     dimensions: idea?.dimensions || '',
     suppliers: idea?.suppliers || [],
+    _id: idea?._id || null,
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
 
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
-    if (['execution_time'].includes(fieldName)) {
-      newFormFields[fieldName] = parseInt(event.target.value) || ''
-    } else if (
-      ['price'].includes(fieldName) &&
+    // if (['execution_time'].includes(fieldName)) {
+    //   newFormFields[fieldName] = parseInt(event.target.value) || ''
+    // } else
+    if (
+      ['price', 'count'].includes(fieldName) &&
       !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
     ) {
       return
@@ -67,9 +102,22 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
     setFormFields(newFormFields)
   }
 
-  const disableFields = idea && !edit
+  const onClickLinkBtn = () => {
+    onChangeField('links')({target: {value: [...formFields.links, linkLine]}})
 
-  // console.log(item)
+    setLinkLine('')
+  }
+
+  const onRemoveLink = index => {
+    const newArr = formFields.links.filter((el, i) => i !== index)
+
+    onChangeField('links')({target: {value: [...newArr]}})
+  }
+
+  const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
+
+  console.log('formFields', formFields)
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <Typography variant="h5">{formFields.title}</Typography>
@@ -126,7 +174,7 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
             rowsMax={6}
             label={t(TranslationKey.Comments)}
             value={formFields.comment}
-            // onChange={onChangeField('comment')}
+            onChange={onChangeField('comment')}
           />
         </div>
       </div>
@@ -142,6 +190,7 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
                 labelClasses={classNames.spanLabel}
                 label={'Наименование товара'}
                 value={formFields.name}
+                onChange={onChangeField('name')}
               />
 
               <Field
@@ -154,7 +203,7 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
                 rowsMax={6}
                 label={'Важные критерии'}
                 value={formFields.criterions}
-                // onChange={onChangeField('comment')}
+                onChange={onChangeField('criterions')}
               />
             </div>
           </div>
@@ -168,20 +217,54 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
               containerClasses={classNames.linksContainer}
               inputComponent={
                 <div className={classNames.linksWrapper}>
-                  {[formFields.links].map((el, index) => (
-                    <div key={index} className={classNames.linkWrapper}>
-                      <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
-                        <Typography className={classNames.linkText}>{el}</Typography>
-                      </Link>
+                  <div className={classNames.inputWrapper}>
+                    <Input
+                      disabled={disableFields}
+                      placeholder={'Link to the product'}
+                      inputProps={{maxLength: 1500}}
+                      value={linkLine}
+                      className={classNames.input}
+                      onChange={e => setLinkLine(e.target.value)}
+                    />
+                    <Button
+                      disableElevation
+                      disabled={!linkLine || disableFields}
+                      className={classNames.defaultBtn}
+                      variant="contained"
+                      color="primary"
+                      onClick={onClickLinkBtn}
+                    >
+                      {t(TranslationKey.Add)}
+                    </Button>
+                  </div>
+                  <div className={classNames.linksSubWrapper}>
+                    {formFields.links.length ? (
+                      formFields.links.map((el, index) => (
+                        <div key={index} className={classNames.linkWrapper}>
+                          <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
+                            <Typography className={classNames.linkText}>{el}</Typography>
+                          </Link>
 
-                      <img
-                        className={classNames.copyImg}
-                        src="/assets/icons/copy-img.svg"
-                        alt=""
-                        onClick={() => copyValue(el)}
-                      />
-                    </div>
-                  ))}
+                          <div className={classNames.linksBtnsWrapper}>
+                            <img
+                              className={classNames.copyImg}
+                              src="/assets/icons/copy-img.svg"
+                              alt=""
+                              onClick={() => copyValue(el)}
+                            />
+
+                            {!disableFields && (
+                              <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
+                                <DeleteIcon className={classNames.deleteBtn} />
+                              </IconButton>
+                            )}
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <Typography>{t(TranslationKey['No data'])}</Typography>
+                    )}
+                  </div>
                 </div>
               }
             />
@@ -194,6 +277,7 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
                   inputClasses={classNames.shortInput}
                   label={'Количество'}
                   value={formFields.count}
+                  onChange={onChangeField('count')}
                 />
               </Grid>
               <Grid item>
@@ -203,6 +287,7 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
                   inputClasses={classNames.shortInput}
                   label={'Желаемая цена закупки'}
                   value={formFields.price}
+                  onChange={onChangeField('price')}
                 />
               </Grid>
               <Grid item>
@@ -212,6 +297,7 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
                   inputClasses={classNames.shortInput}
                   label={'Размеры'}
                   value={formFields.dimensions}
+                  onChange={onChangeField('dimensions')}
                 />
               </Grid>
             </Grid>
@@ -230,10 +316,33 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
         />
       </div>
 
-      {idea ? (
+      {inCreate || !disableFields ? (
+        <div className={classNames.addOrEditBtnsWrapper}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={[classNames.actionButton, classNames.successBtn]}
+            onClick={() => onClickSaveBtn(formFields)}
+          >
+            {t(TranslationKey.Save)}
+          </Button>
+
+          <Button
+            variant="text"
+            color="alert"
+            className={[classNames.actionButton, classNames.btnLeftMargin]}
+            onClick={() => onClickCancelBtn()}
+          >
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+      ) : null}
+
+      {idea && disableFields ? (
         <div className={classNames.existedIdeaBtnsWrapper}>
           <div className={classNames.existedIdeaBtnsSubWrapper}>
             <Button
+              disabled
               tooltipContent={'В инвентаре появится новая карточка товара'}
               variant="contained"
               color="primary"
@@ -248,7 +357,7 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
                 variant="contained"
                 color="primary"
                 className={classNames.actionButton}
-                // onClick={() => onClickViewMore(item._id)}
+                onClick={() => onEditIdea(idea)}
               >
                 {t(TranslationKey.Edit)}
               </Button>
@@ -256,7 +365,7 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
               <Button
                 variant="contained"
                 color="alert"
-                className={[classNames.actionButton, classNames.cancelBtn]}
+                className={[classNames.actionButton, classNames.cancelBtn, classNames.btnLeftMargin]}
                 onClick={() => onRemove(idea._id)}
               >
                 {t(TranslationKey.Remove)}
@@ -264,7 +373,7 @@ export const IdeaViewAndEditCard = ({edit, idea, onRemove}) => {
             </div>
           </div>
 
-          <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
+          <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
             <Typography className={classNames.tablePanelViewText}>{showFullCard ? 'Скрыть' : 'Показать'}</Typography>
 
             {!showFullCard ? <KeyboardArrowDownIcon color="primary" /> : <KeyboardArrowUpIcon color="primary" />}
