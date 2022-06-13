@@ -16,6 +16,7 @@ import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {checkIsImageLink} from '@utils/checks'
@@ -50,6 +51,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
 
   const notIsEmptyFile = message.data.edited.linksToMediaFiles?.filter(el => !checkIsImageLink(el))
 
+  console.log(chatRequestAndRequestProposal.requestProposal?.proposal?.status)
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
@@ -72,53 +74,8 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
         <p className={classNames.resultText}>{message.data.edited.result}</p>
       </div>
       <div className={classNames.resultWrapper}>
-        <div className={classNames.resultLeftSide}>
-          <div className={classNames.imagesAndFilesWrapper}>
-            <div className={classNames.imagesWrapper}>
-              <Typography className={classNames.photoTitle}>{t(TranslationKey.Photos)}</Typography>
-              <Carousel autoPlay={false} className={classNames.carouselWrapper}>
-                {message.data.edited.linksToMediaFiles
-                  ?.filter(el => checkIsImageLink(el))
-                  .map((photo, index) => (
-                    <img
-                      key={index}
-                      src={photo}
-                      height="108px"
-                      onClick={() => {
-                        setShowImageModal(!showImageModal)
-                        setBigImagesOptions({images: message.images, imgIndex: index})
-                      }}
-                    />
-                  ))}
-              </Carousel>
-            </div>
+        <PhotoAndFilesCarousel files={message.data.edited.linksToMediaFiles} width="40%" />
 
-            <div className={classNames.documentsWrapper}>
-              <Typography className={classNames.documentsTitle}>{t(TranslationKey.Documents)}</Typography>
-              {notIsEmptyFile?.length ? (
-                <CustomCarousel title={t(TranslationKey.Document)}>
-                  {notIsEmptyFile?.map((file, index) => (
-                    <div key={index} className={classNames.documentWrapper}>
-                      <Link className={classNames.documentTitle} href={file}>
-                        <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
-                      </Link>
-                      <Typography className={classNames.documentTitle}>{file}</Typography>
-                    </div>
-                  ))}
-                </CustomCarousel>
-              ) : (
-                <div>
-                  <div className={classNames.documentWrapper}>
-                    <div className={classNames.emptyDocumentIcon}>
-                      <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
-                    </div>
-                    <Typography className={classNames.documentEmpty}>{t(TranslationKey['No document'])}</Typography>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
         <div className={classNames.resultRightSide}>
           <div className={classNames.timeToCheckBlockWrapper}>
             <p className={classNames.timeToCheckBlockLabelText}>Время на проверку</p>
@@ -142,7 +99,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
                 variant="contained"
                 color="primary"
                 btnWrapperStyle={classNames.actionBtnWrapperStyle}
-                className={clsx(classNames.actionButton)}
+                className={clsx(classNames.actionButton, classNames.editButton)}
                 onClick={() => handlers.onClickProposalResultToCorrect(proposal._id)}
               >
                 Отправить на доработку
@@ -159,6 +116,18 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
             </Button>
           </div>
         ) : undefined}
+
+        {/* {chatRequestAndRequestProposal.requestProposal?.proposal?.status !== 'ACCEPTED_BY_CLIENT' && (
+          <div className={classNames.btnEditWrapper}>
+            <Button
+              variant="contained"
+              color="primary"
+             
+            >
+              Редактировать
+            </Button>
+          </div>
+        )} */}
       </div>
 
       <BigImagesModal

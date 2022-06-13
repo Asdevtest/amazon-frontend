@@ -36,18 +36,20 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '140%',
     color: '#001029',
     maxWidth: '420px',
+    height: 50,
     marginBottom: '10px',
     textOverflow: 'ellipsis',
-    overflow: 'hidden',
+    overflow: 'auto',
   },
 
   cardDescription: {
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: '400',
-    height: 100,
+    maxHeight: 90,
     overflow: 'auto',
-    maxWidth: '400px',
+
+    maxWidth: '420px',
   },
 
   cardSubTitle: {

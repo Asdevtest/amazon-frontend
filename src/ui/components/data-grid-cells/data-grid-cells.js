@@ -316,12 +316,21 @@ export const MultilineStatusCell = withStyles(styles)(({classes: classNames, sta
 
 export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNames, status}) => {
   const colorByStatus = () => {
-    if ([RequestStatus.DRAFT, RequestStatus.CANCELED_BY_CREATOR].includes(status)) {
+    if ([RequestStatus.DRAFT].includes(status)) {
       return '#006CFF'
-    } else if ([RequestStatus.IN_PROCESS, RequestStatus.CANCELED_BY_ADMIN].includes(status)) {
-      return '#F3AF00'
-    } else if ([RequestStatus.PUBLISHED, RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED].includes(status)) {
+    } else if (
+      [
+        RequestStatus.CANCELED_BY_CREATOR,
+        RequestStatus.FORBID_NEW_PROPOSALS,
+        RequestStatus.CANCELED_BY_ADMIN,
+        RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED,
+      ].includes(status)
+    ) {
+      return '#FF1616'
+    } else if ([RequestStatus.IN_PROCESS].includes(status)) {
       return '#00B746'
+    } else if ([RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN].includes(status)) {
+      return '#F3AF00'
     } else if ([RequestStatus.EXPIRED].includes(status)) {
       return '#C4C4C4'
     } else {

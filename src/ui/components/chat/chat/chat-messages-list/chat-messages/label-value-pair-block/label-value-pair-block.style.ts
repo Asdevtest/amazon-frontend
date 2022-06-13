@@ -2,23 +2,31 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    padding: '10px 26px',
+    padding: '10px 15px',
     backgroundColor: '#ffffff',
     borderRadius: 4,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   rootGreen: {
     backgroundColor: '#D9FAE5',
   },
   labelWrapper: {},
   labelText: {
-    color: '#354256',
-    fontWeight: 18,
+    fontWeight: 400,
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#001029',
+
     textAlign: 'center',
   },
   valueWrapper: {},
   valueText: {
-    color: '#354256',
-    fontSize: 18,
+    fontWeight: 400,
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#001029',
     textAlign: 'center',
   },
 }))

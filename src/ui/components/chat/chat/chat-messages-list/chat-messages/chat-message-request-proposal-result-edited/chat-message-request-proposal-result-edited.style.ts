@@ -51,10 +51,12 @@ export const useClassNames = makeStyles(() => ({
     fontSize: 18,
   },
   resultWrapper: {
+    width: '100%',
     marginTop: 25,
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   resultLeftSide: {
     flex: 4,
@@ -105,22 +107,36 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'end',
     marginTop: '48px',
   },
-  actionBtnWrapperStyle: {
-    flex: 1,
+
+  btnEditWrapper: {
     display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'end',
+    marginTop: '48px',
+  },
+
+  actionBtnWrapperStyle: {
+    // flex: 1,
+    // display: 'flex',
   },
   actionBtnWrapperStyleNotFirst: {
-    marginLeft: '50px',
+    marginLeft: '42px',
   },
   actionButton: {
     flex: 1,
     display: 'flex',
   },
 
+  editButton: {
+    width: '252px',
+  },
+
   successBtn: {
+    width: '197px',
     backgroundColor: '#4CAF50',
     '&:hover': {
       opacity: '0.8',
