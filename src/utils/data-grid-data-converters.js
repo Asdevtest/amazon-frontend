@@ -246,7 +246,7 @@ export const freelancerCustomRequestsDataConverter = data =>
 export const clientOrdersDataConverter = data =>
   data.map(item => ({
     originalData: item,
-    id: item._id,
+    id: item.id,
 
     barCode: item.product.barCode,
     totalPrice: item.totalPrice,

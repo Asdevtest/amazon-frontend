@@ -118,7 +118,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
               ) : null}
 
               <div className={classNames.detailsWrapper}>
-                <CustomSearchRequestDetails request={request} requestProposals={requestProposals} />
+                <CustomSearchRequestDetails request={request} />
               </div>
 
               {requestProposals?.length ? (

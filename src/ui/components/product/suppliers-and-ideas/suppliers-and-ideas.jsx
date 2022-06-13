@@ -28,6 +28,8 @@ export const SuppliersAndIdeas = observer(({productId}) => {
   }, [])
 
   const {
+    curIdea,
+    inEdit,
     inCreate,
     ideasData,
     showConfirmModal,
@@ -35,7 +37,13 @@ export const SuppliersAndIdeas = observer(({productId}) => {
     onTriggerOpenModal,
     onClickRemoveIdea,
     onCreateIdea,
+    onClickCancelBtn,
+    onClickSaveBtn,
+    onSetCurIdea,
+    onEditIdea,
   } = model.current
+
+  console.log('ideasData', ideasData)
 
   return (
     <div className={classNames.mainWrapper}>
@@ -45,10 +53,28 @@ export const SuppliersAndIdeas = observer(({productId}) => {
         </SuccessButton>
       </div>
 
-      {inCreate ? <IdeaViewAndEditCard /> : null}
+      {inCreate ? (
+        <IdeaViewAndEditCard
+          inCreate
+          curIdea={curIdea}
+          onClickSaveBtn={onClickSaveBtn}
+          onClickCancelBtn={onClickCancelBtn}
+          onSetCurIdea={onSetCurIdea}
+        />
+      ) : null}
 
       {ideasData.map((idea, index) => (
-        <IdeaViewAndEditCard key={index} idea={idea} onRemove={onClickRemoveIdea} />
+        <IdeaViewAndEditCard
+          key={index}
+          curIdea={curIdea}
+          inEdit={inEdit}
+          idea={idea}
+          onClickSaveBtn={onClickSaveBtn}
+          onClickCancelBtn={onClickCancelBtn}
+          onRemove={onClickRemoveIdea}
+          onSetCurIdea={onSetCurIdea}
+          onEditIdea={onEditIdea}
+        />
       ))}
 
       <ConfirmationModal

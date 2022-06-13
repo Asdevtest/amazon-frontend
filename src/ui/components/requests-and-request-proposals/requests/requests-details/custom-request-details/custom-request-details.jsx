@@ -3,7 +3,7 @@ import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 
 import {Link, TextareaAutosize, Typography} from '@material-ui/core'
 import Carousel from 'react-material-ui-carousel'
@@ -18,7 +18,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './custom-request-details.style'
 
-export const CustomSearchRequestDetails = ({request, requestProposals}) => {
+export const CustomSearchRequestDetails = ({request}) => {
   const classNames = useClassNames()
 
   const [showDetails, setShowDetails] = useState(false)
@@ -34,14 +34,6 @@ export const CustomSearchRequestDetails = ({request, requestProposals}) => {
   const files = request?.details.linksToMediaFiles.length
     ? request?.details.linksToMediaFiles.filter(el => !checkIsImageLink(el))
     : []
-
-  useEffect(() => {
-    if (!requestProposals?.length) {
-      setShowDetails(true)
-    } else {
-      setShowDetails(false)
-    }
-  }, [requestProposals?.length])
 
   const onClickToShowDetails = () => {
     setShowDetails(!showDetails)

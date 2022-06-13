@@ -58,7 +58,10 @@ export class SuppliersAndIdeasModel {
   requestStatus = undefined
   error = undefined
 
+  curIdea = undefined
+
   inCreate = false
+  inEdit = false
   ideasData = []
   ideaIdToRemove = undefined
 
@@ -118,7 +121,36 @@ export class SuppliersAndIdeasModel {
   }
 
   onCreateIdea() {
+    this.curIdea = undefined
+
     this.inCreate = true
+  }
+
+  onSetCurIdea(idea) {
+    this.curIdea = idea
+    this.inEdit = false
+  }
+
+  onEditIdea(idea) {
+    this.curIdea = idea
+    this.inEdit = true
+  }
+
+  onClickCancelBtn() {
+    this.inCreate = false
+    this.inEdit = false
+    this.curIdea = undefined
+  }
+
+  onClickSaveBtn(formFields) {
+    if (this.inEdit) {
+      this.ideasData = this.ideasData.map(el => (el._id === formFields._id ? formFields : el))
+    } else {
+      this.ideasData = [...this.ideasData, {...formFields, _id: `${Date.now()}`}]
+    }
+
+    this.inCreate = false
+    this.inEdit = false
   }
 
   onSubmitRemoveIdea() {

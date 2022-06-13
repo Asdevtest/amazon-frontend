@@ -15,21 +15,7 @@ import {
 } from '@components/data-grid-cells/data-grid-cells'
 
 export const clientOrdersViewColumns = () => [
-  {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    width: 100,
-    renderCell: params => <NormDateCell params={params} />,
-    type: 'date',
-  },
-
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    width: 100,
-    renderCell: params => <NormDateCell params={params} />,
-    type: 'date',
-  },
+  {field: 'id', headerName: 'ID', renderCell: params => renderFieldValueCell(params.value), width: 60},
 
   {
     field: 'asin',
@@ -93,5 +79,21 @@ export const clientOrdersViewColumns = () => [
     headerName: t(TranslationKey['Track number']),
     width: 160,
     renderCell: params => renderFieldValueCell(params.value),
+  },
+
+  {
+    field: 'createdAt',
+    headerName: t(TranslationKey.Created),
+    width: 100,
+    renderCell: params => <NormDateCell params={params} />,
+    type: 'date',
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    width: 100,
+    renderCell: params => <NormDateCell params={params} />,
+    type: 'date',
   },
 ]

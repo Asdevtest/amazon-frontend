@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    // position: 'relative''
+    maxHeight: 36,
   },
 
   success: {
