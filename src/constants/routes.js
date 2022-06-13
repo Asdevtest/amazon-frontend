@@ -42,7 +42,6 @@ import {ClientSettingsView} from '@views/client/client-settings-view'
 import {ClientShopsView} from '@views/client/client-shops-view'
 import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
-import {DocumentationView} from '@views/documentation'
 import {FreelancerDashboardView} from '@views/freelancer/freelancer-dashboard-view'
 import {FreelancerFinancesViews} from '@views/freelancer/freelancer-finances-views'
 import {FreelancerSubUsersView} from '@views/freelancer/freelancer-users-views/freelancer-sub-users-view'
@@ -102,11 +101,6 @@ export const publicRoutesConfigs = [
   {
     routePath: '/registration',
     component: RegistrationView,
-    exact: false,
-  },
-  {
-    routePath: '/documentation',
-    component: DocumentationView,
     exact: false,
   },
 

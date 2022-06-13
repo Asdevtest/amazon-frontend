@@ -94,6 +94,8 @@ export const AdminContentModal = observer(
       if (fieldName === 'role') {
         setPermissionsToSelect([...singlePermissions.filter(item => item.role === +event.target.value)])
         setPermissionGroupsToSelect([...groupPermissions.filter(item => item.role === +event.target.value)])
+
+        newFormFields.allowedRoles = [...formFields.allowedRoles, +event.target.value]
       }
 
       if (fieldName === 'role' && fieldName === 'permissions' && fieldName === 'permissionGroups') {
@@ -254,7 +256,9 @@ export const AdminContentModal = observer(
                   <MenuItem
                     key={index}
                     value={Number(role)}
-                    disabled={[UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role])}
+                    disabled={
+                      [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) || role === formFields.role
+                    }
                   >
                     <Checkbox color="primary" checked={formFields.allowedRoles.includes(Number(role))} />
                     <ListItemText primary={UserRoleCodeMap[role]} />
