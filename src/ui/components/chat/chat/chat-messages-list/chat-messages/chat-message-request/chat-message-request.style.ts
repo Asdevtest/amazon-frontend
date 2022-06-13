@@ -4,13 +4,13 @@ export const useClassNames = makeStyles(() => ({
   root: {
     // backgroundColor: '#D9FAE5',
     backgroundColor: '#fff',
-    padding: '15px 14px',
-    // width: '672px',
+    padding: '40px 30px',
+    width: '870px',
+    margin: '0 auto',
     borderRadius: '4px',
     '& p, h1, h2, h3, h4, h5, span': {
       margin: 0,
     },
-    width: '100%',
   },
   headerAndTimeWrapper: {
     flexDirection: 'row',
@@ -31,6 +31,8 @@ export const useClassNames = makeStyles(() => ({
   },
   mainInfoWrapper: {
     marginTop: 16,
+    display: 'flex',
+    gap: '50px',
   },
   titleWrapper: {},
   titleText: {
@@ -39,6 +41,7 @@ export const useClassNames = makeStyles(() => ({
   },
   descriptionWrapper: {
     marginTop: 18,
+    maxWidth: '60%',
   },
   descriptionText: {
     color: '#354256',
@@ -51,8 +54,9 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    '&:not(:first-of-type)': {
-      marginTop: '20px',
+    justifyContent: 'space-between',
+    '& > :nth-child(2n)': {
+      width: '40%',
     },
   },
   footerRowNotFirst: {
@@ -60,10 +64,9 @@ export const useClassNames = makeStyles(() => ({
   },
   labelValueBlockWrapper: {
     backgroundColor: '#D9FAE5',
+    width: '28%',
   },
-  labelValueBlockWrapperNotFirst: {
-    marginLeft: '20px',
-  },
+  labelValueBlockWrapperNotFirst: {},
 
   image: {
     marginLeft: '20px',
@@ -87,4 +90,36 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     maxWidth: '300px',
   },
+  imagesAndFilesWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '40%',
+  },
+
+  imagesWrapper: {},
+  photoTitle: {
+    fontWeight: 600,
+    fontSize: '18px',
+    lineHeight: '140%',
+  },
+  carouselWrapper: {
+    marginTop: '10px',
+  },
+  documentsWrapper: {},
+  documentsTitle: {
+    fontWeight: 600,
+    fontSize: '18px',
+    lineHeight: '140%',
+  },
+  documentWrapper: {
+    marginTop: '10px',
+  },
+  documentTitle: {},
+  emptyDocumentIcon: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '30px',
+  },
+  documentEmpty: {},
 }))

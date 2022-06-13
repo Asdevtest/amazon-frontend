@@ -46,8 +46,8 @@ export const styles = createStyles(() => ({
   },
 
   tablePanelViewText: {
-    fontSize: '20px',
-    lineHeight: '23px',
+    fontSize: '16px',
+    lineHeight: '19px',
     color: '#006CFF',
 
     marginRight: '15px',

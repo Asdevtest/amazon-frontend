@@ -330,8 +330,16 @@ export const useClassNames = makeStyles(() => ({
   imagesAndFilesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'start',
-    margin: '40px 0 40px 0',
+    alignItems: 'center',
+
+    margin: '20px 0 20px 0',
+  },
+
+  filesTitleWrapper: {
+    width: '70%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   documentsWrapper: {
@@ -341,14 +349,22 @@ export const useClassNames = makeStyles(() => ({
   documentWrapper: {
     position: 'relative',
     width: '100%',
+
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
+    cursor: 'pointer',
+
+    '&:hover > :not(:last-child)': {
+      opacity: '0.3',
+    },
 
     '&:hover > span': {
       display: 'block',
       position: 'absolute',
+      textAlign: 'center',
+      color: '#001029',
     },
   },
 
@@ -359,14 +375,6 @@ export const useClassNames = makeStyles(() => ({
   documentTitle: {
     fontSize: '12px',
     textAlign: 'center',
-  },
-
-  documentsTitle: {
-    marginBottom: '22px',
-  },
-
-  photoTitle: {
-    marginBottom: '20px',
   },
 
   emptyProposalsIconWrapper: {

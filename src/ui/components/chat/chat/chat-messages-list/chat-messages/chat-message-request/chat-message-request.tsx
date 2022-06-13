@@ -1,14 +1,13 @@
-import React, {FC, useState} from 'react'
+import React, {FC} from 'react'
 
-import {Grid} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {ChatMessageDataCreatedNewProposalRequestDescriptionContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
-import {BigImagesModal} from '@components/modals/big-images-modal'
+import {FilesCarousel} from '@components/custom-carousel/custom-carousel'
 
-import {formatNormDateTime} from '@utils/date-time'
+import {formatDateTimeHourAndMinutes, formatNormDateTime} from '@utils/date-time'
 import {toFixedWithDollarSign} from '@utils/text'
 
 import {LabelValuePairBlock} from '../label-value-pair-block'
@@ -21,9 +20,6 @@ interface Props {
 export const ChatMessageRequest: FC<Props> = ({message}) => {
   const classNames = useClassNames()
 
-  const [showImageModal, setShowImageModal] = useState(false)
-
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [] as string[] | null | undefined, imgIndex: 0})
   return (
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
@@ -31,28 +27,14 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
           <p className={classNames.headerText}>{message.data?.title}</p>
         </div>
         <div className={classNames.timeWrapper}>
-          <p className={classNames.timeText}>{formatNormDateTime(message.updatedAt)}</p>
+          <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</p>
         </div>
       </div>
       <div className={classNames.mainInfoWrapper}>
         <div className={classNames.descriptionWrapper}>
           <p className={classNames.descriptionText}>{message.data.details.conditions}</p>
         </div>
-
-        <Grid container className={classNames.filesWrapper}>
-          {message?.data.details?.linksToMediaFiles?.map((file, fileIndex) => (
-            <Grid key={fileIndex} item className={classNames.imageWrapper}>
-              <img
-                className={classNames.image}
-                src={file}
-                onClick={() => {
-                  setShowImageModal(!showImageModal)
-                  setBigImagesOptions({images: message.data.details.linksToMediaFiles, imgIndex: fileIndex})
-                }}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        <FilesCarousel files={message?.data.details?.linksToMediaFiles} width="40%" />
       </div>
       <div className={classNames.footerWrapper}>
         <div className={classNames.footerRow}>
@@ -72,14 +54,6 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
           </div>
         </div>
       </div>
-
-      <BigImagesModal
-        isAmazone
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-      />
     </div>
   )
 }

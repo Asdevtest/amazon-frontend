@@ -71,19 +71,19 @@ const formFieldsDefault = {
   buyersComment: '',
 }
 
-const confirmMessageByProductStatus = {
+const confirmMessageByProductStatus = () => ({
   60: t(TranslationKey["The supplier's price is not acceptable?"]),
   50: t(TranslationKey['Supplier not found']) + '?',
   40: t(TranslationKey['Supplier found']) + '?',
   240: t(TranslationKey['Supplier found']) + '?',
   260: t(TranslationKey["The supplier's price is not acceptable?"]),
   250: t(TranslationKey['Supplier not found']) + '?',
-}
+})
 
-const warningModalTitleVariants = {
+const warningModalTitleVariants = () => ({
   NO_SUPPLIER: t(TranslationKey["You can't choose without a supplier"]),
   CHOOSE_STATUS: t(TranslationKey['We need to choose a status']),
-}
+})
 
 export class BuyerProductViewModel {
   history = undefined
@@ -290,7 +290,7 @@ export class BuyerProductViewModel {
         runInAction(() => {
           this.confirmModalSettings = {
             isWarning: false,
-            message: confirmMessageByProductStatus[this.curUpdateProductData.status],
+            message: confirmMessageByProductStatus()[this.curUpdateProductData.status],
             onClickOkBtn: () => this.onSaveProductData(),
           }
         })
@@ -303,8 +303,8 @@ export class BuyerProductViewModel {
             this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] ||
             this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] ||
             this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH]
-              ? warningModalTitleVariants.CHOOSE_STATUS
-              : warningModalTitleVariants.NO_SUPPLIER
+              ? warningModalTitleVariants().CHOOSE_STATUS
+              : warningModalTitleVariants().NO_SUPPLIER
           this.onTriggerOpenModal('showWarningModal')
         })
       }

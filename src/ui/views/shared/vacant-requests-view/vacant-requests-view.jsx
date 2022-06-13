@@ -1,5 +1,5 @@
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import SearchIcon from '@mui/icons-material/Search'
 import TableRowsIcon from '@mui/icons-material/TableRows'
 import ViewModuleIcon from '@mui/icons-material/ViewModule'
@@ -111,9 +111,9 @@ class VacantRequestsViewRaw extends Component {
                   <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
                   {sortMode === tableSortMode.DESK ? (
-                    <KeyboardArrowDownIcon color="primary" />
+                    <ArrowDropDownIcon color="primary" />
                   ) : (
-                    <KeyboardArrowUpIcon color="primary" />
+                    <ArrowDropUpIcon color="primary" />
                   )}
                 </div>
               </div>

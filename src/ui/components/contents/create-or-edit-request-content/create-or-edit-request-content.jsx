@@ -1,6 +1,4 @@
 import CircleIcon from '@mui/icons-material/Circle'
-import InboxIcon from '@mui/icons-material/Inbox'
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 
 import React, {useState} from 'react'
 
@@ -13,15 +11,13 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {CustomCarousel} from '@components/custom-carousel'
+import {FilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {DatePickerDate, DatePickerTime} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
-import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsImageLink, checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatDateForShowWithoutParseISO} from '@utils/date-time'
-import {shortenDocumentString} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './create-or-edit-request-content.style'
@@ -42,11 +38,8 @@ export const CreateOrEditRequestContent = ({
   const classNames = useClassNames()
 
   const [images, setImages] = useState([])
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
-
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   const sourceFormFields = {
     request: {
@@ -116,15 +109,6 @@ export const CreateOrEditRequestContent = ({
       }
     }
   }
-
-  const openPdfFile = url => {
-    const pdfWindow = window.open('')
-
-    pdfWindow.document.write(`<iframe width='100%' height='1000%' src='${url}'></iframe>`)
-  }
-
-  // const notIsEmptyFile = images.filter(el => !checkIsImageLink(el.file.name))
-  // const IsEmptyFile = ['Empty']
 
   const disableSubmit =
     formFields.request.title === '' ||
@@ -427,63 +411,8 @@ export const CreateOrEditRequestContent = ({
                   }
                 />
                 <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>
-                {images?.length ? (
-                  <div className={classNames.imagesAndFilesWrapper}>
-                    <div className={classNames.imagesWrapper}>
-                      <Typography className={classNames.photoTitle}>{t(TranslationKey.Photos)}</Typography>
-                      <CustomCarousel>
-                        {images
-                          .filter(el => checkIsImageLink(el.file.name))
-                          .map((photo, index) => (
-                            <img
-                              key={index}
-                              src={photo.data_url}
-                              className={classNames.imageWrapper}
-                              onClick={() => {
-                                setShowPhotosModal(!showPhotosModal)
-                                setBigImagesOptions({images: images.map(img => img.data_url), imgIndex: index})
-                              }}
-                            />
-                          ))}
-                      </CustomCarousel>
-                    </div>
 
-                    <div className={classNames.documentsWrapper}>
-                      <Typography className={classNames.documentsTitle}>{t(TranslationKey.Documents)}</Typography>
-                      <CustomCarousel>
-                        {images
-                          .filter(el => !checkIsImageLink(el.file.name))
-                          .map((file, index) => (
-                            <div
-                              key={index}
-                              className={classNames.documentWrapper}
-                              onClick={() => openPdfFile(file.data_url)}
-                            >
-                              <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
-                              <Typography className={classNames.documentTitle}>
-                                {shortenDocumentString(file.file.name)}
-                              </Typography>
-                              <span className={classNames.documentHover}>{file.file.name}</span>
-                            </div>
-                          ))}
-                      </CustomCarousel>
-                    </div>
-                  </div>
-                ) : (
-                  <div className={classNames.emptyProposalsIconWrapper}>
-                    <div className={classNames.emptyProposalsIcon}>
-                      <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
-                    </div>
-                    <div className={classNames.emptyProposalsDescriptionWrapper}>
-                      <Typography className={classNames.emptyProposalsTitle}>
-                        {t(TranslationKey['No files added'])}
-                      </Typography>
-                      <Typography className={classNames.emptyProposalsDescription}>
-                        {t(TranslationKey['To add files go back to editing'])}
-                      </Typography>
-                    </div>
-                  </div>
-                )}
+                <FilesCarousel files={images} />
 
                 <Field
                   multiline
@@ -583,12 +512,6 @@ export const CreateOrEditRequestContent = ({
       </div>
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
-
-      <BigImagesModal
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={bigImagesOptions.images}
-      />
     </div>
   )
 }

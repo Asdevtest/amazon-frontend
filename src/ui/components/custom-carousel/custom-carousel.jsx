@@ -1,12 +1,21 @@
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+import InboxIcon from '@mui/icons-material/Inbox'
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 
-// import InboxIcon from '@mui/icons-material/Inbox'
 import {Children, cloneElement, useEffect, useState} from 'react'
 
-import {Typography} from '@material-ui/core'
+import {Link, Typography} from '@material-ui/core'
+
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
+
+import {BigImagesModal} from '@components/modals/big-images-modal'
+
+import {checkIsImageLink} from '@utils/checks'
+import {shortenDocumentString} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './custom-carousel.style'
 
@@ -17,8 +26,7 @@ export const CustomCarousel = ({children, title, view = 'simple'}) => {
   const [clides, setClides] = useState([])
   const [offset, setOffset] = useState(0)
 
-  const firstSlide = children?.length ? parseInt(children[0].key) + 1 : ''
-  const [slideCount, setSlideCount] = useState(firstSlide)
+  const [slideCount, setSlideCount] = useState(1)
 
   const handleLeftArrowClick = () => {
     setOffset(currentOffset => {
@@ -72,7 +80,7 @@ export const CustomCarousel = ({children, title, view = 'simple'}) => {
               onClick={handleLeftArrowClick}
             />
             <div className={classNames.window}>
-              <div className={classNames.allPages} style={{transform: `translateX(${offset}%)`}}>
+              <div className={classNames.allClides} style={{transform: `translateX(${offset}%)`}}>
                 {clides}
               </div>
             </div>
@@ -92,7 +100,7 @@ export const CustomCarousel = ({children, title, view = 'simple'}) => {
           </div>
         </div>
       )}
-      {view === 'complex' && children?.length && (
+      {view === 'complex' && children.length !== 0 && (
         <div>
           <div className={classNames.headerCarouselWrapper}>
             <div className={classNames.buttonWrapper}>
@@ -122,16 +130,112 @@ export const CustomCarousel = ({children, title, view = 'simple'}) => {
           </div>
         </div>
       )}
+    </div>
+  )
+}
+const openPdfFile = url => {
+  const pdfWindow = window.open('')
 
-      {/* <div className={classNames.headerCarouselWrapper}>
-          <div className={classNames.window}>
-            <div className={classNames.emptyPages}>
-              <div className={classNames.emptyDocumentIcon}>
+  pdfWindow.document.write(`<iframe width='100%' height='1000%' src='${url}'></iframe>`)
+}
+
+export const FilesCarousel = ({files, width}) => {
+  const classNames = useClassNames()
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+  const [showPhotosModal, setShowPhotosModal] = useState(false)
+  const notEmptyFiles = files.filter(el => !checkIsImageLink(el?.file?.name || el))
+  const notEmptyPhotos = files.filter(el => checkIsImageLink(el?.file?.name || el))
+
+  return files?.length ? (
+    <div style={{width}}>
+      <div className={classNames.filesTitleWrapper}>
+        <Typography className={classNames.photoTitle}>{t(TranslationKey.Photos)}</Typography>
+        <Typography className={classNames.documentsTitle}>{t(TranslationKey.Documents)}</Typography>
+      </div>
+      <div className={classNames.imagesAndFilesWrapper}>
+        <div className={classNames.imagesWrapper}>
+          {notEmptyPhotos?.length ? (
+            <CustomCarousel>
+              {notEmptyPhotos.map((photo, index) => (
+                <img
+                  key={index}
+                  src={photo?.data_url || photo}
+                  onClick={() => {
+                    setShowPhotosModal(!showPhotosModal)
+
+                    setBigImagesOptions({
+                      images: files
+                        .filter(el => checkIsImageLink(el?.file?.name || el))
+                        .map(img => img?.data_url || img),
+                      imgIndex: index,
+                    })
+                  }}
+                />
+              ))}
+            </CustomCarousel>
+          ) : (
+            <div className={classNames.emptyIconWrapper}>
+              <div className={classNames.emptyIcon}>
                 <InboxIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
               </div>
             </div>
-          </div>
-        </div> */}
+          )}
+        </div>
+
+        <div className={classNames.documentsWrapper}>
+          {notEmptyFiles?.length ? (
+            <CustomCarousel>
+              {notEmptyFiles.map((file, index) =>
+                file?.data_url ? (
+                  <div
+                    key={index}
+                    className={classNames.documentWrapper}
+                    onClick={() => file.data_url && openPdfFile(file.data_url)}
+                  >
+                    <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                    <Typography className={classNames.documentTitle}>
+                      {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
+                    </Typography>
+                    <span className={classNames.documentHover}>{file?.file?.name || file}</span>
+                  </div>
+                ) : (
+                  <Link key={index} href={file} className={classNames.documentWrapper} target="__blank">
+                    <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                    <Typography className={classNames.documentTitle}>
+                      {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
+                    </Typography>
+                    <span className={classNames.documentHover}>{file?.file?.name || file}</span>
+                  </Link>
+                ),
+              )}
+            </CustomCarousel>
+          ) : (
+            <div className={classNames.emptyIconWrapper}>
+              <div className={classNames.emptyIcon}>
+                <InboxIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
+              </div>
+            </div>
+          )}
+        </div>
+        <BigImagesModal
+          openModal={showPhotosModal}
+          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          images={bigImagesOptions.images}
+          imgIndex={bigImagesOptions.imgIndex}
+        />
+      </div>
+    </div>
+  ) : (
+    <div className={classNames.emptyProposalsIconWrapper}>
+      <div className={classNames.emptyProposalsIcon}>
+        <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
+      </div>
+      <div className={classNames.emptyProposalsDescriptionWrapper}>
+        <Typography className={classNames.emptyProposalsTitle}>{t(TranslationKey['No files added'])}</Typography>
+        <Typography className={classNames.emptyProposalsDescription}>
+          {t(TranslationKey['To add files go back to editing'])}
+        </Typography>
+      </div>
     </div>
   )
 }

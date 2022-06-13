@@ -33,6 +33,21 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
     item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper,
   )
 
+  const calculateDeliveryCostPerPcs = (items, boxWeigh, price, amount, amountInBox) => {
+    if (items.length === 1 && boxWeigh) {
+      return toFixedWithDollarSign(price / amount, 2)
+    } else if (items.length > 1 && boxWeigh) {
+      const finalWeight = toFixedWithDollarSign(
+        (price * (((boxWeigh / amountInBox) * amount) / calcFinalWeightForBox(box, volumeWeightCoefficient))) / amount,
+        2,
+      )
+
+      return finalWeight
+    } else {
+      return t(TranslationKey['No data'])
+    }
+  }
+
   return (
     <div
       className={clsx(classNames.box, classNames.row, {[classNames.badBox]: isNoBarCodGlued})}
@@ -219,7 +234,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
           )}
         </div>
       </div>
-      {/* <div className={clsx(tableCellClsx, classNames.pricePerAmoutCell)}>
+      <div className={clsx(tableCellClsx, classNames.pricePerAmoutCell)}>
         {box.items.map((item, index) => (
           <div key={index}>
             <div className={clsx(tableCellClsx, classNames.priceCell)}>
@@ -230,7 +245,18 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
             <div className={clsx(tableCellClsx, classNames.priceCellRight)}>
               <Typography variant="h5">
-                {item.product.currentSupplier.boxProperties?.boxWeighGrossKg
+                {calculateDeliveryCostPerPcs(
+                  box.items,
+                  item.product.currentSupplier.boxProperties?.boxWeighGrossKg,
+                  price,
+                  item.amount,
+                  item.product.currentSupplier.boxProperties?.amountInBox,
+                  box.weighGrossKgWarehouse,
+                )}
+                {/* {box.items.length === 1 && item.product.currentSupplier.boxProperties?.boxWeighGrossKg
+                  ? toFixedWithDollarSign(price / item.amount)
+                  : t(TranslationKey['No data'])}
+                {box.items.length > 1 && item.product.currentSupplier.boxProperties?.boxWeighGrossKg
                   ? toFixedWithDollarSign(
                       (price *
                         toFixed(
@@ -242,12 +268,12 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                         item.amount,
                       2,
                     )
-                  : t(TranslationKey['No data'])}
+                  : t(TranslationKey['No data'])} */}
               </Typography>
             </div>
           </div>
         ))}
-      </div> */}
+      </div>
 
       <div className={clsx(tableCellClsx, classNames.priceCell)}>
         <Typography className={classNames.spanText}>{t(TranslationKey['Box delivery cost'])}</Typography>
