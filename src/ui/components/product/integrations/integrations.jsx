@@ -35,6 +35,7 @@ export const Integrations = observer(({productId}) => {
   }, [])
 
   const {
+    product,
     getCurrentData,
     showBindInventoryGoodsToStockModal,
     showSuccessModal,
@@ -85,7 +86,7 @@ export const Integrations = observer(({productId}) => {
         setOpenModal={() => onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
       >
         <BindInventoryGoodsToStockForm
-          selectedRowId={productId}
+          product={product}
           stockData={sellerBoardDailyData}
           updateStockData={getStockGoodsByFilters}
           onSubmit={onSubmitBindStockGoods}

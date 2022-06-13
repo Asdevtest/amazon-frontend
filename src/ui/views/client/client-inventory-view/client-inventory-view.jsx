@@ -289,7 +289,7 @@ export class ClientInventoryViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
         >
           <BindInventoryGoodsToStockForm
-            selectedRowId={getCurrentData().find(item => selectedRowIds.includes(item.id))?.originalData._id}
+            product={getCurrentData().find(item => selectedRowIds.includes(item.id))?.originalData}
             stockData={sellerBoardDailyData}
             updateStockData={getStockGoodsByFilters}
             onSubmit={onSubmitBindStockGoods}

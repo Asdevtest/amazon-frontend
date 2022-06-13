@@ -674,7 +674,7 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async getStockGoodsByFilters(filter) {
+  async getStockGoodsByFilters(filter, isRecCall) {
     try {
       const result = await SellerBoardModel.getStockGoodsByFilters(filter)
 
@@ -683,9 +683,13 @@ export class ClientInventoryViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.sellerBoardDailyData = []
-      if (error.body && error.body.message) {
-        this.error = error.body.message
+      if (isRecCall) {
+        this.getStockGoodsByFilters()
+      } else {
+        this.sellerBoardDailyData = []
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
       }
     }
   }

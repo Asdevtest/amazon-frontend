@@ -214,7 +214,7 @@ export const AddOrEditBatchForm = observer(
               checkboxSelection
               rows={toJS(boxesToAddData)}
               columns={addOrEditBatchFormColumns()}
-              rowHeight={80}
+              rowHeight={100}
               selectionModel={boxesToAddIds}
               onSelectionModelChange={newSelection => onSelectionAwaitingBoxes(newSelection)}
             />
@@ -241,7 +241,7 @@ export const AddOrEditBatchForm = observer(
               checkboxSelection
               rows={chosenBoxes || []}
               columns={addOrEditBatchFormColumns()}
-              rowHeight={80}
+              rowHeight={100}
               onSelectionModelChange={newSelection => onSelectionChoosenBoxes(newSelection)}
             />
           </div>
