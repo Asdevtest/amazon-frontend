@@ -8,7 +8,7 @@ import {ChatMessageDataCreatedNewProposalProposalDescriptionContract} from '@mod
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
 import {Button} from '@components/buttons/button'
-import {FilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 
 import {formatDateTimeHourAndMinutes} from '@utils/date-time'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
@@ -66,7 +66,7 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
           </div>
         </div>
         <div className={classNames.rightSideWrapper}>
-          <FilesCarousel files={message.images} width="70%" />
+          <PhotoAndFilesCarousel files={message.images} width="70%" />
 
           <div className={classNames.footerWrapper}>
             {chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CREATED ||

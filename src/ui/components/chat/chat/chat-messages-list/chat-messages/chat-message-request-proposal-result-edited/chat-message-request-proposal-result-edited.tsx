@@ -16,7 +16,7 @@ import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
-import {FilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {checkIsImageLink} from '@utils/checks'
@@ -74,7 +74,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
         <p className={classNames.resultText}>{message.data.edited.result}</p>
       </div>
       <div className={classNames.resultWrapper}>
-        <FilesCarousel files={message.data.edited.linksToMediaFiles} width="40%" />
+        <PhotoAndFilesCarousel files={message.data.edited.linksToMediaFiles} width="40%" />
 
         <div className={classNames.resultRightSide}>
           <div className={classNames.timeToCheckBlockWrapper}>

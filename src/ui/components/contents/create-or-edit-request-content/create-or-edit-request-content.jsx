@@ -11,7 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {FilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {DatePickerDate, DatePickerTime} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
 import {UploadFilesInput} from '@components/upload-files-input'
@@ -412,7 +412,7 @@ export const CreateOrEditRequestContent = ({
                 />
                 <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>
 
-                <FilesCarousel files={images} />
+                <PhotoAndFilesCarousel files={images} />
 
                 <Field
                   multiline

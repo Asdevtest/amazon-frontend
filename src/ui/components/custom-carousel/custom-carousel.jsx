@@ -139,7 +139,7 @@ const openPdfFile = url => {
   pdfWindow.document.write(`<iframe width='100%' height='1000%' src='${url}'></iframe>`)
 }
 
-export const FilesCarousel = ({files, width}) => {
+export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
   const classNames = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -152,7 +152,10 @@ export const FilesCarousel = ({files, width}) => {
         <Typography className={classNames.photoTitle}>{t(TranslationKey.Photos)}</Typography>
         <Typography className={classNames.documentsTitle}>{t(TranslationKey.Documents)}</Typography>
       </div>
-      <div className={classNames.imagesAndFilesWrapper}>
+      <div
+        className={classNames.imagesAndFilesWrapper}
+        style={{flexDirection: direction === 'column' ? 'column' : 'row'}}
+      >
         <div className={classNames.imagesWrapper}>
           {notEmptyPhotos?.length ? (
             <CustomCarousel>
@@ -237,5 +240,55 @@ export const FilesCarousel = ({files, width}) => {
         </Typography>
       </div>
     </div>
+  )
+}
+
+export const PhotoCarousel = ({files}) => {
+  const classNames = useClassNames()
+  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
+  const [showPhotosModal, setShowPhotosModal] = useState(false)
+
+  const notEmptyPhotos = files.filter(el => checkIsImageLink(el?.file?.name || el))
+
+  return (
+    files?.length && (
+      <div className={classNames.imagesAndFilesWrapper}>
+        <div className={classNames.imagesWrapper}>
+          {notEmptyPhotos?.length ? (
+            <CustomCarousel>
+              {notEmptyPhotos.map((photo, index) => (
+                <img
+                  key={index}
+                  src={photo?.data_url || photo}
+                  onClick={() => {
+                    setShowPhotosModal(!showPhotosModal)
+
+                    setBigImagesOptions({
+                      images: files
+                        .filter(el => checkIsImageLink(el?.file?.name || el))
+                        .map(img => img?.data_url || img),
+                      imgIndex: index,
+                    })
+                  }}
+                />
+              ))}
+            </CustomCarousel>
+          ) : (
+            <div className={classNames.emptyIconWrapper}>
+              <div className={classNames.emptyIcon}>
+                <InboxIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
+              </div>
+            </div>
+          )}
+        </div>
+
+        <BigImagesModal
+          openModal={showPhotosModal}
+          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+          images={bigImagesOptions.images}
+          imgIndex={bigImagesOptions.imgIndex}
+        />
+      </div>
+    )
   )
 }
