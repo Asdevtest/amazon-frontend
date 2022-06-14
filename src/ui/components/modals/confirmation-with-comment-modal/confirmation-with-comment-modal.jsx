@@ -37,12 +37,15 @@ export const ConfirmWithCommentModal = ({
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMessageWrapper}>
-        <Typography variant="h5">{titleText}</Typography>
+        <Typography variant="h5" className={classNames.modalMessageTitle}>
+          {titleText}
+        </Typography>
         <Field
           multiline
           className={classNames.heightFieldAuto}
-          rows={4}
-          rowsMax={6}
+          rows={7}
+          rowsMax={7}
+          labelClasses={classNames.commentLabelText}
           label={commentLabelText}
           value={comment}
           onChange={e => setComment(e.target.value)}
@@ -52,7 +55,7 @@ export const ConfirmWithCommentModal = ({
             disabled={submitIsClicked}
             color="primary"
             variant="contained"
-            className={classNames.button}
+            className={classNames.buttonOk}
             onClick={onClickSubmit}
           >
             {okBtnText}
@@ -61,7 +64,7 @@ export const ConfirmWithCommentModal = ({
             disabled={submitIsClicked}
             color="primary"
             variant="contained"
-            className={classNames.button}
+            className={classNames.buttonCancel}
             onClick={setOpenModal}
           >
             {cancelBtnText}

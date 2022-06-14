@@ -302,6 +302,12 @@ export const MultilineTextCell = withStyles(styles)(({classes: classNames, text}
   </div>
 ))
 
+export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text}) => (
+  <div className={classNames.multilineTextAlignLeftWrapper}>
+    <Typography className={classNames.multilineTextAlignLeft}>{text}</Typography>
+  </div>
+))
+
 export const MultilineTextHeaderCell = withStyles(styles)(({classes: classNames, text}) => (
   <div className={classNames.multilineTextHeaderWrapper}>
     <Typography className={classNames.multilineHeaderText}>{text}</Typography>

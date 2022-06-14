@@ -327,6 +327,9 @@ export const styles = createStyles(() => ({
     textAlign: 'center',
     width: '100%',
     whiteSpace: 'pre-line',
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
   },
 
   taskDescriptionScrollWrapper: {
@@ -410,7 +413,8 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'start',
+    marginLeft: '6px',
   },
 
   multilineText: {
@@ -418,9 +422,29 @@ export const styles = createStyles(() => ({
     textAlign: 'center',
     whiteSpace: 'normal',
 
-    fontWeight: '600',
-    fontSize: '12px',
-    lineHeight: '14px',
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+
+    color: '#354256',
+  },
+
+  multilineTextAlignLeftWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'start',
+    marginLeft: '6px',
+  },
+
+  multilineTextAlignLeft: {
+    width: '100%',
+    textAlign: 'left',
+    whiteSpace: 'normal',
+
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
 
     color: '#354256',
   },
@@ -440,14 +464,16 @@ export const styles = createStyles(() => ({
     color: 'rgba(0, 0, 0, 0.87)',
     fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
     fontWeight: '400',
-    fontSize: '0.875rem',
-    lineHeight: '1.1',
-    letterSpacing: '0.01071em',
+    fontSize: '14px',
+    lineHeight: '16px',
   },
 
   multilineStatusText: {
     textAlign: 'center',
     whiteSpace: 'normal',
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
   },
 
   linkText: {

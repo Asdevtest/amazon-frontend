@@ -7,7 +7,7 @@ import {Grid, Typography, Avatar} from '@material-ui/core'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+import {MultilineRequestStatusCell, UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -23,68 +23,74 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
         <div className={classNames.cardTitleBlockWrapper}>
-          <div className={classNames.userInfoWrapper}>
-            <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
+          <div className={classNames.cardTitleBlockHeaderWrapper}>
+            <div className={classNames.userInfoWrapper}>
+              <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
 
-            <div className={classNames.nameWrapper}>
-              <UserLinkCell name={item.createdBy.name} userId={item.createdBy._id} />
+              <div className={classNames.nameWrapper}>
+                <UserLinkCell name={item.createdBy.name} userId={item.createdBy._id} />
 
-              <Rating disabled value={item.createdBy.rating} />
+                <Rating disabled value={item.createdBy.rating} />
+              </div>
             </div>
+            <Typography className={classNames.cardTitle}>{item.title}</Typography>
           </div>
+          <div className={classNames.cardTitleBlockFooterWrapper}>
+            <Typography className={classNames.cardSubTitle}>{`${
+              item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals
+            } ${t(TranslationKey['out of'])} ${item.maxAmountOfProposals} ${t(
+              TranslationKey['suggestions left'],
+            )}`}</Typography>
 
-          <Typography className={classNames.cardTitle}>{item.title}</Typography>
+            <div className={classNames.updatedAtWrapper}>
+              <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ':'}</Typography>
 
-          <Typography className={classNames.cardSubTitle}>{`${
-            item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals
-          } ${t(TranslationKey['out of'])} ${item.maxAmountOfProposals} ${t(
-            TranslationKey['suggestions left'],
-          )}`}</Typography>
-
-          <div className={classNames.updatedAtWrapper}>
-            <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ':'}</Typography>
-
-            <Typography className={classNames.updatedAtText}>
-              {formatNormDateTimeWithParseISO(item.updatedAt)}
-            </Typography>
+              <Typography className={classNames.updatedAtText}>
+                {formatNormDateTimeWithParseISO(item.updatedAt)}
+              </Typography>
+            </div>
           </div>
         </div>
 
         <div className={classNames.middleBlockWrapper}>
-          <div className={classNames.timeItemInfoWrapper}>
-            <Typography>{t(TranslationKey['Time to complete'])}</Typography>
+          <div className={classNames.subBlockWrapper}>
+            <div className={classNames.leftSubBlockWrapper}>
+              <div className={classNames.timeItemInfoWrapper}>
+                <Typography>{t(TranslationKey['Time to complete'])}</Typography>
 
-            <Typography>{minsToTime(item.timeLimitInMinutes)}</Typography>
+                <Typography>{minsToTime(item.timeLimitInMinutes)}</Typography>
+              </div>
+              <div className={classNames.timeItemInfoWrapper}>
+                <Typography>{t(TranslationKey.Status)}</Typography>
+
+                <Typography className={classNames.statusText}>
+                  {<MultilineRequestStatusCell status={item.status} />}
+                </Typography>
+              </div>
+            </div>
+            <div className={classNames.rightSubBlockWrapper}>
+              <div className={classNames.timeItemInfoWrapper}>
+                <Typography>{t(TranslationKey.Deadline)}</Typography>
+
+                <Typography>{formatNormDateTime(item.timeoutAt)}</Typography>
+              </div>
+              <div className={classNames.timeItemInfoWrapper}>
+                <Typography>{t(TranslationKey['Total price'])}</Typography>
+
+                <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
+              </div>
+            </div>
           </div>
-
-          <div className={classNames.timeItemInfoWrapper}>
-            <Typography>{t(TranslationKey.Deadline)}</Typography>
-
-            <Typography>{formatNormDateTime(item.timeoutAt)}</Typography>
+          <div className={classNames.buttonWrapper}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classNames.actionButton}
+              onClick={() => onClickViewMore(item._id)}
+            >
+              {t(TranslationKey.Details)}
+            </Button>
           </div>
-
-          <div className={classNames.timeItemInfoWrapper}>
-            <Typography>{t(TranslationKey.Status)}</Typography>
-
-            <Typography className={classNames.statusText}>{item.status}</Typography>
-          </div>
-
-          <div className={classNames.timeItemInfoWrapper}>
-            <Typography>{t(TranslationKey['Total price'])}</Typography>
-
-            <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
-          </div>
-        </div>
-
-        <div className={classNames.rightBlockWrapper}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classNames.actionButton}
-            onClick={() => onClickViewMore(item._id)}
-          >
-            {t(TranslationKey.Details)}
-          </Button>
         </div>
       </div>
     </Grid>

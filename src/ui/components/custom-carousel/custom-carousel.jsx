@@ -143,8 +143,10 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
   const classNames = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
-  const notEmptyFiles = files.filter(el => !checkIsImageLink(el?.file?.name || el))
-  const notEmptyPhotos = files.filter(el => checkIsImageLink(el?.file?.name || el))
+  const notEmptyFiles = files?.length
+    ? files.filter(el => (el?.file?.name ? !checkIsImageLink(el?.file?.name) : !checkIsImageLink(el)))
+    : []
+  const notEmptyPhotos = files?.length ? files.filter(el => checkIsImageLink(el?.file?.name || el)) : []
 
   return files?.length ? (
     <div style={{width}}>
