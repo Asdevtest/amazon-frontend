@@ -91,7 +91,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                 <div className={classNames.leftBtnsWrapper}>
                   <Button
                     disabled={!selectedBatches.length || isInvalidTariffBoxSelected}
-                    tooltipContent={
+                    tooltipAttentionContent={
                       isInvalidTariffBoxSelected &&
                       t(TranslationKey['Selected a batch contains a box with an invalid tariff'])
                     }

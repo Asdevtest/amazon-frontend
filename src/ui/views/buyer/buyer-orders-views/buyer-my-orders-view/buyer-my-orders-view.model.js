@@ -67,8 +67,13 @@ export class BuyerMyOrdersViewModel {
   showProgress = false
   readyImages = []
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+
+    if (location.state?.orderId) {
+      this.onClickOrder(location.state.orderId)
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -166,12 +171,12 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onClickOrder(order) {
+  async onClickOrder(orderId) {
     try {
-      const orderData = await BuyerModel.getOrderById(order.originalData._id)
+      const orderData = await BuyerModel.getOrderById(orderId)
 
       this.selectedOrder = orderData
-      this.getBoxesOfOrder(order.originalData._id)
+      this.getBoxesOfOrder(orderId)
 
       const result = await UserModel.getPlatformSettings()
 

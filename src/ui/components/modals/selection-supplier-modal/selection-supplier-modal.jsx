@@ -98,7 +98,7 @@ export const SelectionSupplierModal = ({
       ) : (
         <div className={classNames.modalButtonsWrapper}>
           <Button
-            tooltipContent={t(TranslationKey['Paid service'])}
+            tooltipAttentionContent={t(TranslationKey['Paid service'])}
             disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
             className={buttonSendRequestClsx}
             onClick={() => onClickSendRequestButton()}
@@ -107,7 +107,7 @@ export const SelectionSupplierModal = ({
           </Button>
 
           <Button
-            tooltipContent={t(TranslationKey['Free service'])}
+            tooltipAttentionContent={t(TranslationKey['Free service'])}
             disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
             className={buttonAddSupplierClsx}
             onClick={() => onClickAddSupplierButton()}
@@ -129,7 +129,7 @@ export const SelectionSupplierModal = ({
         <Grid item>
           <Button
             success
-            tooltipContent={
+            tooltipAttentionContent={
               clickNextOrPrevButton && t(TranslationKey['Click next to calculate the cost of your supplier search'])
             }
             disabled={!selectedButtonValue}

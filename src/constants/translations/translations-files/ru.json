@@ -823,5 +823,8 @@
   "Confirm tariff selection": "Подтвердить выбор тарифа",
   "Selected a batch contains a box with an invalid tariff": "Выбрана партия содержащая коробку с невалидным тарифом",
   "Stock sum": "Сумма стока",
-  "Not chosen": "Не выбран"
+  "Not chosen": "Не выбран",
+  "Continue with the order?": "Продолжить работу с заказом?",
+  "Continue to work with vacant orders?": "Продолжить работу с вакантными заказами?",
+  "Order picked up": "Заказ взят в работу"
 }

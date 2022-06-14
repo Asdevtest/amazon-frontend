@@ -161,7 +161,7 @@ export class ClientInventoryViewRaw extends Component {
 
                   <Button
                     disableElevation
-                    tooltipContent={
+                    tooltipAttentionContent={
                       isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
                     }
                     disabled={!selectedRowIds.length || isNoEditProductSelected}

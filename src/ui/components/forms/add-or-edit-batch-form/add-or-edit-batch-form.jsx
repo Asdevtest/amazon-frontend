@@ -222,7 +222,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={classNames.btnsWrapper}>
             <Button
-              tooltipContent={!chosenBoxes.length && !batchToEdit && t(TranslationKey['First select one box'])}
+              tooltipAttentionContent={!chosenBoxes.length && !batchToEdit && t(TranslationKey['First select one box'])}
               disabled={!boxesToAddIds.length || (!chosenBoxes.length && boxesToAddIds.length !== 1 && !batchToEdit)}
               color="primary"
               variant="contained"

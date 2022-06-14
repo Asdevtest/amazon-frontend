@@ -786,7 +786,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
 
     {row.batchId && row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE && (
       <Button
-        tooltipContent={
+        tooltipAttentionContent={
           row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF &&
           t(TranslationKey['The tariff is invalid or has been removed!'])
         }

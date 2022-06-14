@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -12,7 +11,7 @@ import {Button} from '@components/buttons/button'
 import {CreateOrEditProposalContent} from '@components/contents/create-or-edit-proposal-content'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
+import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
@@ -84,30 +83,15 @@ export class CreateOrEditProposalViewRaw extends Component {
           </Appbar>
         </Main>
 
-        <Modal openModal={showResultModal} setOpenModal={() => onTriggerOpenModal('showResultModal')}>
-          <div className={classNames.modalMessageWrapper}>
-            <Typography variant="h5">{infoModalText}</Typography>
-
-            <div className={classNames.resultButtonsWrapper}>
-              <Button
-                color="primary"
-                variant="contained"
-                className={classNames.button}
-                onClick={() => onClickResultModal({goBack: true})}
-              >
-                {'К вакантным заявкам'}
-              </Button>
-              <Button
-                color="primary"
-                variant="text"
-                className={classNames.button}
-                onClick={() => onClickResultModal({goBack: false})}
-              >
-                {'К списку предложений'}
-              </Button>
-            </div>
-          </div>
-        </Modal>
+        <TwoVerticalChoicesModal
+          openModal={showResultModal}
+          setOpenModal={() => onTriggerOpenModal('showResultModal')}
+          title={infoModalText}
+          topBtnText={'К вакантным заявкам'}
+          bottomBtnText={'К списку предложений'}
+          onClickTopBtn={() => onClickResultModal({goBack: true})}
+          onClickBottomBtn={() => onClickResultModal({goBack: false})}
+        />
 
         <WarningInfoModal
           openModal={showInfoModal}

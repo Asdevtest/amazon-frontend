@@ -32,7 +32,7 @@ const attentionStatuses = [OrderStatusByKey[OrderStatus.AT_PROCESS], OrderStatus
 
 @observer
 class BuyerMyOrdersViewRaw extends Component {
-  viewModel = new BuyerMyOrdersViewModel({history: this.props.history})
+  viewModel = new BuyerMyOrdersViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -119,7 +119,7 @@ class BuyerMyOrdersViewRaw extends Component {
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
-                onRowDoubleClick={e => onClickOrder(e.row)}
+                onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
                 onFilterModelChange={model => onChangeFilterModel(model)}
               />
             </MainContent>

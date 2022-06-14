@@ -823,15 +823,15 @@ export enum TranslationKey {
   'Selected a batch contains a box with an invalid tariff' = 'Selected a batch contains a box with an invalid tariff',
   'Stock sum' = 'Stock sum',
   'Not chosen' = 'Not chosen',
-  // '' = '',
-  // '' = '',
-  // '' = '',
+  'Continue with the order?' = 'Continue with the order?',
+  'Continue to work with vacant orders?' = 'Continue to work with vacant orders?',
+  'Order picked up' = 'Order picked up',
   // '' = '',
   // '' = '',
   // '' = '',
 }
 
-// "Not chosen": "Not chosen"
+// "Order picked up": "Order picked up"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

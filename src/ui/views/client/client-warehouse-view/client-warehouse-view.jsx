@@ -415,7 +415,7 @@ export class ClientWarehouseViewRaw extends Component {
       <React.Fragment>
         <Button
           disableElevation
-          tooltipContent={isNoDestinationBoxSelected && t(TranslationKey['Selected box with no destination'])}
+          tooltipAttentionContent={isNoDestinationBoxSelected && t(TranslationKey['Selected box with no destination'])}
           disabled={!selectedBoxes.length || isNoDestinationBoxSelected}
           color="primary"
           variant="contained"
