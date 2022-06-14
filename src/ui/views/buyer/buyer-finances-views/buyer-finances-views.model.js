@@ -42,7 +42,7 @@ export class BuyerFinancesViewsModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = financesViewColumns()
+      this.getDataGridState()
     }
   }
 
@@ -86,8 +86,8 @@ export class BuyerFinancesViewsModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
-      const result = await OtherModel.getMyPayments()
       this.getDataGridState()
+      const result = await OtherModel.getMyPayments()
       runInAction(() => {
         this.currentFinancesData = financesDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),

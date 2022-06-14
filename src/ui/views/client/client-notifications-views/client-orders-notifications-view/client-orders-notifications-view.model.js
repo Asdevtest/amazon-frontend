@@ -53,7 +53,7 @@ export class ClientOrdersNotificationsViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = clientOrdersNotificationsViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -140,8 +140,9 @@ export class ClientOrdersNotificationsViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getOrders()
+
       this.getDataGridState()
+      await this.getOrders()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

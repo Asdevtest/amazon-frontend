@@ -53,7 +53,7 @@ export class ResearcherProductsRequestsViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = researcherProductsRequestsViewColumns()
+      this.getDataGridState()
     }
   }
 
@@ -116,9 +116,8 @@ export class ResearcherProductsRequestsViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
-      await this.getRequestsVacant()
       this.getDataGridState()
+      await this.getRequestsVacant()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

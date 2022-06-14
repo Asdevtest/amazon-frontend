@@ -40,7 +40,7 @@ export class SupervisorProductsViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = supervisorProductsViewColumns()
+      this.getDataGridState()
     }
   }
 
@@ -103,8 +103,8 @@ export class SupervisorProductsViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getProductsMy()
       this.getDataGridState()
+      await this.getProductsMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

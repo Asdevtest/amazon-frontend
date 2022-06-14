@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
@@ -39,7 +40,7 @@ export class ClientOrdersViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = clientOrdersViewColumns()
+      this.getDataGridState()
     }
   }
 
@@ -99,8 +100,8 @@ export class ClientOrdersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getOrders()
       this.getDataGridState()
+      await this.getOrders()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

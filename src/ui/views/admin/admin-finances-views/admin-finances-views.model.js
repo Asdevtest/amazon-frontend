@@ -40,7 +40,7 @@ export class AdminFinancesViewsModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = financesViewColumns()
+      this.getDataGridState()
     }
   }
 

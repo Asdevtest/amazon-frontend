@@ -52,7 +52,7 @@ export class BuyerFreeOrdersViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -115,8 +115,8 @@ export class BuyerFreeOrdersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getOrdersVacant()
       this.getDataGridState()
+      await this.getOrdersVacant()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

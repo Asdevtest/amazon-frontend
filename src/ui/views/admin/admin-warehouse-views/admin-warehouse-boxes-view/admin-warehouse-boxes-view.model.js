@@ -47,7 +47,7 @@ export class AdminWarehouseBoxesViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = adminBoxesViewColumns()
+      this.getDataGridState()
     }
   }
 
@@ -109,8 +109,9 @@ export class AdminWarehouseBoxesViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getBoxes()
       this.getDataGridState()
+
+      await this.getBoxes()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

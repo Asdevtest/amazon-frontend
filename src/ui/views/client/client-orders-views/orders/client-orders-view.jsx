@@ -53,6 +53,8 @@ class ClientOrdersViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
+    console.log('rowsPerPage', rowsPerPage)
+
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />

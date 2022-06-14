@@ -286,14 +286,15 @@ export const styles = createStyles(() => ({
   },
 
   manyItemsImagesWrapper: {
-    height: '90px',
+    height: '75px',
     border: '1px solid rgba(0, 123, 255, 0.5)',
     borderRadius: '10px',
-    gap: '5px',
+    gap: '3px',
     padding: '3px',
     display: 'flex',
     alignItems: 'center',
     marginRight: '5px',
+    width: 'min-content',
   },
 
   manyItemsImgWrapper: {

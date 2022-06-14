@@ -50,7 +50,7 @@ export class AdminAwaitingBatchesViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = adminBatchesViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -113,8 +113,8 @@ export class AdminAwaitingBatchesViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getBatches()
       this.getDataGridState()
+      await this.getBatches()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

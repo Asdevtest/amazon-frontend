@@ -42,7 +42,7 @@ export class WarehouseFinancesViewsModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = financesViewColumns()
+      this.getDataGridState()
     }
   }
 
@@ -105,8 +105,8 @@ export class WarehouseFinancesViewsModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getPayments()
       this.getDataGridState()
+      await this.getPayments()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

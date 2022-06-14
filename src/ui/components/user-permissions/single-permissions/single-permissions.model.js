@@ -59,7 +59,7 @@ export class SinglePermissionsModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = adminSinglePermissionsColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -126,10 +126,8 @@ export class SinglePermissionsModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
-      await this.getSinglePermissions()
-
       this.getDataGridState()
+      await this.getSinglePermissions()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

@@ -46,7 +46,7 @@ export class ClientAwaitingBatchesViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = clientBatchesViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -109,8 +109,9 @@ export class ClientAwaitingBatchesViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getBatches()
+
       this.getDataGridState()
+      await this.getBatches()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

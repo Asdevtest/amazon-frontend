@@ -161,7 +161,7 @@ export class ClientInventoryViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = clientInventoryColumns(this.barCodeHandlers, this.hsCodeHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -252,9 +252,9 @@ export class ClientInventoryViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.getDataGridState()
       await this.getProductsMy()
       await this.getOrders()
-      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -388,6 +388,8 @@ export class ClientInventoryViewModel {
           await onSubmitPostImages.call(this, {images: product.tmpBarCode, type: 'uploadedFiles'})
 
           await ClientModel.updateProductBarCode(product.productId, {barCode: this.uploadedFiles[0]})
+        } else if (!product.barCode) {
+          await ClientModel.updateProductBarCode(product.productId, {barCode: null})
         }
 
         await this.createOrder(product)

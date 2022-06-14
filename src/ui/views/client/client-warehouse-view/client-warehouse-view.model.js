@@ -161,7 +161,7 @@ export class ClientWarehouseViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = clientBoxesViewColumns(this.rowHandlers, this.storekeepersData)
+      this.getDataGridState()
     }
   }
 
@@ -391,10 +391,10 @@ export class ClientWarehouseViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
+      this.getDataGridState()
       await this.getStorekeepers()
 
       this.getBoxesMy()
-      this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
       this.getTasksMy()

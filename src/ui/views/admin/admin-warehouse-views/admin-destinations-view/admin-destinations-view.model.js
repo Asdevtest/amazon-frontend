@@ -55,7 +55,7 @@ export class AdminDestinationsViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = destinationsColumns()
+      this.getDataGridState()
     }
   }
 
@@ -126,10 +126,8 @@ export class AdminDestinationsViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
-      await this.getDestinations()
-
       this.getDataGridState()
+      await this.getDestinations()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

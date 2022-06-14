@@ -59,7 +59,7 @@ export class AdminUsersViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = adminUsersViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -102,10 +102,8 @@ export class AdminUsersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
-      await this.getUsers()
-
       this.getDataGridState()
+      await this.getUsers()
 
       await this.getGroupPermissions()
       await this.getSinglePermissions()

@@ -46,7 +46,7 @@ export class BuyerMyProductsViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = buyerProductsViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -119,8 +119,9 @@ export class BuyerMyProductsViewModel {
   async loadData() {
     try {
       this.requestStatus = loadingStatuses.isLoading
-      await this.getProductsMy()
+
       this.getDataGridState()
+      await this.getProductsMy()
       this.requestStatus = loadingStatuses.success
     } catch (error) {
       this.requestStatus = loadingStatuses.failed

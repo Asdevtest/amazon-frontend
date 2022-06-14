@@ -42,7 +42,7 @@ export class FreelancerFinancesViewsModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = financesViewColumns()
+      this.getDataGridState()
     }
   }
 

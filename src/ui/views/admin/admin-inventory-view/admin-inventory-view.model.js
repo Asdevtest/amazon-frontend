@@ -43,7 +43,7 @@ export class AdminInventoryViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = exchangeInventoryColumns()
+      this.getDataGridState()
     }
   }
 

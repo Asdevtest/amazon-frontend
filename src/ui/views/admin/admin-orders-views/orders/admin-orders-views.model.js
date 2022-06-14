@@ -56,7 +56,7 @@ export class AdminOrdersAllViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = adminOrdersViewColumns()
+      this.getDataGridState()
     }
   }
 
@@ -117,10 +117,11 @@ export class AdminOrdersAllViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
+      this.getDataGridState()
       const result = await AdministratorModel.getOrdersByStatus(ordersStatusBySubCategory[activeSubCategory])
 
       const ordersData = adminOrdersDataConverter(result)
-      this.getDataGridState()
+
       runInAction(() => {
         this.currentOrdersData = ordersData.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })

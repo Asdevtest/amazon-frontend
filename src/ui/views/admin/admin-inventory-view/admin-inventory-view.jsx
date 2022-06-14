@@ -24,6 +24,7 @@ export class AdminInventoryViewRaw extends Component {
   viewModel = new AdminInventoryViewModel({history: this.props.history})
 
   componentDidMount() {
+    this.viewModel.getDataGridState()
     this.viewModel.getProducts()
   }
 

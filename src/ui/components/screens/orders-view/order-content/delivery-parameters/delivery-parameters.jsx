@@ -22,14 +22,17 @@ export const DeliveryParameters = ({order}) => {
       label={label}
       containerClasses={classNames.parameterTableCellWrapper}
       labelClasses={classNames.fieldLabel}
-      inputComponent={<Typography className={classNames.text}>{value || 'N/A'}</Typography>}
+      inputComponent={<Typography className={classNames.text}>{value || ''}</Typography>}
     />
   )
 
   return (
     <div className={classNames.root}>
       <div className={classNames.destinationWrapper}>
-        <OrderParameter label={t(TranslationKey.Destination)} value={order.destination?.name} />
+        <OrderParameter
+          label={t(TranslationKey.Destination)}
+          value={order.destination?.name || t(TranslationKey['Not chosen'])}
+        />
         <OrderParameter label={'Zip Code'} value={order.destination?.zipCode} />
         <OrderParameter label={t(TranslationKey.Country)} value={order.destination?.country} />
         <OrderParameter label={t(TranslationKey.City)} value={order.destination?.city} />

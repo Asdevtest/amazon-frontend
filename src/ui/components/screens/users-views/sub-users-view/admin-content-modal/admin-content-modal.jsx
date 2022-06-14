@@ -1,6 +1,6 @@
 import {Rating} from '@mui/material'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Container, Button, Typography, NativeSelect, Checkbox, Select, ListItemText, MenuItem} from '@material-ui/core'
 import {observer} from 'mobx-react'
@@ -14,7 +14,7 @@ import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail} from '@utils/checks'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './admin-content-modal.style'
@@ -114,6 +114,12 @@ export const AdminContentModal = observer(
       setFormFields(newFormFields)
     }
 
+    const [emailIsValid, setEmailIsValid] = useState(true)
+
+    useEffect(() => {
+      setEmailIsValid(validateEmail(formFields.email))
+    }, [formFields.email])
+
     const onSubmitUserPermissionsForm = permissions => {
       const newFormFields = {...formFields}
       newFormFields.permissions = permissions
@@ -131,6 +137,7 @@ export const AdminContentModal = observer(
       selectedGroupPermissions.find(perGroup => perGroup.role !== Number(formFields.role))
 
     const disabledSubmitButton =
+      !emailIsValid ||
       formFields.name === '' ||
       formFields.email === '' ||
       formFields.rate === '' ||
@@ -194,7 +201,10 @@ export const AdminContentModal = observer(
         <Field
           inputProps={{maxLength: 50}}
           label={t(TranslationKey.Email)}
-          error={checkValidationNameOrEmail.emailIsUnique && 'Пользователь с таким email уже существует'}
+          error={
+            (checkValidationNameOrEmail.emailIsUnique && 'Пользователь с таким email уже существует') ||
+            (!emailIsValid && t(TranslationKey['Invalid email!']))
+          }
           value={formFields.email}
           type="email"
           onChange={onChangeFormField('email')}

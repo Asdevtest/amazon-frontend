@@ -822,7 +822,7 @@ export enum TranslationKey {
   'Confirm tariff selection' = 'Confirm tariff selection',
   'Selected a batch contains a box with an invalid tariff' = 'Selected a batch contains a box with an invalid tariff',
   'Stock sum' = 'Stock sum',
-  // '' = '',
+  'Not chosen' = 'Not chosen',
   // '' = '',
   // '' = '',
   // '' = '',
@@ -831,7 +831,7 @@ export enum TranslationKey {
   // '' = '',
 }
 
-// "Stock sum": "Stock sum"
+// "Not chosen": "Not chosen"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 

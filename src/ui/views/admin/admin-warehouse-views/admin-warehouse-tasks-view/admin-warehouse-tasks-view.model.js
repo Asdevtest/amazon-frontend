@@ -50,15 +50,15 @@ export class AdminWarehouseTasksViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = adminTasksViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getTasks()
       this.getDataGridState()
+      await this.getTasks()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

@@ -674,17 +674,20 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box,
 
   return (
     <Tooltip title={renderProductInfo()}>
-      <div className={classNames.manyItemsImagesWrapper}>
-        {box.items.map((product, productIndex) => (
-          <div key={productIndex} className={classNames.manyItemsImgWrapper}>
-            <img
-              alt=""
-              className={classNames.taskDescriptionImg}
-              src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
-            />
-            <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
-          </div>
-        ))}
+      <div>
+        <div className={classNames.manyItemsImagesWrapper}>
+          {box.items.map((product, productIndex) => (
+            <div key={productIndex} className={classNames.manyItemsImgWrapper}>
+              <img
+                alt=""
+                className={classNames.taskDescriptionImg}
+                src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
+              />
+              <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
+            </div>
+          ))}
+        </div>
+        {error && <span className={classNames.OrderCellError}>{error}</span>}
       </div>
     </Tooltip>
   )

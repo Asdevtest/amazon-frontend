@@ -26,8 +26,8 @@ class AdminFinancesViewsRaw extends Component {
   viewModel = new AdminFinancesViewsModel({history: this.props.history})
 
   componentDidMount() {
-    this.viewModel.getPayments(this.viewModel.activeSubCategory)
     this.viewModel.getDataGridState()
+    this.viewModel.getPayments(this.viewModel.activeSubCategory)
   }
 
   render() {
