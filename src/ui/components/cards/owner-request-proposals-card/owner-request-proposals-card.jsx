@@ -15,7 +15,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
-import {Field} from '@components/field/field'
+// import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {checkIsImageLink} from '@utils/checks'
@@ -85,28 +85,23 @@ export const OwnerRequestProposalsCard = ({
             </div>
             {item.proposal.linksToMediaFiles.length ? (
               <div className={classNames.photoWrapper}>
-                <Field
-                  multiline
-                  inputComponent={
-                    <Carousel autoPlay={false} timeout={100} animation="fade">
-                      {item.proposal.linksToMediaFiles
-                        ?.filter(el => checkIsImageLink(el))
-                        .map((el, index) => (
-                          <div key={index} className={classNames.photoSubWrapper}>
-                            <img
-                              alt=""
-                              className={classNames.imgBox}
-                              src={el}
-                              onClick={() => {
-                                setShowImageModal(!showImageModal)
-                                setBigImagesOptions({images: item.proposal.linksToMediaFiles, imgIndex: index})
-                              }}
-                            />
-                          </div>
-                        ))}
-                    </Carousel>
-                  }
-                />
+                <Carousel autoPlay={false} timeout={100} animation="fade">
+                  {item.proposal.linksToMediaFiles
+                    ?.filter(el => checkIsImageLink(el))
+                    .map((el, index) => (
+                      <div key={index} className={classNames.photoSubWrapper}>
+                        <img
+                          alt=""
+                          className={classNames.imgBox}
+                          src={el}
+                          onClick={() => {
+                            setShowImageModal(!showImageModal)
+                            setBigImagesOptions({images: item.proposal.linksToMediaFiles, imgIndex: index})
+                          }}
+                        />
+                      </div>
+                    ))}
+                </Carousel>
               </div>
             ) : null}
           </div>

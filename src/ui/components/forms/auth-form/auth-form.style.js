@@ -11,6 +11,7 @@ export const styles = theme =>
     },
     field: {
       flexBasis: '100%',
+      position: 'relative',
     },
     checkboxWrapper: {
       display: 'flex',
@@ -37,5 +38,12 @@ export const styles = theme =>
         color: '#007bff',
         fontWeight: '500',
       },
+    },
+
+    visibilityIcon: {
+      position: 'absolute',
+      right: 10,
+      top: 35,
+      cursor: 'pointer',
     },
   })

@@ -163,6 +163,7 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
                 <img
                   key={index}
                   src={photo?.data_url || photo}
+                  className={classNames.image}
                   onClick={() => {
                     setShowPhotosModal(!showPhotosModal)
 
@@ -260,6 +261,7 @@ export const PhotoCarousel = ({files}) => {
                 <img
                   key={index}
                   src={photo?.data_url || photo}
+                  className={classNames.image}
                   onClick={() => {
                     setShowPhotosModal(!showPhotosModal)
 

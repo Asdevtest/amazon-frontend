@@ -9,8 +9,12 @@ export const styles = createStyles(() => ({
   },
   backBtnWrapper: {
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'end',
     marginBottom: '30px',
+  },
+
+  backBtn: {
+    width: '140px',
   },
   chatWrapper: {
     marginTop: '20px',

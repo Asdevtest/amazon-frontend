@@ -11,6 +11,7 @@ export const styles = theme =>
     },
     field: {
       flexBasis: '100%',
+      position: 'relative',
     },
     checkbox: {
       marginLeft: '-12px',
@@ -19,5 +20,12 @@ export const styles = theme =>
       alignItems: 'center',
       display: 'flex',
       marginBottom: theme.spacing(2.5),
+    },
+
+    visibilityIcon: {
+      position: 'absolute',
+      right: 10,
+      top: 35,
+      cursor: 'pointer',
     },
   })

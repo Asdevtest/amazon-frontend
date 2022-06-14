@@ -23,7 +23,7 @@ export const RequestProposalStatus = {
 export const RequestProposalStatusTranslate = s => {
   switch (s) {
     case RequestProposalStatus.ACCEPTED_BY_CLIENT:
-      return t(TranslationKey['The terms of the proposal are accepted by the Client'])
+      return t(TranslationKey['Accepted by Client'])
     case RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST:
       return t(TranslationKey['Accepted by creator of request'])
     case RequestProposalStatus.ACCEPTED_BY_SUPERVISOR:
