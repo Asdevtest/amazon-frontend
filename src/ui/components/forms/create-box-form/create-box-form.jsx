@@ -49,14 +49,14 @@ const BlockOfNewBox = ({
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           containerClasses={classNames.numberInputField}
-          inputProps={{maxLength: 4}}
+          inputProps={{maxLength: 6}}
           label={`${t(TranslationKey['Box length in '])}${translateSize(sizeValue) || t(TranslationKey.cm)}`}
           value={orderBox.lengthCmSupplier}
           onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
-          inputProps={{maxLength: 4}}
+          inputProps={{maxLength: 6}}
           label={`${t(TranslationKey['Box width in '])}${translateSize(sizeValue) || t(TranslationKey.cm)}`}
           value={orderBox.widthCmSupplier}
           onChange={setFormField('widthCmSupplier', orderBoxIndex)}
@@ -65,14 +65,14 @@ const BlockOfNewBox = ({
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           containerClasses={classNames.numberInputField}
-          inputProps={{maxLength: 4}}
+          inputProps={{maxLength: 6}}
           label={`${t(TranslationKey['Box height in '])}${translateSize(sizeValue) || t(TranslationKey.cm)}`}
           value={orderBox.heightCmSupplier}
           onChange={setFormField('heightCmSupplier', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
-          inputProps={{maxLength: 4}}
+          inputProps={{maxLength: 6}}
           label={t(TranslationKey['Real weight'])}
           value={orderBox.weighGrossKgSupplier}
           onChange={setFormField('weighGrossKgSupplier', orderBoxIndex)}

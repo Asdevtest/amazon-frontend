@@ -25,14 +25,14 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
-          inputProps={{maxLength: 4}}
+          inputProps={{maxLength: 6}}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Length) + ': '}
           value={box.lengthCmWarehouse}
           onChange={setNewBoxField('lengthCmWarehouse')}
         />
         <Field
-          inputProps={{maxLength: 4}}
+          inputProps={{maxLength: 6}}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Width) + ': '}
           value={box.widthCmWarehouse}
@@ -41,14 +41,14 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
       </div>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
-          inputProps={{maxLength: 4}}
+          inputProps={{maxLength: 6}}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Height) + ': '}
           value={box.heightCmWarehouse}
           onChange={setNewBoxField('heightCmWarehouse')}
         />
         <Field
-          inputProps={{maxLength: 4}}
+          inputProps={{maxLength: 6}}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Weight) + ', ' + t(TranslationKey.Kg) + ': '}
           value={box.weighGrossKgWarehouse}

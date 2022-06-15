@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    maxHeight: 36,
+    minHeight: 36,
   },
 
   success: {
@@ -59,6 +59,6 @@ export const useClassNames = makeStyles(() => ({
 
   btnWrapper: {
     position: 'relative',
-    display: 'inline-flex',
+    display: 'inline',
   },
 }))

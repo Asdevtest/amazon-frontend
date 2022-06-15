@@ -541,7 +541,7 @@ export const AddOrEditSupplierModalContent = observer(
                 <div className={classNames.sizesBottomWrapper}>
                   <Field
                     label={'H'}
-                    inputProps={{maxLength: 4}}
+                    inputProps={{maxLength: 6}}
                     containerClasses={classNames.sizeContainer}
                     labelClasses={clsx(classNames.rateLabel)}
                     inputClasses={classNames.sizeInput}
@@ -551,7 +551,7 @@ export const AddOrEditSupplierModalContent = observer(
 
                   <Field
                     label={'W'}
-                    inputProps={{maxLength: 4}}
+                    inputProps={{maxLength: 6}}
                     containerClasses={classNames.sizeContainer}
                     labelClasses={clsx(classNames.rateLabel)}
                     inputClasses={classNames.sizeInput}
@@ -561,7 +561,7 @@ export const AddOrEditSupplierModalContent = observer(
 
                   <Field
                     label={'L'}
-                    inputProps={{maxLength: 4}}
+                    inputProps={{maxLength: 6}}
                     containerClasses={classNames.sizeContainer}
                     labelClasses={clsx(classNames.rateLabel)}
                     inputClasses={classNames.sizeInput}

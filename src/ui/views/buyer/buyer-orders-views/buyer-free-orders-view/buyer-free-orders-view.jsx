@@ -121,8 +121,8 @@ class BuyerFreeOrdersViewRaw extends Component {
           openModal={showTwoVerticalChoicesModal}
           setOpenModal={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
           title={t(TranslationKey['Order picked up'])}
-          topBtnText={t(TranslationKey['Continue with the order?'])}
-          bottomBtnText={t(TranslationKey['Continue to work with vacant orders?'])}
+          topBtnText={t(TranslationKey['Continue with the order'])}
+          bottomBtnText={t(TranslationKey['Continue to work with vacant orders'])}
           onClickTopBtn={() => goToMyOrders()}
           onClickBottomBtn={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
         />

@@ -15,12 +15,14 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'flex-end',
     marginBottom: '30px',
     flexDirection: 'row-reverse',
+    // justifyContent: 'flex-end',
   },
   messageWrapperIsNextMessageSameAuthor: {
     marginBottom: '15px',
   },
   messageWrapperIsIncomming: {
     flexDirection: 'row',
+    // justifyContent: 'flex-start',
   },
   messageWrapperIsLastMessage: {
     marginBottom: 0,
@@ -37,7 +39,7 @@ export const useClassNames = makeStyles(() => ({
     whiteSpace: 'normal',
     position: 'relative',
     // minWidth: '50%',
-    width: '90%',
+    // width: '90%',
   },
   messageInnerContentWrapper: {
     overflow: 'hidden',
@@ -57,8 +59,9 @@ export const useClassNames = makeStyles(() => ({
     width: '32px',
   },
   messageAvatarWrapperIsIncomming: {},
+
   timeText: {
-    fontSize: '10px',
+    fontSize: '14px',
     textAlign: 'center',
   },
   linkText: {
@@ -70,12 +73,14 @@ export const useClassNames = makeStyles(() => ({
     whiteSpace: 'nowrap',
   },
   timeTextWrapper: {
-    position: 'absolute',
-    bottom: '-30px',
-    left: 0,
+    // position: 'absolute',
+    // bottom: '-30px',
+    // left: 0,
+    display: 'flex',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 10,
   },
   tooltipWrapper: {
     padding: '0',
@@ -115,8 +120,16 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'flex-end',
   },
 
+  filesTitle: {marginBottom: 10},
+
+  filesMainWrapper: {
+    backgroundColor: '#FCFCFC',
+    padding: '14px 10px',
+    borderRadius: '4px',
+  },
+
   filesWrapper: {
     display: 'flex',
-    maxWidth: '600px',
+    maxWidth: '500px',
   },
 }))
