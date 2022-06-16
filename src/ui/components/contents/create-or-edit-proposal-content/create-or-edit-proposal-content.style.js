@@ -106,7 +106,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   requestDescriptionField: {
-    height: '76px',
+    maxHeight: '300px',
     width: '100%',
     overflow: 'auto',
   },
