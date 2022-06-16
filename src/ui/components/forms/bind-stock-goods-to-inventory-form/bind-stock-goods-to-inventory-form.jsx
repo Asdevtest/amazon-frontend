@@ -8,19 +8,15 @@ import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import qs from 'qs'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Input} from '@components/input'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {chosenGoodsColumns, inventoryColumns} from './bind-stock-goods-to-inventory-columns'
 import {useClassNames} from './bind-stock-goods-to-inventory-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').bindStockGoodsToInventoryForm
 
 const chipConfigSettings = {
   RECOMMENDED: 'RECOMMENDED',
@@ -119,7 +115,7 @@ export const BindStockGoodsToInventoryForm = observer(
             />
 
             <Chip
-              label={textConsts.asin}
+              label={t(TranslationKey.ASIN)}
               className={clsx(classNames.chip, classNames.asinChip, {
                 [classNames.chipActive]: chipConfig === chipConfigSettings.ASIN,
               })}

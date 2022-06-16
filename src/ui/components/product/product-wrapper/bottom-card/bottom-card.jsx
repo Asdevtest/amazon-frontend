@@ -4,19 +4,15 @@ import {Grid, Typography, Paper} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
 
 import {checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './bottom-card.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -52,7 +48,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             <Field
               disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.bsr}
-              label={textConsts.bsr}
+              label={t(TranslationKey.BSR)}
               inputProps={{maxLength: 15}}
               value={product.bsr || 0}
               onChange={onChangeField('bsr')}
@@ -116,7 +112,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             <Field
               disabled
               error={formFieldsValidationErrors.reffee}
-              label={textConsts.refferalFee}
+              label={t(TranslationKey['Refferal fee , $'])}
               value={product.reffee === 0 ? 0 : toFixed(product.reffee, 2) || ''}
               onChange={onChangeField('reffee')}
             />
@@ -124,14 +120,14 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.fbafee}
               inputProps={{maxLength: 15}}
-              label={textConsts.fbaFee}
+              label={'Fba fee'}
               value={product.fbafee === 0 ? 0 : toFixed(product.fbafee, 2) || ''}
               onChange={onChangeField('fbafee')}
             />
             <Field
               disabled
               error={formFieldsValidationErrors.totalFba}
-              label={textConsts.totalFba}
+              label={t(TranslationKey['Total FBA, $'])}
               value={product.totalFba === 0 ? 0 : toFixed(product.totalFba, 2) || ''}
               onChange={onChangeField('totalFba')}
             />

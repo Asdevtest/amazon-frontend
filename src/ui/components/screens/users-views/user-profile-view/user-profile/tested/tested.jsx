@@ -3,13 +3,11 @@ import React from 'react'
 import {Box, Divider, Paper, Typography} from '@material-ui/core'
 import AcUnitIcon from '@material-ui/icons/AcUnit'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './tested.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').buerUserHeaderTested
 
 export const Tested = () => {
   const classNames = useClassNames()
@@ -23,15 +21,15 @@ export const Tested = () => {
 
   return (
     <Paper elevation={0} className={classNames.paper}>
-      <Typography className={classNames.title}>{textConsts.mainTitle}</Typography>
+      <Typography className={classNames.title}>{t(TranslationKey['Passed the strategy test'])}</Typography>
       <Divider orientation={'horizontal'} className={classNames.divider} />
-      <CheckedStrategyRow label={textConsts.flipping} />
+      <CheckedStrategyRow label={t(TranslationKey.Flipping)} />
       <Divider orientation={'horizontal'} className={classNames.divider} />
-      <CheckedStrategyRow label={textConsts.dropShiping} />
+      <CheckedStrategyRow label={t(TranslationKey['Dropshipping from eBay'])} />
       <Divider orientation={'horizontal'} className={classNames.divider} />
-      <CheckedStrategyRow label={textConsts.usa} />
+      <CheckedStrategyRow label={t(TranslationKey['Wholesale USA'])} />
       <Divider orientation={'horizontal'} className={classNames.divider} />
-      <CheckedStrategyRow label={textConsts.privateLabel} />
+      <CheckedStrategyRow label={'Private Label'} />
     </Paper>
   )
 }

@@ -3,6 +3,7 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
+  MultilineTextHeaderCell,
   NormDateCell,
   renderFieldValueCell,
   SmallRowImageCell,
@@ -19,6 +20,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'image',
     headerName: t(TranslationKey.Image),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
+
     width: 80,
     renderCell: params => <SmallRowImageCell images={params.row.images} />,
     filterable: false,
@@ -28,6 +31,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     minWidth: 110,
     type: 'date',
@@ -36,6 +41,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     minWidth: 110,
     type: 'date',
@@ -44,6 +51,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'strategyStatus',
     headerName: t(TranslationKey.Strategy),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 210,
   },
@@ -51,6 +60,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'category',
     headerName: t(TranslationKey.Category),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
@@ -58,6 +69,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'amazon',
     headerName: t(TranslationKey['Amazon price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
+
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 120,
     type: 'number',
@@ -66,6 +79,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'weight',
     headerName: t(TranslationKey.Weight),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Weight)} />,
+
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     width: 80,
     type: 'number',
@@ -74,6 +89,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'bsr',
     headerName: t(TranslationKey.BSR),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 60,
     type: 'number',
@@ -82,6 +99,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'fbaamount',
     headerName: t(TranslationKey['Recommend amount']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 90,
     type: 'number',
@@ -90,6 +109,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'researcherName',
     headerName: t(TranslationKey.Researcher),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Researcher)} />,
+
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
     width: 120,
   },
@@ -97,6 +118,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'buyerName',
     headerName: t(TranslationKey.Buyer),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
+
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.buyer?._id} />,
     width: 120,
   },
@@ -104,6 +127,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'supervisorName',
     headerName: t(TranslationKey.Supervisor),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
+
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.checkedBy?._id} />,
     width: 120,
   },
@@ -111,6 +136,8 @@ export const clientExchangeViewColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
+
     width: 190,
     renderCell: params => (
       <SuccessActionBtnCell

@@ -4,6 +4,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   AsinCell,
+  MultilineTextHeaderCell,
   NormDateCell,
   renderFieldValueCell,
   ToFixedWithDollarSignCell,
@@ -16,6 +17,8 @@ export const exchangeNewColumns = () => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     width: 100,
     type: 'date',
@@ -23,6 +26,8 @@ export const exchangeNewColumns = () => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     width: 100,
     type: 'date',
@@ -31,12 +36,16 @@ export const exchangeNewColumns = () => [
   {
     field: 'asin',
     headerName: t(TranslationKey.Product),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+
     renderCell: params => <AsinCell product={params.row.originalData} />,
     width: 300,
   },
   {
     field: 'strategyStatus',
     headerName: t(TranslationKey.Strategy),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
@@ -44,6 +53,8 @@ export const exchangeNewColumns = () => [
   {
     field: 'amazon',
     headerName: t(TranslationKey.Price),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
+
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
@@ -52,12 +63,16 @@ export const exchangeNewColumns = () => [
   {
     field: 'createdBy',
     headerName: t(TranslationKey['Created by']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
+
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
     width: 200,
   },
   {
     field: 'supervisor',
     headerName: t(TranslationKey.Supervisor),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
+
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.checkedBy?._id} />,
     width: 200,
   },
@@ -65,6 +80,8 @@ export const exchangeNewColumns = () => [
   {
     field: 'profit',
     headerName: t(TranslationKey.Profit),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
+
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
@@ -72,6 +89,8 @@ export const exchangeNewColumns = () => [
   {
     field: 'margin',
     headerName: t(TranslationKey.Margin),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Margin)} />,
+
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
@@ -79,6 +98,8 @@ export const exchangeNewColumns = () => [
   {
     field: 'bsr',
     headerName: t(TranslationKey.BSR),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
     type: 'number',
@@ -86,6 +107,8 @@ export const exchangeNewColumns = () => [
   {
     field: 'fbafee',
     headerName: t(TranslationKey['FBA fee , $']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
+
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 150,
     type: 'number',
@@ -93,6 +116,8 @@ export const exchangeNewColumns = () => [
   {
     field: 'fbaamount',
     headerName: t(TranslationKey['FBA Amount']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA Amount'])} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
     type: 'number',

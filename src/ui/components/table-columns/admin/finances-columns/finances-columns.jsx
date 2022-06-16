@@ -3,6 +3,7 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
+  MultilineTextHeaderCell,
   NormDateCell,
   renderFieldValueCell,
   ScrollingCell,
@@ -15,6 +16,8 @@ export const financesViewColumns = () => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     width: 110,
     type: 'date',
@@ -23,6 +26,8 @@ export const financesViewColumns = () => [
   {
     field: 'type',
     headerName: t(TranslationKey.Type),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
+
     width: 90,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -30,6 +35,8 @@ export const financesViewColumns = () => [
   {
     field: 'sum',
     headerName: t(TranslationKey.Sum),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Sum)} />,
+
     width: 110,
     type: 'number',
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
@@ -38,6 +45,8 @@ export const financesViewColumns = () => [
   {
     field: 'creatorName',
     headerName: t(TranslationKey.Initiator),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Initiator)} />,
+
     width: 170,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -45,6 +54,8 @@ export const financesViewColumns = () => [
   {
     field: 'recipientName',
     headerName: t(TranslationKey.Recipient),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Recipient)} />,
+
     width: 170,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -52,6 +63,8 @@ export const financesViewColumns = () => [
   {
     field: 'paymentType',
     headerName: t(TranslationKey.Category),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
+
     width: 230,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -59,6 +72,8 @@ export const financesViewColumns = () => [
   {
     field: 'comment',
     headerName: t(TranslationKey.Comment),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+
     width: 800,
     renderCell: params => (
       <ScrollingCell

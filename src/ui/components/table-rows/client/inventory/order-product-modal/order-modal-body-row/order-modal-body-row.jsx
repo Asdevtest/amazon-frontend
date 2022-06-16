@@ -5,7 +5,6 @@ import {Chip, Typography, TableCell, TableRow, NativeSelect, IconButton} from '@
 import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
@@ -17,13 +16,10 @@ import {Modal} from '@components/modal'
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed, trimBarcode} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './order-modal-body-row.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').inventoryView
 
 export const OrderModalBodyRow = ({
   volumeWeightCoefficient,
@@ -110,7 +106,9 @@ export const OrderModalBodyRow = ({
             <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
             <Typography>{`ASIN: ${item.asin}`}</Typography>
             {!item.currentSupplier && (
-              <Typography className={classNames.noCurrentSupplierText}>{textConsts.noCurrentSupplier}</Typography>
+              <Typography className={classNames.noCurrentSupplierText}>
+                {t(TranslationKey['No supplier selected!'])}
+              </Typography>
             )}
           </div>
         </TableCell>
@@ -154,7 +152,7 @@ export const OrderModalBodyRow = ({
                 ? 'FILE IS ADDED'
                 : orderState.barCode
                 ? trimBarcode(orderState.barCode)
-                : textConsts.setBarcodeChipLabel
+                : t(TranslationKey['Set Barcode Label'])
             }
             onClick={() => onClickBarcode(item, itemIndex)}
             onDoubleClick={() => onDoubleClickBarcode(item, itemIndex)}

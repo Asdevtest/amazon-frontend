@@ -5,7 +5,6 @@ import {observer} from 'mobx-react'
 
 import {getWarehouseDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -15,13 +14,11 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {WarehouseDashboardViewModel} from './warehouse-dashboard-view.model'
 import {styles} from './warehouse-dashboard-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseDashboardView
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_DASHBOARD
 
 @observer
@@ -48,7 +45,7 @@ export class WarehouseDashboardViewRaw extends Component {
               <DashboardBalance user={userInfo} />
 
               <SectionalDashboard
-                config={getWarehouseDashboardCardConfig(textConsts)}
+                config={getWarehouseDashboardCardConfig()}
                 valuesData={dashboardData}
                 onClickViewMore={onClickInfoCardViewMode}
               />

@@ -1,15 +1,9 @@
 import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
-
 import {Input} from '@components/input'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
 import {useClassNames} from './range-input.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').rangeInput
 
 export const RangeInput = ({start, onChangeRangeStart, end, onChangeRangeEnd, className}) => {
   const classNames = useClassNames()
@@ -25,8 +19,8 @@ export const RangeInput = ({start, onChangeRangeStart, end, onChangeRangeEnd, cl
 
   return (
     <div className={clsx(classNames.root, className)}>
-      {renderField(textConsts.start, start, onChangeRangeStart)}
-      {renderField(textConsts.end, end, onChangeRangeEnd, isStartBiggerOfEnd)}
+      {renderField('From', start, onChangeRangeStart)}
+      {renderField('To', end, onChangeRangeEnd, isStartBiggerOfEnd)}
     </div>
   )
 }

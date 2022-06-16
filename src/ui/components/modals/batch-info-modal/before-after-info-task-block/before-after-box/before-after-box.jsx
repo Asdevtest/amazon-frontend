@@ -5,17 +5,15 @@ import {Typography, Paper, Checkbox} from '@material-ui/core'
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {TaskOperationType} from '@constants/task-operation-type'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {getWarehousesOptionByCode} from '@constants/warehouses'
 
 import {Field} from '@components/field'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './before-after-box.style'
 import {TaskInfoBoxItemCard} from './task-info-box-item-card'
-
-const textConsts = getLocalizedTexts(texts, 'ru').beforeAfterInfoTaskBlock
 
 export const BeforeAfterBox = ({box, isCurrentBox, taskType}) => {
   const classNames = useClassNames()
@@ -23,27 +21,27 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType}) => {
   return (
     <Paper className={classNames.box}>
       <div className={classNames.fieldsWrapper}>
-        <Field disabled label={textConsts.warehouseLabel} value={getWarehousesOptionByCode(box.warehouse).label} />
+        <Field disabled label={t(TranslationKey.Warehouse)} value={getWarehousesOptionByCode(box.warehouse).label} />
 
         <Field
           disabled
-          label={textConsts.deliveryMethodLabel}
+          label={t(TranslationKey['Delivery Method'])}
           value={getDeliveryOptionByCode(box.deliveryMethod).label}
         />
         {taskType === TaskOperationType.RECEIVE && (
           <Field
             disabled
-            label={textConsts.statusLabel}
+            label={t(TranslationKey.Status)}
             value={getOrderStatusOptionByCode(box.items[0].order.status).label}
           />
         )}
       </div>
 
-      <Typography className={classNames.boxTitle}>{`${textConsts.boxNum} ${box._id}`}</Typography>
+      <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box) + '№'} ${box._id}`}</Typography>
 
       {box.amount > 1 && (
         <div className={classNames.superWrapper}>
-          <Typography className={classNames.subTitle}>{textConsts.superTypo}</Typography>
+          <Typography className={classNames.subTitle}>{t(TranslationKey.Super)}</Typography>
           <Typography>{`x${box.amount}`}</Typography>
         </div>
       )}
@@ -59,7 +57,7 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType}) => {
       <Paper className={classNames.bottomBlockWrapper}>
         <div>
           <div className={classNames.chipWrapper}>
-            <Typography className={classNames.subTitle}>{textConsts.shippingLabel}</Typography>
+            <Typography className={classNames.subTitle}>{t(TranslationKey['Shipping label'])}</Typography>
             <Typography className={classNames.shippingLabelField}>
               {box.shippingLabel ? box.shippingLabel : 'N/A'}
             </Typography>
@@ -67,38 +65,40 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType}) => {
           <Field
             oneLine
             containerClasses={classNames.field}
-            label={textConsts.shippingLabelIsGluedWarehouse}
+            label={t(TranslationKey['Shipping label was glued to the warehouse'])}
             inputComponent={<Checkbox disabled checked={box.isShippingLabelAttachedByStorekeeper} />}
           />
         </div>
-        <Typography className={classNames.categoryTitle}>{textConsts.demensions}</Typography>
+        <Typography className={classNames.categoryTitle}>{t(TranslationKey.Demensions)}</Typography>
 
         {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
           <Paper className={classNames.demensionsWrapper}>
-            <Typography className={classNames.categoryTitle}>{textConsts.demensionsSupplier}</Typography>
+            <Typography className={classNames.categoryTitle}>
+              {t(TranslationKey['Dimensions from supplier:'])}
+            </Typography>
             <Typography>
-              {textConsts.length}
+              {t(TranslationKey.Length)}
               {box.lengthCmSupplier}
             </Typography>
             <Typography>
-              {textConsts.width}
+              {t(TranslationKey.Width)}
               {box.widthCmSupplier}
             </Typography>
             <Typography>
-              {textConsts.height}
+              {t(TranslationKey.Height)}
               {box.heightCmSupplier}
             </Typography>
 
             <Typography>
-              {textConsts.weight}
+              {t(TranslationKey.Width)}
               {box.weighGrossKgSupplier}
             </Typography>
             <Typography>
-              {textConsts.volumeWeigh}
+              {t(TranslationKey['Volume weight'])}
               {box.volumeWeightKgSupplier}
             </Typography>
             <Typography>
-              {textConsts.finalWeight}
+              {t(TranslationKey['Final weight'])}
               {box.weighGrossKgSupplier > box.volumeWeightKgSupplier
                 ? box.weighGrossKgSupplier
                 : box.volumeWeightKgSupplier}
@@ -106,30 +106,30 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType}) => {
           </Paper>
         ) : (
           <Paper className={classNames.demensionsWrapper}>
-            <Typography className={classNames.categoryTitle}>{textConsts.demensionsWarehouse}</Typography>
+            <Typography className={classNames.categoryTitle}>{t(TranslationKey.Demensions)}</Typography>
             <Typography>
-              {textConsts.length}
+              {t(TranslationKey.Length)}
               {box.lengthCmWarehouse}
             </Typography>
             <Typography>
-              {textConsts.width}
+              {t(TranslationKey.Width)}
               {box.widthCmWarehouse}
             </Typography>
             <Typography>
-              {textConsts.height}
+              {t(TranslationKey.Height)}
               {box.heightCmWarehouse}
             </Typography>
 
             <Typography>
-              {textConsts.weight}
+              {t(TranslationKey.Weight)}
               {box.weighGrossKgWarehouse}
             </Typography>
             <Typography>
-              {textConsts.volumeWeigh}
+              {t(TranslationKey['Volume weight'])}
               {box.volumeWeightKgWarehouse}
             </Typography>
             <Typography>
-              {textConsts.finalWeight}
+              {t(TranslationKey['Final weight'])}
               {box.weighGrossKgWarehouse > box.volumeWeightKgWarehouse
                 ? box.weighGrossKgWarehouse
                 : box.volumeWeightKgWarehouse}

@@ -2,6 +2,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveBtnsCell,
+  MultilineTextHeaderCell,
   renderFieldValueCell,
   ShopsReportBtnsCell,
   ShortDateCell,
@@ -13,6 +14,8 @@ export const shopsColumns = handlers => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
     minWidth: 120,
     renderCell: params => <ShortDateCell params={params} />,
     type: 'date',
@@ -21,6 +24,8 @@ export const shopsColumns = handlers => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+
     width: 300,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -28,6 +33,8 @@ export const shopsColumns = handlers => [
   {
     field: 'sellerBoardWarehouseReportUrlDaily',
     headerName: t(TranslationKey['Warehouse report']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Warehouse report'])} />,
+
     width: 350,
     renderCell: params => (
       <ShopsReportBtnsCell value={params.value} onClickSeeMore={() => handlers.onClickSeeStockReport(params.row)} />
@@ -37,6 +44,8 @@ export const shopsColumns = handlers => [
   {
     field: 'sellerBoardWarehouseReportUrlMonthly',
     headerName: t(TranslationKey['Dashboard by goods/days']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Dashboard by goods/days'])} />,
+
     width: 350,
     renderCell: params => (
       <ShopsReportBtnsCell
@@ -49,6 +58,8 @@ export const shopsColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Actions),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+
     width: 300,
     renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
     filterable: false,

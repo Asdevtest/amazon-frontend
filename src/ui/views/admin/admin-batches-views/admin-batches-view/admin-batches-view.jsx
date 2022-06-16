@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -18,13 +17,10 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {AdminBatchesViewModel} from './admin-batches-view.model'
 import {styles} from './admin-batches-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').adminWarehouseView
 
 const activeCategory = navBarActiveCategory.NAVBAR_BATCHES
 const activeSubCategory = 1
@@ -114,10 +110,10 @@ export class AdminBatchesViewRaw extends Component {
           isWarning={isWarning}
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
-          message={textConsts.confirmMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          title={t(TranslationKey.Attention)}
+          message={'confirmMessage'}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={onClickConfirmSendToBatchBtn}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />

@@ -8,6 +8,7 @@ import {
   renderFieldValueCell,
   NormDateCell,
   UserLinkCell,
+  MultilineTextHeaderCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -16,6 +17,8 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     width: 100,
     type: 'date',
@@ -24,6 +27,8 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     width: 100,
     type: 'date',
@@ -32,6 +37,8 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+
     width: 200,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -39,15 +46,25 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'asin',
     headerName: t(TranslationKey.Orders),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Orders)} />,
+
     width: 300,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
   },
 
-  {field: 'amount', headerName: t(TranslationKey.Quantity), type: 'number', width: 130},
+  {
+    field: 'amount',
+    headerName: t(TranslationKey.Quantity),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
+    type: 'number',
+    width: 130,
+  },
 
   {
     field: 'barCode',
     headerName: t(TranslationKey.BarCode),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
+
     renderCell: params => <ActiveBarcodeCell barCode={params.value} />,
     width: 200,
   },
@@ -55,6 +72,8 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'storekeeper',
     headerName: t(TranslationKey['Int warehouse']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
+
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
     width: 200,
   },
@@ -62,6 +81,8 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'client',
     headerName: t(TranslationKey.Client),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
+
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.product.client?._id} />,
     width: 200,
   },
@@ -69,6 +90,8 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'warehouses',
     headerName: t(TranslationKey.Warehouse),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
@@ -76,6 +99,8 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'clientComment',
     headerName: t(TranslationKey['Client comment']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 300,
   },
@@ -83,6 +108,8 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'buyerComment',
     headerName: t(TranslationKey['Buyer comment']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 300,
   },

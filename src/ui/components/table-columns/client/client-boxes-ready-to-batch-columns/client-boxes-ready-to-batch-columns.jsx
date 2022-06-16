@@ -1,9 +1,9 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
+  MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
@@ -14,15 +14,14 @@ import {
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientBoxesReadyToBatchViewColumns
 
 export const clientBoxesReadyToBatchViewColumns = () => [
   {
     field: 'humanFriendlyId',
-    headerName: textConsts.boxIdField,
+    headerName: t(TranslationKey.ID),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 50,
   },
@@ -30,6 +29,8 @@ export const clientBoxesReadyToBatchViewColumns = () => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     width: 110,
     type: 'date',
@@ -38,6 +39,8 @@ export const clientBoxesReadyToBatchViewColumns = () => [
   {
     field: 'orders',
     headerName: t(TranslationKey.Product),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+
     width: 400,
     renderCell: params =>
       params.row.originalData.items.length > 1 ? (
@@ -55,6 +58,8 @@ export const clientBoxesReadyToBatchViewColumns = () => [
   {
     field: 'qty',
     headerName: t(TranslationKey.Quantity),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
+
     renderCell: params =>
       params.row.originalData.amount > 1 ? (
         <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
@@ -68,6 +73,8 @@ export const clientBoxesReadyToBatchViewColumns = () => [
   {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 160,
   },
@@ -75,6 +82,8 @@ export const clientBoxesReadyToBatchViewColumns = () => [
   {
     field: 'storekeeper',
     headerName: t(TranslationKey['Int warehouse']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
+
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
     width: 160,
   },
@@ -82,6 +91,8 @@ export const clientBoxesReadyToBatchViewColumns = () => [
   {
     field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
@@ -89,6 +100,8 @@ export const clientBoxesReadyToBatchViewColumns = () => [
   {
     field: 'amazonPrice',
     headerName: t(TranslationKey['Total price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
+
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     width: 120,
     type: 'number',
@@ -97,6 +110,8 @@ export const clientBoxesReadyToBatchViewColumns = () => [
   {
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
+
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 140,
@@ -105,6 +120,8 @@ export const clientBoxesReadyToBatchViewColumns = () => [
   {
     field: 'grossWeight',
     headerName: t(TranslationKey['Total weight']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total weight'])} />,
+
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 120,

@@ -1,15 +1,13 @@
 import {Button, IconButton, InputAdornment, NativeSelect, Toolbar, Typography} from '@material-ui/core'
 import {FormatAlignLeft, Search} from '@material-ui/icons'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Input} from '@components/input'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './table-toolbar.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').tableToolbar
 
 export const TableToolbar = ({rowsPerPage, handlerRowsPerPage}) => {
   const classNames = useClassNames()
@@ -18,7 +16,7 @@ export const TableToolbar = ({rowsPerPage, handlerRowsPerPage}) => {
     <Toolbar className={classNames.root}>
       <Input
         className={classNames.search}
-        placeholder={textConsts.searchPlaceholder}
+        placeholder={t(TranslationKey.search) + '...'}
         startAdornment={
           <InputAdornment className={classNames.searchAdornment} position="start">
             <IconButton className={classNames.iconButton}>
@@ -30,11 +28,11 @@ export const TableToolbar = ({rowsPerPage, handlerRowsPerPage}) => {
 
       <div className={classNames.filter}>
         <Button classes={{iconSizeMedium: classNames.icon}} startIcon={<FormatAlignLeft />}>
-          <Typography className={classNames.filterTitle}>{textConsts.filter}</Typography>
+          <Typography className={classNames.filterTitle}>{t(TranslationKey.Filter)}</Typography>
         </Button>
       </div>
 
-      <Typography className={classNames.selectTitle}>{textConsts.rowsPerPage}</Typography>
+      <Typography className={classNames.selectTitle}>{t(TranslationKey['Rows per page'])}</Typography>
       <NativeSelect
         input={<Input className={classNames.selectRoot} />}
         value={rowsPerPage}

@@ -27,6 +27,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'createdAt',
+    headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     renderCell: params => <NormDateCell params={params} />,
@@ -36,6 +37,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
@@ -45,6 +47,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'humanFriendlyId',
+    headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => renderFieldValueCell(params.value),
@@ -53,6 +56,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'client',
+    headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
     renderCell: params => (
@@ -62,6 +66,7 @@ export const adminBoxesViewColumns = () => [
   },
   {
     field: 'storekeeper',
+    headerName: t(TranslationKey.Storekeeper),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
@@ -70,6 +75,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'orders',
+    headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     width: 350,
@@ -88,6 +94,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'qty',
+    headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
     renderCell: params =>
@@ -102,6 +109,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'warehouses',
+    headerName: t(TranslationKey.Warehouse),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
 
     renderCell: params => renderFieldValueCell(params.value),
@@ -110,6 +118,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'amazonPrice',
+    headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
@@ -119,6 +128,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'finalWeight',
+    headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
@@ -128,6 +138,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'grossWeight',
+    headerName: t(TranslationKey['Gross weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
@@ -137,6 +148,7 @@ export const adminBoxesViewColumns = () => [
 
   {
     field: 'trackingNumberChina',
+    headerName: t(TranslationKey['Track number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
     renderCell: params => renderFieldValueCell(params.value),

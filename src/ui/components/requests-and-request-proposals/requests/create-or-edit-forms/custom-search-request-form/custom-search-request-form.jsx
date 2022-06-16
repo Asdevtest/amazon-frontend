@@ -5,18 +5,14 @@ import clsx from 'clsx'
 import {parseISO} from 'date-fns/esm'
 
 import {RequestStatus} from '@constants/request-status'
-import {texts} from '@constants/texts'
 import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {DatePicker} from '@components/date-picker'
 import {Field} from '@components/field'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {useClassNames} from './custom-search-request-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientCustomRequestsView
 
 export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, requestToEdit}) => {
   const classNames = useClassNames()
@@ -77,36 +73,36 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
     <div className={classNames.root}>
       <div className={classNames.form}>
         <Typography variant="h3" className={classNames.title}>
-          {textConsts.title}
+          {'title'}
         </Typography>
 
         <Field
           containerClasses={classNames.field}
-          label={textConsts.maxAmountOfProposals}
+          label={'maxAmountOfProposals'}
           value={formFields.request.maxAmountOfProposals}
           onChange={onChangeField('request')('maxAmountOfProposals')}
         />
 
         <Field
           containerClasses={classNames.field}
-          label={textConsts.priceOfProposal}
+          label={'priceOfProposal'}
           value={formFields.request.price}
           onChange={onChangeField('request')('price')}
         />
 
         <Field
           containerClasses={classNames.field}
-          label={textConsts.timeoutAt}
+          label={'timeoutAt'}
           inputComponent={
             <div className={clsx({[classNames.deadlineError]: deadlineError})}>
               <DatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
-              {deadlineError && <p className={classNames.deadlineErrorText}>{textConsts.deadlineError}</p>}
+              {deadlineError && <p className={classNames.deadlineErrorText}>{'deadlineError'}</p>}
             </div>
           }
         />
 
         <Field
-          label={textConsts.rolesSee}
+          label={'rolesSee'}
           inputComponent={
             <Select
               multiple
@@ -128,7 +124,7 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
 
         <Field
           multiline
-          label={textConsts.requestName}
+          label={'requestName'}
           inputComponent={
             <TextareaAutosize
               className={classNames.nameField}
@@ -140,7 +136,7 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
 
         <Field
           multiline
-          label={textConsts.conditionsRequest}
+          label={'conditionsRequest'}
           inputComponent={
             <TextareaAutosize
               className={classNames.conditionsField}
@@ -160,7 +156,7 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
           isDeadlineError ? setDeadlineError(!deadlineError) : onSubmit(formFields, requestToEdit?.request?._id)
         }
       >
-        {isEdit ? textConsts.editBtn : textConsts.createBtn}
+        {isEdit ? 'editBtn' : 'createBtn'}
       </Button>
 
       <Button
@@ -170,7 +166,7 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
         variant="contained"
         onClick={() => setOpenModal()}
       >
-        {textConsts.cancelBtn}
+        {'cancelBtn'}
       </Button>
     </div>
   )

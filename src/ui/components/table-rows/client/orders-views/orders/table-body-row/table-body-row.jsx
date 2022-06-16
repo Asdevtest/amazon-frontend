@@ -4,7 +4,6 @@ import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {OrderStatusByCode} from '@constants/order-status'
-import {texts} from '@constants/texts'
 import {warehouses} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
@@ -12,12 +11,9 @@ import {Button} from '@components/buttons/button'
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {formatDate} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
 
 import {styles} from './table-body-row.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientOrdersTableRow
 
 const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
   const classNames = restProps.classes
@@ -41,7 +37,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
           <div>
             <Typography className={classNames.orderTitle}>{item.product.amazonTitle}</Typography>
             <Typography className={classNames.orderText}>
-              <span className={classNames.orderTextSpan}>{textConsts.id}</span>
+              <span className={classNames.orderTextSpan}>{'id'}</span>
               {item.product.id}
             </Typography>
           </div>

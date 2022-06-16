@@ -1,14 +1,10 @@
 import {Radio} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {renderFieldValueCell, SmallRowImageCell, TrashCell} from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
-
-const textConsts = getLocalizedTexts(texts, 'en').bindStockGoodsToInventoryColumnsTexts
 
 export const inventoryColumns = (handlers, selectedRow) => [
   {
@@ -28,7 +24,7 @@ export const inventoryColumns = (handlers, selectedRow) => [
 
   {
     field: 'asin',
-    headerName: textConsts.asinField,
+    headerName: t(TranslationKey.ASIN),
     width: 120,
   },
 
@@ -51,14 +47,14 @@ export const inventoryColumns = (handlers, selectedRow) => [
 export const chosenGoodsColumns = handlers => [
   {
     field: 'asin',
-    headerName: textConsts.asinField,
+    headerName: t(TranslationKey.ASIN),
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
 
   {
     field: 'sku',
-    headerName: textConsts.skuField,
+    headerName: t(TranslationKey.SKU),
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
@@ -86,7 +82,7 @@ export const chosenGoodsColumns = handlers => [
 
   {
     field: 'roi',
-    headerName: textConsts.roiField,
+    headerName: t(TranslationKey.ROI),
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
   },

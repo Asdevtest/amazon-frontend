@@ -2,17 +2,15 @@ import React from 'react'
 
 import {Link, Typography} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Modal} from '@components/modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './user-money-transfer-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').userMoneyTransferModal
 
 export const UserMoneyTransferModal = ({openModal, setOpenModal, isWithdraw}) => {
   const classNames = useClassNames()
@@ -21,7 +19,7 @@ export const UserMoneyTransferModal = ({openModal, setOpenModal, isWithdraw}) =>
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMessageWrapper}>
         <Typography paragraph variant="h3">
-          {isWithdraw ? textConsts.titleWithdraw : textConsts.titleAdd}
+          {isWithdraw ? t(TranslationKey['Withdraw money']) : t(TranslationKey['Add money'])}
         </Typography>
 
         <Typography paragraph>{'Перевод средств возможен при помощи администратора по ссылке ниже:'}</Typography>
@@ -31,7 +29,7 @@ export const UserMoneyTransferModal = ({openModal, setOpenModal, isWithdraw}) =>
         </Link>
 
         <Button disableElevation variant="contained" onClick={setOpenModal}>
-          {textConsts.okBtn}
+          {t(TranslationKey.Ok)}
         </Button>
       </div>
     </Modal>

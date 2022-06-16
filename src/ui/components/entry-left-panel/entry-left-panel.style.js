@@ -25,6 +25,7 @@ export const useClassNames = makeStyles(() => ({
   title: {
     fontSize: '44px',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: '20px',

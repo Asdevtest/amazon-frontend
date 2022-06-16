@@ -8,7 +8,6 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {inchesCoefficient, sizesType, poundsCoefficient} from '@constants/sizes-settings'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -19,13 +18,10 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './add-or-edit-supplier-modal-content.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').addOrEditSupplierModalContent
 
 export const AddOrEditSupplierModalContent = observer(
   ({
@@ -379,7 +375,7 @@ export const AddOrEditSupplierModalContent = observer(
               containerClasses={classNames.middleContainer}
               labelClasses={classNames.normalLabel}
               value={tmpSupplier.amount}
-              error={parseInt(tmpSupplier.amount) === 0 && textConsts.errorNoZero}
+              error={parseInt(tmpSupplier.amount) === 0 && t(TranslationKey["can't be zero"])}
               onChange={onChangeField('amount')}
             />
             <Field
@@ -388,7 +384,7 @@ export const AddOrEditSupplierModalContent = observer(
               containerClasses={classNames.middleContainer}
               labelClasses={classNames.normalLabel}
               value={tmpSupplier.minlot}
-              error={parseInt(tmpSupplier.minlot) === 0 && textConsts.errorNoZero}
+              error={parseInt(tmpSupplier.minlot) === 0 && t(TranslationKey["can't be zero"])}
               onChange={onChangeField('minlot')}
             />
           </div>
@@ -678,7 +674,9 @@ export const AddOrEditSupplierModalContent = observer(
 
         {renderFooterModalButtons()}
 
-        {showProgress && <CircularProgressWithLabel value={progressValue} title={textConsts.circularProgressTitle} />}
+        {showProgress && (
+          <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
+        )}
 
         <BigImagesModal
           isAmazone

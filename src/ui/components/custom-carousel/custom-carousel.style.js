@@ -176,4 +176,8 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  image: {
+    cursor: 'pointer',
+  },
 }))

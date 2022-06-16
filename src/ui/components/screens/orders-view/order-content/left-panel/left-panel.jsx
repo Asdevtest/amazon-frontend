@@ -3,17 +3,13 @@ import React from 'react'
 import {Divider, Typography, Button} from '@material-ui/core'
 import LaunchIcon from '@material-ui/icons/Launch'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './left-panel.style'
 import {ProductParameters} from './product-parameters'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientOrderLeftPanel
 
 export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
   const classNames = useClassNames()
@@ -25,7 +21,7 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
         <div>
           <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
           <Typography className={classNames.text}>
-            <span className={classNames.asinTypo}>{textConsts.id}</span> {order.product.asin}
+            <span className={classNames.asinTypo}>{t(TranslationKey.ASIN) + ': '}</span> {order.product.asin}
           </Typography>
         </div>
       </div>

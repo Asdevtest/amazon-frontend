@@ -8,18 +8,16 @@ import {
   TaskOperationType,
 } from '@constants/task-operation-type'
 import {mapTaskStatusKeyToEnum, TaskStatus} from '@constants/task-status'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './table-body-row.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').warehouseTasksBodyRow
 
 export const WarehouseTasksBodyRowViewMode = {
   VACANT: 'VACANT',
@@ -71,26 +69,26 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
 
   const taskMergeDescription = () => (
     <>
-      <Typography>{textConsts.merge}</Typography>
+      <Typography>{t(TranslationKey.Merge)}</Typography>
       {renderBlockProductsImages}
     </>
   )
   const taskDivideDescription = () => (
     <>
-      <Typography className={classNames.descriptionWrapper}>{textConsts.unMerge}</Typography>
+      <Typography className={classNames.descriptionWrapper}>{t(TranslationKey.Split)}</Typography>
       {renderBlockProductsImages}
     </>
   )
   const taskReceiveDescription = () => (
     <>
-      <Typography className={classNames.descriptionWrapper}>{textConsts.receive}</Typography>
+      <Typography className={classNames.descriptionWrapper}>{t(TranslationKey.Receive)}</Typography>
       {item.boxesBefore && item.boxesBefore.map((box, index) => renderProductImage(box, index))}
     </>
   )
 
   const taskEditDescription = () => (
     <>
-      <Typography className={classNames.descriptionWrapper}>{textConsts.edit}</Typography>
+      <Typography className={classNames.descriptionWrapper}>{t(TranslationKey.Edit)}</Typography>
       {item.boxesBefore && item.boxesBefore.map((box, index) => renderProductImage(box, index))}
     </>
   )
@@ -118,7 +116,7 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
       return (
         <TableCell>
           <div className={classNames.buttonsWrapper}>
-            <Button onClick={() => handlers.setCurrentOpenedTask(item)}>{textConsts.showBtn}</Button>
+            <Button onClick={() => handlers.setCurrentOpenedTask(item)}>{t(TranslationKey['View more'])}</Button>
           </div>
         </TableCell>
       )
@@ -127,7 +125,7 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
       return (
         <TableCell>
           <div className={classNames.buttonsWrapper}>
-            <Button onClick={() => handlers.onClickPickupBtn(item)}>{textConsts.pickUp}</Button>
+            <Button onClick={() => handlers.onClickPickupBtn(item)}>{t(TranslationKey['Get to work'])}</Button>
           </div>
         </TableCell>
       )
@@ -137,13 +135,13 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
         return (
           <TableCell>
             <div className={classNames.buttonsWrapper}>
-              <Button onClick={onClickResolveBtn}>{textConsts.resolveBtn}</Button>
+              <Button onClick={onClickResolveBtn}>{t(TranslationKey.Resolve)}</Button>
 
               <ErrorButton
                 className={classNames.cancelBtn}
                 onClick={() => handlers.onClickCancelTask(item.boxes[0]._id, item._id, item.operationType)}
               >
-                {textConsts.cancelBtn}
+                {t(TranslationKey.Cancel)}
               </ErrorButton>
             </div>
           </TableCell>
@@ -153,30 +151,30 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
         return (
           <TableCell>
             <div className={classNames.buttonsWrapper}>
-              <Button onClick={onClickResolveBtn}>{textConsts.resolveBtn}</Button>
+              <Button onClick={onClickResolveBtn}>{t(TranslationKey.Resolve)}</Button>
 
               <ErrorButton
                 className={classNames.cancelBtn}
                 onClick={() => handlers.onClickCancelTask(item.boxes[0]._id, item._id, item.operationType)}
               >
-                {textConsts.cancelBtn}
+                {t(TranslationKey.Cancel)}
               </ErrorButton>
             </div>
           </TableCell>
         )
       case TaskOperationType.RECEIVE:
-        return <TableCell>{<Button onClick={onClickResolveBtn}>{textConsts.resolveBtn}</Button>}</TableCell>
+        return <TableCell>{<Button onClick={onClickResolveBtn}>{t(TranslationKey.Resolve)}</Button>}</TableCell>
       case TaskOperationType.EDIT:
         return (
           <TableCell>
             <div className={classNames.buttonsWrapper}>
-              <Button onClick={onClickResolveBtn}>{textConsts.resolveBtn}</Button>
+              <Button onClick={onClickResolveBtn}>{t(TranslationKey.Resolve)}</Button>
 
               <ErrorButton
                 className={classNames.cancelBtn}
                 onClick={() => handlers.onClickCancelTask(item.boxes[0]._id, item._id, item.operationType)}
               >
-                {textConsts.cancelBtn}
+                {t(TranslationKey.Cancel)}
               </ErrorButton>
             </div>
           </TableCell>

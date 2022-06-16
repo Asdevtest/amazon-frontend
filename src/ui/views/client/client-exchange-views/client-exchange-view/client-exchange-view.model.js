@@ -2,7 +2,6 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -14,12 +13,9 @@ import {clientExchangeViewColumns} from '@components/table-columns/client/client
 
 import {clientProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientExchangeView
 
 export class ClientExchangeViewModel {
   history = undefined
@@ -270,7 +266,7 @@ export class ClientExchangeViewModel {
       this.updateUserInfo()
       this.loadData()
     } catch (error) {
-      this.showWarningModalText = textConsts.productNoBuy
+      this.showWarningModalText = t(TranslationKey["You can't buy the product"])
       this.onTriggerOpenModal('showWarningModal')
 
       console.log(error)

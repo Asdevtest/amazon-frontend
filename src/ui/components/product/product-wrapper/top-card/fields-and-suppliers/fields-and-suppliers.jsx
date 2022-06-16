@@ -16,7 +16,6 @@ import {
   mapProductStrategyStatusEnumToKey,
   ProductStrategyStatus,
 } from '@constants/product-strategy-status'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -24,13 +23,10 @@ import {Field} from '@components/field'
 import {Input} from '@components/input'
 
 import {checkIsClient, checkIsSupervisor, checkIsAdmin, checkIsResearcher, checkIsBuyer} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './fields-and-suppliers.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -158,7 +154,7 @@ export const FieldsAndSuppliers = observer(
               }
               inputProps={{maxLength: 254}}
               error={formFieldsValidationErrors.asin}
-              label={textConsts.fieldAsin}
+              label={t(TranslationKey.ASIN)}
               value={product.asin}
               onChange={onChangeField('asin')}
             />
@@ -192,7 +188,7 @@ export const FieldsAndSuppliers = observer(
                       clientToEditStatuses.includes(productBase.status) && (
                         <div className={classNames.inputWrapper}>
                           <Input
-                            placeholder={textConsts.skuHolder}
+                            placeholder={t(TranslationKey.SKU)}
                             inputProps={{maxLength: 50}}
                             value={skuLine}
                             className={classNames.input}
@@ -219,7 +215,7 @@ export const FieldsAndSuppliers = observer(
 
             <div className={classNames.productCheckboxBoxesWrapper}>
               <Box className={classNames.productCheckboxBox}>
-                <Typography className={classNames.label}>{textConsts.checkboxFba}</Typography>
+                <Typography className={classNames.label}>{t(TranslationKey.FBA)}</Typography>
                 <MuiCheckbox
                   disabled={
                     !(
@@ -239,7 +235,7 @@ export const FieldsAndSuppliers = observer(
               </Box>
 
               <Box className={classNames.productCheckboxBox}>
-                <Typography className={classNames.label}>{textConsts.checkboxFbm}</Typography>
+                <Typography className={classNames.label}>{'FBM'}</Typography>
                 <MuiCheckbox
                   disabled={
                     !(
@@ -362,7 +358,7 @@ export const FieldsAndSuppliers = observer(
                   <Field
                     disabled={disabledPrivateLabelFields}
                     inputProps={{maxLength: 255}}
-                    label={textConsts.asins}
+                    label={'Asins'}
                     value={product.asins}
                     onChange={onChangeField('asins')}
                   />

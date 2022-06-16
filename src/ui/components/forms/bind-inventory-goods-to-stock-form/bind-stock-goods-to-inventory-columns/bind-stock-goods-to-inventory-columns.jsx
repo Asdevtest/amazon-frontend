@@ -1,24 +1,20 @@
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {renderFieldValueCell, TrashCell} from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
-
-const textConsts = getLocalizedTexts(texts, 'en').bindInventoryGoodsToStockColumnsTexts
 
 export const sourceColumns = () => [
   {
     field: 'asin',
-    headerName: textConsts.asinField,
+    headerName: t(TranslationKey.ASIN),
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
 
   {
     field: 'sku',
-    headerName: textConsts.skuField,
+    headerName: t(TranslationKey.SKU),
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
@@ -46,7 +42,7 @@ export const sourceColumns = () => [
 
   {
     field: 'roi',
-    headerName: textConsts.roiField,
+    headerName: t(TranslationKey.ROI),
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
   },
@@ -55,14 +51,14 @@ export const sourceColumns = () => [
 export const chosenGoodsColumns = handlers => [
   {
     field: 'asin',
-    headerName: textConsts.asinField,
+    headerName: t(TranslationKey.ASIN),
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
 
   {
     field: 'sku',
-    headerName: textConsts.skuField,
+    headerName: t(TranslationKey.SKU),
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
@@ -90,7 +86,7 @@ export const chosenGoodsColumns = handlers => [
 
   {
     field: 'roi',
-    headerName: textConsts.roiField,
+    headerName: t(TranslationKey.ROI),
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
   },

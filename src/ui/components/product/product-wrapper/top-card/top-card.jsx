@@ -8,7 +8,6 @@ import Carousel from 'react-material-ui-carousel'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -18,15 +17,12 @@ import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsBuyer, checkIsClient, checkIsImageLink, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {TableSupplier} from '../../table-supplier'
 import {FieldsAndSuppliers} from './fields-and-suppliers'
 import {RightSideComments} from './right-side-comments'
 import {useClassNames} from './top-card.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').productWrapperComponent
 
 const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -119,13 +115,13 @@ export const TopCard = observer(
                         className={classNames.buttonParseAmazon}
                         onClick={() => onClickParseProductData(ProductDataParser.AMAZON, product)}
                       >
-                        {textConsts.buttonParseAmazon}
+                        {'Parse Amazon'}
                       </Button>
                       <Button
                         className={classNames.buttonParseAmazon}
                         onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}
                       >
-                        {textConsts.buttonParseSellcentrall}
+                        {'Parse Sellcentrall'}
                       </Button>
                     </React.Fragment>
 
@@ -177,7 +173,9 @@ export const TopCard = observer(
 
           <TableSupplier product={product} selectedSupplier={selectedSupplier} onClickSupplier={onClickSupplier} />
 
-          {showProgress && <CircularProgressWithLabel value={progressValue} title={textConsts.circularProgressTitle} />}
+          {showProgress && (
+            <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
+          )}
         </Paper>
 
         <BigImagesModal

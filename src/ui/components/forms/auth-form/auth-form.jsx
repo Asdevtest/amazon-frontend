@@ -1,4 +1,7 @@
-import React from 'react'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+
+import React, {useState} from 'react'
 
 import {Button, Checkbox, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
@@ -17,6 +20,8 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
     onSubmit()
   }
 
+  const [visibilityPass, setVisibilityPass] = useState(false)
+
   return (
     <div className={classNames.root}>
       <form className={classNames.formFields} onSubmit={onSubmitForm}>
@@ -28,14 +33,19 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
           value={formFields.email}
           onChange={onChangeFormField('email')}
         />
-        <Field
-          containerClasses={classNames.field}
-          label={t(TranslationKey.Password)}
-          placeholder={t(TranslationKey.Password)}
-          type="password"
-          value={formFields.password}
-          onChange={onChangeFormField('password')}
-        />
+        <div className={classNames.field}>
+          <Field
+            label={t(TranslationKey.Password)}
+            placeholder={t(TranslationKey.Password)}
+            type={!visibilityPass ? 'password' : 'text'}
+            value={formFields.password}
+            onChange={onChangeFormField('password')}
+          />
+          <div className={classNames.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
+            {!visibilityPass ? <VisibilityOffIcon color="disabled" /> : <VisibilityIcon color="disabled" />}
+          </div>
+        </div>
+
         <div className={classNames.formFooter}>
           <div className={classNames.checkboxWrapper} onClick={onChangeFormField('remember')}>
             <Checkbox className={classNames.checkbox} color="primary" checked={formFields.remember} />

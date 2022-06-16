@@ -66,7 +66,7 @@ export class CreateOrEditProposalViewRaw extends Component {
           >
             <MainContent>
               <div className={classNames.backBtnWrapper}>
-                <Button variant="contained" color="primary" onClick={onClickBackBtn}>
+                <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>
                   {t(TranslationKey.Back)}
                 </Button>
               </div>

@@ -4,7 +4,6 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus} from '@constants/product-status'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -20,14 +19,11 @@ import {clientInventoryColumns} from '@components/table-columns/client/client-in
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
 import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
-
-const textConsts = getLocalizedTexts(texts, 'en').inventoryView
 
 const fieldsOfProductAllowedToUpdate = [
   'dirdecision',
@@ -440,7 +436,7 @@ export class ClientInventoryViewModel {
     } catch (error) {
       console.log(error)
 
-      this.showInfoModalTitle = `${textConsts.infoNoMakeOrder} "${error.body.message}"`
+      this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
       this.onTriggerOpenModal('showInfoModal')
       this.error = error
     }
@@ -732,7 +728,7 @@ export class ClientInventoryViewModel {
       this.successModalText = t(TranslationKey['Goods are bound'])
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
-      this.showInfoModalTitle = textConsts.infoModalTitle
+      this.showInfoModalTitle = t(TranslationKey["You can't bind"])
       this.onTriggerOpenModal('showInfoModal')
 
       console.log(error)

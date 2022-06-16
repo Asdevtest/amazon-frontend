@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   dialogPadding: {
-    padding: '20px 24px',
+    padding: '40px 30px',
   },
 
   warningDialogPadding: {
@@ -20,7 +20,7 @@ export const useClassNames = makeStyles(() => ({
   dialogContent: {
     position: 'relative',
     overflow: 'visible',
-    borderRadius: '15px',
+    borderRadius: '4px',
   },
 
   closeIcon: {

@@ -4,14 +4,12 @@ import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {TermsViewModel} from './terms.model'
 import {styles} from './terms.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').termsScreen
 
 @observer
 class TermsRaw extends Component {
@@ -21,7 +19,7 @@ class TermsRaw extends Component {
 
     return (
       <div className={classNames.root}>
-        <Typography variant="h1">{textConsts.soon}</Typography>
+        <Typography variant="h1">{t(TranslationKey['Coming soon...'])}</Typography>
       </div>
     )
   }

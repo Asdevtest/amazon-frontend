@@ -6,7 +6,6 @@ import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
@@ -17,13 +16,10 @@ import {Modal} from '@components/modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {IntegrationsModel} from './integrations.model'
 import {useClassNames} from './integrations.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').integrations
 
 export const Integrations = observer(({productId}) => {
   const classNames = useClassNames()
@@ -106,7 +102,7 @@ export const Integrations = observer(({productId}) => {
       <WarningInfoModal
         openModal={showInfoModal}
         setOpenModal={() => onTriggerOpenModal('showInfoModal')}
-        title={textConsts.infoModalTitle}
+        title={t(TranslationKey["You can't bind"])}
         btnText={t(TranslationKey.Ok)}
         onClickBtn={() => {
           onTriggerOpenModal('showInfoModal')

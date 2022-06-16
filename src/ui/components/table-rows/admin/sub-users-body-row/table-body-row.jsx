@@ -3,15 +3,13 @@ import React from 'react'
 import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {styles} from './table-body-row.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').adminSubUsersBodyRow
 
 const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
   const classNames = restProps.classes
@@ -24,14 +22,14 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
         <Typography>{item.email}</Typography>
       </TableCell>
       <TableCell>
-        <Typography>{textConsts.bussinesUnit}</Typography>
+        <Typography>{'N/A'}</Typography>
       </TableCell>
       <TableCell>
         <Button className={classNames.editBtn} variant="contained" onClick={() => handlers.onClickEditUser(item)}>
-          {textConsts.editBtn}
+          {t(TranslationKey['Edit user'])}
         </Button>
         <Button variant="contained" onClick={handlers.onClickBalance}>
-          {textConsts.balanceBtn}
+          {t(TranslationKey.Balance)}
         </Button>
       </TableCell>
     </TableRow>

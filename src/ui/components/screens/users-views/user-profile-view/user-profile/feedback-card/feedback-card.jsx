@@ -4,13 +4,11 @@ import {Paper, Typography} from '@material-ui/core'
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './feedback-card.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').buerUserFeedbackCard
 
 export const FeedbackCard = ({isPositive, counter}) => {
   const classNames = useClassNames()
@@ -22,7 +20,7 @@ export const FeedbackCard = ({isPositive, counter}) => {
     >
       <div className={classNames.thumbContainer}>
         <Typography className={classNames.text}>
-          {isPositive ? textConsts.positiveReview : textConsts.negativeReview}
+          {isPositive ? t(TranslationKey.Positives) : t(TranslationKey.Negative)}
         </Typography>
 
         <Typography

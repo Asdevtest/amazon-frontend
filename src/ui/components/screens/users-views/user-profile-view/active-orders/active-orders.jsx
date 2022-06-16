@@ -3,21 +3,21 @@ import React from 'react'
 import {Tab, Tabs, Typography, Table, TableBody, TableHead, TableContainer, Paper} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './active-orders.style'
 import {ExchangeProductItem} from './exchange-product-item'
-
-const textConsts = getLocalizedTexts(texts, 'ru').buyerUserActiveOrders
 
 export const ActiveOrders = ({tabExchange, setTabExchange, productList, handlerClickButtonPrivateLabel}) => {
   const classNames = useClassNames()
 
   const renderProductList =
     productList.length === 0 ? (
-      <Typography className={(classNames.text, classNames.noActiveOffers)}>{textConsts.noActiveOffers}</Typography>
+      <Typography className={(classNames.text, classNames.noActiveOffers)}>
+        {t(TranslationKey['No active offers found'])}
+      </Typography>
     ) : (
       <TableContainer>
         <Table>
@@ -39,7 +39,7 @@ export const ActiveOrders = ({tabExchange, setTabExchange, productList, handlerC
   return (
     <React.Fragment>
       <Typography variant="h6" className={classNames.mainTitle}>
-        {textConsts.mainTitle}
+        {t(TranslationKey['Active offers on the commodity exchange'])}
       </Typography>
       <Paper>
         <Tabs
@@ -56,7 +56,7 @@ export const ActiveOrders = ({tabExchange, setTabExchange, productList, handlerC
               [classNames.selected]: tabExchange === 0,
             })}
             index={0}
-            label={textConsts.buyGoodsOfUser}
+            label={t(TranslationKey['Buy products from this user'])}
           />
         </Tabs>
         <div className={classNames.tabContent} role="tabpanel" hidden={tabExchange !== 0}>

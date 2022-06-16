@@ -2,20 +2,18 @@ import React, {useState} from 'react'
 
 import {Box, Typography} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRole} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {BoxList} from './box-list'
 import {BuyerForm} from './buyer-form'
 import {ClientForm} from './client-form'
 import {useClassNames} from './edit-batch-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').batchesModalEditBatch
 
 export const EditBatchModal = ({batch, setModal, warehouses, deliveryOptions, curUserRole}) => {
   const classNames = useClassNames()
@@ -24,7 +22,7 @@ export const EditBatchModal = ({batch, setModal, warehouses, deliveryOptions, cu
   const [delivery, setDelivery] = useState(batch.batch.deliveryMethod)
   const [status, setStatus] = useState(batch.boxes[0].status)
   const [warehouseCheckbox, setWarehouseCheckbox] = useState(
-    batch.boxes[0].destination !== textConsts.batchDestination ? true : false,
+    batch.boxes[0].destination !== t(TranslationKey['Not assigned']) ? true : false,
   )
   const [deliveryCheckbox, setDeliveryCheckbox] = useState(!!delivery)
 
@@ -54,16 +52,16 @@ export const EditBatchModal = ({batch, setModal, warehouses, deliveryOptions, cu
 
   return (
     <Box className={classNames.listsBox}>
-      <Typography className={classNames.modalTitle}>{textConsts.mainTitle}</Typography>
+      <Typography className={classNames.modalTitle}>{t(TranslationKey['Viewing/editing a batch'])}</Typography>
 
       {renderSwitchForm()}
 
       <BoxList selectedBoxes={batch.boxes} warehouse={warehouse} delivery={delivery} />
 
       <Box mt={2} className={classNames.btnBox}>
-        <Button className={classNames.saveBtn}>{textConsts.saveBtn}</Button>
+        <Button className={classNames.saveBtn}>{t(TranslationKey.Save)}</Button>
         <ErrorButton variant="contained" onClick={() => setModal(false)}>
-          {textConsts.cancelBtn}
+          {t(TranslationKey.Cancel)}
         </ErrorButton>
       </Box>
     </Box>

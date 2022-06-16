@@ -112,11 +112,13 @@ export const CreateOrEditRequestContent = ({
 
   const disableSubmit =
     formFields.request.title === '' ||
+    formFields.request.title.length > 80 ||
     formFields.request.maxAmountOfProposals === '' ||
     formFields.request.timeLimitInMinutes === '' ||
     formFields.request.price === '' ||
     formFields.request.timeoutAt === '' ||
-    formFields.details.conditions === ''
+    formFields.details.conditions === '' ||
+    formFields.details.conditions.length > 1000
 
   return (
     <div className={classNames.mainWrapper}>
@@ -146,21 +148,27 @@ export const CreateOrEditRequestContent = ({
         {curStep === stepVariant.STEP_ONE && (
           <div className={classNames.mainSubRightWrapper}>
             <div className={classNames.middleWrapper}>
-              <Field
-                multiline
-                inputProps={{maxLength: 250}}
-                label={`${t(TranslationKey.Title)} *`}
-                className={classNames.nameField}
-                labelClasses={classNames.spanLabelSmall}
-                minRows={1}
-                rowsMax={2}
-                value={formFields.request.title}
-                onChange={onChangeField('request')('title')}
-              />
+              <div className={classNames.nameFieldWrapper}>
+                <Field
+                  multiline
+                  inputProps={{maxLength: 100}}
+                  label={`${t(TranslationKey.Title)} *`}
+                  className={classNames.nameField}
+                  labelClasses={classNames.spanLabelSmall}
+                  minRows={1}
+                  rowsMax={2}
+                  value={formFields.request.title}
+                  onChange={onChangeField('request')('title')}
+                />
+                <span className={clsx(formFields.request.title.length > 80 && classNames.error)}>{`${
+                  formFields.request.title.length
+                } ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span>
+              </div>
+
               <div className={classNames.descriptionFieldWrapper}>
                 <Field
                   multiline
-                  inputProps={{maxLength: 1500}}
+                  inputProps={{maxLength: 1100}}
                   className={classNames.descriptionField}
                   labelClasses={classNames.spanLabelSmall}
                   minRows={4}
@@ -169,6 +177,9 @@ export const CreateOrEditRequestContent = ({
                   value={formFields.details.conditions}
                   onChange={onChangeField('details')('conditions')}
                 />
+                <span className={clsx(formFields.details.conditions.length > 1000 && classNames.error)}>{`${
+                  formFields.details.conditions.length
+                } ${t(TranslationKey.of)} 1000 ${t(TranslationKey.characters)}`}</span>
               </div>
 
               <div className={classNames.imageFileInputWrapper}>

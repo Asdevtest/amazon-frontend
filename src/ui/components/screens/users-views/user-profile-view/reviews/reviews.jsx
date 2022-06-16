@@ -3,13 +3,11 @@ import React from 'react'
 import {Tab, Tabs, Typography, Paper} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './reviews.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').buerUserReviews
 
 export const Reviews = ({tabReview, setTabReview}) => {
   const classNames = useClassNames()
@@ -17,7 +15,7 @@ export const Reviews = ({tabReview, setTabReview}) => {
   return (
     <div className={classNames.mainWrapper}>
       <Typography variant="h6" className={classNames.mainTitle}>
-        {textConsts.mainTitle}
+        {t(TranslationKey.Reviews)}
       </Typography>
       <Paper>
         <Tabs
@@ -34,14 +32,14 @@ export const Reviews = ({tabReview, setTabReview}) => {
               [classNames.selected]: tabReview === 0,
             })}
             index={0}
-            label={textConsts.all}
+            label={t(TranslationKey.All)}
           />
           <Tab
             className={clsx(classNames.text, {
               [classNames.selected]: tabReview === 1,
             })}
             index={1}
-            label={textConsts.fromBuyers}
+            label={t(TranslationKey['From buyers'])}
           />
 
           <Tab
@@ -49,13 +47,15 @@ export const Reviews = ({tabReview, setTabReview}) => {
               [classNames.selected]: tabReview === 2,
             })}
             index={2}
-            label={textConsts.fromSellers}
+            label={t(TranslationKey['From the sellers'])}
           />
         </Tabs>
 
         <div className={classNames.tabContent} role="tabpanel">
           <div className={classNames.subTabWrapper}>
-            <Typography className={(classNames.text, classNames.typoNoReviews)}>{textConsts.noReviews}</Typography>
+            <Typography className={(classNames.text, classNames.typoNoReviews)}>
+              {t(TranslationKey['No transaction history found'])}
+            </Typography>
           </div>
         </div>
       </Paper>

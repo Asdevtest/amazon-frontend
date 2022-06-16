@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -18,13 +17,10 @@ import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {AdminWarehouseTasksViewModel} from './admin-warehouse-tasks-view.model'
 import {styles} from './admin-warehouse-tasks-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').adminTasksView
 
 const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 const activeSubCategory = 0
@@ -127,7 +123,7 @@ export class AdminWarehouseTasksViewRaw extends Component {
   renderAdminBtns = params => (
     <React.Fragment>
       <Button variant="contained" onClick={() => this.viewModel.setCurrentOpenedTask(params.row)}>
-        {textConsts.actionBtn}
+        {t(TranslationKey['View more'])}
       </Button>
     </React.Fragment>
   )

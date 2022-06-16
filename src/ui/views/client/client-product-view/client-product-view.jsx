@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -16,12 +15,9 @@ import {Navbar} from '@components/navbar'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {ProductWrapper} from '@components/product/product-wrapper'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {ClientProductViewModel} from './client-product-view.model'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientProductView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_INVENTORY
 @observer
@@ -69,7 +65,7 @@ export class ClientProductView extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar title={textConsts.appBarTitle} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey.Product)} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {product ? (
                 <ProductWrapper
@@ -111,7 +107,7 @@ export class ClientProductView extends Component {
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
           title={warningModalTitle}
-          btnText={textConsts.okBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
           }}

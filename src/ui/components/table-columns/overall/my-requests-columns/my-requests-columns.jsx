@@ -4,6 +4,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   MultilineRequestStatusCell,
+  MultilineTextAlignLeftCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ShortDateCell,
@@ -16,28 +17,36 @@ export const myRequestsViewColumns = () => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
     renderCell: params => <ShortDateCell params={params} />,
-    width: 100,
+    width: 117,
     type: 'date',
   },
 
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
-    width: 150,
+    width: 211,
   },
 
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
     width: 350,
   },
 
   {
     field: 'price',
     headerName: t(TranslationKey.Price),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price)} />,
+
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 120,
   },
@@ -45,6 +54,8 @@ export const myRequestsViewColumns = () => [
   {
     field: 'timeoutAt',
     headerName: t(TranslationKey.Deadline),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
+
     renderCell: params => <ShortDateCell params={params} />,
     width: 100,
     type: 'date',
@@ -63,6 +74,8 @@ export const myRequestsViewColumns = () => [
   {
     field: 'verifyingProposals',
     headerName: t(TranslationKey.Awaiting),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Awaiting)} />,
+
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
   },
@@ -70,6 +83,8 @@ export const myRequestsViewColumns = () => [
   {
     field: 'atWorkProposals',
     headerName: t(TranslationKey['In the work']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['In the work'])} />,
+
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
   },
@@ -77,6 +92,8 @@ export const myRequestsViewColumns = () => [
   {
     field: 'waitedProposals',
     headerName: t(TranslationKey['On review']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['On review'])} />,
+
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
   },
@@ -84,6 +101,8 @@ export const myRequestsViewColumns = () => [
   {
     field: 'acceptedProposals',
     headerName: t(TranslationKey.Accepted),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Accepted)} />,
+
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
   },

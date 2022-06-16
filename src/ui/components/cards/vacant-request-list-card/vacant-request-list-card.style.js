@@ -7,7 +7,7 @@ export const useClassNames = makeStyles(() => ({
 
   cardWrapper: {
     width: '100%',
-    height: '230px',
+    height: '263px',
 
     borderRadius: '4px',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
@@ -25,25 +25,37 @@ export const useClassNames = makeStyles(() => ({
     marginLeft: '15px',
   },
 
+  cardTitleBlockHeaderWrapper: {
+    display: 'flex',
+    alignItems: 'start',
+    justifyContent: 'space-between',
+  },
+
   cardTitleBlockWrapper: {
-    width: '30%',
+    width: '661px',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 
   cardTitle: {
-    fontWeight: 'bold',
-    fontSize: '14px',
-    lineHeight: '16px',
-    color: '#354256',
-    marginBottom: '20px',
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#001029',
+    // marginBottom: '20px',
     textOverflow: 'ellipsis',
-    overflow: 'hidden',
+    overflow: 'auto',
+    width: '395px',
+    maxHeight: '120px',
   },
 
   cardSubTitle: {
-    marginBottom: '5px',
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#656565',
   },
 
   rightBlockWrapper: {
@@ -71,10 +83,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   middleBlockWrapper: {
-    borderRadius: '4px',
-    border: '1px solid rgba(0,0,0, .1)',
-    width: '30%',
-    padding: '20px 25px',
+    width: '819px',
 
     display: 'flex',
 
@@ -119,8 +128,46 @@ export const useClassNames = makeStyles(() => ({
   },
 
   updatedAtText: {
-    marginRight: '20px',
-    fontSize: '10px',
-    fontWeight: 'bold',
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#656565',
+  },
+
+  cardTitleBlockFooterWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  subBlockWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  leftSubBlockWrapper: {
+    width: '403px',
+    border: '1px solid #E0E0E0',
+    borderRadius: '8px',
+    padding: '30px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '23px',
+  },
+
+  rightSubBlockWrapper: {
+    width: '377px',
+    border: '1px solid #E0E0E0',
+    borderRadius: '8px',
+    padding: '30px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '23px',
+  },
+
+  buttonWrapper: {
+    display: 'flex',
+    justifyContent: 'end',
   },
 }))

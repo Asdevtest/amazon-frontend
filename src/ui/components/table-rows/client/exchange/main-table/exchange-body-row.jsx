@@ -1,17 +1,15 @@
 import {Button, TableCell, TableRow} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SuccessButton} from '@components/buttons/success-button'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {styles} from './exchange-body-row.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').exchangeBodyRow
 
 const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) => (
   <TableRow>
@@ -44,7 +42,7 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) =>
           handlers.onTriggerOpenModal('showConfirmPayModal')
         }}
       >
-        {`${textConsts.byForBtn} ${toFixedWithDollarSign(item.priceForClient, 2)}`}
+        {`${t(TranslationKey['Buy for'])} ${toFixedWithDollarSign(item.priceForClient, 2)}`}
       </SuccessButton>
     </TableCell>
   </TableRow>

@@ -1,17 +1,22 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
-import {NormDateWithoutTimeCell, renderFieldValueCell, ScrollingCell} from '@components/data-grid-cells/data-grid-cells'
+import {
+  MultilineTextHeaderCell,
+  NormDateWithoutTimeCell,
+  renderFieldValueCell,
+  ScrollingCell,
+} from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientDailySellerBoardColumns
+import {t} from '@utils/translations'
 
 export const clientLast30DaySellerBoardColumns = () => [
   {
     field: 'date',
-    headerName: textConsts.createDateField,
+    headerName: t(TranslationKey.Date),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Date)} />,
+
     renderCell: params => <NormDateWithoutTimeCell params={params} />,
     minWidth: 80,
     type: 'date',
@@ -19,39 +24,48 @@ export const clientLast30DaySellerBoardColumns = () => [
 
   {
     field: 'asin',
-    headerName: textConsts.asinField,
+    headerName: t(TranslationKey.ASIN),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 
   {
     field: 'sku',
-    headerName: textConsts.skuField,
+    headerName: t(TranslationKey.SKU),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SKU)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
 
   {
     field: 'name',
-    headerName: textConsts.titleField,
+    headerName: t(TranslationKey.Title),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+
     renderCell: params => <ScrollingCell value={params.value} />,
     width: 250,
   },
   {
     field: 'unitsorganic',
-    headerName: textConsts.unitsorganicField,
+    headerName: 'Unitsorganic',
+    renderHeader: () => <MultilineTextHeaderCell text={'Unitsorganic'} />,
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
   {
     field: 'unitsppc',
-    headerName: textConsts.unitsppcField,
+    headerName: 'Unitsppc',
+    renderHeader: () => <MultilineTextHeaderCell text={'Unitsppc'} />,
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
   {
     field: 'netprofit',
-    headerName: textConsts.netprofitField,
+    headerName: 'Netprofit',
+    renderHeader: () => <MultilineTextHeaderCell text={'Netprofit'} />,
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
