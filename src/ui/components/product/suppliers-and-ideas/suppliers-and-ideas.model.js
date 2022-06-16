@@ -9,7 +9,7 @@ import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
 const ideaMock = {
-  images: ['https://amazonapi.fvds.ru/uploads/82e688c1-3546-4133-977a-623d0a49b6c6.6lWa9pt.jpg'],
+  images: ['https://kak2c.ru/storage/app/uploads/public/60a/512/db8/60a512db87dd8883967020.jpg'],
   title: 'Тестовая идея №1',
   links: [
     'https://amazonapi.fvds.ru/uploads/82e688c1-3546-4133-977a-623d0a49b6c6.6lWa9pt.jpg',

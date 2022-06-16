@@ -5,21 +5,16 @@ import React, {Component} from 'react'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {DELIVERY_OPTIONS} from '@constants/delivery-options'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {BUYER_FREE_ORDERS_MODAL_HEAD_CELLS} from '@constants/table-head-cells'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {warehouses} from '@constants/warehouses'
 
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {Modal} from '@components/modal'
 import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
-import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -45,24 +40,17 @@ class BuyerFreeOrdersViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
-
-      ordersVacant,
       drawerOpen,
-      selectedOrder,
       curPage,
       rowsPerPage,
       warningTitle,
-      showOrderModal,
       showWarningModal,
       showTwoVerticalChoicesModal,
-      onTriggerShowBarcodeModal,
       goToMyOrders,
-      onTriggerShowOrderModal,
       onTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
       onTriggerOpenModal,
-
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
@@ -105,19 +93,6 @@ class BuyerFreeOrdersViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-
-        <Modal openModal={showOrderModal} setOpenModal={onTriggerShowOrderModal}>
-          {ordersVacant[selectedOrder] ? (
-            <EditOrderModal
-              order={ordersVacant[selectedOrder]}
-              setModal={onTriggerShowOrderModal}
-              setModalBarcode={onTriggerShowBarcodeModal}
-              modalHeadCells={BUYER_FREE_ORDERS_MODAL_HEAD_CELLS}
-              warehouses={warehouses}
-              deliveryList={DELIVERY_OPTIONS}
-            />
-          ) : undefined}
-        </Modal>
 
         <TwoVerticalChoicesModal
           openModal={showTwoVerticalChoicesModal}

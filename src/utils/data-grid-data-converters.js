@@ -1,11 +1,9 @@
-import {DeliveryTypeByCode} from '@constants/delivery-options'
 import {OrderStatusByCode} from '@constants/order-status'
 import {ProductStatusByCode} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
 import {mapTaskStatusKeyToEnum} from '@constants/task-status'
 import {UserRoleCodeMap} from '@constants/user-roles'
-import {warehouses} from '@constants/warehouses'
 
 import {calcFinalWeightForBox, calcPriceForBox, calcTotalPriceForBatch, calcVolumeWeightForBox} from './calculation'
 import {getFullTariffTextForBoxOrOrder} from './text'
@@ -123,7 +121,7 @@ export const buyerMyOrdersDataConverter = data =>
     originalData: item,
 
     barCode: item.product.barCode,
-    deliveryMethod: DeliveryTypeByCode[item.deliveryMethod],
+
     status: OrderStatusByCode[item.status],
 
     createdAt: item.createdAt,
@@ -145,8 +143,6 @@ export const buyerVacantOrdersDataConverter = data =>
 
     barCode: item.product.barCode,
     warehouses: item.destination?.name,
-
-    deliveryMethod: DeliveryTypeByCode[item.deliveryMethod],
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -521,8 +517,6 @@ export const adminBatchesDataConverter = data =>
     originalData: item,
     id: i,
 
-    delivery: DeliveryTypeByCode[item.batch.deliveryMethod],
-    warehouses: warehouses[item.batch.warehouse],
     finalWeight: item.boxes.reduce(
       (prev, box) => (prev = prev + calcFinalWeightForBox(box)),
 

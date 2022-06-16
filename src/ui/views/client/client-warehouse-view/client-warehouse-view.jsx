@@ -30,11 +30,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 
-<<<<<<< HEAD
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
-=======
->>>>>>> 513672bf (2662 2663 2649 2610 2645 2475)
 import {t} from '@utils/translations'
 
 import {ClientWarehouseViewModel} from './client-warehouse-view.model'

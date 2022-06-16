@@ -78,8 +78,7 @@ export const CreateOrEditProposalContent = ({
     formFields.execution_time === '' ||
     formFields.comment === '' ||
     formFields.comment.length > 2000 ||
-    images?.length === 0
-  JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
+    JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
   return (
     <div className={classNames.mainWrapper}>
