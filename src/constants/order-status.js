@@ -1,7 +1,4 @@
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {objectFlip} from '@utils/object'
-
-import {texts} from './texts'
 
 export const OrderStatus = {
   FORMED: 'FORMED',
@@ -36,59 +33,57 @@ export const OrderStatusByCode = {
 
 export const OrderStatusByKey = objectFlip(OrderStatusByCode, parseInt)
 
-const textConfig = getLocalizedTexts(texts, 'en').orderStatus
-
 export const ORDER_STATUS_OPTIONS = [
   {
     key: OrderStatus.FORMED,
-    label: textConfig.formed,
+    label: 'formed',
   },
   {
     key: OrderStatus.NEW,
-    label: textConfig.new,
+    label: 'new',
   },
   {
     key: OrderStatus.READY_TO_PROCESS,
-    label: textConfig.readyToProcess,
+    label: 'readyToProcess',
   },
   {
     key: OrderStatus.AT_PROCESS,
-    label: textConfig.atProcess,
+    label: 'atProcess',
   },
 
   {
     key: OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
-    label: textConfig.toPriceChange,
+    label: 'toPriceChange',
   },
 
   {
     key: OrderStatus.PAID_TO_SUPPLIER,
-    label: textConfig.paid,
+    label: 'paid',
   },
   {
     key: OrderStatus.TRACK_NUMBER_ISSUED,
-    label: textConfig.trackNumberIssued,
+    label: 'trackNumberIssued',
   },
   {
     key: OrderStatus.IN_STOCK,
-    label: textConfig.inStock,
+    label: 'inStock',
   },
   {
     key: OrderStatus.CANCELED_BY_BUYER,
-    label: textConfig.returnOrder,
+    label: 'returnOrder',
   },
 
   {
     key: OrderStatus.CANCELED_BY_CLIENT,
-    label: textConfig.closed,
+    label: 'closed',
   },
   {
     key: OrderStatus.AWAITING_SHIPMENT,
-    label: textConfig.awaitingShipment,
+    label: 'awaitingShipment',
   },
   {
     key: OrderStatus.SHIPPED,
-    label: textConfig.shipped,
+    label: 'shipped',
   },
 ]
 
