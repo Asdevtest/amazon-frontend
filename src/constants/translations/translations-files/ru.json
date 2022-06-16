@@ -824,11 +824,14 @@
   "Selected a batch contains a box with an invalid tariff": "Выбрана партия содержащая коробку с невалидным тарифом",
   "Stock sum": "Сумма стока",
   "Not chosen": "Не выбран",
-  "Continue with the order": "Продолжить работу с заказом",
-  "Continue to work with vacant orders": "Продолжить работу с вакантными заказами",
+  "Go to order": "Перейти к заказу",
+  "Continue to work with free orders": "Продолжить работу со свободными заказами",
   "Order picked up": "Заказ взят в работу",
   "Remove from the Inventory": "Убрать из Инвентаря",
   "After confirmation, the card will be moved to the Archive. Continue?": "После подтверждения карточка будет перенесена в Архив. Продолжить?",
   "Return to Inventory": "Вернуть в Инвентарь",
-  "After confirmation, the card will be moved to the Inventory. Continue?": "После подтверждения карточка будет перенесена в Инвентарь. Продолжить?"
+  "After confirmation, the card will be moved to the Inventory. Continue?": "После подтверждения карточка будет перенесена в Инвентарь. Продолжить?",
+  "Task picked up": "Задача взята в работу",
+  "Go to task": "Перейти к задаче",
+  "Continue to work with new tasks": "Продолжить работу с новыми задачами"
 }
