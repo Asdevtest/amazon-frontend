@@ -119,6 +119,13 @@ export class ClientInventoryViewModel {
     onDeleteHsCode: item => this.onDeleteHsCode(item),
   }
 
+  confirmModalSettings = {
+    isWarning: false,
+    confirmTitle: '',
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
+
   readyImages = []
   progressValue = 0
   showProgress = false
@@ -230,7 +237,22 @@ export class ClientInventoryViewModel {
       : toJS(this.productsMy.filter(el => !el.originalData.archive))
   }
 
-  async onClickTriggerArchOrResetProducts() {
+  onClickTriggerArchOrResetProducts() {
+    this.confirmModalSettings = {
+      isWarning: this.isArchive ? false : true,
+      confirmTitle: this.isArchive
+        ? t(TranslationKey['Return to Inventory'])
+        : t(TranslationKey['Remove from the Inventory']),
+      confirmMessage: this.isArchive
+        ? t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?'])
+        : t(TranslationKey['After confirmation, the card will be moved to the Archive. Continue?']),
+      onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitTriggerArchOrResetProducts() {
     try {
       for (let i = 0; i < this.selectedRowIds.length; i++) {
         const productId = this.selectedRowIds[i]
@@ -238,6 +260,7 @@ export class ClientInventoryViewModel {
         await ClientModel.updateProduct(productId, {archive: this.isArchive ? false : true})
       }
 
+      this.onTriggerOpenModal('showConfirmModal')
       await this.loadData()
     } catch (error) {
       console.log(error)
@@ -487,10 +510,15 @@ export class ClientInventoryViewModel {
 
       this.priceForSeekSupplier = result.priceForClient
 
-      this.confirmMessage = `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
-        result.priceForClient,
-        2,
-      )}.\n ${t(TranslationKey['Apply?'])}`
+      this.confirmMessage = this.confirmModalSettings = {
+        isWarning: false,
+        confirmTitle: t(TranslationKey.Attention),
+        confirmMessage: `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
+          result.priceForClient,
+          2,
+        )}.\n ${t(TranslationKey['Apply?'])}`,
+        onClickConfirm: () => this.onSubmitSeekSupplier(),
+      }
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {

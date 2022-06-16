@@ -14,6 +14,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {ResearcherMyCustomRequestsViewModel} from './researcher-my-custom-requests-view.model'
@@ -73,6 +74,7 @@ export class ResearcherMyCustomRequestsViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
                 }}

@@ -18,6 +18,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {AdminOrdersAllViewModel} from './admin-orders-views.model'
@@ -90,6 +91,7 @@ class AdminOrdersViewsRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
                 }}

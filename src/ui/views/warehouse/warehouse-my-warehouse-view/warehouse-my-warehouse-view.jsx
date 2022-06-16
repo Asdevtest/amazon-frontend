@@ -19,6 +19,7 @@ import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {WarehouseMyWarehouseViewModel} from './warehouse-my-warehouse-view.model'
@@ -88,6 +89,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
                 }}

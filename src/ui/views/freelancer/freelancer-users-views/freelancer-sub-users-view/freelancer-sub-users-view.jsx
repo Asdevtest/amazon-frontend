@@ -21,6 +21,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {FreelancerSubUsersViewModel} from './freelancer-sub-users-view.model'
@@ -94,6 +95,7 @@ class FreelancerSubUsersViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}

@@ -15,6 +15,7 @@ import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 
 import {ResearcherMyProductsRequestsViewModel} from './researcher-my-products-requests-view.model'
@@ -75,6 +76,7 @@ class ResearcherMyProductsRequestsViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
                 }}

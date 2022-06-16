@@ -17,6 +17,7 @@ import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
@@ -81,6 +82,7 @@ export class AdminBatchesViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
                 }}

@@ -15,6 +15,7 @@ import {MainContent} from '@components/main-content'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {ClientBatchesViewModel} from './client-batches-view.model'
@@ -76,6 +77,7 @@ class ClientBatchesViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: className.row,
                 }}

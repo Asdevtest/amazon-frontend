@@ -31,6 +31,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
@@ -172,6 +173,7 @@ export class ClientWarehouseViewRaw extends Component {
                 autoHeight
                 pagination
                 checkboxSelection
+                localeText={getLocalizationByLanguageTag()}
                 isRowSelectable={params => params.row.isDraft === false}
                 classes={{
                   row: classNames.row,

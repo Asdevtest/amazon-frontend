@@ -19,6 +19,7 @@ import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {ClientReadyBoxesViewModel} from './client-ready-boxes-view.model'
@@ -132,6 +133,7 @@ export class ClientReadyBoxesViewRaw extends Component {
                 pagination
                 useResizeContainer
                 checkboxSelection
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
                 }}

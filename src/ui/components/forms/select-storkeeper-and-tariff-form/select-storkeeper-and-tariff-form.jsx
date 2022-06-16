@@ -1,9 +1,10 @@
 import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useState} from 'react'
 
-import {Typography, Box, Tabs, Tab} from '@material-ui/core'
+import {Typography, Box, Tabs, Tab, InputAdornment} from '@material-ui/core'
 import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
@@ -11,6 +12,7 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {Field} from '@components/field/field'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {t} from '@utils/translations'
@@ -40,6 +42,16 @@ export const SelectStorekeeperAndTariffForm = observer(
 
     const [tabIndex, setTabIndex] = React.useState(0)
     const tabItemStyles = twitterTabsStylesHook.useTabItem()
+
+    const [nameSearchValue, setNameSearchValue] = useState('')
+
+    const filterByNameSearch = data => {
+      if (nameSearchValue) {
+        return toJS(data).filter(el => el.name.toLowerCase().includes(nameSearchValue.toLowerCase()))
+      } else {
+        return toJS(data)
+      }
+    }
 
     const [curStorekeeper, setCurStorekeeper] = useState(
       curStorekeeperId
@@ -81,6 +93,19 @@ export const SelectStorekeeperAndTariffForm = observer(
             ))}
         </div>
 
+        <Field
+          containerClasses={classNames.searchContainer}
+          inputClasses={classNames.searchInput}
+          value={nameSearchValue}
+          placeholder={'search'}
+          endAdornment={
+            <InputAdornment position="start">
+              <SearchIcon color="primary" />
+            </InputAdornment>
+          }
+          onChange={e => setNameSearchValue(e.target.value)}
+        />
+
         <Tabs
           variant={'fullWidth'}
           classes={{
@@ -99,7 +124,9 @@ export const SelectStorekeeperAndTariffForm = observer(
               hideFooter
               getRowClassName={getRowClassName}
               rows={
-                curStorekeeper.tariffLogistics?.length ? toJS(addIdDataConverter(curStorekeeper.tariffLogistics)) : []
+                curStorekeeper.tariffLogistics?.length
+                  ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffLogistics))
+                  : []
               }
               columns={logisticsTariffsColumns({onClickSelectTariff})}
               rowHeight={100}
@@ -118,7 +145,9 @@ export const SelectStorekeeperAndTariffForm = observer(
             <DataGrid
               hideFooter
               rows={
-                curStorekeeper.tariffWarehouses?.length ? toJS(addIdDataConverter(curStorekeeper.tariffWarehouses)) : []
+                curStorekeeper.tariffWarehouses?.length
+                  ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffWarehouses))
+                  : []
               }
               columns={warehouseTariffsColumns()}
               rowHeight={100}

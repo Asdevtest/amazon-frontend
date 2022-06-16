@@ -21,6 +21,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {BuyerFreeOrdersViewModel} from './buyer-free-orders-view.model'
@@ -78,6 +79,7 @@ class BuyerFreeOrdersViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}

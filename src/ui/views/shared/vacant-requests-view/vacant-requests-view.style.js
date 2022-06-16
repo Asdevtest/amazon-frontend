@@ -77,7 +77,7 @@ export const styles = createStyles(() => ({
     width: '400px',
   },
 
-  searchcontainer: {
+  searchContainer: {
     width: 'auto',
   },
 }))

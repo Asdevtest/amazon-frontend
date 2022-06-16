@@ -121,4 +121,12 @@ export const useClassNames = makeStyles(theme => ({
   imageFileInputWrapper: {
     maxWidth: '866px',
   },
+
+  successBtn: {
+    backgroundColor: '#4CAF50',
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#4CAF50',
+    },
+  },
 }))

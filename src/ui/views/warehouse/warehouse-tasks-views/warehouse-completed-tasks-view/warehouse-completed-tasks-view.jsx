@@ -15,6 +15,7 @@ import {MainContent} from '@components/main-content'
 import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {WarehouseCompletedViewModel} from './warehouse-completed-tasks-view.model'
@@ -76,6 +77,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
                 }}

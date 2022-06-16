@@ -14,6 +14,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {SupervisorFinancesViewsModel} from './supervisor-finances-views.model'
@@ -66,6 +67,7 @@ class SupervisorFinancesViewsRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 getRowClassName={getRowClassName}
                 sortModel={sortModel}
                 filterModel={filterModel}

@@ -826,12 +826,14 @@ export enum TranslationKey {
   'Continue with the order' = 'Continue with the order',
   'Continue to work with vacant orders' = 'Continue to work with vacant orders',
   'Order picked up' = 'Order picked up',
-  // '' = '',
-  // '' = '',
+  'Remove from the Inventory' = 'Remove from the Inventory',
+  'After confirmation, the card will be moved to the Archive. Continue?' = 'After confirmation, the card will be moved to the Archive. Continue?',
+  'Return to Inventory' = 'Return to Inventory',
+  'After confirmation, the card will be moved to the Inventory. Continue?' = 'After confirmation, the card will be moved to the Inventory. Continue?',
   // '' = '',
 }
 
-// "Order picked up": "Order picked up"
+// "After confirmation, the card will be moved to the Archive. Continue?": "After confirmation, the card will be moved to the Archive. Continue?"
 
 // <p>t(TranslationKey.Close)</p> ПРИМЕР
 
