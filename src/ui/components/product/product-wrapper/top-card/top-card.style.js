@@ -60,12 +60,14 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: '24px',
   },
   parseButtonsWrapper: {
+    minWidth: 250,
     display: 'flex',
-    marginBottom: '16px',
+    flexDirection: 'column',
+    marginRight: 30,
   },
   buttonParseAmazon: {
-    marginRight: '16px',
-    height: '50px',
+    width: '100%',
+    marginBottom: '16px',
   },
   productFieldBox: {
     display: 'flex',
@@ -143,5 +145,12 @@ export const useClassNames = makeStyles(() => ({
 
   imageFileInputWrapper: {
     marginLeft: '20px',
+    width: '100%',
+  },
+
+  actionsWrapper: {
+    width: '100%',
+    display: 'flex',
+    marginBottom: '16px',
   },
 }))

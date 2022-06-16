@@ -63,7 +63,8 @@ export const OwnerGeneralRequestInfo = ({
 
             <div className={classNames.requestItemInfoWrapper}>
               <Typography>{t(TranslationKey.Status)}</Typography>
-              <Typography className={classNames.requestStatus}>{request?.request.status}</Typography>
+
+              <Typography className={classNames.requestStatus}>{request?.request.status.replace(/_/g, ' ')}</Typography>
             </div>
           </div>
 

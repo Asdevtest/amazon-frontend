@@ -5,6 +5,8 @@ import {observer} from 'mobx-react'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 
+import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+
 import {useClassNames} from './request-proposal-result-to-correct-form.style'
 
 interface Props {
@@ -35,6 +37,12 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
           )
         } else {
           formFieldsNewState.linksToMediaFiles.push(value)
+        }
+      } else if (fieldName === 'timeLimitInMinutes') {
+        if (!checkIsPositiveNummberAndNoMoreNCharactersAfterDot(value, 0)) {
+          return
+        } else {
+          formFieldsNewState[fieldName] = value as never
         }
       } else {
         if (typeof formFieldsNewState[fieldName] === 'number') {

@@ -109,22 +109,23 @@ export const TopCard = observer(
                 {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
                 !product.archive &&
                 showActionBtns ? (
-                  <Box className={classNames.parseButtonsWrapper}>
-                    <React.Fragment>
-                      <Button
-                        className={classNames.buttonParseAmazon}
-                        onClick={() => onClickParseProductData(ProductDataParser.AMAZON, product)}
-                      >
-                        {'Parse Amazon'}
-                      </Button>
-                      <Button
-                        className={classNames.buttonParseAmazon}
-                        onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}
-                      >
-                        {'Parse Sellcentrall'}
-                      </Button>
-                    </React.Fragment>
-
+                  <div className={classNames.actionsWrapper}>
+                    <Box className={classNames.parseButtonsWrapper}>
+                      <React.Fragment>
+                        <Button
+                          className={classNames.buttonParseAmazon}
+                          onClick={() => onClickParseProductData(ProductDataParser.AMAZON, product)}
+                        >
+                          {'Parse Amazon'}
+                        </Button>
+                        <Button
+                          className={classNames.buttonParseAmazon}
+                          onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}
+                        >
+                          {'Parse Sellcentrall'}
+                        </Button>
+                      </React.Fragment>
+                    </Box>
                     {(checkIsResearcher(curUserRole) || clientToEdit) && (
                       <div className={classNames.imageFileInputWrapper}>
                         <UploadFilesInput
@@ -135,7 +136,7 @@ export const TopCard = observer(
                         />
                       </div>
                     )}
-                  </Box>
+                  </div>
                 ) : undefined}
                 {actionStatus === loadingStatuses.success || actionStatus === loadingStatuses.failed ? (
                   <Alert

@@ -259,7 +259,7 @@ export class StockReportModel {
     }
   }
 
-  async getProductsMy(filters) {
+  async getProductsMy(filters, isRecCall) {
     try {
       const result = await ClientModel.getProductsMy(filters)
       runInAction(() => {
@@ -269,10 +269,13 @@ export class StockReportModel {
       })
     } catch (error) {
       console.log(error)
-      this.inventoryProducts = []
-
-      if (error.body && error.body.message) {
-        this.error = error.body.message
+      if (isRecCall) {
+        this.getProductsMy()
+      } else {
+        this.inventoryProducts = []
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
       }
     }
   }

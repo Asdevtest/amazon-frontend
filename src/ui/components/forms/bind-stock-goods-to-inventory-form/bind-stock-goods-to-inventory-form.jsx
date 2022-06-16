@@ -83,7 +83,10 @@ export const BindStockGoodsToInventoryForm = observer(
 
     useEffect(() => {
       if (chipConfig === chipConfigSettings.RECOMMENDED) {
-        updateInventoryData()
+        const recFilter = qs.stringify({asin: {$contains: goodsToSelect[0].asin}}, {encode: false}).replace(/&/, ';')
+        const isRecCall = true
+
+        updateInventoryData(recFilter, isRecCall)
       }
     }, [chipConfig])
 
