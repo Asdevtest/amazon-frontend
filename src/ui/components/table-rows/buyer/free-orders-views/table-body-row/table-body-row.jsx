@@ -2,10 +2,8 @@ import React from 'react'
 
 import {Box, TableCell, TableRow, Typography} from '@material-ui/core'
 
-import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {warehouses} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
 
@@ -47,10 +45,10 @@ export const TableBodyRow = ({item, handlers}) => {
       </TableCell>
 
       <TableCell className={classNames.cellPadding}>
-        <Typography className={classNames.text}>{warehouses[item.warehouse]}</Typography>
+        {/* <Typography className={classNames.text}>{warehouses[item.warehouse]}</Typography> */}
       </TableCell>
       <TableCell className={(classNames.cellPadding, classNames.centerCell)}>
-        <Typography className={classNames.text}>{getDeliveryOptionByCode(item.deliveryMethod).label}</Typography>
+        {/* <Typography className={classNames.text}>{getDeliveryOptionByCode(item.deliveryMethod).label}</Typography> */}
       </TableCell>
       <TableCell className={classNames.cellPadding}>
         <Typography className={classNames.text}>{item.clientComment}</Typography>

@@ -2,9 +2,7 @@ import React from 'react'
 
 import {Box, TableCell, TableRow, Typography} from '@material-ui/core'
 
-import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
-import {warehouses} from '@constants/warehouses'
 
 import {formatDate} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
@@ -53,10 +51,10 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
         <Typography className={classNames.text}>{item.updated}</Typography>
       </TableCell>
       <TableCell className={classNames.cellPadding}>
-        <Typography className={classNames.text}>{warehouses[item.warehouse]}</Typography>
+        {/* <Typography className={classNames.text}>{warehouses[item.warehouse]}</Typography> */}
       </TableCell>
       <TableCell className={(classNames.cellPadding, classNames.centerCell)}>
-        <Typography className={classNames.text}>{getDeliveryOptionByCode(item.deliveryMethod).label}</Typography>
+        {/* <Typography className={classNames.text}>{getDeliveryOptionByCode(item.deliveryMethod).label}</Typography> */}
       </TableCell>
       <TableCell className={classNames.cellPadding}>
         <Typography className={classNames.text}>{item.clientComment}</Typography>

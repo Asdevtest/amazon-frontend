@@ -1,19 +1,10 @@
-import {NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
+import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
-
-import {
-  DeliveryType,
-  DeliveryTypeByCode,
-  deliveryTypeCodeToKey,
-  getDeliveryOptionByCode,
-} from '@constants/delivery-options'
-import {warehouses} from '@constants/warehouses'
 
 import {Input} from '@components/input'
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixedWithDollarSign} from '@utils/text'
 
 import {styles} from './exchange-modal-body-row.style'
@@ -46,7 +37,7 @@ const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: c
     </TableCell>
     <TableCell className={classNames.alignRight}>{calcProductsPriceWithDelivery(product, orderFields)}</TableCell>
 
-    <TableCell>
+    {/* <TableCell>
       <NativeSelect
         variant="filled"
         inputProps={{
@@ -70,9 +61,9 @@ const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: c
           </option>
         ))}
       </NativeSelect>
-    </TableCell>
+    </TableCell> */}
     <TableCell>
-      <NativeSelect
+      {/* <NativeSelect
         variant="filled"
         inputProps={{
           name: 'warehouse-select',
@@ -92,7 +83,7 @@ const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: c
             </option>
           )
         })}
-      </NativeSelect>
+      </NativeSelect> */}
     </TableCell>
     <TableCell>
       <Input

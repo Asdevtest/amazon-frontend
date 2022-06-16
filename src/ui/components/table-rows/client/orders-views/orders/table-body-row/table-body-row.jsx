@@ -4,7 +4,6 @@ import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {OrderStatusByCode} from '@constants/order-status'
-import {warehouses} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
 
@@ -52,9 +51,7 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
         <Typography>{item.amount}</Typography>
       </TableCell>
 
-      <TableCell>
-        <Typography>{warehouses[item.warehouse]}</Typography>
-      </TableCell>
+      <TableCell>{/* <Typography>{warehouses[item.warehouse]}</Typography> */}</TableCell>
 
       <TableCell>
         <Button size="small">{'Смотреть подробнее'}</Button>

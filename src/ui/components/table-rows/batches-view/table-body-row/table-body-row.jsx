@@ -3,9 +3,6 @@ import React from 'react'
 import {TableCell, TableRow} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {DeliveryTypeByCode} from '@constants/delivery-options'
-import {warehouses} from '@constants/warehouses'
-
 import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
 
 import {useClassNames} from './table-body-row.style'
@@ -43,8 +40,8 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedBatchIndex}) =>
       <TableCell>{box.lastModifiedBy?.name}</TableCell>
       {boxIndex === 0 && (
         <>
-          <TableCell rowSpan={boxQty}>{warehouses[item.batch.warehouse]}</TableCell>
-          <TableCell rowSpan={boxQty}>{DeliveryTypeByCode[item.batch.deliveryMethod]}</TableCell>
+          {/* <TableCell rowSpan={boxQty}>{warehouses[item.batch.warehouse]}</TableCell>
+          <TableCell rowSpan={boxQty}>{DeliveryTypeByCode[item.batch.deliveryMethod]}</TableCell> */}
           <TableCell rowSpan={boxQty}>{'trackId'}</TableCell>
         </>
       )}

@@ -83,6 +83,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'stockSum',
+    headerName: t(TranslationKey['Stock sum']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
