@@ -463,7 +463,7 @@ export const styles = createStyles(() => ({
 
     color: 'rgba(0, 0, 0, 0.87)',
     fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
-    fontWeight: '400',
+    fontWeight: '600',
     fontSize: '14px',
     lineHeight: '16px',
   },

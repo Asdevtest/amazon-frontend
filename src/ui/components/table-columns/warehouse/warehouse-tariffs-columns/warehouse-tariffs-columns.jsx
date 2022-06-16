@@ -4,6 +4,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveBtnsCell,
+  MultilineTextHeaderCell,
   NormDateCell,
   renderFieldValueCell,
   ScrollingCell,
@@ -15,6 +16,8 @@ export const warehouseTariffsColumns = handlers => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -22,6 +25,8 @@ export const warehouseTariffsColumns = handlers => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     width: 120,
     type: 'date',
@@ -30,6 +35,8 @@ export const warehouseTariffsColumns = handlers => [
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
+
     width: 600,
     renderCell: params => <ScrollingCell value={params.value} />,
   },
@@ -37,6 +44,8 @@ export const warehouseTariffsColumns = handlers => [
   {
     field: 'price',
     headerName: t(TranslationKey['Service cost per kg, $']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service cost per kg, $'])} />,
+
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -44,6 +53,8 @@ export const warehouseTariffsColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
+
     width: 250,
     renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
     filterable: false,

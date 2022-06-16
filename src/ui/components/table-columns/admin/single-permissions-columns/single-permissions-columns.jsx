@@ -4,6 +4,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveBtnsCell,
+  MultilineTextHeaderCell,
   NormDateCell,
   renderFieldValueCell,
   ScrollingCell,
@@ -15,6 +16,8 @@ export const adminSinglePermissionsColumns = handlers => [
   {
     field: 'key',
     headerName: t(TranslationKey.Key),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Key)} />,
+
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -22,6 +25,8 @@ export const adminSinglePermissionsColumns = handlers => [
   {
     field: 'role',
     headerName: t(TranslationKey.Role),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Role)} />,
+
     width: 140,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -29,6 +34,8 @@ export const adminSinglePermissionsColumns = handlers => [
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -36,6 +43,8 @@ export const adminSinglePermissionsColumns = handlers => [
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
+
     width: 400,
     renderCell: params => <ScrollingCell value={params.value} />,
   },
@@ -43,6 +52,8 @@ export const adminSinglePermissionsColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Actions),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+
     width: 250,
     renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,
@@ -52,6 +63,8 @@ export const adminSinglePermissionsColumns = handlers => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     width: 130,
     type: 'date',
@@ -60,6 +73,8 @@ export const adminSinglePermissionsColumns = handlers => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     width: 130,
     type: 'date',

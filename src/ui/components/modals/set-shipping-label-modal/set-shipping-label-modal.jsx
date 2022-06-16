@@ -2,19 +2,15 @@ import React, {useState} from 'react'
 
 import {Box, Container, Divider, Link, Typography} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './set-shipping-label-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalSetShippingLabel
 
 export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, item, tmpShippingLabel}) => {
   const classNames = useClassNames()
@@ -30,7 +26,9 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, i
 
       {item?.shippingLabel && (
         <Box className={classNames.boxCode}>
-          <Typography className={(classNames.modalText, classNames.typoCode)}>{textConsts.code}</Typography>
+          <Typography className={(classNames.modalText, classNames.typoCode)}>
+            {t(TranslationKey['Shipping label'])}
+          </Typography>
 
           <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(shippingLabel)}>
             <Typography className={classNames.link}>{shippingLabel}</Typography>

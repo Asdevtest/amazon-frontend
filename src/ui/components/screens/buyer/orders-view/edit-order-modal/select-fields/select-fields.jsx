@@ -4,7 +4,6 @@ import {Box, Grid, InputLabel, NativeSelect, Typography, Checkbox, Link} from '@
 import clsx from 'clsx'
 
 import {getOrderStatusOptionByCode, OrderStatusByCode, OrderStatusByKey, OrderStatus} from '@constants/order-status'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -15,7 +14,6 @@ import {UploadFilesInput} from '@components/upload-files-input'
 
 import {calcExchangeDollarsInYuansPrice, calcExchangePrice, calcPriceForItem} from '@utils/calculation'
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {
   checkAndMakeAbsoluteUrl,
@@ -27,8 +25,6 @@ import {
 import {t} from '@utils/translations'
 
 import {useClassNames} from './select-fields.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').ordersViewsModalSelectFields
 
 const allowOrderStatuses = [
   `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`,
@@ -351,20 +347,6 @@ export const SelectFields = ({
 
         <Box>
           <div className={classNames.barCodeWrapper}>
-            {/* <div className={classNames.checkboxWithLabelWrapper}>
-              <Checkbox
-                color="primary"
-                disabled={!orderFields.product.barCode}
-                checked={orderFields.isBarCodeAlreadyAttachedByTheSupplier}
-                onChange={() => {
-                  setOrderField('isBarCodeAlreadyAttachedByTheSupplier')({
-                    target: {value: !orderFields.isBarCodeAlreadyAttachedByTheSupplier},
-                  })
-                }}
-              />
-              <Typography className={classNames.modalText}>{textConsts.supplierAddBarCode}</Typography>
-            </div> */}
-
             <div className={classNames.barCodeLinkWrapper}>
               <div>
                 <Typography>{t(TranslationKey.BarCode)}</Typography>
@@ -392,7 +374,7 @@ export const SelectFields = ({
         </Box>
 
         <Box my={3}>
-          <Typography className={classNames.modalText}>{textConsts.hsCodeTypo}</Typography>
+          <Typography className={classNames.modalText}>{t(TranslationKey['HS code'])}</Typography>
           <Input
             inputProps={{maxLength: 50}}
             value={hsCode}
@@ -419,7 +401,9 @@ export const SelectFields = ({
         </div>
       </Grid>
 
-      {showProgress && <CircularProgressWithLabel value={progressValue} title={textConsts.circularProgressTitle} />}
+      {showProgress && (
+        <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
+      )}
 
       <BigImagesModal
         isAmazone

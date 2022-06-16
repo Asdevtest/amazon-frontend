@@ -3,14 +3,9 @@ import React from 'react'
 import {Typography, Paper} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
-
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './niche-request-details.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').productSearchRequestContent
 
 export const NicheSearchRequestDetails = ({request}) => {
   const classNames = useClassNames()
@@ -18,24 +13,24 @@ export const NicheSearchRequestDetails = ({request}) => {
   return (
     <Paper>
       <div className={classNames.root}>
-        <Typography variant="h3">{textConsts.nicheTitle}</Typography>
+        <Typography variant="h3">{'nicheTitle'}</Typography>
 
         <Typography variant="h5">{`Заявка # ${request._id}`}</Typography>
 
         <div className={classNames.requestDataWrapper}>
           <div className={classNames.row}>
             <div className={classNames.leftColumn}>
-              <Typography className={classNames.columnHead}>{textConsts.parameterFieldTypo}</Typography>
+              <Typography className={classNames.columnHead}>{'parameterFieldTypo'}</Typography>
             </div>
             <div className={classNames.rightHeadColumn}>
-              <Typography className={classNames.columnHead}>{textConsts.valueFieldTypo}</Typography>
+              <Typography className={classNames.columnHead}>{'valueFieldTypo'}</Typography>
             </div>
           </div>
 
           <div className={classNames.defaultBlock}>
             <div className={classNames.row}>
               <div className={classNames.leftColumn}>
-                <Typography>{textConsts.tableBudgetField}</Typography>
+                <Typography>{'tableBudgetField'}</Typography>
               </div>
               <div className={classNames.rightColumn}>
                 <Typography>{toFixedWithDollarSign(request.budget, 2)}</Typography>
@@ -44,7 +39,7 @@ export const NicheSearchRequestDetails = ({request}) => {
 
             <div className={classNames.row}>
               <div className={classNames.leftColumn}>
-                <Typography>{textConsts.tableTargetDateField}</Typography>
+                <Typography>{'tableTargetDateField'}</Typography>
               </div>
               <div className={classNames.rightColumn}>
                 <Typography>{request.deadline}</Typography>
@@ -82,7 +77,7 @@ export const NicheSearchRequestDetails = ({request}) => {
           <div className={classNames.defaultBlock}>
             <div className={classNames.row}>
               <div className={classNames.leftColumn}>
-                <Typography>{textConsts.tableMonthlySalesField}</Typography>
+                <Typography>{'tableMonthlySalesField'}</Typography>
               </div>
               <div className={classNames.rightColumn}>
                 <Typography>{request.monthlySales}</Typography>
@@ -91,7 +86,7 @@ export const NicheSearchRequestDetails = ({request}) => {
 
             <div className={classNames.row}>
               <div className={classNames.leftColumn}>
-                <Typography>{textConsts.tableMinProductsField}</Typography>
+                <Typography>{'tableMinProductsField'}</Typography>
               </div>
               <div className={classNames.rightColumn}>
                 <Typography>{request.minProductInProposals}</Typography>
@@ -100,7 +95,7 @@ export const NicheSearchRequestDetails = ({request}) => {
 
             <div className={classNames.row}>
               <div className={classNames.leftColumn}>
-                <Typography>{textConsts.tableMinKeywordsField}</Typography>
+                <Typography>{'tableMinKeywordsField'}</Typography>
               </div>
               <div className={classNames.rightColumn}>
                 <Typography>{request.minKeywords}</Typography>
@@ -109,7 +104,7 @@ export const NicheSearchRequestDetails = ({request}) => {
 
             <div className={classNames.row}>
               <div className={classNames.leftColumn}>
-                <Typography>{textConsts.tableAmazonPriceField}</Typography>
+                <Typography>{'tableAmazonPriceField'}</Typography>
               </div>
               <div className={classNames.rightColumn}>
                 <Typography>{`from ${toFixedWithDollarSign(request.minAmazonPrice, 2)} to ${toFixedWithDollarSign(
@@ -121,7 +116,7 @@ export const NicheSearchRequestDetails = ({request}) => {
 
             <div className={classNames.row}>
               <div className={classNames.leftColumn}>
-                <Typography>{textConsts.tableAverageBsrField}</Typography>
+                <Typography>{'tableAverageBsrField'}</Typography>
               </div>
               <div className={classNames.rightColumn}>
                 <Typography>{`from ${request.minBSR} to ${request.maxBSR}`}</Typography>
@@ -130,7 +125,7 @@ export const NicheSearchRequestDetails = ({request}) => {
 
             <div className={classNames.row}>
               <div className={classNames.leftColumn}>
-                <Typography>{textConsts.tableAverageReviewsField}</Typography>
+                <Typography>{'tableAverageReviewsField'}</Typography>
               </div>
               <div className={classNames.rightColumn}>
                 <Typography>{`from ${request.minReviews} to ${request.maxReviews}`}</Typography>
@@ -139,7 +134,7 @@ export const NicheSearchRequestDetails = ({request}) => {
 
             <div className={classNames.row}>
               <div className={classNames.leftColumn}>
-                <Typography>{textConsts.tableAverageRevenueField}</Typography>
+                <Typography>{'tableAverageRevenueField'}</Typography>
               </div>
               <div className={classNames.rightColumn}>
                 <Typography>{`from ${toFixedWithDollarSign(request.minRevenue, 2)} to ${toFixedWithDollarSign(
@@ -151,7 +146,7 @@ export const NicheSearchRequestDetails = ({request}) => {
 
             <div className={classNames.row}>
               <div className={classNames.leftColumn}>
-                <Typography>{textConsts.tableNotesField}</Typography>
+                <Typography>{'tableNotesField'}</Typography>
               </div>
               <div className={clsx(classNames.rightColumn, classNames.clientComment)}>
                 <Typography>{request.clientComment}</Typography>
@@ -160,7 +155,7 @@ export const NicheSearchRequestDetails = ({request}) => {
 
             <div className={classNames.row}>
               <div className={classNames.leftColumn}>
-                <Typography>{textConsts.formCheckboxFindSupplier}</Typography>
+                <Typography>{'formCheckboxFindSupplier'}</Typography>
               </div>
               <div className={classNames.rightColumn}>
                 <Typography>{request.checkboxForbid ? 'ДА' : 'НЕТ'}</Typography>

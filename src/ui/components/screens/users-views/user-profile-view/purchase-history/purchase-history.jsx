@@ -3,20 +3,18 @@ import React from 'react'
 import {Tab, Tabs, Typography, Paper} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './purchase-history.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').buerUserPurchaseHistory
 
 export const PurchaseHistory = ({user, tabHistory, setTabHistory}) => {
   const classNames = useClassNames()
   return (
     <React.Fragment>
       <Typography variant="h6" className={classNames.mainTitle}>
-        {textConsts.mainTitle + ((user && user.username) || '')}
+        {t(TranslationKey['The history of your purchases from']) + ((user && user.username) || '')}
       </Typography>
       <Paper>
         <Tabs
@@ -33,7 +31,7 @@ export const PurchaseHistory = ({user, tabHistory, setTabHistory}) => {
               [classNames.selected]: tabHistory === 0,
             })}
             index={0}
-            label={textConsts.all}
+            label={t(TranslationKey.All)}
           />
 
           <Tab
@@ -41,19 +39,21 @@ export const PurchaseHistory = ({user, tabHistory, setTabHistory}) => {
               [classNames.selected]: tabHistory === 1,
             })}
             index={1}
-            label={textConsts.fromBuyers}
+            label={t(TranslationKey['From buyers'])}
           />
           <Tab
             className={clsx(classNames.text, {
               [classNames.selected]: tabHistory === 2,
             })}
             index={2}
-            label={textConsts.fromSellers}
+            label={t(TranslationKey['From the sellers'])}
           />
         </Tabs>
         <div className={classNames.tabContent} role="tabpanel">
           <div className={classNames.subTabWrapper}>
-            <Typography className={(classNames.text, classNames.typoNoHistory)}>{textConsts.noHistory}</Typography>
+            <Typography className={(classNames.text, classNames.typoNoHistory)}>
+              {t(TranslationKey['No transaction history found'])}
+            </Typography>
           </div>
         </div>
       </Paper>

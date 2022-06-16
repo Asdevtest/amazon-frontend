@@ -1,25 +1,24 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   AsinCell,
   FeesValuesWithCalculateBtnCell,
+  MultilineTextHeaderCell,
   NormDateCell,
   renderFieldValueCell,
   ToFixedWithDollarSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
-
-const textConsts = getLocalizedTexts(texts, 'ru').buyerProductsTableColumns
 
 export const buyerProductsViewColumns = handlers => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
     minWidth: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
@@ -28,6 +27,8 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
     minWidth: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
@@ -36,6 +37,8 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'asin',
     headerName: t(TranslationKey.Product),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+
     renderCell: params => <AsinCell product={params.row.originalData} />,
     minWidth: 350,
     flex: 3,
@@ -44,6 +47,8 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+
     width: 300,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -51,6 +56,8 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'strategyStatus',
     headerName: t(TranslationKey.Strategy),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
@@ -58,6 +65,8 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'feesAndNet',
     headerName: t(TranslationKey['Fees & Net']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Fees & Net'])} />,
+
     renderCell: params => (
       <FeesValuesWithCalculateBtnCell
         noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
@@ -74,6 +83,8 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'amazon',
     headerName: t(TranslationKey['Amazon price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
+
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     minWidth: 130,
     type: 'number',
@@ -83,6 +94,8 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'profit',
     headerName: t(TranslationKey.Profit),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
+
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     minWidth: 130,
     type: 'number',
@@ -91,7 +104,9 @@ export const buyerProductsViewColumns = handlers => [
 
   {
     field: 'bsr',
-    headerName: textConsts.bsrField,
+    headerName: t(TranslationKey.BSR),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     minWidth: 130,
     type: 'number',
@@ -101,6 +116,8 @@ export const buyerProductsViewColumns = handlers => [
   {
     field: 'fbaamount',
     headerName: t(TranslationKey['Recommend amount']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     minWidth: 130,
     type: 'number',

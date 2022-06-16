@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -29,13 +28,10 @@ import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-sup
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {ClientInventoryViewModel} from './client-inventory-view.model'
 import {styles} from './client-inventory-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').inventoryView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_INVENTORY
 
@@ -302,7 +298,7 @@ export class ClientInventoryViewRaw extends Component {
           openModal={showSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
           title={successModalText}
-          successBtnText={textConsts.successBtn}
+          successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showSuccessModal')
           }}
@@ -312,7 +308,7 @@ export class ClientInventoryViewRaw extends Component {
           openModal={showInfoModal}
           setOpenModal={() => onTriggerOpenModal('showInfoModal')}
           title={showInfoModalTitle}
-          btnText={textConsts.okBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showInfoModal')
           }}

@@ -1,6 +1,5 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -16,15 +15,14 @@ import {
   MultilineTextHeaderCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientInventoryColumns
 
 export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'asin',
-    headerName: textConsts.asinField,
+    headerName: t(TranslationKey.ASIN),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
+
     renderCell: params => <AsinCell product={params.row.originalData} />,
     minWidth: 300,
   },
@@ -32,6 +30,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'strategyStatus',
     headerName: t(TranslationKey.Strategy),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
+
     renderCell: params => <MultilineStatusCell status={params.value} />,
     width: 100,
   },
@@ -39,6 +39,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'amountInOrders',
     headerName: 'Order',
+    renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 80,
   },
@@ -46,13 +48,17 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'amountInBoxes',
     headerName: 'In stock',
+    renderHeader: () => <MultilineTextHeaderCell text={'In stock'} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 80,
   },
 
   {
     field: 'stockValue',
-    headerName: textConsts.stockValueField,
+    headerName: 'Amazon',
+    renderHeader: () => <MultilineTextHeaderCell text={'Amazon'} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 80,
   },
@@ -60,13 +66,17 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'reserved',
     headerName: t(TranslationKey.Reserved),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
   },
 
   {
     field: 'inBoard',
-    headerName: textConsts.inBoardField,
+    headerName: 'In Board',
+    renderHeader: () => <MultilineTextHeaderCell text={'In Board'} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
   },
@@ -81,6 +91,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'amazon',
     headerName: t(TranslationKey['Amazon price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
+
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
     width: 80,
     headerAlign: 'center',
@@ -89,6 +101,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'profit',
     headerName: t(TranslationKey.Profit),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
+
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
     width: 80,
     type: 'number',
@@ -98,6 +112,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'margin',
     headerName: t(TranslationKey.Margin),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Margin)} />,
+
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
     width: 80,
     type: 'number',
@@ -105,7 +121,9 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   },
   {
     field: 'bsr',
-    headerName: textConsts.bsrField,
+    headerName: t(TranslationKey.BSR),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 80,
     type: 'number',
@@ -114,7 +132,9 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'fbafee',
-    headerName: textConsts.fbaField,
+    headerName: t(TranslationKey.FBA),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FBA)} />,
+
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
 
     width: 80,
@@ -124,9 +144,10 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'fbaamount',
-    headerName: textConsts.fbaAmountField,
+    headerName: t(TranslationKey['Recommend amount']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
     renderCell: params => renderFieldValueCell(params.value),
-    width: 80,
+    width: 110,
     type: 'number',
     headerAlign: 'center',
   },
@@ -134,6 +155,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'barCode',
     headerName: t(TranslationKey.BarCode),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
+
     renderCell: params =>
       params.row.originalData.archive ? (
         <ActiveBarcodeCell barCode={params.row.originalData.barCode} />
@@ -147,7 +170,9 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
   {
     field: 'hsCode',
-    headerName: textConsts.hsCodeField,
+    headerName: 'HS code',
+    renderHeader: () => <MultilineTextHeaderCell text={'HS code'} />,
+
     renderCell: params =>
       params.row.originalData.archive ? (
         <NoActiveBarcodeCell barCode={params.row.originalData.hsCode} />
@@ -161,6 +186,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+
     renderCell: params => <MultilineStatusCell status={params.value} />,
     width: 120,
   },
@@ -168,6 +195,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
     renderCell: params => <ShortDateCell params={params} />,
     minWidth: 100,
     type: 'date',
@@ -176,6 +205,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
     renderCell: params => <ShortDateCell params={params} />,
     minWidth: 100,
     type: 'date',

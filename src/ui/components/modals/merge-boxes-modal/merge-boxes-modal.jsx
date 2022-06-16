@@ -4,7 +4,6 @@ import {Chip, NativeSelect, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
@@ -14,14 +13,11 @@ import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeepe
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {SetShippingLabelModal} from '../set-shipping-label-modal'
 import {BoxForMerge} from './box-for-merge'
 import {useClassNames} from './merge-boxes-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').mergeBoxModal
 
 export const MergeBoxesModal = ({
   destinations,
@@ -224,7 +220,9 @@ export const MergeBoxesModal = ({
       />
 
       {isDifferentStorekeepers && (
-        <Typography className={classNames.attentionDifStorekeepers}>{textConsts.attentionDifStorekeepers}</Typography>
+        <Typography className={classNames.attentionDifStorekeepers}>
+          {t(TranslationKey['Intermediate warehouses must match!'])}
+        </Typography>
       )}
 
       <div className={classNames.buttonsWrapper}>

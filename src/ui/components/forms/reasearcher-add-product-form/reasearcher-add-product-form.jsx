@@ -11,7 +11,6 @@ import {
   mapProductStrategyStatusEnumToKey,
   ProductStrategyStatus,
 } from '@constants/product-strategy-status'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
@@ -20,12 +19,9 @@ import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {styles} from './reasearcher-add-product-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').researcherAddProductForm
 
 export const ResearcherAddProductFormRaw = observer(
   ({
@@ -65,7 +61,7 @@ export const ResearcherAddProductFormRaw = observer(
             ) : undefined}
             {!errorMsg && actionStatus === loadingStatuses.success ? (
               <Alert className={classNames.alert} elevation={0} severity="success">
-                {textConsts.successActionAlert}
+                {t(TranslationKey['Operation complete'])}
               </Alert>
             ) : undefined}
 
@@ -112,7 +108,7 @@ export const ResearcherAddProductFormRaw = observer(
               <Field
                 disabled={disabledNoProvatLabel}
                 inputProps={{maxLength: 255}}
-                label={textConsts.asins}
+                label={'Asins'}
                 value={formFields.asins}
                 onChange={onChangeFormFields('asins')}
               />

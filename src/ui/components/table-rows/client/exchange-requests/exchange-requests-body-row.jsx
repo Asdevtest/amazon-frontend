@@ -2,16 +2,14 @@ import {Button, Checkbox, TableCell, TableRow} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ErrorButton} from '@components/buttons/error-button'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {isNumber} from '@utils/is-number'
+import {t} from '@utils/translations'
 
 import {styles} from './exchange-requests-body-row.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').exchangeRequestsBodyRow
 
 const ExchangeRequestsBodyRowRaw = ({item, itemIndex, handlers, selectedRequests, ...restProps}) => {
   const classNames = restProps.classes
@@ -45,12 +43,12 @@ const ExchangeRequestsBodyRowRaw = ({item, itemIndex, handlers, selectedRequests
       ))}
       <TableCell>
         <Button disableElevation color="primary" variant="contained" onClick={() => handlers.edit(itemIndex)}>
-          {textConsts.editBtn}
+          {t(TranslationKey.Edit)}
         </Button>
       </TableCell>
       <TableCell>
         <ErrorButton disableElevation onClick={() => handlers.close(itemIndex)}>
-          {textConsts.closeBtn}
+          {t(TranslationKey.Close)}
         </ErrorButton>
       </TableCell>
     </TableRow>

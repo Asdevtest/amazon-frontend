@@ -2,7 +2,6 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -17,13 +16,10 @@ import {clientDailySellerBoardColumns} from '@components/table-columns/client/cl
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientDailySellerBoardView
 
 export class StockReportModel {
   history = undefined
@@ -212,7 +208,7 @@ export class StockReportModel {
       console.log(error)
       this.error = error
 
-      this.infoModalText = textConsts.infoModalTitleMoveFail
+      this.infoModalText = t(TranslationKey['Will not be moved to inventory'])
       this.onTriggerOpenModal('showInfoModal')
     }
   }
@@ -299,7 +295,7 @@ export class StockReportModel {
         this.onTriggerOpenModal('showSelectionSupplierModal')
       }
 
-      this.successModalText = textConsts.successSeekSupplierTitle
+      this.successModalText = t(TranslationKey['Moved to inventory'])
       this.onTriggerOpenModal('showSuccessModal')
 
       this.onTriggerOpenModal('showAddProductSellerboardModal')
@@ -341,7 +337,7 @@ export class StockReportModel {
 
       this.onTriggerOpenModal('showSelectionSupplierModal')
 
-      this.successModalText = textConsts.successSeekSupplierTitle
+      this.successModalText = t(TranslationKey['Moved to inventory'])
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       console.log(error)
@@ -372,7 +368,7 @@ export class StockReportModel {
         })
       }
 
-      this.successModalText = textConsts.successSupplierTitle
+      this.successModalText = t(TranslationKey['Supplier added'])
       this.onTriggerOpenModal('showSuccessModal')
 
       !addMore && this.onTriggerOpenModal('showAddOrEditSupplierModal')
@@ -390,7 +386,7 @@ export class StockReportModel {
       this.successModalText = t(TranslationKey['The product is bound'])
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
-      this.infoModalText = textConsts.infoModalTitleNoBind
+      this.infoModalText = t(TranslationKey["You can't bind"])
       this.onTriggerOpenModal('showInfoModal')
       console.log(error)
     }

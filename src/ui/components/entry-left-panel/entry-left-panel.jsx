@@ -2,13 +2,11 @@ import React from 'react'
 
 import {Typography} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './entry-left-panel.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').entryLeftPanel
 
 export const EntryLeftPanel = () => {
   const classNames = useClassNames()
@@ -18,8 +16,8 @@ export const EntryLeftPanel = () => {
         <img className={classNames.logo} alt="company logo" src={'/assets/icons/logo-var-2.svg'} />
       </div>
       <div className={classNames.main}>
-        <Typography className={classNames.title}>{textConsts.greetingTitle}</Typography>
-        <Typography className={classNames.subtitle}>{textConsts.greetingSubtitle}</Typography>
+        <Typography className={classNames.title}>{t(TranslationKey['Hello, nice to meet you'])}</Typography>
+        <Typography className={classNames.subtitle}>{t(TranslationKey['Just register to join with us'])}</Typography>
       </div>
       <div className={classNames.footer}></div>
     </div>

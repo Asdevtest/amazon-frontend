@@ -7,7 +7,6 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -16,13 +15,10 @@ import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {ShopsViewModel} from './shops-view.model'
 import {styles} from './shops-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientShopsView
 
 @observer
 class ShopsViewRaw extends Component {
@@ -116,7 +112,7 @@ class ShopsViewRaw extends Component {
             openModal={showWarningModal}
             setOpenModal={() => onTriggerOpenModal('showWarningModal')}
             title={warningInfoModalSettings.title}
-            btnText={textConsts.okBtn}
+            btnText={t(TranslationKey.Ok)}
             onClickBtn={() => {
               onTriggerOpenModal('showWarningModal')
             }}

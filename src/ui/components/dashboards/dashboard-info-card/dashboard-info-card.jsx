@@ -2,17 +2,13 @@
 import {Paper, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './dashboard-info-card.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').dashboardInfoCard
 
 export const DashboardInfoCard = observer(({color, title, value, route, onClickViewMore}) => {
   const classNames = useClassNames()

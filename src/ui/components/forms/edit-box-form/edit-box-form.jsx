@@ -82,7 +82,7 @@ const WarehouseDemensions = ({orderBox, sizeSetting}) => {
   )
 }
 
-export const CLIENT_EDIT_BOX_MODAL_HEAD_CELLS = [
+export const CLIENT_EDIT_BOX_MODAL_HEAD_CELLS = () => [
   t(TranslationKey.Product),
   t(TranslationKey.BarCode),
   t(TranslationKey.Quantity),
@@ -90,9 +90,9 @@ export const CLIENT_EDIT_BOX_MODAL_HEAD_CELLS = [
   t(TranslationKey.Actions),
 ]
 
-const renderHeadRow = (
+const renderHeadRow = () => (
   <TableRow>
-    {CLIENT_EDIT_BOX_MODAL_HEAD_CELLS.map((item, index) => (
+    {CLIENT_EDIT_BOX_MODAL_HEAD_CELLS().map((item, index) => (
       <TableCell key={index}>{item}</TableCell>
     ))}
   </TableRow>
@@ -410,7 +410,7 @@ export const EditBoxForm = observer(
               rowsOnly
               data={boxFields.items}
               BodyRow={ProductInOrderTableRow}
-              renderHeadRow={renderHeadRow}
+              renderHeadRow={renderHeadRow()}
               rowsHandlers={rowHandlers}
               onClickBarcode={onClickBarcode}
               onDoubleClickBarcode={onDoubleClickBarcode}

@@ -155,6 +155,13 @@ export const useClassNames = makeStyles(() => ({
 
   descriptionFieldWrapper: {
     position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'end',
+
+    '& > span': {
+      marginTop: '-20px',
+    },
   },
 
   descriptionField: {
@@ -192,6 +199,16 @@ export const useClassNames = makeStyles(() => ({
   },
   deadlineErrorText: {
     color: 'red',
+  },
+
+  nameFieldWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'end',
+
+    '& > span': {
+      marginTop: '-20px',
+    },
   },
 
   nameField: {
@@ -257,10 +274,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   error: {
-    fontSize: '12px',
     color: 'red',
-    position: 'absolute',
-    top: '112px',
   },
 
   adviceWrapper: {

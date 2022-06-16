@@ -10,7 +10,6 @@ import {Typography, Tooltip, IconButton, NativeSelect, Input} from '@material-ui
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
@@ -19,13 +18,10 @@ import {Field} from '@components/field/field'
 import {Modal} from '@components/modal'
 
 import {checkIsPositiveNum} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {AddOrEditSinglePermissionForm} from '../add-or-edit-single-permission-form'
 import {useClassNames} from './add-or-edit-group-permission-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').addOrEditGroupPermissionForm
 
 export const AddOrEditGroupPermissionForm = observer(
   ({onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions, existingGroupPermissions}) => {
@@ -98,13 +94,13 @@ export const AddOrEditGroupPermissionForm = observer(
 
     const renderPermissionInfo = perm => (
       <div>
-        <Typography>{textConsts.keyPermInfo}</Typography>
+        <Typography>{t(TranslationKey.Key) + ':'}</Typography>
         <Typography>{perm.key}</Typography>
 
-        <Typography>{textConsts.descriptionPermInfo}</Typography>
+        <Typography>{t(TranslationKey.Description) + ':'}</Typography>
         <Typography>{perm.description}</Typography>
 
-        <Typography>{textConsts.allowedUrlPermInfo}</Typography>
+        <Typography>{t(TranslationKey['Allowed Endpoints']) + ':'}</Typography>
         {perm.allowedUrls.map((item, itemIndex) => (
           <div key={itemIndex}>
             <Typography>{item.url}</Typography>
@@ -163,7 +159,7 @@ export const AddOrEditGroupPermissionForm = observer(
                 input={<Input fullWidth />}
                 onChange={onChangeField('role')}
               >
-                <option value={'None'}>{textConsts.valueNone}</option>
+                <option value={'None'}>{'none'}</option>
                 {Object.keys(UserRoleCodeMap).map((roleCode, index) => (
                   <option key={index} value={roleCode}>
                     {UserRoleCodeMap[roleCode]}
@@ -179,8 +175,10 @@ export const AddOrEditGroupPermissionForm = observer(
             value={formFields.key}
             placeholder={`${t(TranslationKey.Key)}_${t(TranslationKey.Key)}_${t(TranslationKey.Key)}...`}
             error={
-              (formFields.key.match(/[_]/) === null && onKeyFieldEditing && textConsts.keyFieldError) ||
-              (isDoubleKey && textConsts.doubleKeyError)
+              (formFields.key.match(/[_]/) === null &&
+                onKeyFieldEditing &&
+                t(TranslationKey['The value must contain "_"'])) ||
+              (isDoubleKey && t(TranslationKey['The key already exists']))
             }
             onChange={onChangeField('key')}
           />

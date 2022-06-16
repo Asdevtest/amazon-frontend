@@ -48,18 +48,18 @@ import {FreelancerSubUsersView} from '@views/freelancer/freelancer-users-views/f
 import {RegistrationView} from '@views/registration'
 import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
 import {ResearcherFinancesViews} from '@views/researcher/researcher-finances-views'
-import {ResearcherMyCustomRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-custom-requests-view/researcher-my-custom-requests-view'
-import {ResearcherMyProductsRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-products-requests-view'
+// import {ResearcherMyCustomRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-custom-requests-view/researcher-my-custom-requests-view'
+// import {ResearcherMyProductsRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-products-requests-view'
 import {ResearcherProductView} from '@views/researcher/researcher-product-view/researcher-product-view'
 import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
-import {ResearcherRequestDetailCustomView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-custom-view'
-import {ResearcherRequestDetailNicheView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-niche-view'
-import {ResearcherRequestDetailProductView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-product-view'
-import {ResearcherSettingsView} from '@views/researcher/researcher-settings-view'
-import {ResearcherSubUsersView} from '@views/researcher/researcher-users-views/researcher-sub-users-view'
-import {ResearcherVacantCustomRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-custom-requests-view'
-import {ResearcherVacantNichesRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-niches-requests-view'
-import {ResearcherVacantProductsRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-products-requests-view'
+// import {ResearcherRequestDetailCustomView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-custom-view'
+// import {ResearcherRequestDetailNicheView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-niche-view'
+// import {ResearcherRequestDetailProductView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-product-view'
+// import {ResearcherSettingsView} from '@views/researcher/researcher-settings-view'
+// import {ResearcherSubUsersView} from '@views/researcher/researcher-users-views/researcher-sub-users-view'
+// import {ResearcherVacantCustomRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-custom-requests-view'
+// import {ResearcherVacantNichesRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-niches-requests-view'
+// import {ResearcherVacantProductsRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-products-requests-view'
 import {AnotherUserProfileView} from '@views/shared/another-user-profile-view'
 import {CreateOrEditProposalView} from '@views/shared/create-or-edit-proposal-view'
 import {CreateOrEditRequestView} from '@views/shared/create-or-edit-request-view'
@@ -75,7 +75,7 @@ import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/s
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
 import {SupervisorReadyToCheckByClientView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-by-client-view'
 import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-view'
-import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
+// import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
 import {SupervisorSubUsersView} from '@views/supervisor/supervisor-users-views/supervisor-sub-users-view'
 import {TermsView} from '@views/terms'
 import {WarehouseAwaitingBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view'
@@ -239,12 +239,12 @@ export const privateRoutesConfigs = [
     permission: [UserRole.RESEARCHER],
   },
 
-  {
-    routePath: '/researcher/my-requests/products',
-    component: ResearcherMyProductsRequestsView,
-    exact: true,
-    permission: [UserRole.RESEARCHER],
-  },
+  // {
+  //   routePath: '/researcher/my-requests/products',
+  //   component: ResearcherMyProductsRequestsView,
+  //   exact: true,
+  //   permission: [UserRole.RESEARCHER],
+  // },
 
   // {
   //   routePath: '/researcher/my-requests/niches',
@@ -253,33 +253,33 @@ export const privateRoutesConfigs = [
   //   permission: [ UserRole.RESEARCHER ]
   // },
 
-  {
-    routePath: '/researcher/my-requests/custom',
-    component: ResearcherMyCustomRequestsView,
-    exact: true,
-    permission: [UserRole.RESEARCHER],
-  },
+  // {
+  //   routePath: '/researcher/my-requests/custom',
+  //   component: ResearcherMyCustomRequestsView,
+  //   exact: true,
+  //   permission: [UserRole.RESEARCHER],
+  // },
 
-  {
-    routePath: '/researcher/requests/products',
-    component: ResearcherVacantProductsRequestsView,
-    exact: true,
-    permission: [UserRole.RESEARCHER],
-  },
+  // {
+  //   routePath: '/researcher/requests/products',
+  //   component: ResearcherVacantProductsRequestsView,
+  //   exact: true,
+  //   permission: [UserRole.RESEARCHER],
+  // },
 
-  {
-    routePath: '/researcher/requests/custom',
-    component: ResearcherVacantCustomRequestsView,
-    exact: true,
-    permission: [UserRole.RESEARCHER],
-  },
+  // {
+  //   routePath: '/researcher/requests/custom',
+  //   component: ResearcherVacantCustomRequestsView,
+  //   exact: true,
+  //   permission: [UserRole.RESEARCHER],
+  // },
 
-  {
-    routePath: '/researcher/requests/niches',
-    component: ResearcherVacantNichesRequestsView,
-    exact: true,
-    permission: [UserRole.RESEARCHER],
-  },
+  // {
+  //   routePath: '/researcher/requests/niches',
+  //   component: ResearcherVacantNichesRequestsView,
+  //   exact: true,
+  //   permission: [UserRole.RESEARCHER],
+  // },
 
   {
     routePath: '/researcher/product',
@@ -288,40 +288,40 @@ export const privateRoutesConfigs = [
     permission: [UserRole.RESEARCHER],
   },
 
-  {
-    routePath: '/researcher/product-search-request',
-    component: ResearcherRequestDetailProductView,
-    exact: true,
-    permission: [UserRole.RESEARCHER],
-  },
+  // {
+  //   routePath: '/researcher/product-search-request',
+  //   component: ResearcherRequestDetailProductView,
+  //   exact: true,
+  //   permission: [UserRole.RESEARCHER],
+  // },
 
-  {
-    routePath: '/researcher/niche-search-request',
-    component: ResearcherRequestDetailNicheView,
-    exact: true,
-    permission: [UserRole.RESEARCHER],
-  },
+  // {
+  //   routePath: '/researcher/niche-search-request',
+  //   component: ResearcherRequestDetailNicheView,
+  //   exact: true,
+  //   permission: [UserRole.RESEARCHER],
+  // },
 
-  {
-    routePath: '/researcher/custom-search-request',
-    component: ResearcherRequestDetailCustomView,
-    exact: true,
-    permission: [UserRole.RESEARCHER],
-  },
+  // {
+  //   routePath: '/researcher/custom-search-request',
+  //   component: ResearcherRequestDetailCustomView,
+  //   exact: true,
+  //   permission: [UserRole.RESEARCHER],
+  // },
 
-  {
-    routePath: '/researcher/users/sub-users',
-    component: ResearcherSubUsersView,
-    exact: false,
-    permission: [UserRole.RESEARCHER],
-  },
+  // {
+  //   routePath: '/researcher/users/sub-users',
+  //   component: ResearcherSubUsersView,
+  //   exact: false,
+  //   permission: [UserRole.RESEARCHER],
+  // },
 
-  {
-    routePath: '/researcher/settings',
-    component: ResearcherSettingsView,
-    exact: false,
-    permission: [UserRole.RESEARCHER],
-  },
+  // {
+  //   routePath: '/researcher/settings',
+  //   component: ResearcherSettingsView,
+  //   exact: false,
+  //   permission: [UserRole.RESEARCHER],
+  // },
   {
     routePath: '/researcher/finances',
     component: ResearcherFinancesViews,
@@ -461,12 +461,12 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.SUPERVISOR],
   },
-  {
-    routePath: '/supervisor/settings',
-    component: SupervisorSettingsView,
-    exact: false,
-    permission: [UserRole.SUPERVISOR],
-  },
+  // {
+  //   routePath: '/supervisor/settings',
+  //   component: SupervisorSettingsView,
+  //   exact: false,
+  //   permission: [UserRole.SUPERVISOR],
+  // },
   {
     routePath: '/supervisor/product',
     component: SupervisorProductView,

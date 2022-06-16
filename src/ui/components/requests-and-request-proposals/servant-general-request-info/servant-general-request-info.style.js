@@ -5,7 +5,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     // flexDirection: 'column',
     borderRadius: '4px',
-    border: '1px solid rgba(0,0,0, .3)',
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     padding: '40px 30px',
     width: '100%',
   },

@@ -6,7 +6,6 @@ import clsx from 'clsx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
@@ -20,13 +19,10 @@ import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal
 import {checkIsPositiveNum} from '@utils/checks'
 import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './reditstribute-box-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientBoxRedistribution
 
 const Box = ({
   destinations,
@@ -271,7 +267,7 @@ const NewBoxes = ({
   const classNames = useClassNames()
   return (
     <div className={classNames.newBoxes}>
-      <Typography className={classNames.sectionTitle}>{textConsts.newBoxesTitle}</Typography>
+      <Typography className={classNames.sectionTitle}>{t(TranslationKey['New boxes'])}</Typography>
 
       {newBoxes.map((box, boxIndex) => (
         <Box

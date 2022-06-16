@@ -5,7 +5,6 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -16,14 +15,11 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {PrivateLabelCard} from '@components/private-label-card'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {ClientExchangePrivateLabelViewModel} from './client-exchange-private-label-view.model'
 import {styles} from './client-exchange-private-label-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientExchangePrivateLabelView
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_EXCHANGE
 const navbarActiveSubCategory = 1
@@ -92,7 +88,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
           openModal={showSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
           title={t(TranslationKey['Product paid'])}
-          successBtnText={textConsts.successBtn}
+          successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showSuccessModal')
           }}

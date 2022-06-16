@@ -4,7 +4,6 @@ import {Typography, IconButton, Grid, Checkbox} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -15,12 +14,9 @@ import {Input} from '@components/input'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './add-own-product-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').addOwnProductForm
 
 export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValue}) => {
   const classNames = useClassNames()
@@ -96,7 +92,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
               color="primary"
               onClick={onClickParseBtn}
             >
-              {textConsts.parseBtn}
+              {'Parse'}
             </Button>
           </div>
         }
@@ -104,9 +100,9 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
 
       <Field
         inputProps={{maxLength: 50}}
-        label={textConsts.asin}
+        label={t(TranslationKey.ASIN)}
         value={formFields.asin}
-        placeholder={textConsts.asin}
+        placeholder={t(TranslationKey.ASIN)}
         onChange={onChangeField('asin')}
       />
 
@@ -118,7 +114,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
       {isNoAsin && (
         <div>
           <Field
-            label={textConsts.sku}
+            label={t(TranslationKey.SKU)}
             inputComponent={
               <div>
                 {formFields.skusByClient.length ? (
@@ -137,7 +133,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
 
                 <div className={classNames.inputWrapper}>
                   <Input
-                    placeholder={textConsts.skuHolder}
+                    placeholder={t(TranslationKey.SKU)}
                     inputProps={{maxLength: 1000}}
                     value={skuLine}
                     className={classNames.input}
@@ -191,7 +187,9 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
         </SuccessButton>
       </div>
 
-      {showProgress && <CircularProgressWithLabel value={progressValue} title={textConsts.circularProgressTitle} />}
+      {showProgress && (
+        <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
+      )}
     </div>
   )
 })

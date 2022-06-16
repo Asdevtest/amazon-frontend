@@ -4,6 +4,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   AsinCell,
+  MultilineTextHeaderCell,
   NormDateCell,
   renderFieldValueCell,
   ToFixedWithDollarSignCell,
@@ -16,6 +17,8 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
     width: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
@@ -24,6 +27,8 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
     width: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
@@ -32,6 +37,8 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'asin',
     headerName: t(TranslationKey.Product),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+
     renderCell: params => <AsinCell product={params.row.originalData} />,
     minWidth: 350,
     flex: 3,
@@ -40,6 +47,8 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+
     width: 250,
     renderCell: params => renderFieldValueCell(params.value),
   },
@@ -47,6 +56,8 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'strategyStatus',
     headerName: t(TranslationKey.Strategy),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 250,
   },
@@ -54,6 +65,8 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'amazon',
     headerName: t(TranslationKey['Amazon price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
+
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
     minWidth: 130,
     type: 'number',
@@ -63,6 +76,8 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'researcherName',
     headerName: t(TranslationKey['Created by']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
+
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
     width: 200,
   },
@@ -70,6 +85,8 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'buyerName',
     headerName: t(TranslationKey.Buyer),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
+
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.buyer?._id} />,
     width: 200,
   },
@@ -77,6 +94,8 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'bsr',
     headerName: t(TranslationKey.BSR),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     minWidth: 80,
     type: 'number',
@@ -86,6 +105,8 @@ export const supervisorProductsViewColumns = () => [
   {
     field: 'fbafee',
     headerName: t(TranslationKey['FBA fee , $']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
+
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
     minWidth: 90,
     type: 'number',

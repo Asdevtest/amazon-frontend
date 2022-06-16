@@ -77,7 +77,7 @@ export const PrivateLabelCard = ({item, setProductToPay}) => {
               onTriggerOpenModal('showConfirmPayModal')
             }}
           >
-            {`${textConsts.addBtnPrefix} ${toFixedWithDollarSign(item.amazon, 2)}`}
+            {`${'Добавить за'} ${toFixedWithDollarSign(item.amazon, 2)}`}
           </Button> */}
         </div>
       </div>

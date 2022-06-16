@@ -1,6 +1,5 @@
 import React from 'react'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -14,14 +13,12 @@ import {
   MultilineTextHeaderCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientBatchesViewColumns
 
 export const clientBatchesViewColumns = () => [
   {
     field: 'orders',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
     headerName: t(TranslationKey.Product),
     width: 540,
     renderCell: params => <BatchBoxesCell boxes={params.row.originalData.boxes} />,
@@ -31,6 +28,7 @@ export const clientBatchesViewColumns = () => [
 
   {
     field: 'updatedAt',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
     width: 110,
@@ -39,6 +37,7 @@ export const clientBatchesViewColumns = () => [
 
   {
     field: 'destination',
+    headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
@@ -46,14 +45,18 @@ export const clientBatchesViewColumns = () => [
 
   {
     field: 'humanFriendlyId',
-    headerName: 'ID',
+    headerName: t(TranslationKey.ID),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 80,
   },
 
   {
     field: 'storekeeper',
-    headerName: textConsts.storekeeperField,
+    headerName: t(TranslationKey.Storekeeper),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
+
     renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
     width: 120,
   },
@@ -61,12 +64,15 @@ export const clientBatchesViewColumns = () => [
   {
     field: 'tariff',
     headerName: t(TranslationKey.Tariff),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 110,
   },
 
   {
     field: 'finalWeight',
+    headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
@@ -75,6 +81,7 @@ export const clientBatchesViewColumns = () => [
 
   {
     field: 'deliveryTotalPrice',
+    headerName: t(TranslationKey['Delivery cost']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     type: 'number',
@@ -84,6 +91,8 @@ export const clientBatchesViewColumns = () => [
   {
     field: 'totalPrice',
     headerName: t(TranslationKey['Total price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
+
     renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
     type: 'number',
     width: 130,
@@ -92,6 +101,8 @@ export const clientBatchesViewColumns = () => [
   {
     field: 'dates',
     headerName: t(TranslationKey['Shipping dates']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Shipping dates'])} />,
+
     renderCell: params => <WarehouseTariffDatesCell row={params.row.originalData.boxes[0].logicsTariff} />,
     width: 350,
     filterable: false,

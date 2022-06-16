@@ -4,18 +4,16 @@ import {Box, TableCell, TableRow, Typography} from '@material-ui/core'
 
 import {getDeliveryOptionByCode} from '@constants/delivery-options'
 import {getOrderStatusOptionByCode} from '@constants/order-status'
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {warehouses} from '@constants/warehouses'
 
 import {Button} from '@components/buttons/button'
 
 import {formatDate} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './table-body-row.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').buyerFreeOrdersBodyRow
 
 export const TableBodyRow = ({item, handlers}) => {
   const classNames = useClassNames()
@@ -44,7 +42,7 @@ export const TableBodyRow = ({item, handlers}) => {
 
       <TableCell className={classNames.indexCell}>
         <Button className={classNames.infoBtn} onClick={() => handlers.onClickTableRowBtn(item)}>
-          {textConsts.goToWorkBtn}
+          {t(TranslationKey['Get to work'])}
         </Button>
       </TableCell>
 

@@ -107,7 +107,7 @@ export class RequestDetailCustomViewRaw extends Component {
                   <CustomSearchRequestDetails request={request} />
                 </div>
               ) : null}
-              {chatIsConnected ? (
+              {chatIsConnected && chats?.length ? (
                 <div className={classNames.chatWrapper}>
                   <MultipleChats
                     chats={chats}
@@ -148,7 +148,7 @@ export class RequestDetailCustomViewRaw extends Component {
                     onClickChat={onClickChat}
                   />
                 </div>
-              ) : undefined}
+              ) : null}
             </MainContent>
           </Appbar>
         </Main>

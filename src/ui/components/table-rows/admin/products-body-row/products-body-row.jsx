@@ -3,17 +3,15 @@ import React from 'react'
 import {Checkbox, TableCell, TableRow, Button, Chip, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {StarRating} from '@components/star-rating'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, trimBarcode} from '@utils/text'
+import {t} from '@utils/translations'
 
 import calculateSrc from '../assets/calculate.svg'
 import {useClassNames} from './products-body-row.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').inventoryView
 
 export const ProductsBodyRow = ({item, itemIndex, handlers}) => {
   const classNames = useClassNames()
@@ -100,7 +98,7 @@ export const ProductsBodyRow = ({item, itemIndex, handlers}) => {
           }}
           className={clsx({[classNames.barcodeChipExists]: item.barcode})}
           size="small"
-          label={item.barcode ? trimBarcode(item.barcode) : textConsts.setBarcodeChipLabel}
+          label={item.barcode ? trimBarcode(item.barcode) : t(TranslationKey['Set Barcode Label'])}
           onClick={() => handlers.onClickBarcode(item, itemIndex)}
           onDoubleClick={() => handlers.onDoubleClickBarcode(item, itemIndex)}
           onDelete={!item.barcode ? undefined : () => handlers.onDeleteBarcode(item, itemIndex)}

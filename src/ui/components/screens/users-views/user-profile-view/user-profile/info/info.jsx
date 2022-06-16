@@ -2,14 +2,12 @@ import React from 'react'
 
 import {Box, Divider, Paper, Typography} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, withText} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './info.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').buyerUserHeaderInfo
 
 export const Info = ({headerInfoData}) => {
   const classNames = useClassNames()
@@ -23,26 +21,38 @@ export const Info = ({headerInfoData}) => {
 
   return (
     <Paper elevation={0} className={classNames.paper}>
-      <Typography className={classNames.title}>{textConsts.mainTitle}</Typography>
+      <Typography className={classNames.title}>{t(TranslationKey.Info)}</Typography>
 
       <Divider orientation={'horizontal'} className={classNames.divider} />
 
-      <InfoRow label={textConsts.investorsCount} value={headerInfoData.investorsCount} />
-      <InfoRow label={textConsts.goodsFound} value={headerInfoData.goodsFound} />
-      <InfoRow label={textConsts.transactionsVolume} value={toFixedWithDollarSign(headerInfoData.transactionsVolume)} />
-      <InfoRow label={textConsts.earnedAmount} value={toFixedWithDollarSign(headerInfoData.earnedAmount)} />
+      <InfoRow label={t(TranslationKey['Number of investors'])} value={headerInfoData.investorsCount} />
+      <InfoRow label={t(TranslationKey['The products found'])} value={headerInfoData.goodsFound} />
+      <InfoRow
+        label={t(TranslationKey['Volume of transactions'])}
+        value={toFixedWithDollarSign(headerInfoData.transactionsVolume)}
+      />
+      <InfoRow label={t(TranslationKey.Earned)} value={toFixedWithDollarSign(headerInfoData.earnedAmount)} />
 
       <Divider orientation={'horizontal'} className={classNames.divider} />
-      <InfoRow label={textConsts.addInSave} value={withText(headerInfoData.addInSave, textConsts.investors)} />
+      <InfoRow
+        label={t(TranslationKey['Added to favorites'])}
+        value={withText(headerInfoData.addInSave, t(TranslationKey.investors))}
+      />
 
       <Divider orientation={'horizontal'} className={classNames.divider} />
-      <InfoRow label={textConsts.inBlocked} value={withText(headerInfoData.inBlocked, textConsts.investors)} />
+      <InfoRow
+        label={t(TranslationKey.Blocked)}
+        value={withText(headerInfoData.inBlocked, t(TranslationKey.investors))}
+      />
 
       <Divider orientation={'horizontal'} className={classNames.divider} />
-      <InfoRow label={textConsts.youBlocked} value={withText(headerInfoData.youBlocked, textConsts.investors)} />
+      <InfoRow
+        label={t(TranslationKey['Blocked by'])}
+        value={withText(headerInfoData.youBlocked, t(TranslationKey.investors))}
+      />
 
       <Divider orientation={'horizontal'} className={classNames.divider} />
-      <InfoRow label={textConsts.accountCreateAt} value={headerInfoData.accountCreateAt} />
+      <InfoRow label={t(TranslationKey['Account created'])} value={headerInfoData.accountCreateAt} />
     </Paper>
   )
 }

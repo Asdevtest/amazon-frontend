@@ -245,7 +245,7 @@ export class RequestDetailCustomViewModel {
 
   //     this.warningInfoModalSettings = {
   //       isWarning: false,
-  //       title: textConsts.successTitle,
+  //       title: '',
   //     }
 
   //     this.onTriggerOpenModal('showWarningModal')
@@ -256,7 +256,7 @@ export class RequestDetailCustomViewModel {
 
   //     this.warningInfoModalSettings = {
   //       isWarning: true,
-  //       title: textConsts.failTitle,
+  //       title: '',
   //     }
 
   //     this.onTriggerOpenModal('showWarningModal')

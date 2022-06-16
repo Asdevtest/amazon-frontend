@@ -3,19 +3,15 @@ import React, {useState} from 'react'
 import {Box, Container, Divider, Typography, Link} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './set-barcode-modal.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').ordersViewsModalSetBarcode
 
 export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item}) => {
   const classNames = useClassNames()
@@ -32,7 +28,9 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item
 
       {barCode && (
         <Box className={classNames.boxCode}>
-          <Typography className={clsx(classNames.modalText, classNames.typoCode)}>{textConsts.code}</Typography>
+          <Typography className={clsx(classNames.modalText, classNames.typoCode)}>
+            {t(TranslationKey.BarCode)}
+          </Typography>
 
           <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
             <Typography className={classNames.link}>{barCode}</Typography>

@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -20,13 +19,11 @@ import {Navbar} from '@components/navbar'
 import {AdminContentModal} from '@components/screens/users-views/sub-users-view/admin-content-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {AdminUsersViewModel} from './admin-users-view.model'
 import {styles} from './admin-users-view.style'
 
-const textConsts = getLocalizedTexts(texts, 'en').adminUsersView
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_USERS
 
 @observer
@@ -134,10 +131,10 @@ class AdminUsersViewRaw extends Component {
           isWarning
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
-          message={textConsts.confirmMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['This user has sub-users - they will be deactivated! Are you sure?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={() => {
             finalStepSubmitEditUserForm()
             onTriggerOpenModal('showConfirmModal')

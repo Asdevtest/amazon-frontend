@@ -8,16 +8,14 @@ import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {formatDate, formatDateDistanceFromNow} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, trimBarcode} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './table-body-row.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').inventoryView
 
 export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
   const classNames = useClassNames()
@@ -76,7 +74,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
           }}
           className={clsx({[classNames.barcodeChipExists]: item.barCode})}
           size="small"
-          label={item.barCode ? trimBarcode(item.barCode) : textConsts.setBarcodeChipLabel}
+          label={item.barCode ? trimBarcode(item.barCode) : t(TranslationKey['Set Barcode Label'])}
           onClick={() => handlers.onClickBarcode(item, itemIndex)}
           onDoubleClick={() => handlers.onDoubleClickBarcode(item, itemIndex)}
           onDelete={!item.barCode ? undefined : () => handlers.onDeleteBarcode(item, itemIndex)}
@@ -89,7 +87,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
           variant="contained"
           onClick={() => handlers.onClickExchange(item, itemIndex)}
         >
-          {textConsts.listingBtn}
+          {t(TranslationKey.Listing)}
         </Button>
       </TableCell>
       <TableCell className={classNames.deleteBtnCell}>

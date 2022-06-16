@@ -74,7 +74,11 @@ export const CreateOrEditProposalContent = ({
     onEditSubmit(formFields, images)
   }
 
-  const disableSubmit = formFields.execution_time === '' || formFields.comment === '' || images?.length === 0
+  const disableSubmit =
+    formFields.execution_time === '' ||
+    formFields.comment === '' ||
+    formFields.comment.length > 2000 ||
+    images?.length === 0
   JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
   return (
@@ -213,15 +217,19 @@ export const CreateOrEditProposalContent = ({
       <div className={classNames.mainRightWrapper}>
         <div className={classNames.middleWrapper}>
           <div className={classNames.descriptionFieldWrapper}>
-            <Field
-              multiline
-              className={classNames.nameField}
-              labelClasses={classNames.spanLabel}
-              inputProps={{maxLength: 1500}}
-              minRows={1}
-              rowsMax={2}
-              label={t(TranslationKey['Proposal Name*'])}
-            />
+            <div className={classNames.nameFieldWrapper}>
+              <Field
+                multiline
+                className={classNames.nameField}
+                labelClasses={classNames.spanLabel}
+                inputProps={{maxLength: 1500}}
+                minRows={1}
+                rowsMax={2}
+                label={t(TranslationKey['Proposal Name*'])}
+              />
+              <span>{`${0} ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span>
+            </div>
+
             <div className={classNames.imageFileInputWrapper}>
               <Typography className={classNames.imageFileInputTitle}>
                 {t(TranslationKey['Attach a file (link to your portfolio, examples of work)'])}
@@ -242,17 +250,22 @@ export const CreateOrEditProposalContent = ({
               {t(TranslationKey['Available files'])}
             </Button> */}
             </div>
-            <Field
-              multiline
-              className={classNames.descriptionField}
-              labelClasses={classNames.spanLabel}
-              inputProps={{maxLength: 1500}}
-              minRows={5}
-              rowsMax={5}
-              label={t(TranslationKey['Describe your proposal'])}
-              value={formFields.comment}
-              onChange={onChangeField('comment')}
-            />
+            <div className={classNames.descriptionWrapper}>
+              <Field
+                multiline
+                className={classNames.descriptionField}
+                labelClasses={classNames.spanLabel}
+                inputProps={{maxLength: 2100}}
+                minRows={5}
+                rowsMax={5}
+                label={t(TranslationKey['Describe your proposal'])}
+                value={formFields.comment}
+                onChange={onChangeField('comment')}
+              />
+              <span className={clsx(formFields.comment.length > 2000 && classNames.error)}>{`${
+                formFields.comment.length
+              } ${t(TranslationKey.of)} 2000 ${t(TranslationKey.characters)}`}</span>
+            </div>
           </div>
 
           <div className={classNames.checkboxWrapper}>

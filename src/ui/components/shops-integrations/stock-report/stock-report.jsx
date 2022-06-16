@@ -7,7 +7,6 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -19,13 +18,10 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
 import {StockReportModel} from './stock-report.model'
 import {styles} from './stock-report.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').clientDailySellerBoardView
 
 @observer
 class StockReportRaw extends Component {
@@ -202,7 +198,7 @@ class StockReportRaw extends Component {
             outsideProduct
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}
-            title={textConsts.addOrEditSupplierTitle}
+            title={t(TranslationKey['Add a new supplier'])}
             showProgress={showProgress}
             progressValue={progressValue}
             onClickPrevButton={() => onClickPrevButton()}
@@ -225,7 +221,7 @@ class StockReportRaw extends Component {
           openModal={showSuccessModal}
           setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
           title={successModalText}
-          successBtnText={textConsts.successBtn}
+          successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => {
             onTriggerOpenModal('showSuccessModal')
           }}
@@ -235,7 +231,7 @@ class StockReportRaw extends Component {
           openModal={showInfoModal}
           setOpenModal={() => onTriggerOpenModal('showInfoModal')}
           title={infoModalText}
-          btnText={textConsts.okBtn}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showInfoModal')
           }}
@@ -244,10 +240,10 @@ class StockReportRaw extends Component {
         <ConfirmationModal
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={textConsts.confirmTitle}
+          title={t(TranslationKey.Attention)}
           message={confirmMessage}
-          successBtnText={textConsts.yesBtn}
-          cancelBtnText={textConsts.noBtn}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
           onClickSuccessBtn={() => {
             onSubmitSeekSupplier()
           }}

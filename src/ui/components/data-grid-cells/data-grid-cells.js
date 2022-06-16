@@ -11,7 +11,6 @@ import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 
@@ -30,13 +29,10 @@ import {
   formatShortDateTime,
 } from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {toFixedWithDollarSign, trimBarcode, toFixedWithKg, checkAndMakeAbsoluteUrl, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {styles} from './data-grid-cells.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').dataGridCells
 
 export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
   <div className={classNames.asinCell}>
@@ -46,7 +42,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
       <div>
         <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
         <Typography className={classNames.typoCell}>
-          {textConsts.asinTypo}
+          {t(TranslationKey.ASIN)}
           <span className={classNames.typoSpan}>{product.asin}</span>
           {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
         </Typography>
@@ -75,7 +71,7 @@ export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
             startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
             onClick={() => onClickCalculate(product)}
           >
-            {textConsts.calculateBtn}
+            {'Calculate fees'}
           </Button>
         )}
       </div>
@@ -144,7 +140,7 @@ export const BarcodeCell = withStyles(styles)(({classes: classNames, product, ha
       }}
       className={clsx({[classNames.barcodeChipExists]: product.barCode})}
       size="small"
-      label={product.barCode ? trimBarcode(product.barCode) : textConsts.setBarcodeChipLabel}
+      label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey['Set Barcode Label'])}
       onClick={() => handlers.onClickBarcode(product)}
       onDoubleClick={() => handlers.onDoubleClickBarcode(product)}
       onDelete={!product.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
@@ -163,7 +159,7 @@ export const HsCodeCell = withStyles(styles)(({classes: classNames, product, han
       }}
       className={clsx({[classNames.barcodeChipExists]: product.hsCode})}
       size="small"
-      label={product.hsCode ? trimBarcode(product.hsCode) : textConsts.setHsCodeChipLabel}
+      label={product.hsCode ? trimBarcode(product.hsCode) : t(TranslationKey['Set HS code'])}
       onClick={() => handlers.onClickHsCode(product)}
       onDoubleClick={() => handlers.onDoubleClickHsCode(product)}
       onDelete={!product.hsCode ? undefined : () => handlers.onDeleteHsCode(product)}
@@ -235,9 +231,7 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
         <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
         {product.asin}
       </Typography>
-      {superbox && (
-        <Typography className={classNames.superboxTypo}>{`${textConsts.superboxTypo} x ${superbox}`}</Typography>
-      )}
+      {superbox && <Typography className={classNames.superboxTypo}>{`${'SB'} x ${superbox}`}</Typography>}
 
       {box && box.totalPrice - box.totalPriceChanged < 0 && (
         <span className={classNames.needPay}>{`${t(TranslationKey['Extra payment required!'])} (${toFixedWithDollarSign(
@@ -747,7 +741,7 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
           <div>
             <Typography className={classNames.batchProductTitle}>{item.product.amazonTitle}</Typography>
             <Typography className={classNames.orderText}>
-              <span className={classNames.orderTextSpan}>{textConsts.id}</span>
+              <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
               {item.product.asin}
               {box.deliveryTotalPrice - box.deliveryTotalPriceChanged < 0 && itemIndex === 0 && (
                 <span className={classNames.needPay}>{`${t(

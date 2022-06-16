@@ -114,7 +114,6 @@ export const useClassNames = makeStyles(() => ({
   descriptionField: {
     height: '115px',
     width: '100%',
-    marginBottom: '25px',
   },
 
   rightTwoStepSubFieldWrapper: {
@@ -167,14 +166,8 @@ export const useClassNames = makeStyles(() => ({
     },
   },
 
-  descriptionFieldWrapper: {
-    position: 'relative',
-  },
   error: {
-    fontSize: '12px',
     color: 'red',
-    position: 'absolute',
-    top: '232px',
   },
 
   adviceWrapper: {
@@ -270,5 +263,25 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     color: '#001029',
     marginRight: '83px',
+  },
+
+  nameFieldWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'end',
+
+    '& > span': {
+      marginTop: '-20px',
+    },
+  },
+
+  descriptionWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'end',
+
+    '& > span': {
+      marginTop: '-20px',
+    },
   },
 }))

@@ -5,7 +5,6 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
 import {HttpMethod} from '@constants/http-method'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
@@ -14,13 +13,10 @@ import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 
 import {checkIsPositiveNum} from '@utils/checks'
-import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {clearSpecialCharacters} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './add-or-edit-single-permission-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').addOrEditSinglePermissionForm
 
 export const AddOrEditSinglePermissionForm = observer(
   ({onCloseModal, onSubmit, isEdit, permissionToEdit, existingSinglePermissions}) => {
@@ -108,7 +104,7 @@ export const AddOrEditSinglePermissionForm = observer(
                 input={<Input fullWidth />}
                 onChange={onChangeField('role')}
               >
-                <option value={'None'}>{textConsts.valueNone}</option>
+                <option value={'None'}>{'none'}</option>
                 {Object.keys(UserRoleCodeMap).map((roleCode, index) => (
                   <option key={index} value={roleCode}>
                     {UserRoleCodeMap[roleCode]}
@@ -124,8 +120,10 @@ export const AddOrEditSinglePermissionForm = observer(
             value={formFields.key}
             placeholder={`${t(TranslationKey.Key)}_${t(TranslationKey.Key)}_${t(TranslationKey.Key)}...`}
             error={
-              (formFields.key.match(/[_]/) === null && onKeyFieldEditing && textConsts.keyFieldError) ||
-              (isDoubleKey && textConsts.doubleKeyError)
+              (formFields.key.match(/[_]/) === null &&
+                onKeyFieldEditing &&
+                t(TranslationKey['The value must contain "_"'])) ||
+              (isDoubleKey && t(TranslationKey['The key already exists']))
             }
             onChange={onChangeField('key')}
           />
@@ -168,7 +166,7 @@ export const AddOrEditSinglePermissionForm = observer(
                       rowsMax={3}
                       className={classNames.urlInput}
                       value={formFields.allowedUrls[index].url}
-                      placeholder={textConsts.allowUrlsHolder}
+                      placeholder={'example/example/example/:guid'}
                       onChange={onChangeField('allowedUrls', index, 'url')}
                     />
                     <NativeSelect
@@ -178,7 +176,7 @@ export const AddOrEditSinglePermissionForm = observer(
                       className={classNames.httpMethodSelect}
                       onChange={onChangeField('allowedUrls', index, 'httpMethod')}
                     >
-                      <option value={'None'}>{textConsts.valueNone}</option>
+                      <option value={'None'}>{'none'}</option>
                       {Object.keys(HttpMethod).map((http, idx) => (
                         <option key={idx} value={http}>
                           {HttpMethod[http]}

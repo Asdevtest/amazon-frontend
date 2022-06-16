@@ -10,7 +10,6 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
-import {texts} from '@constants/texts'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -31,14 +30,15 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 
+<<<<<<< HEAD
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
+=======
+>>>>>>> 513672bf (2662 2663 2649 2610 2645 2475)
 import {t} from '@utils/translations'
 
 import {ClientWarehouseViewModel} from './client-warehouse-view.model'
 import {styles} from './client-warehouse-view.style'
-
-const textConsts = getLocalizedTexts(texts, 'en').clientWarehouseView
 
 const activeCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 const activeSubCategory = null
@@ -319,8 +319,12 @@ export class ClientWarehouseViewRaw extends Component {
         <WarningInfoModal
           openModal={showRedistributeBoxAddNewBoxModal}
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxAddNewBoxModal')}
-          title={textConsts.modalRedistributionAddNewBoxMessage}
-          btnText={textConsts.closeBtn}
+          title={t(
+            TranslationKey[
+              'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
+            ],
+          )}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showRedistributeBoxAddNewBoxModal')
           }}
@@ -329,8 +333,8 @@ export class ClientWarehouseViewRaw extends Component {
         <WarningInfoModal
           openModal={showMergeBoxFailModal}
           setOpenModal={() => onTriggerOpenModal('showMergeBoxFailModal')}
-          title={textConsts.modalMergeFailMessage}
-          btnText={textConsts.closeBtn}
+          title={t(TranslationKey['The boxes are not joined!'])}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showMergeBoxFailModal')
           }}
@@ -339,8 +343,8 @@ export class ClientWarehouseViewRaw extends Component {
         <WarningInfoModal
           openModal={showRedistributeBoxFailModal}
           setOpenModal={() => onTriggerOpenModal('showRedistributeBoxFailModal')}
-          title={textConsts.modalRedistributionFailMessage}
-          btnText={textConsts.closeBtn}
+          title={t(TranslationKey['The box is not split!'])}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showRedistributeBoxFailModal')
           }}

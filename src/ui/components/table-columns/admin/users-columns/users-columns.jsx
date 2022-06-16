@@ -2,7 +2,12 @@ import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {AdminUsersActionBtnsCell, NormDateCell, renderFieldValueCell} from '@components/data-grid-cells/data-grid-cells'
+import {
+  AdminUsersActionBtnsCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
+  renderFieldValueCell,
+} from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
@@ -11,6 +16,8 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     width: 100,
     type: 'date',
@@ -19,15 +26,24 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
     renderCell: params => <NormDateCell params={params} />,
     width: 100,
     type: 'date',
   },
 
-  {field: 'name', headerName: t(TranslationKey.Name), width: 150},
+  {
+    field: 'name',
+    headerName: t(TranslationKey.Name),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
+    width: 150,
+  },
   {
     field: 'balance',
     headerName: t(TranslationKey.Balance),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Balance)} />,
+
     renderCell: params => renderFieldValueCell(toFixed(params.value, 2)),
     width: 150,
     type: 'number',
@@ -36,16 +52,25 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'balanceFreeze',
     headerName: t(TranslationKey.Freeze),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Freeze)} />,
+
     renderCell: params => renderFieldValueCell(toFixed(params.value, 2)),
     width: 150,
     type: 'number',
   },
 
-  {field: 'email', headerName: t(TranslationKey.Email), width: 200},
+  {
+    field: 'email',
+    headerName: t(TranslationKey.Email),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
+    width: 200,
+  },
 
   {
     field: 'rate',
     headerName: t(TranslationKey.Rate),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
     type: 'number',
@@ -54,6 +79,8 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'role',
     headerName: t(TranslationKey.Role),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Role)} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 150,
   },
@@ -61,6 +88,8 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'active',
     headerName: t(TranslationKey['User status']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['User status'])} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
@@ -68,6 +97,8 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'isSubUser',
     headerName: t(TranslationKey['Sub status']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Sub status'])} />,
+
     renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
@@ -75,6 +106,8 @@ export const adminUsersViewColumns = handlers => [
   {
     field: 'actions',
     headerName: t(TranslationKey.Actions),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+
     renderCell: params => (
       <AdminUsersActionBtnsCell
         editBtnText={t(TranslationKey['Edit user'])}

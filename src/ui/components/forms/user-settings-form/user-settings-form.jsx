@@ -4,19 +4,17 @@ import {TextareaAutosize, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {renderSettingsRuLabelByKey} from '@constants/user-settings-labels-to-render'
 
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Field} from '@components/field/field'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {UserSettingsModel} from './user-settings-form.model'
 import {useClassNames} from './user-settings-form.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').userSettingsForm
 
 export const UserSettingsForm = observer(() => {
   const classNames = useClassNames()
@@ -49,7 +47,7 @@ export const UserSettingsForm = observer(() => {
   return (
     <div className={classNames.mainWrapper}>
       {!sourceUserSettings && (
-        <Typography className={classNames.noSettingsWarning}>{textConsts.noSettingsWarning}</Typography>
+        <Typography className={classNames.noSettingsWarning}>{t(TranslationKey['No user settings'])}</Typography>
       )}
 
       {userSettingsAvailable.map((item, i) => (
@@ -71,15 +69,15 @@ export const UserSettingsForm = observer(() => {
           disabled={JSON.stringify(sourceUserSettings) === JSON.stringify(userSettings)}
           onClick={() => (sourceUserSettings ? onEditSubmit() : onCreateSubmit())}
         >
-          {sourceUserSettings ? textConsts.editBtn : textConsts.createBtn}
+          {sourceUserSettings ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
         </SuccessButton>
       </div>
 
       <SuccessInfoModal
         openModal={showSuccessModal}
         setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={textConsts.success}
-        successBtnText={textConsts.okBtn}
+        title={t(TranslationKey['Data accepted'])}
+        successBtnText={t(TranslationKey.Ok)}
         onClickSuccessBtn={() => {
           onTriggerOpenModal('showSuccessModal')
         }}

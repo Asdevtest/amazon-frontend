@@ -2,16 +2,14 @@ import React from 'react'
 
 import {Typography, TableRow, TableCell} from '@material-ui/core'
 
-import {texts} from '@constants/texts'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 
-import {getLocalizedTexts} from '@utils/get-localized-texts'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './exchange-product-item.style'
-
-const textConsts = getLocalizedTexts(texts, 'ru').buyerUserExchangeItem
 
 export const ExchangeProductItem = ({product, handlerPrivateLabel, index}) => {
   const classNames = useClassNames()
@@ -50,15 +48,15 @@ export const ExchangeProductItem = ({product, handlerPrivateLabel, index}) => {
         <Typography className={classNames.text}>{product.avgRevenue}</Typography>
       </TableCell>
       <TableCell>
-        <Typography className={(classNames.text, classNames.standartPrice)}>{textConsts.standartPrice}</Typography>
+        <Typography className={(classNames.text, classNames.standartPrice)}>{'$ 499'}</Typography>
       </TableCell>
       <TableCell>
         <SuccessButton success onClick={() => handlerPrivateLabel(index)}>
-          {textConsts.startBtn}
+          {t(TranslationKey.Start)}
         </SuccessButton>
       </TableCell>
       <TableCell>
-        <Button onClick={() => alert(textConsts.addBtnAlert)}>{textConsts.addBtn + product.price}</Button>
+        <Button onClick={() => alert('Card button click')}>{t(TranslationKey['Add for $']) + product.price}</Button>
       </TableCell>
     </TableRow>
   )
