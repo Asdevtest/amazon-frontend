@@ -68,7 +68,7 @@ export class ClientSubUsersViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = subUsersColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -139,9 +139,8 @@ export class ClientSubUsersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getUsers()
-
       this.getDataGridState()
+      await this.getUsers()
 
       await this.getGroupPermissions()
       await this.getSinglePermissions()

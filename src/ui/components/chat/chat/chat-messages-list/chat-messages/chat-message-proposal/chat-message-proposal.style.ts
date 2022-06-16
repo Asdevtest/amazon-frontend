@@ -80,11 +80,11 @@ export const useClassNames = makeStyles(() => ({
     },
   },
   cancelBtn: {
-    backgroundColor: 'inherit',
-    color: '#001029',
+    backgroundColor: '#F44336',
+    color: '#fff',
     '&:hover': {
       opacity: '0.8',
-      backgroundColor: 'inherit',
+      backgroundColor: '#F44336',
     },
   },
 

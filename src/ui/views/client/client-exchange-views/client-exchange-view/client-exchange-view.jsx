@@ -19,6 +19,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -88,6 +89,7 @@ export class ClientExchangeViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}

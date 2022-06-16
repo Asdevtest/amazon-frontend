@@ -166,6 +166,8 @@ export const IdeaViewAndEditCard = ({
         <div className={classNames.cardBlockWrapper}>
           <Field
             multiline
+            tooltipAttentionContent={'В инвентаре появится новая карточка товара'}
+            tooltipInfoContent={'В инвентаре появится новая карточка товара'}
             disabled={disableFields}
             className={classNames.commentField}
             labelClasses={classNames.spanLabel}
@@ -343,7 +345,8 @@ export const IdeaViewAndEditCard = ({
           <div className={classNames.existedIdeaBtnsSubWrapper}>
             <Button
               disabled
-              tooltipContent={'В инвентаре появится новая карточка товара'}
+              tooltipAttentionContent={'В инвентаре появится новая карточка товара'}
+              tooltipInfoContent={'В инвентаре появится новая карточка товара'}
               variant="contained"
               color="primary"
               className={[classNames.actionButton, classNames.successBtn]}

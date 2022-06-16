@@ -35,4 +35,15 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'flex-end',
     margin: '15px 0 0',
   },
+
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '400px',
+  },
+
+  searchContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
 }))

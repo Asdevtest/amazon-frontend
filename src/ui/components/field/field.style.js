@@ -39,4 +39,29 @@ export const useClassNames = makeStyles({
   noFullWidth: {
     width: 'auto',
   },
+
+  tooltipsWrapper: {
+    display: 'flex',
+    marginLeft: 3,
+  },
+
+  tooltip: {
+    width: '17px',
+    height: '17px',
+    color: 'red',
+    transition: '.3s ease-in-out',
+    '&:hover': {
+      cursor: 'default',
+      transform: 'scale(1.1)',
+    },
+  },
+
+  tooltipInfo: {
+    marginLeft: '3px',
+  },
+
+  labelWrapper: {
+    display: 'flex',
+    alignItems: 'flex-start',
+  },
 })

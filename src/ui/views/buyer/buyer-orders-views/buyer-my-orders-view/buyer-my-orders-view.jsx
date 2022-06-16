@@ -21,6 +21,7 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {BuyerMyOrdersViewModel} from './buyer-my-orders-view.model'
@@ -32,7 +33,7 @@ const attentionStatuses = [OrderStatusByKey[OrderStatus.AT_PROCESS], OrderStatus
 
 @observer
 class BuyerMyOrdersViewRaw extends Component {
-  viewModel = new BuyerMyOrdersViewModel({history: this.props.history})
+  viewModel = new BuyerMyOrdersViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -95,6 +96,7 @@ class BuyerMyOrdersViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
                 }}
@@ -119,7 +121,7 @@ class BuyerMyOrdersViewRaw extends Component {
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
-                onRowDoubleClick={e => onClickOrder(e.row)}
+                onRowDoubleClick={e => onClickOrder(e.row.originalData._id)}
                 onFilterModelChange={model => onChangeFilterModel(model)}
               />
             </MainContent>

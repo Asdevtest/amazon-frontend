@@ -52,6 +52,7 @@ export const myRequestsViewColumns = () => [
 
   {
     field: 'allProposals',
+    headerName: t(TranslationKey['Total proposals']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />, // ПРИМЕР МНОГОСТРОЧНОГО ХЕДЕРА
     renderCell: params => (
       <MultilineTextCell text={`${params.value} / ${params.row.originalData.maxAmountOfProposals} `} />

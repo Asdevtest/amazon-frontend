@@ -10,7 +10,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
-import {formatNormDateTime} from '@utils/date-time'
+import {formatDateWithoutTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {
   checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract,
@@ -95,58 +95,63 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
               const isNextMessageSameAuthor =
                 !isLastMessage && messages[index + 1]?.userId === messageItem.userId && !isNotPersonal
               return (
-                <div
-                  key={`chatMessage_${messageItem._id}`}
-                  className={clsx(classNames.messageWrapper, {
-                    [classNames.messageWrapperIsIncomming]: isIncomming,
-                    [classNames.messageWrapperIsNextMessageSameAuthor]: isNextMessageSameAuthor,
-                    [classNames.messageWrapperIsLastMessage]: isLastMessage,
-                    [classNames.messageWrapperisNotPersonal]: isNotPersonal,
-                  })}
-                >
-                  {!isNextMessageSameAuthor && !isNotPersonal ? (
-                    <Avatar
-                      src={getUserAvatarSrc(messageItem.userId)}
-                      className={clsx(classNames.messageAvatarWrapper, {
-                        [classNames.messageAvatarWrapperIsIncomming]: isIncomming,
-                      })}
-                    />
-                  ) : undefined}
-                  <div
-                    className={clsx(classNames.messageInner, {
-                      [classNames.messageInnerIsIncomming]: isIncomming,
-                      [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
-                      [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
-                        isNextMessageSameAuthor && isIncomming,
-                    })}
-                  >
-                    <div className={classNames.messageInnerContentWrapper}>
-                      {renderMessageByType(isIncomming, messageItem)}
-                      {messageItem.files.length ? (
-                        <div>
-                          <Typography className={classNames.timeText}>{'ФАЙЛЫ:'}</Typography>
-
-                          <Grid container className={classNames.filesWrapper}>
-                            {messageItem.files.map((file, fileIndex) => (
-                              <Grid key={fileIndex} item className={classNames.imageWrapper}>
-                                <img
-                                  className={classNames.image}
-                                  src={file}
-                                  onClick={() => {
-                                    setShowImageModal(!showImageModal)
-                                    setBigImagesOptions({images: messageItem.files, imgIndex: fileIndex})
-                                  }}
-                                />
-                              </Grid>
-                            ))}
-                          </Grid>
-                        </div>
-                      ) : undefined}
-                    </div>
+                <div key={`chatMessage_${messageItem._id}`}>
+                  {index === 0 ||
+                  formatDateWithoutTime(messages[index - 1].updatedAt) !==
+                    formatDateWithoutTime(messageItem.updatedAt) ? (
                     <div className={classNames.timeTextWrapper}>
                       <Typography className={classNames.timeText}>
-                        {formatNormDateTime(messageItem.updatedAt)}
+                        {formatDateWithoutTime(messageItem.updatedAt)}
                       </Typography>
+                    </div>
+                  ) : null}
+                  <div
+                    className={clsx(classNames.messageWrapper, {
+                      [classNames.messageWrapperIsIncomming]: isIncomming,
+                      [classNames.messageWrapperIsNextMessageSameAuthor]: isNextMessageSameAuthor,
+                      [classNames.messageWrapperIsLastMessage]: isLastMessage,
+                      [classNames.messageWrapperisNotPersonal]: isNotPersonal,
+                    })}
+                  >
+                    {!isNextMessageSameAuthor && !isNotPersonal ? (
+                      <Avatar
+                        src={getUserAvatarSrc(messageItem.userId)}
+                        className={clsx(classNames.messageAvatarWrapper, {
+                          [classNames.messageAvatarWrapperIsIncomming]: isIncomming,
+                        })}
+                      />
+                    ) : undefined}
+                    <div
+                      className={clsx(classNames.messageInner, {
+                        [classNames.messageInnerIsIncomming]: isIncomming,
+                        [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
+                        [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:
+                          isNextMessageSameAuthor && isIncomming,
+                      })}
+                    >
+                      <div className={classNames.messageInnerContentWrapper}>
+                        {renderMessageByType(isIncomming, messageItem)}
+                        {messageItem.files.length ? (
+                          <div className={classNames.filesMainWrapper}>
+                            <Typography className={classNames.filesTitle}>{'Файлы:'}</Typography>
+
+                            <Grid container className={classNames.filesWrapper} spacing={2}>
+                              {messageItem.files.map((file, fileIndex) => (
+                                <Grid key={fileIndex} item className={classNames.imageWrapper}>
+                                  <img
+                                    className={classNames.image}
+                                    src={file}
+                                    onClick={() => {
+                                      setShowImageModal(!showImageModal)
+                                      setBigImagesOptions({images: messageItem.files, imgIndex: fileIndex})
+                                    }}
+                                  />
+                                </Grid>
+                              ))}
+                            </Grid>
+                          </div>
+                        ) : undefined}
+                      </div>
                     </div>
                   </div>
                 </div>

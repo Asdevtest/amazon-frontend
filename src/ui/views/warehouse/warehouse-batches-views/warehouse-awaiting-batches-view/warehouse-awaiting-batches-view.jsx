@@ -20,6 +20,7 @@ import {BatchInfoModal} from '@components/modals/batch-info-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {WarehouseAwaitingBatchesViewModel} from './warehouse-awaiting-batches-view.model'
@@ -91,7 +92,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                 <div className={classNames.leftBtnsWrapper}>
                   <Button
                     disabled={!selectedBatches.length || isInvalidTariffBoxSelected}
-                    tooltipContent={
+                    tooltipAttentionContent={
                       isInvalidTariffBoxSelected &&
                       t(TranslationKey['Selected a batch contains a box with an invalid tariff'])
                     }
@@ -122,6 +123,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                 checkboxSelection
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
                 }}

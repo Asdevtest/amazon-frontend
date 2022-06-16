@@ -70,7 +70,7 @@ export class ClientExchangeViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = clientExchangeViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -138,8 +138,8 @@ export class ClientExchangeViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getProductsVacant()
       this.getDataGridState()
+      await this.getProductsVacant()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -179,6 +179,8 @@ export class ClientExchangeViewModel {
 
       if (orderObject.tmpBarCode.length) {
         await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
+      } else if (!orderObject.barCode) {
+        await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
       }
 
       const createorderData = {

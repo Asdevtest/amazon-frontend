@@ -65,7 +65,7 @@ export class WarehouseAwaitingBatchesViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = batchesViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -128,8 +128,8 @@ export class WarehouseAwaitingBatchesViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getBatches()
       this.getDataGridState()
+      await this.getBatches()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

@@ -48,6 +48,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     maxHeight: 90,
     overflow: 'auto',
+    minHeight: 100,
 
     maxWidth: '420px',
   },

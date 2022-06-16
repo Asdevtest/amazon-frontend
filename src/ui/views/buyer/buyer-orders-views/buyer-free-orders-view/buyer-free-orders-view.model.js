@@ -20,10 +20,13 @@ export class BuyerFreeOrdersViewModel {
   actionStatus = undefined
   error = undefined
 
+  curOrder = undefined
+
   ordersVacant = []
   drawerOpen = false
   showBarcodeModal = false
   showOrderModal = false
+  showTwoVerticalChoicesModal = false
 
   warningTitle = ''
 
@@ -52,7 +55,7 @@ export class BuyerFreeOrdersViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -115,8 +118,8 @@ export class BuyerFreeOrdersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getOrdersVacant()
       this.getDataGridState()
+      await this.getOrdersVacant()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -144,14 +147,20 @@ export class BuyerFreeOrdersViewModel {
     }
   }
 
+  goToMyOrders() {
+    this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+    this.history.push('/buyer/my-orders', {orderId: this.curOrder._id})
+  }
+
   async onClickTableRowBtn(order) {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       await BuyerModel.pickupOrder(order.originalData._id)
 
-      this.warningTitle = t(TranslationKey['The order is in progress and has been moved to "My Orders"'])
+      this.curOrder = order.originalData
 
-      this.onTriggerOpenModal('showWarningModal')
+      this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+
       this.setActionStatus(loadingStatuses.success)
       this.loadData()
     } catch (error) {

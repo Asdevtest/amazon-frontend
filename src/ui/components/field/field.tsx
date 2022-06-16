@@ -1,4 +1,6 @@
-import React, {FC} from 'react'
+import Tooltip from '@mui/material/Tooltip'
+
+import React, {FC, ReactElement} from 'react'
 
 import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
@@ -11,6 +13,8 @@ import {useClassNames} from './field.style'
 
 interface Props {
   label: string
+  tooltipAttentionContent?: ReactElement | string
+  tooltipInfoContent?: ReactElement | string
   containerClasses?: StyleClass
   labelClasses?: StyleClass
   inputClasses?: StyleClass
@@ -20,13 +24,42 @@ interface Props {
 }
 
 export const Field: FC<Props> = observer(
-  ({label, labelClasses, containerClasses, inputClasses, inputComponent, error, oneLine, ...restProps}) => {
+  ({
+    label,
+    labelClasses,
+    containerClasses,
+    inputClasses,
+    inputComponent,
+    error,
+    oneLine,
+    tooltipAttentionContent,
+    tooltipInfoContent,
+    ...restProps
+  }) => {
     const classNames = useClassNames()
     return (
       <div className={clsx(classNames.root, containerClasses, {[classNames.rootOneLine]: oneLine})}>
-        <Typography className={clsx(classNames.label, labelClasses, {[classNames.labelOneLine]: oneLine})}>
-          {label}
-        </Typography>
+        <div className={classNames.labelWrapper}>
+          <Typography className={clsx(classNames.label, labelClasses, {[classNames.labelOneLine]: oneLine})}>
+            {label}
+          </Typography>
+
+          {(tooltipAttentionContent || tooltipInfoContent) && label ? (
+            <div className={classNames.tooltipsWrapper}>
+              {tooltipAttentionContent ? (
+                <Tooltip arrow title={tooltipAttentionContent} placement="top-end">
+                  <img className={classNames.tooltip} src="/assets/icons/attention.svg" />
+                </Tooltip>
+              ) : null}
+
+              {tooltipInfoContent ? (
+                <Tooltip arrow title={tooltipInfoContent} placement="top-end">
+                  <img className={clsx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
+                </Tooltip>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
         {inputComponent || (
           <Input className={clsx(classNames.input, inputClasses, {[classNames.errorActive]: error})} {...restProps} />
         )}

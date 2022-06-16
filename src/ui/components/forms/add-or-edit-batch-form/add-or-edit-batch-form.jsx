@@ -214,7 +214,7 @@ export const AddOrEditBatchForm = observer(
               checkboxSelection
               rows={toJS(boxesToAddData)}
               columns={addOrEditBatchFormColumns()}
-              rowHeight={80}
+              rowHeight={100}
               selectionModel={boxesToAddIds}
               onSelectionModelChange={newSelection => onSelectionAwaitingBoxes(newSelection)}
             />
@@ -222,7 +222,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={classNames.btnsWrapper}>
             <Button
-              tooltipContent={!chosenBoxes.length && !batchToEdit && t(TranslationKey['First select one box'])}
+              tooltipAttentionContent={!chosenBoxes.length && !batchToEdit && t(TranslationKey['First select one box'])}
               disabled={!boxesToAddIds.length || (!chosenBoxes.length && boxesToAddIds.length !== 1 && !batchToEdit)}
               color="primary"
               variant="contained"
@@ -241,7 +241,7 @@ export const AddOrEditBatchForm = observer(
               checkboxSelection
               rows={chosenBoxes || []}
               columns={addOrEditBatchFormColumns()}
-              rowHeight={80}
+              rowHeight={100}
               onSelectionModelChange={newSelection => onSelectionChoosenBoxes(newSelection)}
             />
           </div>

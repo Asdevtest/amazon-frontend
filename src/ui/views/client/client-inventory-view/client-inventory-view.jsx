@@ -28,6 +28,7 @@ import {Navbar} from '@components/navbar'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
@@ -56,7 +57,7 @@ export class ClientInventoryViewRaw extends Component {
       densityModel,
       columnsModel,
       successModalText,
-      confirmMessage,
+      confirmModalSettings,
       storekeepers,
       destinations,
       isArchive,
@@ -80,6 +81,7 @@ export class ClientInventoryViewRaw extends Component {
       curPage,
       productsMy,
       rowsPerPage,
+
       showOrderModal,
       showSuccessModal,
       showSendOwnProductModal,
@@ -106,7 +108,6 @@ export class ClientInventoryViewRaw extends Component {
       onSubmitCreateProduct,
       onSubmitSaveSupplier,
       onClickAddSupplierBtn,
-      onSubmitSeekSupplier,
       onSubmitCalculateSeekSupplier,
       onClickOrderBtn,
       onTriggerArchive,
@@ -161,7 +162,7 @@ export class ClientInventoryViewRaw extends Component {
 
                   <Button
                     disableElevation
-                    tooltipContent={
+                    tooltipAttentionContent={
                       isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
                     }
                     disabled={!selectedRowIds.length || isNoEditProductSelected}
@@ -184,6 +185,7 @@ export class ClientInventoryViewRaw extends Component {
                 useResizeContainer
                 checkboxSelection
                 disableSelectionOnClick
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
                 }}
@@ -289,7 +291,7 @@ export class ClientInventoryViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
         >
           <BindInventoryGoodsToStockForm
-            selectedRowId={getCurrentData().find(item => selectedRowIds.includes(item.id))?.originalData._id}
+            product={getCurrentData().find(item => selectedRowIds.includes(item.id))?.originalData}
             stockData={sellerBoardDailyData}
             updateStockData={getStockGoodsByFilters}
             onSubmit={onSubmitBindStockGoods}
@@ -319,13 +321,12 @@ export class ClientInventoryViewRaw extends Component {
         <ConfirmationModal
           openModal={showConfirmModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-          title={t(TranslationKey.Attention)}
-          message={confirmMessage}
+          isWarning={confirmModalSettings.isWarning}
+          title={confirmModalSettings.confirmTitle}
+          message={confirmModalSettings.confirmMessage}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.No)}
-          onClickSuccessBtn={() => {
-            onSubmitSeekSupplier()
-          }}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
       </React.Fragment>

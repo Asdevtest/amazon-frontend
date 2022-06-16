@@ -23,6 +23,8 @@ export class WarehouseVacantViewModel {
   drawerOpen = false
   selectedTask = undefined
 
+  showTwoVerticalChoicesModal = false
+
   rowHandlers = {
     onClickPickupBtn: item => this.onClickPickupBtn(item),
   }
@@ -45,7 +47,7 @@ export class WarehouseVacantViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -108,8 +110,9 @@ export class WarehouseVacantViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getTasksVacant()
       this.getDataGridState()
+      await this.getTasksVacant()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -121,11 +124,17 @@ export class WarehouseVacantViewModel {
     try {
       await StorekeeperModel.pickupTask(item._id)
 
-      this.history.push('/warehouse/my-tasks', {task: toJS(item)})
+      this.curTask = item
+      this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     } catch (error) {
       console.log(error)
       this.error = error
     }
+  }
+
+  goToMyTasks() {
+    this.history.push('/warehouse/my-tasks', {task: toJS(this.curTask)})
+    this.onTriggerOpenModal('showTwoVerticalChoicesModal')
   }
 
   onChangeTriggerDrawerOpen() {

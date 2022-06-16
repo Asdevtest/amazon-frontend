@@ -22,6 +22,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
@@ -98,6 +99,7 @@ class ClientSubUsersViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}

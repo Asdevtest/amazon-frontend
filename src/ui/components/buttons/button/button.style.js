@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    maxHeight: 36,
+    minHeight: 36,
   },
 
   success: {
@@ -35,23 +35,30 @@ export const useClassNames = makeStyles(() => ({
   },
   disabled: {},
 
-  tooltip: {
-    width: '25px',
-    height: '25px',
+  tooltipsWrapper: {
     position: 'absolute',
+    top: '-6px',
+    right: '-6px',
+    zIndex: '10',
+  },
+
+  tooltip: {
+    width: '17px',
+    height: '17px',
     color: 'red',
-    top: '-10px',
-    right: '-10px',
     transition: '.3s ease-in-out',
     '&:hover': {
       cursor: 'default',
       transform: 'scale(1.1)',
     },
-    zIndex: '10',
+  },
+
+  tooltipInfo: {
+    marginLeft: '3px',
   },
 
   btnWrapper: {
     position: 'relative',
-    display: 'inline-flex',
+    display: 'inline',
   },
 }))

@@ -16,10 +16,12 @@ import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {EditOrderModal} from '@components/screens/buyer/orders-view/edit-order-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {BuyerFreeOrdersViewModel} from './buyer-free-orders-view.model'
@@ -52,7 +54,9 @@ class BuyerFreeOrdersViewRaw extends Component {
       warningTitle,
       showOrderModal,
       showWarningModal,
+      showTwoVerticalChoicesModal,
       onTriggerShowBarcodeModal,
+      goToMyOrders,
       onTriggerShowOrderModal,
       onTriggerDrawerOpen,
       onChangeCurPage,
@@ -75,6 +79,7 @@ class BuyerFreeOrdersViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}
@@ -113,6 +118,16 @@ class BuyerFreeOrdersViewRaw extends Component {
             />
           ) : undefined}
         </Modal>
+
+        <TwoVerticalChoicesModal
+          openModal={showTwoVerticalChoicesModal}
+          setOpenModal={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
+          title={t(TranslationKey['Order picked up'])}
+          topBtnText={t(TranslationKey['Go to order'])}
+          bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
+          onClickTopBtn={() => goToMyOrders()}
+          onClickBottomBtn={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
+        />
 
         <WarningInfoModal
           openModal={showWarningModal}

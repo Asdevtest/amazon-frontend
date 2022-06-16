@@ -2,6 +2,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {ProductModel} from '@models/product-model'
 import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
 
@@ -15,6 +16,7 @@ export class IntegrationsModel {
   error = undefined
 
   productId = undefined
+  product = undefined
 
   showBindInventoryGoodsToStockModal = false
   showSuccessModal = false
@@ -63,6 +65,7 @@ export class IntegrationsModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      await this.getProductById()
       await this.getProductsWithSkuById()
       this.updateColumnsModel()
       this.setRequestStatus(loadingStatuses.success)
@@ -72,7 +75,19 @@ export class IntegrationsModel {
     }
   }
 
-  async getStockGoodsByFilters(filter) {
+  async getProductById() {
+    try {
+      const result = await ProductModel.getProductById(this.productId)
+
+      runInAction(() => {
+        this.product = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getStockGoodsByFilters(filter, isRecCall) {
     try {
       const result = await SellerBoardModel.getStockGoodsByFilters(filter)
 
@@ -81,9 +96,13 @@ export class IntegrationsModel {
       })
     } catch (error) {
       console.log(error)
-      this.sellerBoardDailyData = []
-      if (error.body && error.body.message) {
-        this.error = error.body.message
+      if (isRecCall) {
+        this.getStockGoodsByFilters()
+      } else {
+        this.sellerBoardDailyData = []
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
       }
     }
   }

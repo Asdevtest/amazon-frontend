@@ -820,5 +820,17 @@
   "Restore the card?": "Restore the card?",
   "The products will appear in the inventory soon": "The products will appear in the inventory soon",
   "Confirm tariff selection": "Confirm tariff selection",
-  "Selected a batch contains a box with an invalid tariff": "Selected a batch contains a box with an invalid tariff"
+  "Selected a batch contains a box with an invalid tariff": "Selected a batch contains a box with an invalid tariff",
+  "Stock sum": "Stock sum",
+  "Not chosen": "Not chosen",
+  "Go to order": "Go to order",
+  "Continue to work with free orders": "Continue to work with free orders",
+  "Order picked up": "Order picked up",
+  "Remove from the Inventory": "Remove from the Inventory",
+  "After confirmation, the card will be moved to the Archive. Continue?": "After confirmation, the card will be moved to the Archive. Continue?",
+  "Return to Inventory": "Return to Inventory",
+  "After confirmation, the card will be moved to the Inventory. Continue?": "After confirmation, the card will be moved to the Inventory. Continue?",
+  "Task picked up": "Task picked up",
+  "Go to task": "Go to task",
+  "Continue to work with new tasks": "Continue to work with new tasks"
 }

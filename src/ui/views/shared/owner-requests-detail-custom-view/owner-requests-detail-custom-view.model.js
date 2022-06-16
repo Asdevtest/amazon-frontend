@@ -208,6 +208,8 @@ export class OwnerRequestDetailCustomViewModel {
       await RequestProposalModel.requestProposalAccept(proposalId)
       await this.getCustomRequestCur()
       await this.getCustomProposalsForRequestCur()
+
+      this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
       console.log(error)
       this.error = error

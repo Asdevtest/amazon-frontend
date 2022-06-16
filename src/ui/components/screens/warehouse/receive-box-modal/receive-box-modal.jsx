@@ -53,7 +53,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.qtyCell}>
         <Input
           classes={{root: classNames.inputWrapper, input: classNames.input}}
-          inputProps={{maxLength: 4}}
+          inputProps={{maxLength: 6}}
           value={item.items[0].amount}
           onChange={e => handlers.onChangeQtyInput(e, item._id, item.items[0].order)}
         />
@@ -62,7 +62,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.standartCell}>
         <Input
           classes={{root: classNames.inputWrapper, input: classNames.input}}
-          inputProps={{maxLength: 4}}
+          inputProps={{maxLength: 6}}
           value={item.amount}
           onChange={e => handlers.onChangeFieldInput(e, item._id, 'amount')}
         />
@@ -81,7 +81,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           <Typography>{'H:'}</Typography>
           <Input
             classes={{root: classNames.inputWrapper, input: classNames.input}}
-            inputProps={{maxLength: 4}}
+            inputProps={{maxLength: 6}}
             value={item.heightCmWarehouse}
             onChange={e => handlers.onChangeFieldInput(e, item._id, 'heightCmWarehouse')}
           />
@@ -90,7 +90,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           <Typography>{'W:'}</Typography>
           <Input
             classes={{root: classNames.inputWrapper, input: classNames.input}}
-            inputProps={{maxLength: 4}}
+            inputProps={{maxLength: 6}}
             value={item.widthCmWarehouse}
             onChange={e => handlers.onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
           />
@@ -99,7 +99,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           <Typography>{'L:'}</Typography>
           <Input
             classes={{root: classNames.inputWrapper, input: classNames.input}}
-            inputProps={{maxLength: 4}}
+            inputProps={{maxLength: 6}}
             value={item.lengthCmWarehouse}
             onChange={e => handlers.onChangeFieldInput(e, item._id, 'lengthCmWarehouse')}
           />
@@ -108,7 +108,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.standartCell}>
         <Input
           classes={{root: classNames.inputWrapper, input: classNames.input}}
-          inputProps={{maxLength: 4}}
+          inputProps={{maxLength: 6}}
           value={item.weighGrossKgWarehouse}
           onChange={e => handlers.onChangeFieldInput(e, item._id, 'weighGrossKgWarehouse')}
         />

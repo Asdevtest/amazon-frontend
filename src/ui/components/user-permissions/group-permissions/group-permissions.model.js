@@ -61,7 +61,7 @@ export class GroupPermissionsModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = adminGroupPermissionsColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -128,12 +128,10 @@ export class GroupPermissionsModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
+      this.getDataGridState()
       await this.getGroupPermissions()
 
       await this.getSinglePermissions()
-
-      this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

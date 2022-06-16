@@ -402,17 +402,72 @@ export const CreateOrEditRequestContent = ({
                   </Typography>
                 </div>
               </div>
-              <div className={classNames.middleStepTwoWrapper}>
-                <Field
-                  label={t(TranslationKey['Request title'])}
-                  labelClasses={classNames.spanLabel}
-                  inputComponent={
-                    <Typography className={classNames.twoStepFieldResult}>{formFields.request.title}</Typography>
-                  }
-                />
-                <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>
 
-                <PhotoAndFilesCarousel files={images} />
+              <div className={classNames.middleStepTwoMainWrapper}>
+                <div className={classNames.middleStepTwoWrapper}>
+                  <div className={classNames.middleStepTwoSubWrapper}>
+                    <Field
+                      label={t(TranslationKey['Request title'])}
+                      labelClasses={classNames.spanLabel}
+                      inputComponent={
+                        <Typography className={classNames.twoStepFieldResult}>{formFields.request.title}</Typography>
+                      }
+                    />
+                    <Typography className={classNames.imagesTitle}>{t(TranslationKey.Files)}</Typography>
+
+                    <PhotoAndFilesCarousel files={images} />
+                  </div>
+
+                  <div className={classNames.rightTwoStepWrapper}>
+                    <div className={classNames.rightTwoStepSubFieldWrapper}>
+                      <Field
+                        label={t(TranslationKey['Number of proposals'])}
+                        labelClasses={classNames.spanLabel}
+                        inputComponent={
+                          <Typography className={classNames.twoStepFieldResult}>
+                            {formFields.request.maxAmountOfProposals}
+                          </Typography>
+                        }
+                      />
+
+                      <Field
+                        containerClasses={classNames.twoStepDeadlineField}
+                        label={t(TranslationKey['Deadline for the request'])}
+                        labelClasses={classNames.spanLabel}
+                        inputComponent={
+                          <Typography className={classNames.twoStepFieldResult}>
+                            {formFields.request.timeoutAt &&
+                              formatDateForShowWithoutParseISO(formFields.request.timeoutAt)}
+                          </Typography>
+                        }
+                      />
+                    </div>
+
+                    <div className={classNames.rightTwoStepSubFieldWrapper}>
+                      <Field
+                        label={t(TranslationKey['Supervisor check'])}
+                        labelClasses={classNames.spanLabel}
+                        inputComponent={
+                          <Typography className={classNames.twoStepFieldResult}>
+                            {formFields.request.needCheckBySupervisor ? t(TranslationKey.Yes) : t(TranslationKey.No)}
+                          </Typography>
+                        }
+                      />
+
+                      <Field
+                        label={t(TranslationKey.Price) + ' $'}
+                        labelClasses={classNames.spanLabel}
+                        inputComponent={
+                          <Typography className={classNames.twoStepFieldResult}>{formFields.request.price}</Typography>
+                        }
+                      />
+                    </div>
+                    <Typography>
+                      {formFields.request.restrictMoreThanOneProposalFromOneAssignee &&
+                        t(TranslationKey['Multiple performances by the same performer are allowed'])}
+                    </Typography>
+                  </div>
+                </div>
 
                 <Field
                   multiline
@@ -420,60 +475,11 @@ export const CreateOrEditRequestContent = ({
                   inputClasses={classNames.inputDescriptionStepTwoField}
                   containerClasses={classNames.descriptionStepTwoField}
                   labelClasses={classNames.spanLabel}
-                  minRows={11}
-                  rowsMax={11}
+                  minRows={13}
+                  rowsMax={13}
                   label={t(TranslationKey['Description of your request'])}
                   value={formFields.details.conditions}
                 />
-              </div>
-
-              <div className={classNames.rightTwoStepWrapper}>
-                <div className={classNames.rightTwoStepSubFieldWrapper}>
-                  <Field
-                    label={t(TranslationKey['Number of proposals'])}
-                    labelClasses={classNames.spanLabel}
-                    inputComponent={
-                      <Typography className={classNames.twoStepFieldResult}>
-                        {formFields.request.maxAmountOfProposals}
-                      </Typography>
-                    }
-                  />
-
-                  <Field
-                    containerClasses={classNames.twoStepDeadlineField}
-                    label={t(TranslationKey['Deadline for the request'])}
-                    labelClasses={classNames.spanLabel}
-                    inputComponent={
-                      <Typography className={classNames.twoStepFieldResult}>
-                        {formFields.request.timeoutAt && formatDateForShowWithoutParseISO(formFields.request.timeoutAt)}
-                      </Typography>
-                    }
-                  />
-                </div>
-
-                <div className={classNames.rightTwoStepSubFieldWrapper}>
-                  <Field
-                    label={t(TranslationKey['Supervisor check'])}
-                    labelClasses={classNames.spanLabel}
-                    inputComponent={
-                      <Typography className={classNames.twoStepFieldResult}>
-                        {formFields.request.needCheckBySupervisor ? t(TranslationKey.Yes) : t(TranslationKey.No)}
-                      </Typography>
-                    }
-                  />
-
-                  <Field
-                    label={t(TranslationKey.Price) + ' $'}
-                    labelClasses={classNames.spanLabel}
-                    inputComponent={
-                      <Typography className={classNames.twoStepFieldResult}>{formFields.request.price}</Typography>
-                    }
-                  />
-                </div>
-                <Typography>
-                  {formFields.request.restrictMoreThanOneProposalFromOneAssignee &&
-                    t(TranslationKey['Multiple performances by the same performer are allowed'])}
-                </Typography>
               </div>
             </div>
             <div className={classNames.footerWrapper}>

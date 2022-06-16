@@ -1,50 +1,93 @@
 import DateFnsUtils from '@date-io/date-fns'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 
+import {useEffect, useState} from 'react'
+
 import {
   KeyboardDatePicker,
   KeyboardDateTimePicker,
   KeyboardTimePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers'
+import enLocale from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 
-export const DatePicker = ({value, onChange}) => (
-  <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
-    <KeyboardDateTimePicker
-      clearable
-      value={value}
-      placeholder="10/10/2018 10:00"
-      // minDate={new Date()}
-      format="dd/MM/yyyy HH:mm"
-      onChange={date => onChange(date)}
-    />
-  </MuiPickersUtilsProvider>
-)
-export const DatePickerDate = ({value, onChange}) => (
-  <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
-    <KeyboardDatePicker
-      clearable
-      value={value}
-      style={{width: '100%'}}
-      placeholder="10/10/2018"
-      // minDate={new Date()}
-      format="dd/MM/yyyy"
-      onChange={date => onChange(date)}
-    />
-  </MuiPickersUtilsProvider>
-)
-export const DatePickerTime = ({value, onChange}) => (
-  <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
-    <KeyboardTimePicker
-      clearable
-      keyboardIcon={<AccessTimeIcon />}
-      style={{width: '100%'}}
-      value={value}
-      placeholder="10:00"
-      // minDate={new Date()}
-      format="HH:mm"
-      onChange={date => onChange(date)}
-    />
-  </MuiPickersUtilsProvider>
-)
+import {LanguageKey} from '@constants/translations/language-key'
+
+import {SettingsModel} from '@models/settings-model'
+
+const getLocalByLanguageTag = languageTag => {
+  switch (languageTag) {
+    case LanguageKey.ru:
+      return ruLocale
+
+    case LanguageKey.en:
+      return enLocale
+
+    default:
+      return enLocale
+  }
+}
+
+export const DatePicker = ({value, onChange}) => {
+  const [local, setLocal] = useState(enLocale)
+
+  useEffect(() => {
+    setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
+  }, [SettingsModel.languageTag])
+
+  return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={local}>
+      <KeyboardDateTimePicker
+        clearable
+        value={value}
+        placeholder="10/10/2018 10:00"
+        // minDate={new Date()}
+        format="dd/MM/yyyy HH:mm"
+        onChange={date => onChange(date)}
+      />
+    </MuiPickersUtilsProvider>
+  )
+}
+export const DatePickerDate = ({value, onChange}) => {
+  const [local, setLocal] = useState(enLocale)
+
+  useEffect(() => {
+    setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
+  }, [SettingsModel.languageTag])
+
+  return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={local}>
+      <KeyboardDatePicker
+        clearable
+        value={value}
+        style={{width: '100%'}}
+        placeholder="10/10/2018"
+        // minDate={new Date()}
+        format="dd/MM/yyyy"
+        onChange={date => onChange(date)}
+      />
+    </MuiPickersUtilsProvider>
+  )
+}
+export const DatePickerTime = ({value, onChange}) => {
+  const [local, setLocal] = useState(enLocale)
+
+  useEffect(() => {
+    setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
+  }, [SettingsModel.languageTag])
+  return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={local}>
+      <KeyboardTimePicker
+        clearable
+        keyboardIcon={<AccessTimeIcon />}
+        style={{width: '100%'}}
+        value={value}
+        placeholder="10:00"
+        // minDate={new Date()}
+        format="HH:mm"
+        onChange={date => onChange(date)}
+      />
+    </MuiPickersUtilsProvider>
+  )
+}

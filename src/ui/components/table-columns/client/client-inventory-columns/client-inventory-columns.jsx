@@ -13,6 +13,7 @@ import {
   ActiveBarcodeCell,
   NoActiveBarcodeCell,
   HsCodeCell,
+  MultilineTextHeaderCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {getLocalizedTexts} from '@utils/get-localized-texts'
@@ -66,6 +67,13 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
   {
     field: 'inBoard',
     headerName: textConsts.inBoardField,
+    renderCell: params => renderFieldValueCell(params.value),
+    width: 100,
+  },
+
+  {
+    field: 'stockSum',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
     renderCell: params => renderFieldValueCell(params.value),
     width: 100,
   },

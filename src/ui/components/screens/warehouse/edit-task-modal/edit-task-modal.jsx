@@ -8,7 +8,6 @@ import {TaskOperationType} from '@constants/task-operation-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
@@ -137,8 +136,9 @@ export const EditTaskModal = observer(
             </Button>
           )}
           <div className={classNames.button}>
-            <SuccessButton
+            <Button
               disableElevation
+              className={classNames.successBtn}
               disabled={newBoxes.length === 0 || requestStatus === loadingStatuses.isLoading}
               variant="contained"
               onClick={() => {
@@ -152,7 +152,7 @@ export const EditTaskModal = observer(
               }}
             >
               {t(TranslationKey.Save)}
-            </SuccessButton>
+            </Button>
           </div>
 
           <Button

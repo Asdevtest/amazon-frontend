@@ -119,6 +119,13 @@ export class ClientInventoryViewModel {
     onDeleteHsCode: item => this.onDeleteHsCode(item),
   }
 
+  confirmModalSettings = {
+    isWarning: false,
+    confirmTitle: '',
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
+
   readyImages = []
   progressValue = 0
   showProgress = false
@@ -161,7 +168,7 @@ export class ClientInventoryViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = clientInventoryColumns(this.barCodeHandlers, this.hsCodeHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -230,7 +237,22 @@ export class ClientInventoryViewModel {
       : toJS(this.productsMy.filter(el => !el.originalData.archive))
   }
 
-  async onClickTriggerArchOrResetProducts() {
+  onClickTriggerArchOrResetProducts() {
+    this.confirmModalSettings = {
+      isWarning: this.isArchive ? false : true,
+      confirmTitle: this.isArchive
+        ? t(TranslationKey['Return to Inventory'])
+        : t(TranslationKey['Remove from the Inventory']),
+      confirmMessage: this.isArchive
+        ? t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?'])
+        : t(TranslationKey['After confirmation, the card will be moved to the Archive. Continue?']),
+      onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitTriggerArchOrResetProducts() {
     try {
       for (let i = 0; i < this.selectedRowIds.length; i++) {
         const productId = this.selectedRowIds[i]
@@ -238,6 +260,7 @@ export class ClientInventoryViewModel {
         await ClientModel.updateProduct(productId, {archive: this.isArchive ? false : true})
       }
 
+      this.onTriggerOpenModal('showConfirmModal')
       await this.loadData()
     } catch (error) {
       console.log(error)
@@ -252,9 +275,9 @@ export class ClientInventoryViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+      this.getDataGridState()
       await this.getProductsMy()
       await this.getOrders()
-      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -388,6 +411,8 @@ export class ClientInventoryViewModel {
           await onSubmitPostImages.call(this, {images: product.tmpBarCode, type: 'uploadedFiles'})
 
           await ClientModel.updateProductBarCode(product.productId, {barCode: this.uploadedFiles[0]})
+        } else if (!product.barCode) {
+          await ClientModel.updateProductBarCode(product.productId, {barCode: null})
         }
 
         await this.createOrder(product)
@@ -485,10 +510,15 @@ export class ClientInventoryViewModel {
 
       this.priceForSeekSupplier = result.priceForClient
 
-      this.confirmMessage = `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
-        result.priceForClient,
-        2,
-      )}.\n ${t(TranslationKey['Apply?'])}`
+      this.confirmMessage = this.confirmModalSettings = {
+        isWarning: false,
+        confirmTitle: t(TranslationKey.Attention),
+        confirmMessage: `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
+          result.priceForClient,
+          2,
+        )}.\n ${t(TranslationKey['Apply?'])}`,
+        onClickConfirm: () => this.onSubmitSeekSupplier(),
+      }
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -674,7 +704,7 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async getStockGoodsByFilters(filter) {
+  async getStockGoodsByFilters(filter, isRecCall) {
     try {
       const result = await SellerBoardModel.getStockGoodsByFilters(filter)
 
@@ -683,9 +713,13 @@ export class ClientInventoryViewModel {
       })
     } catch (error) {
       console.log(error)
-      this.sellerBoardDailyData = []
-      if (error.body && error.body.message) {
-        this.error = error.body.message
+      if (isRecCall) {
+        this.getStockGoodsByFilters()
+      } else {
+        this.sellerBoardDailyData = []
+        if (error.body && error.body.message) {
+          this.error = error.body.message
+        }
       }
     }
   }

@@ -14,6 +14,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {AdminInventoryViewModel} from './admin-inventory-view.model'
@@ -24,6 +25,7 @@ export class AdminInventoryViewRaw extends Component {
   viewModel = new AdminInventoryViewModel({history: this.props.history})
 
   componentDidMount() {
+    this.viewModel.getDataGridState()
     this.viewModel.getProducts()
   }
 
@@ -61,6 +63,7 @@ export class AdminInventoryViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
                 }}

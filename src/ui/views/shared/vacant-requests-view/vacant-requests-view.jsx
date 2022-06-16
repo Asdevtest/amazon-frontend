@@ -95,7 +95,7 @@ class VacantRequestsViewRaw extends Component {
 
                 <div>
                   <Field
-                    containerClasses={classNames.searchcontainer}
+                    containerClasses={classNames.searchContainer}
                     inputClasses={classNames.searchInput}
                     value={nameSearchValue}
                     endAdornment={

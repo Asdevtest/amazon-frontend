@@ -60,7 +60,7 @@ export class AdminExchangeViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = exchangeProductsColumns({activeSubCategory: this.activeSubCategory})
+      this.getDataGridState()
     }
   }
 
@@ -162,9 +162,8 @@ export class AdminExchangeViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
-      await this.getProductsByStatus()
       this.getDataGridState()
+      await this.getProductsByStatus()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

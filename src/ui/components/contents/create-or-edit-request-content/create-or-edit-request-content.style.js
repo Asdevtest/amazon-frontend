@@ -26,8 +26,21 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
   },
 
+  middleStepTwoMainWrapper: {
+    width: '70%',
+    marginLeft: 'auto',
+  },
+
   middleStepTwoWrapper: {
-    width: '27%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+
+  middleStepTwoSubWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
   },
 
   mainTitle: {
@@ -78,7 +91,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   rightTwoStepWrapper: {
-    width: '35%',
+    width: '100%',
   },
 
   checkboxWrapper: {
@@ -163,7 +176,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   descriptionStepTwoField: {
-    width: '240%',
+    width: 'auto',
+    // height: 400,
     overflow: 'hidden',
   },
 
@@ -251,6 +265,7 @@ export const useClassNames = makeStyles(() => ({
 
   adviceWrapper: {
     width: '30%',
+    // marginRight: 30,
   },
 
   adviceTitle: {
@@ -316,14 +331,13 @@ export const useClassNames = makeStyles(() => ({
   },
 
   inputDescriptionStepTwoField: {
-    height: '152px',
-    width: '101%',
-    padding: '15px 0',
-    margin: '0 -1px',
-
+    height: '100%',
+    width: '100%',
+    padding: '0',
     backgroundColor: '#fafafa',
     '& :disabled': {
       backgroundColor: '#fafafa',
+      height: '100%',
     },
   },
 

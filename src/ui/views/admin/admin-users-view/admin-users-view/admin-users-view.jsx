@@ -19,6 +19,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 import {AdminContentModal} from '@components/screens/users-views/sub-users-view/admin-content-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {getLocalizedTexts} from '@utils/get-localized-texts'
 import {t} from '@utils/translations'
 
@@ -90,6 +91,7 @@ class AdminUsersViewRaw extends Component {
                 pagination
                 autoHeight
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 sortModel={sortModel}
                 filterModel={filterModel}
                 page={curPage}

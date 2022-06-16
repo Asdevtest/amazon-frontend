@@ -83,7 +83,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -152,8 +152,8 @@ export class WarehouseMyWarehouseViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getBoxesMy()
       this.getDataGridState()
+      await this.getBoxesMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)

@@ -47,7 +47,7 @@ export class AdminUserBalanceViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = financesViewColumns()
+      this.getDataGridState()
     }
   }
 
@@ -90,10 +90,9 @@ export class AdminUserBalanceViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
+      this.getDataGridState()
       await this.getUserInfo(this.userId)
       await this.getBalanceHistory(this.userId)
-      this.getDataGridState()
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

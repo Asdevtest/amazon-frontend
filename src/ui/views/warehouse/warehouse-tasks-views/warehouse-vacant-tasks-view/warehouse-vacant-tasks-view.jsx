@@ -12,8 +12,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {WarehouseVacantViewModel} from './warehouse-vacant-tasks-view.model'
@@ -38,13 +40,17 @@ export class WarehouseVacantTasksViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
+      showTwoVerticalChoicesModal,
 
       drawerOpen,
       curPage,
       rowsPerPage,
+
+      goToMyTasks,
       onChangeTriggerDrawerOpen,
       onChangeCurPage,
       onChangeRowsPerPage,
+      onTriggerOpenModal,
 
       onSelectionModel,
       setDataGridState,
@@ -72,6 +78,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
                 }}
@@ -100,6 +107,16 @@ export class WarehouseVacantTasksViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
+
+        <TwoVerticalChoicesModal
+          openModal={showTwoVerticalChoicesModal}
+          setOpenModal={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
+          title={t(TranslationKey['Task picked up'])}
+          topBtnText={t(TranslationKey['Go to task'])}
+          bottomBtnText={t(TranslationKey['Continue to work with new tasks'])}
+          onClickTopBtn={() => goToMyTasks()}
+          onClickBottomBtn={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
+        />
       </React.Fragment>
     )
   }

@@ -58,7 +58,7 @@ export class WarehouseCompletedViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers)
+      this.getDataGridState()
     }
   }
 
@@ -134,8 +134,8 @@ export class WarehouseCompletedViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getTasksMy()
       this.getDataGridState()
+      await this.getTasksMy()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

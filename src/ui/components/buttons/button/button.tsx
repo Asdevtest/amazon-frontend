@@ -8,7 +8,8 @@ import {useClassNames} from './button.style'
 import {StyledButton} from './styled-button'
 
 interface Props {
-  tooltipContent?: ReactElement | string
+  tooltipAttentionContent?: ReactElement | string
+  tooltipInfoContent?: ReactElement | string
   variant?: string
   color?: string
   success?: boolean
@@ -21,7 +22,8 @@ interface Props {
 }
 
 export const Button: FC<Props> = ({
-  tooltipContent,
+  tooltipAttentionContent,
+  tooltipInfoContent,
   variant,
   color,
   children,
@@ -49,10 +51,20 @@ export const Button: FC<Props> = ({
       >
         {children}
       </StyledButton>
-      {tooltipContent ? (
-        <Tooltip arrow title={tooltipContent} placement="top-end">
-          <img className={classNames.tooltip} src="/assets/icons/tooltip.svg" />
-        </Tooltip>
+      {tooltipAttentionContent || tooltipInfoContent ? (
+        <div className={classNames.tooltipsWrapper}>
+          {tooltipAttentionContent ? (
+            <Tooltip arrow title={tooltipAttentionContent} placement="top-end">
+              <img className={classNames.tooltip} src="/assets/icons/attention.svg" />
+            </Tooltip>
+          ) : null}
+
+          {tooltipInfoContent ? (
+            <Tooltip arrow title={tooltipInfoContent} placement="top-end">
+              <img className={clsx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
+            </Tooltip>
+          ) : null}
+        </div>
       ) : null}
     </div>
   )

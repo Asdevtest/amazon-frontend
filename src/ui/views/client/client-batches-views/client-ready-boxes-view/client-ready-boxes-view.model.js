@@ -51,7 +51,7 @@ export class ClientReadyBoxesViewModel {
 
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
-      this.columnsModel = clientBoxesReadyToBatchViewColumns()
+      this.getDataGridState()
     }
   }
 
@@ -132,11 +132,10 @@ export class ClientReadyBoxesViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
+      this.getDataGridState()
       await this.getStorekeepers()
 
       this.getBoxesMy()
-      this.getDataGridState()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
