@@ -39,7 +39,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h6">{t(TranslationKey['Add shop'])}</Typography>
+      <Typography className={classNames.title}>{t(TranslationKey['Add shop'])}</Typography>
 
       <div className={classNames.form}>
         <Field
@@ -71,6 +71,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
         <Button
           disableElevation
           disabled={disableSubmitBtn}
+          className={classNames.button}
           color="primary"
           variant="contained"
           onClick={() => onSubmit(formFields, shopToEdit && shopToEdit._id)}
@@ -80,7 +81,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
 
         <Button
           disableElevation
-          className={classNames.button}
+          className={[classNames.button, classNames.cancelBtn]}
           color="text"
           variant="contained"
           onClick={() => onCloseModal()}

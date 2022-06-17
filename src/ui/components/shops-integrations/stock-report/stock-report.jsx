@@ -18,6 +18,7 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {StockReportModel} from './stock-report.model'
@@ -140,6 +141,7 @@ class StockReportRaw extends Component {
             pagination
             useResizeContainer
             checkboxSelection
+            localeText={getLocalizationByLanguageTag()}
             classes={{
               row: className.row,
             }}

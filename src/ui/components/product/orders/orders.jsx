@@ -9,6 +9,8 @@ import {loadingStatuses} from '@constants/loading-statuses'
 
 import {SettingsModel} from '@models/settings-model'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
+
 import {OrdersModel} from './orders.model'
 import {useClassNames} from './orders.style'
 
@@ -32,6 +34,7 @@ export const Orders = observer(({productId}) => {
       <DataGrid
         pagination
         useResizeContainer
+        localeText={getLocalizationByLanguageTag()}
         classes={{
           row: classNames.row,
         }}

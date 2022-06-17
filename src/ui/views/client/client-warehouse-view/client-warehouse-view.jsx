@@ -203,6 +203,7 @@ export class ClientWarehouseViewRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
+                  localeText={getLocalizationByLanguageTag()}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentTaskData()}
                   rowHeight={150}

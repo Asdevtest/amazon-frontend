@@ -267,6 +267,10 @@ export class StockReportModel {
           .sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
           .filter(el => !el.archive)
       })
+
+      if (!this.inventoryProducts.length && isRecCall) {
+        this.getProductsMy()
+      }
     } catch (error) {
       console.log(error)
       if (isRecCall) {

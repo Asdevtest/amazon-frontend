@@ -34,6 +34,7 @@ export class SupervisorProductView extends Component {
 
   render() {
     const {
+      imagesForLoad,
       userInfo,
       drawerOpen,
       product,
@@ -54,6 +55,7 @@ export class SupervisorProductView extends Component {
       onTriggerOpenModal,
       onSaveProductData,
       onClickParseProductData,
+      onChangeImagesForLoad,
     } = this.viewModel
 
     return (
@@ -69,6 +71,7 @@ export class SupervisorProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  imagesForLoad={imagesForLoad}
                   userRole={userInfo.role}
                   product={product}
                   productBase={productBase}
@@ -81,6 +84,7 @@ export class SupervisorProductView extends Component {
                   onClickSupplier={onChangeSelectedSupplier}
                   onChangeField={onChangeProductFields}
                   onClickParseProductData={onClickParseProductData}
+                  onChangeImagesForLoad={onChangeImagesForLoad}
                 />
               ) : undefined}
             </MainContent>

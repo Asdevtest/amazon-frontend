@@ -14,7 +14,6 @@ export const useClassNames = makeStyles(() => ({
 
   warningPaper: {
     borderRadius: '10px',
-    backgroundColor: 'red',
   },
 
   dialogContent: {

@@ -13,6 +13,7 @@ import {AddOrEditGroupPermissionForm} from '@components/forms/add-or-edit-group-
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {GroupPermissionsModel} from './group-permissions.model'
@@ -63,6 +64,7 @@ export const GroupPermissions = observer(() => {
       <DataGrid
         pagination
         useResizeContainer
+        localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
         filterModel={filterModel}
         page={curPage}

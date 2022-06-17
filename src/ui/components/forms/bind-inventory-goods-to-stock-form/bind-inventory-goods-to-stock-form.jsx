@@ -1,8 +1,9 @@
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
-import {Chip, Typography} from '@material-ui/core'
+import {InputAdornment, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
@@ -10,8 +11,9 @@ import qs from 'qs'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
-import {Input} from '@components/input'
+import {Field} from '@components/field'
 
 import {t} from '@utils/translations'
 
@@ -55,13 +57,8 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
     .stringify({[filterByChipConfig(chipConfig)]: {$contains: searchInputValue}}, {encode: false})
     .replace(/&/, ';')
 
-  const onClickSearch = () => {
-    updateStockData(filter)
-  }
-
   const setRecommendChip = () => {
     setChipConfig(chipConfigSettings.RECOMMENDED)
-    setSearchInputValue('')
   }
 
   const onSelectionModel = model => {
@@ -80,7 +77,15 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
 
       updateStockData(recFilter, isRecCall)
     }
+
+    setSearchInputValue('')
   }, [chipConfig])
+
+  useEffect(() => {
+    if (chipConfig !== chipConfigSettings.RECOMMENDED) {
+      updateStockData(filter)
+    }
+  }, [searchInputValue])
 
   const onClickSubmit = () => {
     const selectedWarehouseStocks = chosenGoods.map(el => ({sku: el.sku, shopId: el.shop._id}))
@@ -90,57 +95,65 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h5">{t(TranslationKey['Bind an product from Amazon'])}</Typography>
+      <Typography variant="h6">{t(TranslationKey['Bind an product from Amazon'])}</Typography>
 
       <div className={classNames.form}>
         <div className={classNames.filtersWrapper}>
-          <Chip
-            label={t(TranslationKey.Recommended)}
-            className={clsx(classNames.chip, {[classNames.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED})}
+          <Button
+            variant={'text'}
+            className={clsx(classNames.chip, {
+              [classNames.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
+            })}
             onClick={() => setRecommendChip()}
-          />
+          >
+            {t(TranslationKey.Recommended)}
+          </Button>
+
           <Typography className={classNames.betweenChipsText}>{t(TranslationKey['or search by'])}</Typography>
 
-          <Chip
-            label={t(TranslationKey.Title)}
-            className={clsx(classNames.chip, {[classNames.chipActive]: chipConfig === chipConfigSettings.NAME})}
+          <Button
+            variant={'text'}
+            className={clsx(classNames.chip, classNames.chipLeftMargin, {
+              [classNames.chipActive]: chipConfig === chipConfigSettings.NAME,
+            })}
             onClick={() => setChipConfig(chipConfigSettings.NAME)}
-          />
+          >
+            {t(TranslationKey.Title)}
+          </Button>
 
-          <Chip
-            label={t(TranslationKey.ASIN)}
-            className={clsx(classNames.chip, classNames.asinChip, {
+          <Button
+            variant={'text'}
+            className={clsx(classNames.chip, classNames.chipLeftMargin, {
               [classNames.chipActive]: chipConfig === chipConfigSettings.ASIN,
             })}
             onClick={() => setChipConfig(chipConfigSettings.ASIN)}
-          />
+          >
+            {t(TranslationKey.ASIN)}
+          </Button>
 
-          <Chip
-            label={t(TranslationKey.SKU)}
-            className={clsx(classNames.chip, classNames.asinChip, {
+          <Button
+            variant={'text'}
+            className={clsx(classNames.chip, classNames.chipLeftMargin, {
               [classNames.chipActive]: chipConfig === chipConfigSettings.SKU,
             })}
             onClick={() => setChipConfig(chipConfigSettings.SKU)}
-          />
-        </div>
+          >
+            {t(TranslationKey.SKU)}
+          </Button>
 
-        <div className={classNames.searchInputWrapper}>
-          <Input
+          <Field
+            containerClasses={classNames.searchContainer}
+            inputClasses={classNames.searchInput}
             disabled={chipConfig === chipConfigSettings.RECOMMENDED}
-            inputProps={{maxLength: 200}}
-            placeholder={t(TranslationKey.search) + '...'}
-            className={classNames.searchInput}
             value={searchInputValue}
+            placeholder={'search'}
+            endAdornment={
+              <InputAdornment position="start">
+                <SearchIcon color="primary" />
+              </InputAdornment>
+            }
             onChange={e => setSearchInputValue(e.target.value)}
           />
-
-          <button
-            disabled={chipConfig === chipConfigSettings.RECOMMENDED || searchInputValue === ''}
-            className={classNames.searchBtn}
-            onClick={() => onClickSearch()}
-          >
-            {t(TranslationKey.search)}
-          </button>
         </div>
 
         <div className={classNames.tableWrapper}>

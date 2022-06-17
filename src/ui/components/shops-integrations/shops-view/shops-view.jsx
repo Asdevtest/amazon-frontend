@@ -15,6 +15,7 @@ import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {ShopsViewModel} from './shops-view.model'
@@ -78,6 +79,7 @@ class ShopsViewRaw extends Component {
             <DataGrid
               pagination
               useResizeContainer
+              localeText={getLocalizationByLanguageTag()}
               sortModel={sortModel}
               filterModel={filterModel}
               page={curPage}
