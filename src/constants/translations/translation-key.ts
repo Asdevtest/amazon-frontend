@@ -350,7 +350,7 @@ export enum TranslationKey {
   'Available photos' = 'Available photos',
   'File added' = 'File added',
   'Set Shipping Label' = 'Set Shipping Label',
-  'Set Barcode Label' = 'Set Barcode Label',
+  'Set Barcode' = 'Set Barcode',
   'Box dimensions' = 'Box dimensions',
   'Real weight' = 'Real weight',
   'Final weight, kg' = 'Final weight, kg',

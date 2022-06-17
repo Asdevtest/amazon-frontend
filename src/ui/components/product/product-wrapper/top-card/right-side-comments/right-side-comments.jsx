@@ -29,6 +29,7 @@ const clientToEditStatuses = [
 
 export const RightSideComments = observer(
   ({
+    showActionBtns,
     curUserRole,
     onChangeField,
     product,
@@ -40,22 +41,6 @@ export const RightSideComments = observer(
     const classNames = useClassNames()
     const productStatusButtonsConfig =
       productStatusButtonsConfigs[curUserRole] && productStatusButtonsConfigs[curUserRole](productBase.status)
-
-    const showActionBtns =
-      (checkIsSupervisor(curUserRole) &&
-        productBase.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
-        productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
-      (checkIsSupervisor(curUserRole) &&
-        productBase.status >= ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
-        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS] &&
-        productBase.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]) ||
-      (checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)) ||
-      (checkIsResearcher(curUserRole) &&
-        productBase.status < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) ||
-      (checkIsBuyer(curUserRole) && productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
-      (checkIsBuyer(curUserRole) &&
-        productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
-        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
 
     return (
       <Grid item sm={5} xs={12}>

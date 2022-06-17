@@ -74,7 +74,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
           }}
           className={clsx({[classNames.barcodeChipExists]: item.barCode})}
           size="small"
-          label={item.barCode ? trimBarcode(item.barCode) : t(TranslationKey['Set Barcode Label'])}
+          label={item.barCode ? trimBarcode(item.barCode) : t(TranslationKey['Set Barcode'])}
           onClick={() => handlers.onClickBarcode(item, itemIndex)}
           onDoubleClick={() => handlers.onDoubleClickBarcode(item, itemIndex)}
           onDelete={!item.barCode ? undefined : () => handlers.onDeleteBarcode(item, itemIndex)}

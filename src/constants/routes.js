@@ -52,6 +52,7 @@ import {ResearcherFinancesViews} from '@views/researcher/researcher-finances-vie
 // import {ResearcherMyProductsRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-products-requests-view'
 import {ResearcherProductView} from '@views/researcher/researcher-product-view/researcher-product-view'
 import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
+import {ResearcherSubUsersView} from '@views/researcher/researcher-users-views/researcher-sub-users-view'
 // import {ResearcherRequestDetailCustomView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-custom-view'
 // import {ResearcherRequestDetailNicheView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-niche-view'
 // import {ResearcherRequestDetailProductView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-product-view'
@@ -309,19 +310,13 @@ export const privateRoutesConfigs = [
   //   permission: [UserRole.RESEARCHER],
   // },
 
-  // {
-  //   routePath: '/researcher/users/sub-users',
-  //   component: ResearcherSubUsersView,
-  //   exact: false,
-  //   permission: [UserRole.RESEARCHER],
-  // },
+  {
+    routePath: '/researcher/users/sub-users',
+    component: ResearcherSubUsersView,
+    exact: false,
+    permission: [UserRole.RESEARCHER],
+  },
 
-  // {
-  //   routePath: '/researcher/settings',
-  //   component: ResearcherSettingsView,
-  //   exact: false,
-  //   permission: [UserRole.RESEARCHER],
-  // },
   {
     routePath: '/researcher/finances',
     component: ResearcherFinancesViews,

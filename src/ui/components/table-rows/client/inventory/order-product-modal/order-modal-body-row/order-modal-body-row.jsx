@@ -152,7 +152,7 @@ export const OrderModalBodyRow = ({
                 ? 'FILE IS ADDED'
                 : orderState.barCode
                 ? trimBarcode(orderState.barCode)
-                : t(TranslationKey['Set Barcode Label'])
+                : t(TranslationKey['Set Barcode'])
             }
             onClick={() => onClickBarcode(item, itemIndex)}
             onDoubleClick={() => onDoubleClickBarcode(item, itemIndex)}

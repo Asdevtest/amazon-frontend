@@ -140,7 +140,7 @@ export const BarcodeCell = withStyles(styles)(({classes: classNames, product, ha
       }}
       className={clsx({[classNames.barcodeChipExists]: product.barCode})}
       size="small"
-      label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey['Set Barcode Label'])}
+      label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey['Set Barcode'])}
       onClick={() => handlers.onClickBarcode(product)}
       onDoubleClick={() => handlers.onDoubleClickBarcode(product)}
       onDelete={!product.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
