@@ -292,7 +292,7 @@ export const RenderFieldValueCell = withStyles(styles)(({classes: classNames, va
 
 export const MultilineTextCell = withStyles(styles)(({classes: classNames, text}) => (
   <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText}>{text}</Typography>
+    <Typography className={classNames.multilineText}>{text || 'n/a'}</Typography>
   </div>
 ))
 

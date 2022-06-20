@@ -123,11 +123,11 @@ export const useClassNames = makeStyles(theme => ({
     alignItems: 'flex-start',
   },
 
-  filesWrapper: {
-    width: '450px',
-    maxHeight: '220px',
-    overflow: 'auto',
-  },
+  // filesWrapper: {
+  //   width: '450px',
+  //   maxHeight: '220px',
+  //   overflow: 'auto',
+  // },
 
   filesContainer: {
     width: 'auto',
@@ -144,5 +144,17 @@ export const useClassNames = makeStyles(theme => ({
     '&:hover': {
       opacity: '0.8',
     },
+  },
+
+  filesWrapper: {
+    marginTop: 20,
+    height: 200,
+  },
+
+  files: {
+    fontWeight: 600,
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
   },
 }))

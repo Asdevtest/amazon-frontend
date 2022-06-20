@@ -67,7 +67,7 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '21px',
     color: '#354256',
     overflow: 'auto',
-    maxHeight: '120px',
+    height: 80,
   },
 
   btnsBlockWrapper: {

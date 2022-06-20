@@ -5,19 +5,17 @@ import React, {useState} from 'react'
 
 import {Avatar, Checkbox, Link, List, ListItem, ListItemText, Typography} from '@material-ui/core'
 import clsx from 'clsx'
-import Carousel from 'react-material-ui-carousel'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-// import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
-import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsImageLink, checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign} from '@utils/text'
@@ -36,9 +34,6 @@ export const CreateOrEditProposalContent = ({
   const classNames = useClassNames()
 
   const [images, setImages] = useState([])
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
-
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   const sourceFormFields = {
     price: proposalToEdit?.price || parseInt(request?.request.price),
@@ -165,28 +160,7 @@ export const CreateOrEditProposalContent = ({
         {request.details.linksToMediaFiles?.length > 0 ? (
           <Field
             label={'Файлы'}
-            inputComponent={
-              <div className={classNames.photoWrapper}>
-                <Carousel autoPlay timeout={100} animation="fade">
-                  {request.details.linksToMediaFiles
-                    ?.filter(el => checkIsImageLink(el))
-                    .map((el, index) => (
-                      <div key={index}>
-                        <img
-                          alt=""
-                          className={classNames.imgBox}
-                          src={el}
-                          onClick={() => {
-                            setShowPhotosModal(!showPhotosModal)
-
-                            setBigImagesOptions({images: request.details.linksToMediaFiles, imgIndex: index})
-                          }}
-                        />
-                      </div>
-                    ))}
-                </Carousel>
-              </div>
-            }
+            inputComponent={<PhotoAndFilesCarousel files={request.details.linksToMediaFiles} width="400px" />}
           />
         ) : null}
 
@@ -305,13 +279,6 @@ export const CreateOrEditProposalContent = ({
       </div>
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
-
-      <BigImagesModal
-        isAmazone
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={bigImagesOptions.images || []}
-      />
     </div>
   )
 }
