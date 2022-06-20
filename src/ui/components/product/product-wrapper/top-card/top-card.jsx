@@ -15,7 +15,7 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsBuyer, checkIsClient, checkIsImageLink, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
+import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {t} from '@utils/translations'
 
@@ -64,11 +64,13 @@ export const TopCard = observer(
     const showActionBtns =
       (checkIsSupervisor(curUserRole) &&
         productBase.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
-        checkIsSupervisor(curUserRole) &&
+        productBase.status !== ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT] &&
         productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
       (checkIsSupervisor(curUserRole) &&
         productBase.status >= ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
-        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS]) ||
+        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS] &&
+        productBase.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT] &&
+        productBase.status !== ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH]) ||
       (checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)) ||
       (checkIsResearcher(curUserRole) &&
         productBase.status < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) ||
@@ -87,21 +89,19 @@ export const TopCard = observer(
                   {product.images && product.images.length ? (
                     <div className={classNames.carouselWrapper}>
                       <Carousel animation="slide" /* autoPlay={true}*/ timeout={500}>
-                        {product.images
-                          ?.filter(el => !checkIsImageLink(el))
-                          .map((imageHash, index) => (
-                            <Box key={index} textAlign="center" className={classNames.carouselImageWrapper}>
-                              <img
-                                alt=""
-                                className={classNames.carouselImage}
-                                src={getAmazonImageUrl(imageHash)}
-                                onClick={() => {
-                                  setShowImageModal(!showImageModal)
-                                  setBigImagesOptions({images: product.images, imgIndex: index})
-                                }}
-                              />
-                            </Box>
-                          ))}
+                        {product.images.map((imageHash, index) => (
+                          <Box key={index} textAlign="center" className={classNames.carouselImageWrapper}>
+                            <img
+                              alt=""
+                              className={classNames.carouselImage}
+                              src={getAmazonImageUrl(imageHash)}
+                              onClick={() => {
+                                setShowImageModal(!showImageModal)
+                                setBigImagesOptions({images: product.images, imgIndex: index})
+                              }}
+                            />
+                          </Box>
+                        ))}
                       </Carousel>
                     </div>
                   ) : undefined}
@@ -109,23 +109,24 @@ export const TopCard = observer(
                 {(checkIsResearcher(curUserRole) || checkIsClient(curUserRole) || checkIsSupervisor(curUserRole)) &&
                 !product.archive &&
                 showActionBtns ? (
-                  <Box className={classNames.parseButtonsWrapper}>
-                    <React.Fragment>
-                      <Button
-                        className={classNames.buttonParseAmazon}
-                        onClick={() => onClickParseProductData(ProductDataParser.AMAZON, product)}
-                      >
-                        {'Parse Amazon'}
-                      </Button>
-                      <Button
-                        className={classNames.buttonParseAmazon}
-                        onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}
-                      >
-                        {'Parse Sellcentrall'}
-                      </Button>
-                    </React.Fragment>
-
-                    {(checkIsResearcher(curUserRole) || clientToEdit) && (
+                  <div className={classNames.actionsWrapper}>
+                    <Box className={classNames.parseButtonsWrapper}>
+                      <React.Fragment>
+                        <Button
+                          className={classNames.buttonParseAmazon}
+                          onClick={() => onClickParseProductData(ProductDataParser.AMAZON, product)}
+                        >
+                          {'Parse Amazon'}
+                        </Button>
+                        <Button
+                          className={classNames.buttonParseAmazon}
+                          onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}
+                        >
+                          {'Parse Sellcentrall'}
+                        </Button>
+                      </React.Fragment>
+                    </Box>
+                    {(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || clientToEdit) && (
                       <div className={classNames.imageFileInputWrapper}>
                         <UploadFilesInput
                           images={imagesForLoad}
@@ -135,7 +136,7 @@ export const TopCard = observer(
                         />
                       </div>
                     )}
-                  </Box>
+                  </div>
                 ) : undefined}
                 {actionStatus === loadingStatuses.success || actionStatus === loadingStatuses.failed ? (
                   <Alert
@@ -150,6 +151,7 @@ export const TopCard = observer(
                 ) : undefined}
               </Grid>
               <FieldsAndSuppliers
+                showActionBtns={showActionBtns}
                 formFieldsValidationErrors={formFieldsValidationErrors}
                 curUserRole={curUserRole}
                 product={product}
@@ -161,6 +163,7 @@ export const TopCard = observer(
               />
             </Grid>
             <RightSideComments
+              showActionBtns={showActionBtns}
               curUserRole={curUserRole}
               product={product}
               productBase={productBase}

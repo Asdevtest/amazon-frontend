@@ -16,6 +16,7 @@ import {Modal} from '@components/modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {IntegrationsModel} from './integrations.model'
@@ -64,6 +65,7 @@ export const Integrations = observer(({productId}) => {
       <DataGrid
         pagination
         useResizeContainer
+        localeText={getLocalizationByLanguageTag()}
         classes={{
           row: classNames.row,
         }}

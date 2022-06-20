@@ -50,16 +50,12 @@ export const useClassNames = makeStyles(() => ({
 
   orderNumWrapper: {
     display: 'flex',
-    width: '170px',
-    justifyContent: 'space-between',
     marginLeft: '120px',
     alignItems: 'center',
   },
 
   orderPriceWrapper: {
     display: 'flex',
-    width: '170px',
-    justifyContent: 'space-between',
     marginLeft: '120px',
     alignItems: 'center',
   },
@@ -73,6 +69,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   titleSpan: {
+    marginLeft: 20,
     fontWeight: '600',
     fontSize: '16px',
     lineHeight: '19px',

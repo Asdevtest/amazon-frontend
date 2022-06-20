@@ -13,6 +13,7 @@ import {AddOrEditWarehouseTariffForm} from '@components/forms/add-or-edit-wareho
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {WarehouseTariffModel} from './warehouse-tariffs.model'
@@ -63,6 +64,7 @@ export const WarehouseTariffs = observer(() => {
       <DataGrid
         pagination
         useResizeContainer
+        localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
         filterModel={filterModel}
         page={curPage}

@@ -98,7 +98,7 @@ export const ProductsBodyRow = ({item, itemIndex, handlers}) => {
           }}
           className={clsx({[classNames.barcodeChipExists]: item.barcode})}
           size="small"
-          label={item.barcode ? trimBarcode(item.barcode) : t(TranslationKey['Set Barcode Label'])}
+          label={item.barcode ? trimBarcode(item.barcode) : t(TranslationKey['Set Barcode'])}
           onClick={() => handlers.onClickBarcode(item, itemIndex)}
           onDoubleClick={() => handlers.onDoubleClickBarcode(item, itemIndex)}
           onDelete={!item.barcode ? undefined : () => handlers.onDeleteBarcode(item, itemIndex)}

@@ -13,6 +13,7 @@ import {AddOrEditSinglePermissionForm} from '@components/forms/add-or-edit-singl
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {SinglePermissionsModel} from './single-permissions.model'
@@ -62,6 +63,7 @@ export const SinglePermissions = observer(() => {
       <DataGrid
         pagination
         useResizeContainer
+        localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
         filterModel={filterModel}
         page={curPage}

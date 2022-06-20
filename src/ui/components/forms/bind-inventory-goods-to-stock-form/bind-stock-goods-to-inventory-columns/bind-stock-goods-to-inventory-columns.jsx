@@ -16,14 +16,14 @@ export const sourceColumns = () => [
     field: 'sku',
     headerName: t(TranslationKey.SKU),
     renderCell: params => renderFieldValueCell(params.value),
-    width: 120,
+    width: 170,
   },
 
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
     renderCell: params => renderFieldValueCell(params.value),
-    width: 120,
+    width: 200,
   },
 
   {
@@ -44,7 +44,7 @@ export const sourceColumns = () => [
     field: 'roi',
     headerName: t(TranslationKey.ROI),
     renderCell: params => renderFieldValueCell(params.value),
-    width: 100,
+    width: 70,
   },
 ]
 
@@ -60,14 +60,14 @@ export const chosenGoodsColumns = handlers => [
     field: 'sku',
     headerName: t(TranslationKey.SKU),
     renderCell: params => renderFieldValueCell(params.value),
-    width: 120,
+    width: 170,
   },
 
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
     renderCell: params => renderFieldValueCell(params.value),
-    width: 120,
+    width: 200,
   },
 
   {
@@ -88,7 +88,7 @@ export const chosenGoodsColumns = handlers => [
     field: 'roi',
     headerName: t(TranslationKey.ROI),
     renderCell: params => renderFieldValueCell(params.value),
-    width: 100,
+    width: 70,
   },
 
   {

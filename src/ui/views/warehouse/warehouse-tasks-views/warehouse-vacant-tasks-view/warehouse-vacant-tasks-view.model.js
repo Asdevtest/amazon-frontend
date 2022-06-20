@@ -124,6 +124,7 @@ export class WarehouseVacantViewModel {
     try {
       await StorekeeperModel.pickupTask(item._id)
 
+      this.loadData()
       this.curTask = item
       this.onTriggerOpenModal('showTwoVerticalChoicesModal')
     } catch (error) {

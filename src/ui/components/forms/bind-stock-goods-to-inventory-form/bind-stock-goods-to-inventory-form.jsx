@@ -1,8 +1,9 @@
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
-import {Chip, Typography} from '@material-ui/core'
+import {InputAdornment, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
@@ -10,8 +11,9 @@ import qs from 'qs'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
-import {Input} from '@components/input'
+import {Field} from '@components/field'
 
 import {t} from '@utils/translations'
 
@@ -72,20 +74,26 @@ export const BindStockGoodsToInventoryForm = observer(
       )
       .replace(/&/, ';')
 
-    const onClickSearch = () => {
-      updateInventoryData(filter)
-    }
-
     const setRecommendChip = () => {
       setChipConfig(chipConfigSettings.RECOMMENDED)
-      setSearchInputValue('')
     }
 
     useEffect(() => {
       if (chipConfig === chipConfigSettings.RECOMMENDED) {
-        updateInventoryData()
+        const recFilter = qs.stringify({asin: {$contains: goodsToSelect[0].asin}}, {encode: false}).replace(/&/, ';')
+        const isRecCall = true
+
+        updateInventoryData(recFilter, isRecCall)
       }
+
+      setSearchInputValue('')
     }, [chipConfig])
+
+    useEffect(() => {
+      if (chipConfig !== chipConfigSettings.RECOMMENDED) {
+        updateInventoryData(filter)
+      }
+    }, [searchInputValue])
 
     const onClickSubmit = () => {
       const selectedWarehouseStocks = chosenGoods.map(el => ({sku: el.sku, shopId: el.shop._id}))
@@ -99,7 +107,7 @@ export const BindStockGoodsToInventoryForm = observer(
 
         <div className={classNames.form}>
           <div className={classNames.filtersWrapper}>
-            <Chip
+            {/* <Chip
               label={t(TranslationKey.Recommended)}
               className={clsx(classNames.chip, {
                 [classNames.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
@@ -120,10 +128,56 @@ export const BindStockGoodsToInventoryForm = observer(
                 [classNames.chipActive]: chipConfig === chipConfigSettings.ASIN,
               })}
               onClick={() => setChipConfig(chipConfigSettings.ASIN)}
+            /> */}
+
+            <Button
+              variant={'text'}
+              className={clsx(classNames.chip, {
+                [classNames.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
+              })}
+              onClick={() => setRecommendChip()}
+            >
+              {t(TranslationKey.Recommended)}
+            </Button>
+
+            <Typography className={classNames.betweenChipsText}>{t(TranslationKey['or search by'])}</Typography>
+
+            <Button
+              variant={'text'}
+              className={clsx(classNames.chip, classNames.chipLeftMargin, {
+                [classNames.chipActive]: chipConfig === chipConfigSettings.NAME,
+              })}
+              onClick={() => setChipConfig(chipConfigSettings.NAME)}
+            >
+              {t(TranslationKey.Title)}
+            </Button>
+
+            <Button
+              variant={'text'}
+              className={clsx(classNames.chip, classNames.chipLeftMargin, {
+                [classNames.chipActive]: chipConfig === chipConfigSettings.ASIN,
+              })}
+              onClick={() => setChipConfig(chipConfigSettings.ASIN)}
+            >
+              {t(TranslationKey.ASIN)}
+            </Button>
+
+            <Field
+              containerClasses={classNames.searchContainer}
+              inputClasses={classNames.searchInput}
+              disabled={chipConfig === chipConfigSettings.RECOMMENDED}
+              value={searchInputValue}
+              placeholder={'search'}
+              endAdornment={
+                <InputAdornment position="start">
+                  <SearchIcon color="primary" />
+                </InputAdornment>
+              }
+              onChange={e => setSearchInputValue(e.target.value)}
             />
           </div>
 
-          <div className={classNames.searchInputWrapper}>
+          {/* <div className={classNames.searchInputWrapper}>
             <Input
               disabled={chipConfig === chipConfigSettings.RECOMMENDED}
               inputProps={{maxLength: 200}}
@@ -140,7 +194,7 @@ export const BindStockGoodsToInventoryForm = observer(
             >
               {t(TranslationKey.search)}
             </button>
-          </div>
+          </div> */}
 
           <div className={classNames.tableWrapper}>
             <DataGrid

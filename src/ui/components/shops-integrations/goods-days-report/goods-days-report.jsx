@@ -11,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {GoodsDaysReportModel} from './goods-days-report.model'
@@ -79,6 +80,7 @@ class GoodsDaysReportRaw extends Component {
             <DataGrid
               pagination
               useResizeContainer
+              localeText={getLocalizationByLanguageTag()}
               classes={{
                 row: className.row,
               }}

@@ -18,6 +18,7 @@ import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {ClientBoxesTariffsNotificationsViewModel} from './client-boxes-tariffs-notifications-view.model'
@@ -85,6 +86,7 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
+                  localeText={getLocalizationByLanguageTag()}
                   classes={{
                     row: classNames.row,
                   }}

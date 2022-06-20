@@ -6,11 +6,15 @@ export const useClassNames = makeStyles(() => ({
   },
 
   form: {
-    marginTop: 20,
+    marginTop: 30,
+  },
+  cancelBtn: {
+    marginLeft: '50px',
+    backgroundColor: '#fff',
   },
 
   button: {
-    marginLeft: '100px',
+    minWidth: 185,
   },
   multiline: {
     width: '100%',
@@ -18,7 +22,6 @@ export const useClassNames = makeStyles(() => ({
   },
 
   descriptionField: {
-    // height: '100px',
     width: '100%',
     overflowY: 'hidden',
   },
@@ -51,5 +54,13 @@ export const useClassNames = makeStyles(() => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'center',
+  },
+
+  title: {
+    fontWeight: 600,
+    fontSize: '18px',
+    lineHeight: '140%',
+
+    color: '#001029',
   },
 }))

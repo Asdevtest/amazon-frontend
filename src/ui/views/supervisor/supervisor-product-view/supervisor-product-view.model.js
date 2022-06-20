@@ -24,6 +24,7 @@ import {
 } from '@utils/object'
 import {parseFieldsAdapter} from '@utils/parse-fields-adapter'
 import {t} from '@utils/translations'
+import {onSubmitPostImages} from '@utils/upload-files'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const fieldsOfProductAllowedToUpdate = [
@@ -117,6 +118,9 @@ export class SupervisorProductViewModel {
   error = undefined
   actionStatus = undefined
 
+  imagesForLoad = []
+  uploadedImages = []
+
   product = undefined
   productId = undefined
   productBase = undefined
@@ -167,6 +171,10 @@ export class SupervisorProductViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  onChangeImagesForLoad(value) {
+    this.imagesForLoad = value
   }
 
   onChangeProductFields = fieldName =>
@@ -311,7 +319,17 @@ export class SupervisorProductViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
 
-      await SupervisorModel.updateProduct(this.product._id, this.curUpdateProductData)
+      if (this.imagesForLoad.length) {
+        await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'uploadedImages'})
+        this.imagesForLoad = []
+      }
+
+      await SupervisorModel.updateProduct(this.product._id, {
+        ...this.curUpdateProductData,
+        images: this.uploadedImages.length
+          ? [...this.curUpdateProductData.images, ...this.uploadedImages]
+          : this.curUpdateProductData.images,
+      })
       this.setActionStatus(loadingStatuses.success)
 
       this.history.push('/supervisor/products')

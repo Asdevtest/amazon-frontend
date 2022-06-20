@@ -22,7 +22,7 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 
-import {checkIsClient, checkIsSupervisor, checkIsAdmin, checkIsResearcher, checkIsBuyer} from '@utils/checks'
+import {checkIsClient, checkIsSupervisor, checkIsAdmin, checkIsResearcher} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -38,6 +38,7 @@ const clientToEditStatuses = [
 
 export const FieldsAndSuppliers = observer(
   ({
+    showActionBtns,
     curUserRole,
     onChangeField,
     product,
@@ -65,22 +66,6 @@ export const FieldsAndSuppliers = observer(
 
     const isSupplierAcceptRevokeActive =
       selectedSupplier && product.currentSupplierId && product.currentSupplierId === selectedSupplier._id
-
-    const showActionBtns =
-      (checkIsSupervisor(curUserRole) &&
-        productBase.status !== ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP] &&
-        checkIsSupervisor(curUserRole) &&
-        productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
-      (checkIsSupervisor(curUserRole) &&
-        productBase.status >= ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
-        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS]) ||
-      (checkIsClient(curUserRole) && product.isCreatedByClient && clientToEditStatuses.includes(productBase.status)) ||
-      (checkIsResearcher(curUserRole) &&
-        productBase.status < ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR]) ||
-      (checkIsBuyer(curUserRole) && productBase.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS]) ||
-      (checkIsBuyer(curUserRole) &&
-        productBase.status > ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT] &&
-        productBase.status < ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS])
 
     const disabledPrivateLabelFields = !(
       checkIsResearcher(curUserRole) ||

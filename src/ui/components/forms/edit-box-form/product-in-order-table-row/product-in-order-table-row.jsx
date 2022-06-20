@@ -48,7 +48,7 @@ export const ProductInOrderTableRow = observer(({item, handlers, ...restProps}) 
               ? t(TranslationKey['File added'])
               : item.barCode
               ? item.barCode
-              : t(TranslationKey['Set Barcode Label'])
+              : t(TranslationKey['Set Barcode'])
           }
           onClick={() => restProps.onClickBarcode(item)}
           onDoubleClick={() => restProps.onDoubleClickBarcode(item)}

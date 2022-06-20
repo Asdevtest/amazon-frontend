@@ -94,8 +94,6 @@ export const AdminContentModal = observer(
       if (fieldName === 'role') {
         setPermissionsToSelect([...singlePermissions.filter(item => item.role === +event.target.value)])
         setPermissionGroupsToSelect([...groupPermissions.filter(item => item.role === +event.target.value)])
-
-        newFormFields.allowedRoles = [...formFields.allowedRoles, +event.target.value]
       }
 
       if (fieldName === 'role' && fieldName === 'permissions' && fieldName === 'permissionGroups') {
@@ -125,6 +123,17 @@ export const AdminContentModal = observer(
       newFormFields.permissions = permissions
       newFormFields.permissionGroups = []
       setFormFields(newFormFields)
+    }
+
+    const onClickSubmit = () => {
+      const dataToSubmit = {
+        ...formFields,
+        allowedRoles: formFields.allowedRoles.includes(Number(formFields.role))
+          ? [...formFields.allowedRoles]
+          : [...formFields.allowedRoles, Number(formFields.role)],
+      }
+
+      onSubmit(dataToSubmit, editUserFormFields)
     }
 
     const selectedPermissions = singlePermissions.filter(per => formFields.permissions.includes(per._id))
@@ -228,6 +237,7 @@ export const AdminContentModal = observer(
 
         <Field
           label={t(TranslationKey.Role)}
+          tooltipInfoContent={'Роль будет автоматически добавлена в разрешеннные'}
           error={
             isWrongPermissionsSelect && t(TranslationKey['The selected permissions and the current role do not match!'])
           }
@@ -270,7 +280,12 @@ export const AdminContentModal = observer(
                       [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) || role === formFields.role
                     }
                   >
-                    <Checkbox color="primary" checked={formFields.allowedRoles.includes(Number(role))} />
+                    <Checkbox
+                      color="primary"
+                      checked={
+                        formFields.allowedRoles.includes(Number(role)) || Number(role) === Number(formFields.role)
+                      }
+                    />
                     <ListItemText primary={UserRoleCodeMap[role]} />
                   </MenuItem>
                 ))}
@@ -340,9 +355,10 @@ export const AdminContentModal = observer(
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
             variant="contained"
             color="primary"
-            onClick={() => {
-              onSubmit(formFields, editUserFormFields)
-            }}
+            // onClick={() => {
+            //   onSubmit(formFields, editUserFormFields)
+            // }}
+            onClick={onClickSubmit}
           >
             {buttonLabel}
           </Button>

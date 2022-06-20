@@ -13,6 +13,7 @@ import {AddOrEditLogisticTariffForm} from '@components/forms/add-or-edit-logisti
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {LogisticsTariffsModel} from './logistics-tariffs.model'
@@ -65,6 +66,7 @@ export const LogisticsTariffs = observer(() => {
       <DataGrid
         pagination
         useResizeContainer
+        localeText={getLocalizationByLanguageTag()}
         sortModel={sortModel}
         filterModel={filterModel}
         page={curPage}

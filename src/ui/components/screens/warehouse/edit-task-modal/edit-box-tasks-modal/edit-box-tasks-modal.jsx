@@ -26,6 +26,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           inputProps={{maxLength: 6}}
+          error={Number(box.lengthCmWarehouse) === 0 && true}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Length) + ': '}
           value={box.lengthCmWarehouse}
@@ -33,6 +34,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         />
         <Field
           inputProps={{maxLength: 6}}
+          error={Number(box.widthCmWarehouse) === 0 && true}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Width) + ': '}
           value={box.widthCmWarehouse}
@@ -42,6 +44,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           inputProps={{maxLength: 6}}
+          error={Number(box.heightCmWarehouse) === 0 && true}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Height) + ': '}
           value={box.heightCmWarehouse}
@@ -49,6 +52,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         />
         <Field
           inputProps={{maxLength: 6}}
+          error={Number(box.weighGrossKgWarehouse) === 0 && true}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Weight) + ', ' + t(TranslationKey.Kg) + ': '}
           value={box.weighGrossKgWarehouse}
@@ -180,6 +184,12 @@ export const EditBoxTasksModal = ({
     }
   }
 
+  const disabledSubmit =
+    !Number(editingBox.lengthCmWarehouse) ||
+    !Number(editingBox.widthCmWarehouse) ||
+    !Number(editingBox.heightCmWarehouse) ||
+    !Number(editingBox.weighGrossKgWarehouse)
+
   return (
     <Container disableGutters>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
@@ -241,7 +251,9 @@ export const EditBoxTasksModal = ({
 
       <div className={classNames.buttonsWrapper}>
         <Box className={classNames.button}>
-          <Button onClick={onSubmit}>{t(TranslationKey.Save)}</Button>
+          <Button disabled={disabledSubmit} onClick={onSubmit}>
+            {t(TranslationKey.Save)}
+          </Button>
         </Box>
 
         <Box className={classNames.button}>

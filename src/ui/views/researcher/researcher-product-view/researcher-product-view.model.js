@@ -543,7 +543,6 @@ export class ResearcherProductViewModel {
 
       if (this.imagesForLoad.length) {
         await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'uploadedImages'})
-
         this.imagesForLoad = []
       }
 

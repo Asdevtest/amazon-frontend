@@ -164,7 +164,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
       ) : (
         <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />
       ),
-    minWidth: 100,
+    minWidth: 150,
     headerAlign: 'center',
     type: 'actions',
   },
@@ -180,7 +180,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
       ) : (
         <HsCodeCell product={params.row.originalData} handlers={hsCodeHandlers} />
       ),
-    minWidth: 100,
+    minWidth: 150,
     headerAlign: 'center',
   },
 
