@@ -542,4 +542,8 @@ export const styles = createStyles(() => ({
   statusText: {
     textTransform: 'uppercase',
   },
+
+  editOrRemoveBtnsCell: {
+    display: 'flex',
+  },
 }))

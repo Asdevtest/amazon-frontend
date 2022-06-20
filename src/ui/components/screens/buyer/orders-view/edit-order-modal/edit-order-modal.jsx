@@ -10,7 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
-import {ErrorButton} from '@components/buttons/error-button'
+import {Field} from '@components/field/field'
 import {CreateBoxForm} from '@components/forms/create-box-form'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -198,8 +198,12 @@ export const EditOrderModal = ({
         />
 
         <Divider className={classNames.divider} />
-
-        <Typography className={classNames.modalText}>{t(TranslationKey.Suppliers)}</Typography>
+        <Field
+          tooltipInfoContent={t(TranslationKey['Current supplier through whom the order was placed'])}
+          label={t(TranslationKey.Suppliers)}
+          labelClasses={classNames.label}
+          inputClasses={classNames.hidden}
+        />
         <EditOrderSuppliersTable
           selectedSupplier={orderFields.orderSupplier}
           suppliers={orderFields.product.suppliers}
@@ -209,6 +213,7 @@ export const EditOrderModal = ({
       <Box mt={2} className={classNames.buttonsBox}>
         <Button
           disabled={disableSubmit}
+          tooltipInfoContent={t(TranslationKey['Save changes to the order'])}
           className={classNames.saveBtn}
           onClick={() => {
             if (boxesForCreation.length > 0) {
@@ -221,18 +226,27 @@ export const EditOrderModal = ({
         >
           {t(TranslationKey.Save)}
         </Button>
-        <ErrorButton onClick={() => onTriggerOpenModal('showOrderModal')}>{t(TranslationKey.Cancel)}</ErrorButton>
+        <Button
+          tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
+          className={classNames.cancelBtn}
+          onClick={() => onTriggerOpenModal('showOrderModal')}
+        >
+          {t(TranslationKey.Cancel)}
+        </Button>
       </Box>
 
       {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) && (
-        <Button
-          disableElevation
-          color="primary"
-          variant="contained"
-          onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
-        >
-          {t(TranslationKey['Add a box'])}
-        </Button>
+        <div className={classNames.addBtn}>
+          <Button
+            disableElevation
+            tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
+            color="primary"
+            variant="contained"
+            onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
+          >
+            {t(TranslationKey['Add a box'])}
+          </Button>
+        </div>
       )}
 
       {boxesForCreation.length > 0 && (
@@ -247,7 +261,14 @@ export const EditOrderModal = ({
       )}
 
       <div className={classNames.tableWrapper}>
-        <Typography className={classNames.modalTitle}>{t(TranslationKey['Boxes on this order:'])}</Typography>
+        <Field
+          tooltipInfoContent={t(TranslationKey['All the boxes that the prep center received on order'])}
+          label={t(TranslationKey['Boxes on this order:'])}
+          inputClasses={classNames.hidden}
+          labelClasses={classNames.label}
+          containerClasses={classNames.fieldLabel}
+        />
+
         {boxes.length > 0 ? (
           <Table
             rowsOnly

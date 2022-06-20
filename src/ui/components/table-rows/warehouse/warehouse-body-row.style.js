@@ -46,4 +46,7 @@ export const styles = createStyles({
       transform: 'scale(0.99)',
     },
   },
+  button: {
+    display: 'flex',
+  },
 })

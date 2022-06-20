@@ -129,7 +129,6 @@ export const RightSideComments = observer(
                 {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
               </Button>
               <Button
-                danger
                 tooltipInfoContent={checkIsClient(curUserRole) && t(TranslationKey['Close product card'])}
                 className={clsx(classNames.buttonClose, {
                   [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
@@ -142,7 +141,6 @@ export const RightSideComments = observer(
 
               {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product.archive) ? (
                 <Button
-                  danger
                   tooltipInfoContent={t(TranslationKey['Move the product card to the Archive'])}
                   className={classNames.buttonDelete}
                   variant="contained"

@@ -2,12 +2,14 @@ import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {Checkbox, IconButton, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Checkbox, TableCell, TableRow, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {Button} from '@components/buttons/button'
+import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 import {Table} from '@components/table'
 
@@ -142,7 +144,13 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             checked={item.isBarCodeAlreadyAttachedByTheSupplier}
             onChange={e => handlers.onClickBarcodeCheckbox(itemIndex)(e)}
           />
-          <Typography>{t(TranslationKey['Supplier glued the barcode'])}</Typography>
+          <Field
+            tooltipInfoContent={t(TranslationKey["Label the box as labeled with the supplier's barcode"])}
+            label={t(TranslationKey['Supplier glued the barcode'])}
+            inputClasses={classNames.hidden}
+            labelClasses={classNames.label}
+            containerClasses={classNames.labelWrapper}
+          />
         </div>
 
         <div className={classNames.checkboxWithLabelWrapper}>
@@ -151,15 +159,25 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             checked={item.tmpUseToUpdateSupplierBoxDimensions}
             onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
           />
-          <Typography>{t(TranslationKey['Make the supplier standard'])}</Typography>
+          <Field
+            tooltipInfoContent={t(TranslationKey['Save box parameters to the current supplier'])}
+            label={t(TranslationKey['Make the supplier standard'])}
+            inputClasses={classNames.hidden}
+            labelClasses={classNames.label}
+            containerClasses={classNames.labelWrapper}
+          />
         </div>
       </TableCell>
 
       <TableCell>
         <div className={classNames.normalCell}>
-          <IconButton onClick={() => handlers.onRemoveBox(itemIndex)}>
+          <Button
+            tooltipInfoContent={t(TranslationKey['Remove box'])}
+            className={classNames.deleteBtnWrapper}
+            onClick={() => handlers.onRemoveBox(itemIndex)}
+          >
             <DeleteIcon className={classNames.deleteBtn} />
-          </IconButton>
+          </Button>
         </div>
       </TableCell>
     </TableRow>

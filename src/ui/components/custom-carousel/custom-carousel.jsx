@@ -178,8 +178,11 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
             </CustomCarousel>
           ) : (
             <div className={classNames.emptyIconWrapper}>
-              <div className={classNames.emptyIcon}>
-                <InboxIcon style={{color: '#C4C4C4', fontSize: '20px'}} />
+              <div className={classNames.emptyWrapper}>
+                <div className={classNames.emptyIcon}>
+                  <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+                </div>
+                <Typography>{t(TranslationKey['No photos'])}</Typography>
               </div>
             </div>
           )}
@@ -214,8 +217,11 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
             </CustomCarousel>
           ) : (
             <div className={classNames.emptyIconWrapper}>
-              <div className={classNames.emptyIcon}>
-                <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+              <div className={classNames.emptyWrapper}>
+                <div className={classNames.emptyIcon}>
+                  <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+                </div>
+                <Typography>{t(TranslationKey['No documents'])}</Typography>
               </div>
             </div>
           )}

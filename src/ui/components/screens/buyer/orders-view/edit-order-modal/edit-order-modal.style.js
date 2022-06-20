@@ -29,10 +29,11 @@ export const useClassNames = makeStyles(() => ({
   },
   buttonsBox: {
     textAlign: 'right',
+    display: 'flex',
+    justifyContent: 'end',
+    gap: '10px',
   },
-  saveBtn: {
-    marginRight: '8px',
-  },
+  saveBtn: {},
   tableWrapper: {
     marginTop: '15px',
   },
@@ -42,5 +43,35 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 500,
     lineHeight: '28px',
     marginBottom: '24px',
+  },
+
+  hidden: {
+    display: 'none',
+  },
+
+  label: {
+    fontSize: '18px',
+  },
+
+  addBtn: {
+    display: 'flex',
+  },
+
+  fieldLabel: {
+    margin: 0,
+  },
+  cancelBtn: {
+    color: '#fff',
+    backgroundColor: '#ff0000',
+    '&:hover': {
+      backgroundColor: '#c51a1c',
+
+      '@media (hover: none)': {
+        backgroundColor: '#c51a1c',
+      },
+    },
+    '&$disabled': {
+      backgroundColor: 'rgba(210, 35, 35, 0.5)',
+    },
   },
 }))

@@ -21,9 +21,15 @@ export const TableBodyRow = observer(({item, itemIndex, handlers}) => {
         <Typography>{itemIndex + 1}</Typography>
       </TableCell>
       <TableCell className={classNames.indexCell}>
-        <Button className={classNames.infoBtn} onClick={() => handlers.onClickTableRowBtn(item)}>
-          {t(TranslationKey['Get to work'])}
-        </Button>
+        <div className={classNames.infoBtnWrapper}>
+          <Button
+            tooltipInfoContent={t(TranslationKey['Assign the task of finding a supplier to Bayer'])}
+            className={classNames.infoBtn}
+            onClick={() => handlers.onClickTableRowBtn(item)}
+          >
+            {t(TranslationKey['Get to work'])}
+          </Button>
+        </div>
       </TableCell>
     </TableRow>
   )

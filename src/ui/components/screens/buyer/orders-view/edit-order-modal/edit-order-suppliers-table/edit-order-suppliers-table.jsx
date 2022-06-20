@@ -79,6 +79,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                 <TableCell>
                   <Button
                     disableElevation
+                    tooltipInfoContent={t(TranslationKey['Photos of current supplier'])}
                     disabled={!supplier.images || supplier.images < 1}
                     color="primary"
                     className={classNames.button}

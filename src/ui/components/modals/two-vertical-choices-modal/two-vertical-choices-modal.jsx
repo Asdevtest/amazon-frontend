@@ -2,8 +2,12 @@ import React from 'react'
 
 import {Typography} from '@material-ui/core'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {Button} from '@components/buttons/button'
 import {Modal} from '@components/modal'
+
+import {t} from '@utils/translations'
 
 import {useClassNames} from './two-vertical-choices-modal.style'
 
@@ -24,10 +28,20 @@ export const TwoVerticalChoicesModal = ({
         <Typography variant="h5">{title}</Typography>
 
         <div className={classNames.resultButtonsWrapper}>
-          <Button color="primary" variant="contained" onClick={onClickTopBtn}>
+          <Button
+            tooltipInfoContent={t(TranslationKey['Go to the order and open the "Edit order" window'])}
+            color="primary"
+            variant="contained"
+            onClick={onClickTopBtn}
+          >
             {topBtnText}
           </Button>
-          <Button color="primary" variant="text" onClick={onClickBottomBtn}>
+          <Button
+            tooltipInfoContent={t(TranslationKey['Stay in "Free Orders"'])}
+            color="primary"
+            variant="text"
+            onClick={onClickBottomBtn}
+          >
             {bottomBtnText}
           </Button>
         </div>

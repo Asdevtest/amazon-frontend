@@ -5,6 +5,13 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import {Link} from 'react-router-dom'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
+
+import {Button} from '@components/buttons/button'
+
+import {t} from '@utils/translations'
+
 import {styles} from './navbar-category.style'
 
 const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, userInfo, category}) => {
@@ -18,29 +25,52 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
     )
     .filter(el => el !== null)
 
+  const renderTooltipTitle = (categoryTitle, userRole) => {
+    if (UserRoleCodeMap[userRole] === UserRole.BUYER) {
+      switch (categoryTitle) {
+        case t(TranslationKey.Dashboard):
+          return t(TranslationKey['Statistics on goods/orders/finances'])
+        case t(TranslationKey['Free Orders']):
+          return t(TranslationKey['All orders available for pickup'])
+        case t(TranslationKey['Supplier search']):
+          return t(TranslationKey['All available tasks for finding a supplier'])
+        case t(TranslationKey.Users):
+          return t(TranslationKey['Manage the list of employees'])
+        case t(TranslationKey.Finances):
+          return t(TranslationKey["Detailed description of the movement of the user's money"])
+        case t(TranslationKey['My products']):
+          return t(TranslationKey['List of items taken by Bayer to find a supplier'])
+        case t(TranslationKey['My orders']):
+          return t(TranslationKey['Management of all orders assigned to Bayer'])
+      }
+    }
+  }
+
   return (
-    <MuiListItem
-      disableGutters
-      selected={isSelected}
-      component={Link}
-      to={subRoutes?.[0] || category.route}
-      classes={{root: classNames.root, selected: classNames.selected}}
-    >
-      <ListItemIcon
-        className={clsx(classNames.iconWrapper, {
-          [classNames.selectedIcon]: isSelected,
-          [classNames.notSelected]: !isSelected,
-        })}
+    <Button tooltipInfoContent={renderTooltipTitle(category.title, userInfo.role)} className={classNames.menuItem}>
+      <MuiListItem
+        disableGutters
+        selected={isSelected}
+        component={Link}
+        to={subRoutes?.[0] || category.route}
+        classes={{root: classNames.root, selected: classNames.selected}}
       >
-        <SvgIcon className={classNames.icon} component={category.icon} />
-        {badge ? <div className={classNames.badge}>{badge}</div> : undefined}
-      </ListItemIcon>
-      <ListItemText
-        disableTypography
-        className={clsx({[classNames.listItemSelected]: isSelected})}
-        primary={category.title}
-      />
-    </MuiListItem>
+        <ListItemIcon
+          className={clsx(classNames.iconWrapper, {
+            [classNames.selectedIcon]: isSelected,
+            [classNames.notSelected]: !isSelected,
+          })}
+        >
+          <SvgIcon className={classNames.icon} component={category.icon} />
+          {badge ? <div className={classNames.badge}>{badge}</div> : undefined}
+        </ListItemIcon>
+        <ListItemText
+          disableTypography
+          className={clsx({[classNames.listItemSelected]: isSelected})}
+          primary={category.title}
+        />
+      </MuiListItem>
+    </Button>
   )
 })
 

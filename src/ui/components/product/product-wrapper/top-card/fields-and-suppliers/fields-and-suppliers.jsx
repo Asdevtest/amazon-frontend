@@ -296,7 +296,7 @@ export const FieldsAndSuppliers = observer(
                   </Typography>
                   <Container disableGutters className={classNames.supplierContainer}>
                     <Button
-                      tooltipInfoContent={t(TranslationKey['Select a product strategy'])}
+                      tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
                       className={classNames.iconBtn}
                       onClick={() => onClickSupplierBtns('add')}
                     >

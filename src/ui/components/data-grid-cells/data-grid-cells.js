@@ -523,7 +523,12 @@ export const SuccessActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText})
 
 export const NormalActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText}) => (
   <div>
-    <Button variant="contained" color="primary" onClick={onClickOkBtn}>
+    <Button
+      tooltipInfoContent={t(TranslationKey['To assign the order to Byer'])}
+      variant="contained"
+      color="primary"
+      onClick={onClickOkBtn}
+    >
       {bTnText}
     </Button>
   </div>
@@ -742,8 +747,9 @@ export const ScrollingLinkCell = withStyles(styles)(({classes: classNames, value
 
 export const EditOrRemoveBtnsCell = withStyles(styles)(
   ({classes: classNames, row, handlers, isSubUsersTable, disableActionBtn}) => (
-    <div>
+    <div className={classNames.editOrRemoveBtnsCell}>
       <Button
+        tooltipInfoContent={t(TranslationKey["Editing an employee's permission list"])}
         variant="contained"
         color="primary"
         disabled={disableActionBtn}
@@ -752,7 +758,11 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
         {isSubUsersTable ? t(TranslationKey['Assign permissions']) : t(TranslationKey.Edit)}
       </Button>
 
-      <ErrorButton
+      <Button
+        danger
+        tooltipInfoContent={t(
+          TranslationKey['Removing an employee from the list, banning and disabling access to the platform'],
+        )}
         disabled={disableActionBtn}
         className={classNames.rowCancelBtn}
         onClick={() => {
@@ -760,7 +770,7 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
         }}
       >
         {t(TranslationKey.Remove)}
-      </ErrorButton>
+      </Button>
     </div>
   ),
 )
