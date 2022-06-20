@@ -262,37 +262,35 @@ export const AdminContentModal = observer(
           }
         />
 
-        {!editUserFormFields.masterUser ? (
-          <Field
-            label={t(TranslationKey['Allowed Roles'])}
-            inputComponent={
-              <Select
-                multiple
-                value={formFields.allowedRoles}
-                renderValue={selected => selected.map(el => UserRoleCodeMap[el]).join(', ')}
-                onChange={onChangeFormField('allowedRoles')}
-              >
-                {Object.keys(UserRoleCodeMap).map((role, index) => (
-                  <MenuItem
-                    key={index}
-                    value={Number(role)}
-                    disabled={
-                      [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) || role === formFields.role
-                    }
-                  >
-                    <Checkbox
-                      color="primary"
-                      checked={
-                        formFields.allowedRoles.includes(Number(role)) || Number(role) === Number(formFields.role)
-                      }
-                    />
-                    <ListItemText primary={UserRoleCodeMap[role]} />
-                  </MenuItem>
-                ))}
-              </Select>
-            }
-          />
-        ) : null}
+        {/* {!editUserFormFields.masterUser ? ( */}
+        <Field
+          label={t(TranslationKey['Allowed Roles'])}
+          inputComponent={
+            <Select
+              multiple
+              value={formFields.allowedRoles}
+              renderValue={selected => selected.map(el => UserRoleCodeMap[el]).join(', ')}
+              onChange={onChangeFormField('allowedRoles')}
+            >
+              {Object.keys(UserRoleCodeMap).map((role, index) => (
+                <MenuItem
+                  key={index}
+                  value={Number(role)}
+                  disabled={
+                    [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) || role === formFields.role
+                  }
+                >
+                  <Checkbox
+                    color="primary"
+                    checked={formFields.allowedRoles.includes(Number(role)) || Number(role) === Number(formFields.role)}
+                  />
+                  <ListItemText primary={UserRoleCodeMap[role]} />
+                </MenuItem>
+              ))}
+            </Select>
+          }
+        />
+        {/* ) : null} */}
 
         <Field
           label={t(TranslationKey['User status'])}

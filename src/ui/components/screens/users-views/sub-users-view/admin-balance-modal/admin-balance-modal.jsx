@@ -104,6 +104,7 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
 
         <Field
           label={t(TranslationKey.Amount)}
+          inputProps={{maxLength: 8}}
           value={balanceValue}
           onChange={e =>
             checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value) && setBalanceValue(e.target.value)

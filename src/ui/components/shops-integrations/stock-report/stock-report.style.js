@@ -19,6 +19,7 @@ export const styles = createStyles(() => ({
   },
 
   button: {
+    marginBottom: 5,
     marginLeft: '10px',
   },
 
@@ -33,6 +34,7 @@ export const styles = createStyles(() => ({
   },
 
   selectedShopBtn: {
+    marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
 
     borderBottom: '5px solid #0460DE',

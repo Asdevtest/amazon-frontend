@@ -1,5 +1,6 @@
 import {makeAutoObservable} from 'mobx'
 
+import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 export class AppbarModel {
@@ -30,12 +31,20 @@ export class AppbarModel {
     return UserModel.userInfo?.masterUser
   }
 
+  get showHints() {
+    return SettingsModel.showHints
+  }
+
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
   onExitFromRole() {
     UserModel.signOut()
+  }
+
+  onTriggerShowHints() {
+    SettingsModel.onTriggerShowHints()
   }
 
   async changeUserInfo(data) {

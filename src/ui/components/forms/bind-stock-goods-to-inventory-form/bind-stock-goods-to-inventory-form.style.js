@@ -108,6 +108,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   chip: {
+    marginBottom: 5,
     color: '#001029',
     fontSize: '16px',
     backgroundColor: '#F4F4F4',
@@ -119,6 +120,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   chipActive: {
+    marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
     color: '#007bff',
 

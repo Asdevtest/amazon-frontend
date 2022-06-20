@@ -13,7 +13,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
@@ -436,10 +435,10 @@ export const EditBoxForm = observer(
         </div>
 
         <div className={classNames.buttonsWrapper}>
-          <SuccessButton
+          <Button
             disableElevation
             disabled={disableSubmit}
-            className={classNames.button}
+            className={[classNames.button, classNames.successBtn]}
             color="primary"
             variant="contained"
             onClick={() => {
@@ -447,7 +446,7 @@ export const EditBoxForm = observer(
             }}
           >
             {t(TranslationKey.Save)}
-          </SuccessButton>
+          </Button>
 
           <Button
             disableElevation
