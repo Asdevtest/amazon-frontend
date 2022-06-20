@@ -111,19 +111,19 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
   },
   buttonsWrapper: {
-    display: 'flex',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: '10px',
     marginBottom: '20px',
   },
   buttonNormal: {
-    flexGrow: 1,
-    marginRight: '16px',
+    width: '100%',
   },
   buttonNormalNoMargin: {
     marginRight: 0,
   },
   buttonDelete: {
-    flexGrow: 1,
-    marginLeft: '15px',
+    width: '100%',
   },
   errorActive: {
     borderColor: 'red',
@@ -132,5 +132,9 @@ export const useClassNames = makeStyles(() => ({
   restoreBtn: {
     flexGrow: 1,
     marginLeft: '15px',
+  },
+
+  buttonClose: {
+    width: '100%',
   },
 }))

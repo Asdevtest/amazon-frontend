@@ -34,7 +34,7 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
         <div className={classNames.descriptionWrapper}>
           <p className={classNames.descriptionText}>{message.data.details.conditions}</p>
         </div>
-        <PhotoAndFilesCarousel files={message?.data.details?.linksToMediaFiles} width="40%" />
+        <PhotoAndFilesCarousel files={message?.data.details?.linksToMediaFiles} width="300px" />
       </div>
       <div className={classNames.footerWrapper}>
         <div className={classNames.footerRow}>

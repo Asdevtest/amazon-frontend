@@ -6,6 +6,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
+import {Button} from '@components/buttons/button'
+
 import {t} from '@utils/translations'
 
 import {useClassNames} from './dashboard-info-card.style'
@@ -24,9 +26,13 @@ export const DashboardInfoCard = observer(({color, title, value, route, onClickV
         </div>
         {route ? (
           <div className={classNames.subTitleWrapper}>
-            <Typography className={classNames.subTitle} onClick={() => onClickViewMore(route)}>
+            <Button
+              tooltipInfoContent={t(TranslationKey['Open the appropriate section'])}
+              className={classNames.subTitle}
+              onClick={() => onClickViewMore(route)}
+            >
               {t(TranslationKey['View more'])}
-            </Typography>
+            </Button>
           </div>
         ) : undefined}
       </Paper>

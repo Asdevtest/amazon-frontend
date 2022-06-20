@@ -9,7 +9,7 @@ export const styles = createStyles(() => ({
 
   backBtnWrapper: {
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
   },
   requestInfoWrapper: {
     marginTop: '24px',
@@ -31,5 +31,10 @@ export const styles = createStyles(() => ({
   },
   cancelRequestProposalBtn: {
     backgroundColor: '#C4C4C4',
+  },
+
+  backBtn: {
+    width: '140px',
+    height: '40px',
   },
 }))

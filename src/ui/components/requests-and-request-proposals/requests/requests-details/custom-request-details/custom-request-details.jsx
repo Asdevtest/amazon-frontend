@@ -34,15 +34,20 @@ export const CustomSearchRequestDetails = ({request}) => {
         onChange={onClickToShowDetails}
       >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classNames.title}>{t(TranslationKey['Detailed application description'])}</Typography>
+          {/* <Typography className={classNames.title}>{t(TranslationKey['Detailed application description'])}</Typography> */}
         </AccordionSummary>
 
-        <AccordionDetails>
+        <AccordionDetails classes={{root: classNames.details}} style={{padding: 0}}>
           <div className={classNames.mainWrapper}>
-            <PhotoAndFilesCarousel files={request?.details?.linksToMediaFiles} width="40%" />
+            <div>
+              <Typography className={classNames.files}>{t(TranslationKey.Files)}</Typography>
+
+              <PhotoAndFilesCarousel files={request?.details?.linksToMediaFiles} width="400px" />
+            </div>
 
             <Field
               multiline
+              labelClasses={classNames.conditionsLabel}
               label={t(TranslationKey.Description)}
               containerClasses={classNames.conditionsFieldWrapper}
               inputComponent={

@@ -8,6 +8,7 @@ import ScrollView from 'react-inverted-scrollview'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {SettingsModel} from '@models/settings-model'
 
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {formatDateWithoutTime} from '@utils/date-time'
@@ -134,21 +135,7 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                         {messageItem.files.length ? (
                           <div className={classNames.filesMainWrapper}>
                             <Typography className={classNames.filesTitle}>{'Файлы:'}</Typography>
-
-                            <Grid container className={classNames.filesWrapper} spacing={2}>
-                              {messageItem.files.map((file, fileIndex) => (
-                                <Grid key={fileIndex} item className={classNames.imageWrapper}>
-                                  <img
-                                    className={classNames.image}
-                                    src={file}
-                                    onClick={() => {
-                                      setShowImageModal(!showImageModal)
-                                      setBigImagesOptions({images: messageItem.files, imgIndex: fileIndex})
-                                    }}
-                                  />
-                                </Grid>
-                              ))}
-                            </Grid>
+                            <PhotoAndFilesCarousel files={messageItem.files} width="300px" />
                           </div>
                         ) : undefined}
                       </div>

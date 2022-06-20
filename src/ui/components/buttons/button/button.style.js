@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(() => ({
   root: {
     minHeight: 36,
+    minWidth: 36,
   },
 
   success: {
@@ -21,7 +22,7 @@ export const useClassNames = makeStyles(() => ({
   },
   danger: {
     color: '#fff',
-    backgroundColor: 'rgb(210, 35, 35)',
+    backgroundColor: '#ff0000',
     '&:hover': {
       backgroundColor: '#c51a1c',
 

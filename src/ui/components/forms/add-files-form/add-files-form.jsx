@@ -40,7 +40,7 @@ export const AddFilesForm = ({item, allItemsArray, setAllItemsArray, onCloseModa
         </Typography>
 
         <div className={classNames.imageFileInputWrapper}>
-          <UploadFilesInput images={editingItem.tmpImages} setImages={setImagesOfItem} maxNumber={50} />
+          <UploadFilesInput withoutTitle images={editingItem.tmpImages} setImages={setImagesOfItem} maxNumber={50} />
         </div>
       </Box>
 

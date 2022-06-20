@@ -168,8 +168,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   emptyIcon: {
-    width: '60px',
-    height: '60px',
+    width: '40px',
+    height: '40px',
     backgroundColor: '#e0e0e0',
     borderRadius: '50%',
     display: 'flex',

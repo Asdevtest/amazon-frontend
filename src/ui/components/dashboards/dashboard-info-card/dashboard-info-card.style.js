@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/styles'
 
 export const useClassNames = makeStyles({
   root: {
-    height: '100px',
+    height: '120px',
     minWidth: '320px',
     boxShadow: `0px 5px 19px 0px rgba(90, 97, 105, 0.12)`,
     padding: '24px',
@@ -28,6 +28,11 @@ export const useClassNames = makeStyles({
     fontWeight: 400,
     lineHeight: '14px',
     color: 'rgba(189, 194, 209, 1)',
+    backgroundColor: 'inherit',
+    padding: '10px 10px 0 0',
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
   },
   subTitleWrapper: {
     position: 'absolute',

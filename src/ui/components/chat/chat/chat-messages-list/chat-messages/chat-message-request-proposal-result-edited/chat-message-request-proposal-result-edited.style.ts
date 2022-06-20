@@ -2,10 +2,11 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    backgroundColor: '#D9FAE5',
+    backgroundColor: '#fff',
     padding: '40px 30px',
     width: '869px',
     margin: '0 auto',
+    border: '1px solid #4CAF50',
     borderRadius: '4px',
     '& p, h1, h2, h3, h4, h5, span': {
       margin: 0,

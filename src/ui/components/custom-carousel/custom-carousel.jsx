@@ -149,14 +149,10 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
   const notEmptyPhotos = files?.length ? files.filter(el => checkIsImageLink(el?.file?.name || el)) : []
 
   return files?.length ? (
-    <div style={{width}}>
-      <div className={classNames.filesTitleWrapper}>
-        <Typography className={classNames.photoTitle}>{t(TranslationKey.Photos)}</Typography>
-        <Typography className={classNames.documentsTitle}>{t(TranslationKey.Documents)}</Typography>
-      </div>
+    <div>
       <div
         className={classNames.imagesAndFilesWrapper}
-        style={{flexDirection: direction === 'column' ? 'column' : 'row'}}
+        style={{width, flexDirection: direction === 'column' ? 'column' : 'row'}}
       >
         <div className={classNames.imagesWrapper}>
           {notEmptyPhotos?.length ? (
@@ -166,6 +162,7 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
                   key={index}
                   src={photo?.data_url || photo}
                   className={classNames.image}
+                  height="113px"
                   onClick={() => {
                     setShowPhotosModal(!showPhotosModal)
 
@@ -182,7 +179,7 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
           ) : (
             <div className={classNames.emptyIconWrapper}>
               <div className={classNames.emptyIcon}>
-                <InboxIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
+                <InboxIcon style={{color: '#C4C4C4', fontSize: '20px'}} />
               </div>
             </div>
           )}
@@ -218,7 +215,7 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
           ) : (
             <div className={classNames.emptyIconWrapper}>
               <div className={classNames.emptyIcon}>
-                <InboxIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
+                <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
               </div>
             </div>
           )}

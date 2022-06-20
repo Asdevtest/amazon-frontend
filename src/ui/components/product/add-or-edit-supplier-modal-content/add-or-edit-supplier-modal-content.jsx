@@ -222,6 +222,7 @@ export const AddOrEditSupplierModalContent = observer(
           <div className={classNames.buttonsWrapper}>
             <Button
               disableElevation
+              tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
               disabled={diasabledSubmit}
               className={classNames.saveBtn}
               variant="contained"
@@ -235,6 +236,7 @@ export const AddOrEditSupplierModalContent = observer(
             </Button>
             <Button
               disableElevation
+              tooltipInfoContent={t(TranslationKey['Cancel creating/changing about a supplier'])}
               className={classNames.cancelBtn}
               variant="contained"
               onClick={() => onTriggerShowModal()}
@@ -361,6 +363,7 @@ export const AddOrEditSupplierModalContent = observer(
 
           <div className={classNames.nameBlock}>
             <Field
+              tooltipInfoContent={t(TranslationKey['Enter the name of the supplier'])}
               inputProps={{maxLength: 100}}
               label={t(TranslationKey.Title) + '*'}
               containerClasses={classNames.nameContainer}
@@ -370,6 +373,7 @@ export const AddOrEditSupplierModalContent = observer(
             />
 
             <Field
+              tooltipInfoContent={t(TranslationKey['Enter the amount of goods to be purchased'])}
               label={t(TranslationKey['Purchase quantity']) + '*'}
               inputProps={{maxLength: 10}}
               containerClasses={classNames.middleContainer}
@@ -379,6 +383,7 @@ export const AddOrEditSupplierModalContent = observer(
               onChange={onChangeField('amount')}
             />
             <Field
+              tooltipInfoContent={t(TranslationKey['Minimum quantity of goods needed to order'])}
               label={t(TranslationKey['Minimum batch']) + '*'}
               inputProps={{maxLength: 10}}
               containerClasses={classNames.middleContainer}
@@ -390,6 +395,7 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
 
           <Field
+            tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
             label={t(TranslationKey.Link) + '*'}
             inputProps={{maxLength: 2000}}
             labelClasses={classNames.normalLabel}
@@ -404,10 +410,11 @@ export const AddOrEditSupplierModalContent = observer(
 
             <Field
               oneLine
+              tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
               label={t(TranslationKey['Yuan to USD exchange rate'])}
               inputProps={{maxLength: 8}}
               containerClasses={classNames.rateContainer}
-              labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
+              labelClasses={clsx(classNames.rateLabel)}
               inputClasses={classNames.middleInput}
               value={yuanToDollarRate}
               onChange={onChangeYuanToDollarRate}
@@ -428,6 +435,7 @@ export const AddOrEditSupplierModalContent = observer(
               >
                 <Grid item>
                   <Field
+                    tooltipInfoContent={t(TranslationKey['Price per unit'])}
                     label={t(TranslationKey['price per unit']) + ', ¥*'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
@@ -440,6 +448,9 @@ export const AddOrEditSupplierModalContent = observer(
                 <Grid item>
                   <Field
                     disabled
+                    tooltipInfoContent={t(
+                      TranslationKey['Calculated from the price per unit multiplied by the number of purchases'],
+                    )}
                     label={t(TranslationKey['Batch price']) + ', ¥*'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
@@ -453,6 +464,9 @@ export const AddOrEditSupplierModalContent = observer(
 
                 <Grid item>
                   <Field
+                    tooltipInfoContent={t(
+                      TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
+                    )}
                     label={t(TranslationKey['Batch delivery']) + ', ¥'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
@@ -479,6 +493,7 @@ export const AddOrEditSupplierModalContent = observer(
               >
                 <Grid item>
                   <Field
+                    tooltipInfoContent={t(TranslationKey['Price per unit'])}
                     label={t(TranslationKey['price per unit']) + ', $*'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
@@ -491,6 +506,9 @@ export const AddOrEditSupplierModalContent = observer(
                 <Grid item>
                   <Field
                     disabled
+                    tooltipInfoContent={t(
+                      TranslationKey['Calculated from the price per unit multiplied by the number of purchases'],
+                    )}
                     label={t(TranslationKey['Batch price']) + ', $*'}
                     inputProps={{maxLength: 15}}
                     containerClasses={classNames.middleContainer}
@@ -504,6 +522,9 @@ export const AddOrEditSupplierModalContent = observer(
 
                 <Grid item>
                   <Field
+                    tooltipInfoContent={t(
+                      TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
+                    )}
                     label={t(TranslationKey['Batch delivery']) + ', $'}
                     inputProps={{maxLength: 15}}
                     containerClasses={classNames.middleContainer}
@@ -599,6 +620,7 @@ export const AddOrEditSupplierModalContent = observer(
 
                 <Field
                   disabled
+                  tooltipInfoContent={t(TranslationKey['Calculated from the dimensions of the box'])}
                   label={t(TranslationKey['Volume weight, kg'])}
                   inputProps={{maxLength: 15}}
                   containerClasses={classNames.shortContainer}
@@ -624,6 +646,7 @@ export const AddOrEditSupplierModalContent = observer(
 
         <Field
           multiline
+          tooltipInfoContent={t(TranslationKey['The comment indicated for this supplier'])}
           className={classNames.commentField}
           labelClasses={classNames.normalLabel}
           inputProps={{maxLength: 2000}}

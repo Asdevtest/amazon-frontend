@@ -6,8 +6,9 @@ export const useClassNames = makeStyles(() => ({
     // flexDirection: 'column',
     borderRadius: '4px',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    padding: '40px 30px',
+    padding: '30px 30px',
     width: '100%',
+    height: '263px',
   },
   mainBlockWrapper: {
     width: '100%',
@@ -30,9 +31,8 @@ export const useClassNames = makeStyles(() => ({
   },
   titleWrapper: {
     display: 'flex',
-    flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    width: '314px',
   },
   userPhoto: {
     width: '60px',
@@ -42,25 +42,23 @@ export const useClassNames = makeStyles(() => ({
     marginRight: '30px',
   },
   requestInfoWrapper: {
-    minWwidth: '660px',
     display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    gap: '13px',
+    gap: '40px',
   },
   requestItemInfoWrapper: {
     display: 'flex',
     alignItems: 'center',
-    width: '40%',
+
     justifyContent: 'space-between',
   },
   blockInfoWrapper: {
-    minWidth: '630px',
-    padding: '8px 15px 7px 20px',
-    border: '1px solid #E0E0E0',
-    borderRadius: '4px',
+    minWidth: '403px',
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    gap: '23px',
+    padding: '30px',
+    border: '1px solid #E0E0E0',
+    borderRadius: '8px',
   },
   title: {
     width: '314px',
@@ -69,7 +67,7 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '21px',
     color: '#354256',
     overflow: 'auto',
-    height: '50px',
+    maxHeight: '120px',
   },
 
   btnsBlockWrapper: {
@@ -249,5 +247,38 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '19px',
+  },
+
+  mainWrapper: {
+    width: '585px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+
+  mainHeaderWrapper: {
+    display: 'flex',
+    alignItems: 'start',
+    justifyContent: 'space-between',
+  },
+
+  mainBlockFooterWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+
+  updatedWrapper: {
+    marginTop: 'auto',
+    alignSelf: 'flex-end',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  updatedText: {
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#656565',
   },
 }))

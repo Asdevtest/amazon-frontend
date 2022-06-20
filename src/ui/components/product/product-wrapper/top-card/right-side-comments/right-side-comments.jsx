@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Box, Grid, Typography, Button} from '@material-ui/core'
+import {Box, Grid, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
@@ -8,7 +8,8 @@ import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {productStatusButtonsConfigs} from '@constants/product-status-buttons-configs'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {ErrorButton} from '@components/buttons/error-button'
+import {Button} from '@components/buttons/button'
+// import {ErrorButton} from '@components/buttons/error-button'
 import {Field} from '@components/field'
 
 import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
@@ -119,6 +120,7 @@ export const RightSideComments = observer(
           {showActionBtns ? (
             <div className={classNames.buttonsWrapper}>
               <Button
+                tooltipInfoContent={checkIsClient(curUserRole) && t(TranslationKey['Save changes in the product card'])}
                 className={classNames.buttonNormal}
                 color="primary"
                 variant="contained"
@@ -126,24 +128,28 @@ export const RightSideComments = observer(
               >
                 {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
               </Button>
-              <ErrorButton
-                className={clsx(classNames.buttonNormal, {
+              <Button
+                danger
+                tooltipInfoContent={checkIsClient(curUserRole) && t(TranslationKey['Close product card'])}
+                className={clsx(classNames.buttonClose, {
                   [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
                 })}
                 variant="contained"
                 onClick={() => handleProductActionButtons('cancel')}
               >
                 {checkIsClient(curUserRole) ? t(TranslationKey.Close) : t(TranslationKey.Cancel)}
-              </ErrorButton>
+              </Button>
 
               {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product.archive) ? (
-                <ErrorButton
+                <Button
+                  danger
+                  tooltipInfoContent={t(TranslationKey['Move the product card to the Archive'])}
                   className={classNames.buttonDelete}
                   variant="contained"
                   onClick={() => handleProductActionButtons('delete')}
                 >
                   {t(TranslationKey.Delete)}
-                </ErrorButton>
+                </Button>
               ) : undefined}
 
               {checkIsClient(curUserRole) && product.archive && (
@@ -158,16 +164,17 @@ export const RightSideComments = observer(
               )}
             </div>
           ) : (
-            <div className={classNames.buttonsWrapper}>
-              <ErrorButton
-                className={clsx(classNames.buttonNormal, {
+            <div>
+              <Button
+                tooltipInfoContent={t(TranslationKey['Close product card'])}
+                className={clsx(classNames.buttonClose, {
                   [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
                 })}
                 variant="contained"
                 onClick={() => handleProductActionButtons('cancel')}
               >
                 {t(TranslationKey.Close)}
-              </ErrorButton>
+              </Button>
             </div>
           )}
         </Box>

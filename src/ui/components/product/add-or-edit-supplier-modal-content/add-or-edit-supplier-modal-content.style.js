@@ -22,7 +22,9 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-between',
   },
   buttonsWrapper: {
-    textAlign: 'right',
+    display: 'flex',
+    justifyContent: 'end',
+    gap: '10px',
     marginTop: '16px',
   },
 
@@ -157,7 +159,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   rateContainer: {
-    width: '310px',
+    width: '293px',
   },
 
   calculationMainWrapper: {

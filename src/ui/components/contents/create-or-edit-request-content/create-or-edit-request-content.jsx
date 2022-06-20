@@ -118,7 +118,8 @@ export const CreateOrEditRequestContent = ({
     formFields.request.price === '' ||
     formFields.request.timeoutAt === '' ||
     formFields.details.conditions === '' ||
-    formFields.details.conditions.length > 1000
+    formFields.details.conditions.length > 1000 ||
+    formFields.request.timeoutAt.toString() === 'Invalid Date'
 
   return (
     <div className={classNames.mainWrapper}>

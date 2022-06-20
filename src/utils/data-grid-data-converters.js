@@ -129,7 +129,7 @@ export const buyerMyOrdersDataConverter = data =>
     amount: item.amount,
     clientComment: item.clientComment,
     buyerComment: item.buyerComment,
-
+    ID: item.id,
     id: item._id,
     asin: item.product.asin,
     storekeeper: item.storekeeper?.name,
