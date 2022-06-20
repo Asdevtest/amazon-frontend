@@ -110,32 +110,32 @@ export const MyRequestStatus = {
 export const MyRequestStatusTranslate = s => {
   switch (s) {
     case MyRequestStatus.DRAFT:
-      return t(TranslationKey.DRAFT)
+      return t(TranslationKey.Draft)
     case MyRequestStatus.PUBLISHED:
-      return t(TranslationKey.PUBLISHED)
+      return t(TranslationKey.Published)
     case MyRequestStatus.IN_PROCESS:
-      return t(TranslationKey['IN PROCESS'])
+      return t(TranslationKey['In process'])
     case MyRequestStatus.FORBID_NEW_PROPOSALS:
-      return t(TranslationKey['FORBID NEW PROPOSALS'])
+      return t(TranslationKey['Forbid new proposals'])
     case MyRequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED:
-      return t(TranslationKey['COMPLETE PROPOSALS AMOUNT ACHIEVED'])
+      return t(TranslationKey['Complete proposals amount achieved'])
     case MyRequestStatus.CANCELED_BY_CREATOR:
-      return t(TranslationKey['CANCELED BY CREATOR'])
+      return t(TranslationKey['Cancel by Creator'])
     case MyRequestStatus.VERIFYING_BY_ADMIN:
-      return t(TranslationKey['VERIFYING BY ADMIN'])
+      return t(TranslationKey['Verifying by Admin'])
     case MyRequestStatus.TO_CORRECT_BY_ADMIN:
-      return t(TranslationKey['TO CORRECT BY ADMIN'])
+      return t(TranslationKey['To correct by Admin'])
     case MyRequestStatus.READY_TO_VERIFY_BY_ADMIN:
-      return t(TranslationKey['READY TO VERIFY BY ADMIN'])
+      return t(TranslationKey['Ready to verify by Admin'])
     case MyRequestStatus.CANCELED_BY_ADMIN:
-      return t(TranslationKey['CANCELED BY ADMIN'])
+      return t(TranslationKey['Canceled by Admin'])
     case MyRequestStatus.READY_TO_VERIFY_BY_SUPERVISOR:
-      return t(TranslationKey['READY TO VERIFY BY SUPERVISOR'])
+      return t(TranslationKey['Ready to verify by Supervisor'])
     case MyRequestStatus.VERIFYING_BY_SUPERVISOR:
-      return t(TranslationKey['VERIFYING BY SUPERVISOR'])
+      return t(TranslationKey['Verifying by Supervisor'])
     case MyRequestStatus.TO_CORRECT_BY_SUPERVISOR:
-      return t(TranslationKey['TO CORRECT BY SUPERVISOR'])
+      return t(TranslationKey['To correct by Supervisor'])
     case MyRequestStatus.EXPIRED:
-      return t(TranslationKey.EXPIRED)
+      return t(TranslationKey.Expired)
   }
 }

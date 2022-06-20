@@ -105,6 +105,7 @@ export const FieldsAndSuppliers = observer(
                 clientToEditStatuses.includes(productBase.status) &&
                 (edit ? (
                   <Button
+                    tooltipInfoContent={t(TranslationKey['Open the field to edit the link'])}
                     disabled={!checkIsClient(curUserRole)}
                     className={classNames.editButton}
                     onClick={() => setEdit(!edit)}
@@ -114,6 +115,7 @@ export const FieldsAndSuppliers = observer(
                 ) : (
                   <Button
                     success
+                    tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
                     disabled={!checkIsClient(curUserRole)}
                     className={classNames.editButton}
                     onClick={() => setEdit(!edit)}
@@ -181,6 +183,9 @@ export const FieldsAndSuppliers = observer(
                           />
                           <Button
                             disableElevation
+                            tooltipInfoContent={t(
+                              TranslationKey['Adds SKU to the card entered in the SKU field of the client'],
+                            )}
                             disabled={skuLine === ''}
                             className={classNames.defaultBtn}
                             variant="contained"
@@ -290,25 +295,39 @@ export const FieldsAndSuppliers = observer(
                     {t(TranslationKey.Actions)}
                   </Typography>
                   <Container disableGutters className={classNames.supplierContainer}>
-                    <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('add')}>
+                    <Button
+                      tooltipInfoContent={t(TranslationKey['Select a product strategy'])}
+                      className={classNames.iconBtn}
+                      onClick={() => onClickSupplierBtns('add')}
+                    >
                       <AddIcon />
-                    </IconButton>
+                    </Button>
                     {selectedSupplier ? (
                       <>
-                        <IconButton className={classNames.iconBtn} onClick={() => onClickSupplierBtns('edit')}>
+                        <Button
+                          tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                          className={classNames.iconBtn}
+                          onClick={() => onClickSupplierBtns('edit')}
+                        >
                           <EditIcon />
-                        </IconButton>
+                        </Button>
 
                         {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
-                          <IconButton
+                          <Button
+                            tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
                             className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
                             onClick={() => onClickSupplierBtns('delete')}
                           >
                             <DeleteIcon />
-                          </IconButton>
+                          </Button>
                         )}
 
-                        <IconButton
+                        <Button
+                          tooltipInfoContent={
+                            isSupplierAcceptRevokeActive
+                              ? t(TranslationKey['Remove the current supplier'])
+                              : t(TranslationKey['Select a supplier as the current supplier'])
+                          }
                           className={clsx(classNames.iconBtn, classNames.iconBtnAccept, {
                             [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
                           })}
@@ -319,7 +338,7 @@ export const FieldsAndSuppliers = observer(
                           }
                         >
                           {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
-                        </IconButton>
+                        </Button>
                       </>
                     ) : undefined}
                   </Container>

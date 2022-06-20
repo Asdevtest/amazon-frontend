@@ -538,4 +538,8 @@ export const styles = createStyles(() => ({
   changeChipCellLabel: {
     fontSize: '12px',
   },
+
+  statusText: {
+    textTransform: 'uppercase',
+  },
 }))

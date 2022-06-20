@@ -71,6 +71,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                 <TableCell>
                   <Button
                     disableElevation
+                    tooltipInfoContent={t(TranslationKey['Photos of current supplier'])}
                     disabled={!supplier.images || supplier.images < 1}
                     color="primary"
                     className={classNames.button}

@@ -36,54 +36,54 @@ export const OrderStatusByKey = objectFlip(OrderStatusByCode, parseInt)
 export const ORDER_STATUS_OPTIONS = [
   {
     key: OrderStatus.FORMED,
-    label: 'formed',
+    label: 'Formed',
   },
   {
     key: OrderStatus.NEW,
-    label: 'new',
+    label: 'New',
   },
   {
     key: OrderStatus.READY_TO_PROCESS,
-    label: 'readyToProcess',
+    label: 'Ready to process',
   },
   {
     key: OrderStatus.AT_PROCESS,
-    label: 'atProcess',
+    label: 'At process',
   },
 
   {
     key: OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
-    label: 'toPriceChange',
+    label: 'To price change',
   },
 
   {
     key: OrderStatus.PAID_TO_SUPPLIER,
-    label: 'paid',
+    label: 'Paid to supplier',
   },
   {
     key: OrderStatus.TRACK_NUMBER_ISSUED,
-    label: 'trackNumberIssued',
+    label: 'Track number issued',
   },
   {
     key: OrderStatus.IN_STOCK,
-    label: 'inStock',
+    label: 'In stock',
   },
   {
     key: OrderStatus.CANCELED_BY_BUYER,
-    label: 'returnOrder',
+    label: 'Return order',
   },
 
   {
     key: OrderStatus.CANCELED_BY_CLIENT,
-    label: 'closed',
+    label: 'Closed',
   },
   {
     key: OrderStatus.AWAITING_SHIPMENT,
-    label: 'awaitingShipment',
+    label: 'Awaiting shipment',
   },
   {
     key: OrderStatus.SHIPPED,
-    label: 'shipped',
+    label: 'Shipped',
   },
 ]
 

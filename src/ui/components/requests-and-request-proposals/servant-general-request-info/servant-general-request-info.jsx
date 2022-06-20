@@ -14,7 +14,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
-import {MultilineRequestStatusCell, UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+import {RequestStatusCell, UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -34,66 +34,75 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
   return requestProposals.length === 0 ? (
     <Paper className={classNames.root}>
       <div className={classNames.mainBlockWrapper}>
-        <div className={classNames.personInfoWrapper}>
-          <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
-          <div className={classNames.personWrapper}>
-            <UserLinkCell name={request?.request.createdBy.name} userId={request?.request.createdBy._id} />
-            <Rating disabled value={request?.request.createdBy.rating} />
-          </div>
-        </div>
-
-        <div className={classNames.titleWrapper}>
-          <Typography className={classNames.title}>{request?.request.title}</Typography>
-
-          <Typography className={classNames.subTitle}>{`${
-            request?.request.maxAmountOfProposals -
-            (requestProposals?.filter(
-              el =>
-                el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
-                el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
-                el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
-            ).length || 0)
-          } ${t(TranslationKey['out of'])} ${request?.request.maxAmountOfProposals} ${t(
-            TranslationKey['suggestions left'],
-          )}`}</Typography>
-        </div>
-
-        <div className={classNames.requestInfoWrapper}>
-          <div className={classNames.blockInfoWrapper}>
-            <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{t(TranslationKey.Time)}</Typography>
-              <Typography>{minsToTime(request?.request.timeLimitInMinutes)}</Typography>
+        <div className={classNames.mainWrapper}>
+          <div className={classNames.mainHeaderWrapper}>
+            <div className={classNames.personInfoWrapper}>
+              <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
+              <div className={classNames.personWrapper}>
+                <UserLinkCell name={request?.request.createdBy.name} userId={request?.request.createdBy._id} />
+                <Rating disabled value={request?.request.createdBy.rating} />
+              </div>
             </div>
+            <Typography className={classNames.title}>{request?.request.title}</Typography>
+          </div>
+          <div className={classNames.titleWrapper}>
+            <Typography className={classNames.subTitle}>{`${
+              request?.request.maxAmountOfProposals -
+              (requestProposals?.filter(
+                el =>
+                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
+                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
+                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+              ).length || 0)
+            } ${t(TranslationKey['out of'])} ${request?.request.maxAmountOfProposals} ${t(
+              TranslationKey['suggestions left'],
+            )}`}</Typography>
+            <div className={classNames.updatedWrapper}>
+              <Typography className={classNames.updatedText}>{t(TranslationKey.Updated) + ':'}</Typography>
 
-            <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{t(TranslationKey.Status)}</Typography>
-              <Typography className={classNames.requestStatus}>
-                {<MultilineRequestStatusCell status={request?.request.status} />}
+              <Typography className={classNames.updatedText}>
+                {formatNormDateTimeWithParseISO(request?.request.updatedAt)}
               </Typography>
             </div>
           </div>
-
-          <div className={classNames.blockInfoWrapper}>
-            <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{t(TranslationKey.Deadline)}</Typography>
-              <Typography>{formatNormDateTime(request?.request.timeoutAt)}</Typography>
-            </div>
-
-            <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{t(TranslationKey['Total price'])}</Typography>
-              <Typography>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
-            </div>
-          </div>
         </div>
+        <div className={classNames.mainBlockFooterWrapper}>
+          <div className={classNames.requestInfoWrapper}>
+            <div className={classNames.blockInfoWrapper}>
+              <div className={classNames.requestItemInfoWrapper}>
+                <Typography>{t(TranslationKey.Time)}</Typography>
+                <Typography>{minsToTime(request?.request.timeLimitInMinutes)}</Typography>
+              </div>
 
-        {(request.request.status === RequestStatus.PUBLISHED ||
-          request.request.status === RequestStatus.IN_PROCESS) && (
-          <div className={classNames.btnsBlockWrapper}>
-            <Button variant="contained" color="primary" className={classNames.actionBtn} onClick={onSubmit}>
-              {t(TranslationKey['Suggest a deal'])}
-            </Button>
+              <div className={classNames.requestItemInfoWrapper}>
+                <Typography>{t(TranslationKey.Status)}</Typography>
+                <Typography className={classNames.requestStatus}>
+                  {<RequestStatusCell status={request?.request.status} />}
+                </Typography>
+              </div>
+            </div>
+
+            <div className={classNames.blockInfoWrapper}>
+              <div className={classNames.requestItemInfoWrapper}>
+                <Typography>{t(TranslationKey.Deadline)}</Typography>
+                <Typography>{formatNormDateTime(request?.request.timeoutAt)}</Typography>
+              </div>
+
+              <div className={classNames.requestItemInfoWrapper}>
+                <Typography>{t(TranslationKey['Total price'])}</Typography>
+                <Typography>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
+              </div>
+            </div>
           </div>
-        )}
+          {(request.request.status === RequestStatus.PUBLISHED ||
+            request.request.status === RequestStatus.IN_PROCESS) && (
+            <div className={classNames.btnsBlockWrapper}>
+              <Button variant="contained" color="primary" className={classNames.actionBtn} onClick={onSubmit}>
+                {t(TranslationKey['Suggest a deal'])}
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
     </Paper>
   ) : (
@@ -145,7 +154,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
           <div className={classNames.requestItemInfoProposalsWrapper}>
             <Typography>{t(TranslationKey.Status)}</Typography>
             <Typography className={classNames.requestStatus}>
-              {<MultilineRequestStatusCell status={request?.request.status} />}
+              {<RequestStatusCell status={request?.request.status} />}
             </Typography>
           </div>
           <div className={classNames.requestItemInfoProposalsWrapper}>

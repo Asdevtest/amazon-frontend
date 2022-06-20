@@ -113,12 +113,20 @@ export const TopCard = observer(
                     <Box className={classNames.parseButtonsWrapper}>
                       <React.Fragment>
                         <Button
+                          tooltipInfoContent={t(
+                            TranslationKey[
+                              'Fills the card with the necessary information from the Amazon page by ASIN'
+                            ],
+                          )}
                           className={classNames.buttonParseAmazon}
                           onClick={() => onClickParseProductData(ProductDataParser.AMAZON, product)}
                         >
                           {'Parse Amazon'}
                         </Button>
                         <Button
+                          tooltipInfoContent={t(
+                            TranslationKey['Fills the card with the necessary information from Seller Central by ASIN'],
+                          )}
                           className={classNames.buttonParseAmazon}
                           onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}
                         >

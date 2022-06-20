@@ -131,4 +131,9 @@ export const useClassNames = makeStyles(() => ({
     overflowX: 'auto',
     whiteSpace: 'nowrap',
   },
+
+  button: {
+    width: '100%',
+    display: 'flex',
+  },
 }))

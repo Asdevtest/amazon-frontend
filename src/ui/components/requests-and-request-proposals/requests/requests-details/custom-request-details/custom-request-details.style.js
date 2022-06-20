@@ -4,28 +4,31 @@ export const useClassNames = makeStyles(() => ({
   root: {
     width: '100%',
     display: 'flex',
-    marginBottom: '30px',
+    padding: 0,
+    // marginBottom: '30px',
   },
 
   mainWrapper: {
     display: 'flex',
 
+    padding: '0 40px 40px 40px',
     width: '100%',
   },
 
   conditionsFieldWrapper: {
     width: '100%',
+    margin: 0,
   },
 
   conditionsField: {
     width: '100%',
     minHeight: '20vh',
-    color: 'rgba(61, 81, 112, 1)',
+
     padding: '8px',
     fontSize: '16px',
     outline: 'none',
-    border: '1px solid rgba(217, 222, 229, 1)',
-    borderRadius: '10px',
+    backgroundColor: 'inherit',
+    border: 'none',
     fontFamily:
       '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
     fontWeight: '400',
@@ -81,5 +84,23 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       opacity: '0.8',
     },
+  },
+
+  details: {
+    padding: 0,
+  },
+
+  files: {
+    fontWeight: 600,
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+  },
+
+  conditionsLabel: {
+    fontWeight: 600,
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
   },
 }))

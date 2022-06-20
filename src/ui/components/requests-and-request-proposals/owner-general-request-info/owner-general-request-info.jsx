@@ -8,6 +8,7 @@ import {RequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {MultilineRequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -63,8 +64,9 @@ export const OwnerGeneralRequestInfo = ({
 
             <div className={classNames.requestItemInfoWrapper}>
               <Typography>{t(TranslationKey.Status)}</Typography>
-
-              <Typography className={classNames.requestStatus}>{request?.request.status.replace(/_/g, ' ')}</Typography>
+              <Typography className={classNames.requestStatus}>
+                {<MultilineRequestStatusCell status={request?.request.status} />}
+              </Typography>
             </div>
           </div>
 

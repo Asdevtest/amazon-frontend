@@ -15,25 +15,13 @@ import {t} from '@utils/translations'
 
 export const buyerMyOrdersViewColumns = () => [
   {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+    field: 'ID',
+    headerName: t(TranslationKey.ID),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
-    width: 100,
-    type: 'date',
+    width: 70,
+    renderCell: params => renderFieldValueCell(params.value),
   },
-
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    renderCell: params => <NormDateCell params={params} />,
-    width: 100,
-    type: 'date',
-  },
-
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
@@ -112,5 +100,25 @@ export const buyerMyOrdersViewColumns = () => [
 
     renderCell: params => renderFieldValueCell(params.value),
     width: 300,
+  },
+
+  {
+    field: 'createdAt',
+    headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
+    renderCell: params => <NormDateCell params={params} />,
+    width: 100,
+    type: 'date',
+  },
+
+  {
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
+    renderCell: params => <NormDateCell params={params} />,
+    width: 100,
+    type: 'date',
   },
 ]

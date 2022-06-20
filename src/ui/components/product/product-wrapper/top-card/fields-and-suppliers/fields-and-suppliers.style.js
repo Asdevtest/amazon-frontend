@@ -33,7 +33,7 @@ export const useClassNames = makeStyles(() => ({
     color: 'white',
     backgroundColor: 'rgba(0, 123, 255, 1)',
     borderRadius: '4px',
-    marginRight: '16px',
+
     '&:hover': {
       backgroundColor: 'rgba(0, 123, 255, 1)',
     },
@@ -92,6 +92,8 @@ export const useClassNames = makeStyles(() => ({
 
   supplierContainer: {
     marginBottom: '20px',
+    display: 'flex',
+    gap: '16px',
   },
   supplierIcon: {
     marginRight: '16px',

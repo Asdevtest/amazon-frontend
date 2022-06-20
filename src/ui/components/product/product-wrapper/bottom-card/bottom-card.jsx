@@ -39,6 +39,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
         <Grid item sm={7} xs={12}>
           <Paper className={classNames.cardPadding}>
             <Field
+              tooltipInfoContent={t(TranslationKey['Category the product is in on Amazon'])}
               disabled={defaultFieldDisable}
               inputProps={{maxLength: 50}}
               label={t(TranslationKey.Category)}
@@ -46,6 +47,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               onChange={onChangeField('category')}
             />
             <Field
+              tooltipInfoContent={t(TranslationKey["Amazon's bestseller rating"])}
               disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.bsr}
               label={t(TranslationKey.BSR)}
@@ -111,12 +113,14 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             />
             <Field
               disabled
+              tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
               error={formFieldsValidationErrors.reffee}
               label={t(TranslationKey['Refferal fee , $'])}
               value={product.reffee === 0 ? 0 : toFixed(product.reffee, 2) || ''}
               onChange={onChangeField('reffee')}
             />
             <Field
+              tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
               disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.fbafee}
               inputProps={{maxLength: 15}}
@@ -126,12 +130,14 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             />
             <Field
               disabled
+              tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
               error={formFieldsValidationErrors.totalFba}
               label={t(TranslationKey['Total FBA, $'])}
               value={product.totalFba === 0 ? 0 : toFixed(product.totalFba, 2) || ''}
               onChange={onChangeField('totalFba')}
             />
             <Field
+              tooltipInfoContent={t(TranslationKey['Recommended amount of products for purchase'])}
               disabled={defaultFieldDisable}
               error={formFieldsValidationErrors.fbaamount}
               inputProps={{maxLength: 15}}
@@ -141,6 +147,9 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             />
             <Field
               disabled
+              tooltipInfoContent={t(
+                TranslationKey['Calculated from the price of the product, fees and the total price of the supplier'],
+              )}
               error={formFieldsValidationErrors.profit}
               label={t(TranslationKey['Profit, $'])}
               value={toFixed(product.profit, 2) || 0}
@@ -148,6 +157,9 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             />
             <Field
               disabled
+              tooltipInfoContent={t(
+                TranslationKey['Calculated from the price of the product, fees and the total price of the supplier'],
+              )}
               error={formFieldsValidationErrors.margin}
               label={t(TranslationKey['Margin, %'])}
               value={toFixed(product.margin, 2) || 0}
@@ -155,6 +167,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             />
             <Field
               disabled
+              tooltipInfoContent={t(TranslationKey['The status in which the product card is at the moment'])}
               error={formFieldsValidationErrors.status}
               label={t(TranslationKey.Status)}
               value={ProductStatusByCode[product.status]}

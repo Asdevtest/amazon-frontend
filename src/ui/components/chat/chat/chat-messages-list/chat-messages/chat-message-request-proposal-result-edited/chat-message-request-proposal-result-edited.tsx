@@ -74,7 +74,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
         <p className={classNames.resultText}>{message.data.edited.result}</p>
       </div>
       <div className={classNames.resultWrapper}>
-        <PhotoAndFilesCarousel files={message.data.edited.linksToMediaFiles} width="40%" />
+        <PhotoAndFilesCarousel files={message.data.edited.linksToMediaFiles} width="340px" />
 
         <div className={classNames.resultRightSide}>
           <div className={classNames.timeToCheckBlockWrapper}>

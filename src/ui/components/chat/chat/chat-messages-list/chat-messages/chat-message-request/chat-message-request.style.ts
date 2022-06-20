@@ -41,7 +41,7 @@ export const useClassNames = makeStyles(() => ({
   },
   descriptionWrapper: {
     marginTop: 18,
-    maxWidth: '60%',
+    maxWidth: '55%',
   },
   descriptionText: {
     color: '#354256',
