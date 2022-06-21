@@ -284,6 +284,13 @@ export const SelectFields = ({
         </div>
 
         <Field
+          oneLine
+          tooltipInfoContent={t(
+            TranslationKey[
+              'A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order'
+            ],
+          )}
+          label={t(TranslationKey['The actual cost is the same as the planned'])}
           inputComponent={
             <div className={classNames.checkboxWithLabelWrapper}>
               <Checkbox
@@ -306,18 +313,6 @@ export const SelectFields = ({
                   )
                 }}
               />
-              <Field
-                tooltipInfoContent={t(
-                  TranslationKey[
-                    'A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order'
-                  ],
-                )}
-                label={t(TranslationKey['The actual cost is the same as the planned'])}
-                containerClasses={classNames.checkboxLabelContainer}
-                labelClasses={classNames.labelCheckbox}
-                inputClasses={classNames.hidden}
-              />
-              {/* <Typography>{t(TranslationKey['The actual cost is the same as the planned'])}</Typography> */}
             </div>
           }
         />

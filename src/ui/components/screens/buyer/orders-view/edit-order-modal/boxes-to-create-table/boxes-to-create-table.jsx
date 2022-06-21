@@ -21,12 +21,12 @@ import {t} from '@utils/translations'
 import {useClassNames} from './boxes-to-create-table.style'
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = [
-  {align: 'center', title: 'BOX'},
-  {align: 'center', title: 'QTY'},
-  {align: 'center', title: 'Sizes'},
-  {align: 'center', title: 'Weight'},
-  {align: 'center', title: 'Volume weight'},
-  {align: 'center', title: 'Final weight'},
+  {align: 'center', title: t(TranslationKey.Box)},
+  {align: 'center', title: t(TranslationKey.Quantity)},
+  {align: 'center', title: t(TranslationKey.Demensions)},
+  {align: 'center', title: t(TranslationKey.Weight)},
+  {align: 'center', title: t(TranslationKey['Volume weight'])},
+  {align: 'center', title: t(TranslationKey['Final weight'])},
 ]
 
 const renderHeadRow = (
@@ -74,7 +74,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
       <TableCell className={classNames.normalCell}>
         <div className={classNames.sizesWrapper}>
           <div className={classNames.sizeWrapper}>
-            <Typography>{'H:'}</Typography>
+            <Typography>{t(TranslationKey.H) + ': '}</Typography>
             <Input
               disabled
               classes={{root: classNames.inputWrapper, input: classNames.input}}
@@ -85,7 +85,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             />
           </div>
           <div className={classNames.sizeWrapper}>
-            <Typography>{'W:'}</Typography>
+            <Typography>{t(TranslationKey.W) + ': '}</Typography>
             <Input
               disabled
               classes={{root: classNames.inputWrapper, input: classNames.input}}
@@ -96,7 +96,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             />
           </div>
           <div className={classNames.sizeWrapper}>
-            <Typography>{'L:'}</Typography>
+            <Typography>{t(TranslationKey.L) + ': '}</Typography>
             <Input
               disabled
               classes={{root: classNames.inputWrapper, input: classNames.input}}

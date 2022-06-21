@@ -25,14 +25,14 @@ import {t} from '@utils/translations'
 import {useClassNames} from './receive-box-modal.style'
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = [
-  {title: 'BOX'},
-  {title: 'QTY'},
-  {title: 'Count superbox'},
-  {title: 'TOTAL'},
-  {title: 'Sizes cm'},
-  {title: 'Weight kg'},
-  {title: 'Volume weight kg'},
-  {title: 'Final weight kg'},
+  {title: t(TranslationKey.Box)},
+  {title: t(TranslationKey.Quantity)},
+  {title: t(TranslationKey['Number of superboxes'])},
+  {title: t(TranslationKey.Total)},
+  {title: t(TranslationKey.Demensions) + t(TranslationKey.cm)},
+  {title: t(TranslationKey['Weight, kg'])},
+  {title: t(TranslationKey['Volume weight, kg'])},
+  {title: t(TranslationKey['Final weight, kg'])},
 ]
 
 const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
@@ -78,7 +78,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
 
       <TableCell className={classNames.sizesCell}>
         <div className={classNames.sizeWrapper}>
-          <Typography>{'H:'}</Typography>
+          <Typography>{t(TranslationKey.H) + ': '}</Typography>
           <Input
             classes={{root: classNames.inputWrapper, input: classNames.input}}
             inputProps={{maxLength: 6}}
@@ -87,7 +87,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           />
         </div>
         <div className={classNames.sizeWrapper}>
-          <Typography>{'W:'}</Typography>
+          <Typography>{t(TranslationKey.W) + ': '}</Typography>
           <Input
             classes={{root: classNames.inputWrapper, input: classNames.input}}
             inputProps={{maxLength: 6}}
@@ -96,7 +96,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           />
         </div>
         <div className={classNames.sizeWrapper}>
-          <Typography>{'L:'}</Typography>
+          <Typography>{t(TranslationKey.L) + ': '}</Typography>
           <Input
             classes={{root: classNames.inputWrapper, input: classNames.input}}
             inputProps={{maxLength: 6}}

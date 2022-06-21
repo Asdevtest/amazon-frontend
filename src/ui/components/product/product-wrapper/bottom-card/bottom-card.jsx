@@ -11,6 +11,7 @@ import {Field} from '@components/field'
 import {checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
+import {errorMessagesTranslate} from '@utils/validation'
 
 import {useClassNames} from './bottom-card.style'
 
@@ -62,7 +63,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               disabled={defaultFieldDisable}
               inputProps={{maxLength: 12}}
               label={t(TranslationKey['Amazon price']) + '*'}
-              error={formFieldsValidationErrors.amazon}
+              error={errorMessagesTranslate(formFieldsValidationErrors.amazon)}
               value={product.amazon === 0 ? 0 : product.amazon || ''}
               onChange={onChangeField('amazon')}
             />

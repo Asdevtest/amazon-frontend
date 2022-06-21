@@ -297,7 +297,7 @@
   "Back": "Назад",
   "Boxes to order": "Коробки к заказу",
   "No boxes...": "Коробок нет...",
-  "Gross weight": "Полная масса",
+  "Gross weight": "Фактический вес",
   "kg": "кг",
   "pcs.": "шт",
   "cm": "см",
@@ -974,5 +974,18 @@
   "Save box parameters to the current supplier": "Сохранить параметры коробки в текущего поставщика",
   "Viewing photos of the box taken at the prep center": "Просмотр фотографий коробки, сделанных на преп центре",
   "Save changes to the order": "Сохранить изменения в заказе",
-  "Close the \"Edit order\" window without saving": "Закрыть окно \"Редактирование заказа\" без сохранения"
+  "Close the \"Edit order\" window without saving": "Закрыть окно \"Редактирование заказа\" без сохранения",
+  "General product information from the Amazon page": "Общая информация товара со страницы Амазон",
+  "All orders related to this product": "Все заказы, связанные с этим товаром",
+  "Goods from the store, linked to the product card": "Товары из магазина, привязанные к карточке товара",
+  "Amazon ID number": "Идентификационный номер Amazon",
+  "Choose a product strategy": "Выбрать стратегию продукта",
+  "Number of superboxes": "Количество супербоксов",
+  "H": "В",
+  "W": "Ш",
+  "L": "Д",
+  "Supervisor's comment cannot be empty": "Комментарий супервизора не может быть пустым",
+  "Buyer's comment cannot be empty": "Комментарий байера не может быть пустым",
+  "The researcher's comment cannot be empty": "Комментарий ресерчера не может быть пустым",
+  "Amazon must be a number conforming to the specified constraints": "Amazon должно быть числом, соответствующим указанным ограничениям"
 }

@@ -69,6 +69,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   modalButtonNext: {
+    display: 'flex',
     width: '134px',
     height: '40px',
 

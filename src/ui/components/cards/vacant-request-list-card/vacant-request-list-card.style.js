@@ -104,7 +104,7 @@ export const useClassNames = makeStyles(() => ({
 
   actionButton: {
     width: '242px',
-    height: '52px',
+    height: '40px',
   },
 
   cardPrice: {

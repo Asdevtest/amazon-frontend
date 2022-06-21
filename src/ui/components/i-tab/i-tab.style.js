@@ -1,0 +1,37 @@
+import {makeStyles} from '@material-ui/core'
+
+export const useClassNames = makeStyles(() => ({
+  tooltipsWrapper: {
+    position: 'absolute',
+    top: '1px',
+    right: '1px',
+    zIndex: '10',
+  },
+
+  tooltip: {
+    width: '17px',
+    height: '17px',
+    color: 'red',
+    transition: '.3s ease-in-out',
+    '&:hover': {
+      cursor: 'default',
+      transform: 'scale(1.1)',
+    },
+  },
+
+  tooltipInfo: {
+    marginLeft: '3px',
+  },
+
+  tabWrapper: {
+    position: 'relative',
+    width: '300px',
+    display: 'flex',
+    justifyContent: 'center',
+    overflow: 'visible',
+  },
+
+  root: {
+    width: '100%',
+  },
+}))

@@ -13,12 +13,13 @@ import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-ti
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
+import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './vacant-request-list-card.style'
 
 export const VacantRequestListCard = ({item, onClickViewMore}) => {
   const classNames = useClassNames()
-  console.log(item)
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -36,11 +37,12 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
             <Typography className={classNames.cardTitle}>{item.title}</Typography>
           </div>
           <div className={classNames.cardTitleBlockFooterWrapper}>
-            <Typography className={classNames.cardSubTitle}>{`${
-              item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals
-            } ${t(TranslationKey['out of'])} ${item.maxAmountOfProposals} ${t(
-              TranslationKey['suggestions left'],
-            )}`}</Typography>
+            <Typography className={classNames.cardSubTitle}>
+              {translateProposalsLeftMessage(
+                item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals,
+                item.maxAmountOfProposals,
+              )}
+            </Typography>
 
             <div className={classNames.updatedAtWrapper}>
               <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ': '}</Typography>

@@ -13,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
@@ -557,7 +558,7 @@ export const AddOrEditSupplierModalContent = observer(
 
                 <div className={classNames.sizesBottomWrapper}>
                   <Field
-                    label={'H'}
+                    label={t(TranslationKey.H)}
                     inputProps={{maxLength: 6}}
                     containerClasses={classNames.sizeContainer}
                     labelClasses={clsx(classNames.rateLabel)}
@@ -567,7 +568,7 @@ export const AddOrEditSupplierModalContent = observer(
                   />
 
                   <Field
-                    label={'W'}
+                    label={t(TranslationKey.W)}
                     inputProps={{maxLength: 6}}
                     containerClasses={classNames.sizeContainer}
                     labelClasses={clsx(classNames.rateLabel)}
@@ -577,7 +578,7 @@ export const AddOrEditSupplierModalContent = observer(
                   />
 
                   <Field
-                    label={'L'}
+                    label={t(TranslationKey.L)}
                     inputProps={{maxLength: 6}}
                     containerClasses={classNames.sizeContainer}
                     labelClasses={clsx(classNames.rateLabel)}
@@ -680,16 +681,7 @@ export const AddOrEditSupplierModalContent = observer(
               />
             </div>
 
-            <Button
-              disableElevation
-              disabled={tmpSupplier.images.length < 1}
-              color="primary"
-              className={classNames.imagesButton}
-              variant="contained"
-              onClick={() => setShowPhotosModal(!showPhotosModal)}
-            >
-              {t(TranslationKey['Available photos'])}
-            </Button>
+            <PhotoAndFilesCarousel files={tmpSupplier.images} width="300px" />
           </div>
         </div>
 

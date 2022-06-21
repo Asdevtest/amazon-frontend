@@ -14,6 +14,7 @@ import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-t
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
+import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './owner-general-request-info.style'
 
@@ -41,17 +42,18 @@ export const OwnerGeneralRequestInfo = ({
           <div className={classNames.titleWrapper}>
             <Typography className={classNames.title}>{request?.request.title}</Typography>
 
-            <Typography className={classNames.subTitle}>{` ${
-              request?.request.maxAmountOfProposals -
-              (requestProposals?.filter(
-                el =>
-                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
-                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
-                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
-              ).length || 0)
-            } ${t(TranslationKey['out of'])} ${request?.request.maxAmountOfProposals} ${t(
-              TranslationKey['suggestions left'],
-            )}`}</Typography>
+            <Typography className={classNames.subTitle}>
+              {translateProposalsLeftMessage(
+                request?.request.maxAmountOfProposals -
+                  (requestProposals?.filter(
+                    el =>
+                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
+                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
+                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+                  ).length || 0),
+                request?.request.maxAmountOfProposals,
+              )}
+            </Typography>
           </div>
         </div>
 

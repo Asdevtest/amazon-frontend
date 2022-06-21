@@ -14,6 +14,7 @@ import {Field} from '@components/field'
 
 import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
 import {t} from '@utils/translations'
+import {errorMessagesTranslate} from '@utils/validation'
 
 import {ProductStatusButtons} from './product-status-buttons'
 import {useClassNames} from './right-side-comments.style'
@@ -50,7 +51,7 @@ export const RightSideComments = observer(
           <Field
             multiline
             disabled={!checkIsResearcher(curUserRole) || !showActionBtns}
-            error={formFieldsValidationErrors.icomment}
+            error={errorMessagesTranslate(formFieldsValidationErrors.icomment)}
             className={clsx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.icomment,
             })}
@@ -77,7 +78,7 @@ export const RightSideComments = observer(
           <Field
             multiline
             disabled={!checkIsSupervisor(curUserRole) || !showActionBtns}
-            error={formFieldsValidationErrors.checkednotes}
+            error={errorMessagesTranslate(formFieldsValidationErrors.checkednotes)}
             className={clsx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.checkednotes,
             })}
@@ -91,7 +92,7 @@ export const RightSideComments = observer(
           <Field
             multiline
             disabled={!checkIsBuyer(curUserRole) || !showActionBtns}
-            error={formFieldsValidationErrors.buyersComment}
+            error={errorMessagesTranslate(formFieldsValidationErrors.buyersComment)}
             className={clsx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.buyersComment,
             })}

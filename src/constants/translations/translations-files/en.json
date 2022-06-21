@@ -973,5 +973,18 @@
   "Save box parameters to the current supplier": "Save box parameters to the current supplier",
   "Viewing photos of the box taken at the prep center": "Viewing photos of the box taken at the prep center",
   "Save changes to the order": "Save changes to the order",
-  "Close the \"Edit order\" window without saving": "Close the \"Edit order\" window without saving"
+  "Close the \"Edit order\" window without saving": "Close the \"Edit order\" window without saving",
+  "General product information from the Amazon page": "General product information from the Amazon page",
+  "All orders related to this product": "All orders related to this product",
+  "Goods from the store, linked to the product card": "Goods from the store, linked to the product card",
+  "Amazon ID number": "Amazon ID number",
+  "Choose a product strategy": "Choose a product strategy",
+  "Number of superboxes": "Number of superboxes",
+  "H": "H",
+  "W": "W",
+  "L": "L",
+  "Supervisor's comment cannot be empty": "Supervisor's comment cannot be empty",
+  "Buyer's comment cannot be empty": "Buyer's comment cannot be empty",
+  "The researcher's comment cannot be empty": "The researcher's comment cannot be empty",
+  "Amazon must be a number conforming to the specified constraints": "Amazon must be a number conforming to the specified constraints"
 }

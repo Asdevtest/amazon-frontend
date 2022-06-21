@@ -25,6 +25,7 @@ export const styles = createStyles(() => ({
     marginTop: '10px',
   },
   proposalsWrapper: {
+    marginTop: '60px',
     '& > :not(:last-child)': {
       marginBottom: '20px',
     },
@@ -35,7 +36,11 @@ export const styles = createStyles(() => ({
   },
 
   proposalsTitle: {
-    margin: '50px 0 20px',
+    // margin: '50px 0 20px',
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '600',
+    color: '#001029',
   },
 
   emptyProposalsIconWrapper: {
