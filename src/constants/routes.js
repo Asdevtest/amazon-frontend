@@ -31,6 +31,7 @@ import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
 import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
 import {ClientFinancesViews} from '@views/client/client-finances-views'
+import {ClientFreelanceView} from '@views/client/client-freelance-view'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
 import {ClientBoxesNotificationsView} from '@views/client/client-notifications-views/client-boxes-notifications-view'
 import {ClientBoxesTariffsNotificationsView} from '@views/client/client-notifications-views/client-boxes-tariffs-notifications-view'
@@ -44,6 +45,7 @@ import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-vie
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {FreelancerDashboardView} from '@views/freelancer/freelancer-dashboard-view'
 import {FreelancerFinancesViews} from '@views/freelancer/freelancer-finances-views'
+import {FreelancerFreelanceView} from '@views/freelancer/freelancer-freelance-view'
 import {FreelancerSubUsersView} from '@views/freelancer/freelancer-users-views/freelancer-sub-users-view'
 import {RegistrationView} from '@views/registration'
 import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
@@ -91,6 +93,7 @@ import {WarehouseMyTasksView} from '@views/warehouse/warehouse-tasks-views/wareh
 import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view'
 import {WarehouseSubUsersView} from '@views/warehouse/warehouse-users-views/warehouse-sub-users-view'
 
+import {TranslationKey} from './translations/translation-key'
 import {UserRole} from './user-roles'
 
 export const publicRoutesConfigs = [
@@ -117,55 +120,64 @@ export const overallRoutesConfigs = [
     routePath: '/profile',
     component: UserProfileView,
     exact: false,
+    crumbNameKey: TranslationKey.Profile,
   },
 
   {
     routePath: '/another-user',
     component: AnotherUserProfileView,
     exact: false,
+    crumbNameKey: TranslationKey.User,
   },
 
-  {
-    routePath: '/requests/my',
-    component: MyRequestsView,
-    exact: false,
-  },
+  // {
+  //   routePath: '/requests/my',
+  //   component: MyRequestsView,
+  //   exact: false,
+  //   crumbNameKey: TranslationKey['My requests']
+  // },
 
-  {
-    routePath: '/requests/my-proposals',
-    component: MyProposalsView,
-    exact: false,
-  },
+  // {
+  //   routePath: '/requests/my-proposals',
+  //   component: MyProposalsView,
+  //   exact: false,
+  //   crumbNameKey: TranslationKey['My proposals']
+  // },
 
-  {
-    routePath: '/custom-request',
-    component: OwnerRequestDetailCustomView,
-    exact: true,
-  },
+  // {
+  //   routePath: '/custom-request',
+  //   component: OwnerRequestDetailCustomView,
+  //   exact: true,
+  //   crumbNameKey: TranslationKey['My request']
+  // },
 
-  {
-    routePath: '/create-or-edit-request',
-    component: CreateOrEditRequestView,
-    exact: false,
-  },
+  // {
+  //   routePath: '/create-or-edit-request',
+  //   component: CreateOrEditRequestView,
+  //   exact: false,
+  //   crumbNameKey: TranslationKey['Create a request']
+  // },
 
-  {
-    routePath: '/vacant-requests',
-    component: VacantRequestsView,
-    exact: false,
-  },
+  // {
+  //   routePath: '/vacant-requests',
+  //   component: VacantRequestsView,
+  //   exact: false,
+  //   crumbNameKey: TranslationKey['Vacant requests']
+  // },
 
-  {
-    routePath: '/custom-search-request',
-    component: RequestDetailCustomView,
-    exact: false,
-  },
+  // {
+  //   routePath: '/custom-search-request',
+  //   component: RequestDetailCustomView,
+  //   exact: false,
+  //   crumbNameKey: TranslationKey.Request
+  // },
 
-  {
-    routePath: '/create-or-edit-proposal',
-    component: CreateOrEditProposalView,
-    exact: false,
-  },
+  // {
+  //   routePath: '/create-or-edit-proposal',
+  //   component: CreateOrEditProposalView,
+  //   exact: false,
+  //   crumbNameKey: TranslationKey['Proposal Creation']
+  // },
 ]
 
 export const privateRoutesConfigs = [
@@ -174,57 +186,84 @@ export const privateRoutesConfigs = [
     component: BuyerDashboardView,
     exact: false,
     permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey.Dashboard,
   },
 
   {
     routePath: '/buyer/search-supplier-by-supervisor',
     component: BuyerSearchSupplierBySupervisorView,
-    exact: false,
+    exact: true,
     permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey['Supplier search'],
   },
 
   {
     routePath: '/buyer/search-supplier-by-client',
     component: BuyerSearchSupplierByClientView,
-    exact: false,
+    exact: true,
     permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey['Supplier search'],
   },
 
   {
-    routePath: '/buyer/users/sub-users',
+    routePath: '/buyer/sub-users',
     component: BuyerSubUsersView,
     exact: false,
     permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey.Users,
   },
   {
-    routePath: '/buyer/product',
+    routePath: '/buyer/search-supplier-by-supervisor/product',
     component: BuyerProductView,
     exact: false,
     permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey.Product,
+  },
+
+  {
+    routePath: '/buyer/search-supplier-by-client/product',
+    component: BuyerProductView,
+    exact: false,
+    permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey.Product,
+  },
+
+  {
+    routePath: '/buyer/my-products/product',
+    component: BuyerProductView,
+    exact: false,
+    permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey.Product,
+  },
+
+  {
+    routePath: '/buyer/my-products',
+    component: BuyerMyProductsView,
+    exact: false,
+    permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey['My products'],
   },
   {
     routePath: '/buyer/my-orders',
     component: BuyerMyOrdersView,
     exact: false,
     permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey['My orders'],
   },
   {
     routePath: '/buyer/free-orders',
     component: BuyerFreeOrdersView,
     exact: false,
     permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey['Free Orders'],
   },
-  {
-    routePath: '/buyer/my-products',
-    component: BuyerMyProductsView,
-    exact: false,
-    permission: [UserRole.BUYER],
-  },
+
   {
     routePath: '/buyer/finances',
     component: BuyerFinancesViews,
     exact: false,
     permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey.Finances,
   },
 
   {
@@ -232,89 +271,30 @@ export const privateRoutesConfigs = [
     component: ResearcherDashboardView,
     exact: false,
     permission: [UserRole.RESEARCHER],
+    crumbNameKey: TranslationKey.Dashboard,
   },
   {
     routePath: '/researcher/products',
     component: ResearcherProductsView,
-    exact: false,
+    exact: true,
     permission: [UserRole.RESEARCHER],
+    crumbNameKey: TranslationKey['My products'],
   },
 
-  // {
-  //   routePath: '/researcher/my-requests/products',
-  //   component: ResearcherMyProductsRequestsView,
-  //   exact: true,
-  //   permission: [UserRole.RESEARCHER],
-  // },
-
-  // {
-  //   routePath: '/researcher/my-requests/niches',
-  //   component: ResearcherMyNichesRequestsView,
-  //   exact: true,
-  //   permission: [ UserRole.RESEARCHER ]
-  // },
-
-  // {
-  //   routePath: '/researcher/my-requests/custom',
-  //   component: ResearcherMyCustomRequestsView,
-  //   exact: true,
-  //   permission: [UserRole.RESEARCHER],
-  // },
-
-  // {
-  //   routePath: '/researcher/requests/products',
-  //   component: ResearcherVacantProductsRequestsView,
-  //   exact: true,
-  //   permission: [UserRole.RESEARCHER],
-  // },
-
-  // {
-  //   routePath: '/researcher/requests/custom',
-  //   component: ResearcherVacantCustomRequestsView,
-  //   exact: true,
-  //   permission: [UserRole.RESEARCHER],
-  // },
-
-  // {
-  //   routePath: '/researcher/requests/niches',
-  //   component: ResearcherVacantNichesRequestsView,
-  //   exact: true,
-  //   permission: [UserRole.RESEARCHER],
-  // },
-
   {
-    routePath: '/researcher/product',
+    routePath: '/researcher/products/product',
     component: ResearcherProductView,
     exact: false,
     permission: [UserRole.RESEARCHER],
+    crumbNameKey: TranslationKey.Product,
   },
 
-  // {
-  //   routePath: '/researcher/product-search-request',
-  //   component: ResearcherRequestDetailProductView,
-  //   exact: true,
-  //   permission: [UserRole.RESEARCHER],
-  // },
-
-  // {
-  //   routePath: '/researcher/niche-search-request',
-  //   component: ResearcherRequestDetailNicheView,
-  //   exact: true,
-  //   permission: [UserRole.RESEARCHER],
-  // },
-
-  // {
-  //   routePath: '/researcher/custom-search-request',
-  //   component: ResearcherRequestDetailCustomView,
-  //   exact: true,
-  //   permission: [UserRole.RESEARCHER],
-  // },
-
   {
-    routePath: '/researcher/users/sub-users',
+    routePath: '/researcher/sub-users',
     component: ResearcherSubUsersView,
     exact: false,
     permission: [UserRole.RESEARCHER],
+    crumbNameKey: TranslationKey['Sub users'],
   },
 
   {
@@ -322,6 +302,7 @@ export const privateRoutesConfigs = [
     component: ResearcherFinancesViews,
     exact: false,
     permission: [UserRole.RESEARCHER],
+    crumbNameKey: TranslationKey.Finances,
   },
 
   {
@@ -329,19 +310,115 @@ export const privateRoutesConfigs = [
     component: ClientDashboardView,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Dashboard,
   },
+
+  // ////////////////////////////////////////////////////////////////////////////////////////////////////
+
   {
-    routePath: '/client/inventory',
-    component: ClientInventoryView,
-    exact: false,
+    routePath: '/client/freelance',
+    component: ClientFreelanceView,
+    exact: true,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Freelance,
   },
 
   {
-    routePath: '/client/product',
+    routePath: '/client/freelance/my-requests',
+    component: MyRequestsView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['My requests'],
+  },
+
+  {
+    routePath: '/client/freelance/my-proposals',
+    component: MyProposalsView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['My proposals'],
+  },
+
+  {
+    routePath: '/client/freelance/my-requests/custom-request',
+    component: OwnerRequestDetailCustomView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['My request'],
+  },
+
+  {
+    routePath: '/client/freelance/my-requests/create-request',
+    component: CreateOrEditRequestView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Create a request'],
+  },
+
+  {
+    routePath: '/client/freelance/my-requests/custom-request/edit-request',
+    component: CreateOrEditRequestView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Edit a request'],
+  },
+
+  {
+    routePath: '/client/freelance/vacant-requests',
+    component: VacantRequestsView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Vacant requests'],
+  },
+
+  {
+    routePath: '/client/freelance/vacant-requests/custom-search-request',
+    component: RequestDetailCustomView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Request,
+  },
+
+  {
+    routePath: '/client/freelance/my-proposals/custom-search-request',
+    component: RequestDetailCustomView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Request,
+  },
+
+  {
+    routePath: '/client/freelance/my-proposals/edit-proposal',
+    component: CreateOrEditProposalView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Proposal Edition'],
+  },
+
+  {
+    routePath: '/client/freelance/vacant-requests/custom-search-request/create-proposal',
+    component: CreateOrEditProposalView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Proposal Creation'],
+  },
+
+  // ////////////////////////////////////////////////////////////////////////////////////////////////
+
+  {
+    routePath: '/client/inventory',
+    component: ClientInventoryView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Inventory,
+  },
+
+  {
+    routePath: '/client/inventory/product',
     component: ClientProductView,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Product,
   },
 
   {
@@ -349,12 +426,14 @@ export const privateRoutesConfigs = [
     component: ClientExchangeView,
     exact: true,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Surebets exchange'],
   },
   {
     routePath: '/client/exchange/private-label',
     component: ClientExchangePrivateLabelView,
     exact: true,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Private Label'],
   },
 
   {
@@ -362,6 +441,7 @@ export const privateRoutesConfigs = [
     component: ClientReadyBoxesView,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Boxes ready to send'],
   },
 
   {
@@ -369,6 +449,7 @@ export const privateRoutesConfigs = [
     component: ClientAwaitingBatchesView,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Awaiting send'],
   },
 
   {
@@ -376,6 +457,7 @@ export const privateRoutesConfigs = [
     component: ClientBatchesView,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Sent boxes'],
   },
 
   {
@@ -383,6 +465,7 @@ export const privateRoutesConfigs = [
     component: ClientShopsView,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Shops,
   },
 
   {
@@ -390,12 +473,14 @@ export const privateRoutesConfigs = [
     component: ClientWarehouseView,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['My warehouse'],
   },
   {
     routePath: '/client/orders',
     component: ClientOrdersView,
     exact: true,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Orders,
   },
 
   {
@@ -403,25 +488,29 @@ export const privateRoutesConfigs = [
     component: ClientSettingsView,
     exact: true,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Profile,
   },
   {
     routePath: '/client/orders/order',
     component: ClientOrderView,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Order,
   },
 
   {
-    routePath: '/client/users/sub-users',
+    routePath: '/client/sub-users',
     component: ClientSubUsersView,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['My users'],
   },
   {
     routePath: '/client/orders-notifications',
     component: ClientOrdersNotificationsView,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Order notifications'],
   },
 
   {
@@ -429,6 +518,7 @@ export const privateRoutesConfigs = [
     component: ClientBoxesNotificationsView,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Box notifications'],
   },
 
   {
@@ -436,6 +526,7 @@ export const privateRoutesConfigs = [
     component: ClientBoxesTariffsNotificationsView,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Box notifications'],
   },
 
   {
@@ -443,56 +534,75 @@ export const privateRoutesConfigs = [
     component: ClientFinancesViews,
     exact: false,
     permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Finances,
   },
   {
     routePath: '/supervisor/dashboard',
     component: SupervisorDashboardView,
     exact: false,
     permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Dashboard,
   },
   {
     routePath: '/supervisor/products',
     component: SupervisorProductsView,
-    exact: false,
+    exact: true,
     permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey['My products'],
   },
-  // {
-  //   routePath: '/supervisor/settings',
-  //   component: SupervisorSettingsView,
-  //   exact: false,
-  //   permission: [UserRole.SUPERVISOR],
-  // },
+
   {
-    routePath: '/supervisor/product',
+    routePath: '/supervisor/products/product',
     component: SupervisorProductView,
     exact: false,
     permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Product,
+  },
+
+  {
+    routePath: '/supervisor/ready-to-check/product',
+    component: SupervisorProductView,
+    exact: false,
+    permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Product,
+  },
+
+  {
+    routePath: '/supervisor/ready-to-check-by-client/product',
+    component: SupervisorProductView,
+    exact: false,
+    permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Product,
   },
   {
     routePath: '/supervisor/ready-to-check',
     component: SupervisorReadyToCheckView,
-    exact: false,
+    exact: true,
     permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey['Supplier search'],
   },
 
   {
     routePath: '/supervisor/ready-to-check-by-client',
     component: SupervisorReadyToCheckByClientView,
-    exact: false,
+    exact: true,
     permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey['Supplier search'],
   },
 
   {
-    routePath: '/supervisor/users/sub-users',
+    routePath: '/supervisor/sub-users',
     component: SupervisorSubUsersView,
     exact: false,
     permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Users,
   },
   {
     routePath: '/supervisor/finances',
     component: SupervisorFinancesViews,
     exact: false,
     permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Finances,
   },
 
   {
@@ -500,18 +610,21 @@ export const privateRoutesConfigs = [
     component: WarehouseDashboardView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey.Dashboard,
   },
   {
     routePath: '/warehouse/vacant-tasks',
     component: WarehouseVacantTasksView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey['New tasks'],
   },
   {
     routePath: '/warehouse/my-tasks',
     component: WarehouseMyTasksView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey['My tasks'],
   },
 
   {
@@ -519,6 +632,7 @@ export const privateRoutesConfigs = [
     component: WarehouseAwaitingBatchesView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey['Awaiting send'],
   },
 
   {
@@ -526,12 +640,14 @@ export const privateRoutesConfigs = [
     component: WarehouseBatchesView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey.Sent,
   },
   {
     routePath: '/warehouse/my-warehouse',
     component: WarehouseMyWarehouseView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey['My warehouse'],
   },
 
   {
@@ -539,19 +655,22 @@ export const privateRoutesConfigs = [
     component: WarehouseManagementView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey['Warehouse management'],
   },
   {
     routePath: '/warehouse/completed-tasks',
     component: WarehouseCompletedTasksView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey['Completed tasks'],
   },
 
   {
-    routePath: '/warehouse/users/sub-users',
+    routePath: '/warehouse/sub-users',
     component: WarehouseSubUsersView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey.Users,
   },
 
   {
@@ -559,72 +678,92 @@ export const privateRoutesConfigs = [
     component: WarehouseCanceledTasksView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey['Canceled tasks'],
   },
   {
     routePath: '/warehouse/warehouse',
     component: WarehouseBatchesView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey.Sent,
   },
   {
     routePath: '/warehouse/finances',
     component: WarehouseFinancesViews,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey.Finances,
   },
   {
     routePath: '/admin/dashboard',
     component: AdminDashboardView,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Dashboard,
   },
   {
     routePath: '/admin/exchange',
     component: AdminExchangeViews,
-    exact: false,
+    exact: true,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey['Commodity exchange'],
   },
   {
     routePath: '/admin/inventory',
     component: AdminInventoryView,
-    exact: false,
+    exact: true,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Inventory,
   },
   {
     routePath: '/admin/orders/order',
     component: AdminOrderView,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Order,
   },
   {
     routePath: '/admin/permissions',
     component: AdminUserPermissionsView,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey['User permissions'],
   },
   {
     routePath: '/admin/orders',
     component: AdminOrdersViews,
     exact: true,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Orders,
   },
   {
-    routePath: '/admin/product',
+    routePath: '/admin/exchange/product',
     component: AdminProductView,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Product,
+  },
+
+  {
+    routePath: '/admin/inventory/product',
+    component: AdminProductView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Product,
   },
   {
     routePath: '/admin/warehouse/tasks',
     component: AdminWarehouseTasksView,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Tasks,
   },
   {
     routePath: '/admin/warehouse/boxes',
     component: AdminWarehouseBoxesView,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Boxes,
   },
 
   {
@@ -632,6 +771,7 @@ export const privateRoutesConfigs = [
     component: AdminDestinationsView,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Destinations,
   },
 
   {
@@ -639,6 +779,7 @@ export const privateRoutesConfigs = [
     component: AdminAwaitingBatchesView,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey['Awaiting send'],
   },
 
   {
@@ -646,6 +787,7 @@ export const privateRoutesConfigs = [
     component: AdminBatchesView,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Sent,
   },
 
   {
@@ -653,24 +795,28 @@ export const privateRoutesConfigs = [
     component: AdminFinancesViews,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Finances,
   },
   {
     routePath: '/admin/users',
     component: AdminUsersView,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Users,
   },
   {
     routePath: '/admin/user/user_id/balance',
     component: AdminUserBalanceView,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey['User balance'],
   },
   {
     routePath: '/admin/settings',
     component: AdminSettingsView,
     exact: false,
     permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Settings,
   },
 
   {
@@ -678,13 +824,15 @@ export const privateRoutesConfigs = [
     component: FreelancerDashboardView,
     exact: false,
     permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey.Dashboard,
   },
 
   {
-    routePath: '/freelancer/users/sub-users',
+    routePath: '/freelancer/sub-users',
     component: FreelancerSubUsersView,
     exact: false,
     permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Sub users'],
   },
 
   {
@@ -692,5 +840,66 @@ export const privateRoutesConfigs = [
     component: FreelancerFinancesViews,
     exact: false,
     permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey.Finances,
   },
+
+  // ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  {
+    routePath: '/freelancer/freelance',
+    component: FreelancerFreelanceView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey.Freelance,
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-proposals',
+    component: MyProposalsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['My proposals'],
+  },
+
+  {
+    routePath: '/freelancer/freelance/vacant-requests',
+    component: VacantRequestsView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Vacant requests'],
+  },
+
+  {
+    routePath: '/freelancer/freelance/vacant-requests/custom-search-request',
+    component: RequestDetailCustomView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey.Request,
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-proposals/custom-search-request',
+    component: RequestDetailCustomView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey.Request,
+  },
+
+  {
+    routePath: '/freelancer/freelance/my-proposals/edit-proposal',
+    component: CreateOrEditProposalView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Proposal Edition'],
+  },
+
+  {
+    routePath: '/freelancer/freelance/vacant-requests/custom-search-request/create-proposal',
+    component: CreateOrEditProposalView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey['Proposal Creation'],
+  },
+
+  // ////////////////////////////////////////////////////////////////////////////////////////////////
 ]

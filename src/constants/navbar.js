@@ -81,25 +81,26 @@ export const navbarConfig = () => ({
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: () => true,
     },
+
     {
       icon: Work,
       title: t(TranslationKey.Freelance),
-      route: '/vacant-requests',
+      route: '/client/freelance/my-requests',
       subtitles: [
         {
           subtitle: t(TranslationKey['My requests']),
-          subRoute: '/requests/my',
+          subRoute: '/client/freelance/my-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
         },
         {
           subtitle: t(TranslationKey['Vacant requests']),
-          subRoute: '/vacant-requests',
+          subRoute: '/client/freelance/vacant-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
         },
 
         {
           subtitle: t(TranslationKey['My proposals']),
-          subRoute: '/requests/my-proposals',
+          subRoute: '/client/freelance/my-proposals',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
         },
       ],
@@ -180,8 +181,8 @@ export const navbarConfig = () => ({
     {
       icon: PeopleIcon,
       title: t(TranslationKey.Users),
-      route: '/client/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/client/users/sub-users'}],
+      route: '/client/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/client/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_USERS_CLIENT),
@@ -197,28 +198,6 @@ export const navbarConfig = () => ({
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_SHOPS_CLIENT),
     },
 
-    // {
-    //   icon: SettingsIcon,
-    //   title: 'Интеграции',
-    //   route: '/client/integrations/daily',
-    //   subtitles: [
-    //     {subtitle: 'Отчет со склада', subRoute: '/client/integrations/daily'},
-    //     {subtitle: 'Дашборд по товарам/дням', subRoute: '/client/integrations/last-30-day'},
-    //   ],
-    //   key: navBarActiveCategory.NAVBAR_INTEGRATIONS,
-    //   checkHideBlock: user =>
-    //     !isMasterUser(user) ||
-    //     user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_INTEGRATIONS_CLIENT),
-    // },
-
-    // {
-    //   icon: ChatBubbleOutlineOutlinedIcon,
-    //   title: 'Сообщения',
-    //   route: '/client/messages',
-    //   subtitles: null,
-    //   key: navBarActiveCategory.NAVBAR_MESSAGES,
-    //   checkHideBlock: () => true,
-    // },
     {
       icon: MonetizationOnOutlinedIcon,
       title: t(TranslationKey.Finances),
@@ -261,39 +240,12 @@ export const navbarConfig = () => ({
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_PRODUCTS_RESEARCHER),
     },
-    // { // ПОКА УБЕРЕМ У РЕСЕРЧЕРА
-    //   icon: AssignmentIcon,
-    //   title: 'Заявки в работе',
-    //   route: '/researcher/my-requests/products',
-    //   subtitles: [
-    //     {subtitle: 'На поиск продукта', subRoute: '/researcher/my-requests/products'},
-    //     {subtitle: 'На поиск ниши', subRoute: '/researcher/my-requests/niches'},
-    //     {subtitle: 'Универсальные', subRoute: '/researcher/my-requests/custom'},
-    //   ],
-    //   key: navBarActiveCategory.NAVBAR_MY_REQUESTS,
-    //   checkHideBlock: user =>
-    //     !isMasterUser(user) ||
-    //     user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_REQUESTS_RESEARCHER),
-    // },
-    // {
-    //   icon: AssignmentIcon,
-    //   title: 'Вакантные заявки',
-    //   route: '/researcher/requests/products',
-    //   subtitles: [
-    //     {subtitle: 'На поиск продукта', subRoute: '/researcher/requests/products'},
-    //     {subtitle: 'На поиск ниши', subRoute: '/researcher/requests/niches'},
-    //     {subtitle: 'Универсальные', subRoute: '/researcher/requests/custom'},
-    //   ],
-    //   key: navBarActiveCategory.NAVBAR_VACANT_REQUESTS,
-    //   checkHideBlock: user =>
-    //     !isMasterUser(user) ||
-    //     user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_VAC_REQUESTS_RESEARCHER),
-    // },
+
     {
       icon: PeopleIcon,
       title: t(TranslationKey.Users),
-      route: '/researcher/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/researcher/users/sub-users'}],
+      route: '/researcher/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/researcher/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -322,18 +274,18 @@ export const navbarConfig = () => ({
 
     {
       icon: Work,
-      title: t(TranslationKey.Requests),
-      route: '/vacant-requests',
+      title: t(TranslationKey.Freelance),
+      route: '/freelancer/freelance/vacant-requests',
       subtitles: [
         {
           subtitle: t(TranslationKey['Vacant requests']),
-          subRoute: '/vacant-requests',
+          subRoute: '/freelancer/freelance/vacant-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
         },
 
         {
           subtitle: t(TranslationKey['My proposals']),
-          subRoute: '/requests/my-proposals',
+          subRoute: '/freelancer/freelance/my-proposals',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
         },
 
@@ -342,11 +294,12 @@ export const navbarConfig = () => ({
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user => !isMasterUser(user),
     },
+
     {
       icon: PeopleIcon,
       title: t(TranslationKey.Users),
-      route: '/freelancer/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/freelancer/users/sub-users'}],
+      route: '/freelancer/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/freelancer/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: () => true,
     },
@@ -410,8 +363,8 @@ export const navbarConfig = () => ({
     {
       icon: PeopleIcon,
       title: t(TranslationKey.Users),
-      route: '/supervisor/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/supervisor/users/sub-users'}],
+      route: '/supervisor/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/supervisor/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -500,8 +453,8 @@ export const navbarConfig = () => ({
     {
       icon: PeopleIcon,
       title: t(TranslationKey.Users),
-      route: '/buyer/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/buyer/users/sub-users'}],
+      route: '/buyer/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/buyer/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_USERS_BUYER),
@@ -594,8 +547,8 @@ export const navbarConfig = () => ({
     {
       icon: PeopleIcon,
       title: t(TranslationKey.Users),
-      route: '/warehouse/users/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/warehouse/users/sub-users'}],
+      route: '/warehouse/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/warehouse/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||

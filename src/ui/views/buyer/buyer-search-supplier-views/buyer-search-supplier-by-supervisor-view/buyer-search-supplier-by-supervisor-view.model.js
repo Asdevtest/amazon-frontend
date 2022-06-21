@@ -78,7 +78,7 @@ export class BuyerSearchSupplierBySupervisorModel {
       this.setActionStatus(loadingStatuses.success)
 
       this.history.push({
-        pathname: '/buyer/product',
+        pathname: '/buyer/search-supplier-by-supervisor/product',
         search: product._id,
       })
     } catch (error) {

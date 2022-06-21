@@ -47,7 +47,12 @@ export class ClientOrderView extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar title={t(TranslationKey.Order)} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar
+            title={t(TranslationKey.Order)}
+            notificationCount={2}
+            setDrawerOpen={onTriggerDrawerOpen}
+            lastCrumbAdditionalText={` № ${order?.id}`}
+          >
             <MainContent>
               <Typography variant="h3">{t(TranslationKey.Order)}</Typography>
               {order ? (

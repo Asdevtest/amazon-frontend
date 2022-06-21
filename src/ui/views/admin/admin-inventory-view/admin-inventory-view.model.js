@@ -82,7 +82,7 @@ export class AdminInventoryViewModel {
   onClickTableRow(product) {
     this.history.push(
       {
-        pathname: '/admin/product',
+        pathname: '/admin/inventory/product',
         search: product.originalData._id,
       },
       {inInventory: true},

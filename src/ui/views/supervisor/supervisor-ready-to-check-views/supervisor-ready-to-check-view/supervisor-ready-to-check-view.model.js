@@ -94,7 +94,7 @@ export class SupervisorReadyToCheckViewModel {
       this.setActionStatus(loadingStatuses.success)
 
       this.history.push({
-        pathname: '/supervisor/product',
+        pathname: '/supervisor/ready-to-check/product',
         search: item._id,
       })
     } catch (error) {

@@ -38,6 +38,9 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
       <Grid container spacing={2}>
         <Grid item sm={7} xs={12}>
           <Paper className={classNames.cardPadding}>
+            <Typography className={classNames.title}>
+              {t(TranslationKey['Product information']).toUpperCase()}
+            </Typography>
             <Field
               tooltipInfoContent={t(TranslationKey['Category the product is in on Amazon'])}
               disabled={defaultFieldDisable}
@@ -177,7 +180,9 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
         </Grid>
         <Grid item sm={5} xs={12}>
           <Paper className={classNames.cardPadding}>
-            <Typography className={classNames.title}>{t(TranslationKey['Product description'])}</Typography>
+            <Typography className={classNames.title}>
+              {t(TranslationKey['Product description']).toUpperCase()}
+            </Typography>
             <Field
               disabled={defaultFieldDisable}
               label={t(TranslationKey['Product header on Amazon'])}

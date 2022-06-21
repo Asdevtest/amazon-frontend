@@ -40,6 +40,7 @@ export class AdminOrderView extends Component {
             notificationCount={2}
             history={history}
             setDrawerOpen={onTriggerDrawerOpen}
+            lastCrumbAdditionalText={` № ${order?.id}`}
           >
             <MainContent>
               <Typography variant="h3">{t(TranslationKey.Order)}</Typography>

@@ -34,9 +34,10 @@ interface Props {
   title: string
   curUserRole: string
   setDrawerOpen: () => void
+  lastCrumbAdditionalText?: string
 }
 
-export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen}) => {
+export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, lastCrumbAdditionalText}) => {
   const history = useHistory()
   const classNames = useClassNames()
   const componentModel = useRef(new AppbarModel())
@@ -183,7 +184,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen}) => 
         </Paper>
 
         <div className={classNames.breadCrumbsWrapper}>
-          <BreadCrumbsLine />
+          <BreadCrumbsLine lastCrumbAdditionalText={lastCrumbAdditionalText} />
         </div>
       </div>
 

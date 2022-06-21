@@ -193,7 +193,7 @@ export class ResearcherProductsViewModel {
 
       this.history.push(
         {
-          pathname: '/researcher/product',
+          pathname: '/researcher/products/product',
           search: foundedProd.originalData._id,
         },
         {startParse: true},
@@ -280,7 +280,7 @@ export class ResearcherProductsViewModel {
   onClickTableRow(item) {
     if (item.originalData.status < ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH]) {
       this.history.push({
-        pathname: '/researcher/product',
+        pathname: '/researcher/products/product',
         search: item.originalData._id,
       })
     }

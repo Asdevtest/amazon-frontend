@@ -76,7 +76,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
       </div>
       <div className={classNames.btnWrapper}>
         <Button
-          disabled={!formFields.reason}
+          disabled={!formFields.reason || !formFields.timeLimitInMinutes}
           onClick={() => {
             onPressSubmitForm(formFields)
           }}
