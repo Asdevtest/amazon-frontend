@@ -43,7 +43,7 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
             )}`}</Typography>
 
             <div className={classNames.updatedAtWrapper}>
-              <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ':'}</Typography>
+              <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ': '}</Typography>
 
               <Typography className={classNames.updatedAtText}>
                 {formatNormDateTimeWithParseISO(item.updatedAt)}

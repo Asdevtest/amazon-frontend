@@ -146,7 +146,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
             inputClasses={classNames.searchInput}
             disabled={chipConfig === chipConfigSettings.RECOMMENDED}
             value={searchInputValue}
-            placeholder={'search'}
+            placeholder={t(TranslationKey.search)}
             endAdornment={
               <InputAdornment position="start">
                 <SearchIcon color="primary" />

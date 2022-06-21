@@ -232,7 +232,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
-    width: '139px',
+    maxWidth: '120px',
   },
 
   timeCount: {

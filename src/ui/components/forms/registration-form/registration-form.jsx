@@ -1,9 +1,12 @@
+import LockIcon from '@mui/icons-material/Lock'
+import MailOutlineIcon from '@mui/icons-material/MailOutline'
+import PersonIcon from '@mui/icons-material/Person'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
 import {useEffect, useState} from 'react'
 
-import {Button, Checkbox, Typography} from '@material-ui/core'
+import {Button, Checkbox, InputAdornment, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {Link} from 'react-router-dom'
 
@@ -63,7 +66,6 @@ export const RegistrationFormRaw = ({
     error?.length === 0 && onSubmit()
   }
 
-  console.log(error)
   return (
     <form className={classNames.root} onSubmit={onSubmitForm}>
       <div className={classNames.formFields}>
@@ -74,6 +76,11 @@ export const RegistrationFormRaw = ({
           placeholder={t(TranslationKey.Name)}
           error={checkValidationNameOrEmail.nameIsUnique && t(TranslationKey['A user with this name already exists'])}
           value={formFields.name}
+          startAdornment={
+            <InputAdornment position="end">
+              <PersonIcon color="primary" />
+            </InputAdornment>
+          }
           onChange={onChangeFormField('name')}
         />
         <Field
@@ -86,6 +93,11 @@ export const RegistrationFormRaw = ({
             checkValidationNameOrEmail?.emailIsUnique ? t(TranslationKey['A user with this email already exists']) : ''
           }
           value={formFields.email}
+          startAdornment={
+            <InputAdornment position="end">
+              <MailOutlineIcon color="primary" />
+            </InputAdornment>
+          }
           onChange={onChangeFormField('email')}
         />
         <div className={classNames.field}>
@@ -96,6 +108,11 @@ export const RegistrationFormRaw = ({
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}
             value={formFields.password}
+            startAdornment={
+              <InputAdornment position="end">
+                <LockIcon color="primary" />
+              </InputAdornment>
+            }
             onChange={onChangeFormField('password')}
           />
           <div className={classNames.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
@@ -110,6 +127,11 @@ export const RegistrationFormRaw = ({
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}
             value={formFields.confirmPassword}
+            startAdornment={
+              <InputAdornment position="end">
+                <LockIcon color="primary" />
+              </InputAdornment>
+            }
             onChange={onChangeFormField('confirmPassword')}
           />
         </div>

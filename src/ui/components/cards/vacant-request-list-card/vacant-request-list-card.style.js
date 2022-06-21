@@ -131,6 +131,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: '#656565',
+    marginRight: 5,
   },
 
   cardTitleBlockFooterWrapper: {

@@ -1,4 +1,5 @@
 import SettingsIcon from '@mui/icons-material/Settings'
+import Tooltip from '@mui/material/Tooltip'
 
 import React, {useRef, useState, FC} from 'react'
 
@@ -87,11 +88,21 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen}) => 
             <div className={classNames.titleWrapper}>
               <Typography className={classNames.title}>{title}</Typography>
 
-              <img
-                className={classNames.hintsIcon}
-                src={componentModel.current.showHints ? '/assets/icons/hints-on.svg' : '/assets/icons/hints-off.svg'}
-                onClick={componentModel.current.onTriggerShowHints}
-              />
+              <Tooltip
+                arrow
+                title={
+                  componentModel.current.showHints
+                    ? t(TranslationKey['Hints included'])
+                    : t(TranslationKey['Hints are off'])
+                }
+                placement="top-end"
+              >
+                <img
+                  className={classNames.hintsIcon}
+                  src={componentModel.current.showHints ? '/assets/icons/hints-on.svg' : '/assets/icons/hints-off.svg'}
+                  onClick={componentModel.current.onTriggerShowHints}
+                />
+              </Tooltip>
             </div>
 
             <Typography className={classNames.userroleTitle}>{t(TranslationKey['your role:'])}</Typography>
@@ -171,9 +182,9 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen}) => 
           </div>
         </Paper>
 
-        {/* <div className={classNames.breadCrumbsWrapper}>
+        <div className={classNames.breadCrumbsWrapper}>
           <BreadCrumbsLine />
-        </div> */}
+        </div>
       </div>
 
       {children}

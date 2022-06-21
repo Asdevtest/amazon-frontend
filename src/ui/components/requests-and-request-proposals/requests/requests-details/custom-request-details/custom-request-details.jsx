@@ -34,7 +34,7 @@ export const CustomSearchRequestDetails = ({request}) => {
         onChange={onClickToShowDetails}
       >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          {/* <Typography className={classNames.title}>{t(TranslationKey['Detailed application description'])}</Typography> */}
+          <Typography className={classNames.title}>{t(TranslationKey['Detailed application description'])}</Typography>
         </AccordionSummary>
 
         <AccordionDetails classes={{root: classNames.details}} style={{padding: 0}}>
