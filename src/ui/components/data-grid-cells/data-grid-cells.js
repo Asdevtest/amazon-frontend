@@ -308,6 +308,12 @@ export const MultilineTextHeaderCell = withStyles(styles)(({classes: classNames,
   </div>
 ))
 
+export const TextHeaderCell = withStyles(styles)(({classes: classNames, text}) => (
+  <div className={classNames.textHeaderWrapper}>
+    <Typography className={classNames.headerText}>{text}</Typography>
+  </div>
+))
+
 export const MultilineStatusCell = withStyles(styles)(({classes: classNames, status}) => (
   <div className={classNames.multilineTextWrapper}>
     <Typography className={classNames.multilineText}>{status?.replace(/_/g, ' ')}</Typography>
@@ -347,7 +353,7 @@ export const RequestStatusCell = withStyles(styles)(({classes: classNames, statu
   )
 })
 
-export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNames, status}) => {
+export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNames, status, fontSize = '14px'}) => {
   const colorByStatus = () => {
     if ([RequestStatus.DRAFT].includes(status)) {
       return '#006CFF'
@@ -375,7 +381,7 @@ export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNam
 
   return (
     <div className={classNames.multilineTextWrapper}>
-      <Typography className={classNames.multilineStatusText} style={{color: colorStatus}}>
+      <Typography className={classNames.multilineStatusText} style={{color: colorStatus, fontSize}}>
         {MyRequestStatusTranslate(status)}
       </Typography>
     </div>
@@ -523,7 +529,12 @@ export const SuccessActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText})
 
 export const NormalActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText}) => (
   <div>
-    <Button variant="contained" color="primary" onClick={onClickOkBtn}>
+    <Button
+      tooltipInfoContent={t(TranslationKey['To assign the order to Byer'])}
+      variant="contained"
+      color="primary"
+      onClick={onClickOkBtn}
+    >
       {bTnText}
     </Button>
   </div>
@@ -742,8 +753,9 @@ export const ScrollingLinkCell = withStyles(styles)(({classes: classNames, value
 
 export const EditOrRemoveBtnsCell = withStyles(styles)(
   ({classes: classNames, row, handlers, isSubUsersTable, disableActionBtn}) => (
-    <div>
+    <div className={classNames.editOrRemoveBtnsCell}>
       <Button
+        tooltipInfoContent={t(TranslationKey["Editing an employee's permission list"])}
         variant="contained"
         color="primary"
         disabled={disableActionBtn}
@@ -752,7 +764,11 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
         {isSubUsersTable ? t(TranslationKey['Assign permissions']) : t(TranslationKey.Edit)}
       </Button>
 
-      <ErrorButton
+      <Button
+        danger
+        tooltipInfoContent={t(
+          TranslationKey['Removing an employee from the list, banning and disabling access to the platform'],
+        )}
         disabled={disableActionBtn}
         className={classNames.rowCancelBtn}
         onClick={() => {
@@ -760,7 +776,7 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
         }}
       >
         {t(TranslationKey.Remove)}
-      </ErrorButton>
+      </Button>
     </div>
   ),
 )

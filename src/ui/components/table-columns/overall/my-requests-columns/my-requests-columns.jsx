@@ -8,6 +8,7 @@ import {
   MultilineTextCell,
   MultilineTextHeaderCell,
   ShortDateCell,
+  TextHeaderCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
@@ -27,16 +28,16 @@ export const myRequestsViewColumns = () => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    renderHeader: () => <TextHeaderCell text={t(TranslationKey.Status)} />,
 
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
-    width: 211,
+    width: 220,
   },
 
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+    renderHeader: () => <TextHeaderCell text={t(TranslationKey.Title)} />,
 
     renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
     width: 350,

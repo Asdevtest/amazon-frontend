@@ -3,7 +3,7 @@ import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 
 import {useState} from 'react'
 
-import {Button, Divider, Typography, IconButton, Checkbox} from '@material-ui/core'
+import {Divider, Typography, Checkbox} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
@@ -11,6 +11,7 @@ import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {LabelField} from '@components/label-field/label-field'
@@ -139,12 +140,24 @@ const BlockOfNewBox = ({
           checked={orderBox.tmpUseCurrentSupplierDimensions}
           onChange={setDimensionsOfSupplierField(orderBoxIndex)}
         />
-        <Typography>{t(TranslationKey['Use the supplier standard'])}</Typography>
+        <Field
+          tooltipInfoContent={t(
+            TranslationKey['Allows you to use the box parameters specified when creating a supplier'],
+          )}
+          label={t(TranslationKey['Use the supplier standard'])}
+          containerClasses={classNames.checkboxLabelContainer}
+          inputClasses={classNames.hidden}
+          labelClasses={classNames.checkboxLabel}
+        />
       </div>
 
-      <IconButton className={classNames.iconBtn} onClick={() => onRemoveBox(orderBoxIndex)}>
+      <Button
+        tooltipInfoContent={t(TranslationKey['Remove box'])}
+        className={classNames.iconBtn}
+        onClick={() => onRemoveBox(orderBoxIndex)}
+      >
         <DeleteIcon className={classNames.deleteBtn} />
-      </IconButton>
+      </Button>
     </div>
   )
 }
@@ -319,16 +332,18 @@ export const CreateBoxForm = observer(
           </Typography>
 
           <div className={classNames.labelFieldsWrapper}>
-            <LabelField
-              containerClasses={classNames.field}
+            <Field
+              tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
               label={t(TranslationKey.Warehouse)}
-              value={formItem.destination?.name}
+              inputComponent={<Typography>{formItem.destination?.name}</Typography>}
             />
 
-            <LabelField
-              containerClasses={classNames.field}
+            <Field
+              tooltipInfoContent={t(TranslationKey['Current order status'])}
               label={t(TranslationKey.Status)}
-              value={formItem.status && getOrderStatusOptionByCode(formItem.status).label}
+              inputComponent={
+                <Typography>{formItem.status && getOrderStatusOptionByCode(formItem.status).label}</Typography>
+              }
             />
           </div>
 
@@ -374,6 +389,7 @@ export const CreateBoxForm = observer(
           <div className={classNames.buttonsWrapper}>
             <Button
               disableElevation
+              tooltipInfoContent={t(TranslationKey['Allows you to create the required number of boxes to the order'])}
               className={classNames.button}
               color="primary"
               variant="contained"

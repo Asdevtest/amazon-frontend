@@ -185,36 +185,7 @@ export const CreateOrEditRequestContent = ({
 
               <div className={classNames.imageFileInputWrapper}>
                 <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
-
-                {/* <Button
-                  disableElevation
-                  disabled={!formFields.details.linksToMediaFiles.length}
-                  color="primary"
-                  className={classNames.imagesButton}
-                  variant="contained"
-                  onClick={() => setShowPhotosModal(!showPhotosModal)}
-                >
-                  {t(TranslationKey['Available images'])}
-                </Button>
-
-                {formFields.details.linksToMediaFiles.filter(el => !checkIsImageLink(el)).length ? (
-                  <Field
-                    multiline
-                    label={t(TranslationKey.Files)}
-                    containerClasses={classNames.filesContainer}
-                    inputComponent={
-                      <div className={classNames.filesWrapper}>
-                        {formFields.details.linksToMediaFiles
-                          .filter(el => !checkIsImageLink(el))
-                          .map((file, index) => (
-                            <Link key={index} target="_blank" href={file}>
-                              <Typography className={classNames.linkText}>{file}</Typography>
-                            </Link>
-                          ))}
-                      </div>
-                    }
-                  />
-                ) : null} */}
+                <PhotoAndFilesCarousel files={formFields.details.linksToMediaFiles} width="400px" />
               </div>
             </div>
 

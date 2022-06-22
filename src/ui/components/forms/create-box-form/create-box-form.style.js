@@ -102,11 +102,32 @@ export const useClassNames = makeStyles(theme => ({
   iconBtn: {
     width: '50px',
     height: '50px',
+    backgroundColor: 'inherit',
+
+    '&:hover': {
+      backgroundColor: '#e4e4e4',
+    },
   },
 
   checkboxWithLabelWrapper: {
     display: 'flex',
     alignItems: 'center',
     maxWidth: '200px',
+  },
+
+  hidden: {
+    display: 'none',
+  },
+  checkboxLabel: {
+    margin: 0,
+    width: '120px',
+  },
+
+  checkboxLabelContainer: {
+    margin: 0,
+  },
+
+  deleteBtn: {
+    color: 'grey',
   },
 }))

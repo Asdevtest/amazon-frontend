@@ -30,6 +30,11 @@ export const ProductStatusButtons = ({
         {buttonsConfig.map(buttonConfig => (
           <Grid key={buttonConfig.statusKey} item>
             <ColoredChip
+              tooltipInfoContent={t(
+                TranslationKey[
+                  'Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)'
+                ],
+              )}
               disabled={
                 mapProductStrategyStatusEnum[product.strategyStatus] === 'PRIVATE_LABEL' &&
                 buttonConfig.statusKey === 'RESEARCHER_FOUND_SUPPLIER'

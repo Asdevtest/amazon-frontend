@@ -1,24 +1,26 @@
-import {React, useEffect, useState} from 'react'
+import Tooltip from '@mui/material/Tooltip'
 
-import {Chip, Tooltip} from '@material-ui/core'
+import React, {FC, ReactElement, useEffect, useState} from 'react'
+
+import {Tab} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {useClassNames} from './colored-chip.style'
+import {useClassNames} from './i-tab.style'
 
-export const ColoredChip = observer(
-  ({
-    color = 'rgb(0, 123, 255)',
-    colorHover = '#1269ec',
-    selected = false,
-    tooltipInfoContent,
-    tooltipAttentionContent,
-    ...restProps
-  }) => {
-    const styleProps = {color, colorHover}
-    const classNames = useClassNames(styleProps)
+interface Props {
+  tooltipAttentionContent?: ReactElement | string
+  tooltipInfoContent?: ReactElement | string
+  value: string
+  label: string
+  classes: any
+}
+
+export const ITab: FC<Props> = observer(
+  ({tooltipAttentionContent, tooltipInfoContent, value, label, classes, ...restProps}) => {
+    const classNames = useClassNames()
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
 
@@ -27,8 +29,9 @@ export const ColoredChip = observer(
     }, [SettingsModel.showHints])
 
     return (
-      <div className={classNames.chipWrapper}>
-        <Chip className={clsx(classNames.chip, {[classNames.chipActive]: selected})} {...restProps} />
+      <div className={classNames.tabWrapper}>
+        <Tab classes={classes} className={classNames.root} value={value} label={label} {...restProps} />
+
         {tooltipAttentionContent || tooltipInfoContent ? (
           <div className={classNames.tooltipsWrapper}>
             {tooltipAttentionContent ? (

@@ -8,12 +8,13 @@ import {RequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {MultilineRequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
+import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {formatDateDistanceFromNowStrict, formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
+import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './owner-general-request-info.style'
 
@@ -41,17 +42,18 @@ export const OwnerGeneralRequestInfo = ({
           <div className={classNames.titleWrapper}>
             <Typography className={classNames.title}>{request?.request.title}</Typography>
 
-            <Typography className={classNames.subTitle}>{` ${
-              request?.request.maxAmountOfProposals -
-              (requestProposals?.filter(
-                el =>
-                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
-                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
-                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
-              ).length || 0)
-            } ${t(TranslationKey['out of'])} ${request?.request.maxAmountOfProposals} ${t(
-              TranslationKey['suggestions left'],
-            )}`}</Typography>
+            <Typography className={classNames.subTitle}>
+              {translateProposalsLeftMessage(
+                request?.request.maxAmountOfProposals -
+                  (requestProposals?.filter(
+                    el =>
+                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
+                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
+                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+                  ).length || 0),
+                request?.request.maxAmountOfProposals,
+              )}
+            </Typography>
           </div>
         </div>
 
@@ -65,7 +67,7 @@ export const OwnerGeneralRequestInfo = ({
             <div className={classNames.requestItemInfoWrapper}>
               <Typography>{t(TranslationKey.Status)}</Typography>
               <Typography className={classNames.requestStatus}>
-                {<MultilineRequestStatusCell status={request?.request.status} />}
+                {<RequestStatusCell status={request?.request.status} />}
               </Typography>
             </div>
           </div>

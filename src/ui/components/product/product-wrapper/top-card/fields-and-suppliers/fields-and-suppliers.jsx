@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Box, Container, Grid, IconButton, Typography, Link, InputLabel, NativeSelect} from '@material-ui/core'
+import {Box, Container, Grid, IconButton, Typography, Link, NativeSelect} from '@material-ui/core'
 import MuiCheckbox from '@material-ui/core/Checkbox'
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
@@ -130,6 +130,7 @@ export const FieldsAndSuppliers = observer(
         <Box className={classNames.productFieldBox}>
           <div>
             <Field
+              tooltipInfoContent={t(TranslationKey['Amazon ID number'])}
               disabled={
                 !(
                   checkIsClient(curUserRole) &&
@@ -246,33 +247,37 @@ export const FieldsAndSuppliers = observer(
             </div>
 
             <Box mt={3} className={classNames.strategyWrapper}>
-              <InputLabel className={classNames.strategyLabel}>{t(TranslationKey['Product Strategy'])}</InputLabel>
-
-              <NativeSelect
-                disabled={
-                  !(
-                    checkIsResearcher(curUserRole) ||
-                    (checkIsClient(curUserRole) &&
-                      product.isCreatedByClient &&
-                      clientToEditStatuses.includes(productBase.status) &&
-                      checkIsClient(curUserRole) &&
-                      !product.archive)
-                  )
+              <Field
+                tooltipInfoContent={t(TranslationKey['Choose a product strategy'])}
+                label={t(TranslationKey['Product Strategy'])}
+                inputComponent={
+                  <NativeSelect
+                    disabled={
+                      !(
+                        checkIsResearcher(curUserRole) ||
+                        (checkIsClient(curUserRole) &&
+                          product.isCreatedByClient &&
+                          clientToEditStatuses.includes(productBase.status) &&
+                          checkIsClient(curUserRole) &&
+                          !product.archive)
+                      )
+                    }
+                    value={product.strategyStatus}
+                    className={classNames.nativeSelect}
+                    input={<Input />}
+                    onChange={onChangeField('strategyStatus')}
+                  >
+                    <option>{'none'}</option>
+                    {Object.keys(mapProductStrategyStatusEnum)
+                      .filter(el => el > 0)
+                      .map((statusCode, statusIndex) => (
+                        <option key={statusIndex} value={statusCode}>
+                          {mapProductStrategyStatusEnum[statusCode]}
+                        </option>
+                      ))}
+                  </NativeSelect>
                 }
-                value={product.strategyStatus}
-                className={classNames.nativeSelect}
-                input={<Input />}
-                onChange={onChangeField('strategyStatus')}
-              >
-                <option>{'none'}</option>
-                {Object.keys(mapProductStrategyStatusEnum)
-                  .filter(el => el > 0)
-                  .map((statusCode, statusIndex) => (
-                    <option key={statusIndex} value={statusCode}>
-                      {mapProductStrategyStatusEnum[statusCode]}
-                    </option>
-                  ))}
-              </NativeSelect>
+              />
             </Box>
 
             <div className={classNames.suppliersWrapper}>
@@ -296,7 +301,7 @@ export const FieldsAndSuppliers = observer(
                   </Typography>
                   <Container disableGutters className={classNames.supplierContainer}>
                     <Button
-                      tooltipInfoContent={t(TranslationKey['Select a product strategy'])}
+                      tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
                       className={classNames.iconBtn}
                       onClick={() => onClickSupplierBtns('add')}
                     >

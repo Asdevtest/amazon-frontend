@@ -2,12 +2,14 @@ import {ToggleButton, ToggleButtonGroup} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {Checkbox, IconButton, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Checkbox, TableCell, TableRow, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {Button} from '@components/buttons/button'
+import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 import {Table} from '@components/table'
 
@@ -19,12 +21,12 @@ import {t} from '@utils/translations'
 import {useClassNames} from './boxes-to-create-table.style'
 
 const WAREHOUSE_RECEIVE_HEAD_CELLS = [
-  {align: 'center', title: 'BOX'},
-  {align: 'center', title: 'QTY'},
-  {align: 'center', title: 'Sizes'},
-  {align: 'center', title: 'Weight'},
-  {align: 'center', title: 'Volume weight'},
-  {align: 'center', title: 'Final weight'},
+  {align: 'center', title: t(TranslationKey.Box)},
+  {align: 'center', title: t(TranslationKey.Quantity)},
+  {align: 'center', title: t(TranslationKey.Demensions)},
+  {align: 'center', title: t(TranslationKey.Weight)},
+  {align: 'center', title: t(TranslationKey['Volume weight'])},
+  {align: 'center', title: t(TranslationKey['Final weight'])},
 ]
 
 const renderHeadRow = (
@@ -72,7 +74,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
       <TableCell className={classNames.normalCell}>
         <div className={classNames.sizesWrapper}>
           <div className={classNames.sizeWrapper}>
-            <Typography>{'H:'}</Typography>
+            <Typography>{t(TranslationKey.H) + ': '}</Typography>
             <Input
               disabled
               classes={{root: classNames.inputWrapper, input: classNames.input}}
@@ -83,7 +85,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             />
           </div>
           <div className={classNames.sizeWrapper}>
-            <Typography>{'W:'}</Typography>
+            <Typography>{t(TranslationKey.W) + ': '}</Typography>
             <Input
               disabled
               classes={{root: classNames.inputWrapper, input: classNames.input}}
@@ -94,7 +96,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             />
           </div>
           <div className={classNames.sizeWrapper}>
-            <Typography>{'L:'}</Typography>
+            <Typography>{t(TranslationKey.L) + ': '}</Typography>
             <Input
               disabled
               classes={{root: classNames.inputWrapper, input: classNames.input}}
@@ -142,7 +144,13 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             checked={item.isBarCodeAlreadyAttachedByTheSupplier}
             onChange={e => handlers.onClickBarcodeCheckbox(itemIndex)(e)}
           />
-          <Typography>{t(TranslationKey['Supplier glued the barcode'])}</Typography>
+          <Field
+            tooltipInfoContent={t(TranslationKey["Label the box as labeled with the supplier's barcode"])}
+            label={t(TranslationKey['Supplier glued the barcode'])}
+            inputClasses={classNames.hidden}
+            labelClasses={classNames.label}
+            containerClasses={classNames.labelWrapper}
+          />
         </div>
 
         <div className={classNames.checkboxWithLabelWrapper}>
@@ -151,15 +159,25 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
             checked={item.tmpUseToUpdateSupplierBoxDimensions}
             onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
           />
-          <Typography>{t(TranslationKey['Make the supplier standard'])}</Typography>
+          <Field
+            tooltipInfoContent={t(TranslationKey['Save box parameters to the current supplier'])}
+            label={t(TranslationKey['Make the supplier standard'])}
+            inputClasses={classNames.hidden}
+            labelClasses={classNames.label}
+            containerClasses={classNames.labelWrapper}
+          />
         </div>
       </TableCell>
 
       <TableCell>
         <div className={classNames.normalCell}>
-          <IconButton onClick={() => handlers.onRemoveBox(itemIndex)}>
+          <Button
+            tooltipInfoContent={t(TranslationKey['Remove box'])}
+            className={classNames.deleteBtnWrapper}
+            onClick={() => handlers.onRemoveBox(itemIndex)}
+          >
             <DeleteIcon className={classNames.deleteBtn} />
-          </IconButton>
+          </Button>
         </div>
       </TableCell>
     </TableRow>

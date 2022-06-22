@@ -2,8 +2,8 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    minHeight: 36,
-    minWidth: 36,
+    minHeight: '36px',
+    minWidth: '36px',
   },
 
   success: {

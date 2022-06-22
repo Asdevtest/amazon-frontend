@@ -103,4 +103,25 @@ export const useClassNames = makeStyles(() => ({
     height: '60px',
     objectFit: 'contain',
   },
+
+  label: {
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '21px',
+  },
+  checkboxLabel: {
+    height: '50px',
+  },
+
+  hidden: {
+    display: 'none',
+  },
+
+  labelCheckbox: {
+    margin: 0,
+  },
+
+  checkboxLabelContainer: {
+    margin: 0,
+  },
 }))

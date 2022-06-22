@@ -119,4 +119,28 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+
+  hidden: {
+    display: 'none',
+  },
+
+  label: {
+    margin: 0,
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    color: theme.palette.text.secondary,
+  },
+
+  labelWrapper: {
+    margin: 0,
+  },
+
+  deleteBtnWrapper: {
+    backgroundColor: 'inherit',
+
+    '&:hover': {
+      backgroundColor: '#e4e4e4',
+    },
+  },
 }))

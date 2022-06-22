@@ -56,4 +56,19 @@ export const styles = theme =>
     icon: {
       backgroundColor: 'none',
     },
+
+    menuItem: {
+      overflow: 'hidden',
+      width: '100%',
+      marginTop: '10px',
+      padding: 0,
+      display: 'flex',
+      backgroundColor: 'inherit',
+      boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+
+      color: theme.palette.text.primary,
+      '&:hover': {
+        backgroundColor: 'inherit',
+      },
+    },
   })

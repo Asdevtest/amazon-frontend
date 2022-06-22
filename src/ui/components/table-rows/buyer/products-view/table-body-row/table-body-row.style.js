@@ -115,4 +115,10 @@ export const useClassNames = makeStyles(() => ({
   selectedStarIcon: {
     color: '#FFC632',
   },
+
+  infoBtnWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }))

@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    width: '100%',
+    width: '869px',
     padding: '10px 0',
     justifyContent: 'center',
     alignItems: 'center',
@@ -23,7 +23,7 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '5px',
     width: '100%',
     backgroundColor: '#fff',
-    padding: '15px 14px',
+    padding: '40px 30px',
     borderRadius: '4px',
     '& p, h1, h2, h3, h4, h5, span': {
       margin: 0,

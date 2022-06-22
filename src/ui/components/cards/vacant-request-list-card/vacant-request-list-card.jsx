@@ -7,18 +7,19 @@ import {Grid, Typography, Avatar} from '@material-ui/core'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {MultilineRequestStatusCell, UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+import {RequestStatusCell, UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
+import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './vacant-request-list-card.style'
 
 export const VacantRequestListCard = ({item, onClickViewMore}) => {
   const classNames = useClassNames()
-  console.log(item)
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -36,11 +37,12 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
             <Typography className={classNames.cardTitle}>{item.title}</Typography>
           </div>
           <div className={classNames.cardTitleBlockFooterWrapper}>
-            <Typography className={classNames.cardSubTitle}>{`${
-              item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals
-            } ${t(TranslationKey['out of'])} ${item.maxAmountOfProposals} ${t(
-              TranslationKey['suggestions left'],
-            )}`}</Typography>
+            <Typography className={classNames.cardSubTitle}>
+              {translateProposalsLeftMessage(
+                item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals,
+                item.maxAmountOfProposals,
+              )}
+            </Typography>
 
             <div className={classNames.updatedAtWrapper}>
               <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ': '}</Typography>
@@ -63,9 +65,7 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey.Status)}</Typography>
 
-                <Typography className={classNames.statusText}>
-                  {<MultilineRequestStatusCell status={item.status} />}
-                </Typography>
+                <Typography className={classNames.statusText}>{<RequestStatusCell status={item.status} />}</Typography>
               </div>
             </div>
             <div className={classNames.rightSubBlockWrapper}>

@@ -1,13 +1,14 @@
 import React, {useState} from 'react'
 
-import {Box, Grid, InputLabel, NativeSelect, Typography, Checkbox, Link} from '@material-ui/core'
+import {Box, Grid, NativeSelect, Typography, Checkbox, Link} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {getOrderStatusOptionByCode, OrderStatusByCode, OrderStatusByKey, OrderStatus} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
@@ -69,75 +70,81 @@ export const SelectFields = ({
   return (
     <Grid container justify="space-around">
       <Grid item>
-        <Box mt={3}>
-          <InputLabel id="warehouse-select" className={classNames.modalText}>
-            {t(TranslationKey.Warehouse)}
-          </InputLabel>
+        <Field
+          disabled
+          tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
+          label={t(TranslationKey.Warehouse)}
+          value={order.destination?.name}
+          inputClasses={classNames.nativeSelect}
+          labelClasses={classNames.label}
+        />
 
-          <Input disabled variant="filled" value={order.destination?.name} className={classNames.nativeSelect} />
-        </Box>
+        <Field
+          disabled
+          tooltipInfoContent={t(TranslationKey['Prep Center in China'])}
+          label={t(TranslationKey['Int warehouse'])}
+          inputClasses={classNames.nativeSelect}
+          labelClasses={classNames.label}
+          inputComponent={
+            <NativeSelect
+              disabled
+              variant="filled"
+              value={order.storekeeper?.name}
+              className={classNames.nativeSelect}
+              input={<Input />}
+            >
+              <option value={'None'}>{order.storekeeper?.name}</option>
+            </NativeSelect>
+          }
+        />
 
-        <Box mt={3}>
-          <InputLabel id="warehouse-select" className={classNames.modalText}>
-            {t(TranslationKey['Int warehouse'])}
-          </InputLabel>
-          <NativeSelect
-            disabled
-            variant="filled"
-            value={order.storekeeper?.name}
-            className={classNames.nativeSelect}
-            input={<Input />}
-          >
-            <option value={'None'}>{order.storekeeper?.name}</option>
-          </NativeSelect>
-        </Box>
+        <Field
+          disabled
+          tooltipInfoContent={t(TranslationKey["Client's chosen rate, region of shipment and its cost"])}
+          label={t(TranslationKey.Tariff)}
+          value={getFullTariffTextForBoxOrOrder(order)}
+          inputClasses={classNames.nativeSelect}
+          labelClasses={classNames.label}
+        />
 
-        <Box mt={3}>
-          <InputLabel id="tariff-select" className={classNames.modalText}>
-            {t(TranslationKey.Tariff)}
-          </InputLabel>
-
-          <Input
-            disabled
-            variant="filled"
-            value={getFullTariffTextForBoxOrOrder(order)}
-            className={classNames.nativeSelect}
-          />
-        </Box>
-
-        <Box mt={3}>
-          <InputLabel id="status-select" className={classNames.modalText}>
-            {t(TranslationKey.Status)}
-          </InputLabel>
-          <NativeSelect
-            disabled={
-              order.status !== orderFields.status || +orderFields.totalPriceChanged - orderFields.totalPrice > 0
-            }
-            variant="filled"
-            value={orderFields.status}
-            className={classNames.nativeSelect}
-            input={<Input />}
-            onChange={setOrderField('status')}
-          >
-            {Object.keys({
-              ...getObjectFilteredByKeyArrayWhiteList(
-                OrderStatusByCode,
-                allowOrderStatuses.filter(el => el >= order.status),
-              ),
-            }).map((statusCode, statusIndex) => (
-              <option
-                key={statusIndex}
-                value={statusCode}
-                className={clsx({
-                  [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
-                })}
-                disabled={disabledOrderStatuses.includes(statusCode)}
-              >
-                {getOrderStatusOptionByCode(statusCode).label}
-              </option>
-            ))}
-          </NativeSelect>
-        </Box>
+        <Field
+          tooltipInfoContent={t(TranslationKey['Current order status'])}
+          label={t(TranslationKey.Status)}
+          value={order.storekeeper?.name}
+          inputClasses={classNames.nativeSelect}
+          labelClasses={classNames.label}
+          inputComponent={
+            <NativeSelect
+              disabled={
+                order.status !== orderFields.status || +orderFields.totalPriceChanged - orderFields.totalPrice > 0
+              }
+              variant="filled"
+              value={orderFields.status}
+              className={classNames.nativeSelect}
+              input={<Input />}
+              onChange={setOrderField('status')}
+            >
+              {Object.keys({
+                ...getObjectFilteredByKeyArrayWhiteList(
+                  OrderStatusByCode,
+                  allowOrderStatuses.filter(el => el >= order.status),
+                ),
+              }).map((statusCode, statusIndex) => (
+                <option
+                  key={statusIndex}
+                  value={statusCode}
+                  tooltipInfoContent={'dsdsdd'}
+                  className={clsx({
+                    [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
+                  })}
+                  disabled={disabledOrderStatuses.includes(statusCode)}
+                >
+                  {getOrderStatusOptionByCode(statusCode).label}
+                </option>
+              ))}
+            </NativeSelect>
+          }
+        />
 
         <div
           className={clsx(classNames.priceOptionsWrapper, {
@@ -218,22 +225,22 @@ export const SelectFields = ({
               <Typography>{t(TranslationKey['Use the price in dollars'])}</Typography>
             </div>
           </Box>
-          <Box className={classNames.noFlexElement}>
-            <Typography className={classNames.modalText}>{t(TranslationKey['Yuan to USD exchange rate'])}</Typography>
-            <Input
-              disabled={checkIsPlanningPrice}
-              inputProps={{maxLength: 10}}
-              value={orderFields.yuanToDollarRate}
-              className={classNames.input}
-              onChange={e => {
-                if (!isNaN(e.target.value) || (Number(e.target.value) < 0 && !checkIsPlanningPrice)) {
-                  setOrderField('yuanToDollarRate')({
-                    target: {value: e.target.value},
-                  })
-                }
-              }}
-            />
-          </Box>
+          <Field
+            disabled={checkIsPlanningPrice}
+            inputProps={{maxLength: 10}}
+            tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
+            label={t(TranslationKey['Yuan to USD exchange rate'])}
+            labelClasses={classNames.label}
+            value={orderFields.yuanToDollarRate}
+            onChange={e => {
+              if (!isNaN(e.target.value) || (Number(e.target.value) < 0 && !checkIsPlanningPrice)) {
+                setOrderField('yuanToDollarRate')({
+                  target: {value: e.target.value},
+                })
+              }
+            }}
+          />
+
           <Box className={classNames.noFlexElement}>
             <div className={classNames.onLineWrapper}>
               <div>
@@ -276,28 +283,39 @@ export const SelectFields = ({
           </Box>
         </div>
 
-        <div className={classNames.checkboxWithLabelWrapper}>
-          <Checkbox
-            disabled={
-              ![
-                OrderStatusByKey[OrderStatus.AT_PROCESS],
-                OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
-              ].includes(orderFields.status)
-            }
-            checked={checkIsPlanningPrice}
-            color="primary"
-            onChange={() => {
-              setCheckIsPlanningPrice(!checkIsPlanningPrice)
-              setOrderField('totalPriceChanged')({
-                target: {value: orderFields.totalPrice},
-              })
-              setPriceYuansForBatch(
-                calcExchangeDollarsInYuansPrice(orderFields.totalPrice, orderFields.yuanToDollarRate),
-              )
-            }}
-          />
-          <Typography>{t(TranslationKey['The actual cost is the same as the planned'])}</Typography>
-        </div>
+        <Field
+          oneLine
+          tooltipInfoContent={t(
+            TranslationKey[
+              'A change in the actual cost initiates a refund of the difference to the customer or a request for additional payment on the order'
+            ],
+          )}
+          label={t(TranslationKey['The actual cost is the same as the planned'])}
+          inputComponent={
+            <div className={classNames.checkboxWithLabelWrapper}>
+              <Checkbox
+                disabled={
+                  ![
+                    OrderStatusByKey[OrderStatus.AT_PROCESS],
+                    OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
+                  ].includes(orderFields.status)
+                }
+                checked={checkIsPlanningPrice}
+                color="primary"
+                className={classNames.checkbox}
+                onChange={() => {
+                  setCheckIsPlanningPrice(!checkIsPlanningPrice)
+                  setOrderField('totalPriceChanged')({
+                    target: {value: orderFields.totalPrice},
+                  })
+                  setPriceYuansForBatch(
+                    calcExchangeDollarsInYuansPrice(orderFields.totalPrice, orderFields.yuanToDollarRate),
+                  )
+                }}
+              />
+            </div>
+          }
+        />
 
         <div className={classNames.totalPriceWrapper}>
           <Box className={classNames.tableCell}>
@@ -362,23 +380,26 @@ export const SelectFields = ({
             </div>
           </div>
         </Box>
-
         <Box my={3}>
-          <Typography className={classNames.modalText}>{t(TranslationKey['Track number'])}</Typography>
-          <Input
-            inputProps={{maxLength: 50}}
+          <Field
+            tooltipInfoContent={t(TranslationKey['Tracking number for goods in transit'])}
             value={orderFields.trackingNumberChina}
-            className={classNames.numWideInput}
+            label={t(TranslationKey['Track number'])}
+            labelClasses={classNames.label}
+            inputClasses={classNames.numWideInput}
+            inputProps={{maxLength: 50}}
             onChange={setOrderField('trackingNumberChina')}
           />
         </Box>
 
         <Box my={3}>
-          <Typography className={classNames.modalText}>{t(TranslationKey['HS code'])}</Typography>
-          <Input
-            inputProps={{maxLength: 50}}
+          <Field
+            tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
             value={hsCode}
-            className={classNames.numWideInput}
+            label={t(TranslationKey['HS code'])}
+            labelClasses={classNames.label}
+            inputClasses={classNames.numWideInput}
+            inputProps={{maxLength: 50}}
             onChange={e => setHsCode(e.target.value)}
           />
         </Box>
@@ -387,17 +408,7 @@ export const SelectFields = ({
           <div className={classNames.imageFileInputWrapper}>
             <UploadFilesInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
           </div>
-
-          <Button
-            disableElevation
-            disabled={order.images === null || order.images.length < 1}
-            color="primary"
-            className={classNames.imagesButton}
-            variant="contained"
-            onClick={() => setShowPhotosModal(!showPhotosModal)}
-          >
-            {t(TranslationKey['Available photos'])}
-          </Button>
+          <PhotoAndFilesCarousel files={order.images} width="400px" />
         </div>
       </Grid>
 

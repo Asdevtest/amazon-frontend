@@ -91,6 +91,7 @@ export const useClassNames = makeStyles(() => ({
 
   documentsWrapper: {
     width: '50%',
+    display: 'flex',
   },
 
   documentWrapper: {
@@ -162,14 +163,18 @@ export const useClassNames = makeStyles(() => ({
   },
 
   emptyIconWrapper: {
+    minWidth: '100px',
+    minHeight: '100px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: '25px',
+    marginLeft: '20px',
   },
 
   emptyIcon: {
-    width: '40px',
-    height: '40px',
+    width: '60px',
+    height: '60px',
     backgroundColor: '#e0e0e0',
     borderRadius: '50%',
     display: 'flex',
@@ -179,5 +184,12 @@ export const useClassNames = makeStyles(() => ({
 
   image: {
     cursor: 'pointer',
+  },
+
+  emptyWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }))

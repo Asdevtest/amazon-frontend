@@ -2,13 +2,15 @@ import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
 
 import React, {useEffect, useState} from 'react'
 
-import {Typography, Box, Tabs, Tab} from '@material-ui/core'
+import {Typography, Box, Tabs} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {SettingsModel} from '@models/settings-model'
+
+import {ITab} from '@components/i-tab/i-tab'
 
 import {checkIsClient} from '@utils/checks'
 import {t} from '@utils/translations'
@@ -87,18 +89,38 @@ export const ProductWrapper = observer(
             indicator: classNames.indicator,
           }}
           value={tabIndex}
-          onChange={(e, value) => setTabIndex(value)}
+          onChange={(e, value) => {
+            console.log('event', e)
+            console.log('value', value)
+            setTabIndex(value)
+          }}
         >
-          <Tab classes={tabItemStyles} label={t(TranslationKey['Basic information'])} value={tabsValues.MAIN_INFO} />
-          {checkIsClient(curUserRole) && (
-            <Tab classes={tabItemStyles} label={t(TranslationKey.Orders)} value={tabsValues.ORDERS} />
-          )}
-          {checkIsClient(curUserRole) && (
-            <Tab classes={tabItemStyles} label={t(TranslationKey.Integrations)} value={tabsValues.INTEGRATIONS} />
-          )}
-          <Tab classes={tabItemStyles} label={t(TranslationKey.Content)} value={tabsValues.LISTING} />
+          <ITab
+            tooltipInfoContent={t(TranslationKey['General product information from the Amazon page'])}
+            classes={tabItemStyles}
+            value={tabsValues.MAIN_INFO}
+            label={t(TranslationKey['Basic information'])}
+          />
 
-          <Tab
+          {checkIsClient(curUserRole) && (
+            <ITab
+              tooltipInfoContent={t(TranslationKey['All orders related to this product'])}
+              classes={tabItemStyles}
+              label={t(TranslationKey.Orders)}
+              value={tabsValues.ORDERS}
+            />
+          )}
+          {checkIsClient(curUserRole) && (
+            <ITab
+              tooltipInfoContent={t(TranslationKey['Goods from the store, linked to the product card'])}
+              classes={tabItemStyles}
+              label={t(TranslationKey.Integrations)}
+              value={tabsValues.INTEGRATIONS}
+            />
+          )}
+          <ITab classes={tabItemStyles} label={t(TranslationKey.Content)} value={tabsValues.LISTING} />
+
+          <ITab
             classes={tabItemStyles}
             label={t(TranslationKey['Suppliers and Ideas'])}
             value={tabsValues.SUPPLIERS_AND_IDEAS}

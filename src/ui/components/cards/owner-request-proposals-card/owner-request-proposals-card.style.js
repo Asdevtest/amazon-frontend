@@ -137,11 +137,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imgBox: {
-    // textAlign: 'center',
-    width: '391px',
-    height: '152px',
-    // objectFit: 'contain',
-    // objectPosition: 'center',
+    width: '100%',
     transition: '.2s ease',
     cursor: 'pointer',
     '&:hover': {
@@ -151,15 +147,18 @@ export const useClassNames = makeStyles(() => ({
   photoWrapper: {
     marginLeft: '60px',
     width: '391px',
-    height: '182px',
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 
   photoSubWrapper: {
     width: '391px',
+    height: '182px',
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
   },
 
   cardContentWrapper: {

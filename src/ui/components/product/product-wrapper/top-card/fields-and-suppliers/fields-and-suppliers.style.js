@@ -28,8 +28,8 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '22px',
   },
   iconBtn: {
-    height: '40px',
-    width: '40px',
+    maxHeight: '40px',
+    maxWidth: '40px',
     color: 'white',
     backgroundColor: 'rgba(0, 123, 255, 1)',
     borderRadius: '4px',

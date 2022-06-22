@@ -95,6 +95,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
             <TableCell rowSpan={ordersQty}>
               <Button
                 disableElevation
+                tooltipInfoContent={t(TranslationKey['Viewing photos of the box taken at the prep center'])}
                 disabled={!box.images?.length}
                 color="primary"
                 className={classNames.button}

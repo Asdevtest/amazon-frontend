@@ -133,6 +133,9 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
               </Typography> */}
               {requestProposals?.length ? (
                 <div className={classNames.proposalsWrapper}>
+                  <Typography className={classNames.proposalsTitle}>
+                    {t(TranslationKey['Proposals for the request'])}
+                  </Typography>
                   {requestProposals.map(item => (
                     <div key={item.proposal._id} className={classNames.proposalAndChatWrapper}>
                       <Paper>

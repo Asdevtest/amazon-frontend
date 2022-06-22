@@ -20,6 +20,7 @@ import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-ti
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
+import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './servant-general-request-info.style'
 
@@ -46,17 +47,18 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
             <Typography className={classNames.title}>{request?.request.title}</Typography>
           </div>
           <div className={classNames.titleWrapper}>
-            <Typography className={classNames.subTitle}>{`${
-              request?.request.maxAmountOfProposals -
-              (requestProposals?.filter(
-                el =>
-                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
-                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
-                  el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
-              ).length || 0)
-            } ${t(TranslationKey['out of'])} ${request?.request.maxAmountOfProposals} ${t(
-              TranslationKey['suggestions left'],
-            )}`}</Typography>
+            <Typography className={classNames.subTitle}>
+              {translateProposalsLeftMessage(
+                request?.request.maxAmountOfProposals -
+                  (requestProposals?.filter(
+                    el =>
+                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
+                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CREATOR_OF_REQUEST ||
+                      el.proposal.status === RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
+                  ).length || 0),
+                request?.request.maxAmountOfProposals,
+              )}
+            </Typography>
             <div className={classNames.updatedWrapper}>
               <Typography className={classNames.updatedText}>{t(TranslationKey.Updated) + ':'}</Typography>
 

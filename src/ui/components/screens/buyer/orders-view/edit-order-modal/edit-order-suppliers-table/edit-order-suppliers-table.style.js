@@ -137,4 +137,7 @@ export const useClassNames = makeStyles(() => ({
     overflowY: 'auto',
     textAlign: 'center',
   },
+  button: {
+    display: 'flex',
+  },
 }))

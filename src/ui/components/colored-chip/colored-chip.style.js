@@ -49,4 +49,30 @@ export const useClassNames = makeStyles(() => ({
       animation: 'hypnoEye .7s ease-in-out',
     },
   }),
+
+  chipWrapper: {
+    position: 'relative',
+  },
+
+  tooltipsWrapper: {
+    position: 'absolute',
+    top: '-6px',
+    right: '-6px',
+    zIndex: '10',
+  },
+
+  tooltip: {
+    width: '17px',
+    height: '17px',
+    color: 'red',
+    transition: '.3s ease-in-out',
+    '&:hover': {
+      cursor: 'default',
+      transform: 'scale(1.1)',
+    },
+  },
+
+  tooltipInfo: {
+    marginLeft: '3px',
+  },
 }))

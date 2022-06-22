@@ -124,6 +124,18 @@ export const useClassNames = makeStyles(() => ({
   },
   buttonDelete: {
     width: '100%',
+    color: '#fff',
+    backgroundColor: '#ff0000',
+    '&:hover': {
+      backgroundColor: '#c51a1c',
+
+      '@media (hover: none)': {
+        backgroundColor: '#c51a1c',
+      },
+    },
+    '&$disabled': {
+      backgroundColor: 'rgba(210, 35, 35, 0.5)',
+    },
   },
   errorActive: {
     borderColor: 'red',
@@ -136,5 +148,17 @@ export const useClassNames = makeStyles(() => ({
 
   buttonClose: {
     width: '100%',
+    color: '#fff',
+    backgroundColor: '#ff0000',
+    '&:hover': {
+      backgroundColor: '#c51a1c',
+
+      '@media (hover: none)': {
+        backgroundColor: '#c51a1c',
+      },
+    },
+    '&$disabled': {
+      backgroundColor: 'rgba(210, 35, 35, 0.5)',
+    },
   },
 }))
