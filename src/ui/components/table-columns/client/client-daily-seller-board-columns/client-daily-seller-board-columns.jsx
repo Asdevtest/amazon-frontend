@@ -27,17 +27,17 @@ export const clientDailySellerBoardColumns = () => [
 
   {
     field: 'title',
-    headerName: t(TranslationKey.Title),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+    headerName: 'Title',
+    renderHeader: () => <MultilineTextHeaderCell text={'Title'} />,
 
     renderCell: params => <ScrollingCell value={params.value} />,
     width: 250,
   },
 
   {
-    field: 'stockValue',
-    headerName: t(TranslationKey.Quantity),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
+    field: 'fbaFbmStock',
+    headerName: 'FBA/FBM Stock',
+    renderHeader: () => <MultilineTextHeaderCell text={'FBA/FBM Stock'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
@@ -45,8 +45,8 @@ export const clientDailySellerBoardColumns = () => [
 
   {
     field: 'reserved',
-    headerName: t(TranslationKey.Reserved),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
+    headerName: 'Reserved',
+    renderHeader: () => <MultilineTextHeaderCell text={'Reserved'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
@@ -63,8 +63,8 @@ export const clientDailySellerBoardColumns = () => [
 
   {
     field: 'comment',
-    headerName: t(TranslationKey.Comment),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+    headerName: 'Comment',
+    renderHeader: () => <MultilineTextHeaderCell text={'Comment'} />,
 
     renderCell: params => <ScrollingCell value={params.value} />,
     width: 250,
@@ -96,8 +96,8 @@ export const clientDailySellerBoardColumns = () => [
   },
   {
     field: 'ordered',
-    headerName: t(TranslationKey.Ordered),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Ordered)} />,
+    headerName: 'Ordered',
+    renderHeader: () => <MultilineTextHeaderCell text={'Ordered'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,

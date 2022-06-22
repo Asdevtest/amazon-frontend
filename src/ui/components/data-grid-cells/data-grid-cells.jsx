@@ -297,8 +297,8 @@ export const WarehouseTariffDestinationCell = withStyles(styles)(() => (
   </div>
 ))
 
-export const WarehouseTariffRatesCell = withStyles(styles)(({conditionsByRegion}) => (
-  <div>
+export const WarehouseTariffRatesCell = withStyles(styles)(({classes: classNames, conditionsByRegion}) => (
+  <div className={classNames.tariffRatesWrapper}>
     <Typography>{toFixed(conditionsByRegion.west.rate, 2) || '-'}</Typography>
     <Typography>{toFixed(conditionsByRegion.central.rate, 2) || '-'}</Typography>
     <Typography>{toFixed(conditionsByRegion.east.rate, 2) || '-'}</Typography>
@@ -308,6 +308,11 @@ export const WarehouseTariffRatesCell = withStyles(styles)(({conditionsByRegion}
 export const WarehouseTariffDatesCell = withStyles(styles)(({classes: classNames, row}) => (
   <div>
     <div className={classNames.warehouseTariffDatesItem}>
+      <Typography>{t(TranslationKey['CLS (batch closing date)'])}</Typography>
+      <Typography>{!row.cls ? '-' : formatDateWithoutTime(row.cls)}</Typography>
+    </div>
+
+    <div className={classNames.warehouseTariffDatesItem}>
       <Typography>{t(TranslationKey['ETD (date of shipment)'])}</Typography>
       <Typography>{!row.etd ? '-' : formatDateWithoutTime(row.etd)}</Typography>
     </div>
@@ -315,11 +320,6 @@ export const WarehouseTariffDatesCell = withStyles(styles)(({classes: classNames
     <div className={classNames.warehouseTariffDatesItem}>
       <Typography>{t(TranslationKey['ETA (arrival date)'])}</Typography>
       <Typography>{!row.eta ? '-' : formatDateWithoutTime(row.eta)}</Typography>
-    </div>
-
-    <div className={classNames.warehouseTariffDatesItem}>
-      <Typography>{t(TranslationKey['CLS (batch closing date)'])}</Typography>
-      <Typography>{!row.cls ? '-' : formatDateWithoutTime(row.cls)}</Typography>
     </div>
   </div>
 ))

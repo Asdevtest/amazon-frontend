@@ -52,16 +52,17 @@ export const DeliveryParameters = ({order}) => {
         <OrderParameter label={t(TranslationKey.Tariff)} value={getFullTariffTextForBoxOrOrder(order)} />
 
         <OrderParameter
+          label={t(TranslationKey['CLS (batch closing date)'])}
+          value={order.logicsTariff?.cls && formatDateWithoutTime(order.logicsTariff?.cls)}
+        />
+
+        <OrderParameter
           label={t(TranslationKey['ETD (date of shipment)'])}
           value={order.logicsTariff?.etd && formatDateWithoutTime(order.logicsTariff?.etd)}
         />
         <OrderParameter
           label={t(TranslationKey['ETA (arrival date)'])}
           value={order.logicsTariff?.eta && formatDateWithoutTime(order.logicsTariff?.eta)}
-        />
-        <OrderParameter
-          label={t(TranslationKey['CLS (batch closing date)'])}
-          value={order.logicsTariff?.cls && formatDateWithoutTime(order.logicsTariff?.cls)}
         />
       </div>
 

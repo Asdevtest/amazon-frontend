@@ -126,14 +126,40 @@ export const useClassNames = makeStyles(() => ({
   tableRowSelectedSupplier: {
     backgroundColor: 'rgba(245, 0, 87, 0.08)',
   },
-  link: {
-    width: '250px',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
-  },
+  // link: {
+  //   width: '250px',
+  //   overflowX: 'auto',
+  //   whiteSpace: 'nowrap',
+  // },
 
   button: {
     width: '100%',
     display: 'flex',
+  },
+
+  linkWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: 200,
+  },
+
+  link: {
+    color: '#006CFF',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  copyImg: {
+    width: '20px',
+    height: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
   },
 }))

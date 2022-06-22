@@ -142,6 +142,20 @@ export const AddOrEditBatchForm = observer(
             <Field
               disabled
               className={classNames.filterField}
+              label={t(TranslationKey['CLS (batch closing date)'])}
+              value={
+                sourceDataForFilters
+                  ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.cls)
+                  : (chosenBoxes[0]?.originalData?.logicsTariff?.cls &&
+                      formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.cls)) ||
+                    ''
+              }
+              placeholder={t(TranslationKey['dd.mm.yyyy'])}
+            />
+
+            <Field
+              disabled
+              className={classNames.filterField}
               label={t(TranslationKey['ETD (date of shipment)'])}
               value={
                 sourceDataForFilters
@@ -162,20 +176,6 @@ export const AddOrEditBatchForm = observer(
                   ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.eta)
                   : (chosenBoxes[0]?.originalData?.logicsTariff?.eta &&
                       formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.eta)) ||
-                    ''
-              }
-              placeholder={t(TranslationKey['dd.mm.yyyy'])}
-            />
-
-            <Field
-              disabled
-              className={classNames.filterField}
-              label={t(TranslationKey['CLS (batch closing date)'])}
-              value={
-                sourceDataForFilters
-                  ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.cls)
-                  : (chosenBoxes[0]?.originalData?.logicsTariff?.cls &&
-                      formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.cls)) ||
                     ''
               }
               placeholder={t(TranslationKey['dd.mm.yyyy'])}

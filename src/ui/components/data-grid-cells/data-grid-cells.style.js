@@ -612,4 +612,11 @@ export const styles = createStyles(() => ({
   userRole: {
     marginBottom: 5,
   },
+
+  tariffRatesWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
 }))

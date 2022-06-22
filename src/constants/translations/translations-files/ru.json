@@ -987,5 +987,6 @@
   "Supervisor's comment cannot be empty": "Комментарий супервизора не может быть пустым",
   "Buyer's comment cannot be empty": "Комментарий байера не может быть пустым",
   "The researcher's comment cannot be empty": "Комментарий ресерчера не может быть пустым",
-  "Amazon must be a number conforming to the specified constraints": "Amazon должно быть числом, соответствующим указанным ограничениям"
+  "Amazon must be a number conforming to the specified constraints": "Amazon должно быть числом, соответствующим указанным ограничениям",
+  "Go to supplier site": "Перейти на сайт поставщика"
 }
