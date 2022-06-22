@@ -83,7 +83,7 @@ export class BuyerSearchSupplierByClientModel {
       this.setActionStatus(loadingStatuses.success)
 
       this.history.push({
-        pathname: '/buyer/product',
+        pathname: '/buyer/search-supplier-by-client/product',
         search: product._id,
       })
     } catch (error) {

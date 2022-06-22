@@ -930,14 +930,14 @@ export enum TranslationKey {
   'Saves data about the supplier' = 'Saves data about the supplier',
   'Cancel creating/changing about a supplier' = 'Cancel creating/changing about a supplier',
   'Open the appropriate section' = 'Open the appropriate section',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
+  'Hints included' = 'Hints included',
+  'Hints are off' = 'Hints are off',
+  'Product information' = 'Product information',
+  'User' = 'User',
+  'Private Label' = 'Private Label',
+  'Edit a request' = 'Edit a request',
+  'Proposal Edition' = 'Proposal Edition',
+  'Choose a section in Freelance' = 'Choose a section in Freelance',
 }
 
 // "After confirmation, the card will be moved to the Archive. Continue?": "After confirmation, the card will be moved to the Archive. Continue?"

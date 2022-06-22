@@ -67,7 +67,7 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '21px',
     color: '#354256',
     overflow: 'auto',
-    maxHeight: '120px',
+    height: 80,
   },
 
   btnsBlockWrapper: {
@@ -232,7 +232,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
-    width: '139px',
+    maxWidth: '120px',
   },
 
   timeCount: {

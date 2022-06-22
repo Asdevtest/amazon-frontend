@@ -1,9 +1,11 @@
+import LockIcon from '@mui/icons-material/Lock'
+import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
 import React, {useState} from 'react'
 
-import {Button, Checkbox, Typography} from '@material-ui/core'
+import {Button, Checkbox, InputAdornment, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -31,6 +33,11 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
           placeholder={t(TranslationKey.Email)}
           type="email"
           value={formFields.email}
+          startAdornment={
+            <InputAdornment position="end">
+              <MailOutlineIcon color="primary" />
+            </InputAdornment>
+          }
           onChange={onChangeFormField('email')}
         />
         <div className={classNames.field}>
@@ -39,6 +46,11 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}
             value={formFields.password}
+            startAdornment={
+              <InputAdornment position="end">
+                <LockIcon color="primary" />
+              </InputAdornment>
+            }
             onChange={onChangeFormField('password')}
           />
           <div className={classNames.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>

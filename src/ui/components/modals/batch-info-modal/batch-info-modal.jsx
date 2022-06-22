@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 
-import {Link, TableCell, TableRow, Typography} from '@material-ui/core'
+import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
 import {BoxViewForm} from '@components/forms/box-view-form'
@@ -202,37 +203,11 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
           volumeWeightCoefficient={volumeWeightCoefficient}
         />
 
-        <div className={classNames.imageFileInputWrapper}>
-          <Button
-            disableElevation
-            disabled={!batch.attachedDocuments?.filter(el => checkIsImageLink(el)).length}
-            color="primary"
-            className={classNames.imagesButton}
-            variant="contained"
-            onClick={() => setShowPhotosModal(!showPhotosModal)}
-          >
-            {t(TranslationKey['Available images'])}
-          </Button>
-
-          {batch.attachedDocuments?.filter(el => !checkIsImageLink(el)).length ? (
-            <Field
-              multiline
-              label={t(TranslationKey.Files)}
-              containerClasses={classNames.filesContainer}
-              inputComponent={
-                <div className={classNames.filesWrapper}>
-                  {batch.attachedDocuments
-                    ?.filter(el => !checkIsImageLink(el))
-                    .map((file, index) => (
-                      <Link key={index} target="_blank" href={file}>
-                        <Typography className={classNames.linkText}>{file}</Typography>
-                      </Link>
-                    ))}
-                </div>
-              }
-            />
-          ) : null}
-        </div>
+        <Field
+          containerClasses={classNames.filesWrapper}
+          label={t(TranslationKey.Files)}
+          inputComponent={<PhotoAndFilesCarousel files={batch.attachedDocuments} width="400px" />}
+        />
 
         <div className={classNames.buttonsWrapper}>
           <Button disableElevation color="primary" variant="contained" onClick={setOpenModal}>

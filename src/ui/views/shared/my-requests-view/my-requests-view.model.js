@@ -3,6 +3,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {RequestSubType, RequestType} from '@constants/request-type'
+import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
@@ -41,6 +42,10 @@ export class MyRequestsViewModel {
   densityModel = 'compact'
   columnsModel = myRequestsViewColumns(this.rowHandlers)
 
+  get userInfo() {
+    return UserModel.userInfo || {}
+  }
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -49,10 +54,6 @@ export class MyRequestsViewModel {
       () => SettingsModel.languageTag,
       () => this.loadData(),
     )
-  }
-
-  get userInfo() {
-    return UserModel.userInfo || {}
   }
 
   onChangeFilterModel(model) {
@@ -114,7 +115,7 @@ export class MyRequestsViewModel {
   }
 
   onClickAddBtn() {
-    this.history.push('/create-or-edit-request')
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/create-request`)
   }
 
   onClickEditBtn(row) {
@@ -212,7 +213,9 @@ export class MyRequestsViewModel {
   }
 
   onClickTableRow(item) {
-    this.history.push('/custom-request', {request: toJS(item)})
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request`, {
+      request: toJS(item),
+    })
   }
 
   onTriggerDrawer() {

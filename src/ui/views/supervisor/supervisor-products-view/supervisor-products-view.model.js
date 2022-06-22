@@ -131,7 +131,7 @@ export class SupervisorProductsViewModel {
 
   onClickTableRow(item) {
     this.history.push({
-      pathname: '/supervisor/product',
+      pathname: '/supervisor/products/product',
       search: item.originalData._id,
     })
   }

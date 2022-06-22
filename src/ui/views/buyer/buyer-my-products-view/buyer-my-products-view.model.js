@@ -149,7 +149,7 @@ export class BuyerMyProductsViewModel {
 
   onClickTableRow(item) {
     this.history.push({
-      pathname: '/buyer/product',
+      pathname: '/buyer/my-products/product',
       search: item.originalData._id,
     })
   }

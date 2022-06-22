@@ -107,29 +107,6 @@ export const BindStockGoodsToInventoryForm = observer(
 
         <div className={classNames.form}>
           <div className={classNames.filtersWrapper}>
-            {/* <Chip
-              label={t(TranslationKey.Recommended)}
-              className={clsx(classNames.chip, {
-                [classNames.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
-              })}
-              onClick={() => setRecommendChip()}
-            />
-            <Typography className={classNames.betweenChipsText}>{t(TranslationKey['or search by'])}</Typography>
-
-            <Chip
-              label={t(TranslationKey.Title)}
-              className={clsx(classNames.chip, {[classNames.chipActive]: chipConfig === chipConfigSettings.NAME})}
-              onClick={() => setChipConfig(chipConfigSettings.NAME)}
-            />
-
-            <Chip
-              label={t(TranslationKey.ASIN)}
-              className={clsx(classNames.chip, classNames.asinChip, {
-                [classNames.chipActive]: chipConfig === chipConfigSettings.ASIN,
-              })}
-              onClick={() => setChipConfig(chipConfigSettings.ASIN)}
-            /> */}
-
             <Button
               variant={'text'}
               className={clsx(classNames.chip, {
@@ -167,7 +144,7 @@ export const BindStockGoodsToInventoryForm = observer(
               inputClasses={classNames.searchInput}
               disabled={chipConfig === chipConfigSettings.RECOMMENDED}
               value={searchInputValue}
-              placeholder={'search'}
+              placeholder={t(TranslationKey.search)}
               endAdornment={
                 <InputAdornment position="start">
                   <SearchIcon color="primary" />
@@ -176,25 +153,6 @@ export const BindStockGoodsToInventoryForm = observer(
               onChange={e => setSearchInputValue(e.target.value)}
             />
           </div>
-
-          {/* <div className={classNames.searchInputWrapper}>
-            <Input
-              disabled={chipConfig === chipConfigSettings.RECOMMENDED}
-              inputProps={{maxLength: 200}}
-              placeholder={t(TranslationKey.search) + '...'}
-              className={classNames.searchInput}
-              value={searchInputValue}
-              onChange={e => setSearchInputValue(e.target.value)}
-            />
-
-            <button
-              disabled={chipConfig === chipConfigSettings.RECOMMENDED || searchInputValue === ''}
-              className={classNames.searchBtn}
-              onClick={() => onClickSearch()}
-            >
-              {t(TranslationKey.search)}
-            </button>
-          </div> */}
 
           <div className={classNames.tableWrapper}>
             <DataGrid

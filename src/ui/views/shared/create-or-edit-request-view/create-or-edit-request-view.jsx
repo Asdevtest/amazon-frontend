@@ -49,11 +49,7 @@ export class CreateOrEditRequestView extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar
-            title={t(TranslationKey['Create a request'])}
-            notificationCount={2}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={t(TranslationKey['Create a request'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <CreateOrEditRequestContent
                 progressValue={progressValue}

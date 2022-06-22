@@ -15,6 +15,8 @@ class SettingsModelStatic {
   languageTag = LanguageKey.en
   isHydrated = false
 
+  showHints = false
+
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
     makePersistable(this, {name: stateModelName, properties: persistProperties}).then(({isHydrated}) => {
@@ -29,6 +31,10 @@ class SettingsModelStatic {
         }
       },
     )
+  }
+
+  onTriggerShowHints() {
+    this.showHints = !this.showHints
   }
 
   setDataGridState(state, tableKey) {

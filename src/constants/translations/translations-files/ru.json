@@ -931,5 +931,13 @@
   "The comment indicated for this supplier": "Комментарий, указываемый к этому поставщику",
   "Saves data about the supplier": "Сохраняет данные о поставщике",
   "Cancel creating/changing about a supplier": "Отменить создание/изменение о поставщике",
-  "Open the appropriate section": "Открыть соответствующий раздел"
+  "Open the appropriate section": "Открыть соответствующий раздел",
+  "Hints included": "Подсказки включены",
+  "Hints are off": "Подсказки выключены",
+  "Product information": "Информация о товаре",
+  "User": "Пользователь",
+  "Private Label": "Private Label",
+  "Edit a request": "Редактировать заявку",
+  "Proposal Edition": "Редактирование предложения",
+  "Choose a section in Freelance": "Выберите  раздел во фрилансе"
 }

@@ -2,6 +2,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {ChatModel} from '@models/chat-model'
 import {RequestModel} from '@models/request-model'
@@ -227,8 +228,12 @@ export class RequestDetailCustomViewModel {
   }
 
   onSubmitOfferDeal() {
-    console.log(this.request)
-    this.history.push('/create-or-edit-proposal', {request: toJS(this.request)})
+    this.history.push(
+      `/${
+        UserRoleCodeMapForRoutes[this.userInfo.role]
+      }/freelance/vacant-requests/custom-search-request/create-proposal`,
+      {request: toJS(this.request)},
+    )
   }
 
   resetChats() {

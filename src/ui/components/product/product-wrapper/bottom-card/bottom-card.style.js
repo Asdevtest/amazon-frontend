@@ -27,12 +27,14 @@ export const useClassNames = makeStyles(() => ({
     },
   },
   title: {
-    fontSize: '24px',
-    lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
-    fontWeight: '500',
+    // color: 'rgba(61, 81, 112, 1)',
+
+    fontWeight: 600,
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#656565',
     textAlign: 'center',
-    marginBottom: '24px',
+    marginBottom: 24,
   },
   table: {
     border: '1px solid rgb(224, 224, 224)',

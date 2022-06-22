@@ -2,10 +2,12 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {RequestSubType, RequestType} from '@constants/request-type'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
+import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
 import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 export class VacantRequestsViewModel {
   history = undefined
@@ -22,6 +24,10 @@ export class VacantRequestsViewModel {
 
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
+
+  get user() {
+    return UserModel.userInfo
+  }
 
   constructor({history}) {
     this.history = history
@@ -83,7 +89,10 @@ export class VacantRequestsViewModel {
 
   async onClickViewMore(id) {
     try {
-      this.history.push('/custom-search-request', {requestId: id})
+      this.history.push(
+        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request`,
+        {requestId: id},
+      )
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
       console.log(error)

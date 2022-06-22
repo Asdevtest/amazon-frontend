@@ -159,7 +159,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   rateContainer: {
-    width: '293px',
+    width: 'min-content',
   },
 
   calculationMainWrapper: {

@@ -151,4 +151,11 @@ export const useClassNames = makeStyles(theme => ({
     justifyContent: 'space-between',
     width: '300px',
   },
+  successBtn: {
+    backgroundColor: '#4CAF50',
+    '&:hover': {
+      opacity: '0.8',
+      backgroundColor: '#4CAF50',
+    },
+  },
 }))

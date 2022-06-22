@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
+import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
 import {RequestModel} from '@models/request-model'
@@ -91,12 +92,16 @@ export class MyProposalsViewModel {
         timeoutAt: request.timeoutAt,
       },
     }
-
-    this.history.push('/create-or-edit-proposal', {request: toJS(convertedRequest), proposalToEdit: toJS(proposal)})
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals/edit-proposal`, {
+      request: toJS(convertedRequest),
+      proposalToEdit: toJS(proposal),
+    })
   }
 
   onClickOpenBtn(request) {
-    this.history.push('/custom-search-request', {requestId: request._id})
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals/custom-search-request`, {
+      requestId: request._id,
+    })
   }
 
   async onSubmitDeleteProposal() {
@@ -140,14 +145,14 @@ export class MyProposalsViewModel {
     }
   }
 
-  async onClickViewMore(id) {
-    try {
-      this.history.push('/custom-search-request', {requestId: id})
-    } catch (error) {
-      this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
-    }
-  }
+  // async onClickViewMore(id) {
+  //   try {
+  //     this.history.push('/custom-search-request', {requestId: id})
+  //   } catch (error) {
+  //     this.onTriggerOpenModal('showWarningModal')
+  //     console.log(error)
+  //   }
+  // }
 
   onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen

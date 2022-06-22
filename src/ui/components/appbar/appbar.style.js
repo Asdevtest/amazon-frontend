@@ -1,6 +1,10 @@
 import {makeStyles} from '@material-ui/styles'
 
 export const useClassNames = makeStyles(theme => ({
+  mainWrapper: {
+    width: '100%',
+  },
+
   appbar: {
     width: '100%',
     height: theme.spacing(7),
@@ -21,12 +25,30 @@ export const useClassNames = makeStyles(theme => ({
       paddingRight: theme.spacing(1.5),
     },
   },
+
   title: {
-    flexGrow: 1,
     fontWeight: 600,
     color: theme.palette.text.secondary,
     fontSize: '16px',
   },
+
+  titleWrapper: {
+    flexGrow: 1,
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  hintsIcon: {
+    width: 18,
+    height: 18,
+    marginLeft: 20,
+    transition: '.2s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
   avatar: {
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
@@ -157,5 +179,14 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  breadCrumbsWrapper: {
+    width: '100%',
+    display: 'flex',
+    paddingLeft: 30,
+    alignItems: 'center',
+    margin: '10px 0',
+    height: 'min-content',
   },
 }))

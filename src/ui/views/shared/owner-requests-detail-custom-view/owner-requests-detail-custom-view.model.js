@@ -2,6 +2,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {ChatModel} from '@models/chat-model'
 import {RequestModel} from '@models/request-model'
@@ -43,6 +44,10 @@ export class OwnerRequestDetailCustomViewModel {
   chatIsConnected = false
   scrollToChat = undefined
   showResultToCorrectFormModal = false
+
+  get user() {
+    return UserModel.userInfo
+  }
 
   constructor({history, location, scrollToChat}) {
     this.history = history
@@ -259,7 +264,10 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickEditBtn() {
-    this.history.push('/create-or-edit-request', {request: toJS(this.request)})
+    this.history.push(
+      `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-requests/custom-request/edit-request`,
+      {request: toJS(this.request)},
+    )
   }
 
   async onSubmitAbortRequest(comment) {

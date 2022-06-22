@@ -174,7 +174,7 @@ export class ClientInventoryViewModel {
 
   onClickShowProduct(row) {
     this.history.push({
-      pathname: '/client/product',
+      pathname: '/client/inventory/product',
       search: row.originalData._id,
     })
   }

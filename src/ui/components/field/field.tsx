@@ -1,10 +1,12 @@
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {FC, ReactElement} from 'react'
+import React, {FC, ReactElement, useState, useEffect} from 'react'
 
 import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {Input} from '@components/input'
 
@@ -37,6 +39,13 @@ export const Field: FC<Props> = observer(
     ...restProps
   }) => {
     const classNames = useClassNames()
+
+    const [showHints, setShowHints] = useState(SettingsModel.showHints)
+
+    useEffect(() => {
+      setShowHints(SettingsModel.showHints)
+    }, [SettingsModel.showHints])
+
     return (
       <div className={clsx(classNames.root, containerClasses, {[classNames.rootOneLine]: oneLine})}>
         <div className={classNames.labelWrapper}>
@@ -52,7 +61,7 @@ export const Field: FC<Props> = observer(
                 </Tooltip>
               ) : null}
 
-              {tooltipInfoContent ? (
+              {tooltipInfoContent && showHints ? (
                 <Tooltip arrow title={tooltipInfoContent} placement="top-end">
                   <img className={clsx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
                 </Tooltip>
