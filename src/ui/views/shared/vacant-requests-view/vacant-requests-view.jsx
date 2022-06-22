@@ -75,11 +75,7 @@ class VacantRequestsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar
-            title={t(TranslationKey['Vacant requests'])}
-            notificationCount={2}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={t(TranslationKey['Vacant requests'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.tablePanelViewWrapper}>

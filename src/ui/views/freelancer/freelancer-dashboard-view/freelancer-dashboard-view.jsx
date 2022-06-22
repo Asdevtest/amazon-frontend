@@ -43,12 +43,7 @@ export class FreelancerDashboardViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar
-            title={t(TranslationKey.Dashboard)}
-            notificationCount={2}
-            drawerOpen={drawerOpen}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={t(TranslationKey.Dashboard)} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DashboardBalance user={userInfo} />
               <Typography variant="h6">{t(TranslationKey.Dashboard)}</Typography>

@@ -4,7 +4,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   NormalActionBtnCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   ScrollingCell,
   WarehouseTariffDatesCell,
   WarehouseTariffDestinationCell,
@@ -18,7 +18,7 @@ export const logisticsTariffsColumns = handlers => [
     field: 'name',
     headerName: t(TranslationKey['Tariff name']),
     width: 150,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -32,14 +32,14 @@ export const logisticsTariffsColumns = handlers => [
     field: 'deliveryTimeInDay',
     headerName: t(TranslationKey['Time on the road, days']),
     width: 110,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
     field: 'minWeightInKg',
     headerName: t(TranslationKey['Min. weight, kg']),
     width: 110,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -89,7 +89,7 @@ export const warehouseTariffsColumns = () => [
     field: 'name',
     headerName: t(TranslationKey['Tariff name']),
     width: 250,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -103,6 +103,6 @@ export const warehouseTariffsColumns = () => [
     field: 'price',
     headerName: t(TranslationKey['Service cost per kg, $']),
     width: 250,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 ]

@@ -5,7 +5,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {
   EditOrRemoveBtnsCell,
   MultilineTextHeaderCell,
-  renderFieldValueCell,
+  MultilineTextCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -17,7 +17,7 @@ export const destinationsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
     width: 250,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -26,7 +26,7 @@ export const destinationsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Country)} />,
 
     width: 140,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -35,7 +35,7 @@ export const destinationsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ZIP code'])} />,
 
     width: 90,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -44,7 +44,7 @@ export const destinationsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.City)} />,
 
     width: 200,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -53,7 +53,7 @@ export const destinationsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.State)} />,
 
     width: 170,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -62,7 +62,7 @@ export const destinationsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Address)} />,
 
     width: 350,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {

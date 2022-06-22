@@ -2,13 +2,9 @@ import {Radio} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {
-  NormDateCell,
-  renderFieldValueCell,
-  ToFixedWithDollarSignCell,
-  ToFixedWithKgSignCell,
-} from '@components/data-grid-cells/data-grid-cells'
+import {NormDateCell, MultilineTextCell, ToFixedWithKgSignCell} from '@components/data-grid-cells/data-grid-cells'
 
+import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
@@ -30,21 +26,21 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
   {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 110,
   },
 
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 60,
   },
 
   {
     field: 'tariff',
     headerName: t(TranslationKey.Tariff),
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 200,
   },
 
@@ -75,7 +71,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
   {
     field: 'totalPrice',
     headerName: t(TranslationKey['Total price']),
-    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 120,
     type: 'number',
   },

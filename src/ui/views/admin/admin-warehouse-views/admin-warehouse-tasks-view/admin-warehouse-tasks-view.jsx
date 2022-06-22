@@ -71,12 +71,7 @@ export class AdminWarehouseTasksViewRaw extends Component {
           setDrawerOpen={onChangeDrawerOpen}
         />
         <Main>
-          <Appbar
-            title={t(TranslationKey.Tasks)}
-            notificationCount={2}
-            history={history}
-            setDrawerOpen={onChangeDrawerOpen}
-          >
+          <Appbar title={t(TranslationKey.Tasks)} history={history} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination

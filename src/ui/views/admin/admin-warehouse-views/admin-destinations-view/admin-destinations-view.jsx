@@ -80,12 +80,7 @@ class AdminDestinationsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar
-            title={t(TranslationKey.Destinations)}
-            notificationCount={2}
-            history={history}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={t(TranslationKey.Destinations)} history={history} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.placeAddBtnWrapper}>
                 <SuccessButton onClick={() => onClickAddBtn()}>{t(TranslationKey['Add a destination'])}</SuccessButton>

@@ -40,7 +40,7 @@ export class WarehouseDashboardViewRaw extends Component {
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey.Dashboard)} notificationCount={2} setDrawerOpen={onChangeTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey.Dashboard)} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
               <DashboardBalance user={userInfo} />
 

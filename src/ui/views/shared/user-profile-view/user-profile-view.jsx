@@ -61,7 +61,7 @@ export class UserProfileView extends Component {
       <>
         <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar title={t(TranslationKey.Profile)} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey.Profile)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <UserProfile
                 user={user}

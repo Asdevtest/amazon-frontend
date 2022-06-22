@@ -37,7 +37,6 @@ export class WarehouseManagementView extends Component {
         <Main>
           <Appbar
             title={t(TranslationKey['Warehouse management'])}
-            notificationCount={2}
             history={history}
             setDrawerOpen={onTriggerDrawerOpen}
           >

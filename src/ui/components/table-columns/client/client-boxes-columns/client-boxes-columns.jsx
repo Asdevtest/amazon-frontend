@@ -8,13 +8,13 @@ import {
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   ShortBoxDimensions,
   SuperboxQtyCell,
-  ToFixedWithDollarSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {findTariffInStorekeepersData} from '@utils/checks'
+import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const clientBoxesViewColumns = (handlers, storekeepersData) => [
@@ -31,7 +31,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 50,
   },
 
@@ -79,7 +79,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
       params.row.originalData.amount > 1 ? (
         <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
       ) : (
-        renderFieldValueCell(params.value)
+        <MultilineTextCell text={params.value} />
       ),
     width: 110,
     type: 'number',
@@ -90,7 +90,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     headerName: t(TranslationKey.Warehouse),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 160,
   },
 
@@ -99,7 +99,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
-    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 120,
     type: 'number',
   },

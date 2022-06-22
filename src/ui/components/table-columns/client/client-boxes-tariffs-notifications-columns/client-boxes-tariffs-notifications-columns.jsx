@@ -8,7 +8,7 @@ import {
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   SuperboxQtyCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
@@ -22,7 +22,7 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 50,
   },
 
@@ -75,7 +75,7 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
       params.row.originalData.amount > 1 ? (
         <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
       ) : (
-        renderFieldValueCell(params.value)
+        <MultilineTextCell text={params.value} />
       ),
     width: 110,
     type: 'number',
@@ -86,7 +86,7 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 160,
   },
 
@@ -104,7 +104,7 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 200,
   },
 

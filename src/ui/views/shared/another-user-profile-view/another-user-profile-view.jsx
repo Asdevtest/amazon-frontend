@@ -31,7 +31,7 @@ class AnotherUserProfileViewRaw extends Component {
       <>
         <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar title={t(TranslationKey.User)} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey.User)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {user && (
                 <UserProfile

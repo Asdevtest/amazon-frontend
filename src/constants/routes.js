@@ -23,7 +23,6 @@ import {BuyerMyOrdersView} from '@views/buyer/buyer-orders-views/buyer-my-orders
 import {BuyerProductView} from '@views/buyer/buyer-product-view/'
 import {BuyerSearchSupplierByClientView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-client-view'
 import {BuyerSearchSupplierBySupervisorView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-supervisor-view'
-import {BuyerSubUsersView} from '@views/buyer/buyer-users-views/buyer-sub-users-view'
 import {ClientAwaitingBatchesView} from '@views/client/client-batches-views/client-awaiting-batches-view'
 import {ClientBatchesView} from '@views/client/client-batches-views/client-batches-view'
 import {ClientReadyBoxesView} from '@views/client/client-batches-views/client-ready-boxes-view'
@@ -41,28 +40,15 @@ import {ClientOrdersView} from '@views/client/client-orders-views/orders'
 import {ClientProductView} from '@views/client/client-product-view/'
 import {ClientSettingsView} from '@views/client/client-settings-view'
 import {ClientShopsView} from '@views/client/client-shops-view'
-import {ClientSubUsersView} from '@views/client/client-users-views/sub-users-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {FreelancerDashboardView} from '@views/freelancer/freelancer-dashboard-view'
 import {FreelancerFinancesViews} from '@views/freelancer/freelancer-finances-views'
 import {FreelancerFreelanceView} from '@views/freelancer/freelancer-freelance-view'
-import {FreelancerSubUsersView} from '@views/freelancer/freelancer-users-views/freelancer-sub-users-view'
 import {RegistrationView} from '@views/registration'
 import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
 import {ResearcherFinancesViews} from '@views/researcher/researcher-finances-views'
-// import {ResearcherMyCustomRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-custom-requests-view/researcher-my-custom-requests-view'
-// import {ResearcherMyProductsRequestsView} from '@views/researcher/researcher-my-requests-views/researcher-my-products-requests-view'
 import {ResearcherProductView} from '@views/researcher/researcher-product-view/researcher-product-view'
 import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
-import {ResearcherSubUsersView} from '@views/researcher/researcher-users-views/researcher-sub-users-view'
-// import {ResearcherRequestDetailCustomView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-custom-view'
-// import {ResearcherRequestDetailNicheView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-niche-view'
-// import {ResearcherRequestDetailProductView} from '@views/researcher/researcher-requests-details-views/researcher-requests-detail-product-view'
-// import {ResearcherSettingsView} from '@views/researcher/researcher-settings-view'
-// import {ResearcherSubUsersView} from '@views/researcher/researcher-users-views/researcher-sub-users-view'
-// import {ResearcherVacantCustomRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-custom-requests-view'
-// import {ResearcherVacantNichesRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-niches-requests-view'
-// import {ResearcherVacantProductsRequestsView} from '@views/researcher/researcher-vacant-requests-views/researcher-vacant-products-requests-view'
 import {AnotherUserProfileView} from '@views/shared/another-user-profile-view'
 import {CreateOrEditProposalView} from '@views/shared/create-or-edit-proposal-view'
 import {CreateOrEditRequestView} from '@views/shared/create-or-edit-request-view'
@@ -70,6 +56,7 @@ import {MyProposalsView} from '@views/shared/my-proposals-view'
 import {MyRequestsView} from '@views/shared/my-requests-view'
 import {OwnerRequestDetailCustomView} from '@views/shared/owner-requests-detail-custom-view'
 import {RequestDetailCustomView} from '@views/shared/servant-requests-detail-custom-view'
+import {SubUsersView} from '@views/shared/sub-users-view/sub-users-view'
 import {UserProfileView} from '@views/shared/user-profile-view/user-profile-view'
 import {VacantRequestsView} from '@views/shared/vacant-requests-view/vacant-requests-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
@@ -78,8 +65,6 @@ import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/s
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
 import {SupervisorReadyToCheckByClientView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-by-client-view'
 import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-view'
-// import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view/supervisor-settings-view'
-import {SupervisorSubUsersView} from '@views/supervisor/supervisor-users-views/supervisor-sub-users-view'
 import {TermsView} from '@views/terms'
 import {WarehouseAwaitingBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view'
 import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-batches-view/warehouse-batches-view'
@@ -91,7 +76,6 @@ import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-tasks-views
 import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-completed-tasks-view'
 import {WarehouseMyTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-my-tasks-view'
 import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view'
-import {WarehouseSubUsersView} from '@views/warehouse/warehouse-users-views/warehouse-sub-users-view'
 
 import {TranslationKey} from './translations/translation-key'
 import {UserRole} from './user-roles'
@@ -207,7 +191,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/buyer/sub-users',
-    component: BuyerSubUsersView,
+    component: SubUsersView,
     exact: false,
     permission: [UserRole.BUYER],
     crumbNameKey: TranslationKey.Users,
@@ -291,7 +275,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/researcher/sub-users',
-    component: ResearcherSubUsersView,
+    component: SubUsersView,
     exact: false,
     permission: [UserRole.RESEARCHER],
     crumbNameKey: TranslationKey['Sub users'],
@@ -500,7 +484,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/client/sub-users',
-    component: ClientSubUsersView,
+    component: SubUsersView,
     exact: false,
     permission: [UserRole.CLIENT],
     crumbNameKey: TranslationKey['My users'],
@@ -592,7 +576,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/supervisor/sub-users',
-    component: SupervisorSubUsersView,
+    component: SubUsersView,
     exact: false,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey.Users,
@@ -667,7 +651,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/warehouse/sub-users',
-    component: WarehouseSubUsersView,
+    component: SubUsersView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey.Users,
@@ -752,14 +736,14 @@ export const privateRoutesConfigs = [
     crumbNameKey: TranslationKey.Product,
   },
   {
-    routePath: '/admin/warehouse/tasks',
+    routePath: '/admin/tasks',
     component: AdminWarehouseTasksView,
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Tasks,
   },
   {
-    routePath: '/admin/warehouse/boxes',
+    routePath: '/admin/boxes',
     component: AdminWarehouseBoxesView,
     exact: false,
     permission: [UserRole.ADMIN],
@@ -767,7 +751,7 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/admin/warehouse/destinations',
+    routePath: '/admin/destinations',
     component: AdminDestinationsView,
     exact: false,
     permission: [UserRole.ADMIN],
@@ -829,7 +813,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/freelancer/sub-users',
-    component: FreelancerSubUsersView,
+    component: SubUsersView,
     exact: false,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Sub users'],

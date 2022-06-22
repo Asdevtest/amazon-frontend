@@ -47,12 +47,7 @@ export class AdminProductView extends Component {
       <React.Fragment>
         <Navbar activeCategory={activeCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar
-            title={t(TranslationKey.Product)}
-            notificationCount={2}
-            history={history}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={t(TranslationKey.Product)} history={history} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {product ? (
                 <ProductWrapper

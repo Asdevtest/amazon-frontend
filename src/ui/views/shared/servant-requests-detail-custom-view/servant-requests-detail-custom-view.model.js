@@ -19,7 +19,7 @@ export class RequestDetailCustomViewModel {
   drawerOpen = false
   requestId = undefined
   request = undefined
-  requestProposals = []
+  requestProposals = undefined
   showWarningModal = false
 
   loadedFiles = []
@@ -127,6 +127,8 @@ export class RequestDetailCustomViewModel {
         this.requestProposals = result
       })
     } catch (error) {
+      this.requestProposals = []
+
       console.log(error)
       this.error = error
     }

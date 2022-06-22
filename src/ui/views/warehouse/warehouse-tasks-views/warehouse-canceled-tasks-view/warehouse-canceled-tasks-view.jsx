@@ -72,7 +72,6 @@ export class WarehouseCanceledTasksViewRaw extends Component {
         <Main>
           <Appbar
             title={t(TranslationKey['Canceled tasks'])}
-            notificationCount={2}
             history={history}
             setDrawerOpen={onChangeTriggerDrawerOpen}
           >

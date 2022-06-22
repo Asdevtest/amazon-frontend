@@ -37,7 +37,6 @@ export class AdminOrderView extends Component {
         <Main>
           <Appbar
             title={t(TranslationKey.Order)}
-            notificationCount={2}
             history={history}
             setDrawerOpen={onTriggerDrawerOpen}
             lastCrumbAdditionalText={` № ${order?.id}`}

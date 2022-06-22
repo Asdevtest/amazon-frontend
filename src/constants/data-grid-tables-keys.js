@@ -87,4 +87,5 @@ export const DataGridTablesKeys = {
   FREELANCER_SUB_USERS: 'freelancerSubUsersDataGridState',
 
   OVERALL_CUSTOM_SEARCH_REQUESTS: 'overallCustomSearchRequestsDataGridState',
+  OVERALL_SUB_USERS: 'overallSubUsersDataGridState',
 }

@@ -4,20 +4,20 @@ import {
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   SuperboxQtyCell,
-  ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
+import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const addOrEditBatchFormColumns = () => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey.ID),
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 70,
   },
 
@@ -28,7 +28,7 @@ export const addOrEditBatchFormColumns = () => [
       params.row.originalData.amount > 1 ? (
         <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
       ) : (
-        renderFieldValueCell(params.value)
+        <MultilineTextCell text={params.value} />
       ),
     width: 70,
     type: 'number',
@@ -55,7 +55,7 @@ export const addOrEditBatchFormColumns = () => [
   {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 130,
   },
 
@@ -69,7 +69,7 @@ export const addOrEditBatchFormColumns = () => [
   {
     field: 'logicsTariff',
     headerName: t(TranslationKey.Tariff),
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 160,
   },
 
@@ -92,7 +92,7 @@ export const addOrEditBatchFormColumns = () => [
   {
     field: 'deliveryTotalPrice',
     headerName: t(TranslationKey['Total price']),
-    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 120,
     type: 'number',
   },

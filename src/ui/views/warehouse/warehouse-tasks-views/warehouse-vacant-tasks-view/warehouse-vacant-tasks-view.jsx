@@ -69,11 +69,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
         <Main>
-          <Appbar
-            title={t(TranslationKey['New tasks'])}
-            notificationCount={2}
-            setDrawerOpen={onChangeTriggerDrawerOpen}
-          >
+          <Appbar title={t(TranslationKey['New tasks'])} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination

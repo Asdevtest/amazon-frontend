@@ -68,10 +68,9 @@ export class RequestDetailCustomViewRaw extends Component {
       onSubmitOfferDeal,
       onClickSendAsResult,
       onClickCancelRequestProposal,
-      // onClickReadyToVerify,
     } = this.viewModel
 
-    const findRequestProposalByChatSelectedId = requestProposals.find(
+    const findRequestProposalByChatSelectedId = requestProposals?.find(
       requestProposal => requestProposal.proposal.chatId === chatSelectedId,
     )
 
@@ -84,7 +83,7 @@ export class RequestDetailCustomViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey.Request)} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey.Request)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.backBtnWrapper}>
                 <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>
@@ -92,7 +91,7 @@ export class RequestDetailCustomViewRaw extends Component {
                 </Button>
               </div>
 
-              {request ? (
+              {request && requestProposals ? (
                 <div className={classNames.requestInfoWrapper}>
                   <ServantGeneralRequestInfo
                     requestProposals={requestProposals}

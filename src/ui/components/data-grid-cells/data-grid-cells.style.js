@@ -565,4 +565,51 @@ export const styles = createStyles(() => ({
   editOrRemoveBtnsCell: {
     display: 'flex',
   },
+
+  sabUserWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  userAvatar: {
+    width: 136,
+    height: 136,
+  },
+
+  sabUserInfoWrapper: {
+    marginLeft: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: 120,
+  },
+
+  userEmail: {
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+  },
+
+  sabUserRatingWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  sabUserRating: {
+    marginLeft: 10,
+  },
+
+  userRolesWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: 120,
+    overflow: 'auto',
+    width: '100%',
+  },
+
+  userRole: {
+    marginBottom: 5,
+  },
 }))

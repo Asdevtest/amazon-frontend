@@ -70,7 +70,7 @@ class AdminOrdersViewsRaw extends Component {
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar title={t(TranslationKey.Orders)} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
+          <Appbar title={t(TranslationKey.Orders)} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <Grid container spacing={3} className={classNames.filterBtnWrapper}>
                 {adminOrdersBtnsConfig()?.map((buttonConfig, index) => (

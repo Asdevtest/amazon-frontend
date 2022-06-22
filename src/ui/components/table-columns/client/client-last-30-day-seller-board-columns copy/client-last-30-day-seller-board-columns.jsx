@@ -5,7 +5,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateWithoutTimeCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   ScrollingCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
@@ -27,7 +27,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
   },
 
@@ -36,7 +36,7 @@ export const clientLast30DaySellerBoardColumns = () => [
     headerName: t(TranslationKey.SKU),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SKU)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
   },
 
@@ -52,21 +52,21 @@ export const clientLast30DaySellerBoardColumns = () => [
     field: 'unitsorganic',
     headerName: 'Unitsorganic',
     renderHeader: () => <MultilineTextHeaderCell text={'Unitsorganic'} />,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
   },
   {
     field: 'unitsppc',
     headerName: 'Unitsppc',
     renderHeader: () => <MultilineTextHeaderCell text={'Unitsppc'} />,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
   },
   {
     field: 'netprofit',
     headerName: 'Netprofit',
     renderHeader: () => <MultilineTextHeaderCell text={'Netprofit'} />,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
   },
 ]

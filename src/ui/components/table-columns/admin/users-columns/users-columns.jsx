@@ -6,7 +6,7 @@ import {
   AdminUsersActionBtnsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  renderFieldValueCell,
+  MultilineTextCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixed} from '@utils/text'
@@ -44,7 +44,7 @@ export const adminUsersViewColumns = handlers => [
     headerName: t(TranslationKey.Balance),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Balance)} />,
 
-    renderCell: params => renderFieldValueCell(toFixed(params.value, 2)),
+    renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
     width: 150,
     type: 'number',
   },
@@ -54,7 +54,7 @@ export const adminUsersViewColumns = handlers => [
     headerName: t(TranslationKey.Freeze),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Freeze)} />,
 
-    renderCell: params => renderFieldValueCell(toFixed(params.value, 2)),
+    renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
     width: 150,
     type: 'number',
   },
@@ -71,7 +71,7 @@ export const adminUsersViewColumns = handlers => [
     headerName: t(TranslationKey.Rate),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 100,
     type: 'number',
   },
@@ -81,7 +81,7 @@ export const adminUsersViewColumns = handlers => [
     headerName: t(TranslationKey.Role),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Role)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
   },
 
@@ -90,7 +90,7 @@ export const adminUsersViewColumns = handlers => [
     headerName: t(TranslationKey['User status']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['User status'])} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
   },
 
@@ -99,7 +99,7 @@ export const adminUsersViewColumns = handlers => [
     headerName: t(TranslationKey['Sub status']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Sub status'])} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 120,
   },
 

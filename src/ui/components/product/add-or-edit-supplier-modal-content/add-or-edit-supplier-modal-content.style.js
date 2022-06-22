@@ -9,7 +9,7 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: '24px',
   },
   modalContainer: {
-    width: '700px',
+    width: '750px',
   },
   titleDivider: {
     margin: '32px -24px',
@@ -120,7 +120,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   middleContainer: {
-    width: '160px',
+    width: '170px',
   },
 
   shortContainer: {
