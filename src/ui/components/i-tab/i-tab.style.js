@@ -25,7 +25,7 @@ export const useClassNames = makeStyles(() => ({
 
   tabWrapper: {
     position: 'relative',
-    width: '300px',
+    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     overflow: 'visible',

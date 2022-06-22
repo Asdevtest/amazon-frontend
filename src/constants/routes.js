@@ -239,7 +239,7 @@ export const privateRoutesConfigs = [
   {
     routePath: '/buyer/my-products',
     component: BuyerMyProductsView,
-    exact: false,
+    exact: true,
     permission: [UserRole.BUYER],
     crumbNameKey: TranslationKey['My products'],
   },
