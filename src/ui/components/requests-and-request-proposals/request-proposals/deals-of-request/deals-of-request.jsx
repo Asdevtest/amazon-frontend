@@ -55,14 +55,13 @@ export const DealsOfRequest = ({requestProposals}) => {
                   </div>
 
                   <div className={classNames.userRatingWrapper}>
-                    <Typography>{deal.proposal.createdBy.rating}</Typography>
                     <Rating disabled className={classNames.userRating} value={deal.proposal.createdBy.rating} />
                   </div>
                 </div>
 
-                <div className={classNames.blockInfoWrapper}>
+                <div className={classNames.blockInfoStatusWrapper}>
                   <div className={classNames.requestItemInfoWrapper}>
-                    <Typography>{t(TranslationKey.Status)}</Typography>
+                    <Typography className={classNames.blockText}>{t(TranslationKey.Status)}</Typography>
                     <div className={classNames.requestStatusWrapper}>
                       <Typography className={classNames.requestStatus}>
                         <span style={{backgroundColor: RequestProposalStatusColor(deal.proposal.status)}}></span>
@@ -74,21 +73,25 @@ export const DealsOfRequest = ({requestProposals}) => {
 
                 <div className={classNames.blockInfoWrapper}>
                   <div className={classNames.requestItemInfoWrapper}>
-                    <Typography>{t(TranslationKey.Time)}</Typography>
-                    <Typography>{formatDateDistanceFromNowStrict(deal.proposal.timeoutAt, now)}</Typography>
+                    <Typography className={classNames.blockText}>{t(TranslationKey.Time)}</Typography>
+                    <Typography className={classNames.blockText}>
+                      {formatDateDistanceFromNowStrict(deal.proposal.timeoutAt, now)}
+                    </Typography>
                   </div>
                 </div>
 
                 <div className={classNames.blockInfoWrapper}>
                   <div className={classNames.requestItemInfoWrapper}>
-                    <Typography>{t(TranslationKey.Deadline)}</Typography>
-                    <Typography>{formatNormDateTime(deal.proposal.timeoutAt)}</Typography>
+                    <Typography className={classNames.blockText}>{t(TranslationKey.Deadline)}</Typography>
+                    <Typography className={classNames.blockText}>
+                      {formatNormDateTime(deal.proposal.timeoutAt)}
+                    </Typography>
                   </div>
                 </div>
 
                 <div className={classNames.blockInfoWrapper}>
                   <div className={classNames.requestItemInfoWrapper}>
-                    <Typography>{t(TranslationKey['Total price'])}</Typography>
+                    <Typography className={classNames.blockText}>{t(TranslationKey['Total price'])}</Typography>
                     <Typography className={classNames.price}>
                       {toFixedWithDollarSign(deal.proposal.price, 2)}
                     </Typography>

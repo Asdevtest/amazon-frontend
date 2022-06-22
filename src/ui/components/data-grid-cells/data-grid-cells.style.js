@@ -456,6 +456,13 @@ export const styles = createStyles(() => ({
     justifyContent: 'center',
   },
 
+  textHeaderWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   multilineHeaderText: {
     width: '100%',
     textAlign: 'center',
@@ -468,8 +475,20 @@ export const styles = createStyles(() => ({
     lineHeight: '16px',
   },
 
+  headerText: {
+    width: '100%',
+    textAlign: 'left',
+    whiteSpace: 'normal',
+
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+    fontWeight: '600',
+    fontSize: '14px',
+    lineHeight: '16px',
+  },
+
   multilineStatusText: {
-    textAlign: 'center',
+    textAlign: 'left',
     whiteSpace: 'normal',
     fontSize: '14px',
     lineHeight: '16px',

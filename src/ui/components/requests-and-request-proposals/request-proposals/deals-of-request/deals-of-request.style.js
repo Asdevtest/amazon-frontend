@@ -29,9 +29,10 @@ export const useClassNames = makeStyles(() => ({
 
   dealWrapper: {
     display: 'flex',
-    border: '1px solid rgba(0,0,0, .1)',
+    borderTop: '1px solid rgba(0,0,0, .1)',
+    borderBottom: '1px solid rgba(0,0,0, .1)',
     width: '100%',
-    padding: '15px 30px',
+    padding: '18px 0px',
 
     justifyContent: 'space-between',
   },
@@ -63,10 +64,11 @@ export const useClassNames = makeStyles(() => ({
   },
 
   blockInfoWrapper: {
-    marginLeft: '10px',
-    minWidth: '235px',
-
-    border: '1px solid rgba(0,0,0, .1)',
+    minWidth: '245px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    border: '1px solid #E0E0E0',
     borderRadius: '4px',
   },
 
@@ -107,5 +109,21 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '21px',
     color: '#0460DE',
+  },
+
+  blockInfoStatusWrapper: {
+    width: '400px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    border: '1px solid #E0E0E0',
+    borderRadius: '4px',
+  },
+
+  blockText: {
+    fontSize: '18px',
+    fontWeight: '400',
+    lineHeight: '140%',
+    color: '#001029',
   },
 }))

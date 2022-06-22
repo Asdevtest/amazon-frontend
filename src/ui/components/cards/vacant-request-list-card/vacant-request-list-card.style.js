@@ -93,6 +93,7 @@ export const useClassNames = makeStyles(() => ({
   timeItemInfoWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   cardImg: {

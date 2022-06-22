@@ -7,7 +7,7 @@ import {Grid, Typography, Avatar} from '@material-ui/core'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {MultilineRequestStatusCell, UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+import {RequestStatusCell, UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -65,9 +65,7 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey.Status)}</Typography>
 
-                <Typography className={classNames.statusText}>
-                  {<MultilineRequestStatusCell status={item.status} />}
-                </Typography>
+                <Typography className={classNames.statusText}>{<RequestStatusCell status={item.status} />}</Typography>
               </div>
             </div>
             <div className={classNames.rightSubBlockWrapper}>

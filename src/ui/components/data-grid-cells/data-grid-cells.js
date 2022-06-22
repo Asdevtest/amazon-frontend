@@ -308,6 +308,12 @@ export const MultilineTextHeaderCell = withStyles(styles)(({classes: classNames,
   </div>
 ))
 
+export const TextHeaderCell = withStyles(styles)(({classes: classNames, text}) => (
+  <div className={classNames.textHeaderWrapper}>
+    <Typography className={classNames.headerText}>{text}</Typography>
+  </div>
+))
+
 export const MultilineStatusCell = withStyles(styles)(({classes: classNames, status}) => (
   <div className={classNames.multilineTextWrapper}>
     <Typography className={classNames.multilineText}>{status?.replace(/_/g, ' ')}</Typography>
@@ -347,7 +353,7 @@ export const RequestStatusCell = withStyles(styles)(({classes: classNames, statu
   )
 })
 
-export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNames, status}) => {
+export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNames, status, fontSize = '14px'}) => {
   const colorByStatus = () => {
     if ([RequestStatus.DRAFT].includes(status)) {
       return '#006CFF'
@@ -375,7 +381,7 @@ export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNam
 
   return (
     <div className={classNames.multilineTextWrapper}>
-      <Typography className={classNames.multilineStatusText} style={{color: colorStatus}}>
+      <Typography className={classNames.multilineStatusText} style={{color: colorStatus, fontSize}}>
         {MyRequestStatusTranslate(status)}
       </Typography>
     </div>
