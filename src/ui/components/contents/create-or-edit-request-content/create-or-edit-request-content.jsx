@@ -119,7 +119,7 @@ export const CreateOrEditRequestContent = ({
     formFields.request.timeoutAt === '' ||
     formFields.details.conditions === '' ||
     formFields.details.conditions.length > 1000 ||
-    formFields.request.timeoutAt.toString() === 'Invalid Date'
+    formFields?.request?.timeoutAt?.toString() === 'Invalid Date'
 
   return (
     <div className={classNames.mainWrapper}>
@@ -185,7 +185,9 @@ export const CreateOrEditRequestContent = ({
 
               <div className={classNames.imageFileInputWrapper}>
                 <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
-                <PhotoAndFilesCarousel files={formFields.details.linksToMediaFiles} width="400px" />
+                {formFields.details.linksToMediaFiles?.length ? (
+                  <PhotoAndFilesCarousel files={formFields.details.linksToMediaFiles} width="400px" />
+                ) : null}
               </div>
             </div>
 
@@ -301,12 +303,6 @@ export const CreateOrEditRequestContent = ({
                 </div>
               ) : (
                 <div className={classNames.footerWrapper}>
-                  <div className={classNames.stepsWrapper}>
-                    <Typography className={classNames.step} color="primary">
-                      {curStep === stepVariant.STEP_TWO ? `${t(TranslationKey.Step)} 2` : `${t(TranslationKey.Step)} 1`}
-                    </Typography>
-                  </div>
-
                   <div className={classNames.footerRightWrapper}>
                     <div className={classNames.buttonsWrapper}>
                       <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
@@ -466,12 +462,6 @@ export const CreateOrEditRequestContent = ({
               </div>
             </div>
             <div className={classNames.footerWrapper}>
-              <div className={classNames.stepsWrapper}>
-                <Typography className={classNames.step} color="primary">
-                  {curStep === stepVariant.STEP_TWO ? `${t(TranslationKey.Step)} 2` : `${t(TranslationKey.Step)} 1`}
-                </Typography>
-              </div>
-
               <div className={classNames.footerRightWrapper}>
                 <div className={classNames.buttonsWrapper}>
                   <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
@@ -499,7 +489,21 @@ export const CreateOrEditRequestContent = ({
           </div>
         )}
       </div>
-
+      <div className={classNames.steps}>
+        <div className={classNames.stepPagination}>
+          <div className={classNames.stepPaginationStartBar}></div>
+          <div className={classNames.stepPaginationBar}>
+            <div className={classNames.step} style={{width: curStep === stepVariant.STEP_ONE ? '50%' : '100%'}}></div>
+          </div>
+          <div
+            className={classNames.stepPaginationEndBar}
+            style={{backgroundColor: curStep === stepVariant.STEP_TWO ? '#00B746' : '#c4c4c4'}}
+          ></div>
+        </div>
+        <Typography className={classNames.stepTitle}>
+          {curStep === stepVariant.STEP_ONE ? `${t(TranslationKey.Step)} 1` : `${t(TranslationKey.Step)} 2`}
+        </Typography>
+      </div>
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
     </div>
   )

@@ -111,15 +111,6 @@ export const useClassNames = makeStyles(() => ({
 
   stepsWrapper: {},
 
-  step: {
-    margin: '0',
-    padding: '0',
-    marginTop: '20px',
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: '400',
-  },
-
   buttonsWrapper: {
     display: 'flex',
     margin: '0 0 0 20px',
@@ -457,5 +448,53 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     color: '#001029',
     marginTop: '10px',
+  },
+
+  steps: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '40px',
+  },
+
+  stepPagination: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  stepPaginationBar: {
+    height: '2px',
+    width: '225px',
+    backgroundColor: '#C4c4c4',
+  },
+
+  stepPaginationStartBar: {
+    width: '12px',
+    height: '12px',
+    backgroundColor: '#00B746',
+    borderRadius: '50%',
+  },
+
+  stepPaginationEndBar: {
+    width: '12px',
+    height: '12px',
+    borderRadius: '50%',
+  },
+
+  step: {
+    backgroundColor: '#00B746',
+    height: '2px',
+  },
+
+  stepTitle: {
+    margin: '0',
+    padding: '0',
+    marginTop: '20px',
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '400',
+    color: '#006CFF',
   },
 }))

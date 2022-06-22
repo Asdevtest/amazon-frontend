@@ -2,10 +2,10 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   modalTitle: {
-    color: 'rgba(61, 81, 112, 1)',
-    fontSize: '24px',
-    fontWeight: 500,
-    lineHeight: '28px',
+    color: '#001029',
+    fontSize: '18px',
+    fontWeight: 600,
+    lineHeight: '140:',
     marginBottom: '24px',
   },
   modalSubTitle: {
@@ -74,12 +74,13 @@ export const useClassNames = makeStyles(() => ({
       borderBottom: 'none',
     },
     '& th': {
-      color: 'rgba(61, 81, 112, 1)',
-      fontWeight: 700,
-      lineHeight: '15px',
-      fontSize: '15px',
-      padding: '8px',
+      color: '#001029',
+      fontWeight: 600,
+      lineHeight: '16px',
+      fontSize: '14px',
+      // padding: '8px 0',
     },
+
     '& tbody': {
       borderBottom: '1px solid rgba(224, 224, 224, 1)',
     },
@@ -87,18 +88,68 @@ export const useClassNames = makeStyles(() => ({
   tableCell: {
     align: 'center',
     maxWidth: '100px',
+    borderRight: '1px solid #e0e0e0',
   },
-  divider: {
-    margin: '0px -24px',
-  },
+  // divider: {
+  //   margin: '0px -24px',
+  // },
   tableWrapper: {
     margin: '0px -24px',
     width: 'auto',
     padding: '20px',
   },
   imgCell: {
-    padding: '16px 24px',
+    padding: '8px 46px 8px 0',
+    borderRight: '1px solid #e0e0e0',
   },
+
+  productCell: {
+    padding: '8px 280px 8px 20px',
+    borderRight: '1px solid #e0e0e0',
+  },
+
+  priceCell: {
+    padding: '8px 20px 8px 20px',
+    borderRight: '1px solid #e0e0e0',
+  },
+
+  deliveryCell: {
+    padding: '8px 20px 8px 20px',
+    borderRight: '1px solid #e0e0e0',
+    width: '77px',
+    textAlign: 'center',
+  },
+
+  qntCell: {
+    padding: '8px 38px 8px 20px',
+    borderRight: '1px solid #e0e0e0',
+  },
+
+  totalCell: {
+    padding: '8px 20px 8px 20px',
+    borderRight: '1px solid #e0e0e0',
+  },
+
+  barCodeCell: {
+    padding: '8px 65px 8px 20px',
+    borderRight: '1px solid #e0e0e0',
+  },
+
+  warehouseCell: {
+    padding: '8px 63px 8px 20px',
+    borderRight: '1px solid #e0e0e0',
+  },
+
+  tariffCell: {
+    width: '190px',
+    padding: '8px 7px 8px 20px',
+    borderRight: '1px solid #e0e0e0',
+  },
+
+  commentCell: {
+    padding: '8px 100px 8px 20px',
+  },
+
   buttonsWrapper: {
     textAlign: 'right',
     marginTop: '16px',

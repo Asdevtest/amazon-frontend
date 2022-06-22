@@ -446,6 +446,7 @@ export const styles = createStyles(() => ({
     alignItems: 'center',
     justifyContent: 'start',
     marginLeft: '6px',
+    padding: '0 10px',
   },
 
   multilineTextAlignLeft: {
@@ -471,7 +472,6 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 
   multilineHeaderText: {
@@ -484,6 +484,7 @@ export const styles = createStyles(() => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '16px',
+    padding: '0 10px',
   },
 
   headerText: {
@@ -496,6 +497,7 @@ export const styles = createStyles(() => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '16px',
+    padding: '0 10px',
   },
 
   multilineStatusText: {
@@ -504,6 +506,7 @@ export const styles = createStyles(() => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
+    padding: '0 10px',
   },
 
   linkText: {

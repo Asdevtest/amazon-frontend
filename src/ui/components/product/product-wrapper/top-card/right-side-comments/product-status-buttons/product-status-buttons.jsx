@@ -8,6 +8,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ColoredChip} from '@components/colored-chip'
 
+import {translateTooltipAttentionMessageByRole, translateTooltipMessageByRole} from '@utils/translate-tooltip-message'
 import {t} from '@utils/translations'
 
 const saveWithoutStatusBtnColor = '#adadad'
@@ -19,6 +20,7 @@ export const ProductStatusButtons = ({
   product,
   onClickButton,
   onClickSaveWithoutStatusChange,
+  curUserRole,
 }) => {
   if (!buttonsConfig) {
     return <div />
@@ -30,11 +32,8 @@ export const ProductStatusButtons = ({
         {buttonsConfig.map(buttonConfig => (
           <Grid key={buttonConfig.statusKey} item>
             <ColoredChip
-              tooltipInfoContent={t(
-                TranslationKey[
-                  'Button to set the status, the product card is sent to the supervisor for checking (can be changed before checking)'
-                ],
-              )}
+              tooltipInfoContent={translateTooltipMessageByRole(buttonConfig.label, curUserRole)}
+              tooltipAttentionContent={translateTooltipAttentionMessageByRole(buttonConfig.label, curUserRole)}
               disabled={
                 mapProductStrategyStatusEnum[product.strategyStatus] === 'PRIVATE_LABEL' &&
                 buttonConfig.statusKey === 'RESEARCHER_FOUND_SUPPLIER'
@@ -50,6 +49,7 @@ export const ProductStatusButtons = ({
         {onClickSaveWithoutStatusChange ? (
           <Grid item>
             <ColoredChip
+              tooltipInfoContent={translateTooltipMessageByRole(t(TranslationKey['Save without status']), curUserRole)}
               disabled={productStatus === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
               label={t(TranslationKey['Save without status'])}
               color={saveWithoutStatusBtnColor}

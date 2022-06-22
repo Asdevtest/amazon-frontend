@@ -43,6 +43,30 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
         case t(TranslationKey['My orders']):
           return t(TranslationKey['Management of all orders assigned to Bayer'])
       }
+    } else if (UserRoleCodeMap[userRole] === UserRole.RESEARCHER) {
+      switch (categoryTitle) {
+        case t(TranslationKey.Dashboard):
+          return t(TranslationKey['Statistics on goods/orders/finances'])
+        case t(TranslationKey['My products']):
+          return t(TranslationKey['List of products created by the Researcher'])
+        case t(TranslationKey.Users):
+          return t(TranslationKey['Manage the list of employees'])
+        case t(TranslationKey.Finances):
+          return t(TranslationKey["Detailed description of the movement of the user's money"])
+      }
+    } else if (UserRoleCodeMap[userRole] === UserRole.SUPERVISOR) {
+      switch (categoryTitle) {
+        case t(TranslationKey.Dashboard):
+          return t(TranslationKey['Statistics on goods/orders/finances'])
+        case t(TranslationKey['Ready to check']):
+          return t(TranslationKey['All product cards available for checking'])
+        case t(TranslationKey.Users):
+          return t(TranslationKey['Manage the list of employees'])
+        case t(TranslationKey.Finances):
+          return t(TranslationKey["Detailed description of the movement of the user's money"])
+        case t(TranslationKey['My products']):
+          return t(TranslationKey['The list of goods cards assigned to the supervisor for verification'])
+      }
     }
   }
 
