@@ -93,6 +93,12 @@ class SubUsersViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['My users'])} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
+              <Box className={classNames.buttonBox}>
+                <SuccessButton onClick={() => onTriggerOpenModal('showAddSubUserModal')}>
+                  {t(TranslationKey['Add a user'])}
+                </SuccessButton>
+              </Box>
+
               <div className={classNames.actionsWrapper}>
                 <Field
                   containerClasses={classNames.searchContainer}
@@ -105,12 +111,6 @@ class SubUsersViewRaw extends Component {
                   }
                   onChange={onChangeNameSearchValue}
                 />
-
-                <Box className={classNames.buttonBox}>
-                  <SuccessButton onClick={() => onTriggerOpenModal('showAddSubUserModal')}>
-                    {t(TranslationKey['Add a sub-user'])}
-                  </SuccessButton>
-                </Box>
               </div>
 
               <DataGrid

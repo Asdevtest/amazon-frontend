@@ -40,6 +40,7 @@ export const adminOrdersViewColumns = () => [
     field: 'id',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 60,
   },
 
@@ -74,6 +75,7 @@ export const adminOrdersViewColumns = () => [
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 100,
   },

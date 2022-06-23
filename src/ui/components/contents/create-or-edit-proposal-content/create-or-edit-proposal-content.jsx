@@ -11,9 +11,9 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {UploadFilesInput} from '@components/upload-files-input'
+import {UserLink} from '@components/user-link'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatNormDateTime} from '@utils/date-time'
@@ -125,7 +125,7 @@ export const CreateOrEditProposalContent = ({
               className={classNames.userPhoto}
             />
             <div>
-              <UserLinkCell
+              <UserLink
                 name={request?.request.createdBy?.name || request.createdBy?.name}
                 userId={request.createdBy?._id}
               />

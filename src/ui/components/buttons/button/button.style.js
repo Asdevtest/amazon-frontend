@@ -2,36 +2,37 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    minHeight: '36px',
-    minWidth: '36px',
+    minHeight: '36px !important',
+    minWidth: '36px !important',
+    // color: '#fff !important',
   },
 
   success: {
-    color: '#fff',
-    backgroundColor: '#4caf50',
+    color: '#fff !important',
+    backgroundColor: '#4caf50 !important',
     '&:hover': {
-      backgroundColor: '#009a07',
+      backgroundColor: '#009a07 !important',
 
       '@media (hover: none)': {
-        backgroundColor: '#009a07',
+        backgroundColor: '#009a07 !important',
       },
     },
     '&$disabled': {
-      backgroundColor: 'rgba(15, 169, 20, 0.5)',
+      backgroundColor: 'rgba(15, 169, 20, 0.5) !important',
     },
   },
   danger: {
-    color: '#fff',
-    backgroundColor: '#ff0000',
+    color: '#fff !important',
+    backgroundColor: '#ff0000 !important',
     '&:hover': {
-      backgroundColor: '#c51a1c',
+      backgroundColor: '#c51a1c !important',
 
       '@media (hover: none)': {
-        backgroundColor: '#c51a1c',
+        backgroundColor: '#c51a1c !important',
       },
     },
     '&$disabled': {
-      backgroundColor: 'rgba(210, 35, 35, 0.5)',
+      backgroundColor: 'rgba(210, 35, 35, 0.5) !important',
     },
   },
   disabled: {},

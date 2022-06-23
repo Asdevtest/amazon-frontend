@@ -58,10 +58,12 @@ export const styles = createStyles(() => ({
     textAlign: 'center',
   },
   feesTableWrapper: {
+    width: '100%',
     maxHeight: '100px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 
   rankTableCell: {
@@ -268,6 +270,18 @@ export const styles = createStyles(() => ({
 
   rowCancelBtn: {
     marginLeft: '10px',
+    // color: '#fff',
+    // backgroundColor: '#ff0000',
+    // '&:hover': {
+    //   backgroundColor: '#c51a1c',
+
+    //   '@media (hover: none)': {
+    //     backgroundColor: '#c51a1c',
+    //   },
+    // },
+    // '&$disabled': {
+    //   backgroundColor: 'rgba(210, 35, 35, 0.5)',
+    // },
   },
 
   warehouseMyTasksSuccessBtn: {
@@ -333,11 +347,10 @@ export const styles = createStyles(() => ({
   },
 
   taskDescriptionScrollWrapper: {
+    width: '100%',
     display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    maxWidth: '400px',
-    maxHeight: '140px',
+    alignItems: 'center',
+    justifyContent: 'center',
     overflowY: 'auto',
   },
 
@@ -425,8 +438,6 @@ export const styles = createStyles(() => ({
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
-
-    color: '#354256',
   },
 
   multilineTextAlignLeftWrapper: {
@@ -563,7 +574,9 @@ export const styles = createStyles(() => ({
   },
 
   editOrRemoveBtnsCell: {
+    width: '100%',
     display: 'flex',
+    justifyContent: 'center',
   },
 
   sabUserWrapper: {
@@ -618,5 +631,29 @@ export const styles = createStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+
+  userLinkWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  clientTasksActionBtnsWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  normalActionBtnWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  warehouseMyTasksBtnsWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
   },
 }))

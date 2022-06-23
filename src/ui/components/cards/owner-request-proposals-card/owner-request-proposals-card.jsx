@@ -14,9 +14,9 @@ import {
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 // import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {UserLink} from '@components/user-link'
 
 import {checkIsImageLink} from '@utils/checks'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -49,9 +49,9 @@ export const OwnerRequestProposalsCard = ({
                   <Avatar src={getUserAvatarSrc(item.proposal.createdBy._id)} className={classNames.cardImg} />
 
                   <div className={classNames.userNameWrapper}>
-                    <UserLinkCell name={item.proposal.createdBy.name} userId={item.proposal.createdBy._id} />
+                    <UserLink name={item.proposal.createdBy.name} userId={item.proposal.createdBy._id} />
 
-                    <UserLinkCell name={t(TranslationKey.Reviews)} userId={item.proposal.createdBy._id} />
+                    <UserLink name={t(TranslationKey.Reviews)} userId={item.proposal.createdBy._id} />
                   </div>
 
                   <Rating disabled className={classNames.userRating} value={item.proposal.createdBy.rating} />

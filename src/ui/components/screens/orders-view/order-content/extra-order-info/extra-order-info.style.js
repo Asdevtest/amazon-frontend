@@ -104,6 +104,8 @@ export const useClassNames = makeStyles(theme => ({
   },
   photoWrapper: {
     maxWidth: '270px',
+    minWidth: 150,
+    marginRight: 20,
   },
 
   imgBox: {

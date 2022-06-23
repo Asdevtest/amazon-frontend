@@ -15,11 +15,12 @@ import {RequestStatus} from '@constants/request-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
+import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {UserLink} from '@components/user-link'
 
 import {calcVolumeWeightForBox} from '@utils/calculation'
 import {
@@ -45,7 +46,7 @@ export const UserCell = withStyles(styles)(({classes: classNames, user}) => (
     </div>
 
     <div className={classNames.sabUserInfoWrapper}>
-      <UserLinkCell name={user?.name} userId={user?._id} />
+      <UserLink name={user?.name} userId={user?._id} />
 
       <Typography className={classNames.userEmail}>{user?.email}</Typography>
 
@@ -60,13 +61,13 @@ export const UserCell = withStyles(styles)(({classes: classNames, user}) => (
 
 export const UserRolesCell = withStyles(styles)(({classes: classNames, user}) => (
   <div className={classNames.userRolesWrapper}>
-    <Typography className={classNames.userRole}>{UserRoleCodeMap[user.role]}</Typography>
+    <Typography className={classNames.userRole}>{UserRolePrettyMap[user.role]}</Typography>
 
     {user.allowedRoles
       .filter(el => el !== mapUserRoleEnumToKey[UserRole.CANDIDATE] && el !== user.role)
       .map((role, index) => (
         <Typography key={index} className={classNames.userRole}>
-          {UserRoleCodeMap[role]}
+          {UserRolePrettyMap[role]}
         </Typography>
       ))}
   </div>
@@ -92,27 +93,25 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
 
 export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
   ({classes: classNames, product, noCalculate, onClickCalculate}) => (
-    <div className={classNames.feesTableCell}>
-      <div className={classNames.feesTableWrapper}>
-        <Typography className={classNames.typoCell}>
-          {t(TranslationKey.Fees) + ': '}
-          <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.fbafee, 2)}</span>
-        </Typography>
-        <Typography className={classNames.typoCell}>
-          {t(TranslationKey.Net) + ': '}
-          <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.reffee, 2)}</span>
-        </Typography>
-        {!noCalculate && (
-          <Button
-            disableElevation
-            className={classNames.cellBtn}
-            startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
-            onClick={() => onClickCalculate(product)}
-          >
-            {'Calculate fees'}
-          </Button>
-        )}
-      </div>
+    <div className={classNames.feesTableWrapper}>
+      <Typography className={classNames.typoCell}>
+        {t(TranslationKey.Fees) + ': '}
+        <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.fbafee, 2)}</span>
+      </Typography>
+      <Typography className={classNames.typoCell}>
+        {t(TranslationKey.Net) + ': '}
+        <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.reffee, 2)}</span>
+      </Typography>
+      {!noCalculate && (
+        <Button
+          disableElevation
+          className={classNames.cellBtn}
+          startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
+          onClick={() => onClickCalculate(product)}
+        >
+          {'Calculate fees'}
+        </Button>
+      )}
     </div>
   ),
 )
@@ -132,14 +131,8 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
 ))
 
 export const UserLinkCell = withStyles(styles)(({classes: classNames, name, userId}) => (
-  <div>
-    {name ? (
-      <Link target="_blank" href={`${window.location.origin}/another-user?${userId}`}>
-        <Typography className={classNames.linkText}>{name}</Typography>
-      </Link>
-    ) : (
-      <Typography>{'-'}</Typography>
-    )}
+  <div className={classNames.userLinkWrapper}>
+    <UserLink name={name} userId={userId} />
   </div>
 ))
 
@@ -575,8 +568,8 @@ export const SuccessActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText})
   </div>
 ))
 
-export const NormalActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText}) => (
-  <div>
+export const NormalActionBtnCell = withStyles(styles)(({classes: classNames, onClickOkBtn, bTnText}) => (
+  <div className={classNames.normalActionBtnWrapper}>
     <Button
       tooltipInfoContent={t(TranslationKey['To assign the order to Byer'])}
       variant="contained"
@@ -589,7 +582,7 @@ export const NormalActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText}) 
 ))
 
 export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
-  <div>
+  <div className={classNames.warehouseMyTasksBtnsWrapper}>
     <SuccessButton className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.onClickResolveBtn(row)}>
       {t(TranslationKey.Resolve)}
     </SuccessButton>
@@ -675,7 +668,7 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
     }
   }
 
-  return <div>{renderHistoryItem()}</div>
+  return <div className={classNames.clientTasksActionBtnsWrapper}>{renderHistoryItem()}</div>
 })
 
 export const ClientNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers, disabled}) => (

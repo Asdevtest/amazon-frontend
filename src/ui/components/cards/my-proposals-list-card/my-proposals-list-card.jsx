@@ -13,7 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+import {UserLink} from '@components/user-link'
 
 import {formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -50,7 +50,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
 
             <div className={classNames.nameWrapper}>
               {/* <Typography>{item.createdBy.name}</Typography> */}
-              <UserLinkCell name={item.createdBy.name} userId={item.createdBy._id} />
+              <UserLink name={item.createdBy.name} userId={item.createdBy._id} />
               <div className={classNames.ratingWrapper}>
                 <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
                 <Rating disabled value={item.createdBy.rating} />

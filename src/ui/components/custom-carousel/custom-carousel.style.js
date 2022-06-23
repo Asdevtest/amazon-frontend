@@ -134,11 +134,12 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: '20px',
+    // marginRight: '20px',
   },
 
   emptyProposalsDescriptionWrapper: {
-    width: '70%',
+    width: '65%',
+    marginLeft: '5%',
   },
 
   emptyProposalsTitle: {
@@ -184,6 +185,8 @@ export const useClassNames = makeStyles(() => ({
 
   image: {
     cursor: 'pointer',
+    minWidth: 40,
+    minHeight: 40,
   },
 
   emptyWrapper: {

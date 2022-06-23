@@ -256,46 +256,51 @@ export const PhotoCarousel = ({files}) => {
 
   const notEmptyPhotos = files.filter(el => checkIsImageLink(el?.file?.name || el))
 
-  return (
-    files?.length && (
-      <div className={classNames.imagesAndFilesWrapper}>
-        <div className={classNames.imagesWrapper}>
-          {notEmptyPhotos?.length ? (
-            <CustomCarousel>
-              {notEmptyPhotos.map((photo, index) => (
-                <img
-                  key={index}
-                  src={photo?.data_url || photo}
-                  className={classNames.image}
-                  onClick={() => {
-                    setShowPhotosModal(!showPhotosModal)
+  return files?.length ? (
+    <div className={classNames.imagesAndFilesWrapper}>
+      <div className={classNames.imagesWrapper}>
+        {notEmptyPhotos?.length ? (
+          <CustomCarousel>
+            {notEmptyPhotos.map((photo, index) => (
+              <img
+                key={index}
+                src={photo?.data_url || photo}
+                className={classNames.image}
+                onClick={() => {
+                  setShowPhotosModal(!showPhotosModal)
 
-                    setBigImagesOptions({
-                      images: files
-                        .filter(el => checkIsImageLink(el?.file?.name || el))
-                        .map(img => img?.data_url || img),
-                      imgIndex: index,
-                    })
-                  }}
-                />
-              ))}
-            </CustomCarousel>
-          ) : (
-            <div className={classNames.emptyIconWrapper}>
-              <div className={classNames.emptyIcon}>
-                <InboxIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
-              </div>
+                  setBigImagesOptions({
+                    images: files.filter(el => checkIsImageLink(el?.file?.name || el)).map(img => img?.data_url || img),
+                    imgIndex: index,
+                  })
+                }}
+              />
+            ))}
+          </CustomCarousel>
+        ) : (
+          <div className={classNames.emptyIconWrapper}>
+            <div className={classNames.emptyIcon}>
+              <InboxIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
             </div>
-          )}
-        </div>
-
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-        />
+          </div>
+        )}
       </div>
-    )
+
+      <BigImagesModal
+        openModal={showPhotosModal}
+        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
+      />
+    </div>
+  ) : (
+    <div className={classNames.emptyIconWrapper}>
+      <div className={classNames.emptyWrapper}>
+        <div className={classNames.emptyIcon}>
+          <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+        </div>
+        <Typography>{t(TranslationKey['No photos'])}</Typography>
+      </div>
+    </div>
   )
 }

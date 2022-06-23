@@ -22,7 +22,7 @@ export const styles = createStyles(theme => ({
   actionsWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
 }))

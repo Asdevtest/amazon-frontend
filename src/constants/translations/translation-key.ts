@@ -987,7 +987,7 @@ export enum TranslationKey {
   "The researcher's comment cannot be empty" = "The researcher's comment cannot be empty",
   'Amazon must be a number conforming to the specified constraints' = 'Amazon must be a number conforming to the specified constraints',
   'Go to supplier site' = 'Go to supplier site',
-  // '' = '',
+  'Add a user' = 'Add a user',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
 import {findTariffInStorekeepersData} from '@utils/checks'
@@ -63,7 +63,7 @@ export const RequestToSendBatchesGroupBoxes = ({
             <Typography className={classNames.headerTitle}>{'Storekeeper'}</Typography>
 
             <div className={classNames.userLinkWrapper}>
-              <UserLinkCell name={selectedGroup.storekeeper?.name} userId={selectedGroup.storekeeper?._id} />
+              <UserLink name={selectedGroup.storekeeper?.name} userId={selectedGroup.storekeeper?._id} />
             </div>
           </div>
 

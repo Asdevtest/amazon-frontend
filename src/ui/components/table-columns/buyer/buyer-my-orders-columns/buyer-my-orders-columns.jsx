@@ -44,6 +44,7 @@ export const buyerMyOrdersViewColumns = () => [
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 130,
   },
