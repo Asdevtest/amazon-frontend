@@ -1,35 +1,33 @@
-import {ToggleButton, ToggleButtonGroup} from '@mui/material'
-
 import React from 'react'
 
 import {LanguageKey} from '@constants/translations/language-key'
 
 import {SettingsModel} from '@models/settings-model'
 
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
+
 import {setI18nConfig} from '@utils/translations'
+
+// import {useClassNames} from './language-selector.style'
 
 export const LanguageSelector = () => {
   const handleChange = (event, newAlignment) => {
     SettingsModel.setLanguageTag(newAlignment)
     setI18nConfig()
   }
+  // const classNames = useClassNames()
 
   return (
     <div>
-      <ToggleButtonGroup
-        exclusive
-        size="small"
-        color="primary"
-        value={SettingsModel.languageTag}
-        onChange={handleChange}
-      >
-        <ToggleButton disabled={SettingsModel.languageTag === LanguageKey.ru} value={LanguageKey.ru}>
+      <ToggleBtnGroup exclusive size="small" color="primary" value={SettingsModel.languageTag} onChange={handleChange}>
+        <ToggleBtn disabled={SettingsModel.languageTag === LanguageKey.ru} value={LanguageKey.ru}>
           {'Ru'}
-        </ToggleButton>
-        <ToggleButton disabled={SettingsModel.languageTag === LanguageKey.en} value={LanguageKey.en}>
+        </ToggleBtn>
+        <ToggleBtn disabled={SettingsModel.languageTag === LanguageKey.en} value={LanguageKey.en}>
           {'En'}
-        </ToggleButton>
-      </ToggleButtonGroup>
+        </ToggleBtn>
+      </ToggleBtnGroup>
     </div>
   )
 }

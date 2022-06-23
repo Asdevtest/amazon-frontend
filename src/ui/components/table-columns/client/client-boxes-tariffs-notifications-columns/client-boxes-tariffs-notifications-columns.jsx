@@ -95,7 +95,9 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Storekeeper),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
+    ),
     width: 160,
   },
 

@@ -93,7 +93,7 @@ export const warehouseBoxesViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
     renderCell: params => (
-      <UserLinkCell name={params.value} userId={params.row.originalData.items[0].product.client?._id} />
+      <UserLinkCell blackText name={params.value} userId={params.row.originalData.items[0].product.client?._id} />
     ),
     width: 200,
   },

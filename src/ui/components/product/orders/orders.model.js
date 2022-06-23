@@ -29,8 +29,14 @@ export class OrdersModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.columnsModel = clientOrdersViewColumns()
+    }
   }
 
   setRequestStatus(requestStatus) {
@@ -39,10 +45,6 @@ export class OrdersModel {
 
   getCurrentData() {
     return toJS(this.orders)
-  }
-
-  updateColumnsModel() {
-    this.columnsModel = clientOrdersViewColumns()
   }
 
   async loadData() {

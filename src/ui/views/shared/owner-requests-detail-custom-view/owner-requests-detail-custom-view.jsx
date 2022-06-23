@@ -243,7 +243,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             openModal={showConfirmWithCommentModal}
             setOpenModal={() => onTriggerOpenModal('showConfirmWithCommentModal')}
             titleText={t(TranslationKey['Suspend the acceptance of proposals?'])}
-            commentLabelText={t(TranslationKey['Reason for the stop:'])}
+            commentLabelText={`${t(TranslationKey['State the reason for stopping'])}: `}
             okBtnText={t(TranslationKey.Ok)}
             cancelBtnText={t(TranslationKey.Cancel)}
             onSubmit={onSubmitAbortRequest}

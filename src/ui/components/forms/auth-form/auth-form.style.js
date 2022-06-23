@@ -2,7 +2,9 @@ import {createStyles} from '@material-ui/styles'
 
 export const styles = theme =>
   createStyles({
-    root: {},
+    // root: {
+    //   padding: '0 40px',
+    // },
     formFields: {
       display: 'flex',
       alignItems: 'center',
@@ -45,5 +47,10 @@ export const styles = theme =>
       right: 10,
       top: 35,
       cursor: 'pointer',
+    },
+
+    inputAdornment: {
+      position: 'absolute',
+      left: 0,
     },
   })

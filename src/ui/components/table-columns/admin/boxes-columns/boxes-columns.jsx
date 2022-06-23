@@ -60,7 +60,7 @@ export const adminBoxesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
     renderCell: params => (
-      <UserLinkCell name={params.value} userId={params.row.originalData.items[0].product.client?._id} />
+      <UserLinkCell blackText name={params.value} userId={params.row.originalData.items[0].product.client?._id} />
     ),
     width: 200,
   },
@@ -69,7 +69,9 @@ export const adminBoxesViewColumns = () => [
     headerName: t(TranslationKey.Storekeeper),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
+    ),
     width: 250,
   },
 

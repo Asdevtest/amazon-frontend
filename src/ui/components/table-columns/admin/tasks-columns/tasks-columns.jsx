@@ -61,7 +61,9 @@ export const adminTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
     width: 250,
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
+    ),
   },
 
   {

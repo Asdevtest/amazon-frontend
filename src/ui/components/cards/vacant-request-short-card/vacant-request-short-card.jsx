@@ -13,6 +13,7 @@ import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-ti
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
+import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './vacant-request-short-card.style'
 
@@ -25,13 +26,12 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
         <div className={classNames.cardTitleBlockWrapper}>
           <Typography className={classNames.cardTitle}>{item.title}</Typography>
 
-          <Typography className={classNames.cardSubTitle}>{`${
-            item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals
-          } ${t(TranslationKey['out of'])} ${item.maxAmountOfProposals} ${t(
-            TranslationKey['suggestions left'],
-          )}`}</Typography>
-
-          <Typography>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(item.timeoutAt)}`}</Typography>
+          <Typography className={classNames.cardSubTitle}>
+            {translateProposalsLeftMessage(
+              item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals,
+              item.maxAmountOfProposals,
+            )}
+          </Typography>
         </div>
 
         <Divider orientation={'horizontal'} />
@@ -41,7 +41,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
             <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
 
             <div className={classNames.nameRatingWrapper}>
-              <UserLink name={item.createdBy.name} userId={item.createdBy._id} />
+              <UserLink blackText name={item.createdBy.name} userId={item.createdBy._id} />
 
               <Rating disabled value={item.createdBy.rating} />
             </div>
@@ -51,19 +51,22 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
 
           <div className={classNames.timeInfoWrapper}>
             <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
+            <Typography className={classNames.deadline}>{`${t(TranslationKey.Deadline)} ${formatNormDateTime(
+              item.timeoutAt,
+            )}`}</Typography>
+          </div>
+          <div className={classNames.timeWrapper}>
+            <div className={classNames.updatedAtWrapper}>
+              <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated)}</Typography>
 
+              <Typography className={classNames.updatedAtText}>
+                {formatNormDateTimeWithParseISO(item.updatedAt)}
+              </Typography>
+            </div>
             <Typography className={classNames.cardTime}>{`${t(TranslationKey.Time)}: ${toFixed(
               item.timeLimitInMinutes / 60,
               2,
             )} ${t(TranslationKey.hour)} `}</Typography>
-          </div>
-
-          <div className={classNames.updatedAtWrapper}>
-            <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ':'}</Typography>
-
-            <Typography className={classNames.updatedAtText}>
-              {formatNormDateTimeWithParseISO(item.updatedAt)}
-            </Typography>
           </div>
 
           <Button

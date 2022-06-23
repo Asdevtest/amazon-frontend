@@ -1,7 +1,6 @@
-import {makeAutoObservable, reaction, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {ProductModel} from '@models/product-model'
-import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
@@ -69,11 +68,6 @@ export class AdminProductViewModel {
       this.inInventory = location.state.inInventory
     }
     makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.getProductById(),
-    )
   }
 
   async loadData() {

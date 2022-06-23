@@ -110,7 +110,9 @@ export const clientExchangeViewColumns = handlers => [
     headerName: t(TranslationKey.Researcher),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Researcher)} />,
 
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
+    ),
     width: 120,
   },
 
@@ -119,7 +121,7 @@ export const clientExchangeViewColumns = handlers => [
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.buyer?._id} />,
+    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
     width: 120,
   },
 
@@ -128,7 +130,9 @@ export const clientExchangeViewColumns = handlers => [
     headerName: t(TranslationKey.Supervisor),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.checkedBy?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
+    ),
     width: 120,
   },
 

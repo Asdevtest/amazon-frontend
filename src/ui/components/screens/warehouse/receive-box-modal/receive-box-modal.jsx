@@ -24,12 +24,12 @@ import {t} from '@utils/translations'
 // import {CommentsLine} from './comments-line'
 import {useClassNames} from './receive-box-modal.style'
 
-const WAREHOUSE_RECEIVE_HEAD_CELLS = [
+const WAREHOUSE_RECEIVE_HEAD_CELLS = () => [
   {title: t(TranslationKey.Box)},
   {title: t(TranslationKey.Quantity)},
   {title: t(TranslationKey['Number of superboxes'])},
   {title: t(TranslationKey.Total)},
-  {title: t(TranslationKey.Demensions) + t(TranslationKey.cm)},
+  {title: t(TranslationKey.Sizes) + t(TranslationKey.cm)},
   {title: t(TranslationKey['Weight, kg'])},
   {title: t(TranslationKey['Volume weight, kg'])},
   {title: t(TranslationKey['Final weight, kg'])},
@@ -144,7 +144,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
 const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages}) => {
   const classNames = useClassNames()
 
-  const renderHeadRow = <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS} />
+  const renderHeadRow = () => <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS()} />
 
   return (
     <div className={classNames.newBoxes}>
@@ -155,7 +155,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
           rowsOnly
           data={newBoxes}
           BodyRow={TableBodyBoxRow}
-          renderHeadRow={renderHeadRow}
+          renderHeadRow={renderHeadRow()}
           rowsHandlers={{onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages}}
         />
       </div>

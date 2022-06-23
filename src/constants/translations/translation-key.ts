@@ -1011,6 +1011,8 @@ export enum TranslationKey {
   'Button for displaying the status, the product card is blocked' = 'Button for displaying the status, the product card is blocked',
   'Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)' = 'Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)',
   "Button to set the status, the product card remains in the supervisor's work (can be changed)" = "Button to set the status, the product card remains in the supervisor's work (can be changed)",
+  'Sizes' = 'Sizes',
+  'State the reason for stopping' = 'State the reason for stopping',
 
   // '' = '',
   // '' = '',

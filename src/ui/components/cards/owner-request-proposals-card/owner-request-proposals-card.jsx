@@ -14,7 +14,6 @@ import {
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-// import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UserLink} from '@components/user-link'
 
@@ -49,12 +48,12 @@ export const OwnerRequestProposalsCard = ({
                   <Avatar src={getUserAvatarSrc(item.proposal.createdBy._id)} className={classNames.cardImg} />
 
                   <div className={classNames.userNameWrapper}>
-                    <UserLink name={item.proposal.createdBy.name} userId={item.proposal.createdBy._id} />
-
-                    <UserLink name={t(TranslationKey.Reviews)} userId={item.proposal.createdBy._id} />
+                    <UserLink blackText name={item.proposal.createdBy.name} userId={item.proposal.createdBy._id} />
+                    <div className={classNames.reviewWrapper}>
+                      <UserLink name={t(TranslationKey.Reviews)} userId={item.proposal.createdBy._id} />
+                      <Rating disabled className={classNames.userRating} value={item.proposal.createdBy.rating} />
+                    </div>
                   </div>
-
-                  <Rating disabled className={classNames.userRating} value={item.proposal.createdBy.rating} />
                 </div>
 
                 <Typography className={classNames.successDeals}>{`${t(

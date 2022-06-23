@@ -1,5 +1,3 @@
-import {ToggleButton, ToggleButtonGroup} from '@mui/material'
-
 import React, {useState} from 'react'
 
 import {Typography, Link} from '@material-ui/core'
@@ -8,6 +6,8 @@ import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {toFixed, checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
@@ -75,14 +75,14 @@ export const ProductParameters = ({order, collapsed}) => {
         labelClasses={classNames.fieldLabel}
         inputComponent={
           <div className={classNames.sizesWrapper}>
-            <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-              <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+            <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+              <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
                 {'In'}
-              </ToggleButton>
-              <ToggleButton disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+              </ToggleBtn>
+              <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
                 {'Cm'}
-              </ToggleButton>
-            </ToggleButtonGroup>
+              </ToggleBtn>
+            </ToggleBtnGroup>
 
             <Typography className={classNames.text}>{`
             ${

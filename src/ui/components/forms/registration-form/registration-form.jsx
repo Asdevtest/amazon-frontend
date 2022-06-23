@@ -36,6 +36,7 @@ export const RegistrationFormRaw = ({
   const regExpNumber = /(?=.*[0-9])/g
   const regExpUpperCase = /(?=.*[A-Z])/g
   const regExpLowerCase = /(?=.*[a-z])/g
+  const regExpRusLetter = /^([0-9a-zA-Z-_.])$/
   const regExpLength = /(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*].{32}/g
 
   useEffect(() => {
@@ -47,6 +48,8 @@ export const RegistrationFormRaw = ({
       setError(t(TranslationKey['The password must contain a lowercase letter']))
     } else if (regExpLength.test(formFields.password) === true) {
       setError(t(TranslationKey['Password must be no more than 32 characters']))
+    } else if (regExpRusLetter.test(formFields.password) === true) {
+      setError('Пароль должен содержать только латинские буквы')
     } else {
       setError('')
     }
@@ -70,6 +73,7 @@ export const RegistrationFormRaw = ({
     <form className={classNames.root} onSubmit={onSubmitForm}>
       <div className={classNames.formFields}>
         <Field
+          withIcon
           inputProps={{maxLength: 30}}
           containerClasses={classNames.field}
           label={t(TranslationKey.Name)}
@@ -77,13 +81,14 @@ export const RegistrationFormRaw = ({
           error={checkValidationNameOrEmail.nameIsUnique && t(TranslationKey['A user with this name already exists'])}
           value={formFields.name}
           startAdornment={
-            <InputAdornment position="end">
+            <InputAdornment position="end" className={classNames.inputAdornment}>
               <PersonIcon color="primary" />
             </InputAdornment>
           }
           onChange={onChangeFormField('name')}
         />
         <Field
+          withIcon
           inputProps={{maxLength: 30}}
           containerClasses={classNames.field}
           label={t(TranslationKey.Email)}
@@ -94,7 +99,7 @@ export const RegistrationFormRaw = ({
           }
           value={formFields.email}
           startAdornment={
-            <InputAdornment position="end">
+            <InputAdornment position="end" className={classNames.inputAdornment}>
               <MailOutlineIcon color="primary" />
             </InputAdornment>
           }
@@ -102,6 +107,7 @@ export const RegistrationFormRaw = ({
         />
         <div className={classNames.field}>
           <Field
+            withIcon
             inputProps={{maxLength: 128}}
             error={submit ? error : ''}
             label={t(TranslationKey.Password)}
@@ -109,7 +115,7 @@ export const RegistrationFormRaw = ({
             type={!visibilityPass ? 'password' : 'text'}
             value={formFields.password}
             startAdornment={
-              <InputAdornment position="end">
+              <InputAdornment position="end" className={classNames.inputAdornment}>
                 <LockIcon color="primary" />
               </InputAdornment>
             }
@@ -121,6 +127,7 @@ export const RegistrationFormRaw = ({
         </div>
         <div className={classNames.field}>
           <Field
+            withIcon
             inputProps={{maxLength: 128}}
             error={submit ? equalityError : ''}
             label={t(TranslationKey['Re-type Password'])}
@@ -128,7 +135,7 @@ export const RegistrationFormRaw = ({
             type={!visibilityPass ? 'password' : 'text'}
             value={formFields.confirmPassword}
             startAdornment={
-              <InputAdornment position="end">
+              <InputAdornment position="end" className={classNames.inputAdornment}>
                 <LockIcon color="primary" />
               </InputAdornment>
             }

@@ -197,7 +197,7 @@ InlineObject14.prototype['items'] = undefined;
 InlineObject14.prototype['images'] = undefined;
 
 /**
- * id склада - склады куда отправляют 
+ * destination GUID 
  * @member {String} destinationId
  */
 InlineObject14.prototype['destinationId'] = undefined;

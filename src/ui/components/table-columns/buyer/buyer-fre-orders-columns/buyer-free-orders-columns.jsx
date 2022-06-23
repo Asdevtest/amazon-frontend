@@ -74,7 +74,9 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey['Int warehouse']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.storekeeper?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
+    ),
     width: 200,
   },
 
@@ -83,7 +85,9 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.product.client?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.value} userId={params.row.originalData.product.client?._id} />
+    ),
     width: 200,
   },
 

@@ -66,7 +66,9 @@ export const exchangeSupplierFoundedColumns = () => [
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
+    ),
     width: 200,
   },
   {
@@ -83,7 +85,7 @@ export const exchangeSupplierFoundedColumns = () => [
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.buyer?._id} />,
+    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
     width: 200,
   },
 

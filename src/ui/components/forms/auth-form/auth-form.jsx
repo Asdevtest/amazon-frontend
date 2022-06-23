@@ -28,13 +28,14 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
     <div className={classNames.root}>
       <form className={classNames.formFields} onSubmit={onSubmitForm}>
         <Field
+          withIcon
           containerClasses={classNames.field}
           label={t(TranslationKey.Email)}
           placeholder={t(TranslationKey.Email)}
           type="email"
           value={formFields.email}
           startAdornment={
-            <InputAdornment position="end">
+            <InputAdornment position="end" className={classNames.inputAdornment}>
               <MailOutlineIcon color="primary" />
             </InputAdornment>
           }
@@ -42,12 +43,13 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
         />
         <div className={classNames.field}>
           <Field
+            withIcon
             label={t(TranslationKey.Password)}
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}
             value={formFields.password}
             startAdornment={
-              <InputAdornment position="end">
+              <InputAdornment position="end" className={classNames.inputAdornment}>
                 <LockIcon color="primary" />
               </InputAdornment>
             }

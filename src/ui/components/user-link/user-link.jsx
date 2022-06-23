@@ -5,14 +5,18 @@ import {observer} from 'mobx-react'
 
 import {useClassNames} from './user-link.style'
 
-export const UserLink = observer(({name, userId}) => {
+export const UserLink = observer(({name, userId, blackText}) => {
   const classNames = useClassNames()
 
   return (
     <div>
       {name ? (
-        <Link target="_blank" href={`${window.location.origin}/another-user?${userId}`}>
-          <Typography className={classNames.linkText}>{name}</Typography>
+        <Link
+          target="_blank"
+          href={`${window.location.origin}/another-user?${userId}`}
+          underline={blackText ? 'none' : 'hover'}
+        >
+          <Typography className={blackText ? classNames.blackLinkText : classNames.linkText}>{name}</Typography>
         </Link>
       ) : (
         <Typography>{'-'}</Typography>

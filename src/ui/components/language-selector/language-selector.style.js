@@ -16,4 +16,18 @@ export const useClassNames = makeStyles({
     // backgroundСolor: 'rgba(25, 118, 210, 0.8)',
     backgroundColor: 'red',
   },
+
+  // button: {
+  //   '&.Mui-selected, &.Mui-selected:hover': {
+  //     color: 'white',
+  //     backgroundColor: '#006CFF',
+  //   },
+  // },
+
+  // buttonsWrapper: {
+  //   width: '200px',
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   gap: '20px',
+  // },
 })

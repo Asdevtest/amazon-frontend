@@ -41,7 +41,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
             <div className={classNames.personInfoWrapper}>
               <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
               <div className={classNames.personWrapper}>
-                <UserLink name={request?.request.createdBy.name} userId={request?.request.createdBy._id} />
+                <UserLink blackText name={request?.request.createdBy.name} userId={request?.request.createdBy._id} />
                 <Rating disabled value={request?.request.createdBy.rating} />
               </div>
             </div>
@@ -115,7 +115,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
           <div className={classNames.personInfoWrapper}>
             <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
             <div className={classNames.personWrapper}>
-              <UserLink name={request?.request.createdBy.name} userId={request?.request.createdBy._id} />
+              <UserLink blackText name={request?.request.createdBy.name} userId={request?.request.createdBy._id} />
               <Rating disabled value={request?.request.createdBy.rating} />
             </div>
           </div>

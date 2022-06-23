@@ -523,6 +523,20 @@ export const styles = createStyles(() => ({
     },
   },
 
+  blackLinkText: {
+    color: '#001029',
+    fontSize: '16px',
+    lineHeight: '140%',
+    fontWeight: '400',
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+    },
+  },
+
   renderFieldValueCellText: {
     fontSize: '12px',
   },
@@ -658,5 +672,9 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
+  },
+
+  actionBtn: {
+    display: 'flex',
   },
 }))
