@@ -534,6 +534,8 @@ export const styles = createStyles(() => ({
     '&:hover': {
       transform: 'scale(1.01)',
       opacity: '0.8',
+      textDecoration: 'none',
+      border: 'none',
     },
   },
 
