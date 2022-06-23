@@ -36,7 +36,7 @@ export class SupervisorDashboardViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar title={t(TranslationKey.Dashboard)} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey.Dashboard)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DashboardBalance user={userInfo} />
 

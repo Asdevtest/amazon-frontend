@@ -2,8 +2,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveBtnsCell,
+  MultilineTextCell,
   MultilineTextHeaderCell,
-  renderFieldValueCell,
   ShopsReportBtnsCell,
   ShortDateCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -27,7 +27,7 @@ export const shopsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
     width: 300,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {

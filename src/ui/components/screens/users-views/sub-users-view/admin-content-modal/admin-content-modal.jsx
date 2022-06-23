@@ -8,11 +8,11 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
 import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
+import {UserLink} from '@components/user-link'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail} from '@utils/checks'
 import {t} from '@utils/translations'
@@ -164,7 +164,7 @@ export const AdminContentModal = observer(
             label={t(TranslationKey['Master user'])}
             inputComponent={
               <div className={classNames.ratingWrapper}>
-                <UserLinkCell
+                <UserLink
                   name={editUserFormFields.masterUserInfo?.name}
                   userId={editUserFormFields.masterUserInfo?._id}
                 />
@@ -186,7 +186,7 @@ export const AdminContentModal = observer(
               <div className={classNames.subUsersWrapper}>
                 {editUserFormFields.subUsers.map(subUser => (
                   <div key={subUser._id} className={classNames.ratingWrapper}>
-                    <UserLinkCell name={subUser.name} userId={subUser._id} />
+                    <UserLink name={subUser.name} userId={subUser._id} />
 
                     <div className={classNames.ratingSubWrapper}>
                       <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>

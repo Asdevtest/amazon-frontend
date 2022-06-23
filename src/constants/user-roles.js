@@ -33,4 +33,15 @@ export const UserRoleCodeMapForRoutes = {
   50: 'candidate',
 }
 
+export const UserRolePrettyMap = {
+  0: 'Admin',
+  10: 'Client',
+  20: 'Supervisor',
+  30: 'Researcher',
+  35: 'Freelancer',
+  40: 'Buyer',
+  45: 'Storekeeper',
+  50: 'Candidate',
+}
+
 export const mapUserRoleEnumToKey = objectFlip(UserRoleCodeMap, parseInt)

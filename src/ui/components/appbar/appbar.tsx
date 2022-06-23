@@ -110,7 +110,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
 
             <div className={classNames.allowedRolesMainWrapper}>
               {/* {!componentModel.current.masterUser ? ( */}
-              <div className={classNames.allowedRolesWrapper}>
+              {/* <div className={classNames.allowedRolesWrapper}>
                 {allowedRolesWithoutCandidate?.map((roleCode: number) => (
                   <Button
                     key={roleCode}
@@ -123,14 +123,29 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                     {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
                   </Button>
                 ))}
-              </div>
+              </div> */}
               {/* ) : null} */}
 
-              {/* {(!allowedRolesWithoutCandidate?.length || componentModel.current.masterUser) && (
+              {allowedRolesWithoutCandidate?.length > 1 ? (
+                <div className={classNames.allowedRolesWrapper}>
+                  {allowedRolesWithoutCandidate?.map((roleCode: number) => (
+                    <Button
+                      key={roleCode}
+                      variant={'text'}
+                      className={clsx(classNames.allowedRolesItem, {
+                        [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
+                      })}
+                      onClick={() => onChangeUserInfo(roleCode)}
+                    >
+                      {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
+                    </Button>
+                  ))}
+                </div>
+              ) : (
                 <Typography className={clsx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
                   {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
                 </Typography>
-              )} */}
+              )}
             </div>
 
             <Divider orientation="vertical" />

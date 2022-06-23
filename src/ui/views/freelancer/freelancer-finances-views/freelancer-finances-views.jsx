@@ -70,7 +70,7 @@ class FreelancerFinancesViewsRaw extends Component {
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar title={t(TranslationKey.Finances)} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
+          <Appbar title={t(TranslationKey.Finances)} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination

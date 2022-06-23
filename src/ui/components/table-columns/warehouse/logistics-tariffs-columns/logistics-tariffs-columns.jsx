@@ -6,7 +6,7 @@ import {
   EditOrRemoveBtnsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   ScrollingCell,
   WarehouseTariffDatesCell,
   WarehouseTariffDestinationCell,
@@ -33,7 +33,7 @@ export const logisticsTariffsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
     width: 200,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -84,7 +84,7 @@ export const logisticsTariffsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
 
     width: 140,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -93,7 +93,7 @@ export const logisticsTariffsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
 
     width: 130,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {

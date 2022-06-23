@@ -2,8 +2,9 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveBtnsCell,
-  MultilineTextHeaderCell,
-  renderFieldValueCell,
+  UserCell,
+  TextHeaderCell,
+  UserRolesCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -11,26 +12,26 @@ import {t} from '@utils/translations'
 export const subUsersColumns = handlers => [
   {
     field: 'name',
-    headerName: t(TranslationKey.Name),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Name)} />,
+    headerName: t(TranslationKey.User),
+    renderHeader: () => <TextHeaderCell text={t(TranslationKey.User)} />,
 
-    width: 250,
-    renderCell: params => renderFieldValueCell(params.value),
+    width: 500,
+    renderCell: params => <UserCell user={params.row} />,
   },
 
   {
-    field: 'email',
-    headerName: t(TranslationKey.Email),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Email)} />,
+    field: 'roles',
+    headerName: t(TranslationKey.Roles),
+    renderHeader: () => <TextHeaderCell text={t(TranslationKey.Roles)} />,
 
     width: 300,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <UserRolesCell user={params.row} />,
   },
 
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
+    renderHeader: () => <TextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 320,
     renderCell: params => <EditOrRemoveBtnsCell isSubUsersTable handlers={handlers} row={params.row} />,

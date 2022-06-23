@@ -5,10 +5,9 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   SmallRowImageCell,
   SuccessActionBtnCell,
-  ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -53,7 +52,7 @@ export const clientExchangeViewColumns = handlers => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 210,
   },
 
@@ -62,7 +61,7 @@ export const clientExchangeViewColumns = handlers => [
     headerName: t(TranslationKey.Category),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
   },
 
@@ -71,7 +70,7 @@ export const clientExchangeViewColumns = handlers => [
     headerName: t(TranslationKey['Amazon price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
-    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 120,
     type: 'number',
   },
@@ -91,7 +90,7 @@ export const clientExchangeViewColumns = handlers => [
     headerName: t(TranslationKey.BSR),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 60,
     type: 'number',
   },
@@ -101,7 +100,7 @@ export const clientExchangeViewColumns = handlers => [
     headerName: t(TranslationKey['Recommend amount']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 90,
     type: 'number',
   },

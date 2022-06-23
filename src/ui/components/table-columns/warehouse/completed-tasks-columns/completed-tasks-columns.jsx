@@ -4,7 +4,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   TaskDescriptionCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   NormalActionBtnCell,
   NormDateFromUnixCell,
   TaskTypeCell,
@@ -59,7 +59,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 150,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     filterable: false,
     sortable: false,
   },

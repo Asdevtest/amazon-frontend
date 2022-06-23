@@ -5,7 +5,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   ToFixedWithDollarSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
@@ -17,7 +17,7 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     minWidth: 150,
     flex: 1,
   },
@@ -28,7 +28,7 @@ export const researcherProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 350,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -47,7 +47,7 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
   },
 
@@ -67,7 +67,7 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.BSR),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     minWidth: 150,
     type: 'number',
     flex: 1,

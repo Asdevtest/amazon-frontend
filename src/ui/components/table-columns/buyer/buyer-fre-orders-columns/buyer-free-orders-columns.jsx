@@ -5,7 +5,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {
   ActiveBarcodeCell,
   OrderCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   NormDateCell,
   NormalActionBtnCell,
   UserLinkCell,
@@ -54,6 +54,8 @@ export const buyerFreeOrdersViewColumns = handlers => [
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 100,
   },
@@ -90,7 +92,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey.Warehouse),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 200,
   },
 
@@ -99,7 +101,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 300,
   },
 ]

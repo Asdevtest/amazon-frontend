@@ -9,18 +9,19 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
-  renderFieldValueCell,
-  ToFixedWithDollarSignCell,
+  MultilineTextCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
+
+import {toFixedWithDollarSign} from '@utils/text'
 
 export const clientOrdersViewColumns = () => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 60,
   },
 
@@ -39,7 +40,7 @@ export const clientOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 230,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -56,7 +57,7 @@ export const clientOrdersViewColumns = () => [
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 90,
   },
@@ -75,7 +76,7 @@ export const clientOrdersViewColumns = () => [
     headerName: t(TranslationKey['Where to']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 160,
   },
 
@@ -86,7 +87,7 @@ export const clientOrdersViewColumns = () => [
 
     width: 100,
     type: 'number',
-    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
 
   {
@@ -103,7 +104,7 @@ export const clientOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
     width: 160,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {

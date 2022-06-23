@@ -59,11 +59,7 @@ export class CreateOrEditProposalViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar
-            title={t(TranslationKey['Proposal Creation'])}
-            notificationCount={2}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={t(TranslationKey['Proposal Creation'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.backBtnWrapper}>
                 <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>

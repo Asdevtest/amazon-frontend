@@ -67,7 +67,6 @@ export class BuyerSearchSupplierBySupervisorViewRaw extends Component {
         <Main>
           <Appbar
             title={`${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['From the Supervisor'])}`}
-            notificationCount={2}
             setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>

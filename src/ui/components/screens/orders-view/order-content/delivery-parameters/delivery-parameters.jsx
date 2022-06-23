@@ -4,8 +4,8 @@ import {Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
+import {UserLink} from '@components/user-link'
 
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getFullTariffTextForBoxOrOrder} from '@utils/text'
@@ -46,10 +46,15 @@ export const DeliveryParameters = ({order}) => {
           label={'Storekeeper'}
           containerClasses={classNames.parameterTableCellWrapper}
           labelClasses={classNames.fieldLabel}
-          inputComponent={<UserLinkCell name={order.storekeeper?.name} userId={order.storekeeper?._id} />}
+          inputComponent={<UserLink name={order.storekeeper?.name} userId={order.storekeeper?._id} />}
         />
 
         <OrderParameter label={t(TranslationKey.Tariff)} value={getFullTariffTextForBoxOrOrder(order)} />
+
+        <OrderParameter
+          label={t(TranslationKey['CLS (batch closing date)'])}
+          value={order.logicsTariff?.cls && formatDateWithoutTime(order.logicsTariff?.cls)}
+        />
 
         <OrderParameter
           label={t(TranslationKey['ETD (date of shipment)'])}
@@ -59,10 +64,6 @@ export const DeliveryParameters = ({order}) => {
           label={t(TranslationKey['ETA (arrival date)'])}
           value={order.logicsTariff?.eta && formatDateWithoutTime(order.logicsTariff?.eta)}
         />
-        <OrderParameter
-          label={t(TranslationKey['CLS (batch closing date)'])}
-          value={order.logicsTariff?.cls && formatDateWithoutTime(order.logicsTariff?.cls)}
-        />
       </div>
 
       <div className={classNames.buyerWrapper}>
@@ -71,7 +72,7 @@ export const DeliveryParameters = ({order}) => {
           label={'Buyer'}
           containerClasses={classNames.parameterTableCellWrapper}
           labelClasses={classNames.fieldLabel}
-          inputComponent={<UserLinkCell name={order.buyer?.name} userId={order.buyer?._id} />}
+          inputComponent={<UserLink name={order.buyer?.name} userId={order.buyer?._id} />}
         />
       </div>
     </div>

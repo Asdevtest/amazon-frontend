@@ -37,12 +37,7 @@ export class ResearcherDashboardViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
-          <Appbar
-            title={t(TranslationKey.Dashboard)}
-            notificationCount={2}
-            drawerOpen={drawerOpen}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={t(TranslationKey.Dashboard)} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DashboardBalance user={userInfo} />
 

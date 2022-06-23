@@ -2,9 +2,11 @@ import {createStyles} from '@material-ui/styles'
 
 export const styles = () =>
   createStyles({
-    // root: {
-    //   textTransform: 'none',
-    // },
+    root: {
+      textTransform: 'none',
+      // color: '#fff'
+    },
+
     //   containedPrimary: {
     //     color: '#fff',
     //     backgroundColor: 'rgba(0, 123, 255, 1)',

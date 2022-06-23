@@ -62,7 +62,7 @@ class WarehouseFinancesViewsRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onChangeDrawerOpen} />
         <Main>
-          <Appbar title={t(TranslationKey.Finances)} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
+          <Appbar title={t(TranslationKey.Finances)} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination

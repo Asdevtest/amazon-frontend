@@ -68,11 +68,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
           setDrawerOpen={onChangeTriggerDrawerOpen}
         />
         <Main>
-          <Appbar
-            title={t(TranslationKey['Completed tasks'])}
-            notificationCount={2}
-            setDrawerOpen={onChangeTriggerDrawerOpen}
-          >
+          <Appbar title={t(TranslationKey['Completed tasks'])} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination

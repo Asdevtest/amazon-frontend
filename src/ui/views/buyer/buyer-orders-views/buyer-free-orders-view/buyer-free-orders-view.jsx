@@ -62,7 +62,7 @@ class BuyerFreeOrdersViewRaw extends Component {
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
 
         <Main>
-          <Appbar title={t(TranslationKey['Free Orders'])} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['Free Orders'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination

@@ -1,8 +1,9 @@
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {Box} from '@material-ui/core'
+import {Box, InputAdornment} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -12,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {Field} from '@components/field'
 import {LinkSubUserForm} from '@components/forms/link-sub-user-form'
 import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
 import {Main} from '@components/main'
@@ -24,14 +26,14 @@ import {Navbar} from '@components/navbar'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
-import {FreelancerSubUsersViewModel} from './freelancer-sub-users-view.model'
-import {styles} from './freelancer-sub-users-view.style'
+import {SubUsersViewModel} from './sub-users-view.model'
+import {styles} from './sub-users-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_USERS
 
 @observer
-class FreelancerSubUsersViewRaw extends Component {
-  viewModel = new FreelancerSubUsersViewModel({history: this.props.history})
+class SubUsersViewRaw extends Component {
+  viewModel = new SubUsersViewModel({history: this.props.history})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -39,6 +41,7 @@ class FreelancerSubUsersViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       showConfirmModal,
       showAddSubUserModal,
       showWarningModal,
@@ -72,7 +75,11 @@ class FreelancerSubUsersViewRaw extends Component {
       onSubmitlinkSubUser,
       onSubmitUserPermissionsForm,
       onSubmitUnlinkSubUser,
+
+      onChangeNameSearchValue,
     } = this.viewModel
+
+    const {classes: classNames} = this.props
 
     return (
       <React.Fragment>
@@ -84,13 +91,27 @@ class FreelancerSubUsersViewRaw extends Component {
           onChangeSubCategory={onChangeSubCategory}
         />
         <Main>
-          <Appbar title={t(TranslationKey['Sub users'])} notificationCount={2} setDrawerOpen={onChangeDrawerOpen}>
+          <Appbar title={t(TranslationKey['My users'])} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
-              <Box className={this.props.classes.buttonBox}>
+              <Box className={classNames.buttonBox}>
                 <SuccessButton onClick={() => onTriggerOpenModal('showAddSubUserModal')}>
-                  {t(TranslationKey['Add a sub-user'])}
+                  {t(TranslationKey['Add a user'])}
                 </SuccessButton>
               </Box>
+
+              <div className={classNames.actionsWrapper}>
+                <Field
+                  containerClasses={classNames.searchContainer}
+                  inputClasses={classNames.searchInput}
+                  value={nameSearchValue}
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon color="primary" />
+                    </InputAdornment>
+                  }
+                  onChange={onChangeNameSearchValue}
+                />
+              </div>
 
               <DataGrid
                 pagination
@@ -102,7 +123,7 @@ class FreelancerSubUsersViewRaw extends Component {
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
-                rowHeight={200}
+                rowHeight={220}
                 components={{
                   Toolbar: GridToolbar,
                 }}
@@ -140,7 +161,7 @@ class FreelancerSubUsersViewRaw extends Component {
           isWarning={warningInfoModalSettings.isWarning}
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-          title={warningInfoModalSettings.title}
+          title={t(TranslationKey['Sab-user removed'])}
           btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
@@ -163,4 +184,4 @@ class FreelancerSubUsersViewRaw extends Component {
   }
 }
 
-export const FreelancerSubUsersView = withStyles(styles)(FreelancerSubUsersViewRaw)
+export const SubUsersView = withStyles(styles)(SubUsersViewRaw)

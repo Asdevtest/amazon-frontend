@@ -67,7 +67,6 @@ class SupervisorReadyToCheckViewRaw extends Component {
         <Main>
           <Appbar
             title={`${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['From the Researcher'])}`}
-            notificationCount={2}
             setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>

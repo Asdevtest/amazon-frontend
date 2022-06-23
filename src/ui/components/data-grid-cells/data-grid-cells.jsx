@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
+import AutorenewIcon from '@mui/icons-material/Autorenew'
+import {Rating} from '@mui/material'
+
 import React from 'react'
 
-import {Chip, Link, Tooltip, Typography} from '@material-ui/core'
+import {Avatar, Badge, Chip, Link, Tooltip, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
@@ -12,11 +15,12 @@ import {RequestStatus} from '@constants/request-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
+import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
 import {ErrorButton} from '@components/buttons/error-button/error-button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {UserLink} from '@components/user-link'
 
 import {calcVolumeWeightForBox} from '@utils/calculation'
 import {
@@ -29,10 +33,45 @@ import {
   formatShortDateTime,
 } from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {toFixedWithDollarSign, trimBarcode, toFixedWithKg, checkAndMakeAbsoluteUrl, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {styles} from './data-grid-cells.style'
+
+export const UserCell = withStyles(styles)(({classes: classNames, user}) => (
+  <div className={classNames.sabUserWrapper}>
+    <div className={classNames.userAvatarWrapper}>
+      <Avatar src={getUserAvatarSrc(user?._id)} className={classNames.userAvatar} />
+    </div>
+
+    <div className={classNames.sabUserInfoWrapper}>
+      <UserLink name={user?.name} userId={user?._id} />
+
+      <Typography className={classNames.userEmail}>{user?.email}</Typography>
+
+      <div className={classNames.sabUserRatingWrapper}>
+        <Typography>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
+
+        <Rating disabled className={classNames.sabUserRating} value={user?.rating} />
+      </div>
+    </div>
+  </div>
+))
+
+export const UserRolesCell = withStyles(styles)(({classes: classNames, user}) => (
+  <div className={classNames.userRolesWrapper}>
+    <Typography className={classNames.userRole}>{UserRolePrettyMap[user.role]}</Typography>
+
+    {user.allowedRoles
+      .filter(el => el !== mapUserRoleEnumToKey[UserRole.CANDIDATE] && el !== user.role)
+      .map((role, index) => (
+        <Typography key={index} className={classNames.userRole}>
+          {UserRolePrettyMap[role]}
+        </Typography>
+      ))}
+  </div>
+))
 
 export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
   <div className={classNames.asinCell}>
@@ -54,27 +93,25 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
 
 export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
   ({classes: classNames, product, noCalculate, onClickCalculate}) => (
-    <div className={classNames.feesTableCell}>
-      <div className={classNames.feesTableWrapper}>
-        <Typography className={classNames.typoCell}>
-          {t(TranslationKey.Fees) + ': '}
-          <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.fbafee, 2)}</span>
-        </Typography>
-        <Typography className={classNames.typoCell}>
-          {t(TranslationKey.Net) + ': '}
-          <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.reffee, 2)}</span>
-        </Typography>
-        {!noCalculate && (
-          <Button
-            disableElevation
-            className={classNames.cellBtn}
-            startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
-            onClick={() => onClickCalculate(product)}
-          >
-            {'Calculate fees'}
-          </Button>
-        )}
-      </div>
+    <div className={classNames.feesTableWrapper}>
+      <Typography className={classNames.typoCell}>
+        {t(TranslationKey.Fees) + ': '}
+        <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.fbafee, 2)}</span>
+      </Typography>
+      <Typography className={classNames.typoCell}>
+        {t(TranslationKey.Net) + ': '}
+        <span className={classNames.typoSpan}>{toFixedWithDollarSign(product.reffee, 2)}</span>
+      </Typography>
+      {!noCalculate && (
+        <Button
+          disableElevation
+          className={classNames.cellBtn}
+          startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
+          onClick={() => onClickCalculate(product)}
+        >
+          {'Calculate fees'}
+        </Button>
+      )}
     </div>
   ),
 )
@@ -82,7 +119,7 @@ export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
 export const SupplierCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
     <Typography className={classNames.researcherCell}>
-      {!product.currentSupplier ? 'N/A' : product.currentSupplier.name}
+      {!product.currentSupplier ? '-' : product.currentSupplier.name}
     </Typography>
 
     {product.currentSupplier && (
@@ -94,38 +131,32 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
 ))
 
 export const UserLinkCell = withStyles(styles)(({classes: classNames, name, userId}) => (
-  <div>
-    {name ? (
-      <Link target="_blank" href={`${window.location.origin}/another-user?${userId}`}>
-        <Typography className={classNames.linkText}>{name}</Typography>
-      </Link>
-    ) : (
-      <Typography>{'N/A'}</Typography>
-    )}
+  <div className={classNames.userLinkWrapper}>
+    <UserLink name={name} userId={userId} />
   </div>
 ))
 
 export const SupervisorCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
-    <Typography className={classNames.researcherCell}>{!product.checkedBy ? 'N/A' : product.checkedBy.name}</Typography>
+    <Typography className={classNames.researcherCell}>{!product.checkedBy ? '-' : product.checkedBy.name}</Typography>
   </div>
 ))
 
 export const ResearcherCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
-    <Typography className={classNames.researcherCell}>{!product.createdBy ? 'N/A' : product.createdBy.name}</Typography>
+    <Typography className={classNames.researcherCell}>{!product.createdBy ? '-' : product.createdBy.name}</Typography>
   </div>
 ))
 
 export const ClientCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
-    <Typography className={classNames.researcherCell}>{!product.client ? 'N/A' : product.client.name}</Typography>
+    <Typography className={classNames.researcherCell}>{!product.client ? '-' : product.client.name}</Typography>
   </div>
 ))
 
 export const BuyerCell = withStyles(styles)(({classes: classNames, product}) => (
   <div>
-    <Typography className={classNames.researcherCell}>{!product.buyer ? 'N/A' : product.buyer.name}</Typography>
+    <Typography className={classNames.researcherCell}>{!product.buyer ? '-' : product.buyer.name}</Typography>
   </div>
 ))
 
@@ -191,35 +222,35 @@ export const ChangeChipCell = withStyles(styles)(
 )
 
 export const DateCell = withStyles(styles)(({params}) => (
-  <Typography>{!params.value ? 'N/A' : formatDateTime(params.value)}</Typography>
+  <Typography>{!params.value ? '-' : formatDateTime(params.value)}</Typography>
 ))
 
 export const NormDateCell = withStyles(styles)(({classes: classNames, params}) => (
   <Typography className={classNames.normDateCellTypo}>
-    {!(params && params.value) ? 'N/A' : formatNormDateTime(params.value)}
+    {!(params && params.value) ? '-' : formatNormDateTime(params.value)}
   </Typography>
 ))
 
 export const NormDateWithoutTimeCell = withStyles(styles)(({classes: classNames, params}) => (
   <Typography className={classNames.normDateCellTypo}>
-    {!(params && params.value) ? 'N/A' : formatDateWithoutTime(params.value)}
+    {!(params && params.value) ? '-' : formatDateWithoutTime(params.value)}
   </Typography>
 ))
 
 export const ShortDateCell = withStyles(styles)(({classes: classNames, params}) => (
   <Typography className={classNames.shortDateCellTypo}>
-    {!(params && params.value) ? 'N/A' : formatShortDateTime(params.value)}
+    {!(params && params.value) ? '-' : formatShortDateTime(params.value)}
   </Typography>
 ))
 
 export const NormDateFromUnixCell = withStyles(styles)(({classes: classNames, value}) => (
   <Typography className={classNames.normDateCellTypo}>
-    {!value ? 'N/A' : formatDateForShowWithoutParseISO(fromUnixTime(value))}
+    {!value ? '-' : formatDateForShowWithoutParseISO(fromUnixTime(value))}
   </Typography>
 ))
 
 export const NormDateWithParseISOCell = withStyles(styles)(({params}) => (
-  <Typography>{!params.value ? 'N/A' : formatNormDateTimeWithParseISO(params.value)}</Typography>
+  <Typography>{!params.value ? '-' : formatNormDateTimeWithParseISO(params.value)}</Typography>
 ))
 
 export const OrderCell = withStyles(styles)(({classes: classNames, product, superbox, box, error}) => (
@@ -249,7 +280,7 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
   </div>
 ))
 
-export const renderFieldValueCell = value => (!value && value !== 0 ? 'N/A' : value)
+export const renderFieldValueCell = value => (!value && value !== 0 ? '-' : value)
 
 export const WarehouseTariffDestinationCell = withStyles(styles)(() => (
   <div>
@@ -259,40 +290,40 @@ export const WarehouseTariffDestinationCell = withStyles(styles)(() => (
   </div>
 ))
 
-export const WarehouseTariffRatesCell = withStyles(styles)(({conditionsByRegion}) => (
-  <div>
-    <Typography>{toFixed(conditionsByRegion.west.rate, 2) || 'N/A'}</Typography>
-    <Typography>{toFixed(conditionsByRegion.central.rate, 2) || 'N/A'}</Typography>
-    <Typography>{toFixed(conditionsByRegion.east.rate, 2) || 'N/A'}</Typography>
+export const WarehouseTariffRatesCell = withStyles(styles)(({classes: classNames, conditionsByRegion}) => (
+  <div className={classNames.tariffRatesWrapper}>
+    <Typography>{toFixed(conditionsByRegion.west.rate, 2) || '-'}</Typography>
+    <Typography>{toFixed(conditionsByRegion.central.rate, 2) || '-'}</Typography>
+    <Typography>{toFixed(conditionsByRegion.east.rate, 2) || '-'}</Typography>
   </div>
 ))
 
 export const WarehouseTariffDatesCell = withStyles(styles)(({classes: classNames, row}) => (
   <div>
     <div className={classNames.warehouseTariffDatesItem}>
+      <Typography>{t(TranslationKey['CLS (batch closing date)'])}</Typography>
+      <Typography>{!row.cls ? '-' : formatDateWithoutTime(row.cls)}</Typography>
+    </div>
+
+    <div className={classNames.warehouseTariffDatesItem}>
       <Typography>{t(TranslationKey['ETD (date of shipment)'])}</Typography>
-      <Typography>{!row.etd ? 'N/A' : formatDateWithoutTime(row.etd)}</Typography>
+      <Typography>{!row.etd ? '-' : formatDateWithoutTime(row.etd)}</Typography>
     </div>
 
     <div className={classNames.warehouseTariffDatesItem}>
       <Typography>{t(TranslationKey['ETA (arrival date)'])}</Typography>
-      <Typography>{!row.eta ? 'N/A' : formatDateWithoutTime(row.eta)}</Typography>
-    </div>
-
-    <div className={classNames.warehouseTariffDatesItem}>
-      <Typography>{t(TranslationKey['CLS (batch closing date)'])}</Typography>
-      <Typography>{!row.cls ? 'N/A' : formatDateWithoutTime(row.cls)}</Typography>
+      <Typography>{!row.eta ? '-' : formatDateWithoutTime(row.eta)}</Typography>
     </div>
   </div>
 ))
 
 export const RenderFieldValueCell = withStyles(styles)(({classes: classNames, value}) => (
-  <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? 'N/A' : value}</Typography>
+  <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
 ))
 
 export const MultilineTextCell = withStyles(styles)(({classes: classNames, text}) => (
   <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText}>{text || 'n/a'}</Typography>
+    <Typography className={classNames.multilineText}>{text || '-'}</Typography>
   </div>
 ))
 
@@ -483,26 +514,30 @@ export const IdCell = withStyles(styles)(({id}) => (
 
 export const NoActiveBarcodeCell = withStyles(styles)(({classes: classNames, barCode}) => (
   <React.Fragment>
-    <Typography className={classNames.noActivebarCode}>{barCode || 'N/A'}</Typography>
+    <Typography className={classNames.noActivebarCode}>{barCode || '-'}</Typography>
   </React.Fragment>
 ))
 
 export const ActiveBarcodeCell = withStyles(styles)(({classes: classNames, barCode}) => (
   <React.Fragment>
-    {/* <Typography className={classNames.noActivebarCode}>{barCode || 'N/A'}</Typography> */}
+    {/* <Typography className={classNames.noActivebarCode}>{barCode || '-'}</Typography> */}
 
     {barCode ? (
       <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
         <Typography className={classNames.noActivebarCode}>{barCode}</Typography>
       </Link>
     ) : (
-      <Typography className={classNames.noActivebarCode}>{'N/A'}</Typography>
+      <Typography className={classNames.noActivebarCode}>{'-'}</Typography>
     )}
   </React.Fragment>
 ))
 
 export const ToFixedWithKgSignCell = withStyles(styles)(({classes: classNames, value, fix}) => (
-  <div className={classNames.priceTableCell}>{!value ? (value === 0 ? 0 : 'N/A') : toFixedWithKg(value, fix)}</div>
+  <div className={classNames.multilineTextWrapper}>
+    <Typography className={classNames.multilineText}>
+      {!value ? (value === 0 ? 0 : '-') : toFixedWithKg(value, fix)}
+    </Typography>
+  </div>
 ))
 
 export const SmallRowImageCell = withStyles(styles)(({classes: classNames, images}) => (
@@ -512,12 +547,18 @@ export const SmallRowImageCell = withStyles(styles)(({classes: classNames, image
 ))
 
 export const ToFixedCell = withStyles(styles)(({classes: classNames, value, fix}) => (
-  <div className={classNames.priceTableCell}>{!value ? (value === 0 ? 0 : 'N/A') : toFixed(value, fix)}</div>
+  <div className={classNames.multilineTextWrapper}>
+    <Typography className={classNames.multilineText}>
+      {!value ? (value === 0 ? 0 : '-') : toFixed(value, fix)}
+    </Typography>
+  </div>
 ))
 
 export const ToFixedWithDollarSignCell = withStyles(styles)(({classes: classNames, value, fix}) => (
-  <div className={classNames.priceTableCell}>
-    {!value ? (value === 0 ? 0 : 'N/A') : toFixedWithDollarSign(value, fix)}
+  <div className={classNames.multilineTextWrapper}>
+    <Typography className={classNames.multilineText}>
+      {!value ? (value === 0 ? 0 : '-') : toFixedWithDollarSign(value, fix)}
+    </Typography>
   </div>
 ))
 
@@ -527,8 +568,8 @@ export const SuccessActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText})
   </div>
 ))
 
-export const NormalActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText}) => (
-  <div>
+export const NormalActionBtnCell = withStyles(styles)(({classes: classNames, onClickOkBtn, bTnText}) => (
+  <div className={classNames.normalActionBtnWrapper}>
     <Button
       tooltipInfoContent={t(TranslationKey['To assign the order to Byer'])}
       variant="contained"
@@ -541,7 +582,7 @@ export const NormalActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText}) 
 ))
 
 export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
-  <div>
+  <div className={classNames.warehouseMyTasksBtnsWrapper}>
     <SuccessButton className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.onClickResolveBtn(row)}>
       {t(TranslationKey.Resolve)}
     </SuccessButton>
@@ -627,7 +668,7 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
     }
   }
 
-  return <div>{renderHistoryItem()}</div>
+  return <div className={classNames.clientTasksActionBtnsWrapper}>{renderHistoryItem()}</div>
 })
 
 export const ClientNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers, disabled}) => (
@@ -674,7 +715,7 @@ export const AdminUsersActionBtnsCell = withStyles(styles)(
 export const SuperboxQtyCell = withStyles(styles)(({classes: classNames, qty, superbox}) => (
   <div>
     <Typography>
-      {qty || 'N/A'}
+      {qty || '-'}
       <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
     </Typography>
   </div>
@@ -739,14 +780,14 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box,
 
 export const ScrollingCell = withStyles(styles)(({classes: classNames, value}) => (
   <React.Fragment>
-    <Typography className={classNames.scrollingValue}>{value || 'N/A'}</Typography>
+    <Typography className={classNames.scrollingValue}>{value || '-'}</Typography>
   </React.Fragment>
 ))
 
 export const ScrollingLinkCell = withStyles(styles)(({classes: classNames, value}) => (
   <React.Fragment>
     <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(value)} className={classNames.scrollingValue}>
-      <Typography>{value || 'N/A'}</Typography>
+      <Typography>{value || '-'}</Typography>
     </Link>
   </React.Fragment>
 ))

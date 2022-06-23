@@ -3,7 +3,6 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 
 import {PermissionsModel} from '@models/permissions-model'
 import {SettingsModel} from '@models/settings-model'
@@ -15,10 +14,12 @@ import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
-export class WarehouseSubUsersViewModel {
+export class SubUsersViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
+
+  nameSearchValue = ''
 
   subUsersData = []
   singlePermissions = []
@@ -54,9 +55,12 @@ export class WarehouseSubUsersViewModel {
     title: '',
   }
 
+  get userInfo() {
+    return UserModel.userInfo
+  }
+
   constructor({history}) {
     this.history = history
-
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -84,11 +88,11 @@ export class WarehouseSubUsersViewModel {
       'columns',
     ])
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.WAREHOUSE_SUB_USERS)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.OVERALL_SUB_USERS)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.WAREHOUSE_SUB_USERS]
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.OVERALL_SUB_USERS]
 
     if (state) {
       this.sortModel = state.sorting.sortModel
@@ -108,7 +112,15 @@ export class WarehouseSubUsersViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.subUsersData)
+    if (this.nameSearchValue) {
+      return toJS(this.subUsersData).filter(el => el.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+    } else {
+      return toJS(this.subUsersData)
+    }
+  }
+
+  onChangeNameSearchValue(e) {
+    this.nameSearchValue = e.target.value
   }
 
   onSelectionModel(model) {
@@ -155,9 +167,7 @@ export class WarehouseSubUsersViewModel {
     try {
       const result = await UserModel.getMySubUsers()
       runInAction(() => {
-        this.subUsersData = addIdDataConverter(result).filter(
-          role => role !== mapUserRoleEnumToKey[UserRole.STOREKEEPER],
-        )
+        this.subUsersData = addIdDataConverter(result).filter(role => role !== this.userInfo.role)
       })
     } catch (error) {
       console.log(error)
@@ -167,7 +177,7 @@ export class WarehouseSubUsersViewModel {
 
   async getGroupPermissions() {
     try {
-      const result = await PermissionsModel.getGroupPermissions(mapUserRoleEnumToKey[UserRole.STOREKEEPER])
+      const result = await PermissionsModel.getGroupPermissions(this.userInfo.role)
 
       runInAction(() => {
         this.groupPermissions = result.sort((a, b) => a.role - b.role)
@@ -179,7 +189,7 @@ export class WarehouseSubUsersViewModel {
 
   async getSinglePermissions() {
     try {
-      const result = await PermissionsModel.getSinglePermissions(mapUserRoleEnumToKey[UserRole.STOREKEEPER])
+      const result = await PermissionsModel.getSinglePermissions(this.userInfo.role)
 
       runInAction(() => {
         this.singlePermissions = result.sort((a, b) => a.role - b.role)

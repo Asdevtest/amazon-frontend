@@ -14,7 +14,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
-import {RequestStatusCell, UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
+import {UserLink} from '@components/user-link'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -40,7 +41,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
             <div className={classNames.personInfoWrapper}>
               <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
               <div className={classNames.personWrapper}>
-                <UserLinkCell name={request?.request.createdBy.name} userId={request?.request.createdBy._id} />
+                <UserLink name={request?.request.createdBy.name} userId={request?.request.createdBy._id} />
                 <Rating disabled value={request?.request.createdBy.rating} />
               </div>
             </div>
@@ -114,7 +115,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
           <div className={classNames.personInfoWrapper}>
             <Avatar src={getUserAvatarSrc(request?.request.createdById)} className={classNames.userPhoto} />
             <div className={classNames.personWrapper}>
-              <UserLinkCell name={request?.request.createdBy.name} userId={request?.request.createdBy._id} />
+              <UserLink name={request?.request.createdBy.name} userId={request?.request.createdBy._id} />
               <Rating disabled value={request?.request.createdBy.rating} />
             </div>
           </div>

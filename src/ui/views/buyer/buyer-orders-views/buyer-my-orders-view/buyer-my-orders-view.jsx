@@ -91,7 +91,7 @@ class BuyerMyOrdersViewRaw extends Component {
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
 
         <Main>
-          <Appbar title={t(TranslationKey['My orders'])} notificationCount={2} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['My orders'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DataGrid
                 pagination

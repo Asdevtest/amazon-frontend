@@ -76,11 +76,7 @@ class ClientBoxesTariffsNotificationsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar
-            title={t(TranslationKey['Box notifications'])}
-            notificationCount={2}
-            setDrawerOpen={onTriggerDrawerOpen}
-          >
+          <Appbar title={t(TranslationKey['Box notifications'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.tableWrapper}>
                 <DataGrid

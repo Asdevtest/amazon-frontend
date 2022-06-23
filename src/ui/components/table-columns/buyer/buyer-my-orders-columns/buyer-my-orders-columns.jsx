@@ -5,7 +5,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {
   ActiveBarcodeCell,
   OrderCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   NormDateCell,
   UserLinkCell,
   MultilineTextHeaderCell,
@@ -20,7 +20,7 @@ export const buyerMyOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     width: 70,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
   {
     field: 'status',
@@ -28,7 +28,7 @@ export const buyerMyOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 200,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -44,6 +44,7 @@ export const buyerMyOrdersViewColumns = () => [
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
+    renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
     width: 130,
   },
@@ -80,7 +81,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey.Warehouse),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 200,
   },
 
@@ -89,7 +90,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 300,
   },
 
@@ -98,7 +99,7 @@ export const buyerMyOrdersViewColumns = () => [
     headerName: t(TranslationKey['Buyer comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 300,
   },
 

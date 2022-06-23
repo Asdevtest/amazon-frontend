@@ -7,13 +7,13 @@ import {
   NormDateCell,
   OrderCell,
   OrderManyItemsCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   SuperboxQtyCell,
-  ToFixedWithDollarSignCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
+import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const clientBoxesReadyToBatchViewColumns = () => [
@@ -22,7 +22,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 50,
   },
 
@@ -64,7 +64,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
       params.row.originalData.amount > 1 ? (
         <SuperboxQtyCell qty={params.row.qty} superbox={params.row.originalData.amount} />
       ) : (
-        renderFieldValueCell(params.value)
+        <MultilineTextCell text={params.value} />
       ),
     width: 110,
     type: 'number',
@@ -75,7 +75,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 160,
   },
 
@@ -93,7 +93,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 200,
   },
 
@@ -102,7 +102,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
-    renderCell: params => <ToFixedWithDollarSignCell value={params.value} fix={2} />,
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 120,
     type: 'number',
   },

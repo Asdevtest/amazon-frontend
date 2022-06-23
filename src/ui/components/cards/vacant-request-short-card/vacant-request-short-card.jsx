@@ -7,7 +7,7 @@ import {Divider, Grid, Typography, Avatar} from '@material-ui/core'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
+import {UserLink} from '@components/user-link'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -41,7 +41,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
             <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
 
             <div className={classNames.nameRatingWrapper}>
-              <UserLinkCell name={item.createdBy.name} userId={item.createdBy._id} />
+              <UserLink name={item.createdBy.name} userId={item.createdBy._id} />
 
               <Rating disabled value={item.createdBy.rating} />
             </div>

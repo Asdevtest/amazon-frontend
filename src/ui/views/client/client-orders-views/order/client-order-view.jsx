@@ -49,7 +49,6 @@ export class ClientOrderView extends Component {
         <Main>
           <Appbar
             title={t(TranslationKey.Order)}
-            notificationCount={2}
             setDrawerOpen={onTriggerDrawerOpen}
             lastCrumbAdditionalText={` № ${order?.id}`}
           >

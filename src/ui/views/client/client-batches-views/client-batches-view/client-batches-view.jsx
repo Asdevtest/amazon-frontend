@@ -72,7 +72,7 @@ class ClientBatchesViewRaw extends Component {
         />
 
         <Main>
-          <Appbar title={t(TranslationKey['Sent boxes'])} notificationCount={2} setDrawerOpen={onTriggerDrawer}>
+          <Appbar title={t(TranslationKey['Sent boxes'])} setDrawerOpen={onTriggerDrawer}>
             <MainContent>
               <DataGrid
                 pagination

@@ -77,7 +77,7 @@ class ClientAwaitingBatchesViewRaw extends Component {
         />
 
         <Main>
-          <Appbar title={t(TranslationKey['Awaiting send'])} notificationCount={2} setDrawerOpen={onTriggerDrawer}>
+          <Appbar title={t(TranslationKey['Awaiting send'])} setDrawerOpen={onTriggerDrawer}>
             <MainContent>
               <div className={className.btnsWrapper}>
                 <Button

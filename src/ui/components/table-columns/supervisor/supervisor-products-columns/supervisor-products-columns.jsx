@@ -6,9 +6,9 @@ import {
   AsinCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  renderFieldValueCell,
-  ToFixedWithDollarSignCell,
+  MultilineTextCell,
   UserLinkCell,
+  ToFixedWithDollarSignCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -50,7 +50,7 @@ export const supervisorProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 250,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -58,7 +58,7 @@ export const supervisorProductsViewColumns = () => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
   },
 
@@ -96,7 +96,7 @@ export const supervisorProductsViewColumns = () => [
     headerName: t(TranslationKey.BSR),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     minWidth: 80,
     type: 'number',
     flex: 1,

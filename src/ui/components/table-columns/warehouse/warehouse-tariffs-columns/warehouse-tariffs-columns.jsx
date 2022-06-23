@@ -6,7 +6,7 @@ import {
   EditOrRemoveBtnsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  renderFieldValueCell,
+  MultilineTextCell,
   ScrollingCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
@@ -19,7 +19,7 @@ export const warehouseTariffsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
     width: 250,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -47,7 +47,7 @@ export const warehouseTariffsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service cost per kg, $'])} />,
 
     width: 250,
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {

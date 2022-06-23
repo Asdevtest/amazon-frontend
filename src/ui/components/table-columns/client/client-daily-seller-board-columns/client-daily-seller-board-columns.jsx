@@ -2,7 +2,7 @@ import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {MultilineTextHeaderCell, renderFieldValueCell, ScrollingCell} from '@components/data-grid-cells/data-grid-cells'
+import {MultilineTextHeaderCell, MultilineTextCell, ScrollingCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
@@ -12,7 +12,7 @@ export const clientDailySellerBoardColumns = () => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
   },
 
@@ -21,34 +21,34 @@ export const clientDailySellerBoardColumns = () => [
     headerName: t(TranslationKey.SKU),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SKU)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
   },
 
   {
     field: 'title',
-    headerName: t(TranslationKey.Title),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+    headerName: 'Title',
+    renderHeader: () => <MultilineTextHeaderCell text={'Title'} />,
 
     renderCell: params => <ScrollingCell value={params.value} />,
     width: 250,
   },
 
   {
-    field: 'stockValue',
-    headerName: t(TranslationKey.Quantity),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
+    field: 'fbaFbmStock',
+    headerName: 'FBA/FBM Stock',
+    renderHeader: () => <MultilineTextHeaderCell text={'FBA/FBM Stock'} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
   },
 
   {
     field: 'reserved',
-    headerName: t(TranslationKey.Reserved),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
+    headerName: 'Reserved',
+    renderHeader: () => <MultilineTextHeaderCell text={'Reserved'} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
   },
 
@@ -57,14 +57,14 @@ export const clientDailySellerBoardColumns = () => [
     headerName: t(TranslationKey.ROI),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ROI)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 150,
   },
 
   {
     field: 'comment',
-    headerName: t(TranslationKey.Comment),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+    headerName: 'Comment',
+    renderHeader: () => <MultilineTextHeaderCell text={'Comment'} />,
 
     renderCell: params => <ScrollingCell value={params.value} />,
     width: 250,
@@ -75,7 +75,7 @@ export const clientDailySellerBoardColumns = () => [
     headerName: t(TranslationKey.DaysOfStockLeft),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.DaysOfStockLeft)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
   },
   {
@@ -83,7 +83,7 @@ export const clientDailySellerBoardColumns = () => [
     headerName: t(TranslationKey.SentToFba),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.SentToFba)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
   },
   {
@@ -91,15 +91,15 @@ export const clientDailySellerBoardColumns = () => [
     headerName: t(TranslationKey.FbaPrepStock),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.FbaPrepStock)} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
   },
   {
     field: 'ordered',
-    headerName: t(TranslationKey.Ordered),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Ordered)} />,
+    headerName: 'Ordered',
+    renderHeader: () => <MultilineTextHeaderCell text={'Ordered'} />,
 
-    renderCell: params => renderFieldValueCell(params.value),
+    renderCell: params => <MultilineTextCell text={params.value} />,
     width: 250,
   },
 ]

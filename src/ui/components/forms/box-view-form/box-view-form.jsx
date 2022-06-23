@@ -10,9 +10,9 @@ import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {checkIsImageLink} from '@utils/checks'
@@ -47,7 +47,7 @@ export const BoxViewForm = observer(
             containerClasses={classNames.storekeeperField}
             inputComponent={
               <div className={classNames.userLinkWrapper}>
-                <UserLinkCell
+                <UserLink
                   name={storekeeper ? storekeeper?.name : box.storekeeper?.name}
                   userId={storekeeper ? storekeeper?._id : box.storekeeper?._id}
                 />
