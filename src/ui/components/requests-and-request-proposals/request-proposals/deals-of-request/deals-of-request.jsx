@@ -49,11 +49,7 @@ export const DealsOfRequest = ({requestProposals}) => {
                 <div className={classNames.userInfoWrapper}>
                   <Avatar src={getUserAvatarSrc(deal.proposal.createdBy._id)} className={classNames.cardImg} />
                   <div className={classNames.userNameWrapper}>
-<<<<<<< HEAD
-                    <UserLink name={deal.proposal.createdBy.name} userId={deal.proposal.createdBy._id} />
-=======
-                    <UserLinkCell blackText name={deal.proposal.createdBy.name} userId={deal.proposal.createdBy._id} />
->>>>>>> 3fbbe501 (2716 2752  2746 2745 2754 2743 2629 2547 2755 2759 2760)
+                    <UserLink blackText name={deal.proposal.createdBy.name} userId={deal.proposal.createdBy._id} />
 
                     <Typography>{t(TranslationKey.Reviews)}</Typography>
                   </div>

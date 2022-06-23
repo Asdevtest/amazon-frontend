@@ -80,13 +80,9 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
 
                 <TableCell className={classNames.alignCenter}>{supplier.minlot}</TableCell>
                 <TableCell className={classNames.alignCenter}>{toFixedWithDollarSign(supplier.lotcost, 2)}</TableCell>
-<<<<<<< HEAD
-
-=======
                 <TableCell className={classNames.alignCenter}>
                   <UserLinkCell blackText name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
                 </TableCell>
->>>>>>> 3fbbe501 (2716 2752  2746 2745 2754 2743 2629 2547 2755 2759 2760)
                 <TableCell className={classNames.alignCenter}>{supplier.comment}</TableCell>
 
                 <TableCell>

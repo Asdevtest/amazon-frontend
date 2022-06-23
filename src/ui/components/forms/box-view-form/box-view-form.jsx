@@ -10,12 +10,9 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
-<<<<<<< HEAD
-import {UserLink} from '@components/user-link'
-=======
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
->>>>>>> 3fbbe501 (2716 2752  2746 2745 2754 2743 2629 2547 2755 2759 2760)
+import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {checkIsImageLink} from '@utils/checks'
@@ -50,12 +47,8 @@ export const BoxViewForm = observer(
             containerClasses={classNames.storekeeperField}
             inputComponent={
               <div className={classNames.userLinkWrapper}>
-<<<<<<< HEAD
                 <UserLink
-=======
-                <UserLinkCell
                   blackText
->>>>>>> 3fbbe501 (2716 2752  2746 2745 2754 2743 2629 2547 2755 2759 2760)
                   name={storekeeper ? storekeeper?.name : box.storekeeper?.name}
                   userId={storekeeper ? storekeeper?._id : box.storekeeper?._id}
                 />
