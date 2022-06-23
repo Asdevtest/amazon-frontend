@@ -109,7 +109,7 @@ export const OrderProductModal = ({
 
   const onClickSubmit = () => {
     onTriggerOpenModal('showOrderModal')
-    onSubmit(orderState)
+    onSubmit(orderState.map(el => ({...el, destinationId: el.destinationId ? el.destinationId : null})))
     setSubmitIsClicked(true)
   }
 
@@ -118,7 +118,6 @@ export const OrderProductModal = ({
       order =>
         order.storekeeperId === '' ||
         order.logicsTariffId === '' ||
-        // order.destinationId === '' ||
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)),
     ) ||
@@ -177,9 +176,7 @@ export const OrderProductModal = ({
       </TableContainer>
 
       <div className={classNames.sumWrapper}>
-        <Typography className={classNames.sumText}>{`${t(
-          TranslationKey['Total amount of orders'],
-        )}: ${toFixedWithDollarSign(
+        <Typography className={classNames.sumText}>{`${t(TranslationKey['Total amount'])}: ${toFixedWithDollarSign(
           productsForRender.reduce((ac, cur) => (ac += calcProductsPriceWithDelivery(cur, cur)), 0),
           2,
         )}`}</Typography>

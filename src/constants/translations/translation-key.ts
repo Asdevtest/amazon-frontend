@@ -1013,8 +1013,7 @@ export enum TranslationKey {
   "Button to set the status, the product card remains in the supervisor's work (can be changed)" = "Button to set the status, the product card remains in the supervisor's work (can be changed)",
   'Sizes' = 'Sizes',
   'State the reason for stopping' = 'State the reason for stopping',
-
-  // '' = '',
+  'Total amount' = 'Total amount',
   // '' = '',
   // '' = '',
   // '' = '',

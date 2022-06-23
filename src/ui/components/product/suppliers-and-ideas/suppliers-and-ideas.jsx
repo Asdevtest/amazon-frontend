@@ -1,9 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, {useEffect, useRef} from 'react'
 
-import {Typography, Divider, Paper} from '@material-ui/core'
 import {observer} from 'mobx-react'
-import Carousel from 'react-material-ui-carousel'
 import {useHistory} from 'react-router-dom'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -14,7 +11,6 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
 import {t} from '@utils/translations'
 
-import {Button} from '../../buttons/button'
 import {SuppliersAndIdeasModel} from './suppliers-and-ideas.model'
 import {useClassNames} from './suppliers-and-ideas.style'
 
@@ -42,8 +38,6 @@ export const SuppliersAndIdeas = observer(({productId}) => {
     onSetCurIdea,
     onEditIdea,
   } = model.current
-
-  console.log('ideasData', ideasData)
 
   return (
     <div className={classNames.mainWrapper}>

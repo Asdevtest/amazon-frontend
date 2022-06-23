@@ -2,7 +2,12 @@ import {Radio} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {MultilineTextCell, SmallRowImageCell, TrashCell} from '@components/data-grid-cells/data-grid-cells'
+import {
+  MultilineTextCell,
+  renderFieldValueCell,
+  SmallRowImageCell,
+  TrashCell,
+} from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
@@ -62,7 +67,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => renderFieldValueCell(params.value),
     width: 120,
   },
 

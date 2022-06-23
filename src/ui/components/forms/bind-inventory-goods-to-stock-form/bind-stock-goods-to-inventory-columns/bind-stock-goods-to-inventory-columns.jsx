@@ -1,6 +1,6 @@
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {MultilineTextCell, TrashCell} from '@components/data-grid-cells/data-grid-cells'
+import {MultilineTextCell, renderFieldValueCell, TrashCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
@@ -22,7 +22,7 @@ export const sourceColumns = () => [
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
@@ -66,7 +66,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 

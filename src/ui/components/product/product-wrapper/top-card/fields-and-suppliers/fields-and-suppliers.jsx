@@ -279,77 +279,6 @@ export const FieldsAndSuppliers = observer(
                 }
               />
             </Box>
-
-            <div className={classNames.suppliersWrapper}>
-              <Typography variant="h6" className={classNames.supplierTitle}>
-                {t(TranslationKey['List of suppliers'])}
-              </Typography>
-
-              {!(
-                !showActionBtns ||
-                (checkIsClient(curUserRole) && product.archive) ||
-                (checkIsClient(curUserRole) && !product.isCreatedByClient) ||
-                (checkIsClient(curUserRole) && !clientToEditStatuses.includes(productBase.status)) ||
-                checkIsSupervisor(curUserRole) ||
-                checkIsAdmin(curUserRole) ||
-                (checkIsResearcher(curUserRole) &&
-                  productBase.status === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])
-              ) ? (
-                <div className={classNames.supplierActionsWrapper}>
-                  <Typography variant="h6" className={classNames.supplierActionsTitle}>
-                    {t(TranslationKey.Actions)}
-                  </Typography>
-                  <Container disableGutters className={classNames.supplierContainer}>
-                    <Button
-                      tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
-                      className={classNames.iconBtn}
-                      onClick={() => onClickSupplierBtns('add')}
-                    >
-                      <AddIcon />
-                    </Button>
-                    {selectedSupplier ? (
-                      <>
-                        <Button
-                          tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                          className={classNames.iconBtn}
-                          onClick={() => onClickSupplierBtns('edit')}
-                        >
-                          <EditIcon />
-                        </Button>
-
-                        {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
-                          <Button
-                            tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                            className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
-                            onClick={() => onClickSupplierBtns('delete')}
-                          >
-                            <DeleteIcon />
-                          </Button>
-                        )}
-
-                        <Button
-                          tooltipInfoContent={
-                            isSupplierAcceptRevokeActive
-                              ? t(TranslationKey['Remove the current supplier'])
-                              : t(TranslationKey['Select a supplier as the current supplier'])
-                          }
-                          className={clsx(classNames.iconBtn, classNames.iconBtnAccept, {
-                            [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
-                          })}
-                          onClick={() =>
-                            isSupplierAcceptRevokeActive
-                              ? onClickSupplierBtns('acceptRevoke')
-                              : onClickSupplierBtns('accept')
-                          }
-                        >
-                          {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
-                        </Button>
-                      </>
-                    ) : undefined}
-                  </Container>
-                </div>
-              ) : undefined}
-            </div>
           </div>
 
           {Number(product.strategyStatus) ===
@@ -431,6 +360,76 @@ export const FieldsAndSuppliers = observer(
             </div>
           )}
         </Box>
+        <div className={classNames.suppliersWrapper}>
+          <Typography variant="h6" className={classNames.supplierTitle}>
+            {t(TranslationKey['List of suppliers'])}
+          </Typography>
+
+          {!(
+            !showActionBtns ||
+            (checkIsClient(curUserRole) && product.archive) ||
+            (checkIsClient(curUserRole) && !product.isCreatedByClient) ||
+            (checkIsClient(curUserRole) && !clientToEditStatuses.includes(productBase.status)) ||
+            checkIsSupervisor(curUserRole) ||
+            checkIsAdmin(curUserRole) ||
+            (checkIsResearcher(curUserRole) &&
+              productBase.status === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])
+          ) ? (
+            <div className={classNames.supplierActionsWrapper}>
+              <Typography variant="h6" className={classNames.supplierActionsTitle}>
+                {t(TranslationKey.Actions)}
+              </Typography>
+              <Container disableGutters className={classNames.supplierContainer}>
+                <Button
+                  tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
+                  className={classNames.iconBtn}
+                  onClick={() => onClickSupplierBtns('add')}
+                >
+                  <AddIcon />
+                </Button>
+                {selectedSupplier ? (
+                  <>
+                    <Button
+                      tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                      className={classNames.iconBtn}
+                      onClick={() => onClickSupplierBtns('edit')}
+                    >
+                      <EditIcon />
+                    </Button>
+
+                    {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
+                      <Button
+                        tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
+                        className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
+                        onClick={() => onClickSupplierBtns('delete')}
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    )}
+
+                    <Button
+                      tooltipInfoContent={
+                        isSupplierAcceptRevokeActive
+                          ? t(TranslationKey['Remove the current supplier'])
+                          : t(TranslationKey['Select a supplier as the current supplier'])
+                      }
+                      className={clsx(classNames.iconBtn, classNames.iconBtnAccept, {
+                        [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
+                      })}
+                      onClick={() =>
+                        isSupplierAcceptRevokeActive
+                          ? onClickSupplierBtns('acceptRevoke')
+                          : onClickSupplierBtns('accept')
+                      }
+                    >
+                      {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
+                    </Button>
+                  </>
+                ) : undefined}
+              </Container>
+            </div>
+          ) : undefined}
+        </div>
       </Grid>
     )
   },

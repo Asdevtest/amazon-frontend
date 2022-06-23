@@ -132,6 +132,9 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: '#F4F4F4',
     width: '100%',
     height: 40,
+    '&:focus-within': {
+      backgroundColor: '#fff',
+    },
   },
 
   searchContainer: {
