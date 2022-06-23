@@ -21,7 +21,7 @@ export const myRequestsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <ShortDateCell params={params} />,
-    width: 117,
+    width: 127,
     type: 'date',
   },
 
@@ -69,7 +69,7 @@ export const myRequestsViewColumns = () => [
     renderCell: params => (
       <MultilineTextCell text={`${params.value} / ${params.row.originalData.maxAmountOfProposals} `} />
     ),
-    width: 120,
+    width: 150,
   },
 
   {

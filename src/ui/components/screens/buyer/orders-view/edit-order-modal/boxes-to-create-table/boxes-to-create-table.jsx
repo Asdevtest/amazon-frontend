@@ -1,5 +1,3 @@
-import {ToggleButton, ToggleButtonGroup} from '@mui/material'
-
 import React, {useState} from 'react'
 
 import {Checkbox, TableCell, TableRow, Typography} from '@material-ui/core'
@@ -12,6 +10,8 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 import {Table} from '@components/table'
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
@@ -20,18 +20,18 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './boxes-to-create-table.style'
 
-const WAREHOUSE_RECEIVE_HEAD_CELLS = [
+const WAREHOUSE_RECEIVE_HEAD_CELLS = () => [
   {align: 'center', title: t(TranslationKey.Box)},
   {align: 'center', title: t(TranslationKey.Quantity)},
-  {align: 'center', title: t(TranslationKey.Demensions)},
+  {align: 'center', title: t(TranslationKey.Sizes)},
   {align: 'center', title: t(TranslationKey.Weight)},
   {align: 'center', title: t(TranslationKey['Volume weight'])},
   {align: 'center', title: t(TranslationKey['Final weight'])},
 ]
 
-const renderHeadRow = (
+const renderHeadRow = () => (
   <TableRow>
-    {WAREHOUSE_RECEIVE_HEAD_CELLS.map((item, index) => (
+    {WAREHOUSE_RECEIVE_HEAD_CELLS().map((item, index) => (
       <TableCell key={index} align={item.align}>
         {item.title}
       </TableCell>
@@ -207,21 +207,21 @@ export const BoxesToCreateTable = ({
       </Typography>
 
       <div className={classNames.sizesSubWrapper}>
-        <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-          <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+        <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+          <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
             {'In'}
-          </ToggleButton>
-          <ToggleButton disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+          </ToggleBtn>
+          <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
             {'Cm'}
-          </ToggleButton>
-        </ToggleButtonGroup>
+          </ToggleBtn>
+        </ToggleBtnGroup>
       </div>
 
       <Table
         rowsOnly
         data={newBoxes}
         BodyRow={TableBodyBoxRow}
-        renderHeadRow={renderHeadRow}
+        renderHeadRow={renderHeadRow()}
         rowsHandlers={{onRemoveBox, onClickBarcodeCheckbox, onClickUpdateSupplierStandart}}
         barcodeIsExist={barcodeIsExist}
         volumeWeightCoefficient={volumeWeightCoefficient}

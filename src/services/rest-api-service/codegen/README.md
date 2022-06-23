@@ -338,7 +338,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1AdminsOrdersLogicsTariff](docs/ApiV1AdminsOrdersLogicsTariff.md)
  - [TestSwagger.ApiV1AdminsOrdersLogicsTariffConditionsByRegion](docs/ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md)
  - [TestSwagger.ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest](docs/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest.md)
- - [TestSwagger.ApiV1AdminsOrdersOrderSupplier](docs/ApiV1AdminsOrdersOrderSupplier.md)
  - [TestSwagger.ApiV1AdminsPaymentsCreatedBy](docs/ApiV1AdminsPaymentsCreatedBy.md)
  - [TestSwagger.ApiV1AdminsProductsVacCheckedby](docs/ApiV1AdminsProductsVacCheckedby.md)
  - [TestSwagger.ApiV1AdminsTasksLightBoxes](docs/ApiV1AdminsTasksLightBoxes.md)

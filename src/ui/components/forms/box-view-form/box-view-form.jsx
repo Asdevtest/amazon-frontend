@@ -1,5 +1,3 @@
-import {ToggleButton, ToggleButtonGroup} from '@mui/material'
-
 import {React, useState} from 'react'
 
 import {Checkbox, Grid, Link, Typography} from '@material-ui/core'
@@ -12,7 +10,12 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+<<<<<<< HEAD
 import {UserLink} from '@components/user-link'
+=======
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
+>>>>>>> 3fbbe501 (2716 2752  2746 2745 2754 2743 2629 2547 2755 2759 2760)
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {checkIsImageLink} from '@utils/checks'
@@ -47,7 +50,12 @@ export const BoxViewForm = observer(
             containerClasses={classNames.storekeeperField}
             inputComponent={
               <div className={classNames.userLinkWrapper}>
+<<<<<<< HEAD
                 <UserLink
+=======
+                <UserLinkCell
+                  blackText
+>>>>>>> 3fbbe501 (2716 2752  2746 2745 2754 2743 2629 2547 2755 2759 2760)
                   name={storekeeper ? storekeeper?.name : box.storekeeper?.name}
                   userId={storekeeper ? storekeeper?._id : box.storekeeper?._id}
                 />
@@ -210,14 +218,14 @@ export const BoxViewForm = observer(
                 <div className={classNames.sizesSubWrapper}>
                   <Typography>{t(TranslationKey.Demensions)}</Typography>
 
-                  <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                    <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                  <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+                    <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
                       {'In'}
-                    </ToggleButton>
-                    <ToggleButton disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                    </ToggleBtn>
+                    <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
                       {'Cm'}
-                    </ToggleButton>
-                  </ToggleButtonGroup>
+                    </ToggleBtn>
+                  </ToggleBtnGroup>
                 </div>
 
                 <div className={classNames.demensionsWrapper}>

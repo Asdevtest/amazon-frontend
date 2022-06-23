@@ -72,7 +72,7 @@ export const logisticsTariffsColumns = handlers => [
   {
     field: 'action',
     headerName: t(TranslationKey.Actions),
-    width: 150,
+    width: 160,
     renderCell: params => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey['Select Tariff'])}

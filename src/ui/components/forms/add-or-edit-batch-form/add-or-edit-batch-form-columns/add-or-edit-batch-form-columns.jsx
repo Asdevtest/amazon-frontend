@@ -62,7 +62,7 @@ export const addOrEditBatchFormColumns = () => [
   {
     field: 'client',
     headerName: t(TranslationKey.Client),
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.client._id} />,
+    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.client._id} />,
     width: 160,
   },
 

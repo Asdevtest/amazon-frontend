@@ -80,7 +80,6 @@ export const useClassNames = makeStyles(() => ({
   imageListWrapper: {
     width: '95%',
     margin: '0 auto',
-
     maxHeight: '250px',
     overflowY: 'auto',
   },

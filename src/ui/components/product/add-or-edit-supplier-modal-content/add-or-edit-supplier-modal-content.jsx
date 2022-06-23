@@ -1,5 +1,3 @@
-import {ToggleButton, ToggleButtonGroup} from '@mui/material'
-
 import {React, useState} from 'react'
 
 import {Checkbox, Container, Divider, Grid, Typography} from '@material-ui/core'
@@ -16,6 +14,8 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
@@ -546,14 +546,14 @@ export const AddOrEditSupplierModalContent = observer(
                 <div className={classNames.sizesSubWrapper}>
                   <Typography>{t(TranslationKey.Demensions)}</Typography>
 
-                  <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                    <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                  <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+                    <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
                       {'In'}
-                    </ToggleButton>
-                    <ToggleButton disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                    </ToggleBtn>
+                    <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
                       {'Cm'}
-                    </ToggleButton>
-                  </ToggleButtonGroup>
+                    </ToggleBtn>
+                  </ToggleBtnGroup>
                 </div>
 
                 <div className={classNames.sizesBottomWrapper}>

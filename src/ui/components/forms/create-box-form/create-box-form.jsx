@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-import {ToggleButton, ToggleButtonGroup} from '@mui/material'
-
 import {useState} from 'react'
 
 import {Divider, Typography, Checkbox} from '@material-ui/core'
@@ -15,6 +13,8 @@ import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {LabelField} from '@components/label-field/label-field'
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {roundSafely} from '@utils/calculation'
 import {checkIsPositiveNum} from '@utils/checks'
@@ -350,22 +350,22 @@ export const CreateBoxForm = observer(
           <Divider className={classNames.divider} />
 
           <div className={classNames.sizesSubWrapper}>
-            <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-              <ToggleButton
+            <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+              <ToggleBtn
                 disabled={sizeSetting === sizesType.INCHES}
                 value={sizesType.INCHES}
                 onClick={e => setSizeValue(e.target.value.toLowerCase())}
               >
                 {'In'}
-              </ToggleButton>
-              <ToggleButton
+              </ToggleBtn>
+              <ToggleBtn
                 disabled={sizeSetting === sizesType.CM}
                 value={sizesType.CM}
                 onClick={e => setSizeValue(e.target.value.toLowerCase())}
               >
                 {'Cm'}
-              </ToggleButton>
-            </ToggleButtonGroup>
+              </ToggleBtn>
+            </ToggleBtnGroup>
           </div>
 
           <div className={classNames.blockOfNewBoxWrapper}>

@@ -130,9 +130,9 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
   </div>
 ))
 
-export const UserLinkCell = withStyles(styles)(({classes: classNames, name, userId}) => (
+export const UserLinkCell = withStyles(styles)(({classes: classNames, name, userId, blackText}) => (
   <div className={classNames.userLinkWrapper}>
-    <UserLink name={name} userId={userId} />
+    <UserLink name={name} userId={userId} blackText={blackText} />
   </div>
 ))
 
@@ -571,9 +571,10 @@ export const SuccessActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText})
 export const NormalActionBtnCell = withStyles(styles)(({classes: classNames, onClickOkBtn, bTnText}) => (
   <div className={classNames.normalActionBtnWrapper}>
     <Button
-      tooltipInfoContent={t(TranslationKey['To assign the order to Byer'])}
+      // tooltipInfoContent={t(TranslationKey['To assign the order to Byer'])}
       variant="contained"
       color="primary"
+      className={classNames.actionBtn}
       onClick={onClickOkBtn}
     >
       {bTnText}

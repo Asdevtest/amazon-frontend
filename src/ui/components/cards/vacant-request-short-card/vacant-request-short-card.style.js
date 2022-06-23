@@ -5,29 +5,34 @@ export const useClassNames = makeStyles(() => ({
     minHeight: '373px',
     borderRadius: '4px',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    padding: '30px 20px ',
   },
 
   cardTitleBlockWrapper: {
-    padding: '30px 20px 30px 20px',
+    marginBottom: '20px',
   },
 
   cardTitle: {
-    fontWeight: 'bold',
-    fontSize: '14px',
-    lineHeight: '16px',
-    color: '#354256',
-    marginBottom: '10px',
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+    marginBottom: '20px',
     height: '50px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
 
   cardSubTitle: {
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+    color: '#656565',
     marginBottom: '5px',
   },
 
   cardActionBlockWrapper: {
-    padding: '0px 20px 30px 20px',
+    padding: '10px 0 0 0',
     width: '100%',
 
     display: 'flex',
@@ -44,11 +49,12 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     width: '100%',
+    marginBottom: '10px',
   },
 
   timeInfoWrapper: {
     width: '100%',
-    margin: '22px 0 10px',
+    margin: '20px 0',
 
     display: 'flex',
     justifyContent: 'space-between',
@@ -64,14 +70,15 @@ export const useClassNames = makeStyles(() => ({
   },
 
   actionButton: {
-    width: '242px',
-    height: '52px',
+    width: '254px',
+    height: '40px',
     marginTop: '30px',
   },
 
   cardPrice: {
     fontSize: '14px',
-    lineHeight: '16px',
+    lineHeight: '17px',
+    fontWeight: '600',
     color: '#006CFF',
   },
 
@@ -90,13 +97,29 @@ export const useClassNames = makeStyles(() => ({
     alignSelf: 'flex-start',
     display: 'flex',
     alignItems: 'center',
-    marginBottom: '10px',
+
+    '& > :first-child': {
+      marginRight: '5px',
+    },
   },
 
   updatedAtText: {
-    marginRight: '20px',
     fontSize: '14px',
     lineHeight: '16px',
-    fontWeight: 'bold',
+    fontWeight: '400',
+    color: '#656565',
+  },
+
+  deadline: {
+    fontSize: '14px',
+    lineHeight: '17px',
+    fontWeight: '600',
+    color: '#001029',
+  },
+
+  timeWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 }))

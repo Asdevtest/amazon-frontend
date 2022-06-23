@@ -20,7 +20,11 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
         <Typography>{itemIndex + 1}</Typography>
       </TableCell>
       <TableCell className={classNames.indexCell}>
-        <Button className={classNames.infoBtn} onClick={() => handlers.onClickTableRowBtn(item)}>
+        <Button
+          tooltipInfoContent={t(TranslationKey['Assign a product card to a supervisor'])}
+          className={classNames.infoBtn}
+          onClick={() => handlers.onClickTableRowBtn(item)}
+        >
           {t(TranslationKey['Get to work'])}
         </Button>
       </TableCell>

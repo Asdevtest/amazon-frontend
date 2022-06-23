@@ -1,5 +1,3 @@
-import {ToggleButton, ToggleButtonGroup} from '@mui/material'
-
 import React, {useState} from 'react'
 
 import {Divider, Typography, Paper, Checkbox, Link} from '@material-ui/core'
@@ -14,6 +12,8 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {checkIsImageLink} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed, toFixedWithKg} from '@utils/text'
@@ -104,14 +104,14 @@ const Box = ({
               : t(TranslationKey['Sizes from storekeeper:'])}
           </Typography>
 
-          <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-            <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+          <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+            <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
               {'In'}
-            </ToggleButton>
-            <ToggleButton disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+            </ToggleBtn>
+            <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
               {'Cm'}
-            </ToggleButton>
-          </ToggleButtonGroup>
+            </ToggleBtn>
+          </ToggleBtnGroup>
 
           {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
             <div className={classNames.demensionsWrapper}>

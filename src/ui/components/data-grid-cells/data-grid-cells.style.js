@@ -446,6 +446,7 @@ export const styles = createStyles(() => ({
     alignItems: 'center',
     justifyContent: 'start',
     marginLeft: '6px',
+    padding: '0 10px',
   },
 
   multilineTextAlignLeft: {
@@ -471,7 +472,6 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 
   multilineHeaderText: {
@@ -484,6 +484,7 @@ export const styles = createStyles(() => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '16px',
+    padding: '0 10px',
   },
 
   headerText: {
@@ -496,6 +497,7 @@ export const styles = createStyles(() => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '16px',
+    padding: '0 10px',
   },
 
   multilineStatusText: {
@@ -504,6 +506,7 @@ export const styles = createStyles(() => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
+    padding: '0 10px',
   },
 
   linkText: {
@@ -517,6 +520,22 @@ export const styles = createStyles(() => ({
     '&:hover': {
       transform: 'scale(1.01)',
       opacity: '0.8',
+    },
+  },
+
+  blackLinkText: {
+    color: '#001029',
+    fontSize: '16px',
+    lineHeight: '140%',
+    fontWeight: '400',
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+      textDecoration: 'none',
+      border: 'none',
     },
   },
 
@@ -655,5 +674,9 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
+  },
+
+  actionBtn: {
+    display: 'flex',
   },
 }))

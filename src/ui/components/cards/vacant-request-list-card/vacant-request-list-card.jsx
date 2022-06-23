@@ -30,7 +30,7 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
               <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
 
               <div className={classNames.nameWrapper}>
-                <UserLink name={item.createdBy.name} userId={item.createdBy._id} />
+                <UserLink blackText name={item.createdBy.name} userId={item.createdBy._id} />
 
                 <Rating disabled value={item.createdBy.rating} />
               </div>

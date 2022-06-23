@@ -1,5 +1,3 @@
-import {ToggleButton, ToggleButtonGroup} from '@mui/material'
-
 import {useState} from 'react'
 
 import {Chip, Divider, NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
@@ -20,6 +18,8 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 import {Table} from '@components/table'
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {checkIsImageLink} from '@utils/checks'
@@ -349,14 +349,14 @@ export const EditBoxForm = observer(
                   {t(TranslationKey['Box dimensions'])}
                 </Typography>
 
-                <ToggleButtonGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                  <ToggleButton disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+                  <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
                     {'In'}
-                  </ToggleButton>
-                  <ToggleButton disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                  </ToggleBtn>
+                  <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
                     {'Cm'}
-                  </ToggleButton>
-                </ToggleButtonGroup>
+                  </ToggleBtn>
+                </ToggleBtnGroup>
               </div>
 
               <WarehouseDemensions orderBox={boxFields} sizeSetting={sizeSetting} />

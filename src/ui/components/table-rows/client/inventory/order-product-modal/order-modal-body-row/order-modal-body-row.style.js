@@ -158,16 +158,17 @@ export const useClassNames = makeStyles(() => ({
   },
 
   storekeeperBtn: {
+    width: '100%',
     height: '32px',
   },
 
   commentInput: {
-    height: '100px',
-    width: '200px',
+    height: '60px',
+    // width: '200px',
   },
 
   amazonTitle: {
-    maxWidth: '200px',
+    // maxWidth: '200px',
     maxHeight: '110px',
     overflowX: 'auto',
     marginBottom: '5px',
@@ -198,5 +199,9 @@ export const useClassNames = makeStyles(() => ({
 
   sumText: {
     whiteSpace: 'nowrap',
+  },
+
+  cell: {
+    padding: '0 20px',
   },
 }))

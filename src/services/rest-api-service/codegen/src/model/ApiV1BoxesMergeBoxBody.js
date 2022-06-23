@@ -22,13 +22,11 @@ class ApiV1BoxesMergeBoxBody {
     /**
      * Constructs a new <code>ApiV1BoxesMergeBoxBody</code>.
      * @alias module:model/ApiV1BoxesMergeBoxBody
-     * @param shippingLabel {String} Ссылка на наклейку для коробки
-     * @param destinationId {String} id склада - склады куда отправляют.
      * @param logicsTariffId {String} id тарифа доставки.
      */
-    constructor(shippingLabel, destinationId, logicsTariffId) { 
+    constructor(logicsTariffId) { 
         
-        ApiV1BoxesMergeBoxBody.initialize(this, shippingLabel, destinationId, logicsTariffId);
+        ApiV1BoxesMergeBoxBody.initialize(this, logicsTariffId);
     }
 
     /**
@@ -36,9 +34,7 @@ class ApiV1BoxesMergeBoxBody {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, shippingLabel, destinationId, logicsTariffId) { 
-        obj['shippingLabel'] = shippingLabel;
-        obj['destinationId'] = destinationId;
+    static initialize(obj, logicsTariffId) { 
         obj['logicsTariffId'] = logicsTariffId;
     }
 

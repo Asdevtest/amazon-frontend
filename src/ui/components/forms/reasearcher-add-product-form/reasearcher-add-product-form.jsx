@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Box, Button, InputLabel, NativeSelect} from '@material-ui/core'
+import {Box, NativeSelect} from '@material-ui/core'
 import {Alert} from '@material-ui/lab'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
@@ -15,7 +15,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {SuccessButton} from '@components/buttons/success-button'
+import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 
@@ -43,11 +43,13 @@ export const ResearcherAddProductFormRaw = observer(
           <div className={classNames.leftBlockWrapper}>
             <div>
               <Field
+                tooltipInfoContent={t(TranslationKey['Copy and paste the link to the product from Amazon'])}
                 label={t(TranslationKey['Amazon product link'])}
                 value={formFields.amazonLink}
                 onChange={onChangeFormFields('amazonLink')}
               />
               <Field
+                tooltipInfoContent={t(TranslationKey['Amazon ID number'])}
                 inputProps={{maxLength: 50}}
                 label={t(TranslationKey['Product code'])}
                 value={formFields.productCode.toUpperCase()}
@@ -66,33 +68,45 @@ export const ResearcherAddProductFormRaw = observer(
             ) : undefined}
 
             <Box mt={3} className={classNames.strategyWrapper}>
-              <InputLabel className={classNames.strategyLabel}>{t(TranslationKey['Product Strategy'])}</InputLabel>
-
-              <NativeSelect
-                disabled={chekedCode === '' || errorMsg}
-                value={formFields.strategyStatus}
-                className={classNames.nativeSelect}
-                input={<Input />}
-                onChange={onChangeFormFields('strategyStatus')}
-              >
-                {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
-                  <option key={statusIndex} value={statusCode}>
-                    {mapProductStrategyStatusEnum[statusCode]}
-                  </option>
-                ))}
-              </NativeSelect>
+              <Field
+                tooltipInfoContent={t(TranslationKey['Choose a strategy for your future product card'])}
+                label={t(TranslationKey['Product Strategy'])}
+                inputComponent={
+                  <NativeSelect
+                    disabled={chekedCode === '' || errorMsg}
+                    value={formFields.strategyStatus}
+                    className={classNames.nativeSelect}
+                    input={<Input />}
+                    onChange={onChangeFormFields('strategyStatus')}
+                  >
+                    {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
+                      <option key={statusIndex} value={statusCode}>
+                        {mapProductStrategyStatusEnum[statusCode]}
+                      </option>
+                    ))}
+                  </NativeSelect>
+                }
+              />
             </Box>
 
             <Box className={classNames.btnsWrapper}>
-              <Button variant="contained" color="primary" className={classNames.button} onClick={onClickCheckBtn}>
+              <Button
+                tooltipInfoContent={t(
+                  TranslationKey['Checking Amazon ID number for uniqueness and absence in the database'],
+                )}
+                className={classNames.button}
+                onClick={onClickCheckBtn}
+              >
                 {t(TranslationKey.Check)}
               </Button>
-              <SuccessButton
+              <Button
+                tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}
                 disabled={chekedCode === '' || errorMsg || formFields.strategyStatus < 10}
+                className={classNames.addBtn}
                 onClick={onClickAddBtn}
               >
                 {t(TranslationKey['Add a product card'])}
-              </SuccessButton>
+              </Button>
             </Box>
           </div>
 

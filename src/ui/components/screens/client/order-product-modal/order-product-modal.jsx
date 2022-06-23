@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 import {
-  Container,
-  Divider,
+  Container, // Divider,
   Typography,
   Table,
   TableBody,
@@ -131,23 +130,23 @@ export const OrderProductModal = ({
   return (
     <Container disableGutters maxWidth={'xl'}>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Order of goods'])}</Typography>
-      <Divider className={classNames.divider} />
+      {/* <Divider className={classNames.divider} /> */}
       <TableContainer className={classNames.tableWrapper}>
         <Table className={classNames.table}>
           <TableHead>
             <TableRow>
-              <TableCell className={(classNames.tableCell, classNames.imgCell)}>{t(TranslationKey.Image)}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey.Product)}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey.Price)}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey['Delivery cost per piece'])}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey.Quantity)}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey.Total)}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey.BarCode)}</TableCell>
-              <TableCell className={classNames.tableCell}>{t(TranslationKey.Warehouse)}</TableCell>
+              <TableCell className={classNames.imgCell}>{t(TranslationKey.Image)}</TableCell>
+              <TableCell className={classNames.productCell}>{t(TranslationKey.Product)}</TableCell>
+              <TableCell className={classNames.priceCell}>{t(TranslationKey.Price)}</TableCell>
+              <TableCell className={classNames.deliveryCell}>{t(TranslationKey['Delivery cost per piece'])}</TableCell>
+              <TableCell className={classNames.qntCell}>{t(TranslationKey.Quantity)}</TableCell>
+              <TableCell className={classNames.totalCell}>{t(TranslationKey.Total)}</TableCell>
+              <TableCell className={classNames.barCodeCell}>{t(TranslationKey.BarCode)}</TableCell>
+              <TableCell className={classNames.warehouseCell}>{t(TranslationKey.Warehouse)}</TableCell>
 
-              <TableCell className={classNames.tableCell}>{'Storekeeper / ' + t(TranslationKey.Tariff)}</TableCell>
+              <TableCell className={classNames.tariffCell}>{`Storekeeper and ${t(TranslationKey.Tariff)}`}</TableCell>
 
-              <TableCell className={classNames.tableCell}>{t(TranslationKey['Client comment'])}</TableCell>
+              <TableCell className={classNames.commentCell}>{t(TranslationKey['Client comment'])}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

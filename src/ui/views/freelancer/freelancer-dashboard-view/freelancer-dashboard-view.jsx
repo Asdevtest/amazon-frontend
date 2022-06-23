@@ -15,6 +15,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {FreelancerDashboardViewModel} from './freelacer-dashboard-view.model'
@@ -75,9 +76,9 @@ export class FreelancerDashboardViewRaw extends Component {
       case FreelancerDashboardCardDataKey.PRODUCTS:
         return this.viewModel.productsVacant.length
       case FreelancerDashboardCardDataKey.CUR_BALANCE:
-        return this.viewModel.balance
+        return toFixed(this.viewModel.balance, 2)
       case FreelancerDashboardCardDataKey.FINES:
-        return 0
+        return toFixed('0.00', 2)
     }
   }
 }

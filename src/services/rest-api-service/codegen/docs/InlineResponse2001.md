@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 **product** | [**InlineResponse200**](InlineResponse200.md) |  | [optional] 
 **storekeeper** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **buyer** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
-**orderSupplier** | [**ApiV1AdminsOrdersOrderSupplier**](ApiV1AdminsOrdersOrderSupplier.md) |  | [optional] 
+**orderSupplier** | [**ApiV1AdminsGetProductsByStatusSuppliers**](ApiV1AdminsGetProductsByStatusSuppliers.md) |  | [optional] 
 **createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 
 

@@ -22,7 +22,6 @@ import ApiV1AdminsOrdersDestination from './model/ApiV1AdminsOrdersDestination';
 import ApiV1AdminsOrdersLogicsTariff from './model/ApiV1AdminsOrdersLogicsTariff';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 import ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest from './model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest';
-import ApiV1AdminsOrdersOrderSupplier from './model/ApiV1AdminsOrdersOrderSupplier';
 import ApiV1AdminsPaymentsCreatedBy from './model/ApiV1AdminsPaymentsCreatedBy';
 import ApiV1AdminsProductsVacCheckedby from './model/ApiV1AdminsProductsVacCheckedby';
 import ApiV1AdminsTasksLightBoxes from './model/ApiV1AdminsTasksLightBoxes';
@@ -328,12 +327,6 @@ export {
      * @property {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest}
      */
     ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest,
-
-    /**
-     * The ApiV1AdminsOrdersOrderSupplier model constructor.
-     * @property {module:model/ApiV1AdminsOrdersOrderSupplier}
-     */
-    ApiV1AdminsOrdersOrderSupplier,
 
     /**
      * The ApiV1AdminsPaymentsCreatedBy model constructor.

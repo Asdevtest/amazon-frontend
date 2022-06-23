@@ -5,13 +5,26 @@ export const styles = createStyles(() => ({
   alert: {
     marginTop: '24px',
   },
-  button: {
-    marginRight: '24px',
-  },
+
   btnsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     marginTop: '24px',
+  },
+
+  addBtn: {
+    color: '#fff',
+    backgroundColor: '#4caf50',
+    '&:hover': {
+      backgroundColor: '#009a07',
+
+      '@media (hover: none)': {
+        backgroundColor: '#009a07',
+      },
+    },
+    '&:disabled': {
+      backgroundColor: 'rgba(15, 169, 20, 0.5)',
+    },
   },
 
   strategyLabel: {

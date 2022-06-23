@@ -66,7 +66,9 @@ export const exchangeСreatedColumns = () => [
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
+    renderCell: params => (
+      <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
+    ),
     width: 200,
   },
 

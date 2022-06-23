@@ -62,7 +62,7 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
       </TableCell>
 
       <TableCell>
-        <UserLinkCell name={item.client.name} userId={item.client._id} />
+        <UserLinkCell blackText name={item.client.name} userId={item.client._id} />
       </TableCell>
 
       <TableCell>
@@ -129,7 +129,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
             containerClasses={classNames.storekeeperField}
             inputComponent={
               <div className={classNames.userLinkWrapper}>
-                <UserLinkCell name={batch.storekeeper?.name} userId={batch.storekeeper?._id} />
+                <UserLinkCell blackText name={batch.storekeeper?.name} userId={batch.storekeeper?._id} />
               </div>
             }
           />

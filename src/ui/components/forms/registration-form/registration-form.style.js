@@ -28,4 +28,9 @@ export const styles = theme =>
       top: 35,
       cursor: 'pointer',
     },
+
+    inputAdornment: {
+      position: 'absolute',
+      left: 0,
+    },
   })

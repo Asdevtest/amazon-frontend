@@ -126,6 +126,7 @@ export const CreateOrEditProposalContent = ({
             />
             <div>
               <UserLink
+                blackText
                 name={request?.request.createdBy?.name || request.createdBy?.name}
                 userId={request.createdBy?._id}
               />

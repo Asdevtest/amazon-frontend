@@ -46,7 +46,7 @@ export const DeliveryParameters = ({order}) => {
           label={'Storekeeper'}
           containerClasses={classNames.parameterTableCellWrapper}
           labelClasses={classNames.fieldLabel}
-          inputComponent={<UserLink name={order.storekeeper?.name} userId={order.storekeeper?._id} />}
+          inputComponent={<UserLink blackText name={order.storekeeper?.name} userId={order.storekeeper?._id} />}
         />
 
         <OrderParameter label={t(TranslationKey.Tariff)} value={getFullTariffTextForBoxOrOrder(order)} />
@@ -72,7 +72,7 @@ export const DeliveryParameters = ({order}) => {
           label={'Buyer'}
           containerClasses={classNames.parameterTableCellWrapper}
           labelClasses={classNames.fieldLabel}
-          inputComponent={<UserLink name={order.buyer?.name} userId={order.buyer?._id} />}
+          inputComponent={<UserLink blackText name={order.buyer?.name} userId={order.buyer?._id} />}
         />
       </div>
     </div>

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Chip, Typography, TableCell, TableRow, NativeSelect, IconButton} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -42,6 +42,7 @@ export const OrderModalBodyRow = ({
   }
 
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+  const [pricePerUnit, setPerPriceUnit] = useState(null)
 
   const onSubmitSelectStorekeeperAndTariff = (storekeeperId, tariffId) => {
     onChangeInput({target: {value: storekeeperId}}, 'storekeeperId')
@@ -85,6 +86,20 @@ export const OrderModalBodyRow = ({
 
   const costDeliveryOfBatch = weightOfBatch * curTariffRate || ''
 
+  useEffect(() => {
+    if (orderState.amount > 0 && costDeliveryOfBatch) {
+      setPerPriceUnit(
+        toFixed(
+          (+toFixed(costDeliveryOfBatch, 2) + +toFixed(calcProductsPriceWithDelivery(item, orderState), 2)) /
+            +orderState.amount,
+          2,
+        ),
+      )
+    } else {
+      setPerPriceUnit(t(TranslationKey['No data']))
+    }
+  }, [costDeliveryOfBatch, item, orderState, orderState.amount])
+
   return (
     <React.Fragment>
       <TableRow
@@ -101,7 +116,7 @@ export const OrderModalBodyRow = ({
           </div>
         </TableCell>
 
-        <TableCell>
+        <TableCell className={classNames.cell}>
           <div>
             <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
             <Typography>{`ASIN: ${item.asin}`}</Typography>
@@ -113,18 +128,18 @@ export const OrderModalBodyRow = ({
           </div>
         </TableCell>
 
-        <TableCell>
+        <TableCell className={classNames.cell}>
           <Typography>{item.currentSupplier && item.currentSupplier.price}</Typography>
         </TableCell>
 
-        <TableCell>
+        <TableCell className={classNames.cell}>
           <Typography>
             {item.currentSupplier &&
               toFixed(item.currentSupplier.batchDeliveryCostInDollar / item.currentSupplier.amount, 2)}
           </Typography>
         </TableCell>
 
-        <TableCell>
+        <TableCell className={classNames.cell}>
           <Input
             inputProps={{maxLength: 6, min: 0}}
             value={orderState.amount}
@@ -133,11 +148,11 @@ export const OrderModalBodyRow = ({
           />
         </TableCell>
 
-        <TableCell className={classNames.totalCell}>
+        <TableCell className={classNames.cell}>
           <Typography>{toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}</Typography>
         </TableCell>
 
-        <TableCell>
+        <TableCell className={classNames.cell}>
           <Chip
             classes={{
               root: classNames.barcodeChip,
@@ -160,7 +175,7 @@ export const OrderModalBodyRow = ({
           />
         </TableCell>
 
-        <TableCell>
+        <TableCell className={classNames.cell}>
           <NativeSelect
             variant="filled"
             inputProps={{
@@ -181,7 +196,7 @@ export const OrderModalBodyRow = ({
           </NativeSelect>
         </TableCell>
 
-        <TableCell className={classNames.storekeeperSelectCell}>
+        <TableCell className={classNames.cell}>
           <Button
             disableElevation
             color="primary"
@@ -202,7 +217,7 @@ export const OrderModalBodyRow = ({
           </Button>
         </TableCell>
 
-        <TableCell>
+        <TableCell className={classNames.cell}>
           <Input
             multiline
             minRows={4}
@@ -271,6 +286,14 @@ export const OrderModalBodyRow = ({
                   {toFixed(costDeliveryOfBatch, 2) || t(TranslationKey['No data'])}
                 </Typography>
               }
+            />
+
+            <Field
+              oneLine
+              containerClasses={classNames.containerField}
+              labelClasses={classNames.labelField}
+              label={t(TranslationKey['Cost per unit in the USA']) + ',$'}
+              inputComponent={<Typography className={classNames.sumText}>{pricePerUnit}</Typography>}
             />
           </div>
         </TableCell>

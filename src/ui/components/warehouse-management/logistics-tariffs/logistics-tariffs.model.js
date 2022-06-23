@@ -51,8 +51,14 @@ export class LogisticsTariffsModel {
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.getDataGridState()
+    }
   }
 
   onChangeFilterModel(model) {

@@ -3,8 +3,6 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import SearchIcon from '@mui/icons-material/Search'
 import TableRowsIcon from '@mui/icons-material/TableRows'
 import ViewModuleIcon from '@mui/icons-material/ViewModule'
-import ToggleButton from '@mui/material/ToggleButton'
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
 import React, {Component} from 'react'
 
@@ -23,6 +21,8 @@ import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
@@ -79,14 +79,14 @@ class VacantRequestsViewRaw extends Component {
             <MainContent>
               <div className={classNames.tablePanelWrapper}>
                 <div className={classNames.tablePanelViewWrapper}>
-                  <ToggleButtonGroup exclusive value={viewMode} onChange={onChangeViewMode}>
-                    <ToggleButton value={tableViewMode.LIST}>
-                      <TableRowsIcon color="primary" />
-                    </ToggleButton>
-                    <ToggleButton value={tableViewMode.BLOCKS}>
-                      <ViewModuleIcon color="primary" />
-                    </ToggleButton>
-                  </ToggleButtonGroup>
+                  <ToggleBtnGroup exclusive value={viewMode} onChange={onChangeViewMode}>
+                    <ToggleBtn value={tableViewMode.LIST}>
+                      <TableRowsIcon color="#fff" />
+                    </ToggleBtn>
+                    <ToggleBtn value={tableViewMode.BLOCKS}>
+                      <ViewModuleIcon color="#fff" />
+                    </ToggleBtn>
+                  </ToggleBtnGroup>
                 </div>
 
                 <div>

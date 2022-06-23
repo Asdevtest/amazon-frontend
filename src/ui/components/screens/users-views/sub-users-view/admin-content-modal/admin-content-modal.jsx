@@ -165,6 +165,7 @@ export const AdminContentModal = observer(
             inputComponent={
               <div className={classNames.ratingWrapper}>
                 <UserLink
+                  blackText
                   name={editUserFormFields.masterUserInfo?.name}
                   userId={editUserFormFields.masterUserInfo?._id}
                 />
@@ -186,7 +187,7 @@ export const AdminContentModal = observer(
               <div className={classNames.subUsersWrapper}>
                 {editUserFormFields.subUsers.map(subUser => (
                   <div key={subUser._id} className={classNames.ratingWrapper}>
-                    <UserLink name={subUser.name} userId={subUser._id} />
+                    <UserLink blackText name={subUser.name} userId={subUser._id} />
 
                     <div className={classNames.ratingSubWrapper}>
                       <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>

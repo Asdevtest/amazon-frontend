@@ -9,6 +9,7 @@ import {observer} from 'mobx-react'
 import {SettingsModel} from '@models/settings-model'
 
 import {Input} from '@components/input'
+import {InputWithIcon} from '@components/input/input'
 
 import {StyleClass} from '../../../typings/class-name-types'
 import {useClassNames} from './field.style'
@@ -23,6 +24,7 @@ interface Props {
   inputComponent?: React.ComponentType
   error?: string
   oneLine?: boolean
+  withIcon?: boolean
 }
 
 export const Field: FC<Props> = observer(
@@ -36,6 +38,7 @@ export const Field: FC<Props> = observer(
     oneLine,
     tooltipAttentionContent,
     tooltipInfoContent,
+    withIcon,
     ...restProps
   }) => {
     const classNames = useClassNames()
@@ -69,9 +72,15 @@ export const Field: FC<Props> = observer(
             </div>
           ) : null}
         </div>
-        {inputComponent || (
-          <Input className={clsx(classNames.input, inputClasses, {[classNames.errorActive]: error})} {...restProps} />
-        )}
+        {inputComponent ||
+          (withIcon ? (
+            <InputWithIcon
+              className={clsx(classNames.input, inputClasses, {[classNames.errorActive]: error})}
+              {...restProps}
+            />
+          ) : (
+            <Input className={clsx(classNames.input, inputClasses, {[classNames.errorActive]: error})} {...restProps} />
+          ))}
         {error && <Typography className={classNames.errorText}>{error}</Typography>}
       </div>
     )

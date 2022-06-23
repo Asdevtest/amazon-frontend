@@ -12,7 +12,6 @@ docs/ApiV1AdminsOrdersDestination.md
 docs/ApiV1AdminsOrdersLogicsTariff.md
 docs/ApiV1AdminsOrdersLogicsTariffConditionsByRegion.md
 docs/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest.md
-docs/ApiV1AdminsOrdersOrderSupplier.md
 docs/ApiV1AdminsPaymentsCreatedBy.md
 docs/ApiV1AdminsProductsVacCheckedby.md
 docs/ApiV1AdminsTasksLightBoxes.md
@@ -256,7 +255,6 @@ src/model/ApiV1AdminsOrdersDestination.js
 src/model/ApiV1AdminsOrdersLogicsTariff.js
 src/model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion.js
 src/model/ApiV1AdminsOrdersLogicsTariffConditionsByRegionWest.js
-src/model/ApiV1AdminsOrdersOrderSupplier.js
 src/model/ApiV1AdminsPaymentsCreatedBy.js
 src/model/ApiV1AdminsProductsVacCheckedby.js
 src/model/ApiV1AdminsTasksLightBoxes.js
@@ -451,4 +449,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/InlineObject76.spec.js

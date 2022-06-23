@@ -9,10 +9,14 @@ import {productStatusButtonsConfigs} from '@constants/product-status-buttons-con
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-// import {ErrorButton} from '@components/buttons/error-button'
 import {Field} from '@components/field'
 
 import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from '@utils/checks'
+import {
+  translateTooltipCloseBtnMessage,
+  translateTooltipDeleteBtnMessage,
+  translateTooltipSaveBtnMessage,
+} from '@utils/translate-tooltip-message'
 import {t} from '@utils/translations'
 import {errorMessagesTranslate} from '@utils/validation'
 
@@ -65,6 +69,7 @@ export const RightSideComments = observer(
           {showActionBtns && (
             <ProductStatusButtons
               product={product}
+              curUserRole={curUserRole}
               productStatus={product?.status}
               buttonsConfig={productStatusButtonsConfig}
               onClickButton={onClickSetProductStatusBtn}
@@ -121,7 +126,7 @@ export const RightSideComments = observer(
           {showActionBtns ? (
             <div className={classNames.buttonsWrapper}>
               <Button
-                tooltipInfoContent={checkIsClient(curUserRole) && t(TranslationKey['Save changes in the product card'])}
+                tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
                 className={classNames.buttonNormal}
                 color="primary"
                 variant="contained"
@@ -130,7 +135,7 @@ export const RightSideComments = observer(
                 {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
               </Button>
               <Button
-                tooltipInfoContent={checkIsClient(curUserRole) && t(TranslationKey['Close product card'])}
+                tooltipInfoContent={translateTooltipCloseBtnMessage(curUserRole)}
                 className={clsx(classNames.buttonClose, {
                   [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
                 })}
@@ -142,7 +147,7 @@ export const RightSideComments = observer(
 
               {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product.archive) ? (
                 <Button
-                  tooltipInfoContent={t(TranslationKey['Move the product card to the Archive'])}
+                  tooltipInfoContent={translateTooltipDeleteBtnMessage(curUserRole)}
                   className={classNames.buttonDelete}
                   variant="contained"
                   onClick={() => handleProductActionButtons('delete')}

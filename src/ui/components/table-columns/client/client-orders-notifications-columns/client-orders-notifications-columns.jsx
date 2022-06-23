@@ -27,11 +27,15 @@ export const clientOrdersNotificationsViewColumns = handlers => [
   },
 
   {
-    field: 'totalPriceChanged',
+    field: 'priceChanged',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pay more'])} />,
     headerName: t(TranslationKey['Pay more']),
     width: 100,
-    renderCell: params => <MultilineTextCell text={(params.value - params.row.originalData.totalPrice).toFixed(2)} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={(params.row.originalData.totalPriceChanged - params.row.originalData.totalPrice).toFixed(2)}
+      />
+    ),
   },
 
   {
@@ -98,12 +102,36 @@ export const clientOrdersNotificationsViewColumns = handlers => [
 
   {
     field: 'totalPrice',
-    headerName: t(TranslationKey['Total price']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
+    headerName: t(TranslationKey['Planned cost']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Planned cost'])} />,
 
     width: 160,
     type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+  },
+
+  {
+    field: 'totalPriceChanged',
+    headerName: t(TranslationKey['Actual cost']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Actual cost'])} />,
+
+    width: 160,
+    type: 'number',
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+  },
+
+  {
+    field: 'costPerUnit',
+    headerName: t(TranslationKey['Cost per unit in the USA']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost per unit in the USA'])} />,
+
+    width: 160,
+    type: 'number',
+    renderCell: params => (
+      <MultilineTextCell
+        text={toFixedWithDollarSign(params.row.originalData.totalPriceChanged / params.row.amount, 2)}
+      />
+    ),
   },
 
   {

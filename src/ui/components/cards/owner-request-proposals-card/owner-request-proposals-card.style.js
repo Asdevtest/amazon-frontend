@@ -183,4 +183,8 @@ export const useClassNames = makeStyles(() => ({
       marginRight: '19px',
     },
   },
+
+  reviewWrapper: {
+    display: 'flex',
+  },
 }))
