@@ -237,6 +237,12 @@ export const SelectFields = ({
                 setOrderField('yuanToDollarRate')({
                   target: {value: e.target.value},
                 })
+
+                if (!usePriceInDollars) {
+                  setOrderField('totalPriceChanged')({
+                    target: {value: calcExchangePrice(priceYuansForBatch, e.target.value)},
+                  })
+                }
               }
             }}
           />
@@ -250,11 +256,13 @@ export const SelectFields = ({
                 <Input
                   disabled={!usePriceInDollars || checkIsPlanningPrice}
                   inputProps={{maxLength: 10}}
-                  value={
-                    !usePriceInDollars
-                      ? calcExchangePrice(priceYuansForBatch, orderFields.yuanToDollarRate)
-                      : orderFields.totalPriceChanged
-                  }
+                  // value={
+                  //   !usePriceInDollars
+                  //     ? calcExchangePrice(priceYuansForBatch, orderFields.yuanToDollarRate)
+                  //     : orderFields.totalPriceChanged
+                  // }
+
+                  value={orderFields.totalPriceChanged}
                   className={classNames.input}
                   onChange={setOrderField('totalPriceChanged')}
                 />

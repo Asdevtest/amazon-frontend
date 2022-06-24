@@ -1015,5 +1015,8 @@
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Кнопка выставления статуса, карточка товара остается в работе у супервизора (можно изменить)",
   "Sizes": "Размеры",
   "State the reason for stopping": "Укажите причину остановки",
-  "Total amount": "Итого сумма"
+  "Total amount": "Итого сумма",
+  "You are making an order, are you sure?": "Вы совершаете заказ, уверены?",
+  "The order will cost:": "The order will cost:",
+  "Confirm order": "Подтвердить заказ"
 }

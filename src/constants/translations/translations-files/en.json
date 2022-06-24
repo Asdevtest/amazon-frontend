@@ -1014,5 +1014,8 @@
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Button to set the status, the product card remains in the supervisor's work (can be changed)",
   "Sizes": "Sizes",
   "State the reason for stopping": "State the reason for stopping",
-  "Total amount": "Total amount"
+  "Total amount": "Total amount",
+  "You are making an order, are you sure?": "You are making an order, are you sure?",
+  "The order will cost:": "The order will cost:",
+  "Confirm order": "Confirm order"
 }

@@ -16,26 +16,26 @@ export const sourceColumns = () => [
     field: 'sku',
     headerName: t(TranslationKey.SKU),
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 170,
+    width: 140,
   },
 
   {
     field: 'title',
-    headerName: t(TranslationKey.Title),
+    headerName: 'Title',
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
-    field: 'stockValue',
-    headerName: t(TranslationKey.Quantity),
+    field: 'fbaFbmStock',
+    headerName: 'FBA/FBM Stock',
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 110,
+    width: 140,
   },
 
   {
     field: 'reserved',
-    headerName: t(TranslationKey.Reserved),
+    headerName: 'Reserved',
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 110,
   },
@@ -60,26 +60,26 @@ export const chosenGoodsColumns = handlers => [
     field: 'sku',
     headerName: t(TranslationKey.SKU),
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 170,
+    width: 140,
   },
 
   {
     field: 'title',
-    headerName: t(TranslationKey.Title),
+    headerName: 'Title',
     renderCell: params => renderFieldValueCell(params.value),
     width: 200,
   },
 
   {
-    field: 'stockValue',
-    headerName: t(TranslationKey.Quantity),
+    field: 'fbaFbmStock',
+    headerName: 'FBA/FBM Stock',
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 110,
+    width: 140,
   },
 
   {
     field: 'reserved',
-    headerName: t(TranslationKey.Reserved),
+    headerName: 'Reserved',
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 110,
   },

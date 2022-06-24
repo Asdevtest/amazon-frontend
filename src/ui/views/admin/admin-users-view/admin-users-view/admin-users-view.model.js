@@ -231,7 +231,7 @@ export class AdminUsersViewModel {
   }
 
   onClickBalance(userData) {
-    this.history.push('/admin/user/user_id/balance', {user: userData})
+    this.history.push('/admin/users/balance', {user: userData})
   }
 
   onTriggerDrawer() {

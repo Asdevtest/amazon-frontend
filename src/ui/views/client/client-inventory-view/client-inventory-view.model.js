@@ -71,6 +71,7 @@ export class ClientInventoryViewModel {
   actionStatus = undefined
 
   product = undefined
+  ordersDataStateToSubmit = undefined
 
   productsMy = []
   orders = []
@@ -394,12 +395,27 @@ export class ClientInventoryViewModel {
     this.onTriggerOpenModal('showSetChipValueModal')
   }
 
-  async onSubmitOrderProductModal(ordersDataState) {
+  onConfirmSubmitOrderProductModal(ordersDataState, totalOrdersCost) {
+    this.ordersDataStateToSubmit = ordersDataState
+
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(
+        TranslationKey['Confirm order'],
+      )}?`,
+      onClickConfirm: () => this.onSubmitOrderProductModal(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitOrderProductModal() {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       this.error = undefined
-      for (let i = 0; i < ordersDataState.length; i++) {
-        const product = ordersDataState[i]
+      for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
+        const product = this.ordersDataStateToSubmit[i]
 
         this.uploadedFiles = []
 
@@ -418,8 +434,10 @@ export class ClientInventoryViewModel {
         this.successModalText = t(TranslationKey['The order has been created'])
         this.onTriggerOpenModal('showSuccessModal')
       }
-
+      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showOrderModal')
       await this.getProductsMy()
+
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)

@@ -107,9 +107,17 @@ export const OrderProductModal = ({
     setOrderState(newStateOrderState)
   }
 
+  const totalOrdersCost = toFixedWithDollarSign(
+    productsForRender.reduce((ac, cur) => (ac += calcProductsPriceWithDelivery(cur, cur)), 0),
+    2,
+  )
+
   const onClickSubmit = () => {
-    onTriggerOpenModal('showOrderModal')
-    onSubmit(orderState.map(el => ({...el, destinationId: el.destinationId ? el.destinationId : null})))
+    // onTriggerOpenModal('showOrderModal')
+    onSubmit(
+      orderState.map(el => ({...el, destinationId: el.destinationId ? el.destinationId : null})),
+      totalOrdersCost,
+    )
     setSubmitIsClicked(true)
   }
 
@@ -176,10 +184,9 @@ export const OrderProductModal = ({
       </TableContainer>
 
       <div className={classNames.sumWrapper}>
-        <Typography className={classNames.sumText}>{`${t(TranslationKey['Total amount'])}: ${toFixedWithDollarSign(
-          productsForRender.reduce((ac, cur) => (ac += calcProductsPriceWithDelivery(cur, cur)), 0),
-          2,
-        )}`}</Typography>
+        <Typography className={classNames.sumText}>{`${t(
+          TranslationKey['Total amount'],
+        )}: ${totalOrdersCost}`}</Typography>
       </div>
 
       <div className={classNames.buttonsWrapper}>

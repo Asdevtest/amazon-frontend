@@ -93,7 +93,6 @@ export class ClientInventoryViewRaw extends Component {
       onChangeRowsPerPage,
       onClickSaveBarcode,
       onTriggerOpenModal,
-      onSubmitOrderProductModal,
       onClickBindInventoryGoodsToStockBtn,
       onClickSaveHsCode,
 
@@ -109,6 +108,7 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerArchive,
       onClickAddSupplierButton,
       onClickTriggerArchOrResetProducts,
+      onConfirmSubmitOrderProductModal,
     } = this.viewModel
     const {classes: classNames} = this.props
     const onClickPrevButton = () => {
@@ -278,7 +278,7 @@ export class ClientInventoryViewRaw extends Component {
               .map(prod => prod.originalData)}
             onTriggerOpenModal={onTriggerOpenModal}
             onDoubleClickBarcode={onDoubleClickBarcode}
-            onSubmit={onSubmitOrderProductModal}
+            onSubmit={onConfirmSubmitOrderProductModal}
           />
         </Modal>
 
