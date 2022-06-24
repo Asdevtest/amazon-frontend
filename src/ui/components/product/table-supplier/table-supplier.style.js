@@ -140,11 +140,11 @@ export const useClassNames = makeStyles(() => ({
   linkWrapper: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    width: 200,
+    width: 'min-content',
   },
 
   link: {
+    fontSize: 12,
     color: '#006CFF',
     transition: '0.3s ease',
     cursor: 'pointer',
@@ -154,6 +154,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   copyImg: {
+    marginLeft: 30,
     width: '20px',
     height: '20px',
     transition: '0.3s ease',
@@ -161,5 +162,13 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       transform: 'scale(1.2)',
     },
+  },
+
+  nameCell: {
+    minWidth: 200,
+  },
+
+  commentCell: {
+    minWidth: 250,
   },
 }))
