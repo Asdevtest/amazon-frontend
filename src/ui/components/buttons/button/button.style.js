@@ -4,17 +4,16 @@ export const useClassNames = makeStyles(() => ({
   root: {
     minHeight: '36px !important',
     minWidth: '36px !important',
-    // color: '#fff !important',
   },
 
   success: {
     color: '#fff !important',
-    backgroundColor: '#4caf50 !important',
+    backgroundColor: '#009a07 !important',
     '&:hover': {
-      backgroundColor: '#009a07 !important',
+      backgroundColor: '#4caf50 !important',
 
       '@media (hover: none)': {
-        backgroundColor: '#009a07 !important',
+        backgroundColor: '#4caf50 !important',
       },
     },
     '&$disabled': {

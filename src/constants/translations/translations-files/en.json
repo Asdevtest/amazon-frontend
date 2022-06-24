@@ -1017,5 +1017,10 @@
   "Total amount": "Total amount",
   "You are making an order, are you sure?": "You are making an order, are you sure?",
   "The order will cost:": "The order will cost:",
-  "Confirm order": "Confirm order"
+  "Confirm order": "Confirm order",
+  "Formed a task for storekeeper": "Formed a task for storekeeper",
+  "to change the Box": "to change the Box",
+  "has been changed": "has been changed",
+  "to redistribute the Box": "to redistribute the Box",
+  "to merge boxes": "to merge boxes"
 }

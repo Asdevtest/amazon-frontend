@@ -1018,5 +1018,10 @@
   "Total amount": "Итого сумма",
   "You are making an order, are you sure?": "Вы совершаете заказ, уверены?",
   "The order will cost:": "The order will cost:",
-  "Confirm order": "Подтвердить заказ"
+  "Confirm order": "Подтвердить заказ",
+  "Formed a task for storekeeper": "Сформирована задача для склада",
+  "to change the Box": "на изменение Коробки",
+  "has been changed": "была изменена",
+  "to redistribute the Box": "на перераспределение Коробки",
+  "to merge boxes": "на слияние коробок"
 }

@@ -15,6 +15,7 @@ import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeepe
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
@@ -293,14 +294,16 @@ export const RedistributeBox = ({
   destinations,
   storekeepers,
   requestStatus,
-  addNewBoxModal,
-  setAddNewBoxModal,
+  // addNewBoxModal,
+  // setAddNewBoxModal,
   selectedBox,
   onRedistribute,
   onTriggerOpenModal,
 }) => {
   const classNames = useClassNames()
   const [currentBox, setCurrentBox] = useState(selectedBox)
+
+  const [showNewBoxAttention, setShowNewBoxAttention] = useState(false)
 
   const [comment, setComment] = useState('')
 
@@ -385,6 +388,7 @@ export const RedistributeBox = ({
       operationTypes.SPLIT,
       isMasterBox,
       comment,
+      selectedBox,
     )
   }
 
@@ -478,7 +482,7 @@ export const RedistributeBox = ({
           color="primary"
           variant="contained"
           onClick={() => {
-            addNewBoxModal ?? setAddNewBoxModal(true)
+            newBoxes.length >= 2 && setShowNewBoxAttention(true)
             setNewBoxes(newBoxes.concat(getEmptyBox()))
           }}
         >
@@ -489,12 +493,26 @@ export const RedistributeBox = ({
           variant="contained"
           onClick={() => {
             onTriggerOpenModal('showRedistributeBoxModal')
-            setAddNewBoxModal(null)
+            setShowNewBoxAttention(false)
           }}
         >
           {t(TranslationKey.Cancel)}
         </Button>
       </div>
+
+      <WarningInfoModal
+        openModal={showNewBoxAttention}
+        setOpenModal={() => setShowNewBoxAttention(!showNewBoxAttention)}
+        title={t(
+          TranslationKey[
+            'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
+          ],
+        )}
+        btnText={t(TranslationKey.Ok)}
+        onClickBtn={() => {
+          setShowNewBoxAttention(!showNewBoxAttention)
+        }}
+      />
     </React.Fragment>
   )
 }
