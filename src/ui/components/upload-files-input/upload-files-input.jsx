@@ -79,7 +79,7 @@ export const UploadFilesInput = observer(
         <div>
           {!withoutLinks && (
             <Field
-              tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links to the order'])}
+              tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])}
               label={withoutTitle ? '' : t(TranslationKey['Add file'])}
               error={linkInputError && t(TranslationKey['Invalid link!'])}
               inputComponent={

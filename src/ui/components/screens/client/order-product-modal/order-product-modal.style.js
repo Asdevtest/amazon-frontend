@@ -5,7 +5,7 @@ export const useClassNames = makeStyles(() => ({
     color: '#001029',
     fontSize: '18px',
     fontWeight: 600,
-    lineHeight: '140:',
+    lineHeight: '140%',
     marginBottom: '24px',
   },
   modalSubTitle: {
@@ -70,15 +70,16 @@ export const useClassNames = makeStyles(() => ({
   table: {
     '& td': {
       flexShrink: 0,
-      color: 'rgba(61, 81, 112, 1)',
-      borderBottom: 'none',
+      color: '#070707',
+      // border: '1px solid #fff',
     },
     '& th': {
       color: '#001029',
       fontWeight: 600,
       lineHeight: '16px',
       fontSize: '14px',
-      // padding: '8px 0',
+      // borderBottom: '1px solid #fff',
+      height: '32px',
     },
 
     '& tbody': {
@@ -89,70 +90,87 @@ export const useClassNames = makeStyles(() => ({
     align: 'center',
     maxWidth: '100px',
     borderRight: '1px solid #e0e0e0',
+    margin: 0,
   },
   // divider: {
   //   margin: '0px -24px',
   // },
   tableWrapper: {
-    margin: '0px -24px',
+    margin: '0px -30px',
     width: 'auto',
-    padding: '20px',
+    overflow: 'hidden',
   },
   imgCell: {
-    padding: '8px 46px 8px 0',
+    width: '96px',
+    padding: '0 46px 0 20px',
     borderRight: '1px solid #e0e0e0',
+    margin: 0,
   },
 
   productCell: {
-    padding: '8px 280px 8px 20px',
+    width: '368px',
+    padding: '0 200px 0 20px',
     borderRight: '1px solid #e0e0e0',
+    margin: 0,
   },
 
   priceCell: {
-    padding: '8px 20px 8px 20px',
+    width: '140px',
+    padding: '0 20px 0 20px',
     borderRight: '1px solid #e0e0e0',
   },
 
   deliveryCell: {
-    padding: '8px 20px 8px 20px',
+    width: '170px',
+    padding: '0 20px 0 20px',
     borderRight: '1px solid #e0e0e0',
-    width: '77px',
+
     textAlign: 'center',
+    margin: 0,
   },
 
   qntCell: {
-    padding: '8px 38px 8px 20px',
+    padding: '0 38px 0 20px',
     borderRight: '1px solid #e0e0e0',
+    margin: 0,
   },
 
   totalCell: {
-    padding: '8px 20px 8px 20px',
+    padding: '0 20px 0 20px',
     borderRight: '1px solid #e0e0e0',
+    margin: 0,
   },
 
   barCodeCell: {
-    padding: '8px 65px 8px 20px',
+    width: '173px',
+    padding: '0 65px 0 20px',
     borderRight: '1px solid #e0e0e0',
+    margin: 0,
   },
 
   warehouseCell: {
-    padding: '8px 63px 8px 20px',
+    width: '158px',
+    padding: '0 63px 0 20px',
     borderRight: '1px solid #e0e0e0',
+    margin: 0,
   },
 
   tariffCell: {
-    width: '190px',
-    padding: '8px 7px 8px 20px',
+    width: '170px',
+    padding: '0 7px 0 20px',
     borderRight: '1px solid #e0e0e0',
+    margin: 0,
   },
 
   commentCell: {
-    padding: '8px 100px 8px 20px',
+    width: '310px',
+
+    margin: 0,
   },
 
   buttonsWrapper: {
     textAlign: 'right',
-    marginTop: '16px',
+    marginTop: '30px',
   },
   buyNowBtn: {
     backgroundColor: 'rgba(0, 123, 255, 1)',
@@ -160,11 +178,12 @@ export const useClassNames = makeStyles(() => ({
     marginRight: '8px',
   },
   cancelBtn: {
-    backgroundColor: '#d5d5d5',
-    color: 'rgba(61, 81, 112, 1)',
+    backgroundColor: 'inherit',
+    color: '#001029',
     textTransform: 'none',
     '&:hover': {
-      color: '#fff',
+      color: '#001029',
+      backgroundColor: '#e4e4e4',
     },
   },
 
@@ -175,6 +194,8 @@ export const useClassNames = makeStyles(() => ({
   sumText: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#354256',
+    fontWeight: '400',
+    color: '#001029',
+    marginTop: '10px',
   },
 }))

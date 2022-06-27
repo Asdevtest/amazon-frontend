@@ -794,10 +794,18 @@ export const ScrollingLinkCell = withStyles(styles)(({classes: classNames, value
 ))
 
 export const EditOrRemoveBtnsCell = withStyles(styles)(
-  ({classes: classNames, row, handlers, isSubUsersTable, disableActionBtn}) => (
+  ({
+    classes: classNames,
+    row,
+    handlers,
+    isSubUsersTable,
+    disableActionBtn,
+    tooltipFirstButton,
+    tooltipSecondButton,
+  }) => (
     <div className={classNames.editOrRemoveBtnsCell}>
       <Button
-        tooltipInfoContent={t(TranslationKey["Editing an employee's permission list"])}
+        tooltipInfoContent={tooltipFirstButton}
         variant="contained"
         color="primary"
         disabled={disableActionBtn}
@@ -808,9 +816,7 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
 
       <Button
         danger
-        tooltipInfoContent={t(
-          TranslationKey['Removing an employee from the list, banning and disabling access to the platform'],
-        )}
+        tooltipInfoContent={tooltipSecondButton}
         disabled={disableActionBtn}
         className={classNames.rowCancelBtn}
         onClick={() => {

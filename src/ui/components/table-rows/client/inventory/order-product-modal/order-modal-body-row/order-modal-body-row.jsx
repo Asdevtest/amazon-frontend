@@ -212,15 +212,15 @@ export const OrderModalBodyRow = ({
                       }`
                     : 'none'
                 }`
-              : t(TranslationKey.Select)}
+              : t(TranslationKey.Add)}
           </Button>
         </TableCell>
 
         <TableCell className={classNames.cell}>
           <Input
             multiline
-            minRows={4}
-            rowsMax={4}
+            minRows={3}
+            rowsMax={3}
             inputProps={{maxLength: 500}}
             className={classNames.commentInput}
             onChange={e => onChangeInput(e, 'clientComment')}
@@ -291,7 +291,7 @@ export const OrderModalBodyRow = ({
               oneLine
               containerClasses={classNames.containerField}
               labelClasses={classNames.labelField}
-              label={t(TranslationKey['Cost per unit in the USA']) + ',$'}
+              label={t(TranslationKey['Cost of purchase per piece.']) + ',$'}
               inputComponent={<Typography className={classNames.sumText}>{pricePerUnit}</Typography>}
             />
           </div>

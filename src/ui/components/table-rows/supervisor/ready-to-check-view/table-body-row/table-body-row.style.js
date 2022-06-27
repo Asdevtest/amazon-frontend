@@ -115,4 +115,15 @@ export const useClassNames = makeStyles(() => ({
   selectedStarIcon: {
     color: '#FFC632',
   },
+
+  infoBtn: {
+    width: '150px',
+    height: '40px',
+  },
+
+  actionCell: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 }))

@@ -17,16 +17,28 @@ export const styles = createStyles({
 
   btnsWrapper: {
     display: 'flex',
-  },
 
-  buttonOffset: {
-    marginLeft: '20px',
+    '& > :not(:first-child)': {
+      marginLeft: '30px',
+    },
   },
 
   archiveBtnsWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
-    width: '350px',
+
+    '& > :first-child': {
+      marginRight: '30px',
+    },
+  },
+
+  archiveBtn: {
+    border: '1px solid #FF1616',
+    color: '#FF1616',
+
+    '&:hover': {
+      border: '1px solid #FF1616',
+      opacity: 0.6,
+    },
   },
 
   row: {
@@ -35,5 +47,13 @@ export const styles = createStyles({
     '&:hover': {
       transform: 'scale(1.01)',
     },
+  },
+
+  archiveIcon: {
+    marginLeft: '10px',
+  },
+
+  openArchiveBtn: {
+    padding: '0 15px 0 30px',
   },
 })
