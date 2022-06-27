@@ -237,7 +237,7 @@ export const AddOrEditSupplierModalContent = observer(
             </Button>
             <Button
               disableElevation
-              tooltipInfoContent={t(TranslationKey['Cancel creating/changing about a supplier'])}
+              tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
               className={classNames.cancelBtn}
               variant="contained"
               onClick={() => onTriggerShowModal()}

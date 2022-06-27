@@ -33,4 +33,42 @@ export const styles = theme =>
       position: 'absolute',
       left: 0,
     },
+
+    validationMessage: {
+      width: '100%',
+      display: 'flex',
+      flexWrap: 'nowrap',
+      marginTop: '-20px',
+
+      // border: '1px solid #e0e0e0',
+      // borderRadius: '4px',
+
+      justifyContent: 'start',
+      gap: '5px',
+    },
+
+    validationTitle: {
+      fontSize: '14px',
+      color: '#656565',
+    },
+
+    validationText: {
+      fontSize: '12px',
+      lineHeight: '16px',
+      fontWeight: '400',
+      color: '#656565',
+    },
+
+    validationHiddenMessage: {
+      display: 'flex',
+      justifyContent: 'end',
+    },
+
+    validationHiddenText: {
+      visibility: 'hidden',
+      fontSize: '12px',
+      lineHeight: '16px',
+      fontWeight: '400',
+      color: '#656565',
+    },
   })

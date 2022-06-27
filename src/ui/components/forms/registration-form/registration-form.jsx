@@ -17,6 +17,7 @@ import {SettingsModel} from '@models/settings-model'
 import {Field} from '@components/field'
 
 import {t} from '@utils/translations'
+import {validationMessagesArray} from '@utils/validation'
 
 import {styles} from './registration-form.style'
 
@@ -28,46 +29,83 @@ export const RegistrationFormRaw = ({
   checkValidationNameOrEmail,
 }) => {
   const [visibilityPass, setVisibilityPass] = useState(false)
-
-  const [error, setError] = useState('')
-  const [equalityError, setEqualityError] = useState('')
+  const [errorOneNumber, setErrorOneNumber] = useState(false)
+  const [errorUppercaseLetter, setErrorUppercaseLetter] = useState(false)
+  const [errorLowercaseLetter, setErrorLowercaseLetter] = useState(false)
+  const [errorMinLength, setErrorMinLength] = useState(false)
+  const [errorMaxLength, setErrorMaxLength] = useState(false)
+  const [errorNoEngLetter, setErrorNoEngLetter] = useState(false)
+  const [equalityError, setEqualityError] = useState(false)
   const [submit, setSubmit] = useState(false)
 
   const regExpNumber = /(?=.*[0-9])/g
   const regExpUpperCase = /(?=.*[A-Z])/g
   const regExpLowerCase = /(?=.*[a-z])/g
-  const regExpRusLetter = /^([0-9a-zA-Z-_.])$/
-  const regExpLength = /(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*].{32}/g
+  const regExpEngLetter = /(?=.*[A-Za-z])/
+  const regExpRuLetter = /(?=.*[А-Яа-я])/
 
   useEffect(() => {
-    if (regExpNumber.test(formFields.password) === false) {
-      setError(t(TranslationKey['The password must contain the number']))
-    } else if (regExpUpperCase.test(formFields.password) === false) {
-      setError(t(TranslationKey['The password must contain a uppercase letter']))
-    } else if (regExpLowerCase.test(formFields.password) === false) {
-      setError(t(TranslationKey['The password must contain a lowercase letter']))
-    } else if (regExpLength.test(formFields.password) === true) {
-      setError(t(TranslationKey['Password must be no more than 32 characters']))
-    } else if (regExpRusLetter.test(formFields.password) === true) {
-      setError('Пароль должен содержать только латинские буквы')
+    if (formFields.password.length < 6) {
+      setErrorMinLength(true)
     } else {
-      setError('')
+      setErrorMinLength(false)
     }
-  }, [formFields.password, error, SettingsModel.languageTag])
-
-  useEffect(() => {
+    if (formFields.password.length > 32) {
+      setErrorMaxLength(true)
+    } else {
+      setErrorMaxLength(false)
+    }
+    if (!formFields.password.match(regExpNumber)) {
+      setErrorOneNumber(true)
+    } else {
+      setErrorOneNumber(false)
+    }
+    if (!formFields.password.match(regExpUpperCase)) {
+      setErrorUppercaseLetter(true)
+    } else {
+      setErrorUppercaseLetter(false)
+    }
+    if (!formFields.password.match(regExpLowerCase)) {
+      setErrorLowercaseLetter(true)
+    } else {
+      setErrorLowercaseLetter(false)
+    }
+    if (!formFields.password.match(regExpEngLetter)) {
+      setErrorNoEngLetter(true)
+    } else {
+      setErrorNoEngLetter(false)
+    }
+    if (formFields.password.match(regExpRuLetter)) {
+      setErrorNoEngLetter(true)
+    } else {
+      setErrorNoEngLetter(false)
+    }
     if (formFields.password !== formFields.confirmPassword) {
-      setEqualityError(t(TranslationKey['passwords dont match']))
+      setEqualityError(true)
     } else {
-      setEqualityError('')
+      setEqualityError(false)
     }
-  }, [formFields.password, formFields.confirmPassword, SettingsModel.languageTag])
+  }, [formFields.password, formFields.confirmPassword, errorOneNumber, errorUppercaseLetter, SettingsModel.languageTag])
 
   const onSubmitForm = event => {
     event.preventDefault()
     setSubmit(true)
-    error?.length === 0 && onSubmit()
+    !errorLowercaseLetter &&
+      !errorMinLength &&
+      !errorOneNumber &&
+      !errorUppercaseLetter &&
+      !errorMaxLength &&
+      !equalityError &&
+      !errorNoEngLetter &&
+      onSubmit()
   }
+
+  const showError =
+    (submit && errorLowercaseLetter) ||
+    (submit && errorMinLength) ||
+    (submit && errorOneNumber) ||
+    (submit && errorUppercaseLetter) ||
+    (submit && errorMaxLength)
 
   return (
     <form className={classNames.root} onSubmit={onSubmitForm}>
@@ -109,7 +147,7 @@ export const RegistrationFormRaw = ({
           <Field
             withIcon
             inputProps={{maxLength: 128}}
-            error={submit ? error : ''}
+            error={showError}
             label={t(TranslationKey.Password)}
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}
@@ -124,12 +162,37 @@ export const RegistrationFormRaw = ({
           <div className={classNames.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
             {!visibilityPass ? <VisibilityOffIcon color="disabled" /> : <VisibilityIcon color="disabled" />}
           </div>
+          <div className={classNames.validationMessage}>
+            {validationMessagesArray(
+              errorMinLength,
+              errorOneNumber,
+              errorUppercaseLetter,
+              errorLowercaseLetter,
+              errorNoEngLetter,
+            ).map((text, index) => (
+              <span
+                key={index}
+                className={classNames.validationText}
+                style={{color: submit && text.error ? 'red' : '#656565'}}
+              >
+                {text.name}
+              </span>
+            ))}
+          </div>
+          <div className={classNames.validationHiddenMessage}>
+            <span
+              className={classNames.validationHiddenText}
+              style={{color: submit && errorMaxLength ? 'red' : '#656565', visibility: errorMaxLength && 'visible'}}
+            >
+              {`${t(TranslationKey.maximum)} 32 ${t(TranslationKey.characters)}`}
+            </span>
+          </div>
         </div>
         <div className={classNames.field}>
           <Field
             withIcon
             inputProps={{maxLength: 128}}
-            error={submit ? equalityError : ''}
+            error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
             label={t(TranslationKey['Re-type Password'])}
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}

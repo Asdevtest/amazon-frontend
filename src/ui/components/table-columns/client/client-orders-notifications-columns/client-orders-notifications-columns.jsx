@@ -30,7 +30,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'priceChanged',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pay more'])} />,
     headerName: t(TranslationKey['Pay more']),
-    width: 100,
+    width: 120,
     renderCell: params => (
       <MultilineTextCell
         text={(params.row.originalData.totalPriceChanged - params.row.originalData.totalPrice).toFixed(2)}
@@ -122,10 +122,10 @@ export const clientOrdersNotificationsViewColumns = handlers => [
 
   {
     field: 'costPerUnit',
-    headerName: t(TranslationKey['Cost per unit in the USA']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost per unit in the USA'])} />,
+    headerName: t(TranslationKey['Cost of purchase per piece.']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of purchase per piece.'])} />,
 
-    width: 160,
+    width: 180,
     type: 'number',
     renderCell: params => (
       <MultilineTextCell

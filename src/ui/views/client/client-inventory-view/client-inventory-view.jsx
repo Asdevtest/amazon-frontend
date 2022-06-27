@@ -1,3 +1,4 @@
+import DeleteIcon from '@mui/icons-material/Delete'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
@@ -11,7 +12,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button'
 import {AddOwnProductForm} from '@components/forms/add-own-product-form'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
 import {Main} from '@components/main'
@@ -148,32 +148,33 @@ export class ClientInventoryViewRaw extends Component {
                     >
                       {t(TranslationKey['Supplier search'])}
                     </Button>
+                    <Button
+                      disableElevation
+                      tooltipAttentionContent={
+                        isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
+                      }
+                      disabled={!selectedRowIds.length || isNoEditProductSelected}
+                      variant="outlined"
+                      className={classNames.archiveBtn}
+                      onClick={onClickTriggerArchOrResetProducts}
+                    >
+                      {isArchive ? t(TranslationKey.Recover) : t(TranslationKey['Move to archive'])}
+                    </Button>
                   </div>
                 )}
 
                 <div className={classNames.archiveBtnsWrapper}>
-                  <Button variant="outlined" onClick={onTriggerArchive}>
+                  <Button variant="outlined" className={classNames.openArchiveBtn} onClick={onTriggerArchive}>
                     {isArchive ? t(TranslationKey['Open inventory']) : t(TranslationKey['Open archive'])}
+                    {!isArchive && <DeleteIcon className={classNames.archiveIcon} />}
                   </Button>
 
-                  <Button
-                    disableElevation
-                    tooltipAttentionContent={
-                      isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
-                    }
-                    disabled={!selectedRowIds.length || isNoEditProductSelected}
-                    variant="outlined"
-                    onClick={onClickTriggerArchOrResetProducts}
-                  >
-                    {isArchive ? t(TranslationKey.Recover) : t(TranslationKey['Move to archive'])}
-                  </Button>
+                  {!isArchive && (
+                    <Button success onClick={() => onTriggerOpenModal('showSendOwnProductModal')}>
+                      {t(TranslationKey['Add your product'])}
+                    </Button>
+                  )}
                 </div>
-
-                {!isArchive && (
-                  <SuccessButton onClick={() => onTriggerOpenModal('showSendOwnProductModal')}>
-                    {t(TranslationKey['Add your product'])}
-                  </SuccessButton>
-                )}
               </div>
 
               <DataGrid

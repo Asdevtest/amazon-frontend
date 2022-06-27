@@ -4,8 +4,7 @@ import {
   Container, // Divider,
   Typography,
   Table,
-  TableBody,
-  TableRow,
+  TableBody, // TableRow,
   TableCell,
   TableHead,
   TableContainer,
@@ -136,25 +135,24 @@ export const OrderProductModal = ({
 
   return (
     <Container disableGutters maxWidth={'xl'}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Order of goods'])}</Typography>
+      <Typography className={classNames.modalTitle}>{t(TranslationKey['Order products'])}</Typography>
       {/* <Divider className={classNames.divider} /> */}
       <TableContainer className={classNames.tableWrapper}>
         <Table className={classNames.table}>
           <TableHead>
-            <TableRow>
-              <TableCell className={classNames.imgCell}>{t(TranslationKey.Image)}</TableCell>
-              <TableCell className={classNames.productCell}>{t(TranslationKey.Product)}</TableCell>
-              <TableCell className={classNames.priceCell}>{t(TranslationKey.Price)}</TableCell>
-              <TableCell className={classNames.deliveryCell}>{t(TranslationKey['Delivery cost per piece'])}</TableCell>
-              <TableCell className={classNames.qntCell}>{t(TranslationKey.Quantity)}</TableCell>
-              <TableCell className={classNames.totalCell}>{t(TranslationKey.Total)}</TableCell>
-              <TableCell className={classNames.barCodeCell}>{t(TranslationKey.BarCode)}</TableCell>
-              <TableCell className={classNames.warehouseCell}>{t(TranslationKey.Warehouse)}</TableCell>
+            <TableCell className={classNames.imgCell}>{t(TranslationKey.Image)}</TableCell>
+            <TableCell className={classNames.productCell}>{t(TranslationKey.Product)}</TableCell>
+            <TableCell className={classNames.priceCell}>{t(TranslationKey['Price per unit.']) + ' $'}</TableCell>
+            <TableCell className={classNames.deliveryCell}>{t(TranslationKey['Delivery per unit.']) + ' $'}</TableCell>
+            <TableCell className={classNames.qntCell}>{t(TranslationKey.Quantity)}</TableCell>
+            <TableCell className={classNames.totalCell}>{t(TranslationKey.Total) + ' $'}</TableCell>
+            <TableCell className={classNames.barCodeCell}>{t(TranslationKey.BarCode)}</TableCell>
+            <TableCell className={classNames.tariffCell}>{`Storekeeper ${t(TranslationKey.and)} ${t(
+              TranslationKey.Tariff,
+            )}`}</TableCell>
+            <TableCell className={classNames.warehouseCell}>{t(TranslationKey.Warehouse)}</TableCell>
 
-              <TableCell className={classNames.tariffCell}>{`Storekeeper and ${t(TranslationKey.Tariff)}`}</TableCell>
-
-              <TableCell className={classNames.commentCell}>{t(TranslationKey['Client comment'])}</TableCell>
-            </TableRow>
+            <TableCell className={classNames.commentCell}>{t(TranslationKey['Client comment'])}</TableCell>
           </TableHead>
           <TableBody>
             {productsForRender.map((product, index) => (
@@ -197,12 +195,11 @@ export const OrderProductModal = ({
           disabled={disabledSubmit}
           onClick={onClickSubmit}
         >
-          {t(TranslationKey['To order'])}
+          {t(TranslationKey['Order a batch of products'])}
         </Button>
 
         <Button
           disableElevation
-          color="primary"
           variant="contained"
           className={(classNames.modalButton, classNames.cancelBtn)}
           onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}

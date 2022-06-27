@@ -1,15 +1,13 @@
-import React, {FC, useState} from 'react'
+import React, {FC} from 'react'
 
-import {Avatar, Grid, Typography} from '@material-ui/core'
+import {Avatar, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
 
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
-import {SettingsModel} from '@models/settings-model'
 
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
@@ -40,8 +38,6 @@ interface Props {
 
 export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers}) => {
   const classNames = useClassNames()
-
-  console.log('messages-ChatMessagesList', messages)
 
   const renderMessageByType = (isIncomming: boolean, messageItem: ChatMessageContract) => {
     if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
@@ -80,10 +76,6 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
       return <ChatMessageBasicText isIncomming={isIncomming} message={messageItem} />
     }
   }
-
-  const [showImageModal, setShowImageModal] = useState(false)
-
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [] as string[], imgIndex: 0})
 
   return (
     <div className={classNames.root}>
@@ -146,14 +138,6 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
             })
           : undefined}
       </ScrollView>
-
-      <BigImagesModal
-        isAmazone
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-      />
     </div>
   )
 })

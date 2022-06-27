@@ -1,27 +1,17 @@
-import InboxIcon from '@mui/icons-material/Inbox'
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
+import React, {FC, useContext} from 'react'
 
-import React, {useState, FC, ReactElement, useContext} from 'react'
-
-import {Grid, Link, Typography} from '@material-ui/core'
 import clsx from 'clsx'
-import Carousel from 'react-material-ui-carousel'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
-import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
-import {CustomCarousel} from '@components/custom-carousel'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {BigImagesModal} from '@components/modals/big-images-modal'
 
-import {checkIsImageLink} from '@utils/checks'
 import {formatDateTimeHourAndMinutes} from '@utils/date-time'
-import {t} from '@utils/translations'
 
 import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
@@ -44,12 +34,6 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
   const curUserId: string | undefined = UserModel.userId
-
-  const [showImageModal, setShowImageModal] = useState(false)
-
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [] as string[], imgIndex: 0})
-
-  const notIsEmptyFile = message.data.edited.linksToMediaFiles?.filter(el => !checkIsImageLink(el))
 
   console.log(chatRequestAndRequestProposal.requestProposal?.proposal?.status)
   return (
@@ -129,14 +113,6 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
           </div>
         )} */}
       </div>
-
-      <BigImagesModal
-        isAmazone
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-      />
     </div>
   )
 }

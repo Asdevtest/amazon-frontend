@@ -241,9 +241,6 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
       </div>
       <div className={classNames.emptyProposalsDescriptionWrapper}>
         <Typography className={classNames.emptyProposalsTitle}>{t(TranslationKey['No files added'])}</Typography>
-        <Typography className={classNames.emptyProposalsDescription}>
-          {t(TranslationKey['To add files go back to editing'])}
-        </Typography>
       </div>
     </div>
   )

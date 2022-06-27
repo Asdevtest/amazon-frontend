@@ -185,7 +185,10 @@ export const useClassNames = makeStyles(() => ({
   sumsWrapper: {
     display: 'flex',
     justifyContent: 'center',
-    gap: '60px',
+    alignItems: 'center',
+    padding: '10px 0',
+    marginBottom: '-20px',
+    gap: '45px',
   },
 
   containerField: {
@@ -193,11 +196,19 @@ export const useClassNames = makeStyles(() => ({
     width: 'min-content',
   },
   labelField: {
+    fontSize: '14px',
+    color: '#001029',
+    lineHeight: '17px',
+    fontWeight: '600',
     marginRight: '20px',
     whiteSpace: 'nowrap',
   },
 
   sumText: {
+    fontSize: '14px',
+    color: '#001029',
+    lineHeight: '16px',
+    fontWeight: '400',
     whiteSpace: 'nowrap',
   },
 

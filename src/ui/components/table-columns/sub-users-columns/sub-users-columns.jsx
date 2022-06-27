@@ -34,7 +34,17 @@ export const subUsersColumns = handlers => [
     renderHeader: () => <TextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 320,
-    renderCell: params => <EditOrRemoveBtnsCell isSubUsersTable handlers={handlers} row={params.row} />,
+    renderCell: params => (
+      <EditOrRemoveBtnsCell
+        isSubUsersTable
+        tooltipFirstButton={t(TranslationKey["Editing an employee's permission list"])}
+        tooltipSecondButton={t(
+          TranslationKey['Removing an employee from the list, banning and disabling access to the platform'],
+        )}
+        handlers={handlers}
+        row={params.row}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

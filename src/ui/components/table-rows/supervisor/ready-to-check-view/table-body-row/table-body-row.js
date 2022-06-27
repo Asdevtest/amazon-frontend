@@ -19,7 +19,7 @@ export const TableBodyRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.indexCell}>
         <Typography>{itemIndex + 1}</Typography>
       </TableCell>
-      <TableCell className={classNames.indexCell}>
+      <TableCell className={classNames.actionCell}>
         <Button
           tooltipInfoContent={t(TranslationKey['Assign a product card to a supervisor'])}
           className={classNames.infoBtn}
