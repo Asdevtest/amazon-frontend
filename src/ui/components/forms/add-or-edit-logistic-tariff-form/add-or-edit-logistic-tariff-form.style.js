@@ -90,6 +90,7 @@ export const useClassNames = makeStyles(() => ({
 
   costBlock: {
     display: 'flex',
+    alignItems: 'flex-start',
     width: '100%',
     justifyContent: 'space-between',
   },

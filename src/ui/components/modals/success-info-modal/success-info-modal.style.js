@@ -13,10 +13,15 @@ export const useClassNames = makeStyles(() => ({
   title: {
     textAlign: 'center',
     width: '350px',
+
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: '140%',
+    color: '#001029',
   },
 
   button: {
-    minWidth: '130px',
+    width: '130px',
     fontSize: '18px',
   },
 }))

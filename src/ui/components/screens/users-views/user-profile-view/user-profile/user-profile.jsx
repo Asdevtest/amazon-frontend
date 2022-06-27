@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import {Rating} from '@mui/material'
 
 import React from 'react'
 
 import {Avatar, Box, Paper, Typography, Button, Badge} from '@material-ui/core'
-import VisibilityIcon from '@material-ui/icons/Visibility'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -28,7 +26,6 @@ export const UserProfile = observer(
   ({
     isAnotherUser,
     user,
-    timer,
     headerInfoData,
     onClickChangeAvatar,
     onClickChangeUserInfo,

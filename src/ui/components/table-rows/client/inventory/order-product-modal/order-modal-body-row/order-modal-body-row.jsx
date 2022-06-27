@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, {useEffect, useState} from 'react'
 
 import {Chip, Typography, TableCell, TableRow, NativeSelect, IconButton} from '@material-ui/core'

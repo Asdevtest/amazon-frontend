@@ -14,6 +14,7 @@ import {clientExchangeViewColumns} from '@components/table-columns/client/client
 import {clientProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
@@ -30,9 +31,11 @@ export class ClientExchangeViewModel {
 
   destinations = []
 
+  ordersDataStateToSubmit = undefined
+
   drawerOpen = false
   showPrivateLabelModal = false
-  showConfirmPayModal = false
+  showConfirmModal = false
   showSuccessModal = false
   showWarningModal = false
 
@@ -53,6 +56,13 @@ export class ClientExchangeViewModel {
   columnsModel = clientExchangeViewColumns(this.rowHandlers)
 
   showOrderModal = false
+
+  confirmModalSettings = {
+    isWarning: false,
+    confirmTitle: '',
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
 
   constructor({history}) {
     this.history = history
@@ -166,7 +176,17 @@ export class ClientExchangeViewModel {
 
   onClickLaunchPrivateLabelBtn(product) {
     this.selectedProduct = product
-    this.onTriggerOpenModal('showConfirmPayModal')
+
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You buy a product card, are you sure?']),
+      confirmMessage: `${t(TranslationKey['You will be charged'])} (${
+        this.selectedProduct && toFixedWithDollarSign(this.selectedProduct.priceForClient, 2)
+      })?`,
+      onClickConfirm: () => this.onClickBuyProductBtn(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async createOrder(orderObject) {
@@ -204,11 +224,11 @@ export class ClientExchangeViewModel {
     }
   }
 
-  async onLaunchPrivateLabel(order) {
+  async onLaunchPrivateLabel() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const requestProduct = getObjectFilteredByKeyArrayBlackList({...order}, [
+      const requestProduct = getObjectFilteredByKeyArrayBlackList({...this.ordersDataStateToSubmit}, [
         'tmpResearcherName',
         'tmpBuyerName',
         'tmpStrategyStatus',
@@ -219,6 +239,8 @@ export class ClientExchangeViewModel {
 
       this.onTriggerOpenModal('showOrderModal')
       this.onTriggerOpenModal('showSuccessModal')
+
+      this.onTriggerOpenModal('showConfirmModal')
 
       this.loadData()
     } catch (error) {
@@ -255,11 +277,11 @@ export class ClientExchangeViewModel {
     }
   }
 
-  async onClickBuyProductBtn(product) {
+  async onClickBuyProductBtn() {
     try {
-      await ClientModel.makePayments([product._id])
+      await ClientModel.makePayments([this.selectedProduct._id])
 
-      this.onTriggerOpenModal('showConfirmPayModal')
+      this.onTriggerOpenModal('showConfirmModal')
 
       this.openCreateOrder()
 
@@ -305,10 +327,19 @@ export class ClientExchangeViewModel {
     this.onTriggerOpenModal('showWarningModal')
   }
 
-  onClickOrderNowBtn = orderData => {
-    this.onTriggerOpenModal('showOrderModal')
+  onClickOrderNowBtn = (orderData, totalOrdersCost) => {
+    this.ordersDataStateToSubmit = orderData[0]
 
-    this.onLaunchPrivateLabel(orderData[0])
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(
+        TranslationKey['Confirm order'],
+      )}?`,
+      onClickConfirm: () => this.onLaunchPrivateLabel(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   onChangeCurPage(e) {

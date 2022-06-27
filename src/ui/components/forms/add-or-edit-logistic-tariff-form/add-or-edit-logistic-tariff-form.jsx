@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
@@ -10,6 +10,8 @@ import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {DatePicker} from '@components/date-picker'
 import {Field} from '@components/field/field'
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {t} from '@utils/translations'
@@ -19,6 +21,15 @@ import {useClassNames} from './add-or-edit-logistic-tariff-form.style'
 export const AddOrEditLogisticTariffForm = observer(
   ({onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit, sourceYuanToDollarRate}) => {
     const classNames = useClassNames()
+
+    const rateSettings = {
+      IN_DOLLAR: 'IN_DOLLAR',
+      IN_YAN: 'IN_YAN',
+    }
+    const [currencyType, setCurrencyType] = useState(rateSettings.IN_YAN)
+    const handleChange = (event, newAlignment) => {
+      setCurrencyType(newAlignment)
+    }
 
     const sourceFormFields = {
       name: tariffToEdit?.name || '',
@@ -31,29 +42,34 @@ export const AddOrEditLogisticTariffForm = observer(
       conditionsByRegion: {
         west: {
           rate: tariffToEdit
-            ? Math.round(
-                tariffToEdit.conditionsByRegion.west.rate *
-                  (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
-                  100,
-              ) / 100
+            ? // Math.round(
+              //                 tariffToEdit.conditionsByRegion.west.rate *
+              //                   (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
+              //                   100,
+              //               ) / 100
+              tariffToEdit.conditionsByRegion.west.rate
             : '',
         },
         central: {
           rate: tariffToEdit
-            ? Math.round(
-                tariffToEdit.conditionsByRegion.central.rate *
-                  (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
-                  100,
-              ) / 100
+            ? // Math.round(
+              //                 tariffToEdit.conditionsByRegion.central.rate *
+              //                   (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
+              //                   100,
+              //               ) / 100
+
+              tariffToEdit.conditionsByRegion.central.rate
             : '',
         },
         east: {
           rate: tariffToEdit
-            ? Math.round(
-                tariffToEdit.conditionsByRegion.east.rate *
-                  (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
-                  100,
-              ) / 100
+            ? // Math.round(
+              //                 tariffToEdit.conditionsByRegion.east.rate *
+              //                   (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
+              //                   100,
+              //               ) / 100
+
+              tariffToEdit.conditionsByRegion.east.rate
             : '',
         },
         yuanToDollarRate: tariffToEdit?.conditionsByRegion.yuanToDollarRate || sourceYuanToDollarRate,
@@ -84,6 +100,38 @@ export const AddOrEditLogisticTariffForm = observer(
       setFormFields(newFormFields)
     }
 
+    useEffect(() => {
+      const newFormFields = {...formFields}
+
+      if (currencyType === rateSettings.IN_YAN) {
+        newFormFields.conditionsByRegion.west.rate =
+          Math.round(formFields.conditionsByRegion.west.rate * formFields.conditionsByRegion.yuanToDollarRate * 100) /
+          100
+
+        newFormFields.conditionsByRegion.central.rate =
+          Math.round(
+            formFields.conditionsByRegion.central.rate * formFields.conditionsByRegion.yuanToDollarRate * 100,
+          ) / 100
+        newFormFields.conditionsByRegion.east.rate =
+          Math.round(formFields.conditionsByRegion.east.rate * formFields.conditionsByRegion.yuanToDollarRate * 100) /
+          100
+      } else {
+        newFormFields.conditionsByRegion.west.rate =
+          Math.round((formFields.conditionsByRegion.west.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100) /
+          100
+
+        newFormFields.conditionsByRegion.central.rate =
+          Math.round(
+            (formFields.conditionsByRegion.central.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
+          ) / 100
+        newFormFields.conditionsByRegion.east.rate =
+          Math.round((formFields.conditionsByRegion.east.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100) /
+          100
+      }
+
+      setFormFields(newFormFields)
+    }, [currencyType])
+
     const calculateFieldsToSubmit = () => {
       const res = {
         ...formFields,
@@ -91,21 +139,27 @@ export const AddOrEditLogisticTariffForm = observer(
         conditionsByRegion: {
           west: {
             rate:
-              Math.round(
-                (formFields.conditionsByRegion.west.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
-              ) / 100,
+              currencyType === rateSettings.IN_YAN
+                ? Math.round(
+                    (formFields.conditionsByRegion.west.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
+                  ) / 100
+                : formFields.conditionsByRegion.west.rate,
           },
           central: {
             rate:
-              Math.round(
-                (formFields.conditionsByRegion.central.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
-              ) / 100,
+              currencyType === rateSettings.IN_YAN
+                ? Math.round(
+                    (formFields.conditionsByRegion.central.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
+                  ) / 100
+                : formFields.conditionsByRegion.central.rate,
           },
           east: {
             rate:
-              Math.round(
-                (formFields.conditionsByRegion.east.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
-              ) / 100,
+              currencyType === rateSettings.IN_YAN
+                ? Math.round(
+                    (formFields.conditionsByRegion.east.rate / formFields.conditionsByRegion.yuanToDollarRate) * 100,
+                  ) / 100
+                : formFields.conditionsByRegion.east.rate,
           },
           yuanToDollarRate: formFields.conditionsByRegion.yuanToDollarRate,
         },
@@ -124,7 +178,7 @@ export const AddOrEditLogisticTariffForm = observer(
     const checkDateByDeadline = date => (date !== null ? date < new Date() : false)
 
     const disableSubmitBtn =
-      JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
+      JSON.stringify(sourceFormFields) === JSON.stringify(calculateFieldsToSubmit()) ||
       formFields.conditionsByRegion.yuanToDollarRate === '' ||
       Number(formFields.conditionsByRegion.yuanToDollarRate) <= 0 ||
       formFields.name === '' ||
@@ -178,6 +232,15 @@ export const AddOrEditLogisticTariffForm = observer(
           <div className={classNames.costBlock}>
             <Typography variant="h5">{t(TranslationKey.Rates) + ' ¥'}</Typography>
 
+            <ToggleBtnGroup exclusive size="small" color="primary" value={currencyType} onChange={handleChange}>
+              <ToggleBtn disabled={currencyType === rateSettings.IN_DOLLAR} value={rateSettings.IN_DOLLAR}>
+                {'$'}
+              </ToggleBtn>
+              <ToggleBtn disabled={currencyType === rateSettings.IN_YAN} value={rateSettings.IN_YAN}>
+                {'¥'}
+              </ToggleBtn>
+            </ToggleBtnGroup>
+
             <Field
               oneLine
               disabled
@@ -208,19 +271,6 @@ export const AddOrEditLogisticTariffForm = observer(
                 value={formFields.conditionsByRegion.west.rate}
                 onChange={onChangeField('rate', 'west')}
               />
-
-              <Field
-                disabled
-                labelClasses={classNames.fieldLabel}
-                value={
-                  Math.round(
-                    (formFields.conditionsByRegion.west.rate / (formFields.conditionsByRegion.yuanToDollarRate || 1)) *
-                      100,
-                  ) /
-                    100 +
-                  '$'
-                }
-              />
             </div>
 
             <div className={classNames.blockItem}>
@@ -229,20 +279,6 @@ export const AddOrEditLogisticTariffForm = observer(
                 labelClasses={classNames.fieldLabel}
                 value={formFields.conditionsByRegion.central.rate}
                 onChange={onChangeField('rate', 'central')}
-              />
-
-              <Field
-                disabled
-                labelClasses={classNames.fieldLabel}
-                value={
-                  Math.round(
-                    (formFields.conditionsByRegion.central.rate /
-                      (formFields.conditionsByRegion.yuanToDollarRate || 1)) *
-                      100,
-                  ) /
-                    100 +
-                  '$'
-                }
               />
             </div>
 
@@ -253,19 +289,6 @@ export const AddOrEditLogisticTariffForm = observer(
                 value={formFields.conditionsByRegion.east.rate}
                 onChange={onChangeField('rate', 'east')}
               />
-
-              <Field
-                disabled
-                labelClasses={classNames.fieldLabel}
-                value={
-                  Math.round(
-                    (formFields.conditionsByRegion.east.rate / (formFields.conditionsByRegion.yuanToDollarRate || 1)) *
-                      100,
-                  ) /
-                    100 +
-                  '$'
-                }
-              />
             </div>
           </div>
 
@@ -274,17 +297,16 @@ export const AddOrEditLogisticTariffForm = observer(
           <div className={classNames.blockWrapper}>
             <div className={classNames.blockItem}>
               <Field
-                label={t(TranslationKey['ETD (date of shipment)'])}
+                label={t(TranslationKey['CLS (batch closing date)'])}
                 labelClasses={classNames.fieldLabel}
                 inputComponent={
                   <div
                     className={clsx({
-                      [classNames.deadlineError]: checkDateByDeadline(formFields.etd),
+                      [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
                     })}
                   >
-                    <DatePicker value={formFields.etd} onChange={onChangeField('etd')} />
-
-                    {checkDateByDeadline(formFields.etd) && (
+                    <DatePicker value={formFields.cls} onChange={onChangeField('cls')} />
+                    {checkDateByDeadline(formFields.cls) && (
                       <p className={classNames.deadlineErrorText}>
                         {'The deadline date cannot be later than the current date'}
                       </p>
@@ -317,16 +339,17 @@ export const AddOrEditLogisticTariffForm = observer(
 
             <div className={classNames.blockItem}>
               <Field
-                label={t(TranslationKey['CLS (batch closing date)'])}
+                label={t(TranslationKey['ETD (date of shipment)'])}
                 labelClasses={classNames.fieldLabel}
                 inputComponent={
                   <div
                     className={clsx({
-                      [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
+                      [classNames.deadlineError]: checkDateByDeadline(formFields.etd),
                     })}
                   >
-                    <DatePicker value={formFields.cls} onChange={onChangeField('cls')} />
-                    {checkDateByDeadline(formFields.cls) && (
+                    <DatePicker value={formFields.etd} onChange={onChangeField('etd')} />
+
+                    {checkDateByDeadline(formFields.etd) && (
                       <p className={classNames.deadlineErrorText}>
                         {'The deadline date cannot be later than the current date'}
                       </p>

@@ -1013,5 +1013,14 @@
   "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)": "Status billing button, the product card is sent to the buyer to search for a supplier (can be changed before the buyer takes over)",
   "Button to set the status, the product card remains in the supervisor's work (can be changed)": "Button to set the status, the product card remains in the supervisor's work (can be changed)",
   "Sizes": "Sizes",
-  "State the reason for stopping": "State the reason for stopping"
+  "State the reason for stopping": "State the reason for stopping",
+  "Total amount": "Total amount",
+  "You are making an order, are you sure?": "You are making an order, are you sure?",
+  "The order will cost:": "The order will cost:",
+  "Confirm order": "Confirm order",
+  "Formed a task for storekeeper": "Formed a task for storekeeper",
+  "to change the Box": "to change the Box",
+  "has been changed": "has been changed",
+  "to redistribute the Box": "to redistribute the Box",
+  "to merge boxes": "to merge boxes"
 }

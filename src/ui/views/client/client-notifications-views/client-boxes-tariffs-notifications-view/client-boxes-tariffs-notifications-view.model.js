@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {BoxStatus} from '@constants/box-status'
@@ -17,7 +16,6 @@ import {clientBoxesTariffsNotificationsViewColumns} from '@components/table-colu
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export class ClientBoxesTariffsNotificationsViewModel {

@@ -784,12 +784,12 @@ export const privateRoutesConfigs = [
   {
     routePath: '/admin/users',
     component: AdminUsersView,
-    exact: false,
+    exact: true,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Users,
   },
   {
-    routePath: '/admin/user/user_id/balance',
+    routePath: '/admin/users/balance',
     component: AdminUserBalanceView,
     exact: false,
     permission: [UserRole.ADMIN],

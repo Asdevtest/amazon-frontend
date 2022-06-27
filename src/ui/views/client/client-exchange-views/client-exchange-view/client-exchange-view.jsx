@@ -20,7 +20,6 @@ import {Navbar} from '@components/navbar'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
-import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {ClientExchangeViewModel} from './client-exchange-view.model'
@@ -40,6 +39,7 @@ export class ClientExchangeViewRaw extends Component {
 
   render() {
     const {
+      confirmModalSettings,
       volumeWeightCoefficient,
       showOrderModal,
       onDoubleClickBarcode,
@@ -58,7 +58,7 @@ export class ClientExchangeViewRaw extends Component {
       curPage,
       rowsPerPage,
       selectedProduct,
-      showConfirmPayModal,
+      showConfirmModal,
       showSuccessModal,
       showWarningModal,
       onTriggerDrawer,
@@ -66,7 +66,6 @@ export class ClientExchangeViewRaw extends Component {
       onChangeRowsPerPage,
       onClickOrderNowBtn,
       onClickCancelBtn,
-      onClickBuyProductBtn,
       onTriggerOpenModal,
 
       onSelectionModel,
@@ -131,19 +130,17 @@ export class ClientExchangeViewRaw extends Component {
         </Modal>
 
         <ConfirmationModal
-          openModal={showConfirmPayModal}
-          setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}
-          title={t(TranslationKey['You buy a product card, are you sure?'])}
-          message={`${t(TranslationKey['You will be charged'])} (${
-            selectedProduct && toFixedWithDollarSign(selectedProduct.priceForClient, 2)
-          })`}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          isWarning={confirmModalSettings.isWarning}
+          title={confirmModalSettings.confirmTitle}
+          message={confirmModalSettings.confirmMessage}
           successBtnText={t(TranslationKey.Yes)}
           cancelBtnText={t(TranslationKey.Cancel)}
-          onClickSuccessBtn={() => {
-            onClickBuyProductBtn(selectedProduct)
-          }}
-          onClickCancelBtn={() => onTriggerOpenModal('showConfirmPayModal')}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
+
         <WarningInfoModal
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}

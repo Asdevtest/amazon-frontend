@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core'
+import {Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
@@ -10,7 +11,7 @@ import {Button} from '@components/buttons/button'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
-import {toFixedWithDollarSign} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './table-supplier.style'
@@ -55,13 +56,18 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                 })}
                 onClick={() => onClickSupplier(supplier, index)}
               >
-                <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)}>{supplier.name}</TableCell>
+                <TableCell className={[classNames.alignCenter, classNames.nameCell]}>{supplier.name}</TableCell>
 
                 <TableCell className={classNames.alignCenter}>
                   <div className={classNames.linkWrapper}>
-                    <a download target="_blank" rel="noreferrer" href={supplier.link} className={classNames.Link}>
-                      {t(TranslationKey['Go to supplier site'])}
-                    </a>
+                    <Link
+                      target="_blank"
+                      rel="noopener"
+                      href={checkAndMakeAbsoluteUrl(supplier.link)}
+                      className={classNames.linkSubWrapper}
+                    >
+                      <Typography className={classNames.Link}>{t(TranslationKey['Go to supplier site'])}</Typography>
+                    </Link>
 
                     <img
                       className={classNames.copyImg}
@@ -80,10 +86,8 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
 
                 <TableCell className={classNames.alignCenter}>{supplier.minlot}</TableCell>
                 <TableCell className={classNames.alignCenter}>{toFixedWithDollarSign(supplier.lotcost, 2)}</TableCell>
-                <TableCell className={classNames.alignCenter}>
-                  <UserLinkCell blackText name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
-                </TableCell>
-                <TableCell className={classNames.alignCenter}>{supplier.comment}</TableCell>
+
+                <TableCell className={[classNames.alignCenter, classNames.commentCell]}>{supplier.comment}</TableCell>
 
                 <TableCell>
                   <Button

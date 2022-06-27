@@ -78,14 +78,12 @@ export class ClientWarehouseViewModel {
   showEditBoxModal = false
   showConfirmModal = false
   showRedistributeBoxModal = false
-  showRedistributeBoxAddNewBoxModal = false
-  showRedistributeBoxSuccessModal = false
-  showRedistributeBoxFailModal = false
+
   showRequestToSendBatchModal = false
-  showMergeBoxSuccessModal = false
-  showEditBoxSuccessModal = false
+
+  showSuccessInfoModal = false
+
   boxesDeliveryCosts = undefined
-  showMergeBoxFailModal = false
 
   showSetShippingLabelModal = false
 
@@ -344,9 +342,11 @@ export class ClientWarehouseViewModel {
         clientComment: boxData.clientComment,
       })
 
-      this.modalEditSuccessMessage = t(TranslationKey['Task created to change the box'])
+      this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
+        this.selectedBox?.storekeeper?.name
+      } ${t(TranslationKey['to change the Box'])} № ${this.selectedBox?.humanFriendlyId}`
 
-      this.onTriggerOpenModal('showEditBoxSuccessModal')
+      this.onTriggerOpenModal('showSuccessInfoModal')
       this.onTriggerOpenModal('showConfirmModal')
 
       this.loadData()
@@ -449,13 +449,18 @@ export class ClientWarehouseViewModel {
     this.selectedBoxes = updatedselectedBoxes
   }
 
-  async onRedistribute(id, updatedBoxes, type, isMasterBox, comment) {
+  async onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.selectedBoxes = []
 
       if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
-        this.onTriggerOpenModal('showRedistributeBoxFailModal')
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey['The box is not split!']),
+        }
+
+        this.onTriggerOpenModal('showWarningInfoModal')
       } else {
         const resBoxes = []
 
@@ -494,9 +499,21 @@ export class ClientWarehouseViewModel {
 
         this.setRequestStatus(loadingStatuses.success)
 
-        splitBoxesResult
-          ? this.onTriggerOpenModal('showRedistributeBoxSuccessModal')
-          : this.onTriggerOpenModal('showRedistributeBoxFailModal')
+        if (splitBoxesResult) {
+          this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
+            this.storekeepersData.find(el => el._id === sourceBox.storekeeperId)?.name
+          } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox.humanFriendlyId}`
+
+          this.onTriggerOpenModal('showSuccessInfoModal')
+        } else {
+          this.warningInfoModalSettings = {
+            isWarning: true,
+            title: t(TranslationKey['The box is not split!']),
+          }
+
+          this.onTriggerOpenModal('showWarningInfoModal')
+        }
+
         this.onTriggerOpenModal('showRedistributeBoxModal')
         this.onModalRedistributeBoxAddNewBox(null)
       }
@@ -582,9 +599,10 @@ export class ClientWarehouseViewModel {
               : sourceData.isShippingLabelAttachedByStorekeeper,
         })
 
-        this.modalEditSuccessMessage = t(TranslationKey['The box has been changed'])
-
-        this.onTriggerOpenModal('showEditBoxSuccessModal')
+        this.modalEditSuccessMessage = `${t(TranslationKey.Box)} № ${sourceData.humanFriendlyId} ${t(
+          TranslationKey['has been changed'],
+        )}`
+        this.onTriggerOpenModal('showSuccessInfoModal')
       } else {
         let dataToBarCodeChange = boxData.items
           .map(el =>
@@ -646,9 +664,11 @@ export class ClientWarehouseViewModel {
           clientComment: boxData.clientComment,
         })
 
-        this.modalEditSuccessMessage = t(TranslationKey['Task created to change the box'])
+        this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
+          sourceData.storekeeper?.name
+        } ${t(TranslationKey['to change the Box'])} № ${sourceData.humanFriendlyId}`
 
-        this.onTriggerOpenModal('showEditBoxSuccessModal')
+        this.onTriggerOpenModal('showSuccessInfoModal')
       }
 
       this.loadData()
@@ -676,14 +696,24 @@ export class ClientWarehouseViewModel {
 
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(
         {...boxBody, shippingLabel: this.uploadedFiles.length ? this.uploadedFiles[0] : boxBody.shippingLabel},
-        ['tmpShippingLabel', 'storekeeperId'],
+        ['tmpShippingLabel', 'storekeeperId', 'humanFriendlyId'],
       )
 
       const mergeBoxesResult = await this.mergeBoxes(selectedIds, newBoxBody)
 
-      mergeBoxesResult
-        ? this.onTriggerOpenModal('showMergeBoxSuccessModal')
-        : this.onTriggerOpenModal('showMergeBoxFailModal')
+      if (mergeBoxesResult) {
+        this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
+          this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
+        } ${t(TranslationKey['merge boxes'])} `
+        this.onTriggerOpenModal('showSuccessInfoModal')
+      } else {
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey['The boxes are not joined!']),
+        }
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+      }
 
       this.onTriggerOpenModal('showMergeBoxModal')
 

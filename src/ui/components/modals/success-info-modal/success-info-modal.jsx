@@ -2,7 +2,7 @@ import React from 'react'
 
 import {Typography} from '@material-ui/core'
 
-import {SuccessButton} from '@components/buttons/success-button'
+import {Button} from '@components/buttons/button'
 import {Modal} from '@components/modal'
 
 import {useClassNames} from './success-info-modal.style'
@@ -13,13 +13,13 @@ export const SuccessInfoModal = ({openModal, setOpenModal, title, successBtnText
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMessageWrapper}>
-        <Typography paragraph variant="h6" className={classNames.title}>
+        <Typography paragraph className={classNames.title}>
           {title}
         </Typography>
 
-        <SuccessButton disableElevation variant="contained" className={classNames.button} onClick={onClickSuccessBtn}>
+        <Button success disableElevation variant="contained" className={classNames.button} onClick={onClickSuccessBtn}>
           {successBtnText}
-        </SuccessButton>
+        </Button>
       </div>
     </Modal>
   )

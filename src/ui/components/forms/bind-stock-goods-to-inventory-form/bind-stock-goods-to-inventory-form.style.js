@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    width: '750px',
+    width: '800px',
   },
 
   mainTitle: {
@@ -132,6 +132,9 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: '#F4F4F4',
     width: '100%',
     height: 40,
+    '&:focus-within': {
+      backgroundColor: '#fff',
+    },
   },
 
   searchContainer: {

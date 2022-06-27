@@ -78,16 +78,12 @@ export class ClientWarehouseViewRaw extends Component {
       showEditBoxModal,
       showRedistributeBoxModal,
       showRedistributeBoxAddNewBoxModal,
-      showRedistributeBoxSuccessModal,
-      showRedistributeBoxFailModal,
       showSetShippingLabelModal,
       showSetChipValueModal,
       showWarningInfoModal,
       showRequestToSendBatchModal,
-      showEditBoxSuccessModal,
-      showMergeBoxSuccessModal,
+      showSuccessInfoModal,
       boxesDeliveryCosts,
-      showMergeBoxFailModal,
       modalEditSuccessMessage,
       warningInfoModalSettings,
       onTriggerDrawer,
@@ -273,32 +269,12 @@ export class ClientWarehouseViewRaw extends Component {
         />
 
         <SuccessInfoModal
-          openModal={showEditBoxSuccessModal}
-          setOpenModal={() => onTriggerOpenModal('showEditBoxSuccessModal')}
+          openModal={showSuccessInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessInfoModal')}
           title={modalEditSuccessMessage}
           successBtnText={t(TranslationKey.Ok)}
           onClickSuccessBtn={() => {
-            onTriggerOpenModal('showEditBoxSuccessModal')
-          }}
-        />
-
-        <SuccessInfoModal
-          openModal={showMergeBoxSuccessModal}
-          setOpenModal={() => onTriggerOpenModal('showMergeBoxSuccessModal')}
-          title={t(TranslationKey['Box merge task created'])}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => {
-            onTriggerOpenModal('showMergeBoxSuccessModal')
-          }}
-        />
-
-        <SuccessInfoModal
-          openModal={showRedistributeBoxSuccessModal}
-          setOpenModal={() => onTriggerOpenModal('showRedistributeBoxSuccessModal')}
-          title={t(TranslationKey['Box splitting task created'])}
-          successBtnText={t(TranslationKey.Ok)}
-          onClickSuccessBtn={() => {
-            onTriggerOpenModal('showRedistributeBoxSuccessModal')
+            onTriggerOpenModal('showSuccessInfoModal')
           }}
         />
 
@@ -310,40 +286,6 @@ export class ClientWarehouseViewRaw extends Component {
           btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningInfoModal')
-          }}
-        />
-
-        <WarningInfoModal
-          openModal={showRedistributeBoxAddNewBoxModal}
-          setOpenModal={() => onTriggerOpenModal('showRedistributeBoxAddNewBoxModal')}
-          title={t(
-            TranslationKey[
-              'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
-            ],
-          )}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showRedistributeBoxAddNewBoxModal')
-          }}
-        />
-
-        <WarningInfoModal
-          openModal={showMergeBoxFailModal}
-          setOpenModal={() => onTriggerOpenModal('showMergeBoxFailModal')}
-          title={t(TranslationKey['The boxes are not joined!'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showMergeBoxFailModal')
-          }}
-        />
-
-        <WarningInfoModal
-          openModal={showRedistributeBoxFailModal}
-          setOpenModal={() => onTriggerOpenModal('showRedistributeBoxFailModal')}
-          title={t(TranslationKey['The box is not split!'])}
-          btnText={t(TranslationKey.Ok)}
-          onClickBtn={() => {
-            onTriggerOpenModal('showRedistributeBoxFailModal')
           }}
         />
 

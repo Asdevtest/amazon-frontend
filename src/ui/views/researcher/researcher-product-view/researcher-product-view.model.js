@@ -1,4 +1,3 @@
-import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -8,7 +7,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ProductModel} from '@models/product-model'
 import {ResearcherModel} from '@models/researcher-model'
-import {ResearcherUpdateProductContract} from '@models/researcher-model/researcher-model.contracts'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
@@ -383,19 +381,19 @@ export class ResearcherProductViewModel {
             case 'bsr':
               return (value && parseInt(value)) || 0
             case 'amazon':
-              return (value && parseFloat(value)) || ''
+              return (value && parseFloat(value)) || 0
             case 'weight':
-              return (value && parseFloat(value)) || ''
+              return (value && parseFloat(value)) || 0
             case 'length':
-              return (value && parseFloat(value)) || ''
+              return (value && parseFloat(value)) || 0
             case 'width':
-              return (value && parseFloat(value)) || ''
+              return (value && parseFloat(value)) || 0
             case 'height':
-              return (value && parseFloat(value)) || ''
+              return (value && parseFloat(value)) || 0
             case 'fbaamount':
-              return (value && parseFloat(value)) || ''
+              return (value && parseFloat(value)) || 0
             case 'fbafee':
-              return (value && parseFloat(value)) || ''
+              return (value && parseFloat(value)) || 0
             case 'profit':
               return value && parseFloat(value)
             case 'currentSupplier':
@@ -406,7 +404,7 @@ export class ResearcherProductViewModel {
         },
       )
 
-      await transformAndValidate(ResearcherUpdateProductContract, curUpdateProductData)
+      // await transformAndValidate(ResearcherUpdateProductContract, curUpdateProductData) // пока убрали валидацию
 
       if (withoutStatus) {
         this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(curUpdateProductData, ['status'])

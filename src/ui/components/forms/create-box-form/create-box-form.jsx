@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {useState} from 'react'
 
 import {Divider, Typography, Checkbox} from '@material-ui/core'
@@ -12,7 +11,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
-import {LabelField} from '@components/label-field/label-field'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 

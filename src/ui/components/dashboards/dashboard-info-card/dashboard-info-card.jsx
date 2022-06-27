@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {Paper, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
