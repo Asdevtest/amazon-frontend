@@ -37,6 +37,7 @@ import {ClientBoxesTariffsNotificationsView} from '@views/client/client-notifica
 import {ClientOrdersNotificationsView} from '@views/client/client-notifications-views/client-orders-notifications-view'
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
+import {ClientProductExchangeView} from '@views/client/client-product-exchange-view'
 import {ClientProductView} from '@views/client/client-product-view/'
 import {ClientSettingsView} from '@views/client/client-settings-view'
 import {ClientShopsView} from '@views/client/client-shops-view'
@@ -406,14 +407,22 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/exchange',
+    routePath: '/client/product-exchange',
+    component: ClientProductExchangeView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Commodity exchange'],
+  },
+
+  {
+    routePath: '/client/product-exchange/forks-exchange',
     component: ClientExchangeView,
     exact: true,
     permission: [UserRole.CLIENT],
     crumbNameKey: TranslationKey['Surebets exchange'],
   },
   {
-    routePath: '/client/exchange/private-label',
+    routePath: '/client/product-exchange/private-label',
     component: ClientExchangePrivateLabelView,
     exact: true,
     permission: [UserRole.CLIENT],

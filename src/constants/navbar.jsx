@@ -131,10 +131,10 @@ export const navbarConfig = () => ({
     {
       icon: ExchangeIcon,
       title: t(TranslationKey['Commodity exchange']),
-      route: '/client/exchange',
+      route: '/client/product-exchange/forks-exchange',
       subtitles: [
-        {subtitle: t(TranslationKey['Surebets exchange']), subRoute: '/client/exchange'},
-        {subtitle: 'Private Label', subRoute: '/client/exchange/private-label'},
+        {subtitle: t(TranslationKey['Surebets exchange']), subRoute: '/client/product-exchange/forks-exchange'},
+        {subtitle: 'Private Label', subRoute: '/client/product-exchange/private-label'},
       ],
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
       checkHideBlock: user =>

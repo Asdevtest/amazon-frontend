@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
 
 /**
  * The InlineObject43 model module.
@@ -48,8 +47,8 @@ class InlineObject43 {
         if (data) {
             obj = obj || new InlineObject43();
 
-            if (data.hasOwnProperty('payload')) {
-                obj['payload'] = ApiClient.convertToType(data['payload'], [ApiV1IntegrationsCreateAndLinkSkuProductsPayload]);
+            if (data.hasOwnProperty('supplierIds')) {
+                obj['supplierIds'] = ApiClient.convertToType(data['supplierIds'], [NULL_SCHEMA_ERR]);
             }
         }
         return obj;
@@ -59,9 +58,10 @@ class InlineObject43 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload>} payload
+ * ID поставщиков
+ * @member {Array.<String>} supplierIds
  */
-InlineObject43.prototype['payload'] = undefined;
+InlineObject43.prototype['supplierIds'] = undefined;
 
 
 

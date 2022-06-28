@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    minWidth: '500px',
+    minWidth: '700px',
   },
 
   button: {
@@ -46,7 +46,7 @@ export const useClassNames = makeStyles(() => ({
 
   form: {
     marginTop: '20px',
-    width: '630px',
+    width: '700px',
   },
 
   btnsWrapper: {
@@ -60,7 +60,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   longContainer: {
-    width: '260px',
+    width: '330px',
   },
 
   blockWrapper: {

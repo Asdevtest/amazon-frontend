@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsOrdersLogicsTariffConditionsByRegion from './ApiV1AdminsOrdersLogicsTariffConditionsByRegion';
 
 /**
  * The InlineObject67 model module.
@@ -48,29 +47,14 @@ class InlineObject67 {
         if (data) {
             obj = obj || new InlineObject67();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('description')) {
-                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('deliveryTimeInDay')) {
-                obj['deliveryTimeInDay'] = ApiClient.convertToType(data['deliveryTimeInDay'], 'String');
-            }
-            if (data.hasOwnProperty('cls')) {
-                obj['cls'] = ApiClient.convertToType(data['cls'], 'Date');
-            }
-            if (data.hasOwnProperty('etd')) {
-                obj['etd'] = ApiClient.convertToType(data['etd'], 'Date');
-            }
-            if (data.hasOwnProperty('eta')) {
-                obj['eta'] = ApiClient.convertToType(data['eta'], 'Date');
-            }
-            if (data.hasOwnProperty('minWeightInKg')) {
-                obj['minWeightInKg'] = ApiClient.convertToType(data['minWeightInKg'], 'Number');
-            }
-            if (data.hasOwnProperty('conditionsByRegion')) {
-                obj['conditionsByRegion'] = ApiV1AdminsOrdersLogicsTariffConditionsByRegion.constructFromObject(data['conditionsByRegion']);
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -80,51 +64,22 @@ class InlineObject67 {
 }
 
 /**
- * Название тарифа
- * @member {String} name
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject67.prototype['name'] = undefined;
+InlineObject67.prototype['status'] = undefined;
 
 /**
- * Описание тарифа
- * @member {String} description
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineObject67.prototype['description'] = undefined;
+InlineObject67.prototype['images'] = undefined;
 
 /**
- * Время доставки, днях
- * @member {String} deliveryTimeInDay
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
  */
-InlineObject67.prototype['deliveryTimeInDay'] = undefined;
-
-/**
- * Дата закрытия приема новых грузов.
- * @member {Date} cls
- */
-InlineObject67.prototype['cls'] = undefined;
-
-/**
- * Ожидаема дата отбытия.
- * @member {Date} etd
- */
-InlineObject67.prototype['etd'] = undefined;
-
-/**
- * Ожидаема дата прибытия.
- * @member {Date} eta
- */
-InlineObject67.prototype['eta'] = undefined;
-
-/**
- * Минимальный вес, в кг
- * @member {Number} minWeightInKg
- */
-InlineObject67.prototype['minWeightInKg'] = undefined;
-
-/**
- * @member {module:model/ApiV1AdminsOrdersLogicsTariffConditionsByRegion} conditionsByRegion
- */
-InlineObject67.prototype['conditionsByRegion'] = undefined;
+InlineObject67.prototype['storekeeperComment'] = undefined;
 
 
 

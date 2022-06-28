@@ -276,6 +276,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   updatedText: {
+    marginRight: 5,
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',

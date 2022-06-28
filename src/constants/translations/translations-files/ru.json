@@ -1039,5 +1039,7 @@
   "lowercase": "строчные",
   "latin letters": "латинские буквы",
   "Passwords don't match": "Пароли не совпадают",
-  "maximum": "максимум"
+  "maximum": "максимум",
+  "Choose a section in Commodity exchange": "Выберите секцию в бирже товаров",
+  "Link not available": "Ссылка недоступна"
 }

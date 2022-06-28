@@ -56,6 +56,7 @@ docs/ConflictInTheState.md
 docs/DefaultHeaders.md
 docs/ForbiddenError.md
 docs/GoLoginApi.md
+docs/IdeaApi.md
 docs/InlineObject.md
 docs/InlineObject1.md
 docs/InlineObject10.md
@@ -131,6 +132,9 @@ docs/InlineObject73.md
 docs/InlineObject74.md
 docs/InlineObject75.md
 docs/InlineObject76.md
+docs/InlineObject77.md
+docs/InlineObject78.md
+docs/InlineObject79.md
 docs/InlineObject8.md
 docs/InlineObject9.md
 docs/InlineResponse200.md
@@ -153,7 +157,8 @@ docs/InlineResponse20023.md
 docs/InlineResponse20024.md
 docs/InlineResponse20025.md
 docs/InlineResponse20026.md
-docs/InlineResponse20026Details.md
+docs/InlineResponse20027.md
+docs/InlineResponse20027Details.md
 docs/InlineResponse2002AllowedUrls.md
 docs/InlineResponse2002PermissionGroups.md
 docs/InlineResponse2002Permissions.md
@@ -233,6 +238,7 @@ src/api/BoxesApi.js
 src/api/BuyerApi.js
 src/api/ClientApi.js
 src/api/GoLoginApi.js
+src/api/IdeaApi.js
 src/api/IntegrationsApi.js
 src/api/OtherApi.js
 src/api/PermissionsApi.js
@@ -369,6 +375,9 @@ src/model/InlineObject73.js
 src/model/InlineObject74.js
 src/model/InlineObject75.js
 src/model/InlineObject76.js
+src/model/InlineObject77.js
+src/model/InlineObject78.js
+src/model/InlineObject79.js
 src/model/InlineObject8.js
 src/model/InlineObject9.js
 src/model/InlineResponse200.js
@@ -391,7 +400,8 @@ src/model/InlineResponse20023.js
 src/model/InlineResponse20024.js
 src/model/InlineResponse20025.js
 src/model/InlineResponse20026.js
-src/model/InlineResponse20026Details.js
+src/model/InlineResponse20027.js
+src/model/InlineResponse20027Details.js
 src/model/InlineResponse2002AllowedUrls.js
 src/model/InlineResponse2002PermissionGroups.js
 src/model/InlineResponse2002Permissions.js
@@ -449,3 +459,9 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+test/api/IdeaApi.spec.js
+test/model/InlineObject77.spec.js
+test/model/InlineObject78.spec.js
+test/model/InlineObject79.spec.js
+test/model/InlineResponse20027.spec.js
+test/model/InlineResponse20027Details.spec.js

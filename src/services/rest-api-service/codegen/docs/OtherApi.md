@@ -302,7 +302,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.OtherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject45() // InlineObject45 | 
+  'body': new TestSwagger.InlineObject48() // InlineObject48 | 
 };
 apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -318,7 +318,7 @@ apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject45**](InlineObject45.md)|  | [optional] 
+ **body** | [**InlineObject48**](InlineObject48.md)|  | [optional] 
 
 ### Return type
 

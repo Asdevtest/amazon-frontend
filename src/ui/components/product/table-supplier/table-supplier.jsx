@@ -59,23 +59,27 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                 <TableCell className={[classNames.alignCenter, classNames.nameCell]}>{supplier.name}</TableCell>
 
                 <TableCell className={classNames.alignCenter}>
-                  <div className={classNames.linkWrapper}>
-                    <Link
-                      target="_blank"
-                      rel="noopener"
-                      href={checkAndMakeAbsoluteUrl(supplier.link)}
-                      className={classNames.linkSubWrapper}
-                    >
-                      <Typography className={classNames.Link}>{t(TranslationKey['Go to supplier site'])}</Typography>
-                    </Link>
+                  {supplier.link !== 'access denied' ? (
+                    <div className={classNames.linkWrapper}>
+                      <Link
+                        target="_blank"
+                        rel="noopener"
+                        href={checkAndMakeAbsoluteUrl(supplier.link)}
+                        className={classNames.linkSubWrapper}
+                      >
+                        <Typography className={classNames.Link}>{t(TranslationKey['Go to supplier site'])}</Typography>
+                      </Link>
 
-                    <img
-                      className={classNames.copyImg}
-                      src="/assets/icons/copy-img.svg"
-                      alt=""
-                      onClick={() => copyValue(supplier.link)}
-                    />
-                  </div>
+                      <img
+                        className={classNames.copyImg}
+                        src="/assets/icons/copy-img.svg"
+                        alt=""
+                        onClick={() => copyValue(supplier.link)}
+                      />
+                    </div>
+                  ) : (
+                    <Typography>{t(TranslationKey['Link not available'])}</Typography>
+                  )}
                 </TableCell>
 
                 <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.price, 2)}</TableCell>
