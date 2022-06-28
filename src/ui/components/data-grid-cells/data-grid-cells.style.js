@@ -446,7 +446,7 @@ export const styles = createStyles(() => ({
     alignItems: 'center',
     justifyContent: 'start',
     marginLeft: '6px',
-    padding: '0 10px',
+    // padding: '0 10px',
   },
 
   multilineTextAlignLeft: {
@@ -459,6 +459,9 @@ export const styles = createStyles(() => ({
     lineHeight: '16px',
 
     color: '#354256',
+
+    height: '100%',
+    textOverflow: 'ellipsis',
   },
 
   multilineTextHeaderWrapper: {

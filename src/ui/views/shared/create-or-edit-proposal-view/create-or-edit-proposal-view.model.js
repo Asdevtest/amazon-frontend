@@ -2,9 +2,11 @@ import {makeAutoObservable} from 'mobx'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
+import {UserModel} from '@models/user-model'
 
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
@@ -29,6 +31,10 @@ export class CreateOrEditProposalViewModel {
   readyImages = []
   progressValue = 0
   showProgress = false
+
+  get user() {
+    return UserModel.userInfo
+  }
 
   constructor({history, location}) {
     this.history = history
@@ -101,9 +107,9 @@ export class CreateOrEditProposalViewModel {
 
   onClickResultModal(setting) {
     if (setting.goBack) {
-      this.history.push('/vacant-requests')
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests`)
     } else {
-      this.history.push('/requests/my-proposals')
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/my-proposals`)
     }
 
     this.onTriggerOpenModal('showResultModal')

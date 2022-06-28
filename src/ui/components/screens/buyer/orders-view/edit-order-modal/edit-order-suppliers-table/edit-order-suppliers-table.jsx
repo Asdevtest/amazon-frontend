@@ -7,6 +7,7 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {priceCalculation} from '@utils/price-calculation'
@@ -40,6 +41,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
             <TableCell className={classNames.alignRight}>{t(TranslationKey['Total price'])}</TableCell>
             {/* <TableCell className={classNames.alignRight}>{t(TranslationKey['Created by'])}</TableCell> */}
             <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
+            <TableCell className={classNames.alignCenter}>{t(TranslationKey['Created by'])}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -70,11 +72,13 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                 <TableCell className={classNames.alignCenter}>
                   {withDollarSign(priceCalculation(supplier.price, supplier.delivery, supplier.amount))}
                 </TableCell>
-                {/* <TableCell className={classNames.alignCenter}>
-                  <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
-                </TableCell> */}
+
                 <TableCell className={classNames.alignCenter}>
                   <Typography className={classNames.textCell}>{supplier.comment}</Typography>
+                </TableCell>
+
+                <TableCell className={classNames.alignCenter}>
+                  <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
                 </TableCell>
                 <TableCell>
                   <Button

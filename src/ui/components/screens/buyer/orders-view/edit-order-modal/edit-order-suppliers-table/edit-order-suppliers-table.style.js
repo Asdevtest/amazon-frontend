@@ -96,6 +96,7 @@ export const useClassNames = makeStyles(() => ({
   },
   alignCenter: {
     textAlign: 'center',
+    minWidth: 100,
   },
   alignRight: {
     textAlign: 'right',

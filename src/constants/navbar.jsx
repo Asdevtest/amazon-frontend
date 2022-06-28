@@ -1,19 +1,26 @@
-import {LocalConvenienceStore, Work} from '@material-ui/icons'
-import AllInboxIcon from '@material-ui/icons/AllInbox'
-import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined'
-import AssignmentIcon from '@material-ui/icons/Assignment'
-import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined'
-import GavelIcon from '@material-ui/icons/Gavel'
-import InboxOutlinedIcon from '@material-ui/icons/InboxOutlined'
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined'
-import PeopleIcon from '@material-ui/icons/People'
-import SettingsIcon from '@material-ui/icons/Settings'
-
 import {isMasterUser} from '@utils/checks'
 import {t} from '@utils/translations'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from './navbar-active-category'
+import {
+  DashboardIcon,
+  ExchangeIcon,
+  FreelanceIcon,
+  FreeOrdersIcon,
+  InventoryIcon,
+  MyBatchesIcon,
+  MyFinanceIcon,
+  MyNotificationsIcon,
+  MyOrdersIcon,
+  MyProductsIcon,
+  MyUsersIcon,
+  MyWarehouseIcon,
+  SearchIcon,
+  SettingsIcon,
+  ShopsIcon,
+  TasksIcon,
+  UsersPermissionsIcon,
+} from './navbar-svg-icons'
 import {TranslationKey} from './translations/translation-key'
 import {UserRole} from './user-roles'
 
@@ -74,7 +81,7 @@ const permissionsKeys = {
 export const navbarConfig = () => ({
   [UserRole.CLIENT]: [
     {
-      icon: InfoOutlinedIcon,
+      icon: DashboardIcon,
       title: t(TranslationKey.Dashboard),
       route: '/client/dashboard',
       subtitles: null,
@@ -83,7 +90,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: Work,
+      icon: FreelanceIcon,
       title: t(TranslationKey.Freelance),
       route: '/client/freelance/my-requests',
       subtitles: [
@@ -111,7 +118,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: InboxOutlinedIcon,
+      icon: InventoryIcon,
       title: t(TranslationKey.Inventory),
       route: '/client/inventory',
       subtitles: null,
@@ -122,7 +129,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: GavelIcon,
+      icon: ExchangeIcon,
       title: t(TranslationKey['Commodity exchange']),
       route: '/client/exchange',
       subtitles: [
@@ -135,7 +142,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: AssignmentIcon,
+      icon: MyOrdersIcon,
       title: t(TranslationKey['My orders']),
       route: '/client/orders',
       subtitles: null,
@@ -144,7 +151,7 @@ export const navbarConfig = () => ({
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_ORDERS_CLIENT),
     },
     {
-      icon: ArchiveOutlinedIcon,
+      icon: MyWarehouseIcon,
       title: t(TranslationKey['My warehouse']),
       route: '/client/warehouse',
       subtitles: null,
@@ -154,7 +161,7 @@ export const navbarConfig = () => ({
         user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_WAREHOUSE_CLIENT),
     },
     {
-      icon: AllInboxIcon,
+      icon: MyBatchesIcon,
       title: t(TranslationKey['My batches']),
       route: '/client/boxes-ready-to-batch',
       subtitles: [
@@ -179,7 +186,7 @@ export const navbarConfig = () => ({
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_BATCHES_CLIENT),
     },
     {
-      icon: PeopleIcon,
+      icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/client/sub-users',
       subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/client/sub-users'}],
@@ -189,7 +196,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: LocalConvenienceStore,
+      icon: ShopsIcon,
       title: t(TranslationKey.Shops),
       route: '/client/shops',
       subtitles: null,
@@ -199,7 +206,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: MonetizationOnOutlinedIcon,
+      icon: MyFinanceIcon,
       title: t(TranslationKey.Finances),
       route: '/client/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
@@ -207,7 +214,7 @@ export const navbarConfig = () => ({
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_PAYMENTS_CLIENT),
     },
     {
-      icon: ChatBubbleOutlineOutlinedIcon,
+      icon: MyNotificationsIcon,
       title: t(TranslationKey.Notifications),
       route: '/client/orders-notifications',
       subtitles: [
@@ -223,7 +230,7 @@ export const navbarConfig = () => ({
   ],
   [UserRole.RESEARCHER]: [
     {
-      icon: InfoOutlinedIcon,
+      icon: DashboardIcon,
       title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/researcher/dashboard',
@@ -231,7 +238,7 @@ export const navbarConfig = () => ({
       checkHideBlock: () => true,
     },
     {
-      icon: AssignmentIcon,
+      icon: MyProductsIcon,
       title: t(TranslationKey['My products']),
       subtitles: null,
       route: '/researcher/products',
@@ -242,7 +249,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: PeopleIcon,
+      icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/researcher/sub-users',
       subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/researcher/sub-users'}],
@@ -253,7 +260,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: MonetizationOnOutlinedIcon,
+      icon: MyFinanceIcon,
       title: t(TranslationKey.Finances),
       route: '/researcher/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
@@ -264,7 +271,9 @@ export const navbarConfig = () => ({
   ],
   [UserRole.FREELANCER]: [
     {
-      icon: InfoOutlinedIcon,
+      // icon: InfoOutlinedIcon,
+      icon: DashboardIcon,
+
       title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/freelancer/dashboard',
@@ -273,7 +282,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: Work,
+      icon: FreelanceIcon,
       title: t(TranslationKey.Freelance),
       route: '/freelancer/freelance/vacant-requests',
       subtitles: [
@@ -296,7 +305,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: PeopleIcon,
+      icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/freelancer/sub-users',
       subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/freelancer/sub-users'}],
@@ -305,7 +314,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: MonetizationOnOutlinedIcon,
+      icon: MyFinanceIcon,
       title: t(TranslationKey.Finances),
       route: '/freelancer/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
@@ -314,7 +323,7 @@ export const navbarConfig = () => ({
   ],
   [UserRole.SUPERVISOR]: [
     {
-      icon: InfoOutlinedIcon,
+      icon: DashboardIcon,
       title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/supervisor/dashboard',
@@ -322,7 +331,7 @@ export const navbarConfig = () => ({
       checkHideBlock: () => true,
     },
     {
-      icon: AssignmentIcon,
+      icon: TasksIcon,
       title: t(TranslationKey['Ready to check']),
       route: '/supervisor/ready-to-check',
       subtitles: [
@@ -351,7 +360,7 @@ export const navbarConfig = () => ({
         ),
     },
     {
-      icon: InboxOutlinedIcon,
+      icon: MyProductsIcon,
       title: t(TranslationKey['My products']),
       subtitles: null,
       route: '/supervisor/products',
@@ -361,7 +370,7 @@ export const navbarConfig = () => ({
         user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_PRODUCTS_SUPERVISOR),
     },
     {
-      icon: PeopleIcon,
+      icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/supervisor/sub-users',
       subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/supervisor/sub-users'}],
@@ -371,7 +380,7 @@ export const navbarConfig = () => ({
         user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_USERS_SUPERVISOR),
     },
     {
-      icon: MonetizationOnOutlinedIcon,
+      icon: MyFinanceIcon,
       title: t(TranslationKey.Finances),
       route: '/supervisor/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
@@ -382,7 +391,7 @@ export const navbarConfig = () => ({
   ],
   [UserRole.BUYER]: [
     {
-      icon: InfoOutlinedIcon,
+      icon: DashboardIcon,
       title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/buyer/dashboard',
@@ -391,7 +400,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: Work,
+      icon: MyOrdersIcon,
       title: t(TranslationKey['My orders']),
       route: '/buyer/my-orders',
       subtitles: null,
@@ -401,7 +410,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: AssignmentIcon,
+      icon: FreeOrdersIcon,
       title: t(TranslationKey['Free Orders']),
       route: '/buyer/free-orders',
       subtitles: null,
@@ -411,7 +420,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: InboxOutlinedIcon,
+      icon: MyProductsIcon,
       title: t(TranslationKey['My products']),
       route: '/buyer/my-products',
       subtitles: null,
@@ -421,7 +430,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: InboxOutlinedIcon,
+      icon: SearchIcon,
       title: t(TranslationKey['Supplier search']),
       // route: '/buyer/search-supplier-by-supervisor',
       subtitles: [
@@ -451,7 +460,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: PeopleIcon,
+      icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/buyer/sub-users',
       subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/buyer/sub-users'}],
@@ -460,7 +469,7 @@ export const navbarConfig = () => ({
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_USERS_BUYER),
     },
     {
-      icon: MonetizationOnOutlinedIcon,
+      icon: MyFinanceIcon,
       title: t(TranslationKey.Finances),
       route: '/buyer/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
@@ -470,7 +479,7 @@ export const navbarConfig = () => ({
   ],
   [UserRole.STOREKEEPER]: [
     {
-      icon: InfoOutlinedIcon,
+      icon: DashboardIcon,
       title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/warehouse/dashboard',
@@ -478,7 +487,7 @@ export const navbarConfig = () => ({
       checkHideBlock: () => true,
     },
     {
-      icon: AssignmentIcon,
+      icon: TasksIcon,
       title: t(TranslationKey.Tasks),
       subtitles: [
         {
@@ -512,7 +521,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: ArchiveOutlinedIcon,
+      icon: MyWarehouseIcon,
       title: t(TranslationKey['My warehouse']),
       route: '/warehouse/my-warehouse',
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
@@ -523,7 +532,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: LocalConvenienceStore,
+      icon: MyBatchesIcon,
       title: t(TranslationKey['My batches']),
       route: '/warehouse/batches',
       subtitles: [
@@ -545,7 +554,7 @@ export const navbarConfig = () => ({
         user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_BATCHES_STOREKEEPER),
     },
     {
-      icon: PeopleIcon,
+      icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/warehouse/sub-users',
       subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/warehouse/sub-users'}],
@@ -555,7 +564,7 @@ export const navbarConfig = () => ({
         user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER),
     },
     {
-      icon: MonetizationOnOutlinedIcon,
+      icon: MyFinanceIcon,
       title: t(TranslationKey.Finances),
       route: '/warehouse/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
@@ -576,7 +585,7 @@ export const navbarConfig = () => ({
   ],
   [UserRole.ADMIN]: [
     {
-      icon: InfoOutlinedIcon,
+      icon: DashboardIcon,
       title: t(TranslationKey.Dashboard),
       subtitles: null,
       route: '/admin/dashboard',
@@ -584,7 +593,7 @@ export const navbarConfig = () => ({
       checkHideBlock: () => true,
     },
     {
-      icon: GavelIcon,
+      icon: ExchangeIcon,
       title: t(TranslationKey['Commodity exchange']),
       subtitles: null,
       route: '/admin/exchange',
@@ -593,7 +602,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: InboxOutlinedIcon,
+      icon: InventoryIcon,
       title: t(TranslationKey.Inventory),
       route: '/admin/inventory',
       subtitles: null,
@@ -602,7 +611,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: AssignmentIcon,
+      icon: MyOrdersIcon,
       title: t(TranslationKey.Orders),
       subtitles: null,
       route: '/admin/orders',
@@ -611,7 +620,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: ArchiveOutlinedIcon,
+      icon: MyWarehouseIcon,
       title: t(TranslationKey.Warehouse),
       route: '/admin/tasks',
       subtitles: [
@@ -624,7 +633,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: LocalConvenienceStore,
+      icon: MyBatchesIcon,
       title: t(TranslationKey.Batches),
       route: '/admin/awaiting-batches',
       subtitles: [
@@ -643,14 +652,14 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: MonetizationOnOutlinedIcon,
+      icon: MyFinanceIcon,
       title: t(TranslationKey.Finances),
       route: '/admin/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: () => true,
     },
     {
-      icon: PeopleIcon,
+      icon: MyUsersIcon,
       title: t(TranslationKey.Users),
       route: '/admin/users',
       key: navBarActiveCategory.NAVBAR_USERS,
@@ -658,7 +667,7 @@ export const navbarConfig = () => ({
     },
 
     {
-      icon: PeopleIcon,
+      icon: UsersPermissionsIcon,
       title: t(TranslationKey['User permissions']),
       route: '/admin/permissions',
       key: navBarActiveCategory.NAVBAR_PERMISSIONS,
