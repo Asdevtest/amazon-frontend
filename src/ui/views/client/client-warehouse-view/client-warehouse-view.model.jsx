@@ -81,6 +81,8 @@ export class ClientWarehouseViewModel {
 
   showRequestToSendBatchModal = false
 
+  showConfirmWithCommentModal = false
+
   showSuccessInfoModal = false
 
   boxesDeliveryCosts = undefined
@@ -858,9 +860,9 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  async cancelTask(taskId) {
+  async cancelTask(taskId, comment) {
     try {
-      await ClientModel.cancelTask(taskId)
+      await ClientModel.cancelTask(taskId, comment)
 
       await this.getTasksMy()
     } catch (error) {
@@ -885,22 +887,16 @@ export class ClientWarehouseViewModel {
   onClickCancelBtn(id, taskId, type) {
     this.toCancelData = {id, taskId, type}
 
-    this.confirmModalSettings = {
-      isWarning: true,
-      confirmMessage: t(TranslationKey['Are you sure you want to cancel the task?']),
-      onClickConfirm: () => this.onClickCancelAfterConfirm(),
-    }
-
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onTriggerOpenModal('showConfirmWithCommentModal')
   }
 
-  async onClickCancelAfterConfirm() {
+  async onClickCancelAfterConfirm(comment) {
     try {
       await this.onClickCancelBtnByAction(this.toCancelData.type, this.toCancelData.id)
 
-      this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showConfirmWithCommentModal')
 
-      await this.cancelTask(this.toCancelData.taskId)
+      await this.cancelTask(this.toCancelData.taskId, comment)
 
       await this.getBoxesMy()
     } catch (error) {

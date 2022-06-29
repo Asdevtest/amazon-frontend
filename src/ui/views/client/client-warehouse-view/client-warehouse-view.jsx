@@ -21,6 +21,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
 import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
 import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
@@ -78,6 +79,7 @@ export class ClientWarehouseViewRaw extends Component {
       showEditBoxModal,
       showRedistributeBoxModal,
       showRedistributeBoxAddNewBoxModal,
+      showConfirmWithCommentModal,
       showSetShippingLabelModal,
       showSetChipValueModal,
       showWarningInfoModal,
@@ -108,6 +110,7 @@ export class ClientWarehouseViewRaw extends Component {
       setCurrentOpenedBox,
       onClickSaveFbaShipment,
       onClickSaveShippingLabel,
+      onClickCancelAfterConfirm,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -162,8 +165,9 @@ export class ClientWarehouseViewRaw extends Component {
               </div>
 
               <DataGrid
-                autoHeight
+                // autoHeight
                 pagination
+                useResizeContainer
                 checkboxSelection
                 localeText={getLocalizationByLanguageTag()}
                 isRowSelectable={params => params.row.isDraft === false}
@@ -301,6 +305,19 @@ export class ClientWarehouseViewRaw extends Component {
             onClickSendBoxesToBatch={onClickSendBoxesToBatch}
           />
         </Modal>
+
+        <ConfirmWithCommentModal
+          openModal={showConfirmWithCommentModal}
+          setOpenModal={() => {
+            onTriggerOpenModal('showConfirmWithCommentModal')
+            // onTriggerOpenModal('showConfirmModal')
+          }}
+          titleText={t(TranslationKey.Attention)}
+          commentLabelText={t(TranslationKey['Are you sure you want to cancel the task?'])}
+          okBtnText={t(TranslationKey.Ok)}
+          cancelBtnText={t(TranslationKey.Cancel)}
+          onSubmit={onClickCancelAfterConfirm}
+        />
 
         <ConfirmationModal
           isWarning={confirmModalSettings.isWarning}

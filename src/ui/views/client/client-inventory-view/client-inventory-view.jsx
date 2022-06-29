@@ -213,7 +213,7 @@ export class ClientInventoryViewRaw extends Component {
                 pagination
                 useResizeContainer
                 checkboxSelection
-                disableSelectionOnClick
+                // disableSelectionOnClick
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,

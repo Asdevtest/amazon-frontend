@@ -167,7 +167,7 @@ export class SubUsersViewModel {
     try {
       const result = await UserModel.getMySubUsers()
       runInAction(() => {
-        this.subUsersData = addIdDataConverter(result).filter(role => role !== this.userInfo.role)
+        this.subUsersData = addIdDataConverter(result)
       })
     } catch (error) {
       console.log(error)

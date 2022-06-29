@@ -209,7 +209,7 @@ export const AddOrEditBatchForm = observer(
           <Typography>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
           <div className={classNames.tableWrapper}>
             <DataGrid
-              autoHeight
+              // autoHeight
               hideFooter
               checkboxSelection
               rows={toJS(boxesToAddData)}
@@ -236,7 +236,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={classNames.tableWrapper}>
             <DataGrid
-              autoHeight
+              // autoHeight
               hideFooter
               checkboxSelection
               rows={chosenBoxes || []}
