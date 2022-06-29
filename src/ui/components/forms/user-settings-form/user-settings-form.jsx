@@ -7,7 +7,7 @@ import {useHistory} from 'react-router-dom'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {renderSettingsRuLabelByKey} from '@constants/user-settings-labels-to-render'
 
-import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 
@@ -65,12 +65,13 @@ export const UserSettingsForm = observer(() => {
       ))}
 
       <div className={classNames.placeAddBtnWrapper}>
-        <SuccessButton
+        <Button
+          success
           disabled={JSON.stringify(sourceUserSettings) === JSON.stringify(userSettings)}
           onClick={() => (sourceUserSettings ? onEditSubmit() : onCreateSubmit())}
         >
           {sourceUserSettings ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
-        </SuccessButton>
+        </Button>
       </div>
 
       <SuccessInfoModal

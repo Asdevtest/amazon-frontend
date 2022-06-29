@@ -76,4 +76,23 @@ export const useClassNames = makeStyles(() => ({
     height: 'auto',
     width: '100%',
   },
+
+  infoInput: {
+    width: '100%',
+  },
+
+  infoWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: 30,
+  },
+
+  infoSubWrapper: {
+    width: '48%',
+  },
+
+  infoContainer: {
+    width: '100%',
+  },
 }))

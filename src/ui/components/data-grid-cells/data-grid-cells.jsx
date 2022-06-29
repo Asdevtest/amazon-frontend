@@ -18,8 +18,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
-import {ErrorButton} from '@components/buttons/error-button/error-button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {UserLink} from '@components/user-link'
 
 import {calcVolumeWeightForBox} from '@utils/calculation'
@@ -564,7 +562,9 @@ export const ToFixedWithDollarSignCell = withStyles(styles)(({classes: className
 
 export const SuccessActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText}) => (
   <div>
-    <SuccessButton onClick={onClickOkBtn}>{bTnText}</SuccessButton>
+    <Button success onClick={onClickOkBtn}>
+      {bTnText}
+    </Button>
   </div>
 ))
 
@@ -584,19 +584,20 @@ export const NormalActionBtnCell = withStyles(styles)(({classes: classNames, onC
 
 export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
   <div className={classNames.warehouseMyTasksBtnsWrapper}>
-    <SuccessButton className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.onClickResolveBtn(row)}>
+    <Button success className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.onClickResolveBtn(row)}>
       {t(TranslationKey.Resolve)}
-    </SuccessButton>
+    </Button>
 
     {row.operationType !== TaskOperationType.RECEIVE && (
-      <ErrorButton
+      <Button
+        danger
         className={clsx(classNames.rowCancelBtn, classNames.warehouseMyTasksCancelBtn)}
         onClick={() => {
           handlers.onClickCancelTask(row.boxes[0]._id, row._id, row.operationType)
         }}
       >
         {t(TranslationKey.Cancel)}
-      </ErrorButton>
+      </Button>
     )}
   </div>
 ))
@@ -627,12 +628,13 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
           <React.Fragment>
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
-              <ErrorButton
+              <Button
+                danger
                 className={classNames.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'merge')}
               >
                 {t(TranslationKey.Cancel)}
-              </ErrorButton>
+              </Button>
             )}
           </React.Fragment>
         )
@@ -641,12 +643,13 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
           <React.Fragment>
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
-              <ErrorButton
+              <Button
+                danger
                 className={classNames.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'split')}
               >
                 {t(TranslationKey.Cancel)}
-              </ErrorButton>
+              </Button>
             )}
           </React.Fragment>
         )
@@ -657,12 +660,13 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
           <React.Fragment>
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
-              <ErrorButton
+              <Button
+                danger
                 className={classNames.cancelTaskBtn}
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]._id, row._id, 'edit')}
               >
                 {t(TranslationKey.Cancel)}
-              </ErrorButton>
+              </Button>
             )}
           </React.Fragment>
         )
@@ -682,7 +686,8 @@ export const ClientNotificationsBtnsCell = withStyles(styles)(({classes: classNa
     >
       {t(TranslationKey.Confirm)}
     </Button>
-    <ErrorButton
+    <Button
+      danger
       disabled={disabled}
       className={classNames.rowCancelBtn}
       onClick={() => {
@@ -690,7 +695,7 @@ export const ClientNotificationsBtnsCell = withStyles(styles)(({classes: classNa
       }}
     >
       {t(TranslationKey.Reject)}
-    </ErrorButton>
+    </Button>
   </div>
 ))
 
@@ -897,9 +902,9 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
     )}
 
     {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
-      <SuccessButton className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.moveBox(row)}>
+      <Button success className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.moveBox(row)}>
         {t(TranslationKey['Add to batch'])}
-      </SuccessButton>
+      </Button>
     )}
 
     <Button variant="contained" color="primary" onClick={() => handlers.setHsCode(row)}>

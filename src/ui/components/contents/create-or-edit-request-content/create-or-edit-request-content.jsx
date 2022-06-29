@@ -9,7 +9,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 // import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {DatePickerDate, DatePickerTime} from '@components/date-picker/date-picker'
@@ -291,13 +290,14 @@ export const CreateOrEditRequestContent = ({
                         {t(TranslationKey.Cancel)}
                       </Button>
 
-                      <SuccessButton
+                      <Button
+                        success
                         disabled={disableSubmit}
                         className={classNames.successBtn}
                         onClick={() => onEditSubmit(formFields, images)}
                       >
                         {t(TranslationKey.Edit)}
-                      </SuccessButton>
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -311,7 +311,8 @@ export const CreateOrEditRequestContent = ({
                           : t(TranslationKey.Cancel)}
                       </Button>
 
-                      <SuccessButton
+                      <Button
+                        success
                         disabled={disableSubmit}
                         className={classNames.successBtn}
                         onClick={onSuccessSubmit}
@@ -329,7 +330,7 @@ export const CreateOrEditRequestContent = ({
                             />
                           </div>
                         )}
-                      </SuccessButton>
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -468,7 +469,7 @@ export const CreateOrEditRequestContent = ({
                     {curStep === stepVariant.STEP_TWO ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
                   </Button>
 
-                  <SuccessButton disabled={disableSubmit} className={classNames.successBtn} onClick={onSuccessSubmit}>
+                  <Button success disabled={disableSubmit} className={classNames.successBtn} onClick={onSuccessSubmit}>
                     {curStep === stepVariant.STEP_TWO ? (
                       t(TranslationKey['Create a request'])
                     ) : (
@@ -482,7 +483,7 @@ export const CreateOrEditRequestContent = ({
                         />
                       </div>
                     )}
-                  </SuccessButton>
+                  </Button>
                 </div>
               </div>
             </div>

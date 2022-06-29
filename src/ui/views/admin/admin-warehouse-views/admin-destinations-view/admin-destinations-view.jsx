@@ -10,7 +10,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {Button} from '@components/buttons/button'
 import {AddOrEditDestinationForm} from '@components/forms/add-or-edit-destination-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -83,7 +83,9 @@ class AdminDestinationsViewRaw extends Component {
           <Appbar title={t(TranslationKey.Destinations)} history={history} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.placeAddBtnWrapper}>
-                <SuccessButton onClick={() => onClickAddBtn()}>{t(TranslationKey['Add a destination'])}</SuccessButton>
+                <Button success onClick={() => onClickAddBtn()}>
+                  {t(TranslationKey['Add a destination'])}
+                </Button>
               </div>
 
               <DataGrid

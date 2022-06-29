@@ -3,7 +3,7 @@ import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {SuccessButton} from '@components/buttons/success-button'
+import {Button} from '@components/buttons/button'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixedWithDollarSign, toFixedWithKg, withAmount} from '@utils/text'
@@ -58,7 +58,8 @@ export const PrivateLabelCard = ({item, setProductToPay}) => {
         <InfoRow label={t(TranslationKey['Average revenue'])} value={toFixedWithDollarSign(item.profit, 2)} />
 
         <div className={classNames.buttonsWrapper}>
-          <SuccessButton
+          <Button
+            success
             disableElevation
             variant="contained"
             onClick={() => {
@@ -66,7 +67,7 @@ export const PrivateLabelCard = ({item, setProductToPay}) => {
             }}
           >
             {t(TranslationKey.Start) + ' Private Label'}
-          </SuccessButton>
+          </Button>
           {/* <Button  // может пригодится
             disableElevation
             color="primary"

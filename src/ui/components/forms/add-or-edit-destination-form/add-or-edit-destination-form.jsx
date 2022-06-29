@@ -6,7 +6,6 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Field} from '@components/field/field'
 
 import {t} from '@utils/translations'
@@ -110,7 +109,8 @@ export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit,
       </div>
 
       <div className={classNames.btnsWrapper}>
-        <SuccessButton
+        <Button
+          success
           disableElevation
           disabled={disableSubmitBtn}
           color="primary"
@@ -118,7 +118,7 @@ export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit,
           onClick={onSubmit}
         >
           {t(TranslationKey.Save)}
-        </SuccessButton>
+        </Button>
 
         <Button
           disableElevation

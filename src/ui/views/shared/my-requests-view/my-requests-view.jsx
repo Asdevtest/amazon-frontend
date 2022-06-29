@@ -11,7 +11,7 @@ import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-a
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
-import {SuccessButton} from '@components/buttons/success-button'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -79,7 +79,9 @@ class MyRequestsViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My requests'])}>
             <MainContent>
               <div className={classNames.placeRequestBtnWrapper}>
-                <SuccessButton onClick={() => onClickAddBtn()}>{t(TranslationKey['Create a request'])}</SuccessButton>
+                <Button success onClick={() => onClickAddBtn()}>
+                  {t(TranslationKey['Create a request'])}
+                </Button>
               </div>
               <DataGrid
                 pagination

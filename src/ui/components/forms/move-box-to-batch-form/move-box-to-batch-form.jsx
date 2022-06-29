@@ -9,7 +9,6 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 
 import {t} from '@utils/translations'
 
@@ -61,14 +60,15 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
           </div>
 
           <div className={classNames.btnsWrapper}>
-            <SuccessButton
+            <Button
+              success
               disableElevation
               variant="contained"
               color="primary"
               onClick={() => onSubmitCreateBatch(box)}
             >
               {t(TranslationKey['Create new batch'])}
-            </SuccessButton>
+            </Button>
 
             <div className={classNames.btnsSubWrapper}>
               <Button
@@ -101,14 +101,15 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
           </div>
 
           <div className={classNames.btnsSecondWrapper}>
-            <SuccessButton
+            <Button
+              success
               disableElevation
               variant="contained"
               color="primary"
               onClick={() => onSubmitCreateBatch(box)}
             >
               {t(TranslationKey['Create new batch'])}
-            </SuccessButton>
+            </Button>
 
             <Button color="primary" variant="text" className={classNames.cancelBtn} onClick={setOpenModal}>
               {t(TranslationKey.Cancel)}

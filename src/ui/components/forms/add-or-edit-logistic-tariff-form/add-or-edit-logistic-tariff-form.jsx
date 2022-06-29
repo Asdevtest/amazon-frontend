@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {DatePicker} from '@components/date-picker'
 import {Field} from '@components/field/field'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
@@ -350,7 +349,8 @@ export const AddOrEditLogisticTariffForm = observer(
         </div>
 
         <div className={classNames.btnsWrapper}>
-          <SuccessButton
+          <Button
+            success
             disableElevation
             disabled={disableSubmitBtn}
             color="primary"
@@ -358,7 +358,7 @@ export const AddOrEditLogisticTariffForm = observer(
             onClick={onSubmit}
           >
             {t(TranslationKey.Save)}
-          </SuccessButton>
+          </Button>
 
           <Button
             disableElevation

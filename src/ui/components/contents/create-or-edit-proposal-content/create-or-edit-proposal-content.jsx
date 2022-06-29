@@ -8,7 +8,7 @@ import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
@@ -268,13 +268,14 @@ export const CreateOrEditProposalContent = ({
 
         <div className={classNames.footerWrapper}>
           <div className={classNames.buttonsWrapper}>
-            <SuccessButton
+            <Button
+              success
               disabled={disableSubmit}
               className={classNames.successBtn}
               onClick={proposalToEdit ? onClickEditSubmit : onClickCreateSubmit}
             >
               {proposalToEdit ? t(TranslationKey.Edit) : t(TranslationKey.Suggest)}
-            </SuccessButton>
+            </Button>
           </div>
         </div>
       </div>

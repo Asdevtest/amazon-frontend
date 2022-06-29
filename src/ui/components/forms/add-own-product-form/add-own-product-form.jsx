@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
@@ -173,7 +172,8 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
       )}
 
       <div className={classNames.btnsWrapper}>
-        <SuccessButton
+        <Button
+          success
           disableElevation
           disabled={disableSubmitBtn}
           variant="contained"
@@ -184,7 +184,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
           }}
         >
           {t(TranslationKey.Add)}
-        </SuccessButton>
+        </Button>
       </div>
 
       {showProgress && (

@@ -11,7 +11,6 @@ import {mapTaskStatusKeyToEnum, TaskStatus} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {ErrorButton} from '@components/buttons/error-button'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
@@ -137,12 +136,13 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
             <div className={classNames.buttonsWrapper}>
               <Button onClick={onClickResolveBtn}>{t(TranslationKey.Resolve)}</Button>
 
-              <ErrorButton
+              <Button
+                danger
                 className={classNames.cancelBtn}
                 onClick={() => handlers.onClickCancelTask(item.boxes[0]._id, item._id, item.operationType)}
               >
                 {t(TranslationKey.Cancel)}
-              </ErrorButton>
+              </Button>
             </div>
           </TableCell>
         )
@@ -153,12 +153,13 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
             <div className={classNames.buttonsWrapper}>
               <Button onClick={onClickResolveBtn}>{t(TranslationKey.Resolve)}</Button>
 
-              <ErrorButton
+              <Button
+                danger
                 className={classNames.cancelBtn}
                 onClick={() => handlers.onClickCancelTask(item.boxes[0]._id, item._id, item.operationType)}
               >
                 {t(TranslationKey.Cancel)}
-              </ErrorButton>
+              </Button>
             </div>
           </TableCell>
         )
@@ -170,12 +171,13 @@ export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
             <div className={classNames.buttonsWrapper}>
               <Button onClick={onClickResolveBtn}>{t(TranslationKey.Resolve)}</Button>
 
-              <ErrorButton
+              <Button
+                danger
                 className={classNames.cancelBtn}
                 onClick={() => handlers.onClickCancelTask(item.boxes[0]._id, item._id, item.operationType)}
               >
                 {t(TranslationKey.Cancel)}
-              </ErrorButton>
+              </Button>
             </div>
           </TableCell>
         )

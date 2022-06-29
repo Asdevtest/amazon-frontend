@@ -8,7 +8,7 @@ import {useHistory} from 'react-router-dom'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {Button} from '@components/buttons/button'
 import {AddOrEditWarehouseTariffForm} from '@components/forms/add-or-edit-warehouse-tariff-form'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -58,7 +58,9 @@ export const WarehouseTariffs = observer(() => {
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.placeAddBtnWrapper}>
-        <SuccessButton onClick={() => onClickAddBtn()}>{t(TranslationKey.Add)}</SuccessButton>
+        <Button success onClick={() => onClickAddBtn()}>
+          {t(TranslationKey.Add)}
+        </Button>
       </div>
 
       <DataGrid

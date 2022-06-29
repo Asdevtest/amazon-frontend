@@ -12,7 +12,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {LinkSubUserForm} from '@components/forms/link-sub-user-form'
 import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
@@ -94,9 +94,9 @@ class SubUsersViewRaw extends Component {
           <Appbar title={t(TranslationKey['My users'])} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <Box className={classNames.buttonBox}>
-                <SuccessButton onClick={() => onTriggerOpenModal('showAddSubUserModal')}>
+                <Button success onClick={() => onTriggerOpenModal('showAddSubUserModal')}>
                   {t(TranslationKey['Add a user'])}
-                </SuccessButton>
+                </Button>
               </Box>
 
               <div className={classNames.actionsWrapper}>

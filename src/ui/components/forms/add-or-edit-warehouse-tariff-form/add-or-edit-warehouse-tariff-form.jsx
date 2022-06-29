@@ -6,7 +6,6 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Field} from '@components/field/field'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
@@ -90,7 +89,8 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
       </div>
 
       <div className={classNames.btnsWrapper}>
-        <SuccessButton
+        <Button
+          success
           disableElevation
           disabled={disableSubmitBtn}
           color="primary"
@@ -98,7 +98,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
           onClick={onSubmit}
         >
           {t(TranslationKey.Save)}
-        </SuccessButton>
+        </Button>
 
         <Button
           disableElevation

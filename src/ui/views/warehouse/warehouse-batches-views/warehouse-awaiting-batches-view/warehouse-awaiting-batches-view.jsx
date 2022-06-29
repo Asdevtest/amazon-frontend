@@ -11,7 +11,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -114,9 +113,9 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                   </Button>
                 </div>
 
-                <SuccessButton className={classNames.addBtn} onClick={() => onClickAddOrEditBatch({isAdding: true})}>
+                <Button success className={classNames.addBtn} onClick={() => onClickAddOrEditBatch({isAdding: true})}>
                   {t(TranslationKey['Create a batch'])}
-                </SuccessButton>
+                </Button>
               </div>
 
               <DataGrid
