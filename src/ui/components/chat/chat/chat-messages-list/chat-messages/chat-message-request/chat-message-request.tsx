@@ -1,11 +1,13 @@
 import React, {FC} from 'react'
 
+import {TextareaAutosize} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {ChatMessageDataCreatedNewProposalRequestDescriptionContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {Field} from '@components/field/field'
 
 import {formatDateTimeHourAndMinutes, formatNormDateTime} from '@utils/date-time'
 import {toFixedWithDollarSign} from '@utils/text'
@@ -32,7 +34,11 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
       </div>
       <div className={classNames.mainInfoWrapper}>
         <div className={classNames.descriptionWrapper}>
-          <p className={classNames.descriptionText}>{message.data.details.conditions}</p>
+          <TextareaAutosize
+            disabled
+            value={message?.data?.details?.conditions}
+            className={classNames.conditionsField}
+          />
         </div>
         <PhotoAndFilesCarousel files={message?.data.details?.linksToMediaFiles} width="300px" />
       </div>

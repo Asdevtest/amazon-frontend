@@ -156,6 +156,11 @@ export const BindStockGoodsToInventoryForm = observer(
           <div className={classNames.tableWrapper}>
             <DataGrid
               hideFooter
+              sx={{
+                border: 0,
+                boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                backgroundColor: '#fff',
+              }}
               rows={toJS(inventoryData)}
               columns={inventoryColumns({selectRow: onClickRowRadioBtn}, selectedRow)}
               rowHeight={60}
@@ -167,7 +172,17 @@ export const BindStockGoodsToInventoryForm = observer(
           </Typography>
 
           <div className={classNames.tableWrapper}>
-            <DataGrid hideFooter rows={chosenGoods || []} columns={chosenGoodsColumns({onClickTrash})} rowHeight={60} />
+            <DataGrid
+              hideFooter
+              sx={{
+                border: 0,
+                boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                backgroundColor: '#fff',
+              }}
+              rows={chosenGoods || []}
+              columns={chosenGoodsColumns({onClickTrash})}
+              rowHeight={60}
+            />
           </div>
 
           <div className={classNames.btnsWrapper}>

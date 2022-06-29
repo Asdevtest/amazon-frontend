@@ -6,6 +6,7 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 import {Children, cloneElement, useEffect, useState} from 'react'
 
 import {Link, Typography} from '@material-ui/core'
+import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -21,7 +22,7 @@ import {useClassNames} from './custom-carousel.style'
 
 export const RIGHT_BLOCK_WIDTH = 100
 
-export const CustomCarousel = ({children, title, view = 'simple'}) => {
+export const CustomCarousel = observer(({children, title, view = 'simple'}) => {
   const classNames = useClassNames()
   const [clides, setClides] = useState([])
   const [offset, setOffset] = useState(0)
@@ -132,7 +133,7 @@ export const CustomCarousel = ({children, title, view = 'simple'}) => {
       )}
     </div>
   )
-}
+})
 const openPdfFile = url => {
   const pdfWindow = window.open('')
 

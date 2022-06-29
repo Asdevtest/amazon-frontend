@@ -118,11 +118,13 @@ export const useClassNames = makeStyles(() => ({
 
   backBtn: {
     width: '211px',
+    height: '42px',
   },
 
   successBtn: {
     marginLeft: '60px',
     width: '211px',
+    height: '42px',
   },
 
   successBtnTextWrapper: {

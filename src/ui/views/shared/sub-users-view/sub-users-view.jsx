@@ -3,7 +3,7 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {Box, InputAdornment} from '@material-ui/core'
+import {InputAdornment} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -93,13 +93,7 @@ class SubUsersViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['My users'])} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
-              <Box className={classNames.buttonBox}>
-                <Button success onClick={() => onTriggerOpenModal('showAddSubUserModal')}>
-                  {t(TranslationKey['Add a user'])}
-                </Button>
-              </Box>
-
-              <div className={classNames.actionsWrapper}>
+              <div className={classNames.subUserHeader}>
                 <Field
                   containerClasses={classNames.searchContainer}
                   inputClasses={classNames.searchInput}
@@ -111,11 +105,25 @@ class SubUsersViewRaw extends Component {
                   }
                   onChange={onChangeNameSearchValue}
                 />
+                <div>
+                  <Button
+                    success
+                    className={classNames.addUserButton}
+                    onClick={() => onTriggerOpenModal('showAddSubUserModal')}
+                  >
+                    {t(TranslationKey['Add a user'])}
+                  </Button>
+                </div>
               </div>
 
               <DataGrid
                 pagination
                 useResizeContainer
+                sx={{
+                  border: 0,
+                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                  backgroundColor: '#fff',
+                }}
                 localeText={getLocalizationByLanguageTag()}
                 sortModel={sortModel}
                 filterModel={filterModel}

@@ -13,10 +13,12 @@ export const styles = createStyles(theme => ({
   searchInput: {
     border: '1px solid #007bff',
     width: '290px',
+    height: '40px',
   },
 
   searchContainer: {
     width: 'auto',
+    marginRight: 'calc(50% - 345px)',
   },
 
   actionsWrapper: {
@@ -24,5 +26,16 @@ export const styles = createStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-end',
+  },
+
+  subUserHeader: {
+    display: 'flex',
+    justifyContent: 'end',
+    alignItems: 'center',
+  },
+
+  addUserButton: {
+    width: '200px',
+    height: '40px',
   },
 }))

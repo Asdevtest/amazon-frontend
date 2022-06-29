@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 
-import {Button} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -9,6 +8,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
 import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
 import {Main} from '@components/main'
@@ -54,18 +54,25 @@ export class ClientDashboardViewRaw extends Component {
             <MainContent>
               <div className={classes.mb5}>
                 <DashboardBalance user={userInfo} />
-                <Button
-                  disableElevation
-                  className={classes.mr2}
-                  color="primary"
-                  variant="contained"
-                  onClick={() => onClickWithdrawMoney()}
-                >
-                  {t(TranslationKey['Withdraw money'])}
-                </Button>
-                <Button disableElevation color="primary" onClick={() => onClickAddMoney()}>
-                  {t(TranslationKey['Add money'])}
-                </Button>
+                <div className={classes.buttonWrapper}>
+                  <Button
+                    disableElevation
+                    tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
+                    color="primary"
+                    variant="contained"
+                    onClick={() => onClickWithdrawMoney()}
+                  >
+                    {t(TranslationKey['Withdraw money'])}
+                  </Button>
+                  <Button
+                    disableElevation
+                    tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
+                    color="primary"
+                    onClick={() => onClickAddMoney()}
+                  >
+                    {t(TranslationKey['Add money'])}
+                  </Button>
+                </div>
               </div>
 
               <SectionalDashboard

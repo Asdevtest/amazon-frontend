@@ -13,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
+import {Field} from '@components/field/field'
 import {UserLink} from '@components/user-link'
 
 import {formatNormDateTimeWithParseISO} from '@utils/date-time'
@@ -64,7 +65,12 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
 
           <Typography className={classNames.cardTitle}>{item.title}</Typography>
 
-          <Typography className={classNames.cardDescription}>{item.detailsCustom.conditions}</Typography>
+          <Field
+            multiline
+            value={item.detailsCustom.conditions}
+            inputClasses={classNames.conditionsInput}
+            containerClasses={classNames.conditionsField}
+          />
 
           <div className={classNames.updatedAtWrapper}>
             <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ':'}</Typography>
@@ -111,6 +117,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                   <div className={classNames.btnsWrapper}>
                     <Button
                       disableElevation
+                      tooltipInfoContent={t(TranslationKey['Cancel current proposal'])}
                       disabled={disabledCancelBtnStatuses.includes(proposal.status)}
                       color="primary"
                       className={classNames.button}
@@ -122,6 +129,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                     <div className={classNames.editAndOpenButtonWrapper}>
                       <Button
                         disableElevation
+                        tooltipInfoContent={t(TranslationKey['Change the current proposal'])}
                         disabled={!noDisabledEditBtnStatuses.includes(proposal.status)}
                         color="primary"
                         className={classNames.button}
@@ -133,6 +141,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
 
                       <Button
                         disableElevation
+                        tooltipInfoContent={t(TranslationKey['Open an request for the selected proposal'])}
                         color="primary"
                         variant="contained"
                         className={classNames.button}

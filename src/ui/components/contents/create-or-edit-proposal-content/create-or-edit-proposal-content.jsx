@@ -3,7 +3,7 @@ import {Rating} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {Avatar, Checkbox, Link, List, ListItem, ListItemText, Typography} from '@material-ui/core'
+import {Avatar, Checkbox, Link, List, ListItem, ListItemText, TextareaAutosize, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -40,6 +40,7 @@ export const CreateOrEditProposalContent = ({
     execution_time: proposalToEdit?.execution_time || '',
     comment: proposalToEdit?.comment || '',
     linksToMediaFiles: proposalToEdit?.linksToMediaFiles || [],
+    title: proposalToEdit?.title || '',
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
@@ -127,7 +128,7 @@ export const CreateOrEditProposalContent = ({
             <div>
               <UserLink
                 blackText
-                name={request?.request.createdBy?.name || request.createdBy?.name}
+                name={request?.request?.createdBy?.name || request.createdBy?.name}
                 userId={request.createdBy?._id}
               />
               <div className={classNames.ratingWrapper}>
@@ -148,13 +149,7 @@ export const CreateOrEditProposalContent = ({
           label={t(TranslationKey['Application details'])}
           labelClasses={classNames.spanLabel}
           inputComponent={
-            <Typography
-              minRows={16}
-              rowsMax={16}
-              className={clsx(classNames.twoStepFieldResult, classNames.requestDescriptionField)}
-            >
-              {request?.details.conditions}
-            </Typography>
+            <TextareaAutosize disabled className={classNames.conditionsField} value={request?.details.conditions} />
           }
         />
 
@@ -200,8 +195,10 @@ export const CreateOrEditProposalContent = ({
                 minRows={1}
                 rowsMax={2}
                 label={t(TranslationKey['Proposal Name*'])}
+                value={formFields.title}
+                onChange={onChangeField('title')}
               />
-              <span>{`${0} ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span>
+              <span>{`${formFields.title.length} ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span>
             </div>
 
             <div className={classNames.imageFileInputWrapper}>

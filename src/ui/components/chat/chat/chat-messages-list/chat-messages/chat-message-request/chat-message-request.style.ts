@@ -41,7 +41,6 @@ export const useClassNames = makeStyles(() => ({
   },
   descriptionWrapper: {
     marginTop: 18,
-    maxWidth: '55%',
   },
   descriptionText: {
     color: '#354256',
@@ -122,4 +121,14 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '30px',
   },
   documentEmpty: {},
+  conditionsField: {
+    border: 'none',
+    resize: 'none',
+    color: '#354256',
+    fontSize: 18,
+    fontFamily: 'inherit',
+    width: '430px',
+    outline: 'none',
+    backgroundColor: 'inherit',
+  },
 }))

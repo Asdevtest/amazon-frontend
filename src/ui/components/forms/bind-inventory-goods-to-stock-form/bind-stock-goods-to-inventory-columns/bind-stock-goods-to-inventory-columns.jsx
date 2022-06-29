@@ -94,7 +94,12 @@ export const chosenGoodsColumns = handlers => [
   {
     field: ' ',
     headerName: '',
-    renderCell: params => <TrashCell onClick={() => handlers.onClickTrash(params.row.asin)} />,
-    width: 40,
+    renderCell: params => (
+      <TrashCell
+        tooltipText={t(TranslationKey['Remove from the list'])}
+        onClick={() => handlers.onClickTrash(params.row.asin)}
+      />
+    ),
+    width: 60,
   },
 ]

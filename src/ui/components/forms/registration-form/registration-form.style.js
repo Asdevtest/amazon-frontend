@@ -25,7 +25,7 @@ export const styles = theme =>
     visibilityIcon: {
       position: 'absolute',
       right: 10,
-      top: 35,
+      top: 36,
       cursor: 'pointer',
     },
 
@@ -38,10 +38,7 @@ export const styles = theme =>
       width: '100%',
       display: 'flex',
       flexWrap: 'nowrap',
-      marginTop: '-20px',
-
-      // border: '1px solid #e0e0e0',
-      // borderRadius: '4px',
+      marginTop: '-15px',
 
       justifyContent: 'start',
       gap: '5px',
@@ -70,5 +67,9 @@ export const styles = theme =>
       lineHeight: '16px',
       fontWeight: '400',
       color: '#656565',
+    },
+
+    input: {
+      height: '34px',
     },
   })

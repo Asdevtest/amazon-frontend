@@ -119,9 +119,9 @@ export const useClassNames = makeStyles(() => ({
   barcodeChip: {
     backgroundColor: 'rgb(0, 123, 255)',
     color: 'white',
-    fontSize: '13px',
+    fontSize: '14px',
     borderRadius: '4px',
-    height: '32px',
+    height: '36px',
   },
   barcodeChipHover: {
     '&:hover, &:focus': {

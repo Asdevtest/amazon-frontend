@@ -21,6 +21,8 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
 
     flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '60px',
 
     marginLeft: '15px',
   },
@@ -28,7 +30,7 @@ export const useClassNames = makeStyles(() => ({
   cardTitleBlockHeaderWrapper: {
     display: 'flex',
     alignItems: 'start',
-    // justifyContent: 'space-between',
+    justifyContent: 'space-between',
   },
 
   cardTitleBlockWrapper: {
@@ -40,13 +42,13 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cardTitle: {
-    margin: '0 10px 0 20px',
-    fontWeight: '400',
-    fontSize: '16px',
-    lineHeight: '19px',
+    // margin: '0 10px 0 20px',
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
     color: '#001029',
     overflowY: 'auto',
-    width: 'minmax(220px, max-content)',
+    width: '395px',
     height: '160px',
   },
 
@@ -97,8 +99,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cardImg: {
-    width: '40px',
-    height: '40px',
+    width: '60px',
+    height: '60px',
     objectFit: 'contain',
     objectPosition: 'center',
   },

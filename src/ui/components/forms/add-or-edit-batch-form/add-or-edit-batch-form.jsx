@@ -210,6 +210,11 @@ export const AddOrEditBatchForm = observer(
               // autoHeight
               hideFooter
               checkboxSelection
+              sx={{
+                border: 0,
+                boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                backgroundColor: '#fff',
+              }}
               rows={toJS(boxesToAddData)}
               columns={addOrEditBatchFormColumns()}
               rowHeight={100}

@@ -45,12 +45,16 @@ export const styles = theme =>
     visibilityIcon: {
       position: 'absolute',
       right: 10,
-      top: 35,
+      top: 36,
       cursor: 'pointer',
     },
 
     inputAdornment: {
       position: 'absolute',
       left: 0,
+    },
+
+    input: {
+      height: '34px',
     },
   })

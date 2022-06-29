@@ -54,6 +54,6 @@ export const styles = createStyles({
   },
 
   openArchiveBtn: {
-    padding: '0 15px 0 30px',
+    padding: '0 30px 0 30px',
   },
 })

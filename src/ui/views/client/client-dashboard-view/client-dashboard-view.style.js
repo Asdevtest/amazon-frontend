@@ -14,4 +14,8 @@ export const styles = createStyles(theme => ({
   mr2: {
     marginRight: theme.spacing(2),
   },
+  buttonWrapper: {
+    display: 'flex',
+    gap: '10px',
+  },
 }))

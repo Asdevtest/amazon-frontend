@@ -7,6 +7,7 @@ import {Divider, Grid, Typography, Avatar} from '@material-ui/core'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {MultilineRequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {UserLink} from '@components/user-link'
 
 import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
@@ -25,13 +26,10 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
       <div className={classNames.cardWrapper}>
         <div className={classNames.cardTitleBlockWrapper}>
           <Typography className={classNames.cardTitle}>{item.title}</Typography>
-
-          <Typography className={classNames.cardSubTitle}>
-            {translateProposalsLeftMessage(
-              item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals,
-              item.maxAmountOfProposals,
-            )}
-          </Typography>
+        </div>
+        <div className={classNames.statusWrapper}>
+          <Typography className={classNames.statusText}>{t(TranslationKey.Status)}</Typography>
+          <MultilineRequestStatusCell status={item.status} />
         </div>
 
         <Divider orientation={'horizontal'} />
@@ -70,6 +68,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
           </div>
 
           <Button
+            tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
             variant="contained"
             color="primary"
             className={classNames.actionButton}
@@ -77,6 +76,12 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
           >
             {t(TranslationKey.Details)}
           </Button>
+          <Typography className={classNames.cardSubTitle}>
+            {translateProposalsLeftMessage(
+              item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals,
+              item.maxAmountOfProposals,
+            )}
+          </Typography>
         </div>
       </div>
     </Grid>

@@ -116,11 +116,16 @@ export const OwnerRequestProposalsCard = ({
           <Typography>{RequestProposalStatusTranslate(item.proposal.status)}</Typography>
         </div>
 
-        <div>
+        <div className={classNames.actionButtonWrapper}>
           {item.proposal.status === RequestProposalStatus.CREATED ||
           item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED ? (
             <>
               <Button
+                tooltipInfoContent={t(
+                  TranslationKey[
+                    'The terms of the proposal do not fit, the contractor will be able to edit them and do it again'
+                  ],
+                )}
                 variant="contained"
                 color="primary"
                 className={clsx(classNames.actionButton, classNames.cancelBtn)}
@@ -129,6 +134,7 @@ export const OwnerRequestProposalsCard = ({
                 {t(TranslationKey.Reject)}
               </Button>
               <Button
+                tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
                 variant="contained"
                 color="primary"
                 className={clsx(classNames.actionButton, classNames.successBtn)}
@@ -140,6 +146,7 @@ export const OwnerRequestProposalsCard = ({
           ) : undefined}
 
           <Button
+            tooltipInfoContent={t(TranslationKey['Open a chat with the performer'])}
             variant="contained"
             color="primary"
             className={classNames.actionButton}

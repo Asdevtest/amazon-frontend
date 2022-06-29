@@ -151,6 +151,7 @@ export const CreateOrEditRequestContent = ({
               <div className={classNames.nameFieldWrapper}>
                 <Field
                   multiline
+                  tooltipInfoContent={t(TranslationKey['Future request title'])}
                   inputProps={{maxLength: 100}}
                   label={`${t(TranslationKey.Title)} *`}
                   className={classNames.nameField}
@@ -168,6 +169,7 @@ export const CreateOrEditRequestContent = ({
               <div className={classNames.descriptionFieldWrapper}>
                 <Field
                   multiline
+                  tooltipInfoContent={t(TranslationKey['Maximize the details of your request'])}
                   inputProps={{maxLength: 1100}}
                   className={classNames.descriptionField}
                   labelClasses={classNames.spanLabelSmall}
@@ -194,6 +196,7 @@ export const CreateOrEditRequestContent = ({
               <div>
                 <div className={classNames.dateAndTimeWrapper}>
                   <Field
+                    tooltipInfoContent={t(TranslationKey['Indicate the date by which proposals may be received'])}
                     label={`${t(TranslationKey['When do you want results?'])}`}
                     labelClasses={classNames.spanLabelSmall}
                     inputComponent={
@@ -211,6 +214,7 @@ export const CreateOrEditRequestContent = ({
                     }
                   />
                   <Field
+                    tooltipInfoContent={t(TranslationKey['Indicate the time until which offers may be received'])}
                     label={`${t(TranslationKey['What time do you want the result?'])}`}
                     labelClasses={classNames.spanLabelSmall}
                     inputComponent={
@@ -241,20 +245,27 @@ export const CreateOrEditRequestContent = ({
                       onChange={onChangeField('request')('needCheckBySupervisor')}
                     />
                   </div> */}
-                  <div className={classNames.checkboxWrapper}>
-                    <Typography className={classNames.checkboxLabel}>
-                      {t(TranslationKey['Need a supervisor check'])}
-                    </Typography>
-                    <Checkbox
-                      color="primary"
-                      checked={formFields.request.needCheckBySupervisor}
-                      onChange={onChangeField('request')('needCheckBySupervisor')}
-                    />
-                  </div>
+
+                  <Field
+                    oneLine
+                    tooltipInfoContent={t(
+                      TranslationKey['Add a service for checking the result of proposals by a supervisor'],
+                    )}
+                    label={t(TranslationKey['Need a supervisor check'])}
+                    containerClasses={classNames.checkboxWrapper}
+                    inputComponent={
+                      <Checkbox
+                        color="primary"
+                        checked={formFields.request.needCheckBySupervisor}
+                        onChange={onChangeField('request')('needCheckBySupervisor')}
+                      />
+                    }
+                  />
                 </div>
 
                 <div className={classNames.priceAndAmountWrapper}>
                   <Field
+                    tooltipInfoContent={t(TranslationKey['The price you are willing to pay for the result'])}
                     inputProps={{maxLength: 8}}
                     label={`${t(TranslationKey['Enter the offer price'])}`}
                     labelClasses={classNames.spanLabelSmall}
@@ -263,6 +274,7 @@ export const CreateOrEditRequestContent = ({
                   />
 
                   <Field
+                    tooltipInfoContent={t(TranslationKey['How many proposals are you willing to consider'])}
                     inputProps={{maxLength: 8}}
                     label={`${t(TranslationKey['Enter the number of proposals'])} *`}
                     labelClasses={classNames.spanLabelSmall}
@@ -271,16 +283,21 @@ export const CreateOrEditRequestContent = ({
                   />
                 </div>
 
-                <div className={classNames.checkboxWrapper}>
-                  <Typography className={classNames.checkboxLabel}>
-                    {t(TranslationKey['Allow multiple performances by the same performer'])}
-                  </Typography>
-                  <Checkbox
-                    color="primary"
-                    checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
-                    onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
-                  />
-                </div>
+                <Field
+                  oneLine
+                  tooltipInfoContent={t(
+                    TranslationKey['After providing the result, the same performer may make a new proposal'],
+                  )}
+                  label={t(TranslationKey['Allow multiple performances by the same performer'])}
+                  containerClasses={classNames.checkboxWrapper}
+                  inputComponent={
+                    <Checkbox
+                      color="primary"
+                      checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+                      onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
+                    />
+                  }
+                />
               </div>
               {requestToEdit ? (
                 <div className={classNames.footerWrapper}>
@@ -305,7 +322,16 @@ export const CreateOrEditRequestContent = ({
                 <div className={classNames.footerWrapper}>
                   <div className={classNames.footerRightWrapper}>
                     <div className={classNames.buttonsWrapper}>
-                      <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
+                      <Button
+                        tooltipInfoContent={
+                          curStep === stepVariant.STEP_TWO
+                            ? t(TranslationKey['Back to Step 1'])
+                            : t(TranslationKey['Cancel request creation'])
+                        }
+                        variant={'text'}
+                        className={classNames.backBtn}
+                        onClick={onClickBackBtn}
+                      >
                         {curStep === stepVariant.STEP_TWO
                           ? t(TranslationKey['Back to editing'])
                           : t(TranslationKey.Cancel)}
@@ -313,6 +339,11 @@ export const CreateOrEditRequestContent = ({
 
                       <Button
                         success
+                        tooltipInfoContent={
+                          curStep === stepVariant.STEP_TWO
+                            ? t(TranslationKey['Creates a completed request'])
+                            : t(TranslationKey['Go to Step 2'])
+                        }
                         disabled={disableSubmit}
                         className={classNames.successBtn}
                         onClick={onSuccessSubmit}
@@ -465,11 +496,30 @@ export const CreateOrEditRequestContent = ({
             <div className={classNames.footerWrapper}>
               <div className={classNames.footerRightWrapper}>
                 <div className={classNames.buttonsWrapper}>
-                  <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
+                  <Button
+                    tooltipInfoContent={
+                      curStep === stepVariant.STEP_TWO
+                        ? t(TranslationKey['Back to Step 1'])
+                        : t(TranslationKey['Cancel request creation'])
+                    }
+                    variant={'text'}
+                    className={classNames.backBtn}
+                    onClick={onClickBackBtn}
+                  >
                     {curStep === stepVariant.STEP_TWO ? t(TranslationKey.Back) : t(TranslationKey.Cancel)}
                   </Button>
 
-                  <Button success disabled={disableSubmit} className={classNames.successBtn} onClick={onSuccessSubmit}>
+                  <Button
+                    success
+                    tooltipInfoContent={
+                      curStep === stepVariant.STEP_TWO
+                        ? t(TranslationKey['Creates a completed request'])
+                        : t(TranslationKey['Go to Step 2'])
+                    }
+                    disabled={disableSubmit}
+                    className={classNames.successBtn}
+                    onClick={onSuccessSubmit}
+                  >
                     {curStep === stepVariant.STEP_TWO ? (
                       t(TranslationKey['Create a request'])
                     ) : (

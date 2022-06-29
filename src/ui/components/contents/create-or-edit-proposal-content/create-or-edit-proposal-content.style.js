@@ -284,4 +284,11 @@ export const useClassNames = makeStyles(() => ({
       marginTop: '-20px',
     },
   },
+  conditionsField: {
+    width: '100%',
+    fontSize: '16px',
+    border: 'none',
+    backgroundColor: 'inherit',
+    resize: 'none',
+  },
 }))

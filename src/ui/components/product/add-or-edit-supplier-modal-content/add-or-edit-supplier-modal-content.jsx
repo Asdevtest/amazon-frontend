@@ -158,6 +158,7 @@ export const AddOrEditSupplierModalContent = observer(
               <Button
                 success
                 disableElevation
+                tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
                 disabled={diasabledSubmit}
                 className={classNames.saveBtnClient}
                 variant="contained"
@@ -175,6 +176,7 @@ export const AddOrEditSupplierModalContent = observer(
               <Button
                 success
                 disableElevation
+                tooltipInfoContent={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
                 disabled={diasabledSubmit}
                 className={classNames.saveBtnClient}
                 variant="contained"
@@ -660,15 +662,28 @@ export const AddOrEditSupplierModalContent = observer(
         />
 
         {outsideProduct && (
-          <div className={classNames.checkboxWrapper}>
-            <Typography className={classNames.checkboxText}>{t(TranslationKey['Make the main supplier'])}</Typography>
+          <Field
+            oneLine
+            tooltipInfoContent={t(TranslationKey['Make the current supplier on which the order will be made'])}
+            label={t(TranslationKey['Make the main supplier'])}
+            containerClasses={classNames.checkboxWrapper}
+            inputComponent={
+              <Checkbox
+                color="primary"
+                checked={makeMainSupplier}
+                onChange={() => setMakeMainSupplier(!makeMainSupplier)}
+              />
+            }
+          />
+          // <div className={classNames.checkboxWrapper}>
+          //   <Typography className={classNames.checkboxText}>{t(TranslationKey['Make the main supplier'])}</Typography>
 
-            <Checkbox
-              color="primary"
-              checked={makeMainSupplier}
-              onChange={() => setMakeMainSupplier(!makeMainSupplier)}
-            />
-          </div>
+          //   <Checkbox
+          //     color="primary"
+          //     checked={makeMainSupplier}
+          //     onChange={() => setMakeMainSupplier(!makeMainSupplier)}
+          //   />
+          // </div>
         )}
 
         <div className={classNames.bottomWrapper}>

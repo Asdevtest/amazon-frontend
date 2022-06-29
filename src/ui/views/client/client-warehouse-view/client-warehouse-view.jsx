@@ -169,6 +169,11 @@ export class ClientWarehouseViewRaw extends Component {
                 pagination
                 useResizeContainer
                 checkboxSelection
+                sx={{
+                  border: 0,
+                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                  backgroundColor: '#fff',
+                }}
                 localeText={getLocalizationByLanguageTag()}
                 isRowSelectable={params => params.row.isDraft === false}
                 classes={{
@@ -203,6 +208,11 @@ export class ClientWarehouseViewRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
+                  sx={{
+                    border: 0,
+                    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                    backgroundColor: '#fff',
+                  }}
                   localeText={getLocalizationByLanguageTag()}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentTaskData()}

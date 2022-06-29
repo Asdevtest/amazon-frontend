@@ -4,6 +4,10 @@ import {Collapse, List, ListItemIcon, ListItemText} from '@material-ui/core'
 import clsx from 'clsx'
 import {Link} from 'react-router-dom'
 
+import {Button} from '@components/buttons/button'
+
+import {renderTooltipTitle} from '@utils/renders'
+
 import {NavbarSubCategory} from '../navbar-sub-category'
 import {useClassNames} from './navbar-collapse.style'
 
@@ -51,23 +55,28 @@ export const NavbarCollapse = ({
   }
 
   const renderSubCategory = (subIndex, subCategory) => (
-    <NavbarSubCategory
-      key={subIndex}
-      button
-      disableGutters
-      component={Link}
-      selected={subIndex === activeSubCategory}
-      to={subCategory.subRoute}
-      onClick={() => onClickCategory(subIndex)}
+    <Button
+      className={classNames.menuItem}
+      tooltipInfoContent={renderTooltipTitle(subCategory.subtitle, userInfo.role)}
     >
-      <ListItemText
-        disableTypography
-        className={clsx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
-        primary={subCategory.subtitle}
-      />
+      <NavbarSubCategory
+        key={subIndex}
+        button
+        disableGutters
+        component={Link}
+        selected={subIndex === activeSubCategory}
+        to={subCategory.subRoute}
+        onClick={() => onClickCategory(subIndex)}
+      >
+        <ListItemText
+          disableTypography
+          className={clsx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
+          primary={subCategory.subtitle}
+        />
 
-      {renderNotificationBySubRoute(subCategory.subRoute)}
-    </NavbarSubCategory>
+        {renderNotificationBySubRoute(subCategory.subRoute)}
+      </NavbarSubCategory>
+    </Button>
   )
 
   return (

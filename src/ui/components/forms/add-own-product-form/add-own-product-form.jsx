@@ -76,6 +76,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
 
       <Field
         label={t(TranslationKey['Amazon product link'])}
+        tooltipInfoContent={t(TranslationKey['Provide a link to the product you want to add to Amazon'])}
         inputComponent={
           <div className={classNames.inputWrapper}>
             <Input
@@ -86,6 +87,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
             />
             <Button
               disableElevation
+              tooltipInfoContent={t(TranslationKey['Fills in the ASIN field from the added Amazon link'])}
               className={classNames.defaultBtn}
               variant="contained"
               color="primary"
@@ -106,8 +108,12 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
       />
 
       <div className={classNames.checkboxWrapper} onClick={() => setIsNoAsin(!isNoAsin)}>
-        <Checkbox color="primary" checked={isNoAsin} />
-        <Typography>{t(TranslationKey.No) + ' ASIN'}</Typography>
+        <Field
+          oneLine
+          tooltipInfoContent={t(TranslationKey['Opens additional fields to be filled in when adding a product'])}
+          label={t(TranslationKey.No) + ' ASIN'}
+          inputComponent={<Checkbox color="primary" checked={isNoAsin} />}
+        />
       </div>
 
       {isNoAsin && (
