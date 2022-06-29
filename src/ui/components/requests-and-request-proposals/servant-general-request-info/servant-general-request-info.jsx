@@ -100,7 +100,13 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
           {(request.request.status === RequestStatus.PUBLISHED ||
             request.request.status === RequestStatus.IN_PROCESS) && (
             <div className={classNames.btnsBlockWrapper}>
-              <Button variant="contained" color="primary" className={classNames.actionBtn} onClick={onSubmit}>
+              <Button
+                tooltipInfoContent={t(TranslationKey['Make a proposal for the selected request'])}
+                variant="contained"
+                color="primary"
+                className={classNames.actionBtn}
+                onClick={onSubmit}
+              >
                 {t(TranslationKey['Suggest a deal'])}
               </Button>
             </div>
@@ -129,6 +135,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
               <div className={classNames.btnsBlockWrapper}>
                 <Button
                   disabled={buttonDisabled}
+                  tooltipInfoContent={t(TranslationKey['Make a proposal for the selected request'])}
                   variant="contained"
                   color="primary"
                   className={classNames.actionBtn}

@@ -405,13 +405,21 @@ export const styles = createStyles(() => ({
   trashWrapper: {
     width: '100%',
     display: 'flex',
+    padding: 0,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'inherit',
+    outline: 'none',
+
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
   },
 
   trashImg: {
     width: '20px',
     height: '20px',
+
     transition: '0.3s ease',
     cursor: 'pointer',
     '&:hover': {
@@ -682,5 +690,11 @@ export const styles = createStyles(() => ({
 
   actionBtn: {
     display: 'flex',
+  },
+
+  successActionBtnWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
   },
 }))

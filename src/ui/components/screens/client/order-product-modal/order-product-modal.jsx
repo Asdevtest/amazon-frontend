@@ -141,17 +141,82 @@ export const OrderProductModal = ({
           <TableHead>
             <TableCell className={classNames.imgCell}>{t(TranslationKey.Image)}</TableCell>
             <TableCell className={classNames.productCell}>{t(TranslationKey.Product)}</TableCell>
-            <TableCell className={classNames.priceCell}>{t(TranslationKey['Price per unit.']) + ' $'}</TableCell>
-            <TableCell className={classNames.deliveryCell}>{t(TranslationKey['Delivery per unit.']) + ' $'}</TableCell>
-            <TableCell className={classNames.qntCell}>{t(TranslationKey.Quantity)}</TableCell>
-            <TableCell className={classNames.totalCell}>{t(TranslationKey.Total) + ' $'}</TableCell>
-            <TableCell className={classNames.barCodeCell}>{t(TranslationKey.BarCode)}</TableCell>
-            <TableCell className={classNames.tariffCell}>{`Storekeeper ${t(TranslationKey.and)} ${t(
-              TranslationKey.Tariff,
-            )}`}</TableCell>
-            <TableCell className={classNames.warehouseCell}>{t(TranslationKey.Warehouse)}</TableCell>
+            <TableCell className={classNames.priceCell}>
+              <Button
+                disabled
+                className={classNames.priceCellBtn}
+                tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
+              >
+                {t(TranslationKey['Price per unit.']) + ' $'}
+              </Button>
+            </TableCell>
 
-            <TableCell className={classNames.commentCell}>{t(TranslationKey['Client comment'])}</TableCell>
+            <TableCell className={classNames.deliveryCell}>
+              <Button
+                disabled
+                className={classNames.deliveryCellBtn}
+                tooltipInfoContent={t(TranslationKey['Delivery costs to the prep center'])}
+              >
+                {t(TranslationKey['Delivery per unit.']) + ' $'}
+              </Button>
+            </TableCell>
+            <TableCell className={classNames.qntCell}>
+              <Button
+                disabled
+                className={classNames.qntCellBtn}
+                tooltipInfoContent={t(TranslationKey['Specify the amount of goods you want to order'])}
+              >
+                {t(TranslationKey.Quantity)}
+              </Button>
+            </TableCell>
+            <TableCell className={classNames.totalCell}>
+              <Button
+                disabled
+                className={classNames.totalCellBtn}
+                tooltipInfoContent={t(TranslationKey['Order amount for a specific product'])}
+              >
+                {t(TranslationKey.Total) + ' $'}
+              </Button>
+            </TableCell>
+            <TableCell className={classNames.barCodeCell}>
+              <Button
+                disabled
+                className={classNames.barCodeCellBtn}
+                tooltipInfoContent={t(TranslationKey['Product barcode'])}
+              >
+                {t(TranslationKey.BarCode)}
+              </Button>
+            </TableCell>
+            <TableCell className={classNames.tariffCell}>
+              <Button
+                disabled
+                className={classNames.tariffCellBtn}
+                tooltipInfoContent={t(
+                  TranslationKey['Choose a prep center in China and the rate at which the delivery will take place'],
+                )}
+              >
+                {`Storekeeper ${t(TranslationKey.and)} ${t(TranslationKey.Tariff)}`}
+              </Button>
+            </TableCell>
+            <TableCell className={classNames.warehouseCell}>
+              <Button
+                disabled
+                className={classNames.warehouseCellBtn}
+                tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
+              >
+                {t(TranslationKey.Warehouse)}
+              </Button>
+            </TableCell>
+
+            <TableCell className={classNames.commentCell}>
+              <Button
+                disabled
+                className={classNames.commentCellBtn}
+                tooltipInfoContent={t(TranslationKey['Comments on the order for the Buyer and the Prep Center'])}
+              >
+                {t(TranslationKey['Client comment'])}
+              </Button>
+            </TableCell>
           </TableHead>
           <TableBody>
             {productsForRender.map((product, index) => (
@@ -189,6 +254,9 @@ export const OrderProductModal = ({
       <div className={classNames.buttonsWrapper}>
         <Button
           disableElevation
+          tooltipInfoContent={t(
+            TranslationKey['Complete the order (freezes the required amount of the order from the balance)'],
+          )}
           variant="contained"
           className={(classNames.modalButton, classNames.buyNowBtn)}
           disabled={disabledSubmit}
@@ -200,6 +268,7 @@ export const OrderProductModal = ({
         <Button
           disableElevation
           variant="contained"
+          tooltipInfoContent={t(TranslationKey['Close the checkout window without saving'])}
           className={(classNames.modalButton, classNames.cancelBtn)}
           onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}
         >

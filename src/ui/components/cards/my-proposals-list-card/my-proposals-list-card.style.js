@@ -236,6 +236,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     width: '500px',
     justifyContent: 'space-between',
+    marginRight: '7px',
   },
 
   button: {
@@ -257,5 +258,16 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     color: '#001029',
     marginRight: '20px',
+  },
+
+  conditionsInput: {
+    width: '100%',
+    border: 'none',
+    color: 'black',
+  },
+
+  conditionsField: {
+    height: '100px',
+    overflow: 'auto',
   },
 }))

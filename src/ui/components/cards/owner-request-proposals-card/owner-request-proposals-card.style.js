@@ -43,8 +43,14 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-between',
   },
 
+  actionButtonWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'end',
+    gap: '10px',
+  },
+
   actionButton: {
-    marginLeft: '50px',
     minWidth: '240px',
   },
 

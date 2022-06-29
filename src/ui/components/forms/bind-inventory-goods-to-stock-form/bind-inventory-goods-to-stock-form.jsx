@@ -159,6 +159,11 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
           <DataGrid
             hideFooter
             checkboxSelection
+            sx={{
+              border: 0,
+              boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+              backgroundColor: '#fff',
+            }}
             rows={toJS(stockData)}
             columns={sourceColumns()}
             rowHeight={60}
@@ -171,13 +176,26 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
         </Typography>
 
         <div className={classNames.tableWrapper}>
-          <DataGrid hideFooter rows={chosenGoods || []} columns={chosenGoodsColumns({onClickTrash})} rowHeight={60} />
+          <DataGrid
+            hideFooter
+            sx={{
+              border: 0,
+              boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+              backgroundColor: '#fff',
+            }}
+            rows={chosenGoods || []}
+            columns={chosenGoodsColumns({onClickTrash})}
+            rowHeight={60}
+          />
         </div>
 
         <div className={classNames.btnsWrapper}>
           <Button
             success
             disableElevation
+            tooltipInfoContent={t(
+              TranslationKey['Bind the selected product from the store to the item in the inventory'],
+            )}
             disabled={chosenGoods.length < 1}
             variant="contained"
             color="primary"

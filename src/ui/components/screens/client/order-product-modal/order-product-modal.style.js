@@ -116,50 +116,161 @@ export const useClassNames = makeStyles(() => ({
 
   priceCell: {
     width: '140px',
-    padding: '0 20px 0 20px',
+    padding: '0 10px 0 10px',
     borderRight: '1px solid #e0e0e0',
+  },
+
+  priceCellBtn: {
+    width: '140px',
+    cursor: 'auto',
+    border: 'none',
+    borderRadius: 0,
+
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+
+    '&:disabled': {
+      backgroundColor: 'inherit',
+      color: '#001029',
+    },
   },
 
   deliveryCell: {
     width: '170px',
-    padding: '0 20px 0 20px',
+    padding: '0 10px 0 10px',
     borderRight: '1px solid #e0e0e0',
 
     textAlign: 'center',
     margin: 0,
   },
 
+  deliveryCellBtn: {
+    width: '170px',
+
+    cursor: 'auto',
+    border: 'none',
+    borderRadius: 0,
+
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+
+    '&:disabled': {
+      backgroundColor: 'inherit',
+      color: '#001029',
+    },
+  },
+
   qntCell: {
-    padding: '0 38px 0 20px',
+    padding: '0 10px 0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
+  },
+
+  qntCellBtn: {
+    cursor: 'auto',
+    border: 'none',
+    borderRadius: 0,
+
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+
+    '&:disabled': {
+      backgroundColor: 'inherit',
+      color: '#001029',
+    },
   },
 
   totalCell: {
-    padding: '0 20px 0 20px',
+    width: '100px',
+    padding: '0 10px 0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
+  },
+
+  totalCellBtn: {
+    width: '100px',
+    cursor: 'auto',
+    border: 'none',
+    borderRadius: 0,
+
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+
+    '&:disabled': {
+      backgroundColor: 'inherit',
+      color: '#001029',
+    },
   },
 
   barCodeCell: {
-    width: '173px',
-    padding: '0 65px 0 20px',
+    padding: '0 10px 0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
   },
 
+  barCodeCellBtn: {
+    width: '100%',
+    cursor: 'auto',
+    border: 'none',
+    borderRadius: 0,
+
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+
+    '&:disabled': {
+      backgroundColor: 'inherit',
+      color: '#001029',
+    },
+  },
+
   warehouseCell: {
-    width: '158px',
-    padding: '0 63px 0 20px',
+    padding: '0 10px 0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
+  },
+
+  warehouseCellBtn: {
+    width: '100%',
+    cursor: 'auto',
+    border: 'none',
+    borderRadius: 0,
+
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+
+    '&:disabled': {
+      backgroundColor: 'inherit',
+      color: '#001029',
+    },
   },
 
   tariffCell: {
     width: '170px',
-    padding: '0 7px 0 20px',
+    padding: '0 10px 0 10px',
     borderRight: '1px solid #e0e0e0',
     margin: 0,
+  },
+
+  tariffCellBtn: {
+    width: '180px',
+    cursor: 'auto',
+    border: 'none',
+    borderRadius: 0,
+
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+
+    '&:disabled': {
+      backgroundColor: 'inherit',
+      color: '#001029',
+    },
   },
 
   commentCell: {
@@ -168,14 +279,31 @@ export const useClassNames = makeStyles(() => ({
     margin: 0,
   },
 
+  commentCellBtn: {
+    cursor: 'auto',
+    border: 'none',
+    borderRadius: 0,
+
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+
+    '&:disabled': {
+      backgroundColor: 'inherit',
+      color: '#001029',
+    },
+  },
+
   buttonsWrapper: {
+    display: 'flex',
+    justifyContent: 'end',
     textAlign: 'right',
+    gap: '10px',
     marginTop: '30px',
   },
   buyNowBtn: {
     backgroundColor: 'rgba(0, 123, 255, 1)',
     color: '#fff',
-    marginRight: '8px',
   },
   cancelBtn: {
     backgroundColor: 'inherit',

@@ -34,7 +34,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   saveBtnClient: {
-    minWidth: '240px',
+    width: '240px',
     display: 'block',
     marginBottom: '10px',
     backgroundColor: '#4caf50',

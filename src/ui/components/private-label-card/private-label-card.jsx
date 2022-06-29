@@ -61,6 +61,7 @@ export const PrivateLabelCard = ({item, setProductToPay}) => {
           <Button
             success
             disableElevation
+            tooltipInfoContent={t(TranslationKey['Purchase a product card by Private Label strategy'])}
             variant="contained"
             onClick={() => {
               setProductToPay(item)

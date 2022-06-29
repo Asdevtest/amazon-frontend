@@ -33,6 +33,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
     width: 170,
     renderCell: params => (
       <NormalActionBtnCell
+        tooltipText={t(TranslationKey['To assign the order to Byer'])}
         bTnText={t(TranslationKey['Get to work'])}
         onClickOkBtn={() => handlers.onClickTableRowBtn(params.row)}
       />

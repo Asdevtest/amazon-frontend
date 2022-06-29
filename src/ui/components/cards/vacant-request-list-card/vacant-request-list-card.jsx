@@ -84,6 +84,7 @@ export const VacantRequestListCard = ({item, onClickViewMore}) => {
           </div>
           <div className={classNames.buttonWrapper}>
             <Button
+              tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
               variant="contained"
               color="primary"
               className={classNames.actionButton}

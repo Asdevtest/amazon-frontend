@@ -46,6 +46,16 @@ export const errorMessages = {
   'checkednotes should not be empty': 'checkednotes should not be empty',
   'buyersComment should not be empty': 'buyersComment should not be empty',
   'icomment should not be empty': 'icomment should not be empty',
+  'fbaamount must be a number conforming to the specified constraints':
+    'fbaamount must be a number conforming to the specified constraints',
+  'width must be a number conforming to the specified constraints':
+    'width must be a number conforming to the specified constraints',
+  'height must be a number conforming to the specified constraints':
+    'height must be a number conforming to the specified constraints',
+  'length must be a number conforming to the specified constraints':
+    'length must be a number conforming to the specified constraints',
+  'weight must be a number conforming to the specified constraints':
+    'weight must be a number conforming to the specified constraints',
 }
 
 export const errorMessagesTranslate = error => {
@@ -58,6 +68,16 @@ export const errorMessagesTranslate = error => {
       return t(TranslationKey["The researcher's comment cannot be empty"])
     case errorMessages['amazon must be a number conforming to the specified constraints']:
       return t(TranslationKey['Amazon must be a number conforming to the specified constraints'])
+    case errorMessages['fbaamount must be a number conforming to the specified constraints']:
+      return t(TranslationKey['Fbaamount must be a number conforming to the specified constraints'])
+    case errorMessages['width must be a number conforming to the specified constraints']:
+      return t(TranslationKey['Width must be a number conforming to the specified constraints'])
+    case errorMessages['height must be a number conforming to the specified constraints']:
+      return t(TranslationKey['Height must be a number conforming to the specified constraints'])
+    case errorMessages['length must be a number conforming to the specified constraints']:
+      return t(TranslationKey['Length must be a number conforming to the specified constraints'])
+    case errorMessages['weight must be a number conforming to the specified constraints']:
+      return t(TranslationKey['Weight must be a number conforming to the specified constraints'])
   }
 }
 

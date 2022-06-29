@@ -1,6 +1,6 @@
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {checkIsBuyer, checkIsResearcher, checkIsSupervisor} from './checks'
+import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from './checks'
 import {t} from './translations'
 
 export const translateTooltipSaveBtnMessage = role => {
@@ -25,6 +25,8 @@ export const translateTooltipDeleteBtnMessage = role => {
   if (checkIsResearcher(role)) {
     return t(TranslationKey['Delete the entire product card'])
   } else if (checkIsBuyer(role)) {
+    return t(TranslationKey['Move the product card to the Archive'])
+  } else if (checkIsClient(role)) {
     return t(TranslationKey['Move the product card to the Archive'])
   }
 }

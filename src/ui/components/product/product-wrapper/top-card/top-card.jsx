@@ -130,7 +130,7 @@ export const TopCard = observer(
                           className={classNames.buttonParseAmazon}
                           onClick={() => onClickParseProductData(ProductDataParser.SELLCENTRAL, product)}
                         >
-                          {'Parse Sellcentrall'}
+                          {'Parse Seller central'}
                         </Button>
                       </React.Fragment>
                     </Box>

@@ -113,6 +113,7 @@ export const RegistrationFormRaw = ({
         <Field
           withIcon
           inputProps={{maxLength: 30}}
+          inputClasses={classNames.input}
           containerClasses={classNames.field}
           label={t(TranslationKey.Name)}
           placeholder={t(TranslationKey.Name)}
@@ -128,6 +129,7 @@ export const RegistrationFormRaw = ({
         <Field
           withIcon
           inputProps={{maxLength: 30}}
+          inputClasses={classNames.input}
           containerClasses={classNames.field}
           label={t(TranslationKey.Email)}
           placeholder={t(TranslationKey.Email)}
@@ -148,6 +150,7 @@ export const RegistrationFormRaw = ({
             withIcon
             inputProps={{maxLength: 128}}
             error={showError}
+            inputClasses={classNames.input}
             label={t(TranslationKey.Password)}
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}
@@ -193,6 +196,7 @@ export const RegistrationFormRaw = ({
             withIcon
             inputProps={{maxLength: 128}}
             error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
+            inputClasses={classNames.input}
             label={t(TranslationKey['Re-type Password'])}
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}

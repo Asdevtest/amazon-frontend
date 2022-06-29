@@ -24,5 +24,6 @@ export const useClassNames = makeStyles(() => ({
     width: '300px',
     overflowX: 'auto',
     whiteSpace: 'nowrap',
+    textAlign: 'center',
   },
 }))

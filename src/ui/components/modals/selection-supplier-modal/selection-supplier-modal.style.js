@@ -2,20 +2,27 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   modalWrapper: {
-    width: '445',
+    width: '576px',
     minHeight: '168px',
   },
 
   modalTitle: {
-    color: 'rgb(61, 81, 112)',
-    fontSize: '24px',
-    fontWeight: 500,
-    lineHeight: '28px',
-    marginBottom: '60px',
+    color: '#001029',
+    fontSize: '18px',
+    fontWeight: 600,
+    lineHeight: '140%',
+    marginBottom: '30px',
   },
 
   modalTitleChange: {
     marginBottom: '30px',
+  },
+
+  modalLabel: {
+    color: '#001029',
+    fontSize: '18px',
+    fontWeight: 400,
+    lineHeight: '140%',
   },
 
   modalSubTitle: {
@@ -29,7 +36,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   modalTextArea: {
-    height: '100px',
+    height: '129px',
     width: '100%',
     overflowY: 'hidden',
   },
@@ -41,6 +48,7 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '22px',
     backgroundColor: '#c4c4c4',
     transition: 'all .5s ease-in-out',
+
     '&:hover': {
       transform: 'scale(1.1)',
       transition: 'all .5s ease-in-out',
@@ -53,9 +61,9 @@ export const useClassNames = makeStyles(() => ({
 
   modalButtonsWrapper: {
     marginBottom: '60px',
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '74px',
+    display: 'flex',
+
+    justifyContent: 'space-between',
   },
 
   modalButtonWrapper: {
@@ -64,13 +72,23 @@ export const useClassNames = makeStyles(() => ({
   },
 
   modalButtonBack: {
-    width: '134px',
+    width: '121px',
     height: '40px',
-  },
 
+    backgroundColor: 'inherit',
+    color: '#001029',
+
+    '&:hover': {
+      backgroundColor: '#e4e4e4',
+
+      '@media (hover: none)': {
+        backgroundColor: '#009a07',
+      },
+    },
+  },
   modalButtonNext: {
     display: 'flex',
-    width: '134px',
+    width: '121px',
     height: '40px',
 
     backgroundColor: '#4caf50',

@@ -28,7 +28,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '16px',
     color: '#656565',
-    marginBottom: '5px',
+    marginTop: '10px',
   },
 
   cardActionBlockWrapper: {
@@ -72,7 +72,6 @@ export const useClassNames = makeStyles(() => ({
   actionButton: {
     width: '254px',
     height: '40px',
-    marginTop: '30px',
   },
 
   cardPrice: {
@@ -121,5 +120,18 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
+    marginBottom: '30px',
+  },
+  statusWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '17px',
+  },
+
+  statusText: {
+    fontWeight: 400,
+    fontSize: '14px',
+    lineHeight: '16px',
+    color: '#656565',
   },
 }))

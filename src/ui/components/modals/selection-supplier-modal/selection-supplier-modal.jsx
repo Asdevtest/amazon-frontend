@@ -80,15 +80,16 @@ export const SelectionSupplierModal = ({
 
   return (
     <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={modalTitleClsx}>{t(TranslationKey['Select a supplier'])}</Typography>
+      <Typography className={modalTitleClsx}>{t(TranslationKey['Find a supplier'])}</Typography>
 
       {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
         <div>
           <Field
             multiline
             label={t(TranslationKey['Update product comment:'])}
-            minRows={4}
-            rowsMax={4}
+            labelClasses={classNames.modalLabel}
+            minRows={6}
+            rowsMax={6}
             value={comment}
             placeholder={t(TranslationKey.Comment) + '...'}
             className={classNames.modalTextArea}

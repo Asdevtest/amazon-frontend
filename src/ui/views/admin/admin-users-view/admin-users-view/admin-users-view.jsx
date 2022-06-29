@@ -88,6 +88,11 @@ class AdminUsersViewRaw extends Component {
                 pagination
                 // autoHeight
                 useResizeContainer
+                sx={{
+                  border: 0,
+                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                  backgroundColor: '#fff',
+                }}
                 localeText={getLocalizationByLanguageTag()}
                 sortModel={sortModel}
                 filterModel={filterModel}

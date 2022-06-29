@@ -52,6 +52,11 @@ export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, bo
           <div className={classNames.tableWrapper}>
             <DataGrid
               hideFooter
+              sx={{
+                border: 0,
+                boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                backgroundColor: '#fff',
+              }}
               rows={toJS(filteredBatches)}
               columns={moveBoxToBatchFormColumns({onClickRowRadioBtn}, selectedBatch)}
               rowHeight={80}

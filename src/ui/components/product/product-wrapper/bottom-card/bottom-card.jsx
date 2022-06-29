@@ -157,7 +157,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             /> */}
             {/* <Field
               disabled={defaultFieldDisable}
-              error={formFieldsValidationErrors.width}
+              error={errorMessagesTranslate(formFieldsValidationErrors.width)}
               inputProps={{maxLength: 15}}
               label={t(TranslationKey['Width, inches']) + '*'}
               value={product.width === 0 ? 0 : toFixed(product.width, 5) || ''}
@@ -165,7 +165,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             />
             <Field
               disabled={defaultFieldDisable}
-              error={formFieldsValidationErrors.height}
+              error={errorMessagesTranslate(formFieldsValidationErrors.height)}
               inputProps={{maxLength: 15}}
               label={t(TranslationKey['Height, inches']) + '*'}
               value={product.height === 0 ? 0 : toFixed(product.height, 5) || ''}
@@ -173,7 +173,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             /> */}
             {/* <Field
               disabled={defaultFieldDisable}
-              error={formFieldsValidationErrors.length}
+              error={errorMessagesTranslate(formFieldsValidationErrors.length)}
               inputProps={{maxLength: 15}}
               label={t(TranslationKey['Length, inches']) + '*'}
               value={product.length === 0 ? 0 : toFixed(product.length, 5) || ''}
@@ -181,7 +181,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             />
             <Field
               disabled={defaultFieldDisable}
-              error={formFieldsValidationErrors.weight}
+              error={errorMessagesTranslate(formFieldsValidationErrors.weight)}
               inputProps={{maxLength: 15}}
               label={t(TranslationKey['Weight, kg']) + '*'}
               value={product.weight === 0 ? 0 : toFixed(product.weight, 5) || ''}
@@ -330,7 +330,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             {/* <Field
               tooltipInfoContent={t(TranslationKey['Recommended amount of products for purchase'])}
               disabled={defaultFieldDisable}
-              error={formFieldsValidationErrors.fbaamount}
+              error={errorMessagesTranslate(formFieldsValidationErrors.fbaamount)}
               inputProps={{maxLength: 15}}
               label={t(TranslationKey['Recommended batch']) + ', FBA*'}
               value={product.fbaamount === 0 ? 0 : product.fbaamount || ''}

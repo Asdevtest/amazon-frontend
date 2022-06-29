@@ -24,4 +24,21 @@ export const useClassNames = makeStyles(theme => ({
     alignItems: 'center',
     color: 'black',
   },
+
+  menuItem: {
+    overflow: 'hidden',
+    width: '100%',
+    marginBottom: '10px',
+    marginTop: '10px',
+    height: '20px',
+    padding: 0,
+    display: 'flex',
+    backgroundColor: 'inherit',
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+
+    color: theme.palette.text.primary,
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+  },
 }))

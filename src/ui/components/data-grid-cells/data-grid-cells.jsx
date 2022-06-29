@@ -560,18 +560,18 @@ export const ToFixedWithDollarSignCell = withStyles(styles)(({classes: className
   </div>
 ))
 
-export const SuccessActionBtnCell = withStyles(styles)(({onClickOkBtn, bTnText}) => (
-  <div>
-    <Button success onClick={onClickOkBtn}>
+export const SuccessActionBtnCell = withStyles(styles)(({classes: classNames, onClickOkBtn, bTnText, tooltipText}) => (
+  <div className={classNames.successActionBtnWrapper}>
+    <Button success tooltipInfoContent={tooltipText} onClick={onClickOkBtn}>
       {bTnText}
     </Button>
   </div>
 ))
 
-export const NormalActionBtnCell = withStyles(styles)(({classes: classNames, onClickOkBtn, bTnText}) => (
+export const NormalActionBtnCell = withStyles(styles)(({classes: classNames, onClickOkBtn, bTnText, tooltipText}) => (
   <div className={classNames.normalActionBtnWrapper}>
     <Button
-      // tooltipInfoContent={t(TranslationKey['To assign the order to Byer'])}
+      tooltipInfoContent={tooltipText}
       variant="contained"
       color="primary"
       className={classNames.actionBtn}
@@ -874,10 +874,10 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
   )
 })
 
-export const TrashCell = withStyles(styles)(({classes: classNames, onClick}) => (
-  <div className={classNames.trashWrapper}>
+export const TrashCell = withStyles(styles)(({classes: classNames, onClick, tooltipText}) => (
+  <Button tooltipInfoContent={tooltipText} className={classNames.trashWrapper}>
     <img className={classNames.trashImg} src="/assets/icons/trash.svg" alt="" onClick={onClick} />
-  </div>
+  </Button>
 ))
 
 export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (

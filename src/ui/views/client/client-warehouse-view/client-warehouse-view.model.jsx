@@ -706,7 +706,7 @@ export class ClientWarehouseViewModel {
       if (mergeBoxesResult) {
         this.modalEditSuccessMessage = `${t(TranslationKey['Formed a task for storekeeper'])} ${
           this.storekeepersData.find(el => el._id === boxBody.storekeeperId)?.name
-        } ${t(TranslationKey['merge boxes'])} `
+        } ${t(TranslationKey['to merge boxes'])} `
         this.onTriggerOpenModal('showSuccessInfoModal')
       } else {
         this.warningInfoModalSettings = {

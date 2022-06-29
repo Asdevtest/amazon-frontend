@@ -79,13 +79,22 @@ class MyRequestsViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My requests'])}>
             <MainContent>
               <div className={classNames.placeRequestBtnWrapper}>
-                <Button success onClick={() => onClickAddBtn()}>
+                <Button
+                  success
+                  tooltipInfoContent={t(TranslationKey['Opens the form to create a request'])}
+                  onClick={() => onClickAddBtn()}
+                >
                   {t(TranslationKey['Create a request'])}
                 </Button>
               </div>
               <DataGrid
                 pagination
                 useResizeContainer
+                sx={{
+                  border: 0,
+                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                  backgroundColor: '#fff',
+                }}
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,

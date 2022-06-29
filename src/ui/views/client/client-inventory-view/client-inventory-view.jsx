@@ -157,12 +157,21 @@ export class ClientInventoryViewRaw extends Component {
               <div className={classNames.addProductBtnsWrapper}>
                 {!isArchive && (
                   <div className={classNames.btnsWrapper}>
-                    <Button variant="contained" disabled={selectedRowIds.length === 0} onClick={onClickOrderBtn}>
+                    <Button
+                      success
+                      tooltipInfoContent={t(TranslationKey['To order selected products'])}
+                      variant="contained"
+                      disabled={selectedRowIds.length === 0}
+                      onClick={onClickOrderBtn}
+                    >
                       {t(TranslationKey['To order'])}
                     </Button>
 
                     <Button
                       disableElevation
+                      tooltipInfoContent={t(
+                        TranslationKey['Bind the selected product from the inventory to an item from the store'],
+                      )}
                       disabled={selectedRowIds.length !== 1}
                       className={classNames.buttonOffset}
                       variant="contained"
@@ -174,6 +183,7 @@ export class ClientInventoryViewRaw extends Component {
 
                     <Button
                       variant="contained"
+                      tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
                       disabled={selectedRowIds.length !== 1}
                       className={classNames.buttonOffset}
                       onClick={() => onClickAddSupplierBtn()}
@@ -185,24 +195,42 @@ export class ClientInventoryViewRaw extends Component {
                       tooltipAttentionContent={
                         isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
                       }
+                      tooltipInfoContent={
+                        isArchive
+                          ? t(TranslationKey['Return the selected product to the inventory list'])
+                          : t(TranslationKey['Delete the selected product (the product is moved to the archive)'])
+                      }
                       disabled={!selectedRowIds.length || isNoEditProductSelected}
                       variant="outlined"
                       className={classNames.archiveBtn}
                       onClick={onClickTriggerArchOrResetProducts}
                     >
                       {isArchive ? t(TranslationKey.Recover) : t(TranslationKey['Move to archive'])}
+                      {!isArchive && <DeleteIcon className={classNames.archiveIcon} />}
                     </Button>
                   </div>
                 )}
 
                 <div className={classNames.archiveBtnsWrapper}>
-                  <Button variant="outlined" className={classNames.openArchiveBtn} onClick={onTriggerArchive}>
+                  <Button
+                    tooltipInfoContent={
+                      isArchive
+                        ? t(TranslationKey['Return to inventory with a list of items'])
+                        : t(TranslationKey['Deleted product archive'])
+                    }
+                    variant="outlined"
+                    className={classNames.openArchiveBtn}
+                    onClick={onTriggerArchive}
+                  >
                     {isArchive ? t(TranslationKey['Open inventory']) : t(TranslationKey['Open archive'])}
-                    {!isArchive && <DeleteIcon className={classNames.archiveIcon} />}
                   </Button>
 
                   {!isArchive && (
-                    <Button success onClick={() => onTriggerOpenModal('showSendOwnProductModal')}>
+                    <Button
+                      success
+                      tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
+                      onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
+                    >
                       {t(TranslationKey['Add your product'])}
                     </Button>
                   )}
@@ -214,6 +242,12 @@ export class ClientInventoryViewRaw extends Component {
                 useResizeContainer
                 checkboxSelection
                 // disableSelectionOnClick
+                disableSelectionOnClick
+                sx={{
+                  border: 0,
+                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                  backgroundColor: '#fff',
+                }}
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,

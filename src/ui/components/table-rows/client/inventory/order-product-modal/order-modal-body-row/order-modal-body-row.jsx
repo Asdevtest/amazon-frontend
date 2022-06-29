@@ -175,27 +175,6 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <NativeSelect
-            variant="filled"
-            inputProps={{
-              name: 'destinationId',
-              id: 'destinationId',
-            }}
-            className={classNames.destinationSelect}
-            input={<Input />}
-            onChange={e => onChangeInput(e, 'destinationId')}
-          >
-            <option value={''}>{'none'}</option>
-
-            {destinations.map(item => (
-              <option key={item._id} value={item._id}>
-                {item.name}
-              </option>
-            ))}
-          </NativeSelect>
-        </TableCell>
-
-        <TableCell className={classNames.cell}>
           <Button
             disableElevation
             color="primary"
@@ -214,6 +193,27 @@ export const OrderModalBodyRow = ({
                 }`
               : t(TranslationKey.Add)}
           </Button>
+        </TableCell>
+
+        <TableCell className={classNames.cell}>
+          <NativeSelect
+            variant="filled"
+            inputProps={{
+              name: 'destinationId',
+              id: 'destinationId',
+            }}
+            className={classNames.destinationSelect}
+            input={<Input />}
+            onChange={e => onChangeInput(e, 'destinationId')}
+          >
+            <option value={''}>{'none'}</option>
+
+            {destinations.map(item => (
+              <option key={item._id} value={item._id}>
+                {item.name}
+              </option>
+            ))}
+          </NativeSelect>
         </TableCell>
 
         <TableCell className={classNames.cell}>
@@ -291,7 +291,7 @@ export const OrderModalBodyRow = ({
               oneLine
               containerClasses={classNames.containerField}
               labelClasses={classNames.labelField}
-              label={t(TranslationKey['Cost of purchase per piece.']) + ',$'}
+              label={t(TranslationKey['Cost per unit in the USA']) + ',$'}
               inputComponent={<Typography className={classNames.sumText}>{pricePerUnit}</Typography>}
             />
           </div>

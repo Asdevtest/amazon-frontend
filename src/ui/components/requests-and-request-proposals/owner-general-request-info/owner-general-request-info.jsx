@@ -151,6 +151,7 @@ export const OwnerGeneralRequestInfo = ({
           <div className={classNames.btnsWrapper}>
             <div className={classNames.btnsRow}>
               <Button
+                tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
                 color="primary"
                 btnWrapperStyle={classNames.buttonWrapperFullWidth}
                 className={classNames.button}
@@ -159,6 +160,7 @@ export const OwnerGeneralRequestInfo = ({
                 {t(TranslationKey.Edit)}
               </Button>
               <Button
+                tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
                 variant="contained"
                 color="primary"
                 btnWrapperStyle={classNames.buttonWrapperFullWidth}
@@ -170,6 +172,7 @@ export const OwnerGeneralRequestInfo = ({
             </div>
             <div className={[classNames.btnsRow, classNames.btnsRowIsLast]}>
               <Button
+                tooltipInfoContent={t(TranslationKey['Publish the selected request on the exchange'])}
                 color="primary"
                 btnWrapperStyle={classNames.buttonWrapperFullWidth}
                 className={[classNames.button, classNames.successBtn]}
@@ -188,6 +191,7 @@ export const OwnerGeneralRequestInfo = ({
             <div className={classNames.btnsRow}>
               {requestIsNotDraftAndPublished && (
                 <Button
+                  tooltipInfoContent={t(TranslationKey['Delete the selected request'])}
                   variant="contained"
                   color="default"
                   btnWrapperStyle={classNames.buttonWrapperFullWidth}
@@ -200,6 +204,7 @@ export const OwnerGeneralRequestInfo = ({
 
               {request && request?.request.status === RequestStatus.PUBLISHED && (
                 <Button
+                  tooltipInfoContent={t(TranslationKey['Allows you to change the selected request'])}
                   variant="contained"
                   color="primary"
                   btnWrapperStyle={classNames.buttonWrapperFullWidth}
@@ -218,6 +223,10 @@ export const OwnerGeneralRequestInfo = ({
             request?.request.status !== RequestStatus.EXPIRED && (
               <div className={[classNames.btnsRow, classNames.btnsRowIsLast]}>
                 <Button
+                  tooltipInfoContent={
+                    request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
+                    t(TranslationKey['Removes the visibility of the request on the exchange'])
+                  }
                   variant="contained"
                   color="primary"
                   btnWrapperStyle={classNames.buttonWrapperFullWidth}

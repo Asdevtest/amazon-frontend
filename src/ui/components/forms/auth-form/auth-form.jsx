@@ -30,6 +30,7 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
         <Field
           withIcon
           containerClasses={classNames.field}
+          inputClasses={classNames.input}
           label={t(TranslationKey.Email)}
           placeholder={t(TranslationKey.Email)}
           type="email"
@@ -45,6 +46,7 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
           <Field
             withIcon
             label={t(TranslationKey.Password)}
+            inputClasses={classNames.input}
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}
             value={formFields.password}

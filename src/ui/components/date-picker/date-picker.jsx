@@ -86,7 +86,7 @@ export const DatePickerTime = ({value, onChange}) => {
         placeholder="10:00"
         // minDate={new Date()}
         format="HH:mm"
-        onChange={date => onChange(date)}
+        onChange={time => onChange(time)}
       />
     </MuiPickersUtilsProvider>
   )

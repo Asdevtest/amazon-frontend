@@ -22,10 +22,12 @@ export const UserMoneyTransferModal = ({openModal, setOpenModal, isWithdraw}) =>
           {isWithdraw ? t(TranslationKey['Withdraw money']) : t(TranslationKey['Add money'])}
         </Typography>
 
-        <Typography paragraph>{'Перевод средств возможен при помощи администратора по ссылке ниже:'}</Typography>
+        <Typography paragraph>
+          {t(TranslationKey['Money transfer is possible with the administrator at the link below:'])}
+        </Typography>
 
         <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl('ссылка')}>
-          <Typography className={classNames.link}>{'Ссылка на перевод денежных средств'}</Typography>
+          <Typography className={classNames.link}>{t(TranslationKey['Money transfer link'])}</Typography>
         </Link>
 
         <Button disableElevation variant="contained" onClick={setOpenModal}>
