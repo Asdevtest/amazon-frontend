@@ -206,7 +206,8 @@ export class ClientWarehouseViewRaw extends Component {
                   localeText={getLocalizationByLanguageTag()}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentTaskData()}
-                  rowHeight={150}
+                  getRowHeight={() => 'auto'}
+                  // rowHeight={150}
                   components={{
                     Toolbar: GridToolbar,
                   }}

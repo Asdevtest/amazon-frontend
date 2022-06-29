@@ -136,7 +136,6 @@ export const OrderProductModal = ({
   return (
     <Container disableGutters maxWidth={'xl'}>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Order products'])}</Typography>
-      {/* <Divider className={classNames.divider} /> */}
       <TableContainer className={classNames.tableWrapper}>
         <Table className={classNames.table}>
           <TableHead>

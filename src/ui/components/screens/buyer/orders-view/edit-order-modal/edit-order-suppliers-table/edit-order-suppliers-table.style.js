@@ -35,6 +35,8 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: '24px',
   },
   table: {
+    width: '100%',
+
     border: '1px solid rgb(224, 224, 224)',
     '& td': {
       flexShrink: 0,
@@ -126,11 +128,11 @@ export const useClassNames = makeStyles(() => ({
   tableRowSelectedSupplier: {
     backgroundColor: 'rgba(245, 0, 87, 0.08)',
   },
-  link: {
-    width: '100px',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
-  },
+  // link: {
+  //   width: '100px',
+  //   overflowX: 'auto',
+  //   whiteSpace: 'nowrap',
+  // },
 
   textCell: {
     width: '300px',
@@ -140,5 +142,32 @@ export const useClassNames = makeStyles(() => ({
   },
   button: {
     display: 'flex',
+  },
+
+  linkWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    width: 'min-content',
+  },
+
+  link: {
+    fontSize: 12,
+    color: '#006CFF',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  copyImg: {
+    marginLeft: 30,
+    width: '20px',
+    height: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
   },
 }))

@@ -163,12 +163,10 @@ export const useClassNames = makeStyles(() => ({
   },
 
   commentInput: {
-    height: '60px',
-    // width: '200px',
+    height: '70px',
   },
 
   amazonTitle: {
-    // maxWidth: '200px',
     maxHeight: '110px',
     overflowX: 'auto',
     marginBottom: '5px',

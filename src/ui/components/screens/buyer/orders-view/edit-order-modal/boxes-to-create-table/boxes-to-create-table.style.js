@@ -67,7 +67,7 @@ export const useClassNames = makeStyles(theme => ({
   inputWrapper: {
     border: '1px solid rgba(143, 152, 165, 1)',
     borderRadius: '4px',
-    maxWidth: '60px',
+    width: '90px',
     height: '30px',
   },
   input: {
@@ -76,6 +76,7 @@ export const useClassNames = makeStyles(theme => ({
   },
   row: {
     minWidth: '300px',
+    whiteSpace: 'normal',
     outline: '1px solid rgba(143, 152, 165, 0.5)',
   },
 

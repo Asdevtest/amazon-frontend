@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, {useState} from 'react'
 
 import {Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
@@ -61,12 +60,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                 <TableCell className={classNames.alignCenter}>
                   {supplier.link !== 'access denied' ? (
                     <div className={classNames.linkWrapper}>
-                      <Link
-                        target="_blank"
-                        rel="noopener"
-                        href={checkAndMakeAbsoluteUrl(supplier.link)}
-                        className={classNames.linkSubWrapper}
-                      >
+                      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplier.link)}>
                         <Typography className={classNames.Link}>{t(TranslationKey['Go to supplier site'])}</Typography>
                       </Link>
 

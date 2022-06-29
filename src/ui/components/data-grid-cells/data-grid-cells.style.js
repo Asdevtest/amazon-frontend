@@ -350,8 +350,9 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     overflowY: 'auto',
+    margin: 10,
   },
 
   smallRowImgWrapper: {
