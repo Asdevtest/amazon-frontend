@@ -7,6 +7,7 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {priceCalculation} from '@utils/price-calculation'
@@ -15,13 +16,15 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './edit-order-suppliers-table.style'
 
-// import { UserLinkCell } from '@components/data-grid-cells/data-grid-cells'
-
 export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) => {
   const classNames = useClassNames()
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
   const [curImages, setCurImages] = useState([])
+
+  const copyValue = value => {
+    navigator.clipboard.writeText(value)
+  }
 
   return (
     <TableContainer className={classNames.table}>
@@ -38,8 +41,8 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
             <TableCell className={classNames.alignCenter}>{t(TranslationKey['Minimum batch'])}</TableCell>
             <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
             <TableCell className={classNames.alignRight}>{t(TranslationKey['Total price'])}</TableCell>
-            {/* <TableCell className={classNames.alignRight}>{t(TranslationKey['Created by'])}</TableCell> */}
             <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
+            <TableCell className={classNames.alignCenter}>{t(TranslationKey['Created by'])}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -56,9 +59,22 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                 </TableCell>
 
                 <TableCell className={classNames.alignCenter}>
-                  <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplier.link)}>
-                    <Typography className={classNames.link}>{supplier.link}</Typography>
-                  </Link>
+                  {supplier.link !== 'access denied' ? (
+                    <div className={classNames.linkWrapper}>
+                      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplier.link)}>
+                        <Typography className={classNames.Link}>{t(TranslationKey['Go to supplier site'])}</Typography>
+                      </Link>
+
+                      <img
+                        className={classNames.copyImg}
+                        src="/assets/icons/copy-img.svg"
+                        alt=""
+                        onClick={() => copyValue(supplier.link)}
+                      />
+                    </div>
+                  ) : (
+                    <Typography>{t(TranslationKey['Link not available'])}</Typography>
+                  )}
                 </TableCell>
                 <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.price, 2)}</TableCell>
                 <TableCell className={classNames.alignRight}>
@@ -70,11 +86,13 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                 <TableCell className={classNames.alignCenter}>
                   {withDollarSign(priceCalculation(supplier.price, supplier.delivery, supplier.amount))}
                 </TableCell>
-                {/* <TableCell className={classNames.alignCenter}>
-                  <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
-                </TableCell> */}
+
                 <TableCell className={classNames.alignCenter}>
                   <Typography className={classNames.textCell}>{supplier.comment}</Typography>
+                </TableCell>
+
+                <TableCell className={classNames.alignCenter}>
+                  <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
                 </TableCell>
                 <TableCell>
                   <Button

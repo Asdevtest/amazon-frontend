@@ -3,8 +3,6 @@ import {withStyles} from '@material-ui/styles'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {SuccessButton} from '@components/buttons/success-button'
-
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
@@ -36,14 +34,15 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) =>
       </Button>
     </TableCell>
     <TableCell>
-      <SuccessButton
+      <Button
+        success
         onClick={() => {
           handlers.onClickLaunchPrivateLabelBtn(item, itemIndex)
           handlers.onTriggerOpenModal('showConfirmPayModal')
         }}
       >
         {`${t(TranslationKey['Buy for'])} ${toFixedWithDollarSign(item.priceForClient, 2)}`}
-      </SuccessButton>
+      </Button>
     </TableCell>
   </TableRow>
 )

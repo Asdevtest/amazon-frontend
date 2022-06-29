@@ -9,7 +9,6 @@ import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
@@ -401,8 +400,8 @@ export const CreateBoxForm = observer(
         </div>
 
         <div className={classNames.buttonsWrapper}>
-          <SuccessButton
-            disableElevation
+          <Button
+            success
             disabled={disableSubmit}
             className={classNames.button}
             color="primary"
@@ -410,7 +409,7 @@ export const CreateBoxForm = observer(
             onClick={onSubmit}
           >
             {t(TranslationKey.Add)}
-          </SuccessButton>
+          </Button>
 
           <Button
             disableElevation

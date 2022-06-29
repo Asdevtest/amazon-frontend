@@ -6,7 +6,6 @@ import {withStyles} from '@material-ui/styles'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {ErrorButton} from '@components/buttons/error-button'
 
 import {t} from '@utils/translations'
 
@@ -29,7 +28,9 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
         <Button className={classNames.editBtn} variant="contained" onClick={() => handlers.onEdit(item)}>
           {t(TranslationKey.Edit)}
         </Button>
-        <ErrorButton variant="contained">{t(TranslationKey.Delete)}</ErrorButton>
+        <Button danger variant="contained">
+          {t(TranslationKey.Delete)}
+        </Button>
       </TableCell>
     </TableRow>
   )

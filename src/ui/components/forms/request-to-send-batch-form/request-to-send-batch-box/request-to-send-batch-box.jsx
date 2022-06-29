@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {ErrorButton} from '@components/buttons/error-button/error-button'
+import {Button} from '@components/buttons/button'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {Modal} from '@components/modal'
 
@@ -284,9 +284,9 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
       </div>
 
       <div className={classNames.tableCellCrossBtn}>
-        <ErrorButton className={classNames.crossBtn} onClick={onClickRemoveBoxFromBatch}>
+        <Button danger className={classNames.crossBtn} onClick={onClickRemoveBoxFromBatch}>
           X
-        </ErrorButton>
+        </Button>
       </div>
 
       <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>

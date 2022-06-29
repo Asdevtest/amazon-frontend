@@ -12,7 +12,6 @@ import qs from 'qs'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Field} from '@components/field'
 
 import {t} from '@utils/translations'
@@ -172,7 +171,8 @@ export const BindStockGoodsToInventoryForm = observer(
           </div>
 
           <div className={classNames.btnsWrapper}>
-            <SuccessButton
+            <Button
+              success
               disableElevation
               disabled={!selectedRow || chosenGoods.length < 1}
               variant="contained"
@@ -180,7 +180,7 @@ export const BindStockGoodsToInventoryForm = observer(
               onClick={onClickSubmit}
             >
               {t(TranslationKey.Bind)}
-            </SuccessButton>
+            </Button>
           </div>
         </div>
       </div>

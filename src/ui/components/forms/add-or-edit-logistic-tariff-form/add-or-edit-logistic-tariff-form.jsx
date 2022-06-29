@@ -7,7 +7,6 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {DatePicker} from '@components/date-picker'
 import {Field} from '@components/field/field'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
@@ -41,36 +40,13 @@ export const AddOrEditLogisticTariffForm = observer(
       eta: tariffToEdit?.eta || null,
       conditionsByRegion: {
         west: {
-          rate: tariffToEdit
-            ? // Math.round(
-              //                 tariffToEdit.conditionsByRegion.west.rate *
-              //                   (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
-              //                   100,
-              //               ) / 100
-              tariffToEdit.conditionsByRegion.west.rate
-            : '',
+          rate: tariffToEdit ? tariffToEdit.conditionsByRegion.west.rate : '',
         },
         central: {
-          rate: tariffToEdit
-            ? // Math.round(
-              //                 tariffToEdit.conditionsByRegion.central.rate *
-              //                   (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
-              //                   100,
-              //               ) / 100
-
-              tariffToEdit.conditionsByRegion.central.rate
-            : '',
+          rate: tariffToEdit ? tariffToEdit.conditionsByRegion.central.rate : '',
         },
         east: {
-          rate: tariffToEdit
-            ? // Math.round(
-              //                 tariffToEdit.conditionsByRegion.east.rate *
-              //                   (tariffToEdit?.conditionsByRegion.yuanToDollarRate || 1) *
-              //                   100,
-              //               ) / 100
-
-              tariffToEdit.conditionsByRegion.east.rate
-            : '',
+          rate: tariffToEdit ? tariffToEdit.conditionsByRegion.east.rate : '',
         },
         yuanToDollarRate: tariffToEdit?.conditionsByRegion.yuanToDollarRate || sourceYuanToDollarRate,
       },
@@ -373,7 +349,8 @@ export const AddOrEditLogisticTariffForm = observer(
         </div>
 
         <div className={classNames.btnsWrapper}>
-          <SuccessButton
+          <Button
+            success
             disableElevation
             disabled={disableSubmitBtn}
             color="primary"
@@ -381,7 +358,7 @@ export const AddOrEditLogisticTariffForm = observer(
             onClick={onSubmit}
           >
             {t(TranslationKey.Save)}
-          </SuccessButton>
+          </Button>
 
           <Button
             disableElevation

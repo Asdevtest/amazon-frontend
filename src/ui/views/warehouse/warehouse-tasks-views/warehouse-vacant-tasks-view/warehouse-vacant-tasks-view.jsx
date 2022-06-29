@@ -84,7 +84,8 @@ export class WarehouseVacantTasksViewRaw extends Component {
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
-                rowHeight={200}
+                getRowHeight={() => 'auto'}
+                // rowHeight={200}
                 components={{
                   Toolbar: GridToolbar,
                 }}

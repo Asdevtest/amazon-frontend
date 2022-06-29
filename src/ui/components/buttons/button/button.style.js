@@ -38,8 +38,8 @@ export const useClassNames = makeStyles(() => ({
 
   tooltipsWrapper: {
     position: 'absolute',
-    top: '-6px',
-    right: '-6px',
+    top: '-10px',
+    right: '-10px',
     zIndex: '10',
   },
 

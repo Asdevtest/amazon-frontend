@@ -66,6 +66,9 @@ class ApiV1RequestsCustomDetailsCustom {
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
         }
         return obj;
     }
@@ -108,6 +111,12 @@ ApiV1RequestsCustomDetailsCustom.prototype['createdAt'] = undefined;
  * @member {Date} updatedAt
  */
 ApiV1RequestsCustomDetailsCustom.prototype['updatedAt'] = undefined;
+
+/**
+ * Название заявки
+ * @member {String} title
+ */
+ApiV1RequestsCustomDetailsCustom.prototype['title'] = undefined;
 
 
 

@@ -136,6 +136,9 @@ import InlineObject73 from './model/InlineObject73';
 import InlineObject74 from './model/InlineObject74';
 import InlineObject75 from './model/InlineObject75';
 import InlineObject76 from './model/InlineObject76';
+import InlineObject77 from './model/InlineObject77';
+import InlineObject78 from './model/InlineObject78';
+import InlineObject79 from './model/InlineObject79';
 import InlineObject8 from './model/InlineObject8';
 import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
@@ -158,7 +161,8 @@ import InlineResponse20023 from './model/InlineResponse20023';
 import InlineResponse20024 from './model/InlineResponse20024';
 import InlineResponse20025 from './model/InlineResponse20025';
 import InlineResponse20026 from './model/InlineResponse20026';
-import InlineResponse20026Details from './model/InlineResponse20026Details';
+import InlineResponse20027 from './model/InlineResponse20027';
+import InlineResponse20027Details from './model/InlineResponse20027Details';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
@@ -222,6 +226,7 @@ import BoxesApi from './api/BoxesApi';
 import BuyerApi from './api/BuyerApi';
 import ClientApi from './api/ClientApi';
 import GoLoginApi from './api/GoLoginApi';
+import IdeaApi from './api/IdeaApi';
 import IntegrationsApi from './api/IntegrationsApi';
 import OtherApi from './api/OtherApi';
 import PermissionsApi from './api/PermissionsApi';
@@ -1013,6 +1018,24 @@ export {
     InlineObject76,
 
     /**
+     * The InlineObject77 model constructor.
+     * @property {module:model/InlineObject77}
+     */
+    InlineObject77,
+
+    /**
+     * The InlineObject78 model constructor.
+     * @property {module:model/InlineObject78}
+     */
+    InlineObject78,
+
+    /**
+     * The InlineObject79 model constructor.
+     * @property {module:model/InlineObject79}
+     */
+    InlineObject79,
+
+    /**
      * The InlineObject8 model constructor.
      * @property {module:model/InlineObject8}
      */
@@ -1145,10 +1168,16 @@ export {
     InlineResponse20026,
 
     /**
-     * The InlineResponse20026Details model constructor.
-     * @property {module:model/InlineResponse20026Details}
+     * The InlineResponse20027 model constructor.
+     * @property {module:model/InlineResponse20027}
      */
-    InlineResponse20026Details,
+    InlineResponse20027,
+
+    /**
+     * The InlineResponse20027Details model constructor.
+     * @property {module:model/InlineResponse20027Details}
+     */
+    InlineResponse20027Details,
 
     /**
      * The InlineResponse2002AllowedUrls model constructor.
@@ -1527,6 +1556,12 @@ export {
     * @property {module:api/GoLoginApi}
     */
     GoLoginApi,
+
+    /**
+    * The IdeaApi service constructor.
+    * @property {module:api/IdeaApi}
+    */
+    IdeaApi,
 
     /**
     * The IntegrationsApi service constructor.

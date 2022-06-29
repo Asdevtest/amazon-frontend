@@ -9,8 +9,6 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {ErrorButton} from '@components/buttons/error-button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
@@ -209,7 +207,7 @@ export const AddOrEditBatchForm = observer(
           <Typography>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
           <div className={classNames.tableWrapper}>
             <DataGrid
-              autoHeight
+              // autoHeight
               hideFooter
               checkboxSelection
               rows={toJS(boxesToAddData)}
@@ -236,7 +234,7 @@ export const AddOrEditBatchForm = observer(
 
           <div className={classNames.tableWrapper}>
             <DataGrid
-              autoHeight
+              // autoHeight
               hideFooter
               checkboxSelection
               rows={chosenBoxes || []}
@@ -247,9 +245,15 @@ export const AddOrEditBatchForm = observer(
           </div>
 
           <div className={classNames.btnsWrapper}>
-            <ErrorButton disabled={!boxesToDeliteIds.length} color="primary" variant="contained" onClick={onClickTrash}>
+            <Button
+              danger
+              disabled={!boxesToDeliteIds.length}
+              color="primary"
+              variant="contained"
+              onClick={onClickTrash}
+            >
               {t(TranslationKey.Remove)}
-            </ErrorButton>
+            </Button>
           </div>
 
           <div className={classNames.sumsWrapper}>
@@ -328,7 +332,8 @@ export const AddOrEditBatchForm = observer(
           </div>
 
           <div className={classNames.btnsWrapper}>
-            <SuccessButton
+            <Button
+              success
               disableElevation
               disabled={(chosenBoxes.length < 1 && !batchToEdit) || submitIsClicked}
               variant="contained"
@@ -336,7 +341,7 @@ export const AddOrEditBatchForm = observer(
               onClick={onClickSubmit}
             >
               {t(TranslationKey.Save)}
-            </SuccessButton>
+            </Button>
 
             <Button color="primary" variant="text" className={classNames.cancelBtn} onClick={onClose}>
               {t(TranslationKey.Cancel)}

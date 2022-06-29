@@ -22,12 +22,10 @@ class InlineObject44 {
     /**
      * Constructs a new <code>InlineObject44</code>.
      * @alias module:model/InlineObject44
-     * @param productId {String} 
-     * @param skus {Array.<String>} 
      */
-    constructor(productId, skus) { 
+    constructor() { 
         
-        InlineObject44.initialize(this, productId, skus);
+        InlineObject44.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject44 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, skus) { 
-        obj['productId'] = productId;
-        obj['skus'] = skus;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,11 +47,8 @@ class InlineObject44 {
         if (data) {
             obj = obj || new InlineObject44();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('skus')) {
-                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
+            if (data.hasOwnProperty('supplierIds')) {
+                obj['supplierIds'] = ApiClient.convertToType(data['supplierIds'], [NULL_SCHEMA_ERR]);
             }
         }
         return obj;
@@ -65,14 +58,10 @@ class InlineObject44 {
 }
 
 /**
- * @member {String} productId
+ * ID поставщиков
+ * @member {Array.<String>} supplierIds
  */
-InlineObject44.prototype['productId'] = undefined;
-
-/**
- * @member {Array.<String>} skus
- */
-InlineObject44.prototype['skus'] = undefined;
+InlineObject44.prototype['supplierIds'] = undefined;
 
 
 

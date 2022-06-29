@@ -6,7 +6,6 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button'
 import {Field} from '@components/field/field'
 import {Modal} from '@components/modal'
 
@@ -56,14 +55,15 @@ export const AddCompetitorModal = observer(({openModal, setOpenModal, currentCom
         </div>
 
         <div className={classNames.buttonsWrapper}>
-          <SuccessButton
+          <Button
+            success
             disableElevation
             disabled={competitor.link === '' || competitor.comments === ''}
             variant="contained"
             onClick={onSubmit}
           >
             {t(TranslationKey.Add)}
-          </SuccessButton>
+          </Button>
 
           <Button
             disableElevation

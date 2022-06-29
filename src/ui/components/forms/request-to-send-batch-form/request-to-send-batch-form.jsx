@@ -6,7 +6,6 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {ErrorButton} from '@components/buttons/error-button/error-button'
 
 import {findTariffInStorekeepersData} from '@utils/checks'
 import {t} from '@utils/translations'
@@ -135,7 +134,8 @@ export const RequestToSendBatchForm = observer(
           >
             {t(TranslationKey.Send)}
           </Button>
-          <ErrorButton
+          <Button
+            danger
             disableElevation
             className={classNames.btnClose}
             color="primary"
@@ -143,7 +143,7 @@ export const RequestToSendBatchForm = observer(
             onClick={closeModal}
           >
             {t(TranslationKey.Close)}
-          </ErrorButton>
+          </Button>
         </div>
       </div>
     )

@@ -4,8 +4,6 @@ import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {Button} from '@components/buttons/button'
-import {ErrorButton} from '@components/buttons/error-button'
-import {SuccessButton} from '@components/buttons/success-button'
 import {Modal} from '@components/modal'
 
 import {useClassNames} from './confirmation-modal.style'
@@ -50,7 +48,8 @@ export const ConfirmationModal = ({
         </Typography>
         <div className={clsx(classNames.buttonsWrapper, {[classNames.warningButtonsWrapper]: isWarning})}>
           {isWarning ? (
-            <ErrorButton
+            <Button
+              danger
               disableElevation
               className={classNames.button}
               disabled={submitIsClicked}
@@ -58,9 +57,10 @@ export const ConfirmationModal = ({
               onClick={onSubmit}
             >
               {successBtnText}
-            </ErrorButton>
+            </Button>
           ) : (
-            <SuccessButton
+            <Button
+              success
               disableElevation
               className={classNames.button}
               disabled={submitIsClicked}
@@ -68,7 +68,7 @@ export const ConfirmationModal = ({
               onClick={onSubmit}
             >
               {successBtnText}
-            </SuccessButton>
+            </Button>
           )}
 
           <Button

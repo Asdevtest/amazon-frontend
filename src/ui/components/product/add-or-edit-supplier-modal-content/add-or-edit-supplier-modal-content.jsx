@@ -9,7 +9,6 @@ import {inchesCoefficient, sizesType, poundsCoefficient} from '@constants/sizes-
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
@@ -156,7 +155,8 @@ export const AddOrEditSupplierModalContent = observer(
               {t(TranslationKey.Back)}
             </Button>
             <div>
-              <SuccessButton
+              <Button
+                success
                 disableElevation
                 disabled={diasabledSubmit}
                 className={classNames.saveBtnClient}
@@ -171,8 +171,9 @@ export const AddOrEditSupplierModalContent = observer(
                 }}
               >
                 {t(TranslationKey['Save and bind'])}
-              </SuccessButton>
-              <SuccessButton
+              </Button>
+              <Button
+                success
                 disableElevation
                 disabled={diasabledSubmit}
                 className={classNames.saveBtnClient}
@@ -214,7 +215,7 @@ export const AddOrEditSupplierModalContent = observer(
                 }}
               >
                 {t(TranslationKey['Save and add more'])}
-              </SuccessButton>
+              </Button>
             </div>
           </div>
         )

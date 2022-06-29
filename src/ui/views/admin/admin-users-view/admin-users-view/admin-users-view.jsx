@@ -86,7 +86,7 @@ class AdminUsersViewRaw extends Component {
 
               <DataGrid
                 pagination
-                autoHeight
+                // autoHeight
                 useResizeContainer
                 localeText={getLocalizationByLanguageTag()}
                 sortModel={sortModel}

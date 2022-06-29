@@ -181,6 +181,8 @@ export class ClientInventoryViewModel {
   }
 
   setDataGridState(state) {
+    console.log('state', state)
+
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',

@@ -6,7 +6,6 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button/success-button'
 import {Input} from '@components/input'
 import {Table} from '@components/table'
 import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
@@ -109,9 +108,9 @@ export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit}) => 
       />
 
       <div className={classNames.buttonsWrapper}>
-        <SuccessButton disableElevation color="primary" variant="contained" onClick={onClickSubmit}>
+        <Button success disableElevation color="primary" variant="contained" onClick={onClickSubmit}>
           {t(TranslationKey.Save)}
-        </SuccessButton>
+        </Button>
 
         <Button
           disableElevation

@@ -5,7 +5,7 @@ import {useHistory} from 'react-router-dom'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {SuccessButton} from '@components/buttons/success-button/success-button'
+import {Button} from '@components/buttons/button'
 import {IdeaViewAndEditCard} from '@components/cards/idea-view-and-edit-card'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 
@@ -42,9 +42,9 @@ export const SuppliersAndIdeas = observer(({productId}) => {
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.btnsWrapper}>
-        <SuccessButton variant="contained" onClick={onCreateIdea}>
+        <Button success variant="contained" onClick={onCreateIdea}>
           {t(TranslationKey['Add a product idea'])}{' '}
-        </SuccessButton>
+        </Button>
       </div>
 
       {inCreate ? (

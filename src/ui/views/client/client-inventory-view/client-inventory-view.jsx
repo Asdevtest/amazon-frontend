@@ -122,6 +122,38 @@ export class ClientInventoryViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Inventory)}>
             <MainContent>
+              {/* <div className={classNames.boxesFiltersWrapper}>
+                <Button
+                  disabled={!currentStorekeeper?._id}
+                  className={clsx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
+                  variant="text"
+                  color="primary"
+                  onClick={onClickStorekeeperBtn}
+                >
+                  {t(TranslationKey['All warehouses'])}
+                </Button>
+
+                {storekeepersData
+                  .slice()
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map(storekeeper =>
+                    storekeeper.boxesCount !== 0 ? (
+                      <Button
+                        key={storekeeper._id}
+                        disabled={currentStorekeeper?._id === storekeeper._id}
+                        className={clsx(classNames.button, {
+                          [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                        })}
+                        variant="text"
+                        color="primary"
+                        onClick={() => onClickStorekeeperBtn(storekeeper)}
+                      >
+                        {storekeeper.name}
+                      </Button>
+                    ) : null,
+                  )}
+              </div> */}
+
               <div className={classNames.addProductBtnsWrapper}>
                 {!isArchive && (
                   <div className={classNames.btnsWrapper}>
@@ -181,7 +213,7 @@ export class ClientInventoryViewRaw extends Component {
                 pagination
                 useResizeContainer
                 checkboxSelection
-                disableSelectionOnClick
+                // disableSelectionOnClick
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
@@ -205,11 +237,12 @@ export class ClientInventoryViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
-                onRowClick={(params, event) =>
-                  event.target.checked === undefined &&
-                  !event.target.className.includes('Chip') &&
-                  onClickShowProduct(params.row)
-                }
+                // onRowClick={(params, event) => // в один клик(с фильтрами)
+                //   event.target.checked === undefined &&
+                //   !event.target.className.includes('Chip') &&
+                //   onClickShowProduct(params.row)
+                // }
+                onRowDoubleClick={params => onClickShowProduct(params.row)}
               />
             </MainContent>
           </Appbar>

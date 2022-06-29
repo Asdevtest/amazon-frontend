@@ -30,7 +30,8 @@ export const styles = theme =>
       color: theme.palette.primary.main,
     },
     notSelected: {
-      color: 'rgba(189, 194, 209, 1)',
+      // color: 'rgba(189, 194, 209, 1)',
+      color: '#001029',
     },
     iconWrapper: {
       minWidth: '0',
@@ -55,6 +56,7 @@ export const styles = theme =>
 
     icon: {
       backgroundColor: 'none',
+      // color: '#007bff'
     },
 
     menuItem: {

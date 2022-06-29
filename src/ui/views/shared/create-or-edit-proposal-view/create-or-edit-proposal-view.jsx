@@ -59,7 +59,14 @@ export class CreateOrEditProposalViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey['Proposal Creation'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar
+            title={
+              this.props.location.state?.proposalToEdit
+                ? t(TranslationKey['Proposal Edition'])
+                : t(TranslationKey['Proposal Creation'])
+            }
+            setDrawerOpen={onTriggerDrawerOpen}
+          >
             <MainContent>
               <div className={classNames.backBtnWrapper}>
                 <Button variant="contained" color="primary" className={classNames.backBtn} onClick={onClickBackBtn}>
@@ -81,7 +88,10 @@ export class CreateOrEditProposalViewRaw extends Component {
 
         <TwoVerticalChoicesModal
           openModal={showResultModal}
-          setOpenModal={() => onTriggerOpenModal('showResultModal')}
+          setOpenModal={() => {
+            onTriggerOpenModal('showResultModal')
+            onClickResultModal({goBack: true})
+          }}
           title={infoModalText}
           topBtnText={'К вакантным заявкам'}
           bottomBtnText={'К списку предложений'}

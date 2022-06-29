@@ -9,7 +9,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
-import {ErrorButton} from '@components/buttons/error-button'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
 
@@ -87,9 +86,9 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder, volumeW
 
           <div className={classNames.btnsWrapper}>
             {updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] && onClickCancelOrder && (
-              <ErrorButton className={classNames.cancelBtn} onClick={onClickCancelOrder}>
+              <Button danger className={classNames.cancelBtn} onClick={onClickCancelOrder}>
                 {t(TranslationKey['Cancel order'])}
-              </ErrorButton>
+              </Button>
             )}
 
             <Button

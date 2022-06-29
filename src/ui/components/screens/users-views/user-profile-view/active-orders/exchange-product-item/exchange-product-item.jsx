@@ -5,7 +5,6 @@ import {Typography, TableRow, TableCell} from '@material-ui/core'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {SuccessButton} from '@components/buttons/success-button'
 
 import {t} from '@utils/translations'
 
@@ -51,9 +50,9 @@ export const ExchangeProductItem = ({product, handlerPrivateLabel, index}) => {
         <Typography className={(classNames.text, classNames.standartPrice)}>{'$ 499'}</Typography>
       </TableCell>
       <TableCell>
-        <SuccessButton success onClick={() => handlerPrivateLabel(index)}>
+        <Button success onClick={() => handlerPrivateLabel(index)}>
           {t(TranslationKey.Start)}
-        </SuccessButton>
+        </Button>
       </TableCell>
       <TableCell>
         <Button onClick={() => alert('Card button click')}>{t(TranslationKey['Add for $']) + product.price}</Button>

@@ -4,8 +4,6 @@ import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {ErrorButton} from '@components/buttons/error-button'
-
 import {isNumber} from '@utils/is-number'
 import {t} from '@utils/translations'
 
@@ -47,9 +45,9 @@ const ExchangeRequestsBodyRowRaw = ({item, itemIndex, handlers, selectedRequests
         </Button>
       </TableCell>
       <TableCell>
-        <ErrorButton disableElevation onClick={() => handlers.close(itemIndex)}>
+        <Button disableElevation onClick={() => handlers.close(itemIndex)}>
           {t(TranslationKey.Close)}
-        </ErrorButton>
+        </Button>
       </TableCell>
     </TableRow>
   )

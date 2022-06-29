@@ -23,6 +23,7 @@ export const useClassNames = makeStyles(() => ({
     border: '1px solid #C8CED3',
     padding: '8px 16px',
     height: 'max-content',
+    width: '100%',
   },
   divider: {
     margin: '10px -16px 10px',
