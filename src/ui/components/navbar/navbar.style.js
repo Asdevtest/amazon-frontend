@@ -7,6 +7,7 @@ export const useClassNames = makeStyles(theme => ({
   paper: {
     boxShadow: `0px 1px 2px 0px rgba(225, 229, 235, 0.8),
                 0px 13px 27px 0px rgba(90, 97, 105, 0.15)`,
+    border: 'none',
   },
   positionStatic: {
     position: 'static',
@@ -22,7 +23,7 @@ export const useClassNames = makeStyles(theme => ({
   logo: {
     marginTop: '15px',
     height: '100%',
-    transform: 'scale(1.5)',
+    transform: 'scale(1.2)',
   },
   categoriesWrapper: {
     padding: '0 10px 0 0',

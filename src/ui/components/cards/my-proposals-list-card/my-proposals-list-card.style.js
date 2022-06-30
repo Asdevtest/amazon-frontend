@@ -228,15 +228,15 @@ export const useClassNames = makeStyles(() => ({
 
   timeAndPriceWrapper: {
     display: 'flex',
-    width: '500px',
+    width: '540px',
     justifyContent: 'space-between',
   },
 
   editAndOpenButtonWrapper: {
     display: 'flex',
-    width: '500px',
+    width: '530px',
     justifyContent: 'space-between',
-    marginRight: '7px',
+    marginRight: '10px',
   },
 
   button: {

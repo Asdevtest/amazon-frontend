@@ -59,7 +59,7 @@ export const clientOrdersViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 90,
+    width: 120,
   },
 
   {
@@ -70,7 +70,7 @@ export const clientOrdersViewColumns = () => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
-    width: 200,
+    width: 160,
   },
 
   {
@@ -79,7 +79,7 @@ export const clientOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 160,
+    width: 120,
   },
 
   {
@@ -114,7 +114,7 @@ export const clientOrdersViewColumns = () => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    width: 100,
+    width: 120,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },
@@ -124,7 +124,7 @@ export const clientOrdersViewColumns = () => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: 100,
+    width: 140,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },

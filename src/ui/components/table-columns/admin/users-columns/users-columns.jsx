@@ -29,7 +29,7 @@ export const adminUsersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    width: 130,
     type: 'date',
   },
 
@@ -91,7 +91,7 @@ export const adminUsersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['User status'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
+    width: 140,
   },
 
   {

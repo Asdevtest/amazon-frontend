@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react'
 
-import {Divider, Drawer, Hidden, List} from '@material-ui/core'
+import {Drawer, Hidden, List} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
@@ -30,7 +30,7 @@ export const Navbar = observer(
         <div className={classNames.logoWrapper}>
           <img alt="company logo" className={classNames.logo} src={'/assets/icons/logo-var-2.svg'} />
         </div>
-        <Divider />
+        {/* <Divider /> */}
 
         <List className={classNames.categoriesWrapper}>
           {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]].map((category, index) =>

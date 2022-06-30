@@ -29,7 +29,7 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    minWidth: 100,
+    minWidth: 130,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },
@@ -119,7 +119,7 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    minWidth: 130,
+    minWidth: 150,
     type: 'number',
     flex: 1,
   },

@@ -31,7 +31,7 @@ export const clientBatchesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
-    width: 110,
+    width: 130,
     type: 'date',
   },
 
@@ -40,7 +40,7 @@ export const clientBatchesViewColumns = () => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 100,
+    width: 150,
   },
 
   {

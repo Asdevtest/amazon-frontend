@@ -30,7 +30,7 @@ export const exchangeCanceledColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    width: 130,
     type: 'date',
   },
 

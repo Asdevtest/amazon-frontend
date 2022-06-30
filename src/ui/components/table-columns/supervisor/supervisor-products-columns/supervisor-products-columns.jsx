@@ -29,7 +29,7 @@ export const supervisorProductsViewColumns = () => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: 100,
+    width: 130,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },
@@ -68,7 +68,7 @@ export const supervisorProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
-    minWidth: 130,
+    minWidth: 150,
     type: 'number',
     flex: 1,
   },

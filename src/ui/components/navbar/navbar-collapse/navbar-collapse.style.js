@@ -9,12 +9,13 @@ export const useClassNames = makeStyles(theme => ({
   },
   selected: {
     color: theme.palette.primary.main,
+    border: '1px solid #006aff49',
   },
 
   badge: {
     position: 'absolute',
-    top: 2,
-    left: 25,
+    top: 15,
+    left: 20,
     height: 20,
     width: 20,
     backgroundColor: 'rgba(0,0,0, .1)',
@@ -40,5 +41,10 @@ export const useClassNames = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: 'inherit',
     },
+  },
+
+  subCategory: {
+    padding: '0 20px 0 56px',
+    width: '100%',
   },
 }))

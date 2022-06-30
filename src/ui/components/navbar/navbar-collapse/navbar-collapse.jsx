@@ -56,7 +56,7 @@ export const NavbarCollapse = ({
 
   const renderSubCategory = (subIndex, subCategory) => (
     <Button
-      className={classNames.menuItem}
+      className={clsx(classNames.menuItem, {[classNames.selected]: subIndex === activeSubCategory})}
       tooltipInfoContent={renderTooltipTitle(subCategory.subtitle, userInfo.role)}
     >
       <NavbarSubCategory
@@ -64,15 +64,13 @@ export const NavbarCollapse = ({
         button
         disableGutters
         component={Link}
+        className={classNames.subCategory}
         selected={subIndex === activeSubCategory}
         to={subCategory.subRoute}
         onClick={() => onClickCategory(subIndex)}
       >
-        <ListItemText
-          disableTypography
-          className={clsx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
-          primary={subCategory.subtitle}
-        />
+        <ListItemText disableTypography className={clsx(classNames.listItemText)} primary={subCategory.subtitle} />
+
         {renderNotificationBySubRoute(subCategory.subRoute)}
       </NavbarSubCategory>
     </Button>

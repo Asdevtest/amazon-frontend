@@ -33,7 +33,7 @@ export const exchangeInventoryColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    width: 130,
     type: 'date',
   },
 
@@ -61,7 +61,7 @@ export const exchangeInventoryColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Fees & Net'])} />,
 
     renderCell: params => <FeesValuesWithCalculateBtnCell noCalculate product={params.row.originalData} />,
-    width: 150,
+    width: 200,
     filterable: false,
     sortable: false,
   },
