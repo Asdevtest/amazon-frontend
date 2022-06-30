@@ -1,6 +1,6 @@
 import {makeAutoObservable} from 'mobx'
 
-export class ClientBatchesViewModel {
+export class ClientNotificationsViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
@@ -16,21 +16,21 @@ export class ClientBatchesViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onClickBoxesReadyToSend() {
+  onClickOrdersNotifications() {
     this.history.push({
-      pathname: '/client/batches/boxes-ready-to-batch',
+      pathname: '/client/notifications/orders-notifications',
     })
   }
 
-  onClickAwaitingSend() {
+  onClickBoxesNotifications() {
     this.history.push({
-      pathname: '/client/batches/awaiting-batch',
+      pathname: '/client/notifications/boxes-notifications',
     })
   }
 
-  onClickSentBatches() {
+  onClickTariffsNotifications() {
     this.history.push({
-      pathname: '/client/batches/sent-batches',
+      pathname: '/client/notifications/tariffs-notifications',
     })
   }
 }

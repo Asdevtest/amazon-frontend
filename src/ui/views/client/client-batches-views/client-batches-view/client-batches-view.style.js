@@ -1,25 +1,32 @@
 import {createStyles} from '@material-ui/core'
 
 export const styles = createStyles(() => ({
-  card: {
-    padding: '16px 20px',
-    marginBottom: '42px',
-  },
-  button: {
-    marginRight: '24px',
-  },
-  buttonsWrapper: {
-    textAlign: 'right',
-  },
-  tableWrapper: {
-    marginTop: '24px',
+  title: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+    marginBottom: 30,
   },
 
-  row: {
-    cursor: 'pointer',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
+  btnsWrapper: {
+    width: 'min-content',
+  },
+
+  button: {
+    marginBottom: 20,
+    width: '100%',
+    height: 40,
+  },
+
+  btnText: {
+    marginRight: 10,
+  },
+
+  btnTextWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    whiteSpace: 'nowrap',
   },
 }))

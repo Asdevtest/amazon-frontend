@@ -17,18 +17,23 @@ import {Navbar} from '@components/navbar'
 
 import {t} from '@utils/translations'
 
-import {ClientBatchesViewModel} from './client-batches-view.model'
-import {styles} from './client-batches-view.style'
+import {ClientNotificationsViewModel} from './client-notifications-view.model'
+import {styles} from './client-notifications-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_BATCHES
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS
 
 @observer
-class ClientBatchesViewRaw extends Component {
-  viewModel = new ClientBatchesViewModel({history: this.props.history})
+class ClientNotificationsViewRaw extends Component {
+  viewModel = new ClientNotificationsViewModel({history: this.props.history})
 
   render() {
-    const {drawerOpen, onChangeDrawerOpen, onClickBoxesReadyToSend, onClickAwaitingSend, onClickTariffsNotifications} =
-      this.viewModel
+    const {
+      drawerOpen,
+      onChangeDrawerOpen,
+      onClickOrdersNotifications,
+      onClickBoxesNotifications,
+      onClickTariffsNotifications,
+    } = this.viewModel
 
     const {classes: classNames} = this.props
 
@@ -36,20 +41,22 @@ class ClientBatchesViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onChangeDrawerOpen} />
         <Main>
-          <Appbar title={t(TranslationKey.Batches)} setDrawerOpen={onChangeDrawerOpen}>
+          <Appbar title={t(TranslationKey.Notifications)} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <div>
-                <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Batches'])}</Typography>
+                <Typography className={classNames.title}>
+                  {t(TranslationKey['Choose a section in Notifications'])}
+                </Typography>
 
                 <div className={classNames.btnsWrapper}>
                   <Button
                     className={classNames.button}
                     color="primary"
                     variant="outlined"
-                    onClick={onClickBoxesReadyToSend}
+                    onClick={onClickOrdersNotifications}
                   >
                     <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['Boxes ready to send'])}</Typography>
+                      <Typography className={classNames.btnText}>{t(TranslationKey['On orders'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button>
@@ -58,10 +65,10 @@ class ClientBatchesViewRaw extends Component {
                     className={classNames.button}
                     color="primary"
                     variant="outlined"
-                    onClick={onClickAwaitingSend}
+                    onClick={onClickBoxesNotifications}
                   >
                     <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['Awaiting send'])}</Typography>
+                      <Typography className={classNames.btnText}>{t(TranslationKey['On boxes'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button>
@@ -73,7 +80,7 @@ class ClientBatchesViewRaw extends Component {
                     onClick={onClickTariffsNotifications}
                   >
                     <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['Sent boxes'])}</Typography>
+                      <Typography className={classNames.btnText}>{t(TranslationKey['On boxes tariffs'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button>
@@ -87,4 +94,4 @@ class ClientBatchesViewRaw extends Component {
   }
 }
 
-export const ClientBatchesView = withStyles(styles)(ClientBatchesViewRaw)
+export const ClientNotificationsView = withStyles(styles)(ClientNotificationsViewRaw)

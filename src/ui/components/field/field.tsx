@@ -52,9 +52,11 @@ export const Field: FC<Props> = observer(
     return (
       <div className={clsx(classNames.root, containerClasses, {[classNames.rootOneLine]: oneLine})}>
         <div className={classNames.labelWrapper}>
-          <Typography className={clsx(classNames.label, labelClasses, {[classNames.labelOneLine]: oneLine})}>
-            {label}
-          </Typography>
+          {label ? (
+            <Typography className={clsx(classNames.label, labelClasses, {[classNames.labelOneLine]: oneLine})}>
+              {label}
+            </Typography>
+          ) : null}
 
           {(tooltipAttentionContent || tooltipInfoContent) && label ? (
             <div className={classNames.tooltipsWrapper}>

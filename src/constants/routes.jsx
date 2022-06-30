@@ -1,5 +1,6 @@
 import {AdminAwaitingBatchesView} from '@views/admin/admin-batches-views/admin-awaiting-batches-view'
 import {AdminBatchesView} from '@views/admin/admin-batches-views/admin-batches-view'
+import {AdminSentBatchesView} from '@views/admin/admin-batches-views/admin-sent-batches-view'
 import {AdminDashboardView} from '@views/admin/admin-dashboard-view'
 import {AdminExchangeViews} from '@views/admin/admin-exchange-views'
 import {AdminFinancesViews} from '@views/admin/admin-finances-views/admin-finances-views'
@@ -14,6 +15,7 @@ import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
 import {AdminDestinationsView} from '@views/admin/admin-warehouse-views/admin-destinations-view'
 import {AdminWarehouseBoxesView} from '@views/admin/admin-warehouse-views/admin-warehouse-boxes-view'
 import {AdminWarehouseTasksView} from '@views/admin/admin-warehouse-views/admin-warehouse-tasks-view'
+import {AdminWarehouseView} from '@views/admin/admin-warehouse-views/admin-warehouse-view'
 import {AuthView} from '@views/auth'
 import {BuyerDashboardView} from '@views/buyer/buyer-dashboard-view'
 import {BuyerFinancesViews} from '@views/buyer/buyer-finances-views'
@@ -26,6 +28,7 @@ import {BuyerSearchSupplierBySupervisorView} from '@views/buyer/buyer-search-sup
 import {ClientAwaitingBatchesView} from '@views/client/client-batches-views/client-awaiting-batches-view'
 import {ClientBatchesView} from '@views/client/client-batches-views/client-batches-view'
 import {ClientReadyBoxesView} from '@views/client/client-batches-views/client-ready-boxes-view'
+import {ClientSentBatchesView} from '@views/client/client-batches-views/client-sent-batches-view'
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
 import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
@@ -34,6 +37,7 @@ import {ClientFreelanceView} from '@views/client/client-freelance-view'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
 import {ClientBoxesNotificationsView} from '@views/client/client-notifications-views/client-boxes-notifications-view'
 import {ClientBoxesTariffsNotificationsView} from '@views/client/client-notifications-views/client-boxes-tariffs-notifications-view'
+import {ClientNotificationsView} from '@views/client/client-notifications-views/client-notifications-view'
 import {ClientOrdersNotificationsView} from '@views/client/client-notifications-views/client-orders-notifications-view'
 import {ClientOrderView} from '@views/client/client-orders-views/order'
 import {ClientOrdersView} from '@views/client/client-orders-views/orders'
@@ -69,7 +73,8 @@ import {SupervisorReadyToCheckByClientView} from '@views/supervisor/supervisor-r
 import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-view'
 import {TermsView} from '@views/terms'
 import {WarehouseAwaitingBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view'
-import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-batches-view/warehouse-batches-view'
+import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-batches-view'
+import {WarehouseSentBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-sent-batches-view/warehouse-sent-batches-view'
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
 import {WarehouseFinancesViews} from '@views/warehouse/warehouse-finances-views'
 import {WarehouseManagementView} from '@views/warehouse/warehouse-management-view'
@@ -77,6 +82,7 @@ import {WarehouseMyWarehouseView} from '@views/warehouse/warehouse-my-warehouse-
 import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-canceled-tasks-view'
 import {WarehouseCompletedTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-completed-tasks-view'
 import {WarehouseMyTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-my-tasks-view'
+import {WarehouseTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-tasks-view'
 import {WarehouseVacantTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view'
 
 import {TranslationKey} from './translations/translation-key'
@@ -447,7 +453,15 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/boxes-ready-to-batch',
+    routePath: '/client/batches',
+    component: ClientBatchesView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Batches,
+  },
+
+  {
+    routePath: '/client/batches/boxes-ready-to-batch',
     component: ClientReadyBoxesView,
     exact: false,
     permission: [UserRole.CLIENT],
@@ -455,7 +469,7 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/awaiting-batch',
+    routePath: '/client/batches/awaiting-batch',
     component: ClientAwaitingBatchesView,
     exact: false,
     permission: [UserRole.CLIENT],
@@ -463,8 +477,8 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/batches',
-    component: ClientBatchesView,
+    routePath: '/client/batches/sent-batches',
+    component: ClientSentBatchesView,
     exact: false,
     permission: [UserRole.CLIENT],
     crumbNameKey: TranslationKey['Sent boxes'],
@@ -523,28 +537,36 @@ export const privateRoutesConfigs = [
     permission: [UserRole.CLIENT],
     crumbNameKey: TranslationKey['My users'],
   },
+
   {
-    routePath: '/client/orders-notifications',
+    routePath: '/client/notifications',
+    component: ClientNotificationsView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Notifications,
+  },
+  {
+    routePath: '/client/notifications/orders-notifications',
     component: ClientOrdersNotificationsView,
     exact: false,
     permission: [UserRole.CLIENT],
-    crumbNameKey: TranslationKey['Order notifications'],
+    crumbNameKey: TranslationKey['On orders'],
   },
 
   {
-    routePath: '/client/boxes-notifications',
+    routePath: '/client/notifications/boxes-notifications',
     component: ClientBoxesNotificationsView,
     exact: false,
     permission: [UserRole.CLIENT],
-    crumbNameKey: TranslationKey['Box notifications'],
+    crumbNameKey: TranslationKey['On boxes'],
   },
 
   {
-    routePath: '/client/tariffs-notifications',
+    routePath: '/client/notifications/tariffs-notifications',
     component: ClientBoxesTariffsNotificationsView,
     exact: false,
     permission: [UserRole.CLIENT],
-    crumbNameKey: TranslationKey['Box notifications'],
+    crumbNameKey: TranslationKey['On boxes tariffs'],
   },
 
   {
@@ -638,15 +660,24 @@ export const privateRoutesConfigs = [
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey.Dashboard,
   },
+
   {
-    routePath: '/warehouse/vacant-tasks',
+    routePath: '/warehouse/tasks',
+    component: WarehouseTasksView,
+    exact: true,
+    permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey.Tasks,
+  },
+
+  {
+    routePath: '/warehouse/tasks/vacant-tasks',
     component: WarehouseVacantTasksView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['New tasks'],
   },
   {
-    routePath: '/warehouse/my-tasks',
+    routePath: '/warehouse/tasks/my-tasks',
     component: WarehouseMyTasksView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
@@ -654,7 +685,31 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/warehouse/awaiting-batches',
+    routePath: '/warehouse/tasks/completed-tasks',
+    component: WarehouseCompletedTasksView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey['Completed tasks'],
+  },
+
+  {
+    routePath: '/warehouse/tasks/canceled-tasks',
+    component: WarehouseCanceledTasksView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey['Canceled tasks'],
+  },
+
+  {
+    routePath: '/warehouse/batches',
+    component: WarehouseBatchesView,
+    exact: true,
+    permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey.Batches,
+  },
+
+  {
+    routePath: '/warehouse/batches/awaiting-batches',
     component: WarehouseAwaitingBatchesView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
@@ -662,8 +717,8 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/warehouse/batches',
-    component: WarehouseBatchesView,
+    routePath: '/warehouse/batches/sent-batches',
+    component: WarehouseSentBatchesView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey.Sent,
@@ -683,13 +738,6 @@ export const privateRoutesConfigs = [
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey['Warehouse management'],
   },
-  {
-    routePath: '/warehouse/completed-tasks',
-    component: WarehouseCompletedTasksView,
-    exact: false,
-    permission: [UserRole.STOREKEEPER],
-    crumbNameKey: TranslationKey['Completed tasks'],
-  },
 
   {
     routePath: '/warehouse/users',
@@ -707,20 +755,6 @@ export const privateRoutesConfigs = [
     crumbNameKey: TranslationKey['My users'],
   },
 
-  {
-    routePath: '/warehouse/canceled-tasks',
-    component: WarehouseCanceledTasksView,
-    exact: false,
-    permission: [UserRole.STOREKEEPER],
-    crumbNameKey: TranslationKey['Canceled tasks'],
-  },
-  {
-    routePath: '/warehouse/warehouse',
-    component: WarehouseBatchesView,
-    exact: false,
-    permission: [UserRole.STOREKEEPER],
-    crumbNameKey: TranslationKey.Sent,
-  },
   {
     routePath: '/warehouse/finances',
     component: WarehouseFinancesViews,
@@ -785,15 +819,23 @@ export const privateRoutesConfigs = [
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Product,
   },
+
   {
-    routePath: '/admin/tasks',
+    routePath: '/admin/warehouse',
+    component: AdminWarehouseView,
+    exact: true,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Tasks,
+  },
+  {
+    routePath: '/admin/warehouse/tasks',
     component: AdminWarehouseTasksView,
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Tasks,
   },
   {
-    routePath: '/admin/boxes',
+    routePath: '/admin/warehouse/boxes',
     component: AdminWarehouseBoxesView,
     exact: false,
     permission: [UserRole.ADMIN],
@@ -801,7 +843,7 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/admin/destinations',
+    routePath: '/admin/warehouse/destinations',
     component: AdminDestinationsView,
     exact: false,
     permission: [UserRole.ADMIN],
@@ -809,7 +851,15 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/admin/awaiting-batches',
+    routePath: '/admin/batches',
+    component: AdminBatchesView,
+    exact: true,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Batches,
+  },
+
+  {
+    routePath: '/admin/batches/awaiting-batches',
     component: AdminAwaitingBatchesView,
     exact: false,
     permission: [UserRole.ADMIN],
@@ -817,8 +867,8 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/admin/batches',
-    component: AdminBatchesView,
+    routePath: '/admin/batches/sent-batches',
+    component: AdminSentBatchesView,
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Sent,

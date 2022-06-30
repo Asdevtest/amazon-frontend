@@ -1114,5 +1114,9 @@
   "Describe the reason for the rework": "Опишите причину доработки",
   "No more than 5 times": "Не более 5 раз",
   "Time limit for rework": "Лимит времени на доработку",
-  "Choose a section in Users": "Выберите секцию в Пользователях"
+  "Choose a section in Users": "Выберите секцию в Пользователях",
+  "Choose a section in Batches": "Выберите секцию в Партиях",
+  "Choose a section in Notifications": "Выберите секцию в Уведомлениях",
+  "Choose a section in Tasks": "Выберите секцию в Задачах",
+  "Choose a section in Warehouse": "Выберите секцию на Складе"
 }

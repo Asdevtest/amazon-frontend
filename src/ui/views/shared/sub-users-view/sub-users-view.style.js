@@ -17,6 +17,7 @@ export const styles = createStyles(theme => ({
   },
 
   searchContainer: {
+    marginTop: 0,
     width: 'auto',
     marginRight: 'calc(50% - 345px)',
   },
@@ -31,7 +32,7 @@ export const styles = createStyles(theme => ({
   subUserHeader: {
     display: 'flex',
     justifyContent: 'end',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
 
   addUserButton: {

@@ -17,7 +17,7 @@ export const useClassNames = makeStyles(theme => ({
   toolbar: {
     display: 'flex',
     alignItems: 'center',
-    paddingLeft: theme.spacing(5),
+    paddingLeft: 30,
     paddingRight: theme.spacing(5),
     height: '100%',
     [theme.breakpoints.down('sm')]: {
@@ -182,11 +182,12 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   breadCrumbsWrapper: {
+    // position: 'absolute',
     width: '100%',
     display: 'flex',
     paddingLeft: 30,
     alignItems: 'center',
-    margin: '10px 0',
+    margin: '5px 0',
     height: 'min-content',
   },
 }))

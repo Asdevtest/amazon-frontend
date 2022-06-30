@@ -32,6 +32,7 @@ export class ClientProductView extends Component {
 
   render() {
     const {
+      actionStatus,
       volumeWeightCoefficient,
       yuanToDollarRate,
       userInfo,
@@ -74,6 +75,7 @@ export class ClientProductView extends Component {
                   showProgress={showProgress}
                   progressValue={progressValue}
                   product={product}
+                  actionStatus={actionStatus}
                   productBase={productBase}
                   selectedSupplier={selectedSupplier}
                   handleSupplierButtons={onClickSupplierButtons}

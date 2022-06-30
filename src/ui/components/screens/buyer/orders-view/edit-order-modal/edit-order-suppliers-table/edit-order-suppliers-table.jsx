@@ -69,7 +69,10 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                         className={classNames.copyImg}
                         src="/assets/icons/copy-img.svg"
                         alt=""
-                        onClick={() => copyValue(supplier.link)}
+                        onClick={e => {
+                          e.stopPropagation()
+                          copyValue(supplier.link)
+                        }}
                       />
                     </div>
                   ) : (

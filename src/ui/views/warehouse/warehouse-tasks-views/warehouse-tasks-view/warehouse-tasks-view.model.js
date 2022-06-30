@@ -1,6 +1,6 @@
 import {makeAutoObservable} from 'mobx'
 
-export class ClientBatchesViewModel {
+export class WarehouseTasksViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
@@ -16,21 +16,27 @@ export class ClientBatchesViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onClickBoxesReadyToSend() {
+  onClickVacantTask() {
     this.history.push({
-      pathname: '/client/batches/boxes-ready-to-batch',
+      pathname: '/warehouse/tasks/vacant-tasks',
     })
   }
 
-  onClickAwaitingSend() {
+  onClickMyTasks() {
     this.history.push({
-      pathname: '/client/batches/awaiting-batch',
+      pathname: '/warehouse/tasks/my-tasks',
     })
   }
 
-  onClickSentBatches() {
+  onClickCompletedTasks() {
     this.history.push({
-      pathname: '/client/batches/sent-batches',
+      pathname: '/warehouse/tasks/completed-tasks',
+    })
+  }
+
+  onClickCanceledTasks() {
+    this.history.push({
+      pathname: '/warehouse/tasks/canceled-tasks',
     })
   }
 }

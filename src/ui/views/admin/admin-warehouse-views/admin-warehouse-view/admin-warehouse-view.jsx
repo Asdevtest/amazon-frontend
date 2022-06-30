@@ -17,18 +17,17 @@ import {Navbar} from '@components/navbar'
 
 import {t} from '@utils/translations'
 
-import {ClientBatchesViewModel} from './client-batches-view.model'
-import {styles} from './client-batches-view.style'
+import {AdminWarehouseViewModel} from './admin-warehouse-view.model'
+import {styles} from './admin-warehouse-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_BATCHES
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_WAREHOUSE
 
 @observer
-class ClientBatchesViewRaw extends Component {
-  viewModel = new ClientBatchesViewModel({history: this.props.history})
+class AdminWarehouseViewRaw extends Component {
+  viewModel = new AdminWarehouseViewModel({history: this.props.history})
 
   render() {
-    const {drawerOpen, onChangeDrawerOpen, onClickBoxesReadyToSend, onClickAwaitingSend, onClickTariffsNotifications} =
-      this.viewModel
+    const {drawerOpen, onChangeDrawerOpen, onClickTasks, onClickBoxes, onClickDestinations} = this.viewModel
 
     const {classes: classNames} = this.props
 
@@ -36,20 +35,24 @@ class ClientBatchesViewRaw extends Component {
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onChangeDrawerOpen} />
         <Main>
-          <Appbar title={t(TranslationKey.Batches)} setDrawerOpen={onChangeDrawerOpen}>
+          <Appbar title={t(TranslationKey.Warehouse)} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
               <div>
-                <Typography className={classNames.title}>{t(TranslationKey['Choose a section in Batches'])}</Typography>
+                <Typography className={classNames.title}>
+                  {t(TranslationKey['Choose a section in Warehouse'])}
+                </Typography>
 
                 <div className={classNames.btnsWrapper}>
-                  <Button
-                    className={classNames.button}
-                    color="primary"
-                    variant="outlined"
-                    onClick={onClickBoxesReadyToSend}
-                  >
+                  <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickTasks}>
                     <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['Boxes ready to send'])}</Typography>
+                      <Typography className={classNames.btnText}>{t(TranslationKey.Tasks)}</Typography>
+                      <ArrowRightAltIcon color="primary" />
+                    </div>
+                  </Button>
+
+                  <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickBoxes}>
+                    <div className={classNames.btnTextWrapper}>
+                      <Typography className={classNames.btnText}>{t(TranslationKey.Boxes)}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button>
@@ -58,22 +61,10 @@ class ClientBatchesViewRaw extends Component {
                     className={classNames.button}
                     color="primary"
                     variant="outlined"
-                    onClick={onClickAwaitingSend}
+                    onClick={onClickDestinations}
                   >
                     <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['Awaiting send'])}</Typography>
-                      <ArrowRightAltIcon color="primary" />
-                    </div>
-                  </Button>
-
-                  <Button
-                    className={classNames.button}
-                    color="primary"
-                    variant="outlined"
-                    onClick={onClickTariffsNotifications}
-                  >
-                    <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['Sent boxes'])}</Typography>
+                      <Typography className={classNames.btnText}>{t(TranslationKey.Destinations)}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button>
@@ -87,4 +78,4 @@ class ClientBatchesViewRaw extends Component {
   }
 }
 
-export const ClientBatchesView = withStyles(styles)(ClientBatchesViewRaw)
+export const AdminWarehouseView = withStyles(styles)(AdminWarehouseViewRaw)
