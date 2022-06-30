@@ -59,6 +59,7 @@ import {OwnerRequestDetailCustomView} from '@views/shared/owner-requests-detail-
 import {RequestDetailCustomView} from '@views/shared/servant-requests-detail-custom-view'
 import {SubUsersView} from '@views/shared/sub-users-view/sub-users-view'
 import {UserProfileView} from '@views/shared/user-profile-view/user-profile-view'
+import {UsersView} from '@views/shared/users-view'
 import {VacantRequestsView} from '@views/shared/vacant-requests-view/vacant-requests-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
 import {SupervisorFinancesViews} from '@views/supervisor/supervisor-finances-views'
@@ -191,11 +192,19 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/buyer/sub-users',
+    routePath: '/buyer/users',
+    component: UsersView,
+    exact: true,
+    permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey.Users,
+  },
+
+  {
+    routePath: '/buyer/users/sub-users',
     component: SubUsersView,
     exact: false,
     permission: [UserRole.BUYER],
-    crumbNameKey: TranslationKey.Users,
+    crumbNameKey: TranslationKey['My users'],
   },
   {
     routePath: '/buyer/search-supplier-by-supervisor/product',
@@ -275,11 +284,19 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/researcher/sub-users',
+    routePath: '/researcher/users',
+    component: UsersView,
+    exact: true,
+    permission: [UserRole.RESEARCHER],
+    crumbNameKey: TranslationKey.Users,
+  },
+
+  {
+    routePath: '/researcher/users/sub-users',
     component: SubUsersView,
     exact: false,
     permission: [UserRole.RESEARCHER],
-    crumbNameKey: TranslationKey['Sub users'],
+    crumbNameKey: TranslationKey['My users'],
   },
 
   {
@@ -492,7 +509,15 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/sub-users',
+    routePath: '/client/users',
+    component: UsersView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Users,
+  },
+
+  {
+    routePath: '/client/users/sub-users',
     component: SubUsersView,
     exact: false,
     permission: [UserRole.CLIENT],
@@ -584,11 +609,19 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/supervisor/sub-users',
+    routePath: '/supervisor/users',
+    component: UsersView,
+    exact: true,
+    permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Users,
+  },
+
+  {
+    routePath: '/supervisor/users/sub-users',
     component: SubUsersView,
     exact: false,
     permission: [UserRole.SUPERVISOR],
-    crumbNameKey: TranslationKey.Users,
+    crumbNameKey: TranslationKey['My users'],
   },
   {
     routePath: '/supervisor/finances',
@@ -659,11 +692,19 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/warehouse/sub-users',
+    routePath: '/warehouse/users',
+    component: UsersView,
+    exact: true,
+    permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey.Users,
+  },
+
+  {
+    routePath: '/warehouse/users/sub-users',
     component: SubUsersView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
-    crumbNameKey: TranslationKey.Users,
+    crumbNameKey: TranslationKey['My users'],
   },
 
   {
@@ -821,11 +862,19 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/freelancer/sub-users',
+    routePath: '/freelancer/users',
+    component: UsersView,
+    exact: true,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey.Users,
+  },
+
+  {
+    routePath: '/freelancer/users/sub-users',
     component: SubUsersView,
     exact: false,
     permission: [UserRole.FREELANCER],
-    crumbNameKey: TranslationKey['Sub users'],
+    crumbNameKey: TranslationKey['My users'],
   },
 
   {

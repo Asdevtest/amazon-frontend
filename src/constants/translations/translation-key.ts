@@ -1112,7 +1112,7 @@ export enum TranslationKey {
   'Describe the reason for the rework' = 'Describe the reason for the rework',
   'No more than 5 times' = 'No more than 5 times',
   'Time limit for rework' = 'Time limit for rework',
-  // '' = '',
+  'Choose a section in Users' = 'Choose a section in Users',
   // '' = '',
   // '' = '',
   // '' = '',

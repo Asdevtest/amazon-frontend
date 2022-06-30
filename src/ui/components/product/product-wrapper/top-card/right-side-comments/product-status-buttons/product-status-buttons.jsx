@@ -28,7 +28,7 @@ export const ProductStatusButtons = ({
 
   return (
     <Box marginBottom={2}>
-      <Grid container spacing={1}>
+      <Grid container spacing={2}>
         {buttonsConfig.map(buttonConfig => (
           <Grid key={buttonConfig.statusKey} item>
             <ColoredChip

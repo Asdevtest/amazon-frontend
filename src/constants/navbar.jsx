@@ -188,8 +188,8 @@ export const navbarConfig = () => ({
     {
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
-      route: '/client/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/client/sub-users'}],
+      route: '/client/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/client/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_USERS_CLIENT),
@@ -251,8 +251,8 @@ export const navbarConfig = () => ({
     {
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
-      route: '/researcher/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/researcher/sub-users'}],
+      route: '/researcher/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/researcher/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -307,8 +307,8 @@ export const navbarConfig = () => ({
     {
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
-      route: '/freelancer/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/freelancer/sub-users'}],
+      route: '/freelancer/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/freelancer/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: () => true,
     },
@@ -372,8 +372,8 @@ export const navbarConfig = () => ({
     {
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
-      route: '/supervisor/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/supervisor/sub-users'}],
+      route: '/supervisor/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/supervisor/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -462,8 +462,8 @@ export const navbarConfig = () => ({
     {
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
-      route: '/buyer/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/buyer/sub-users'}],
+      route: '/buyer/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/buyer/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_USERS_BUYER),
@@ -556,8 +556,8 @@ export const navbarConfig = () => ({
     {
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
-      route: '/warehouse/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/warehouse/sub-users'}],
+      route: '/warehouse/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/warehouse/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
