@@ -9,7 +9,6 @@ export const useClassNames = makeStyles(theme => ({
   },
   selected: {
     color: theme.palette.primary.main,
-    border: '1px solid #006aff49',
   },
 
   badge: {
@@ -29,18 +28,15 @@ export const useClassNames = makeStyles(theme => ({
   menuItem: {
     overflow: 'hidden',
     width: '100%',
-    marginBottom: '10px',
-    marginTop: '10px',
-    height: '20px',
+
+    height: '50px',
     padding: 0,
     display: 'flex',
     backgroundColor: 'inherit',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    borderRadius: 0,
 
     color: theme.palette.text.primary,
-    '&:hover': {
-      backgroundColor: 'inherit',
-    },
+    '&:hover': {backgroundColor: '#0000ff0a'},
   },
 
   subCategory: {

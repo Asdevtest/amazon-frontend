@@ -212,7 +212,7 @@
   "Paid orders": "Paid orders",
   "Canceled orders": "Canceled orders",
   "Boxes ready to send": "Boxes ready to send",
-  "Awaiting shipment": "Awaiting shipment",
+
   "Sent boxes": "Sent boxes",
   "Freelance": "Freelance",
   "My requests": "My requests",
@@ -1123,5 +1123,16 @@
   "Supplier for product idea": "Supplier for product idea",
   "Supplier for a product card": "Supplier for a product card",
   "Choose a supplier": "Choose a supplier",
-  "Archive": "Archive"
+  "Archive": "Archive",
+  "Formed": "Formed",
+  "Ready to process": "Ready to process",
+  "At process": "At process",
+  "Need confirming to price change": "Need confirming to price change",
+  "Paid to supplier": "Paid to supplier",
+  "In stock": "In stock",
+  "Canceled by Buyer": "Canceled by Buyer",
+  "Canceled by Client": "Canceled by Client",
+  "Awaiting shipment": "Awaiting shipment",
+  "Shipped": "Shipped",
+  "Batch cost": "Batch cost"
 }

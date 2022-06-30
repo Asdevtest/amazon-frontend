@@ -12,7 +12,7 @@ export const useClassNames = makeStyles(() => ({
 
   parameterTableCellWrapper: {
     display: 'flex',
-    width: '350px',
+    width: '326px',
     justifyContent: 'space-between',
   },
 
@@ -24,10 +24,10 @@ export const useClassNames = makeStyles(() => ({
   },
 
   text: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: '#001029',
     fontSize: '16px',
     fontWeight: 600,
-    lineHeight: '21px',
+    lineHeight: '19px',
     maxWidth: '200px',
     overflowX: 'auto',
     whiteSpace: 'nowrap',
@@ -48,7 +48,10 @@ export const useClassNames = makeStyles(() => ({
   },
 
   fieldLabel: {
-    fontSize: '14px',
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    color: '#001029',
   },
 
   buyerWrapper: {

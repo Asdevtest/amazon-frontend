@@ -23,7 +23,11 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
     .filter(el => el !== null)
 
   return (
-    <Button tooltipInfoContent={renderTooltipTitle(category.title, userInfo.role)} className={classNames.menuItem}>
+    <Button
+      tooltipPosition="center"
+      tooltipInfoContent={renderTooltipTitle(category.title, userInfo.role)}
+      className={classNames.menuItem}
+    >
       <MuiListItem
         disableGutters
         selected={isSelected}

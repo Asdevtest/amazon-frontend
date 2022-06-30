@@ -7,14 +7,15 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
   },
   containerTitle: {
-    fontSize: '14px',
-    fontWeight: 500,
-    lineHeight: '18px',
+    fontSize: '18px',
+    fontWeight: 400,
+    lineHeight: '140%',
     color: 'rgba(77, 189, 116, 1)',
   },
   panelsWrapper: {
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
+    marginTop: '30px',
   },
   tableWrapper: {
     padding: '16px',
@@ -50,14 +51,41 @@ export const useClassNames = makeStyles(() => ({
 
   orderNumWrapper: {
     display: 'flex',
-    marginLeft: '120px',
+    marginLeft: '171px',
     alignItems: 'center',
+  },
+
+  orderNum: {
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    color: '#001029',
+  },
+
+  orderPrice: {
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    color: '#001029',
   },
 
   orderPriceWrapper: {
     display: 'flex',
-    marginLeft: '120px',
+    marginLeft: '69px',
     alignItems: 'center',
+  },
+
+  batchWrapper: {
+    display: 'flex',
+    marginLeft: '215px',
+    alignItems: 'center',
+  },
+
+  batchPrice: {
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    color: '#001029',
   },
 
   batchPriceWrapper: {
@@ -69,10 +97,10 @@ export const useClassNames = makeStyles(() => ({
   },
 
   titleSpan: {
-    marginLeft: 20,
+    marginLeft: 28,
     fontWeight: '600',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#354256',
+    color: '#001029',
   },
 }))

@@ -25,9 +25,7 @@ export const useClassNames = makeStyles(theme => ({
     height: '100%',
     transform: 'scale(1.2)',
   },
-  categoriesWrapper: {
-    padding: '0 10px 0 0',
-  },
+
   iconWrapper: {
     minWidth: '0',
     margin: '16px 16px 16px 11px',

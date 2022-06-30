@@ -85,6 +85,14 @@ export const useClassNames = makeStyles(() => ({
     margin: '20px 0 20px 0',
   },
 
+  imagesCarouselWrapper: {
+    width: '100%',
+  },
+
+  imageWrapper: {
+    width: '100%',
+  },
+
   imagesWrapper: {
     width: '50%',
   },

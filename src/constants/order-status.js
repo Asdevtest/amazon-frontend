@@ -1,4 +1,7 @@
 import {objectFlip} from '@utils/object'
+import {t} from '@utils/translations'
+
+import {TranslationKey} from './translations/translation-key'
 
 export const OrderStatus = {
   FORMED: 'FORMED',
@@ -29,6 +32,35 @@ export const OrderStatusByCode = {
   40: OrderStatus.CANCELED_BY_CLIENT, // Отменен байером отменем клиентом, можно выстаить только для вакантных или тех котрорые ожидают доплаты. (10, 19)
   45: OrderStatus.AWAITING_SHIPMENT, // Ожидает отправки
   50: OrderStatus.SHIPPED, // Отправлен
+}
+
+export const OrderStatusTranslate = status => {
+  switch (status) {
+    case OrderStatus.FORMED:
+      return t(TranslationKey.Formed)
+    case OrderStatus.NEW:
+      return t(TranslationKey.New)
+    case OrderStatus.READY_TO_PROCESS:
+      return t(TranslationKey['Ready to process'])
+    case OrderStatus.AT_PROCESS:
+      return t(TranslationKey['At process'])
+    case OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE:
+      return t(TranslationKey['Need confirming to price change'])
+    case OrderStatus.PAID_TO_SUPPLIER:
+      return t(TranslationKey['Paid to supplier'])
+    case OrderStatus.TRACK_NUMBER_ISSUED:
+      return t(TranslationKey['Track number issued'])
+    case OrderStatus.IN_STOCK:
+      return t(TranslationKey['In stock'])
+    case OrderStatus.CANCELED_BY_BUYER:
+      return t(TranslationKey['Canceled by Buyer'])
+    case OrderStatus.CANCELED_BY_CLIENT:
+      return t(TranslationKey['Canceled by Client'])
+    case OrderStatus.AWAITING_SHIPMENT:
+      return t(TranslationKey['Awaiting shipment'])
+    case OrderStatus.SHIPPED:
+      return t(TranslationKey.Shipped)
+  }
 }
 
 export const OrderStatusByKey = objectFlip(OrderStatusByCode, parseInt)

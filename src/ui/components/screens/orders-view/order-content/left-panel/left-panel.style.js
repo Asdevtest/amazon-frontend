@@ -5,6 +5,12 @@ export const useClassNames = makeStyles(() => ({
     padding: '15px 15px',
     width: '500px',
   },
+  amazonTitle: {
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    color: '#001029',
+  },
 
   orderPrice: {
     fontSize: '24px',
@@ -17,10 +23,10 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
   },
   productImg: {
-    height: '72px',
-    width: '72px',
-    margin: '8px 8px 0 8px',
-    objectFit: 'contain',
+    height: '98px',
+    width: '92px',
+    margin: '0 50px 0 0',
+    objectFit: 'cover',
     objectPosition: 'center',
   },
   parameterTableCell: {
@@ -28,10 +34,10 @@ export const useClassNames = makeStyles(() => ({
     padding: '12px 16px',
   },
   containerTitle: {
-    fontSize: '14px',
-    fontWeight: 500,
-    lineHeight: '18px',
-    color: 'rgba(61, 81, 112, 1)',
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    color: '#006CFF',
   },
   label: {
     fontSize: '12px',
@@ -40,10 +46,11 @@ export const useClassNames = makeStyles(() => ({
     color: 'rgba(143, 152, 165, 1)',
   },
   text: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: '#656565',
     fontSize: '14px',
     fontWeight: 400,
-    lineHeight: '21px',
+    lineHeight: '16px',
+    marginTop: '19px',
   },
   input: {
     fontSize: '13px',
@@ -54,26 +61,26 @@ export const useClassNames = makeStyles(() => ({
     height: '20px',
   },
   documentsButton: {
-    border: '1px solid #ccc',
-    borderRadius: '10px',
-    padding: '0 8px',
+    border: '1px solid #e0e0e0',
+    borderRadius: '4px',
+    padding: '10px 15px',
     cursor: 'pointer',
     color: 'rgba(61, 81, 112, 1)',
-    fontSize: '14px',
+    fontSize: '16px',
     fontWeight: 400,
-    lineHeight: '21px',
+    lineHeight: '19px',
     textTransform: 'none',
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    margin: '5px 0 10px',
+    margin: '34px 0 30px',
   },
 
   asinTypo: {
     color: '#89919C',
   },
   divider: {
-    margin: '16px 0',
+    margin: '10px 0',
   },
   lastDivider: {
     margin: '16px 0',
@@ -81,5 +88,6 @@ export const useClassNames = makeStyles(() => ({
   collapsedWrapper: {
     textAlign: 'center',
     cursor: 'pointer',
+    marginTop: '79px',
   },
 }))

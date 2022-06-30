@@ -62,11 +62,10 @@ export const styles = theme =>
     menuItem: {
       overflow: 'hidden',
       width: '100%',
-      marginTop: '10px',
+      borderRadius: 0,
       padding: 0,
       display: 'flex',
       backgroundColor: 'inherit',
-      boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
 
       color: theme.palette.text.primary,
       '&:hover': {

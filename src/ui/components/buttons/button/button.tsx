@@ -10,9 +10,15 @@ import {SettingsModel} from '@models/settings-model'
 import {useClassNames} from './button.style'
 import {StyledButton} from './styled-button'
 
+enum tooltipPositions {
+  Corner = 'corner',
+  Center = 'center',
+}
+
 interface Props {
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
+  tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner
   variant?: string
   color?: string
   success?: boolean
@@ -28,6 +34,7 @@ export const Button: FC<Props> = observer(
   ({
     tooltipAttentionContent,
     tooltipInfoContent,
+    tooltipPosition,
     variant,
     color,
     children,
@@ -63,7 +70,7 @@ export const Button: FC<Props> = observer(
           {children}
         </StyledButton>
         {tooltipAttentionContent || tooltipInfoContent ? (
-          <div className={classNames.tooltipsWrapper}>
+          <div className={tooltipPosition === 'center' ? classNames.tooltipsCenterWrapper : classNames.tooltipsWrapper}>
             {tooltipAttentionContent ? (
               <Tooltip arrow title={tooltipAttentionContent} placement="top-end">
                 <img className={classNames.tooltip} src="/assets/icons/attention.svg" />

@@ -184,6 +184,8 @@ export const useClassNames = makeStyles(() => ({
   statusField: {
     display: 'flex',
     alignItems: 'center',
+    flexWrap: 'nowrap',
+    width: '500px',
 
     '& > span': {
       marginRight: '19px',

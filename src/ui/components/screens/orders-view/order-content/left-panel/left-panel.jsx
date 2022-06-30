@@ -1,7 +1,8 @@
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+
 import React from 'react'
 
 import {Divider, Typography, Button} from '@material-ui/core'
-import LaunchIcon from '@material-ui/icons/Launch'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -26,21 +27,18 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
         </div>
       </div>
 
-      <Divider orientation={'horizontal'} className={classNames.divider} />
-
-      <Button className={classNames.documentsButton} variant="outlined" endIcon={<LaunchIcon fontSize="small" />}>
+      <Button className={classNames.documentsButton} variant="outlined" endIcon={<CloudUploadIcon fontSize="small" />}>
         {t(TranslationKey.Documents)}
       </Button>
 
       <ProductParameters order={order} collapsed={collapsed} />
-
-      <Divider orientation={'horizontal'} className={classNames.divider} />
 
       <div className={classNames.collapsedWrapper} onClick={() => setCollapsed(!collapsed)}>
         <Typography className={classNames.containerTitle}>
           {!collapsed ? t(TranslationKey['All product parameters']) : t(TranslationKey.Collapse)}
         </Typography>
       </div>
+      <Divider orientation={'horizontal'} className={classNames.divider} />
       {narrow && <Divider orientation={'horizontal'} className={classNames.lastDivider} />}
     </div>
   )

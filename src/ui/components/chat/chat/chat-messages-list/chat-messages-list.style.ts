@@ -12,13 +12,13 @@ export const useClassNames = makeStyles(() => ({
   messageWrapper: {
     width: '100%',
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     marginBottom: '30px',
     flexDirection: 'row-reverse',
     // justifyContent: 'flex-end',
   },
   messageWrapperIsNextMessageSameAuthor: {
-    marginBottom: '15px',
+    marginBottom: '40px',
   },
   messageWrapperIsIncomming: {
     flexDirection: 'row',
@@ -33,7 +33,7 @@ export const useClassNames = makeStyles(() => ({
   },
   messageInner: {
     marginRight: '12px',
-    marginBottom: '40px',
+    // marginBottom: '40px',
     // maxWidth: '80%',
     wordBreak: 'break-word',
     whiteSpace: 'normal',
