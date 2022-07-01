@@ -163,21 +163,21 @@ export const navbarConfig = () => ({
     {
       icon: MyBatchesIcon,
       title: t(TranslationKey['My batches']),
-      route: '/client/boxes-ready-to-batch',
+      route: '/client/batches/boxes-ready-to-batch',
       subtitles: [
         {
           subtitle: t(TranslationKey['Boxes ready to send']),
-          subRoute: '/client/boxes-ready-to-batch',
+          subRoute: '/client/batches/boxes-ready-to-batch',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
         },
         {
           subtitle: t(TranslationKey['Awaiting send']),
-          subRoute: '/client/awaiting-batch',
+          subRoute: '/client/batches/awaiting-batch',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH,
         },
         {
           subtitle: t(TranslationKey['Sent boxes']),
-          subRoute: '/client/batches',
+          subRoute: '/client/batches/sent-batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES,
         },
       ],
@@ -188,8 +188,8 @@ export const navbarConfig = () => ({
     {
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
-      route: '/client/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/client/sub-users'}],
+      route: '/client/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/client/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_USERS_CLIENT),
@@ -216,11 +216,11 @@ export const navbarConfig = () => ({
     {
       icon: MyNotificationsIcon,
       title: t(TranslationKey.Notifications),
-      route: '/client/orders-notifications',
+      route: '/client/notifications/orders-notifications',
       subtitles: [
-        {subtitle: t(TranslationKey['On orders']), subRoute: '/client/orders-notifications'},
-        {subtitle: t(TranslationKey['On boxes']), subRoute: '/client/boxes-notifications'},
-        {subtitle: t(TranslationKey['On boxes tariffs']), subRoute: '/client/tariffs-notifications'},
+        {subtitle: t(TranslationKey['On orders']), subRoute: '/client/notifications/orders-notifications'},
+        {subtitle: t(TranslationKey['On boxes']), subRoute: '/client/notifications/boxes-notifications'},
+        {subtitle: t(TranslationKey['On boxes tariffs']), subRoute: '/client/notifications/tariffs-notifications'},
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
@@ -251,8 +251,8 @@ export const navbarConfig = () => ({
     {
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
-      route: '/researcher/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/researcher/sub-users'}],
+      route: '/researcher/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/researcher/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -307,8 +307,8 @@ export const navbarConfig = () => ({
     {
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
-      route: '/freelancer/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/freelancer/sub-users'}],
+      route: '/freelancer/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/freelancer/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: () => true,
     },
@@ -372,8 +372,8 @@ export const navbarConfig = () => ({
     {
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
-      route: '/supervisor/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/supervisor/sub-users'}],
+      route: '/supervisor/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/supervisor/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -462,8 +462,8 @@ export const navbarConfig = () => ({
     {
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
-      route: '/buyer/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/buyer/sub-users'}],
+      route: '/buyer/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/buyer/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_USERS_BUYER),
@@ -492,23 +492,23 @@ export const navbarConfig = () => ({
       subtitles: [
         {
           subtitle: t(TranslationKey['New tasks']),
-          subRoute: '/warehouse/vacant-tasks',
+          subRoute: '/warehouse/tasks/vacant-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_VAC_TASKS,
         },
         {
           subtitle: t(TranslationKey['My tasks']),
-          subRoute: '/warehouse/my-tasks',
+          subRoute: '/warehouse/tasks/my-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS,
         },
 
         {
           subtitle: t(TranslationKey['Completed tasks']),
-          subRoute: '/warehouse/completed-tasks',
+          subRoute: '/warehouse/tasks/completed-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS,
         },
         {
           subtitle: t(TranslationKey['Canceled tasks']),
-          subRoute: '/warehouse/canceled-tasks',
+          subRoute: '/warehouse/tasks/canceled-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
         },
       ],
@@ -534,16 +534,16 @@ export const navbarConfig = () => ({
     {
       icon: MyBatchesIcon,
       title: t(TranslationKey['My batches']),
-      route: '/warehouse/batches',
+      route: '/warehouse/batches/awaiting-batches',
       subtitles: [
         {
           subtitle: t(TranslationKey['Awaiting send']),
-          subRoute: '/warehouse/awaiting-batches',
+          subRoute: '/warehouse/batches/awaiting-batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES,
         },
         {
           subtitle: t(TranslationKey.Sent),
-          subRoute: '/warehouse/batches',
+          subRoute: '/warehouse/batches/sent-batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES,
         },
       ],
@@ -556,8 +556,8 @@ export const navbarConfig = () => ({
     {
       icon: MyUsersIcon,
       title: t(TranslationKey.Users),
-      route: '/warehouse/sub-users',
-      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/warehouse/sub-users'}],
+      route: '/warehouse/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/warehouse/users/sub-users'}],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
@@ -622,11 +622,11 @@ export const navbarConfig = () => ({
     {
       icon: MyWarehouseIcon,
       title: t(TranslationKey.Warehouse),
-      route: '/admin/tasks',
+      route: '/admin/warehouse/tasks',
       subtitles: [
-        {subtitle: t(TranslationKey.Tasks), subRoute: '/admin/tasks'},
-        {subtitle: t(TranslationKey.Boxes), subRoute: '/admin/boxes'},
-        {subtitle: t(TranslationKey.Destinations), subRoute: '/admin/destinations'},
+        {subtitle: t(TranslationKey.Tasks), subRoute: '/admin/warehouse/tasks'},
+        {subtitle: t(TranslationKey.Boxes), subRoute: '/admin/warehouse/boxes'},
+        {subtitle: t(TranslationKey.Destinations), subRoute: '/admin/warehouse/destinations'},
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
       checkHideBlock: () => true,
@@ -635,15 +635,15 @@ export const navbarConfig = () => ({
     {
       icon: MyBatchesIcon,
       title: t(TranslationKey.Batches),
-      route: '/admin/awaiting-batches',
+      route: '/admin/batches/awaiting-batches',
       subtitles: [
         {
           subtitle: t(TranslationKey['Awaiting send']),
-          subRoute: '/admin/awaiting-batches',
+          subRoute: '/admin/batches/awaiting-batches',
         },
         {
           subtitle: t(TranslationKey.Sent),
-          subRoute: '/admin/batches',
+          subRoute: '/admin/batches/sent-batches',
         },
       ],
 

@@ -252,7 +252,7 @@ export const PhotoCarousel = ({files}) => {
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
-  const notEmptyPhotos = files.filter(el => checkIsImageLink(el?.file?.name || el))
+  const notEmptyPhotos = files?.filter(el => checkIsImageLink(el?.file?.name || el))
 
   return files?.length ? (
     <div className={classNames.imagesAndFilesWrapper}>
@@ -268,7 +268,9 @@ export const PhotoCarousel = ({files}) => {
                   setShowPhotosModal(!showPhotosModal)
 
                   setBigImagesOptions({
-                    images: files.filter(el => checkIsImageLink(el?.file?.name || el)).map(img => img?.data_url || img),
+                    images: files
+                      ?.filter(el => checkIsImageLink(el?.file?.name || el))
+                      .map(img => img?.data_url || img),
                     imgIndex: index,
                   })
                 }}

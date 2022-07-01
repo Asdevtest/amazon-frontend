@@ -53,7 +53,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields) ||
     formFields.name === '' ||
     formFields.description === '' ||
-    formFields.price === '' ||
+    Number(formFields.price) <= 0 ||
     Number(formFields.price) > 100000
 
   return (

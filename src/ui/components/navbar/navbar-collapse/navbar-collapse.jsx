@@ -28,21 +28,21 @@ export const NavbarCollapse = ({
 
   const renderNotificationBySubRoute = subRoute => {
     switch (subRoute) {
-      case '/client/orders-notifications':
+      case '/client/notifications/orders-notifications':
         return (
           <ListItemIcon>
             {<div className={classNames.badge}>{currentViewModel.userInfo.needConfirmPriceChange.orders}</div>}
           </ListItemIcon>
         )
 
-      case '/client/boxes-notifications':
+      case '/client/notifications/boxes-notifications':
         return (
           <ListItemIcon>
             {<div className={classNames.badge}>{currentViewModel.userInfo.needConfirmPriceChange.boxes}</div>}
           </ListItemIcon>
         )
 
-      case '/client/tariffs-notifications':
+      case '/client/notifications/tariffs-notifications':
         return (
           <ListItemIcon>
             {<div className={classNames.badge}>{currentViewModel.userInfo.needUpdateTariff.boxes}</div>}
@@ -73,7 +73,6 @@ export const NavbarCollapse = ({
           className={clsx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
           primary={subCategory.subtitle}
         />
-
         {renderNotificationBySubRoute(subCategory.subRoute)}
       </NavbarSubCategory>
     </Button>

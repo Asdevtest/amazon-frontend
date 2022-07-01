@@ -268,7 +268,12 @@ export class ClientInventoryViewModel {
 
   onTriggerArchive() {
     this.selectedRowIds = []
-    this.isArchive = !this.isArchive
+
+    this.isArchive
+      ? this.history.push('/client/inventory', {isArchive: !this.isArchive})
+      : this.history.push('/client/inventory/archive', {isArchive: !this.isArchive})
+
+    // this.isArchive = !this.isArchive
   }
 
   async loadData() {

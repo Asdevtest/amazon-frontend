@@ -19,6 +19,7 @@ export class AdminDestinationsViewModel {
   requestStatus = undefined
   error = undefined
 
+  destinations = []
   logisticsDestinations = []
   destinationToEdit = undefined
   destinationIdToRemove = undefined

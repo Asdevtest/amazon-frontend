@@ -190,28 +190,43 @@ export class ClientInventoryViewRaw extends Component {
                     >
                       {t(TranslationKey['Supplier search'])}
                     </Button>
+
                     <Button
                       disableElevation
                       tooltipAttentionContent={
                         isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
                       }
-                      tooltipInfoContent={
-                        isArchive
-                          ? t(TranslationKey['Return the selected product to the inventory list'])
-                          : t(TranslationKey['Delete the selected product (the product is moved to the archive)'])
-                      }
+                      tooltipInfoContent={t(
+                        TranslationKey['Delete the selected product (the product is moved to the archive)'],
+                      )}
                       disabled={!selectedRowIds.length || isNoEditProductSelected}
                       variant="outlined"
-                      className={classNames.archiveBtn}
+                      className={classNames.archiveAddBtn}
                       onClick={onClickTriggerArchOrResetProducts}
                     >
-                      {isArchive ? t(TranslationKey.Recover) : t(TranslationKey['Move to archive'])}
-                      {!isArchive && <DeleteIcon className={classNames.archiveIcon} />}
+                      {t(TranslationKey['Move to archive'])}
+                      {<DeleteIcon className={classNames.archiveIcon} />}
                     </Button>
                   </div>
                 )}
 
                 <div className={classNames.archiveBtnsWrapper}>
+                  {isArchive ? (
+                    <Button
+                      disableElevation
+                      tooltipAttentionContent={
+                        isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
+                      }
+                      tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
+                      disabled={!selectedRowIds.length || isNoEditProductSelected}
+                      variant="outlined"
+                      className={classNames.archiveRecoverBtn}
+                      onClick={onClickTriggerArchOrResetProducts}
+                    >
+                      {t(TranslationKey.Recover)}
+                    </Button>
+                  ) : null}
+
                   <Button
                     tooltipInfoContent={
                       isArchive

@@ -206,7 +206,7 @@ export const AddOrEditLogisticTariffForm = observer(
           />
 
           <div className={classNames.costBlock}>
-            <Typography variant="h5">{t(TranslationKey.Rates) + ' ¥'}</Typography>
+            <Typography variant="h5">{t(TranslationKey.Rates)}</Typography>
 
             <ToggleBtnGroup exclusive size="small" color="primary" value={currencyType} onChange={handleChange}>
               <ToggleBtn disabled={currencyType === rateSettings.IN_DOLLAR} value={rateSettings.IN_DOLLAR}>

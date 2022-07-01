@@ -31,12 +31,22 @@ export const styles = createStyles({
     },
   },
 
-  archiveBtn: {
+  archiveAddBtn: {
     border: '1px solid #FF1616',
     color: '#FF1616',
 
     '&:hover': {
       border: '1px solid #FF1616',
+      opacity: 0.6,
+    },
+  },
+
+  archiveRecoverBtn: {
+    border: '1px solid #009a07',
+    color: '#009a07',
+
+    '&:hover': {
+      border: '1px solid #009a07',
       opacity: 0.6,
     },
   },
