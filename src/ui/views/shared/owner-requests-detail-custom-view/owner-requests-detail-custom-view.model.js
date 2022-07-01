@@ -27,6 +27,7 @@ export class OwnerRequestDetailCustomViewModel {
   showRequestForm = false
   showConfirmWithCommentModal = false
   showChat = false
+  showConfirmWorkResultFormModal = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -37,6 +38,10 @@ export class OwnerRequestDetailCustomViewModel {
   confirmOrderSettings = {
     isWarning: false,
     message: '',
+    onSubmit: () => {},
+  }
+
+  acceptProposalResultSetting = {
     onSubmit: () => {},
   }
 
@@ -139,8 +144,16 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   async onClickProposalResultAccept(proposalId) {
+    this.acceptProposalResultSetting = {
+      onSubmit: () => this.onClickProposalResultAcceptForm(proposalId),
+    }
+    this.onTriggerOpenModal('showConfirmWorkResultFormModal')
+  }
+
+  async onClickProposalResultAcceptForm(proposalId) {
     try {
       await RequestProposalModel.requestProposalResultAccept(proposalId)
+      this.onTriggerOpenModal('showConfirmWithCommentModal')
       this.loadData()
     } catch (error) {
       console.warn('onClickProposalResultAccept error ', error)
