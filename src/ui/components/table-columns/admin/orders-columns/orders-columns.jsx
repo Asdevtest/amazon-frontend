@@ -32,7 +32,7 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    width: 130,
     type: 'date',
   },
 
@@ -77,7 +77,7 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 100,
+    width: 120,
   },
 
   {
@@ -86,7 +86,7 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 160,
+    width: 130,
   },
 
   {
@@ -125,7 +125,7 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey['Pay more']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pay more'])} />,
 
-    width: 100,
+    width: 120,
     type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
@@ -135,7 +135,7 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
-    width: 100,
+    width: 120,
     type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
@@ -145,7 +145,7 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey['Gross weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
 
-    width: 100,
+    width: 140,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
   },
   {
@@ -153,7 +153,7 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey['Track number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
-    width: 150,
+    width: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 ]

@@ -13,8 +13,8 @@ export const useClassNames = makeStyles(theme => ({
 
   badge: {
     position: 'absolute',
-    top: 2,
-    left: 25,
+    top: 15,
+    left: 20,
     height: 20,
     width: 20,
     backgroundColor: 'rgba(0,0,0, .1)',
@@ -28,17 +28,19 @@ export const useClassNames = makeStyles(theme => ({
   menuItem: {
     overflow: 'hidden',
     width: '100%',
-    marginBottom: '10px',
-    marginTop: '10px',
-    height: '20px',
+
+    height: '50px',
     padding: 0,
     display: 'flex',
     backgroundColor: 'inherit',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    borderRadius: 0,
 
     color: theme.palette.text.primary,
-    '&:hover': {
-      backgroundColor: 'inherit',
-    },
+    '&:hover': {backgroundColor: '#0000ff0a'},
+  },
+
+  subCategory: {
+    padding: '0 20px 0 56px',
+    width: '100%',
   },
 }))

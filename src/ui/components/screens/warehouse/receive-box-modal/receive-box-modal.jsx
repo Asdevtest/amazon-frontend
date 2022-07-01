@@ -29,7 +29,7 @@ const WAREHOUSE_RECEIVE_HEAD_CELLS = () => [
   {title: t(TranslationKey.Quantity)},
   {title: t(TranslationKey['Number of superboxes'])},
   {title: t(TranslationKey.Total)},
-  {title: t(TranslationKey.Sizes) + t(TranslationKey.cm)},
+  {title: `${t(TranslationKey.Sizes)}, ${t(TranslationKey.cm)}`},
   {title: t(TranslationKey['Weight, kg'])},
   {title: t(TranslationKey['Volume weight, kg'])},
   {title: t(TranslationKey['Final weight, kg'])},

@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
+import {withStyles} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -16,11 +17,12 @@ import {OrderContent} from '@components/screens/orders-view/order-content'
 import {t} from '@utils/translations'
 
 import {ClientOrderViewModel} from './client-order-view.model'
+import {styles} from './client-order-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_ORDERS
 
 @observer
-export class ClientOrderView extends Component {
+class ClientOrderViewRaw extends Component {
   viewModel = new ClientOrderViewModel({
     history: this.props.history,
   })
@@ -42,7 +44,11 @@ export class ClientOrderView extends Component {
       onClickCancelOrder,
       onSubmitCancelOrder,
     } = this.viewModel
+    const {classes: classNames} = this.props
 
+    const goBack = () => {
+      history.goBack()
+    }
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
@@ -53,7 +59,11 @@ export class ClientOrderView extends Component {
             lastCrumbAdditionalText={` № ${order?.id}`}
           >
             <MainContent>
-              <Typography variant="h3">{t(TranslationKey.Order)}</Typography>
+              <div className={classNames.backButtonWrapper}>
+                <Button className={classNames.backButton} onClick={goBack}>
+                  {t(TranslationKey.Back)}
+                </Button>
+              </div>
               {order ? (
                 <OrderContent
                   volumeWeightCoefficient={volumeWeightCoefficient}
@@ -84,3 +94,5 @@ export class ClientOrderView extends Component {
     )
   }
 }
+
+export const ClientOrderView = withStyles(styles)(ClientOrderViewRaw)

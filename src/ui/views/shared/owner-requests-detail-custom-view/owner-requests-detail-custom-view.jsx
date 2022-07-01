@@ -61,6 +61,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       request,
       confirmModalSettings,
       confirmOrderSettings,
+      acceptProposalResultSetting,
       showRequestForm,
       showOrderModal,
       showConfirmModal,
@@ -70,6 +71,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       userInfo,
       chatIsConnected,
       showResultToCorrectFormModal,
+      showConfirmWorkResultFormModal,
       onSubmitMessage,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
@@ -213,6 +215,13 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
           </Modal>
           <Modal openModal={showResultToCorrectFormModal} setOpenModal={triggerShowResultToCorrectFormModal}>
             <RequestProposalResultToCorrectForm onPressSubmitForm={onPressSubmitRequestProposalResultToCorrectForm} />
+          </Modal>
+
+          <Modal
+            openModal={showConfirmWorkResultFormModal}
+            setOpenModal={() => onTriggerOpenModal('showConfirmWorkResultFormModal')}
+          >
+            <RequestProposalResultToCorrectForm onPressSubmitForm={acceptProposalResultSetting.onSubmit} />
           </Modal>
 
           <ConfirmationModal

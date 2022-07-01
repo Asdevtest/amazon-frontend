@@ -3,7 +3,7 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(theme => ({
   orderContainer: {
     padding: '15px 15px',
-    width: '100%',
+    width: '537px',
   },
   orderBorderRightMdUp: {
     [theme.breakpoints.up('md')]: {
@@ -90,22 +90,27 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   imagesWrapper: {
+    width: '100%',
     display: 'flex',
-    justifyContent: 'flex-start',
-    gap: '20px',
+    flexDirection: 'column',
   },
 
   subTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: '#001029',
     fontSize: '16px',
-    fontWeight: '600',
-    lineHeight: '20px',
-    marginBottom: '12px',
+    fontWeight: '400',
+    lineHeight: '19px',
+    marginBottom: '28px',
+    width: '45%',
   },
+  photosWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
   photoWrapper: {
-    maxWidth: '270px',
-    minWidth: 150,
-    marginRight: 20,
+    width: '45%',
   },
 
   imgBox: {
@@ -128,7 +133,7 @@ export const useClassNames = makeStyles(theme => ({
 
   titleWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'start',
   },
 
   orderNumber: {
@@ -138,7 +143,13 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   input: {
-    height: '130px',
+    height: '116px',
+    border: '1px solid #e0e0e0',
+    borderRadius: '4px',
+
+    '& > :disabled': {
+      backgroundColor: '#fff',
+    },
   },
 
   commentsWrapper: {
@@ -150,5 +161,17 @@ export const useClassNames = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+  },
+
+  commentsTitle: {
+    color: '#001029',
+    fontSize: '16px',
+    fontWeight: '400',
+    lineHeight: '19px',
+    marginBottom: '20px',
+  },
+
+  textField: {
+    marginBottom: '40px',
   },
 }))

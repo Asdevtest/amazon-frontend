@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell} from '@material-ui/core'
 
-import {OrderStatusByCode, OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {OrderStatusByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -22,17 +22,13 @@ import {useClassNames} from './order-content.style'
 
 const MEDIA_SCALE_POINTS = '1812'
 
-export const OrderContent = ({order, boxes, history, onClickCancelOrder, volumeWeightCoefficient}) => {
+export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
   const [updatedOrder, setUpdatedOrder] = useState(order)
   const theme = useTheme()
   const narrow = useMediaQuery(theme.breakpoints.down(MEDIA_SCALE_POINTS))
-
-  const goBack = () => {
-    history.goBack()
-  }
 
   const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
 
@@ -57,7 +53,9 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder, volumeW
       <Container disableGutters maxWidth={false}>
         <div>
           <div className={classNames.orderContainer}>
-            <Typography className={classNames.containerTitle}>{OrderStatusByCode[updatedOrder.status]}</Typography>
+            <Typography className={classNames.containerTitle}>
+              {OrderStatusTranslate(OrderStatusByCode[updatedOrder.status])}
+            </Typography>
 
             <div className={classNames.orderNumWrapper}>
               <Typography className={classNames.orderNum}>{t(TranslationKey['Order number'])}</Typography>
@@ -70,6 +68,10 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder, volumeW
                 {toFixedWithDollarSign(updatedOrder.totalPrice, 2)}
               </Typography>
             </div>
+            {/* <div className={classNames.batchWrapper}>
+              <Typography className={classNames.batchPrice}>{t(TranslationKey['Batch cost'])}</Typography>
+              <Typography className={classNames.titleSpan}>{'N/A'}</Typography>
+            </div> */}
           </div>
 
           <Divider orientation={'horizontal'} />
@@ -90,16 +92,6 @@ export const OrderContent = ({order, boxes, history, onClickCancelOrder, volumeW
                 {t(TranslationKey['Cancel order'])}
               </Button>
             )}
-
-            <Button
-              disableElevation
-              className={classNames.goBackBtn}
-              color="primary"
-              variant="contained"
-              onClick={() => goBack()}
-            >
-              {t(TranslationKey.Back)}
-            </Button>
           </div>
 
           <div className={classNames.tableWrapper}>

@@ -2,6 +2,7 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import InboxIcon from '@mui/icons-material/Inbox'
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 
 import {Children, cloneElement, useEffect, useState} from 'react'
 
@@ -181,7 +182,7 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
             <div className={classNames.emptyIconWrapper}>
               <div className={classNames.emptyWrapper}>
                 <div className={classNames.emptyIcon}>
-                  <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+                  <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
                 </div>
                 <Typography>{t(TranslationKey['No photos'])}</Typography>
               </div>
@@ -255,8 +256,8 @@ export const PhotoCarousel = ({files}) => {
   const notEmptyPhotos = files?.filter(el => checkIsImageLink(el?.file?.name || el))
 
   return files?.length ? (
-    <div className={classNames.imagesAndFilesWrapper}>
-      <div className={classNames.imagesWrapper}>
+    <div className={classNames.imagesCarouselWrapper}>
+      <div className={classNames.imageWrapper}>
         {notEmptyPhotos?.length ? (
           <CustomCarousel>
             {notEmptyPhotos.map((photo, index) => (
@@ -280,7 +281,7 @@ export const PhotoCarousel = ({files}) => {
         ) : (
           <div className={classNames.emptyIconWrapper}>
             <div className={classNames.emptyIcon}>
-              <InboxIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
+              <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
             </div>
           </div>
         )}
@@ -297,7 +298,7 @@ export const PhotoCarousel = ({files}) => {
     <div className={classNames.emptyIconWrapper}>
       <div className={classNames.emptyWrapper}>
         <div className={classNames.emptyIcon}>
-          <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+          <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
         </div>
         <Typography>{t(TranslationKey['No photos'])}</Typography>
       </div>

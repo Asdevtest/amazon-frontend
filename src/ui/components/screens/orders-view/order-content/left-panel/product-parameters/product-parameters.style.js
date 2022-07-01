@@ -8,8 +8,9 @@ export const useClassNames = makeStyles(() => ({
 
   parameterTableCellWrapper: {
     display: 'flex',
-    width: '370px',
+    width: '436px',
     justifyContent: 'space-between',
+    marginBottom: '30px',
   },
 
   containerTitle: {
@@ -20,24 +21,28 @@ export const useClassNames = makeStyles(() => ({
   },
 
   text: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: '#001029',
     fontSize: '16px',
     fontWeight: 600,
-    lineHeight: '21px',
+    lineHeight: '19px',
   },
 
   scrollingText: {
     color: 'linear-gradient(180deg, #006CFF 0%, #0460DE 100%)',
-    maxWidth: '200px',
+    maxWidth: '270px',
     overflowX: 'auto',
-    whiteSpace: 'nowrap',
+    whiteSpace: 'wrap',
 
     fontWeight: '600',
     fontSize: '16px',
+    lineHeight: '19px',
   },
 
   fieldLabel: {
-    fontSize: '14px',
+    color: '#001029',
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '19px',
   },
 
   sizesWrapper: {

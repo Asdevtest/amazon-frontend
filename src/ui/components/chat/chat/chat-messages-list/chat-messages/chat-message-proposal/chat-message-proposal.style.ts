@@ -24,13 +24,15 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 600,
     lineHeight: '140%',
   },
-  timeWrapper: {},
+  timeWrapper: {width: '50px'},
   timeText: {
-    color: '#5F5F5F',
-    fontSize: 18,
+    color: '#656565',
+    fontSize: 14,
+    lineHeight: '16px',
+    fontWeight: 400,
   },
   mainInfoWrapper: {
-    width: '40%',
+    // width: '40%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -45,6 +47,7 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: 47,
   },
   descriptionText: {
+    width: '305px',
     color: '#354256',
     fontSize: 18,
   },

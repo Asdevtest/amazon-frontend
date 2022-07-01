@@ -33,7 +33,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 100,
+    width: 120,
   },
 
   {
@@ -60,7 +60,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={'Amazon'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    width: 110,
   },
 
   {
@@ -95,7 +95,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
-    width: 80,
+    width: 120,
     headerAlign: 'center',
   },
 
@@ -148,7 +148,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     headerName: t(TranslationKey['Recommend amount']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 110,
+    width: 160,
     type: 'number',
     headerAlign: 'center',
   },
@@ -199,7 +199,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     renderCell: params => <ShortDateCell params={params} />,
-    minWidth: 100,
+    minWidth: 120,
     type: 'date',
   },
 
@@ -209,7 +209,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <ShortDateCell params={params} />,
-    minWidth: 100,
+    minWidth: 130,
     type: 'date',
   },
 ]

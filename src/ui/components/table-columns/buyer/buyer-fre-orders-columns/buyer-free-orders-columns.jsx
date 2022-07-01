@@ -58,7 +58,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 100,
+    width: 120,
   },
 
   {

@@ -13,25 +13,28 @@ import {useClassNames} from './extra-order-info.style'
 
 export const ExtraOrderInfo = ({order}) => {
   const classNames = useClassNames()
-
+  console.log(order)
   return (
     <div className={classNames.orderContainer}>
       <div className={classNames.imagesWrapper}>
-        <div className={classNames.photoWrapper}>
+        <div className={classNames.titleWrapper}>
           <Typography className={classNames.subTitle}>{t(TranslationKey['Order photos:'])}</Typography>
-
-          <PhotoCarousel files={order.images} />
+          <Typography className={classNames.subTitle}>
+            {t(TranslationKey['Photos of current supplier']) + ':'}
+          </Typography>
         </div>
-
-        <div className={classNames.photoWrapper}>
-          <Typography className={classNames.subTitle}>{t(TranslationKey['Photos of current supplier'])}</Typography>
-
-          <PhotoCarousel files={order.orderSupplier?.images} />
+        <div className={classNames.photosWrapper}>
+          <div className={classNames.photoWrapper}>
+            <PhotoCarousel files={order?.images} />
+          </div>
+          <div className={classNames.photoWrapper}>
+            <PhotoCarousel files={order.orderSupplier?.images} />
+          </div>
         </div>
       </div>
 
       <div className={classNames.commentsWrapper}>
-        <Typography>{t(TranslationKey.Comments)}</Typography>
+        <Typography className={classNames.commentsTitle}>{t(TranslationKey.Comments)}</Typography>
 
         <Field
           disabled
@@ -40,6 +43,7 @@ export const ExtraOrderInfo = ({order}) => {
           rowsMax={6}
           value={order.buyerComment}
           inputClasses={classNames.input}
+          containerClasses={classNames.textField}
           label={t(TranslationKey.Buyer)}
         />
 
@@ -49,6 +53,7 @@ export const ExtraOrderInfo = ({order}) => {
           rows={6}
           rowsMax={6}
           value={order.clientComment}
+          containerClasses={classNames.textField}
           inputClasses={classNames.input}
           label={t(TranslationKey.Client)}
         />

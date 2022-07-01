@@ -41,7 +41,7 @@ export const adminBoxesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 110,
+    width: 130,
     type: 'date',
   },
 
