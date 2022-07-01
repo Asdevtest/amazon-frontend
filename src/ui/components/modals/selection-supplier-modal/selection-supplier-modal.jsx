@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Container, Grid, Typography} from '@material-ui/core'
+import {Container, Divider, Grid, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
@@ -22,14 +22,18 @@ const clientToEditStatuses = [
   ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE],
 ]
 
+const selectedButtonValueConfig = {
+  ADD_NEW_SUPPLIER: 'ADD_NEW_SUPPLIER',
+  SEND_REQUEST: 'SEND_REQUEST',
+  SUPPLIER_TO_IDEAS: 'SUPPLIER_TO_IDEAS',
+}
+
 export const SelectionSupplierModal = ({
   product,
   onCloseModal,
   onClickFinalAddSupplierButton,
   onSubmitSeekSupplier,
 }) => {
-  const [selectedSendRequestButton, setSelectedSendRequestButton] = useState(false)
-  const [selectedAddSupplierButton, setSelectedAddSupplierButton] = useState(false)
   const [selectedButtonValue, setSelectedButtonValue] = useState('')
   const [clickNextOrPrevButton, setClickNextOrPrevButton] = useState(false)
 
@@ -37,28 +41,27 @@ export const SelectionSupplierModal = ({
 
   const classNames = useClassNames()
 
+  const buttonSearchSupplierForIdeaClsx = clsx(classNames.modalButton, classNames.searchSupplierForIdeaBtn, {
+    [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.SUPPLIER_TO_IDEAS,
+  })
+
   const buttonSendRequestClsx = clsx(classNames.modalButton, {
-    [classNames.modalButtonActive]: selectedSendRequestButton,
+    [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST,
   })
   const buttonAddSupplierClsx = clsx(classNames.modalButton, {
-    [classNames.modalButtonActive]: selectedAddSupplierButton,
+    [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.ADD_NEW_SUPPLIER,
   })
   const modalTitleClsx = clsx(classNames.modalTitle, {[classNames.modalTitleChange]: clickNextOrPrevButton})
 
-  const selectedButtonValueConfig = {
-    ADD_NEW_SUPPLIER: 'ADD_NEW_SUPPLIER',
-    SEND_REQUEST: 'SEND_REQUEST',
+  const onClickSearchSupplierForIdeaButton = () => {
+    setSelectedButtonValue(selectedButtonValueConfig.SUPPLIER_TO_IDEAS)
   }
 
   const onClickSendRequestButton = () => {
-    setSelectedSendRequestButton(!selectedSendRequestButton)
-    setSelectedAddSupplierButton(false)
     setSelectedButtonValue(selectedButtonValueConfig.SEND_REQUEST)
   }
 
   const onClickAddSupplierButton = () => {
-    setSelectedAddSupplierButton(!selectedAddSupplierButton)
-    setSelectedSendRequestButton(false)
     setSelectedButtonValue(selectedButtonValueConfig.ADD_NEW_SUPPLIER)
   }
 
@@ -80,7 +83,7 @@ export const SelectionSupplierModal = ({
 
   return (
     <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={modalTitleClsx}>{t(TranslationKey['Find a supplier'])}</Typography>
+      <Typography className={modalTitleClsx}>{t(TranslationKey['Choose a supplier'])}</Typography>
 
       {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
         <div>
@@ -97,24 +100,41 @@ export const SelectionSupplierModal = ({
           />
         </div>
       ) : (
-        <div className={classNames.modalButtonsWrapper}>
-          <Button
-            tooltipAttentionContent={t(TranslationKey['Paid service'])}
-            disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
-            className={buttonSendRequestClsx}
-            onClick={() => onClickSendRequestButton()}
-          >
-            {t(TranslationKey['Send request for supplier search'])}
-          </Button>
+        <div>
+          <Typography className={classNames.subTitle}>{t(TranslationKey['Supplier for product idea'])}</Typography>
+          <div className={classNames.searchSupplierForIdeaButtonsWrapper}>
+            <Button
+              tooltipAttentionContent={t(TranslationKey['Paid service'])}
+              className={buttonSearchSupplierForIdeaClsx}
+              onClick={() => onClickSearchSupplierForIdeaButton()}
+            >
+              {t(TranslationKey['Send request for a supplier search for an idea'])}
+            </Button>
+          </div>
 
-          <Button
-            tooltipAttentionContent={t(TranslationKey['Free service'])}
-            disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
-            className={buttonAddSupplierClsx}
-            onClick={() => onClickAddSupplierButton()}
-          >
-            {t(TranslationKey['Add a new supplier'])}
-          </Button>
+          <Divider orientation="horizontal" className={classNames.divider} />
+
+          <Typography className={classNames.subTitle}>{t(TranslationKey['Supplier for a product card'])}</Typography>
+
+          <div className={classNames.modalButtonsWrapper}>
+            <Button
+              tooltipAttentionContent={t(TranslationKey['Paid service'])}
+              disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
+              className={buttonSendRequestClsx}
+              onClick={() => onClickSendRequestButton()}
+            >
+              {t(TranslationKey['Send request for supplier search'])}
+            </Button>
+
+            <Button
+              tooltipAttentionContent={t(TranslationKey['Free service'])}
+              disabled={product && !clientToEditStatuses.includes(product?.originalData.status)}
+              className={buttonAddSupplierClsx}
+              onClick={() => onClickAddSupplierButton()}
+            >
+              {t(TranslationKey['Add a new supplier'])}
+            </Button>
+          </div>
         </div>
       )}
 

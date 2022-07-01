@@ -101,6 +101,18 @@ export const AdminSettingsForm = observer(() => {
     setFormFields(newFormFields)
   }
 
+  const disabledSubmit =
+    JSON.stringify(adminSettings.dynamicSettings) === JSON.stringify(formFields) ||
+    Number(formFields.costOfFindingSupplier) === 0 ||
+    Number(formFields.deadlineForFindingSupplier) === 0 ||
+    Number(formFields.requestPlatformMarginInPercent) === 0 ||
+    Number(formFields.requestSupervisorFeeInPercent) === 0 ||
+    Number(formFields.requestTimeLimitInHourForCancelingProposalsByClient) === 0 ||
+    Number(formFields.requestTimeLimitInHourForCheckingProposalBySuper) === 0 ||
+    Number(formFields.yuanToDollarRate) === 0 ||
+    Number(formFields.costOfCheckingProduct) === 0 ||
+    Number(formFields.volumeWeightCoefficient) === 0
+
   return (
     SettingsModel.languageTag && (
       <div className={classNames.mainWrapper}>
@@ -172,10 +184,7 @@ export const AdminSettingsForm = observer(() => {
         />
 
         <div className={classNames.placeAddBtnWrapper}>
-          <Button
-            disabled={JSON.stringify(adminSettings.dynamicSettings) === JSON.stringify(formFields)}
-            onClick={() => onCreateSubmit(/* dataKeys*/)}
-          >
+          <Button disabled={disabledSubmit} onClick={() => onCreateSubmit(/* dataKeys*/)}>
             {t(TranslationKey.Save)}
           </Button>
         </div>

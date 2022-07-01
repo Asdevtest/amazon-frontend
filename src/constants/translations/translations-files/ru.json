@@ -1118,5 +1118,11 @@
   "Choose a section in Batches": "Выберите секцию в Партиях",
   "Choose a section in Notifications": "Выберите секцию в Уведомлениях",
   "Choose a section in Tasks": "Выберите секцию в Задачах",
-  "Choose a section in Warehouse": "Выберите секцию на Складе"
+  "Choose a section in Warehouse": "Выберите секцию на Складе",
+  "Reject the proposal": "Отклонить предложение",
+  "Send request for a supplier search for an idea": "Отправить заявку на поиск поставщика для идеи",
+  "Supplier for product idea": "Поставщик для идеи товара",
+  "Supplier for a product card": "Поставщик для карточки товара",
+  "Choose a supplier": "Выбрать поставщика",
+  "Archive": "Архив"
 }

@@ -50,7 +50,7 @@ export const useClassNames = makeStyles(() => ({
     transition: 'all .5s ease-in-out',
 
     '&:hover': {
-      transform: 'scale(1.1)',
+      transform: 'scale(1.03)',
       transition: 'all .5s ease-in-out',
     },
   },
@@ -100,5 +100,28 @@ export const useClassNames = makeStyles(() => ({
         backgroundColor: '#009a07',
       },
     },
+  },
+
+  searchSupplierForIdeaBtn: {
+    width: 576,
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+  },
+
+  divider: {
+    margin: '30px 0',
+  },
+
+  subTitle: {
+    fontSize: 18,
+    lineHeight: '140%',
+    color: '#001029',
+    marginBottom: 20,
+  },
+
+  searchSupplierForIdeaButtonsWrapper: {
+    width: '100%',
+    display: 'flex',
   },
 }))

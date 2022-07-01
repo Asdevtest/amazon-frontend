@@ -233,9 +233,22 @@ export class OwnerRequestDetailCustomViewModel {
     this.onTriggerOpenModal('showOrderModal')
   }
 
-  async onClickRejectProposal(proposalId) {
+  onClickRejectProposal(proposalId) {
+    this.curProposalId = proposalId
+
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Reject the proposal']),
+      onSubmit: () => this.onSubmitRejectProposal(),
+    }
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onSubmitRejectProposal() {
     try {
-      await RequestProposalModel.requestProposalReject(proposalId)
+      await RequestProposalModel.requestProposalReject(this.curProposalId)
+
+      this.onTriggerOpenModal('showConfirmModal')
       await this.getCustomRequestCur()
       await this.getCustomProposalsForRequestCur()
     } catch (error) {

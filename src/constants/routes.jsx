@@ -414,6 +414,14 @@ export const privateRoutesConfigs = [
   // ////////////////////////////////////////////////////////////////////////////////////////////////
 
   {
+    routePath: '/client/inventory/archive',
+    component: ClientInventoryView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Archive,
+  },
+
+  {
     routePath: '/client/inventory',
     component: ClientInventoryView,
     exact: true,

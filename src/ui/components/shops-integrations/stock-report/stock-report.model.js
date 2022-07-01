@@ -82,8 +82,14 @@ export class StockReportModel {
 
     reaction(
       () => SettingsModel.languageTag,
-      () => this.loadData(),
+      () => this.updateColumnsModel(),
     )
+  }
+
+  async updateColumnsModel() {
+    if (await SettingsModel.languageTag) {
+      this.getDataGridState()
+    }
   }
 
   setDataGridState(state) {
