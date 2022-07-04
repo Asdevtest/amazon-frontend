@@ -95,6 +95,7 @@ export class ClientInventoryViewModel {
   selectedProduct = undefined
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
+  showAddSupplierToIdeaFromInventoryModal = false
   showInfoModal = false
   showConfirmModal = false
   showSetChipValueModal = false
@@ -181,8 +182,6 @@ export class ClientInventoryViewModel {
   }
 
   setDataGridState(state) {
-    console.log('state', state)
-
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',

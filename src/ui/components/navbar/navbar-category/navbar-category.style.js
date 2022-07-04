@@ -3,6 +3,7 @@ import {createStyles} from '@material-ui/styles'
 export const styles = theme =>
   createStyles({
     root: {
+      // position: 'relative',
       height: '50px',
       fontSize: '13px',
       lineHeight: '15px',
@@ -34,6 +35,7 @@ export const styles = theme =>
       color: '#001029',
     },
     iconWrapper: {
+      // position: 'relative',
       minWidth: '0',
       margin: '16px 16px 16px 11px',
     },

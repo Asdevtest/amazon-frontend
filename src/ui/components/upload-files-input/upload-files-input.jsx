@@ -28,7 +28,7 @@ const regExpUriChecking =
 const maxSizeInBytes = 15728640
 
 export const UploadFilesInput = observer(
-  ({images, setImages, maxNumber, acceptType, withoutLinks, withoutTitle = false, oneLine}) => {
+  ({images, setImages, maxNumber, acceptType, withoutLinks, withoutTitle = false, oneLine, title}) => {
     const classNames = useClassNames()
 
     const [linkInput, setLinkInput] = useState('')
@@ -80,7 +80,7 @@ export const UploadFilesInput = observer(
           {!withoutLinks && (
             <Field
               tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])}
-              label={withoutTitle ? '' : t(TranslationKey['Add file'])}
+              label={withoutTitle ? '' : title ? title : t(TranslationKey['Add file'])}
               error={linkInputError && t(TranslationKey['Invalid link!'])}
               inputComponent={
                 <div className={classNames.amazonLinkWrapper}>

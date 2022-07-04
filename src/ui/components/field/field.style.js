@@ -10,12 +10,19 @@ export const useClassNames = makeStyles({
     alignItems: 'center',
   },
   label: {
-    fontSize: '16px',
-    lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
-    fontWeight: '600',
+    // fontSize: '16px',
+    // lineHeight: '20px',
+    // color: 'rgba(61, 81, 112, 1)',
+    // fontWeight: '600',
+    // marginBottom: '12px',
+
+    fontWeight: 400,
+    fontSize: 18,
+    lineHeight: '140%',
+    color: '#001029',
     marginBottom: '12px',
   },
+
   labelOneLine: {
     marginBottom: 0,
   },

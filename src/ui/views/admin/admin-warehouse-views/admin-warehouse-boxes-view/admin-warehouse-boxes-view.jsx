@@ -93,7 +93,7 @@ export class AdminWarehouseBoxesViewRaw extends Component {
                 rows={getCurrentData()}
                 density={densityModel}
                 columns={columnsModel}
-                rowHeight={100}
+                rowHeight={130}
                 loading={requestStatus === loadingStatuses.isLoading}
                 components={{
                   Toolbar: GridToolbar,
