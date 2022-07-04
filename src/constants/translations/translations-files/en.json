@@ -1046,6 +1046,8 @@
   "Height must be a number conforming to the specified constraints": "Height must be a number conforming to the specified constraints",
   "Length must be a number conforming to the specified constraints": "Length must be a number conforming to the specified constraints",
   "Weight must be a number conforming to the specified constraints": "Weight must be a number conforming to the specified constraints",
+  "Fbafee must be a number conforming to the specified constraints": "Fbafee must be a number conforming to the specified constraints",
+
   "Money transfer is possible with the administrator at the link below:": "Money transfer is possible with the administrator at the link below:",
   "Money transfer link": "Money transfer link",
   "Requests and proposals for them": "Requests and proposals for them",
@@ -1147,5 +1149,14 @@
   "Edit and balance": "Edit and balance",
   "Take on the work of the selected": "Take on the work of the selected",
   "Taken to Work": "Taken to Work",
-  "Return to inventory": "Return to inventory"
+  "Return to inventory": "Return to inventory",
+  "After confirmation, the card will be moved to the Archive. Confirm?": "After confirmation, the card will be moved to the Archive. Confirm?",
+  "List of orders taken": "List of orders taken",
+  "Cancel order, refund of frozen funds": "Cancel order, refund of frozen funds",
+  "Rate selected for delivery to the final Amazon warehouse in the USA": "Rate selected for delivery to the final Amazon warehouse in the USA",
+  "Buyer with whom the order is being processed / Buyer assigned to the order": "Buyer with whom the order is being processed / Buyer assigned to the order",
+  "Photos added by the buyer from the supplier when placing the order": "Photos added by the buyer from the supplier when placing the order",
+  "All boxes received/received by the prep center on order": "All boxes received/received by the prep center on order",
+  "Managing the boxes that are in the prep center": "Managing the boxes that are in the prep center",
+  "Filter for sorting boxes by prep centers": "Filter for sorting boxes by prep centers"
 }

@@ -62,6 +62,10 @@ export const renderTooltipTitle = (categoryTitle, userRole) => {
         return t(TranslationKey['List of your products'])
       case t(TranslationKey['Commodity exchange']):
         return t(TranslationKey['Exchange with product cards available for purchase'])
+      case t(TranslationKey['My orders']):
+        return t(TranslationKey['List of orders taken'])
+      case t(TranslationKey['My warehouse']):
+        return t(TranslationKey['Managing the boxes that are in the prep center'])
     }
   }
 }

@@ -20,7 +20,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    width: 110,
+    width: 120,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
@@ -30,7 +30,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: 130,
+    width: 150,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },

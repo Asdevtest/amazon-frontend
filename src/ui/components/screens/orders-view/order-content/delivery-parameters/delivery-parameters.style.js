@@ -12,7 +12,7 @@ export const useClassNames = makeStyles(() => ({
 
   parameterTableCellWrapper: {
     display: 'flex',
-    width: '326px',
+    width: '340px',
     justifyContent: 'space-between',
   },
 
@@ -38,7 +38,8 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 400,
     lineHeight: '21px',
     maxWidth: '150px',
-    overflowX: 'auto',
+    textAlign: 'right',
+    overflow: 'auto',
     whiteSpace: 'nowrap',
   },
 

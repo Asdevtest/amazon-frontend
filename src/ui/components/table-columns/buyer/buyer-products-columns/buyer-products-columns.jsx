@@ -19,7 +19,7 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    minWidth: 100,
+    minWidth: 120,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },
@@ -29,7 +29,7 @@ export const buyerProductsViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    minWidth: 130,
+    minWidth: 150,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },
@@ -74,7 +74,7 @@ export const buyerProductsViewColumns = handlers => [
         onClickCalculate={handlers.onClickFeesCalculate}
       />
     ),
-    minWidth: 170,
+    minWidth: 200,
     flex: 1,
     filterable: false,
     sortable: false,

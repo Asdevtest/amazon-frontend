@@ -86,7 +86,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               <div className={classNames.infoSubWrapper}>
                 <Field
                   disabled={defaultFieldDisable}
-                  error={formFieldsValidationErrors.width}
+                  error={errorMessagesTranslate(formFieldsValidationErrors.width)}
                   containerClasses={classNames.infoContainer}
                   inputClasses={classNames.infoInput}
                   inputProps={{maxLength: 15}}
@@ -96,7 +96,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                 />
                 <Field
                   disabled={defaultFieldDisable}
-                  error={formFieldsValidationErrors.height}
+                  error={errorMessagesTranslate(formFieldsValidationErrors.height)}
                   containerClasses={classNames.infoContainer}
                   inputClasses={classNames.infoInput}
                   inputProps={{maxLength: 15}}
@@ -109,7 +109,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               <div className={classNames.infoSubWrapper}>
                 <Field
                   disabled={defaultFieldDisable}
-                  error={formFieldsValidationErrors.length}
+                  error={errorMessagesTranslate(formFieldsValidationErrors.length)}
                   containerClasses={classNames.infoContainer}
                   inputClasses={classNames.infoInput}
                   inputProps={{maxLength: 15}}
@@ -119,7 +119,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                 />
                 <Field
                   disabled={defaultFieldDisable}
-                  error={formFieldsValidationErrors.weight}
+                  error={errorMessagesTranslate(formFieldsValidationErrors.weight)}
                   containerClasses={classNames.infoContainer}
                   inputClasses={classNames.infoInput}
                   inputProps={{maxLength: 15}}
@@ -202,7 +202,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                 <Field
                   tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
                   disabled={defaultFieldDisable}
-                  error={formFieldsValidationErrors.fbafee}
+                  error={errorMessagesTranslate(formFieldsValidationErrors.fbafee)}
                   containerClasses={classNames.infoContainer}
                   inputClasses={classNames.infoInput}
                   inputProps={{maxLength: 15}}
@@ -214,7 +214,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                 <Field
                   tooltipInfoContent={t(TranslationKey['Recommended amount of products for purchase'])}
                   disabled={defaultFieldDisable}
-                  error={formFieldsValidationErrors.fbaamount}
+                  error={errorMessagesTranslate(formFieldsValidationErrors.fbaamount)}
                   containerClasses={classNames.infoContainer}
                   inputClasses={classNames.infoInput}
                   inputProps={{maxLength: 15}}

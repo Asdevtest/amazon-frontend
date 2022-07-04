@@ -6,6 +6,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
+import {Text} from '@components/text'
 
 import {t} from '@utils/translations'
 
@@ -18,7 +19,13 @@ export const ExtraOrderInfo = ({order}) => {
     <div className={classNames.orderContainer}>
       <div className={classNames.imagesWrapper}>
         <div className={classNames.titleWrapper}>
-          <Typography className={classNames.subTitle}>{t(TranslationKey['Order photos:'])}</Typography>
+          <Text
+            tooltipInfoContent={t(TranslationKey['Photos added by the buyer from the supplier when placing the order'])}
+            textClasses={classNames.subTitle}
+          >
+            {t(TranslationKey['Order photos:'])}
+          </Text>
+
           <Typography className={classNames.subTitle}>
             {t(TranslationKey['Photos of current supplier']) + ':'}
           </Typography>

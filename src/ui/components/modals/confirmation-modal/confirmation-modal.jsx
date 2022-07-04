@@ -73,8 +73,8 @@ export const ConfirmationModal = ({
 
           <Button
             disabled={submitIsClicked}
-            className={classNames.cancelBtn}
-            variant={isWarning && 'text'}
+            className={classNames.cancelButton}
+            variant={'text'}
             color="primary"
             onClick={onClickCancelBtn}
           >

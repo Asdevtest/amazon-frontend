@@ -19,7 +19,7 @@ export const supervisorProductsViewColumns = () => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    width: 100,
+    width: 120,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },
@@ -29,7 +29,7 @@ export const supervisorProductsViewColumns = () => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: 130,
+    width: 150,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },
@@ -99,7 +99,7 @@ export const supervisorProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    minWidth: 80,
+    minWidth: 120,
     type: 'number',
     flex: 1,
   },
@@ -110,7 +110,7 @@ export const supervisorProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
 
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.fbafee} fix={2} />,
-    minWidth: 90,
+    minWidth: 160,
     type: 'number',
     flex: 1,
   },

@@ -6,7 +6,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '24px',
     fontWeight: 500,
     lineHeight: '28px',
-    marginBottom: '24px',
+    marginBottom: '20px',
   },
   modalText: {
     color: 'rgba(61, 81, 112, 1)',
@@ -70,10 +70,8 @@ export const useClassNames = makeStyles(() => ({
     width: '400px',
   },
   saveBox: {
-    textAlign: 'right',
-    marginTop: '16px',
-  },
-  saveBtn: {
-    marginRight: '8px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '20px',
   },
 }))

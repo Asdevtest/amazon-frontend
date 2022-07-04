@@ -305,7 +305,7 @@
   "All warehouses": "Все склады",
   "Send batch": "Отправить партии",
   "Image": "Фото",
-  "Recommend amount": "Рекомендуемое кол-во",
+  "Recommend amount": "Рекоменд. кол-во",
   "Created by": "Кем создано",
   "Buy for": "Купить за",
   "You buy a product card, are you sure?": "Вы покупаете карточку товара, уверены?",
@@ -1026,7 +1026,7 @@
   "to merge boxes": "на слияние коробок",
   "Cost of purchase per piece.": "Себестоимость в закупке за шт.",
   "Order products": "Заказ товаров",
-  "Total order amount": "Итого сумма заказа",
+  "Total order amount": "Общая сумма заказа",
   "Order a batch of products": "Заказать партию товара",
   "Price per unit.": "Цена за ед.",
   "Delivery per unit.": "Доставка за ед.",
@@ -1046,6 +1046,8 @@
   "Height must be a number conforming to the specified constraints": "Высота должна быть числом, соответствующим указанным ограничениям",
   "Length must be a number conforming to the specified constraints": "Длина должна быть числом, соответствующим указанным ограничениям",
   "Weight must be a number conforming to the specified constraints": "Вес должен быть числом, соответствующим указанным ограничениям",
+  "Fbafee must be a number conforming to the specified constraints": "Fbafee должено быть числом, соответствующим указанным ограничениям",
+
   "Money transfer is possible with the administrator at the link below:": "Перевод средств возможен при помощи администратора по ссылке ниже:",
   "Money transfer link": "Ссылка на перевод денежных средств",
   "Requests and proposals for them": "Заявки и предложения по ним",
@@ -1147,5 +1149,14 @@
   "Edit and balance": "Изменение и баланс",
   "Take on the work of the selected": "Взять в работу выбранное",
   "Taken to Work": "Взято в работу",
-  "Return to inventory": "Вернуть в инвентарь"
+  "Return to inventory": "Вернуть в инвентарь",
+  "After confirmation, the card will be moved to the Archive. Confirm?": "После подтверждения карточка будет перенесена в Архив. Подтвердить?",
+  "List of orders taken": "Список сделанных заказов",
+  "Cancel order, refund of frozen funds": "Отменить заказ, возврат замороженных денежных средств",
+  "Rate selected for delivery to the final Amazon warehouse in the USA": "Тариф, выбранный для доставки на финальный склад Amazon в США",
+  "Buyer with whom the order is being processed / Buyer assigned to the order": "Байер, у которого заказ находится в обработке / Байер, закрепленный за заказом",
+  "Photos added by the buyer from the supplier when placing the order": "Фотографии, добавленные байером от поставщика при оформлении заказа",
+  "All boxes received/received by the prep center on order": "Все коробки, которые получил/получит преп-центр по заказу",
+  "Managing the boxes that are in the prep center": "Управление коробками, которые находятся в преп-центре",
+  "Filter for sorting boxes by prep centers": "Фильтр для сортировки коробок по преп-центрам"
 }

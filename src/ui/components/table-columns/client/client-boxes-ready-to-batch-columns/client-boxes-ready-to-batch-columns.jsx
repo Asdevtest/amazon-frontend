@@ -23,7 +23,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 50,
+    width: 75,
   },
 
   {
@@ -32,7 +32,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 110,
+    width: 150,
     type: 'date',
   },
 
@@ -66,7 +66,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
       ) : (
         <MultilineTextCell text={params.value} />
       ),
-    width: 110,
+    width: 150,
     type: 'number',
   },
 
@@ -105,7 +105,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 120,
+    width: 140,
     type: 'number',
   },
 
@@ -116,7 +116,7 @@ export const clientBoxesReadyToBatchViewColumns = () => [
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 140,
+    width: 150,
   },
 
   {

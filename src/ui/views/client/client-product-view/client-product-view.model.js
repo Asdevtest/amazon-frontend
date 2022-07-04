@@ -111,6 +111,7 @@ export class ClientProductViewModel {
 
   confirmModalSettings = {
     isWarning: false,
+    title: '',
     message: '',
     onClickOkBtn: () => this.onSaveProductData(),
   }
@@ -238,7 +239,8 @@ export class ClientProductViewModel {
       case 'delete':
         this.confirmModalSettings = {
           isWarning: true,
-          message: t(TranslationKey['Put the card in the archive']) + '?',
+          title: t(TranslationKey['Remove from the Inventory']),
+          message: t(TranslationKey['After confirmation, the card will be moved to the Archive. Confirm?']),
           onClickOkBtn: () => this.onDeleteProduct(),
         }
 
@@ -249,7 +251,8 @@ export class ClientProductViewModel {
       case 'restore':
         this.confirmModalSettings = {
           isWarning: false,
-          message: t(TranslationKey['Restore the card?']),
+          title: t(TranslationKey['Return to Inventory']),
+          message: t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?']),
           onClickOkBtn: () => this.onRestoreProduct(),
         }
 

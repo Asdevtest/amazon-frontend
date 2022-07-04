@@ -32,7 +32,6 @@ export const useClassNames = makeStyles(() => ({
     maxWidth: '270px',
     overflow: 'auto',
     whiteSpace: 'nowrap',
-
     fontWeight: '600',
     fontSize: '16px',
     // lineHeight: '19px',
@@ -50,5 +49,11 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
     width: '220px',
     justifyContent: 'space-between',
+  },
+
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 }))

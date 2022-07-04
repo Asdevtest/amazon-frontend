@@ -83,7 +83,7 @@ export const logisticsTariffsColumns = handlers => [
     headerName: t(TranslationKey['Time on the road, days']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
 
-    width: 140,
+    width: 180,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -92,7 +92,7 @@ export const logisticsTariffsColumns = handlers => [
     headerName: t(TranslationKey['Min. weight, kg']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
 
-    width: 130,
+    width: 160,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -102,7 +102,7 @@ export const logisticsTariffsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 120,
+    width: 150,
     type: 'date',
   },
 ]

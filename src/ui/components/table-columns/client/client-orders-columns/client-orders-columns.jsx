@@ -22,7 +22,7 @@ export const clientOrdersViewColumns = () => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 60,
+    width: 75,
   },
 
   {
@@ -59,7 +59,7 @@ export const clientOrdersViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 120,
+    width: 150,
   },
 
   {
@@ -87,7 +87,7 @@ export const clientOrdersViewColumns = () => [
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
-    width: 100,
+    width: 140,
     type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },

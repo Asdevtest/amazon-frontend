@@ -22,6 +22,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SelectionSupplierModal} from '@components/modals/selection-supplier-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
+import {ShowBarOrHscodeModal} from '@components/modals/show-bar-or-hs-code-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -60,6 +61,8 @@ export class ClientInventoryViewRaw extends Component {
       isArchive,
       yuanToDollarRate,
       volumeWeightCoefficient,
+      currentBarcode,
+      currentHscode,
 
       isNoEditProductSelected,
 
@@ -85,6 +88,7 @@ export class ClientInventoryViewRaw extends Component {
       showAddOrEditSupplierModal,
       showBindInventoryGoodsToStockModal,
       showAddSupplierToIdeaFromInventoryModal,
+      showBarcodeOrHscodeModal,
       showInfoModal,
       onSubmitBindStockGoods,
       getStockGoodsByFilters,
@@ -323,6 +327,14 @@ export class ClientInventoryViewRaw extends Component {
             item={selectedProduct}
             onClickSaveBarcode={onClickSaveBarcode}
             onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
+          />
+        </Modal>
+
+        <Modal openModal={showBarcodeOrHscodeModal} setOpenModal={() => onTriggerOpenModal('showBarcodeOrHscodeModal')}>
+          <ShowBarOrHscodeModal
+            barcode={currentBarcode}
+            hscode={currentHscode}
+            onCloseModal={() => onTriggerOpenModal('showBarcodeOrHscodeModal')}
           />
         </Modal>
 

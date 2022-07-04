@@ -135,7 +135,9 @@ export const useClassNames = makeStyles(theme => ({
 
   titleWrapper: {
     display: 'flex',
-    alignItems: 'start',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '28px',
   },
 
   orderNumber: {

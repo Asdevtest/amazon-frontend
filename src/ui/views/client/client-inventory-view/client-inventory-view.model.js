@@ -99,22 +99,27 @@ export class ClientInventoryViewModel {
   showInfoModal = false
   showConfirmModal = false
   showSetChipValueModal = false
+  showBarcodeOrHscodeModal = false
 
   successModalText = ''
   confirmMessage = ''
   showInfoModalTitle = ''
   priceForSeekSupplier = 0
+  currentBarcode = ''
+  currentHscode = ''
 
   barCodeHandlers = {
     onClickBarcode: item => this.onClickBarcode(item),
     onDoubleClickBarcode: item => this.onDoubleClickBarcode(item),
     onDeleteBarcode: item => this.onDeleteBarcode(item),
+    showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
   }
 
   hsCodeHandlers = {
     onClickHsCode: item => this.onClickHsCode(item),
     onDoubleClickHsCode: item => this.onDoubleClickHsCode(item),
     onDeleteHsCode: item => this.onDeleteHsCode(item),
+    showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
   }
 
   confirmModalSettings = {
@@ -399,6 +404,12 @@ export class ClientInventoryViewModel {
   onClickHsCode(item) {
     this.setSelectedProduct(item)
     this.onTriggerOpenModal('showSetChipValueModal')
+  }
+
+  showBarcodeOrHscode(barcode, hscode) {
+    this.currentHscode = hscode
+    this.currentBarcode = barcode
+    this.onTriggerOpenModal('showBarcodeOrHscodeModal')
   }
 
   onConfirmSubmitOrderProductModal(ordersDataState, totalOrdersCost) {

@@ -16,7 +16,7 @@ export const shopsColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    minWidth: 120,
+    minWidth: 150,
     renderCell: params => <ShortDateCell params={params} />,
     type: 'date',
   },

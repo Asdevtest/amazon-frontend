@@ -31,7 +31,7 @@ export const adminBoxesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 110,
+    width: 120,
     type: 'date',
   },
 
@@ -41,7 +41,7 @@ export const adminBoxesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 130,
+    width: 150,
     type: 'date',
   },
 
@@ -105,7 +105,7 @@ export const adminBoxesViewColumns = () => [
       ) : (
         <MultilineTextCell text={params.value} />
       ),
-    width: 120,
+    width: 150,
     type: 'number',
   },
 
@@ -124,7 +124,7 @@ export const adminBoxesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 130,
+    width: 150,
     type: 'number',
   },
 
@@ -135,7 +135,7 @@ export const adminBoxesViewColumns = () => [
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 130,
+    width: 150,
   },
 
   {
@@ -145,7 +145,7 @@ export const adminBoxesViewColumns = () => [
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 130,
+    width: 160,
   },
 
   {

@@ -516,6 +516,12 @@ export const NoActiveBarcodeCell = withStyles(styles)(({classes: classNames, bar
   </React.Fragment>
 ))
 
+export const ShowBarcodeOrHscodeCell = withStyles(styles)(({classes: classNames, barCode, hsCode, handlers}) => (
+  <div className={classNames.showButton}>
+    <Button onClick={() => handlers.showBarcodeOrHscode(barCode, hsCode)}>{t(TranslationKey.View)}</Button>
+  </div>
+))
+
 export const ActiveBarcodeCell = withStyles(styles)(({classes: classNames, barCode}) => (
   <React.Fragment>
     {/* <Typography className={classNames.noActivebarCode}>{barCode || '-'}</Typography> */}

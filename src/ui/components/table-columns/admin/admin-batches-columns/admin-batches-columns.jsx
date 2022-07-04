@@ -31,7 +31,7 @@ export const adminBatchesViewColumns = () => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell params={params} />,
-    width: 130,
+    width: 150,
     type: 'date',
   },
 
@@ -50,7 +50,7 @@ export const adminBatchesViewColumns = () => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 130,
+    width: 150,
   },
 
   {
@@ -76,7 +76,7 @@ export const adminBatchesViewColumns = () => [
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 130,
+    width: 150,
   },
 
   {
@@ -86,7 +86,7 @@ export const adminBatchesViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     type: 'number',
-    width: 130,
+    width: 150,
   },
 
   {

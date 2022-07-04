@@ -23,7 +23,7 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 50,
+    width: 75,
   },
 
   {
@@ -32,7 +32,7 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 110,
+    width: 150,
     type: 'date',
   },
 
@@ -77,7 +77,7 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
       ) : (
         <MultilineTextCell text={params.value} />
       ),
-    width: 110,
+    width: 150,
     type: 'number',
   },
 
@@ -116,7 +116,7 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 140,
+    width: 150,
   },
 
   {
@@ -126,6 +126,6 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
     type: 'number',
-    width: 120,
+    width: 160,
   },
 ]
