@@ -70,7 +70,11 @@ class ShopsViewRaw extends Component {
       <React.Fragment>
         <div>
           <Box className={this.props.classes.buttonBox}>
-            <Button color="primary" onClick={() => onClickAddBtn()}>
+            <Button
+              tooltipInfoContent={t(TranslationKey['Open the window to add a store'])}
+              color="primary"
+              onClick={() => onClickAddBtn()}
+            >
               {t(TranslationKey['Add shop'])}
             </Button>
           </Box>

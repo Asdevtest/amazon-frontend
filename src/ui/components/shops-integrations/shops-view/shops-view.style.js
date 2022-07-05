@@ -8,6 +8,7 @@ export const styles = createStyles(theme => ({
     textAlign: 'left',
     marginRight: '0',
     padding: '16px',
+    display: 'flex',
   },
 
   dataGridWrapper: {

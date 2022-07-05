@@ -18,6 +18,7 @@ import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 import {Table} from '@components/table'
+import {Text} from '@components/text'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
@@ -92,7 +93,11 @@ export const CLIENT_EDIT_BOX_MODAL_HEAD_CELLS = () => [
 const renderHeadRow = () => (
   <TableRow>
     {CLIENT_EDIT_BOX_MODAL_HEAD_CELLS().map((item, index) => (
-      <TableCell key={index}>{item}</TableCell>
+      <TableCell key={index}>
+        <Text tooltipInfoContent={item === t(TranslationKey.BarCode) && t(TranslationKey['Product barcode'])}>
+          {item}
+        </Text>
+      </TableCell>
     ))}
   </TableRow>
 )
@@ -256,6 +261,7 @@ export const EditBoxForm = observer(
               <Field
                 containerClasses={classNames.field}
                 label={t(TranslationKey.Destination)}
+                tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}
                 inputComponent={
                   <NativeSelect
                     variant="filled"
@@ -282,6 +288,7 @@ export const EditBoxForm = observer(
               <Field
                 containerClasses={classNames.field}
                 label={'Storekeeper /' + t(TranslationKey.Tariff)}
+                tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
                 error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
                 inputComponent={
                   <Button
@@ -308,6 +315,8 @@ export const EditBoxForm = observer(
               <Field
                 containerClasses={classNames.field}
                 inputProps={{maxLength: 255}}
+                tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
+                tooltipAttentionContent={t(TranslationKey['When re-sticking will create a task for the prep center'])}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={boxFields.fbaShipment}
                 onChange={setFormField('fbaShipment')}
@@ -315,6 +324,7 @@ export const EditBoxForm = observer(
 
               <Field
                 containerClasses={classNames.field}
+                tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                 label={t(TranslationKey['Shipping label'])}
                 inputComponent={
                   <div>
@@ -345,9 +355,12 @@ export const EditBoxForm = observer(
 
             <div className={classNames.blockOfNewBoxWrapper}>
               <div className={classNames.sizesTitleWrapper}>
-                <Typography paragraph className={classNames.subTitle}>
+                <Text
+                  tooltipInfoContent={t(TranslationKey['The dimensions of the box specified by the prep center'])}
+                  className={classNames.subTitle}
+                >
                   {t(TranslationKey['Box dimensions'])}
-                </Typography>
+                </Text>
 
                 <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                   <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
@@ -427,6 +440,7 @@ export const EditBoxForm = observer(
               rows={4}
               rowsMax={6}
               inputProps={{maxLength: 2000}}
+              tooltipAttentionContent={t(TranslationKey['A task will be created for the prep center'])}
               label={t(TranslationKey['Write a comment on the task'])}
               placeholder={t(TranslationKey['Task commentary'])}
               onChange={setFormField('clientComment')}
@@ -438,6 +452,7 @@ export const EditBoxForm = observer(
           <Button
             disableElevation
             disabled={disableSubmit}
+            tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
             className={[classNames.button, classNames.successBtn]}
             color="primary"
             variant="contained"
@@ -451,6 +466,7 @@ export const EditBoxForm = observer(
           <Button
             disableElevation
             color="primary"
+            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             className={classNames.button}
             variant="contained"
             onClick={onTriggerOpenModal}

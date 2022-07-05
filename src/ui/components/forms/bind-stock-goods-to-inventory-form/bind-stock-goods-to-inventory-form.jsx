@@ -189,6 +189,7 @@ export const BindStockGoodsToInventoryForm = observer(
             <Button
               success
               disableElevation
+              tooltipInfoContent={t(TranslationKey['Binds integration to the product card'])}
               disabled={!selectedRow || chosenGoods.length < 1}
               variant="contained"
               color="primary"

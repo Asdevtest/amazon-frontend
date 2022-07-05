@@ -705,4 +705,13 @@ export const styles = createStyles(() => ({
   //   display: 'flex',
   //   justifyContent: 'center',
   // },
+
+  copyImgButton: {
+    backgroundColor: 'inherit',
+    padding: 0,
+    margin: 0,
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+  },
 }))

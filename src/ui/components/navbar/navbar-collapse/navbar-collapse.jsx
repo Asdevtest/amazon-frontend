@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 
 import {Button} from '@components/buttons/button'
 
-import {renderTooltipTitle} from '@utils/renders'
+import {renderAttentionTooltipTitle, renderTooltipTitle} from '@utils/renders'
 
 import {NavbarSubCategory} from '../navbar-sub-category'
 import {useClassNames} from './navbar-collapse.style'
@@ -59,6 +59,7 @@ export const NavbarCollapse = ({
       tooltipPosition="center"
       className={clsx(classNames.menuItem, {[classNames.selected]: subIndex === activeSubCategory})}
       tooltipInfoContent={renderTooltipTitle(subCategory.subtitle, userInfo.role)}
+      tooltipAttentionContent={renderAttentionTooltipTitle(subCategory.subtitle, userInfo.role)}
     >
       <NavbarSubCategory
         key={subIndex}

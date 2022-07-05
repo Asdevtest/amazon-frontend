@@ -25,5 +25,6 @@ export const styles = createStyles(() => ({
 
   btnsWrapper: {
     margin: '10px 0 15px',
+    display: 'flex',
   },
 }))

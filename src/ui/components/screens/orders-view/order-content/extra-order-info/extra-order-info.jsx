@@ -21,7 +21,7 @@ export const ExtraOrderInfo = ({order}) => {
         <div className={classNames.titleWrapper}>
           <Text
             tooltipInfoContent={t(TranslationKey['Photos added by the buyer from the supplier when placing the order'])}
-            textClasses={classNames.subTitle}
+            className={classNames.subTitle}
           >
             {t(TranslationKey['Order photos:'])}
           </Text>

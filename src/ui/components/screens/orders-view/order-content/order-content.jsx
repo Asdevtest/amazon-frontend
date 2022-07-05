@@ -57,7 +57,7 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
           <div className={classNames.orderContainer}>
             <div>
               <Text
-                textClasses={classNames.containerTitle}
+                className={classNames.containerTitle}
                 tooltipInfoContent={t(TranslationKey['Current order status'])}
               >
                 {OrderStatusTranslate(OrderStatusByCode[updatedOrder.status])}

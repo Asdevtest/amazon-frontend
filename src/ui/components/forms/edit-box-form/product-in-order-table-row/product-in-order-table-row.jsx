@@ -1,12 +1,13 @@
 import React from 'react'
 
-import {Checkbox, Chip, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Checkbox, TableCell, TableRow, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {ColoredChip} from '@components/colored-chip'
 import {Field} from '@components/field'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
@@ -34,31 +35,39 @@ export const ProductInOrderTableRow = observer(({item, handlers, ...restProps}) 
       </TableCell>
 
       <TableCell>
-        <Chip
-          classes={{
-            root: classNames.barcodeChip,
-            clickable: classNames.barcodeChipHover,
-            deletable: classNames.barcodeChipHover,
-            deleteIcon: classNames.barcodeChipIcon,
-          }}
-          className={clsx({[classNames.barcodeChipExists]: item.barCode})}
-          size="small"
-          label={
-            item.tmpBarCode.length
-              ? t(TranslationKey['File added'])
-              : item.barCode
-              ? item.barCode
-              : t(TranslationKey['Set Barcode'])
-          }
-          onClick={() => restProps.onClickBarcode(item)}
-          onDoubleClick={() => restProps.onDoubleClickBarcode(item)}
-          onDelete={!item.barCode ? undefined : () => restProps.onDeleteBarcode(item.product._id)}
-        />
+        <div style={{width: '150px'}}>
+          <ColoredChip
+            classes={{
+              root: classNames.barcodeChip,
+              clickable: classNames.barcodeChipHover,
+              deletable: classNames.barcodeChipHover,
+              deleteIcon: classNames.barcodeChipIcon,
+            }}
+            tooltipAttentionContent={!item.barCode && t(TranslationKey['A task will be created for the prep center'])}
+            tooltipInfoContent={
+              !item.barCode &&
+              t(TranslationKey['Add a product barcode to the box. A task will be created for the prep center'])
+            }
+            className={clsx({[classNames.barcodeChipExists]: item.barCode})}
+            size="small"
+            label={
+              item.tmpBarCode.length
+                ? t(TranslationKey['File added'])
+                : item.barCode
+                ? item.barCode
+                : t(TranslationKey['Set Barcode'])
+            }
+            onClick={() => restProps.onClickBarcode(item)}
+            onDoubleClick={() => restProps.onDoubleClickBarcode(item)}
+            onDelete={!item.barCode ? undefined : () => restProps.onDeleteBarcode(item.product._id)}
+          />
+        </div>
 
         {item.tmpBarCode.length ? (
           <Field
             oneLine
             containerClasses={classNames.checkboxContainer}
+            tooltipInfoContent={t(TranslationKey['The new barcode will be updated at the product in the inventory'])}
             label={t(TranslationKey['Change in inventory'])}
             inputComponent={
               <Checkbox
@@ -79,6 +88,7 @@ export const ProductInOrderTableRow = observer(({item, handlers, ...restProps}) 
             {item.isBarCodeAlreadyAttachedByTheSupplier ? (
               <Field
                 oneLine
+                tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
                 containerClasses={classNames.checkboxContainer}
                 label={t(TranslationKey['The barcode is glued by the supplier'])}
                 inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
@@ -86,6 +96,9 @@ export const ProductInOrderTableRow = observer(({item, handlers, ...restProps}) 
             ) : (
               <Field
                 oneLine
+                tooltipInfoContent={t(
+                  TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
+                )}
                 containerClasses={classNames.checkboxContainer}
                 label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
                 inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}

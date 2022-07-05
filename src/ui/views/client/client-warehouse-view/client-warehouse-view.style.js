@@ -38,7 +38,6 @@ export const styles = createStyles(theme => ({
   },
   button: {
     marginBottom: 5,
-    marginRight: '10px',
   },
 
   tableWrapper: {
@@ -56,8 +55,10 @@ export const styles = createStyles(theme => ({
   },
 
   boxesFiltersWrapper: {
+    marginTop: '5px',
     marginBottom: '10px',
     display: 'flex',
+    gap: '10px',
   },
 
   selectedBoxesBtn: {

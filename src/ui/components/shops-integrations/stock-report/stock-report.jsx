@@ -90,6 +90,7 @@ class StockReportRaw extends Component {
         <div className={className.shopsFiltersWrapper}>
           <Button
             disabled={!currentShop?._id}
+            tooltipInfoContent={t(TranslationKey['Filter for sorting by store'])}
             className={clsx({[className.selectedShopBtn]: !currentShop?._id})}
             variant="text"
             color="primary"
@@ -115,7 +116,9 @@ class StockReportRaw extends Component {
         <div className={className.btnsWrapper}>
           <Button
             disableElevation
-            tooltipInfoContent={t(TranslationKey['Move the selected item from the Seller Board to the inventory'])}
+            tooltipInfoContent={t(
+              TranslationKey['Moves selected products to the "Inventory" section with linked integration'],
+            )}
             disabled={selectedRows.length === 0}
             variant="contained"
             color="primary"
@@ -126,6 +129,9 @@ class StockReportRaw extends Component {
 
           <Button
             disableElevation
+            tooltipInfoContent={t(
+              TranslationKey['Adds integration from the report to the selected item from the inventory'],
+            )}
             disabled={selectedRows.length === 0}
             className={className.button}
             variant="contained"

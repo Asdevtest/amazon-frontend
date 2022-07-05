@@ -108,6 +108,7 @@ class SubUsersViewRaw extends Component {
                 <div>
                   <Button
                     success
+                    tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}
                     className={classNames.addUserButton}
                     onClick={() => onTriggerOpenModal('showAddSubUserModal')}
                   >

@@ -7,15 +7,11 @@ export const useClassNames = makeStyles(theme => ({
     minWidth: '380px',
   },
 
-  button: {
-    marginRight: '10px',
-  },
-
   boxesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
   },
-  buttonsWrapper: {},
+  buttonsWrapper: {display: 'flex', gap: '10px'},
   currentBox: {
     marginBottom: '20px',
   },

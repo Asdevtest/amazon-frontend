@@ -13,12 +13,12 @@ import {useClassNames} from './text.style'
 interface Props {
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
-  textClasses?: string
+  className?: string
   containerClasses?: string
 }
 
 export const Text: FC<Props> = observer(
-  ({tooltipAttentionContent, tooltipInfoContent, children, textClasses, containerClasses}) => {
+  ({tooltipAttentionContent, tooltipInfoContent, children, className, containerClasses}) => {
     const classNames = useClassNames()
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
@@ -29,7 +29,7 @@ export const Text: FC<Props> = observer(
 
     return (
       <div className={clsx(classNames.textWrapper, containerClasses)}>
-        <Typography className={textClasses}>{children}</Typography>
+        <Typography className={className}>{children}</Typography>
 
         {tooltipAttentionContent || tooltipInfoContent ? (
           <div className={classNames.tooltipsWrapper}>

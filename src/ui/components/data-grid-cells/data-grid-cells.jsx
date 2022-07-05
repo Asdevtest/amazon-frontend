@@ -18,6 +18,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
+import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
 import {calcVolumeWeightForBox} from '@utils/calculation'
@@ -926,13 +927,24 @@ export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, val
 
   return (
     <div className={classNames.shopsReportBtnsWrapper}>
-      <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
-        {t(TranslationKey.download)}
-      </a>
+      <Text tooltipInfoContent={t(TranslationKey['Download the file to your device'])}>
+        <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
+          {t(TranslationKey.download)}
+        </a>
+      </Text>
+      <Button
+        tooltipInfoContent={t(TranslationKey['Copy the link to the report'])}
+        className={classNames.copyImgButton}
+      >
+        <img className={classNames.copyImg} src="/assets/icons/copy-img.svg" alt="" onClick={copyValue} />
+      </Button>
 
-      <img className={classNames.copyImg} src="/assets/icons/copy-img.svg" alt="" onClick={copyValue} />
-
-      <Button variant="contained" color="primary" onClick={onClickSeeMore}>
+      <Button
+        tooltipInfoContent={t(TranslationKey['Opens the table of a particular store'])}
+        variant="contained"
+        color="primary"
+        onClick={onClickSeeMore}
+      >
         {t(TranslationKey.View)}
       </Button>
     </div>
