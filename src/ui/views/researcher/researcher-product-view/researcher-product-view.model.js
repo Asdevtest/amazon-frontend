@@ -242,21 +242,25 @@ export class ResearcherProductViewModel {
         if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
           return
         }
+
         if (!['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 5)) {
           return
         }
+
         if (
           ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice'].includes(fieldName) &&
           !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
         ) {
           return
         }
+
         if (['strategyStatus'].includes(fieldName)) {
           this.product = {...this.product, [fieldName]: e.target.value}
 
           this.product = {...this.product, status: this.productBase.status}
         }
-        if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
+
+        if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
           this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
         } else {
           this.product = {...this.product, [fieldName]: e.target.value}

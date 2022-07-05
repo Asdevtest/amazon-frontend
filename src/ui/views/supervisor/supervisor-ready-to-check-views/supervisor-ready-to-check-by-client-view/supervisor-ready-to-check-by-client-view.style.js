@@ -1,7 +1,7 @@
 import {createStyles} from '@material-ui/core'
 
 export const styles = createStyles(() => ({
-  tableWrapper: {
-    marginTop: '32px',
+  btnsWrapper: {
+    margin: '0 0 15px 0',
   },
 }))

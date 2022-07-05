@@ -420,6 +420,8 @@ export class ClientInventoryViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       this.error = undefined
+      this.onTriggerOpenModal('showOrderModal')
+
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
         const product = this.ordersDataStateToSubmit[i]
 
@@ -441,7 +443,7 @@ export class ClientInventoryViewModel {
         this.onTriggerOpenModal('showSuccessModal')
       }
       this.onTriggerOpenModal('showConfirmModal')
-      this.onTriggerOpenModal('showOrderModal')
+      // this.onTriggerOpenModal('showOrderModal')
       await this.getProductsMy()
 
       this.setActionStatus(loadingStatuses.success)

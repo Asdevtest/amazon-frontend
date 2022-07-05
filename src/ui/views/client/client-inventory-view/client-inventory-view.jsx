@@ -224,7 +224,7 @@ export class ClientInventoryViewRaw extends Component {
                       variant="contained"
                       onClick={onClickTriggerArchOrResetProducts}
                     >
-                      {t(TranslationKey.Recover)}
+                      {t(TranslationKey['Return to inventory'])}
                     </Button>
                   ) : null}
 

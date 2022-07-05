@@ -200,7 +200,7 @@ export class SupervisorProductViewModel {
         ) {
           return
         }
-        if (['bsr', 'fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
+        if (['bsr', 'fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
           this.product = {...this.product, [fieldName]: parseInt(e.target.value)}
         } else {
           this.product = {...this.product, [fieldName]: e.target.value}
