@@ -40,7 +40,7 @@ export const ProductTable = ({modalHeadCells, order, orderFields}) => {
               {toFixed(
                 order.product.currentSupplier.batchDeliveryCostInDollar / order.product.currentSupplier.amount,
                 2,
-              ) || 'N/A'}
+              )}
             </TableCell>
             <TableCell className={classNames.tableCell}>{orderFields.amount}</TableCell>
             <TableCell>{toFixedWithDollarSign(calcProductsPriceWithDelivery(order.product, orderFields), 2)}</TableCell>

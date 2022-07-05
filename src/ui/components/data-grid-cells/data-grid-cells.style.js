@@ -381,6 +381,9 @@ export const styles = createStyles(() => ({
     borderRadius: '10px',
     padding: '3px',
     marginBottom: '5px',
+
+    maxHeight: 500,
+    overflow: 'auto',
   },
 
   batchProductTitle: {

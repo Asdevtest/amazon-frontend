@@ -1,44 +1,44 @@
-import {makeAutoObservable, reaction, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {BUYER_PRODUCTS_HEAD_CELLS} from '@constants/table-head-cells'
 
 import {BuyerModel} from '@models/buyer-model'
-import {SettingsModel} from '@models/settings-model'
-import {UserModel} from '@models/user-model'
 
+import {depersonalizedPickColumns} from '@components/table-columns/depersonalized-pick-columns'
+
+import {depersonalizedPickDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 
 export class BuyerSearchSupplierBySupervisorModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
-  balance = UserModel.userInfo?.balance
+
   productsVacant = []
-  productsHead = []
 
   drawerOpen = false
-  rowsPerPage = 15
-  curPage = 1
+
+  showInfoModal = false
+
+  selectedRowIds = []
+
+  rowHandlers = {
+    onPickUp: row => this.onClickTableRowBtn(row),
+  }
+
+  columnsModel = depersonalizedPickColumns(this.rowHandlers)
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
-
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.productsHead = BUYER_PRODUCTS_HEAD_CELLS()
-    }
+  getCurrentData() {
+    return toJS(this.productsVacant)
   }
 
-  updateProductsHead() {
-    this.productsHead = BUYER_PRODUCTS_HEAD_CELLS()
+  onSelectionModel(model) {
+    this.selectedRowIds = model
   }
 
   async loadData() {
@@ -55,15 +55,14 @@ export class BuyerSearchSupplierBySupervisorModel {
 
   async getProductsVacant() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
       this.error = undefined
       const result = await BuyerModel.getProductsVacant()
       runInAction(() => {
-        this.productsVacant = result.sort(sortObjectsArrayByFiledDateWithParseISO('checkedAt'))
+        this.productsVacant = depersonalizedPickDataConverter(
+          result.sort(sortObjectsArrayByFiledDateWithParseISO('checkedAt')),
+        )
       })
-      this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
       if (error.body && error.body.message) {
         this.error = error.body.message
@@ -71,18 +70,36 @@ export class BuyerSearchSupplierBySupervisorModel {
     }
   }
 
-  async onClickTableRowBtn(product) {
+  async onPickupSomeItems() {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
-      await BuyerModel.pickupProduct(product._id)
-      this.setActionStatus(loadingStatuses.success)
+      for (let i = 0; i < this.selectedRowIds.length; i++) {
+        const itemId = this.selectedRowIds[i]
 
-      this.history.push({
-        pathname: '/buyer/search-supplier-by-supervisor/product',
-        search: product._id,
-      })
+        await this.onClickTableRowBtn({_id: itemId}, true)
+      }
+
+      this.selectedRowIds = []
+      this.onTriggerOpenModal('showInfoModal')
+      this.loadData()
     } catch (error) {
-      this.setActionStatus(loadingStatuses.failed)
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  async onClickTableRowBtn(item, noPush) {
+    try {
+      await BuyerModel.pickupProduct(item._id)
+
+      if (!noPush) {
+        this.history.push({
+          pathname: '/buyer/search-supplier-by-supervisor/product',
+          search: item._id,
+        })
+      }
+    } catch (error) {
       console.log(error)
       if (error.body && error.body.message) {
         this.error = error.body.message
@@ -94,20 +111,15 @@ export class BuyerSearchSupplierBySupervisorModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onChangeCurPage(e, value) {
-    this.curPage = value
-  }
-
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = Number(e.target.value)
-    this.curPage = 1
-  }
-
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
   }
 
   setActionStatus(actionStatus) {
     this.actionStatus = actionStatus
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

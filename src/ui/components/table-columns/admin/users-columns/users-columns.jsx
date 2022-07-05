@@ -6,7 +6,7 @@ import {
   AdminUsersActionBtnsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell,
+  MultilineTextCell, // NormalActionBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixed} from '@utils/text'
@@ -109,12 +109,19 @@ export const adminUsersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
-      <AdminUsersActionBtnsCell
-        editBtnText={t(TranslationKey['Edit user'])}
-        balanceBtnText={t(TranslationKey.Balance)}
-        handlers={handlers}
-        row={params.row.originalData}
-      />
+      <div>
+        <AdminUsersActionBtnsCell
+          editBtnText={t(TranslationKey['Edit user'])}
+          balanceBtnText={t(TranslationKey.Balance)}
+          handlers={handlers}
+          row={params.row.originalData}
+        />
+
+        {/* <NormalActionBtnCell
+          bTnText={t(TranslationKey['Edit and balance'])}
+          onClickOkBtn={() => handlers.onClickUser(params.row.originalData)}
+        /> */}
+      </div>
     ),
     width: 270,
     filterable: false,

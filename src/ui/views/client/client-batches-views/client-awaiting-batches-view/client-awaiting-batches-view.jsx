@@ -109,7 +109,7 @@ class ClientAwaitingBatchesViewRaw extends Component {
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
-                rowHeight={200}
+                getRowHeight={() => 'auto'}
                 components={{
                   Toolbar: GridToolbar,
                 }}

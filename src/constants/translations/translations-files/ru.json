@@ -1134,5 +1134,18 @@
   "Canceled by Client": "Отменен Клиентом",
   "Awaiting shipment": "Ожидает отправки",
   "Shipped": "Отправлен",
-  "Batch cost": "Стоимость партии"
+  "Batch cost": "Стоимость партии",
+  "Supplier search options": "Параметры поиска поставщика",
+  "Product name": "Наименование товара",
+  "Idea": "Идея",
+  "Product photo": "Фото товара",
+  "Important criteria": "Важные критерии",
+  "Desired purchase price": "Желаемая цена закупки",
+  "Important criteria and features, matrix, color, markings": "Важные критерии и особенности, матриал, цвет, пометки",
+  "Approximate or exact size": "Приблизительный или точный размер",
+  "Estimated number of order units": "Предполагаемое количество ед. заказа",
+  "Edit and balance": "Изменение и баланс",
+  "Take on the work of the selected": "Взять в работу выбранное",
+  "Taken to Work": "Взято в работу",
+  "Return to inventory": "Вернуть в инвентарь"
 }

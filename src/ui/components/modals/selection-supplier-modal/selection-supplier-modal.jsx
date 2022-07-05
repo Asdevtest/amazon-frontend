@@ -33,6 +33,7 @@ export const SelectionSupplierModal = ({
   onCloseModal,
   onClickFinalAddSupplierButton,
   onSubmitSeekSupplier,
+  onClickSeekSupplierToIdea,
 }) => {
   const [selectedButtonValue, setSelectedButtonValue] = useState('')
   const [clickNextOrPrevButton, setClickNextOrPrevButton] = useState(false)
@@ -78,6 +79,12 @@ export const SelectionSupplierModal = ({
       setClickNextOrPrevButton(false)
       onCloseModal()
       onClickFinalAddSupplierButton()
+    }
+
+    if (selectedButtonValue === selectedButtonValueConfig.SUPPLIER_TO_IDEAS) {
+      setClickNextOrPrevButton(false)
+      onCloseModal()
+      onClickSeekSupplierToIdea()
     }
   }
 

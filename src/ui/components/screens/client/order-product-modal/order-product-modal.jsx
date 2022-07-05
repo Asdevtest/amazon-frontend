@@ -1,14 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
-import {
-  Container, // Divider,
-  Typography,
-  Table,
-  TableBody, // TableRow,
-  TableCell,
-  TableHead,
-  TableContainer,
-} from '@material-ui/core'
+import {Container, Typography, Table, TableBody, TableCell, TableHead, TableContainer} from '@material-ui/core'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -118,6 +110,8 @@ export const OrderProductModal = ({
       totalOrdersCost,
     )
     setSubmitIsClicked(true)
+
+    setTimeout(() => setSubmitIsClicked(false), 3000)
   }
 
   const disabledSubmit =

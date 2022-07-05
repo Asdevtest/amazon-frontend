@@ -95,6 +95,7 @@ export class ClientInventoryViewModel {
   selectedProduct = undefined
   showSendOwnProductModal = false
   showBindInventoryGoodsToStockModal = false
+  showAddSupplierToIdeaFromInventoryModal = false
   showInfoModal = false
   showConfirmModal = false
   showSetChipValueModal = false
@@ -181,8 +182,6 @@ export class ClientInventoryViewModel {
   }
 
   setDataGridState(state) {
-    console.log('state', state)
-
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -421,6 +420,8 @@ export class ClientInventoryViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       this.error = undefined
+      this.onTriggerOpenModal('showOrderModal')
+
       for (let i = 0; i < this.ordersDataStateToSubmit.length; i++) {
         const product = this.ordersDataStateToSubmit[i]
 
@@ -442,7 +443,7 @@ export class ClientInventoryViewModel {
         this.onTriggerOpenModal('showSuccessModal')
       }
       this.onTriggerOpenModal('showConfirmModal')
-      this.onTriggerOpenModal('showOrderModal')
+      // this.onTriggerOpenModal('showOrderModal')
       await this.getProductsMy()
 
       this.setActionStatus(loadingStatuses.success)

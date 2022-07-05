@@ -138,7 +138,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
-                rowHeight={230}
+                getRowHeight={() => 'auto'}
                 components={{
                   Toolbar: GridToolbar,
                 }}

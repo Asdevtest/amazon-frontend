@@ -106,7 +106,6 @@ export class WarehouseMyTasksViewRaw extends Component {
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
                 getRowHeight={() => 'auto'}
-                // rowHeight={200}
                 components={{
                   Toolbar: GridToolbar,
                 }}

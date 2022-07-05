@@ -13,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {AddOwnProductForm} from '@components/forms/add-own-product-form'
+import {AddSupplierToIdeaFromInventoryForm} from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -83,6 +84,7 @@ export class ClientInventoryViewRaw extends Component {
       showSendOwnProductModal,
       showAddOrEditSupplierModal,
       showBindInventoryGoodsToStockModal,
+      showAddSupplierToIdeaFromInventoryModal,
       showInfoModal,
       onSubmitBindStockGoods,
       getStockGoodsByFilters,
@@ -219,11 +221,10 @@ export class ClientInventoryViewRaw extends Component {
                       }
                       tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
                       disabled={!selectedRowIds.length || isNoEditProductSelected}
-                      variant="outlined"
-                      className={classNames.archiveRecoverBtn}
+                      variant="contained"
                       onClick={onClickTriggerArchOrResetProducts}
                     >
-                      {t(TranslationKey.Recover)}
+                      {t(TranslationKey['Return to inventory'])}
                     </Button>
                   ) : null}
 
@@ -305,6 +306,18 @@ export class ClientInventoryViewRaw extends Component {
           />
         </Modal>
 
+        <Modal
+          openModal={showAddSupplierToIdeaFromInventoryModal}
+          setOpenModal={() => onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
+        >
+          <AddSupplierToIdeaFromInventoryForm
+            showProgress={showProgress}
+            progressValue={progressValue}
+            onClose={() => onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
+            // onSubmit={onSubmitCreateProduct}
+          />
+        </Modal>
+
         <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
           <SetBarcodeModal
             item={selectedProduct}
@@ -347,6 +360,7 @@ export class ClientInventoryViewRaw extends Component {
             onClickFinalAddSupplierButton={onClickAddSupplierButton}
             onCloseModal={() => onTriggerOpenModal('showSelectionSupplierModal')}
             onSubmitSeekSupplier={onSubmitCalculateSeekSupplier}
+            onClickSeekSupplierToIdea={() => onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
           />
         </Modal>
 

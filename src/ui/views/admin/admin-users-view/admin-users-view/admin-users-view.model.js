@@ -35,6 +35,7 @@ export class AdminUsersViewModel {
   rowHandlers = {
     onClickEditUser: item => this.onClickEditUser(item),
     onClickBalance: item => this.onClickBalance(item),
+    onClickUser: item => this.onClickUser(item),
   }
 
   sortModel = []
@@ -228,6 +229,10 @@ export class AdminUsersViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  onClickUser(userData) {
+    this.history.push('/admin/users/user', {user: userData})
   }
 
   onClickBalance(userData) {

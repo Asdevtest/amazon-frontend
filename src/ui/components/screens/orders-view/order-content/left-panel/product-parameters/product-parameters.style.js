@@ -30,12 +30,12 @@ export const useClassNames = makeStyles(() => ({
   scrollingText: {
     color: 'linear-gradient(180deg, #006CFF 0%, #0460DE 100%)',
     maxWidth: '270px',
-    overflowX: 'auto',
-    whiteSpace: 'wrap',
+    overflow: 'auto',
+    whiteSpace: 'nowrap',
 
     fontWeight: '600',
     fontSize: '16px',
-    lineHeight: '19px',
+    // lineHeight: '19px',
   },
 
   fieldLabel: {

@@ -29,8 +29,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 600,
     lineHeight: '19px',
     maxWidth: '200px',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
+    textAlign: 'right',
   },
 
   scrollingText: {

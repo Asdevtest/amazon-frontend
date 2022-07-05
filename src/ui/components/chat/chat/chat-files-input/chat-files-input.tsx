@@ -19,6 +19,7 @@ export const ChatFilesInput: FC<Props> = ({files, setFiles}) => {
       <UploadFilesInput
         oneLine
         withoutLinks
+        title={false}
         images={files}
         setImages={setFiles}
         maxNumber={50}

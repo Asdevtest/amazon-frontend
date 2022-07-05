@@ -245,6 +245,14 @@ export const freelancerCustomRequestsDataConverter = data =>
     direction: item.request.direction,
   }))
 
+export const depersonalizedPickDataConverter = data =>
+  data.map((item, index) => ({
+    originalData: item,
+    id: item._id,
+
+    number: index + 1,
+  }))
+
 export const clientOrdersDataConverter = data =>
   data.map(item => ({
     originalData: item,

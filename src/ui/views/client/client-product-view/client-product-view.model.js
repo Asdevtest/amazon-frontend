@@ -199,7 +199,7 @@ export class ClientProductViewModel {
           return
         }
 
-        if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName)) {
+        if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
           this.product[fieldName] = parseInt(e.target.value)
         }
 

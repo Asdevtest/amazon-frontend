@@ -1,0 +1,137 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
+import React, {useEffect, useRef} from 'react'
+
+import {Typography} from '@material-ui/core'
+import {observer} from 'mobx-react'
+import {useHistory} from 'react-router-dom'
+
+import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
+
+import {Button} from '@components/buttons/button'
+import {Modal} from '@components/modal'
+import {AdminBalanceModal} from '@components/screens/users-views/sub-users-view/admin-balance-modal'
+
+import {toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
+
+import {UserBalanceModel} from './user-balance.model'
+import {useClassNames} from './user-balance.style'
+
+export const UserBalance = observer(({user}) => {
+  const classNames = useClassNames()
+  const history = useHistory()
+  const model = useRef(new UserBalanceModel({history, user}))
+
+  useEffect(() => {
+    model.current.loadData()
+  }, [])
+
+  const {
+    showReplenishModal,
+    showWithdrawModal,
+    makePayment,
+    onTriggerReplenishModal,
+    onTriggerWithdrawModal,
+
+    requestStatus,
+    getCurrentData,
+    sortModel,
+    filterModel,
+    densityModel,
+    columnsModel,
+
+    rowsPerPage,
+    curPage,
+    onChangeCurPage,
+    onChangeRowsPerPage,
+    onSelectionModel,
+
+    setDataGridState,
+    onChangeSortingModel,
+    onChangeFilterModel,
+  } = model.current
+
+  const getRowClassName = params =>
+    params.getValue(params.id, 'sum') < 0
+      ? classNames.redRow
+      : params.getValue(params.id, 'sum') > 0 && classNames.greenRow
+
+  return (
+    <div className={classNames.mainWrapper}>
+      <div className={classNames.balanceWrapper}>
+        <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</Typography>
+        {user.balanceFreeze !== 0 && (
+          <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(
+            user.balanceFreeze,
+            2,
+          )} -freeze`}</Typography>
+        )}
+      </div>
+
+      <Button
+        disableElevation
+        className={[classNames.button, classNames.depositBtn]}
+        color="primary"
+        variant="contained"
+        onClick={onTriggerReplenishModal}
+      >
+        {t(TranslationKey.Deposit)}
+      </Button>
+      <Button
+        disableElevation
+        className={classNames.button}
+        color="primary"
+        variant="text"
+        onClick={onTriggerWithdrawModal}
+      >
+        {t(TranslationKey.Withdraw)}
+      </Button>
+      <div className={classNames.tableWrapper}>
+        <DataGrid
+          pagination
+          useResizeContainer
+          sx={{
+            border: 0,
+            boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+            backgroundColor: '#fff',
+          }}
+          getRowClassName={getRowClassName}
+          sortModel={sortModel}
+          filterModel={filterModel}
+          page={curPage}
+          pageSize={rowsPerPage}
+          rowsPerPageOptions={[15, 25, 50, 100]}
+          rows={getCurrentData()}
+          rowHeight={75}
+          components={{
+            Toolbar: GridToolbar,
+          }}
+          density={densityModel}
+          columns={columnsModel}
+          loading={requestStatus === loadingStatuses.isLoading}
+          onSelectionModelChange={newSelection => {
+            onSelectionModel(newSelection[0])
+          }}
+          onSortModelChange={onChangeSortingModel}
+          onPageSizeChange={onChangeRowsPerPage}
+          onPageChange={onChangeCurPage}
+          onStateChange={setDataGridState}
+          onFilterModelChange={model => onChangeFilterModel(model)}
+        />
+      </div>
+      <Modal openModal={showReplenishModal} setOpenModal={onTriggerReplenishModal}>
+        <AdminBalanceModal user={user} onTriggerParentModal={onTriggerReplenishModal} onSubmit={makePayment} />
+      </Modal>
+      <Modal openModal={showWithdrawModal} setOpenModal={onTriggerWithdrawModal}>
+        <AdminBalanceModal
+          isWithdraw
+          user={user}
+          onTriggerParentModal={onTriggerWithdrawModal}
+          onSubmit={makePayment}
+        />
+      </Modal>
+    </div>
+  )
+})
