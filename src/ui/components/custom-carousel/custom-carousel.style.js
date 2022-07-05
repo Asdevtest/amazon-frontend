@@ -156,6 +156,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     color: '#001029',
     marginBottom: '10px',
+    width: '100px',
   },
 
   emptyProposalsDescription: {
