@@ -84,6 +84,7 @@ Name | Type | Description | Notes
 **avgBSR** | **String** | Средний BSR | [optional] 
 **avgPrice** | **String** | Средняя цена | [optional] 
 **avgReviews** | **String** | Средний отзывы | [optional] 
+**fourMonthesStock** | **Number** | Каков должен быть сток за 4 месяца | [optional] 
 **checkedby** | [**ApiV1AdminsProductsVacCheckedby**](ApiV1AdminsProductsVacCheckedby.md) |  | [optional] 
 
 

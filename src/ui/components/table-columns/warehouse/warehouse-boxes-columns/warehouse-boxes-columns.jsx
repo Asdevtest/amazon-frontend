@@ -31,7 +31,7 @@ export const warehouseBoxesViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 70,
+    width: 75,
   },
 
   {
@@ -65,7 +65,7 @@ export const warehouseBoxesViewColumns = handlers => [
       ) : (
         <MultilineTextCell text={params.value} />
       ),
-    width: 110,
+    width: 150,
     type: 'number',
   },
 
@@ -75,7 +75,7 @@ export const warehouseBoxesViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 100,
+    width: 120,
   },
 
   {
@@ -146,7 +146,7 @@ export const warehouseBoxesViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 120,
+    width: 150,
     type: 'date',
   },
 ]

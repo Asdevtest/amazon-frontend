@@ -30,21 +30,21 @@ export const sourceColumns = () => [
     field: 'fbaFbmStock',
     headerName: 'FBA/FBM Stock',
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 140,
+    width: 190,
   },
 
   {
     field: 'reserved',
     headerName: 'Reserved',
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 110,
+    width: 150,
   },
 
   {
     field: 'roi',
     headerName: t(TranslationKey.ROI),
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 70,
+    width: 120,
   },
 ]
 
@@ -74,21 +74,21 @@ export const chosenGoodsColumns = handlers => [
     field: 'fbaFbmStock',
     headerName: 'FBA/FBM Stock',
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 140,
+    width: 190,
   },
 
   {
     field: 'reserved',
     headerName: 'Reserved',
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 110,
+    width: 150,
   },
 
   {
     field: 'roi',
     headerName: t(TranslationKey.ROI),
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 70,
+    width: 110,
   },
 
   {

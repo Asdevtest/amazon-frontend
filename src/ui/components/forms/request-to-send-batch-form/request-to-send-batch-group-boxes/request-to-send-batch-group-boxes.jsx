@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
+import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox} from '@utils/calculation'
@@ -113,13 +114,23 @@ export const RequestToSendBatchesGroupBoxes = ({
           ) : null}
 
           <div className={classNames.footerSubWrapper}>
-            <Typography className={classNames.footerTitle}>{t(TranslationKey['Total weight'])}</Typography>
+            <Text
+              tooltipInfoContent={t(TranslationKey['Total weight of the selected boxes'])}
+              className={classNames.footerTitle}
+            >
+              {t(TranslationKey['Total weight'])}
+            </Text>
 
             <Typography className={classNames.footerSpanText}>{toFixedWithKg(totalWeight, 2)}</Typography>
           </div>
 
           <div className={classNames.footerSubWrapper}>
-            <Typography className={classNames.footerTitle}>{t(TranslationKey['Total cost of shipment'])}</Typography>
+            <Text
+              tooltipInfoContent={t(TranslationKey['The cost depends on the total weight and the rate you choose'])}
+              className={classNames.footerTitle}
+            >
+              {t(TranslationKey['Total cost of shipment'])}
+            </Text>
 
             <Typography className={classNames.footerSpanText}>{toFixedWithDollarSign(totalPrice, 2)}</Typography>
           </div>

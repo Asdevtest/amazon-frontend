@@ -21,7 +21,7 @@ export const clientExchangeViewColumns = handlers => [
     headerName: t(TranslationKey.Image),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
 
-    width: 80,
+    width: 100,
     renderCell: params => <SmallRowImageCell images={params.row.images} />,
     filterable: false,
     sortable: false,
@@ -33,7 +33,7 @@ export const clientExchangeViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    minWidth: 110,
+    minWidth: 120,
     type: 'date',
   },
 
@@ -43,7 +43,7 @@ export const clientExchangeViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    minWidth: 130,
+    minWidth: 140,
     type: 'date',
   },
 
@@ -62,7 +62,7 @@ export const clientExchangeViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Category)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 150,
+    width: 140,
   },
 
   {
@@ -81,7 +81,7 @@ export const clientExchangeViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Weight)} />,
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-    width: 80,
+    width: 90,
     type: 'number',
   },
 
@@ -91,7 +91,7 @@ export const clientExchangeViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 70,
+    width: 90,
     type: 'number',
   },
 
@@ -101,7 +101,7 @@ export const clientExchangeViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 150,
+    width: 130,
     type: 'number',
   },
 
@@ -113,7 +113,7 @@ export const clientExchangeViewColumns = handlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
     ),
-    width: 120,
+    width: 130,
   },
 
   {
@@ -122,7 +122,7 @@ export const clientExchangeViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
-    width: 100,
+    width: 105,
   },
 
   {
@@ -133,7 +133,7 @@ export const clientExchangeViewColumns = handlers => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
     ),
-    width: 140,
+    width: 155,
   },
 
   {

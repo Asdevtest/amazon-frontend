@@ -16,7 +16,7 @@ export const shopsColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    minWidth: 120,
+    minWidth: 150,
     renderCell: params => <ShortDateCell params={params} />,
     type: 'date',
   },
@@ -61,7 +61,14 @@ export const shopsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     width: 300,
-    renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
+    renderCell: params => (
+      <EditOrRemoveBtnsCell
+        tooltipFirstButton={t(TranslationKey['Change store name or links to reports'])}
+        tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
+        handlers={handlers}
+        row={params.row}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

@@ -16,6 +16,7 @@ import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import {Text} from '@components/text'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
@@ -89,7 +90,13 @@ const Box = ({
               <div key={orderIndex} className={classNames.order}>
                 <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
                 <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
-                <Typography className={classNames.subTitle}>{t(TranslationKey.Quantity)}</Typography>
+                <Text
+                  tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
+                  className={classNames.subTitle}
+                >
+                  {t(TranslationKey.Quantity)}
+                </Text>
+
                 <Input
                   classes={{root: classNames.inputWrapper, input: classNames.input}}
                   readOnly={readOnly}
@@ -108,6 +115,7 @@ const Box = ({
           <div className={classNames.itemSubWrapper}>
             <Field
               containerClasses={classNames.field}
+              tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}
               label={t(TranslationKey.Destination)}
               inputComponent={
                 <NativeSelect
@@ -135,6 +143,7 @@ const Box = ({
 
             <Field
               containerClasses={classNames.field}
+              tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
               label={'Storekeeper / ' + t(TranslationKey.Tariff)}
               inputComponent={
                 <div>
@@ -177,6 +186,7 @@ const Box = ({
             <Field
               disabled={!isNewBox}
               inputProps={{maxLength: 255}}
+              tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
               containerClasses={classNames.field}
               label={t(TranslationKey['FBA Shipment'])}
               value={box.fbaShipment}
@@ -185,7 +195,12 @@ const Box = ({
 
             {isNewBox ? (
               <div>
-                <Typography className={classNames.linkTitle}>{t(TranslationKey['Shipping label']) + ':'}</Typography>
+                <Text
+                  tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
+                  textClasses={classNames.linkTitle}
+                >
+                  {t(TranslationKey['Shipping label']) + ':'}
+                </Text>
                 <Chip
                   classes={{
                     root: classNames.barcodeChip,
@@ -470,6 +485,7 @@ export const RedistributeBox = ({
         <Button
           color="primary"
           variant="contained"
+          tooltipInfoContent={t(TranslationKey['Create a task to split the box'])}
           disabled={disabledSubmitBtn}
           onClick={() => {
             onClickRedistributeBtn()
@@ -478,6 +494,7 @@ export const RedistributeBox = ({
           {t(TranslationKey.Redistribute)}
         </Button>
         <Button
+          tooltipInfoContent={t(TranslationKey['Add a new box to the task'])}
           disabled={totalProductsAmount < 1 && isMasterBox}
           color="primary"
           variant="contained"
@@ -491,6 +508,7 @@ export const RedistributeBox = ({
         <Button
           color="primary"
           variant="contained"
+          tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
           onClick={() => {
             onTriggerOpenModal('showRedistributeBoxModal')
             setShowNewBoxAttention(false)

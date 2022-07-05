@@ -209,6 +209,12 @@ class InlineObject34 {
             if (data.hasOwnProperty('avgReviews')) {
                 obj['avgReviews'] = ApiClient.convertToType(data['avgReviews'], 'String');
             }
+            if (data.hasOwnProperty('fourMonthesStock')) {
+                obj['fourMonthesStock'] = ApiClient.convertToType(data['fourMonthesStock'], 'Number');
+            }
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
+            }
         }
         return obj;
     }
@@ -522,6 +528,18 @@ InlineObject34.prototype['avgPrice'] = undefined;
  * @member {String} avgReviews
  */
 InlineObject34.prototype['avgReviews'] = undefined;
+
+/**
+ * Поле для калькуляции дозакупок
+ * @member {Number} fourMonthesStock
+ */
+InlineObject34.prototype['fourMonthesStock'] = undefined;
+
+/**
+ * GUIDы поставщиков продукта
+ * @member {Array.<String>} suppliersIds
+ */
+InlineObject34.prototype['suppliersIds'] = undefined;
 
 
 

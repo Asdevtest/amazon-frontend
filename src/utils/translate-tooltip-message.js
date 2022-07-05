@@ -88,6 +88,8 @@ export const translateTooltipAttentionMessageByRole = (label, role) => {
         return t(TranslationKey['The final status, once saved, cannot be changed!'])
       case t(TranslationKey['Supplier not found']):
         return t(TranslationKey['The final status, once saved, cannot be changed!'])
+      case t(TranslationKey['Supplier found']):
+        return t(TranslationKey['Final status, after saving will be paid for the search'])
       case t(TranslationKey["The supplier's price does not fit"]):
         return t(TranslationKey['The final status, once saved, cannot be changed!'])
     }

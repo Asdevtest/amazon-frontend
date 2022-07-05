@@ -62,6 +62,39 @@ export const renderTooltipTitle = (categoryTitle, userRole) => {
         return t(TranslationKey['List of your products'])
       case t(TranslationKey['Commodity exchange']):
         return t(TranslationKey['Exchange with product cards available for purchase'])
+      case t(TranslationKey['My orders']):
+        return t(TranslationKey['List of orders taken'])
+      case t(TranslationKey['My warehouse']):
+        return t(TranslationKey['Managing the boxes that are in the prep center'])
+      case t(TranslationKey['My batches']):
+        return t(TranslationKey['List of batches and management of boxes related to them'])
+      case t(TranslationKey.Users):
+        return t(TranslationKey['Manage the list of employees'])
+      case t(TranslationKey.Shops):
+        return t(TranslationKey['A list of your added Amazon stores with reports on them'])
+      case t(TranslationKey.Finances):
+        return t(TranslationKey["Detailed description of the movement of the user's money"])
+      case t(TranslationKey.Notifications):
+        return t(TranslationKey['Important notifications on changes in order price, batch or irrelevant tariff'])
+      case t(TranslationKey['On orders']):
+        return t(TranslationKey['Notifications of required surcharges for the order'])
+      case t(TranslationKey['On boxes']):
+        return t(TranslationKey['Notices of required surcharges per box in a batch'])
+      case t(TranslationKey['On boxes tariffs']):
+        return t(TranslationKey['Notifications about the need to change to a new tariff'])
+    }
+  }
+}
+
+export const renderAttentionTooltipTitle = (categoryTitle, userRole) => {
+  if (checkIsClient(UserRoleCodeMap[userRole])) {
+    switch (categoryTitle) {
+      case t(TranslationKey['On orders']):
+        return t(TranslationKey['Notifications of required surcharges for the order'])
+      case t(TranslationKey['On boxes']):
+        return t(TranslationKey['If the surcharge is declined, the box is returned to stock'])
+      case t(TranslationKey['On boxes tariffs']):
+        return t(TranslationKey['If you reject the tariff change, the box is returned to the stock'])
     }
   }
 }

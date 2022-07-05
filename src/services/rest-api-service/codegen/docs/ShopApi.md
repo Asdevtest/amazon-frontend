@@ -140,7 +140,7 @@ let apiInstance = new TestSwagger.ShopApi();
 let guid = null; // String | GUID объекта в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject65() // InlineObject65 | 
+  'body': new TestSwagger.InlineObject67() // InlineObject67 | 
 };
 apiInstance.apiV1ShopsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID объекта в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject65**](InlineObject65.md)|  | [optional] 
+ **body** | [**InlineObject67**](InlineObject67.md)|  | [optional] 
 
 ### Return type
 
@@ -195,7 +195,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ShopApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject64() // InlineObject64 | 
+  'body': new TestSwagger.InlineObject66() // InlineObject66 | 
 };
 apiInstance.apiV1ShopsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -211,7 +211,7 @@ apiInstance.apiV1ShopsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject64**](InlineObject64.md)|  | [optional] 
+ **body** | [**InlineObject66**](InlineObject66.md)|  | [optional] 
 
 ### Return type
 

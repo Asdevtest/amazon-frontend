@@ -187,7 +187,7 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     paddingLeft: 30,
     alignItems: 'center',
-    margin: '5px 0',
+    margin: '30px 0 5px 0',
     height: 'min-content',
   },
 }))

@@ -291,6 +291,9 @@ class InlineResponse2005 {
             if (data.hasOwnProperty('avgReviews')) {
                 obj['avgReviews'] = ApiClient.convertToType(data['avgReviews'], 'String');
             }
+            if (data.hasOwnProperty('fourMonthesStock')) {
+                obj['fourMonthesStock'] = ApiClient.convertToType(data['fourMonthesStock'], 'Number');
+            }
             if (data.hasOwnProperty('checkedby')) {
                 obj['checkedby'] = ApiV1AdminsProductsVacCheckedby.constructFromObject(data['checkedby']);
             }
@@ -773,6 +776,12 @@ InlineResponse2005.prototype['avgPrice'] = undefined;
  * @member {String} avgReviews
  */
 InlineResponse2005.prototype['avgReviews'] = undefined;
+
+/**
+ * Каков должен быть сток за 4 месяца
+ * @member {Number} fourMonthesStock
+ */
+InlineResponse2005.prototype['fourMonthesStock'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsProductsVacCheckedby} checkedby

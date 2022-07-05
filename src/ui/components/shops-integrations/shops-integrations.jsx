@@ -2,12 +2,14 @@ import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
 
 import React from 'react'
 
-import {Typography, Box, Tabs, Tab} from '@material-ui/core'
+import {Typography, Box, Tabs} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
+
+import {ITab} from '@components/i-tab/i-tab'
 
 import {t} from '@utils/translations'
 
@@ -59,9 +61,20 @@ export const ShopsIntegrations = observer(() => {
           value={tabIndex}
           onChange={(e, index) => setTabIndex(index)}
         >
-          <Tab classes={tabItemStyles} label={t(TranslationKey.Shops)} value={tabsValues.SHOPS} />
-          <Tab classes={tabItemStyles} label={t(TranslationKey['Warehouse report'])} value={tabsValues.STOCK_REPORT} />
-          <Tab
+          <ITab
+            tooltipInfoContent={t(TranslationKey['List of your stores'])}
+            classes={tabItemStyles}
+            label={t(TranslationKey.Shops)}
+            value={tabsValues.SHOPS}
+          />
+          <ITab
+            tooltipInfoContent={t(TranslationKey['Report for all stores'])}
+            classes={tabItemStyles}
+            label={t(TranslationKey['Warehouse report'])}
+            value={tabsValues.STOCK_REPORT}
+          />
+          <ITab
+            tooltipInfoContent={t(TranslationKey['History on products from the stores'])}
             classes={tabItemStyles}
             label={t(TranslationKey['Dashboard by goods/days'])}
             value={tabsValues.GOODS_DAYS_REPORT}

@@ -9,8 +9,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
+import {Field} from '@components/field'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
+import {Text} from '@components/text'
 
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
@@ -53,9 +55,14 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
       <Container disableGutters maxWidth={false}>
         <div>
           <div className={classNames.orderContainer}>
-            <Typography className={classNames.containerTitle}>
-              {OrderStatusTranslate(OrderStatusByCode[updatedOrder.status])}
-            </Typography>
+            <div>
+              <Text
+                className={classNames.containerTitle}
+                tooltipInfoContent={t(TranslationKey['Current order status'])}
+              >
+                {OrderStatusTranslate(OrderStatusByCode[updatedOrder.status])}
+              </Text>
+            </div>
 
             <div className={classNames.orderNumWrapper}>
               <Typography className={classNames.orderNum}>{t(TranslationKey['Order number'])}</Typography>
@@ -63,11 +70,20 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
             </div>
 
             <div className={classNames.orderPriceWrapper}>
-              <Typography className={classNames.orderPrice}>{t(TranslationKey['Order amount'])}</Typography>
-              <Typography className={classNames.titleSpan}>
-                {toFixedWithDollarSign(updatedOrder.totalPrice, 2)}
-              </Typography>
+              <Field
+                oneLine
+                tooltipInfoContent={t(TranslationKey['Total order amount'])}
+                label={t(TranslationKey['Order amount'])}
+                labelClasses={classNames.orderPrice}
+                containerClasses={classNames.field}
+                inputComponent={
+                  <Typography className={classNames.titleSpan}>
+                    {toFixedWithDollarSign(updatedOrder.totalPrice, 2)}
+                  </Typography>
+                }
+              />
             </div>
+
             {/* <div className={classNames.batchWrapper}>
               <Typography className={classNames.batchPrice}>{t(TranslationKey['Batch cost'])}</Typography>
               <Typography className={classNames.titleSpan}>{'N/A'}</Typography>
@@ -88,14 +104,26 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
 
           <div className={classNames.btnsWrapper}>
             {updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] && onClickCancelOrder && (
-              <Button danger className={classNames.cancelBtn} onClick={onClickCancelOrder}>
+              <Button
+                danger
+                tooltipInfoContent={t(TranslationKey['Cancel order, refund of frozen funds'])}
+                className={classNames.cancelBtn}
+                onClick={onClickCancelOrder}
+              >
                 {t(TranslationKey['Cancel order'])}
               </Button>
             )}
           </div>
 
           <div className={classNames.tableWrapper}>
-            <Typography className={classNames.tableText}>{t(TranslationKey['Boxes to order'])}</Typography>
+            <Text
+              tooltipInfoContent={t(TranslationKey['All boxes received/received by the prep center on order'])}
+              textClasses={classNames.tableText}
+              containerClasses={classNames.container}
+            >
+              {t(TranslationKey['Boxes to order'])}
+            </Text>
+
             {boxes.length > 0 ? (
               <Table
                 rowsOnly

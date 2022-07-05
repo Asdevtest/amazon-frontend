@@ -65,5 +65,6 @@ export const styles = createStyles(theme => ({
 
   btnsWrapper: {
     margin: '10px 0 15px',
+    display: 'flex',
   },
 }))

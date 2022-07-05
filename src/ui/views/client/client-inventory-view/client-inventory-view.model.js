@@ -99,22 +99,33 @@ export class ClientInventoryViewModel {
   showInfoModal = false
   showConfirmModal = false
   showSetChipValueModal = false
+  showBarcodeOrHscodeModal = false
+  showSetFourMonthsStockValueModal = false
 
   successModalText = ''
   confirmMessage = ''
   showInfoModalTitle = ''
   priceForSeekSupplier = 0
+  currentBarcode = ''
+  currentHscode = ''
 
   barCodeHandlers = {
     onClickBarcode: item => this.onClickBarcode(item),
     onDoubleClickBarcode: item => this.onDoubleClickBarcode(item),
     onDeleteBarcode: item => this.onDeleteBarcode(item),
+    showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
   }
 
   hsCodeHandlers = {
     onClickHsCode: item => this.onClickHsCode(item),
     onDoubleClickHsCode: item => this.onDoubleClickHsCode(item),
     onDeleteHsCode: item => this.onDeleteHsCode(item),
+    showBarcodeOrHscode: (barCode, hsCode) => this.showBarcodeOrHscode(barCode, hsCode),
+  }
+
+  fourMonthesStockHandlers = {
+    onClickFourMonthsStock: item => this.onClickFourMonthsStock(item),
+    onDeleteFourMonthesStock: item => this.onDeleteFourMonthesStock(item),
   }
 
   confirmModalSettings = {
@@ -133,7 +144,7 @@ export class ClientInventoryViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientInventoryColumns(this.barCodeHandlers, this.hsCodeHandlers)
+  columnsModel = clientInventoryColumns(this.barCodeHandlers, this.hsCodeHandlers, this.fourMonthesStockHandlers)
 
   get isNoEditProductSelected() {
     return this.selectedRowIds.some(prodId => {
@@ -202,7 +213,11 @@ export class ClientInventoryViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = clientInventoryColumns(this.barCodeHandlers, this.hsCodeHandlers).map(el => ({
+      this.columnsModel = clientInventoryColumns(
+        this.barCodeHandlers,
+        this.hsCodeHandlers,
+        this.fourMonthesStockHandlers,
+      ).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -352,6 +367,21 @@ export class ClientInventoryViewModel {
     })
   }
 
+  async onClickSaveFourMonthesStockValue(fourMonthesStock) {
+    console.log('this.selectedProduct', this.selectedProduct)
+
+    console.log('fourMonthesStock', fourMonthesStock)
+
+    await ClientModel.updateProduct(this.selectedProduct._id, {fourMonthesStock})
+
+    this.onTriggerOpenModal('showSetFourMonthsStockValueModal')
+    this.loadData()
+
+    runInAction(() => {
+      this.selectedProduct = undefined
+    })
+  }
+
   async onClickSaveBarcode(tmpBarCode) {
     this.uploadedFiles = []
 
@@ -399,6 +429,17 @@ export class ClientInventoryViewModel {
   onClickHsCode(item) {
     this.setSelectedProduct(item)
     this.onTriggerOpenModal('showSetChipValueModal')
+  }
+
+  onClickFourMonthsStock(item) {
+    this.setSelectedProduct(item)
+    this.onTriggerOpenModal('showSetFourMonthsStockValueModal')
+  }
+
+  showBarcodeOrHscode(barcode, hscode) {
+    this.currentHscode = hscode
+    this.currentBarcode = barcode
+    this.onTriggerOpenModal('showBarcodeOrHscodeModal')
   }
 
   onConfirmSubmitOrderProductModal(ordersDataState, totalOrdersCost) {
@@ -698,6 +739,16 @@ export class ClientInventoryViewModel {
   async onDeleteBarcode(product) {
     try {
       await ClientModel.updateProductBarCode(product._id, {barCode: null})
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onDeleteFourMonthesStock(product) {
+    try {
+      await ClientModel.updateProduct(product._id, {fourMonthesStock: 0})
 
       this.loadData()
     } catch (error) {

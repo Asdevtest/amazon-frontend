@@ -979,7 +979,8 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
-  'filters': "filters_example", // String | Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.  без или: /products?filters=[amazonTitle][$contains]=drive
+  'filters': "filters_example", // String |                Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /products?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+  'shopId': null, // String | ID магазина для фильтрации по нему
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1ClientsProductsMyGet(opts).then((data) => {
@@ -995,7 +996,8 @@ apiInstance.apiV1ClientsProductsMyGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filters** | **String**| Примеры: /products?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.  без или: /products?filters&#x3D;[amazonTitle][$contains]&#x3D;drive | [optional] 
+ **filters** | **String**|                Примеры: /products?filters&#x3D;or[0][id][$eq]&#x3D;B08F5VCNCY;or[1][amazonTitle][$contains]&#x3D;drive                отдает все где ASIN &#x3D; \&quot;B08F5VCNCY\&quot; или в amazonTitle встречается \&quot;drive\&quot;, не чувствителен к регистру.                 без или: /products?filters&#x3D;[amazonTitle][$contains]&#x3D;drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина              | [optional] 
+ **shopId** | [**String**](.md)| ID магазина для фильтрации по нему | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

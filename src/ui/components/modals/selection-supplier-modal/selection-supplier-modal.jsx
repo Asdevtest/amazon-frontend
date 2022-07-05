@@ -90,7 +90,7 @@ export const SelectionSupplierModal = ({
 
   return (
     <Container disableGutters className={classNames.modalWrapper}>
-      <Typography className={modalTitleClsx}>{t(TranslationKey['Choose a supplier'])}</Typography>
+      <Typography className={modalTitleClsx}>{t(TranslationKey['Find a supplier'])}</Typography>
 
       {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
         <div>

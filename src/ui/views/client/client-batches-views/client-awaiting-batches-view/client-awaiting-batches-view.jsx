@@ -82,6 +82,9 @@ class ClientAwaitingBatchesViewRaw extends Component {
               <div className={className.btnsWrapper}>
                 <Button
                   disabled={!selectedBatches.length}
+                  tooltipInfoContent={t(
+                    TranslationKey['Returns all boxes from the selected batch to the "Boxes ready to send" section'],
+                  )}
                   color="primary"
                   variant="contained"
                   onClick={() => onTriggerOpenModal('showConfirmModal')}

@@ -19,7 +19,7 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 110,
+    width: 120,
     type: 'date',
   },
 

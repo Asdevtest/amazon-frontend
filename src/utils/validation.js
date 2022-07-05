@@ -56,6 +56,8 @@ export const errorMessages = {
     'length must be a number conforming to the specified constraints',
   'weight must be a number conforming to the specified constraints':
     'weight must be a number conforming to the specified constraints',
+  'fbafee must be a number conforming to the specified constraints':
+    'fbafee must be a number conforming to the specified constraints',
 }
 
 export const errorMessagesTranslate = error => {
@@ -78,6 +80,8 @@ export const errorMessagesTranslate = error => {
       return t(TranslationKey['Length must be a number conforming to the specified constraints'])
     case errorMessages['weight must be a number conforming to the specified constraints']:
       return t(TranslationKey['Weight must be a number conforming to the specified constraints'])
+    case errorMessages['fbafee must be a number conforming to the specified constraints']:
+      return t(TranslationKey['Fbafee must be a number conforming to the specified constraints'])
   }
 }
 

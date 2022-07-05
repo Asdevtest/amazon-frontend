@@ -20,7 +20,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    width: 120,
     type: 'date',
   },
   {
@@ -29,7 +29,7 @@ export const exchangeSupplierSearchColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 130,
+    width: 150,
     type: 'date',
   },
 

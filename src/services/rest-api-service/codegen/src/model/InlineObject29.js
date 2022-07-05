@@ -204,6 +204,9 @@ class InlineObject29 {
             if (data.hasOwnProperty('avgReviews')) {
                 obj['avgReviews'] = ApiClient.convertToType(data['avgReviews'], 'String');
             }
+            if (data.hasOwnProperty('fourMonthesStock')) {
+                obj['fourMonthesStock'] = ApiClient.convertToType(data['fourMonthesStock'], 'Number');
+            }
         }
         return obj;
     }
@@ -512,6 +515,12 @@ InlineObject29.prototype['avgPrice'] = undefined;
  * @member {String} avgReviews
  */
 InlineObject29.prototype['avgReviews'] = undefined;
+
+/**
+ * Поле для калькуляции дозакупок
+ * @member {Number} fourMonthesStock
+ */
+InlineObject29.prototype['fourMonthesStock'] = undefined;
 
 
 

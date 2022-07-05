@@ -12,6 +12,7 @@ import {Field} from '@components/field/field'
 import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
+import {Text} from '@components/text'
 
 import {t} from '@utils/translations'
 
@@ -125,6 +126,7 @@ export const MergeBoxesModal = ({
 
       <Field
         containerClasses={classNames.field}
+        tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}
         label={t(TranslationKey.Destination)}
         inputComponent={
           <NativeSelect
@@ -151,6 +153,7 @@ export const MergeBoxesModal = ({
 
       <Field
         containerClasses={classNames.field}
+        tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
         label={'Storekeeper / ' + t(TranslationKey.Tariff)}
         inputComponent={
           <Button
@@ -176,6 +179,7 @@ export const MergeBoxesModal = ({
       />
 
       <Field
+        tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
         containerClasses={classNames.field}
         inputProps={{maxLength: 255}}
         label={t(TranslationKey['FBA Shipment'])}
@@ -184,7 +188,12 @@ export const MergeBoxesModal = ({
       />
 
       <div>
-        <Typography className={classNames.linkTitle}>{t(TranslationKey['Shipping label'])}</Typography>
+        <Text
+          tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
+          className={classNames.linkTitle}
+        >
+          {t(TranslationKey['Shipping label'])}
+        </Text>
         <Chip
           classes={{
             root: classNames.barcodeChip,
@@ -227,6 +236,7 @@ export const MergeBoxesModal = ({
 
       <div className={classNames.buttonsWrapper}>
         <Button
+          tooltipInfoContent={t(TranslationKey['Create a task to merge boxes'])}
           disabled={disabledSubmit}
           color="primary"
           variant="contained"
@@ -238,6 +248,7 @@ export const MergeBoxesModal = ({
           {t(TranslationKey.Merge)}
         </Button>
         <Button
+          tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
           disabled={requestStatus === loadingStatuses.isLoading}
           color="primary"
           variant="contained"

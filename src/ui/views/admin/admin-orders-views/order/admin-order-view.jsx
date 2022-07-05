@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
+import {withStyles} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -15,11 +16,12 @@ import {OrderContent} from '@components/screens/orders-view/order-content'
 import {t} from '@utils/translations'
 
 import {AdminOrderViewModel} from './admin-order-view.model'
+import {styles} from './admin-order-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_ORDERS
 
 @observer
-export class AdminOrderView extends Component {
+export class AdminOrderViewRaw extends Component {
   viewModel = new AdminOrderViewModel({
     history: this.props.history,
   })
@@ -29,8 +31,11 @@ export class AdminOrderView extends Component {
   }
 
   render() {
+    const {classes: classNames} = this.props
     const {orderBoxes, drawerOpen, order, onTriggerDrawerOpen, history} = this.viewModel
-
+    const goBack = () => {
+      history.goBack()
+    }
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
@@ -42,7 +47,11 @@ export class AdminOrderView extends Component {
             lastCrumbAdditionalText={` № ${order?.id}`}
           >
             <MainContent>
-              <Typography variant="h3">{t(TranslationKey.Order)}</Typography>
+              <div className={classNames.backButtonWrapper}>
+                <Button className={classNames.backButton} onClick={goBack}>
+                  {t(TranslationKey.Back)}
+                </Button>
+              </div>
               {order ? <OrderContent order={order} boxes={orderBoxes} history={history} /> : null}
             </MainContent>
           </Appbar>
@@ -51,3 +60,5 @@ export class AdminOrderView extends Component {
     )
   }
 }
+
+export const AdminOrderView = withStyles(styles)(AdminOrderViewRaw)

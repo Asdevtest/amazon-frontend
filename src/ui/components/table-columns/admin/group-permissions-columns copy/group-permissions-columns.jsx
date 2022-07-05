@@ -76,7 +76,7 @@ export const adminGroupPermissionsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 130,
+    width: 150,
     type: 'date',
   },
 ]

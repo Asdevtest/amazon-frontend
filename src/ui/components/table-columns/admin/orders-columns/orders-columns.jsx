@@ -22,7 +22,7 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 100,
+    width: 120,
     type: 'date',
   },
 
@@ -32,7 +32,7 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 130,
+    width: 150,
     type: 'date',
   },
 
@@ -41,7 +41,7 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 60,
+    width: 75,
   },
 
   {
@@ -77,7 +77,7 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
-    width: 120,
+    width: 150,
   },
 
   {
@@ -125,7 +125,7 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey['Pay more']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pay more'])} />,
 
-    width: 120,
+    width: 140,
     type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
@@ -135,7 +135,7 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
-    width: 120,
+    width: 150,
     type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
@@ -145,7 +145,7 @@ export const adminOrdersViewColumns = () => [
     headerName: t(TranslationKey['Gross weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Gross weight'])} />,
 
-    width: 140,
+    width: 160,
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
   },
   {

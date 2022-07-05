@@ -6,7 +6,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   warningDialogPadding: {
-    padding: '0',
+    padding: '40px 30px',
     '&:first-child': {
       padding: '0',
     },

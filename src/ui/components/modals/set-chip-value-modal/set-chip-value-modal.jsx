@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Box, Container, Divider, Typography} from '@material-ui/core'
+import {Box, Container, Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -20,16 +20,12 @@ export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue}) 
     <Container disableGutters>
       <Typography className={classNames.modalTitle}>{title}</Typography>
 
-      <Divider className={classNames.divider} />
-
       <Field
         containerClasses={classNames.field}
         inputProps={{maxLength: 255}}
         value={newValue}
         onChange={e => setNewValue(e.target.value)}
       />
-
-      <Divider className={classNames.divider} />
 
       <Box className={classNames.saveBox}>
         <Button disabled={sourceValue === newValue} className={classNames.saveBtn} onClick={() => onSubmit(newValue)}>

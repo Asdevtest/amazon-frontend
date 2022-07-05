@@ -290,6 +290,9 @@ class InlineResponse200 {
             if (data.hasOwnProperty('avgReviews')) {
                 obj['avgReviews'] = ApiClient.convertToType(data['avgReviews'], 'String');
             }
+            if (data.hasOwnProperty('fourMonthesStock')) {
+                obj['fourMonthesStock'] = ApiClient.convertToType(data['fourMonthesStock'], 'Number');
+            }
         }
         return obj;
     }
@@ -769,6 +772,12 @@ InlineResponse200.prototype['avgPrice'] = undefined;
  * @member {String} avgReviews
  */
 InlineResponse200.prototype['avgReviews'] = undefined;
+
+/**
+ * Каков должен быть сток за 4 месяца
+ * @member {Number} fourMonthesStock
+ */
+InlineResponse200.prototype['fourMonthesStock'] = undefined;
 
 
 

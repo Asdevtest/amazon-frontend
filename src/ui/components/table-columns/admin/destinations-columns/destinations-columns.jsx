@@ -34,7 +34,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey['ZIP code']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ZIP code'])} />,
 
-    width: 90,
+    width: 100,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 

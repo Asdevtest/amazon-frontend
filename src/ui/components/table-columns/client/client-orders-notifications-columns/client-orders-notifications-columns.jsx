@@ -21,7 +21,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
 
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     headerName: t(TranslationKey.Created),
-    width: 100,
+    width: 120,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },
@@ -30,7 +30,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'priceChanged',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pay more'])} />,
     headerName: t(TranslationKey['Pay more']),
-    width: 120,
+    width: 140,
     renderCell: params => (
       <MultilineTextCell
         text={(params.row.originalData.totalPriceChanged - params.row.originalData.totalPrice).toFixed(2)}
@@ -105,7 +105,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey['Planned cost']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Planned cost'])} />,
 
-    width: 160,
+    width: 190,
     type: 'number',
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
@@ -125,7 +125,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey['Cost of purchase per piece.']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of purchase per piece.'])} />,
 
-    width: 180,
+    width: 230,
     type: 'number',
     renderCell: params => (
       <MultilineTextCell

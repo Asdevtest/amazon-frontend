@@ -96,6 +96,9 @@ class InlineResponse20017 {
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1RequestProposalsCreatedBy.constructFromObject(data['createdBy']);
             }
@@ -201,6 +204,12 @@ InlineResponse20017.prototype['createdAt'] = undefined;
  * @member {Date} updatedAt
  */
 InlineResponse20017.prototype['updatedAt'] = undefined;
+
+/**
+ * Название предложения
+ * @member {String} title
+ */
+InlineResponse20017.prototype['title'] = undefined;
 
 /**
  * @member {module:model/ApiV1RequestProposalsCreatedBy} createdBy

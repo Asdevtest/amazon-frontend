@@ -700,4 +700,26 @@ export const styles = createStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
   },
+
+  // showButton: {
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  // },
+
+  copyImgButton: {
+    backgroundColor: 'inherit',
+    padding: 0,
+    margin: 0,
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
+  },
+
+  fourMonthesStockWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  fourMonthesStockLabel: {},
 }))

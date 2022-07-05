@@ -7,17 +7,18 @@ import {
   ToFixedCell,
   BarcodeCell,
   ShortDateCell,
-  MultilineStatusCell,
-  ActiveBarcodeCell,
-  NoActiveBarcodeCell,
+  MultilineStatusCell, // ActiveBarcodeCell,
+  // NoActiveBarcodeCell,
   HsCodeCell,
   MultilineTextHeaderCell,
   MultilineTextCell,
+  ShowBarcodeOrHscodeCell,
+  FourMonthesStockCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
-export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
+export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMonthesStockHandlers) => [
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
@@ -33,7 +34,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 120,
+    width: 135,
   },
 
   {
@@ -42,7 +43,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    width: 110,
   },
 
   {
@@ -51,7 +52,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={'In stock'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    width: 110,
   },
 
   {
@@ -60,7 +61,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={'Amazon'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 110,
+    width: 120,
   },
 
   {
@@ -69,7 +70,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 100,
+    width: 110,
   },
 
   {
@@ -86,7 +87,18 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     headerName: t(TranslationKey['Stock sum']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 100,
+    width: 110,
+  },
+
+  {
+    field: 'fourMonthesStock',
+    headerName: t(TranslationKey['Recommendation for additional purchases']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommendation for additional purchases'])} />,
+    renderCell: params => (
+      <FourMonthesStockCell handlers={fourMonthesStockHandlers} params={params} value={params.value} />
+    ),
+
+    width: 200,
   },
 
   {
@@ -105,7 +117,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
 
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
-    width: 80,
+    width: 120,
     type: 'number',
     headerAlign: 'center',
   },
@@ -116,7 +128,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Margin)} />,
 
     renderCell: params => <ToFixedCell value={params.value} fix={2} />,
-    width: 80,
+    width: 100,
     type: 'number',
     headerAlign: 'center',
   },
@@ -160,8 +172,9 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
     renderCell: params =>
       params.row.originalData.archive ? (
-        <ActiveBarcodeCell barCode={params.row.originalData.barCode} />
+        <ShowBarcodeOrHscodeCell barCode={params.row.originalData.barCode} handlers={barCodeHandlers} />
       ) : (
+        // <ActiveBarcodeCell barCode={params.row.originalData.barCode} handlers={barCodeHandlers} />
         <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />
       ),
     minWidth: 150,
@@ -176,12 +189,14 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
 
     renderCell: params =>
       params.row.originalData.archive ? (
-        <NoActiveBarcodeCell barCode={params.row.originalData.hsCode} />
+        <ShowBarcodeOrHscodeCell hsCode={params.row.originalData.hsCode} handlers={barCodeHandlers} />
       ) : (
+        // <NoActiveBarcodeCell barCode={params.row.originalData.hsCode} />
         <HsCodeCell product={params.row.originalData} handlers={hsCodeHandlers} />
       ),
     minWidth: 150,
     headerAlign: 'center',
+    type: 'actions',
   },
 
   {

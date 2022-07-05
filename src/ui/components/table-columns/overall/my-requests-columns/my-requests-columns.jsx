@@ -21,7 +21,7 @@ export const myRequestsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <ShortDateCell params={params} />,
-    width: 127,
+    width: 140,
     type: 'date',
   },
 
@@ -31,7 +31,7 @@ export const myRequestsViewColumns = () => [
     renderHeader: () => <TextHeaderCell text={t(TranslationKey.Status)} />,
 
     renderCell: params => <MultilineRequestStatusCell status={params.value} />,
-    width: 220,
+    width: 200,
   },
 
   {
@@ -69,7 +69,7 @@ export const myRequestsViewColumns = () => [
     renderCell: params => (
       <MultilineTextCell text={`${params.value} / ${params.row.originalData.maxAmountOfProposals} `} />
     ),
-    width: 150,
+    width: 160,
   },
 
   {
@@ -78,7 +78,7 @@ export const myRequestsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Awaiting)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
+    width: 130,
   },
 
   {
@@ -96,7 +96,7 @@ export const myRequestsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['On review'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
+    width: 127,
   },
 
   {

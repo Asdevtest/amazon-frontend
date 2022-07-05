@@ -121,6 +121,9 @@ export class ClientReadyBoxesViewRaw extends Component {
               <div className={classNames.btnsWrapper}>
                 <Button
                   disabled={!selectedBoxes.length}
+                  tooltipInfoContent={t(
+                    TranslationKey['Removes the box for further addition to the batch, returns to My Warehouse'],
+                  )}
                   color="primary"
                   variant="contained"
                   onClick={() => onTriggerOpenModal('showConfirmModal')}

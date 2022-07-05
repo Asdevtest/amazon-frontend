@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import {Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
 import clsx from 'clsx'
@@ -6,9 +6,8 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
-import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {checkAndMakeAbsoluteUrl, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
@@ -17,8 +16,6 @@ import {useClassNames} from './table-supplier.style'
 
 export const TableSupplier = observer(({product, selectedSupplier, onClickSupplier}) => {
   const classNames = useClassNames()
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
-  const [curImages, setCurImages] = useState([])
 
   const copyValue = value => {
     navigator.clipboard.writeText(value)
@@ -39,7 +36,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
             <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
 
             <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
-            <TableCell className={classNames.alignCenter}>{t(TranslationKey.Photos)}</TableCell>
+            <TableCell className={classNames.alignCenter}>{t(TranslationKey.Files)}</TableCell>
             <TableCell className={classNames.alignRight}>{t(TranslationKey['Created by'])}</TableCell>
           </TableRow>
         </TableHead>
@@ -91,21 +88,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                 <TableCell className={[classNames.alignCenter, classNames.commentCell]}>{supplier.comment}</TableCell>
 
                 <TableCell>
-                  <Button
-                    disableElevation
-                    tooltipInfoContent={t(TranslationKey['Photos of current supplier'])}
-                    disabled={!supplier.images || supplier.images < 1}
-                    color="primary"
-                    className={classNames.button}
-                    variant="contained"
-                    onClick={e => {
-                      e.stopPropagation()
-                      setCurImages(supplier.images)
-                      setShowPhotosModal(!showPhotosModal)
-                    }}
-                  >
-                    {t(TranslationKey.Photos)}
-                  </Button>
+                  <PhotoAndFilesCarousel files={supplier.images} />
                 </TableCell>
 
                 <TableCell className={classNames.alignCenter}>
@@ -121,13 +104,6 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
             </TableRow>
           )}
         </TableBody>
-
-        <BigImagesModal
-          isAmazone
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={curImages}
-        />
       </Table>
     </TableContainer>
   )

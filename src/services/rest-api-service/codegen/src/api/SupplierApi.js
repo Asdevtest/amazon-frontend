@@ -15,8 +15,8 @@
 import ApiClient from "../ApiClient";
 import ApiV1AdminsGetProductsByStatusSuppliers from '../model/ApiV1AdminsGetProductsByStatusSuppliers';
 import BadRequestError from '../model/BadRequestError';
-import InlineObject75 from '../model/InlineObject75';
-import InlineObject76 from '../model/InlineObject76';
+import InlineObject77 from '../model/InlineObject77';
+import InlineObject78 from '../model/InlineObject78';
 import InlineResponse2019 from '../model/InlineResponse2019';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -202,7 +202,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject76} opts.body 
+     * @param {module:model/InlineObject78} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1SuppliersGuidPatchWithHttpInfo(guid, opts) {
@@ -241,7 +241,7 @@ export default class SupplierApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject76} opts.body 
+     * @param {module:model/InlineObject78} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1SuppliersGuidPatch(guid, opts) {
@@ -257,7 +257,7 @@ export default class SupplierApi {
      * ## Добавить нового поставщика.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject75} opts.body 
+     * @param {module:model/InlineObject77} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2019} and HTTP response
      */
     apiV1SuppliersPostWithHttpInfo(opts) {
@@ -290,7 +290,7 @@ export default class SupplierApi {
      * ## Добавить нового поставщика.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject75} opts.body 
+     * @param {module:model/InlineObject77} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2019}
      */
     apiV1SuppliersPost(opts) {

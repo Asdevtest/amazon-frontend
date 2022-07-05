@@ -20,12 +20,14 @@ export const useClassNames = makeStyles(() => ({
   tableWrapper: {
     padding: '16px',
   },
+  container: {
+    marginBottom: '24px',
+  },
   tableText: {
     color: 'rgba(61, 81, 112, 1)',
     fontSize: '18px',
     fontWeight: 500,
     lineHeight: '28px',
-    marginBottom: '24px',
   },
   noBoxesText: {
     color: 'rgba(61, 81, 112, 1)',
@@ -39,6 +41,8 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
+    marginTop: '40px',
+    marginRight: '20px',
   },
 
   goBackBtn: {
@@ -103,5 +107,16 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     lineHeight: '19px',
     color: '#001029',
+  },
+
+  label: {
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    color: '#001029',
+  },
+
+  field: {
+    margin: 0,
   },
 }))

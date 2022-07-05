@@ -38,5 +38,6 @@ export const styles = createStyles(theme => ({
   addUserButton: {
     width: '200px',
     height: '40px',
+    display: 'flex',
   },
 }))

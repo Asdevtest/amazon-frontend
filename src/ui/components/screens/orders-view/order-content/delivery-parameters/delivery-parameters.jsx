@@ -16,9 +16,10 @@ import {useClassNames} from './delivery-parameters.style'
 export const DeliveryParameters = ({order}) => {
   const classNames = useClassNames()
 
-  const OrderParameter = ({label, value}) => (
+  const OrderParameter = ({label, value, tooltipText}) => (
     <Field
       oneLine
+      tooltipInfoContent={tooltipText}
       label={label}
       containerClasses={classNames.parameterTableCellWrapper}
       labelClasses={classNames.fieldLabel}
@@ -30,6 +31,7 @@ export const DeliveryParameters = ({order}) => {
     <div className={classNames.root}>
       <div className={classNames.destinationWrapper}>
         <OrderParameter
+          tooltipText={t(TranslationKey["Amazon's final warehouse in the United States"])}
           label={t(TranslationKey.Destination)}
           value={order.destination?.name || t(TranslationKey['Not chosen'])}
         />
@@ -44,12 +46,17 @@ export const DeliveryParameters = ({order}) => {
         <Field
           oneLine
           label={'Storekeeper'}
+          tooltipInfoContent={t(TranslationKey['Prep Center in China'])}
           containerClasses={classNames.parameterTableCellWrapper}
           labelClasses={classNames.fieldLabel}
           inputComponent={<UserLink blackText name={order.storekeeper?.name} userId={order.storekeeper?._id} />}
         />
 
-        <OrderParameter label={t(TranslationKey.Tariff)} value={getFullTariffTextForBoxOrOrder(order)} />
+        <OrderParameter
+          tooltipText={t(TranslationKey['Rate selected for delivery to the final Amazon warehouse in the USA'])}
+          label={t(TranslationKey.Tariff)}
+          value={getFullTariffTextForBoxOrOrder(order)}
+        />
 
         <OrderParameter
           label={t(TranslationKey['CLS (batch closing date)'])}
@@ -70,6 +77,9 @@ export const DeliveryParameters = ({order}) => {
         <Field
           oneLine
           label={'Buyer'}
+          tooltipInfoContent={t(
+            TranslationKey['Buyer with whom the order is being processed / Buyer assigned to the order'],
+          )}
           containerClasses={classNames.parameterTableCellWrapper}
           labelClasses={classNames.fieldLabel}
           inputComponent={<UserLink blackText name={order.buyer?.name} userId={order.buyer?._id} />}

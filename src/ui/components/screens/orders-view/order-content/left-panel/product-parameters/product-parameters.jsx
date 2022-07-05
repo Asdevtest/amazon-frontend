@@ -34,7 +34,7 @@ export const ProductParameters = ({order, collapsed}) => {
   )
 
   return (
-    <div>
+    <div className={classNames.container}>
       <OrderParameter label={t(TranslationKey['Purchase price'])} value={toFixed(order.product.minpurchase, 2)} />
       <OrderParameter label={t(TranslationKey['Quantity (pcs.)'])} value={order.amount} />
       <OrderParameter

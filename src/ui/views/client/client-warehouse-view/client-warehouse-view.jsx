@@ -131,6 +131,7 @@ export class ClientWarehouseViewRaw extends Component {
               <div className={classNames.boxesFiltersWrapper}>
                 <Button
                   disabled={!currentStorekeeper?._id}
+                  tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
                   className={clsx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
                   variant="text"
                   color="primary"
@@ -388,6 +389,7 @@ export class ClientWarehouseViewRaw extends Component {
       <React.Fragment>
         <Button
           disableElevation
+          tooltipInfoContent={t(TranslationKey['Form for requesting the shipment of boxes in a batch'])}
           tooltipAttentionContent={isNoDestinationBoxSelected && t(TranslationKey['Selected box with no destination'])}
           disabled={!selectedBoxes.length || isNoDestinationBoxSelected}
           color="primary"
@@ -399,6 +401,7 @@ export class ClientWarehouseViewRaw extends Component {
 
         <Button
           disableElevation
+          tooltipInfoContent={t(TranslationKey['Form for merging several boxes'])}
           disabled={selectedBoxes.length <= 1 || isMasterBoxSelected}
           color="primary"
           variant="contained"
@@ -410,6 +413,7 @@ export class ClientWarehouseViewRaw extends Component {
         <Button
           disableElevation
           disabled={selectedBoxes.length !== 1 || isOneItemInBox}
+          tooltipInfoContent={t(TranslationKey['Form for distributing to multiple boxes'])}
           color="primary"
           variant="contained"
           onClick={onClickSplitBtn}
@@ -418,6 +422,7 @@ export class ClientWarehouseViewRaw extends Component {
         </Button>
         <Button
           disableElevation
+          tooltipInfoContent={t(TranslationKey['Form for changing the box data'])}
           disabled={selectedBoxes.length !== 1}
           color="primary"
           variant="contained"

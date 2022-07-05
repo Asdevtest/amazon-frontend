@@ -43,6 +43,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
 
       <div className={classNames.form}>
         <Field
+          tooltipInfoContent={t(TranslationKey['Enter store name'])}
           className={classNames.descriptionField}
           label={t(TranslationKey.Title) + '*'}
           value={formFields.name}
@@ -51,6 +52,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
         />
 
         <Field
+          tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
           className={classNames.descriptionField}
           placeholder={t(TranslationKey.Link)}
           label={t(TranslationKey['Warehouse report']) + '*'}
@@ -59,6 +61,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
         />
 
         <Field
+          tooltipInfoContent={t(TranslationKey['Insert the link to the sellerboard report'])}
           className={classNames.descriptionField}
           label={t(TranslationKey['Dashboard by goods/days']) + '*'}
           placeholder={t(TranslationKey.Link)}
@@ -70,6 +73,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
       <div className={classNames.buttonsWrapper}>
         <Button
           disableElevation
+          tooltipInfoContent={t(TranslationKey['Create/edit a store based on the data you entered'])}
           disabled={disableSubmitBtn}
           className={classNames.button}
           color="primary"
@@ -81,6 +85,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
 
         <Button
           disableElevation
+          tooltipInfoContent={t(TranslationKey['Closes the store creation/editing window without saving'])}
           className={[classNames.button, classNames.cancelBtn]}
           color="text"
           variant="contained"

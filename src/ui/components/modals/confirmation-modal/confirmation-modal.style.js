@@ -16,33 +16,33 @@ export const useClassNames = makeStyles(() => ({
   },
 
   modalMessageWrapper: {
-    width: '445px',
+    width: '485px',
     minHeight: '168px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '20px',
+    padding: '0 28px',
+    // gap: '20px',
   },
 
   warningModalMessageWrapper: {
     background: '#fff',
     borderRadius: '10px 10px',
-    padding: '10px',
+    // padding: '10px',
   },
 
   modalMessage: {
-    maxWidth: '350px',
+    // maxWidth: '350px',
     textAlign: 'center',
   },
 
   warningModalMessage: {
-    margin: '0 10px',
-
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
     textAlign: 'center',
+    margin: 0,
   },
 
   modalMessageBtn: {
@@ -51,7 +51,7 @@ export const useClassNames = makeStyles(() => ({
   buttonsWrapper: {
     width: '100%',
     display: 'flex',
-    gap: '10px',
+    gap: '30px',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -59,16 +59,10 @@ export const useClassNames = makeStyles(() => ({
   warningButtonsWrapper: {
     borderRadius: '0 0 10px 10px',
     background: '#fff',
-
-    height: '100px',
-  },
-
-  cancelBtn: {
-    marginLeft: '10px',
+    marginTop: '22px',
   },
 
   titleWrapper: {
-    height: '72px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -77,6 +71,7 @@ export const useClassNames = makeStyles(() => ({
   title: {
     width: '350px',
     textAlign: 'center',
+    marginBottom: '11px',
   },
 
   warningTitle: {
@@ -86,14 +81,21 @@ export const useClassNames = makeStyles(() => ({
     animation: 'animate_gradient 1.5s ease infinite',
 
     fontWeight: '600',
-    fontSize: '24px',
-    lineHeight: '28px',
+    fontSize: '18px',
+    lineHeight: '140%',
     textAlign: 'center',
     color: '#354256',
     verticalAlign: 'middle',
   },
 
   button: {
-    height: '36.5px',
+    height: '40px',
+    width: '98px',
+  },
+
+  cancelButton: {
+    height: '40px',
+    width: '98px',
+    color: '#001029',
   },
 }))
