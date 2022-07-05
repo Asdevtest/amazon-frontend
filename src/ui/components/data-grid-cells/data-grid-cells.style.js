@@ -714,4 +714,12 @@ export const styles = createStyles(() => ({
       backgroundColor: 'inherit',
     },
   },
+
+  fourMonthesStockWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  fourMonthesStockLabel: {},
 }))

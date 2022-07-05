@@ -13,11 +13,12 @@ import {
   MultilineTextHeaderCell,
   MultilineTextCell,
   ShowBarcodeOrHscodeCell,
+  FourMonthesStockCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
-export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
+export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMonthesStockHandlers) => [
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
@@ -87,6 +88,17 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 110,
+  },
+
+  {
+    field: 'fourMonthesStock',
+    headerName: t(TranslationKey['Recommendation for additional purchases']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommendation for additional purchases'])} />,
+    renderCell: params => (
+      <FourMonthesStockCell handlers={fourMonthesStockHandlers} params={params} value={params.value} />
+    ),
+
+    width: 200,
   },
 
   {

@@ -57,5 +57,7 @@ Name | Type | Description | Notes
 **avgBSR** | **String** | Средний BSR | [optional] 
 **avgPrice** | **String** | Средняя цена | [optional] 
 **avgReviews** | **String** | Средний отзывы | [optional] 
+**fourMonthesStock** | **Number** | Поле для калькуляции дозакупок | [optional] 
+**suppliersIds** | **[String]** | GUIDы поставщиков продукта | [optional] 
 
 

@@ -952,7 +952,8 @@ export default class ClientApi {
      * # Получить список товаров данного клиента используя фильтр
      * ## Получить список товаров данного клиента используя фильтр.   Выдача только продуктов которые не были оплачены paidAt = null.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.filters Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.  без или: /products?filters=[amazonTitle][$contains]=drive
+     * @param {String} opts.filters                Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /products?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+     * @param {String} opts.shopId ID магазина для фильтрации по нему
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20010>} and HTTP response
      */
@@ -963,7 +964,8 @@ export default class ClientApi {
       let pathParams = {
       };
       let queryParams = {
-        'filters': opts['filters']
+        'filters': opts['filters'],
+        'shopId': opts['shopId']
       };
       let headerParams = {
         'Accept-Encoding': opts['Accept_Encoding']
@@ -986,7 +988,8 @@ export default class ClientApi {
      * # Получить список товаров данного клиента используя фильтр
      * ## Получить список товаров данного клиента используя фильтр.   Выдача только продуктов которые не были оплачены paidAt = null.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.filters Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.  без или: /products?filters=[amazonTitle][$contains]=drive
+     * @param {String} opts.filters                Примеры: /products?filters=or[0][id][$eq]=B08F5VCNCY;or[1][amazonTitle][$contains]=drive                отдает все где ASIN = \"B08F5VCNCY\" или в amazonTitle встречается \"drive\", не чувствителен к регистру.                 без или: /products?filters=[amazonTitle][$contains]=drive                 Query параметры:                filters - фильтры по любые поля из модели продукта                shopId - ID магазина             
+     * @param {String} opts.shopId ID магазина для фильтрации по нему
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20010>}
      */

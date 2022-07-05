@@ -17,6 +17,8 @@ import BadRequestError from '../model/BadRequestError';
 import InlineObject2 from '../model/InlineObject2';
 import InlineObject49 from '../model/InlineObject49';
 import InlineObject50 from '../model/InlineObject50';
+import InlineObject51 from '../model/InlineObject51';
+import InlineObject52 from '../model/InlineObject52';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse20016 from '../model/InlineResponse20016';
 import InternalServerError from '../model/InternalServerError';
@@ -40,6 +42,62 @@ export default class ProductApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
+
+
+    /**
+     * Добавить магазины к продукту.
+     * ## Добавить магазины к продукту.   
+     * @param {String} guid GUID продукта в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject51} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1ProductsAddShopsGuidPostWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ProductsAddShopsGuidPost");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/products/add_shops/{guid}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Добавить магазины к продукту.
+     * ## Добавить магазины к продукту.   
+     * @param {String} guid GUID продукта в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject51} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1ProductsAddShopsGuidPost(guid, opts) {
+      return this.apiV1ProductsAddShopsGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
 
     /**
@@ -360,6 +418,62 @@ export default class ProductApi {
      */
     apiV1ProductsParseSellercentralGet(asin, opts) {
       return this.apiV1ProductsParseSellercentralGetWithHttpInfo(asin, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Удалить магазины из продукта.
+     * ## Удалить магазины из продукта.   
+     * @param {String} guid GUID продукта в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject52} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1ProductsRemoveShopsGuidPostWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ProductsRemoveShopsGuidPost");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/products/remove_shops/{guid}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Удалить магазины из продукта.
+     * ## Удалить магазины из продукта.   
+     * @param {String} guid GUID продукта в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject52} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1ProductsRemoveShopsGuidPost(guid, opts) {
+      return this.apiV1ProductsRemoveShopsGuidPostWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

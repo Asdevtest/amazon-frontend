@@ -22,6 +22,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SelectionSupplierModal} from '@components/modals/selection-supplier-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
+import {SetFourMonthesStockModal} from '@components/modals/set-four-monthes-stock-value-modal.js'
 import {ShowBarOrHscodeModal} from '@components/modals/show-bar-or-hs-code-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -90,6 +91,7 @@ export class ClientInventoryViewRaw extends Component {
       showAddSupplierToIdeaFromInventoryModal,
       showBarcodeOrHscodeModal,
       showInfoModal,
+      showSetFourMonthsStockValueModal,
       onSubmitBindStockGoods,
       getStockGoodsByFilters,
       onClickShowProduct,
@@ -101,6 +103,8 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerOpenModal,
       onClickBindInventoryGoodsToStockBtn,
       onClickSaveHsCode,
+      // onClickMonthStockValue,
+      onClickSaveFourMonthesStockValue,
 
       onSelectionModel,
       setDataGridState,
@@ -344,6 +348,20 @@ export class ClientInventoryViewRaw extends Component {
             sourceValue={selectedProduct?.hsCode}
             onSubmit={onClickSaveHsCode}
             onCloseModal={() => onTriggerOpenModal('showSetChipValueModal')}
+          />
+        </Modal>
+
+        <Modal
+          openModal={showSetFourMonthsStockValueModal}
+          setOpenModal={() => onTriggerOpenModal('showSetFourMonthsStockValueModal')}
+        >
+          <SetFourMonthesStockModal
+            title="Four Monthes Stock"
+            selectedProduct={selectedProduct}
+            // stockSumValue={selectedProduct?.stockSum}
+            // sourceValue={selectedProduct?.fourMonthesStock}
+            onSubmit={onClickSaveFourMonthesStockValue}
+            onCloseModal={() => onTriggerOpenModal('showSetFourMonthsStockValueModal')}
           />
         </Modal>
 

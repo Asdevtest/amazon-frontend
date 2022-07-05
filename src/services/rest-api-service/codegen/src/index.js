@@ -48,11 +48,6 @@ import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1Integr
 import ApiV1RequestProposalsCreatedBy from './model/ApiV1RequestProposalsCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1RequestProposalsCustomByRequestIdGuidDetails';
 import ApiV1RequestsCountProposalsByStatuses from './model/ApiV1RequestsCountProposalsByStatuses';
-import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
-import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
-import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails';
-import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
-import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
 import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
 import BadRequestError from './model/BadRequestError';
@@ -160,9 +155,6 @@ import InlineResponse20022 from './model/InlineResponse20022';
 import InlineResponse20023 from './model/InlineResponse20023';
 import InlineResponse20024 from './model/InlineResponse20024';
 import InlineResponse20025 from './model/InlineResponse20025';
-import InlineResponse20026 from './model/InlineResponse20026';
-import InlineResponse20027 from './model/InlineResponse20027';
-import InlineResponse20027Details from './model/InlineResponse20027Details';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
@@ -488,36 +480,6 @@ export {
      * @property {module:model/ApiV1RequestsCountProposalsByStatuses}
      */
     ApiV1RequestsCountProposalsByStatuses,
-
-    /**
-     * The ApiV1RequestsCustomDetails model constructor.
-     * @property {module:model/ApiV1RequestsCustomDetails}
-     */
-    ApiV1RequestsCustomDetails,
-
-    /**
-     * The ApiV1RequestsCustomDetailsCustom model constructor.
-     * @property {module:model/ApiV1RequestsCustomDetailsCustom}
-     */
-    ApiV1RequestsCustomDetailsCustom,
-
-    /**
-     * The ApiV1RequestsCustomGuidDetails model constructor.
-     * @property {module:model/ApiV1RequestsCustomGuidDetails}
-     */
-    ApiV1RequestsCustomGuidDetails,
-
-    /**
-     * The ApiV1RequestsCustomGuidRequest model constructor.
-     * @property {module:model/ApiV1RequestsCustomGuidRequest}
-     */
-    ApiV1RequestsCustomGuidRequest,
-
-    /**
-     * The ApiV1RequestsCustomRequest model constructor.
-     * @property {module:model/ApiV1RequestsCustomRequest}
-     */
-    ApiV1RequestsCustomRequest,
 
     /**
      * The ApiV1StorekeepersTariffWarehouses model constructor.
@@ -1160,24 +1122,6 @@ export {
      * @property {module:model/InlineResponse20025}
      */
     InlineResponse20025,
-
-    /**
-     * The InlineResponse20026 model constructor.
-     * @property {module:model/InlineResponse20026}
-     */
-    InlineResponse20026,
-
-    /**
-     * The InlineResponse20027 model constructor.
-     * @property {module:model/InlineResponse20027}
-     */
-    InlineResponse20027,
-
-    /**
-     * The InlineResponse20027Details model constructor.
-     * @property {module:model/InlineResponse20027Details}
-     */
-    InlineResponse20027Details,
 
     /**
      * The InlineResponse2002AllowedUrls model constructor.

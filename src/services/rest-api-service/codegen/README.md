@@ -246,12 +246,14 @@ Class | Method | HTTP request | Description
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsGuidPatch) | **PATCH** /api/v1/permissions/{guid} | #  Изменить permission.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsPost**](docs/PermissionsApi.md#apiV1PermissionsPost) | **POST** /api/v1/permissions/ | # Создать permission.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsSetForUserGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsSetForUserGuidPatch) | **PATCH** /api/v1/permissions/set-for-user/{guid} | #   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
+*TestSwagger.ProductApi* | [**apiV1ProductsAddShopsGuidPost**](docs/ProductApi.md#apiV1ProductsAddShopsGuidPost) | **POST** /api/v1/products/add_shops/{guid} | Добавить магазины к продукту.
 *TestSwagger.ProductApi* | [**apiV1ProductsAddSuppliersGuidPost**](docs/ProductApi.md#apiV1ProductsAddSuppliersGuidPost) | **POST** /api/v1/products/add_suppliers/{guid} | Добавить поставщиков к продукту.
 *TestSwagger.ProductApi* | [**apiV1ProductsByCreatorGuidGet**](docs/ProductApi.md#apiV1ProductsByCreatorGuidGet) | **GET** /api/v1/products/by_creator/{guid} | Получение продуктов по ID создателя
 *TestSwagger.ProductApi* | [**apiV1ProductsEditHsCodePatch**](docs/ProductApi.md#apiV1ProductsEditHsCodePatch) | **PATCH** /api/v1/products/edit_hsCode | # Редактирование поля hsCode в продукте.
 *TestSwagger.ProductApi* | [**apiV1ProductsGuidGet**](docs/ProductApi.md#apiV1ProductsGuidGet) | **GET** /api/v1/products/{guid} | # Получить товар оп id.
 *TestSwagger.ProductApi* | [**apiV1ProductsParseAmazonIdGet**](docs/ProductApi.md#apiV1ProductsParseAmazonIdGet) | **GET** /api/v1/products/parse_amazon/{id} | Получить данные о продукте с сайта Амазон по id(asin)
 *TestSwagger.ProductApi* | [**apiV1ProductsParseSellercentralGet**](docs/ProductApi.md#apiV1ProductsParseSellercentralGet) | **GET** /api/v1/products/parse_sellercentral | Получить данные о продукте с SellerCentral
+*TestSwagger.ProductApi* | [**apiV1ProductsRemoveShopsGuidPost**](docs/ProductApi.md#apiV1ProductsRemoveShopsGuidPost) | **POST** /api/v1/products/remove_shops/{guid} | Удалить магазины из продукта.
 *TestSwagger.ProductApi* | [**apiV1ProductsRemoveSuppliersGuidPost**](docs/ProductApi.md#apiV1ProductsRemoveSuppliersGuidPost) | **POST** /api/v1/products/remove_suppliers/{guid} | Удалить поставщиков из продукта.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsCustomByRequestIdGuidGet**](docs/RequestProposalsApi.md#apiV1RequestProposalsCustomByRequestIdGuidGet) | **GET** /api/v1/request-proposals/custom/by_request_id/{guid} | Получить список предложений по guid заявки.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsCustomGuidGet**](docs/RequestProposalsApi.md#apiV1RequestProposalsCustomGuidGet) | **GET** /api/v1/request-proposals/custom/{guid} | Получить предложение по его id.
@@ -269,10 +271,6 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidResultCorrectedPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidResultCorrectedPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_corrected | #  Отправить обратно на утверждение, после доработки.
 *TestSwagger.RequestProposalsApi* | [**apiV1RequestProposalsGuidResultToCorrectPatch**](docs/RequestProposalsApi.md#apiV1RequestProposalsGuidResultToCorrectPatch) | **PATCH** /api/v1/request-proposals/{guid}/result_to_correct | # Отправить на доработку результат работы.
 *TestSwagger.RequestsApi* | [**apiV1RequestsCalculateRequestCostGuidGet**](docs/RequestsApi.md#apiV1RequestsCalculateRequestCostGuidGet) | **GET** /api/v1/requests/calculate_request_cost/{guid} | Получить детализацию стоимости заявки
-*TestSwagger.RequestsApi* | [**apiV1RequestsCustomGet**](docs/RequestsApi.md#apiV1RequestsCustomGet) | **GET** /api/v1/requests/custom/ | Получить все уникальные заявки для исполнителя.
-*TestSwagger.RequestsApi* | [**apiV1RequestsCustomGuidGet**](docs/RequestsApi.md#apiV1RequestsCustomGuidGet) | **GET** /api/v1/requests/custom/{guid} | Получить уникальную заявку по его guid.
-*TestSwagger.RequestsApi* | [**apiV1RequestsCustomGuidPatch**](docs/RequestsApi.md#apiV1RequestsCustomGuidPatch) | **PATCH** /api/v1/requests/custom/{guid} | #  Изменить заявку.
-*TestSwagger.RequestsApi* | [**apiV1RequestsCustomPost**](docs/RequestsApi.md#apiV1RequestsCustomPost) | **POST** /api/v1/requests/custom/ | # Создать универсальную заявку.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGet**](docs/RequestsApi.md#apiV1RequestsGet) | **GET** /api/v1/requests/ | Получить список заявок
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidAbortPatch**](docs/RequestsApi.md#apiV1RequestsGuidAbortPatch) | **PATCH** /api/v1/requests/{guid}/abort | # Прервать прием предложений.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidCancelByCreatorPatch**](docs/RequestsApi.md#apiV1RequestsGuidCancelByCreatorPatch) | **PATCH** /api/v1/requests/{guid}/cancel_by_creator | # Отменить заявку создателем
@@ -371,11 +369,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1RequestProposalsCreatedBy](docs/ApiV1RequestProposalsCreatedBy.md)
  - [TestSwagger.ApiV1RequestProposalsCustomByRequestIdGuidDetails](docs/ApiV1RequestProposalsCustomByRequestIdGuidDetails.md)
  - [TestSwagger.ApiV1RequestsCountProposalsByStatuses](docs/ApiV1RequestsCountProposalsByStatuses.md)
- - [TestSwagger.ApiV1RequestsCustomDetails](docs/ApiV1RequestsCustomDetails.md)
- - [TestSwagger.ApiV1RequestsCustomDetailsCustom](docs/ApiV1RequestsCustomDetailsCustom.md)
- - [TestSwagger.ApiV1RequestsCustomGuidDetails](docs/ApiV1RequestsCustomGuidDetails.md)
- - [TestSwagger.ApiV1RequestsCustomGuidRequest](docs/ApiV1RequestsCustomGuidRequest.md)
- - [TestSwagger.ApiV1RequestsCustomRequest](docs/ApiV1RequestsCustomRequest.md)
  - [TestSwagger.ApiV1StorekeepersTariffWarehouses](docs/ApiV1StorekeepersTariffWarehouses.md)
  - [TestSwagger.ApiV1SuppliersBoxProperties](docs/ApiV1SuppliersBoxProperties.md)
  - [TestSwagger.BadRequestError](docs/BadRequestError.md)
@@ -483,9 +476,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20023](docs/InlineResponse20023.md)
  - [TestSwagger.InlineResponse20024](docs/InlineResponse20024.md)
  - [TestSwagger.InlineResponse20025](docs/InlineResponse20025.md)
- - [TestSwagger.InlineResponse20026](docs/InlineResponse20026.md)
- - [TestSwagger.InlineResponse20027](docs/InlineResponse20027.md)
- - [TestSwagger.InlineResponse20027Details](docs/InlineResponse20027Details.md)
  - [TestSwagger.InlineResponse2002AllowedUrls](docs/InlineResponse2002AllowedUrls.md)
  - [TestSwagger.InlineResponse2002PermissionGroups](docs/InlineResponse2002PermissionGroups.md)
  - [TestSwagger.InlineResponse2002Permissions](docs/InlineResponse2002Permissions.md)

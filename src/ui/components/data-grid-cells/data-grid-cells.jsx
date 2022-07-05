@@ -523,6 +523,19 @@ export const ShowBarcodeOrHscodeCell = withStyles(styles)(({classes: classNames,
   </div>
 ))
 
+export const FourMonthesStockCell = withStyles(styles)(({classes: classNames, handlers, params, value}) => (
+  <div className={classNames.fourMonthesStockWrapper}>
+    <Typography className={classNames.fourMonthesStockLabel}>{`Сумма: ${params.row.stockSum - value}`}</Typography>
+    <ChangeChipCell
+      row={params.row.originalData}
+      // value={value}
+      text={value > 0 ? 'Change Monthes Stock' : 'Set Monthes Stock'}
+      onClickChip={() => handlers.onClickFourMonthsStock(params.row.originalData)}
+      onDeleteChip={() => handlers.onDeleteFourMonthesStock(params.row.originalData)}
+    />
+  </div>
+))
+
 export const ActiveBarcodeCell = withStyles(styles)(({classes: classNames, barCode}) => (
   <React.Fragment>
     {/* <Typography className={classNames.noActivebarCode}>{barCode || '-'}</Typography> */}

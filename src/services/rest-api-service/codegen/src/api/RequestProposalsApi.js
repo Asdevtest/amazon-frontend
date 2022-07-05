@@ -15,15 +15,15 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject51 from '../model/InlineObject51';
-import InlineObject52 from '../model/InlineObject52';
 import InlineObject53 from '../model/InlineObject53';
 import InlineObject54 from '../model/InlineObject54';
 import InlineObject55 from '../model/InlineObject55';
 import InlineObject56 from '../model/InlineObject56';
 import InlineObject57 from '../model/InlineObject57';
 import InlineObject58 from '../model/InlineObject58';
-import InlineObject77 from '../model/InlineObject77';
+import InlineObject59 from '../model/InlineObject59';
+import InlineObject60 from '../model/InlineObject60';
+import InlineObject79 from '../model/InlineObject79';
 import InlineResponse20017 from '../model/InlineResponse20017';
 import InlineResponse20025 from '../model/InlineResponse20025';
 import InternalServerError from '../model/InternalServerError';
@@ -163,7 +163,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject77} opts.body 
+     * @param {module:model/InlineObject79} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsCustomGuidResultEditPatchWithHttpInfo(guid, opts) {
@@ -202,7 +202,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject77} opts.body 
+     * @param {module:model/InlineObject79} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsCustomGuidResultEditPatch(guid, opts) {
@@ -283,7 +283,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject51} opts.body 
+     * @param {module:model/InlineObject53} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidCancelBeforeDealPatchWithHttpInfo(guid, opts) {
@@ -322,7 +322,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject51} opts.body 
+     * @param {module:model/InlineObject53} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidCancelBeforeDealPatch(guid, opts) {
@@ -339,7 +339,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject57} opts.body 
+     * @param {module:model/InlineObject59} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidCancelPatchWithHttpInfo(guid, opts) {
@@ -378,7 +378,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject57} opts.body 
+     * @param {module:model/InlineObject59} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidCancelPatch(guid, opts) {
@@ -395,7 +395,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject58} opts.body 
+     * @param {module:model/InlineObject60} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatchWithHttpInfo(guid, opts) {
@@ -434,7 +434,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject58} opts.body 
+     * @param {module:model/InlineObject60} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidLinkOrUnlinkSupervisorPatch(guid, opts) {
@@ -507,7 +507,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject54} opts.body 
+     * @param {module:model/InlineObject56} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidProposalCorrectedPatchWithHttpInfo(guid, opts) {
@@ -546,7 +546,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject54} opts.body 
+     * @param {module:model/InlineObject56} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidProposalCorrectedPatch(guid, opts) {
@@ -563,7 +563,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject53} opts.body 
+     * @param {module:model/InlineObject55} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidProposalEditPatchWithHttpInfo(guid, opts) {
@@ -602,7 +602,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject53} opts.body 
+     * @param {module:model/InlineObject55} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidProposalEditPatch(guid, opts) {
@@ -619,7 +619,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject52} opts.body 
+     * @param {module:model/InlineObject54} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidProposalRejectPatchWithHttpInfo(guid, opts) {
@@ -658,7 +658,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject52} opts.body 
+     * @param {module:model/InlineObject54} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidProposalRejectPatch(guid, opts) {
@@ -787,7 +787,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject56} opts.body 
+     * @param {module:model/InlineObject58} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidResultCorrectedPatchWithHttpInfo(guid, opts) {
@@ -826,7 +826,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject56} opts.body 
+     * @param {module:model/InlineObject58} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidResultCorrectedPatch(guid, opts) {
@@ -843,7 +843,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject55} opts.body 
+     * @param {module:model/InlineObject57} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsGuidResultToCorrectPatchWithHttpInfo(guid, opts) {
@@ -882,7 +882,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject55} opts.body 
+     * @param {module:model/InlineObject57} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsGuidResultToCorrectPatch(guid, opts) {

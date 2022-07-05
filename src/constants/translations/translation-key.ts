@@ -1212,6 +1212,7 @@ export enum TranslationKey {
   'Notifications about the need to change to a new tariff' = 'Notifications about the need to change to a new tariff',
   'If you reject the tariff change, the box is returned to the stock' = 'If you reject the tariff change, the box is returned to the stock',
   'Final status, after saving will be paid for the search' = 'Final status, after saving will be paid for the search',
+  'Recommendation for additional purchases' = 'Recommendation for additional purchases',
   // '' = '',
   // '' = '',
   // '' = '',

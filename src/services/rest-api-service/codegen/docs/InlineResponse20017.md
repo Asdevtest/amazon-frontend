@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **lastModifiedById** | **String** | GUID любого, кто последний редактировал предложение. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
+**title** | **String** | Название предложения | [optional] 
 **createdBy** | [**ApiV1RequestProposalsCreatedBy**](ApiV1RequestProposalsCreatedBy.md) |  | [optional] 
 
 
