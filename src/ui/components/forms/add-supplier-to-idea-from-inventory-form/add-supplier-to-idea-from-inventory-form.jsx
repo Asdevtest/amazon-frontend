@@ -199,7 +199,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(({onSubmit, showProgr
             inputClasses={classNames.bigInput}
             containerClasses={classNames.bigInputContainer}
             // value={formFields.asin}
-            placeholder={t(TranslationKey['Important criteria and features, matrix, color, markings'])}
+            placeholder={t(TranslationKey['Important criteria and features, material, color, markings'])}
             // onChange={onChangeField('asin')}
           />
         </div>

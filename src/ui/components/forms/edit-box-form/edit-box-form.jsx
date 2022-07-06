@@ -316,7 +316,6 @@ export const EditBoxForm = observer(
                 containerClasses={classNames.field}
                 inputProps={{maxLength: 255}}
                 tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
-                tooltipAttentionContent={t(TranslationKey['When re-sticking will create a task for the prep center'])}
                 label={t(TranslationKey['FBA Shipment'])}
                 value={boxFields.fbaShipment}
                 onChange={setFormField('fbaShipment')}
@@ -325,6 +324,7 @@ export const EditBoxForm = observer(
               <Field
                 containerClasses={classNames.field}
                 tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
+                tooltipAttentionContent={t(TranslationKey['When re-sticking will create a task for the prep center'])}
                 label={t(TranslationKey['Shipping label'])}
                 inputComponent={
                   <div>

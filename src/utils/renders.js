@@ -90,7 +90,7 @@ export const renderAttentionTooltipTitle = (categoryTitle, userRole) => {
   if (checkIsClient(UserRoleCodeMap[userRole])) {
     switch (categoryTitle) {
       case t(TranslationKey['On orders']):
-        return t(TranslationKey['Notifications of required surcharges for the order'])
+        return t(TranslationKey['If the surcharge is declined, the order will be cancelled'])
       case t(TranslationKey['On boxes']):
         return t(TranslationKey['If the surcharge is declined, the box is returned to stock'])
       case t(TranslationKey['On boxes tariffs']):
