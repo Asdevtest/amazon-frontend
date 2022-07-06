@@ -140,6 +140,11 @@ class RequestProposalModelStatic {
     )
     return response
   }
+
+  getRequestProposalsForSupervisor = async (type, requestsType) => {
+    const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGet(type, requestsType)
+    return response
+  }
 }
 
 export const RequestProposalModel = new RequestProposalModelStatic()

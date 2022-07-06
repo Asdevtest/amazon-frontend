@@ -1321,7 +1321,9 @@ export enum TranslationKey {
   'Course indicated by the system' = 'Course indicated by the system',
   'Additional information about the rate' = 'Additional information about the rate',
   'The cost of providing the service' = 'The cost of providing the service',
-
+  'Vacant deals' = 'Vacant deals',
+  'Deals on review' = 'Deals on review',
+  'Performer' = 'Performer',
   // '' = '',
   // '' = '',
   // '' = '',

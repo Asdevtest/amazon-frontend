@@ -67,6 +67,7 @@ import {RequestDetailCustomView} from '@views/shared/servant-requests-detail-cus
 import {SubUsersView} from '@views/shared/sub-users-view/sub-users-view'
 import {UserProfileView} from '@views/shared/user-profile-view/user-profile-view'
 import {UsersView} from '@views/shared/users-view'
+import {VacantDealsView} from '@views/shared/vacant-deals-view'
 import {VacantRequestsView} from '@views/shared/vacant-requests-view/vacant-requests-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
 import {SupervisorFinancesViews} from '@views/supervisor/supervisor-finances-views'
@@ -611,6 +612,7 @@ export const privateRoutesConfigs = [
     permission: [UserRole.CLIENT],
     crumbNameKey: TranslationKey.Finances,
   },
+
   {
     routePath: '/supervisor/dashboard',
     component: SupervisorDashboardView,
@@ -618,6 +620,23 @@ export const privateRoutesConfigs = [
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey.Dashboard,
   },
+
+  {
+    routePath: '/supervisor/freelance/vacant-deals',
+    component: VacantDealsView,
+    exact: false,
+    permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey['Vacant deals'],
+  },
+
+  {
+    routePath: '/supervisor/freelance/deals-on-review',
+    component: SupervisorDashboardView,
+    exact: false,
+    permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey['Deals on review'],
+  },
+
   {
     routePath: '/supervisor/products',
     component: SupervisorProductsView,

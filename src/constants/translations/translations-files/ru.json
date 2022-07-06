@@ -1322,5 +1322,8 @@
   "Shipping cost per kilogram to the region": "Стоимость доставки за килограмм до региона",
   "Course indicated by the system": "Курс указанный системой",
   "Additional information about the rate": "Дополнительная информация по тарифу",
-  "The cost of providing the service": "Стоимость оказания услуги"
+  "The cost of providing the service": "Стоимость оказания услуги",
+  "Vacant deals": "Вакантные сделки",
+  "Deals on review": "Сделки на проверке",
+  "Performer": "Исполнитель"
 }
