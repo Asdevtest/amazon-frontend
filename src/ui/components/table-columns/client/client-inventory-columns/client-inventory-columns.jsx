@@ -99,6 +99,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     ),
 
     width: 200,
+    // type: 'number',
+    headerAlign: 'center',
   },
 
   {

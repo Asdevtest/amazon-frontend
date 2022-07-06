@@ -716,10 +716,16 @@ export const styles = createStyles(() => ({
   },
 
   fourMonthesStockWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 
-  fourMonthesStockLabel: {},
+  fourMonthesStockLabel: {
+    fontSize: '14px',
+    lineHeight: '16px',
+    marginBottom: '5px',
+  },
 }))

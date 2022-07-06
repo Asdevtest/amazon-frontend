@@ -113,6 +113,8 @@ export class ClientProductViewModel {
     isWarning: false,
     title: '',
     message: '',
+    successBtnText: '',
+    cancelBtnText: '',
     onClickOkBtn: () => this.onSaveProductData(),
   }
 
@@ -239,8 +241,10 @@ export class ClientProductViewModel {
       case 'delete':
         this.confirmModalSettings = {
           isWarning: true,
-          title: t(TranslationKey['Remove from the Inventory']),
-          message: t(TranslationKey['After confirmation, the card will be moved to the Archive. Confirm?']),
+          title: t(TranslationKey['Delete a card']),
+          message: t(TranslationKey['After confirmation, the card will be moved to the archive. Delete?']),
+          successBtnText: t(TranslationKey.Delete),
+          cancelBtnText: t(TranslationKey.Cancel),
           onClickOkBtn: () => this.onDeleteProduct(),
         }
 
@@ -253,6 +257,8 @@ export class ClientProductViewModel {
           isWarning: false,
           title: t(TranslationKey['Return to Inventory']),
           message: t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?']),
+          successBtnText: t(TranslationKey.Yes),
+          cancelBtnText: t(TranslationKey.Cancel),
           onClickOkBtn: () => this.onRestoreProduct(),
         }
 
@@ -407,6 +413,8 @@ export class ClientProductViewModel {
           this.confirmModalSettings = {
             isWarning: true,
             message: t(TranslationKey['Are you sure you want to remove the supplier?']),
+            successBtnText: t(TranslationKey.Yes),
+            cancelBtnText: t(TranslationKey.Cancel),
             onClickOkBtn: () => this.onRemoveSupplier(),
           }
         })

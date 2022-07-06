@@ -1214,5 +1214,11 @@
   "Notifications about the need to change to a new tariff": "Notifications about the need to change to a new tariff",
   "If you reject the tariff change, the box is returned to the stock": "If you reject the tariff change, the box is returned to the stock",
   "Final status, after saving will be paid for the search": "Final status, after saving will be paid for the search",
-  "Recommendation for additional purchases": "Recommendation for additional purchases"
+  "Recommendation for additional purchases": "Recommendation for additional purchases",
+  "The number entered must not exceed the \" Stock sum\" field": "The number entered must not exceed the \" Stock sum\" field",
+  "Four months of stock": "Four months of stock",
+  "Repurchase": "Repurchase",
+  "Delete a card": "Delete a card",
+  "After confirmation, the card will be moved to the archive. Delete?": "After confirmation, the card will be moved to the archive. Delete?",
+  "Set": "Set"
 }

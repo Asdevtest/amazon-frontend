@@ -121,8 +121,8 @@ export class ClientProductView extends Component {
           setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
           title={confirmModalSettings.title}
           message={confirmModalSettings.message}
-          successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.Cancel)}
+          successBtnText={confirmModalSettings.successBtnText}
+          cancelBtnText={confirmModalSettings.cancelBtnText}
           onClickSuccessBtn={() => {
             confirmModalSettings.onClickOkBtn()
             onTriggerOpenModal('showConfirmModal')
