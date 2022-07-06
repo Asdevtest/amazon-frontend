@@ -151,6 +151,8 @@ export class ResearcherProductViewModel {
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
 
+  supplierModalReadOnly = false
+
   startParse = false
 
   drawerOpen = false
@@ -285,10 +287,21 @@ export class ResearcherProductViewModel {
       case 'add':
         runInAction(() => {
           this.selectedSupplier = undefined
+          this.supplierModalReadOnly = false
         })
+
+        this.onTriggerAddOrEditSupplierModal()
+        break
+      case 'view':
+        this.supplierModalReadOnly = true
+
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'edit':
+        runInAction(() => {
+          this.supplierModalReadOnly = false
+        })
+
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'accept':

@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
+
 import React, {useState} from 'react'
 
 import {Box, Container, Grid, IconButton, Typography, Link, NativeSelect} from '@material-ui/core'
@@ -360,7 +363,7 @@ export const FieldsAndSuppliers = observer(
             </div>
           )}
         </Box>
-        <div className={classNames.suppliersWrapper}>
+        {/* <div className={classNames.suppliersWrapper}>
           <Typography variant="h6" className={classNames.supplierTitle}>
             {t(TranslationKey['List of suppliers'])}
           </Typography>
@@ -390,6 +393,18 @@ export const FieldsAndSuppliers = observer(
 
                 {selectedSupplier ? (
                   <>
+                    <div className={classNames.supplierButtonWrapper}>
+                      <Button
+                        tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                        className={classNames.iconBtn}
+                        onClick={() => onClickSupplierBtns('view')}
+                      >
+                        <VisibilityOutlinedIcon />
+                      </Button>
+                      <Typography className={classNames.supplierButtonText}>
+                        {t(TranslationKey['Open the parameters supplier'])}
+                      </Typography>
+                    </div>
                     <div className={classNames.supplierButtonWrapper}>
                       <Button
                         tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
@@ -444,8 +459,29 @@ export const FieldsAndSuppliers = observer(
                 ) : undefined}
               </Container>
             </div>
-          ) : undefined}
-        </div>
+          ) : (
+            <div className={classNames.supplierActionsWrapper}>
+              <Container disableGutters className={classNames.supplierContainer}>
+                {selectedSupplier ? (
+                  <>
+                    <div className={classNames.supplierButtonWrapper}>
+                      <Button
+                        tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                        className={classNames.iconBtn}
+                        onClick={() => onClickSupplierBtns('view')}
+                      >
+                        <VisibilityOutlinedIcon />
+                      </Button>
+                      <Typography className={classNames.supplierButtonText}>
+                        {t(TranslationKey['Open the parameters supplier'])}
+                      </Typography>
+                    </div>
+                  </>
+                ) : undefined}
+              </Container>
+            </div>
+          )}
+        </div> */}
       </Grid>
     )
   },

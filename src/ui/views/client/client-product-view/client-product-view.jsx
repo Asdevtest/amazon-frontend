@@ -32,6 +32,7 @@ export class ClientProductView extends Component {
 
   render() {
     const {
+      supplierModalReadOnly,
       actionStatus,
       volumeWeightCoefficient,
       yuanToDollarRate,
@@ -93,6 +94,7 @@ export class ClientProductView extends Component {
 
         <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
           <AddOrEditSupplierModalContent
+            onlyRead={supplierModalReadOnly}
             requestStatus={requestStatus}
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}

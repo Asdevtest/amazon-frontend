@@ -235,7 +235,11 @@ export const useClassNames = makeStyles(() => ({
   },
 
   suppliersWrapper: {
-    alignSelf: 'flex-end',
+    // justifySelf: 'flex-end',
+    // marginBottom: 'auto'
+    // display: 'flex',
+    // height: '100%',
+    // alignSelf: 'flex-end'
   },
 
   editButton: {
@@ -262,5 +266,12 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '14px',
     fontWeight: '400',
     color: '#656565',
+  },
+
+  mainWrapper: {
+    // width: '100%',
+    // display: 'flex',
+    // flexDirection: 'column',
+    // minHeight: 500
   },
 }))

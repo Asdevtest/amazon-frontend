@@ -1,4 +1,3 @@
-import {transformAndValidate} from 'class-transformer-validator'
 import {action, makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -6,7 +5,6 @@ import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BuyerModel} from '@models/buyer-model'
-import {BuyerUpdateProductContract} from '@models/buyer-model/buyer-model.contracts'
 import {ProductModel} from '@models/product-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
@@ -97,6 +95,8 @@ export class BuyerProductViewModel {
   curUpdateProductData = {}
   warningModalTitle = ''
 
+  supplierModalReadOnly = false
+
   drawerOpen = false
   selectedSupplier = undefined
   showAddOrEditSupplierModal = false
@@ -185,10 +185,21 @@ export class BuyerProductViewModel {
       case 'add':
         runInAction(() => {
           this.selectedSupplier = undefined
+          this.supplierModalReadOnly = false
         })
+
+        this.onTriggerAddOrEditSupplierModal()
+        break
+      case 'view':
+        this.supplierModalReadOnly = true
+
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'edit':
+        runInAction(() => {
+          this.supplierModalReadOnly = false
+        })
+
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'accept':
@@ -267,8 +278,6 @@ export class BuyerProductViewModel {
           }
         },
       )
-
-      await transformAndValidate(BuyerUpdateProductContract, this.curUpdateProductData)
 
       if (
         (this.curUpdateProductData.currentSupplierId &&

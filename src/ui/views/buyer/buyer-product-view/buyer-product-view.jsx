@@ -31,6 +31,7 @@ export class BuyerProductView extends Component {
 
   render() {
     const {
+      supplierModalReadOnly,
       volumeWeightCoefficient,
       yuanToDollarRate,
       userInfo,
@@ -83,6 +84,7 @@ export class BuyerProductView extends Component {
         </Main>
         <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
           <AddOrEditSupplierModalContent
+            onlyRead={supplierModalReadOnly}
             requestStatus={requestStatus}
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}

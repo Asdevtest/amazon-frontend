@@ -109,6 +109,8 @@ export class ClientProductViewModel {
   showConfirmModal = false
   showAddOrEditSupplierModal = false
 
+  supplierModalReadOnly = false
+
   confirmModalSettings = {
     isWarning: false,
     title: '',
@@ -390,10 +392,21 @@ export class ClientProductViewModel {
       case 'add':
         runInAction(() => {
           this.selectedSupplier = undefined
+          this.supplierModalReadOnly = false
         })
+
+        this.onTriggerAddOrEditSupplierModal()
+        break
+      case 'view':
+        this.supplierModalReadOnly = true
+
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'edit':
+        runInAction(() => {
+          this.supplierModalReadOnly = false
+        })
+
         this.onTriggerAddOrEditSupplierModal()
         break
       case 'accept':

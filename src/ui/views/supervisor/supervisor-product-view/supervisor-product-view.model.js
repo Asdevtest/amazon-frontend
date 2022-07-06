@@ -125,6 +125,12 @@ export class SupervisorProductViewModel {
   productId = undefined
   productBase = undefined
 
+  yuanToDollarRate = undefined
+  volumeWeightCoefficient = undefined
+
+  supplierModalReadOnly = false
+
+  showAddOrEditSupplierModal = false
   curUpdateProductData = {}
   confirmMessage = ''
   warningModalTitle = ''
@@ -348,15 +354,19 @@ export class SupervisorProductViewModel {
   }
 
   async onClickSupplierButtons(actionType) {
-    if (actionType === 'add') {
-      runInAction(() => {
-        this.selectedSupplier = undefined
-      })
-      this.onTriggerAddOrEditSupplierModal()
-    } else if (actionType === 'edit') {
-      this.onTriggerAddOrEditSupplierModal()
-    } else {
-      this.onRemoveSupplier()
+    switch (actionType) {
+      case 'view':
+        this.supplierModalReadOnly = true
+
+        this.onTriggerAddOrEditSupplierModal()
+        break
+      case 'edit':
+        runInAction(() => {
+          this.supplierModalReadOnly = false
+        })
+
+        this.onTriggerAddOrEditSupplierModal()
+        break
     }
   }
 
@@ -385,11 +395,21 @@ export class SupervisorProductViewModel {
     }
   }
 
-  onTriggerAddOrEditSupplierModal() {
-    if (this.showAddOrEditSupplierModal) {
-      this.selectedSupplier = undefined
+  async onTriggerAddOrEditSupplierModal() {
+    try {
+      if (this.showAddOrEditSupplierModal) {
+        this.selectedSupplier = undefined
+      } else {
+        const result = await UserModel.getPlatformSettings()
+
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      }
+
+      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+    } catch (error) {
+      console.log(error)
     }
-    this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
   }
 
   onTriggerDrawerOpen() {

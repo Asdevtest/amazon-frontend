@@ -1226,5 +1226,9 @@
   "Edit a supplier": "Редактировать поставщика",
   "Delete supplier": "Удалить поставщика",
   "Close edit": "Закрыть редактирование",
-  "Accept": "Принять"
+  "Accept": "Принять",
+  "Delivery cost per unit": "Цена доставки за ед.",
+  "View an oriented calculation": "Смотреть ориентировочный расчет",
+  "Open the parameters supplier": "Открыть параметры поставщика",
+  "Viewing Supplier": "Просмотр поставщика"
 }

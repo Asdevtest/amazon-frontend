@@ -8,7 +8,9 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
+import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {ProductWrapper} from '@components/product/product-wrapper'
 
 import {t} from '@utils/translations'
@@ -28,6 +30,10 @@ export class AdminProductView extends Component {
 
   render() {
     const {
+      volumeWeightCoefficient,
+      yuanToDollarRate,
+      supplierModalReadOnly,
+      showAddOrEditSupplierModal,
       inInventory,
       userInfo,
       product,
@@ -39,6 +45,8 @@ export class AdminProductView extends Component {
       onTriggerDrawerOpen,
       onChangeSelectedSupplier,
       onChangeProductFields,
+      onTriggerAddOrEditSupplierModal,
+      onClickSupplierButtons,
     } = this.viewModel
 
     const activeCategory = inInventory ? navBarActiveCategory.NAVBAR_INVENTORY : navBarActiveCategory.NAVBAR_EXCHANGE
@@ -55,6 +63,7 @@ export class AdminProductView extends Component {
                   product={product}
                   selectedSupplier={selectedSupplier}
                   formFieldsValidationErrors={formFieldsValidationErrors}
+                  handleSupplierButtons={onClickSupplierButtons}
                   handleProductActionButtons={handleProductActionButtons}
                   onClickSupplier={onChangeSelectedSupplier}
                   onChangeField={onChangeProductFields}
@@ -63,6 +72,16 @@ export class AdminProductView extends Component {
             </MainContent>
           </Appbar>
         </Main>
+        <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
+          <AddOrEditSupplierModalContent
+            onlyRead={supplierModalReadOnly}
+            sourceYuanToDollarRate={yuanToDollarRate}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            title={t(TranslationKey['Adding and editing a supplier'])}
+            supplier={selectedSupplier}
+            onTriggerShowModal={onTriggerAddOrEditSupplierModal}
+          />
+        </Modal>
       </React.Fragment>
     )
   }

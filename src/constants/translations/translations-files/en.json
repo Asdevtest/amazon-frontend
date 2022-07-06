@@ -1226,5 +1226,9 @@
   "Edit a supplier": "Edit a supplier",
   "Delete supplier": "Delete supplier",
   "Close edit": "Close edit",
-  "Accept": "Accept"
+  "Accept": "Accept",
+  "Delivery cost per unit": "Delivery cost per unit",
+  "View an oriented calculation": "View an oriented calculation",
+  "Open the parameters supplier": "Open the parameters supplier",
+  "Viewing Supplier": "Viewing Supplier"
 }
