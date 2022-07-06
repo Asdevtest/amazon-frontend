@@ -1238,5 +1238,8 @@
   "Cost of per unit in the U.S.": "Себестоимость за ед. в США",
   "Approximate calculation": "Ориентировочный расчет",
   "Not enough data": "Не хватает данных",
-  "No passed strategies": "Нет пройденных стратегий"
+  "No passed strategies": "Нет пройденных стратегий",
+  "Main": "Основные",
+  "Link for financial transactions": "Ссылка для финансовых операций",
+  "Proxy servers for parsing": "Прокси сервера для парсинга"
 }
