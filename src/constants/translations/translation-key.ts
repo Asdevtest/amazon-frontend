@@ -1218,6 +1218,7 @@ export enum TranslationKey {
   'Repurchase' = 'Repurchase',
   'Delete a card' = 'Delete a card',
   'After confirmation, the card will be moved to the archive. Delete?' = 'After confirmation, the card will be moved to the archive. Delete?',
+  'Set' = 'Set',
   // '' = '',
   // '' = '',
   // '' = '',

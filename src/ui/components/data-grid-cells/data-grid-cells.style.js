@@ -723,5 +723,9 @@ export const styles = createStyles(() => ({
     justifyContent: 'center',
   },
 
-  fourMonthesStockLabel: {},
+  fourMonthesStockLabel: {
+    fontSize: '14px',
+    lineHeight: '16px',
+    marginBottom: '5px',
+  },
 }))

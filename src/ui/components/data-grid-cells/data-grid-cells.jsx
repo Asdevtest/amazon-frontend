@@ -531,7 +531,7 @@ export const FourMonthesStockCell = withStyles(styles)(({classes: classNames, ha
     <ChangeChipCell
       row={params.row.originalData}
       // value={value}
-      text={value > 0 ? 'Change Monthes Stock' : 'Set Monthes Stock'}
+      text={value > 0 ? `${t(TranslationKey.Edit)} Stock` : `${t(TranslationKey.Set)} Stock`}
       onClickChip={() => handlers.onClickFourMonthsStock(params.row.originalData)}
       onDeleteChip={() => handlers.onDeleteFourMonthesStock(params.row.originalData)}
     />
