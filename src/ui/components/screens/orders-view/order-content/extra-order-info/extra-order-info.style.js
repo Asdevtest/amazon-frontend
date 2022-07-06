@@ -101,18 +101,19 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: '400',
     lineHeight: '19px',
     marginBottom: '28px',
-    width: '35%',
+    width: '100%',
+    minHeight: 50,
   },
   photosWrapper: {
     width: '100%',
     display: 'flex',
-    alignItems: 'center',
   },
 
   photoWrapper: {
-    width: '35%',
+    width: '40%',
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
   },
 
   imgBox: {

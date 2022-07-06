@@ -2,7 +2,7 @@ import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
-import {Link, Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -10,12 +10,11 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
-import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {checkIsImageLink} from '@utils/checks'
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getFullTariffTextForBoxOrOrder, toFixed} from '@utils/text'
@@ -33,7 +32,6 @@ export const AddOrEditBatchForm = observer(
     const [boxesToAddData, setBoxesToAddData] = useState([...boxesData])
 
     const [filesToAdd, setfilesToAdd] = useState([])
-    const [showPhotosModal, setShowPhotosModal] = useState(false)
 
     const [chosenBoxes, setChosenBoxes] = useState(
       batchToEdit
@@ -305,35 +303,13 @@ export const AddOrEditBatchForm = observer(
           <div className={classNames.imageFileInputWrapper}>
             <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} maxNumber={50} />
 
-            <Button
-              disableElevation
-              disabled={!batchToEdit?.originalData.attachedDocuments?.filter(el => checkIsImageLink(el)).length}
-              color="primary"
-              className={classNames.imagesButton}
-              variant="contained"
-              onClick={() => setShowPhotosModal(!showPhotosModal)}
-            >
-              {t(TranslationKey['Available images'])}
-            </Button>
-
-            {batchToEdit?.originalData.attachedDocuments?.filter(el => !checkIsImageLink(el)).length ? (
-              <Field
-                multiline
-                label={t(TranslationKey.Files)}
-                containerClasses={classNames.filesContainer}
-                inputComponent={
-                  <div className={classNames.filesWrapper}>
-                    {batchToEdit?.originalData.attachedDocuments
-                      ?.filter(el => !checkIsImageLink(el))
-                      .map((file, index) => (
-                        <Link key={index} target="_blank" href={file}>
-                          <Typography className={classNames.linkText}>{file}</Typography>
-                        </Link>
-                      ))}
-                  </div>
-                }
-              />
-            ) : null}
+            <Field
+              containerClasses={classNames.filesWrapper}
+              label={t(TranslationKey.Files)}
+              inputComponent={
+                <PhotoAndFilesCarousel files={batchToEdit?.originalData.attachedDocuments} width="400px" />
+              }
+            />
           </div>
 
           <div className={classNames.btnsWrapper}>
@@ -355,13 +331,6 @@ export const AddOrEditBatchForm = observer(
         </div>
 
         {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
-
-        <BigImagesModal
-          isAmazone
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={batchToEdit?.originalData.attachedDocuments?.filter(el => checkIsImageLink(el)) || []}
-        />
       </div>
     )
   },

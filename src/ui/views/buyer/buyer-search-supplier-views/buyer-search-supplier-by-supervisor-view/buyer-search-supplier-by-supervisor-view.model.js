@@ -64,6 +64,8 @@ export class BuyerSearchSupplierBySupervisorModel {
       })
     } catch (error) {
       console.log(error)
+
+      this.productsVacant = []
       if (error.body && error.body.message) {
         this.error = error.body.message
       }

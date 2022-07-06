@@ -236,13 +236,9 @@ export const SelectFields = ({
               if (!isNaN(e.target.value) || (Number(e.target.value) < 0 && !checkIsPlanningPrice)) {
                 setOrderField('yuanToDollarRate')({
                   target: {value: e.target.value},
+                  updateTotalPriceChanged: !usePriceInDollars,
+                  updateTotalPriceChangedValue: calcExchangePrice(priceYuansForBatch, e.target.value),
                 })
-
-                if (!usePriceInDollars) {
-                  setOrderField('totalPriceChanged')({
-                    target: {value: calcExchangePrice(priceYuansForBatch, e.target.value)},
-                  })
-                }
               }
             }}
           />

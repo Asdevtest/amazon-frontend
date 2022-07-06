@@ -21,7 +21,7 @@ import {Button} from '@components/buttons/button'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
-import {calcVolumeWeightForBox} from '@utils/calculation'
+import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
 import {
   formatDateDistanceFromNow,
   formatDateForShowWithoutParseISO,
@@ -966,17 +966,27 @@ export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, val
   )
 })
 
-export const ShortBoxDimensions = withStyles(styles)(({classes: classNames, box, volumeWeightCoefficient}) => (
-  <div>
-    <Typography>{`${toFixed(box.lengthCmWarehouse, 2)}x${toFixed(box.widthCmWarehouse, 2)}x${toFixed(
-      box.heightCmWarehouse,
-      2,
-    )}`}</Typography>
+export const ShortBoxDimensions = withStyles(styles)(({classes: classNames, box, volumeWeightCoefficient}) => {
+  const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
+  return (
+    <div>
+      <Typography>{`${toFixed(box.lengthCmWarehouse, 2)}x${toFixed(box.widthCmWarehouse, 2)}x${toFixed(
+        box.heightCmWarehouse,
+        2,
+      )}`}</Typography>
 
-    <Typography>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(box.weighGrossKgWarehouse, 2)}`}</Typography>
-    <Typography>{`${t(TranslationKey['Volume weight'])}: ${toFixedWithKg(
-      calcVolumeWeightForBox(box, volumeWeightCoefficient),
-      2,
-    )}`}</Typography>
-  </div>
-))
+      <Typography>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(box.weighGrossKgWarehouse, 2)}`}</Typography>
+      <Typography>{`${t(TranslationKey['Volume weight'])}: ${toFixedWithKg(
+        calcVolumeWeightForBox(box, volumeWeightCoefficient),
+        2,
+      )}`}</Typography>
+      <Typography className={clsx({[classNames.alertText]: finalWeight < 12})}>{`${t(
+        TranslationKey['Final weight'],
+      )}: ${toFixedWithKg(finalWeight, 2)}`}</Typography>
+
+      {finalWeight < 12 ? (
+        <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
+      ) : null}
+    </div>
+  )
+})

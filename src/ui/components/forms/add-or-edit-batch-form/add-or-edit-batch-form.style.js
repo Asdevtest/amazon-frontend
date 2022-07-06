@@ -135,7 +135,6 @@ export const useClassNames = makeStyles(() => ({
 
   filesWrapper: {
     width: '450px',
-    maxHeight: '200px',
     overflow: 'auto',
   },
 
