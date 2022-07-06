@@ -1221,5 +1221,10 @@
   "Delete a card": "Удалить карточку",
   "After confirmation, the card will be moved to the archive. Delete?": "После подтверждения карточка будет перенесена в архив. Удалить?",
   "Set": "Установить",
-  "Weight less than 12 kg!": "Вес меньше 12 кг!"
+  "Weight less than 12 kg!": "Вес меньше 12 кг!",
+  "Add supplier": "Добавить поставщика",
+  "Edit a supplier": "Редактировать поставщика",
+  "Delete supplier": "Удалить поставщика",
+  "Close edit": "Закрыть редактирование",
+  "Accept": "Принять"
 }

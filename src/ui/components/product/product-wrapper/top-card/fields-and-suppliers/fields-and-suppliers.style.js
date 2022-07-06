@@ -247,4 +247,20 @@ export const useClassNames = makeStyles(() => ({
     cursor: 'pointer',
     // }
   },
+
+  supplierButtonWrapper: {
+    display: 'flex',
+    gap: '10px',
+    alignItems: 'center',
+  },
+
+  noActionSupplierButtonWrapper: {},
+
+  supplierButtonText: {
+    maxWidth: '98px',
+    fontSize: '12px',
+    lineHeight: '14px',
+    fontWeight: '400',
+    color: '#656565',
+  },
 }))
