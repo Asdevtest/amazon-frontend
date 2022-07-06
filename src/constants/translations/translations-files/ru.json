@@ -1214,5 +1214,10 @@
   "Notifications about the need to change to a new tariff": "Уведомления о необходимости сменить тариф на новый",
   "If you reject the tariff change, the box is returned to the stock": "При отклонении смены тарифа коробка возвращается на склад",
   "Final status, after saving will be paid for the search": "Финальный статус, после сохранения будет произведена оплата за поиск",
-  "Recommendation for additional purchases": "Рекомендация к дозакупке"
+  "Recommendation for additional purchases": "Рекомендация к дозакупке",
+  "The number entered must not exceed the \" Stock sum\" field": "Введенное число не должно превышать поле \"Сумма стока\"",
+  "Four months of stock": "Четыре месяца стока",
+  "Repurchase": "Дозакупка",
+  "Delete a card": "Удалить карточку",
+  "After confirmation, the card will be moved to the archive. Delete?": "После подтверждения карточка будет перенесена в архив. Удалить?"
 }

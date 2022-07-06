@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Box, Container, Typography} from '@material-ui/core'
 
@@ -16,6 +16,8 @@ export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selecte
   const classNames = useClassNames()
 
   const [newValue, setNewValue] = useState(selectedProduct?.fourMonthesStock)
+  const [error, setError] = useState(false)
+
   const stockSum =
     selectedProduct?.amountInOrders +
     selectedProduct?.amountInBoxes +
@@ -23,28 +25,32 @@ export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selecte
     selectedProduct?.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0) +
     selectedProduct?.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0)
 
+  useEffect(() => {
+    if (newValue > stockSum) {
+      setError(true)
+    } else {
+      setError(false)
+    }
+  }, [newValue])
   return (
-    <Container disableGutters>
+    <Container disableGutters className={classNames.root}>
       <Typography className={classNames.modalTitle}>{title}</Typography>
 
       <Field
         containerClasses={classNames.field}
+        error={error && t(TranslationKey['The number entered must not exceed the " Stock sum" field'])}
         inputProps={{maxLength: 255}}
         value={newValue}
-        onChange={e =>
-          checkIsPositiveNum(e.target.value) && Number(e.target.value) <= stockSum && setNewValue(e.target.value)
-        }
+        onChange={e => checkIsPositiveNum(e.target.value) && setNewValue(e.target.value)}
       />
 
       <Box className={classNames.saveBox}>
-        <Button
-          disabled={Number(selectedProduct?.fourMonthesStock) === Number(newValue)}
-          className={classNames.saveBtn}
-          onClick={() => onSubmit(newValue)}
-        >
+        <Button success disabled={error || !newValue} className={classNames.saveBtn} onClick={() => onSubmit(newValue)}>
           {t(TranslationKey.Save)}
         </Button>
-        <Button onClick={onCloseModal}>{t(TranslationKey.Close)}</Button>
+        <Button className={classNames.closeBtn} onClick={onCloseModal}>
+          {t(TranslationKey.Close)}
+        </Button>
       </Box>
     </Container>
   )

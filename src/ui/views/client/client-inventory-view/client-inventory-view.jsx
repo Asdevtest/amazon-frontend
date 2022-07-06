@@ -356,10 +356,8 @@ export class ClientInventoryViewRaw extends Component {
           setOpenModal={() => onTriggerOpenModal('showSetFourMonthsStockValueModal')}
         >
           <SetFourMonthesStockModal
-            title="Four Monthes Stock"
+            title={t(TranslationKey['Four months of stock'])}
             selectedProduct={selectedProduct}
-            // stockSumValue={selectedProduct?.stockSum}
-            // sourceValue={selectedProduct?.fourMonthesStock}
             onSubmit={onClickSaveFourMonthesStockValue}
             onCloseModal={() => onTriggerOpenModal('showSetFourMonthsStockValueModal')}
           />
@@ -448,7 +446,7 @@ export class ClientInventoryViewRaw extends Component {
           title={confirmModalSettings.confirmTitle}
           message={confirmModalSettings.confirmMessage}
           successBtnText={t(TranslationKey.Yes)}
-          cancelBtnText={t(TranslationKey.No)}
+          cancelBtnText={t(TranslationKey.Cancel)}
           onClickSuccessBtn={confirmModalSettings.onClickConfirm}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
