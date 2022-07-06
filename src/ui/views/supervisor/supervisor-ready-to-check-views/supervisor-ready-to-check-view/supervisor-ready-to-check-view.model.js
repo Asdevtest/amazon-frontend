@@ -70,6 +70,8 @@ export class SupervisorReadyToCheckViewModel {
     } catch (error) {
       console.log(error)
       this.setRequestStatus(loadingStatuses.failed)
+
+      this.productsReadyToCheck = []
       if (error.body && error.body.message) {
         this.error = error.body.message
       }

@@ -17,26 +17,21 @@ export const ExtraOrderInfo = ({order}) => {
   console.log(order)
   return (
     <div className={classNames.orderContainer}>
-      <div className={classNames.imagesWrapper}>
-        <div className={classNames.titleWrapper}>
+      <div className={classNames.photosWrapper}>
+        <div className={classNames.photoWrapper}>
           <Text
             tooltipInfoContent={t(TranslationKey['Photos added by the buyer from the supplier when placing the order'])}
             className={classNames.subTitle}
           >
             {t(TranslationKey['Order photos:'])}
           </Text>
-
+          <PhotoCarousel files={order?.images} />
+        </div>
+        <div className={classNames.photoWrapper}>
           <Typography className={classNames.subTitle}>
             {t(TranslationKey['Photos of current supplier']) + ':'}
           </Typography>
-        </div>
-        <div className={classNames.photosWrapper}>
-          <div className={classNames.photoWrapper}>
-            <PhotoCarousel files={order?.images} />
-          </div>
-          <div className={classNames.photoWrapper}>
-            <PhotoCarousel files={order.orderSupplier?.images} />
-          </div>
+          <PhotoCarousel files={order.orderSupplier?.images} />
         </div>
       </div>
 

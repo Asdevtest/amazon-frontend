@@ -151,4 +151,9 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     marginBottom: '0',
   },
+
+  alertText: {
+    color: 'red',
+    fontWeight: 'bold',
+  },
 }))

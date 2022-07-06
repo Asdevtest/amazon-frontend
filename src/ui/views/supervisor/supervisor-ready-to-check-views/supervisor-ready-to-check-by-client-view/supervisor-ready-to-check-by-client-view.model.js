@@ -64,6 +64,8 @@ export class SupervisorReadyToCheckByClientViewModel {
       })
     } catch (error) {
       console.log(error)
+
+      this.productsReadyToCheck = []
       if (error.body && error.body.message) {
         this.error = error.body.message
       }

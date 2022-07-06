@@ -834,7 +834,7 @@ export const privateRoutesConfigs = [
     component: AdminWarehouseView,
     exact: true,
     permission: [UserRole.ADMIN],
-    crumbNameKey: TranslationKey.Tasks,
+    crumbNameKey: TranslationKey.Warehouse,
   },
   {
     routePath: '/admin/warehouse/tasks',

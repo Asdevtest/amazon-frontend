@@ -1,6 +1,7 @@
 import {React, useState} from 'react'
 
 import {Checkbox, Grid, Link, Typography} from '@material-ui/core'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
@@ -246,10 +247,16 @@ export const BoxViewForm = observer(
                     {t(TranslationKey['Volume weight']) + ': '}
                     {toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
                   </Typography>
-                  <Typography>
+                  <Typography
+                    className={clsx({[classNames.alertText]: calcFinalWeightForBox(box, volumeWeightCoefficient) < 12})}
+                  >
                     {t(TranslationKey['Final weight']) + ': '}
                     {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}
                   </Typography>
+
+                  {calcFinalWeightForBox(box, volumeWeightCoefficient) < 12 ? (
+                    <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
+                  ) : null}
                 </div>
               </div>
             </div>

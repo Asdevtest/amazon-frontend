@@ -318,7 +318,7 @@ export const RedistributeBox = ({
   const classNames = useClassNames()
   const [currentBox, setCurrentBox] = useState(selectedBox)
 
-  const [showNewBoxAttention, setShowNewBoxAttention] = useState(false)
+  const [showNewBoxAttention, setShowNewBoxAttention] = useState(true)
 
   const [comment, setComment] = useState('')
 
@@ -499,7 +499,6 @@ export const RedistributeBox = ({
           color="primary"
           variant="contained"
           onClick={() => {
-            newBoxes.length >= 2 && setShowNewBoxAttention(true)
             setNewBoxes(newBoxes.concat(getEmptyBox()))
           }}
         >

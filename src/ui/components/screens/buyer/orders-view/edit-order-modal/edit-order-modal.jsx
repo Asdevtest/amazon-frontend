@@ -119,12 +119,18 @@ export const EditOrderModal = ({
   const setOrderField = filedName => e => {
     const newOrderFieldsState = {...orderFields}
 
+    console.log('e.target.value', e.target.value, filedName)
+
     if (['totalPriceChanged', 'deliveryCostToTheWarehouse', 'yuanToDollarRate'].includes(filedName)) {
       if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
         return
       }
 
       newOrderFieldsState[filedName] = e.target.value
+
+      if (e.updateTotalPriceChanged && filedName === 'yuanToDollarRate') {
+        newOrderFieldsState.totalPriceChanged = e.updateTotalPriceChangedValue
+      }
     } else if (filedName === 'status') {
       newOrderFieldsState[filedName] = e.target.value
       setTmpNewOrderFieldsState(newOrderFieldsState)
@@ -140,6 +146,7 @@ export const EditOrderModal = ({
       newOrderFieldsState.status = order.status
     }
 
+    console.log('newOrderFieldsState', newOrderFieldsState)
     setOrderFields(newOrderFieldsState)
   }
 

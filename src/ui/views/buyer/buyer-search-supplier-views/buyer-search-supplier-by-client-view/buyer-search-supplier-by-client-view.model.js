@@ -68,6 +68,8 @@ export class BuyerSearchSupplierByClientModel {
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
+
+      this.productsVacant = []
       console.log(error)
       if (error.body && error.body.message) {
         this.error = error.body.message

@@ -890,7 +890,7 @@
   "You can't buy the product": "Товар нельзя приобрести",
   "You can't order": "Нельзя заказать",
   "No ASIN": "Нет ASIN",
-  "Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located": "Увеличение количества коробок будет требовать дополнительной оплаты в зависимости от тарифов склада на котором находиться товар",
+  "Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located": "Увеличение количества коробок будет требовать дополнительной оплаты в зависимости от тарифов склада, на котором находится товар",
   "The boxes are not joined!": "Коробки не соединены!",
   "The box is not split!": "Коробка не разделена!",
   "of": "из",
@@ -1220,5 +1220,6 @@
   "Repurchase": "Дозакупка",
   "Delete a card": "Удалить карточку",
   "After confirmation, the card will be moved to the archive. Delete?": "После подтверждения карточка будет перенесена в архив. Удалить?",
-  "Set": "Установить"
+  "Set": "Установить",
+  "Weight less than 12 kg!": "Вес меньше 12 кг!"
 }

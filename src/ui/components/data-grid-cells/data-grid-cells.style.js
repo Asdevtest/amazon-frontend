@@ -399,6 +399,11 @@ export const styles = createStyles(() => ({
     marginLeft: '15px',
   },
 
+  alertText: {
+    color: 'red',
+    fontWeight: 'bold',
+  },
+
   OrderCellError: {
     color: 'red',
     fontWeight: 'bold',
