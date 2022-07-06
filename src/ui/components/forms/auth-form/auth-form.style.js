@@ -45,7 +45,7 @@ export const styles = theme =>
     visibilityIcon: {
       position: 'absolute',
       right: 10,
-      top: 36,
+      top: 41,
       cursor: 'pointer',
     },
 
