@@ -1141,7 +1141,7 @@ export enum TranslationKey {
   'Product photo' = 'Product photo',
   'Important criteria' = 'Important criteria',
   'Desired purchase price' = 'Desired purchase price',
-  'Important criteria and features, matrix, color, markings' = 'Important criteria and features, matrix, color, markings',
+  'Important criteria and features, material, color, markings' = 'Important criteria and features, material, color, markings',
   'Approximate or exact size' = 'Approximate or exact size',
   'Estimated number of order units' = 'Estimated number of order units',
   'Edit and balance' = 'Edit and balance',

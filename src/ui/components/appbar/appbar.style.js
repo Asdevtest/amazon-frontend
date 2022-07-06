@@ -190,4 +190,23 @@ export const useClassNames = makeStyles(theme => ({
     margin: '30px 0 5px 0',
     height: 'min-content',
   },
+
+  tooltipWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+
+  hintsTextActive: {
+    fontSize: 18,
+    lineHeight: '140%',
+    fontWeight: 400,
+    color: '#006CFF',
+  },
+  hintsTextNoActive: {
+    fontSize: 18,
+    lineHeight: '140%',
+    fontWeight: 400,
+    color: '#c4c4c4',
+  },
 }))
