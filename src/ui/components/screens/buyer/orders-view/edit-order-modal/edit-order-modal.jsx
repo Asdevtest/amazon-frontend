@@ -119,8 +119,6 @@ export const EditOrderModal = ({
   const setOrderField = filedName => e => {
     const newOrderFieldsState = {...orderFields}
 
-    console.log('e.target.value', e.target.value, filedName)
-
     if (['totalPriceChanged', 'deliveryCostToTheWarehouse', 'yuanToDollarRate'].includes(filedName)) {
       if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
         return
@@ -145,8 +143,6 @@ export const EditOrderModal = ({
     if (filedName === 'totalPriceChanged' && Number(e.target.value) - orderFields.totalPrice > 0) {
       newOrderFieldsState.status = order.status
     }
-
-    console.log('newOrderFieldsState', newOrderFieldsState)
     setOrderFields(newOrderFieldsState)
   }
 
