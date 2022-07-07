@@ -18,6 +18,17 @@ export const useClassNames = makeStyles(() => ({
 
   title: {
     marginBottom: '25px',
+    color: '#001029',
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '600',
+  },
+
+  label: {
+    color: '#001029',
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '400',
   },
 
   linksWrapper: {
@@ -67,7 +78,7 @@ export const useClassNames = makeStyles(() => ({
   input: {
     height: '32px',
     borderRadius: '4px',
-    width: 'calc(100% - 110px)',
+    width: 'calc(100% - 181px)',
   },
 
   inputWrapper: {
@@ -115,5 +126,9 @@ export const useClassNames = makeStyles(() => ({
 
   cancelBtn: {
     marginLeft: 100,
+  },
+
+  defaultBtn: {
+    width: '171px',
   },
 }))

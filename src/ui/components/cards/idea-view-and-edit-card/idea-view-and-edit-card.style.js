@@ -39,6 +39,10 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
   },
 
+  bigPhotoWrapper: {
+    width: '400px',
+  },
+
   imgBox: {
     width: '200px',
     height: '130px',
@@ -58,6 +62,14 @@ export const useClassNames = makeStyles(() => ({
 
   leftSubBlockWrapper: {
     display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  leftDisSubBlockWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   divider: {
@@ -89,7 +101,7 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    backgroundColor: '#fff',
+    alignItems: 'center',
   },
 
   existedIdeaBtnsSubWrapper: {
@@ -112,7 +124,6 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
 
-    marginBottom: '20px',
     transition: '0.3s ease',
     cursor: 'pointer',
     '&:hover': {
@@ -227,5 +238,12 @@ export const useClassNames = makeStyles(() => ({
   deleteBtn: {
     width: '20px',
     height: '20px',
+  },
+
+  ideaTitle: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '600',
+    color: '#001029',
   },
 }))

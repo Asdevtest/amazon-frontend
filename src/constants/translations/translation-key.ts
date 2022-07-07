@@ -1240,6 +1240,8 @@ export enum TranslationKey {
   'Main' = 'Main',
   'Link for financial transactions' = 'Link for financial transactions',
   'Proxy servers for parsing' = 'Proxy servers for parsing',
+  'Product Link' = 'Product Link',
+  'Create a product card' = 'Create a product card',
   // '' = '',
   // '' = '',
   // '' = '',

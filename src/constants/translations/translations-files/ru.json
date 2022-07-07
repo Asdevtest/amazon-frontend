@@ -1241,5 +1241,7 @@
   "No passed strategies": "Нет пройденных стратегий",
   "Main": "Основные",
   "Link for financial transactions": "Ссылка для финансовых операций",
-  "Proxy servers for parsing": "Прокси сервера для парсинга"
+  "Proxy servers for parsing": "Прокси сервера для парсинга",
+  "Product Link": "Ссылка на товар",
+  "Create a product card": "Создать карточку товара"
 }
