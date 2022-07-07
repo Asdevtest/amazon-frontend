@@ -22,11 +22,20 @@ import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
 class InlineObject78 {
     /**
      * Constructs a new <code>InlineObject78</code>.
+     * Новый поставщик.
      * @alias module:model/InlineObject78
+     * @param name {String} Название поставщика.
+     * @param link {String} Ссылка на поставщика.
+     * @param price {Number} Цена за еденицу, dollar
+     * @param amount {Number} кол-во
+     * @param minlot {Number} Минимальный лот.
+     * @param lotcost {Number} Стоимость лота.
+     * @param comment {String} Комментарий
+     * @param batchDeliveryCostInDollar {Number} Доставка партии, dollar
      */
-    constructor() { 
+    constructor(name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar) { 
         
-        InlineObject78.initialize(this);
+        InlineObject78.initialize(this, name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar);
     }
 
     /**
@@ -34,7 +43,15 @@ class InlineObject78 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar) { 
+        obj['name'] = name;
+        obj['link'] = link;
+        obj['price'] = price;
+        obj['amount'] = amount;
+        obj['minlot'] = minlot;
+        obj['lotcost'] = lotcost;
+        obj['comment'] = comment;
+        obj['batchDeliveryCostInDollar'] = batchDeliveryCostInDollar;
     }
 
     /**

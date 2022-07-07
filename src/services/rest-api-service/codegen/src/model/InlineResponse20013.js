@@ -51,11 +51,11 @@ class InlineResponse20013 {
         if (data) {
             obj = obj || new InlineResponse20013();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
-            if (data.hasOwnProperty('image')) {
-                obj['image'] = ApiClient.convertToType(data['image'], 'String');
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [Object]);
             }
             if (data.hasOwnProperty('comments')) {
                 obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
@@ -63,8 +63,8 @@ class InlineResponse20013 {
             if (data.hasOwnProperty('productName')) {
                 obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
             }
-            if (data.hasOwnProperty('productLink')) {
-                obj['productLink'] = ApiClient.convertToType(data['productLink'], 'String');
+            if (data.hasOwnProperty('productLinks')) {
+                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [Object]);
             }
             if (data.hasOwnProperty('criteria')) {
                 obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
@@ -90,6 +90,9 @@ class InlineResponse20013 {
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
+            if (data.hasOwnProperty('supplier')) {
+                obj['supplier'] = ApiClient.convertToType(data['supplier'], ['String']);
+            }
         }
         return obj;
     }
@@ -99,15 +102,15 @@ class InlineResponse20013 {
 
 /**
  * GUID идеи
- * @member {String} _id
+ * @member {String} id
  */
-InlineResponse20013.prototype['_id'] = undefined;
+InlineResponse20013.prototype['id'] = undefined;
 
 /**
  * Image URL
- * @member {String} image
+ * @member {Array.<Object>} media
  */
-InlineResponse20013.prototype['image'] = undefined;
+InlineResponse20013.prototype['media'] = undefined;
 
 /**
  * Комментарий к идее
@@ -123,9 +126,9 @@ InlineResponse20013.prototype['productName'] = undefined;
 
 /**
  * Ссылка на продукт, если есть
- * @member {String} productLink
+ * @member {Array.<Object>} productLinks
  */
-InlineResponse20013.prototype['productLink'] = undefined;
+InlineResponse20013.prototype['productLinks'] = undefined;
 
 /**
  * Дополнительные критерии для поиска товара
@@ -174,6 +177,12 @@ InlineResponse20013.prototype['createdAt'] = undefined;
  * @member {Date} updatedAt
  */
 InlineResponse20013.prototype['updatedAt'] = undefined;
+
+/**
+ * Массив поставщиков.
+ * @member {Array.<String>} supplier
+ */
+InlineResponse20013.prototype['supplier'] = undefined;
 
 
 

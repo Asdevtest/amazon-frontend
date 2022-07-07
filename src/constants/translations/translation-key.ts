@@ -1236,7 +1236,7 @@ export enum TranslationKey {
   'Cost of per unit in the U.S.' = 'Cost of per unit in the U.S.',
   'Approximate calculation' = 'Approximate calculation',
   'Not enough data' = 'Not enough data',
-  // '' = '',
+  'No passed strategies' = 'No passed strategies',
   // '' = '',
   // '' = '',
   // '' = '',

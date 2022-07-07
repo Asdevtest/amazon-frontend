@@ -51,8 +51,8 @@ class InlineObject42 {
         if (data) {
             obj = obj || new InlineObject42();
 
-            if (data.hasOwnProperty('image')) {
-                obj['image'] = ApiClient.convertToType(data['image'], 'String');
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
             if (data.hasOwnProperty('comments')) {
                 obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
@@ -60,8 +60,8 @@ class InlineObject42 {
             if (data.hasOwnProperty('productName')) {
                 obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
             }
-            if (data.hasOwnProperty('productLink')) {
-                obj['productLink'] = ApiClient.convertToType(data['productLink'], 'String');
+            if (data.hasOwnProperty('productLinks')) {
+                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
             }
             if (data.hasOwnProperty('criteria')) {
                 obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
@@ -90,9 +90,9 @@ class InlineObject42 {
 
 /**
  * Image URL
- * @member {String} image
+ * @member {Array.<String>} media
  */
-InlineObject42.prototype['image'] = undefined;
+InlineObject42.prototype['media'] = undefined;
 
 /**
  * Комментарий к идее
@@ -107,10 +107,10 @@ InlineObject42.prototype['comments'] = undefined;
 InlineObject42.prototype['productName'] = undefined;
 
 /**
- * Ссылка на продукт, если есть
- * @member {String} productLink
+ * Ссылки на продукт, если есть
+ * @member {Array.<String>} productLinks
  */
-InlineObject42.prototype['productLink'] = undefined;
+InlineObject42.prototype['productLinks'] = undefined;
 
 /**
  * Дополнительные критерии для поиска товара

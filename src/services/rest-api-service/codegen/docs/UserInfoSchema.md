@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **permissionGroups** | [**[UserInfoSchemaPermissionGroups]**](UserInfoSchemaPermissionGroups.md) | Массив групп permission-ов. | [optional] 
 **masterUser** | **String** | GUID мастер пользователя к которму относится данный субпользователь. | [optional] 
 **allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
+**allowedStrategies** | **[Number]** | Массив доступных стратегий. | [optional] 
 **canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 
 **rating** | **Number** | Рейтинг пользователя. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 

@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **masterUser** | **String** | GUID мастер пользователя к которму относится данный субпользователь. | [optional] 
 **canByMasterUser** | **Boolean** | Флаг fba. | [optional] 
 **rating** | **Number** | Рейтинг пользователя. | [optional] 
+**allowedStrategies** | **[Number]** | Массив доступных стратегий. | [optional] 
 **allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 

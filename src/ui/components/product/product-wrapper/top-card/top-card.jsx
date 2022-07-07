@@ -225,18 +225,20 @@ export const TopCard = observer(
 
                   {selectedSupplier ? (
                     <>
-                      <div className={classNames.supplierButtonWrapper}>
-                        <Button
-                          tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                          className={classNames.iconBtn}
-                          onClick={() => onClickSupplierBtns('view')}
-                        >
-                          <VisibilityOutlinedIcon />
-                        </Button>
-                        <Typography className={classNames.supplierButtonText}>
-                          {t(TranslationKey['Open the parameters supplier'])}
-                        </Typography>
-                      </div>
+                      {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) ? (
+                        <div className={classNames.supplierButtonWrapper}>
+                          <Button
+                            tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                            className={classNames.iconBtn}
+                            onClick={() => onClickSupplierBtns('view')}
+                          >
+                            <VisibilityOutlinedIcon />
+                          </Button>
+                          <Typography className={classNames.supplierButtonText}>
+                            {t(TranslationKey['Open the parameters supplier'])}
+                          </Typography>
+                        </div>
+                      ) : null}
                       <div className={classNames.supplierButtonWrapper}>
                         <Button
                           tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
@@ -298,18 +300,20 @@ export const TopCard = observer(
                 <div disableGutters className={classNames.supplierContainer}>
                   {selectedSupplier ? (
                     <>
-                      <div className={classNames.supplierButtonWrapper}>
-                        <Button
-                          tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                          className={classNames.iconBtn}
-                          onClick={() => onClickSupplierBtns('view')}
-                        >
-                          <VisibilityOutlinedIcon />
-                        </Button>
-                        <Typography className={classNames.supplierButtonText}>
-                          {t(TranslationKey['Open the parameters supplier'])}
-                        </Typography>
-                      </div>
+                      {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) ? (
+                        <div className={classNames.supplierButtonWrapper}>
+                          <Button
+                            tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                            className={classNames.iconBtn}
+                            onClick={() => onClickSupplierBtns('view')}
+                          >
+                            <VisibilityOutlinedIcon />
+                          </Button>
+                          <Typography className={classNames.supplierButtonText}>
+                            {t(TranslationKey['Open the parameters supplier'])}
+                          </Typography>
+                        </div>
+                      ) : null}
                     </>
                   ) : undefined}
                 </div>

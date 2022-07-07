@@ -17,7 +17,9 @@ import BadRequestError from '../model/BadRequestError';
 import InlineObject42 from '../model/InlineObject42';
 import InlineObject43 from '../model/InlineObject43';
 import InlineObject44 from '../model/InlineObject44';
+import InlineObject45 from '../model/InlineObject45';
 import InlineResponse20013 from '../model/InlineResponse20013';
+import InlineResponse2014 from '../model/InlineResponse2014';
 import InternalServerError from '../model/InternalServerError';
 
 /**
@@ -203,8 +205,8 @@ export default class IdeaApi {
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {Object} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object.<String, {String: Object}>} and HTTP response
+     * @param {module:model/InlineObject44} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineObject44>} and HTTP response
      */
     apiV1IdeasGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -228,7 +230,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = {'String': Object};
+      let returnType = [InlineObject44];
       return this.apiClient.callApi(
         '/api/v1/ideas/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -242,8 +244,8 @@ export default class IdeaApi {
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {Object} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object.<String, {String: Object}>}
+     * @param {module:model/InlineObject44} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineObject44>}
      */
     apiV1IdeasGuidPatch(guid, opts) {
       return this.apiV1IdeasGuidPatchWithHttpInfo(guid, opts)
@@ -259,7 +261,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject42} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2014} and HTTP response
      */
     apiV1IdeasPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -278,7 +280,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = 'String';
+      let returnType = InlineResponse2014;
       return this.apiClient.callApi(
         '/api/v1/ideas/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -292,7 +294,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject42} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2014}
      */
     apiV1IdeasPost(opts) {
       return this.apiV1IdeasPostWithHttpInfo(opts)
@@ -303,20 +305,20 @@ export default class IdeaApi {
 
 
     /**
-     * Удалить поставщиков
+     * Удалить поставщика
      * ## Удаление поставщика у идеи  
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject44} opts.body 
+     * @param {module:model/InlineObject45} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1IdeasRemoveSuppliersGuidPostWithHttpInfo(guid, opts) {
+    apiV1IdeasRemoveSupplierGuidPostWithHttpInfo(guid, opts) {
       opts = opts || {};
       let postBody = opts['body'];
       // verify the required parameter 'guid' is set
       if (guid === undefined || guid === null) {
-        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasRemoveSuppliersGuidPost");
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasRemoveSupplierGuidPost");
       }
 
       let pathParams = {
@@ -335,23 +337,23 @@ export default class IdeaApi {
       let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
-        '/api/v1/ideas/remove_suppliers/{guid}', 'POST',
+        '/api/v1/ideas/remove_supplier/{guid}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Удалить поставщиков
+     * Удалить поставщика
      * ## Удаление поставщика у идеи  
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject44} opts.body 
+     * @param {module:model/InlineObject45} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1IdeasRemoveSuppliersGuidPost(guid, opts) {
-      return this.apiV1IdeasRemoveSuppliersGuidPostWithHttpInfo(guid, opts)
+    apiV1IdeasRemoveSupplierGuidPost(guid, opts) {
+      return this.apiV1IdeasRemoveSupplierGuidPostWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

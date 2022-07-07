@@ -98,6 +98,9 @@ class UserAdminFullSchema {
             if (data.hasOwnProperty('allowedRoles')) {
                 obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
             }
+            if (data.hasOwnProperty('allowedStrategies')) {
+                obj['allowedStrategies'] = ApiClient.convertToType(data['allowedStrategies'], ['Number']);
+            }
             if (data.hasOwnProperty('canByMasterUser')) {
                 obj['canByMasterUser'] = ApiClient.convertToType(data['canByMasterUser'], 'Boolean');
             }
@@ -191,6 +194,12 @@ UserAdminFullSchema.prototype['masterUser'] = undefined;
  * @member {Array.<Number>} allowedRoles
  */
 UserAdminFullSchema.prototype['allowedRoles'] = undefined;
+
+/**
+ * Массив доступных стратегий.
+ * @member {Array.<Number>} allowedStrategies
+ */
+UserAdminFullSchema.prototype['allowedStrategies'] = undefined;
 
 /**
  * Может ли данный пользователь быть мастер юзером.

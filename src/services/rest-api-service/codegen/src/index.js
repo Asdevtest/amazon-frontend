@@ -48,6 +48,11 @@ import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1Integr
 import ApiV1RequestProposalsCreatedBy from './model/ApiV1RequestProposalsCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1RequestProposalsCustomByRequestIdGuidDetails';
 import ApiV1RequestsCountProposalsByStatuses from './model/ApiV1RequestsCountProposalsByStatuses';
+import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
+import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
+import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails';
+import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
+import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
 import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
 import BadRequestError from './model/BadRequestError';
@@ -135,6 +140,9 @@ import InlineObject77 from './model/InlineObject77';
 import InlineObject78 from './model/InlineObject78';
 import InlineObject79 from './model/InlineObject79';
 import InlineObject8 from './model/InlineObject8';
+import InlineObject80 from './model/InlineObject80';
+import InlineObject81 from './model/InlineObject81';
+import InlineObject82 from './model/InlineObject82';
 import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
@@ -155,6 +163,9 @@ import InlineResponse20022 from './model/InlineResponse20022';
 import InlineResponse20023 from './model/InlineResponse20023';
 import InlineResponse20024 from './model/InlineResponse20024';
 import InlineResponse20025 from './model/InlineResponse20025';
+import InlineResponse20026 from './model/InlineResponse20026';
+import InlineResponse20027 from './model/InlineResponse20027';
+import InlineResponse20027Details from './model/InlineResponse20027Details';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
@@ -480,6 +491,36 @@ export {
      * @property {module:model/ApiV1RequestsCountProposalsByStatuses}
      */
     ApiV1RequestsCountProposalsByStatuses,
+
+    /**
+     * The ApiV1RequestsCustomDetails model constructor.
+     * @property {module:model/ApiV1RequestsCustomDetails}
+     */
+    ApiV1RequestsCustomDetails,
+
+    /**
+     * The ApiV1RequestsCustomDetailsCustom model constructor.
+     * @property {module:model/ApiV1RequestsCustomDetailsCustom}
+     */
+    ApiV1RequestsCustomDetailsCustom,
+
+    /**
+     * The ApiV1RequestsCustomGuidDetails model constructor.
+     * @property {module:model/ApiV1RequestsCustomGuidDetails}
+     */
+    ApiV1RequestsCustomGuidDetails,
+
+    /**
+     * The ApiV1RequestsCustomGuidRequest model constructor.
+     * @property {module:model/ApiV1RequestsCustomGuidRequest}
+     */
+    ApiV1RequestsCustomGuidRequest,
+
+    /**
+     * The ApiV1RequestsCustomRequest model constructor.
+     * @property {module:model/ApiV1RequestsCustomRequest}
+     */
+    ApiV1RequestsCustomRequest,
 
     /**
      * The ApiV1StorekeepersTariffWarehouses model constructor.
@@ -1004,6 +1045,24 @@ export {
     InlineObject8,
 
     /**
+     * The InlineObject80 model constructor.
+     * @property {module:model/InlineObject80}
+     */
+    InlineObject80,
+
+    /**
+     * The InlineObject81 model constructor.
+     * @property {module:model/InlineObject81}
+     */
+    InlineObject81,
+
+    /**
+     * The InlineObject82 model constructor.
+     * @property {module:model/InlineObject82}
+     */
+    InlineObject82,
+
+    /**
      * The InlineObject9 model constructor.
      * @property {module:model/InlineObject9}
      */
@@ -1122,6 +1181,24 @@ export {
      * @property {module:model/InlineResponse20025}
      */
     InlineResponse20025,
+
+    /**
+     * The InlineResponse20026 model constructor.
+     * @property {module:model/InlineResponse20026}
+     */
+    InlineResponse20026,
+
+    /**
+     * The InlineResponse20027 model constructor.
+     * @property {module:model/InlineResponse20027}
+     */
+    InlineResponse20027,
+
+    /**
+     * The InlineResponse20027Details model constructor.
+     * @property {module:model/InlineResponse20027Details}
+     */
+    InlineResponse20027Details,
 
     /**
      * The InlineResponse2002AllowedUrls model constructor.

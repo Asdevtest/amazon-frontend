@@ -107,7 +107,7 @@ export const SelectionSupplierModal = ({
           />
         </div>
       ) : (
-        <div>
+        <div className={classNames.btnsWrapper}>
           <Typography className={classNames.subTitle}>{t(TranslationKey['Supplier for product idea'])}</Typography>
           <div className={classNames.searchSupplierForIdeaButtonsWrapper}>
             <Button
@@ -145,7 +145,14 @@ export const SelectionSupplierModal = ({
         </div>
       )}
 
-      <Grid container spacing={2} className={classNames.modalButtonWrapper}>
+      <Grid
+        container
+        spacing={2}
+        className={clsx(classNames.modalButtonWrapper, {
+          [classNames.modalButtonNextStepWrapper]:
+            selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton,
+        })}
+      >
         {selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton ? (
           <Grid item>
             <Button className={classNames.modalButtonBack} onClick={() => setClickNextOrPrevButton(false)}>

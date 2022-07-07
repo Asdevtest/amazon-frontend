@@ -183,6 +183,12 @@
           "description": "Массив массив ролей.",
           "items": {"type": "number"}
         },
+        "allowedStrategies": {
+          "type": "array",
+          "nullable": true,
+          "description": "Массив доступных стратегий.",
+          "items": {"type": "number"}
+        },
         "canByMasterUser": {
           "type": "boolean",
           "description": "Может ли данный пользователь быть мастер юзером.",
@@ -675,6 +681,12 @@
         },
         "canByMasterUser": {"type": "boolean", "description": "Флаг fba.", "example": false},
         "rating": {"type": "number", "description": "Рейтинг пользователя."},
+        "allowedStrategies": {
+          "type": "array",
+          "nullable": true,
+          "description": "Массив доступных стратегий.",
+          "items": {"type": "number"}
+        },
         "allowedRoles": {
           "type": "array",
           "nullable": true,
@@ -731,6 +743,12 @@
           "type": "array",
           "nullable": true,
           "description": "Массив массив ролей.",
+          "items": {"type": "number"}
+        },
+        "allowedStrategies": {
+          "type": "array",
+          "nullable": true,
+          "description": "Массив доступных стратегий.",
           "items": {"type": "number"}
         },
         "canByMasterUser": {
@@ -4074,7 +4092,7 @@
                 "email": {"type": "string", "format": "email", "description": "email", "example": "petia@gmail.com"},
                 "role": {
                   "type": "number",
-                  "enum": [10, 20, 30, 35, 40, 45],
+                  "enum": [10, 20, 30, 35, 40, 45, 50],
                   "description": "Код роли присвоенный пользователю. \n\n\nroles.root = 0 \n\n\nroles.client = 10 \n\n\nroles.super = 20 \n\n\nroles.researcher = 30 \n\n\nroles.freelancer = 35 \n\n\nroles.buyer = 40 \n\n\nroles.storekeeper = 45 \n\n\nroles.candidate = 50 \n\n\n",
                   "example": 35
                 },
@@ -4103,6 +4121,11 @@
                   "items": {"type": "string"}
                 },
                 "allowedRoles": {"type": "array", "description": "Массив массив ролей.", "items": {"type": "number"}},
+                "allowedStrategies": {
+                  "type": "array",
+                  "description": "Массив доступных стратегий.",
+                  "items": {"type": "number"}
+                },
                 "canByMasterUser": {
                   "type": "boolean",
                   "description": "Может ли данный пользователь быть мастер юзером.",
@@ -7566,7 +7589,7 @@
     "/api/v1/batches/{guid}/batch_has_dispatched": {
       "patch": {
         "summary": "# Выставить статус отбытия партии из склада.",
-        "description": "## Выставить статус отбытия партии из склада\n\nЭтот метод будет дергать склад,\n        Статус партии поменяется на HAS_DISPATCHED.\n        Статус коробок поменяется на IN_BATCH_ON_THE_WAY.\n        Проверки:\n        Сторкипер может редактировать только свою партию \n        Статус партии должен быть ранее: IS_BEING_COLLECTED\n        В партии должна быть хотя бы одно коробка.\n        у всех коробок статус должен быть ранее: IN_BATCH\n        Итоговая цена за доставку должна быть больше 0.",
+        "description": "## Выставить статус отбытия партии из склада\n\nЭтот метод будет дергать склад,\n        Статус партии поменяется на HAS_DISPATCHED.\n        Статус коробок поменяется на IN_BATCH_ON_THE_WAY.\n        Проверки:\n        Сторкипер может редактировать только свою партию\n        Статус партии должен быть ранее: IS_BEING_COLLECTED\n        В партии должна быть хотя бы одно коробка.\n        у всех коробок статус должен быть ранее: IN_BATCH\n        Итоговая цена за доставку должна быть больше 0.",
         "tags": ["Batches"],
         "produces": ["application/json"],
         "parameters": [
@@ -32299,18 +32322,24 @@
                 "additionalProperties": false,
                 "required": ["productName", "price"],
                 "properties": {
-                  "_id": {"type": "string", "description": "GUID идеи"},
-                  "image": {"type": "string", "description": "Image URL"},
+                  "id": {"type": "string", "description": "GUID идеи"},
+                  "media": {
+                    "type": "array",
+                    "description": "Image URL",
+                    "example": ["http://link.com/media"],
+                    "items": {}
+                  },
                   "comments": {
                     "type": "string",
                     "description": "Комментарий к идее",
                     "example": "Какие-то пояснения к идее"
                   },
                   "productName": {"type": "string", "description": "Назавние продукта", "example": "Новые кроссовки"},
-                  "productLink": {
-                    "type": "string",
+                  "productLinks": {
+                    "type": "array",
                     "description": "Ссылка на продукт, если есть",
-                    "example": "http://link.com/productName"
+                    "example": ["http://link.com/productName"],
+                    "items": {}
                   },
                   "criteria": {
                     "type": "string",
@@ -32323,7 +32352,12 @@
                   "height": {"type": "number", "description": "Высота, см", "example": 15},
                   "length": {"type": "number", "description": "Длина, см", "example": 35},
                   "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
-                  "updatedAt": {"type": "string", "format": "date-time", "description": "Дата последнего обновления"}
+                  "updatedAt": {"type": "string", "format": "date-time", "description": "Дата последнего обновления"},
+                  "supplier": {
+                    "type": "array",
+                    "description": "Массив поставщиков.",
+                    "items": {"type": "string", "description": "GUID поставщика", "example": "60c1e3ff86b7c05cc843cb0f"}
+                  }
                 }
               }
             }
@@ -32346,17 +32380,17 @@
               "additionalProperties": false,
               "required": ["productName", "price"],
               "properties": {
-                "image": {"type": "string", "description": "Image URL"},
+                "media": {"type": "array", "description": "Image URL", "example": ["http://link.com/media"]},
                 "comments": {
                   "type": "string",
                   "description": "Комментарий к идее",
                   "example": "Какие-то пояснения к идее"
                 },
                 "productName": {"type": "string", "description": "Назавние продукта", "example": "Новые кроссовки"},
-                "productLink": {
-                  "type": "string",
-                  "description": "Ссылка на продукт, если есть",
-                  "example": "http://link.com/productName"
+                "productLinks": {
+                  "type": "array",
+                  "description": "Ссылки на продукт, если есть",
+                  "example": ["http://link.com/productName"]
                 },
                 "criteria": {
                   "type": "string",
@@ -32375,7 +32409,13 @@
         ],
         "security": [{"AccessTokenBearer": []}],
         "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "201": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {"guid": {"type": "string", "description": "guid созданного объекта"}}
+            }
+          },
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
         }
@@ -32393,7 +32433,13 @@
             "in": "body",
             "schema": {
               "type": "object",
-              "properties": {"supplierIds": {"type": "array", "description": "ID поставщиков"}}
+              "properties": {
+                "suppliersIds": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "GUIDы поставщиков, которые нужно добавить в БД."
+                }
+              }
             }
           },
           {
@@ -32421,7 +32467,53 @@
         "tags": ["Idea"],
         "produces": ["application/json"],
         "parameters": [
-          {"name": "body", "in": "body", "schema": {"type": "object", "properties": {}}},
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "media": {
+                  "type": "array",
+                  "description": "Images URLs",
+                  "nullable": true,
+                  "example": ["http://link.com/media"],
+                  "items": {}
+                },
+                "comments": {
+                  "type": "string",
+                  "description": "Комментарий к идее",
+                  "nullable": true,
+                  "example": "Какие-то пояснения к идее"
+                },
+                "productName": {
+                  "type": "string",
+                  "description": "Назавние продукта",
+                  "nullable": true,
+                  "example": "Новые кроссовки"
+                },
+                "productLinks": {
+                  "type": "array",
+                  "description": "Ссылки на продукт, если есть",
+                  "nullable": true,
+                  "example": ["http://link.com/productName"],
+                  "items": {}
+                },
+                "criteria": {
+                  "type": "string",
+                  "description": "Дополнительные критерии для поиска товара",
+                  "nullable": true,
+                  "example": "Желтый цвет, зеленые шнурки"
+                },
+                "quantity": {"type": "number", "description": "Количество товаров", "nullable": true, "example": 2},
+                "price": {"type": "number", "description": "Желаемая цена", "nullable": true, "example": 2.5},
+                "width": {"type": "number", "description": "Ширина, см", "nullable": true, "example": 10},
+                "height": {"type": "number", "description": "Высота, см", "nullable": true, "example": 15},
+                "length": {"type": "number", "description": "Длина, см", "nullable": true, "example": 35}
+              }
+            }
+          },
           {
             "type": "string",
             "format": "uuid",
@@ -32435,37 +32527,52 @@
         "security": [{"AccessTokenBearer": []}],
         "responses": {
           "200": {
-            "description": "Default Response",
+            "description": "Список измененных идей",
             "schema": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["productName", "price"],
-              "properties": {
-                "_id": {"type": "string", "description": "GUID идеи"},
-                "image": {"type": "string", "description": "Image URL"},
-                "comments": {
-                  "type": "string",
-                  "description": "Комментарий к идее",
-                  "example": "Какие-то пояснения к идее"
-                },
-                "productName": {"type": "string", "description": "Назавние продукта", "example": "Новые кроссовки"},
-                "productLink": {
-                  "type": "string",
-                  "description": "Ссылка на продукт, если есть",
-                  "example": "http://link.com/productName"
-                },
-                "criteria": {
-                  "type": "string",
-                  "description": "Дополнительные критерии для поиска товара",
-                  "example": "Желтый цвет, зеленые шнурки"
-                },
-                "quantity": {"type": "number", "description": "Количество товаров", "example": 2},
-                "price": {"type": "number", "description": "Желаемая цена", "example": 2.5},
-                "width": {"type": "number", "description": "Ширина, см", "example": 10},
-                "height": {"type": "number", "description": "Высота, см", "example": 15},
-                "length": {"type": "number", "description": "Длина, см", "example": 35},
-                "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
-                "updatedAt": {"type": "string", "format": "date-time", "description": "Дата последнего обновления"}
+              "type": "array",
+              "description": "Список измененных идей",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "media": {
+                    "type": "array",
+                    "description": "Images URLs",
+                    "nullable": true,
+                    "example": ["http://link.com/media"],
+                    "items": {}
+                  },
+                  "comments": {
+                    "type": "string",
+                    "description": "Комментарий к идее",
+                    "nullable": true,
+                    "example": "Какие-то пояснения к идее"
+                  },
+                  "productName": {
+                    "type": "string",
+                    "description": "Назавние продукта",
+                    "nullable": true,
+                    "example": "Новые кроссовки"
+                  },
+                  "productLinks": {
+                    "type": "array",
+                    "description": "Ссылки на продукт, если есть",
+                    "nullable": true,
+                    "example": ["http://link.com/productName"],
+                    "items": {}
+                  },
+                  "criteria": {
+                    "type": "string",
+                    "description": "Дополнительные критерии для поиска товара",
+                    "nullable": true,
+                    "example": "Желтый цвет, зеленые шнурки"
+                  },
+                  "quantity": {"type": "number", "description": "Количество товаров", "nullable": true, "example": 2},
+                  "price": {"type": "number", "description": "Желаемая цена", "nullable": true, "example": 2.5},
+                  "width": {"type": "number", "description": "Ширина, см", "nullable": true, "example": 10},
+                  "height": {"type": "number", "description": "Высота, см", "nullable": true, "example": 15},
+                  "length": {"type": "number", "description": "Длина, см", "nullable": true, "example": 35}
+                }
               }
             }
           },
@@ -32497,9 +32604,9 @@
         }
       }
     },
-    "/api/v1/ideas/remove_suppliers/{guid}": {
+    "/api/v1/ideas/remove_supplier/{guid}": {
       "post": {
-        "summary": "Удалить поставщиков",
+        "summary": "Удалить поставщика",
         "description": "## Удаление поставщика у идеи\n\n",
         "tags": ["Idea"],
         "produces": ["application/json"],
@@ -32509,7 +32616,9 @@
             "in": "body",
             "schema": {
               "type": "object",
-              "properties": {"supplierIds": {"type": "array", "description": "ID поставщиков"}}
+              "properties": {
+                "suppliersId": {"type": "string", "description": "GUID поставщика, который нужно удалить в БД."}
+              }
             }
           },
           {
@@ -54563,6 +54672,718 @@
                         }
                       }
                     }
+                  }
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/requests/custom/": {
+      "get": {
+        "summary": "Получить все уникальные заявки для исполнителя.",
+        "description": "## Получить все уникальные заявки для исполнителя. \n\n",
+        "tags": ["Requests"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID в сущности в БД",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["_id", "type", "maxAmountOfProposals", "price", "status", "direction"],
+                "description": "Схема заявки.",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "GUID заявки в базе данных.",
+                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                  },
+                  "type": {"type": "string", "description": "Тип заявки.", "example": "CUSTOM"},
+                  "title": {"type": "string", "description": "Title заявки.", "example": "Amazing idea."},
+                  "maxAmountOfProposals": {"type": "integer", "description": "Количество предложений.", "example": 10},
+                  "price": {
+                    "type": "number",
+                    "minimum": 0,
+                    "description": "Цена за каждое предложение.",
+                    "example": 15
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "DRAFT",
+                      "PUBLISHED",
+                      "IN_PROCESS",
+                      "FORBID_NEW_PROPOSALS",
+                      "COMPLETE_PROPOSALS_AMOUNT_ACHIEVED",
+                      "CANCELED_BY_CREATOR",
+                      "EXPIRED",
+                      "READY_TO_VERIFY_BY_ADMIN",
+                      "VERIFYING_BY_ADMIN",
+                      "TO_CORRECT_BY_ADMIN",
+                      "CANCELED_BY_ADMIN",
+                      "READY_TO_VERIFY_BY_SUPERVISOR",
+                      "VERIFYING_BY_SUPERVISOR",
+                      "TO_CORRECT_BY_SUPERVISOR"
+                    ],
+                    "description": "\nDRAFT - черновик, заявка создана, но не опубликована \nPUBLISHED - заявка опубликована, изменять такую заявку можно! Для того чтобы не произошло неожиданных изменений при \nустановке этого статуса рассчитываем чек сумму на основе данных самой заявки и деталей при создании и каждом изменении.\nПосле этого при публикации предложения будем отправлять этот хеш. Если хеш был изменен то предложение не публикуется и \nсервер отдает соответствующую ошибку. Так же из этого статуса можно перевести обратно в статус CREATED (черновик)\nIN_PROGRESS - по заявке уже есть хотябы одно предложение, изменять такую заявку нельзя, можно только закрыть или снять \nс публикации, остановить прием предложений по этой заявке. После этого статуса можно закрыть заявку или она может быть \nзакрыта автоматически\nFORBID_NEW_PROPOSALS - снять с публикации, остановить прием предложений по этой заявке, этот статус разрешает закрыть \nзаявку или перевести ее обратно в статус PUBLISHED/IN_PROGRESS в зависимости от того есть ли по этой заявке уже предложения. \nТак же после этого статуса можно закрыть заявку или она может быть автоматически закрыта.\nФинальные статусы, после них нельзя менять ни заявку ни статус:\nCOMPLETE_PROPOSALS_AMOUNT_ACHIEVED - заявка закрылась автоматически при достижении кол-ва выполненных предложений\nCANCELED_BY_CREATOR - заявка закрыта пользователем\nEXPIRED - истек срок заявки, автоматически закрылась\nТехнические статусы:\nVERIFYING_BY_ADMIN - проверяется адином, такая заявка не отображается в общей выдаче, этот статус выставляет сам админ\nTO_CORRECT_BY_ADMIN - статус выставляет админ после проверки заявки, после этого статуса можно выставить только статус \nREADY_TO_VERIFY_BY_ADMIN и эта заявка должна попасть обратно на проверку админу. Если админ проверил все и все ок, то он \nвыставляет статус CREATED.\nREADY_TO_VERIFY_BY_ADMIN - статус устанавливается клиентом для того чтобы админ проверил изменения по заявке\nCANCELED_BY_ADMIN - закрыто админом\n\nСтатусы для проверки заявки у супервизера (пока вроде не нужно, но статусы можно создать):\nREADY_TO_VERIFY_BY_SUPERVISOR - клиент отправляет заявку на проверку спервизеру, в этом статусе заявка не опубликована \nна бирже и подавать предложения нельзя, изменять заявку так же нельзя. Заявки с таким статусом доступны всем супервизерам. \n(пока этот функционал вроде не нужен)\nVERIFYING_BY_SUPERVISOR - в процессе проверки заявки супервизером, в этом статусе заявка не опубликована на бирже и \nподавать предложения нельзя, изменять заявку так же нельзя (пока этот функционал вроде не нужен)\nTO_CORRECT_BY_SUPERVISOR - статус выставляет супервизор после проверки заявки, после этого статуса можно выставить только \nстатус READY_TO_VERIFY и эта заявка должна попасть обратно на проверку ТОМУ ЖЕ супервизеру что и проверял ее ранее. \n(поле supervisorId). Если супервизор проверил все и все ок, то он выставляет статус PUBLISHED. (опять же пока можно заложить \nстатус но логику не реализовывать)\n",
+                    "example": "PUBLISHED"
+                  },
+                  "timeoutAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Время закрытия заявки.",
+                    "example": "2021-11-24T15:10:46.882Z"
+                  },
+                  "timeLimitInMinutes": {
+                    "type": "integer",
+                    "description": "Время за которое должен отправить предложение после бронирования. В минутах.",
+                    "example": 60
+                  },
+                  "assignees": {
+                    "type": "array",
+                    "description": "Массив id пользователей.",
+                    "items": {"type": "string", "example": "ccfc1502-db68-4dec-97bd-9461242bc951"}
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": ["IN", "OUT"],
+                    "description": "Направление заявки, исходящая или входящая."
+                  },
+                  "roles": {
+                    "type": "array",
+                    "description": "Массив массив ролей.",
+                    "items": {"type": "integer", "enum": [0, 10, 20, 30, 35, 40, 45]},
+                    "example": [10, 20, 30]
+                  },
+                  "needCheckBySupervisor": {"type": "boolean", "description": "Если требуется проверка супервайзером."},
+                  "restrictMoreThanOneProposalFromOneAssignee": {
+                    "type": "boolean",
+                    "description": "Запретить фрилансеру повторное отправление предложений."
+                  },
+                  "createdById": {
+                    "type": "string",
+                    "description": "GUID клиента, который создал заявку.",
+                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                  },
+                  "lastModifiedById": {
+                    "type": "string",
+                    "description": "GUID клиента, который обновил запрос на поиск товара.",
+                    "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                  },
+                  "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
+                  "updatedAt": {"type": "string", "format": "date-time", "description": "Дата изменения"},
+                  "createdBy": {
+                    "type": "object",
+                    "description": "Общая информация о пользователи",
+                    "nullable": true,
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "description": "GUID пользователя.",
+                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                      },
+                      "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                      "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                    }
+                  },
+                  "countProposalsByStatuses": {
+                    "type": "object",
+                    "nullable": true,
+                    "properties": {
+                      "allProposals": {"type": "number"},
+                      "waitedProposals": {"type": "number"},
+                      "atWorkProposals": {"type": "number"},
+                      "verifyingProposals": {"type": "number"},
+                      "acceptedProposals": {"type": "number"}
+                    }
+                  },
+                  "detailsCustom": {
+                    "type": "object",
+                    "description": "Детали универсальной заявки.",
+                    "properties": {
+                      "conditions": {
+                        "type": "string",
+                        "description": "Условия кастомной заявки.",
+                        "example": "Активный аккаунт с хорошей репутацией, созданного не позднее 2015 года."
+                      },
+                      "linksToMediaFiles": {
+                        "type": "array",
+                        "description": "Массив ссылок на медиафайлы.",
+                        "items": {
+                          "type": "string",
+                          "example": "https://krasivosti.pro/uploads/posts/2021-04/1617690122_41-p-koshachi-oboi-ochen-krasivie-kotiki-43.jpg"
+                        }
+                      },
+                      "createdById": {
+                        "type": "string",
+                        "description": "GUID клиента, который создал запрос на поиск товара.",
+                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                      },
+                      "lastModifiedById": {
+                        "type": "string",
+                        "description": "GUID клиента, который обновил запрос на поиск товара.",
+                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                      },
+                      "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
+                      "updatedAt": {"type": "string", "format": "date-time", "description": "Дата изменения"}
+                    }
+                  },
+                  "proposals": {
+                    "type": "array",
+                    "items": {
+                      "proposals": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "Guid продожения к заявке.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "requestId": {
+                              "type": "string",
+                              "description": "Guid заявки к которой относится данное предложение.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "type": {"type": "string", "description": "Тип предложения.", "example": "CUSTOM"},
+                            "status": {
+                              "type": "string",
+                              "enum": [
+                                "CREATED",
+                                "OFFER_CONDITIONS_ACCEPTED",
+                                "READY_TO_VERIFY",
+                                "OFFER_CONDITIONS_REJECTED",
+                                "OFFER_CONDITIONS_CORRECTED",
+                                "VERIFYING_BY_SUPERVISOR",
+                                "TO_CORRECT",
+                                "CORRECTED",
+                                "CANCELED_BY_CREATOR_OF_REQUEST",
+                                "CANCELED_BY_SUPERVISOR",
+                                "CANCELED_BY_EXECUTOR",
+                                "ACCEPTED_BY_CLIENT",
+                                "ACCEPTED_BY_SUPERVISOR",
+                                "EXPIRED"
+                              ],
+                              "description": "\nCREATED - предложение по заявке создано, с ценой и временем выполнения от исполнителя\nOFFER_CONDITIONS_ACCEPTED - условия предложения были приняты клиентом, после этого начиначется отсчет времени на выполнение заявки, с этого статуса можно перейти только на READY_TO_VERIFY, с этого момента начинаем учитывать этого исполнителя в счетчике людей работающих по заявке\nOFFER_CONDITIONS_REJECTED - условия предложения были отклонены клиентом. После изменения условий клиентом выставляется статус OFFER_CONDITIONS_CORRECTED\nOFFER_CONDITIONS_CORRECTED - исполнитель отредактировал свои условия по предложению чтобы клиент опять их посмотрел и решил принимает или нет, после этого статуса можно опять перейти на OFFER_CONDITIONS_ACCEPTED или OFFER_CONDITIONS_REJECTED\nREADY_TO_VERIFY - статус выставляет исполнитель, статус говорит о том что исполнитель выполнил работу и клиент/супервизор может ее проверять, после этого статуса можно выставить VERIFYING_BY_SUPERVISOR или TO_CORRECT, а так же закрывающие статусы\nVERIFYING_BY_SUPERVISOR - работа проверяется супервизором\nTO_CORRECT - отправляется на доработку от клиента/супервизора\nCORRECTED - исполнитель отмечает работу как исправленная\nCANCELED_BY_CREATOR_OF_REQUEST - предложение закрывается клиентом, обязательно с комментарием, финальный статус, может быть выставлено только при статусе OFFER_CONDITIONS_REJECTED. Думаю что тут будет еще условия но нужно это обсудить. Этот статус не очень безопасный или может привести к перегрузу админа для решения конфликтных ситуаций\nCANCELED_BY_SUPERVISOR - предложение закрывается супервизором, обязательно с комментарием, финальный статус, может быть выставлен в любой момент. Тут должна появиться возможность создать запрос в поддержку для решения конфликтных ситуаций, это позже обсудим.\nCANCELED_BY_EXECUTOR - закрыто исполнителем, обязательно с комментарием, финальный статус, может быть выставлен в любой момент\nACCEPTED_BY_CLIENT - принято клиентом, происходи оплата\nACCEPTED_BY_SUPERVISOR - принято супервизором, происходи оплата\nEXPIRED - проставляется автоматически, если время указанное в предложении от исполнителя истекло а предложение не было уже в одном из финальных статусов\n",
+                              "example": "CREATED"
+                            },
+                            "timeoutAt": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Время закрытия предложения.",
+                              "example": "2021-11-24T15:10:46.882Z"
+                            },
+                            "execution_time": {
+                              "type": "integer",
+                              "description": "Время на выполнение, в часах.",
+                              "example": 24
+                            },
+                            "attempts": {
+                              "type": "integer",
+                              "description": "Количество попыток, подать предложение или исправить результат работы.",
+                              "example": 1
+                            },
+                            "price": {"type": "number", "description": "Цена предложения.", "example": 15.6},
+                            "comment": {
+                              "type": "string",
+                              "description": "Комментарий к предложению.",
+                              "example": "Привет, мир!"
+                            },
+                            "linksToMediaFiles": {
+                              "type": "array",
+                              "items": {"type": "string"},
+                              "description": "Ссылки на медиафайлы.",
+                              "example": ["https://www.youtube.com/watch?v=dQw4w9WgXcQ"]
+                            },
+                            "clientId": {
+                              "type": "string",
+                              "description": "GUID клиента .",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "supervisorId": {
+                              "type": "string",
+                              "description": "GUID супервизора.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "chatId": {
+                              "type": "string",
+                              "description": "GUID чата.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "createdById": {
+                              "type": "string",
+                              "description": "GUID любого, кто создал предложение.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "lastModifiedById": {
+                              "type": "string",
+                              "description": "GUID любого, кто последний редактировал предложение.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
+                            "updatedAt": {"type": "string", "format": "date-time", "description": "Дата изменения"},
+                            "title": {
+                              "type": "string",
+                              "description": "Название предложения",
+                              "example": "Предложение на миллион"
+                            },
+                            "detailsCustom": {
+                              "type": "object",
+                              "description": "Детали универсального предложения.",
+                              "additionalProperties": false,
+                              "properties": {
+                                "result": {
+                                  "type": "string",
+                                  "description": "Результат рабоботы ресерчера.",
+                                  "example": "аккаунт в Амазон, логин: user2015@hotmail.com, пароль: 123"
+                                },
+                                "comment": {
+                                  "type": "string",
+                                  "description": "Комментарии ресерчера.",
+                                  "example": "Создан 2014 году, репутацию 98%."
+                                },
+                                "linksToMediaFiles": {
+                                  "type": "array",
+                                  "description": "Массив ссылок на медиафайлы.",
+                                  "items": {
+                                    "type": "string",
+                                    "example": "https://krasivosti.pro/uploads/posts/2021-04/1617690122_41-p-koshachi-oboi-ochen-krasivie-kotiki-43.jpg"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "post": {
+        "summary": "# Создать универсальную заявку.",
+        "description": "## Создать универсальную заявку. \n\nЦена будет округлена на до 0,01$ \n\nРоли которые могут работать с заявками клиент, фрилансер и супервайзер\n\nПроверки:\nпока нет проверки (Цена за предложение не должно быть меньше установленного в админке.)",
+        "tags": ["Requests"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "description": "Схема универсальной заявки.",
+              "required": ["request", "details"],
+              "additionalProperties": false,
+              "properties": {
+                "request": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["title", "maxAmountOfProposals", "price", "timeoutAt", "direction", "roles"],
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "minimum": 10,
+                      "description": "Title заявки.",
+                      "example": "Amazing idea."
+                    },
+                    "maxAmountOfProposals": {
+                      "type": ["integer", "null"],
+                      "minimum": 1,
+                      "description": "Количество предложений. null без лимитов",
+                      "example": 10
+                    },
+                    "price": {
+                      "type": "number",
+                      "minimum": 1,
+                      "description": "Цена за каждое предложение.",
+                      "example": 15
+                    },
+                    "timeoutAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Время закрытия заявки.",
+                      "example": "2021-11-24T15:10:46.882Z"
+                    },
+                    "timeLimitInMinutes": {
+                      "type": "integer",
+                      "minimum": 10,
+                      "description": "Время за которое должен отправить предложение после бронирования. В минутах, не менее 10.",
+                      "example": 60
+                    },
+                    "assignees": {
+                      "type": "array",
+                      "description": "Массив id пользователей.",
+                      "items": {"type": "string", "example": "ccfc1502-db68-4dec-97bd-9461242bc951"}
+                    },
+                    "direction": {
+                      "type": "string",
+                      "enum": ["IN", "OUT"],
+                      "description": "Направление заявки, исходящая или входящая."
+                    },
+                    "needCheckBySupervisor": {"type": "boolean", "description": "Нуждается в проверке супервайзером."},
+                    "restrictMoreThanOneProposalFromOneAssignee": {
+                      "type": "boolean",
+                      "description": "Запретить фрилансеру повторное отправление предложений."
+                    },
+                    "roles": {
+                      "type": "array",
+                      "description": "Массив массив ролей.",
+                      "uniqueItems": true,
+                      "items": {"type": "integer", "enum": [10, 20, 30, 35, 40, 45]},
+                      "example": [10, 20, 30]
+                    }
+                  }
+                },
+                "details": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["conditions"],
+                  "properties": {
+                    "conditions": {
+                      "description": "Условия универсальной заявки.",
+                      "example": "Активный аккаунт с хорошей репутацией, созданного не позднее 2015 года."
+                    },
+                    "linksToMediaFiles": {
+                      "type": "array",
+                      "description": "Массив ссылок на медиафайлы.",
+                      "items": {
+                        "type": "string",
+                        "example": "https://krasivosti.pro/uploads/posts/2021-04/1617690122_41-p-koshachi-oboi-ochen-krasivie-kotiki-43.jpg"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "201": {
+            "description": "Успешный ответ",
+            "schema": {
+              "type": "object",
+              "description": "Успешный ответ",
+              "properties": {"guid": {"type": "string", "description": "guid созданного объекта"}}
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/requests/custom/{guid}": {
+      "patch": {
+        "summary": "#  Изменить заявку.",
+        "description": "## Изменить заявку. \n\nЦена будет округлена на до 0,01$ \n\nПроверки:\nТолько владелец может редактировать заявку \nПроверка на статус, статус должен быть DRAFT или PUBLISHED..",
+        "tags": ["Requests"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "description": "Схема универсальной заявки.",
+              "additionalProperties": false,
+              "properties": {
+                "request": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "minimum": 10,
+                      "description": "Title заявки.",
+                      "example": "Amazing idea."
+                    },
+                    "maxAmountOfProposals": {
+                      "type": ["integer", "null"],
+                      "minimum": 1,
+                      "description": "Количество предложений. null без лимитов",
+                      "example": 10
+                    },
+                    "price": {
+                      "type": "number",
+                      "minimum": 1,
+                      "description": "Цена за каждое предложение.",
+                      "example": 15
+                    },
+                    "timeoutAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Время закрытия заявки.",
+                      "example": "2021-11-24T15:10:46.882Z"
+                    },
+                    "timeLimitInMinutes": {
+                      "type": "integer",
+                      "minimum": 10,
+                      "description": "Время за которое должен отправить предложение после бронирования. В минутах, не менее 10.",
+                      "example": 60
+                    },
+                    "assignees": {
+                      "type": "array",
+                      "description": "Массив id пользователей.",
+                      "items": {"type": "string", "example": "ccfc1502-db68-4dec-97bd-9461242bc951"}
+                    },
+                    "direction": {
+                      "type": "string",
+                      "enum": ["IN", "OUT"],
+                      "description": "Направление заявки, исходящая или входящая."
+                    },
+                    "needCheckBySupervisor": {"type": "boolean", "description": "Нуждается в проверке супервайзером."},
+                    "restrictMoreThanOneProposalFromOneAssignee": {
+                      "type": "boolean",
+                      "description": "Запретить фрилансеру повторное отправление предложений."
+                    },
+                    "roles": {
+                      "type": "array",
+                      "description": "Массив массив ролей.",
+                      "uniqueItems": true,
+                      "items": {"type": "integer", "enum": [10, 20, 30, 35, 40, 45]},
+                      "example": [10, 20, 30]
+                    }
+                  }
+                },
+                "details": {
+                  "additionalProperties": false,
+                  "type": "object",
+                  "properties": {
+                    "conditions": {
+                      "type": "string",
+                      "description": "Условия универсальной заявки.",
+                      "example": "Активный аккаунт с хорошей репутацией, созданного не позднее 2015 года."
+                    },
+                    "linksToMediaFiles": {
+                      "type": "array",
+                      "description": "Массив ссылок на медиафайлы.",
+                      "items": {
+                        "type": "string",
+                        "example": "https://krasivosti.pro/uploads/posts/2021-04/1617690122_41-p-koshachi-oboi-ochen-krasivie-kotiki-43.jpg"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID в БД",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "get": {
+        "summary": "Получить уникальную заявку по его guid.",
+        "description": "Получить уникальную заявку по его guid. \n\n",
+        "tags": ["Requests"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID в сущности в БД",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Схема детали на поиск ниш.",
+            "schema": {
+              "type": "object",
+              "description": "Схема детали на поиск ниш.",
+              "properties": {
+                "request": {
+                  "type": "object",
+                  "required": ["_id", "type", "maxAmountOfProposals", "price", "status", "direction"],
+                  "description": "Схема заявки.",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "GUID заявки в базе данных.",
+                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                    },
+                    "type": {"type": "string", "description": "Тип заявки.", "example": "CUSTOM"},
+                    "title": {"type": "string", "description": "Title заявки.", "example": "Amazing idea."},
+                    "maxAmountOfProposals": {
+                      "type": "integer",
+                      "description": "Количество предложений.",
+                      "example": 10
+                    },
+                    "price": {
+                      "type": "number",
+                      "minimum": 0,
+                      "description": "Цена за каждое предложение.",
+                      "example": 15
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "DRAFT",
+                        "PUBLISHED",
+                        "IN_PROCESS",
+                        "FORBID_NEW_PROPOSALS",
+                        "COMPLETE_PROPOSALS_AMOUNT_ACHIEVED",
+                        "CANCELED_BY_CREATOR",
+                        "EXPIRED",
+                        "READY_TO_VERIFY_BY_ADMIN",
+                        "VERIFYING_BY_ADMIN",
+                        "TO_CORRECT_BY_ADMIN",
+                        "CANCELED_BY_ADMIN",
+                        "READY_TO_VERIFY_BY_SUPERVISOR",
+                        "VERIFYING_BY_SUPERVISOR",
+                        "TO_CORRECT_BY_SUPERVISOR"
+                      ],
+                      "description": "\nDRAFT - черновик, заявка создана, но не опубликована \nPUBLISHED - заявка опубликована, изменять такую заявку можно! Для того чтобы не произошло неожиданных изменений при \nустановке этого статуса рассчитываем чек сумму на основе данных самой заявки и деталей при создании и каждом изменении.\nПосле этого при публикации предложения будем отправлять этот хеш. Если хеш был изменен то предложение не публикуется и \nсервер отдает соответствующую ошибку. Так же из этого статуса можно перевести обратно в статус CREATED (черновик)\nIN_PROGRESS - по заявке уже есть хотябы одно предложение, изменять такую заявку нельзя, можно только закрыть или снять \nс публикации, остановить прием предложений по этой заявке. После этого статуса можно закрыть заявку или она может быть \nзакрыта автоматически\nFORBID_NEW_PROPOSALS - снять с публикации, остановить прием предложений по этой заявке, этот статус разрешает закрыть \nзаявку или перевести ее обратно в статус PUBLISHED/IN_PROGRESS в зависимости от того есть ли по этой заявке уже предложения. \nТак же после этого статуса можно закрыть заявку или она может быть автоматически закрыта.\nФинальные статусы, после них нельзя менять ни заявку ни статус:\nCOMPLETE_PROPOSALS_AMOUNT_ACHIEVED - заявка закрылась автоматически при достижении кол-ва выполненных предложений\nCANCELED_BY_CREATOR - заявка закрыта пользователем\nEXPIRED - истек срок заявки, автоматически закрылась\nТехнические статусы:\nVERIFYING_BY_ADMIN - проверяется адином, такая заявка не отображается в общей выдаче, этот статус выставляет сам админ\nTO_CORRECT_BY_ADMIN - статус выставляет админ после проверки заявки, после этого статуса можно выставить только статус \nREADY_TO_VERIFY_BY_ADMIN и эта заявка должна попасть обратно на проверку админу. Если админ проверил все и все ок, то он \nвыставляет статус CREATED.\nREADY_TO_VERIFY_BY_ADMIN - статус устанавливается клиентом для того чтобы админ проверил изменения по заявке\nCANCELED_BY_ADMIN - закрыто админом\n\nСтатусы для проверки заявки у супервизера (пока вроде не нужно, но статусы можно создать):\nREADY_TO_VERIFY_BY_SUPERVISOR - клиент отправляет заявку на проверку спервизеру, в этом статусе заявка не опубликована \nна бирже и подавать предложения нельзя, изменять заявку так же нельзя. Заявки с таким статусом доступны всем супервизерам. \n(пока этот функционал вроде не нужен)\nVERIFYING_BY_SUPERVISOR - в процессе проверки заявки супервизером, в этом статусе заявка не опубликована на бирже и \nподавать предложения нельзя, изменять заявку так же нельзя (пока этот функционал вроде не нужен)\nTO_CORRECT_BY_SUPERVISOR - статус выставляет супервизор после проверки заявки, после этого статуса можно выставить только \nстатус READY_TO_VERIFY и эта заявка должна попасть обратно на проверку ТОМУ ЖЕ супервизеру что и проверял ее ранее. \n(поле supervisorId). Если супервизор проверил все и все ок, то он выставляет статус PUBLISHED. (опять же пока можно заложить \nстатус но логику не реализовывать)\n",
+                      "example": "PUBLISHED"
+                    },
+                    "timeoutAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Время закрытия заявки.",
+                      "example": "2021-11-24T15:10:46.882Z"
+                    },
+                    "timeLimitInMinutes": {
+                      "type": "integer",
+                      "description": "Время за которое должен отправить предложение после бронирования. В минутах.",
+                      "example": 60
+                    },
+                    "assignees": {
+                      "type": "array",
+                      "description": "Массив id пользователей.",
+                      "items": {"type": "string", "example": "ccfc1502-db68-4dec-97bd-9461242bc951"}
+                    },
+                    "direction": {
+                      "type": "string",
+                      "enum": ["IN", "OUT"],
+                      "description": "Направление заявки, исходящая или входящая."
+                    },
+                    "roles": {
+                      "type": "array",
+                      "description": "Массив массив ролей.",
+                      "items": {"type": "integer", "enum": [0, 10, 20, 30, 35, 40, 45]},
+                      "example": [10, 20, 30]
+                    },
+                    "needCheckBySupervisor": {
+                      "type": "boolean",
+                      "description": "Если требуется проверка супервайзером."
+                    },
+                    "restrictMoreThanOneProposalFromOneAssignee": {
+                      "type": "boolean",
+                      "description": "Запретить фрилансеру повторное отправление предложений."
+                    },
+                    "createdById": {
+                      "type": "string",
+                      "description": "GUID клиента, который создал заявку.",
+                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                    },
+                    "lastModifiedById": {
+                      "type": "string",
+                      "description": "GUID клиента, который обновил запрос на поиск товара.",
+                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                    },
+                    "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
+                    "updatedAt": {"type": "string", "format": "date-time", "description": "Дата изменения"},
+                    "createdBy": {
+                      "type": "object",
+                      "description": "Общая информация о пользователи",
+                      "nullable": true,
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "GUID пользователя.",
+                          "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                        },
+                        "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                        "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                      }
+                    },
+                    "countProposalsByStatuses": {
+                      "type": "object",
+                      "nullable": true,
+                      "properties": {
+                        "allProposals": {"type": "number"},
+                        "waitedProposals": {"type": "number"},
+                        "atWorkProposals": {"type": "number"},
+                        "verifyingProposals": {"type": "number"},
+                        "acceptedProposals": {"type": "number"}
+                      }
+                    }
+                  }
+                },
+                "details": {
+                  "type": "object",
+                  "properties": {
+                    "conditions": {
+                      "type": "string",
+                      "description": "Условия кастомной заявки.",
+                      "example": "Активный аккаунт с хорошей репутацией, созданного не позднее 2015 года."
+                    },
+                    "linksToMediaFiles": {
+                      "type": "array",
+                      "description": "Массив ссылок на медиафайлы.",
+                      "items": {
+                        "type": "string",
+                        "example": "https://krasivosti.pro/uploads/posts/2021-04/1617690122_41-p-koshachi-oboi-ochen-krasivie-kotiki-43.jpg"
+                      }
+                    },
+                    "createdById": {
+                      "type": "string",
+                      "description": "GUID клиента, который создал запрос на поиск товара.",
+                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                    },
+                    "lastModifiedById": {
+                      "type": "string",
+                      "description": "GUID клиента, который обновил запрос на поиск товара.",
+                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                    },
+                    "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
+                    "updatedAt": {"type": "string", "format": "date-time", "description": "Дата изменения"}
                   }
                 }
               }

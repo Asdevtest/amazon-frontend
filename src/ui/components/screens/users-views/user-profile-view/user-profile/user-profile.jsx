@@ -7,7 +7,7 @@ import {Avatar, Box, Paper, Typography, Button, Badge} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
-import {UserRoleCodeMap} from '@constants/user-roles'
+import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
 import {PurchaseHistory} from '@components/screens/users-views/user-profile-view/purchase-history'
 import {Reviews} from '@components/screens/users-views/user-profile-view/reviews'
@@ -35,6 +35,8 @@ export const UserProfile = observer(
     setTabReview,
   }) => {
     const classNames = useClassNames()
+
+    console.log('user', user)
 
     return (
       <Paper className={classNames.paper}>
@@ -103,7 +105,7 @@ export const UserProfile = observer(
 
           <Info headerInfoData={headerInfoData} />
 
-          <Tested />
+          {user.allowedRoles.includes(mapUserRoleEnumToKey[UserRole.RESEARCHER]) ? <Tested user={user} /> : null}
         </div>
 
         <div className={classNames.rightSideWrapper}>

@@ -15,10 +15,10 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import InlineObject2 from '../model/InlineObject2';
-import InlineObject49 from '../model/InlineObject49';
 import InlineObject50 from '../model/InlineObject50';
 import InlineObject51 from '../model/InlineObject51';
 import InlineObject52 from '../model/InlineObject52';
+import InlineObject53 from '../model/InlineObject53';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse20016 from '../model/InlineResponse20016';
 import InternalServerError from '../model/InternalServerError';
@@ -50,7 +50,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject51} opts.body 
+     * @param {module:model/InlineObject52} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsAddShopsGuidPostWithHttpInfo(guid, opts) {
@@ -89,7 +89,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject51} opts.body 
+     * @param {module:model/InlineObject52} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsAddShopsGuidPost(guid, opts) {
@@ -106,7 +106,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject49} opts.body 
+     * @param {module:model/InlineObject50} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsAddSuppliersGuidPostWithHttpInfo(guid, opts) {
@@ -145,7 +145,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject49} opts.body 
+     * @param {module:model/InlineObject50} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsAddSuppliersGuidPost(guid, opts) {
@@ -430,7 +430,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject52} opts.body 
+     * @param {module:model/InlineObject53} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsRemoveShopsGuidPostWithHttpInfo(guid, opts) {
@@ -469,7 +469,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject52} opts.body 
+     * @param {module:model/InlineObject53} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsRemoveShopsGuidPost(guid, opts) {
@@ -486,7 +486,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject50} opts.body 
+     * @param {module:model/InlineObject51} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsRemoveSuppliersGuidPostWithHttpInfo(guid, opts) {
@@ -525,7 +525,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject50} opts.body 
+     * @param {module:model/InlineObject51} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsRemoveSuppliersGuidPost(guid, opts) {
