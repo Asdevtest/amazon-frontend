@@ -20,14 +20,14 @@ import {Navbar} from '@components/navbar'
 // import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
 
-import {VacantDealsViewModel} from './vacant-deals-view.model'
+import {DealsOnReviewModel} from './deals-on-review-view.model'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_DEALS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW
 
 @observer
-export class VacantDealsView extends Component {
-  viewModel = new VacantDealsViewModel({history: this.props.history})
+export class DealsOnReviewView extends Component {
+  viewModel = new DealsOnReviewModel({history: this.props.history})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -43,7 +43,7 @@ export class VacantDealsView extends Component {
       deals,
       // onTriggerSortMode,
       onTriggerDrawerOpen,
-      onClickViewMore,
+      // onClickViewMore,
       // onChangeViewMode,
       // onChangeNameSearchValue,
     } = this.viewModel
@@ -68,9 +68,9 @@ export class VacantDealsView extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey['Vacant deals'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['Deals on review'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <VacantDealsListCard onClickViewMore={onClickViewMore} />
+              <VacantDealsListCard dealsOnReview />
             </MainContent>
           </Appbar>
         </Main>

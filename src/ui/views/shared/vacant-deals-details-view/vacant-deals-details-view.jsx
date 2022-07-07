@@ -7,7 +7,7 @@ import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-a
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
-import {VacantDealsListCard} from '@components/cards/vacant-deals-list-card'
+import {DealDetailsCard} from '@components/cards/deal-details-card'
 // import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
 // import {VacantRequestShortCard} from '@components/cards/vacant-request-short-card'
 // import {Field} from '@components/field'
@@ -20,14 +20,14 @@ import {Navbar} from '@components/navbar'
 // import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
 
-import {VacantDealsViewModel} from './vacant-deals-view.model'
+import {VacantDealsDetailsViewModel} from './vacant-deals-details-view.model'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_DEALS
 const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS
 
 @observer
-export class VacantDealsView extends Component {
-  viewModel = new VacantDealsViewModel({history: this.props.history})
+export class VacantDealsDetailsView extends Component {
+  viewModel = new VacantDealsDetailsViewModel({history: this.props.history})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -43,7 +43,7 @@ export class VacantDealsView extends Component {
       deals,
       // onTriggerSortMode,
       onTriggerDrawerOpen,
-      onClickViewMore,
+      // onClickViewMore,
       // onChangeViewMode,
       // onChangeNameSearchValue,
     } = this.viewModel
@@ -70,7 +70,7 @@ export class VacantDealsView extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Vacant deals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <VacantDealsListCard onClickViewMore={onClickViewMore} />
+              <DealDetailsCard />
             </MainContent>
           </Appbar>
         </Main>

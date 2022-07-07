@@ -60,6 +60,7 @@ import {ResearcherProductsView} from '@views/researcher/researcher-products-view
 import {AnotherUserProfileView} from '@views/shared/another-user-profile-view'
 import {CreateOrEditProposalView} from '@views/shared/create-or-edit-proposal-view'
 import {CreateOrEditRequestView} from '@views/shared/create-or-edit-request-view'
+import {DealsOnReviewView} from '@views/shared/deals-on-review-view/deals-on-review-view'
 import {MyProposalsView} from '@views/shared/my-proposals-view'
 import {MyRequestsView} from '@views/shared/my-requests-view'
 import {OwnerRequestDetailCustomView} from '@views/shared/owner-requests-detail-custom-view'
@@ -67,6 +68,7 @@ import {RequestDetailCustomView} from '@views/shared/servant-requests-detail-cus
 import {SubUsersView} from '@views/shared/sub-users-view/sub-users-view'
 import {UserProfileView} from '@views/shared/user-profile-view/user-profile-view'
 import {UsersView} from '@views/shared/users-view'
+import {VacantDealsDetailsView} from '@views/shared/vacant-deals-details-view'
 import {VacantDealsView} from '@views/shared/vacant-deals-view'
 import {VacantRequestsView} from '@views/shared/vacant-requests-view/vacant-requests-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
@@ -633,17 +635,25 @@ export const privateRoutesConfigs = [
   {
     routePath: '/supervisor/freelance/vacant-deals',
     component: VacantDealsView,
-    exact: false,
+    exact: true,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey['Vacant deals'],
   },
 
   {
     routePath: '/supervisor/freelance/deals-on-review',
-    component: SupervisorDashboardView,
+    component: DealsOnReviewView,
     exact: false,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey['Deals on review'],
+  },
+
+  {
+    routePath: '/supervisor/freelance/vacant-deals/deal-details',
+    component: VacantDealsDetailsView,
+    exact: true,
+    permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Deal,
   },
 
   {

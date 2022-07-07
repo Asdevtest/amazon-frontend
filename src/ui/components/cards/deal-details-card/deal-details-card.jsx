@@ -7,6 +7,7 @@ import {Avatar, Grid, Typography} from '@material-ui/core'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 // import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {UserLink} from '@components/user-link'
 
@@ -16,9 +17,9 @@ import {UserLink} from '@components/user-link'
 import {t} from '@utils/translations'
 
 // import {translateProposalsLeftMessage} from '@utils/validation'
-import {useClassNames} from './vacant-deals-list-card.style'
+import {useClassNames} from './deal-details-card.style'
 
-export const VacantDealsListCard = ({onClickViewMore, dealsOnReview}) => {
+export const DealDetailsCard = () => {
   const classNames = useClassNames()
 
   return (
@@ -57,6 +58,22 @@ export const VacantDealsListCard = ({onClickViewMore, dealsOnReview}) => {
               <Typography className={classNames.cardDescription}>{'Описание вакантной сделки'}</Typography>
             </div>
           </div>
+          <div className={classNames.sumAndTimeWrapper}>
+            <div>
+              <Typography className={classNames.sumAndTimeTitle}>{t(TranslationKey.Budget)}</Typography>
+              <Typography>{'30$'}</Typography>
+            </div>
+            <div>
+              <Typography className={classNames.sumAndTimeTitle}>{t(TranslationKey.Deadline)}</Typography>
+              <Typography>{'Уже вчера'}</Typography>
+            </div>
+          </div>
+          <div className={classNames.filesWrapper}>
+            <PhotoAndFilesCarousel />
+          </div>
+          <div>
+            <Button className={classNames.actionButton}>{t(TranslationKey['Send in for rework'])}</Button>
+          </div>
         </div>
 
         <div className={classNames.middleBlockWrapper}>
@@ -86,28 +103,42 @@ export const VacantDealsListCard = ({onClickViewMore, dealsOnReview}) => {
               </div>
             </div>
           </div>
-          <div className={!dealsOnReview ? classNames.buttonsWrapper : classNames.buttonWrapper}>
-            {!dealsOnReview && (
-              <Button
-                success
-                // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-                variant="contained"
-                color="primary"
-                className={classNames.actionButton}
-                // onClick={() => onClickViewMore('2')}
-              >
-                {t(TranslationKey['Get to work'])}
-              </Button>
-            )}
+          <div className={classNames.resultWrapper}>
+            <Typography className={classNames.result}>{t(TranslationKey.Result)}</Typography>
+            <Typography className={classNames.resultDescription}>{'Тут будет результат сделки'}</Typography>
+          </div>
+          <div className={classNames.filesAndTimeWrapper}>
+            <div className={classNames.filesWrapper}>
+              <PhotoAndFilesCarousel />
+            </div>
 
+            <div className={classNames.timeOnReviewWrapper}>
+              <Typography className={classNames.timeOnReviewTitle}>{t(TranslationKey['Time to complete'])}</Typography>
+              <Typography className={classNames.timeOnReview}>{'24ч 00мин'}</Typography>
+            </div>
+          </div>
+
+          <div className={classNames.buttonsWrapper}>
             <Button
+              danger
               // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
               variant="contained"
               color="primary"
               className={classNames.actionButton}
-              onClick={() => onClickViewMore()}
+              // onClick={() => onClickViewMore('2')}
             >
-              {t(TranslationKey['Open a deal'])}
+              {t(TranslationKey['Reject the deal'])}
+            </Button>
+
+            <Button
+              success
+              // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
+              variant="contained"
+              color="primary"
+              className={classNames.actionButton}
+              // onClick={() => onClickViewMore('2')}
+            >
+              {t(TranslationKey['Accept the deal'])}
             </Button>
           </div>
         </div>

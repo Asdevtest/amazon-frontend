@@ -7,7 +7,7 @@ export const useClassNames = makeStyles(() => ({
 
   cardWrapper: {
     width: '100%',
-    height: '326px',
+    height: '710px',
 
     borderRadius: '4px',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
@@ -15,6 +15,12 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '30px',
+  },
+
+  leftBlockWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 
   nameWrapper: {
@@ -197,5 +203,61 @@ export const useClassNames = makeStyles(() => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+
+  result: {
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+  },
+
+  resultDescription: {
+    fontWeight: '400',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+    height: '125px',
+  },
+  filesAndTimeWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  filesWrapper: {
+    width: '70%',
+  },
+  timeOnReviewWrapper: {
+    width: '200px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'end',
+    gap: '15px',
+  },
+
+  timeOnReviewTitle: {
+    fontWeight: '400',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+  },
+
+  timeOnReview: {
+    padding: '8px 16px 8px 56px',
+    backgroundColor: '#D9FAE5',
+  },
+
+  sumAndTimeWrapper: {
+    width: '60%',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  sumAndTimeTitle: {
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
   },
 }))
