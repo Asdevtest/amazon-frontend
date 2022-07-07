@@ -3,7 +3,13 @@ import React, {useState} from 'react'
 import {Box, Grid, NativeSelect, Typography, Checkbox, Link} from '@material-ui/core'
 import clsx from 'clsx'
 
-import {getOrderStatusOptionByCode, OrderStatusByCode, OrderStatusByKey, OrderStatus} from '@constants/order-status'
+import {
+  getOrderStatusOptionByCode,
+  OrderStatusByCode,
+  OrderStatusByKey,
+  OrderStatus,
+  OrderStatusTranslate,
+} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
@@ -133,13 +139,12 @@ export const SelectFields = ({
                 <option
                   key={statusIndex}
                   value={statusCode}
-                  tooltipInfoContent={'dsdsdd'}
                   className={clsx({
                     [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
                   })}
                   disabled={disabledOrderStatuses.includes(statusCode)}
                 >
-                  {getOrderStatusOptionByCode(statusCode).label}
+                  {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
                 </option>
               ))}
             </NativeSelect>

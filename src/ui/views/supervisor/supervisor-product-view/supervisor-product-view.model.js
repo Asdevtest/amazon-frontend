@@ -105,13 +105,13 @@ const confirmMessageByProductStatus = () => ({
 
 const confirmMessageWithoutStatus = () => t(TranslationKey['Save without status']) + '?'
 
-const warningModalTitleVariants = {
+const warningModalTitleVariants = () => ({
   NO_SUPPLIER: t(TranslationKey["You can't choose without a supplier"]),
   CHOOSE_STATUS: t(TranslationKey['We need to choose a status']),
   PRICE_WAS_NOT_ACCEPTABLE: t(TranslationKey["Is the supplier's price unacceptable"]),
   SUPPLIER_WAS_NOT_FOUND_BY_BUYER: t(TranslationKey['Supplier not found']),
   ERROR: t(TranslationKey.Error),
-}
+})
 
 export class SupervisorProductViewModel {
   history = undefined
@@ -227,13 +227,13 @@ export class SupervisorProductViewModel {
         this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER])
     ) {
       if (this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE]) {
-        this.warningModalTitle = warningModalTitleVariants.PRICE_WAS_NOT_ACCEPTABLE
+        this.warningModalTitle = warningModalTitleVariants().PRICE_WAS_NOT_ACCEPTABLE
       } else if (this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) {
-        this.warningModalTitle = warningModalTitleVariants.SUPPLIER_WAS_NOT_FOUND_BY_BUYER
+        this.warningModalTitle = warningModalTitleVariants().SUPPLIER_WAS_NOT_FOUND_BY_BUYER
       } else if (!this.product.currentSupplierId) {
-        this.warningModalTitle = warningModalTitleVariants.NO_SUPPLIER
+        this.warningModalTitle = warningModalTitleVariants().NO_SUPPLIER
       } else {
-        this.warningModalTitle = warningModalTitleVariants.ERROR
+        this.warningModalTitle = warningModalTitleVariants().ERROR
       }
 
       this.onTriggerOpenModal('showWarningModal')
@@ -312,7 +312,7 @@ export class SupervisorProductViewModel {
       if (this.confirmMessage) {
         this.onTriggerOpenModal('showConfirmModal')
       } else {
-        this.warningModalTitle = warningModalTitleVariants.CHOOSE_STATUS
+        this.warningModalTitle = warningModalTitleVariants().CHOOSE_STATUS
         this.onTriggerOpenModal('showWarningModal')
       }
     } catch (error) {
