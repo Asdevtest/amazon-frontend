@@ -28,9 +28,9 @@ export class AdminWarehouseViewModel {
     })
   }
 
-  onClickDestinations() {
-    this.history.push({
-      pathname: '/admin/warehouse/destinations',
-    })
-  }
+  // onClickDestinations() {
+  //   this.history.push({
+  //     pathname: '/admin/warehouse/destinations',
+  //   })
+  // }
 }

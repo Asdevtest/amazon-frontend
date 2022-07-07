@@ -27,7 +27,7 @@ class AdminWarehouseViewRaw extends Component {
   viewModel = new AdminWarehouseViewModel({history: this.props.history})
 
   render() {
-    const {drawerOpen, onChangeDrawerOpen, onClickTasks, onClickBoxes, onClickDestinations} = this.viewModel
+    const {drawerOpen, onChangeDrawerOpen, onClickTasks, onClickBoxes} = this.viewModel
 
     const {classes: classNames} = this.props
 
@@ -57,7 +57,7 @@ class AdminWarehouseViewRaw extends Component {
                     </div>
                   </Button>
 
-                  <Button
+                  {/* <Button
                     className={classNames.button}
                     color="primary"
                     variant="outlined"
@@ -67,7 +67,7 @@ class AdminWarehouseViewRaw extends Component {
                       <Typography className={classNames.btnText}>{t(TranslationKey.Destinations)}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
-                  </Button>
+                  </Button> */}
                 </div>
               </div>
             </MainContent>
