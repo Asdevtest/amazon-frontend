@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**apiV1IdeasGuidDelete**](IdeaApi.md#apiV1IdeasGuidDelete) | **DELETE** /api/v1/ideas/{guid} | Удалить идею
 [**apiV1IdeasGuidPatch**](IdeaApi.md#apiV1IdeasGuidPatch) | **PATCH** /api/v1/ideas/{guid} | Редактировать идею
 [**apiV1IdeasPost**](IdeaApi.md#apiV1IdeasPost) | **POST** /api/v1/ideas/ | Добавить идею
-[**apiV1IdeasRemoveSuppliersGuidPost**](IdeaApi.md#apiV1IdeasRemoveSuppliersGuidPost) | **POST** /api/v1/ideas/remove_suppliers/{guid} | Удалить поставщиков
+[**apiV1IdeasRemoveSupplierGuidPost**](IdeaApi.md#apiV1IdeasRemoveSupplierGuidPost) | **POST** /api/v1/ideas/remove_supplier/{guid} | Удалить поставщика
 
 
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasGuidPatch
 
-> {String: Object} apiV1IdeasGuidPatch(guid, opts)
+> [InlineObject44] apiV1IdeasGuidPatch(guid, opts)
 
 Редактировать идею
 
@@ -198,7 +198,7 @@ let apiInstance = new TestSwagger.IdeaApi();
 let guid = null; // String | ID идеи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': null // Object | 
+  'body': new TestSwagger.InlineObject44() // InlineObject44 | 
 };
 apiInstance.apiV1IdeasGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -215,11 +215,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| ID идеи | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | **Object**|  | [optional] 
+ **body** | [**InlineObject44**](InlineObject44.md)|  | [optional] 
 
 ### Return type
 
-**{String: Object}**
+[**[InlineObject44]**](InlineObject44.md)
 
 ### Authorization
 
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IdeasPost
 
-> String apiV1IdeasPost(opts)
+> InlineResponse2014 apiV1IdeasPost(opts)
 
 Добавить идею
 
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**InlineResponse2014**](InlineResponse2014.md)
 
 ### Authorization
 
@@ -285,11 +285,11 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1IdeasRemoveSuppliersGuidPost
+## apiV1IdeasRemoveSupplierGuidPost
 
-> String apiV1IdeasRemoveSuppliersGuidPost(guid, opts)
+> String apiV1IdeasRemoveSupplierGuidPost(guid, opts)
 
-Удалить поставщиков
+Удалить поставщика
 
 ## Удаление поставщика у идеи  
 
@@ -308,9 +308,9 @@ let apiInstance = new TestSwagger.IdeaApi();
 let guid = null; // String | ID идеи
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject44() // InlineObject44 | 
+  'body': new TestSwagger.InlineObject45() // InlineObject45 | 
 };
-apiInstance.apiV1IdeasRemoveSuppliersGuidPost(guid, opts).then((data) => {
+apiInstance.apiV1IdeasRemoveSupplierGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -325,7 +325,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| ID идеи | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject44**](InlineObject44.md)|  | [optional] 
+ **body** | [**InlineObject45**](InlineObject45.md)|  | [optional] 
 
 ### Return type
 

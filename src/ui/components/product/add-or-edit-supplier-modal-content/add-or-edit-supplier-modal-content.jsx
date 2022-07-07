@@ -12,6 +12,8 @@ import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
+import {SupplierApproximateCalculationsForm} from '@components/forms/supplier-approximate-calculations-form'
+import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
@@ -25,6 +27,9 @@ import {useClassNames} from './add-or-edit-supplier-modal-content.style'
 
 export const AddOrEditSupplierModalContent = observer(
   ({
+    product,
+    storekeepersData,
+    onlyRead,
     sourceYuanToDollarRate,
     volumeWeightCoefficient,
     title,
@@ -38,6 +43,8 @@ export const AddOrEditSupplierModalContent = observer(
     onClickPrevButton,
   }) => {
     const classNames = useClassNames()
+
+    const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
 
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
@@ -221,6 +228,20 @@ export const AddOrEditSupplierModalContent = observer(
             </div>
           </div>
         )
+      } else if (onlyRead) {
+        return (
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              disableElevation
+              tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
+              className={classNames.cancelBtn}
+              variant="contained"
+              onClick={() => onTriggerShowModal()}
+            >
+              {t(TranslationKey.Cancel)}
+            </Button>
+          </div>
+        )
       } else {
         return (
           <div className={classNames.buttonsWrapper}>
@@ -329,6 +350,13 @@ export const AddOrEditSupplierModalContent = observer(
       }
     }
 
+    const boxPropertiesIsFull =
+      tmpSupplier.boxProperties?.amountInBox &&
+      tmpSupplier.boxProperties?.boxLengthCm &&
+      tmpSupplier.boxProperties?.boxWidthCm &&
+      tmpSupplier.boxProperties?.boxHeightCm &&
+      tmpSupplier.boxProperties?.boxWeighGrossKg
+
     const diasabledSubmit =
       '' === tmpSupplier.name ||
       '' === tmpSupplier.price ||
@@ -344,22 +372,20 @@ export const AddOrEditSupplierModalContent = observer(
       0 === parseInt(tmpSupplier.amount) ||
       0 === parseInt(tmpSupplier.minlot) ||
       requestStatus === loadingStatuses.isLoading ||
-      ((tmpSupplier.boxProperties.amountInBox ||
-        tmpSupplier.boxProperties.boxLengthCm ||
-        tmpSupplier.boxProperties.boxWidthCm ||
-        tmpSupplier.boxProperties.boxHeightCm ||
-        tmpSupplier.boxProperties.boxWeighGrossKg) &&
-        !(
-          tmpSupplier.boxProperties.amountInBox &&
-          tmpSupplier.boxProperties.boxLengthCm &&
-          tmpSupplier.boxProperties.boxWidthCm &&
-          tmpSupplier.boxProperties.boxHeightCm &&
-          tmpSupplier.boxProperties.boxWeighGrossKg
-        ))
+      ((tmpSupplier.boxProperties?.amountInBox ||
+        tmpSupplier.boxProperties?.boxLengthCm ||
+        tmpSupplier.boxProperties?.boxWidthCm ||
+        tmpSupplier.boxProperties?.boxHeightCm ||
+        tmpSupplier.boxProperties?.boxWeighGrossKg) &&
+        !boxPropertiesIsFull)
 
     return (
       <Container disableGutters className={classNames.modalContainer}>
-        <Typography className={classNames.modalTitle}>{title}</Typography>
+        {onlyRead ? (
+          <Typography className={classNames.modalTitle}>{t(TranslationKey['Viewing Supplier'])}</Typography>
+        ) : (
+          <Typography className={classNames.modalTitle}>{title}</Typography>
+        )}
         <Divider className={classNames.titleDivider} />
 
         <div>
@@ -367,6 +393,7 @@ export const AddOrEditSupplierModalContent = observer(
 
           <div className={classNames.nameBlock}>
             <Field
+              disabled={onlyRead}
               tooltipInfoContent={t(TranslationKey['Enter the name of the supplier'])}
               inputProps={{maxLength: 100}}
               label={t(TranslationKey.Title) + '*'}
@@ -377,6 +404,7 @@ export const AddOrEditSupplierModalContent = observer(
             />
 
             <Field
+              disabled={onlyRead}
               tooltipInfoContent={t(TranslationKey['Enter the amount of goods to be purchased'])}
               label={t(TranslationKey['Purchase quantity']) + '*'}
               inputProps={{maxLength: 10}}
@@ -387,6 +415,7 @@ export const AddOrEditSupplierModalContent = observer(
               onChange={onChangeField('amount')}
             />
             <Field
+              disabled={onlyRead}
               tooltipInfoContent={t(TranslationKey['Minimum quantity of goods needed to order'])}
               label={t(TranslationKey['Minimum batch']) + '*'}
               inputProps={{maxLength: 10}}
@@ -399,6 +428,7 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
 
           <Field
+            disabled={onlyRead}
             tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
             label={t(TranslationKey.Link) + '*'}
             inputProps={{maxLength: 2000}}
@@ -414,6 +444,7 @@ export const AddOrEditSupplierModalContent = observer(
 
             <Field
               oneLine
+              disabled={onlyRead}
               tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
               label={t(TranslationKey['Yuan to USD exchange rate'])}
               inputProps={{maxLength: 8}}
@@ -439,6 +470,7 @@ export const AddOrEditSupplierModalContent = observer(
               >
                 <Grid item>
                   <Field
+                    disabled={onlyRead}
                     tooltipInfoContent={t(TranslationKey['Price per unit'])}
                     label={t(TranslationKey['price per unit']) + ', ¥*'}
                     inputProps={{maxLength: 10}}
@@ -468,6 +500,29 @@ export const AddOrEditSupplierModalContent = observer(
 
                 <Grid item>
                   <Field
+                    disabled
+                    label={t(TranslationKey['Delivery cost per unit']) + ', ¥*'}
+                    inputProps={{maxLength: 10}}
+                    containerClasses={classNames.middleContainer}
+                    labelClasses={classNames.normalLabel}
+                    value={
+                      tmpSupplier.amount
+                        ? toFixed(
+                            toFixed(
+                              +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) +
+                                +tmpSupplier.batchDeliveryCostInYuan,
+                              2,
+                            ) / +tmpSupplier.amount,
+                            2,
+                          )
+                        : '-'
+                    }
+                  />
+                </Grid>
+
+                <Grid item>
+                  <Field
+                    disabled={onlyRead}
                     tooltipInfoContent={t(
                       TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
                     )}
@@ -497,6 +552,7 @@ export const AddOrEditSupplierModalContent = observer(
               >
                 <Grid item>
                   <Field
+                    disabled={onlyRead}
                     tooltipInfoContent={t(TranslationKey['Price per unit'])}
                     label={t(TranslationKey['price per unit']) + ', $*'}
                     inputProps={{maxLength: 10}}
@@ -526,6 +582,28 @@ export const AddOrEditSupplierModalContent = observer(
 
                 <Grid item>
                   <Field
+                    disabled
+                    label={t(TranslationKey['Delivery cost per unit']) + ', $*'}
+                    inputProps={{maxLength: 10}}
+                    containerClasses={classNames.middleContainer}
+                    labelClasses={classNames.normalLabel}
+                    value={
+                      tmpSupplier.amount
+                        ? toFixed(
+                            toFixed(
+                              +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar,
+                              2,
+                            ) / +tmpSupplier.amount,
+                            2,
+                          )
+                        : '-'
+                    }
+                  />
+                </Grid>
+
+                <Grid item>
+                  <Field
+                    disabled={onlyRead}
                     tooltipInfoContent={t(
                       TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
                     )}
@@ -561,6 +639,7 @@ export const AddOrEditSupplierModalContent = observer(
 
                 <div className={classNames.sizesBottomWrapper}>
                   <Field
+                    disabled={onlyRead}
                     label={t(TranslationKey.H)}
                     inputProps={{maxLength: 6}}
                     containerClasses={classNames.sizeContainer}
@@ -571,6 +650,7 @@ export const AddOrEditSupplierModalContent = observer(
                   />
 
                   <Field
+                    disabled={onlyRead}
                     label={t(TranslationKey.W)}
                     inputProps={{maxLength: 6}}
                     containerClasses={classNames.sizeContainer}
@@ -581,6 +661,7 @@ export const AddOrEditSupplierModalContent = observer(
                   />
 
                   <Field
+                    disabled={onlyRead}
                     label={t(TranslationKey.L)}
                     inputProps={{maxLength: 6}}
                     containerClasses={classNames.sizeContainer}
@@ -604,6 +685,7 @@ export const AddOrEditSupplierModalContent = observer(
                   />
 
                   <Field
+                    disabled={onlyRead}
                     label={t(TranslationKey['Weight, kg'])}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.shortContainer}
@@ -614,6 +696,7 @@ export const AddOrEditSupplierModalContent = observer(
                 </div>
 
                 <Field
+                  disabled={onlyRead}
                   label={t(TranslationKey['Number of units in box'])}
                   inputProps={{maxLength: 10}}
                   containerClasses={classNames.shortContainer}
@@ -648,8 +731,25 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
         </div>
 
+        {product && storekeepersData.length ? (
+          <div className={classNames.calculationBtnWrapper}>
+            <Button
+              tooltipAttentionContent={
+                !product || !storekeepersData?.length || (!boxPropertiesIsFull && t(TranslationKey['Not enough data']))
+              }
+              disabled={!product || !storekeepersData || !boxPropertiesIsFull}
+              variant="contained"
+              color="primary"
+              onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+            >
+              {t(TranslationKey['View an oriented calculation'])}
+            </Button>
+          </div>
+        ) : null}
+
         <Field
           multiline
+          disabled={onlyRead}
           tooltipInfoContent={t(TranslationKey['The comment indicated for this supplier'])}
           className={classNames.commentField}
           labelClasses={classNames.normalLabel}
@@ -664,6 +764,7 @@ export const AddOrEditSupplierModalContent = observer(
         {outsideProduct && (
           <Field
             oneLine
+            disabled={onlyRead}
             tooltipInfoContent={t(TranslationKey['Make the current supplier on which the order will be made'])}
             label={t(TranslationKey['Make the main supplier'])}
             containerClasses={classNames.checkboxWrapper}
@@ -675,27 +776,20 @@ export const AddOrEditSupplierModalContent = observer(
               />
             }
           />
-          // <div className={classNames.checkboxWrapper}>
-          //   <Typography className={classNames.checkboxText}>{t(TranslationKey['Make the main supplier'])}</Typography>
-
-          //   <Checkbox
-          //     color="primary"
-          //     checked={makeMainSupplier}
-          //     onChange={() => setMakeMainSupplier(!makeMainSupplier)}
-          //   />
-          // </div>
         )}
 
         <div className={classNames.bottomWrapper}>
           <div>
-            <div className={classNames.imageFileInputWrapper}>
-              <UploadFilesInput
-                images={photosOfSupplier}
-                setImages={setPhotosOfSupplier}
-                maxNumber={50}
-                className={classNames.imageFileInput}
-              />
-            </div>
+            {!onlyRead ? (
+              <div className={classNames.imageFileInputWrapper}>
+                <UploadFilesInput
+                  images={photosOfSupplier}
+                  setImages={setPhotosOfSupplier}
+                  maxNumber={50}
+                  className={classNames.imageFileInput}
+                />
+              </div>
+            ) : null}
 
             <PhotoAndFilesCarousel files={tmpSupplier.images} width="300px" />
           </div>
@@ -715,6 +809,19 @@ export const AddOrEditSupplierModalContent = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={tmpSupplier.images}
         />
+
+        <Modal
+          openModal={showSupplierApproximateCalculationsModal}
+          setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+        >
+          <SupplierApproximateCalculationsForm
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            product={product}
+            supplier={tmpSupplier}
+            storekeepers={storekeepersData}
+            onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+          />
+        </Modal>
       </Container>
     )
   },

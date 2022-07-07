@@ -48,6 +48,11 @@ export class AdminProductViewModel {
   showNoSuplierErrorModal = false
   showConfirmModal = false
 
+  yuanToDollarRate = undefined
+  volumeWeightCoefficient = undefined
+
+  supplierModalReadOnly = false
+
   readyImages = []
   progressValue = 0
   showProgress = false
@@ -75,6 +80,16 @@ export class AdminProductViewModel {
       await this.getProductById()
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  async onClickSupplierButtons(actionType) {
+    switch (actionType) {
+      case 'view':
+        this.supplierModalReadOnly = true
+
+        this.onTriggerAddOrEditSupplierModal()
+        break
     }
   }
 
@@ -121,5 +136,22 @@ export class AdminProductViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  async onTriggerAddOrEditSupplierModal() {
+    try {
+      if (this.showAddOrEditSupplierModal) {
+        this.selectedSupplier = undefined
+      } else {
+        const result = await UserModel.getPlatformSettings()
+
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      }
+
+      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

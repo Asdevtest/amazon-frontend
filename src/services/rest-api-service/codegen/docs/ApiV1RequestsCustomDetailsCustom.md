@@ -10,6 +10,5 @@ Name | Type | Description | Notes
 **lastModifiedById** | **String** | GUID клиента, который обновил запрос на поиск товара. | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата изменения | [optional] 
-**title** | **String** | Название заявки | [optional] 
 
 

@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   modalWrapper: {
-    width: '576px',
+    width: '485px',
     minHeight: '168px',
   },
 
@@ -42,7 +42,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   modalButton: {
-    width: '236px',
+    width: '220px',
     height: '90px',
     fontSize: '18px',
     lineHeight: '22px',
@@ -67,6 +67,11 @@ export const useClassNames = makeStyles(() => ({
   },
 
   modalButtonWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
+  modalButtonNextStepWrapper: {
     display: 'flex',
     justifyContent: 'right',
   },
@@ -102,8 +107,13 @@ export const useClassNames = makeStyles(() => ({
     },
   },
 
+  btnsWrapper: {
+    width: '100%',
+  },
+
   searchSupplierForIdeaBtn: {
-    width: 576,
+    width: 485,
+    // width: '100%',
     '&:hover': {
       transform: 'scale(1.01)',
     },

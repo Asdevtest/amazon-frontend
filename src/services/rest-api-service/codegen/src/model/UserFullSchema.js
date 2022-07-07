@@ -107,6 +107,9 @@ class UserFullSchema {
             if (data.hasOwnProperty('rating')) {
                 obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
+            if (data.hasOwnProperty('allowedStrategies')) {
+                obj['allowedStrategies'] = ApiClient.convertToType(data['allowedStrategies'], ['Number']);
+            }
             if (data.hasOwnProperty('allowedRoles')) {
                 obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
             }
@@ -212,6 +215,12 @@ UserFullSchema.prototype['canByMasterUser'] = undefined;
  * @member {Number} rating
  */
 UserFullSchema.prototype['rating'] = undefined;
+
+/**
+ * Массив доступных стратегий.
+ * @member {Array.<Number>} allowedStrategies
+ */
+UserFullSchema.prototype['allowedStrategies'] = undefined;
 
 /**
  * Массив массив ролей.

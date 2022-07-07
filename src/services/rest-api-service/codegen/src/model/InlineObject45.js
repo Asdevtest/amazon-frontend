@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 
 /**
  * The InlineObject45 model module.
@@ -23,12 +22,10 @@ class InlineObject45 {
     /**
      * Constructs a new <code>InlineObject45</code>.
      * @alias module:model/InlineObject45
-     * @param productId {String} 
-     * @param warehouseStocks {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} 
      */
-    constructor(productId, warehouseStocks) { 
+    constructor() { 
         
-        InlineObject45.initialize(this, productId, warehouseStocks);
+        InlineObject45.initialize(this);
     }
 
     /**
@@ -36,9 +33,7 @@ class InlineObject45 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, warehouseStocks) { 
-        obj['productId'] = productId;
-        obj['warehouseStocks'] = warehouseStocks;
+    static initialize(obj) { 
     }
 
     /**
@@ -52,11 +47,8 @@ class InlineObject45 {
         if (data) {
             obj = obj || new InlineObject45();
 
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
-            }
-            if (data.hasOwnProperty('warehouseStocks')) {
-                obj['warehouseStocks'] = ApiClient.convertToType(data['warehouseStocks'], [ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]);
+            if (data.hasOwnProperty('suppliersId')) {
+                obj['suppliersId'] = ApiClient.convertToType(data['suppliersId'], 'String');
             }
         }
         return obj;
@@ -66,14 +58,10 @@ class InlineObject45 {
 }
 
 /**
- * @member {String} productId
+ * GUID поставщика, который нужно удалить в БД.
+ * @member {String} suppliersId
  */
-InlineObject45.prototype['productId'] = undefined;
-
-/**
- * @member {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} warehouseStocks
- */
-InlineObject45.prototype['warehouseStocks'] = undefined;
+InlineObject45.prototype['suppliersId'] = undefined;
 
 
 

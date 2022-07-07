@@ -46,17 +46,6 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             <div className={classNames.infoWrapper}>
               <div className={classNames.infoSubWrapper}>
                 <Field
-                  tooltipInfoContent={t(TranslationKey['Category the product is in on Amazon'])}
-                  disabled={defaultFieldDisable}
-                  containerClasses={classNames.infoContainer}
-                  inputClasses={classNames.infoInput}
-                  inputProps={{maxLength: 50}}
-                  label={t(TranslationKey.Category)}
-                  value={product.category || ''}
-                  onChange={onChangeField('category')}
-                />
-
-                <Field
                   disabled={defaultFieldDisable}
                   inputProps={{maxLength: 12}}
                   containerClasses={classNames.infoContainer}
@@ -65,6 +54,56 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                   error={errorMessagesTranslate(formFieldsValidationErrors.amazon)}
                   value={product.amazon === 0 ? 0 : product.amazon || ''}
                   onChange={onChangeField('amazon')}
+                />
+
+                <Field
+                  disabled={defaultFieldDisable}
+                  error={errorMessagesTranslate(formFieldsValidationErrors.weight)}
+                  containerClasses={classNames.infoContainer}
+                  inputClasses={classNames.infoInput}
+                  inputProps={{maxLength: 15}}
+                  label={t(TranslationKey['Weight, kg']) + '*'}
+                  value={product.weight === 0 ? 0 : toFixed(product.weight, 5) || ''}
+                  onChange={onChangeField('weight')}
+                />
+              </div>
+              <div className={classNames.infoSubWrapper}>
+                <Field
+                  disabled
+                  tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
+                  error={formFieldsValidationErrors.totalFba}
+                  containerClasses={classNames.infoContainer}
+                  inputClasses={classNames.infoInput}
+                  label={t(TranslationKey['Total FBA, $'])}
+                  value={product.totalFba === 0 ? 0 : toFixed(product.totalFba, 2) || ''}
+                  onChange={onChangeField('totalFba')}
+                />
+
+                <Field
+                  tooltipInfoContent={t(TranslationKey['Recommended amount of products for purchase'])}
+                  disabled={defaultFieldDisable}
+                  error={errorMessagesTranslate(formFieldsValidationErrors.fbaamount)}
+                  containerClasses={classNames.infoContainer}
+                  inputClasses={classNames.infoInput}
+                  inputProps={{maxLength: 15}}
+                  label={t(TranslationKey['Recommended batch']) + ', FBA*'}
+                  value={product.fbaamount === 0 ? 0 : product.fbaamount || ''}
+                  onChange={onChangeField('fbaamount')}
+                />
+              </div>
+            </div>
+
+            <div className={classNames.infoWrapper}>
+              <div className={classNames.infoSubWrapper}>
+                <Field
+                  tooltipInfoContent={t(TranslationKey['Category the product is in on Amazon'])}
+                  disabled={defaultFieldDisable}
+                  containerClasses={classNames.infoContainer}
+                  inputClasses={classNames.infoInput}
+                  inputProps={{maxLength: 50}}
+                  label={t(TranslationKey.Category)}
+                  value={product.category || ''}
+                  onChange={onChangeField('category')}
                 />
               </div>
               <div className={classNames.infoSubWrapper}>
@@ -117,76 +156,8 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                   value={product.length === 0 ? 0 : toFixed(product.length, 5) || ''}
                   onChange={onChangeField('length')}
                 />
-                <Field
-                  disabled={defaultFieldDisable}
-                  error={errorMessagesTranslate(formFieldsValidationErrors.weight)}
-                  containerClasses={classNames.infoContainer}
-                  inputClasses={classNames.infoInput}
-                  inputProps={{maxLength: 15}}
-                  label={t(TranslationKey['Weight, kg']) + '*'}
-                  value={product.weight === 0 ? 0 : toFixed(product.weight, 5) || ''}
-                  onChange={onChangeField('weight')}
-                />
               </div>
             </div>
-
-            {/* <Field
-              tooltipInfoContent={t(TranslationKey['Category the product is in on Amazon'])}
-              disabled={defaultFieldDisable}
-              inputProps={{maxLength: 50}}
-              label={t(TranslationKey.Category)}
-              value={product.category || ''}
-              onChange={onChangeField('category')}
-            />
-            <Field
-              tooltipInfoContent={t(TranslationKey["Amazon's bestseller rating"])}
-              disabled={defaultFieldDisable}
-              error={formFieldsValidationErrors.bsr}
-              label={t(TranslationKey.BSR)}
-              inputProps={{maxLength: 15}}
-              value={product.bsr || 0}
-              onChange={onChangeField('bsr')}
-            />
-            <Field
-              disabled={defaultFieldDisable}
-              inputProps={{maxLength: 12}}
-              label={t(TranslationKey['Amazon price']) + '*'}
-              error={errorMessagesTranslate(formFieldsValidationErrors.amazon)}
-              value={product.amazon === 0 ? 0 : product.amazon || ''}
-              onChange={onChangeField('amazon')}
-            /> */}
-            {/* <Field
-              disabled={defaultFieldDisable}
-              error={errorMessagesTranslate(formFieldsValidationErrors.width)}
-              inputProps={{maxLength: 15}}
-              label={t(TranslationKey['Width, inches']) + '*'}
-              value={product.width === 0 ? 0 : toFixed(product.width, 5) || ''}
-              onChange={onChangeField('width')}
-            />
-            <Field
-              disabled={defaultFieldDisable}
-              error={errorMessagesTranslate(formFieldsValidationErrors.height)}
-              inputProps={{maxLength: 15}}
-              label={t(TranslationKey['Height, inches']) + '*'}
-              value={product.height === 0 ? 0 : toFixed(product.height, 5) || ''}
-              onChange={onChangeField('height')}
-            /> */}
-            {/* <Field
-              disabled={defaultFieldDisable}
-              error={errorMessagesTranslate(formFieldsValidationErrors.length)}
-              inputProps={{maxLength: 15}}
-              label={t(TranslationKey['Length, inches']) + '*'}
-              value={product.length === 0 ? 0 : toFixed(product.length, 5) || ''}
-              onChange={onChangeField('length')}
-            />
-            <Field
-              disabled={defaultFieldDisable}
-              error={errorMessagesTranslate(formFieldsValidationErrors.weight)}
-              inputProps={{maxLength: 15}}
-              label={t(TranslationKey['Weight, kg']) + '*'}
-              value={product.weight === 0 ? 0 : toFixed(product.weight, 5) || ''}
-              onChange={onChangeField('weight')}
-            /> */}
 
             <div className={classNames.infoWrapper}>
               <div className={classNames.infoSubWrapper}>
@@ -209,18 +180,6 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                   label={'Fba fee'}
                   value={product.fbafee === 0 ? 0 : toFixed(product.fbafee, 2) || ''}
                   onChange={onChangeField('fbafee')}
-                />
-
-                <Field
-                  tooltipInfoContent={t(TranslationKey['Recommended amount of products for purchase'])}
-                  disabled={defaultFieldDisable}
-                  error={errorMessagesTranslate(formFieldsValidationErrors.fbaamount)}
-                  containerClasses={classNames.infoContainer}
-                  inputClasses={classNames.infoInput}
-                  inputProps={{maxLength: 15}}
-                  label={t(TranslationKey['Recommended batch']) + ', FBA*'}
-                  value={product.fbaamount === 0 ? 0 : product.fbaamount || ''}
-                  onChange={onChangeField('fbaamount')}
                 />
 
                 <Field
@@ -251,7 +210,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                   onChange={onChangeField('minpurchase')}
                 />
                 <Field
-                  disabled
+                  disabled={defaultFieldDisable}
                   tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
                   error={formFieldsValidationErrors.reffee}
                   containerClasses={classNames.infoContainer}
@@ -259,16 +218,6 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                   label={t(TranslationKey['Refferal fee , $'])}
                   value={product.reffee === 0 ? 0 : toFixed(product.reffee, 2) || ''}
                   onChange={onChangeField('reffee')}
-                />
-                <Field
-                  disabled
-                  tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
-                  error={formFieldsValidationErrors.totalFba}
-                  containerClasses={classNames.infoContainer}
-                  inputClasses={classNames.infoInput}
-                  label={t(TranslationKey['Total FBA, $'])}
-                  value={product.totalFba === 0 ? 0 : toFixed(product.totalFba, 2) || ''}
-                  onChange={onChangeField('totalFba')}
                 />
                 <Field
                   disabled
@@ -287,75 +236,6 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               </div>
             </div>
 
-            {/* <Field
-              disabled
-              error={formFieldsValidationErrors.minpurchase}
-              inputProps={{maxLength: 15}}
-              label={t(TranslationKey['Min purchase price, $'])}
-              value={product.minpurchase === 0 ? 0 : toFixed(product.minpurchase, 2) || ''}
-              onChange={onChangeField('minpurchase')}
-            /> */}
-            {/* <Field
-              disabled
-              error={formFieldsValidationErrors.maxDelivery}
-              label={t(TranslationKey['Max delivery price, $'])}
-              value={product.maxDelivery === 0 ? 0 : toFixed(product.maxDelivery, 2) || 0}
-              onChange={onChangeField('maxDelivery')}
-            /> */}
-            {/* <Field
-              disabled
-              tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
-              error={formFieldsValidationErrors.reffee}
-              label={t(TranslationKey['Refferal fee , $'])}
-              value={product.reffee === 0 ? 0 : toFixed(product.reffee, 2) || ''}
-              onChange={onChangeField('reffee')}
-            /> */}
-            {/* <Field
-              tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
-              disabled={defaultFieldDisable}
-              error={formFieldsValidationErrors.fbafee}
-              inputProps={{maxLength: 15}}
-              label={'Fba fee'}
-              value={product.fbafee === 0 ? 0 : toFixed(product.fbafee, 2) || ''}
-              onChange={onChangeField('fbafee')}
-            /> */}
-            {/* <Field
-              disabled
-              tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
-              error={formFieldsValidationErrors.totalFba}
-              label={t(TranslationKey['Total FBA, $'])}
-              value={product.totalFba === 0 ? 0 : toFixed(product.totalFba, 2) || ''}
-              onChange={onChangeField('totalFba')}
-            /> */}
-            {/* <Field
-              tooltipInfoContent={t(TranslationKey['Recommended amount of products for purchase'])}
-              disabled={defaultFieldDisable}
-              error={errorMessagesTranslate(formFieldsValidationErrors.fbaamount)}
-              inputProps={{maxLength: 15}}
-              label={t(TranslationKey['Recommended batch']) + ', FBA*'}
-              value={product.fbaamount === 0 ? 0 : product.fbaamount || ''}
-              onChange={onChangeField('fbaamount')}
-            /> */}
-            {/* <Field
-              disabled
-              tooltipInfoContent={t(
-                TranslationKey['Calculated from the price of the product, fees and the total price of the supplier'],
-              )}
-              error={formFieldsValidationErrors.profit}
-              label={t(TranslationKey['Profit, $'])}
-              value={toFixed(product.profit, 2) || 0}
-              onChange={onChangeField('profit')}
-            /> */}
-            {/* <Field
-              disabled
-              tooltipInfoContent={t(
-                TranslationKey['Calculated from the price of the product, fees and the total price of the supplier'],
-              )}
-              error={formFieldsValidationErrors.margin}
-              label={t(TranslationKey['Margin, %'])}
-              value={toFixed(product.margin, 2) || 0}
-              onChange={onChangeField('margin')}
-            /> */}
             <Field
               disabled
               tooltipInfoContent={t(TranslationKey['The status in which the product card is at the moment'])}

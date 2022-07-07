@@ -1226,5 +1226,17 @@
   "Edit a supplier": "Edit a supplier",
   "Delete supplier": "Delete supplier",
   "Close edit": "Close edit",
-  "Accept": "Accept"
+  "Accept": "Accept",
+  "Delivery cost per unit": "Delivery cost per unit",
+  "View an oriented calculation": "View an oriented calculation",
+  "Open the parameters supplier": "Open the parameters supplier",
+  "Viewing Supplier": "Viewing Supplier",
+  "Make the supplier the main": "Make the supplier the main",
+  "Remove the main supplier status": "Remove the main supplier status",
+  "Cost per unit with delivery to China": "Cost per unit with delivery to China",
+  "ROI calculation": "ROI calculation",
+  "Cost of per unit in the U.S.": "Cost of per unit in the U.S.",
+  "Approximate calculation": "Approximate calculation",
+  "Not enough data": "Not enough data",
+  "No passed strategies": "No passed strategies"
 }

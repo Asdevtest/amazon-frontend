@@ -82,9 +82,7 @@ export const useClassNames = makeStyles(() => ({
   typoCheckbox: {
     marginRight: '16px',
   },
-  supplierContainer: {
-    marginBottom: '20px',
-  },
+
   supplierIcon: {
     marginRight: '16px',
   },
@@ -152,5 +150,55 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     display: 'flex',
     marginBottom: '16px',
+  },
+
+  supplierTitle: {
+    marginBottom: '5px',
+  },
+
+  supplierActionsWrapper: {
+    display: 'flex',
+  },
+
+  supplierContainer: {
+    marginBottom: '20px',
+    display: 'flex',
+    gap: '16px',
+  },
+
+  supplierButtonWrapper: {
+    display: 'flex',
+    gap: '10px',
+    alignItems: 'center',
+  },
+
+  iconBtn: {
+    maxHeight: '40px',
+    maxWidth: '40px',
+    color: 'white',
+    backgroundColor: 'rgba(0, 123, 255, 1)',
+    borderRadius: '4px',
+
+    '&:hover': {
+      backgroundColor: 'rgba(0, 123, 255, 1)',
+    },
+  },
+
+  iconBtnRemove: {
+    backgroundColor: 'rgba(224, 32, 32, 1)',
+  },
+  iconBtnAccept: {
+    backgroundColor: 'rgba(30, 220, 30, 1)',
+  },
+  iconBtnAcceptRevoke: {
+    backgroundColor: 'rgba(224, 32, 32, 1)',
+  },
+
+  supplierButtonText: {
+    maxWidth: '98px',
+    fontSize: '12px',
+    lineHeight: '14px',
+    fontWeight: '400',
+    color: '#656565',
   },
 }))

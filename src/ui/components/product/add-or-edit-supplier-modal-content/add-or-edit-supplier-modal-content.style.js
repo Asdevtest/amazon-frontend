@@ -215,4 +215,10 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-between',
     marginLeft: 20,
   },
+
+  calculationBtnWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
 }))

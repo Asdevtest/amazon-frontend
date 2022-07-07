@@ -15,12 +15,6 @@ export class BuyerBox extends InlineResponse2003 {}
 
 export class BuyerPayment extends InlineResponse2004 {}
 
-export class BuyerUpdateProductContract {
-  @IsNotEmpty()
-  @IsString()
-  buyersComment
-}
-
 export class BuyerUpdateOrderContract {
   @IsOptional()
   @IsString()

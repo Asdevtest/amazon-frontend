@@ -12,7 +12,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {ITab} from '@components/i-tab/i-tab'
 
-import {checkIsClient} from '@utils/checks'
+import {checkIsBuyer, checkIsClient} from '@utils/checks'
 import {t} from '@utils/translations'
 
 import {Integrations} from '../integrations'
@@ -118,7 +118,9 @@ export const ProductWrapper = observer(
               value={tabsValues.INTEGRATIONS}
             />
           )}
-          <ITab classes={tabItemStyles} label={t(TranslationKey.Content)} value={tabsValues.LISTING} />
+          {!checkIsBuyer(curUserRole) && (
+            <ITab classes={tabItemStyles} label={t(TranslationKey.Content)} value={tabsValues.LISTING} />
+          )}
 
           <ITab
             classes={tabItemStyles}

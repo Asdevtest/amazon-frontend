@@ -1,12 +1,8 @@
 import React, {useState} from 'react'
 
-import {Box, Container, Grid, IconButton, Typography, Link, NativeSelect} from '@material-ui/core'
+import {Box, Grid, IconButton, Typography, Link, NativeSelect} from '@material-ui/core'
 import MuiCheckbox from '@material-ui/core/Checkbox'
-import AddIcon from '@material-ui/icons/Add'
-import AcceptIcon from '@material-ui/icons/Check'
-import AcceptRevokeIcon from '@material-ui/icons/Clear'
 import DeleteIcon from '@material-ui/icons/Delete'
-import EditIcon from '@material-ui/icons/Edit'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
@@ -22,7 +18,7 @@ import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 
-import {checkIsClient, checkIsSupervisor, checkIsAdmin, checkIsResearcher} from '@utils/checks'
+import {checkIsClient, checkIsSupervisor, checkIsResearcher} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -37,16 +33,7 @@ const clientToEditStatuses = [
 ]
 
 export const FieldsAndSuppliers = observer(
-  ({
-    showActionBtns,
-    curUserRole,
-    onChangeField,
-    product,
-    productBase,
-    onClickSupplierBtns,
-    selectedSupplier,
-    formFieldsValidationErrors,
-  }) => {
+  ({showActionBtns, curUserRole, onChangeField, product, productBase, formFieldsValidationErrors}) => {
     const classNames = useClassNames()
 
     const [skuLine, setSkuLine] = useState('')
@@ -63,9 +50,6 @@ export const FieldsAndSuppliers = observer(
 
       onChangeField('skusByClient')({target: {value: [...newArr]}})
     }
-
-    const isSupplierAcceptRevokeActive =
-      selectedSupplier && product.currentSupplierId && product.currentSupplierId === selectedSupplier._id
 
     const disabledPrivateLabelFields = !(
       checkIsResearcher(curUserRole) ||
@@ -360,92 +344,6 @@ export const FieldsAndSuppliers = observer(
             </div>
           )}
         </Box>
-        <div className={classNames.suppliersWrapper}>
-          <Typography variant="h6" className={classNames.supplierTitle}>
-            {t(TranslationKey['List of suppliers'])}
-          </Typography>
-
-          {!(
-            !showActionBtns ||
-            (checkIsClient(curUserRole) && product.archive) ||
-            (checkIsClient(curUserRole) && !product.isCreatedByClient) ||
-            (checkIsClient(curUserRole) && !clientToEditStatuses.includes(productBase.status)) ||
-            checkIsSupervisor(curUserRole) ||
-            checkIsAdmin(curUserRole) ||
-            (checkIsResearcher(curUserRole) &&
-              productBase.status === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])
-          ) ? (
-            <div className={classNames.supplierActionsWrapper}>
-              <Container disableGutters className={classNames.supplierContainer}>
-                <div className={classNames.supplierButtonWrapper}>
-                  <Button
-                    tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
-                    className={classNames.iconBtn}
-                    onClick={() => onClickSupplierBtns('add')}
-                  >
-                    <AddIcon />
-                  </Button>
-                  <Typography className={classNames.supplierButtonText}>{t(TranslationKey['Add supplier'])}</Typography>
-                </div>
-
-                {selectedSupplier ? (
-                  <>
-                    <div className={classNames.supplierButtonWrapper}>
-                      <Button
-                        tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                        className={classNames.iconBtn}
-                        onClick={() => onClickSupplierBtns('edit')}
-                      >
-                        <EditIcon />
-                      </Button>
-                      <Typography className={classNames.supplierButtonText}>
-                        {t(TranslationKey['Edit a supplier'])}
-                      </Typography>
-                    </div>
-
-                    {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
-                      <div className={classNames.supplierButtonWrapper}>
-                        <Button
-                          tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                          className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
-                          onClick={() => onClickSupplierBtns('delete')}
-                        >
-                          <DeleteIcon />
-                        </Button>
-                        <Typography className={classNames.supplierButtonText}>
-                          {t(TranslationKey['Delete supplier'])}
-                        </Typography>
-                      </div>
-                    )}
-
-                    <div className={classNames.supplierButtonWrapper}>
-                      <Button
-                        tooltipInfoContent={
-                          isSupplierAcceptRevokeActive
-                            ? t(TranslationKey['Remove the current supplier'])
-                            : t(TranslationKey['Select a supplier as the current supplier'])
-                        }
-                        className={clsx(classNames.iconBtn, classNames.iconBtnAccept, {
-                          [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
-                        })}
-                        onClick={() =>
-                          isSupplierAcceptRevokeActive
-                            ? onClickSupplierBtns('acceptRevoke')
-                            : onClickSupplierBtns('accept')
-                        }
-                      >
-                        {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
-                      </Button>
-                      <Typography className={classNames.supplierButtonText}>
-                        {isSupplierAcceptRevokeActive ? t(TranslationKey['Close edit']) : t(TranslationKey.Accept)}
-                      </Typography>
-                    </div>
-                  </>
-                ) : undefined}
-              </Container>
-            </div>
-          ) : undefined}
-        </div>
       </Grid>
     )
   },

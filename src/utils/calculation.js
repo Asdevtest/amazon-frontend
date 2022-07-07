@@ -62,11 +62,11 @@ export function updateProductAutoCalculatedFields() {
     (parseFloat(this.product.maxDelivery) || 0)
 
   if (this.product.currentSupplier && this.product.currentSupplier._id) {
-    this.product.reffee = (parseFloat(this.product.amazon) || 0) * 0.15
+    // this.product.reffee = (parseFloat(this.product.amazon) || 0) * 0.15
     if (this.product.fbafee) {
       this.product.profit = (
         (parseFloat(this.product.amazon) || 0).toFixed(2) -
-          (this.product.reffee || 0).toFixed(2) -
+          (this.product.reffee || 0) /* .toFixed(2)*/ -
           (
             parseFloat(this.product.currentSupplier.batchDeliveryCostInDollar / this.product.currentSupplier.amount) ||
             0
@@ -77,7 +77,7 @@ export function updateProductAutoCalculatedFields() {
     } else {
       this.product.profit = (
         (parseFloat(this.product.amazon) || 0).toFixed(2) -
-          (this.product.reffee || 0).toFixed(2) -
+          (this.product.reffee || 0) /* .toFixed(2)*/ -
           (
             parseFloat(this.product.currentSupplier.batchDeliveryCostInDollar / this.product.currentSupplier.amount) ||
             0
