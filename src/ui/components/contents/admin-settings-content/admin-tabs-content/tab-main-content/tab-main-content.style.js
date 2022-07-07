@@ -90,6 +90,7 @@ export const useClassNames = makeStyles(() => ({
   placeAddBtnWrapper: {
     display: 'flex',
     justifyContent: 'end',
+    marginTop: '20px',
   },
 
   submitButton: {
@@ -119,5 +120,27 @@ export const useClassNames = makeStyles(() => ({
 
   hideBlock: {
     display: 'none',
+  },
+
+  proxyField: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  proxyFieldText: {
+    marginBottom: '12px',
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '400',
+    color: '#001029',
+  },
+
+  addProxyButton: {
+    // marginTop: '15px',
+    marginLeft: '10px',
+  },
+
+  textContainer: {
+    margin: 0,
   },
 }))

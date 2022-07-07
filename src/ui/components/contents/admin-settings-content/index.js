@@ -1,1 +1,1 @@
-export {AdminSettingsForm} from './admin-settings-form'
+export {AdminSettingsContent} from './admin-settings-content'
