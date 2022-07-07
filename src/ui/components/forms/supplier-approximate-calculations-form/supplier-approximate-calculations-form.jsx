@@ -46,7 +46,7 @@ const supplierApproximateCalculationsDataConverter = (tariffLogistics, product, 
       ) *
         fInalWeightOfUnit
 
-    const roi = (product.amazon - product.totalFba - costDeliveryToUsa) / costDeliveryToUsa
+    const roi = ((product.amazon - product.totalFba - costDeliveryToUsa) / costDeliveryToUsa) * 100
 
     return {
       originalData: item,
