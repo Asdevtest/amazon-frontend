@@ -18,7 +18,7 @@ import {t} from '@utils/translations'
 // import {translateProposalsLeftMessage} from '@utils/validation'
 import {useClassNames} from './vacant-deals-list-card.style'
 
-export const VacantDealsListCard = ({onClickViewMore, dealsOnReview}) => {
+export const VacantDealsListCard = ({onClickViewMore, dealsOnReview, onClickGetToWorkModal}) => {
   const classNames = useClassNames()
 
   return (
@@ -94,7 +94,7 @@ export const VacantDealsListCard = ({onClickViewMore, dealsOnReview}) => {
                 variant="contained"
                 color="primary"
                 className={classNames.actionButton}
-                // onClick={() => onClickViewMore('2')}
+                onClick={() => onClickGetToWorkModal()}
               >
                 {t(TranslationKey['Get to work'])}
               </Button>

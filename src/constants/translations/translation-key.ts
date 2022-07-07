@@ -1329,6 +1329,7 @@ export enum TranslationKey {
   'Budget' = 'Budget',
   'Reject the deal' = 'Reject the deal',
   'Accept the deal' = 'Accept the deal',
+  'Taking the deal check to work?' = 'Taking the deal check to work?',
   // '' = '',
   // '' = '',
   // '' = '',

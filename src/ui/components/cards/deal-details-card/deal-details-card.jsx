@@ -19,7 +19,7 @@ import {t} from '@utils/translations'
 // import {translateProposalsLeftMessage} from '@utils/validation'
 import {useClassNames} from './deal-details-card.style'
 
-export const DealDetailsCard = () => {
+export const DealDetailsCard = ({onClickGetToWorkModal, showDetails}) => {
   const classNames = useClassNames()
 
   return (
@@ -71,9 +71,11 @@ export const DealDetailsCard = () => {
           <div className={classNames.filesWrapper}>
             <PhotoAndFilesCarousel />
           </div>
-          <div>
-            <Button className={classNames.actionButton}>{t(TranslationKey['Send in for rework'])}</Button>
-          </div>
+          {!showDetails ? (
+            <div>
+              <Button className={classNames.actionButton}>{t(TranslationKey['Send in for rework'])}</Button>
+            </div>
+          ) : null}
         </div>
 
         <div className={classNames.middleBlockWrapper}>
@@ -117,30 +119,44 @@ export const DealDetailsCard = () => {
               <Typography className={classNames.timeOnReview}>{'24ч 00мин'}</Typography>
             </div>
           </div>
+          {!showDetails ? (
+            <div className={classNames.buttonsWrapper}>
+              <Button
+                danger
+                // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
+                variant="contained"
+                color="primary"
+                className={classNames.actionButton}
+                // onClick={() => onClickViewMore('2')}
+              >
+                {t(TranslationKey['Reject the deal'])}
+              </Button>
 
-          <div className={classNames.buttonsWrapper}>
-            <Button
-              danger
-              // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-              variant="contained"
-              color="primary"
-              className={classNames.actionButton}
-              // onClick={() => onClickViewMore('2')}
-            >
-              {t(TranslationKey['Reject the deal'])}
-            </Button>
-
-            <Button
-              success
-              // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-              variant="contained"
-              color="primary"
-              className={classNames.actionButton}
-              // onClick={() => onClickViewMore('2')}
-            >
-              {t(TranslationKey['Accept the deal'])}
-            </Button>
-          </div>
+              <Button
+                success
+                // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
+                variant="contained"
+                color="primary"
+                className={classNames.actionButton}
+                // onClick={() => onClickViewMore('2')}
+              >
+                {t(TranslationKey['Accept the deal'])}
+              </Button>
+            </div>
+          ) : (
+            <div className={classNames.buttonWrapper}>
+              <Button
+                success
+                // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
+                variant="contained"
+                color="primary"
+                className={classNames.actionButton}
+                onClick={() => onClickGetToWorkModal()}
+              >
+                {t(TranslationKey['Get to work'])}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </Grid>

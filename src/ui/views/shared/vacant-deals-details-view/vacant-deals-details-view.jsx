@@ -13,6 +13,7 @@ import {DealDetailsCard} from '@components/cards/deal-details-card'
 // import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
 // import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
@@ -39,10 +40,14 @@ export class VacantDealsDetailsView extends Component {
       // viewMode,
       // getCurrentData,
       // sortMode,
+      showDetails,
       drawerOpen,
       deals,
+      showConfirmModal,
       // onTriggerSortMode,
       onTriggerDrawerOpen,
+      onTriggerOpenModal,
+      onClickGetToWorkModal,
       // onClickViewMore,
       // onChangeViewMode,
       // onChangeNameSearchValue,
@@ -70,9 +75,20 @@ export class VacantDealsDetailsView extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Vacant deals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <DealDetailsCard />
+              <DealDetailsCard showDetails={showDetails} onClickGetToWorkModal={onClickGetToWorkModal} />
             </MainContent>
           </Appbar>
+
+          <ConfirmationModal
+            openModal={showConfirmModal}
+            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+            title={t(TranslationKey.Attention)}
+            message={t(TranslationKey['Taking the deal check to work?'])}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.No)}
+            // onClickSuccessBtn={onSubmitDeleteProposal}
+            // onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+          />
         </Main>
       </React.Fragment>
     )

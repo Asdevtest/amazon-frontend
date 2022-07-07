@@ -19,6 +19,8 @@ export class VacantDealsDetailsViewModel {
   nameSearchValue = ''
 
   drawerOpen = false
+  showConfirmModal = false
+  showDetails = true
 
   searchMyRequestsIds = []
   requests = []
@@ -66,6 +68,10 @@ export class VacantDealsDetailsViewModel {
 
   onChangeNameSearchValue(e) {
     this.nameSearchValue = e.target.value
+  }
+
+  onClickGetToWorkModal() {
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   async loadData() {
