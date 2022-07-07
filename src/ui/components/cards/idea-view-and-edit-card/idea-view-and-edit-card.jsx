@@ -1,19 +1,18 @@
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
 import React, {useEffect, useState} from 'react'
 
 import {Divider, Grid, Link, Typography, IconButton} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
-import Carousel from 'react-material-ui-carousel'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
-import {BigImagesModal} from '@components/modals/big-images-modal'
 import {TableSupplier} from '@components/product/table-supplier'
 import {UploadFilesInput} from '@components/upload-files-input'
 
@@ -59,10 +58,6 @@ export const IdeaViewAndEditCard = ({
   }, [curIdea, inEdit])
 
   const [images, setImages] = useState([])
-
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
-
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   const copyValue = value => {
     navigator.clipboard.writeText(value)
@@ -119,42 +114,16 @@ export const IdeaViewAndEditCard = ({
 
   return (
     <Grid item className={classNames.mainWrapper}>
-      <Typography variant="h5">{formFields.title}</Typography>
+      <Typography variant="h5" className={classNames.ideaTitle}>
+        {formFields.title}
+      </Typography>
 
       <div className={classNames.cardWrapper}>
         <div className={classNames.cardBlockWrapper}>
-          <div className={classNames.leftSubBlockWrapper}>
-            <Field
-              labelClasses={classNames.spanLabel}
-              label={t(TranslationKey.Photos)}
-              containerClasses={classNames.carouselContainer}
-              inputComponent={
-                <>
-                  {formFields.images.length ? (
-                    <Carousel autoPlay timeout={100} animation="fade">
-                      {[formFields.images].map((el, index) => (
-                        <div key={index} className={classNames.imgWrapper}>
-                          <img
-                            alt=""
-                            className={classNames.imgBox}
-                            src={el}
-                            onClick={() => {
-                              setShowPhotosModal(!showPhotosModal)
-
-                              setBigImagesOptions({images: formFields.images, imgIndex: index})
-                            }}
-                          />
-                        </div>
-                      ))}
-                    </Carousel>
-                  ) : (
-                    <div className={classNames.imgWrapper}>
-                      <img alt="" className={classNames.imgBox} src={'/assets/img/no-photo.jpg'} />
-                    </div>
-                  )}
-                </>
-              }
-            />
+          <div className={!disableFields ? classNames.leftSubBlockWrapper : classNames.leftDisSubBlockWrapper}>
+            <div className={!disableFields ? classNames.photoWrapper : classNames.bigPhotoWrapper}>
+              <PhotoCarousel files={formFields.images} />
+            </div>
 
             {!disableFields ? <UploadFilesInput images={images} setImages={setImages} maxNumber={50} /> : null}
           </div>
@@ -351,7 +320,7 @@ export const IdeaViewAndEditCard = ({
               className={[classNames.actionButton, classNames.successBtn]}
               // onClick={() => onClickViewMore(item._id)}
             >
-              {t(TranslationKey['Create a product'])}
+              {t(TranslationKey['Create a product card'])}
             </Button>
 
             <div>
@@ -376,19 +345,14 @@ export const IdeaViewAndEditCard = ({
           </div>
 
           <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
-            <Typography className={classNames.tablePanelViewText}>{showFullCard ? 'Скрыть' : 'Показать'}</Typography>
+            <Typography className={classNames.tablePanelViewText}>
+              {showFullCard ? 'Скрыть' : t(TranslationKey.Details)}
+            </Typography>
 
-            {!showFullCard ? <KeyboardArrowDownIcon color="primary" /> : <KeyboardArrowUpIcon color="primary" />}
+            {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
           </div>
         </div>
       ) : null}
-
-      <BigImagesModal
-        isAmazone
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={bigImagesOptions.images || []}
-      />
     </Grid>
   )
 }

@@ -54,6 +54,7 @@ class GoodsDaysReportRaw extends Component {
           <div className={className.shopsFiltersWrapper}>
             <Button
               disabled={!currentShop?._id}
+              tooltipInfoContent={t(TranslationKey['Filter for sorting by store'])}
               className={clsx({[className.selectedShopBtn]: !currentShop?._id})}
               variant="text"
               color="primary"

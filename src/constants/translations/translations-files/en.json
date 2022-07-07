@@ -1238,5 +1238,10 @@
   "Cost of per unit in the U.S.": "Cost of per unit in the U.S.",
   "Approximate calculation": "Approximate calculation",
   "Not enough data": "Not enough data",
-  "No passed strategies": "No passed strategies"
+  "No passed strategies": "No passed strategies",
+  "Main": "Main",
+  "Link for financial transactions": "Link for financial transactions",
+  "Proxy servers for parsing": "Proxy servers for parsing",
+  "Product Link": "Product Link",
+  "Create a product card": "Create a product card"
 }

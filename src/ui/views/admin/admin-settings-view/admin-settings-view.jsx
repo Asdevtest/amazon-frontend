@@ -6,7 +6,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
-import {AdminSettingsForm} from '@components/forms/admin-settings-form'
+import {AdminSettingsContent} from '@components/contents/admin-settings-content/admin-settings-content'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -30,7 +30,7 @@ export class AdminSettingsViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={this.onTriggerDrawer} title={t(TranslationKey.Settings)}>
             <MainContent>
-              <AdminSettingsForm />
+              <AdminSettingsContent />
             </MainContent>
           </Appbar>
         </Main>

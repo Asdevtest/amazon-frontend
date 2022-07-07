@@ -5,6 +5,8 @@ import {useHistory} from 'react-router-dom'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {Button} from '@components/buttons/button'
 import {IdeaViewAndEditCard} from '@components/cards/idea-view-and-edit-card'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
@@ -57,19 +59,20 @@ export const SuppliersAndIdeas = observer(({productId}) => {
         />
       ) : null}
 
-      {ideasData.map((idea, index) => (
-        <IdeaViewAndEditCard
-          key={index}
-          curIdea={curIdea}
-          inEdit={inEdit}
-          idea={idea}
-          onClickSaveBtn={onClickSaveBtn}
-          onClickCancelBtn={onClickCancelBtn}
-          onRemove={onClickRemoveIdea}
-          onSetCurIdea={onSetCurIdea}
-          onEditIdea={onEditIdea}
-        />
-      ))}
+      {SettingsModel.languageTag &&
+        ideasData.map((idea, index) => (
+          <IdeaViewAndEditCard
+            key={index}
+            curIdea={curIdea}
+            inEdit={inEdit}
+            idea={idea}
+            onClickSaveBtn={onClickSaveBtn}
+            onClickCancelBtn={onClickCancelBtn}
+            onRemove={onClickRemoveIdea}
+            onSetCurIdea={onSetCurIdea}
+            onEditIdea={onEditIdea}
+          />
+        ))}
 
       <ConfirmationModal
         isWarning={confirmModalSettings.isWarning}

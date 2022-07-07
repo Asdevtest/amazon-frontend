@@ -118,14 +118,15 @@ export const AddSupplierToIdeaFromInventoryForm = observer(({onSubmit, showProgr
       <Field
         inputProps={{maxLength: 50}}
         label={t(TranslationKey['Product name'])}
+        labelClasses={classNames.label}
         // value={formFields.asin}
         placeholder={t(TranslationKey['Product name'])}
         // onChange={onChangeField('asin')}
       />
 
       <Field
-        labelClasses={classNames.spanLabel}
-        label={t(TranslationKey.Links)}
+        labelClasses={classNames.label}
+        label={t(TranslationKey['Product Link'])}
         containerClasses={classNames.linksContainer}
         inputComponent={
           <div className={classNames.linksWrapper}>
@@ -196,6 +197,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(({onSubmit, showProgr
             rowsMax={10}
             inputProps={{maxLength: 50}}
             label={t(TranslationKey['Important criteria'])}
+            labelClasses={classNames.label}
             inputClasses={classNames.bigInput}
             containerClasses={classNames.bigInputContainer}
             // value={formFields.asin}
@@ -208,6 +210,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(({onSubmit, showProgr
           <Field
             inputProps={{maxLength: 50}}
             label={t(TranslationKey.Demensions)}
+            labelClasses={classNames.label}
             // value={formFields.asin}
             placeholder={t(TranslationKey['Approximate or exact size'])}
             // onChange={onChangeField('asin')}
@@ -215,6 +218,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(({onSubmit, showProgr
           <Field
             inputProps={{maxLength: 50}}
             label={t(TranslationKey.Quantity)}
+            labelClasses={classNames.label}
             // value={formFields.asin}
             placeholder={t(TranslationKey['Estimated number of order units'])}
             // onChange={onChangeField('asin')}
@@ -222,6 +226,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(({onSubmit, showProgr
           <Field
             inputProps={{maxLength: 50}}
             label={t(TranslationKey['Desired purchase price'])}
+            labelClasses={classNames.label}
             // value={formFields.asin}
             placeholder={t(TranslationKey['Price per unit'])}
             // onChange={onChangeField('asin')}
