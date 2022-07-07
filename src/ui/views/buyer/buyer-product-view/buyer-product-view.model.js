@@ -6,6 +6,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BuyerModel} from '@models/buyer-model'
 import {ProductModel} from '@models/product-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
@@ -95,6 +96,8 @@ export class BuyerProductViewModel {
   curUpdateProductData = {}
   warningModalTitle = ''
 
+  storekeepersData = []
+
   supplierModalReadOnly = false
 
   drawerOpen = false
@@ -151,6 +154,16 @@ export class BuyerProductViewModel {
         this.productBase = result
         updateProductAutoCalculatedFields.call(this)
       })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getStorekeepers() {
+    try {
+      const result = await StorekeeperModel.getStorekeepers()
+
+      this.storekeepersData = result
     } catch (error) {
       console.log(error)
     }
@@ -432,6 +445,8 @@ export class BuyerProductViewModel {
         this.selectedSupplier = undefined
       } else {
         const result = await UserModel.getPlatformSettings()
+
+        await this.getStorekeepers()
 
         this.yuanToDollarRate = result.yuanToDollarRate
         this.volumeWeightCoefficient = result.volumeWeightCoefficient

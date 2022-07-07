@@ -12,6 +12,8 @@ import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
+import {SupplierApproximateCalculationsForm} from '@components/forms/supplier-approximate-calculations-form'
+import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
@@ -25,6 +27,8 @@ import {useClassNames} from './add-or-edit-supplier-modal-content.style'
 
 export const AddOrEditSupplierModalContent = observer(
   ({
+    product,
+    storekeepersData,
     onlyRead,
     sourceYuanToDollarRate,
     volumeWeightCoefficient,
@@ -39,6 +43,8 @@ export const AddOrEditSupplierModalContent = observer(
     onClickPrevButton,
   }) => {
     const classNames = useClassNames()
+
+    const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
 
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
@@ -344,6 +350,13 @@ export const AddOrEditSupplierModalContent = observer(
       }
     }
 
+    const boxPropertiesIsFull =
+      tmpSupplier.boxProperties?.amountInBox &&
+      tmpSupplier.boxProperties?.boxLengthCm &&
+      tmpSupplier.boxProperties?.boxWidthCm &&
+      tmpSupplier.boxProperties?.boxHeightCm &&
+      tmpSupplier.boxProperties?.boxWeighGrossKg
+
     const diasabledSubmit =
       '' === tmpSupplier.name ||
       '' === tmpSupplier.price ||
@@ -359,18 +372,12 @@ export const AddOrEditSupplierModalContent = observer(
       0 === parseInt(tmpSupplier.amount) ||
       0 === parseInt(tmpSupplier.minlot) ||
       requestStatus === loadingStatuses.isLoading ||
-      ((tmpSupplier.boxProperties.amountInBox ||
-        tmpSupplier.boxProperties.boxLengthCm ||
-        tmpSupplier.boxProperties.boxWidthCm ||
-        tmpSupplier.boxProperties.boxHeightCm ||
-        tmpSupplier.boxProperties.boxWeighGrossKg) &&
-        !(
-          tmpSupplier.boxProperties.amountInBox &&
-          tmpSupplier.boxProperties.boxLengthCm &&
-          tmpSupplier.boxProperties.boxWidthCm &&
-          tmpSupplier.boxProperties.boxHeightCm &&
-          tmpSupplier.boxProperties.boxWeighGrossKg
-        ))
+      ((tmpSupplier.boxProperties?.amountInBox ||
+        tmpSupplier.boxProperties?.boxLengthCm ||
+        tmpSupplier.boxProperties?.boxWidthCm ||
+        tmpSupplier.boxProperties?.boxHeightCm ||
+        tmpSupplier.boxProperties?.boxWeighGrossKg) &&
+        !boxPropertiesIsFull)
 
     return (
       <Container disableGutters className={classNames.modalContainer}>
@@ -724,11 +731,21 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
         </div>
 
-        <div className={classNames.calculationBtnWrapper}>
-          <Button disabled variant="contained" color="primary">
-            {t(TranslationKey['View an oriented calculation'])}
-          </Button>
-        </div>
+        {product && storekeepersData.length ? (
+          <div className={classNames.calculationBtnWrapper}>
+            <Button
+              tooltipAttentionContent={
+                !product || !storekeepersData?.length || (!boxPropertiesIsFull && t(TranslationKey['Not enough data']))
+              }
+              disabled={!product || !storekeepersData || !boxPropertiesIsFull}
+              variant="contained"
+              color="primary"
+              onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+            >
+              {t(TranslationKey['View an oriented calculation'])}
+            </Button>
+          </div>
+        ) : null}
 
         <Field
           multiline
@@ -792,6 +809,19 @@ export const AddOrEditSupplierModalContent = observer(
           setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
           images={tmpSupplier.images}
         />
+
+        <Modal
+          openModal={showSupplierApproximateCalculationsModal}
+          setOpenModal={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+        >
+          <SupplierApproximateCalculationsForm
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            product={product}
+            supplier={tmpSupplier}
+            storekeepers={storekeepersData}
+            onClose={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
+          />
+        </Modal>
       </Container>
     )
   },

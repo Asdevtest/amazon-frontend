@@ -284,7 +284,9 @@ export const TopCard = observer(
                           {isSupplierAcceptRevokeActive ? <AcceptRevokeIcon /> : <AcceptIcon />}
                         </Button>
                         <Typography className={classNames.supplierButtonText}>
-                          {isSupplierAcceptRevokeActive ? t(TranslationKey['Close edit']) : t(TranslationKey.Accept)}
+                          {isSupplierAcceptRevokeActive
+                            ? t(TranslationKey['Remove the main supplier status'])
+                            : t(TranslationKey['Make the supplier the main'])}
                         </Typography>
                       </div>
                     </>

@@ -170,7 +170,7 @@ class SubUsersViewRaw extends Component {
           isWarning={warningInfoModalSettings.isWarning}
           openModal={showWarningModal}
           setOpenModal={() => onTriggerOpenModal('showWarningModal')}
-          title={t(TranslationKey['Sab-user removed'])}
+          title={warningInfoModalSettings.title}
           btnText={t(TranslationKey.Ok)}
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')

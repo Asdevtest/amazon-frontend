@@ -36,6 +36,7 @@ export class SupervisorProductView extends Component {
 
   render() {
     const {
+      storekeepersData,
       volumeWeightCoefficient,
       yuanToDollarRate,
       supplierModalReadOnly,
@@ -100,6 +101,8 @@ export class SupervisorProductView extends Component {
 
         <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
           <AddOrEditSupplierModalContent
+            product={product}
+            storekeepersData={storekeepersData}
             onlyRead={supplierModalReadOnly}
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}

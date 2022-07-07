@@ -1230,5 +1230,12 @@
   "Delivery cost per unit": "Цена доставки за ед.",
   "View an oriented calculation": "Смотреть ориентировочный расчет",
   "Open the parameters supplier": "Открыть параметры поставщика",
-  "Viewing Supplier": "Просмотр поставщика"
+  "Viewing Supplier": "Просмотр поставщика",
+  "Make the supplier the main": "Сделать поставщика основным",
+  "Remove the main supplier status": "Снять статус основного поставщика",
+  "Cost per unit with delivery to China": "Стоимость за ед. с доставкиой по Китаю",
+  "ROI calculation": "Расчет ROI",
+  "Cost of per unit in the U.S.": "Себестоимость за ед. в США",
+  "Approximate calculation": "Ориентировочный расчет",
+  "Not enough data": "Не хватает данных"
 }
