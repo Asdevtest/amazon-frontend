@@ -626,7 +626,7 @@ export const navbarConfig = () => ({
       subtitles: [
         {subtitle: t(TranslationKey.Tasks), subRoute: '/admin/warehouse/tasks'},
         {subtitle: t(TranslationKey.Boxes), subRoute: '/admin/warehouse/boxes'},
-        {subtitle: t(TranslationKey.Destinations), subRoute: '/admin/warehouse/destinations'},
+        // {subtitle: t(TranslationKey.Destinations), subRoute: '/admin/warehouse/destinations'},
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
       checkHideBlock: () => true,
