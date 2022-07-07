@@ -366,7 +366,7 @@ export const navbarConfig = () => ({
           key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS,
         },
         {
-          subtitle: t(TranslationKey['Vacant requests']),
+          subtitle: t(TranslationKey['Deals on review']),
           subRoute: '/supervisor/freelance/deals-on-review',
           key: navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW,
         },

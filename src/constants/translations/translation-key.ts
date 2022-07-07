@@ -1324,6 +1324,7 @@ export enum TranslationKey {
   'Vacant deals' = 'Vacant deals',
   'Deals on review' = 'Deals on review',
   'Performer' = 'Performer',
+  'Open a deal' = 'Open a deal',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -17,17 +17,17 @@ import {Navbar} from '@components/navbar'
 
 import {t} from '@utils/translations'
 
-import {ClientFreelanceViewModel} from './supervisor-freelance-view.model'
+import {SupervisorFreelanceViewModel} from './supervisor-freelance-view.model'
 import {styles} from './supervisor-freelance-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_DEALS
 
 @observer
 class SupervisorFreelanceViewRaw extends Component {
-  viewModel = new ClientFreelanceViewModel({history: this.props.history})
+  viewModel = new SupervisorFreelanceViewModel({history: this.props.history})
 
   render() {
-    const {drawerOpen, onChangeDrawerOpen, onClickMyRequests, onClickVacRequests, onClickMyProposals} = this.viewModel
+    const {drawerOpen, onChangeDrawerOpen, onClickVacantDeals, onClickDealsOnReview} = this.viewModel
 
     const {classes: classNames} = this.props
 
@@ -43,22 +43,21 @@ class SupervisorFreelanceViewRaw extends Component {
                 </Typography>
 
                 <div className={classNames.btnsWrapper}>
-                  <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickMyRequests}>
+                  <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickVacantDeals}>
                     <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['My requests'])}</Typography>
+                      <Typography className={classNames.btnText}>{t(TranslationKey['Vacant deals'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button>
 
-                  <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickVacRequests}>
+                  <Button
+                    className={classNames.button}
+                    color="primary"
+                    variant="outlined"
+                    onClick={onClickDealsOnReview}
+                  >
                     <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['Vacant requests'])}</Typography>
-                      <ArrowRightAltIcon color="primary" />
-                    </div>
-                  </Button>
-                  <Button className={classNames.button} color="primary" variant="outlined" onClick={onClickMyProposals}>
-                    <div className={classNames.btnTextWrapper}>
-                      <Typography className={classNames.btnText}>{t(TranslationKey['My proposals'])}</Typography>
+                      <Typography className={classNames.btnText}>{t(TranslationKey['Deals on review'])}</Typography>
                       <ArrowRightAltIcon color="primary" />
                     </div>
                   </Button>

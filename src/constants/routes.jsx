@@ -71,6 +71,7 @@ import {VacantDealsView} from '@views/shared/vacant-deals-view'
 import {VacantRequestsView} from '@views/shared/vacant-requests-view/vacant-requests-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
 import {SupervisorFinancesViews} from '@views/supervisor/supervisor-finances-views'
+import {SupervisorFreelanceView} from '@views/supervisor/supervisor-freelance-view'
 import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
 import {SupervisorReadyToCheckByClientView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-by-client-view'
@@ -619,6 +620,14 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey.Dashboard,
+  },
+
+  {
+    routePath: '/supervisor/freelance',
+    component: SupervisorFreelanceView,
+    exact: true,
+    permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Freelance,
   },
 
   {

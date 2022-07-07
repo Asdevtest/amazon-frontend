@@ -7,7 +7,7 @@ export const useClassNames = makeStyles(() => ({
 
   cardWrapper: {
     width: '100%',
-    height: '263px',
+    height: '326px',
 
     borderRadius: '4px',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
@@ -29,16 +29,18 @@ export const useClassNames = makeStyles(() => ({
 
   cardTitleBlockHeaderWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'start',
     justifyContent: 'space-between',
+    marginTop: '56px',
   },
 
   cardTitleBlockWrapper: {
-    width: '661px',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    // width: '50%',
+    // height: '100%',
+    // display: 'flex',
+    // flexDirection: 'column',
+    // justifyContent: 'space-between',
   },
 
   cardTitle: {
@@ -47,9 +49,15 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     color: '#001029',
-    overflowY: 'auto',
-    width: '395px',
-    height: '160px',
+  },
+
+  cardDescription: {
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#001029',
+    marginTop: '10px',
+    height: '57px',
   },
 
   cardSubTitle: {
@@ -74,6 +82,7 @@ export const useClassNames = makeStyles(() => ({
 
   usersInfoBlockWrapper: {
     display: 'flex',
+    gap: '92px',
   },
 
   userInfo: {
@@ -81,13 +90,19 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
   },
 
+  userInfoName: {
+    fontWeight: '400',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+    marginBottom: '10px',
+  },
+
   userRating: {
     marginLeft: '100px',
   },
 
   middleBlockWrapper: {
-    width: '819px',
-
     display: 'flex',
 
     flexDirection: 'column',
@@ -146,26 +161,30 @@ export const useClassNames = makeStyles(() => ({
   },
 
   subBlockWrapper: {
+    width: '758px',
+    padding: '30px 40px',
+    border: '1px solid #e0e0e0',
+    borderRadius: '4px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
 
   leftSubBlockWrapper: {
-    width: '403px',
-    border: '1px solid #E0E0E0',
+    width: '301px',
+
     borderRadius: '8px',
-    padding: '30px',
+
     display: 'flex',
     flexDirection: 'column',
     gap: '23px',
   },
 
   rightSubBlockWrapper: {
-    width: '377px',
-    border: '1px solid #E0E0E0',
+    width: '301px',
+
     borderRadius: '8px',
-    padding: '30px',
+
     display: 'flex',
     flexDirection: 'column',
     gap: '23px',
@@ -173,6 +192,6 @@ export const useClassNames = makeStyles(() => ({
 
   buttonWrapper: {
     display: 'flex',
-    justifyContent: 'end',
+    justifyContent: 'space-between',
   },
 }))

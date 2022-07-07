@@ -16,21 +16,15 @@ export class SupervisorFreelanceViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  onClickMyRequests() {
+  onClickVacantDeals() {
     this.history.push({
-      pathname: '/client/freelance/my-requests',
+      pathname: '/supervisor/freelance/vacant-deals',
     })
   }
 
-  onClickVacRequests() {
+  onClickDealsOnReview() {
     this.history.push({
-      pathname: '/client/freelance/vacant-requests',
-    })
-  }
-
-  onClickMyProposals() {
-    this.history.push({
-      pathname: '/client/freelance/my-proposals',
+      pathname: '/supervisor/freelance/deals-on-review',
     })
   }
 }

@@ -24,48 +24,37 @@ export const VacantDealsListCard = ({onClickViewMore}) => {
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
-        <div className={classNames.usersInfoBlockWrapper}>
-          <div className={classNames.userInfoWrapper}>
-            <Typography>{t(TranslationKey.Client)}</Typography>
-            <div className={classNames.userInfo}>
-              <Avatar src={''} className={classNames.cardImg} />
+        <div className={classNames.leftBlockWrapper}>
+          <div className={classNames.usersInfoBlockWrapper}>
+            <div className={classNames.userInfoWrapper}>
+              <Typography className={classNames.userInfoName}>{t(TranslationKey.Client)}</Typography>
+              <div className={classNames.userInfo}>
+                <Avatar src={''} className={classNames.cardImg} />
 
-              <div className={classNames.nameWrapper}>
-                <UserLink blackText name={'Pete'} userId={'2'} />
+                <div className={classNames.nameWrapper}>
+                  <UserLink blackText name={'Pete'} userId={'2'} />
 
-                <Rating disabled value={'3'} />
+                  <Rating disabled value={'3'} />
+                </div>
+              </div>
+            </div>
+            <div className={classNames.userInfoWrapper}>
+              <Typography className={classNames.userInfoName}>{t(TranslationKey.Performer)}</Typography>
+              <div className={classNames.userInfo}>
+                <Avatar src={''} className={classNames.cardImg} />
+
+                <div className={classNames.nameWrapper}>
+                  <UserLink blackText name={'Pete'} userId={'2'} />
+
+                  <Rating disabled value={'3'} />
+                </div>
               </div>
             </div>
           </div>
-          <div className={classNames.userInfoWrapper}>
-            <Typography>{t(TranslationKey.Performer)}</Typography>
-            <div className={classNames.userInfo}>
-              <Avatar src={''} className={classNames.cardImg} />
-
-              <div className={classNames.nameWrapper}>
-                <UserLink blackText name={'Pete'} userId={'2'} />
-
-                <Rating disabled value={'3'} />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={classNames.cardTitleBlockWrapper}>
-          <div className={classNames.cardTitleBlockHeaderWrapper}>
-            <Typography className={classNames.cardTitle}>{'Вакантная сделка'}</Typography>
-          </div>
-          <div className={classNames.cardTitleBlockFooterWrapper}>
-            {/* <Typography className={classNames.cardSubTitle}>
-              {translateProposalsLeftMessage(
-                item.maxAmountOfProposals - item.countProposalsByStatuses.acceptedProposals,
-                item.maxAmountOfProposals,
-              )}
-            </Typography> */}
-
-            <div className={classNames.updatedAtWrapper}>
-              <Typography className={classNames.updatedAtText}>{t(TranslationKey.Updated) + ': '}</Typography>
-
-              <Typography className={classNames.updatedAtText}>{'Вчера'}</Typography>
+          <div className={classNames.cardTitleBlockWrapper}>
+            <div className={classNames.cardTitleBlockHeaderWrapper}>
+              <Typography className={classNames.cardTitle}>{'Вакантная сделка'}</Typography>
+              <Typography className={classNames.cardDescription}>{'Описание вакантной сделки'}</Typography>
             </div>
           </div>
         </div>
@@ -99,13 +88,23 @@ export const VacantDealsListCard = ({onClickViewMore}) => {
           </div>
           <div className={classNames.buttonWrapper}>
             <Button
-              tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
+              success
+              // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
               variant="contained"
               color="primary"
               className={classNames.actionButton}
               onClick={() => onClickViewMore('2')}
             >
-              {t(TranslationKey.Details)}
+              {t(TranslationKey['Get to work'])}
+            </Button>
+            <Button
+              // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
+              variant="contained"
+              color="primary"
+              className={classNames.actionButton}
+              onClick={() => onClickViewMore('2')}
+            >
+              {t(TranslationKey['Open a deal'])}
             </Button>
           </div>
         </div>
