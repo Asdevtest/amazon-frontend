@@ -16,13 +16,13 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
-import {GroupPermissionsModel} from './group-permissions.model'
-import {useClassNames} from './group-permissions.style'
+import {UserEditModel} from './user-edit.model'
+import {useClassNames} from './user-edit.style'
 
-export const GroupPermissions = observer(() => {
+export const UserEdit = observer(() => {
   const classNames = useClassNames()
   const history = useHistory()
-  const gpModel = useRef(new GroupPermissionsModel({history}))
+  const gpModel = useRef(new UserEditModel({history}))
 
   useEffect(() => {
     gpModel.current.loadData()

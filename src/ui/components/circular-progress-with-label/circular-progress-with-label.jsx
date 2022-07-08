@@ -10,14 +10,20 @@ export const CircularProgressWithLabel = ({value, title}) => {
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.progressContainer}>
-        <Typography variant="h4">{title}</Typography>
+        {title ? <Typography variant="h4">{title}</Typography> : null}
 
-        <div className={classNames.progressWrapper}>
-          <CircularProgress variant="determinate" value={value} size={85} />
-          <div className={classNames.subWrapper}>
-            <Typography className={classNames.text}>{`${Math.round(value)}%`}</Typography>
+        {value ? (
+          <div className={classNames.progressWrapper}>
+            <CircularProgress variant="determinate" value={value} size={85} />
+            {title ? (
+              <div className={classNames.subWrapper}>
+                <Typography className={classNames.text}>{`${Math.round(value)}%`}</Typography>
+              </div>
+            ) : null}
           </div>
-        </div>
+        ) : (
+          <CircularProgress />
+        )}
       </div>
     </div>
   )

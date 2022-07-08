@@ -16,8 +16,8 @@ import {SettingsModel} from '@models/settings-model'
 
 import {t} from '@utils/translations'
 
-import {GroupPermissions} from './group-permissions'
 import {UserBalance} from './user-balance'
+import {UserEdit} from './user-edit'
 import {useClassNames} from './user-info-and-edit.style'
 
 const TabPanel = ({children, value, index, ...other}) => (
@@ -60,10 +60,10 @@ export const UserInfoAndEdit = observer(({user}) => {
       )}
 
       <TabPanel value={tabIndex} index={0}>
-        <GroupPermissions />
+        <UserEdit userId={user._id} />
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
-        <UserBalance user={user} />
+        <UserBalance userId={user._id} />
       </TabPanel>
     </React.Fragment>
   )

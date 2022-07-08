@@ -44,6 +44,8 @@ export class StockReportModel {
 
   infoModalText = ''
 
+  showCircularProgressModal = false
+
   showAddProductSellerboardModal = false
   showBindStockGoodsToInventoryModal = false
   showAddOrEditSupplierModal = false
@@ -196,6 +198,7 @@ export class StockReportModel {
 
   async onSubmitMoveToInventoryGoods() {
     try {
+      this.showCircularProgressModal = true
       const productsToCreate = []
 
       this.sellerBoardDailyData.forEach(
@@ -208,11 +211,15 @@ export class StockReportModel {
 
       await SellerBoardModel.createAndLinkSkuProducts({payload: productsToCreate})
 
+      this.showCircularProgressModal = false
+
       this.infoModalText = t(TranslationKey['The products will appear in the inventory soon'])
       this.onTriggerOpenModal('showInfoModal')
     } catch (error) {
       console.log(error)
       this.error = error
+
+      this.showCircularProgressModal = false
 
       this.infoModalText = t(TranslationKey['Will not be moved to inventory'])
       this.onTriggerOpenModal('showInfoModal')
