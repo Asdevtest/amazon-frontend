@@ -208,6 +208,7 @@ export const CreateOrEditProposalContent = ({
                 {t(TranslationKey['Attach a file (link to your portfolio, examples of work)'])}
               </Typography>
               <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
+              <PhotoAndFilesCarousel files={formFields.linksToMediaFiles} />
 
               {/* <Button
               disableElevation
