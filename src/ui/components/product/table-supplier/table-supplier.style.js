@@ -171,4 +171,17 @@ export const useClassNames = makeStyles(() => ({
   commentCell: {
     minWidth: 250,
   },
+
+  filesWrapper: {
+    height: '140px',
+    display: 'flex',
+  },
+
+  filesCell: {
+    width: '360px',
+  },
+  createdByCell: {
+    width: '120px',
+    textAlign: 'center',
+  },
 }))

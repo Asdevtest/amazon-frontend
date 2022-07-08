@@ -124,4 +124,22 @@ export const useClassNames = makeStyles(theme => ({
   button: {
     marginRight: '10px',
   },
+
+  demensionsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    minWidth: '200px',
+    padding: '5px',
+    marginTop: '10px',
+    height: '220px',
+  },
+
+  categoryTitle: {
+    fontSize: '16px',
+    lineHeight: '20px',
+    color: 'rgba(61, 81, 112, 1)',
+    fontWeight: '600',
+    marginBottom: '12px',
+  },
 }))

@@ -1,6 +1,6 @@
 import {React, useState} from 'react'
 
-import {Checkbox, Container, Divider, Grid, Typography} from '@material-ui/core'
+import {Checkbox, Container, Divider, Grid, Link, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
@@ -13,6 +13,7 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {SupplierApproximateCalculationsForm} from '@components/forms/supplier-approximate-calculations-form'
+import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
@@ -20,7 +21,7 @@ import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
-import {toFixed} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './add-or-edit-supplier-modal-content.style'
@@ -428,13 +429,15 @@ export const AddOrEditSupplierModalContent = observer(
           </div>
 
           <Field
-            disabled={onlyRead}
             tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
             label={t(TranslationKey.Link) + '*'}
             inputProps={{maxLength: 2000}}
             labelClasses={classNames.normalLabel}
-            value={tmpSupplier.link}
-            onChange={onChangeField('link')}
+            inputComponent={
+              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}>
+                <Input disabled={onlyRead} value={tmpSupplier.link} onChange={onChangeField('link')} />
+              </Link>
+            }
           />
         </div>
 

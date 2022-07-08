@@ -1,3 +1,5 @@
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 
 import React, {useState} from 'react'
@@ -6,8 +8,8 @@ import {Box, Grid, Paper, Typography} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
 import AcceptRevokeIcon from '@material-ui/icons/Clear'
-import DeleteIcon from '@material-ui/icons/Delete'
-import EditIcon from '@material-ui/icons/Edit'
+// import DeleteIcon from '@material-ui/icons/Delete'
+// import EditIcon from '@material-ui/icons/Edit'
 import {Alert} from '@material-ui/lab'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
@@ -245,7 +247,7 @@ export const TopCard = observer(
                           className={classNames.iconBtn}
                           onClick={() => onClickSupplierBtns('edit')}
                         >
-                          <EditIcon />
+                          <EditOutlinedIcon />
                         </Button>
                         <Typography className={classNames.supplierButtonText}>
                           {t(TranslationKey['Edit a supplier'])}
@@ -259,7 +261,7 @@ export const TopCard = observer(
                             className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
                             onClick={() => onClickSupplierBtns('delete')}
                           >
-                            <DeleteIcon />
+                            <DeleteOutlineOutlinedIcon />
                           </Button>
                           <Typography className={classNames.supplierButtonText}>
                             {t(TranslationKey['Delete supplier'])}

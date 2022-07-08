@@ -88,11 +88,10 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
 
             <div className={classNames.titleWrapper}>
               <Typography className={classNames.title}>{title}</Typography>
-              <div className={classNames.tooltipWrapper}>
+              <div className={classNames.tooltipWrapper} onClick={componentModel.current.onTriggerShowHints}>
                 <img
                   className={classNames.hintsIcon}
                   src={componentModel.current.showHints ? '/assets/icons/hints-on.svg' : '/assets/icons/hints-off.svg'}
-                  onClick={componentModel.current.onTriggerShowHints}
                 />
                 {componentModel.current.showHints ? (
                   <Typography className={classNames.hintsTextActive}>{t(TranslationKey['Hints included'])}</Typography>
@@ -100,16 +99,6 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                   <Typography className={classNames.hintsTextNoActive}>{t(TranslationKey['Hints are off'])}</Typography>
                 )}
               </div>
-
-              {/* <Tooltip
-                arrow
-                title={
-                  componentModel.current.showHints
-                    ? t(TranslationKey['Hints included'])
-                    : t(TranslationKey['Hints are off'])
-                }
-                placement="top-end"
-              ></Tooltip> */}
             </div>
 
             <Typography className={classNames.userroleTitle}>{t(TranslationKey['your role:'])}</Typography>

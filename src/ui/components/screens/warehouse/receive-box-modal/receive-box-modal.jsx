@@ -18,7 +18,7 @@ import {TableHeadRow} from '@components/table-rows/batches-view/table-head-row'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
-import {toFixed} from '@utils/text'
+import {toFixed, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
 // import {CommentsLine} from './comments-line'
@@ -167,7 +167,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
   const classNames = useClassNames()
   const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
   const [showAddImagesModal, setShowAddImagesModal] = useState(false)
-
+  console.log(selectedBox)
   const emptyProducts = selectedBox.items.map(product => ({...product, amount: ''}))
   const getEmptyBox = () => {
     const emptyBox = {...selectedBox, _id: 'new_id_' + Date.now(), items: emptyProducts, amount: 1}
@@ -300,6 +300,46 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
         <Typography className={classNames.footerTitle}>{`${t(
           TranslationKey['Actually assembled'],
         )}: ${actuallyAssembled}`}</Typography>
+      </div>
+
+      <div className={classNames.demensionsWrapper}>
+        <Typography className={classNames.categoryTitle}>{t(TranslationKey['Sizes from supplier:'])}</Typography>
+        <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Length)}: ${toFixed(
+          selectedBox.lengthCmSupplier,
+          2,
+        )} ${t(TranslationKey.cm)}`}</Typography>
+        <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Width)}: ${toFixed(
+          selectedBox.widthCmSupplier,
+          2,
+        )} ${t(TranslationKey.cm)}`}</Typography>
+        <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Height)}: ${toFixed(
+          selectedBox.heightCmSupplier,
+          2,
+        )} ${t(TranslationKey.cm)}`}</Typography>
+        <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
+          selectedBox.weighGrossKgSupplier,
+          2,
+        )} `}</Typography>
+        <Typography className={classNames.footerTitle}>{`${t(TranslationKey['Volume weight'])}: ${toFixedWithKg(
+          ((parseFloat(selectedBox.lengthCmSupplier) || 0) *
+            (parseFloat(selectedBox.heightCmSupplier) || 0) *
+            (parseFloat(selectedBox.widthCmSupplier) || 0)) /
+            volumeWeightCoefficient,
+          2,
+        )} `}</Typography>
+        <Typography className={classNames.footerTitle}>{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(
+          selectedBox.weighGrossKgSupplier >
+            ((parseFloat(selectedBox.lengthCmSupplier) || 0) *
+              (parseFloat(selectedBox.heightCmSupplier) || 0) *
+              (parseFloat(selectedBox.widthCmSupplier) || 0)) /
+              volumeWeightCoefficient
+            ? selectedBox.weighGrossKgSupplier
+            : ((parseFloat(selectedBox.lengthCmSupplier) || 0) *
+                (parseFloat(selectedBox.heightCmSupplier) || 0) *
+                (parseFloat(selectedBox.widthCmSupplier) || 0)) /
+                volumeWeightCoefficient,
+          2,
+        )}`}</Typography>
       </div>
     </div>
   )

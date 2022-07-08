@@ -253,12 +253,10 @@ export class ClientInventoryViewModel {
   onClickTriggerArchOrResetProducts() {
     this.confirmModalSettings = {
       isWarning: this.isArchive ? false : true,
-      confirmTitle: this.isArchive
-        ? t(TranslationKey['Return to Inventory'])
-        : t(TranslationKey['Remove from the Inventory']),
+      confirmTitle: this.isArchive ? t(TranslationKey['Return to Inventory']) : t(TranslationKey['Delete a card']),
       confirmMessage: this.isArchive
         ? t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?'])
-        : t(TranslationKey['After confirmation, the card will be moved to the Archive. Continue?']),
+        : t(TranslationKey['After confirmation, the card will be moved to the archive. Delete?']),
       onClickConfirm: () => this.onSubmitTriggerArchOrResetProducts(),
     }
 
