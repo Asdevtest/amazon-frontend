@@ -221,4 +221,11 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+
+  link: {
+    cursor: 'pointer',
+    color: '#007bff',
+    maxWidth: '100%',
+    overflow: 'auto',
+  },
 }))

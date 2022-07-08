@@ -13,7 +13,6 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {SupplierApproximateCalculationsForm} from '@components/forms/supplier-approximate-calculations-form'
-import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
@@ -428,17 +427,30 @@ export const AddOrEditSupplierModalContent = observer(
             />
           </div>
 
-          <Field
-            tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
-            label={t(TranslationKey.Link) + '*'}
-            inputProps={{maxLength: 2000}}
-            labelClasses={classNames.normalLabel}
-            inputComponent={
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}>
-                <Input disabled={onlyRead} value={tmpSupplier.link} onChange={onChangeField('link')} />
-              </Link>
-            }
-          />
+          {onlyRead ? (
+            <Field
+              tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
+              label={t(TranslationKey.Link) + '*'}
+              inputProps={{maxLength: 2000}}
+              labelClasses={classNames.normalLabel}
+              inputComponent={
+                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}>
+                  <Typography disabled className={classNames.link}>
+                    {tmpSupplier.link}
+                  </Typography>
+                </Link>
+              }
+            />
+          ) : (
+            <Field
+              tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
+              label={t(TranslationKey.Link) + '*'}
+              inputProps={{maxLength: 2000}}
+              labelClasses={classNames.normalLabel}
+              value={tmpSupplier.link}
+              onChange={onChangeField('link')}
+            />
+          )}
         </div>
 
         <div>
