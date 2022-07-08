@@ -19,16 +19,17 @@ import {t} from '@utils/translations'
 import {UserBalanceModel} from './user-balance.model'
 import {useClassNames} from './user-balance.style'
 
-export const UserBalance = observer(({user}) => {
+export const UserBalance = observer(({userId}) => {
   const classNames = useClassNames()
   const history = useHistory()
-  const model = useRef(new UserBalanceModel({history, user}))
+  const model = useRef(new UserBalanceModel({history, userId}))
 
   useEffect(() => {
     model.current.loadData()
   }, [])
 
   const {
+    user,
     showReplenishModal,
     showWithdrawModal,
     makePayment,

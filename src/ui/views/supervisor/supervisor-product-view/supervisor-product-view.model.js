@@ -63,6 +63,7 @@ const fieldsOfProductAllowedToUpdate = [
   'coefficient',
   'avgPrice',
   'avgReviews',
+  // 'totalFba'
 ]
 
 const formFieldsDefault = {
@@ -204,7 +205,7 @@ export class SupervisorProductViewModel {
           return
         }
         if (
-          ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice', 'reffee'].includes(fieldName) &&
+          ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice', 'reffee', 'totalFba'].includes(fieldName) &&
           !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
         ) {
           return
@@ -293,6 +294,8 @@ export class SupervisorProductViewModel {
             case 'fbafee':
               return value && parseFloat(value)
             case 'profit':
+              return value && parseFloat(value)
+            case 'totalFba':
               return value && parseFloat(value)
             default:
               return value

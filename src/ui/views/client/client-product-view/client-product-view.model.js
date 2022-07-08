@@ -85,6 +85,7 @@ const fieldsOfProductAllowedToUpdate = [
   'coefficient',
   'avgPrice',
   'avgReviews',
+  // 'totalFba'
 ]
 
 export class ClientProductViewModel {
@@ -201,7 +202,7 @@ export class ClientProductViewModel {
         }
 
         if (
-          ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice', 'reffee'].includes(fieldName) &&
+          ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice', 'reffee', 'totalFba'].includes(fieldName) &&
           !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
         ) {
           return
@@ -214,7 +215,7 @@ export class ClientProductViewModel {
         this.product = {...this.product, [fieldName]: e.target.value}
       }
 
-      if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba'].includes(fieldName)) {
+      if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {
         updateProductAutoCalculatedFields.call(this)
       }
 
@@ -338,6 +339,8 @@ export class ClientProductViewModel {
             case 'fbaamount':
               return (value && parseFloat(value)) || 0
             case 'fbafee':
+              return (value && parseFloat(value)) || 0
+            case 'totalFba':
               return (value && parseFloat(value)) || 0
             case 'profit':
               return value && parseFloat(value)

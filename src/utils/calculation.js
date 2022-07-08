@@ -38,7 +38,7 @@ export const calcFinalWeightForBox = (box, coefficient) =>
   )
 
 export const calcTotalFbaForProduct = product =>
-  (parseFloat(product.fbafee) || 0) + (parseFloat(product.amazon) || 0) * 0.15
+  (parseFloat(product.fbafee) || 0) + (parseFloat(product.reffee) || 0) /* (parseFloat(product.amazon) || 0) * 0.15*/
 
 export const calcMaxDeliveryForProduct = product =>
   product.express ? (product.weight || 0) * 7 : (product.weight || 0) * 5
@@ -51,7 +51,7 @@ export function updateProductAutoCalculatedFields() {
   const strPrice = this.product.amazon + ''
   this.product.amazon = (strPrice.replace(',', '') === '0' ? '' : strPrice.replace(',', '')) || ''
 
-  this.product.totalFba = calcTotalFbaForProduct(this.product)
+  this.product.totalFba = /* this.product.totalFba ?  this.product.totalFba : */ calcTotalFbaForProduct(this.product)
 
   this.product.maxDelivery = calcMaxDeliveryForProduct(this.product)
 

@@ -18,27 +18,25 @@ export const supplierApproximateCalculationsFormColumns = () => [
 
   {
     field: 'costDeliveryToChina',
-    headerName: t(TranslationKey['Cost per unit with delivery to China']) + ', $',
-    renderHeader: () => (
-      <MultilineTextHeaderCell text={t(TranslationKey['Cost per unit with delivery to China']) + ', $'} />
-    ),
+    headerName: t(TranslationKey['Cost per unit with delivery to China']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost per unit with delivery to China'])} />,
     width: 250,
-    renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
+    renderCell: params => <MultilineTextCell text={'$ ' + toFixed(params.value, 2)} />,
   },
 
   {
     field: 'costDeliveryToUsa',
     headerName: t(TranslationKey['Cost of per unit in the U.S.']) + ', $',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of per unit in the U.S.']) + ', $'} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of per unit in the U.S.'])} />,
     width: 250,
-    renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
+    renderCell: params => <MultilineTextCell text={'$ ' + toFixed(params.value, 2)} />,
   },
 
   {
     field: 'roi',
     headerName: t(TranslationKey['ROI calculation']) + ', %',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ROI calculation']) + ', %'} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ROI calculation'])} />,
     width: 140,
-    renderCell: params => <MultilineTextCell text={toFixed(params.value, 2)} />,
+    renderCell: params => <MultilineTextCell text={toFixed(params.value, 2) + ' %'} />,
   },
 ]

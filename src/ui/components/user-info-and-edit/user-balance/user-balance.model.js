@@ -32,10 +32,10 @@ export class UserBalanceModel {
   densityModel = 'compact'
   columnsModel = financesViewColumns()
 
-  constructor({history, user}) {
+  constructor({history, userId}) {
     this.history = history
 
-    this.user = user
+    this.userId = userId
 
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
@@ -90,8 +90,8 @@ export class UserBalanceModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-      // await this.getUserInfo(this.userId)
-      await this.getBalanceHistory(this.user._id)
+      await this.getUserInfo(this.userId)
+      await this.getBalanceHistory(this.userId)
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -144,17 +144,17 @@ export class UserBalanceModel {
     }
   }
 
-  // async getUserInfo(id) {
-  //   try {
-  //     const result = await AdministratorModel.getUsersById(id)
+  async getUserInfo(id) {
+    try {
+      const result = await AdministratorModel.getUsersById(id)
 
-  //     runInAction(() => {
-  //       this.user = result
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+      runInAction(() => {
+        this.user = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   async makePayment(data) {
     try {

@@ -14,7 +14,7 @@ import {sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
-export class GroupPermissionsModel {
+export class UserEditModel {
   history = undefined
   requestStatus = undefined
   error = undefined
