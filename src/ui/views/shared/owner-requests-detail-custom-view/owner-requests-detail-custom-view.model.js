@@ -28,6 +28,7 @@ export class OwnerRequestDetailCustomViewModel {
   showConfirmWithCommentModal = false
   showChat = false
   showConfirmWorkResultFormModal = false
+  showReviewModal = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -232,6 +233,10 @@ export class OwnerRequestDetailCustomViewModel {
       console.log(error)
       this.error = error
     }
+  }
+
+  onClickReview() {
+    this.onTriggerOpenModal('showReviewModal')
   }
 
   onClickOrderProposal(proposalId, price) {

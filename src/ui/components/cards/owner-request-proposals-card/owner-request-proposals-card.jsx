@@ -27,7 +27,7 @@ import {useClassNames} from './owner-request-proposals-card.style'
 export const OwnerRequestProposalsCard = ({
   item,
   onClickContactWithExecutor,
-
+  onClickReview,
   onClickOrderProposal,
   onClickRejectProposal,
 }) => {
@@ -50,7 +50,10 @@ export const OwnerRequestProposalsCard = ({
                   <div className={classNames.userNameWrapper}>
                     <UserLink blackText name={item.proposal.createdBy.name} userId={item.proposal.createdBy._id} />
                     <div className={classNames.reviewWrapper}>
-                      <UserLink name={t(TranslationKey.Reviews)} userId={item.proposal.createdBy._id} />
+                      <Typography className={classNames.reviews} onClick={() => onClickReview()}>
+                        {t(TranslationKey.Reviews)}
+                      </Typography>
+                      {/* <UserLink name={t(TranslationKey.Reviews)} userId={item.proposal.createdBy._id} /> */}
                       <Rating disabled className={classNames.userRating} value={item.proposal.createdBy.rating} />
                     </div>
                   </div>

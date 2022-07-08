@@ -14,6 +14,7 @@ import {Button} from '@components/buttons/button'
 import {OwnerRequestProposalsCard} from '@components/cards/owner-request-proposals-card'
 import {MultipleChats} from '@components/chat/multiple-chats'
 import {RequestProposalResultToCorrectForm} from '@components/forms/request-proposal-result-to-correct-form'
+import {ReviewsForm} from '@components/forms/reviews-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
@@ -66,6 +67,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       showOrderModal,
       showConfirmModal,
       showConfirmWithCommentModal,
+      showReviewModal,
       chatSelectedId,
       chats,
       userInfo,
@@ -86,6 +88,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       onClickRejectProposal,
       onClickProposalResultAccept,
       onClickProposalResultToCorrect,
+      onClickReview,
       onPressSubmitRequestProposalResultToCorrectForm,
       triggerShowResultToCorrectFormModal,
       showChat,
@@ -146,6 +149,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                           onClickContactWithExecutor={onClickContactWithExecutor}
                           onClickOrderProposal={onClickOrderProposal}
                           onClickRejectProposal={onClickRejectProposal}
+                          onClickReview={onClickReview}
                         />
                       </Paper>
                     </div>
@@ -215,6 +219,10 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
           </Modal>
           <Modal openModal={showResultToCorrectFormModal} setOpenModal={triggerShowResultToCorrectFormModal}>
             <RequestProposalResultToCorrectForm onPressSubmitForm={onPressSubmitRequestProposalResultToCorrectForm} />
+          </Modal>
+
+          <Modal openModal={showReviewModal} setOpenModal={() => onTriggerOpenModal('showReviewModal')}>
+            <ReviewsForm onClickCloseButton={() => onTriggerOpenModal('showReviewModal')} />
           </Modal>
 
           <Modal

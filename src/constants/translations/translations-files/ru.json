@@ -1249,5 +1249,6 @@
   "Continue working with the user": "Продолжить работу с пользователем",
   "Selected lot contains a box for which you need to confirm the price change": "Выбрана партия, содержит коробку по которой нужно подтвердить изменение цены",
   "Order files": "Файлы заказа",
-  "New files": "Новые файлы"
+  "New files": "Новые файлы",
+  "User reviews": "Отзывы о пользователе"
 }
