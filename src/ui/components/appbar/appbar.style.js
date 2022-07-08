@@ -43,7 +43,7 @@ export const useClassNames = makeStyles(theme => ({
     height: 18,
     marginLeft: 20,
     transition: '.2s ease',
-    cursor: 'pointer',
+
     '&:hover': {
       transform: 'scale(1.1)',
     },
@@ -195,6 +195,7 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
+    cursor: 'pointer',
   },
 
   hintsTextActive: {

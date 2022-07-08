@@ -87,11 +87,13 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
 
                 <TableCell className={[classNames.alignCenter, classNames.commentCell]}>{supplier.comment}</TableCell>
 
-                <TableCell>
-                  <PhotoAndFilesCarousel files={supplier.images} width="400px" />
+                <TableCell className={classNames.filesCell}>
+                  <div className={classNames.filesWrapper}>
+                    <PhotoAndFilesCarousel files={supplier.images} width="350px" />
+                  </div>
                 </TableCell>
 
-                <TableCell className={classNames.alignCenter}>
+                <TableCell className={classNames.createdByCell}>
                   <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
                 </TableCell>
               </TableRow>
