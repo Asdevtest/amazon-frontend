@@ -3,26 +3,16 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  AdminUsersActionBtnsCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  MultilineTextCell, // NormalActionBtnCell,
+  MultilineTextCell,
+  NormalActionBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const adminUsersViewColumns = handlers => [
-  {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
-    renderCell: params => <NormDateCell params={params} />,
-    width: 120,
-    type: 'date',
-  },
-
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
@@ -110,17 +100,17 @@ export const adminUsersViewColumns = handlers => [
 
     renderCell: params => (
       <div>
-        <AdminUsersActionBtnsCell
+        {/* <AdminUsersActionBtnsCell
           editBtnText={t(TranslationKey['Edit user'])}
           balanceBtnText={t(TranslationKey.Balance)}
           handlers={handlers}
           row={params.row.originalData}
-        />
+        /> */}
 
-        {/* <NormalActionBtnCell
+        <NormalActionBtnCell
           bTnText={t(TranslationKey['Edit and balance'])}
           onClickOkBtn={() => handlers.onClickUser(params.row.originalData)}
-        /> */}
+        />
       </div>
     ),
     width: 270,

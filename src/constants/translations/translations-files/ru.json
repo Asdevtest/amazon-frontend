@@ -1243,5 +1243,8 @@
   "Link for financial transactions": "Ссылка для финансовых операций",
   "Proxy servers for parsing": "Прокси сервера для парсинга",
   "Product Link": "Ссылка на товар",
-  "Create a product card": "Создать карточку товара"
+  "Create a product card": "Создать карточку товара",
+  "Allowed Strategies": "Разрешеннные стратегии",
+  "Back to Users": "Вернуться к Пользователям",
+  "Continue working with the user": "Продолжить работу с пользователем"
 }

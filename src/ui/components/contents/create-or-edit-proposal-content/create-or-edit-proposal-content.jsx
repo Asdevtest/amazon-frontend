@@ -191,14 +191,16 @@ export const CreateOrEditProposalContent = ({
                 multiline
                 className={classNames.nameField}
                 labelClasses={classNames.spanLabel}
-                inputProps={{maxLength: 1500}}
+                inputProps={{maxLength: 100}}
                 minRows={1}
                 rowsMax={2}
                 label={t(TranslationKey['Proposal Name*'])}
                 value={formFields.title}
                 onChange={onChangeField('title')}
               />
-              <span>{`${formFields.title.length} ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span>
+              <span className={clsx(formFields.title.length > 80 && classNames.error)}>{`${formFields.title.length} ${t(
+                TranslationKey.of,
+              )} 80 ${t(TranslationKey.characters)}`}</span>
             </div>
 
             <div className={classNames.imageFileInputWrapper}>

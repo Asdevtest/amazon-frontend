@@ -1,6 +1,6 @@
 import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
 
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {
   Typography,
@@ -42,6 +42,12 @@ export const UserInfoAndEdit = observer(({user}) => {
   const [tabIndex, setTabIndex] = React.useState(0)
   const tabItemStyles = twitterTabsStylesHook.useTabItem()
 
+  const [updatedUser, setUpdatedUser] = useState(user)
+
+  useEffect(() => {
+    setUpdatedUser(() => ({...user}))
+  }, [SettingsModel.languageTag, user])
+
   return (
     <React.Fragment>
       {SettingsModel.languageTag && (
@@ -60,10 +66,10 @@ export const UserInfoAndEdit = observer(({user}) => {
       )}
 
       <TabPanel value={tabIndex} index={0}>
-        <UserEdit userId={user._id} />
+        <UserEdit user={updatedUser} />
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
-        <UserBalance userId={user._id} />
+        <UserBalance userId={updatedUser._id} />
       </TabPanel>
     </React.Fragment>
   )

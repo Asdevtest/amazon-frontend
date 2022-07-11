@@ -28,22 +28,12 @@ export const clientExchangeViewColumns = handlers => [
   },
 
   {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
-    renderCell: params => <NormDateCell params={params} />,
-    minWidth: 120,
-    type: 'date',
-  },
-
-  {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    minWidth: 140,
+    minWidth: 120,
     type: 'date',
   },
 

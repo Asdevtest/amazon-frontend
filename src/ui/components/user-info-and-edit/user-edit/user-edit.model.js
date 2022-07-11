@@ -1,29 +1,29 @@
-import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
-import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
-import {loadingStatuses} from '@constants/loading-statuses'
-import {TranslationKey} from '@constants/translations/translation-key'
-
+import {AdministratorModel} from '@models/administrator-model'
 import {PermissionsModel} from '@models/permissions-model'
-import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {adminGroupPermissionsColumns} from '@components/table-columns/admin/group-permissions-columns copy'
-
-import {adminGroupPermissionsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
-import {t} from '@utils/translations'
 
 export class UserEditModel {
   history = undefined
   requestStatus = undefined
   error = undefined
 
-  groupPermissions = []
-  singlePermissions = []
-  newPermissionIds = []
+  checkValidationNameOrEmail = {}
+  changeNameAndEmail = {email: '', name: ''}
+  editUserFormFields = undefined
+
+  user = undefined
+
+  submitEditData = undefined
+
+  groupPermissions = undefined
+  singlePermissions = undefined
 
   showAddOrEditGroupPermissionModal = false
+  showTwoVerticalChoicesModal = false
   showConfirmModal = false
 
   addOrEditGroupPermissionSettings = {
@@ -50,94 +50,62 @@ export class UserEditModel {
   densityModel = 'compact'
   columnsModel = adminGroupPermissionsColumns(this.rowHandlers)
 
-  constructor({history}) {
+  constructor({history, user}) {
     this.history = history
+
+    this.user = user
+
     makeAutoObservable(this, undefined, {autoBind: true})
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.updateColumnsModel(),
-    )
   }
 
-  async updateColumnsModel() {
-    if (await SettingsModel.languageTag) {
-      this.getDataGridState()
-    }
-  }
-
-  onChangeFilterModel(model) {
-    this.filterModel = model
-  }
-
-  setDataGridState(state) {
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
-
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_GROUP_PERMISSIONS)
-  }
-
-  getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.ADMIN_GROUP_PERMISSIONS]
-
-    if (state) {
-      this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
-      this.rowsPerPage = state.pagination.pageSize
-
-      this.densityModel = state.density.value
-      this.columnsModel = adminGroupPermissionsColumns(this.rowHandlers).map(el => ({
-        ...el,
-        hide: state.columns?.lookup[el?.field]?.hide,
-      }))
-    }
-  }
-
-  onChangeRowsPerPage(e) {
-    this.rowsPerPage = e
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onChangeDrawerOpen(e, value) {
-    this.drawerOpen = value
-  }
-
-  onChangeSortingModel(e) {
-    this.sortModel = e.sortModel
-  }
-
-  onSelectionModel(model) {
-    this.selectionModel = model
-  }
-
-  onChangeCurPage(e) {
-    this.curPage = e
-  }
-
-  getCurrentData() {
-    return toJS(this.groupPermissions)
-  }
-
-  async loadData() {
+  async finalStepSubmitEditUserForm() {
     try {
-      this.setRequestStatus(loadingStatuses.isLoading)
-      this.getDataGridState()
-      await this.getGroupPermissions()
+      await AdministratorModel.updateUser(this.user._id, this.submitEditData)
 
-      await this.getSinglePermissions()
+      this.onTriggerOpenModal('showTwoVerticalChoicesModal')
 
-      this.setRequestStatus(loadingStatuses.success)
+      this.changeNameAndEmail = {email: '', name: ''}
     } catch (error) {
-      this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+      this.error = error?.body?.message || error
     }
+  }
+
+  async submitEditUserForm(data, sourceData) {
+    try {
+      this.error = undefined
+      this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
+        name: this.changeNameAndEmail.name,
+        email: this.changeNameAndEmail.email,
+      })
+
+      this.submitEditData = {...data, permissions: data.active && data.active !== 'false' ? data.permissions : []} // удаляем пермишены если баним юзера
+
+      this.availableSubUsers = undefined
+
+      if (sourceData.canByMasterUser === true && data.canByMasterUser === false) {
+        this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.user._id)).subUsers.length
+      }
+
+      if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {
+        return
+      } else if (this.availableSubUsers) {
+        this.onTriggerOpenModal('showConfirmModal')
+      } else {
+        await this.finalStepSubmitEditUserForm()
+      }
+    } catch (error) {
+      console.log(error)
+      this.error = error?.body?.message || error
+    }
+  }
+
+  onClickCancelBtn() {
+    this.history.goBack()
+  }
+
+  goToUsers() {
+    this.history.push('/admin/users')
   }
 
   async getGroupPermissions() {
@@ -145,12 +113,10 @@ export class UserEditModel {
       const result = await PermissionsModel.getGroupPermissions()
 
       runInAction(() => {
-        this.groupPermissions = adminGroupPermissionsDataConverter(result).sort(
-          sortObjectsArrayByFiledDate('updatedAt'),
-        )
+        this.groupPermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
-      this.payments = []
+      this.groupPermissions = []
       console.log(error)
     }
   }
@@ -158,149 +124,24 @@ export class UserEditModel {
   async getSinglePermissions() {
     try {
       const result = await PermissionsModel.getSinglePermissions()
+
       runInAction(() => {
-        this.singlePermissions = result.map(per => ({...per, id: per._id})).sort((a, b) => a.role - b.role)
+        this.singlePermissions = result.sort((a, b) => a.role - b.role)
       })
     } catch (error) {
-      this.payments = []
+      this.singlePermissions = []
       console.log(error)
     }
   }
 
-  async createSinglePermission(data) {
+  async loadData() {
     try {
-      const newPermissionId = await PermissionsModel.createSinglePermission(data)
+      // await this.getUserInfo(this.userId)
 
-      this.newPermissionIds = [...this.newPermissionIds, newPermissionId.guid]
+      await this.getGroupPermissions()
+      await this.getSinglePermissions()
     } catch (error) {
       console.log(error)
-      this.error = error
-    }
-  }
-
-  async createAllSinglePermissions(newSinglePermissions) {
-    try {
-      this.newPermissionIds = []
-      for (let i = 0; i < newSinglePermissions.length; i++) {
-        const perm = newSinglePermissions[i]
-        await this.createSinglePermission(perm)
-      }
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  async onSubmitCreateGroupPermission(data, newSinglePermissions) {
-    try {
-      if (newSinglePermissions.length > 0) {
-        await this.createAllSinglePermissions(newSinglePermissions)
-        data = {...data, permissions: [...data.permissions, ...this.newPermissionIds]}
-      }
-
-      await this.createGroupPermission(data)
-
-      this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
-      this.getGroupPermissions()
-      this.getSinglePermissions()
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  async createGroupPermission(data) {
-    try {
-      await PermissionsModel.createGroupPermission(data)
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  async updateGroupPermission(data, permissionId) {
-    try {
-      const allowData = getObjectFilteredByKeyArrayWhiteList(data, ['title', 'description', 'permissions', 'hierarchy'])
-
-      await PermissionsModel.updateGroupPermission(permissionId, allowData)
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  async onSubmitUpdateGroupPermission(data, newSinglePermissions, permissionId) {
-    try {
-      if (newSinglePermissions.length > 0) {
-        await this.createAllSinglePermissions(newSinglePermissions)
-        data = {...data, permissions: [...data.permissions, ...this.newPermissionIds]}
-      }
-
-      await this.updateGroupPermission(data, permissionId)
-
-      this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
-      this.getGroupPermissions()
-      this.getSinglePermissions()
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  onClickEditBtn(row) {
-    this.addOrEditGroupPermissionSettings = {
-      permission: row,
-      isEdit: true,
-      onSubmit: (data, newSinglePermissions, permissionId) =>
-        this.onSubmitUpdateGroupPermission(data, newSinglePermissions, permissionId),
-    }
-    this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
-  }
-
-  onClickAddBtn() {
-    this.addOrEditGroupPermissionSettings = {
-      permission: {},
-      isEdit: false,
-      onSubmit: (data, newSinglePermissions) => this.onSubmitCreateGroupPermission(data, newSinglePermissions),
-    }
-    this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
-  }
-
-  onClickCancelBtn() {
-    this.confirmModalSettings = {
-      isWarning: false,
-      message: t(TranslationKey['The data will not be saved!']),
-      onClickSuccess: () => this.cancelTheOrder(),
-    }
-
-    this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  cancelTheOrder() {
-    this.onTriggerOpenModal('showAddOrEditGroupPermissionModal')
-    this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  onClickRemoveBtn(row) {
-    this.permissionIdToRemove = row._id
-
-    this.confirmModalSettings = {
-      isWarning: true,
-      message: t(TranslationKey['Are you sure you want to delete the group?']),
-      onClickSuccess: () => this.removeGroupPermission(),
-    }
-
-    this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  async removeGroupPermission() {
-    try {
-      await PermissionsModel.removeGroupPermission(this.permissionIdToRemove)
-      this.onTriggerOpenModal('showConfirmModal')
-      this.getGroupPermissions()
-    } catch (error) {
-      console.log(error)
-      this.error = error
     }
   }
 

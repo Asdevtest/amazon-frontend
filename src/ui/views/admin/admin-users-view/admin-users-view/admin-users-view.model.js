@@ -231,8 +231,13 @@ export class AdminUsersViewModel {
     }
   }
 
-  onClickUser(userData) {
-    this.history.push('/admin/users/user', {user: userData})
+  async onClickUser(userData) {
+    try {
+      const result = await AdministratorModel.getUsersById(userData._id)
+      this.history.push('/admin/users/user', {user: result})
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onClickBalance(userData) {

@@ -51,7 +51,6 @@ export const useClassNames = makeStyles(() => ({
 
   cancelBtn: {
     height: '36px',
-    marginRight: 20,
   },
 
   orderNumWrapper: {
