@@ -239,7 +239,7 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
   ) : (
     <div className={classNames.emptyProposalsIconWrapper}>
       <div className={classNames.emptyProposalsIcon}>
-        <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
+        <InboxIcon style={{color: '#C4C4C4', fontSize: '76px', padding: 10}} />
       </div>
       <div className={classNames.emptyProposalsDescriptionWrapper}>
         <Typography className={classNames.emptyProposalsTitle}>{t(TranslationKey['No files added'])}</Typography>

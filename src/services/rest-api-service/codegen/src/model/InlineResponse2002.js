@@ -104,6 +104,9 @@ class InlineResponse2002 {
             if (data.hasOwnProperty('masterUser')) {
                 obj['masterUser'] = ApiClient.convertToType(data['masterUser'], 'String');
             }
+            if (data.hasOwnProperty('allowedStrategies')) {
+                obj['allowedStrategies'] = ApiClient.convertToType(data['allowedStrategies'], ['Number']);
+            }
             if (data.hasOwnProperty('allowedRoles')) {
                 obj['allowedRoles'] = ApiClient.convertToType(data['allowedRoles'], ['Number']);
             }
@@ -212,6 +215,12 @@ InlineResponse2002.prototype['permissionGroups'] = undefined;
  * @member {String} masterUser
  */
 InlineResponse2002.prototype['masterUser'] = undefined;
+
+/**
+ * Массив доступных стратегий.
+ * @member {Array.<Number>} allowedStrategies
+ */
+InlineResponse2002.prototype['allowedStrategies'] = undefined;
 
 /**
  * Массив массив ролей.

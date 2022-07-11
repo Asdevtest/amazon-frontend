@@ -4016,6 +4016,12 @@
                   "description": "GUID мастер пользователя к которму относится данный субпользователь.",
                   "example": "607dceac3551e3fa7e7fbb69"
                 },
+                "allowedStrategies": {
+                  "type": "array",
+                  "nullable": true,
+                  "description": "Массив доступных стратегий.",
+                  "items": {"type": "number"}
+                },
                 "allowedRoles": {
                   "type": "array",
                   "nullable": true,
@@ -4321,6 +4327,21 @@
                                 "images": {
                                   "type": "array",
                                   "items": {"type": "string", "description": "Массив картинок"}
+                                },
+                                "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                                "hsCode": {"type": "string", "description": "hsCode продукта."}
+                              }
+                            },
+                            "order": {
+                              "type": "object",
+                              "description": "Заказ.",
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {"type": "number", "description": "id заказ."},
+                                "_id": {"type": "string", "description": "GUID данной записи в БД."},
+                                "trackingNumberChina": {
+                                  "type": "string",
+                                  "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                 }
                               }
                             }
@@ -4372,6 +4393,21 @@
                                 "images": {
                                   "type": "array",
                                   "items": {"type": "string", "description": "Массив картинок"}
+                                },
+                                "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                                "hsCode": {"type": "string", "description": "hsCode продукта."}
+                              }
+                            },
+                            "order": {
+                              "type": "object",
+                              "description": "Заказ.",
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {"type": "number", "description": "id заказ."},
+                                "_id": {"type": "string", "description": "GUID данной записи в БД."},
+                                "trackingNumberChina": {
+                                  "type": "string",
+                                  "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                 }
                               }
                             }
@@ -31560,6 +31596,21 @@
                                 "images": {
                                   "type": "array",
                                   "items": {"type": "string", "description": "Массив картинок"}
+                                },
+                                "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                                "hsCode": {"type": "string", "description": "hsCode продукта."}
+                              }
+                            },
+                            "order": {
+                              "type": "object",
+                              "description": "Заказ.",
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {"type": "number", "description": "id заказ."},
+                                "_id": {"type": "string", "description": "GUID данной записи в БД."},
+                                "trackingNumberChina": {
+                                  "type": "string",
+                                  "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                 }
                               }
                             }
@@ -31611,6 +31662,21 @@
                                 "images": {
                                   "type": "array",
                                   "items": {"type": "string", "description": "Массив картинок"}
+                                },
+                                "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                                "hsCode": {"type": "string", "description": "hsCode продукта."}
+                              }
+                            },
+                            "order": {
+                              "type": "object",
+                              "description": "Заказ.",
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {"type": "number", "description": "id заказ."},
+                                "_id": {"type": "string", "description": "GUID данной записи в БД."},
+                                "trackingNumberChina": {
+                                  "type": "string",
+                                  "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                 }
                               }
                             }
@@ -37504,6 +37570,21 @@
                                 "images": {
                                   "type": "array",
                                   "items": {"type": "string", "description": "Массив картинок"}
+                                },
+                                "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                                "hsCode": {"type": "string", "description": "hsCode продукта."}
+                              }
+                            },
+                            "order": {
+                              "type": "object",
+                              "description": "Заказ.",
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {"type": "number", "description": "id заказ."},
+                                "_id": {"type": "string", "description": "GUID данной записи в БД."},
+                                "trackingNumberChina": {
+                                  "type": "string",
+                                  "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                 }
                               }
                             }
@@ -37555,6 +37636,21 @@
                                 "images": {
                                   "type": "array",
                                   "items": {"type": "string", "description": "Массив картинок"}
+                                },
+                                "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                                "hsCode": {"type": "string", "description": "hsCode продукта."}
+                              }
+                            },
+                            "order": {
+                              "type": "object",
+                              "description": "Заказ.",
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {"type": "number", "description": "id заказ."},
+                                "_id": {"type": "string", "description": "GUID данной записи в БД."},
+                                "trackingNumberChina": {
+                                  "type": "string",
+                                  "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                 }
                               }
                             }
@@ -45666,6 +45762,21 @@
                                 "images": {
                                   "type": "array",
                                   "items": {"type": "string", "description": "Массив картинок"}
+                                },
+                                "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                                "hsCode": {"type": "string", "description": "hsCode продукта."}
+                              }
+                            },
+                            "order": {
+                              "type": "object",
+                              "description": "Заказ.",
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {"type": "number", "description": "id заказ."},
+                                "_id": {"type": "string", "description": "GUID данной записи в БД."},
+                                "trackingNumberChina": {
+                                  "type": "string",
+                                  "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                 }
                               }
                             }
@@ -45717,6 +45828,21 @@
                                 "images": {
                                   "type": "array",
                                   "items": {"type": "string", "description": "Массив картинок"}
+                                },
+                                "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                                "hsCode": {"type": "string", "description": "hsCode продукта."}
+                              }
+                            },
+                            "order": {
+                              "type": "object",
+                              "description": "Заказ.",
+                              "additionalProperties": false,
+                              "properties": {
+                                "id": {"type": "number", "description": "id заказ."},
+                                "_id": {"type": "string", "description": "GUID данной записи в БД."},
+                                "trackingNumberChina": {
+                                  "type": "string",
+                                  "description": "Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ."
                                 }
                               }
                             }

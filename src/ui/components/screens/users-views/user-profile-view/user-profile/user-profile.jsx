@@ -36,8 +36,6 @@ export const UserProfile = observer(
   }) => {
     const classNames = useClassNames()
 
-    console.log('user', user)
-
     return (
       <Paper className={classNames.paper}>
         <div>

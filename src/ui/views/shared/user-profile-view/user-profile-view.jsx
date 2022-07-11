@@ -1,9 +1,17 @@
+import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+
 import React, {Component} from 'react'
 
+import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {CLIENT_USER_MANAGERS_LIST, CLIENT_USER_INITIAL_LIST} from '@constants/mocks'
+import {loadingStatuses} from '@constants/loading-statuses'
+import {
+  CLIENT_USER_MANAGERS_LIST,
+  /* CLIENT_USER_INITIAL_LIST*/
+} from '@constants/mocks'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {AvatarEditorForm} from '@components/forms/avatar-editor-form'
@@ -13,10 +21,11 @@ import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
-import {ActiveOrders} from '@components/screens/users-views/user-profile-view/active-orders'
+// import {ActiveOrders} from '@components/screens/users-views/user-profile-view/active-orders'
 import {ContentModal} from '@components/screens/users-views/user-profile-view/content-modal'
 import {UserProfile} from '@components/screens/users-views/user-profile-view/user-profile'
 
+import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {ProfileViewModel} from './user-profile-view.model'
@@ -31,8 +40,14 @@ export class UserProfileView extends Component {
 
   render() {
     const {
+      sortModel,
+      filterModel,
+      curPage,
+      rowsPerPage,
+      densityModel,
+      columnsModel,
+      requestStatus,
       drawerOpen,
-      tabExchange,
       tabHistory,
       tabReview,
       showTabModal,
@@ -44,8 +59,6 @@ export class UserProfileView extends Component {
       showInfoModal,
       showUserInfoModal,
       onTriggerDrawerOpen,
-      onClickButtonPrivateLabel,
-      onChangeTabExchange,
       onChangeTabHistory,
       onChangeTabReview,
       onTriggerShowTabModal,
@@ -55,6 +68,13 @@ export class UserProfileView extends Component {
       onClickChangeAvatar,
       onClickChangeUserInfo,
       onSubmitUserInfoEdit,
+
+      getCurrentData,
+      setDataGridState,
+      onChangeFilterModel,
+      onChangeCurPage,
+      onChangeRowsPerPage,
+      onChangeSortingModel,
     } = this.viewModel
 
     return (
@@ -75,12 +95,51 @@ export class UserProfileView extends Component {
                 onClickChangeUserInfo={onClickChangeUserInfo}
               />
 
-              <ActiveOrders
+              {/* <ActiveOrders
                 tabExchange={tabExchange}
                 setTabExchange={onChangeTabExchange}
                 productList={CLIENT_USER_INITIAL_LIST}
                 handlerClickButtonPrivateLabel={onClickButtonPrivateLabel}
-              />
+              /> */}
+
+              {[
+                mapUserRoleEnumToKey[UserRole.RESEARCHER],
+                mapUserRoleEnumToKey[UserRole.SUPERVISOR],
+                mapUserRoleEnumToKey[UserRole.BUYER],
+              ].includes(user.role) ? (
+                <>
+                  <Typography variant="h6">{t(TranslationKey['Active offers on the commodity exchange'])}</Typography>
+
+                  <DataGrid
+                    pagination
+                    useResizeContainer
+                    sx={{
+                      border: 0,
+                      boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                      backgroundColor: '#fff',
+                    }}
+                    localeText={getLocalizationByLanguageTag()}
+                    sortModel={sortModel}
+                    filterModel={filterModel}
+                    page={curPage}
+                    pageSize={rowsPerPage}
+                    rowsPerPageOptions={[15, 25, 50, 100]}
+                    rows={getCurrentData()}
+                    rowHeight={100}
+                    components={{
+                      Toolbar: GridToolbar,
+                    }}
+                    density={densityModel}
+                    columns={columnsModel}
+                    loading={requestStatus === loadingStatuses.isLoading}
+                    onSortModelChange={onChangeSortingModel}
+                    onPageSizeChange={onChangeRowsPerPage}
+                    onPageChange={onChangeCurPage}
+                    onStateChange={setDataGridState}
+                    onFilterModelChange={model => onChangeFilterModel(model)}
+                  />
+                </>
+              ) : null}
             </MainContent>
           </Appbar>
         </Main>

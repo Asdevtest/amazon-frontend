@@ -183,8 +183,9 @@ export const useClassNames = makeStyles(() => ({
   },
 
   linkText: {
-    overflow: 'auto',
     whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 
   copyImg: {
@@ -199,11 +200,25 @@ export const useClassNames = makeStyles(() => ({
   },
 
   shortFieldsWrapper: {
-    height: '200px',
+    // height: '200px',
   },
 
   shortInput: {
     width: '341px',
+  },
+
+  sizesWrapper: {
+    width: '341px',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  sizesContainer: {
+    width: 'min-content',
+  },
+
+  sizesInput: {
+    width: '100px',
   },
 
   addOrEditBtnsWrapper: {
@@ -245,5 +260,18 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '140%',
     fontWeight: '600',
     color: '#001029',
+  },
+
+  searchTitle: {
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: '140%',
+
+    color: '#001029',
+  },
+
+  criterionsField: {
+    height: 200,
+    width: '100%',
   },
 }))

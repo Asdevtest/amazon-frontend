@@ -88,4 +88,6 @@ export const DataGridTablesKeys = {
 
   OVERALL_CUSTOM_SEARCH_REQUESTS: 'overallCustomSearchRequestsDataGridState',
   OVERALL_SUB_USERS: 'overallSubUsersDataGridState',
+
+  PROFILE_VAC_PRODUCTS: 'profileVacProductsDataGridState',
 }
