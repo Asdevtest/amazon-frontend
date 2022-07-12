@@ -9,8 +9,7 @@ import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
-
+// import {SettingsModel} from '@models/settings-model'
 import {Button} from '@components/buttons/button'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
@@ -83,11 +82,11 @@ export const IdeaViewAndEditCard = ({
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
-  const [product, setProduct] = useState(formFields)
+  // const [product, setProduct] = useState(formFields)
 
-  useEffect(() => {
-    setProduct(() => ({...formFields}))
-  }, [formFields, SettingsModel.languageTag])
+  // useEffect(() => {
+  //   setProduct(() => ({...formFields}))
+  // }, [formFields, SettingsModel.languageTag])
 
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
