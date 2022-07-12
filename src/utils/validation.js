@@ -58,6 +58,7 @@ export const errorMessages = {
     'weight must be a number conforming to the specified constraints',
   'fbafee must be a number conforming to the specified constraints':
     'fbafee must be a number conforming to the specified constraints',
+  'Product code field is required for this action': 'Product code field is required for this action',
 }
 
 export const errorMessagesTranslate = error => {
@@ -82,6 +83,8 @@ export const errorMessagesTranslate = error => {
       return t(TranslationKey['Weight must be a number conforming to the specified constraints'])
     case errorMessages['fbafee must be a number conforming to the specified constraints']:
       return t(TranslationKey['Fbafee must be a number conforming to the specified constraints'])
+    case errorMessages['Product code field is required for this action']:
+      return t(TranslationKey['Product code field is required for this action'])
   }
 }
 

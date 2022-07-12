@@ -9,6 +9,8 @@ import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {Button} from '@components/buttons/button'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
@@ -81,6 +83,11 @@ export const IdeaViewAndEditCard = ({
   }
 
   const [formFields, setFormFields] = useState(sourceFormFields)
+  const [product, setProduct] = useState(formFields)
+
+  useEffect(() => {
+    setProduct(() => ({...formFields}))
+  }, [formFields, SettingsModel.languageTag])
 
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
@@ -113,8 +120,6 @@ export const IdeaViewAndEditCard = ({
 
   const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
 
-  console.log('formFields', formFields)
-
   return (
     <Grid item className={classNames.mainWrapper}>
       {/* <Typography variant="h5" className={classNames.ideaTitle}>
@@ -137,8 +142,8 @@ export const IdeaViewAndEditCard = ({
         <div className={classNames.cardBlockWrapper}>
           <Field
             multiline
-            tooltipAttentionContent={'В инвентаре появится новая карточка товара'}
-            tooltipInfoContent={'В инвентаре появится новая карточка товара'}
+            tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
+            tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
             disabled={disableFields}
             className={classNames.commentField}
             labelClasses={classNames.spanLabel}
@@ -153,7 +158,7 @@ export const IdeaViewAndEditCard = ({
       </div>
 
       <div className={clsx(classNames.middleBlock, {[classNames.fullMiddleBlock]: showFullCard})}>
-        <Typography className={classNames.searchTitle}>{'Параметры поиска поставщика'}</Typography>
+        <Typography variant="h5">{t(TranslationKey['Supplier search options'])}</Typography>
 
         <div className={classNames.cardWrapper}>
           <div className={classNames.cardBlockWrapper}>
@@ -161,7 +166,7 @@ export const IdeaViewAndEditCard = ({
               <Field
                 disabled={disableFields}
                 labelClasses={classNames.spanLabel}
-                label={'Наименование товара'}
+                label={t(TranslationKey['Product name'])}
                 value={formFields.productName}
                 onChange={onChangeField('productName')}
               />
@@ -173,7 +178,7 @@ export const IdeaViewAndEditCard = ({
                 inputProps={{maxLength: 1000}}
                 minRows={9}
                 rowsMax={9}
-                label={'Важные критерии'}
+                label={t(TranslationKey['Important criteria'])}
                 value={formFields.criteria}
                 onChange={onChangeField('criteria')}
               />
@@ -249,7 +254,7 @@ export const IdeaViewAndEditCard = ({
                   disabled={disableFields}
                   labelClasses={classNames.spanLabel}
                   inputClasses={classNames.shortInput}
-                  label={'Количество'}
+                  label={t(TranslationKey.Quantity)}
                   value={formFields.quantity}
                   onChange={onChangeField('quantity')}
                 />
@@ -259,7 +264,7 @@ export const IdeaViewAndEditCard = ({
                   disabled={disableFields}
                   labelClasses={classNames.spanLabel}
                   inputClasses={classNames.shortInput}
-                  label={'Желаемая цена закупки'}
+                  label={t(TranslationKey['Desired purchase price'])}
                   value={formFields.price}
                   onChange={onChangeField('price')}
                 />
@@ -271,7 +276,7 @@ export const IdeaViewAndEditCard = ({
                     labelClasses={classNames.spanLabel}
                     inputClasses={classNames.sizesInput}
                     containerClasses={classNames.sizesContainer}
-                    label={'width'}
+                    label={t(TranslationKey.Width)}
                     value={formFields.width}
                     onChange={onChangeField('width')}
                   />
@@ -280,7 +285,7 @@ export const IdeaViewAndEditCard = ({
                     labelClasses={classNames.spanLabel}
                     inputClasses={classNames.sizesInput}
                     containerClasses={classNames.sizesContainer}
-                    label={'height'}
+                    label={t(TranslationKey.Height)}
                     value={formFields.height}
                     onChange={onChangeField('height')}
                   />
@@ -289,7 +294,7 @@ export const IdeaViewAndEditCard = ({
                     labelClasses={classNames.spanLabel}
                     inputClasses={classNames.sizesInput}
                     containerClasses={classNames.sizesContainer}
-                    label={'length'}
+                    label={t(TranslationKey.Length)}
                     value={formFields.length}
                     onChange={onChangeField('length')}
                   />
@@ -336,8 +341,8 @@ export const IdeaViewAndEditCard = ({
           <div className={classNames.existedIdeaBtnsSubWrapper}>
             <Button
               disabled
-              tooltipAttentionContent={'В инвентаре появится новая карточка товара'}
-              tooltipInfoContent={'В инвентаре появится новая карточка товара'}
+              tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
+              tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
               variant="contained"
               color="primary"
               className={[classNames.actionButton, classNames.successBtn]}
@@ -369,7 +374,7 @@ export const IdeaViewAndEditCard = ({
 
           <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
             <Typography className={classNames.tablePanelViewText}>
-              {showFullCard ? 'Скрыть' : t(TranslationKey.Details)}
+              {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
             </Typography>
 
             {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}

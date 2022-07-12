@@ -1249,5 +1249,8 @@
   "Continue working with the user": "Продолжить работу с пользователем",
   "Selected lot contains a box for which you need to confirm the price change": "Выбрана партия, содержит коробку по которой нужно подтвердить изменение цены",
   "Order files": "Файлы заказа",
-  "New files": "Новые файлы"
+  "New files": "Новые файлы",
+  "User reviews": "Отзывы о пользователе",
+  "A new product card will appear in the inventory": "В инвентаре появится новая карточка товара",
+  "Product code field is required for this action": "Для этого действия требуется поле код продукта"
 }

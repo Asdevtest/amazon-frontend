@@ -195,4 +195,12 @@ export const useClassNames = makeStyles(() => ({
   reviewWrapper: {
     display: 'flex',
   },
+
+  reviews: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '400',
+    color: '#006CFF',
+    cursor: 'pointer',
+  },
 }))

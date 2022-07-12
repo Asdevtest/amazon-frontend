@@ -609,7 +609,11 @@ export const styles = createStyles(() => ({
   },
 
   statusText: {
-    textTransform: 'uppercase',
+    // textTransform: 'uppercase',
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '400',
+    textAlign: 'right',
   },
 
   editOrRemoveBtnsCell: {

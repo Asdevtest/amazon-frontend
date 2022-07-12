@@ -100,6 +100,16 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
+    textAlign: 'center',
+  },
+
+  photoCarousel: {
+    height: '150px',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  subTitleWrapper: {
     marginBottom: '28px',
     width: '100%',
     minHeight: 50,
@@ -107,6 +117,7 @@ export const useClassNames = makeStyles(theme => ({
   photosWrapper: {
     width: '100%',
     display: 'flex',
+    justifyContent: 'space-between',
   },
 
   photoWrapper: {

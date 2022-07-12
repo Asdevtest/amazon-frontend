@@ -116,6 +116,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   checkboxWrapper: {
+    width: '145px',
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',

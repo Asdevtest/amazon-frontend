@@ -22,16 +22,21 @@ export const ExtraOrderInfo = ({order}) => {
           <Text
             tooltipInfoContent={t(TranslationKey['Photos added by the buyer from the supplier when placing the order'])}
             className={classNames.subTitle}
+            containerClasses={classNames.subTitleWrapper}
           >
             {t(TranslationKey['Order photos:'])}
           </Text>
-          <PhotoCarousel files={order?.images} />
+          <div className={classNames.photoCarousel}>
+            <PhotoCarousel files={order?.images} />
+          </div>
         </div>
         <div className={classNames.photoWrapper}>
-          <Typography className={classNames.subTitle}>
+          <Text containerClasses={classNames.subTitleWrapper} className={classNames.subTitle}>
             {t(TranslationKey['Photos of current supplier']) + ':'}
-          </Typography>
-          <PhotoCarousel files={order.orderSupplier?.images} />
+          </Text>
+          <div className={classNames.photoCarousel}>
+            <PhotoCarousel files={order.orderSupplier?.images} />
+          </div>
         </div>
       </div>
 
