@@ -13,7 +13,7 @@ import {Button} from '@components/buttons/button'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
-import {TableSupplier} from '@components/product/table-supplier'
+// import {TableSupplier} from '@components/product/table-supplier'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
@@ -64,16 +64,19 @@ export const IdeaViewAndEditCard = ({
   }
 
   const sourceFormFields = {
-    images: idea?.images || [],
-    title: idea?.title || '',
-    links: idea?.links || [],
-    comment: idea?.comment || '',
-    name: idea?.name || '',
-    criterions: idea?.criterions || '',
-    count: idea?.count || '',
+    media: idea?.media || [],
+    comments: idea?.comments || '',
+    productName: idea?.productName || '',
+    productLinks: idea?.productLinks || [],
+    criteria: idea?.criteria || '',
+    quantity: idea?.quantity || '',
     price: idea?.price || '',
-    dimensions: idea?.dimensions || '',
-    suppliers: idea?.suppliers || [],
+
+    width: idea?.width || '',
+    height: idea?.height || '',
+    length: idea?.length || '',
+
+    // suppliers: idea?.suppliers || [],
     _id: idea?._id || null,
   }
 
@@ -85,7 +88,7 @@ export const IdeaViewAndEditCard = ({
     //   newFormFields[fieldName] = parseInt(event.target.value) || ''
     // } else
     if (
-      ['price', 'count'].includes(fieldName) &&
+      ['price', 'quantity', 'width', 'height', 'length'].includes(fieldName) &&
       !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
     ) {
       return
@@ -97,15 +100,15 @@ export const IdeaViewAndEditCard = ({
   }
 
   const onClickLinkBtn = () => {
-    onChangeField('links')({target: {value: [...formFields.links, linkLine]}})
+    onChangeField('productLinks')({target: {value: [...formFields.productLinks, linkLine]}})
 
     setLinkLine('')
   }
 
   const onRemoveLink = index => {
-    const newArr = formFields.links.filter((el, i) => i !== index)
+    const newArr = formFields.productLinks.filter((el, i) => i !== index)
 
-    onChangeField('links')({target: {value: [...newArr]}})
+    onChangeField('productLinks')({target: {value: [...newArr]}})
   }
 
   const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
@@ -114,15 +117,15 @@ export const IdeaViewAndEditCard = ({
 
   return (
     <Grid item className={classNames.mainWrapper}>
-      <Typography variant="h5" className={classNames.ideaTitle}>
+      {/* <Typography variant="h5" className={classNames.ideaTitle}>
         {formFields.title}
-      </Typography>
+      </Typography> */}
 
       <div className={classNames.cardWrapper}>
         <div className={classNames.cardBlockWrapper}>
           <div className={!disableFields ? classNames.leftSubBlockWrapper : classNames.leftDisSubBlockWrapper}>
             <div className={!disableFields ? classNames.photoWrapper : classNames.bigPhotoWrapper}>
-              <PhotoCarousel files={formFields.images} />
+              <PhotoCarousel files={formFields.media} />
             </div>
 
             {!disableFields ? <UploadFilesInput images={images} setImages={setImages} maxNumber={50} /> : null}
@@ -143,14 +146,14 @@ export const IdeaViewAndEditCard = ({
             minRows={6}
             rowsMax={6}
             label={t(TranslationKey.Comments)}
-            value={formFields.comment}
-            onChange={onChangeField('comment')}
+            value={formFields.comments}
+            onChange={onChangeField('comments')}
           />
         </div>
       </div>
 
       <div className={clsx(classNames.middleBlock, {[classNames.fullMiddleBlock]: showFullCard})}>
-        <Typography variant="h5">{'Параметры поиска поставщика'}</Typography>
+        <Typography className={classNames.searchTitle}>{'Параметры поиска поставщика'}</Typography>
 
         <div className={classNames.cardWrapper}>
           <div className={classNames.cardBlockWrapper}>
@@ -159,21 +162,20 @@ export const IdeaViewAndEditCard = ({
                 disabled={disableFields}
                 labelClasses={classNames.spanLabel}
                 label={'Наименование товара'}
-                value={formFields.name}
-                onChange={onChangeField('name')}
+                value={formFields.productName}
+                onChange={onChangeField('productName')}
               />
 
               <Field
                 multiline
                 disabled={disableFields}
-                className={classNames.commentField}
-                labelClasses={classNames.spanLabel}
+                className={classNames.criterionsField}
                 inputProps={{maxLength: 1000}}
-                minRows={6}
-                rowsMax={6}
+                minRows={9}
+                rowsMax={9}
                 label={'Важные критерии'}
-                value={formFields.criterions}
-                onChange={onChangeField('criterions')}
+                value={formFields.criteria}
+                onChange={onChangeField('criteria')}
               />
             </div>
           </div>
@@ -187,32 +189,34 @@ export const IdeaViewAndEditCard = ({
               containerClasses={classNames.linksContainer}
               inputComponent={
                 <div className={classNames.linksWrapper}>
-                  <div className={classNames.inputWrapper}>
-                    <Input
-                      disabled={disableFields}
-                      placeholder={'Link to the product'}
-                      inputProps={{maxLength: 1500}}
-                      value={linkLine}
-                      className={classNames.input}
-                      onChange={e => setLinkLine(e.target.value)}
-                    />
-                    <Button
-                      disableElevation
-                      disabled={!linkLine || disableFields}
-                      className={classNames.defaultBtn}
-                      variant="contained"
-                      color="primary"
-                      onClick={onClickLinkBtn}
-                    >
-                      {t(TranslationKey.Add)}
-                    </Button>
-                  </div>
+                  {inEdit || inCreate ? (
+                    <div className={classNames.inputWrapper}>
+                      <Input
+                        disabled={disableFields}
+                        placeholder={'Link to the product'}
+                        inputProps={{maxLength: 1500}}
+                        value={linkLine}
+                        className={classNames.input}
+                        onChange={e => setLinkLine(e.target.value)}
+                      />
+                      <Button
+                        disableElevation
+                        disabled={!linkLine || disableFields}
+                        className={classNames.defaultBtn}
+                        variant="contained"
+                        color="primary"
+                        onClick={onClickLinkBtn}
+                      >
+                        {t(TranslationKey.Add)}
+                      </Button>
+                    </div>
+                  ) : null}
                   <div className={classNames.linksSubWrapper}>
-                    {formFields.links.length ? (
-                      formFields.links.map((el, index) => (
+                    {formFields.productLinks.length ? (
+                      formFields.productLinks.map((el, index) => (
                         <div key={index} className={classNames.linkWrapper}>
                           <Link target="_blank" href={el} className={classNames.linkTextWrapper}>
-                            <Typography className={classNames.linkText}>{el}</Typography>
+                            <Typography className={classNames.linkText}>{`${index + 1}. ${el}`}</Typography>
                           </Link>
 
                           <div className={classNames.linksBtnsWrapper}>
@@ -246,8 +250,8 @@ export const IdeaViewAndEditCard = ({
                   labelClasses={classNames.spanLabel}
                   inputClasses={classNames.shortInput}
                   label={'Количество'}
-                  value={formFields.count}
-                  onChange={onChangeField('count')}
+                  value={formFields.quantity}
+                  onChange={onChangeField('quantity')}
                 />
               </Grid>
               <Grid item>
@@ -261,29 +265,48 @@ export const IdeaViewAndEditCard = ({
                 />
               </Grid>
               <Grid item>
-                <Field
-                  disabled={disableFields}
-                  labelClasses={classNames.spanLabel}
-                  inputClasses={classNames.shortInput}
-                  label={'Размеры'}
-                  value={formFields.dimensions}
-                  onChange={onChangeField('dimensions')}
-                />
+                <div className={classNames.sizesWrapper}>
+                  <Field
+                    disabled={disableFields}
+                    labelClasses={classNames.spanLabel}
+                    inputClasses={classNames.sizesInput}
+                    containerClasses={classNames.sizesContainer}
+                    label={'width'}
+                    value={formFields.width}
+                    onChange={onChangeField('width')}
+                  />
+                  <Field
+                    disabled={disableFields}
+                    labelClasses={classNames.spanLabel}
+                    inputClasses={classNames.sizesInput}
+                    containerClasses={classNames.sizesContainer}
+                    label={'height'}
+                    value={formFields.height}
+                    onChange={onChangeField('height')}
+                  />
+                  <Field
+                    disabled={disableFields}
+                    labelClasses={classNames.spanLabel}
+                    inputClasses={classNames.sizesInput}
+                    containerClasses={classNames.sizesContainer}
+                    label={'length'}
+                    value={formFields.length}
+                    onChange={onChangeField('length')}
+                  />
+                </div>
               </Grid>
             </Grid>
           </div>
         </div>
 
-        <Field
+        {/* <Field
           labelClasses={classNames.spanLabel}
           label={t(TranslationKey.Suppliers)}
           containerClasses={classNames.linksContainer}
           inputComponent={
-            <TableSupplier
-              product={formFields} /* selectedSupplier={selectedSupplier} onClickSupplier={onClickSupplier} */
-            />
+            <TableSupplier product={formFields} selectedSupplier={selectedSupplier} onClickSupplier={onClickSupplier} />
           }
-        />
+        /> */}
       </div>
 
       {inCreate || !disableFields ? (

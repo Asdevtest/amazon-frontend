@@ -127,7 +127,6 @@ export const useClassNames = makeStyles(() => ({
   },
 
   emptyProposalsIconWrapper: {
-    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -135,18 +134,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   emptyProposalsIcon: {
-    width: '100px',
-    height: '100px',
     backgroundColor: '#e0e0e0',
     borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // marginRight: '20px',
   },
 
   emptyProposalsDescriptionWrapper: {
-    width: '65%',
     marginLeft: '5%',
   },
 
@@ -172,10 +167,10 @@ export const useClassNames = makeStyles(() => ({
   },
 
   emptyIconWrapper: {
-    minWidth: '100px',
-    minHeight: '100px',
+    width: '100px',
+    height: '100px',
     display: 'flex',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     marginBottom: '25px',
     marginLeft: '20px',

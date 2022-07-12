@@ -53,6 +53,15 @@ export class WarehouseAwaitingBatchesViewModel {
     })
   }
 
+  get isNeedConfirmPriceBoxSelected() {
+    return this.selectedBatches.some(batchId => {
+      const findBatch = this.batches.find(batch => batch._id === batchId)
+      return findBatch?.originalData?.boxes.some(
+        box => box.status === BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE,
+      )
+    })
+  }
+
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})

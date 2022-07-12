@@ -1243,5 +1243,11 @@
   "Link for financial transactions": "Ссылка для финансовых операций",
   "Proxy servers for parsing": "Прокси сервера для парсинга",
   "Product Link": "Ссылка на товар",
-  "Create a product card": "Создать карточку товара"
+  "Create a product card": "Создать карточку товара",
+  "Allowed Strategies": "Разрешеннные стратегии",
+  "Back to Users": "Вернуться к Пользователям",
+  "Continue working with the user": "Продолжить работу с пользователем",
+  "Selected lot contains a box for which you need to confirm the price change": "Выбрана партия, содержит коробку по которой нужно подтвердить изменение цены",
+  "Order files": "Файлы заказа",
+  "New files": "Новые файлы"
 }

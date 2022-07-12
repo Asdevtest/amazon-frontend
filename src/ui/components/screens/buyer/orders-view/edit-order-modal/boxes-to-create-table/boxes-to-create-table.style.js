@@ -81,6 +81,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   normalCell: {
+    minWidth: 80,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

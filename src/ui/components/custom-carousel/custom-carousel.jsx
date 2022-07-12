@@ -6,7 +6,7 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 
 import {Children, cloneElement, useEffect, useState} from 'react'
 
-import {Link, Typography} from '@material-ui/core'
+import {Avatar, Link, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -160,8 +160,10 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
           {notEmptyPhotos?.length ? (
             <CustomCarousel>
               {notEmptyPhotos.map((photo, index) => (
-                <img
+                <Avatar
                   key={index}
+                  variant="square"
+                  alt={'!'}
                   src={photo?.data_url || photo}
                   className={classNames.image}
                   height="113px"
@@ -239,7 +241,7 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
   ) : (
     <div className={classNames.emptyProposalsIconWrapper}>
       <div className={classNames.emptyProposalsIcon}>
-        <InboxIcon style={{color: '#C4C4C4', fontSize: '76px'}} />
+        <InboxIcon style={{color: '#C4C4C4', fontSize: '76px', padding: 10}} />
       </div>
       <div className={classNames.emptyProposalsDescriptionWrapper}>
         <Typography className={classNames.emptyProposalsTitle}>{t(TranslationKey['No files added'])}</Typography>
@@ -261,8 +263,10 @@ export const PhotoCarousel = ({files}) => {
         {notEmptyPhotos?.length ? (
           <CustomCarousel>
             {notEmptyPhotos.map((photo, index) => (
-              <img
+              <Avatar
                 key={index}
+                variant="square"
+                alt={'!'}
                 src={photo?.data_url || photo}
                 className={classNames.image}
                 onClick={() => {

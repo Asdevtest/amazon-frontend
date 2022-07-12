@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **permissions** | [**[InlineResponse2002Permissions]**](InlineResponse2002Permissions.md) | Массив permission-ов. | [optional] 
 **permissionGroups** | [**[InlineResponse2002PermissionGroups]**](InlineResponse2002PermissionGroups.md) | Массив групп permission-ов. | [optional] 
 **masterUser** | **String** | GUID мастер пользователя к которму относится данный субпользователь. | [optional] 
+**allowedStrategies** | **[Number]** | Массив доступных стратегий. | [optional] 
 **allowedRoles** | **[Number]** | Массив массив ролей. | [optional] 
 **canByMasterUser** | **Boolean** | Может ли данный пользователь быть мастер юзером. | [optional] 
 **rating** | **Number** | Рейтинг пользователя. | [optional] 

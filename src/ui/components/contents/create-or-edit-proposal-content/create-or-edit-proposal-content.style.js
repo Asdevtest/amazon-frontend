@@ -170,6 +170,12 @@ export const useClassNames = makeStyles(() => ({
     color: 'red',
   },
 
+  nameField: {
+    height: '40px',
+    width: '100%',
+    overflowY: 'hidden',
+  },
+
   adviceWrapper: {
     width: '25%',
   },

@@ -7,7 +7,6 @@ import {
   NormDateCell,
   MultilineTextCell,
   SmallRowImageCell,
-  SuccessActionBtnCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -15,7 +14,7 @@ import {
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const clientExchangeViewColumns = handlers => [
+export const vacByUserIdExchangeColumns = () => [
   {
     field: 'image',
     headerName: t(TranslationKey.Image),
@@ -43,7 +42,7 @@ export const clientExchangeViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 150,
+    width: 250,
   },
 
   {
@@ -124,22 +123,5 @@ export const clientExchangeViewColumns = handlers => [
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
     ),
     width: 155,
-  },
-
-  {
-    field: 'action',
-    headerName: t(TranslationKey.Action),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-
-    width: 190,
-    renderCell: params => (
-      <SuccessActionBtnCell
-        tooltipText={t(TranslationKey['Purchase a product card'])}
-        bTnText={`${t(TranslationKey['Buy for'])} ${toFixedWithDollarSign(params.row.originalData.priceForClient, 2)}`}
-        onClickOkBtn={() => handlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}
-      />
-    ),
-    filterable: false,
-    sortable: false,
   },
 ]

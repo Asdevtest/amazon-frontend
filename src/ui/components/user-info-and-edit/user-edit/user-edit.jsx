@@ -1,110 +1,56 @@
-import {DataGrid, GridToolbar} from '@mui/x-data-grid'
-
 import React, {useEffect, useRef} from 'react'
 
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
-import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
-import {AddOrEditGroupPermissionForm} from '@components/forms/add-or-edit-group-permission-form'
-import {Modal} from '@components/modal'
+import {AdminUserEditContent} from '@components/contents/admin-user-edit-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 
-import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
 import {UserEditModel} from './user-edit.model'
 import {useClassNames} from './user-edit.style'
 
-export const UserEdit = observer(() => {
+export const UserEdit = observer(({user}) => {
   const classNames = useClassNames()
   const history = useHistory()
-  const gpModel = useRef(new UserEditModel({history}))
+  const model = useRef(new UserEditModel({history, user}))
 
   useEffect(() => {
-    gpModel.current.loadData()
+    model.current.loadData()
   }, [])
 
   const {
+    showTwoVerticalChoicesModal,
+    checkValidationNameOrEmail,
+    changeNameAndEmail,
     groupPermissions,
-    requestStatus,
-    getCurrentData,
-    sortModel,
-    filterModel,
-    densityModel,
-    columnsModel,
-
-    curPage,
-    rowsPerPage,
-    addOrEditGroupPermissionSettings,
     confirmModalSettings,
-    showAddOrEditGroupPermissionModal,
     showConfirmModal,
     singlePermissions,
-    onChangeCurPage,
-    onChangeRowsPerPage,
     onTriggerOpenModal,
-    onClickAddBtn,
     onClickCancelBtn,
-
-    setDataGridState,
-    onChangeSortingModel,
-    onChangeFilterModel,
-  } = gpModel.current
+    submitEditUserForm,
+    goToUsers,
+  } = model.current
 
   return (
     <div className={classNames.mainWrapper}>
-      <div className={classNames.placeAddBtnWrapper}>
-        <Button success onClick={() => onClickAddBtn()}>
-          {t(TranslationKey.Add)}
-        </Button>
-      </div>
-
-      <DataGrid
-        pagination
-        useResizeContainer
-        sx={{
-          border: 0,
-          boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-          backgroundColor: '#fff',
-        }}
-        localeText={getLocalizationByLanguageTag()}
-        sortModel={sortModel}
-        filterModel={filterModel}
-        page={curPage}
-        pageSize={rowsPerPage}
-        rowsPerPageOptions={[15, 25, 50, 100]}
-        rows={getCurrentData()}
-        rowHeight={70}
-        components={{
-          Toolbar: GridToolbar,
-        }}
-        density={densityModel}
-        columns={columnsModel}
-        loading={requestStatus === loadingStatuses.isLoading}
-        onSortModelChange={onChangeSortingModel}
-        onPageSizeChange={onChangeRowsPerPage}
-        onPageChange={onChangeCurPage}
-        onStateChange={setDataGridState}
-        onFilterModelChange={model => onChangeFilterModel(model)}
-      />
-
-      <Modal
-        openModal={showAddOrEditGroupPermissionModal}
-        setOpenModal={() => onTriggerOpenModal('showAddOrEditGroupPermissionModal')}
-      >
-        <AddOrEditGroupPermissionForm
-          existingGroupPermissions={groupPermissions}
+      {singlePermissions ? (
+        <AdminUserEditContent
+          checkValidationNameOrEmail={checkValidationNameOrEmail}
+          changeNameAndEmail={changeNameAndEmail}
           singlePermissions={singlePermissions}
-          permissionToEdit={addOrEditGroupPermissionSettings.permission}
-          isEdit={addOrEditGroupPermissionSettings.isEdit}
-          onCloseModal={() => onClickCancelBtn()}
-          onSubmit={addOrEditGroupPermissionSettings.onSubmit}
+          groupPermissions={groupPermissions}
+          editUserFormFields={user}
+          buttonLabel={t(TranslationKey.Save)}
+          onSubmit={submitEditUserForm}
+          onClickCancelBtn={onClickCancelBtn}
         />
-      </Modal>
+      ) : null}
 
       <ConfirmationModal
         isWarning={confirmModalSettings.isWarning}
@@ -116,6 +62,16 @@ export const UserEdit = observer(() => {
         cancelBtnText={t(TranslationKey.No)}
         onClickSuccessBtn={confirmModalSettings.onClickSuccess}
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+      />
+
+      <TwoVerticalChoicesModal
+        openModal={showTwoVerticalChoicesModal}
+        setOpenModal={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
+        title={t(TranslationKey['Data saved successfully'])}
+        topBtnText={t(TranslationKey['Back to Users'])}
+        bottomBtnText={t(TranslationKey['Continue working with the user'])}
+        onClickTopBtn={() => goToUsers()}
+        onClickBottomBtn={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
       />
     </div>
   )

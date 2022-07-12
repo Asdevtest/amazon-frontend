@@ -3,6 +3,7 @@ import {BACKEND_API_URL} from '@constants/env'
 import {
   ApiClient,
   BoxesApi,
+  IdeaApi,
   IntegrationsApi,
   PermissionsApi,
   RequestProposalsApi,
@@ -52,6 +53,7 @@ class RestApiService {
     this.SearchRequestApi = new RequestsApi(this.apiClient)
     this.RequestProposalsApi = new RequestProposalsApi(this.apiClient)
     this.shopApi = new ShopApi(this.apiClient)
+    this.ideaApi = new IdeaApi(this.apiClient)
   }
 
   setAccessToken = accessToken => {

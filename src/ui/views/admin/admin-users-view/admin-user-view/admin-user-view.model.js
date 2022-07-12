@@ -10,15 +10,16 @@ export class AdminUserViewModel {
   error = undefined
 
   userId = undefined
-  user = {}
+  user = undefined
 
   drawerOpen = false
   order = undefined
 
   constructor({history, location}) {
     this.history = history
+
     if (location.state) {
-      this.userId = location.state.user._id
+      this.user = location.state.user
     }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
@@ -38,7 +39,7 @@ export class AdminUserViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getUserInfo(this.userId)
+      // await this.getUserInfo(this.userId)
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

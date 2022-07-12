@@ -37,6 +37,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
   render() {
     const {
+      isNeedConfirmPriceBoxSelected,
       isInvalidTariffBoxSelected,
       showProgress,
       progressValue,
@@ -90,10 +91,12 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
               <div className={classNames.btnsWrapper}>
                 <div className={classNames.leftBtnsWrapper}>
                   <Button
-                    disabled={!selectedBatches.length || isInvalidTariffBoxSelected}
+                    disabled={!selectedBatches.length || isInvalidTariffBoxSelected || isNeedConfirmPriceBoxSelected}
                     tooltipAttentionContent={
-                      isInvalidTariffBoxSelected &&
-                      t(TranslationKey['Selected a batch contains a box with an invalid tariff'])
+                      (isInvalidTariffBoxSelected &&
+                        t(TranslationKey['Selected a batch contains a box with an invalid tariff'])) ||
+                      (isNeedConfirmPriceBoxSelected &&
+                        t(TranslationKey['Selected lot contains a box for which you need to confirm the price change']))
                     }
                     color="primary"
                     variant="contained"
