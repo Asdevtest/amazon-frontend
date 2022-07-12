@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
+import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 
 import {
   MultilineTextHeaderCell,
@@ -108,6 +109,7 @@ export const adminUsersViewColumns = handlers => [
         /> */}
 
         <NormalActionBtnCell
+          disabled={params.row.originalData.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
           bTnText={t(TranslationKey['Edit and balance'])}
           onClickOkBtn={() => handlers.onClickUser(params.row.originalData)}
         />

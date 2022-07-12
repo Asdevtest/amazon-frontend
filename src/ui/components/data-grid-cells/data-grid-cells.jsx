@@ -590,19 +590,22 @@ export const SuccessActionBtnCell = withStyles(styles)(({classes: classNames, on
   </div>
 ))
 
-export const NormalActionBtnCell = withStyles(styles)(({classes: classNames, onClickOkBtn, bTnText, tooltipText}) => (
-  <div className={classNames.normalActionBtnWrapper}>
-    <Button
-      tooltipInfoContent={tooltipText}
-      variant="contained"
-      color="primary"
-      className={classNames.actionBtn}
-      onClick={onClickOkBtn}
-    >
-      {bTnText}
-    </Button>
-  </div>
-))
+export const NormalActionBtnCell = withStyles(styles)(
+  ({classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled}) => (
+    <div className={classNames.normalActionBtnWrapper}>
+      <Button
+        disabled={disabled}
+        tooltipInfoContent={tooltipText}
+        variant="contained"
+        color="primary"
+        className={classNames.actionBtn}
+        onClick={onClickOkBtn}
+      >
+        {bTnText}
+      </Button>
+    </div>
+  ),
+)
 
 export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
   <div className={classNames.warehouseMyTasksBtnsWrapper}>

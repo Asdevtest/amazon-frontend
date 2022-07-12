@@ -1,21 +1,19 @@
 import React, {useState} from 'react'
 
-import {Divider, Typography, Paper, Checkbox, Link} from '@material-ui/core'
+import {Divider, Typography, Paper, Checkbox, Link, Tooltip, Avatar} from '@material-ui/core'
 import {observer} from 'mobx-react'
-import Carousel from 'react-material-ui-carousel'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CustomCarousel, PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
-import {BigImagesModal} from '@components/modals/big-images-modal'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
-import {checkIsImageLink} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -36,10 +34,6 @@ const Box = ({
   volumeWeightCoefficient,
 }) => {
   const classNames = useClassNames()
-
-  const [showImageModal, setShowImageModal] = useState(false)
-
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   const onChangeField = (value, field) => {
     const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
@@ -63,6 +57,23 @@ const Box = ({
   const handleChange = (event, newAlignment) => {
     setSizeSetting(newAlignment)
   }
+
+  const renderImageInfo = (img, imgName) => (
+    <div className={classNames.tooltipWrapper}>
+      <Avatar
+        variant="square"
+        alt={imgName}
+        src={img ? img : '/assets/icons/file.png'}
+        className={classNames.tooltipImg}
+      />
+
+      {typeof img === 'string' ? (
+        <Typography className={classNames.linkTypo}>{imgName}</Typography>
+      ) : (
+        <Typography className={classNames.tooltipText}>{imgName}</Typography>
+      )}
+    </div>
+  )
 
   return (
     <div className={(classNames.box, classNames.mainPaper)}>
@@ -216,27 +227,45 @@ const Box = ({
             <div className={classNames.photoWrapper}>
               <Typography>{t(TranslationKey['Box photos:'])}</Typography>
 
-              {box.images.length > 0 ? (
-                <Carousel autoPlay={false} timeout={100} animation="fade">
-                  {box.images
-                    ?.filter(el => checkIsImageLink(el))
-                    .map((el, index) => (
-                      <div key={index}>
-                        <img
-                          alt=""
-                          className={classNames.imgBox}
-                          src={el}
-                          onClick={() => {
-                            setShowImageModal(!showImageModal)
-                            setBigImagesOptions({images: box.images, imgIndex: index})
-                          }}
-                        />
-                      </div>
-                    ))}
-                </Carousel>
-              ) : (
-                <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
-              )}
+              <PhotoAndFilesCarousel files={box.images} width="200px" />
+
+              {isNewBox && box.tmpImages?.length ? (
+                <div>
+                  <Typography style={{color: 'green'}}>{`${t(TranslationKey['New files'])}: (+ ${
+                    box.tmpImages?.length
+                  })`}</Typography>
+                  <CustomCarousel>
+                    {box.tmpImages?.map((image, index) =>
+                      typeof image === 'string' ? (
+                        <div key={index} className={classNames.imageLinkListItem}>
+                          <Tooltip title={renderImageInfo(image, image)} classes={{popper: classNames.imgTooltip}}>
+                            <Avatar className={classNames.image} src={image} alt={image} variant="square" />
+                          </Tooltip>
+
+                          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
+                            <Typography className={classNames.linkName}>{image}</Typography>
+                          </Link>
+                        </div>
+                      ) : (
+                        <div key={index} className={classNames.imageListItem}>
+                          <Tooltip
+                            title={renderImageInfo(image.data_url, image.file.name)}
+                            classes={{popper: classNames.imgTooltip}}
+                          >
+                            <img
+                              className={classNames.image}
+                              src={image.file.type.includes('image') ? image.data_url : '/assets/icons/file.png'}
+                              alt={image.file.name}
+                            />
+                          </Tooltip>
+
+                          <Typography className={classNames.fileName}>{image.file.name} </Typography>
+                        </div>
+                      ),
+                    )}
+                  </CustomCarousel>
+                </div>
+              ) : null}
             </div>
           )}
 
@@ -244,27 +273,7 @@ const Box = ({
             <div className={classNames.photoWrapper}>
               <Typography>{t(TranslationKey['Order photos:'])}</Typography>
 
-              {box.items[0].order.images.length > 0 ? (
-                <Carousel autoPlay={false} timeout={100} animation="fade">
-                  {box.items[0].order.images
-                    ?.filter(el => checkIsImageLink(el))
-                    .map((el, index) => (
-                      <div key={index}>
-                        <img
-                          alt=""
-                          className={classNames.imgBox}
-                          src={el}
-                          onClick={() => {
-                            setShowImageModal(!showImageModal)
-                            setBigImagesOptions({images: box.items[0].order.images, imgIndex: index})
-                          }}
-                        />
-                      </div>
-                    ))}
-                </Carousel>
-              ) : (
-                <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
-              )}
+              <PhotoAndFilesCarousel files={box.items[0].order.images} width="200px" />
             </div>
           )}
         </div>
@@ -316,14 +325,6 @@ const Box = ({
           </div>
         </div>
       )}
-
-      <BigImagesModal
-        isAmazone
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-      />
     </div>
   )
 }
