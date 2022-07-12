@@ -20,6 +20,7 @@ import {Field} from '@components/field'
 import {Input} from '@components/input'
 
 import {t} from '@utils/translations'
+import {errorMessagesTranslate} from '@utils/validation'
 
 import {styles} from './reasearcher-add-product-form.style'
 
@@ -58,7 +59,7 @@ export const ResearcherAddProductFormRaw = observer(
             </div>
             {errorMsg ? (
               <Alert className={classNames.alert} elevation={0} severity="error">
-                {errorMsg}
+                {errorMessagesTranslate(errorMsg)}
               </Alert>
             ) : undefined}
             {!errorMsg && actionStatus === loadingStatuses.success ? (
