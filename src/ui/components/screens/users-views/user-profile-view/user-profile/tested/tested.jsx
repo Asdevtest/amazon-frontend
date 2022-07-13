@@ -1,9 +1,11 @@
+import CheckIcon from '@mui/icons-material/Check'
+
 import React from 'react'
 
-import {Box, Divider, Paper, Typography} from '@material-ui/core'
-import AcUnitIcon from '@material-ui/icons/AcUnit'
+import {Box, Paper, Typography} from '@material-ui/core'
 
-import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
+// import AcUnitIcon from '@material-ui/icons/AcUnit'
+import {humanFriendlyStategyStatus, mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {t} from '@utils/translations'
@@ -15,9 +17,8 @@ export const Tested = ({user}) => {
 
   const CheckedStrategyRow = ({label, icon}) => (
     <>
-      <Divider orientation={'horizontal'} className={classNames.divider} />
       <Box className={classNames.checkedStrategyRow} mb={1}>
-        {icon ? icon : <AcUnitIcon className={classNames.acUnitIcon} />}
+        {icon ? icon : <CheckIcon className={classNames.acUnitIcon} />}
         <Typography className={classNames.text}>{label}</Typography>
       </Box>
     </>
@@ -29,7 +30,7 @@ export const Tested = ({user}) => {
 
       {user.allowedStrategies.length ? (
         user.allowedStrategies?.map((strategy, i) => (
-          <CheckedStrategyRow key={i} label={mapProductStrategyStatusEnum[strategy]} />
+          <CheckedStrategyRow key={i} label={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[strategy])} />
         ))
       ) : (
         <Typography>{t(TranslationKey['No passed strategies'])}</Typography>

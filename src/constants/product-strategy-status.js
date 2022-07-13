@@ -16,4 +16,17 @@ export const mapProductStrategyStatusEnum = {
   40: ProductStrategyStatus.WHOLESALE_USA,
 }
 
+export const humanFriendlyStategyStatus = value => {
+  switch (value) {
+    case ProductStrategyStatus.DROPSHIPPING:
+      return 'Dropshipping'
+    case ProductStrategyStatus.ONLINE_ARBITRAGE_CHINA:
+      return 'Online arbitrage China'
+    case ProductStrategyStatus.PRIVATE_LABEL:
+      return 'Private Label'
+    case ProductStrategyStatus.WHOLESALE_USA:
+      return 'Wholesale USA'
+  }
+}
+
 export const mapProductStrategyStatusEnumToKey = objectFlip(mapProductStrategyStatusEnum, parseInt)

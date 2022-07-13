@@ -179,23 +179,19 @@ export const BoxViewForm = observer(
               </div>
 
               <div className={classNames.sizesWrapper}>
-                <div className={classNames.sizesSubWrapper}>
-                  <Typography>{`${t(TranslationKey['Dimensions from warehouse'])}:`}</Typography>
-
-                  <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-                    <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                      {'In'}
-                    </ToggleBtn>
-                    <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                      {'Cm'}
-                    </ToggleBtn>
-                  </ToggleBtnGroup>
-                </div>
-
                 <div className={classNames.demensionsWrapper}>
-                  <Typography className={classNames.categoryTitle}>
-                    {t(TranslationKey['Sizes from storekeeper:'])}
-                  </Typography>
+                  <div className={classNames.sizesSubWrapper}>
+                    <Typography>{`${t(TranslationKey['Dimensions from warehouse'])}:`}</Typography>
+
+                    <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+                      <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                        {'In'}
+                      </ToggleBtn>
+                      <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                        {'Cm'}
+                      </ToggleBtn>
+                    </ToggleBtnGroup>
+                  </div>
                   <Typography>
                     {t(TranslationKey.Length) + ': '}
                     {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}

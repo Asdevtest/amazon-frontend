@@ -3,7 +3,7 @@ import {Rating} from '@mui/material'
 
 import React from 'react'
 
-import {Avatar, Box, Paper, Typography, Button, Badge} from '@material-ui/core'
+import {Avatar, Box, Paper, Typography, Button} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -44,17 +44,11 @@ export const UserProfile = observer(
               {isAnotherUser ? (
                 <Avatar src={getUserAvatarSrc(user._id)} className={classNames.avatar} />
               ) : (
-                <Badge
-                  overlap="circular"
-                  anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
-                  badgeContent={
-                    <div className={classNames.badge} onClick={onClickChangeAvatar}>
-                      <AutorenewIcon color="primary" />
-                    </div>
-                  }
-                >
+                <div className={classNames.avatarWrapper} onClick={onClickChangeAvatar}>
                   <Avatar src={getUserAvatarSrc(user._id)} className={classNames.avatar} />
-                </Badge>
+
+                  <AutorenewIcon color="primary" fontSize="large" className={classNames.icon} />
+                </div>
               )}
             </Box>
 
