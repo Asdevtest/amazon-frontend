@@ -208,4 +208,8 @@ export const useClassNames = makeStyles(() => ({
       fontSize: '14px',
     },
   },
+
+  noPhotoText: {
+    textAlign: 'center',
+  },
 }))

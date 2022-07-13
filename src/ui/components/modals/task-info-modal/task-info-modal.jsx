@@ -1,28 +1,22 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
-import Carousel from 'react-material-ui-carousel'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 
-import {checkIsImageLink} from '@utils/checks'
 import {t} from '@utils/translations'
 
-import {BigImagesModal} from '../big-images-modal'
 import {BeforeAfterInfoTaskBlock} from './before-after-info-task-block'
 import {useClassNames} from './task-info-modal.style'
 
 export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
-
-  const [showImageModal, setShowImageModal] = useState(false)
-
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   const renderDescriptionText = () => {
     switch (task.operationType) {
@@ -69,28 +63,7 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWei
         {task.images && (
           <div className={classNames.photoWrapper}>
             <Typography className={classNames.subTitle}>{t(TranslationKey['Task photos']) + ':'}</Typography>
-
-            {task.images.length > 0 ? (
-              <Carousel autoPlay={false} timeout={100} animation="fade">
-                {task.images
-                  ?.filter(el => checkIsImageLink(el))
-                  .map((el, index) => (
-                    <div key={index}>
-                      <img
-                        alt=""
-                        className={classNames.imgBox}
-                        src={el}
-                        onClick={() => {
-                          setShowImageModal(!showImageModal)
-                          setBigImagesOptions({images: task.images, imgIndex: index})
-                        }}
-                      />
-                    </div>
-                  ))}
-              </Carousel>
-            ) : (
-              <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
-            )}
+            <PhotoCarousel files={task.images} />
           </div>
         )}
 
@@ -105,14 +78,6 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWei
             {t(TranslationKey.Close)}
           </Button>
         </div>
-
-        <BigImagesModal
-          isAmazone
-          openModal={showImageModal}
-          setOpenModal={() => setShowImageModal(!showImageModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-        />
       </div>
     </Modal>
   )

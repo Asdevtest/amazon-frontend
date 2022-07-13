@@ -2,21 +2,20 @@ import React, {useEffect, useRef} from 'react'
 
 import {Typography, Divider, Paper} from '@material-ui/core'
 import {observer} from 'mobx-react'
-import Carousel from 'react-material-ui-carousel'
 import {useHistory} from 'react-router-dom'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {AddCompetitorModal} from '@components/modals/add-competitor-modal'
-import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {UserBalanceHistory} from '@components/screens/user-balance-history'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsClient, checkIsImageLink, checkIsSupervisor} from '@utils/checks'
+import {checkIsClient, checkIsSupervisor} from '@utils/checks'
 import {t} from '@utils/translations'
 
 import {Button} from '../../buttons/button'
@@ -36,8 +35,6 @@ export const Listing = observer(({productId, onClickBack}) => {
     tmpListingImages,
     listingProduct,
     payments,
-    showImageModal,
-    bigImagesOptions,
     userRole,
     progressValue,
     imagesFromBoxes,
@@ -45,7 +42,6 @@ export const Listing = observer(({productId, onClickBack}) => {
     showProgress,
     showCompetitorModal,
     onTriggerOpenModal,
-    onClickImg,
     onChangeField,
     onChangeArrayField,
     setTmpListingImages,
@@ -146,51 +142,17 @@ export const Listing = observer(({productId, onClickBack}) => {
                   {t(TranslationKey['Photos of the product in boxes:'])}
                 </Typography>
 
-                {imagesFromBoxes.length > 0 ? (
-                  <div className={classNames.carouselWrapper}>
-                    <Carousel autoPlay={false} timeout={100} animation="fade">
-                      {imagesFromBoxes
-                        ?.filter(el => checkIsImageLink(el))
-                        .map((el, index) => (
-                          <div key={index}>
-                            <img
-                              alt=""
-                              className={classNames.imgBox}
-                              src={el}
-                              onClick={() => onClickImg({images: imagesFromBoxes, imgIndex: index})}
-                            />
-                          </div>
-                        ))}
-                    </Carousel>
-                  </div>
-                ) : (
-                  <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
-                )}
+                <div className={classNames.carouselWrapper}>
+                  <PhotoCarousel files={imagesFromBoxes} />
+                </div>
               </div>
 
               <div>
                 <Typography className={classNames.subTitle}>{t(TranslationKey['Listing photos:'])}</Typography>
 
-                {listingProduct.listingImages?.length > 0 ? (
-                  <div className={classNames.carouselWrapper}>
-                    <Carousel autoPlay={false} timeout={100} animation="fade">
-                      {listingProduct.listingImages
-                        ?.filter(el => checkIsImageLink(el))
-                        .map((el, index) => (
-                          <div key={index}>
-                            <img
-                              alt=""
-                              className={classNames.imgBox}
-                              src={el}
-                              onClick={() => onClickImg({images: listingProduct.listingImages, imgIndex: index})}
-                            />
-                          </div>
-                        ))}
-                    </Carousel>
-                  </div>
-                ) : (
-                  <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
-                )}
+                <div className={classNames.carouselWrapper}>
+                  <PhotoCarousel files={listingProduct.listingImages} />
+                </div>
               </div>
             </div>
 
@@ -252,14 +214,6 @@ export const Listing = observer(({productId, onClickBack}) => {
       </Paper>
 
       <UserBalanceHistory historyData={payments} title={t(TranslationKey.Transactions)} />
-
-      <BigImagesModal
-        isAmazone
-        openModal={showImageModal}
-        setOpenModal={() => onTriggerOpenModal('showImageModal')}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-      />
 
       <SuccessInfoModal
         openModal={showSuccessModal}

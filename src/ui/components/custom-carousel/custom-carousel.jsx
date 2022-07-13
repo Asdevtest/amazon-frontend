@@ -334,7 +334,7 @@ export const PhotoCarousel = ({files, isAmazonPhoto}) => {
         <div className={classNames.emptyIcon}>
           <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
         </div>
-        <Typography>{t(TranslationKey['No photos'])}</Typography>
+        <Typography className={classNames.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
       </div>
     </div>
   )
