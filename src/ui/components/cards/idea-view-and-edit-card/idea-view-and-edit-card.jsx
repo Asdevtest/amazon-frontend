@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
@@ -14,7 +15,7 @@ import {Button} from '@components/buttons/button'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
-// import {TableSupplier} from '@components/product/table-supplier'
+import {TableSupplier} from '@components/product/table-supplier'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
@@ -32,6 +33,7 @@ export const IdeaViewAndEditCard = ({
   onClickSaveBtn,
   onSetCurIdea,
   onEditIdea,
+  onCreateProduct,
 }) => {
   const classNames = useClassNames()
 
@@ -316,10 +318,11 @@ export const IdeaViewAndEditCard = ({
       {inCreate || !disableFields ? (
         <div className={classNames.addOrEditBtnsWrapper}>
           <Button
+            success
             variant="contained"
             color="primary"
-            className={[classNames.actionButton, classNames.successBtn]}
-            onClick={() => onClickSaveBtn(formFields)}
+            className={classNames.actionButton}
+            onClick={() => onClickSaveBtn(formFields, images)}
           >
             {t(TranslationKey.Save)}
           </Button>
@@ -339,13 +342,13 @@ export const IdeaViewAndEditCard = ({
         <div className={classNames.existedIdeaBtnsWrapper}>
           <div className={classNames.existedIdeaBtnsSubWrapper}>
             <Button
-              disabled
+              success
               tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
               tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
               variant="contained"
               color="primary"
-              className={[classNames.actionButton, classNames.successBtn]}
-              // onClick={() => onClickViewMore(item._id)}
+              className={[classNames.actionButton]}
+              onClick={() => onCreateProduct(formFields)}
             >
               {t(TranslationKey['Create a product card'])}
             </Button>
@@ -364,7 +367,10 @@ export const IdeaViewAndEditCard = ({
                 variant="contained"
                 color="alert"
                 className={[classNames.actionButton, classNames.cancelBtn, classNames.btnLeftMargin]}
-                onClick={() => onRemove(idea._id)}
+                onClick={() => {
+                  // console.log('formFields', formFields)
+                  onRemove(formFields._id)
+                }}
               >
                 {t(TranslationKey.Remove)}
               </Button>

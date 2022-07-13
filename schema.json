@@ -31708,6 +31708,11 @@
         "produces": ["application/json"],
         "parameters": [
           {
+            "name": "body",
+            "in": "body",
+            "schema": {"type": "object", "properties": {"clientComment": {"type": "string"}}}
+          },
+          {
             "type": "string",
             "format": "uuid",
             "description": "guid отменяемой задачи",
@@ -31792,7 +31797,7 @@
             "schema": {
               "type": "object",
               "additionalProperties": false,
-              "required": ["asin"],
+              "required": ["asin", "images"],
               "properties": {
                 "asin": {"type": "string", "description": "ASIN продукта", "example": "JUSTASIN"},
                 "skusByClient": {
@@ -32079,7 +32084,7 @@
     "/api/v1/clients/boxes/return_boxes_to_stock": {
       "post": {
         "summary": "Вернуть коробки обратно на склад.",
-        "description": "## Вернуть коробки обратно на склад \nДанный метод нужен чтобы отменить запрос на отправку в партию или при отказе клиентом изменения цены \n        У клиента будут разморожены средства на доставку.\n        У коробок статус вернется на статус IN_STOCK\n        затирается партия (batchId = null)\n        Проверки:\n        Доступен только для коробок со статусами REQUESTED_SEND_TO_BATCH, NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE, NEED_TO_UPDATE_THE_TARIFF",
+        "description": "## Вернуть коробки обратно на склад \nДанный метод нужен чтобы отменить запрос на отправку в партию или при отказе клиентом изменения цены\n        У клиента будут разморожены средства на доставку.\n        У коробок статус вернется на статус IN_STOCK\n        затирается партия (batchId = null)\n        Проверки:\n        Доступен только для коробок со статусами REQUESTED_SEND_TO_BATCH, NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE, NEED_TO_UPDATE_THE_TARIFF",
         "tags": ["Client"],
         "produces": ["application/json"],
         "parameters": [

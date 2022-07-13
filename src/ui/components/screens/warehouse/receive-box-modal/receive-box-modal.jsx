@@ -167,7 +167,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
   const classNames = useClassNames()
   const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
   const [showAddImagesModal, setShowAddImagesModal] = useState(false)
-  console.log(selectedBox)
+
   const emptyProducts = selectedBox.items.map(product => ({...product, amount: ''}))
   const getEmptyBox = () => {
     const emptyBox = {...selectedBox, _id: 'new_id_' + Date.now(), items: emptyProducts, amount: 1}

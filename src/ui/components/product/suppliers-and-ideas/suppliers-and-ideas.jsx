@@ -9,7 +9,9 @@ import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {IdeaViewAndEditCard} from '@components/cards/idea-view-and-edit-card'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
 
 import {t} from '@utils/translations'
 
@@ -30,8 +32,12 @@ export const SuppliersAndIdeas = observer(({productId}) => {
     inEdit,
     inCreate,
     ideasData,
+    progressValue,
+    showProgress,
     showConfirmModal,
+    showSuccessModal,
     confirmModalSettings,
+    successModalTitle,
     onTriggerOpenModal,
     onClickRemoveIdea,
     onCreateIdea,
@@ -39,6 +45,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
     onClickSaveBtn,
     onSetCurIdea,
     onEditIdea,
+    onClickCreateProduct,
   } = model.current
 
   return (
@@ -66,6 +73,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
             curIdea={curIdea}
             inEdit={inEdit}
             idea={idea}
+            onCreateProduct={onClickCreateProduct}
             onClickSaveBtn={onClickSaveBtn}
             onClickCancelBtn={onClickCancelBtn}
             onRemove={onClickRemoveIdea}
@@ -85,6 +93,18 @@ export const SuppliersAndIdeas = observer(({productId}) => {
         onClickSuccessBtn={confirmModalSettings.onClickConfirm}
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
       />
+
+      <SuccessInfoModal
+        openModal={showSuccessModal}
+        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+        title={successModalTitle}
+        successBtnText={t(TranslationKey.Ok)}
+        onClickSuccessBtn={() => {
+          onTriggerOpenModal('showSuccessModal')
+        }}
+      />
+
+      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
   )
 })

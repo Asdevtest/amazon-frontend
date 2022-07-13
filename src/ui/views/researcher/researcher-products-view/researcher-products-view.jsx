@@ -35,6 +35,7 @@ class ResearcherProductsViewRaw extends Component {
 
   render() {
     const {
+      user,
       warningInfoModalSettings,
       showWarningInfoModal,
       requestStatus,
@@ -76,6 +77,7 @@ class ResearcherProductsViewRaw extends Component {
               <Paper className={classNames.card}>
                 <div className={classNames.formWrapper}>
                   <ResearcherAddProductForm
+                    user={user}
                     formFields={formFields}
                     errorMsg={error}
                     chekedCode={chekedCode}

@@ -44,6 +44,7 @@ const clientToEditStatuses = [
 
 export const TopCard = observer(
   ({
+    user,
     imagesForLoad,
     showProgress,
     progressValue,
@@ -172,6 +173,7 @@ export const TopCard = observer(
                 ) : undefined}
               </Grid>
               <FieldsAndSuppliers
+                user={user}
                 showActionBtns={showActionBtns}
                 formFieldsValidationErrors={formFieldsValidationErrors}
                 curUserRole={curUserRole}

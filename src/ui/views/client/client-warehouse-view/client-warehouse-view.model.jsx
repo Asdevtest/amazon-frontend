@@ -896,7 +896,7 @@ export class ClientWarehouseViewModel {
 
       this.onTriggerOpenModal('showConfirmWithCommentModal')
 
-      await this.cancelTask(this.toCancelData.taskId, comment)
+      await this.cancelTask(this.toCancelData.taskId, {clientComment: comment})
 
       await this.getBoxesMy()
     } catch (error) {

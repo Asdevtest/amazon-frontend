@@ -49,6 +49,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 
 export const ProductWrapper = observer(
   ({
+    user,
     imagesForLoad,
     showProgress,
     progressValue,
@@ -131,6 +132,7 @@ export const ProductWrapper = observer(
 
         <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>
           <TopCard
+            user={user}
             imagesForLoad={imagesForLoad}
             showProgress={showProgress}
             progressValue={progressValue}

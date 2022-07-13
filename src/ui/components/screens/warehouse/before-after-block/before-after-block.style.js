@@ -208,4 +208,8 @@ export const useClassNames = makeStyles(() => ({
   tooltipText: {
     maxWidth: '300px',
   },
+
+  greenText: {
+    color: 'green',
+  },
 }))

@@ -1244,7 +1244,7 @@
   "Proxy servers for parsing": "Прокси сервера для парсинга",
   "Product Link": "Ссылка на товар",
   "Create a product card": "Создать карточку товара",
-  "Allowed Strategies": "Разрешеннные стратегии",
+  "Allowed Strategies": "Разрешенные стратегии",
   "Back to Users": "Вернуться к Пользователям",
   "Continue working with the user": "Продолжить работу с пользователем",
   "Selected lot contains a box for which you need to confirm the price change": "Выбрана партия, содержит коробку по которой нужно подтвердить изменение цены",
@@ -1252,5 +1252,8 @@
   "New files": "Новые файлы",
   "User reviews": "Отзывы о пользователе",
   "A new product card will appear in the inventory": "В инвентаре появится новая карточка товара",
-  "Product code field is required for this action": "Для этого действия требуется поле код продукта"
+  "Product code field is required for this action": "Для этого действия требуется поле код продукта",
+  "Are you sure you want to create a product?": "Вы уверены, что хотите создать продукт?",
+  "Idea edited": "Идея изменена",
+  "Idea created": "Идея создана"
 }
