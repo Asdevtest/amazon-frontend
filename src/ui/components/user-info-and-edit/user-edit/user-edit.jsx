@@ -26,7 +26,7 @@ export const UserEdit = observer(({user}) => {
   const {
     showTwoVerticalChoicesModal,
     checkValidationNameOrEmail,
-    changeNameAndEmail,
+    changeFields,
     groupPermissions,
     confirmModalSettings,
     showConfirmModal,
@@ -42,7 +42,7 @@ export const UserEdit = observer(({user}) => {
       {singlePermissions ? (
         <AdminUserEditContent
           checkValidationNameOrEmail={checkValidationNameOrEmail}
-          changeNameAndEmail={changeNameAndEmail}
+          changeFields={changeFields}
           singlePermissions={singlePermissions}
           groupPermissions={groupPermissions}
           editUserFormFields={user}

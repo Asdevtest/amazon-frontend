@@ -17,35 +17,40 @@ export const TabMainContent = ({disabled, disabledSubmit, onChangeField, onSubmi
     <>
       <Field
         disabled={disabled}
+        labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Yuan to USD exchange rate']) + ', ¥'}
-        className={classNames.textField}
+        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
         value={formFields.yuanToDollarRate}
         onChange={onChangeField('yuanToDollarRate')}
       />
 
       <Field
         disabled={disabled}
+        labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Divider for calculating volume weight'])}
-        className={classNames.textField}
+        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
         value={formFields.volumeWeightCoefficient}
         onChange={onChangeField('volumeWeightCoefficient')}
       />
 
       <Field
         disabled={disabled}
+        labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Link for financial transactions'])}
-        className={classNames.textField}
+        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
         // value={formFields.volumeWeightCoefficient}
         // onChange={onChangeField('volumeWeightCoefficient')}
       />
       <div className={classNames.proxyFieldWrapper}>
-        <Typography className={classNames.proxyFieldText}>{t(TranslationKey['Proxy servers for parsing'])}</Typography>
+        <Typography className={disabled ? classNames.proxyFieldTextUnSelection : classNames.proxyFieldText}>
+          {t(TranslationKey['Proxy servers for parsing'])}
+        </Typography>
         <div className={classNames.proxyField}>
           <Field
             disabled={disabled}
             // label={t(TranslationKey['Proxy servers for parsing'])}
             containerClasses={classNames.textContainer}
-            className={classNames.textField}
+            className={disabled ? classNames.textFieldUnSelection : classNames.textField}
             // value={formFields.volumeWeightCoefficient}
             // onChange={onChangeField('volumeWeightCoefficient')}
           />

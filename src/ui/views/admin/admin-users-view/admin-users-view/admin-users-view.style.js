@@ -17,4 +17,13 @@ export const styles = createStyles(theme => ({
   editBtn: {
     marginRight: '8px',
   },
+
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '290px',
+  },
+
+  searchContainer: {
+    width: 'auto',
+  },
 }))

@@ -12,6 +12,7 @@ import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-r
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {NewAddOrEditUserPermissionsForm} from '@components/forms/new-add-or-edit-user-permissions-form'
+import {RegistrationForm} from '@components/forms/registration-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {UserLink} from '@components/user-link'
@@ -35,7 +36,7 @@ export const AdminUserEditContent = observer(
     groupPermissions,
     singlePermissions,
     checkValidationNameOrEmail,
-    changeNameAndEmail,
+    changeFields,
   }) => {
     const classNames = useClassNames()
 
@@ -47,6 +48,7 @@ export const AdminUserEditContent = observer(
       allowedStrategies:
         (editUserFormFields?.allowedStrategies === null ? [] : editUserFormFields?.allowedStrategies) || [],
       email: editUserFormFields?.email || '',
+      // password: editUserFormFields?.password || '',
       fba: editUserFormFields?.fba || false,
       canByMasterUser: editUserFormFields?.canByMasterUser || false,
       name: editUserFormFields?.name || '',
@@ -60,6 +62,12 @@ export const AdminUserEditContent = observer(
     }
 
     const [formFields, setFormFields] = useState(sourceFormFields)
+    const [selectedAllowedRoles, setSelectedAllowedRoles] = useState(formFields.allowedRoles)
+    const [clearSelect, setClearSelect] = useState(true)
+    const [disabled, setDisabled] = useState(true)
+
+    const [accessTags, setAccessTags] = useState([])
+    const [accessTag, setAccessTag] = useState('')
 
     const [permissionsToSelect, setPermissionsToSelect] = useState([
       ...singlePermissions.filter(item => item.role === formFields.role),
@@ -67,6 +75,28 @@ export const AdminUserEditContent = observer(
     const [permissionGroupsToSelect, setPermissionGroupsToSelect] = useState([
       ...groupPermissions.filter(item => item.role === formFields.role),
     ])
+
+    const addAllowedRole = () => {
+      setSelectedAllowedRoles(prev => [...prev, formFields.allowedRoles])
+      setClearSelect(true)
+      setDisabled(false)
+    }
+
+    const removeAllowedRole = value => {
+      const removeRole = selectedAllowedRoles.filter(role => role !== value)
+      setSelectedAllowedRoles(removeRole)
+      setDisabled(false)
+    }
+
+    const addAccessTag = () => {
+      setAccessTags(prev => [...prev, accessTag])
+      setAccessTag('')
+    }
+
+    const removeAccessTag = value => {
+      const removeTag = accessTags.filter(tag => tag !== value)
+      setAccessTags(removeTag)
+    }
 
     const onChangeFormField = fieldName => event => {
       const newFormFields = {...formFields}
@@ -89,16 +119,16 @@ export const AdminUserEditContent = observer(
       }
 
       if (fieldName === 'role' && fieldName === 'permissions' && fieldName === 'permissionGroups') {
-        changeNameAndEmail.name = ''
-        changeNameAndEmail.email = ''
+        changeFields.name = ''
+        changeFields.email = ''
       }
 
       if (fieldName === 'name') {
-        changeNameAndEmail.name = event.target.value
+        changeFields.name = event.target.value
       }
 
       if (fieldName === 'email') {
-        changeNameAndEmail.email = event.target.value
+        changeFields.email = event.target.value
       }
 
       setFormFields(newFormFields)
@@ -120,9 +150,9 @@ export const AdminUserEditContent = observer(
     const onClickSubmit = () => {
       const dataToSubmit = {
         ...formFields,
-        allowedRoles: formFields.allowedRoles.includes(Number(formFields.role))
-          ? [...formFields.allowedRoles]
-          : [...formFields.allowedRoles, Number(formFields.role)],
+        allowedRoles: selectedAllowedRoles.includes(Number(formFields.role))
+          ? [...selectedAllowedRoles]
+          : [...selectedAllowedRoles, Number(formFields.role)],
       }
 
       onSubmit(dataToSubmit, editUserFormFields)
@@ -143,7 +173,8 @@ export const AdminUserEditContent = observer(
       formFields.email === '' ||
       formFields.rate === '' ||
       formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
-      JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
+      disabled
+    JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
     return (
       <div className={classNames.root}>
@@ -155,7 +186,6 @@ export const AdminUserEditContent = observer(
                 inputComponent={
                   <div className={classNames.ratingWrapper}>
                     <UserLink
-                      blackText
                       name={editUserFormFields.masterUserInfo?.name}
                       userId={editUserFormFields.masterUserInfo?._id}
                     />
@@ -177,15 +207,9 @@ export const AdminUserEditContent = observer(
                   <div className={classNames.subUsersWrapper}>
                     {editUserFormFields.subUsers.map(subUser => (
                       <div key={subUser._id} className={classNames.ratingWrapper}>
-                        <UserLink blackText name={subUser.name} userId={subUser._id} />
+                        <UserLink name={subUser.name} userId={subUser._id} />
 
-                        {/* <Typography className={classNames.rating}>{subUser.email}</Typography> */}
-
-                        <div className={classNames.ratingSubWrapper}>
-                          <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
-
-                          <Rating disabled value={subUser.rating} />
-                        </div>
+                        <Typography disabled>{'subUser@email.ru'}</Typography>
                       </div>
                     ))}
                   </div>
@@ -213,12 +237,15 @@ export const AdminUserEditContent = observer(
                 onChange={onChangeFormField('email')}
               />
             </div>
+
+            <RegistrationForm isRecoverPassword formFields={{password: ''}} onChangeFormField={onChangeFormField} />
           </div>
 
           <div className={classNames.middleWrapper}>
             <Field
               inputProps={{maxLength: 10}}
               label={t(TranslationKey.Overdraft)}
+              containerClasses={classNames.overdraftContainer}
               value={formFields.overdraft}
               onChange={onChangeFormField('overdraft')}
             />
@@ -231,6 +258,7 @@ export const AdminUserEditContent = observer(
                   isWrongPermissionsSelect &&
                   t(TranslationKey['The selected permissions and the current role do not match!'])
                 }
+                containerClasses={classNames.roleContainer}
                 inputComponent={
                   <NativeSelect
                     input={<Input fullWidth />}
@@ -255,45 +283,95 @@ export const AdminUserEditContent = observer(
               {!editUserFormFields.masterUser ? (
                 <Field
                   inputProps={{maxLength: 8}}
+                  containerClasses={classNames.rateContainer}
                   label={t(TranslationKey.Rate)}
                   value={formFields.rate}
                   onChange={onChangeFormField('rate')}
                 />
               ) : null}
             </div>
+            <Typography className={classNames.allowedRoleWrapperTitle}>{t(TranslationKey['Allowed Roles'])}</Typography>
+            {selectedAllowedRoles.map((role, index) => (
+              <div key={index} className={classNames.selectedRoleWrapper}>
+                <div className={classNames.leftContentWrapper}>
+                  <Typography className={classNames.selectedRole}>{UserRoleCodeMap[role]}</Typography>
+                  <div>
+                    <Field
+                      oneLine
+                      disabled
+                      inputProps={{maxLength: 8}}
+                      inputClasses={classNames.allowedRoleRateInput}
+                      containerClasses={classNames.allowedRoleRateContainer}
+                      label={t(TranslationKey.Rate)}
+                      // value={formFields.rate}
+                      // onChange={onChangeFormField('rate')}
+                    />
+                  </div>
+                </div>
 
-            <Field
-              label={t(TranslationKey['Allowed Roles'])}
-              inputComponent={
-                <Select
-                  multiple
-                  value={formFields.allowedRoles}
-                  renderValue={selected => selected.map(el => UserRoleCodeMap[el]).join(', ')}
-                  onChange={onChangeFormField('allowedRoles')}
-                >
-                  {Object.keys(UserRoleCodeMap).map((role, index) => (
-                    <MenuItem
-                      key={index}
-                      value={Number(role)}
-                      disabled={
-                        [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) || role === formFields.role
-                      }
-                    >
-                      <Checkbox
-                        color="primary"
-                        checked={
-                          formFields.allowedRoles.includes(Number(role)) || Number(role) === Number(formFields.role)
-                        }
-                      />
-                      <ListItemText primary={UserRoleCodeMap[role]} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              }
-            />
+                <div className={classNames.actionButton} onClick={() => removeAllowedRole(role)}>
+                  {'-'}
+                </div>
+              </div>
+            ))}
+            <div className={classNames.allowedRoleWrapper}>
+              <div className={classNames.leftContentWrapper}>
+                <div>
+                  <Field
+                    containerClasses={classNames.allowedRoleContainer}
+                    inputComponent={
+                      <Select
+                        // multiple
+                        style={{height: '19px'}}
+                        value={formFields.allowedRoles}
+                        renderValue={selected => (clearSelect ? 'Выберите роль' : UserRoleCodeMap[selected])}
+                        onChange={onChangeFormField('allowedRoles')}
+                        onClick={() => setClearSelect(false)}
+                      >
+                        {Object.keys(UserRoleCodeMap).map((role, index) => (
+                          <MenuItem
+                            key={index}
+                            value={Number(role)}
+                            disabled={
+                              [UserRole.CANDIDATE, UserRole.ADMIN].includes(UserRoleCodeMap[role]) ||
+                              role === formFields.role
+                            }
+                          >
+                            <Checkbox
+                              color="primary"
+                              checked={
+                                selectedAllowedRoles.includes(Number(role)) || Number(role) === Number(formFields.role)
+                              }
+                            />
+                            <ListItemText primary={UserRoleCodeMap[role]} />
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    }
+                  />
+                </div>
+                <div>
+                  <Field
+                    oneLine
+                    disabled
+                    inputProps={{maxLength: 8}}
+                    inputClasses={classNames.allowedRoleRateInput}
+                    containerClasses={classNames.allowedRoleRateContainer}
+                    label={t(TranslationKey.Rate)}
+                    // value={formFields.rate}
+                    // onChange={onChangeFormField('rate')}
+                  />
+                </div>
+              </div>
+
+              <Typography className={classNames.actionButton} onClick={() => addAllowedRole()}>
+                {'+'}
+              </Typography>
+            </div>
 
             <Field
               label={t(TranslationKey['Allowed Strategies'])}
+              containerClasses={classNames.allowedStrategiesContainer}
               inputComponent={
                 <Select
                   multiple
@@ -310,6 +388,29 @@ export const AdminUserEditContent = observer(
                 </Select>
               }
             />
+
+            <Field
+              label={t(TranslationKey['Add user access tags'])}
+              value={accessTag}
+              endAdornment={
+                <Typography className={classNames.actionTagButton} onClick={() => addAccessTag()}>
+                  {'+'}
+                </Typography>
+              }
+              onChange={e => setAccessTag(e.target.value)}
+            />
+            <div className={classNames.tagsWrapper}>
+              {accessTags.map((tag, index) => (
+                <div key={index}>
+                  <Typography className={classNames.tag}>
+                    {tag}
+                    <Typography className={classNames.removeTagButton} onClick={() => removeAccessTag(tag)}>
+                      {'х'}
+                    </Typography>
+                  </Typography>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className={classNames.rightWrapper}>
@@ -337,6 +438,7 @@ export const AdminUserEditContent = observer(
                 <Button
                   variant="contained"
                   color="primary"
+                  className={classNames.securityButton}
                   onClick={() => setShowPermissionModal(!showPermissionModal)}
                 >
                   {t(TranslationKey['Manage permissions'])}

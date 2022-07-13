@@ -27,8 +27,10 @@ export const RegistrationFormRaw = ({
   onChangeFormField,
   onSubmit,
   checkValidationNameOrEmail,
+  isRecoverPassword,
 }) => {
   const [visibilityPass, setVisibilityPass] = useState(false)
+  const [visibilityOldPass, setVisibilityOldPass] = useState(false)
   const [errorOneNumber, setErrorOneNumber] = useState(false)
   const [errorUppercaseLetter, setErrorUppercaseLetter] = useState(false)
   const [errorLowercaseLetter, setErrorLowercaseLetter] = useState(false)
@@ -110,55 +112,93 @@ export const RegistrationFormRaw = ({
   return (
     <form className={classNames.root} onSubmit={onSubmitForm}>
       <div className={classNames.formFields}>
-        <Field
-          withIcon
-          inputProps={{maxLength: 30}}
-          inputClasses={classNames.input}
-          containerClasses={classNames.field}
-          label={t(TranslationKey.Name)}
-          placeholder={t(TranslationKey.Name)}
-          error={checkValidationNameOrEmail.nameIsUnique && t(TranslationKey['A user with this name already exists'])}
-          value={formFields.name}
-          startAdornment={
-            <InputAdornment position="end" className={classNames.inputAdornment}>
-              <PersonIcon color="primary" />
-            </InputAdornment>
-          }
-          onChange={onChangeFormField('name')}
-        />
-        <Field
-          withIcon
-          inputProps={{maxLength: 30}}
-          inputClasses={classNames.input}
-          containerClasses={classNames.field}
-          label={t(TranslationKey.Email)}
-          placeholder={t(TranslationKey.Email)}
-          type="email"
-          error={
-            checkValidationNameOrEmail?.emailIsUnique ? t(TranslationKey['A user with this email already exists']) : ''
-          }
-          value={formFields.email}
-          startAdornment={
-            <InputAdornment position="end" className={classNames.inputAdornment}>
-              <MailOutlineIcon color="primary" />
-            </InputAdornment>
-          }
-          onChange={onChangeFormField('email')}
-        />
+        {!isRecoverPassword ? (
+          <>
+            <Field
+              withIcon
+              inputProps={{maxLength: 30}}
+              inputClasses={classNames.input}
+              containerClasses={classNames.field}
+              label={t(TranslationKey.Name)}
+              placeholder={t(TranslationKey.Name)}
+              error={
+                checkValidationNameOrEmail.nameIsUnique && t(TranslationKey['A user with this name already exists'])
+              }
+              value={formFields.name}
+              startAdornment={
+                <InputAdornment position="end" className={classNames.inputAdornment}>
+                  <PersonIcon color="primary" />
+                </InputAdornment>
+              }
+              onChange={onChangeFormField('name')}
+            />
+            <Field
+              withIcon
+              inputProps={{maxLength: 30}}
+              inputClasses={classNames.input}
+              containerClasses={classNames.field}
+              label={t(TranslationKey.Email)}
+              placeholder={t(TranslationKey.Email)}
+              type="email"
+              error={
+                checkValidationNameOrEmail?.emailIsUnique
+                  ? t(TranslationKey['A user with this email already exists'])
+                  : ''
+              }
+              value={formFields.email}
+              startAdornment={
+                <InputAdornment position="end" className={classNames.inputAdornment}>
+                  <MailOutlineIcon color="primary" />
+                </InputAdornment>
+              }
+              onChange={onChangeFormField('email')}
+            />
+          </>
+        ) : null}
+        {isRecoverPassword && (
+          <div className={classNames.field}>
+            <Field
+              disabled={isRecoverPassword}
+              withIcon={!isRecoverPassword}
+              inputProps={{maxLength: 128}}
+              error={showError}
+              inputClasses={classNames.input}
+              label={t(TranslationKey['Old password'])}
+              placeholder={t(TranslationKey.Password)}
+              type={!visibilityOldPass ? 'password' : 'text'}
+              value={formFields.password}
+              startAdornment={
+                !isRecoverPassword ? (
+                  <InputAdornment position="end" className={classNames.inputAdornment}>
+                    <LockIcon color="primary" />
+                  </InputAdornment>
+                ) : null
+              }
+              onChange={onChangeFormField('password')}
+            />
+            <div className={classNames.visibilityIcon} onClick={() => setVisibilityOldPass(!visibilityOldPass)}>
+              {!visibilityOldPass ? <VisibilityOffIcon color="disabled" /> : <VisibilityIcon color="disabled" />}
+            </div>
+          </div>
+        )}
+
         <div className={classNames.field}>
           <Field
-            withIcon
+            disabled={isRecoverPassword}
+            withIcon={!isRecoverPassword}
             inputProps={{maxLength: 128}}
             error={showError}
             inputClasses={classNames.input}
-            label={t(TranslationKey.Password)}
+            label={isRecoverPassword ? t(TranslationKey['New password']) : t(TranslationKey.Password)}
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}
             value={formFields.password}
             startAdornment={
-              <InputAdornment position="end" className={classNames.inputAdornment}>
-                <LockIcon color="primary" />
-              </InputAdornment>
+              !isRecoverPassword ? (
+                <InputAdornment position="end" className={classNames.inputAdornment}>
+                  <LockIcon color="primary" />
+                </InputAdornment>
+              ) : null
             }
             onChange={onChangeFormField('password')}
           />
@@ -193,51 +233,60 @@ export const RegistrationFormRaw = ({
         </div>
         <div className={classNames.field}>
           <Field
-            withIcon
+            disabled={isRecoverPassword}
+            withIcon={!isRecoverPassword}
             inputProps={{maxLength: 128}}
             error={submit && equalityError && t(TranslationKey["Passwords don't match"])}
             inputClasses={classNames.input}
-            label={t(TranslationKey['Re-type Password'])}
+            label={
+              isRecoverPassword ? t(TranslationKey['Re-enter the new password']) : t(TranslationKey['Re-type Password'])
+            }
             placeholder={t(TranslationKey.Password)}
             type={!visibilityPass ? 'password' : 'text'}
             value={formFields.confirmPassword}
             startAdornment={
-              <InputAdornment position="end" className={classNames.inputAdornment}>
-                <LockIcon color="primary" />
-              </InputAdornment>
+              !isRecoverPassword ? (
+                <InputAdornment position="end" className={classNames.inputAdornment}>
+                  <LockIcon color="primary" />
+                </InputAdornment>
+              ) : null
             }
             onChange={onChangeFormField('confirmPassword')}
           />
         </div>
       </div>
-      <div className={classNames.formFooter}>
-        <Checkbox
-          className={classNames.checkbox}
-          color="primary"
-          value={formFields.acceptTerms}
-          onChange={onChangeFormField('acceptTerms')}
-        />
-        <Typography className={classNames.label}>
-          {t(TranslationKey['Agree with']) + ' '}
-          <Link href="#" to="/terms" target="_blank" rel="noopener">
-            {t(TranslationKey['Terms & Conditions'])}
-          </Link>
-        </Typography>
-      </div>
-      <Button
-        disableElevation
-        disabled={
-          formFields.name === '' ||
-          formFields.email === '' ||
-          formFields.password === '' ||
-          formFields.acceptTerms === false
-        }
-        color="primary"
-        type="submit"
-        variant="contained"
-      >
-        {t(TranslationKey.Registration)}
-      </Button>
+      {!isRecoverPassword ? (
+        <>
+          <div className={classNames.formFooter}>
+            <Checkbox
+              className={classNames.checkbox}
+              color="primary"
+              value={formFields.acceptTerms}
+              onChange={onChangeFormField('acceptTerms')}
+            />
+            <Typography className={classNames.label}>
+              {t(TranslationKey['Agree with']) + ' '}
+              <Link href="#" to="/terms" target="_blank" rel="noopener">
+                {t(TranslationKey['Terms & Conditions'])}
+              </Link>
+            </Typography>
+          </div>
+          <Button
+            disableElevation
+            disabled={
+              formFields.name === '' ||
+              formFields.email === '' ||
+              formFields.password === '' ||
+              formFields.acceptTerms === false
+            }
+            color="primary"
+            type="submit"
+            variant="contained"
+          >
+            {t(TranslationKey.Registration)}
+          </Button>
+        </>
+      ) : null}
     </form>
   )
 }

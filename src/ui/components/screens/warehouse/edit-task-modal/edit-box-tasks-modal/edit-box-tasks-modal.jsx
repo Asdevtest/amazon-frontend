@@ -1,19 +1,17 @@
 import React, {useState} from 'react'
 
 import {Box, Container, Divider, Typography} from '@material-ui/core'
-import Carousel from 'react-material-ui-carousel'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
-import {BigImagesModal} from '@components/modals/big-images-modal'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsImageLink} from '@utils/checks'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -111,10 +109,6 @@ export const EditBoxTasksModal = ({
   const classNames = useClassNames()
 
   const [editingBox, setEditingBox] = useState(box)
-
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
-
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   const setNewBoxField = fieldName => e => {
     if (isNaN(e.target.value) || Number(e.target.value) < 0) {
@@ -216,29 +210,7 @@ export const EditBoxTasksModal = ({
 
       <div className={classNames.photoWrapper}>
         <Typography>{t(TranslationKey['Box photos:'])}</Typography>
-
-        {box.images.length > 0 ? (
-          <Carousel autoPlay timeout={100} animation="fade">
-            {box.images
-              ?.filter(el => checkIsImageLink(el))
-              .map((el, index) => (
-                <div key={index}>
-                  <img
-                    alt=""
-                    className={classNames.imgBox}
-                    src={el}
-                    onClick={() => {
-                      setShowPhotosModal(!showPhotosModal)
-
-                      setBigImagesOptions({images: box.images, imgIndex: index})
-                    }}
-                  />
-                </div>
-              ))}
-          </Carousel>
-        ) : (
-          <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
-        )}
+        <PhotoCarousel files={box.images} />
       </div>
 
       <Box className={classNames.boxCode}>
@@ -260,14 +232,6 @@ export const EditBoxTasksModal = ({
           <Button onClick={() => setEditModal()}>{t(TranslationKey.Close)}</Button>
         </Box>
       </div>
-
-      <BigImagesModal
-        isAmazone
-        openModal={showPhotosModal}
-        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-      />
     </Container>
   )
 }

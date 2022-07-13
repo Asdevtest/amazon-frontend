@@ -6,6 +6,18 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'flex-end',
   },
 
+  formContainer: {
+    padding: '0 20px',
+    width: '1040px',
+  },
+
+  title: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '600',
+    color: '#001029',
+  },
+
   titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -34,7 +46,9 @@ export const useClassNames = makeStyles(() => ({
   },
 
   deliveryInfoWrapper: {
-    width: '490px',
+    width: '480px',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 
   deliveryInfoField: {
@@ -48,10 +62,10 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imgBoxWrapper: {
-    height: '135px',
-    width: '160px',
+    width: '100%',
+
     display: 'flex',
-    justifyContent: 'flex-start',
+    marginTop: '30px',
     alignItems: 'center',
     flexDirection: 'column',
   },
@@ -76,17 +90,18 @@ export const useClassNames = makeStyles(() => ({
   },
 
   productsWrapper: {
-    maxHeight: '450px',
+    // width: '480px',
+    // maxHeight: '450px',
     overflow: 'auto',
   },
 
   productWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    height: '330px',
-    border: '1px solid rgba(0,0,0, .1)',
-    borderRadius: '10px',
-    padding: '10px',
+    justifyContent: 'space-between',
+    // height: '330px',
+    width: '480px',
+
+    // padding: '10px',
   },
 
   productSubWrapper: {
@@ -96,15 +111,17 @@ export const useClassNames = makeStyles(() => ({
   },
 
   countField: {
-    width: '120px',
-    marginLeft: '10px',
+    // width: '120px',
   },
 
   amazonTitle: {
-    maxWidth: '240px',
-    overflow: 'auto',
-    height: '70px',
-    marginBottom: '10px',
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: '225px',
+
+    // overflow: 'auto',
+
+    marginBottom: '20px',
   },
 
   linkField: {
@@ -114,13 +131,16 @@ export const useClassNames = makeStyles(() => ({
   },
 
   labelsInfoWrapper: {
+    width: '480px',
     display: 'flex',
     justifyContent: 'space-between',
+    gap: '27px',
     marginTop: '20px',
   },
 
   imgSizesWrapper: {
     display: 'flex',
+    justifyContent: 'space-between',
     marginBottom: '20px',
   },
 
@@ -139,10 +159,9 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imgWrapper: {
+    width: '181px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
   },
 
   checkboxContainer: {
@@ -155,5 +174,43 @@ export const useClassNames = makeStyles(() => ({
   alertText: {
     color: 'red',
     fontWeight: 'bold',
+  },
+
+  photoWrapper: {
+    width: '225px',
+  },
+
+  leftColumn: {
+    width: '225px',
+  },
+
+  rightColumn: {
+    width: '225px',
+  },
+
+  asinWrapper: {
+    display: 'flex',
+    gap: '5px',
+
+    '& > :nth-child(n)': {
+      fontSize: '16px',
+      lineHeight: '19px',
+      fontWeight: '400',
+      color: '#656565',
+    },
+  },
+
+  copyImg: {
+    cursor: 'pointer',
+
+    display: 'block',
+  },
+
+  input: {
+    zIndex: '0',
+  },
+
+  countContainer: {
+    marginTop: '10px',
   },
 }))

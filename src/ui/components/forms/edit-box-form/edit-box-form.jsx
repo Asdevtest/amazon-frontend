@@ -3,14 +3,15 @@ import {useState} from 'react'
 import {Chip, Divider, NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
-import Carousel from 'react-material-ui-carousel'
 
+// import Carousel from 'react-material-ui-carousel'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
+import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
@@ -23,7 +24,7 @@ import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {checkIsImageLink} from '@utils/checks'
+// import {checkIsImageLink} from '@utils/checks'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -383,29 +384,7 @@ export const EditBoxForm = observer(
                 <Typography className={classNames.subTitle}>
                   {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                 </Typography>
-
-                {boxFields.images.length > 0 ? (
-                  <Carousel autoPlay timeout={100} animation="fade">
-                    {boxFields.images
-                      ?.filter(el => checkIsImageLink(el))
-                      .map((el, index) => (
-                        <div key={index}>
-                          <img
-                            alt=""
-                            className={classNames.imgBox}
-                            src={el}
-                            onClick={() => {
-                              setShowPhotosModal(!showPhotosModal)
-
-                              setBigImagesOptions({images: boxFields.images, imgIndex: index})
-                            }}
-                          />
-                        </div>
-                      ))}
-                  </Carousel>
-                ) : (
-                  <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
-                )}
+                <PhotoCarousel files={boxFields.images} />
               </div>
             </div>
           </div>

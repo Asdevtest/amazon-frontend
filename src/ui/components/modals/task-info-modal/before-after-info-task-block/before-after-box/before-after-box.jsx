@@ -1,16 +1,14 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import {Typography, Paper, Checkbox, Link} from '@material-ui/core'
-import Carousel from 'react-material-ui-carousel'
 
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {TaskOperationType} from '@constants/task-operation-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
-import {BigImagesModal} from '@components/modals/big-images-modal'
 
-import {checkIsImageLink} from '@utils/checks'
 import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixedWithCm, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -19,10 +17,6 @@ import {TaskInfoBoxItemCard} from './task-info-box-item-card'
 
 export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoefficient}) => {
   const classNames = useClassNames()
-
-  const [showImageModal, setShowImageModal] = useState(false)
-
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   return (
     <Paper className={classNames.box}>
@@ -168,56 +162,14 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
             {box.images && (
               <div className={classNames.photoWrapper}>
                 <Typography>{t(TranslationKey['Box photos:'])}</Typography>
-
-                {box.images.length > 0 ? (
-                  <Carousel autoPlay={false} timeout={100} animation="fade">
-                    {box.images
-                      ?.filter(el => checkIsImageLink(el))
-                      .map((el, index) => (
-                        <div key={index}>
-                          <img
-                            alt=""
-                            className={classNames.imgBox}
-                            src={el}
-                            onClick={() => {
-                              setShowImageModal(!showImageModal)
-                              setBigImagesOptions({images: box.images, imgIndex: index})
-                            }}
-                          />
-                        </div>
-                      ))}
-                  </Carousel>
-                ) : (
-                  <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
-                )}
+                <PhotoCarousel files={box.images} />
               </div>
             )}
 
             {box.items[0].order.images && (
               <div className={classNames.photoWrapper}>
                 <Typography>{t(TranslationKey['Order photos:'])}</Typography>
-
-                {box.items[0].order.images.length > 0 ? (
-                  <Carousel autoPlay={false} timeout={100} animation="fade">
-                    {box.items[0].order.images
-                      ?.filter(el => checkIsImageLink(el))
-                      .map((el, index) => (
-                        <div key={index}>
-                          <img
-                            alt=""
-                            className={classNames.imgBox}
-                            src={el}
-                            onClick={() => {
-                              setShowImageModal(!showImageModal)
-                              setBigImagesOptions({images: box.items[0].order.images, imgIndex: index})
-                            }}
-                          />
-                        </div>
-                      ))}
-                  </Carousel>
-                ) : (
-                  <Typography>{t(TranslationKey['No photos yet...'])}</Typography>
-                )}
+                <PhotoCarousel files={box.items[0].order.images} />
               </div>
             )}
           </div>
@@ -244,14 +196,6 @@ export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoeffic
           inputComponent={<Checkbox disabled checked={box.isShippingLabelAttachedByStorekeeper} />}
         />
       </Paper>
-
-      <BigImagesModal
-        isAmazone
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-      />
     </Paper>
   )
 }

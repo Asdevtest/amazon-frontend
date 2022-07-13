@@ -1252,9 +1252,14 @@
   "New files": "Новые файлы",
   "User reviews": "Отзывы о пользователе",
   "A new product card will appear in the inventory": "В инвентаре появится новая карточка товара",
-  "Product code field is required for this action": "Для этого действия требуется поле код продукта",
   "Are you sure you want to create a product?": "Вы уверены, что хотите создать продукт?",
   "Idea edited": "Идея изменена",
   "Idea created": "Идея создана",
-  "The total cost of shipping the box will be": "Общая сумма за отправку коробки составит"
+  "The total cost of shipping the box will be": "Общая сумма за отправку коробки составит",
+  "Product code field is required for this action": "Для этого действия требуется поле код товара",
+  "Old password": "Старый пароль",
+  "New password": "Новый пароль",
+  "Re-enter the new password": "Повторите новый пароль",
+  "Add user access tags": "Добавить теги доступа пользователя",
+  "Dimensions from warehouse": "Размеры от склада"
 }

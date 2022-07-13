@@ -1,10 +1,9 @@
 import Rating from '@mui/material/Rating'
 
-import React, {useState} from 'react'
+import React from 'react'
 
 import {Typography, Avatar} from '@material-ui/core'
 import clsx from 'clsx'
-import Carousel from 'react-material-ui-carousel'
 
 import {
   RequestProposalStatus,
@@ -14,10 +13,9 @@ import {
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {BigImagesModal} from '@components/modals/big-images-modal'
+import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLink} from '@components/user-link'
 
-import {checkIsImageLink} from '@utils/checks'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
@@ -32,10 +30,6 @@ export const OwnerRequestProposalsCard = ({
   onClickRejectProposal,
 }) => {
   const classNames = useClassNames()
-
-  const [showImageModal, setShowImageModal] = useState(false)
-
-  const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
 
   return (
     <div className={classNames.cardMainWrapper}>
@@ -85,27 +79,10 @@ export const OwnerRequestProposalsCard = ({
               </div>
               <Typography className={classNames.proposalDescription}>{item.proposal.comment}</Typography>
             </div>
-            {item.proposal.linksToMediaFiles.length ? (
-              <div className={classNames.photoWrapper}>
-                <Carousel autoPlay={false} timeout={100} animation="fade">
-                  {item.proposal.linksToMediaFiles
-                    ?.filter(el => checkIsImageLink(el))
-                    .map((el, index) => (
-                      <div key={index} className={classNames.photoSubWrapper}>
-                        <img
-                          alt=""
-                          className={classNames.imgBox}
-                          src={el}
-                          onClick={() => {
-                            setShowImageModal(!showImageModal)
-                            setBigImagesOptions({images: item.proposal.linksToMediaFiles, imgIndex: index})
-                          }}
-                        />
-                      </div>
-                    ))}
-                </Carousel>
-              </div>
-            ) : null}
+
+            <div className={classNames.photoWrapper}>
+              <PhotoCarousel files={item.proposal.linksToMediaFiles} />
+            </div>
           </div>
         </div>
       </div>
@@ -159,14 +136,6 @@ export const OwnerRequestProposalsCard = ({
           </Button>
         </div>
       </div>
-
-      <BigImagesModal
-        isAmazone
-        openModal={showImageModal}
-        setOpenModal={() => setShowImageModal(!showImageModal)}
-        images={bigImagesOptions.images}
-        imgIndex={bigImagesOptions.imgIndex}
-      />
     </div>
   )
 }

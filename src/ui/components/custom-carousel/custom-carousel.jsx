@@ -16,6 +16,7 @@ import {SettingsModel} from '@models/settings-model'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {checkIsImageLink} from '@utils/checks'
+import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {shortenDocumentString} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -23,7 +24,7 @@ import {useClassNames} from './custom-carousel.style'
 
 export const RIGHT_BLOCK_WIDTH = 100
 
-export const CustomCarousel = observer(({children, title, view = 'simple'}) => {
+export const CustomCarousel = observer(({children, title, view = 'simple', alignButtons = 'center'}) => {
   const classNames = useClassNames()
   const [clides, setClides] = useState([])
   const [offset, setOffset] = useState(0)
@@ -75,31 +76,56 @@ export const CustomCarousel = observer(({children, title, view = 'simple'}) => {
       {view === 'simple' && children.length !== 0 && (
         <div className={classNames.headerCarouselDocumentsWrapper}>
           <div className={classNames.buttonDocumentsWrapper}>
-            <ArrowLeftIcon
-              style={{cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px'}}
-              color={offset === 0 ? 'disabled' : 'primary'}
-              className={classNames.carouselBtn}
-              onClick={handleLeftArrowClick}
-            />
+            {alignButtons === 'center' ? (
+              <ArrowLeftIcon
+                style={{cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px'}}
+                color={offset === 0 ? 'disabled' : 'primary'}
+                className={classNames.carouselBtn}
+                onClick={handleLeftArrowClick}
+              />
+            ) : null}
+
             <div className={classNames.window}>
               <div className={classNames.allClides} style={{transform: `translateX(${offset}%)`}}>
                 {clides}
               </div>
             </div>
-
-            <ArrowRightIcon
-              style={{
-                cursor: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'initial' : 'pointer',
-                width: '40px',
-                height: '40px',
-              }}
-              color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
-              onClick={handleRightArrowClick}
-            />
+            {alignButtons === 'center' ? (
+              <ArrowRightIcon
+                style={{
+                  cursor: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'initial' : 'pointer',
+                  width: '40px',
+                  height: '40px',
+                }}
+                color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+                onClick={handleRightArrowClick}
+              />
+            ) : null}
           </div>
-          <div className={classNames.numberOfFiles}>
-            <Typography color="primary">{`${slideCount}/${children.length}`}</Typography>
-          </div>
+          {alignButtons === 'center' ? (
+            <div className={classNames.numberOfFiles}>
+              <Typography color="primary">{`${slideCount}/${children.length}`}</Typography>
+            </div>
+          ) : (
+            <div className={classNames.numberOfFilesFlex}>
+              <ArrowLeftIcon
+                style={{cursor: offset === 0 ? 'initial' : 'pointer', width: '40px', height: '40px'}}
+                color={offset === 0 ? 'disabled' : 'primary'}
+                className={classNames.carouselBtn}
+                onClick={handleLeftArrowClick}
+              />
+              <Typography color="primary">{`${slideCount}/${children.length}`}</Typography>
+              <ArrowRightIcon
+                style={{
+                  cursor: offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'initial' : 'pointer',
+                  width: '40px',
+                  height: '40px',
+                }}
+                color={offset === -(RIGHT_BLOCK_WIDTH * children.length) + 100 ? 'disabled' : 'primary'}
+                onClick={handleRightArrowClick}
+              />
+            </div>
+          )}
         </div>
       )}
       {view === 'complex' && children.length !== 0 && (
@@ -250,13 +276,16 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
   )
 }
 
-export const PhotoCarousel = ({files}) => {
+export const PhotoCarousel = ({files, isAmazonPhoto}) => {
   const classNames = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
-  const notEmptyPhotos = files?.filter(el => checkIsImageLink(el?.file?.name || el))
+  const notEmptyPhotos = isAmazonPhoto
+    ? files?.map(el => getAmazonImageUrl(el))
+    : files?.filter(el => checkIsImageLink(el?.file?.name || el))
 
+  console.log(notEmptyPhotos)
   return files?.length ? (
     <div className={classNames.imagesCarouselWrapper}>
       <div className={classNames.imageWrapper}>
@@ -273,9 +302,10 @@ export const PhotoCarousel = ({files}) => {
                   setShowPhotosModal(!showPhotosModal)
 
                   setBigImagesOptions({
-                    images: files
-                      ?.filter(el => checkIsImageLink(el?.file?.name || el))
-                      .map(img => img?.data_url || img),
+                    images: isAmazonPhoto
+                      ? files?.map(el => getAmazonImageUrl(el))
+                      : files?.filter(el => checkIsImageLink(el?.file?.name || el)).map(img => img?.data_url || img),
+
                     imgIndex: index,
                   })
                 }}
@@ -304,7 +334,7 @@ export const PhotoCarousel = ({files}) => {
         <div className={classNames.emptyIcon}>
           <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
         </div>
-        <Typography>{t(TranslationKey['No photos'])}</Typography>
+        <Typography className={classNames.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
       </div>
     </div>
   )

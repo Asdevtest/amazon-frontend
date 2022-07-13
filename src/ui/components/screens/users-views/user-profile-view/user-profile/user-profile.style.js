@@ -108,4 +108,27 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '5px',
     height: '20px',
   },
+
+  avatarWrapper: {
+    position: 'relative',
+    cursor: 'pointer',
+
+    '&:hover > :not(:last-child)': {
+      transition: '0.6s ease-out',
+      opacity: '0.2',
+    },
+
+    '&:hover > :last-child': {
+      visibility: 'visible',
+      transform: 'rotate(90deg)',
+      transition: '0.6s ease',
+    },
+  },
+
+  icon: {
+    position: 'absolute',
+    top: 'calc(50% - 12px)',
+    left: 'calc(50% - 15px)',
+    visibility: 'hidden',
+  },
 }))
