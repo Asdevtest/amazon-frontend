@@ -1,7 +1,9 @@
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
+import {InputAdornment} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -69,7 +71,7 @@ class AdminUsersViewRaw extends Component {
       onTriggerOpenModal,
       onChangeNameSearchValue,
     } = this.viewModel
-
+    const {classes: classNames} = this.props
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
@@ -78,8 +80,15 @@ class AdminUsersViewRaw extends Component {
             <MainContent>
               <div>
                 <Field
-                  label={t(TranslationKey['Quick search by name:'])}
+                  containerClasses={classNames.searchContainer}
+                  inputClasses={classNames.searchInput}
                   value={nameSearchValue}
+                  placeholder={t(TranslationKey.search)}
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon color="primary" />
+                    </InputAdornment>
+                  }
                   onChange={onChangeNameSearchValue}
                 />
               </div>

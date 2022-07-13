@@ -12,7 +12,7 @@ export class UserEditModel {
   error = undefined
 
   checkValidationNameOrEmail = {}
-  changeNameAndEmail = {email: '', name: ''}
+  changeFields = {email: '', name: '', oldPassword: '', newPassword: '', confirmNewPassword: ''}
   editUserFormFields = undefined
 
   user = undefined
@@ -64,7 +64,7 @@ export class UserEditModel {
 
       this.onTriggerOpenModal('showTwoVerticalChoicesModal')
 
-      this.changeNameAndEmail = {email: '', name: ''}
+      this.changeFields = {email: '', name: ''}
     } catch (error) {
       console.log(error)
       this.error = error?.body?.message || error
@@ -75,8 +75,8 @@ export class UserEditModel {
     try {
       this.error = undefined
       this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
-        name: this.changeNameAndEmail.name,
-        email: this.changeNameAndEmail.email,
+        name: this.changeFields.name,
+        email: this.changeFields.email,
       })
 
       this.submitEditData = {...data, permissions: data.active && data.active !== 'false' ? data.permissions : []} // удаляем пермишены если баним юзера

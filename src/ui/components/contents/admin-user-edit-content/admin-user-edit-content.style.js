@@ -42,16 +42,19 @@ export const useClassNames = makeStyles(() => ({
   },
 
   subUsersWrapper: {
-    maxHeight: '150px',
-    overflow: 'auto',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    columnGap: '56px',
+    rowGap: '20px',
+    // overflow: 'auto',
   },
 
   ratingWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
     width: '100%',
     overflow: 'hidden',
-    justifyContent: 'space-between',
   },
 
   ratingSubWrapper: {
@@ -75,15 +78,15 @@ export const useClassNames = makeStyles(() => ({
   },
 
   leftWrapper: {
-    width: '42%',
+    width: '600px',
   },
 
   middleWrapper: {
-    width: '28%',
+    width: '470px',
   },
 
   rightWrapper: {
-    width: '23%',
+    width: '270px',
   },
 
   nameEmailWrapper: {
@@ -102,5 +105,125 @@ export const useClassNames = makeStyles(() => ({
 
   button: {
     padding: '7px 33px',
+  },
+
+  rateContainer: {
+    width: '170px',
+    margin: 0,
+  },
+
+  allowedRoleRateContainer: {
+    margin: 0,
+    width: '38px',
+  },
+  roleContainer: {
+    width: '270px',
+  },
+  allowedRoleContainer: {
+    margin: 0,
+  },
+
+  overdraftContainer: {
+    width: '270px',
+  },
+
+  allowedRoleWrapperTitle: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '400',
+    color: '#001029',
+    marginBottom: '10px',
+  },
+
+  leftContentWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '47px',
+  },
+
+  allowedRoleWrapper: {
+    border: '1px solid #C4C4C4',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: '40px',
+    padding: '0 15px',
+    borderRadius: '4px',
+  },
+
+  allowedRoleRateInput: {
+    borderRadius: 0,
+    border: 0,
+    borderBottom: '1px solid #656565',
+    height: '19px',
+  },
+
+  selectedRoleWrapper: {
+    border: '1px solid #C4C4C4',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: '40px',
+    padding: '0 15px',
+    borderRadius: '4px',
+    marginBottom: '10px',
+  },
+
+  selectedRole: {
+    width: '139px',
+  },
+
+  actionButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '22px',
+    height: '22px',
+    fontSize: '18px',
+    backgroundColor: '#006CFF',
+    borderRadius: '4px',
+    color: '#fff',
+    cursor: 'pointer',
+  },
+
+  actionTagButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '22px',
+    height: '22px',
+    fontSize: '18px',
+    backgroundColor: '#006CFF',
+    borderRadius: '4px',
+    color: '#fff',
+    cursor: 'pointer',
+    marginRight: '15px',
+  },
+
+  tag: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '24px',
+    backgroundColor: '#CCE2FF',
+    padding: '5px 15px',
+    borderRadius: '4px',
+  },
+
+  removeTagButton: {
+    cursor: 'pointer',
+  },
+
+  allowedStrategiesContainer: {
+    marginTop: '20px',
+  },
+
+  tagsWrapper: {
+    display: 'flex',
+    gap: '12px',
+    flexWrap: 'wrap',
+  },
+
+  securityButton: {
+    width: '100%',
   },
 }))

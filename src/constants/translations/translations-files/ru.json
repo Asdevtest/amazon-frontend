@@ -1256,5 +1256,9 @@
   "Are you sure you want to create a product?": "Вы уверены, что хотите создать продукт?",
   "Idea edited": "Идея изменена",
   "Idea created": "Идея создана",
-  "The total cost of shipping the box will be": "Общая сумма за отправку коробки составит"
+  "The total cost of shipping the box will be": "Общая сумма за отправку коробки составит",
+  "Old password": "Старый пароль",
+  "New password": "Новый пароль",
+  "Re-enter the new password": "Повторите новый пароль",
+  "Add user access tags": "Добавить теги доступа пользователя"
 }
