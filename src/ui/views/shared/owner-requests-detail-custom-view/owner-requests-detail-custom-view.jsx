@@ -239,7 +239,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             title={t(TranslationKey.Attention)}
             message={confirmModalSettings.message}
             successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.No)}
+            cancelBtnText={t(TranslationKey.Cancel)}
             onClickSuccessBtn={confirmModalSettings.onSubmit}
             onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
           />

@@ -1260,5 +1260,6 @@
   "Old password": "Старый пароль",
   "New password": "Новый пароль",
   "Re-enter the new password": "Повторите новый пароль",
-  "Add user access tags": "Добавить теги доступа пользователя"
+  "Add user access tags": "Добавить теги доступа пользователя",
+  "Dimensions from warehouse": "Размеры от склада"
 }

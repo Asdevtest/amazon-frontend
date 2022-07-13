@@ -16,21 +16,24 @@ export const TabSearchSupplierContent = ({disabled, disabledSubmit, onChangeFiel
       <Field
         disabled={disabled}
         label={t(TranslationKey['Price to find a supplier']) + ', $'}
-        className={classNames.textField}
+        labelClasses={disabled && classNames.unselectable}
+        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
         value={formFields.costOfFindingSupplier}
         onChange={onChangeField('costOfFindingSupplier')}
       />
       <Field
         disabled={disabled}
+        labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Price for the Supervisor to check the search for a supplier from the Client']) + ', $'}
-        className={classNames.textField}
+        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
         value={formFields.costOfCheckingProduct}
         onChange={onChangeField('costOfCheckingProduct')}
       />
       <Field
         disabled={disabled}
+        labelClasses={disabled && classNames.unselectable}
         label={t(TranslationKey['Time to find a supplier, h'])}
-        className={classNames.textField}
+        className={disabled ? classNames.textFieldUnSelection : classNames.textField}
         value={formFields.deadlineForFindingSupplier}
         onChange={onChangeField('deadlineForFindingSupplier')}
       />

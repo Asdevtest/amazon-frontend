@@ -26,6 +26,25 @@ export const useClassNames = makeStyles(() => ({
     marginLeft: '10px',
   },
 
+  textFieldUnSelection: {
+    width: '100%',
+    minHeight: '40px',
+    color: 'rgba(61, 81, 112, 1)',
+    padding: '8px',
+    fontSize: '16px',
+    outline: 'none',
+    border: '1px solid rgba(217, 222, 229, 1)',
+    borderRadius: '10px',
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+    fontWeight: '400',
+    lineHeight: '1.5',
+
+    '& > ::selection': {
+      userSelect: 'none',
+    },
+  },
+
   textField: {
     width: '100%',
     minHeight: '40px',
@@ -119,5 +138,9 @@ export const useClassNames = makeStyles(() => ({
 
   hideBlock: {
     display: 'none',
+  },
+
+  unselectable: {
+    userSelect: 'none',
   },
 }))

@@ -198,4 +198,14 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  numberOfFilesFlex: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: '10px',
+    '& > :first-child': {
+      fontSize: '14px',
+    },
+  },
 }))

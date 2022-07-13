@@ -1259,6 +1259,7 @@ export enum TranslationKey {
   'New password' = 'New password',
   'Re-enter the new password' = 'Re-enter the new password',
   'Add user access tags' = 'Add user access tags',
+  'Dimensions from warehouse' = 'Dimensions from warehouse',
 
   // '' = '',
   // '' = '',
