@@ -188,8 +188,8 @@ export const useClassNames = makeStyles(() => ({
 
   image: {
     cursor: 'pointer',
-    minWidth: 40,
-    minHeight: 40,
+    minWidth: 60,
+    minHeight: 60,
   },
 
   emptyWrapper: {

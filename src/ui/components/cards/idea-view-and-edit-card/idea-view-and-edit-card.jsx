@@ -159,7 +159,9 @@ export const IdeaViewAndEditCard = ({
       </div>
 
       <div className={clsx(classNames.middleBlock, {[classNames.fullMiddleBlock]: showFullCard})}>
-        <Typography variant="h5">{t(TranslationKey['Supplier search options'])}</Typography>
+        <Typography className={classNames.supplierSearchTitle}>
+          {t(TranslationKey['Supplier search options'])}
+        </Typography>
 
         <div className={classNames.cardWrapper}>
           <div className={classNames.cardBlockWrapper}>
@@ -249,8 +251,8 @@ export const IdeaViewAndEditCard = ({
               }
             />
 
-            <Grid container className={classNames.shortFieldsWrapper} spacing={2}>
-              <Grid item>
+            <div className={classNames.shortFieldsWrapper}>
+              <div className={classNames.shortFieldsSubWrapper}>
                 <Field
                   disabled={disableFields}
                   labelClasses={classNames.spanLabel}
@@ -259,8 +261,6 @@ export const IdeaViewAndEditCard = ({
                   value={formFields.quantity}
                   onChange={onChangeField('quantity')}
                 />
-              </Grid>
-              <Grid item>
                 <Field
                   disabled={disableFields}
                   labelClasses={classNames.spanLabel}
@@ -269,39 +269,38 @@ export const IdeaViewAndEditCard = ({
                   value={formFields.price}
                   onChange={onChangeField('price')}
                 />
-              </Grid>
-              <Grid item>
-                <div className={classNames.sizesWrapper}>
-                  <Field
-                    disabled={disableFields}
-                    labelClasses={classNames.spanLabel}
-                    inputClasses={classNames.sizesInput}
-                    containerClasses={classNames.sizesContainer}
-                    label={t(TranslationKey.Width)}
-                    value={formFields.width}
-                    onChange={onChangeField('width')}
-                  />
-                  <Field
-                    disabled={disableFields}
-                    labelClasses={classNames.spanLabel}
-                    inputClasses={classNames.sizesInput}
-                    containerClasses={classNames.sizesContainer}
-                    label={t(TranslationKey.Height)}
-                    value={formFields.height}
-                    onChange={onChangeField('height')}
-                  />
-                  <Field
-                    disabled={disableFields}
-                    labelClasses={classNames.spanLabel}
-                    inputClasses={classNames.sizesInput}
-                    containerClasses={classNames.sizesContainer}
-                    label={t(TranslationKey.Length)}
-                    value={formFields.length}
-                    onChange={onChangeField('length')}
-                  />
-                </div>
-              </Grid>
-            </Grid>
+              </div>
+
+              <div className={classNames.sizesWrapper}>
+                <Field
+                  disabled={disableFields}
+                  labelClasses={classNames.spanLabel}
+                  inputClasses={classNames.sizesInput}
+                  containerClasses={classNames.sizesContainer}
+                  label={t(TranslationKey.Width)}
+                  value={formFields.width}
+                  onChange={onChangeField('width')}
+                />
+                <Field
+                  disabled={disableFields}
+                  labelClasses={classNames.spanLabel}
+                  inputClasses={classNames.sizesInput}
+                  containerClasses={classNames.sizesContainer}
+                  label={t(TranslationKey.Height)}
+                  value={formFields.height}
+                  onChange={onChangeField('height')}
+                />
+                <Field
+                  disabled={disableFields}
+                  labelClasses={classNames.spanLabel}
+                  inputClasses={classNames.sizesInput}
+                  containerClasses={classNames.sizesContainer}
+                  label={t(TranslationKey.Length)}
+                  value={formFields.length}
+                  onChange={onChangeField('length')}
+                />
+              </div>
+            </div>
           </div>
         </div>
 

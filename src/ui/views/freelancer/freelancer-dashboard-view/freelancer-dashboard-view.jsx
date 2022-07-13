@@ -1,21 +1,19 @@
 import React, {Component} from 'react'
 
-import {Grid, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {getFreelancerDashboardCardConfig, FreelancerDashboardCardDataKey} from '@constants/dashboard-configs'
+import {getFreelancerDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
-import {DashboardInfoCard} from '@components/dashboards/dashboard-info-card'
+import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
-import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {FreelancerDashboardViewModel} from './freelacer-dashboard-view.model'
@@ -32,7 +30,7 @@ export class FreelancerDashboardViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, onTriggerDrawerOpen, userInfo} = this.viewModel
+    const {drawerOpen, onTriggerDrawerOpen, userInfo, dashboardData, onClickInfoCardViewMode} = this.viewModel
     const {classes: classNames} = this.props
 
     return (
@@ -47,39 +45,19 @@ export class FreelancerDashboardViewRaw extends Component {
           <Appbar title={t(TranslationKey.Dashboard)} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DashboardBalance user={userInfo} />
-              <Typography variant="h6">{t(TranslationKey.Dashboard)}</Typography>
-              <Grid container className={classNames.dashboardCardWrapper} justify="center" spacing={3}>
-                {this.renderDashboardCards()}
-              </Grid>
+
+              <div className={classNames.amountWithLabelCardsWrapper}>
+                <SectionalDashboard
+                  config={getFreelancerDashboardCardConfig()}
+                  valuesData={dashboardData}
+                  onClickViewMore={onClickInfoCardViewMode}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
       </React.Fragment>
     )
-  }
-
-  renderDashboardCards = () =>
-    getFreelancerDashboardCardConfig().map(item => (
-      <Grid key={`dashboardCard_${item.dataKey}`} item xs={6} lg={4}>
-        <DashboardInfoCard
-          value={this.getCardValueByDataKey(item.dataKey)}
-          title={item.title}
-          color={item.color}
-          route={item.route || false}
-          onClickViewMore={this.viewModel.onClickInfoCardViewMode}
-        />
-      </Grid>
-    ))
-
-  getCardValueByDataKey = dataKey => {
-    switch (dataKey) {
-      case FreelancerDashboardCardDataKey.PRODUCTS:
-        return this.viewModel.productsVacant.length
-      case FreelancerDashboardCardDataKey.CUR_BALANCE:
-        return toFixed(this.viewModel.balance, 2)
-      case FreelancerDashboardCardDataKey.FINES:
-        return toFixed('0.00', 2)
-    }
   }
 }
 

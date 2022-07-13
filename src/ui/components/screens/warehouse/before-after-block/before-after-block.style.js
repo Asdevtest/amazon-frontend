@@ -108,7 +108,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   photoWrapper: {
-    width: '230px',
+    width: '300px',
     marginLeft: '20px',
     minHeight: '150px',
   },

@@ -230,7 +230,7 @@ const Box = observer(
               <div className={classNames.photoWrapper}>
                 <Typography>{t(TranslationKey['Box photos:'])}</Typography>
 
-                <PhotoAndFilesCarousel files={box.images} width="200px" />
+                <PhotoAndFilesCarousel files={box.images} width="300px" />
 
                 {isNewBox && box.tmpImages?.length ? (
                   <div>
@@ -276,7 +276,7 @@ const Box = observer(
               <div className={classNames.photoWrapper}>
                 <Typography>{t(TranslationKey['Order photos:'])}</Typography>
 
-                <PhotoAndFilesCarousel files={box.items[0].order.images} width="200px" />
+                <PhotoAndFilesCarousel files={box.items[0].order.images} width="300px" />
               </div>
             )}
           </div>
