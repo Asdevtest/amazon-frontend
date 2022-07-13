@@ -320,10 +320,7 @@ export class ClientWarehouseViewRaw extends Component {
 
         <ConfirmWithCommentModal
           openModal={showConfirmWithCommentModal}
-          setOpenModal={() => {
-            onTriggerOpenModal('showConfirmWithCommentModal')
-            // onTriggerOpenModal('showConfirmModal')
-          }}
+          setOpenModal={() => onTriggerOpenModal('showConfirmWithCommentModal')}
           titleText={t(TranslationKey.Attention)}
           commentLabelText={t(TranslationKey['Are you sure you want to cancel the task?'])}
           okBtnText={t(TranslationKey.Ok)}

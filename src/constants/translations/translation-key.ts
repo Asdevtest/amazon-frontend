@@ -1254,7 +1254,7 @@ export enum TranslationKey {
   'Are you sure you want to create a product?' = 'Are you sure you want to create a product?',
   'Idea edited' = 'Idea edited',
   'Idea created' = 'Idea created',
-  // '' = '',
+  'The total cost of shipping the box will be' = 'The total cost of shipping the box will be',
   // '' = '',
   // '' = '',
   // '' = '',

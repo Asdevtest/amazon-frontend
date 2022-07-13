@@ -1255,5 +1255,6 @@
   "Product code field is required for this action": "Для этого действия требуется поле код продукта",
   "Are you sure you want to create a product?": "Вы уверены, что хотите создать продукт?",
   "Idea edited": "Идея изменена",
-  "Idea created": "Идея создана"
+  "Idea created": "Идея создана",
+  "The total cost of shipping the box will be": "Общая сумма за отправку коробки составит"
 }
