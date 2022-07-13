@@ -212,4 +212,8 @@ export const useClassNames = makeStyles(() => ({
     height: '100%',
     gap: '60px',
   },
+
+  alertText: {
+    color: 'red',
+  },
 }))

@@ -131,7 +131,7 @@ export const EditBoxTasksModal = ({
 
     newFormFields.tmpImages = [...images]
 
-    setEditingBox(newFormFields)
+    setEditingBox(() => newFormFields)
   }
 
   const onSubmit = () => {

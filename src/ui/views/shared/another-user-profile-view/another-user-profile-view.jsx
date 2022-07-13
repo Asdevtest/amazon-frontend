@@ -13,7 +13,12 @@ import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
+import {OrderProductModal} from '@components/screens/client/order-product-modal'
 import {UserProfile} from '@components/screens/users-views/user-profile-view/user-profile'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -32,6 +37,16 @@ class AnotherUserProfileViewRaw extends Component {
 
   render() {
     const {
+      volumeWeightCoefficient,
+      destinations,
+      storekeepers,
+      selectedProduct,
+      showOrderModal,
+      showConfirmModal,
+      confirmModalSettings,
+      showWarningModal,
+      showSuccessModal,
+      showWarningModalText,
       sortModel,
       filterModel,
       curPage,
@@ -52,6 +67,11 @@ class AnotherUserProfileViewRaw extends Component {
       onChangeCurPage,
       onChangeRowsPerPage,
       onChangeSortingModel,
+
+      onTriggerOpenModal,
+      onDoubleClickBarcode,
+      onClickOrderNowBtn,
+      onClickCancelBtn,
     } = this.viewModel
 
     return (
@@ -112,6 +132,52 @@ class AnotherUserProfileViewRaw extends Component {
               ) : null}
             </MainContent>
           </Appbar>
+
+          <Modal openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
+            <OrderProductModal
+              volumeWeightCoefficient={volumeWeightCoefficient}
+              destinations={destinations}
+              storekeepers={storekeepers}
+              requestStatus={requestStatus}
+              selectedProductsData={[selectedProduct]}
+              onTriggerOpenModal={onTriggerOpenModal}
+              onDoubleClickBarcode={onDoubleClickBarcode}
+              onSubmit={onClickOrderNowBtn}
+              onClickCancel={onClickCancelBtn}
+            />
+          </Modal>
+
+          <ConfirmationModal
+            openModal={showConfirmModal}
+            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+            isWarning={confirmModalSettings.isWarning}
+            title={confirmModalSettings.confirmTitle}
+            message={confirmModalSettings.confirmMessage}
+            successBtnText={t(TranslationKey.Yes)}
+            cancelBtnText={t(TranslationKey.Cancel)}
+            onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+            onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+          />
+
+          <WarningInfoModal
+            openModal={showWarningModal}
+            setOpenModal={() => onTriggerOpenModal('showWarningModal')}
+            title={showWarningModalText}
+            btnText={t(TranslationKey.Ok)}
+            onClickBtn={() => {
+              onTriggerOpenModal('showWarningModal')
+            }}
+          />
+
+          <SuccessInfoModal
+            openModal={showSuccessModal}
+            setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+            title={t(TranslationKey['Order successfully created!'])}
+            successBtnText={t(TranslationKey.Ok)}
+            onClickSuccessBtn={() => {
+              onTriggerOpenModal('showSuccessModal')
+            }}
+          />
         </Main>
       </>
     )

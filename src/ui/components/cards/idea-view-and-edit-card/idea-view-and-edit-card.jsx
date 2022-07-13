@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
@@ -14,7 +15,7 @@ import {Button} from '@components/buttons/button'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
-// import {TableSupplier} from '@components/product/table-supplier'
+import {TableSupplier} from '@components/product/table-supplier'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
@@ -32,6 +33,7 @@ export const IdeaViewAndEditCard = ({
   onClickSaveBtn,
   onSetCurIdea,
   onEditIdea,
+  onCreateProduct,
 }) => {
   const classNames = useClassNames()
 
@@ -157,7 +159,9 @@ export const IdeaViewAndEditCard = ({
       </div>
 
       <div className={clsx(classNames.middleBlock, {[classNames.fullMiddleBlock]: showFullCard})}>
-        <Typography variant="h5">{t(TranslationKey['Supplier search options'])}</Typography>
+        <Typography className={classNames.supplierSearchTitle}>
+          {t(TranslationKey['Supplier search options'])}
+        </Typography>
 
         <div className={classNames.cardWrapper}>
           <div className={classNames.cardBlockWrapper}>
@@ -247,8 +251,8 @@ export const IdeaViewAndEditCard = ({
               }
             />
 
-            <Grid container className={classNames.shortFieldsWrapper} spacing={2}>
-              <Grid item>
+            <div className={classNames.shortFieldsWrapper}>
+              <div className={classNames.shortFieldsSubWrapper}>
                 <Field
                   disabled={disableFields}
                   labelClasses={classNames.spanLabel}
@@ -257,8 +261,6 @@ export const IdeaViewAndEditCard = ({
                   value={formFields.quantity}
                   onChange={onChangeField('quantity')}
                 />
-              </Grid>
-              <Grid item>
                 <Field
                   disabled={disableFields}
                   labelClasses={classNames.spanLabel}
@@ -267,39 +269,38 @@ export const IdeaViewAndEditCard = ({
                   value={formFields.price}
                   onChange={onChangeField('price')}
                 />
-              </Grid>
-              <Grid item>
-                <div className={classNames.sizesWrapper}>
-                  <Field
-                    disabled={disableFields}
-                    labelClasses={classNames.spanLabel}
-                    inputClasses={classNames.sizesInput}
-                    containerClasses={classNames.sizesContainer}
-                    label={t(TranslationKey.Width)}
-                    value={formFields.width}
-                    onChange={onChangeField('width')}
-                  />
-                  <Field
-                    disabled={disableFields}
-                    labelClasses={classNames.spanLabel}
-                    inputClasses={classNames.sizesInput}
-                    containerClasses={classNames.sizesContainer}
-                    label={t(TranslationKey.Height)}
-                    value={formFields.height}
-                    onChange={onChangeField('height')}
-                  />
-                  <Field
-                    disabled={disableFields}
-                    labelClasses={classNames.spanLabel}
-                    inputClasses={classNames.sizesInput}
-                    containerClasses={classNames.sizesContainer}
-                    label={t(TranslationKey.Length)}
-                    value={formFields.length}
-                    onChange={onChangeField('length')}
-                  />
-                </div>
-              </Grid>
-            </Grid>
+              </div>
+
+              <div className={classNames.sizesWrapper}>
+                <Field
+                  disabled={disableFields}
+                  labelClasses={classNames.spanLabel}
+                  inputClasses={classNames.sizesInput}
+                  containerClasses={classNames.sizesContainer}
+                  label={t(TranslationKey.Width)}
+                  value={formFields.width}
+                  onChange={onChangeField('width')}
+                />
+                <Field
+                  disabled={disableFields}
+                  labelClasses={classNames.spanLabel}
+                  inputClasses={classNames.sizesInput}
+                  containerClasses={classNames.sizesContainer}
+                  label={t(TranslationKey.Height)}
+                  value={formFields.height}
+                  onChange={onChangeField('height')}
+                />
+                <Field
+                  disabled={disableFields}
+                  labelClasses={classNames.spanLabel}
+                  inputClasses={classNames.sizesInput}
+                  containerClasses={classNames.sizesContainer}
+                  label={t(TranslationKey.Length)}
+                  value={formFields.length}
+                  onChange={onChangeField('length')}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -316,10 +317,11 @@ export const IdeaViewAndEditCard = ({
       {inCreate || !disableFields ? (
         <div className={classNames.addOrEditBtnsWrapper}>
           <Button
+            success
             variant="contained"
             color="primary"
-            className={[classNames.actionButton, classNames.successBtn]}
-            onClick={() => onClickSaveBtn(formFields)}
+            className={classNames.actionButton}
+            onClick={() => onClickSaveBtn(formFields, images)}
           >
             {t(TranslationKey.Save)}
           </Button>
@@ -339,13 +341,13 @@ export const IdeaViewAndEditCard = ({
         <div className={classNames.existedIdeaBtnsWrapper}>
           <div className={classNames.existedIdeaBtnsSubWrapper}>
             <Button
-              disabled
+              success
               tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
               tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
               variant="contained"
               color="primary"
-              className={[classNames.actionButton, classNames.successBtn]}
-              // onClick={() => onClickViewMore(item._id)}
+              className={[classNames.actionButton]}
+              onClick={() => onCreateProduct(formFields)}
             >
               {t(TranslationKey['Create a product card'])}
             </Button>
@@ -364,7 +366,10 @@ export const IdeaViewAndEditCard = ({
                 variant="contained"
                 color="alert"
                 className={[classNames.actionButton, classNames.cancelBtn, classNames.btnLeftMargin]}
-                onClick={() => onRemove(idea._id)}
+                onClick={() => {
+                  // console.log('formFields', formFields)
+                  onRemove(formFields._id)
+                }}
               >
                 {t(TranslationKey.Remove)}
               </Button>

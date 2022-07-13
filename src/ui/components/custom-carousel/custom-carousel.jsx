@@ -68,7 +68,7 @@ export const CustomCarousel = observer(({children, title, view = 'simple'}) => {
         }),
       ),
     )
-  }, [SettingsModel.languageTag])
+  }, [SettingsModel.languageTag, children])
 
   return (
     <div className={classNames.mainContainer}>

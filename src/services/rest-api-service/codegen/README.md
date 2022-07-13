@@ -468,6 +468,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject80](docs/InlineObject80.md)
  - [TestSwagger.InlineObject81](docs/InlineObject81.md)
  - [TestSwagger.InlineObject82](docs/InlineObject82.md)
+ - [TestSwagger.InlineObject83](docs/InlineObject83.md)
  - [TestSwagger.InlineObject9](docs/InlineObject9.md)
  - [TestSwagger.InlineResponse200](docs/InlineResponse200.md)
  - [TestSwagger.InlineResponse2001](docs/InlineResponse2001.md)

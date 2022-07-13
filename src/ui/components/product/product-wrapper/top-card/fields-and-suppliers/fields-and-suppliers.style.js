@@ -274,4 +274,8 @@ export const useClassNames = makeStyles(() => ({
     // flexDirection: 'column',
     // minHeight: 500
   },
+
+  disabledOption: {
+    color: 'rgba(0, 0, 0, 0.2)',
+  },
 }))

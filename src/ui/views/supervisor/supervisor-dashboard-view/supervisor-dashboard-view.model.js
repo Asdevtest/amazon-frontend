@@ -163,7 +163,7 @@ export class SupervisorDashboardViewModel {
             2,
           ),
           [SupervisorDashboardCardDataKey.FINES]: toFixed(
-            result.filter(el => el.sum < 0).reduce((ac, cur) => (ac += cur.sum), 0),
+            result.filter(el => el.paymentType === 'FINE').reduce((ac, cur) => (ac += cur.sum), 0),
             2,
           ),
         }

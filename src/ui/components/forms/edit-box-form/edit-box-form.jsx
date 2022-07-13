@@ -74,9 +74,14 @@ const WarehouseDemensions = ({orderBox, sizeSetting}) => {
         <Field
           disabled
           containerClasses={classNames.numberInputField}
+          labelClasses={clsx({[classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse < 12})}
+          inputProps={{className: clsx({[classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse < 12})}}
           label={t(TranslationKey['Final weight, kg'])}
           value={toFixed(orderBox.weightFinalAccountingKgWarehouse, 4) || 0}
         />
+        {orderBox.weightFinalAccountingKgWarehouse < 12 ? (
+          <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
+        ) : null}
       </div>
     </div>
   )

@@ -75,6 +75,7 @@ export class ResearcherProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  user={userInfo}
                   userRole={userInfo.role}
                   imagesForLoad={imagesForLoad}
                   showProgress={showProgress}

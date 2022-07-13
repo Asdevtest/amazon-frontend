@@ -50,9 +50,9 @@ export const useClassNames = makeStyles(theme => ({
 
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
-    flexDirection: 'row',
     justifyContent: 'center',
     alignSelf: 'center',
+    alignItems: 'flex-start',
     width: '100%',
   },
   numberInputFieldsWrapper: {
@@ -157,5 +157,9 @@ export const useClassNames = makeStyles(theme => ({
       opacity: '0.8',
       backgroundColor: '#4CAF50',
     },
+  },
+
+  alertText: {
+    color: 'red',
   },
 }))

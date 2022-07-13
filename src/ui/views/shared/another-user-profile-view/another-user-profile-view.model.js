@@ -2,17 +2,26 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
+import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
 
 import {AdministratorModel} from '@models/administrator-model'
+import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
+import {UserModel} from '@models/user-model'
 
+import {clientExchangeViewColumns} from '@components/table-columns/client/client-exchange-columns'
 // import {UserModel} from '@models/user-model'
 import {vacByUserIdExchangeColumns} from '@components/table-columns/product/vac-by-user-id-exchange-columns'
 
 import {clientProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
-import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 export class AnotherProfileViewModel {
   history = undefined
@@ -49,12 +58,44 @@ export class AnotherProfileViewModel {
     accountCreateAt: 11,
   }
 
+  get curUser() {
+    return UserModel.userInfo
+  }
+
+  rowHandlers = {
+    onClickLaunchPrivateLabelBtn: item => this.onClickLaunchPrivateLabelBtn(item),
+  }
+
+  showConfirmModal = false
+  showOrderModal = false
+  showWarningModal = false
+  showSuccessModal = false
+  showWarningModalText = ''
+
+  selectedProduct = undefined
+
+  storekeepers = []
+
+  destinations = []
+
+  volumeWeightCoefficient = undefined
+
+  confirmModalSettings = {
+    isWarning: false,
+    confirmTitle: '',
+    confirmMessage: '',
+    onClickConfirm: () => {},
+  }
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = vacByUserIdExchangeColumns()
+  columnsModel =
+    this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]
+      ? clientExchangeViewColumns(this.rowHandlers)
+      : vacByUserIdExchangeColumns()
 
   constructor({history}) {
     this.history = history
@@ -95,10 +136,171 @@ export class AnotherProfileViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = vacByUserIdExchangeColumns().map(el => ({
+      this.columnsModel = (
+        this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]
+          ? clientExchangeViewColumns(this.rowHandlers)
+          : vacByUserIdExchangeColumns()
+      ).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
+    }
+  }
+
+  onDoubleClickBarcode = item => {
+    this.setSelectedProduct(item)
+    this.onTriggerOpenModal('showSetBarcodeModal')
+  }
+
+  onClickCancelBtn = () => {
+    this.onTriggerOpenModal('showOrderModal')
+
+    this.selectedProduct = {}
+
+    this.showWarningModalText = t(TranslationKey['This item has been moved to Inventory'])
+    this.onTriggerOpenModal('showWarningModal')
+  }
+
+  onClickLaunchPrivateLabelBtn(product) {
+    this.selectedProduct = product
+
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You buy a product card, are you sure?']),
+      confirmMessage: `${t(TranslationKey['You will be charged'])} (${
+        this.selectedProduct && toFixedWithDollarSign(this.selectedProduct.priceForClient, 2)
+      })?`,
+      onClickConfirm: () => this.onClickBuyProductBtn(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onClickBuyProductBtn() {
+    try {
+      await ClientModel.makePayments([this.selectedProduct._id])
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.openCreateOrder()
+
+      this.updateUserInfo()
+      this.loadData()
+    } catch (error) {
+      this.showWarningModalText = t(TranslationKey["You can't buy the product"])
+      this.onTriggerOpenModal('showWarningModal')
+
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  async openCreateOrder() {
+    try {
+      const storekeepers = await StorekeeperModel.getStorekeepers()
+
+      const destinations = await ClientModel.getDestinations()
+
+      const result = await UserModel.getPlatformSettings()
+
+      runInAction(() => {
+        this.storekeepers = storekeepers
+
+        this.destinations = destinations
+
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      })
+
+      this.onTriggerOpenModal('showOrderModal')
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  async updateUserInfo() {
+    await UserModel.getUserInfo()
+  }
+
+  onClickOrderNowBtn = (orderData, totalOrdersCost) => {
+    this.ordersDataStateToSubmit = orderData[0]
+
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmTitle: t(TranslationKey['You are making an order, are you sure?']),
+      confirmMessage: `${t(TranslationKey['Total amount'])}: ${totalOrdersCost}. ${t(
+        TranslationKey['Confirm order'],
+      )}?`,
+      onClickConfirm: () => this.onLaunchPrivateLabel(),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async onLaunchPrivateLabel() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      const requestProduct = getObjectFilteredByKeyArrayBlackList({...this.ordersDataStateToSubmit}, [
+        'tmpResearcherName',
+        'tmpBuyerName',
+        'tmpStrategyStatus',
+      ])
+
+      await this.createOrder(requestProduct)
+      this.setRequestStatus(loadingStatuses.success)
+
+      this.onTriggerOpenModal('showOrderModal')
+      this.onTriggerOpenModal('showSuccessModal')
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.loadData()
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  async createOrder(orderObject) {
+    try {
+      this.uploadedFiles = []
+
+      if (orderObject.tmpBarCode.length) {
+        await onSubmitPostImages.call(this, {images: orderObject.tmpBarCode, type: 'uploadedFiles'})
+      } else if (!orderObject.barCode) {
+        await ClientModel.updateProductBarCode(orderObject.productId, {barCode: null})
+      }
+
+      const createorderData = {
+        amount: orderObject.amount,
+        deliveryMethod: orderObject.deliveryMethod,
+        warehouse: orderObject.warehouse,
+        clientComment: orderObject.clientComment,
+        productId: orderObject.productId,
+        storekeeperId: orderObject.storekeeperId,
+        destinationId: orderObject.destinationId,
+        logicsTariffId: orderObject.logicsTariffId,
+      }
+      await ClientModel.createOrder(createorderData)
+
+      if (this.uploadedFiles.length) {
+        await ClientModel.updateProductBarCode(orderObject.productId, {barCode: this.uploadedFiles[0]})
+      }
+
+      this.selectedProduct = {}
+      await this.updateUserInfo()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+      throw new Error('Failed to create order')
     }
   }
 

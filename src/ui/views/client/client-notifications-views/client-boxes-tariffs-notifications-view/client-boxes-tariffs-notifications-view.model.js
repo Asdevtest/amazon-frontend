@@ -4,6 +4,7 @@ import {BoxStatus} from '@constants/box-status'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
@@ -13,6 +14,7 @@ import {UserModel} from '@models/user-model'
 
 import {clientBoxesTariffsNotificationsViewColumns} from '@components/table-columns/client/client-boxes-tariffs-notifications-columns'
 
+import {calcFinalWeightForBox} from '@utils/calculation'
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
@@ -137,9 +139,25 @@ export class ClientBoxesTariffsNotificationsViewModel {
     try {
       this.tariffIdToChange = tariffId
 
+      const platformSettings = await UserModel.getPlatformSettings()
+
+      const curBoxFinalWeight = calcFinalWeightForBox(this.curBox, platformSettings.volumeWeightCoefficient)
+
+      const curStorekeeper = this.storekeepersData.find(el => el._id === this.curBox?.storekeeper._id)
+
+      const firstNumOfCode = this.curBox.destination.zipCode[0]
+
+      const regionOfDeliveryName = zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
+
+      const tariffRate = curStorekeeper.tariffLogistics.find(el => el._id === tariffId)?.conditionsByRegion[
+        regionOfDeliveryName
+      ]?.rate
+
+      const finalSum = curBoxFinalWeight * tariffRate
+
       this.confirmModalSettings = {
         isWarning: false,
-        message: t(TranslationKey['Confirm tariff selection']),
+        message: `${t(TranslationKey['The total cost of shipping the box will be'])}: ${finalSum} $`,
         onClickOkBtn: () => this.onSubmitSelectTariff(),
       }
 
@@ -202,10 +220,10 @@ export class ClientBoxesTariffsNotificationsViewModel {
     try {
       const result = await BoxesModel.getBoxesForCurClient(BoxStatus.NEED_TO_UPDATE_THE_TARIFF)
 
-      const volumeWeightCoefficient = await UserModel.getPlatformSettings()
+      const platformSettings = await UserModel.getPlatformSettings()
 
       runInAction(() => {
-        this.boxes = clientWarehouseDataConverter(result, volumeWeightCoefficient).sort(
+        this.boxes = clientWarehouseDataConverter(result, platformSettings.volumeWeightCoefficient).sort(
           sortObjectsArrayByFiledDateWithParseISO('createdAt'),
         )
       })

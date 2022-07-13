@@ -7,6 +7,7 @@ import {mapProductStrategyStatusEnumToKey, ProductStrategyStatus} from '@constan
 
 import {ResearcherModel} from '@models/researcher-model'
 import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
 
 import {researcherProductsViewColumns} from '@components/table-columns/researcher/researcher-products-columns'
 
@@ -60,6 +61,10 @@ export class ResearcherProductsViewModel {
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
+  }
+
+  get user() {
+    return UserModel.userInfo
   }
 
   constructor({history}) {

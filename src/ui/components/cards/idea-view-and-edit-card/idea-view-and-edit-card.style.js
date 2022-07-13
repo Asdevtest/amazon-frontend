@@ -19,9 +19,9 @@ export const useClassNames = makeStyles(() => ({
 
   cardBlockWrapper: {
     width: '50%',
-    height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 
   cardImg: {
@@ -200,11 +200,20 @@ export const useClassNames = makeStyles(() => ({
   },
 
   shortFieldsWrapper: {
-    // height: '200px',
+    width: '100%',
+
+    justifySelf: 'flex-end',
+  },
+
+  shortFieldsSubWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
 
   shortInput: {
-    width: '341px',
+    width: '95%',
   },
 
   sizesWrapper: {
@@ -273,5 +282,11 @@ export const useClassNames = makeStyles(() => ({
   criterionsField: {
     height: 200,
     width: '100%',
+  },
+
+  supplierSearchTitle: {
+    fontWeight: 600,
+    fontSize: 18,
+    color: '#001029',
   },
 }))

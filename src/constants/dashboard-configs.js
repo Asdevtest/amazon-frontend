@@ -82,26 +82,27 @@ export const getResearcherDashboardCardConfig = () => [
 ]
 
 export const FreelancerDashboardCardDataKey = {
-  REQUESTS: 'REQUESTS',
-  CUR_BALANCE: 'CUR_BALANCE',
+  REPLENISH: 'REPLENISH',
   FINES: 'FINES',
 }
 export const getFreelancerDashboardCardConfig = () => [
   {
-    dataKey: FreelancerDashboardCardDataKey.REQUESTS,
-    title: t(TranslationKey['My requests']),
-    color: '#63c2de',
-    route: '/freelancer/exchange/requests/custom',
-  },
-  {
-    dataKey: FreelancerDashboardCardDataKey.CUR_BALANCE,
-    title: t(TranslationKey['Current balance']),
-    color: '#4dbd74',
-  },
-  {
-    dataKey: FreelancerDashboardCardDataKey.FINES,
-    title: t(TranslationKey.Fines),
-    color: '#f86c6b',
+    key: 'FINANCES',
+    title: t(TranslationKey.Finances),
+    items: [
+      {
+        dataKey: ResearcherDashboardCardDataKey.REPLENISH,
+        title: t(TranslationKey.Accruals),
+        color: '#00B746',
+        route: '/freelancer/finances',
+      },
+      {
+        dataKey: ResearcherDashboardCardDataKey.FINES,
+        title: t(TranslationKey.Fines),
+        color: '#BC3030',
+        route: '/freelancer/finances',
+      },
+    ],
   },
 ]
 

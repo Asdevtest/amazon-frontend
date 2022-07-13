@@ -15,6 +15,11 @@ class IdeaModelStatic {
     const response = await restApiService.ideaApi.apiV1IdeasGuidPatch(id, {body: data})
     return response
   }
+
+  removeIdea = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasGuidDelete(id)
+    return response
+  }
 }
 
 export const IdeaModel = new IdeaModelStatic()

@@ -26,6 +26,7 @@ import {styles} from './reasearcher-add-product-form.style'
 
 export const ResearcherAddProductFormRaw = observer(
   ({
+    user,
     formFields,
     onChangeFormFields,
     onClickCheckBtn,
@@ -80,11 +81,15 @@ export const ResearcherAddProductFormRaw = observer(
                     input={<Input />}
                     onChange={onChangeFormFields('strategyStatus')}
                   >
-                    {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
-                      <option key={statusIndex} value={statusCode}>
-                        {mapProductStrategyStatusEnum[statusCode]}
-                      </option>
-                    ))}
+                    <option value={''}>none</option>
+
+                    {Object.keys(mapProductStrategyStatusEnum)
+                      .filter(el => user.allowedStrategies.includes(Number(el)))
+                      .map((statusCode, statusIndex) => (
+                        <option key={statusIndex} value={statusCode}>
+                          {mapProductStrategyStatusEnum[statusCode]}
+                        </option>
+                      ))}
                   </NativeSelect>
                 }
               />

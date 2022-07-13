@@ -33,7 +33,7 @@ const clientToEditStatuses = [
 ]
 
 export const FieldsAndSuppliers = observer(
-  ({showActionBtns, curUserRole, onChangeField, product, productBase, formFieldsValidationErrors}) => {
+  ({user, showActionBtns, curUserRole, onChangeField, product, productBase, formFieldsValidationErrors}) => {
     const classNames = useClassNames()
 
     const [skuLine, setSkuLine] = useState('')
@@ -252,13 +252,21 @@ export const FieldsAndSuppliers = observer(
                     onChange={onChangeField('strategyStatus')}
                   >
                     <option>{'none'}</option>
-                    {Object.keys(mapProductStrategyStatusEnum)
-                      .filter(el => el > 0)
-                      .map((statusCode, statusIndex) => (
-                        <option key={statusIndex} value={statusCode}>
-                          {mapProductStrategyStatusEnum[statusCode]}
-                        </option>
-                      ))}
+                    {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
+                      <option
+                        key={statusIndex}
+                        value={statusCode}
+                        className={clsx({
+                          [classNames.disabledOption]:
+                            checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode)),
+                        })}
+                        disabled={
+                          checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode))
+                        }
+                      >
+                        {mapProductStrategyStatusEnum[statusCode]}
+                      </option>
+                    ))}
                   </NativeSelect>
                 }
               />

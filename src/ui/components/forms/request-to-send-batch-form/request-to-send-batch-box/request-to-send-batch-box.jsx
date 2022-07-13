@@ -202,12 +202,26 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
         </div>
 
         <div className={classNames.dementionsSubWrapper}>
-          <Typography className={classNames.dementionsTitle}>{t(TranslationKey['Final weight'])}</Typography>
+          <Typography
+            className={clsx(classNames.dementionsTitle, {
+              [classNames.alertText]: calcVolumeWeightForBox(box, volumeWeightCoefficient) < 12,
+            })}
+          >
+            {t(TranslationKey['Final weight'])}
+          </Typography>
 
-          <Typography className={classNames.dementionsSpanText}>
+          <Typography
+            className={clsx(classNames.dementionsSpanText, {
+              [classNames.alertText]: calcVolumeWeightForBox(box, volumeWeightCoefficient) < 12,
+            })}
+          >
             {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}
           </Typography>
         </div>
+
+        {calcFinalWeightForBox(box, volumeWeightCoefficient) < 12 ? (
+          <span className={classNames.alertText}>{`(${t(TranslationKey['Weight less than 12 kg!'])})`}</span>
+        ) : null}
       </div>
 
       <div className={clsx(tableCellClsx, classNames.shippingLabelCell)}>

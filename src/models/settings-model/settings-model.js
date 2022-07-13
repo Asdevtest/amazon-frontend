@@ -15,7 +15,7 @@ class SettingsModelStatic {
   languageTag = LanguageKey.en
   isHydrated = false
 
-  showHints = false
+  showHints = true
 
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
