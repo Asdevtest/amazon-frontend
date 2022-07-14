@@ -2,7 +2,6 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
@@ -10,10 +9,10 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {DashboardBalance} from '@components/dashboards/dashboard-balance'
 import {Modal} from '@components/modal'
 import {AdminBalanceModal} from '@components/screens/users-views/sub-users-view/admin-balance-modal'
 
-import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {UserBalanceModel} from './user-balance.model'
@@ -61,15 +60,7 @@ export const UserBalance = observer(({userId}) => {
 
   return (
     <div className={classNames.mainWrapper}>
-      <div className={classNames.balanceWrapper}>
-        <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</Typography>
-        {user.balanceFreeze !== 0 && (
-          <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(
-            user.balanceFreeze,
-            2,
-          )} -freeze`}</Typography>
-        )}
-      </div>
+      <DashboardBalance user={user} />
 
       <Button
         disableElevation

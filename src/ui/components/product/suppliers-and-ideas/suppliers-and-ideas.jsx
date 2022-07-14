@@ -4,6 +4,7 @@ import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {SettingsModel} from '@models/settings-model'
 
@@ -13,6 +14,7 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 
+import {checkIsClient} from '@utils/checks'
 import {t} from '@utils/translations'
 
 import {SuppliersAndIdeasModel} from './suppliers-and-ideas.model'
@@ -28,6 +30,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
   }, [])
 
   const {
+    curUser,
     curIdea,
     inEdit,
     inCreate,
@@ -51,9 +54,11 @@ export const SuppliersAndIdeas = observer(({productId}) => {
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.btnsWrapper}>
-        <Button success variant="contained" onClick={onCreateIdea}>
-          {t(TranslationKey['Add a product idea'])}{' '}
-        </Button>
+        {checkIsClient(UserRoleCodeMap[curUser.role]) ? (
+          <Button success variant="contained" onClick={onCreateIdea}>
+            {t(TranslationKey['Add a product idea'])}{' '}
+          </Button>
+        ) : null}
       </div>
 
       {inCreate ? (
@@ -70,6 +75,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
         ideasData.map((idea, index) => (
           <IdeaViewAndEditCard
             key={index}
+            curUser={curUser}
             curIdea={curIdea}
             inEdit={inEdit}
             idea={idea}

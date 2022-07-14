@@ -18,4 +18,12 @@ export const styles = createStyles(theme => ({
     display: 'flex',
     gap: '10px',
   },
+
+  button: {
+    padding: '0 40px',
+  },
+
+  withdrawBtn: {
+    marginLeft: 50,
+  },
 }))

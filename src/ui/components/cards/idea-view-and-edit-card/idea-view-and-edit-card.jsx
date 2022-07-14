@@ -9,6 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 // import {SettingsModel} from '@models/settings-model'
 import {Button} from '@components/buttons/button'
@@ -18,12 +19,13 @@ import {Input} from '@components/input'
 import {TableSupplier} from '@components/product/table-supplier'
 import {UploadFilesInput} from '@components/upload-files-input'
 
-import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {checkIsClient, checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './idea-view-and-edit-card.style'
 
 export const IdeaViewAndEditCard = ({
+  curUser,
   inEdit,
   inCreate,
   idea,
@@ -79,7 +81,7 @@ export const IdeaViewAndEditCard = ({
     height: idea?.height || '',
     length: idea?.length || '',
 
-    // suppliers: idea?.suppliers || [],
+    suppliers: idea?.suppliers || [],
     _id: idea?._id || null,
   }
 
@@ -304,14 +306,16 @@ export const IdeaViewAndEditCard = ({
           </div>
         </div>
 
-        {/* <Field
+        <Field
           labelClasses={classNames.spanLabel}
           label={t(TranslationKey.Suppliers)}
           containerClasses={classNames.linksContainer}
           inputComponent={
-            <TableSupplier product={formFields} selectedSupplier={selectedSupplier} onClickSupplier={onClickSupplier} />
+            <TableSupplier
+              product={formFields} /* selectedSupplier={selectedSupplier} onClickSupplier={onClickSupplier}*/
+            />
           }
-        /> */}
+        />
       </div>
 
       {inCreate || !disableFields ? (
@@ -352,28 +356,30 @@ export const IdeaViewAndEditCard = ({
               {t(TranslationKey['Create a product card'])}
             </Button>
 
-            <div>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classNames.actionButton}
-                onClick={() => onEditIdea(idea)}
-              >
-                {t(TranslationKey.Edit)}
-              </Button>
+            {checkIsClient(UserRoleCodeMap[curUser.role]) ? (
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classNames.actionButton}
+                  onClick={() => onEditIdea(idea)}
+                >
+                  {t(TranslationKey.Edit)}
+                </Button>
 
-              <Button
-                variant="contained"
-                color="alert"
-                className={[classNames.actionButton, classNames.cancelBtn, classNames.btnLeftMargin]}
-                onClick={() => {
-                  // console.log('formFields', formFields)
-                  onRemove(formFields._id)
-                }}
-              >
-                {t(TranslationKey.Remove)}
-              </Button>
-            </div>
+                <Button
+                  variant="contained"
+                  color="alert"
+                  className={[classNames.actionButton, classNames.cancelBtn, classNames.btnLeftMargin]}
+                  onClick={() => {
+                    // console.log('formFields', formFields)
+                    onRemove(formFields._id)
+                  }}
+                >
+                  {t(TranslationKey.Remove)}
+                </Button>
+              </div>
+            ) : null}
           </div>
 
           <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>

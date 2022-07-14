@@ -35,7 +35,13 @@ export const ConfirmWithCommentModal = ({
 
   const onClickSubmit = () => {
     onSubmit(comment)
+    setComment('')
     setSubmitIsClicked(!submitIsClicked)
+  }
+
+  const onClose = () => {
+    setComment('')
+    setOpenModal()
   }
 
   return (
@@ -70,7 +76,7 @@ export const ConfirmWithCommentModal = ({
             color="primary"
             variant="contained"
             className={classNames.buttonCancel}
-            onClick={setOpenModal}
+            onClick={onClose}
           >
             {cancelBtnText}
           </Button>

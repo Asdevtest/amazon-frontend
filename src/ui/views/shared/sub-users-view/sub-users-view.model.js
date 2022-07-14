@@ -43,12 +43,13 @@ export class SubUsersViewModel {
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
+  firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = subUsersColumns(this.rowHandlers)
+  columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId)
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -67,6 +68,11 @@ export class SubUsersViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.firstRowId,
+      () => this.updateColumnsModel(),
+    )
   }
 
   async updateColumnsModel() {
@@ -80,6 +86,8 @@ export class SubUsersViewModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
+
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -100,7 +108,7 @@ export class SubUsersViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = subUsersColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = subUsersColumns(this.rowHandlers, this.firstRowId).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -150,7 +158,9 @@ export class SubUsersViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
       this.getDataGridState()
+
       await this.getUsers()
 
       await this.getGroupPermissions()

@@ -44,12 +44,13 @@ export class ShopsViewModel {
     onClickSeeGoodsDailyReport: row => this.onClickSeeGoodsDailyReport(row),
   }
 
+  firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = shopsColumns(this.rowHandlers)
+  columnsModel = shopsColumns(this.rowHandlers, this.firstRowId)
 
   warningInfoModalSettings = {
     isWarning: false,
@@ -69,6 +70,11 @@ export class ShopsViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.firstRowId,
+      () => this.updateColumnsModel(),
+    )
   }
 
   async updateColumnsModel() {
@@ -82,6 +88,8 @@ export class ShopsViewModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
+
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -102,7 +110,7 @@ export class ShopsViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = shopsColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = shopsColumns(this.rowHandlers, this.firstRowId).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))

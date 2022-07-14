@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {Typography} from '@material-ui/core'
@@ -13,19 +14,14 @@ import {t} from '@utils/translations'
 export const DashboardBalance = ({user}) => {
   const classNames = useClassNames()
   return (
-    <>
-      <Typography paragraph variant="h6">
-        {t(TranslationKey.Balance)}
-      </Typography>
-      <Typography className={classNames.balanceTitle}>
-        {withDollarSign(getThousandsSeparatedString(toFixed(user.balance, 2), ' '))}
-      </Typography>
-
+    <div className={classNames.balanceWrapper}>
+      <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</Typography>
       {user.balanceFreeze !== 0 && (
-        <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(user.balanceFreeze, 2)} -${t(
-          TranslationKey.Freeze,
-        )}`}</Typography>
+        <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(
+          user.balanceFreeze,
+          2,
+        )} -freeze`}</Typography>
       )}
-    </>
+    </div>
   )
 }

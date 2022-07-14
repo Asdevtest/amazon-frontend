@@ -40,8 +40,8 @@ export class SuppliersAndIdeasModel {
     onClickConfirm: () => {},
   }
 
-  get userRole() {
-    return UserModel.userInfo?.role
+  get curUser() {
+    return UserModel.userInfo
   }
 
   constructor({history, productId}) {
@@ -138,7 +138,7 @@ export class SuppliersAndIdeasModel {
 
       const submitData = getObjectFilteredByKeyArrayBlackList(
         {...formFields, media: this.readyFiles.length ? this.readyFiles : formFields.media},
-        ['_id'],
+        ['_id', 'suppliers'],
       )
 
       if (this.inEdit) {

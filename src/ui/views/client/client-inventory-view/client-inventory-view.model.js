@@ -651,7 +651,7 @@ export class ClientInventoryViewModel {
   async onSubmitCreateProduct(data, photosOfNewProduct, isNoAsin) {
     try {
       if (!isNoAsin) {
-        this.product = {asin: data.asin, lamazon: data.lamazon, fba: true}
+        this.product = {asin: data.asin, lamazon: data.lamazon, fba: true, images: []}
 
         await this.parseAmazon(data.asin)
         await this.parseParseSellerCentral(data.asin)
