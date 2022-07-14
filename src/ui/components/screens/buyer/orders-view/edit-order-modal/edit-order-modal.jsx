@@ -1,9 +1,16 @@
 import React, {useEffect, useState} from 'react'
 
-import {Box, Divider, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Box, NativeSelect, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
+import clsx from 'clsx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
-import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {
+  getOrderStatusOptionByCode,
+  OrderStatus,
+  OrderStatusByCode,
+  OrderStatusByKey,
+  OrderStatusTranslate,
+} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -12,13 +19,16 @@ import {SettingsModel} from '@models/settings-model'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {CreateBoxForm} from '@components/forms/create-box-form'
+import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Table} from '@components/table'
 import {WarehouseBodyRow} from '@components/table-rows/warehouse'
+import {Text} from '@components/text'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
+import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
 import {BoxesToCreateTable} from './boxes-to-create-table'
@@ -166,6 +176,22 @@ export const EditOrderModal = ({
     }
   }
 
+  const allowOrderStatuses = [
+    `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`,
+    `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+    `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
+    `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+    `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+    `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+    `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+  ]
+
+  // const disabledOrderStatuses = [
+  //   `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+  //   `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+  //   `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+  // ]
+
   const [photosToLoad, setPhotosToLoad] = useState([])
 
   const [hsCode, setHsCode] = useState(order.product.hsCode)
@@ -174,11 +200,51 @@ export const EditOrderModal = ({
 
   return (
     <Box className={classNames.modalWrapper}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing an order'])}</Typography>
+      <div className={classNames.modalHeader}>
+        <Typography className={classNames.modalText}>{`${t(TranslationKey.Order)} № ${order.id}`}</Typography>
+        <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
+        <div className={classNames.orderStatusWrapper}>
+          <Typography className={classNames.orderStatus}>{t(TranslationKey['Order status'])}</Typography>
+          <Field
+            tooltipInfoContent={t(TranslationKey['Current order status'])}
+            value={order.storekeeper?.name}
+            inputClasses={classNames.nativeSelect}
+            labelClasses={classNames.label}
+            inputComponent={
+              <NativeSelect
+                disabled={
+                  order.status !== orderFields.status || +orderFields.totalPriceChanged - orderFields.totalPrice > 0
+                }
+                variant="filled"
+                value={orderFields.status}
+                className={classNames.nativeSelect}
+                input={<Input />}
+                onChange={setOrderField('status')}
+              >
+                {Object.keys({
+                  ...getObjectFilteredByKeyArrayWhiteList(
+                    OrderStatusByCode,
+                    allowOrderStatuses.filter(el => el >= order.status),
+                  ),
+                }).map((statusCode, statusIndex) => (
+                  <option
+                    key={statusIndex}
+                    value={statusCode}
+                    className={clsx({
+                      [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
+                    })}
+                    disabled={disabledOrderStatuses.includes(statusCode)}
+                  >
+                    {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
+                  </option>
+                ))}
+              </NativeSelect>
+            }
+          />
+        </div>
+      </div>
 
       <Paper elevation={0} className={classNames.paper}>
-        <Typography className={classNames.modalText}>{`${t(TranslationKey.Order)} # ${order.id}`}</Typography>
-
         <SelectFields
           hsCode={hsCode}
           setHsCode={setHsCode}
@@ -191,7 +257,9 @@ export const EditOrderModal = ({
           setPhotosToLoad={setPhotosToLoad}
         />
 
-        <Divider className={classNames.divider} />
+        <Text className={classNames.tableTitle} containerClasses={classNames.tableTitleContainer}>
+          {t(TranslationKey.Product)}
+        </Text>
 
         <ProductTable
           modalHeadCells={modalHeadCells}
@@ -200,13 +268,14 @@ export const EditOrderModal = ({
           setOrderField={setOrderField}
         />
 
-        <Divider className={classNames.divider} />
-        <Field
+        <Text
+          className={classNames.tableTitle}
+          containerClasses={classNames.tableTitleContainer}
           tooltipInfoContent={t(TranslationKey['Current supplier through whom the order was placed'])}
-          label={t(TranslationKey.Suppliers)}
-          labelClasses={classNames.label}
-          inputClasses={classNames.hidden}
-        />
+        >
+          {t(TranslationKey.Suppliers)}
+        </Text>
+
         <EditOrderSuppliersTable
           selectedSupplier={orderFields.orderSupplier}
           suppliers={orderFields.product.suppliers}
@@ -240,11 +309,13 @@ export const EditOrderModal = ({
 
       {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) && (
         <div className={classNames.addBtn}>
+          <Typography className={classNames.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
           <Button
             disableElevation
             tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
             color="primary"
             variant="contained"
+            className={classNames.addBoxButton}
             onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
           >
             {t(TranslationKey['Add a box'])}

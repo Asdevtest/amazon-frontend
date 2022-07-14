@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Link} from '@material-ui/core'
 import clsx from 'clsx'
@@ -6,9 +6,8 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
-import {BigImagesModal} from '@components/modals/big-images-modal'
 
 import {priceCalculation} from '@utils/price-calculation'
 import {toFixedWithDollarSign, withDollarSign, checkAndMakeAbsoluteUrl} from '@utils/text'
@@ -18,9 +17,6 @@ import {useClassNames} from './edit-order-suppliers-table.style'
 
 export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) => {
   const classNames = useClassNames()
-
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
-  const [curImages, setCurImages] = useState([])
 
   const copyValue = value => {
     navigator.clipboard.writeText(value)
@@ -43,6 +39,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
             <TableCell className={classNames.alignRight}>{t(TranslationKey['Total price'])}</TableCell>
             <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
             <TableCell className={classNames.alignCenter}>{t(TranslationKey['Created by'])}</TableCell>
+            <TableCell className={classNames.alignCenter}>{t(TranslationKey.Files)}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -54,8 +51,8 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                   [classNames.tableRowAcceptedSupplier]: selectedSupplier?._id === supplier._id,
                 })}
               >
-                <TableCell className={clsx(classNames.alignCenter)}>
-                  <Typography className={classNames.textCell}>{supplier.name}</Typography>
+                <TableCell className={clsx(classNames.alignCenter, classNames.alignCenter)}>
+                  <Typography className={classNames.nameCell}>{supplier.name}</Typography>
                 </TableCell>
 
                 <TableCell className={classNames.alignCenter}>
@@ -79,15 +76,29 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                     <Typography>{t(TranslationKey['Link not available'])}</Typography>
                   )}
                 </TableCell>
-                <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.price, 2)}</TableCell>
                 <TableCell className={classNames.alignRight}>
-                  {toFixedWithDollarSign(supplier.batchDeliveryCostInDollar / supplier.amount, 2)}
+                  <Typography className={classNames.priceCell}>{toFixedWithDollarSign(supplier.price, 2)}</Typography>
                 </TableCell>
-                <TableCell className={classNames.alignCenter}>{supplier.amount}</TableCell>
-                <TableCell className={classNames.alignCenter}>{supplier.minlot}</TableCell>
-                <TableCell className={classNames.alignCenter}>{toFixedWithDollarSign(supplier.lotcost, 2)}</TableCell>
+                <TableCell className={classNames.alignRight}>
+                  <Typography className={classNames.deliveryCell}>
+                    {toFixedWithDollarSign(supplier.batchDeliveryCostInDollar / supplier.amount, 2)}
+                  </Typography>
+                </TableCell>
                 <TableCell className={classNames.alignCenter}>
-                  {withDollarSign(priceCalculation(supplier.price, supplier.delivery, supplier.amount))}
+                  <Typography className={classNames.amountCell}>{supplier.amount}</Typography>
+                </TableCell>
+                <TableCell className={classNames.alignCenter}>
+                  <Typography className={classNames.amountCell}>{supplier.minlot}</Typography>
+                </TableCell>
+                <TableCell className={classNames.alignCenter}>
+                  <Typography className={classNames.amountCell}>
+                    {toFixedWithDollarSign(supplier.lotcost, 2)}
+                  </Typography>
+                </TableCell>
+                <TableCell className={classNames.alignCenter}>
+                  <Typography className={classNames.amountCell}>
+                    {withDollarSign(priceCalculation(supplier.price, supplier.delivery, supplier.amount))}
+                  </Typography>
                 </TableCell>
 
                 <TableCell className={classNames.alignCenter}>
@@ -98,27 +109,8 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                   <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
                 </TableCell>
                 <TableCell>
-                  <Button
-                    disableElevation
-                    tooltipInfoContent={t(TranslationKey['Photos of current supplier'])}
-                    disabled={!supplier.images || supplier.images < 1}
-                    color="primary"
-                    className={classNames.button}
-                    variant="contained"
-                    onClick={() => {
-                      setCurImages(supplier.images)
-                      setShowPhotosModal(!showPhotosModal)
-                    }}
-                  >
-                    {t(TranslationKey.Photos)}
-                  </Button>
+                  <PhotoAndFilesCarousel files={supplier.images} width="400px" />
                 </TableCell>
-                <BigImagesModal
-                  isAmazone
-                  openModal={showPhotosModal}
-                  setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-                  images={curImages}
-                />
               </TableRow>
             ))
           ) : (

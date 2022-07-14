@@ -10,18 +10,16 @@ export const useClassNames = makeStyles(() => ({
   },
 
   modalText: {
-    color: 'rgba(61, 81, 112, 1)',
-    fontSize: '18px',
-    fontWeight: 400,
-    lineHeight: '21px',
+    color: '#001029',
+    fontSize: '30px',
+    fontWeight: 600,
+    lineHeight: '36px',
     marginBottom: '10px',
   },
   modalWrapper: {
     minWidth: '800px',
   },
   paper: {
-    border: '1px solid #C8CED3',
-    padding: '8px 16px',
     height: 'max-content',
     width: '100%',
   },
@@ -34,7 +32,7 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'end',
     gap: '10px',
   },
-  saveBtn: {},
+  saveBtn: {width: '190px', height: '40px'},
   tableWrapper: {
     marginTop: '15px',
   },
@@ -54,25 +52,90 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
   },
 
-  addBtn: {
-    display: 'flex',
+  addBtn: {},
+
+  addBoxTitle: {
+    marginBottom: '43px',
+    marginTop: '40px',
+    color: '#001029',
+    fontSize: '18px',
+    fontWeight: 400,
+    lineHeight: '140%',
+  },
+
+  addBoxButton: {
+    width: '229px',
+    height: '40px',
   },
 
   fieldLabel: {
     margin: 0,
   },
   cancelBtn: {
-    color: '#fff',
-    backgroundColor: '#ff0000',
+    height: '40px',
+    width: '190px',
+    color: '#001029',
+    backgroundColor: 'inherit',
     '&:hover': {
-      backgroundColor: '#c51a1c',
+      backgroundColor: '#e4e4e4',
 
       '@media (hover: none)': {
         backgroundColor: '#c51a1c',
       },
     },
     '&$disabled': {
-      backgroundColor: 'rgba(210, 35, 35, 0.5)',
+      backgroundColor: '#c5c5c5',
     },
+  },
+  amazonTitle: {
+    width: '417px',
+    color: '#001029',
+    fontSize: '18px',
+    fontWeight: 600,
+    lineHeight: '140%',
+  },
+
+  orderStatus: {
+    color: '#001029',
+    fontSize: '18px',
+    fontWeight: 600,
+    lineHeight: '140%',
+    marginBottom: '10px',
+  },
+
+  status: {
+    fontSize: '16px',
+    fontWeight: 600,
+    lineHeight: '19px',
+    padding: '10px 15px',
+    border: '1px solid #e0e0e0',
+    width: '100%',
+    borderRadius: '4px',
+  },
+
+  orderStatusWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+    width: '247px',
+  },
+
+  modalHeader: {
+    display: 'flex',
+    alignItems: 'start',
+    justifyContent: 'space-between',
+    marginBottom: '30px',
+  },
+
+  tableTitleContainer: {
+    marginTop: '30px',
+    marginBottom: '10px',
+  },
+
+  tableTitle: {
+    color: '#001029',
+    fontSize: '18px',
+    fontWeight: 400,
+    lineHeight: '140%',
   },
 }))

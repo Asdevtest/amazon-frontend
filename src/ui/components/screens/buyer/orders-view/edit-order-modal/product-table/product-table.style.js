@@ -1,6 +1,9 @@
 import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
+  tableContainer: {
+    marginBottom: '40px',
+  },
   imgBox: {
     height: '64px',
     width: '64px',
@@ -27,7 +30,7 @@ export const useClassNames = makeStyles(() => ({
       padding: '8px',
     },
     '& tbody': {
-      borderBottom: '1px solid rgba(224, 224, 224, 1)',
+      border: '1px solid #e0e0e0',
     },
   },
   orderChip: {
@@ -81,5 +84,6 @@ export const useClassNames = makeStyles(() => ({
     width: '250px',
     overflowX: 'auto',
     whiteSpace: 'nowrap',
+    textAlign: 'center',
   },
 }))

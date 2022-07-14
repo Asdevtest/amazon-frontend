@@ -10,15 +10,21 @@ import {SettingsModel} from '@models/settings-model'
 
 import {useClassNames} from './text.style'
 
+enum tooltipPositions {
+  Corner = 'corner',
+  Center = 'center',
+}
+
 interface Props {
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
+  tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner
   className?: string
   containerClasses?: string
 }
 
 export const Text: FC<Props> = observer(
-  ({tooltipAttentionContent, tooltipInfoContent, children, className, containerClasses}) => {
+  ({tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses}) => {
     const classNames = useClassNames()
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
@@ -28,11 +34,16 @@ export const Text: FC<Props> = observer(
     }, [SettingsModel.showHints])
 
     return (
-      <div className={clsx(classNames.textWrapper, containerClasses)}>
+      <div
+        className={clsx(
+          tooltipPosition === 'corner' ? classNames.noFlextextWrapper : classNames.textWrapper,
+          containerClasses,
+        )}
+      >
         <Typography className={className}>{children}</Typography>
 
         {tooltipAttentionContent || tooltipInfoContent ? (
-          <div className={classNames.tooltipsWrapper}>
+          <div className={tooltipPosition === 'corner' ? classNames.cornerTooltipsWrapper : classNames.tooltipsWrapper}>
             {tooltipAttentionContent ? (
               <Tooltip arrow title={tooltipAttentionContent} placement="top-end">
                 <img className={classNames.tooltip} src="/assets/icons/attention.svg" />

@@ -135,9 +135,29 @@ export const useClassNames = makeStyles(() => ({
   // },
 
   textCell: {
-    width: '300px',
+    width: '254px',
     maxHeight: '100px',
     overflowY: 'auto',
+    textAlign: 'center',
+  },
+
+  nameCell: {
+    minWidth: '164px',
+    textAlign: 'center',
+  },
+
+  priceCell: {
+    minWidth: '55px',
+    textAlign: 'center',
+  },
+
+  deliveryCell: {
+    minWidth: '83px',
+    textAlign: 'center',
+  },
+
+  amountCell: {
+    minWidth: '115px',
     textAlign: 'center',
   },
   button: {
@@ -147,7 +167,7 @@ export const useClassNames = makeStyles(() => ({
   linkWrapper: {
     display: 'flex',
     alignItems: 'center',
-    width: 'min-content',
+    width: '209px',
   },
 
   link: {
@@ -169,5 +189,9 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       transform: 'scale(1.2)',
     },
+  },
+
+  name: {
+    width: '300px',
   },
 }))

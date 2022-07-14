@@ -9,7 +9,7 @@ export const useClassNames = makeStyles(() => ({
     minWidth: '230px',
   },
   nativeSelect: {
-    width: '500px',
+    width: '210px',
   },
   numInput: {
     width: '80px',
@@ -30,12 +30,13 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '2px',
   },
   priceOptionsWrapper: {
+    width: '573px',
     marginTop: '30px',
     display: 'inline-block',
 
-    border: '1px solid rgba(0, 0, 0, .3)',
-    borderRadius: '20px',
-    padding: '10px',
+    border: '1px solid #e0e0e0',
+    borderRadius: '4px',
+    padding: '30px',
   },
   disabledPriceOptionsWrapper: {
     opacity: '0.7',
@@ -76,7 +77,8 @@ export const useClassNames = makeStyles(() => ({
 
   onLineWrapper: {
     display: 'flex',
-    gap: '10px',
+    justifyContent: 'space-between',
+    alignItems: 'end',
   },
 
   checkboxWithLabelWrapper: {
@@ -93,7 +95,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   link: {
-    maxWidth: '325px',
+    maxWidth: '455px',
     whiteSpace: 'nowrap',
     overflowX: 'auto',
   },
@@ -104,12 +106,8 @@ export const useClassNames = makeStyles(() => ({
     objectFit: 'contain',
   },
 
-  label: {
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '21px',
-  },
   checkboxLabel: {
+    width: '140px',
     height: '50px',
   },
 
@@ -122,6 +120,56 @@ export const useClassNames = makeStyles(() => ({
   },
 
   checkboxLabelContainer: {
+    margin: 0,
+  },
+
+  photoWrapper: {
+    width: '339px',
+  },
+
+  photoAndFieldsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  blueLabel: {
+    color: '#006CFF',
+  },
+
+  greenLabel: {
+    color: '#00B746',
+  },
+
+  input: {
+    width: '231px',
+  },
+
+  label: {
+    maxWidth: '180px',
+  },
+
+  yuanToDollarRate: {
+    width: '100%',
+    display: 'flex',
+    gap: '47px',
+  },
+
+  checkboxContainer: {
+    margin: 0,
+  },
+  checkbox: {
+    padding: 0,
+  },
+
+  barCode: {
+    display: 'flex',
+    gap: '20px',
+  },
+
+  trackAndHsCode: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
     margin: 0,
   },
 }))

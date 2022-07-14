@@ -11,7 +11,7 @@ import {useClassNames} from './product-table.style'
 export const ProductTable = ({modalHeadCells, order, orderFields}) => {
   const classNames = useClassNames()
   return (
-    <TableContainer>
+    <TableContainer className={classNames.tableContainer}>
       <Table className={classNames.table}>
         <TableHead>
           <TableRow>

@@ -146,17 +146,23 @@ export const AdminSettingsContent = observer(() => {
     setFormFields(newFormFields)
   }
 
-  const disabledSubmit =
+  const disabledSubmitFirstBlock =
     JSON.stringify(adminSettings.dynamicSettings) === JSON.stringify(formFields) ||
-    Number(formFields.costOfFindingSupplier) === 0 ||
-    Number(formFields.deadlineForFindingSupplier) === 0 ||
+    Number(formFields.yuanToDollarRate) === 0 ||
+    Number(formFields.volumeWeightCoefficient) === 0
+
+  const disabledSubmitSecondBlock =
+    JSON.stringify(adminSettings.dynamicSettings) === JSON.stringify(formFields) ||
     Number(formFields.requestPlatformMarginInPercent) === 0 ||
     Number(formFields.requestSupervisorFeeInPercent) === 0 ||
     Number(formFields.requestTimeLimitInHourForCancelingProposalsByClient) === 0 ||
-    Number(formFields.requestTimeLimitInHourForCheckingProposalBySuper) === 0 ||
-    Number(formFields.yuanToDollarRate) === 0 ||
-    Number(formFields.costOfCheckingProduct) === 0 ||
-    Number(formFields.volumeWeightCoefficient) === 0
+    Number(formFields.requestTimeLimitInHourForCheckingProposalBySuper) === 0
+
+  const disabledSubmitThirdBlock =
+    JSON.stringify(adminSettings.dynamicSettings) === JSON.stringify(formFields) ||
+    Number(formFields.costOfFindingSupplier) === 0 ||
+    Number(formFields.deadlineForFindingSupplier) === 0 ||
+    Number(formFields.costOfCheckingProduct) === 0
 
   return (
     SettingsModel.languageTag && (
@@ -202,7 +208,7 @@ export const AdminSettingsContent = observer(() => {
               <TabMainContent
                 disabled={activeTab !== tabsValues.MAIN}
                 formFields={formFields}
-                disabledSubmit={disabledSubmit || activeTab !== tabsValues.MAIN}
+                disabledSubmit={disabledSubmitFirstBlock || activeTab !== tabsValues.MAIN}
                 disabledAddButton={activeTab !== tabsValues.MAIN}
                 onChangeField={onChangeField}
                 onSubmit={onCreateSubmit}
@@ -219,7 +225,7 @@ export const AdminSettingsContent = observer(() => {
               <TabFreelanceContent
                 disabled={activeTab !== tabsValues.FREELANCE}
                 formFields={formFields}
-                disabledSubmit={disabledSubmit || activeTab !== tabsValues.FREELANCE}
+                disabledSubmit={disabledSubmitSecondBlock || activeTab !== tabsValues.FREELANCE}
                 onChangeField={onChangeField}
                 onSubmit={onCreateSubmit}
               />
@@ -237,7 +243,7 @@ export const AdminSettingsContent = observer(() => {
               <TabSearchSupplierContent
                 disabled={activeTab !== tabsValues.SEARCH_SUPPLIER}
                 formFields={formFields}
-                disabledSubmit={disabledSubmit || activeTab !== tabsValues.SEARCH_SUPPLIER}
+                disabledSubmit={disabledSubmitThirdBlock || activeTab !== tabsValues.SEARCH_SUPPLIER}
                 onChangeField={onChangeField}
                 onSubmit={onCreateSubmit}
               />

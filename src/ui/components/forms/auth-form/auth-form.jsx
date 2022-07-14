@@ -3,7 +3,7 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Button, Checkbox, InputAdornment, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
@@ -19,16 +19,36 @@ import {styles} from './auth-form.style'
 const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubmit}) => {
   const onSubmitForm = event => {
     event.preventDefault()
-    onSubmit()
+    setIsSubmit(true)
+    isSubmit && !emptyEmail && !emptyPassword && onSubmit()
   }
 
+  useEffect(() => {
+    if (formFields.email === '') {
+      setEmptyEmail(true)
+    }
+    if (formFields.password === '') {
+      setEmptyPassword(true)
+    }
+    if (formFields.email !== '') {
+      setEmptyEmail(false)
+    }
+    if (formFields.password !== '') {
+      setEmptyPassword(false)
+    }
+  }, [formFields.email, formFields.password])
+
   const [visibilityPass, setVisibilityPass] = useState(false)
+  const [emptyEmail, setEmptyEmail] = useState(false)
+  const [emptyPassword, setEmptyPassword] = useState(false)
+  const [isSubmit, setIsSubmit] = useState(false)
 
   return (
     <div className={classNames.root}>
       <form className={classNames.formFields} onSubmit={onSubmitForm}>
         <Field
           withIcon
+          error={isSubmit && emptyEmail && t(TranslationKey['The field must be filled in'])}
           containerClasses={classNames.field}
           inputClasses={classNames.input}
           label={t(TranslationKey.Email)}
@@ -45,6 +65,7 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
         <div className={classNames.field}>
           <Field
             withIcon
+            error={isSubmit && emptyPassword && t(TranslationKey['The field must be filled in'])}
             label={t(TranslationKey.Password)}
             inputClasses={classNames.input}
             placeholder={t(TranslationKey.Password)}

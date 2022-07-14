@@ -631,11 +631,12 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
+    marginLeft: '20px',
   },
 
   userAvatar: {
-    width: 136,
-    height: 136,
+    width: 100,
+    height: 100,
   },
 
   sabUserInfoWrapper: {
@@ -643,7 +644,7 @@ export const styles = createStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    height: 120,
+    height: 100,
   },
 
   userEmail: {

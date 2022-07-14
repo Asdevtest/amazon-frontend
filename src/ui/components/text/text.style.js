@@ -14,11 +14,17 @@ export const useClassNames = makeStyles(() => ({
     zIndex: '10',
   },
 
+  noFlextextWrapper: {
+    position: 'relative',
+    marginRight: '15px',
+  },
+
   tooltip: {
     width: '17px',
     height: '17px',
     color: 'red',
     transition: '.3s ease-in-out',
+
     '&:hover': {
       cursor: 'default',
       transform: 'scale(1.1)',
@@ -27,5 +33,12 @@ export const useClassNames = makeStyles(() => ({
 
   tooltipInfo: {
     marginLeft: '3px',
+  },
+
+  cornerTooltipsWrapper: {
+    position: 'absolute',
+    top: '-10px',
+    right: '-10px',
+    zIndex: '10',
   },
 }))

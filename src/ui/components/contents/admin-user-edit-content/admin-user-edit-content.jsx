@@ -63,8 +63,8 @@ export const AdminUserEditContent = observer(
 
     const [formFields, setFormFields] = useState(sourceFormFields)
     const [selectedAllowedRoles, setSelectedAllowedRoles] = useState(formFields.allowedRoles)
+    const [changedAllowedRoles, setChangedAllowedRoles] = useState([])
     const [clearSelect, setClearSelect] = useState(true)
-    const [disabled, setDisabled] = useState(true)
 
     const [accessTags, setAccessTags] = useState([])
     const [accessTag, setAccessTag] = useState('')
@@ -79,13 +79,11 @@ export const AdminUserEditContent = observer(
     const addAllowedRole = () => {
       setSelectedAllowedRoles(prev => [...prev, formFields.allowedRoles])
       setClearSelect(true)
-      setDisabled(false)
     }
 
     const removeAllowedRole = value => {
       const removeRole = selectedAllowedRoles.filter(role => role !== value)
       setSelectedAllowedRoles(removeRole)
-      setDisabled(false)
     }
 
     const addAccessTag = () => {
@@ -140,6 +138,11 @@ export const AdminUserEditContent = observer(
       setEmailIsValid(validateEmail(formFields.email))
     }, [formFields.email])
 
+    useEffect(() => {
+      const arr = [...selectedAllowedRoles]
+      setChangedAllowedRoles(arr)
+    }, [])
+
     const onSubmitUserPermissionsForm = permissions => {
       const newFormFields = {...formFields}
       newFormFields.permissions = permissions
@@ -173,8 +176,8 @@ export const AdminUserEditContent = observer(
       formFields.email === '' ||
       formFields.rate === '' ||
       formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
-      disabled
-    JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
+      (JSON.stringify(changedAllowedRoles) === JSON.stringify(selectedAllowedRoles) &&
+        JSON.stringify(sourceFormFields) === JSON.stringify(formFields))
 
     return (
       <div className={classNames.root}>

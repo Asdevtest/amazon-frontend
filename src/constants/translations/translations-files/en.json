@@ -1265,5 +1265,9 @@
   "Box ID": "Box ID",
   "Destination and tariff": "Destination and tariff",
   "Outside Batch": "Outside Batch",
-  "Add HS Code": "Add HS Code"
+  "Add HS Code": "Add HS Code",
+  "The field must be filled in": "The field must be filled in",
+  "Order status": "Order status",
+  "Dollars per batch": "Dollars per batch",
+  "Add boxes for this order": "Add boxes for this order"
 }
