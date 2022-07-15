@@ -344,29 +344,29 @@ export const IdeaViewAndEditCard = ({
       {idea && disableFields ? (
         <div className={classNames.existedIdeaBtnsWrapper}>
           <div className={classNames.existedIdeaBtnsSubWrapper}>
-            <Button
-              success
-              tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
-              tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
-              variant="contained"
-              color="primary"
-              className={[classNames.actionButton]}
-              onClick={() => onCreateProduct(formFields)}
-            >
-              {t(TranslationKey['Create a product card'])}
-            </Button>
-
             {checkIsClient(UserRoleCodeMap[curUser.role]) ? (
-              <div>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classNames.actionButton}
-                  onClick={() => onEditIdea(idea)}
-                >
-                  {t(TranslationKey.Edit)}
-                </Button>
-
+              <Button
+                success
+                tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
+                tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
+                variant="contained"
+                color="primary"
+                className={[classNames.actionButton]}
+                onClick={() => onCreateProduct(formFields)}
+              >
+                {t(TranslationKey['Create a product card'])}
+              </Button>
+            ) : null}
+            <div>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classNames.actionButton}
+                onClick={() => onEditIdea(idea)}
+              >
+                {t(TranslationKey.Edit)}
+              </Button>
+              {checkIsClient(UserRoleCodeMap[curUser.role]) ? (
                 <Button
                   variant="contained"
                   color="alert"
@@ -378,8 +378,8 @@ export const IdeaViewAndEditCard = ({
                 >
                   {t(TranslationKey.Remove)}
                 </Button>
-              </div>
-            ) : null}
+              ) : null}
+            </div>
           </div>
 
           <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>

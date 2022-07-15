@@ -3,8 +3,7 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  MultilineTextHeaderCell,
-  NormDateCell,
+  MultilineTextHeaderCell, // ShortDateCell,
   OrderCell,
   OrderManyItemsCell,
   MultilineTextCell,
@@ -17,21 +16,21 @@ import {
 import {t} from '@utils/translations'
 
 export const warehouseBoxesViewColumns = handlers => [
-  {
-    field: 'isDraft',
-    headerName: '',
-    renderCell: params => (params.value ? 'isDraft' : 'OK'),
-    width: 60,
-    type: 'boolean',
-  },
+  // {
+  //   field: 'isDraft',
+  //   headerName: '',
+  //   renderCell: params => (params.value ? 'isDraft' : 'OK'),
+  //   width: 60,
+  //   type: 'boolean',
+  // },
 
   {
     field: 'humanFriendlyId',
-    headerName: t(TranslationKey.ID),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+    headerName: t(TranslationKey['Box ID']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Box ID'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 75,
+    width: 120,
   },
 
   {
@@ -65,27 +64,43 @@ export const warehouseBoxesViewColumns = handlers => [
       ) : (
         <MultilineTextCell text={params.value} />
       ),
-    width: 150,
+    width: 110,
     type: 'number',
   },
 
   {
     field: 'warehouse',
-    headerName: t(TranslationKey.Warehouse),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
+    headerName: t(TranslationKey['Destination and tariff']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Destination and tariff'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 120,
-  },
-
-  {
-    field: 'logicsTariff',
-    headerName: t(TranslationKey.Tariff),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => (
+      <div style={{display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', width: '100%'}}>
+        <MultilineTextCell text={params.row.warehouse} />
+        <MultilineTextCell text={params.row.logicsTariff} />
+      </div>
+    ),
     width: 170,
+    filterable: false,
+    sortable: false,
   },
+
+  // {
+  //   field: 'warehouse',
+  //   headerName: t(TranslationKey.Warehouse),
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
+
+  //   renderCell: params => <MultilineTextCell text={params.value} />,
+  //   width: 120,
+  // },
+
+  // {
+  //   field: 'logicsTariff',
+  //   headerName: t(TranslationKey.Tariff),
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
+
+  //   renderCell: params => <MultilineTextCell text={params.value} />,
+  //   width: 90,
+  // },
 
   {
     field: 'client',
@@ -99,24 +114,12 @@ export const warehouseBoxesViewColumns = handlers => [
   },
 
   {
-    field: 'action',
-    headerName: t(TranslationKey.Action),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-
-    width: 200,
-
-    renderCell: params => <WarehouseBoxesBtnsCell row={params.row.originalData} handlers={handlers} />,
-    filterable: false,
-    sortable: false,
-  },
-
-  {
     field: 'batchId',
     headerName: t(TranslationKey.Batch),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Batch)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 130,
+    renderCell: params => <MultilineTextCell text={params.value} noTextText={t(TranslationKey['Outside Batch'])} />,
+    width: 110,
   },
 
   {
@@ -131,22 +134,34 @@ export const warehouseBoxesViewColumns = handlers => [
   },
 
   {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+    field: 'action',
+    headerName: t(TranslationKey.Action),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
-    width: 120,
-    type: 'date',
+    width: 220,
+
+    renderCell: params => <WarehouseBoxesBtnsCell row={params.row.originalData} handlers={handlers} />,
+    filterable: false,
+    sortable: false,
   },
 
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+  // {
+  //   field: 'createdAt',
+  //   headerName: t(TranslationKey.Created),
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
-    width: 150,
-    type: 'date',
-  },
+  //   renderCell: params => <NormDateCell params={params} />,
+  //   width: 120,
+  //   type: 'date',
+  // },
+
+  // {
+  //   field: 'updatedAt',
+  //   headerName: t(TranslationKey.Updated),
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+
+  //   renderCell: params => <ShortDateCell params={params} />,
+  //   width: 80,
+  //   type: 'date',
+  // },
 ]

@@ -320,9 +320,9 @@ export const RenderFieldValueCell = withStyles(styles)(({classes: classNames, va
   <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
 ))
 
-export const MultilineTextCell = withStyles(styles)(({classes: classNames, text}) => (
+export const MultilineTextCell = withStyles(styles)(({classes: classNames, text, noTextText}) => (
   <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText}>{text || '-'}</Typography>
+    <Typography className={classNames.multilineText}>{text || noTextText || '-'}</Typography>
   </div>
 ))
 
@@ -744,7 +744,7 @@ export const AdminUsersActionBtnsCell = withStyles(styles)(
 )
 
 export const SuperboxQtyCell = withStyles(styles)(({classes: classNames, qty, superbox}) => (
-  <div>
+  <div className={classNames.multilineTextWrapper}>
     <Typography>
       {qty || '-'}
       <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
@@ -920,6 +920,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
           t(TranslationKey['The tariff is invalid or has been removed!'])
         }
         disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF}
+        className={classNames.warehouseBoxesBtn}
         variant="contained"
         color="primary"
         onClick={() => handlers.moveBox(row)}
@@ -929,13 +930,18 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
     )}
 
     {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
-      <Button success className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.moveBox(row)}>
+      <Button success className={classNames.warehouseBoxesBtn} onClick={() => handlers.moveBox(row)}>
         {t(TranslationKey['Add to batch'])}
       </Button>
     )}
 
-    <Button variant="contained" color="primary" onClick={() => handlers.setHsCode(row)}>
-      {t(TranslationKey['HS code'])}
+    <Button
+      className={classNames.warehouseBoxesBtn}
+      variant="contained"
+      color="primary"
+      onClick={() => handlers.setHsCode(row)}
+    >
+      {t(TranslationKey['Add HS Code'])}
     </Button>
   </div>
 ))

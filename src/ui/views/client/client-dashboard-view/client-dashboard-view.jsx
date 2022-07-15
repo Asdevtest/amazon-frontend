@@ -55,24 +55,26 @@ export class ClientDashboardViewRaw extends Component {
               <div className={classes.mb5}>
                 <DashboardBalance user={userInfo} />
 
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
-                  className={classes.button}
-                  color="primary"
-                  variant="contained"
-                  onClick={onClickWithdrawMoney}
-                >
-                  {t(TranslationKey.Deposit)}
-                </Button>
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
-                  className={[classes.button, classes.withdrawBtn]}
-                  color="primary"
-                  variant="text"
-                  onClick={onClickAddMoney}
-                >
-                  {t(TranslationKey.Withdraw)}
-                </Button>
+                <div className={classes.buttonWrapper}>
+                  <Button
+                    tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
+                    className={classes.button}
+                    color="primary"
+                    variant="contained"
+                    onClick={onClickWithdrawMoney}
+                  >
+                    {t(TranslationKey.Deposit)}
+                  </Button>
+                  <Button
+                    tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
+                    className={[classes.button, classes.withdrawBtn]}
+                    color="primary"
+                    variant="text"
+                    onClick={onClickAddMoney}
+                  >
+                    {t(TranslationKey.Withdraw)}
+                  </Button>
+                </div>
               </div>
 
               <SectionalDashboard

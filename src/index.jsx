@@ -14,20 +14,10 @@ import {App} from './app'
 
 Sentry.init({
   integrations: [new BrowserTracing()],
-
   // We recommend adjusting this value in production, or using tracesSampler
   // for finer control
   tracesSampleRate: 1.0,
 })
-
-// import yatranslate from './js/yatranslate.js'
-
-// import yatranslate from './js/yatranslate.js'
-
-// <script src="./js/yatranslate.js"></script>
-// <link rel="stylesheet" href="./css/yatranslate.css"></link>
-
-// yatranslate()
 
 ReactDOM.render(<App />, document.getElementById('root'))
 

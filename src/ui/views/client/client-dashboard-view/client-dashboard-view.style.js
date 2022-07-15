@@ -21,6 +21,7 @@ export const styles = createStyles(theme => ({
 
   button: {
     padding: '0 40px',
+    // Height: '40px !important'
   },
 
   withdrawBtn: {
