@@ -28,6 +28,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
   }, [])
 
   const {
+    curUser,
     curIdea,
     inEdit,
     inCreate,
@@ -70,6 +71,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
         ideasData.map((idea, index) => (
           <IdeaViewAndEditCard
             key={index}
+            curUser={curUser}
             curIdea={curIdea}
             inEdit={inEdit}
             idea={idea}

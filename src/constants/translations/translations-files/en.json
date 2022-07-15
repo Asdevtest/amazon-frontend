@@ -1261,5 +1261,9 @@
   "New password": "New password",
   "Re-enter the new password": "Re-enter the new password",
   "Add user access tags": "Add user access tags",
-  "Dimensions from warehouse": "Dimensions from warehouse"
+  "Dimensions from warehouse": "Dimensions from warehouse",
+  "Box ID": "Box ID",
+  "Destination and tariff": "Destination and tariff",
+  "Outside Batch": "Outside Batch",
+  "Add HS Code": "Add HS Code"
 }

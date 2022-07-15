@@ -34,12 +34,13 @@ export class BuyerFreeOrdersViewModel {
     onClickTableRowBtn: item => this.onClickTableRowBtn(item),
   }
 
+  firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers)
+  columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers, this.firstRowId)
 
   showWarningModal = false
 
@@ -49,6 +50,11 @@ export class BuyerFreeOrdersViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
   }
@@ -64,6 +70,8 @@ export class BuyerFreeOrdersViewModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
+
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -84,7 +92,7 @@ export class BuyerFreeOrdersViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = buyerFreeOrdersViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))

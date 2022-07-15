@@ -14,7 +14,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const buyerFreeOrdersViewColumns = handlers => [
+export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
@@ -35,6 +35,7 @@ export const buyerFreeOrdersViewColumns = handlers => [
       <NormalActionBtnCell
         tooltipText={t(TranslationKey['To assign the order to Byer'])}
         bTnText={t(TranslationKey['Get to work'])}
+        isFirstRow={firstRowId === params.row.id}
         onClickOkBtn={() => handlers.onClickTableRowBtn(params.row)}
       />
     ),

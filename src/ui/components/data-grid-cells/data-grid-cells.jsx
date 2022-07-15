@@ -320,9 +320,9 @@ export const RenderFieldValueCell = withStyles(styles)(({classes: classNames, va
   <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
 ))
 
-export const MultilineTextCell = withStyles(styles)(({classes: classNames, text}) => (
+export const MultilineTextCell = withStyles(styles)(({classes: classNames, text, noTextText}) => (
   <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText}>{text || '-'}</Typography>
+    <Typography className={classNames.multilineText}>{text || noTextText || '-'}</Typography>
   </div>
 ))
 
@@ -591,11 +591,11 @@ export const SuccessActionBtnCell = withStyles(styles)(({classes: classNames, on
 ))
 
 export const NormalActionBtnCell = withStyles(styles)(
-  ({classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled}) => (
+  ({classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow}) => (
     <div className={classNames.normalActionBtnWrapper}>
       <Button
         disabled={disabled}
-        tooltipInfoContent={tooltipText}
+        tooltipInfoContent={isFirstRow && tooltipText}
         variant="contained"
         color="primary"
         className={classNames.actionBtn}
@@ -744,7 +744,7 @@ export const AdminUsersActionBtnsCell = withStyles(styles)(
 )
 
 export const SuperboxQtyCell = withStyles(styles)(({classes: classNames, qty, superbox}) => (
-  <div>
+  <div className={classNames.multilineTextWrapper}>
     <Typography>
       {qty || '-'}
       <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
@@ -832,10 +832,12 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
     disableActionBtn,
     tooltipFirstButton,
     tooltipSecondButton,
+
+    isFirstRow,
   }) => (
     <div className={classNames.editOrRemoveBtnsCell}>
       <Button
-        tooltipInfoContent={tooltipFirstButton}
+        tooltipInfoContent={isFirstRow && tooltipFirstButton}
         variant="contained"
         color="primary"
         disabled={disableActionBtn}
@@ -846,7 +848,7 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
 
       <Button
         danger
-        tooltipInfoContent={tooltipSecondButton}
+        tooltipInfoContent={isFirstRow && tooltipSecondButton}
         disabled={disableActionBtn}
         className={classNames.rowCancelBtn}
         onClick={() => {
@@ -918,6 +920,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
           t(TranslationKey['The tariff is invalid or has been removed!'])
         }
         disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF}
+        className={classNames.warehouseBoxesBtn}
         variant="contained"
         color="primary"
         onClick={() => handlers.moveBox(row)}
@@ -927,38 +930,43 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
     )}
 
     {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
-      <Button success className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.moveBox(row)}>
+      <Button success className={classNames.warehouseBoxesBtn} onClick={() => handlers.moveBox(row)}>
         {t(TranslationKey['Add to batch'])}
       </Button>
     )}
 
-    <Button variant="contained" color="primary" onClick={() => handlers.setHsCode(row)}>
-      {t(TranslationKey['HS code'])}
+    <Button
+      className={classNames.warehouseBoxesBtn}
+      variant="contained"
+      color="primary"
+      onClick={() => handlers.setHsCode(row)}
+    >
+      {t(TranslationKey['Add HS Code'])}
     </Button>
   </div>
 ))
 
-export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, value, onClickSeeMore}) => {
+export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, value, onClickSeeMore, isFirstRow}) => {
   const copyValue = () => {
     navigator.clipboard.writeText(value)
   }
 
   return (
     <div className={classNames.shopsReportBtnsWrapper}>
-      <Text tooltipInfoContent={t(TranslationKey['Download the file to your device'])}>
+      <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
         <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
           {t(TranslationKey.download)}
         </a>
       </Text>
       <Button
-        tooltipInfoContent={t(TranslationKey['Copy the link to the report'])}
+        tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])}
         className={classNames.copyImgButton}
       >
         <img className={classNames.copyImg} src="/assets/icons/copy-img.svg" alt="" onClick={copyValue} />
       </Button>
 
       <Button
-        tooltipInfoContent={t(TranslationKey['Opens the table of a particular store'])}
+        tooltipInfoContent={isFirstRow && t(TranslationKey['Opens the table of a particular store'])}
         variant="contained"
         color="primary"
         onClick={onClickSeeMore}

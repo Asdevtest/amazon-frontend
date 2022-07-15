@@ -77,7 +77,11 @@ export class ClientDashboardViewModel {
       this.getProductsMy()
       this.getOrders()
 
-      this.getBoxesMy()
+      this.getSendedBoxes()
+
+      this.getReadyBoxes()
+
+      this.getWarehouseBoxes()
 
       this.getBatches()
 
@@ -147,7 +151,23 @@ export class ClientDashboardViewModel {
     }
   }
 
-  async getBoxesMy() {
+  async getSendedBoxes() {
+    try {
+      const sendedBoxes = await BoxesModel.getBoxesForCurClient(BoxStatus.IN_BATCH_ON_THE_WAY)
+
+      runInAction(() => {
+        this.dashboardData = {
+          ...this.dashboardData,
+          [ClientDashboardCardDataKey.SEND_BOXES]: sendedBoxes.filter(el => !el.isDraft).length,
+        }
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async getWarehouseBoxes() {
     try {
       const warehouseBoxes = await BoxesModel.getBoxesForCurClient(BoxStatus.IN_STOCK)
 
@@ -157,22 +177,20 @@ export class ClientDashboardViewModel {
           [ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE]: warehouseBoxes.filter(el => !el.isDraft).length,
         }
       })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
 
+  async getReadyBoxes() {
+    try {
       const readyBoxes = await BoxesModel.getBoxesForCurClient(BoxStatus.REQUESTED_SEND_TO_BATCH)
 
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,
           [ClientDashboardCardDataKey.READY_TO_SEND]: readyBoxes.filter(el => !el.isDraft).length,
-        }
-      })
-
-      const sendedBoxes = await BoxesModel.getBoxesForCurClient(BoxStatus.IN_BATCH)
-
-      runInAction(() => {
-        this.dashboardData = {
-          ...this.dashboardData,
-          [ClientDashboardCardDataKey.SEND_BOXES]: sendedBoxes.filter(el => !el.isDraft).length,
         }
       })
     } catch (error) {

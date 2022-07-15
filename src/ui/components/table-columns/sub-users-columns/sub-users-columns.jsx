@@ -9,7 +9,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const subUsersColumns = handlers => [
+export const subUsersColumns = (handlers, firstRowId) => [
   {
     field: 'name',
     headerName: t(TranslationKey.User),
@@ -43,6 +43,7 @@ export const subUsersColumns = handlers => [
         )}
         handlers={handlers}
         row={params.row}
+        isFirstRow={firstRowId === params.row.id}
       />
     ),
     filterable: false,

@@ -10,7 +10,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const shopsColumns = handlers => [
+export const shopsColumns = (handlers, firstRowId) => [
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
@@ -37,7 +37,11 @@ export const shopsColumns = handlers => [
 
     width: 350,
     renderCell: params => (
-      <ShopsReportBtnsCell value={params.value} onClickSeeMore={() => handlers.onClickSeeStockReport(params.row)} />
+      <ShopsReportBtnsCell
+        value={params.value}
+        isFirstRow={firstRowId === params.row.id}
+        onClickSeeMore={() => handlers.onClickSeeStockReport(params.row)}
+      />
     ),
   },
 
@@ -67,6 +71,8 @@ export const shopsColumns = handlers => [
         tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
         handlers={handlers}
         row={params.row}
+        params={params}
+        isFirstRow={firstRowId === params.row.id}
       />
     ),
     filterable: false,

@@ -285,7 +285,7 @@ export const styles = createStyles(() => ({
   },
 
   warehouseMyTasksSuccessBtn: {
-    height: '36.5px',
+    // height: '36.5px',
   },
 
   marginRightBtn: {
@@ -443,7 +443,7 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'start',
+    justifyContent: 'center',
     marginLeft: '6px',
   },
 
@@ -570,12 +570,17 @@ export const styles = createStyles(() => ({
   },
 
   warehouseBoxesBtnsWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     gap: '8px',
-    minWidth: '190px',
+    // minWidth: '190px',
+  },
+
+  warehouseBoxesBtn: {
+    width: '200px',
   },
 
   shopsReportBtnsWrapper: {

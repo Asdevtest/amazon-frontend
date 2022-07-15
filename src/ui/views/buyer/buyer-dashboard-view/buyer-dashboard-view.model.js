@@ -187,12 +187,11 @@ export class BuyerDashboardViewModel {
               OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
               OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
               OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
-              OrderStatusByKey[OrderStatus.IN_STOCK],
             ].includes(el.status),
           ).length,
 
           [BuyerDashboardCardDataKey.CLOSED_ORDERS]: result.filter(el =>
-            [OrderStatusByKey[OrderStatus.ORDER_CLOSED]].includes(el.status),
+            [OrderStatusByKey[OrderStatus.IN_STOCK]].includes(el.status),
           ).length,
         }
       })
