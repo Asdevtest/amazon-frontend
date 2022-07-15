@@ -449,7 +449,7 @@ export const styles = createStyles(() => ({
 
   multilineText: {
     width: '100%',
-    textAlign: 'left',
+    textAlign: 'center',
     whiteSpace: 'normal',
 
     fontWeight: '400',

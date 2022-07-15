@@ -10,6 +10,7 @@ import {Field} from '@components/field/field'
 
 import {t} from '@utils/translations'
 
+import {RegistrationForm} from '../registration-form'
 import {useClassNames} from './user-info-edit-form.style'
 
 const regExpEmailChecking =
@@ -88,7 +89,9 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
 
   return (
     <div className={classNames.mainWrapper}>
-      <Typography variant="h5">{t(TranslationKey['Enter information'])}</Typography>
+      <Typography variant="h5" className={classNames.mainTitle}>
+        {t(TranslationKey['Enter information'])}
+      </Typography>
 
       <Field
         label={t(TranslationKey.Name)}
@@ -111,12 +114,14 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
         onChange={onChangeField('email')}
       />
 
+      <RegistrationForm isRecoverPassword formFields={{password: ''}} onChangeFormField={onChangeField} />
+
       <div className={classNames.btnsWrapper}>
-        <Button disabled={disabledSubmit} onClick={onClickSubmit}>
+        <Button disabled={disabledSubmit} className={classNames.actionBtn} onClick={onClickSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button variant="text" className={classNames.cancelBtn} onClick={onCloseModal}>
+        <Button variant="text" className={classNames.actionBtn} onClick={onCloseModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

@@ -134,6 +134,9 @@ class InlineResponse200 {
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            }
             if (data.hasOwnProperty('checkednotes')) {
                 obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
             }
@@ -464,6 +467,12 @@ InlineResponse200.prototype['clientComment'] = undefined;
  * @member {Array.<String>} images
  */
 InlineResponse200.prototype['images'] = undefined;
+
+/**
+ * Цена для клиента
+ * @member {Number} priceForClient
+ */
+InlineResponse200.prototype['priceForClient'] = undefined;
 
 /**
  * 

@@ -135,6 +135,9 @@ class InlineResponse20010 {
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
+            if (data.hasOwnProperty('priceForClient')) {
+                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
+            }
             if (data.hasOwnProperty('checkednotes')) {
                 obj['checkednotes'] = ApiClient.convertToType(data['checkednotes'], 'String');
             }
@@ -299,9 +302,6 @@ class InlineResponse20010 {
             }
             if (data.hasOwnProperty('productsInWarehouse')) {
                 obj['productsInWarehouse'] = ApiClient.convertToType(data['productsInWarehouse'], [Object]);
-            }
-            if (data.hasOwnProperty('priceForClient')) {
-                obj['priceForClient'] = ApiClient.convertToType(data['priceForClient'], 'Number');
             }
         }
         return obj;
@@ -474,6 +474,11 @@ InlineResponse20010.prototype['clientComment'] = undefined;
  * @member {Array.<String>} images
  */
 InlineResponse20010.prototype['images'] = undefined;
+
+/**
+ * @member {Number} priceForClient
+ */
+InlineResponse20010.prototype['priceForClient'] = undefined;
 
 /**
  * 
@@ -798,11 +803,6 @@ InlineResponse20010.prototype['checkedby'] = undefined;
  * @member {Array.<Object>} productsInWarehouse
  */
 InlineResponse20010.prototype['productsInWarehouse'] = undefined;
-
-/**
- * @member {Number} priceForClient
- */
-InlineResponse20010.prototype['priceForClient'] = undefined;
 
 
 

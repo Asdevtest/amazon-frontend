@@ -60,7 +60,7 @@ export const LogisticsTariffs = observer(() => {
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.placeAddBtnWrapper}>
-        <Button success onClick={() => onClickAddBtn()}>
+        <Button success className={classNames.placeAddBtn} onClick={() => onClickAddBtn()}>
           {t(TranslationKey.Add)}
         </Button>
       </div>

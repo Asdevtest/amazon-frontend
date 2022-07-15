@@ -11,6 +11,11 @@ export const useClassNames = makeStyles(() => ({
   placeAddBtnWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
+  },
+
+  addPermissonsBtn: {
+    width: '149px',
+    height: '40px',
   },
 }))

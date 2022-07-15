@@ -32,6 +32,7 @@ Name | Type | Description | Notes
 **icomment** | **String** | Комментарии к товару. | [optional] 
 **clientComment** | **String** | Комментарии к товару, от клиента. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
+**priceForClient** | **Number** | Цена для клиента | [optional] 
 **checkednotes** | **String** |  | [optional] 
 **researcherFine** | **Number** | Размер штрафа менеджеру. | [optional] 
 **researcherFineComment** | **String** | Комментарии к штрафу. | [optional] 

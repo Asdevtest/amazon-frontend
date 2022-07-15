@@ -32,6 +32,7 @@ Name | Type | Description | Notes
 **icomment** | **String** | Комментарии к товару. | [optional] 
 **clientComment** | **String** | Комментарии к товару, от клиента. | [optional] 
 **images** | **[String]** | Массив картинок. | [optional] 
+**priceForClient** | **Number** |  | [optional] 
 **checkednotes** | **String** |  | [optional] 
 **researcherFine** | **Number** | Размер штрафа менеджеру. | [optional] 
 **researcherFineComment** | **String** | Комментарии к штрафу. | [optional] 
@@ -87,6 +88,5 @@ Name | Type | Description | Notes
 **fourMonthesStock** | **Number** | Каков должен быть сток за 4 месяца | [optional] 
 **checkedby** | [**ApiV1AdminsProductsVacCheckedby**](ApiV1AdminsProductsVacCheckedby.md) |  | [optional] 
 **productsInWarehouse** | **[Object]** |  | [optional] 
-**priceForClient** | **Number** |  | [optional] 
 
 
