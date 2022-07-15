@@ -891,7 +891,7 @@ export const EditOrRemoveIconBtnsCell = withStyles(styles)(
         >
           {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
         </Button>
-        <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Edit)}</Typography>
+        {/* <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Edit)}</Typography> */}
       </div>
       <div className={classNames.editOrRemoveBtnWrapper}>
         <Button
@@ -906,7 +906,7 @@ export const EditOrRemoveIconBtnsCell = withStyles(styles)(
         >
           <DeleteOutlineOutlinedIcon />
         </Button>
-        <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Delete)}</Typography>
+        {/* <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Delete)}</Typography> */}
       </div>
     </div>
   ),

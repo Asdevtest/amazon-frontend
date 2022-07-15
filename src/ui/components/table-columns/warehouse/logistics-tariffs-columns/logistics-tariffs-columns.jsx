@@ -7,7 +7,6 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
   MultilineTextCell,
-  ScrollingCell,
   WarehouseTariffDatesCell,
   WarehouseTariffDestinationCell,
   WarehouseTariffRatesCell,
@@ -23,7 +22,7 @@ export const logisticsTariffsColumns = handlers => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey['Tariff name'])} />,
 
-    width: 182,
+    width: 165,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -32,8 +31,8 @@ export const logisticsTariffsColumns = handlers => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Description)} />,
 
-    width: 212,
-    renderCell: params => <ScrollingCell value={params.value} />,
+    width: 170,
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
@@ -93,8 +92,15 @@ export const logisticsTariffsColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 311,
-    renderCell: params => <EditOrRemoveIconBtnsCell handlers={handlers} row={params.row} />,
+    width: 150,
+    renderCell: params => (
+      <EditOrRemoveIconBtnsCell
+        tooltipFirstButton={t(TranslationKey.Edit)}
+        tooltipSecondButton={t(TranslationKey.Remove)}
+        handlers={handlers}
+        row={params.row}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

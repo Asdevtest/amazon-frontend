@@ -47,7 +47,7 @@ export class GroupPermissionsModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'compact'
+  densityModel = 'standart'
   columnsModel = adminGroupPermissionsColumns(this.rowHandlers)
 
   constructor({history}) {

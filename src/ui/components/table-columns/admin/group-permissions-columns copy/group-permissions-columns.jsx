@@ -54,7 +54,14 @@ export const adminGroupPermissionsColumns = handlers => [
     renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Actions)} />,
 
     width: 311,
-    renderCell: params => <EditOrRemoveIconBtnsCell handlers={handlers} row={params.row.originalData} />,
+    renderCell: params => (
+      <EditOrRemoveIconBtnsCell
+        tooltipFirstButton={t(TranslationKey.Edit)}
+        tooltipSecondButton={t(TranslationKey.Remove)}
+        handlers={handlers}
+        row={params.row.originalData}
+      />
+    ),
     filterable: false,
     sortable: false,
   },
