@@ -1129,6 +1129,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {
@@ -1614,6 +1615,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {
@@ -2100,6 +2102,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {
@@ -2585,6 +2588,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {
@@ -3336,6 +3340,7 @@
                         "description": "Массив картинок.",
                         "items": {"type": "string"}
                       },
+                      "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                       "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                       "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                       "researcherFineComment": {
@@ -4970,6 +4975,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {
@@ -5961,6 +5967,11 @@
                                     "description": "Массив картинок.",
                                     "items": {"type": "string"}
                                   },
+                                  "priceForClient": {
+                                    "type": "number",
+                                    "description": "Цена для клиента",
+                                    "example": 120
+                                  },
                                   "checkednotes": {
                                     "type": "string",
                                     "description": "",
@@ -6751,6 +6762,11 @@
                                         "nullable": true,
                                         "description": "Массив картинок.",
                                         "items": {"type": "string"}
+                                      },
+                                      "priceForClient": {
+                                        "type": "number",
+                                        "description": "Цена для клиента",
+                                        "example": 120
                                       },
                                       "checkednotes": {
                                         "type": "string",
@@ -8286,6 +8302,7 @@
                               "description": "Массив картинок.",
                               "items": {"type": "string"}
                             },
+                            "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                             "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                             "researcherFine": {
                               "type": "number",
@@ -9009,6 +9026,7 @@
                                   "description": "Массив картинок.",
                                   "items": {"type": "string"}
                                 },
+                                "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                                 "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                                 "researcherFine": {
                                   "type": "number",
@@ -10124,6 +10142,7 @@
                               "description": "Массив картинок.",
                               "items": {"type": "string"}
                             },
+                            "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                             "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                             "researcherFine": {
                               "type": "number",
@@ -10847,6 +10866,7 @@
                                   "description": "Массив картинок.",
                                   "items": {"type": "string"}
                                 },
+                                "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                                 "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                                 "researcherFine": {
                                   "type": "number",
@@ -11935,6 +11955,7 @@
                               "description": "Массив картинок.",
                               "items": {"type": "string"}
                             },
+                            "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                             "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                             "researcherFine": {
                               "type": "number",
@@ -12658,6 +12679,7 @@
                                   "description": "Массив картинок.",
                                   "items": {"type": "string"}
                                 },
+                                "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                                 "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                                 "researcherFine": {
                                   "type": "number",
@@ -14366,6 +14388,7 @@
                               "description": "Массив картинок.",
                               "items": {"type": "string"}
                             },
+                            "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                             "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                             "researcherFine": {
                               "type": "number",
@@ -15089,6 +15112,7 @@
                                   "description": "Массив картинок.",
                                   "items": {"type": "string"}
                                 },
+                                "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                                 "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                                 "researcherFine": {
                                   "type": "number",
@@ -16480,6 +16504,7 @@
                               "description": "Массив картинок.",
                               "items": {"type": "string"}
                             },
+                            "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                             "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                             "researcherFine": {
                               "type": "number",
@@ -17203,6 +17228,7 @@
                                   "description": "Массив картинок.",
                                   "items": {"type": "string"}
                                 },
+                                "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                                 "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                                 "researcherFine": {
                                   "type": "number",
@@ -18288,6 +18314,7 @@
                               "description": "Массив картинок.",
                               "items": {"type": "string"}
                             },
+                            "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                             "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                             "researcherFine": {
                               "type": "number",
@@ -19011,6 +19038,7 @@
                                   "description": "Массив картинок.",
                                   "items": {"type": "string"}
                                 },
+                                "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                                 "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                                 "researcherFine": {
                                   "type": "number",
@@ -20007,6 +20035,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {
@@ -20519,6 +20548,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {
@@ -21250,6 +21280,7 @@
                         "description": "Массив картинок.",
                         "items": {"type": "string"}
                       },
+                      "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                       "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                       "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                       "researcherFineComment": {
@@ -22066,6 +22097,7 @@
                       "description": "Массив картинок.",
                       "items": {"type": "string"}
                     },
+                    "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                     "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                     "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                     "researcherFineComment": {
@@ -22908,6 +22940,7 @@
                         "description": "Массив картинок.",
                         "items": {"type": "string"}
                       },
+                      "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                       "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                       "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                       "researcherFineComment": {
@@ -24032,6 +24065,11 @@
                                     "description": "Массив картинок.",
                                     "items": {"type": "string"}
                                   },
+                                  "priceForClient": {
+                                    "type": "number",
+                                    "description": "Цена для клиента",
+                                    "example": 120
+                                  },
                                   "checkednotes": {
                                     "type": "string",
                                     "description": "",
@@ -24822,6 +24860,11 @@
                                         "nullable": true,
                                         "description": "Массив картинок.",
                                         "items": {"type": "string"}
+                                      },
+                                      "priceForClient": {
+                                        "type": "number",
+                                        "description": "Цена для клиента",
+                                        "example": 120
                                       },
                                       "checkednotes": {
                                         "type": "string",
@@ -25977,6 +26020,11 @@
                                     "description": "Массив картинок.",
                                     "items": {"type": "string"}
                                   },
+                                  "priceForClient": {
+                                    "type": "number",
+                                    "description": "Цена для клиента",
+                                    "example": 120
+                                  },
                                   "checkednotes": {
                                     "type": "string",
                                     "description": "",
@@ -26767,6 +26815,11 @@
                                         "nullable": true,
                                         "description": "Массив картинок.",
                                         "items": {"type": "string"}
+                                      },
+                                      "priceForClient": {
+                                        "type": "number",
+                                        "description": "Цена для клиента",
+                                        "example": 120
                                       },
                                       "checkednotes": {
                                         "type": "string",
@@ -27790,6 +27843,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number"},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {
@@ -28060,8 +28114,7 @@
                       "sentToFba": {"type": "number", "description": "Sent  to FBA", "example": 359},
                       "shop": {"type": "object", "properties": {"_id": {"type": "string"}, "name": {"type": "string"}}}
                     }
-                  },
-                  "priceForClient": {"type": "number"}
+                  }
                 }
               }
             }
@@ -28549,6 +28602,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number"},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {
@@ -28819,8 +28873,7 @@
                       "sentToFba": {"type": "number", "description": "Sent  to FBA", "example": 359},
                       "shop": {"type": "object", "properties": {"_id": {"type": "string"}, "name": {"type": "string"}}}
                     }
-                  },
-                  "priceForClient": {"type": "number"}
+                  }
                 }
               }
             }
@@ -29384,6 +29437,7 @@
                         "description": "Массив картинок.",
                         "items": {"type": "string"}
                       },
+                      "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                       "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                       "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                       "researcherFineComment": {
@@ -30265,6 +30319,7 @@
                       "description": "Массив картинок.",
                       "items": {"type": "string"}
                     },
+                    "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                     "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                     "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                     "researcherFineComment": {
@@ -31088,6 +31143,7 @@
                         "description": "Массив картинок.",
                         "items": {"type": "string"}
                       },
+                      "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                       "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                       "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                       "researcherFineComment": {
@@ -34087,6 +34143,7 @@
                   "description": "Массив картинок.",
                   "items": {"type": "string"}
                 },
+                "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                 "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                 "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                 "researcherFineComment": {
@@ -34567,6 +34624,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {
@@ -36470,6 +36528,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {
@@ -37077,6 +37136,7 @@
                   "description": "Массив картинок.",
                   "items": {"type": "string"}
                 },
+                "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                 "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                 "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                 "researcherFineComment": {
@@ -38184,6 +38244,11 @@
                                     "description": "Массив картинок.",
                                     "items": {"type": "string"}
                                   },
+                                  "priceForClient": {
+                                    "type": "number",
+                                    "description": "Цена для клиента",
+                                    "example": 120
+                                  },
                                   "checkednotes": {
                                     "type": "string",
                                     "description": "",
@@ -38974,6 +39039,11 @@
                                         "nullable": true,
                                         "description": "Массив картинок.",
                                         "items": {"type": "string"}
+                                      },
+                                      "priceForClient": {
+                                        "type": "number",
+                                        "description": "Цена для клиента",
+                                        "example": 120
                                       },
                                       "checkednotes": {
                                         "type": "string",
@@ -40129,6 +40199,11 @@
                                     "description": "Массив картинок.",
                                     "items": {"type": "string"}
                                   },
+                                  "priceForClient": {
+                                    "type": "number",
+                                    "description": "Цена для клиента",
+                                    "example": 120
+                                  },
                                   "checkednotes": {
                                     "type": "string",
                                     "description": "",
@@ -40919,6 +40994,11 @@
                                         "nullable": true,
                                         "description": "Массив картинок.",
                                         "items": {"type": "string"}
+                                      },
+                                      "priceForClient": {
+                                        "type": "number",
+                                        "description": "Цена для клиента",
+                                        "example": 120
                                       },
                                       "checkednotes": {
                                         "type": "string",
@@ -42147,6 +42227,7 @@
                                   "description": "Массив картинок.",
                                   "items": {"type": "string"}
                                 },
+                                "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                                 "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                                 "researcherFine": {
                                   "type": "number",
@@ -42893,6 +42974,11 @@
                                       "nullable": true,
                                       "description": "Массив картинок.",
                                       "items": {"type": "string"}
+                                    },
+                                    "priceForClient": {
+                                      "type": "number",
+                                      "description": "Цена для клиента",
+                                      "example": 120
                                     },
                                     "checkednotes": {
                                       "type": "string",
@@ -44032,6 +44118,7 @@
                                   "description": "Массив картинок.",
                                   "items": {"type": "string"}
                                 },
+                                "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                                 "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                                 "researcherFine": {
                                   "type": "number",
@@ -44778,6 +44865,11 @@
                                       "nullable": true,
                                       "description": "Массив картинок.",
                                       "items": {"type": "string"}
+                                    },
+                                    "priceForClient": {
+                                      "type": "number",
+                                      "description": "Цена для клиента",
+                                      "example": 120
                                     },
                                     "checkednotes": {
                                       "type": "string",
@@ -46385,6 +46477,11 @@
                                     "description": "Массив картинок.",
                                     "items": {"type": "string"}
                                   },
+                                  "priceForClient": {
+                                    "type": "number",
+                                    "description": "Цена для клиента",
+                                    "example": 120
+                                  },
                                   "checkednotes": {
                                     "type": "string",
                                     "description": "",
@@ -47175,6 +47272,11 @@
                                         "nullable": true,
                                         "description": "Массив картинок.",
                                         "items": {"type": "string"}
+                                      },
+                                      "priceForClient": {
+                                        "type": "number",
+                                        "description": "Цена для клиента",
+                                        "example": 120
                                       },
                                       "checkednotes": {
                                         "type": "string",
@@ -48330,6 +48432,11 @@
                                     "description": "Массив картинок.",
                                     "items": {"type": "string"}
                                   },
+                                  "priceForClient": {
+                                    "type": "number",
+                                    "description": "Цена для клиента",
+                                    "example": 120
+                                  },
                                   "checkednotes": {
                                     "type": "string",
                                     "description": "",
@@ -49120,6 +49227,11 @@
                                         "nullable": true,
                                         "description": "Массив картинок.",
                                         "items": {"type": "string"}
+                                      },
+                                      "priceForClient": {
+                                        "type": "number",
+                                        "description": "Цена для клиента",
+                                        "example": 120
                                       },
                                       "checkednotes": {
                                         "type": "string",
@@ -50385,6 +50497,7 @@
                               "description": "Массив картинок.",
                               "items": {"type": "string"}
                             },
+                            "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                             "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                             "researcherFine": {
                               "type": "number",
@@ -51108,6 +51221,7 @@
                                   "description": "Массив картинок.",
                                   "items": {"type": "string"}
                                 },
+                                "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                                 "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                                 "researcherFine": {
                                   "type": "number",
@@ -52663,6 +52777,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {
@@ -53175,6 +53290,7 @@
                     "description": "Массив картинок.",
                     "items": {"type": "string"}
                   },
+                  "priceForClient": {"type": "number", "description": "Цена для клиента", "example": 120},
                   "checkednotes": {"type": "string", "description": "", "example": "коммент к проверке"},
                   "researcherFine": {"type": "number", "description": "Размер штрафа менеджеру.", "example": 200},
                   "researcherFineComment": {

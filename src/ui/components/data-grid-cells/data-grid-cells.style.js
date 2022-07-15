@@ -444,7 +444,7 @@ export const styles = createStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: '6px',
+    // marginLeft: '6px',
   },
 
   multilineText: {
@@ -462,7 +462,7 @@ export const styles = createStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
-    marginLeft: '6px',
+
     // padding: '0 10px',
   },
 
@@ -470,12 +470,12 @@ export const styles = createStyles(() => ({
     width: '100%',
     textAlign: 'left',
     whiteSpace: 'normal',
-
-    fontWeight: '400',
+    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+    fontWeight: '600',
     fontSize: '14px',
-    lineHeight: '16px',
+    lineHeight: '17px',
 
-    color: '#354256',
+    color: 'rgba(0, 0, 0, 0.87)',
 
     height: '100%',
     textOverflow: 'ellipsis',
@@ -631,11 +631,12 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
+    marginLeft: '20px',
   },
 
   userAvatar: {
-    width: 136,
-    height: 136,
+    width: 100,
+    height: 100,
   },
 
   sabUserInfoWrapper: {
@@ -643,7 +644,7 @@ export const styles = createStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    height: 120,
+    height: 100,
   },
 
   userEmail: {
@@ -741,5 +742,30 @@ export const styles = createStyles(() => ({
     fontSize: '14px',
     lineHeight: '16px',
     marginBottom: '5px',
+  },
+
+  removeOrEditBtn: {
+    maxHeight: '40px',
+    maxWidth: '40px',
+  },
+
+  editOrRemoveIconBtnsCell: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '40px',
+  },
+
+  editOrRemoveBtnWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
+
+  editOrRemoveBtnText: {
+    fontSize: '12px',
+    lineHeight: '14px',
+    fontWeight: '400',
+    color: '#656565',
   },
 }))

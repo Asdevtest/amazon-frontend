@@ -1265,5 +1265,10 @@
   "Box ID": "ID коробки",
   "Destination and tariff": "Пункт назначения и тариф",
   "Outside Batch": "Не в партии",
-  "Add HS Code": "Добавить HS Code"
+  "Add HS Code": "Добавить HS Code",
+  "The field must be filled in": "Поле должно быть заполнено",
+  "Order status": "Статус заказа",
+  "Dollars per batch": "Долларов за партию",
+  "Add boxes for this order": "Добавьте коробки по данному заказу",
+  "This product already exists": "Этот товар уже существует"
 }

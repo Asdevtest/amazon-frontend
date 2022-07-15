@@ -121,6 +121,7 @@ export const useClassNames = makeStyles(() => ({
   },
   allowedRoleContainer: {
     margin: 0,
+    width: '139px',
   },
 
   overdraftContainer: {

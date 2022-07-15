@@ -3,52 +3,42 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  EditOrRemoveBtnsCell,
+  // EditOrRemoveBtnsCell,
   MultilineTextHeaderCell,
   NormDateCell,
   MultilineTextCell,
-  ScrollingCell,
   WarehouseTariffDatesCell,
   WarehouseTariffDestinationCell,
   WarehouseTariffRatesCell,
+  EditOrRemoveIconBtnsCell,
+  MultilineTextAlignLeftCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
 export const logisticsTariffsColumns = handlers => [
   {
-    field: 'action',
-    headerName: t(TranslationKey.Action),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-
-    width: 250,
-    renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
-    filterable: false,
-    sortable: false,
-  },
-
-  {
     field: 'name',
     headerName: t(TranslationKey.Title),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey['Tariff name'])} />,
 
-    width: 200,
+    width: 165,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
+    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Description)} />,
 
-    width: 350,
-    renderCell: params => <ScrollingCell value={params.value} />,
+    width: 170,
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
     field: 'destination',
     headerName: t(TranslationKey.Region),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Region)} />,
+    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Region)} />,
 
     renderCell: () => <WarehouseTariffDestinationCell />,
     width: 130,
@@ -62,7 +52,7 @@ export const logisticsTariffsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Rate, $'])} />,
 
     renderCell: params => <WarehouseTariffRatesCell conditionsByRegion={params.row.conditionsByRegion} />,
-    width: 100,
+    width: 95,
     filterable: false,
     sortable: false,
   },
@@ -70,10 +60,10 @@ export const logisticsTariffsColumns = handlers => [
   {
     field: 'dates',
     headerName: t(TranslationKey.Dates),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Dates)} />,
+    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Dates)} />,
 
     renderCell: params => <WarehouseTariffDatesCell row={params.row} />,
-    width: 350,
+    width: 323,
     filterable: false,
     sortable: false,
   },
@@ -85,6 +75,7 @@ export const logisticsTariffsColumns = handlers => [
 
     width: 180,
     renderCell: params => <MultilineTextCell text={params.value} />,
+    type: 'number',
   },
 
   {
@@ -92,8 +83,26 @@ export const logisticsTariffsColumns = handlers => [
     headerName: t(TranslationKey['Min. weight, kg']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
 
-    width: 160,
+    width: 180,
     renderCell: params => <MultilineTextCell text={params.value} />,
+  },
+
+  {
+    field: 'action',
+    headerName: t(TranslationKey.Action),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+
+    width: 150,
+    renderCell: params => (
+      <EditOrRemoveIconBtnsCell
+        tooltipFirstButton={t(TranslationKey.Edit)}
+        tooltipSecondButton={t(TranslationKey.Remove)}
+        handlers={handlers}
+        row={params.row}
+      />
+    ),
+    filterable: false,
+    sortable: false,
   },
 
   {

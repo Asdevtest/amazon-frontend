@@ -91,6 +91,7 @@ const Box = ({
                 <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
                 <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
                 <Text
+                  tooltipPosition="corner"
                   tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
                   className={classNames.subTitle}
                 >

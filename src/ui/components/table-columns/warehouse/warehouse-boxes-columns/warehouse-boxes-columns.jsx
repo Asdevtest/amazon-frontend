@@ -16,14 +16,6 @@ import {
 import {t} from '@utils/translations'
 
 export const warehouseBoxesViewColumns = handlers => [
-  // {
-  //   field: 'isDraft',
-  //   headerName: '',
-  //   renderCell: params => (params.value ? 'isDraft' : 'OK'),
-  //   width: 60,
-  //   type: 'boolean',
-  // },
-
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Box ID']),
@@ -84,24 +76,6 @@ export const warehouseBoxesViewColumns = handlers => [
     sortable: false,
   },
 
-  // {
-  //   field: 'warehouse',
-  //   headerName: t(TranslationKey.Warehouse),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
-
-  //   renderCell: params => <MultilineTextCell text={params.value} />,
-  //   width: 120,
-  // },
-
-  // {
-  //   field: 'logicsTariff',
-  //   headerName: t(TranslationKey.Tariff),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-
-  //   renderCell: params => <MultilineTextCell text={params.value} />,
-  //   width: 90,
-  // },
-
   {
     field: 'client',
     headerName: t(TranslationKey.Client),
@@ -144,24 +118,4 @@ export const warehouseBoxesViewColumns = handlers => [
     filterable: false,
     sortable: false,
   },
-
-  // {
-  //   field: 'createdAt',
-  //   headerName: t(TranslationKey.Created),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
-  //   renderCell: params => <NormDateCell params={params} />,
-  //   width: 120,
-  //   type: 'date',
-  // },
-
-  // {
-  //   field: 'updatedAt',
-  //   headerName: t(TranslationKey.Updated),
-  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-  //   renderCell: params => <ShortDateCell params={params} />,
-  //   width: 80,
-  //   type: 'date',
-  // },
 ]
