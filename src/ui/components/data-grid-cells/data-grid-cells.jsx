@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import AutorenewIcon from '@mui/icons-material/Autorenew'
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import {Rating} from '@mui/material'
 
 import React from 'react'
@@ -815,6 +817,12 @@ export const ScrollingCell = withStyles(styles)(({classes: classNames, value}) =
   </React.Fragment>
 ))
 
+export const MultilineCell = withStyles(styles)(({classes: classNames, value}) => (
+  <React.Fragment>
+    <Typography className={classNames.multilineValue}>{value || '-'}</Typography>
+  </React.Fragment>
+))
+
 export const ScrollingLinkCell = withStyles(styles)(({classes: classNames, value}) => (
   <React.Fragment>
     <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(value)} className={classNames.scrollingValue}>
@@ -857,6 +865,49 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
       >
         {t(TranslationKey.Remove)}
       </Button>
+    </div>
+  ),
+)
+
+export const EditOrRemoveIconBtnsCell = withStyles(styles)(
+  ({
+    classes: classNames,
+    row,
+    handlers,
+    isSubUsersTable,
+    disableActionBtn,
+    tooltipFirstButton,
+    tooltipSecondButton,
+  }) => (
+    <div className={classNames.editOrRemoveIconBtnsCell}>
+      <div className={classNames.editOrRemoveBtnWrapper}>
+        <Button
+          tooltipInfoContent={tooltipFirstButton}
+          variant="contained"
+          color="primary"
+          disabled={disableActionBtn}
+          className={classNames.removeOrEditBtn}
+          onClick={() => handlers.onClickEditBtn(row)}
+        >
+          {isSubUsersTable ? t(TranslationKey['Assign permissions']) : <EditOutlinedIcon />}
+        </Button>
+        <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Edit)}</Typography>
+      </div>
+      <div className={classNames.editOrRemoveBtnWrapper}>
+        <Button
+          danger
+          tooltipInfoContent={tooltipSecondButton}
+          disabled={disableActionBtn}
+          // className={classNames.rowCancelBtn}
+          className={classNames.removeOrEditBtn}
+          onClick={() => {
+            handlers.onClickRemoveBtn(row)
+          }}
+        >
+          <DeleteOutlineOutlinedIcon />
+        </Button>
+        <Typography className={classNames.editOrRemoveBtnText}>{t(TranslationKey.Delete)}</Typography>
+      </div>
     </div>
   ),
 )

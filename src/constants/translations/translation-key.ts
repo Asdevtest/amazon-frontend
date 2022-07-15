@@ -1268,6 +1268,7 @@ export enum TranslationKey {
   'Order status' = 'Order status',
   'Dollars per batch' = 'Dollars per batch',
   'Add boxes for this order' = 'Add boxes for this order',
+  'This product already exists' = 'This product already exists',
 
   // '' = '',
   // '' = '',

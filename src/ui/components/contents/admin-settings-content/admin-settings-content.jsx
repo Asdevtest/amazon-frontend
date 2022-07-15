@@ -84,7 +84,9 @@ export const AdminSettingsContent = observer(() => {
 
   useEffect(() => {
     const sourceFormFields = {
+      yuanToDollarRate: adminSettings?.dynamicSettings?.yuanToDollarRate || 0,
       costOfFindingSupplier: adminSettings?.dynamicSettings?.costOfFindingSupplier || 0,
+      costOfCheckingProduct: adminSettings?.dynamicSettings?.costOfCheckingProduct || 0,
       deadlineForFindingSupplier: adminSettings?.dynamicSettings?.deadlineForFindingSupplier || 0,
       requestMinAmountPriceOfProposal: adminSettings?.dynamicSettings?.requestMinAmountPriceOfProposal || 0,
       requestPlatformMarginInPercent: adminSettings?.dynamicSettings?.requestPlatformMarginInPercent || 0,
@@ -94,8 +96,6 @@ export const AdminSettingsContent = observer(() => {
       requestTimeLimitInHourForCheckingProposalBySuper:
         adminSettings?.dynamicSettings?.requestTimeLimitInHourForCheckingProposalBySuper || 0,
 
-      yuanToDollarRate: adminSettings?.dynamicSettings?.yuanToDollarRate || 0,
-      costOfCheckingProduct: adminSettings?.dynamicSettings?.costOfCheckingProduct || 0,
       volumeWeightCoefficient: adminSettings?.dynamicSettings?.volumeWeightCoefficient || 0,
     }
 

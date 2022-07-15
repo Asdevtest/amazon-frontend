@@ -8,4 +8,9 @@ export const useClassNames = makeStyles(() => ({
   indicator: {
     backgroundColor: '#1da1f2',
   },
+  row: {
+    width: '100%',
+    padding: '0 25px',
+    margin: '0 auto',
+  },
 }))

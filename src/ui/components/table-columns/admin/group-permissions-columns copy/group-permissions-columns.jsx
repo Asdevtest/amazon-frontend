@@ -3,11 +3,10 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  EditOrRemoveBtnsCell,
-  MultilineTextHeaderCell,
   NormDateCell,
   MultilineTextCell,
-  ScrollingCell,
+  MultilineTextAlignLeftCell,
+  EditOrRemoveIconBtnsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -16,16 +15,16 @@ export const adminGroupPermissionsColumns = handlers => [
   {
     field: 'key',
     headerName: t(TranslationKey.Key),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Key)} />,
+    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Key)} />,
 
-    width: 250,
+    width: 252,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
     field: 'role',
     headerName: t(TranslationKey.Role),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Role)} />,
+    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Role)} />,
 
     width: 140,
     renderCell: params => <MultilineTextCell text={params.value} />,
@@ -34,49 +33,39 @@ export const adminGroupPermissionsColumns = handlers => [
   {
     field: 'title',
     headerName: t(TranslationKey.Title),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
+    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Title)} />,
 
-    width: 250,
+    width: 155,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
+    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Description)} />,
 
-    width: 400,
-    renderCell: params => <ScrollingCell value={params.value} />,
+    width: 265,
+    renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
   {
     field: 'action',
     headerName: t(TranslationKey.Actions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Actions)} />,
 
-    width: 250,
-    renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row.originalData} />,
+    width: 311,
+    renderCell: params => <EditOrRemoveIconBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },
 
   {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
-    renderCell: params => <NormDateCell params={params} />,
-    width: 130,
-    type: 'date',
-  },
-
-  {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
+    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 405,
     type: 'date',
   },
 ]

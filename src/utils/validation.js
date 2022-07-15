@@ -59,6 +59,7 @@ export const errorMessages = {
   'fbafee must be a number conforming to the specified constraints':
     'fbafee must be a number conforming to the specified constraints',
   'Product code field is required for this action': 'Product code field is required for this action',
+  'This product already exists': 'This product already exists',
 }
 
 export const errorMessagesTranslate = error => {
@@ -85,6 +86,8 @@ export const errorMessagesTranslate = error => {
       return t(TranslationKey['Fbafee must be a number conforming to the specified constraints'])
     case errorMessages['Product code field is required for this action']:
       return t(TranslationKey['Product code field is required for this action'])
+    case errorMessages['This product already exists']:
+      return t(TranslationKey['This product already exists'])
   }
 }
 
