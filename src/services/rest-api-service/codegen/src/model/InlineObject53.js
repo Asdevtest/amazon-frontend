@@ -22,10 +22,11 @@ class InlineObject53 {
     /**
      * Constructs a new <code>InlineObject53</code>.
      * @alias module:model/InlineObject53
+     * @param fileUrl {String} uri полный путь до файла, для скачивания
      */
-    constructor() { 
+    constructor(fileUrl) { 
         
-        InlineObject53.initialize(this);
+        InlineObject53.initialize(this, fileUrl);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject53 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, fileUrl) { 
+        obj['fileUrl'] = fileUrl;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject53 {
         if (data) {
             obj = obj || new InlineObject53();
 
-            if (data.hasOwnProperty('shopIds')) {
-                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            if (data.hasOwnProperty('fileUrl')) {
+                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
             }
         }
         return obj;
@@ -58,10 +60,10 @@ class InlineObject53 {
 }
 
 /**
- * GUIDы магазинов, которые нужно добавить к продукту.
- * @member {Array.<String>} shopIds
+ * uri полный путь до файла, для скачивания
+ * @member {String} fileUrl
  */
-InlineObject53.prototype['shopIds'] = undefined;
+InlineObject53.prototype['fileUrl'] = undefined;
 
 
 

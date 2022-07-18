@@ -3,14 +3,18 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(() => ({
   mainContainer: {
     width: '100%',
+    height: '100%',
   },
 
   window: {
     width: '100%',
+
     overflow: 'hidden',
+    height: '100%',
   },
 
   allPages: {
+    height: '100%',
     display: 'flex',
     alignItems: 'center',
     transition: 'translate',
@@ -26,6 +30,7 @@ export const useClassNames = makeStyles(() => ({
     transitionProperty: 'transform',
     transitionDuration: '300ms',
     transitionTimingFunction: 'ease-in-out',
+    height: '100%',
   },
   buttonWrapper: {
     display: 'flex',
@@ -45,11 +50,13 @@ export const useClassNames = makeStyles(() => ({
   buttonDocumentsWrapper: {
     display: 'flex',
     alignItems: 'center',
+    height: '100%',
   },
 
   headerCarouselDocumentsWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    height: '100%',
   },
 
   numberOfFiles: {
@@ -87,10 +94,12 @@ export const useClassNames = makeStyles(() => ({
 
   imagesCarouselWrapper: {
     width: '100%',
+    height: '100%',
   },
 
   imageWrapper: {
     width: '100%',
+    height: '100%',
   },
 
   imagesWrapper: {
@@ -190,6 +199,12 @@ export const useClassNames = makeStyles(() => ({
     cursor: 'pointer',
     minWidth: 60,
     minHeight: 60,
+
+    objectFit: 'contain',
+    objectPosition: 'center',
+
+    // maxHeight: 280,
+    maxHeight: '100%',
   },
 
   emptyWrapper: {

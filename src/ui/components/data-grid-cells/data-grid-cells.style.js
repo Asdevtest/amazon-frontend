@@ -441,6 +441,7 @@ export const styles = createStyles(() => ({
 
   multilineTextWrapper: {
     width: '100%',
+    height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -449,8 +450,11 @@ export const styles = createStyles(() => ({
 
   multilineText: {
     width: '100%',
+    maxHeight: '90%',
     textAlign: 'center',
     whiteSpace: 'normal',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
 
     fontWeight: '400',
     fontSize: '14px',

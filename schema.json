@@ -1238,6 +1238,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -1724,6 +1725,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -2211,6 +2213,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -2697,6 +2700,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -3452,6 +3456,11 @@
                         "type": "string",
                         "description": "Комментарии к товару от байера.",
                         "example": "Просто коммент от байера."
+                      },
+                      "shopIds": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "ID магазинов для продукта"
                       },
                       "researcherRate": {"type": "number", "description": "Савка ресечера."},
                       "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -5084,6 +5093,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -6124,6 +6134,11 @@
                                     "description": "Комментарии к товару от байера.",
                                     "example": "Просто коммент от байера."
                                   },
+                                  "shopIds": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                    "description": "ID магазинов для продукта"
+                                  },
                                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -6923,6 +6938,11 @@
                                         "type": "string",
                                         "description": "Комментарии к товару от байера.",
                                         "example": "Просто коммент от байера."
+                                      },
+                                      "shopIds": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "description": "ID магазинов для продукта"
                                       },
                                       "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                       "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -8419,6 +8439,11 @@
                               "description": "Комментарии к товару от байера.",
                               "example": "Просто коммент от байера."
                             },
+                            "shopIds": {
+                              "type": "array",
+                              "items": {"type": "string"},
+                              "description": "ID магазинов для продукта"
+                            },
                             "researcherRate": {"type": "number", "description": "Савка ресечера."},
                             "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                             "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -9146,6 +9171,11 @@
                                   "type": "string",
                                   "description": "Комментарии к товару от байера.",
                                   "example": "Просто коммент от байера."
+                                },
+                                "shopIds": {
+                                  "type": "array",
+                                  "items": {"type": "string"},
+                                  "description": "ID магазинов для продукта"
                                 },
                                 "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                 "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -10259,6 +10289,11 @@
                               "description": "Комментарии к товару от байера.",
                               "example": "Просто коммент от байера."
                             },
+                            "shopIds": {
+                              "type": "array",
+                              "items": {"type": "string"},
+                              "description": "ID магазинов для продукта"
+                            },
                             "researcherRate": {"type": "number", "description": "Савка ресечера."},
                             "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                             "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -10986,6 +11021,11 @@
                                   "type": "string",
                                   "description": "Комментарии к товару от байера.",
                                   "example": "Просто коммент от байера."
+                                },
+                                "shopIds": {
+                                  "type": "array",
+                                  "items": {"type": "string"},
+                                  "description": "ID магазинов для продукта"
                                 },
                                 "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                 "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -12072,6 +12112,11 @@
                               "description": "Комментарии к товару от байера.",
                               "example": "Просто коммент от байера."
                             },
+                            "shopIds": {
+                              "type": "array",
+                              "items": {"type": "string"},
+                              "description": "ID магазинов для продукта"
+                            },
                             "researcherRate": {"type": "number", "description": "Савка ресечера."},
                             "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                             "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -12799,6 +12844,11 @@
                                   "type": "string",
                                   "description": "Комментарии к товару от байера.",
                                   "example": "Просто коммент от байера."
+                                },
+                                "shopIds": {
+                                  "type": "array",
+                                  "items": {"type": "string"},
+                                  "description": "ID магазинов для продукта"
                                 },
                                 "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                 "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -14505,6 +14555,11 @@
                               "description": "Комментарии к товару от байера.",
                               "example": "Просто коммент от байера."
                             },
+                            "shopIds": {
+                              "type": "array",
+                              "items": {"type": "string"},
+                              "description": "ID магазинов для продукта"
+                            },
                             "researcherRate": {"type": "number", "description": "Савка ресечера."},
                             "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                             "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -15232,6 +15287,11 @@
                                   "type": "string",
                                   "description": "Комментарии к товару от байера.",
                                   "example": "Просто коммент от байера."
+                                },
+                                "shopIds": {
+                                  "type": "array",
+                                  "items": {"type": "string"},
+                                  "description": "ID магазинов для продукта"
                                 },
                                 "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                 "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -16621,6 +16681,11 @@
                               "description": "Комментарии к товару от байера.",
                               "example": "Просто коммент от байера."
                             },
+                            "shopIds": {
+                              "type": "array",
+                              "items": {"type": "string"},
+                              "description": "ID магазинов для продукта"
+                            },
                             "researcherRate": {"type": "number", "description": "Савка ресечера."},
                             "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                             "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -17348,6 +17413,11 @@
                                   "type": "string",
                                   "description": "Комментарии к товару от байера.",
                                   "example": "Просто коммент от байера."
+                                },
+                                "shopIds": {
+                                  "type": "array",
+                                  "items": {"type": "string"},
+                                  "description": "ID магазинов для продукта"
                                 },
                                 "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                 "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -18431,6 +18501,11 @@
                               "description": "Комментарии к товару от байера.",
                               "example": "Просто коммент от байера."
                             },
+                            "shopIds": {
+                              "type": "array",
+                              "items": {"type": "string"},
+                              "description": "ID магазинов для продукта"
+                            },
                             "researcherRate": {"type": "number", "description": "Савка ресечера."},
                             "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                             "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -19158,6 +19233,11 @@
                                   "type": "string",
                                   "description": "Комментарии к товару от байера.",
                                   "example": "Просто коммент от байера."
+                                },
+                                "shopIds": {
+                                  "type": "array",
+                                  "items": {"type": "string"},
+                                  "description": "ID магазинов для продукта"
                                 },
                                 "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                 "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -20144,6 +20224,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -20657,6 +20738,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -21392,6 +21474,11 @@
                         "type": "string",
                         "description": "Комментарии к товару от байера.",
                         "example": "Просто коммент от байера."
+                      },
+                      "shopIds": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "ID магазинов для продукта"
                       },
                       "researcherRate": {"type": "number", "description": "Савка ресечера."},
                       "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -22209,6 +22296,11 @@
                       "type": "string",
                       "description": "Комментарии к товару от байера.",
                       "example": "Просто коммент от байера."
+                    },
+                    "shopIds": {
+                      "type": "array",
+                      "items": {"type": "string"},
+                      "description": "ID магазинов для продукта"
                     },
                     "researcherRate": {"type": "number", "description": "Савка ресечера."},
                     "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -23052,6 +23144,11 @@
                         "type": "string",
                         "description": "Комментарии к товару от байера.",
                         "example": "Просто коммент от байера."
+                      },
+                      "shopIds": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "ID магазинов для продукта"
                       },
                       "researcherRate": {"type": "number", "description": "Савка ресечера."},
                       "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -24222,6 +24319,11 @@
                                     "description": "Комментарии к товару от байера.",
                                     "example": "Просто коммент от байера."
                                   },
+                                  "shopIds": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                    "description": "ID магазинов для продукта"
+                                  },
                                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -25021,6 +25123,11 @@
                                         "type": "string",
                                         "description": "Комментарии к товару от байера.",
                                         "example": "Просто коммент от байера."
+                                      },
+                                      "shopIds": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "description": "ID магазинов для продукта"
                                       },
                                       "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                       "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -26177,6 +26284,11 @@
                                     "description": "Комментарии к товару от байера.",
                                     "example": "Просто коммент от байера."
                                   },
+                                  "shopIds": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                    "description": "ID магазинов для продукта"
+                                  },
                                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -26976,6 +27088,11 @@
                                         "type": "string",
                                         "description": "Комментарии к товару от байера.",
                                         "example": "Просто коммент от байера."
+                                      },
+                                      "shopIds": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "description": "ID магазинов для продукта"
                                       },
                                       "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                       "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -27952,6 +28069,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -28711,6 +28829,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -29549,6 +29668,11 @@
                         "type": "string",
                         "description": "Комментарии к товару от байера.",
                         "example": "Просто коммент от байера."
+                      },
+                      "shopIds": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "ID магазинов для продукта"
                       },
                       "researcherRate": {"type": "number", "description": "Савка ресечера."},
                       "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -30432,6 +30556,11 @@
                       "description": "Комментарии к товару от байера.",
                       "example": "Просто коммент от байера."
                     },
+                    "shopIds": {
+                      "type": "array",
+                      "items": {"type": "string"},
+                      "description": "ID магазинов для продукта"
+                    },
                     "researcherRate": {"type": "number", "description": "Савка ресечера."},
                     "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                     "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -31255,6 +31384,11 @@
                         "type": "string",
                         "description": "Комментарии к товару от байера.",
                         "example": "Просто коммент от байера."
+                      },
+                      "shopIds": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "ID магазинов для продукта"
                       },
                       "researcherRate": {"type": "number", "description": "Савка ресечера."},
                       "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -32447,9 +32581,8 @@
               "items": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["productName", "price"],
                 "properties": {
-                  "id": {"type": "string", "description": "GUID идеи"},
+                  "_id": {"type": "string", "description": "GUID идеи"},
                   "media": {
                     "type": "array",
                     "description": "Image URL",
@@ -32505,9 +32638,12 @@
             "schema": {
               "type": "object",
               "additionalProperties": false,
-              "required": ["productName", "price"],
               "properties": {
-                "media": {"type": "array", "description": "Image URL", "example": ["http://link.com/media"]},
+                "linksToMediaFiles": {
+                  "type": "array",
+                  "description": "Image URL",
+                  "example": ["http://link.com/media"]
+                },
                 "comments": {
                   "type": "string",
                   "description": "Комментарий к идее",
@@ -32764,6 +32900,167 @@
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
         }
+      }
+    },
+    "/api/v1/ideas/find_supplier/{guid}": {
+      "post": {
+        "summary": "Создать заявку на поиск поставщика к идее",
+        "description": "## Создание заявки на поиск поставщика\n\n",
+        "tags": ["Idea"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "productName": {"type": "string", "description": "Назавние продукта", "example": "Новые кроссовки"},
+                "productLinks": {
+                  "type": "array",
+                  "description": "Ссылки на продукт, если есть",
+                  "example": ["http://link.com/productName"]
+                },
+                "linksToMediaFiles": {
+                  "type": "array",
+                  "description": "Image URL",
+                  "example": ["http://link.com/media"]
+                },
+                "criteria": {
+                  "type": "string",
+                  "description": "Дополнительные критерии для поиска товара",
+                  "example": "Желтый цвет, зеленые шнурки"
+                },
+                "dimensions": {"type": "string", "description": "Размеры", "example": "Замеры длины, ширины и т.д."},
+                "quantity": {"type": "number", "description": "Количество товаров", "example": 2},
+                "price": {"type": "number", "description": "Желаемая цена", "example": 2.5}
+              }
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID идеи",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {"200": {"description": "Default Response"}}
+      }
+    },
+    "/api/v1/ideas/edit_request/{guid}": {
+      "patch": {
+        "summary": "Изменить заявку на поиск поставщика к идее",
+        "description": "## Изменение заявки на поиск поставщика\n\n",
+        "tags": ["Idea"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "productName": {"type": "string", "description": "Назавние продукта", "example": "Новые кроссовки"},
+                "productLinks": {
+                  "type": "array",
+                  "description": "Ссылки на продукт, если есть",
+                  "example": ["http://link.com/productName"]
+                },
+                "linksToMediaFiles": {
+                  "type": "array",
+                  "description": "Image URL",
+                  "example": ["http://link.com/media"]
+                },
+                "criteria": {
+                  "type": "string",
+                  "description": "Дополнительные критерии для поиска товара",
+                  "example": "Желтый цвет, зеленые шнурки"
+                },
+                "dimensions": {"type": "string", "description": "Размеры", "example": "Замеры длины, ширины и т.д."},
+                "quantity": {"type": "number", "description": "Количество товаров", "example": 2},
+                "price": {"type": "number", "description": "Желаемая цена", "example": 2.5}
+              }
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID идеи",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {"200": {"description": "Default Response"}}
+      }
+    },
+    "/api/v1/ideas/get_supplier_requests/": {
+      "get": {
+        "summary": "Получить все заяки на поиск поставщика",
+        "description": "## Получение всех заявок на поиск поставщика\n\n",
+        "tags": ["Idea"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {"200": {"description": "Default Response"}}
+      }
+    },
+    "/api/v1/ideas/get_supplier_requests/{guid}": {
+      "get": {
+        "summary": "Получить определенную заявку на поиск поставщика",
+        "description": "## Получение определенной заявки на поиск поставщика\n\n",
+        "tags": ["Idea"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID идеи",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {"200": {"description": "Default Response"}}
+      }
+    },
+    "/api/v1/ideas/edit_requests_status/{guid}": {
+      "patch": {
+        "summary": "Изменить стаус заявки на поиск поставщика",
+        "description": "## Изменение статуса заявки на поиск поставщика\n\n",
+        "tags": ["Idea"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {"requestStatus": {"type": "string", "description": "новый статус заявки"}}
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID идеи",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {"200": {"description": "Default Response"}}
       }
     },
     "/api/v1/integrations/sellerboard_warehouse_stocks": {
@@ -34248,6 +34545,7 @@
                   "description": "Комментарии к товару от байера.",
                   "example": "Просто коммент от байера."
                 },
+                "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                 "researcherRate": {"type": "number", "description": "Савка ресечера."},
                 "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                 "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -34733,6 +35031,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -35716,6 +36015,58 @@
                       "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
                       "rating": {"type": "number", "description": "Рейтинг пользователя."}
                     }
+                  },
+                  "detailsCustom": {
+                    "type": "object",
+                    "properties": {
+                      "result": {"type": "string", "description": "Результат предложения"},
+                      "linksToMediaFiles": {
+                        "type": "array",
+                        "description": "Массив ссылок на медиафайлы.",
+                        "items": {
+                          "type": "string",
+                          "example": "https://krasivosti.pro/uploads/posts/2021-04/1617690122_41-p-koshachi-oboi-ochen-krasivie-kotiki-43.jpg"
+                        }
+                      }
+                    }
+                  },
+                  "request": {
+                    "type": "object",
+                    "properties": {
+                      "createdBy": {
+                        "type": "object",
+                        "description": "Общая информация о пользователи",
+                        "nullable": true,
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "description": "GUID пользователя.",
+                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                          },
+                          "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                          "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                        }
+                      },
+                      "title": {"type": "string", "description": "Простое название", "example": "Название запроса"},
+                      "detailsCustom": {
+                        "type": "object",
+                        "properties": {
+                          "conditions": {
+                            "type": "string",
+                            "description": "Условия универсальной заявки.",
+                            "example": "Активный аккаунт с хорошей репутацией, созданного не позднее 2015 года."
+                          },
+                          "linksToMediaFiles": {
+                            "type": "array",
+                            "description": "Массив ссылок на медиафайлы.",
+                            "items": {
+                              "type": "string",
+                              "example": "https://krasivosti.pro/uploads/posts/2021-04/1617690122_41-p-koshachi-oboi-ochen-krasivie-kotiki-43.jpg"
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -36637,6 +36988,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -37241,6 +37593,7 @@
                   "description": "Комментарии к товару от байера.",
                   "example": "Просто коммент от байера."
                 },
+                "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                 "researcherRate": {"type": "number", "description": "Савка ресечера."},
                 "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                 "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -38401,6 +38754,11 @@
                                     "description": "Комментарии к товару от байера.",
                                     "example": "Просто коммент от байера."
                                   },
+                                  "shopIds": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                    "description": "ID магазинов для продукта"
+                                  },
                                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -39200,6 +39558,11 @@
                                         "type": "string",
                                         "description": "Комментарии к товару от байера.",
                                         "example": "Просто коммент от байера."
+                                      },
+                                      "shopIds": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "description": "ID магазинов для продукта"
                                       },
                                       "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                       "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -40356,6 +40719,11 @@
                                     "description": "Комментарии к товару от байера.",
                                     "example": "Просто коммент от байера."
                                   },
+                                  "shopIds": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                    "description": "ID магазинов для продукта"
+                                  },
                                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -41155,6 +41523,11 @@
                                         "type": "string",
                                         "description": "Комментарии к товару от байера.",
                                         "example": "Просто коммент от байера."
+                                      },
+                                      "shopIds": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "description": "ID магазинов для продукта"
                                       },
                                       "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                       "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -42348,6 +42721,11 @@
                                   "description": "Комментарии к товару от байера.",
                                   "example": "Просто коммент от байера."
                                 },
+                                "shopIds": {
+                                  "type": "array",
+                                  "items": {"type": "string"},
+                                  "description": "ID магазинов для продукта"
+                                },
                                 "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                 "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                                 "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -43135,6 +43513,11 @@
                                       "type": "string",
                                       "description": "Комментарии к товару от байера.",
                                       "example": "Просто коммент от байера."
+                                    },
+                                    "shopIds": {
+                                      "type": "array",
+                                      "items": {"type": "string"},
+                                      "description": "ID магазинов для продукта"
                                     },
                                     "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                     "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -44239,6 +44622,11 @@
                                   "description": "Комментарии к товару от байера.",
                                   "example": "Просто коммент от байера."
                                 },
+                                "shopIds": {
+                                  "type": "array",
+                                  "items": {"type": "string"},
+                                  "description": "ID магазинов для продукта"
+                                },
                                 "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                 "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                                 "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -45026,6 +45414,11 @@
                                       "type": "string",
                                       "description": "Комментарии к товару от байера.",
                                       "example": "Просто коммент от байера."
+                                    },
+                                    "shopIds": {
+                                      "type": "array",
+                                      "items": {"type": "string"},
+                                      "description": "ID магазинов для продукта"
                                     },
                                     "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                     "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -46634,6 +47027,11 @@
                                     "description": "Комментарии к товару от байера.",
                                     "example": "Просто коммент от байера."
                                   },
+                                  "shopIds": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                    "description": "ID магазинов для продукта"
+                                  },
                                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -47433,6 +47831,11 @@
                                         "type": "string",
                                         "description": "Комментарии к товару от байера.",
                                         "example": "Просто коммент от байера."
+                                      },
+                                      "shopIds": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "description": "ID магазинов для продукта"
                                       },
                                       "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                       "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -48589,6 +48992,11 @@
                                     "description": "Комментарии к товару от байера.",
                                     "example": "Просто коммент от байера."
                                   },
+                                  "shopIds": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                    "description": "ID магазинов для продукта"
+                                  },
                                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -49388,6 +49796,11 @@
                                         "type": "string",
                                         "description": "Комментарии к товару от байера.",
                                         "example": "Просто коммент от байера."
+                                      },
+                                      "shopIds": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "description": "ID магазинов для продукта"
                                       },
                                       "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                       "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -50614,6 +51027,11 @@
                               "description": "Комментарии к товару от байера.",
                               "example": "Просто коммент от байера."
                             },
+                            "shopIds": {
+                              "type": "array",
+                              "items": {"type": "string"},
+                              "description": "ID магазинов для продукта"
+                            },
                             "researcherRate": {"type": "number", "description": "Савка ресечера."},
                             "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                             "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -51341,6 +51759,11 @@
                                   "type": "string",
                                   "description": "Комментарии к товару от байера.",
                                   "example": "Просто коммент от байера."
+                                },
+                                "shopIds": {
+                                  "type": "array",
+                                  "items": {"type": "string"},
+                                  "description": "ID магазинов для продукта"
                                 },
                                 "researcherRate": {"type": "number", "description": "Савка ресечера."},
                                 "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
@@ -52886,6 +53309,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},
@@ -53399,6 +53823,7 @@
                     "description": "Комментарии к товару от байера.",
                     "example": "Просто коммент от байера."
                   },
+                  "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"},
                   "researcherRate": {"type": "number", "description": "Савка ресечера."},
                   "supervisorRate": {"type": "number", "description": "Савка супервайзера."},
                   "paidAt": {"type": "string", "format": "date-time", "description": "Дата оплаты"},

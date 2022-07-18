@@ -68,9 +68,9 @@ export const SuppliersAndIdeas = observer(({productId}) => {
       ) : null}
 
       {SettingsModel.languageTag &&
-        ideasData.map((idea, index) => (
+        ideasData.map(idea => (
           <IdeaViewAndEditCard
-            key={index}
+            key={idea._id}
             curUser={curUser}
             curIdea={curIdea}
             inEdit={inEdit}

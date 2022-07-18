@@ -37,10 +37,15 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+
+    height: 280,
+    padding: '0 0 35px',
   },
 
   bigPhotoWrapper: {
     width: '400px',
+    height: 280,
+    padding: '0 0 35px',
   },
 
   imgBox: {

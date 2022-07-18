@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -7,6 +7,7 @@ import {ClientModel} from '@models/client-model'
 import {IdeaModel} from '@models/ideas-model'
 import {UserModel} from '@models/user-model'
 
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
@@ -68,7 +69,9 @@ export class SuppliersAndIdeasModel {
     try {
       const result = await IdeaModel.getIdeas()
 
-      this.ideasData = result
+      runInAction(() => {
+        this.ideasData = [...result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))]
+      })
     } catch (error) {
       console.log(error)
     }
@@ -86,9 +89,9 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async editIdea(data) {
+  async editIdea(id, data) {
     try {
-      await IdeaModel.editIdea(data)
+      await IdeaModel.editIdea(id, data)
 
       this.successModalTitle = t(TranslationKey['Idea edited'])
 
@@ -137,18 +140,21 @@ export class SuppliersAndIdeasModel {
       }
 
       const submitData = getObjectFilteredByKeyArrayBlackList(
-        {...formFields, media: this.readyFiles.length ? this.readyFiles : formFields.media},
+        {...formFields, media: this.readyFiles.length ? [...formFields.media, ...this.readyFiles] : formFields.media},
         ['_id', 'suppliers'],
       )
 
       if (this.inEdit) {
         await this.editIdea(formFields._id, submitData)
       } else {
-        await this.createIdea(submitData)
+        await this.createIdea(
+          getObjectFilteredByKeyArrayBlackList({...submitData, linksToMediaFiles: submitData.media}, 'media'),
+        )
       }
 
       this.inCreate = false
       this.inEdit = false
+      this.curIdea = undefined
 
       this.loadData()
     } catch (error) {

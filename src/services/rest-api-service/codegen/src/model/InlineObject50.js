@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 
 /**
  * The InlineObject50 model module.
@@ -22,11 +23,12 @@ class InlineObject50 {
     /**
      * Constructs a new <code>InlineObject50</code>.
      * @alias module:model/InlineObject50
-     * @param fileUrl {String} uri полный путь до файла, для скачивания
+     * @param productId {String} 
+     * @param warehouseStocks {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} 
      */
-    constructor(fileUrl) { 
+    constructor(productId, warehouseStocks) { 
         
-        InlineObject50.initialize(this, fileUrl);
+        InlineObject50.initialize(this, productId, warehouseStocks);
     }
 
     /**
@@ -34,8 +36,9 @@ class InlineObject50 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, fileUrl) { 
-        obj['fileUrl'] = fileUrl;
+    static initialize(obj, productId, warehouseStocks) { 
+        obj['productId'] = productId;
+        obj['warehouseStocks'] = warehouseStocks;
     }
 
     /**
@@ -49,8 +52,11 @@ class InlineObject50 {
         if (data) {
             obj = obj || new InlineObject50();
 
-            if (data.hasOwnProperty('fileUrl')) {
-                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('warehouseStocks')) {
+                obj['warehouseStocks'] = ApiClient.convertToType(data['warehouseStocks'], [ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]);
             }
         }
         return obj;
@@ -60,10 +66,14 @@ class InlineObject50 {
 }
 
 /**
- * uri полный путь до файла, для скачивания
- * @member {String} fileUrl
+ * @member {String} productId
  */
-InlineObject50.prototype['fileUrl'] = undefined;
+InlineObject50.prototype['productId'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} warehouseStocks
+ */
+InlineObject50.prototype['warehouseStocks'] = undefined;
 
 
 

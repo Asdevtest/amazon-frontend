@@ -92,6 +92,8 @@ export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit}) => 
     onSubmit(submitData)
   }
 
+  const submitDisabled = JSON.stringify(sourceData) === JSON.stringify(formFields)
+
   return (
     <div className={classNames.form}>
       <Typography className={classNames.modalTitle} variant="h5">
@@ -108,7 +110,14 @@ export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit}) => 
       />
 
       <div className={classNames.buttonsWrapper}>
-        <Button success disableElevation color="primary" variant="contained" onClick={onClickSubmit}>
+        <Button
+          success
+          disableElevation
+          disabled={submitDisabled}
+          color="primary"
+          variant="contained"
+          onClick={onClickSubmit}
+        >
           {t(TranslationKey.Save)}
         </Button>
 

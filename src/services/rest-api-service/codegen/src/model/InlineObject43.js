@@ -22,12 +22,10 @@ class InlineObject43 {
     /**
      * Constructs a new <code>InlineObject43</code>.
      * @alias module:model/InlineObject43
-     * @param productName {String} Назавние продукта
-     * @param price {Number} Желаемая цена
      */
-    constructor(productName, price) { 
+    constructor() { 
         
-        InlineObject43.initialize(this, productName, price);
+        InlineObject43.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineObject43 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productName, price) { 
-        obj['productName'] = productName;
-        obj['price'] = price;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,8 +47,8 @@ class InlineObject43 {
         if (data) {
             obj = obj || new InlineObject43();
 
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [NULL_SCHEMA_ERR]);
             }
             if (data.hasOwnProperty('comments')) {
                 obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
@@ -90,9 +86,9 @@ class InlineObject43 {
 
 /**
  * Image URL
- * @member {Array.<String>} media
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject43.prototype['media'] = undefined;
+InlineObject43.prototype['linksToMediaFiles'] = undefined;
 
 /**
  * Комментарий к идее
