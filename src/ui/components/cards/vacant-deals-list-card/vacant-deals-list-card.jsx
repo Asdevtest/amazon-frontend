@@ -7,9 +7,13 @@ import {Avatar, Grid, Typography} from '@material-ui/core'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 // import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {UserLink} from '@components/user-link'
 
+import {formatNormDateTime} from '@utils/date-time'
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
+import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 // import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 // import {getUserAvatarSrc} from '@utils/get-user-avatar'
 // import {minsToTime, toFixedWithDollarSign} from '@utils/text'
@@ -29,7 +33,7 @@ export const VacantDealsListCard = ({onClickViewMore, dealsOnReview, onClickGetT
             <div className={classNames.userInfoWrapper}>
               <Typography className={classNames.userInfoName}>{t(TranslationKey.Client)}</Typography>
               <div className={classNames.userInfo}>
-                <Avatar src={''} className={classNames.cardImg} />
+                <Avatar src={getUserAvatarSrc(item.request.createdBy._id)} className={classNames.cardImg} />
 
                 <div className={classNames.nameWrapper}>
                   <UserLink blackText name={item.request.createdBy.name} userId={item.request.createdBy._id} />
@@ -41,7 +45,7 @@ export const VacantDealsListCard = ({onClickViewMore, dealsOnReview, onClickGetT
             <div className={classNames.userInfoWrapper}>
               <Typography className={classNames.userInfoName}>{t(TranslationKey.Performer)}</Typography>
               <div className={classNames.userInfo}>
-                <Avatar src={''} className={classNames.cardImg} />
+                <Avatar src={getUserAvatarSrc(item.createdBy._id)} className={classNames.cardImg} />
 
                 <div className={classNames.nameWrapper}>
                   <UserLink blackText name={item.createdBy.name} userId={item.createdBy._id} />
@@ -53,8 +57,8 @@ export const VacantDealsListCard = ({onClickViewMore, dealsOnReview, onClickGetT
           </div>
           <div className={classNames.cardTitleBlockWrapper}>
             <div className={classNames.cardTitleBlockHeaderWrapper}>
-              <Typography className={classNames.cardTitle}>{'Вакантная сделка'}</Typography>
-              <Typography className={classNames.cardDescription}>{'Описание вакантной сделки'}</Typography>
+              <Typography className={classNames.cardTitle}>{item.title}</Typography>
+              <Typography className={classNames.cardDescription}>{item.comment}</Typography>
             </div>
           </div>
         </div>
@@ -65,24 +69,24 @@ export const VacantDealsListCard = ({onClickViewMore, dealsOnReview, onClickGetT
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey['Time to complete'])}</Typography>
 
-                <Typography>{'Уже поздно'}</Typography>
+                <Typography>{minsToTime(item.execution_time)}</Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey.Status)}</Typography>
 
-                <Typography className={classNames.statusText}>{'Возьми в работу'}</Typography>
+                <Typography className={classNames.statusText}>{<RequestStatusCell status={item.status} />}</Typography>
               </div>
             </div>
             <div className={classNames.rightSubBlockWrapper}>
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey.Deadline)}</Typography>
 
-                <Typography>{'Уже поздно'}</Typography>
+                <Typography>{formatNormDateTime(item.timeoutAt)}</Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey['Total price'])}</Typography>
 
-                <Typography className={classNames.cardPrice}>{'666ye'}</Typography>
+                <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
               </div>
             </div>
           </div>
@@ -105,7 +109,7 @@ export const VacantDealsListCard = ({onClickViewMore, dealsOnReview, onClickGetT
               variant="contained"
               color="primary"
               className={classNames.actionButton}
-              onClick={() => onClickViewMore()}
+              onClick={() => onClickViewMore(item.requestId)}
             >
               {t(TranslationKey['Open a deal'])}
             </Button>

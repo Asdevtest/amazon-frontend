@@ -102,6 +102,7 @@ export const MyRequestStatus = {
   READY_TO_VERIFY_BY_ADMIN: 'READY_TO_VERIFY_BY_ADMIN',
   CANCELED_BY_ADMIN: 'CANCELED_BY_ADMIN',
   READY_TO_VERIFY_BY_SUPERVISOR: 'READY_TO_VERIFY_BY_SUPERVISOR',
+  READY_TO_VERIFY: 'READY_TO_VERIFY',
   VERIFYING_BY_SUPERVISOR: 'VERIFYING_BY_SUPERVISOR',
   TO_CORRECT_BY_SUPERVISOR: 'TO_CORRECT_BY_SUPERVISOR',
   EXPIRED: 'EXPIRED',
@@ -137,5 +138,7 @@ export const MyRequestStatusTranslate = s => {
       return t(TranslationKey['To correct by Supervisor'])
     case MyRequestStatus.EXPIRED:
       return t(TranslationKey.Expired)
+    case MyRequestStatus.READY_TO_VERIFY:
+      return t(TranslationKey['Ready to verify'])
   }
 }

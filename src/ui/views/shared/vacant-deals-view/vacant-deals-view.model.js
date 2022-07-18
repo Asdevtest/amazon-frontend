@@ -81,7 +81,7 @@ export class VacantDealsViewModel {
     try {
       const result = await RequestProposalModel.getRequestProposalsForSupervisor(
         RequestType.CUSTOM,
-        RequestSubType.LINKED_TO_ME,
+        RequestSubType.VACANT,
       )
 
       runInAction(() => {
@@ -104,12 +104,11 @@ export class VacantDealsViewModel {
     }
   }
 
-  async onClickViewMore() {
+  async onClickViewMore(id) {
     try {
-      this.history.push(
-        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-deals/deal-details`,
-        // {requestId: id},
-      )
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-deals/deal-details`, {
+        requestId: id,
+      })
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
       console.log(error)

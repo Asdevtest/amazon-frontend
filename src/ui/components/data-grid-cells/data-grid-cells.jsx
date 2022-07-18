@@ -373,7 +373,9 @@ export const RequestStatusCell = withStyles(styles)(({classes: classNames, statu
       return '#FF1616'
     } else if ([RequestStatus.IN_PROCESS].includes(status)) {
       return '#00B746'
-    } else if ([RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN].includes(status)) {
+    } else if (
+      [RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN, RequestStatus.READY_TO_VERIFY].includes(status)
+    ) {
       return '#F3AF00'
     } else if ([RequestStatus.EXPIRED].includes(status)) {
       return '#C4C4C4'

@@ -17,6 +17,7 @@ export class VacantDealsDetailsViewModel {
   actionStatus = undefined
 
   nameSearchValue = ''
+  requestId = undefined
 
   drawerOpen = false
   showConfirmModal = false
@@ -33,8 +34,12 @@ export class VacantDealsDetailsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+    if (location.state) {
+      this.requestId = location.state.requestId
+      console.log(location.state)
+    }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
@@ -76,24 +81,22 @@ export class VacantDealsDetailsViewModel {
 
   async loadData() {
     try {
-      await this.getDealsVacant()
+      await this.getDealsVacantCur()
     } catch (error) {
       console.log(error)
     }
   }
 
-  async getDealsVacant() {
+  async getDealsVacantCur() {
     try {
-      const result = await RequestProposalModel.getRequestProposalsForSupervisor(
-        RequestType.CUSTOM,
-        RequestSubType.VACANT,
-      )
+      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
 
       runInAction(() => {
-        this.deals = result
+        this.requestProposals = result
       })
     } catch (error) {
       console.log(error)
+      this.error = error
     }
   }
 

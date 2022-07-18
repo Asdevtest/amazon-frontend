@@ -28,7 +28,7 @@ const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS
 
 @observer
 export class VacantDealsDetailsView extends Component {
-  viewModel = new VacantDealsDetailsViewModel({history: this.props.history})
+  viewModel = new VacantDealsDetailsViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()
