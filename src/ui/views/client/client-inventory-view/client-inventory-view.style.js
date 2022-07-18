@@ -12,7 +12,8 @@ export const styles = createStyles({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: '10px',
+    // padding: '10px',
+    marginBottom: '30px',
   },
 
   btnsWrapper: {
@@ -65,5 +66,22 @@ export const styles = createStyles({
 
   openArchiveBtn: {
     padding: '0 30px 0 30px',
+  },
+
+  button: {
+    marginBottom: 5,
+    marginRight: '10px',
+  },
+
+  selectedShopsBtn: {
+    marginBottom: 0,
+    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
+
+    borderBottom: '5px solid #0460DE',
+  },
+
+  shopsFiltersWrapper: {
+    marginBottom: '30px',
+    display: 'flex',
   },
 })

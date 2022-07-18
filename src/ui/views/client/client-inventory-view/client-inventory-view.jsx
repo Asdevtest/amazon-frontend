@@ -4,6 +4,7 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 import React, {Component} from 'react'
 
 import {withStyles} from '@material-ui/styles'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -51,6 +52,7 @@ export class ClientInventoryViewRaw extends Component {
       showInfoModalTitle,
       requestStatus,
       getCurrentData,
+
       sortModel,
       filterModel,
       densityModel,
@@ -64,6 +66,8 @@ export class ClientInventoryViewRaw extends Component {
       volumeWeightCoefficient,
       currentBarcode,
       currentHscode,
+      shopsData,
+      currentShop,
 
       isNoEditProductSelected,
 
@@ -81,6 +85,7 @@ export class ClientInventoryViewRaw extends Component {
       showConfirmModal,
       curPage,
       productsMy,
+
       rowsPerPage,
 
       showOrderModal,
@@ -105,6 +110,7 @@ export class ClientInventoryViewRaw extends Component {
       onClickSaveHsCode,
       // onClickMonthStockValue,
       onClickSaveFourMonthesStockValue,
+      onClickShopBtn,
 
       onSelectionModel,
       setDataGridState,
@@ -119,6 +125,12 @@ export class ClientInventoryViewRaw extends Component {
       onClickAddSupplierButton,
       onClickTriggerArchOrResetProducts,
       onConfirmSubmitOrderProductModal,
+
+      onClickWithoutProductsShopBtn,
+      onClickWithProductsShopBtn,
+
+      withoutProduct,
+      withProduct,
     } = this.viewModel
     const {classes: classNames} = this.props
     const onClickPrevButton = () => {
@@ -132,38 +144,57 @@ export class ClientInventoryViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Inventory)}>
             <MainContent>
-              {/* <div className={classNames.boxesFiltersWrapper}>
+              <div className={classNames.shopsFiltersWrapper}>
                 <Button
-                  disabled={!currentStorekeeper?._id}
-                  className={clsx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
+                  disabled={!productsMy}
+                  className={clsx(classNames.button, {
+                    [classNames.selectedShopsBtn]: !withProduct && !withoutProduct && !currentShop?._id,
+                  })}
                   variant="text"
                   color="primary"
-                  onClick={onClickStorekeeperBtn}
+                  onClick={onClickShopBtn}
                 >
-                  {t(TranslationKey['All warehouses'])}
+                  {t(TranslationKey['All Products'])}
+                </Button>
+                <Button
+                  disabled={!productsMy}
+                  className={clsx(classNames.button, {
+                    [classNames.selectedShopsBtn]: withProduct,
+                  })}
+                  variant="text"
+                  color="primary"
+                  onClick={onClickWithProductsShopBtn}
+                >
+                  {t(TranslationKey['Products in shops'])}
                 </Button>
 
-                {storekeepersData
-                  .slice()
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map(storekeeper =>
-                    storekeeper.boxesCount !== 0 ? (
-                      <Button
-                        key={storekeeper._id}
-                        disabled={currentStorekeeper?._id === storekeeper._id}
-                        className={clsx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
-                        })}
-                        variant="text"
-                        color="primary"
-                        onClick={() => onClickStorekeeperBtn(storekeeper)}
-                      >
-                        {storekeeper.name}
-                      </Button>
-                    ) : null,
-                  )}
-              </div> */}
+                <Button
+                  disabled={!productsMy}
+                  className={clsx(classNames.button, {
+                    [classNames.selectedShopsBtn]: withoutProduct,
+                  })}
+                  variant="text"
+                  color="primary"
+                  onClick={onClickWithoutProductsShopBtn}
+                >
+                  {t(TranslationKey['Products without shops'])}
+                </Button>
 
+                {shopsData.map(shop => (
+                  <Button
+                    key={shop._id}
+                    // disabled={!productsMy.some(product => product.originalData?.shopIds.includes(shop._id))}
+                    className={clsx(classNames.button, {
+                      [classNames.selectedShopsBtn]: currentShop?._id === shop._id,
+                    })}
+                    variant="text"
+                    color="primary"
+                    onClick={() => onClickShopBtn(shop)}
+                  >
+                    {shop.name}
+                  </Button>
+                ))}
+              </div>
               <div className={classNames.addProductBtnsWrapper}>
                 {!isArchive && (
                   <div className={classNames.btnsWrapper}>

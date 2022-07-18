@@ -87,7 +87,12 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
 
                 <TableCell className={[classNames.alignCenter, classNames.commentCell]}>{supplier.comment}</TableCell>
 
-                <TableCell className={classNames.filesCell}>
+                <TableCell
+                  className={classNames.alignCenterFiles}
+                  onClick={e => {
+                    e.stopPropagation()
+                  }}
+                >
                   <div className={classNames.filesWrapper}>
                     <PhotoAndFilesCarousel files={supplier.images} width="350px" />
                   </div>

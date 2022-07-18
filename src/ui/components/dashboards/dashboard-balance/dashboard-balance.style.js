@@ -14,10 +14,10 @@ export const useClassNames = makeStyles(() => ({
   },
 
   balanceFreeze: {
-    fontSize: '34px',
-    lineHeight: '40px',
-    color: '#FFC7C7',
-    marginLeft: 70,
+    fontSize: '46px',
+    lineHeight: '53px',
+    color: '#c4c4c4',
+    marginLeft: 28,
   },
 
   title: {

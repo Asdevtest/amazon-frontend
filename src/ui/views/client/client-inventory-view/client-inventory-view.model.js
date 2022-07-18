@@ -10,6 +10,7 @@ import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
 import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
+import {ShopModel} from '@models/shop-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
@@ -74,11 +75,16 @@ export class ClientInventoryViewModel {
   ordersDataStateToSubmit = undefined
 
   productsMy = []
+  withoutProduct = false
+  withProduct = false
+
   orders = []
   selectedRowIds = []
   sellerBoardDailyData = []
   storekeepers = []
   destinations = []
+  shopsData = []
+  currentShop = undefined
 
   isArchive = false
 
@@ -292,8 +298,10 @@ export class ClientInventoryViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
+      await this.getShops()
       await this.getProductsMy()
       await this.getOrders()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -323,6 +331,44 @@ export class ClientInventoryViewModel {
     }
   }
 
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+      runInAction(() => {
+        this.shopsData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  onClickShopBtn(shop) {
+    this.currentShop = shop ? shop : undefined
+
+    this.getProductsMy()
+    this.withoutProduct = false
+    this.withProduct = false
+  }
+
+  async onClickWithoutProductsShopBtn() {
+    this.currentShop = undefined
+    this.withoutProduct = true
+    this.withProduct = false
+
+    await this.getProductsMy()
+    this.productsMy = this.productsMy.filter(product => !product.originalData.shopIds?.length)
+  }
+
+  async onClickWithProductsShopBtn() {
+    this.currentShop = undefined
+    this.withoutProduct = false
+    this.withProduct = true
+
+    await this.getProductsMy()
+    this.productsMy = this.productsMy.filter(product => product.originalData.shopIds?.length)
+  }
+
   async getOrders() {
     try {
       const result = await ClientModel.getOrders()
@@ -340,7 +386,8 @@ export class ClientInventoryViewModel {
 
   async getProductsMy() {
     try {
-      const result = await ClientModel.getProductsMy()
+      const result = await ClientModel.getProductsMyFilteredByShopId(this.currentShop && {shopId: this.currentShop._id})
+
       runInAction(() => {
         this.productsMy = clientInventoryDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
