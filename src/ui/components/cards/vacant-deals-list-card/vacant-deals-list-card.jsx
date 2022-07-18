@@ -18,7 +18,7 @@ import {t} from '@utils/translations'
 // import {translateProposalsLeftMessage} from '@utils/validation'
 import {useClassNames} from './vacant-deals-list-card.style'
 
-export const VacantDealsListCard = ({onClickViewMore, dealsOnReview, onClickGetToWorkModal}) => {
+export const VacantDealsListCard = ({onClickViewMore, dealsOnReview, onClickGetToWorkModal, item}) => {
   const classNames = useClassNames()
 
   return (
@@ -32,9 +32,9 @@ export const VacantDealsListCard = ({onClickViewMore, dealsOnReview, onClickGetT
                 <Avatar src={''} className={classNames.cardImg} />
 
                 <div className={classNames.nameWrapper}>
-                  <UserLink blackText name={'Pete'} userId={'2'} />
+                  <UserLink blackText name={item.request.createdBy.name} userId={item.request.createdBy._id} />
 
-                  <Rating disabled value={'3'} />
+                  <Rating disabled value={item.request.createdBy.rating} />
                 </div>
               </div>
             </div>
@@ -44,9 +44,9 @@ export const VacantDealsListCard = ({onClickViewMore, dealsOnReview, onClickGetT
                 <Avatar src={''} className={classNames.cardImg} />
 
                 <div className={classNames.nameWrapper}>
-                  <UserLink blackText name={'Pete'} userId={'2'} />
+                  <UserLink blackText name={item.createdBy.name} userId={item.createdBy._id} />
 
-                  <Rating disabled value={'3'} />
+                  <Rating disabled value={item.createdBy.rating} />
                 </div>
               </div>
             </div>

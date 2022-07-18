@@ -74,7 +74,14 @@ export class VacantDealsView extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Vacant deals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <VacantDealsListCard onClickViewMore={onClickViewMore} onClickGetToWorkModal={onClickGetToWorkModal} />
+              {deals.map((deal, index) => (
+                <VacantDealsListCard
+                  key={index}
+                  item={deal}
+                  onClickViewMore={onClickViewMore}
+                  onClickGetToWorkModal={onClickGetToWorkModal}
+                />
+              ))}
             </MainContent>
           </Appbar>
         </Main>

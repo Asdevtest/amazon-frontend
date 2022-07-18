@@ -531,8 +531,8 @@ export default class IdeaApi {
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject44} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineObject44>} and HTTP response
+     * @param {module:model/InlineObject45} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineObject45>} and HTTP response
      */
     apiV1IdeasGuidPatchWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -556,7 +556,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = [InlineObject44];
+      let returnType = [InlineObject45];
       return this.apiClient.callApi(
         '/api/v1/ideas/{guid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -570,8 +570,8 @@ export default class IdeaApi {
      * @param {String} guid ID идеи
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject44} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineObject44>}
+     * @param {module:model/InlineObject45} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineObject45>}
      */
     apiV1IdeasGuidPatch(guid, opts) {
       return this.apiV1IdeasGuidPatchWithHttpInfo(guid, opts)

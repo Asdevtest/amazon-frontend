@@ -32640,7 +32640,11 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "media": {"type": "array", "description": "Image URL", "example": ["http://link.com/media"]},
+                "linksToMediaFiles": {
+                  "type": "array",
+                  "description": "Image URL",
+                  "example": ["http://link.com/media"]
+                },
                 "comments": {
                   "type": "string",
                   "description": "Комментарий к идее",
@@ -33006,11 +33010,15 @@
           {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
         ],
         "security": [{"AccessTokenBearer": []}],
+<<<<<<< HEAD
         "responses": {
           "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
         }
+=======
+        "responses": {"200": {"description": "Default Response"}}
+>>>>>>> e6a2395a (fix backend)
       }
     },
     "/api/v1/ideas/edit_request/{guid}": {
@@ -33060,11 +33068,15 @@
           {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
         ],
         "security": [{"AccessTokenBearer": []}],
+<<<<<<< HEAD
         "responses": {
           "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
         }
+=======
+        "responses": {"200": {"description": "Default Response"}}
+>>>>>>> e6a2395a (fix backend)
       }
     },
     "/api/v1/ideas/get_supplier_requests/": {
@@ -33075,11 +33087,15 @@
         "produces": ["application/json"],
         "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
         "security": [{"AccessTokenBearer": []}],
+<<<<<<< HEAD
         "responses": {
           "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
         }
+=======
+        "responses": {"200": {"description": "Default Response"}}
+>>>>>>> e6a2395a (fix backend)
       }
     },
     "/api/v1/ideas/get_supplier_requests/{guid}": {
