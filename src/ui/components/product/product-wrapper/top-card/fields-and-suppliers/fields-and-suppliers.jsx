@@ -83,7 +83,7 @@ export const FieldsAndSuppliers = observer(
     const onChangeShopNamesField = () => {
       setClearSelect(true)
       selectedItem && setCurrentShops(prev => [...new Set([...prev, selectedItem])])
-      selectedItem && setCurrentShopsIds(prev => [...prev, selectedItem._id])
+      selectedItem && setCurrentShopsIds(prev => [...new Set([...prev, selectedItem._id])])
     }
 
     const onRemoveShop = (name, id) => {

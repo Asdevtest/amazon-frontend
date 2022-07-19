@@ -53,6 +53,7 @@ export class ClientExchangeViewRaw extends Component {
       columnsModel,
       storekeepers,
       destinations,
+      shopsData,
       showWarningModalText,
 
       drawerOpen,
@@ -140,6 +141,8 @@ export class ClientExchangeViewRaw extends Component {
         <Modal openModal={showSelectShopsModal} setOpenModal={() => onTriggerOpenModal('showSelectShopsModal')}>
           <SelectShopsModal
             title={confirmModalSettings.confirmTitle}
+            message={confirmModalSettings.confirmMessage}
+            shops={shopsData}
             onClickSuccessBtn={onClickBuyProductBtn}
             onClickCancelBtn={() => onTriggerOpenModal('showSelectShopsModal')}
           />

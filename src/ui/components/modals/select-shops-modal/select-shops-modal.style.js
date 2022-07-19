@@ -98,4 +98,44 @@ export const useClassNames = makeStyles(() => ({
     width: '98px',
     color: '#001029',
   },
+
+  shopsFieldWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '25px',
+  },
+
+  shopsSelect: {
+    width: '214px',
+  },
+
+  selectedShopsWrapper: {
+    width: '100%',
+    display: 'flex',
+    gap: '10px',
+    flexWrap: 'wrap',
+    marginBottom: '30px',
+  },
+
+  selectedShop: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '24px',
+    padding: '5px 15px',
+    backgroundColor: '#CCE2FF',
+    borderRadius: '4px',
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: '#001029',
+  },
+
+  removeShopButton: {
+    cursor: 'pointer',
+  },
+
+  shopsFieldAddButton: {
+    width: '131px',
+    height: '40px',
+  },
 }))
