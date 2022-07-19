@@ -5,7 +5,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
-import {ProductModel} from '@models/product-model'
+// import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -39,6 +39,7 @@ export class ClientExchangeViewModel {
   showConfirmModal = false
   showSuccessModal = false
   showWarningModal = false
+  showSelectShopsModal = false
 
   showWarningModalText = ''
 
@@ -176,24 +177,24 @@ export class ClientExchangeViewModel {
     }
   }
 
-  async getProductById() {
-    try {
-      const result = await ProductModel.getProductById(this.selectedProduct._id)
+  // async getProductById(product) {
+  //   try {
+  //     const result = await ProductModel.getProductById(product._id)
 
-      runInAction(() => {
-        this.product = result
+  //     runInAction(() => {
+  //       this.product = result
 
-        // this.productBase = result
-        // updateProductAutoCalculatedFields.call(this)
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  //       // this.productBase = result
+  //       // updateProductAutoCalculatedFields.call(this)
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   onClickLaunchPrivateLabelBtn(product) {
     this.selectedProduct = product
-    // this.getProductById()
+    // this.getProductById(product)
     this.confirmModalSettings = {
       isWarning: false,
       confirmTitle: t(TranslationKey['You buy a product card, are you sure?']),
@@ -203,7 +204,7 @@ export class ClientExchangeViewModel {
       onClickConfirm: () => this.onClickBuyProductBtn(),
     }
 
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onTriggerOpenModal('showSelectShopsModal')
   }
 
   async createOrder(orderObject) {

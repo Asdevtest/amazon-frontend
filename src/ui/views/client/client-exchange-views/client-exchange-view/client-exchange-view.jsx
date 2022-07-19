@@ -14,6 +14,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {SelectShopsModal} from '@components/modals/select-shops-modal/select-shops-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
@@ -61,12 +62,14 @@ export class ClientExchangeViewRaw extends Component {
       showConfirmModal,
       showSuccessModal,
       showWarningModal,
+      showSelectShopsModal,
       onTriggerDrawer,
       onChangeCurPage,
       onChangeRowsPerPage,
       onClickOrderNowBtn,
       onClickCancelBtn,
       onTriggerOpenModal,
+      onClickBuyProductBtn,
 
       onSelectionModel,
       setDataGridState,
@@ -131,6 +134,14 @@ export class ClientExchangeViewRaw extends Component {
             onDoubleClickBarcode={onDoubleClickBarcode}
             onSubmit={onClickOrderNowBtn}
             onClickCancel={onClickCancelBtn}
+          />
+        </Modal>
+
+        <Modal openModal={showSelectShopsModal} setOpenModal={() => onTriggerOpenModal('showSelectShopsModal')}>
+          <SelectShopsModal
+            title={confirmModalSettings.confirmTitle}
+            onClickSuccessBtn={onClickBuyProductBtn}
+            onClickCancelBtn={() => onTriggerOpenModal('showSelectShopsModal')}
           />
         </Modal>
 
