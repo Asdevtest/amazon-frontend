@@ -38,9 +38,9 @@ export const useClassNames = makeStyles(() => ({
     borderRadius: '4px',
     padding: '30px',
   },
-  disabledPriceOptionsWrapper: {
-    opacity: '0.7',
-  },
+  // disabledPriceOptionsWrapper: {
+  //   opacity: '0.7',
+  // },
 
   noFlexElement: {
     marginBottom: '10px',
@@ -171,5 +171,13 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     margin: 0,
+  },
+
+  copyImg: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
   },
 }))

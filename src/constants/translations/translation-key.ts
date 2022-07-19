@@ -1277,6 +1277,10 @@ export enum TranslationKey {
   'Products in shops' = 'Products in shops',
   'All Products' = 'All Products',
   'freeze' = 'freeze',
+  'Shop' = 'Shop',
+  'Box length' = 'Box length',
+  'Box width' = 'Box width',
+  'Box height' = 'Box height',
 
   // '' = '',
   // '' = '',

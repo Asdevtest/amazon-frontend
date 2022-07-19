@@ -213,4 +213,17 @@ export const useClassNames = makeStyles(() => ({
   countContainer: {
     marginTop: '10px',
   },
+
+  barCode: {display: 'flex', gap: '5px'},
+  titleSubWrapper: {
+    width: '480px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  divider: {
+    backgroundColor: '#E0E0E0',
+    margin: '0 -40px 15px -40px',
+  },
 }))

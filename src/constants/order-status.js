@@ -53,7 +53,7 @@ export const OrderStatusTranslate = status => {
     case OrderStatus.IN_STOCK:
       return t(TranslationKey['In stock'])
     case OrderStatus.CANCELED_BY_BUYER:
-      return t(TranslationKey['Canceled by Buyer'])
+      return t(TranslationKey['Cancel order'])
     case OrderStatus.CANCELED_BY_CLIENT:
       return t(TranslationKey['Canceled by Client'])
     case OrderStatus.AWAITING_SHIPMENT:

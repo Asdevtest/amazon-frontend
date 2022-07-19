@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**linksToMediaFiles** | **[String]** | Image URL | [optional] 
+**media** | **[String]** | Image URL | [optional] 
 **comments** | **String** | Комментарий к идее | [optional] 
 **productName** | **String** | Назавние продукта | [optional] 
 **productLinks** | **[String]** | Ссылки на продукт, если есть | [optional] 

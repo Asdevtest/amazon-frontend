@@ -207,6 +207,9 @@ class InlineObject29 {
             if (data.hasOwnProperty('fourMonthesStock')) {
                 obj['fourMonthesStock'] = ApiClient.convertToType(data['fourMonthesStock'], 'Number');
             }
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            }
         }
         return obj;
     }
@@ -521,6 +524,12 @@ InlineObject29.prototype['avgReviews'] = undefined;
  * @member {Number} fourMonthesStock
  */
 InlineObject29.prototype['fourMonthesStock'] = undefined;
+
+/**
+ * ID магазинов для продукта
+ * @member {Array.<String>} shopIds
+ */
+InlineObject29.prototype['shopIds'] = undefined;
 
 
 

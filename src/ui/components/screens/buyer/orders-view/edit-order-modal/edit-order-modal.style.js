@@ -62,6 +62,10 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 400,
     lineHeight: '140%',
   },
+  addBoxButtonWrapper: {
+    width: '229px',
+    display: 'flex',
+  },
 
   addBoxButton: {
     width: '229px',

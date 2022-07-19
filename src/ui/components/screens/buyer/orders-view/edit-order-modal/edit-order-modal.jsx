@@ -44,10 +44,10 @@ const confirmModalModes = {
   SUBMIT: 'SUBMIT',
 }
 
-const disabledOrderStatuses = [
-  OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
-  OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
-]
+// const disabledOrderStatuses = [
+//   OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
+//   OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+// ]
 
 export const EditOrderModal = ({
   requestStatus,
@@ -186,11 +186,12 @@ export const EditOrderModal = ({
     `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
   ]
 
-  // const disabledOrderStatuses = [
-  //   `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
-  //   `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
-  //   `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
-  // ]
+  const disabledOrderStatuses = [
+    `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+    `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+    // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+    `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+  ]
 
   const [photosToLoad, setPhotosToLoad] = useState([])
 
@@ -310,16 +311,18 @@ export const EditOrderModal = ({
       {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) && (
         <div className={classNames.addBtn}>
           <Typography className={classNames.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
-          <Button
-            disableElevation
-            tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
-            color="primary"
-            variant="contained"
-            className={classNames.addBoxButton}
-            onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
-          >
-            {t(TranslationKey['Add a box'])}
-          </Button>
+          <div className={classNames.addBoxButtonWrapper}>
+            <Button
+              disableElevation
+              tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
+              color="primary"
+              variant="contained"
+              className={classNames.addBoxButton}
+              onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
+            >
+              {t(TranslationKey['Add a box'])}
+            </Button>
+          </div>
         </div>
       )}
 

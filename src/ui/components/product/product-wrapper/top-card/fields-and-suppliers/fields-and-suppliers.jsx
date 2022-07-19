@@ -1,6 +1,17 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
-import {Box, Grid, IconButton, Typography, Link, NativeSelect} from '@material-ui/core'
+import {
+  Box,
+  Grid,
+  IconButton,
+  Typography,
+  Link,
+  NativeSelect,
+  Select,
+  MenuItem,
+  Checkbox,
+  ListItemText,
+} from '@material-ui/core'
 import MuiCheckbox from '@material-ui/core/Checkbox'
 import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
@@ -33,11 +44,29 @@ const clientToEditStatuses = [
 ]
 
 export const FieldsAndSuppliers = observer(
-  ({user, showActionBtns, curUserRole, onChangeField, product, productBase, formFieldsValidationErrors}) => {
+  ({user, showActionBtns, curUserRole, onChangeField, product, productBase, formFieldsValidationErrors, shops}) => {
     const classNames = useClassNames()
 
     const [skuLine, setSkuLine] = useState('')
     const [edit, setEdit] = useState(true)
+
+    const [clearSelect, setClearSelect] = useState(true)
+    const [selectedItem, setSelectedItem] = useState(null)
+
+    const shopsNames = checkIsClient(curUserRole) && shops.map(shop => shop.name)
+    const currentShop = checkIsClient(curUserRole) && shops.filter(shop => product.shopIds.includes(shop._id))
+
+    const [currentShops, setCurrentShops] = useState([])
+    const [currentShopsIds, setCurrentShopsIds] = useState([])
+
+    useEffect(() => {
+      setCurrentShops(currentShop)
+      setCurrentShopsIds(product.shopIds)
+    }, [shops])
+
+    useEffect(() => {
+      onChangeField('shopIds')({target: {value: [...currentShopsIds]}})
+    }, [currentShopsIds])
 
     const onClickSkuBtn = () => {
       onChangeField('skusByClient')({target: {value: [...product.skusByClient, skuLine.toUpperCase()]}})
@@ -49,6 +78,17 @@ export const FieldsAndSuppliers = observer(
       const newArr = product.skusByClient.filter((el, i) => i !== index)
 
       onChangeField('skusByClient')({target: {value: [...newArr]}})
+    }
+
+    const onChangeShopNamesField = () => {
+      setClearSelect(true)
+      selectedItem && setCurrentShops(prev => [...new Set([...prev, selectedItem])])
+      selectedItem && setCurrentShopsIds(prev => [...prev, selectedItem._id])
+    }
+
+    const onRemoveShop = (name, id) => {
+      setCurrentShops(currentShops.filter(shop => shop.name !== name))
+      currentShopsIds && setCurrentShopsIds(currentShopsIds.filter(shopId => shopId !== id))
     }
 
     const disabledPrivateLabelFields = !(
@@ -231,45 +271,47 @@ export const FieldsAndSuppliers = observer(
             </div>
 
             <Box mt={3} className={classNames.strategyWrapper}>
-              <Field
-                tooltipInfoContent={t(TranslationKey['Choose a product strategy'])}
-                label={t(TranslationKey['Product Strategy'])}
-                inputComponent={
-                  <NativeSelect
-                    disabled={
-                      !(
-                        checkIsResearcher(curUserRole) ||
-                        (checkIsClient(curUserRole) &&
-                          product.isCreatedByClient &&
-                          clientToEditStatuses.includes(productBase.status) &&
-                          checkIsClient(curUserRole) &&
-                          !product.archive)
-                      )
-                    }
-                    value={product.strategyStatus}
-                    className={classNames.nativeSelect}
-                    input={<Input />}
-                    onChange={onChangeField('strategyStatus')}
-                  >
-                    <option>{'none'}</option>
-                    {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
-                      <option
-                        key={statusIndex}
-                        value={statusCode}
-                        className={clsx({
-                          [classNames.disabledOption]:
-                            checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode)),
-                        })}
-                        disabled={
-                          checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode))
-                        }
-                      >
-                        {mapProductStrategyStatusEnum[statusCode]}
-                      </option>
-                    ))}
-                  </NativeSelect>
-                }
-              />
+              <div>
+                <Field
+                  tooltipInfoContent={t(TranslationKey['Choose a product strategy'])}
+                  label={t(TranslationKey['Product Strategy'])}
+                  inputComponent={
+                    <NativeSelect
+                      disabled={
+                        !(
+                          checkIsResearcher(curUserRole) ||
+                          (checkIsClient(curUserRole) &&
+                            product.isCreatedByClient &&
+                            clientToEditStatuses.includes(productBase.status) &&
+                            checkIsClient(curUserRole) &&
+                            !product.archive)
+                        )
+                      }
+                      value={product.strategyStatus}
+                      className={classNames.nativeSelect}
+                      input={<Input />}
+                      onChange={onChangeField('strategyStatus')}
+                    >
+                      <option>{'none'}</option>
+                      {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
+                        <option
+                          key={statusIndex}
+                          value={statusCode}
+                          className={clsx({
+                            [classNames.disabledOption]:
+                              checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode)),
+                          })}
+                          disabled={
+                            checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode))
+                          }
+                        >
+                          {mapProductStrategyStatusEnum[statusCode]}
+                        </option>
+                      ))}
+                    </NativeSelect>
+                  }
+                />
+              </div>
             </Box>
           </div>
 
@@ -352,6 +394,43 @@ export const FieldsAndSuppliers = observer(
             </div>
           )}
         </Box>
+        {checkIsClient(curUserRole) ? (
+          <div className={classNames.shopsWrapper}>
+            <Field
+              label={t(TranslationKey.Shop)}
+              containerClasses={classNames.allowedRoleContainer}
+              inputComponent={
+                <div className={classNames.shopsFieldWrapper}>
+                  <Select
+                    value={shopsNames}
+                    renderValue={() => (clearSelect ? 'Выберите магазин' : selectedItem?.name)}
+                    className={classNames.shopsSelect}
+                    onChange={e => setSelectedItem(e.target.value)}
+                    onClick={() => setClearSelect(false)}
+                  >
+                    {shops.map((shop, index) => (
+                      <MenuItem key={index} disabled={currentShops.includes(shop)} value={shop}>
+                        <Checkbox color="primary" checked={currentShops.includes(shop)} />
+                        <ListItemText primary={shop.name} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <Button onClick={onChangeShopNamesField}>{t(TranslationKey.Add)}</Button>
+                </div>
+              }
+            />
+            <div className={classNames.selectedShopsWrapper}>
+              {currentShops.map((shop, index) => (
+                <Typography key={index} className={classNames.selectedShop}>
+                  {shop.name}
+                  <Typography className={classNames.removeShopButton} onClick={() => onRemoveShop(shop.name, shop._id)}>
+                    {'х'}
+                  </Typography>
+                </Typography>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </Grid>
     )
   },

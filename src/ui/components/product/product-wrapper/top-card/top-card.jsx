@@ -53,6 +53,8 @@ export const TopCard = observer(
     onChangeField,
     actionStatus,
     product,
+    shops,
+
     productBase,
     onClickSupplierBtns,
     selectedSupplier,
@@ -178,6 +180,7 @@ export const TopCard = observer(
                 formFieldsValidationErrors={formFieldsValidationErrors}
                 curUserRole={curUserRole}
                 product={product}
+                shops={shops}
                 productBase={productBase}
                 selectedSupplier={selectedSupplier}
                 onChangeField={onChangeField}

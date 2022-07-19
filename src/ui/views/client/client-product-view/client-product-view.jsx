@@ -33,6 +33,7 @@ export class ClientProductView extends Component {
   render() {
     const {
       storekeepersData,
+      shopsData,
       supplierModalReadOnly,
       actionStatus,
       volumeWeightCoefficient,
@@ -77,6 +78,7 @@ export class ClientProductView extends Component {
                   showProgress={showProgress}
                   progressValue={progressValue}
                   product={product}
+                  shops={shopsData}
                   actionStatus={actionStatus}
                   productBase={productBase}
                   selectedSupplier={selectedSupplier}
