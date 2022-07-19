@@ -38,7 +38,6 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
 
-    height: 280,
     padding: '0 0 35px',
   },
 

@@ -135,7 +135,7 @@ export const IdeaViewAndEditCard = observer(
           <div className={classNames.cardBlockWrapper}>
             <div className={!disableFields ? classNames.leftSubBlockWrapper : classNames.leftDisSubBlockWrapper}>
               <div className={!disableFields ? classNames.photoWrapper : classNames.bigPhotoWrapper}>
-                <PhotoCarousel files={idea?.media} height={280} />
+                <PhotoCarousel files={idea?.media} />
               </div>
 
               {!disableFields ? <UploadFilesInput images={images} setImages={setImages} maxNumber={50} /> : null}

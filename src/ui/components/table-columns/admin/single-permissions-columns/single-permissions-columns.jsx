@@ -3,11 +3,11 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  EditOrRemoveBtnsCell,
   MultilineTextHeaderCell,
   NormDateCell,
   MultilineTextCell,
   ScrollingCell,
+  EditOrRemoveIconBtnsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -45,7 +45,7 @@ export const adminSinglePermissionsColumns = handlers => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 400,
+    width: 430,
     renderCell: params => <ScrollingCell value={params.value} />,
   },
 
@@ -54,8 +54,16 @@ export const adminSinglePermissionsColumns = handlers => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 250,
-    renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row.originalData} />,
+    width: 180,
+    renderCell: params => (
+      <EditOrRemoveIconBtnsCell
+        tooltipFirstButton={t(TranslationKey.Edit)}
+        tooltipSecondButton={t(TranslationKey.Remove)}
+        handlers={handlers}
+        row={params.row.originalData}
+      />
+    ),
+
     filterable: false,
     sortable: false,
   },

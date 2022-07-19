@@ -450,15 +450,39 @@ export const styles = createStyles(() => ({
 
   multilineText: {
     width: '100%',
-    maxHeight: '90%',
+    maxHeight: '100%',
     textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
-    overflow: 'hidden',
+    // overflow: 'hidden',
 
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
+  },
+
+  multilineTextAlignLeftHeaderWrapper: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'start',
+
+    // padding: '0 10px',
+  },
+
+  multilineTextAlignLeftHeader: {
+    width: '100%',
+    textAlign: 'left',
+    whiteSpace: 'normal',
+    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+    fontWeight: '600',
+    fontSize: '14px',
+    lineHeight: '17px',
+
+    color: 'rgba(0, 0, 0, 0.87)',
+
+    height: '100%',
+    textOverflow: 'ellipsis',
   },
 
   multilineTextAlignLeftWrapper: {
@@ -474,8 +498,8 @@ export const styles = createStyles(() => ({
     width: '100%',
     textAlign: 'left',
     whiteSpace: 'normal',
-    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
-    fontWeight: '600',
+    // fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+    // fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
 

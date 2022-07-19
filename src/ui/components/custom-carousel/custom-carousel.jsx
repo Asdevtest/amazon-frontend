@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import InboxIcon from '@mui/icons-material/Inbox'
@@ -8,7 +7,6 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import {Children, cloneElement, useEffect, useState} from 'react'
 
 import {Avatar, Link, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -278,7 +276,7 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
   )
 }
 
-export const PhotoCarousel = observer(({files, isAmazonPhoto, height}) => {
+export const PhotoCarousel = observer(({files, isAmazonPhoto}) => {
   const classNames = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -298,11 +296,7 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, height}) => {
                 variant="square"
                 alt={'!'}
                 src={photo?.data_url || photo}
-                // classes={{root: clsx(classNames.image, {maxHeight: height})}}
-
                 className={classNames.image}
-                // style={{maxHeight: height}}
-                // sx={{width: 56, height: 56}}
                 onClick={() => {
                   setShowPhotosModal(!showPhotosModal)
 

@@ -77,7 +77,7 @@ export const SinglePermissions = observer(() => {
         pageSize={rowsPerPage}
         rowsPerPageOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
-        rowHeight={70}
+        rowHeight={90}
         components={{
           Toolbar: GridToolbar,
         }}

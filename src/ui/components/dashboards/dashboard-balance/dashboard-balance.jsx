@@ -11,17 +11,20 @@ import {getThousandsSeparatedString} from '@utils/get-thousands-separated-string
 import {toFixed, toFixedWithDollarSign, withDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const DashboardBalance = ({user}) => {
+export const DashboardBalance = ({user, title}) => {
   const classNames = useClassNames()
   return (
-    <div className={classNames.balanceWrapper}>
-      <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</Typography>
-      {user.balanceFreeze !== 0 && (
-        <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(
-          user.balanceFreeze,
-          2,
-        )} -freeze`}</Typography>
-      )}
+    <div>
+      {title ? <Typography className={classNames.title}>{title}</Typography> : null}
+      <div className={classNames.balanceWrapper}>
+        <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</Typography>
+        {user.balanceFreeze !== 0 && (
+          <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(
+            user.balanceFreeze,
+            2,
+          )} -freeze`}</Typography>
+        )}
+      </div>
     </div>
   )
 }

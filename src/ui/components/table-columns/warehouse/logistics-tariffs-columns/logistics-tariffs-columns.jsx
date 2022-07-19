@@ -12,6 +12,7 @@ import {
   WarehouseTariffRatesCell,
   EditOrRemoveIconBtnsCell,
   MultilineTextAlignLeftCell,
+  MultilineTextAlignLeftHeaderCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -20,7 +21,7 @@ export const logisticsTariffsColumns = handlers => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
-    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey['Tariff name'])} />,
+    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey['Tariff name'])} />,
 
     width: 165,
     renderCell: params => <MultilineTextCell text={params.value} />,
@@ -29,16 +30,16 @@ export const logisticsTariffsColumns = handlers => [
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
-    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Description)} />,
+    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 170,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 290,
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
   },
 
   {
     field: 'destination',
     headerName: t(TranslationKey.Region),
-    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Region)} />,
+    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Region)} />,
 
     renderCell: () => <WarehouseTariffDestinationCell />,
     width: 130,
@@ -60,7 +61,7 @@ export const logisticsTariffsColumns = handlers => [
   {
     field: 'dates',
     headerName: t(TranslationKey.Dates),
-    renderHeader: () => <MultilineTextAlignLeftCell text={t(TranslationKey.Dates)} />,
+    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Dates)} />,
 
     renderCell: params => <WarehouseTariffDatesCell row={params.row} />,
     width: 323,
@@ -73,7 +74,7 @@ export const logisticsTariffsColumns = handlers => [
     headerName: t(TranslationKey['Time on the road, days']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Time on the road, days'])} />,
 
-    width: 180,
+    width: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
     type: 'number',
   },
@@ -83,7 +84,7 @@ export const logisticsTariffsColumns = handlers => [
     headerName: t(TranslationKey['Min. weight, kg']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
 
-    width: 180,
+    width: 120,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -111,7 +112,7 @@ export const logisticsTariffsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 150,
+    width: 120,
     type: 'date',
   },
 ]

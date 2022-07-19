@@ -53,7 +53,7 @@ export class ClientDashboardViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Dashboard)} balance={userInfo.balance}>
             <MainContent>
               <div className={classes.mb5}>
-                <DashboardBalance user={userInfo} />
+                <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
 
                 <div className={classes.buttonWrapper}>
                   <Button

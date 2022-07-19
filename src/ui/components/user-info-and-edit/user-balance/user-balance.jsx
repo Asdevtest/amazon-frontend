@@ -60,7 +60,7 @@ export const UserBalance = observer(({userId}) => {
 
   return (
     <div className={classNames.mainWrapper}>
-      <DashboardBalance user={user} />
+      <DashboardBalance user={user} title={t(TranslationKey.Balance)} />
 
       <Button
         disableElevation

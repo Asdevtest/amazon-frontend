@@ -42,7 +42,7 @@ export class WarehouseDashboardViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Dashboard)} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
-              <DashboardBalance user={userInfo} />
+              <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
 
               <SectionalDashboard
                 config={getWarehouseDashboardCardConfig()}
