@@ -5,13 +5,15 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
+// import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
+import {ShopModel} from '@models/shop-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {clientExchangeViewColumns} from '@components/table-columns/client/client-exchange-columns'
 
-import {clientProductsDataConverter} from '@utils/data-grid-data-converters'
+import {addIdDataConverter, clientProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixedWithDollarSign} from '@utils/text'
@@ -26,6 +28,7 @@ export class ClientExchangeViewModel {
   productsVacant = []
   dataToPay = {}
   storekeepers = []
+  shopsData = []
 
   volumeWeightCoefficient = undefined
 
@@ -38,10 +41,13 @@ export class ClientExchangeViewModel {
   showConfirmModal = false
   showSuccessModal = false
   showWarningModal = false
+  showSelectShopsModal = false
 
   showWarningModalText = ''
 
   selectedProduct = {}
+  selectedShops = []
+  product = {}
   uploadedFiles = []
 
   rowHandlers = {
@@ -146,6 +152,7 @@ export class ClientExchangeViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getProductsVacant()
+      await this.getShops()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -174,9 +181,24 @@ export class ClientExchangeViewModel {
     }
   }
 
+  // async getProductById(product) {
+  //   try {
+  //     const result = await ProductModel.getProductById(product._id)
+
+  //     runInAction(() => {
+  //       this.product = result
+
+  //       // this.productBase = result
+  //       // updateProductAutoCalculatedFields.call(this)
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
   onClickLaunchPrivateLabelBtn(product) {
     this.selectedProduct = product
-
+    // this.getProductById(product)
     this.confirmModalSettings = {
       isWarning: false,
       confirmTitle: t(TranslationKey['You buy a product card, are you sure?']),
@@ -186,7 +208,19 @@ export class ClientExchangeViewModel {
       onClickConfirm: () => this.onClickBuyProductBtn(),
     }
 
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onTriggerOpenModal('showSelectShopsModal')
+  }
+
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+      runInAction(() => {
+        this.shopsData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   async createOrder(orderObject) {
@@ -277,11 +311,14 @@ export class ClientExchangeViewModel {
     }
   }
 
-  async onClickBuyProductBtn() {
+  async onClickBuyProductBtn(shops) {
     try {
       await ClientModel.makePayments([this.selectedProduct._id])
 
-      this.onTriggerOpenModal('showConfirmModal')
+      this.selectedShops = shops
+      console.log(this.selectedShops)
+      await this.onSaveProductData()
+      this.onTriggerOpenModal('showSelectShopsModal')
 
       this.openCreateOrder()
 
@@ -295,6 +332,26 @@ export class ClientExchangeViewModel {
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
+    }
+  }
+
+  async onSaveProductData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await ClientModel.updateProduct(
+        this.selectedProduct._id,
+        getObjectFilteredByKeyArrayBlackList(
+          {
+            shopIds: this.selectedShops,
+          },
+          ['suppliers'],
+        ),
+      )
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log('error', error)
     }
   }
 

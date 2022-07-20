@@ -28363,7 +28363,8 @@
                 "avgBSR": {"type": "string", "description": "Средний BSR", "maxLength": 255, "example": "0.5"},
                 "avgPrice": {"type": "string", "description": "Средняя цена", "maxLength": 255, "example": "54.2"},
                 "avgReviews": {"type": "string", "description": "Средний отзывы", "maxLength": 255, "example": "54.2"},
-                "fourMonthesStock": {"type": "number", "description": "Поле для калькуляции дозакупок"}
+                "fourMonthesStock": {"type": "number", "description": "Поле для калькуляции дозакупок"},
+                "shopIds": {"type": "array", "items": {"type": "string"}, "description": "ID магазинов для продукта"}
               }
             }
           },
@@ -32639,11 +32640,7 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "linksToMediaFiles": {
-                  "type": "array",
-                  "description": "Image URL",
-                  "example": ["http://link.com/media"]
-                },
+                "media": {"type": "array", "description": "Image URL", "example": ["http://link.com/media"]},
                 "comments": {
                   "type": "string",
                   "description": "Комментарий к идее",

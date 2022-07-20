@@ -1,6 +1,6 @@
 import {React, useState} from 'react'
 
-import {Checkbox, Grid, Link, Typography} from '@material-ui/core'
+import {Checkbox, Divider, Grid, Link, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
@@ -44,25 +44,29 @@ export const BoxViewForm = observer(
             box.humanFriendlyId
           }`}</Typography>
 
-          <Field
-            oneLine
-            label={'Storekeeper: '}
-            containerClasses={classNames.storekeeperField}
-            inputComponent={
-              <div className={classNames.userLinkWrapper}>
-                <UserLink
-                  blackText
-                  name={storekeeper ? storekeeper?.name : box.storekeeper?.name}
-                  userId={storekeeper ? storekeeper?._id : box.storekeeper?._id}
-                />
-              </div>
-            }
-          />
+          <div className={classNames.titleSubWrapper}>
+            <Field
+              oneLine
+              label={'Storekeeper: '}
+              containerClasses={classNames.storekeeperField}
+              inputComponent={
+                <div className={classNames.userLinkWrapper}>
+                  <UserLink
+                    blackText
+                    name={storekeeper ? storekeeper?.name : box.storekeeper?.name}
+                    userId={storekeeper ? storekeeper?._id : box.storekeeper?._id}
+                  />
+                </div>
+              }
+            />
 
-          <Typography>{`${t(TranslationKey.Batch)} № ${
-            (batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) || 'N/A'
-          }`}</Typography>
+            <Typography>{`${t(TranslationKey.Batch)} № ${
+              (batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) || 'N/A'
+            }`}</Typography>
+          </div>
         </div>
+
+        <Divider className={classNames.divider} />
 
         <div className={classNames.blocksWrapper}>
           <div className={classNames.blockWrapper}>
@@ -116,23 +120,20 @@ export const BoxViewForm = observer(
                         label={t(TranslationKey.BarCode)}
                         inputComponent={
                           item.barCode ? (
-                            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
-                              <Input
-                                disabled
-                                value={item.barCode}
-                                endAdornment={
-                                  <img
-                                    className={classNames.copyImg}
-                                    src="/assets/icons/copy-img.svg"
-                                    alt=""
-                                    onClick={e => {
-                                      e.stopPropagation()
-                                      copyValue(item.barCode)
-                                    }}
-                                  />
-                                }
+                            <div className={classNames.barCode}>
+                              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
+                                <Input disabled value={item.barCode} />
+                              </Link>
+                              <img
+                                className={classNames.copyImg}
+                                src="/assets/icons/copy-img.svg"
+                                alt=""
+                                onClick={e => {
+                                  e.stopPropagation()
+                                  copyValue(item.barCode)
+                                }}
                               />
-                            </Link>
+                            </div>
                           ) : (
                             <Typography className={classNames.linkField}>{'N/A'}</Typography>
                           )

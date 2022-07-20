@@ -30,33 +30,24 @@ const BlockOfNewBox = ({
   onRemoveBox,
   sizeSetting,
   volumeWeightCoefficient,
-  sizeValue,
 }) => {
   const classNames = useClassNames()
 
-  const translateSize = size => {
-    switch (size) {
-      case 'cm':
-        return t(TranslationKey.cm)
-      case 'inches':
-        return t(TranslationKey.inches)
-    }
-  }
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
           containerClasses={classNames.numberInputField}
           inputProps={{maxLength: 6}}
-          label={`${t(TranslationKey['Box length in '])}${translateSize(sizeValue) || t(TranslationKey.cm)}`}
-          value={orderBox.lengthCmSupplier}
+          label={`${t(TranslationKey['Box length'])}`}
+          value={orderBox.lengthCmSupplier || 0}
           onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
           inputProps={{maxLength: 6}}
-          label={`${t(TranslationKey['Box width in '])}${translateSize(sizeValue) || t(TranslationKey.cm)}`}
-          value={orderBox.widthCmSupplier}
+          label={`${t(TranslationKey['Box width'])}`}
+          value={orderBox.widthCmSupplier || 0}
           onChange={setFormField('widthCmSupplier', orderBoxIndex)}
         />
       </div>
@@ -64,15 +55,15 @@ const BlockOfNewBox = ({
         <Field
           containerClasses={classNames.numberInputField}
           inputProps={{maxLength: 6}}
-          label={`${t(TranslationKey['Box height in '])}${translateSize(sizeValue) || t(TranslationKey.cm)}`}
-          value={orderBox.heightCmSupplier}
+          label={`${t(TranslationKey['Box height'])}`}
+          value={orderBox.heightCmSupplier || 0}
           onChange={setFormField('heightCmSupplier', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
           inputProps={{maxLength: 6}}
           label={t(TranslationKey['Real weight'])}
-          value={orderBox.weighGrossKgSupplier}
+          value={orderBox.weighGrossKgSupplier || 0}
           onChange={setFormField('weighGrossKgSupplier', orderBoxIndex)}
         />
       </div>
@@ -295,7 +286,6 @@ export const CreateBoxForm = observer(
     const disableSubmit = formFieldsArr.length < 1 || formFieldsArr.some(el => el.items[0].amount < 1)
 
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
-    const [sizeValue, setSizeValue] = useState('')
 
     const handleChange = (event, newAlignment) => {
       setSizeSetting(newAlignment)
@@ -348,18 +338,10 @@ export const CreateBoxForm = observer(
 
           <div className={classNames.sizesSubWrapper}>
             <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-              <ToggleBtn
-                disabled={sizeSetting === sizesType.INCHES}
-                value={sizesType.INCHES}
-                onClick={e => setSizeValue(e.target.value.toLowerCase())}
-              >
+              <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
                 {'In'}
               </ToggleBtn>
-              <ToggleBtn
-                disabled={sizeSetting === sizesType.CM}
-                value={sizesType.CM}
-                onClick={e => setSizeValue(e.target.value.toLowerCase())}
-              >
+              <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
                 {'Cm'}
               </ToggleBtn>
             </ToggleBtnGroup>
@@ -372,7 +354,6 @@ export const CreateBoxForm = observer(
                 order={order}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 sizeSetting={sizeSetting}
-                sizeValue={sizeValue}
                 orderBoxIndex={orderBoxIndex}
                 orderBox={orderBox}
                 setFormField={setFormField}

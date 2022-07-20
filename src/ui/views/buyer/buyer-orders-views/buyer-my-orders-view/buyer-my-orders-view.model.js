@@ -202,6 +202,7 @@ export class BuyerMyOrdersViewModel {
 
       this.loadData()
       this.onTriggerOpenModal('showConfirmModal')
+      this.onTriggerOpenModal('showOrderModal')
     } catch (error) {
       console.log(error)
     }
@@ -264,7 +265,11 @@ export class BuyerMyOrdersViewModel {
       }
 
       this.setRequestStatus(loadingStatuses.success)
-      this.onTriggerOpenModal('showOrderModal')
+      if (orderFields.status !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) {
+        this.dataToCancelOrder = {orderId: order._id, buyerComment: orderFields.buyerComment}
+        this.onTriggerOpenModal('showOrderModal')
+        // await BuyerModel.returnOrder(order._id, {buyerComment: orderFields.buyerComment})
+      }
 
       this.loadData()
     } catch (error) {

@@ -6,6 +6,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
+import {ShopModel} from '@models/shop-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
@@ -15,6 +16,7 @@ import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
+import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayBlackList,
@@ -85,6 +87,7 @@ const fieldsOfProductAllowedToUpdate = [
   'coefficient',
   'avgPrice',
   'avgReviews',
+  'shopIds',
   // 'totalFba'
 ]
 
@@ -98,6 +101,7 @@ export class ClientProductViewModel {
   productId = undefined
 
   storekeepersData = []
+  shopsData = []
 
   curUpdateProductData = {}
   warningModalTitle = ''
@@ -150,6 +154,7 @@ export class ClientProductViewModel {
   async loadData() {
     try {
       await this.getProductById()
+      await this.getShops()
     } catch (error) {
       console.log(error)
     }
@@ -185,6 +190,7 @@ export class ClientProductViewModel {
           'skusByClient',
           'niche',
           'asins',
+          'shopIds',
         ].includes(fieldName)
       ) {
         this.product = {...this.product, [fieldName]: e.target.value}
@@ -241,6 +247,18 @@ export class ClientProductViewModel {
       this.storekeepersData = result
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+      runInAction(() => {
+        this.shopsData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
     }
   }
 

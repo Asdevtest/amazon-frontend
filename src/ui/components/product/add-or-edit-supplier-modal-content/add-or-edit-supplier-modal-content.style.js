@@ -81,7 +81,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imageFileInputWrapper: {
-    width: '700px',
+    width: '748px',
   },
 
   photoLinkWrapper: {
@@ -227,5 +227,11 @@ export const useClassNames = makeStyles(() => ({
     color: '#007bff',
     maxWidth: '100%',
     overflow: 'auto',
+  },
+
+  photoAndFilesWrapper: {
+    display: 'flex',
+    textAlign: 'center',
+    justifyContent: 'center',
   },
 }))

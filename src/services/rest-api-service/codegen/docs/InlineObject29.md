@@ -57,5 +57,6 @@ Name | Type | Description | Notes
 **avgPrice** | **String** | Средняя цена | [optional] 
 **avgReviews** | **String** | Средний отзывы | [optional] 
 **fourMonthesStock** | **Number** | Поле для калькуляции дозакупок | [optional] 
+**shopIds** | **[String]** | ID магазинов для продукта | [optional] 
 
 

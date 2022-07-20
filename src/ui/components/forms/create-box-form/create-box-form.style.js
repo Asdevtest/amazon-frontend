@@ -4,7 +4,7 @@ export const useClassNames = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: '1119px',
+    width: '1121px',
   },
   form: {
     flexWrap: 'wrap',

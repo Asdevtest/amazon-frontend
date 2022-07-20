@@ -804,8 +804,9 @@ export const AddOrEditSupplierModalContent = observer(
                 />
               </div>
             ) : null}
-
-            <PhotoAndFilesCarousel files={tmpSupplier.images} width="300px" />
+            <div className={classNames.photoAndFilesWrapper}>
+              <PhotoAndFilesCarousel files={tmpSupplier.images} width="300px" />
+            </div>
           </div>
         </div>
 

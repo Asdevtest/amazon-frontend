@@ -163,7 +163,7 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '16px',
     transition: '.15s ease-in-out',
     '&:hover': {
-      color: 'blue',
+      color: '#0460DE',
       transform: 'scale(1.01)',
     },
   },
@@ -172,6 +172,7 @@ export const useClassNames = makeStyles(theme => ({
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
 
     borderBottom: '5px solid #0460DE',
+    color: '#0460DE',
   },
 
   languageSelectorWrapper: {

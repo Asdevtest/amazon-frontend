@@ -98,6 +98,11 @@ export const useClassNames = makeStyles(() => ({
   alignCenter: {
     textAlign: 'center',
   },
+
+  alignCenterFiles: {
+    textAlign: 'center',
+    zIndex: 1,
+  },
   alignRight: {
     textAlign: 'right',
   },
@@ -175,6 +180,7 @@ export const useClassNames = makeStyles(() => ({
   filesWrapper: {
     height: '140px',
     display: 'flex',
+    alignItems: 'center',
   },
 
   filesCell: {

@@ -77,9 +77,12 @@ export const AdminUserEditContent = observer(
     ])
 
     const addAllowedRole = () => {
-      setSelectedAllowedRoles(prev => [...prev, formFields.allowedRoles])
+      JSON.stringify(formFields.allowedRoles) !== JSON.stringify(selectedAllowedRoles) &&
+        setSelectedAllowedRoles(prev => [...new Set([...prev, formFields.allowedRoles])])
       setClearSelect(true)
     }
+
+    console.log(selectedAllowedRoles)
 
     const removeAllowedRole = value => {
       const removeRole = selectedAllowedRoles.filter(role => role !== value)

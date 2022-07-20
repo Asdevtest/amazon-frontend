@@ -32,6 +32,7 @@ export const useClassNames = makeStyles({
     padding: '10px 10px 0 0',
     '&:hover': {
       backgroundColor: 'inherit',
+      color: '#006CFF',
     },
   },
   subTitleWrapper: {

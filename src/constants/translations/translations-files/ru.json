@@ -1274,5 +1274,13 @@
   "My balance": "Мой баланс",
   "Trading stores": "Торговля магазинами",
   "Buy Shop": "Купить магазин",
-  "Sell the Shop": "Продать магазин"
+  "Sell the Shop": "Продать магазин",
+  "Products in shops": "Товары в магазинах",
+  "Products without shops": "Товары без магазинов",
+  "All Products": "Все товары",
+  "freeze": "заморожено",
+  "Shop": "Магазин",
+  "Box length": "Длина коробки",
+  "Box width": "Ширина коробки",
+  "Box height": "Высота коробки"
 }

@@ -19,10 +19,9 @@ export const DashboardBalance = ({user, title}) => {
       <div className={classNames.balanceWrapper}>
         <Typography className={classNames.balanceTitle}>{toFixedWithDollarSign(user.balance, 2)}</Typography>
         {user.balanceFreeze !== 0 && (
-          <Typography className={classNames.balanceFreeze}>{`${toFixedWithDollarSign(
-            user.balanceFreeze,
-            2,
-          )} -freeze`}</Typography>
+          <Typography className={classNames.balanceFreeze}>{`(${toFixedWithDollarSign(user.balanceFreeze, 2)} ${t(
+            TranslationKey.freeze,
+          )})`}</Typography>
         )}
       </div>
     </div>

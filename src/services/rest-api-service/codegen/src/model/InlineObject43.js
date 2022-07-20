@@ -47,8 +47,8 @@ class InlineObject43 {
         if (data) {
             obj = obj || new InlineObject43();
 
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], [NULL_SCHEMA_ERR]);
+            if (data.hasOwnProperty('media')) {
+                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
             }
             if (data.hasOwnProperty('comments')) {
                 obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
@@ -86,9 +86,9 @@ class InlineObject43 {
 
 /**
  * Image URL
- * @member {Array.<String>} linksToMediaFiles
+ * @member {Array.<String>} media
  */
-InlineObject43.prototype['linksToMediaFiles'] = undefined;
+InlineObject43.prototype['media'] = undefined;
 
 /**
  * Комментарий к идее

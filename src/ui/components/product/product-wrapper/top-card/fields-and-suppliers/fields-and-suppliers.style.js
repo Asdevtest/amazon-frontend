@@ -164,7 +164,42 @@ export const useClassNames = makeStyles(() => ({
   },
 
   strategyWrapper: {
-    marginBottom: '20px',
+    display: 'flex',
+    gap: '28px',
+  },
+
+  shopsFieldWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '25px',
+  },
+
+  shopsSelect: {
+    width: '307px',
+  },
+
+  selectedShopsWrapper: {
+    width: '307px',
+    display: 'flex',
+    gap: '10px',
+    flexWrap: 'wrap',
+  },
+
+  selectedShop: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '24px',
+    padding: '5px 15px',
+    backgroundColor: '#CCE2FF',
+    borderRadius: '4px',
+    fontSize: '14px',
+    lineHeight: '16px',
+    fontWeight: '400',
+    color: '#001029',
+  },
+
+  removeShopButton: {
+    cursor: 'pointer',
   },
 
   productCheckboxBoxesWrapper: {
@@ -277,5 +312,9 @@ export const useClassNames = makeStyles(() => ({
 
   disabledOption: {
     color: 'rgba(0, 0, 0, 0.2)',
+  },
+
+  shopsWrapper: {
+    marginBottom: '30px',
   },
 }))

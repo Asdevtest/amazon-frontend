@@ -30,8 +30,8 @@ export const addOrEditBatchFormColumns = () => [
       ) : (
         <MultilineTextCell text={params.value} />
       ),
-    width: 70,
-    type: 'number',
+    width: 150,
+    // type: 'number',
   },
 
   {
@@ -56,7 +56,7 @@ export const addOrEditBatchFormColumns = () => [
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 130,
+    width: 170,
   },
 
   {
@@ -77,7 +77,7 @@ export const addOrEditBatchFormColumns = () => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderCell: params => <NormDateCell params={params} />,
-    width: 110,
+    width: 150,
     type: 'date',
   },
 
@@ -85,15 +85,15 @@ export const addOrEditBatchFormColumns = () => [
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-    type: 'number',
-    width: 120,
+    // type: 'number',
+    width: 170,
   },
 
   {
     field: 'deliveryTotalPrice',
     headerName: t(TranslationKey['Total price']),
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 120,
-    type: 'number',
+    width: 170,
+    // type: 'number',
   },
 ]

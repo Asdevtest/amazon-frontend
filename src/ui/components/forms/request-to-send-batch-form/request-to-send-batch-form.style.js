@@ -18,6 +18,9 @@ export const useClassNames = makeStyles(() => ({
   warningText: {
     color: 'red',
   },
+  noWarningText: {
+    color: '#006CFF',
+  },
   btnsWrapper: {
     flex: 1,
     alignItems: 'center',

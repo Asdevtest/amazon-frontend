@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 import {Typography} from '@material-ui/core'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -115,7 +116,10 @@ export const RequestToSendBatchForm = observer(
           ))}
         </div>
         <div className={classNames.warningWrapper}>
-          <Typography variant="subtitle1" className={classNames.warningText}>
+          <Typography
+            variant="subtitle1"
+            className={clsx(classNames.warningText, {[classNames.noWarningText]: !disabledSubmit})}
+          >
             {'*' +
               t(
                 TranslationKey[
