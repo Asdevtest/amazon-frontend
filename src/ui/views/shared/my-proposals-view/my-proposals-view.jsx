@@ -116,7 +116,7 @@ class MyProposalsViewRaw extends Component {
                 <Grid
                   container
                   classes={{root: classNames.dashboardCardWrapper}}
-                  spacing={3}
+                  // spacing={3}
                   direction="row"
                   justifyContent="flex-start"
                   alignItems="flex-start"

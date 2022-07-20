@@ -3,10 +3,10 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  NormDateCell,
-  MultilineTextCell,
   MultilineTextAlignLeftHeaderCell,
   EditOrRemoveIconBtnsCell,
+  ShortDateCell,
+  MultilineTextAlignLeftCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -17,8 +17,8 @@ export const adminGroupPermissionsColumns = handlers => [
     headerName: t(TranslationKey.Key),
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Key)} />,
 
-    width: 252,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 280,
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
   },
 
   {
@@ -27,7 +27,7 @@ export const adminGroupPermissionsColumns = handlers => [
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Role)} />,
 
     width: 140,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
   },
 
   {
@@ -35,8 +35,8 @@ export const adminGroupPermissionsColumns = handlers => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Title)} />,
 
-    width: 155,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 200,
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
   },
 
   {
@@ -44,8 +44,8 @@ export const adminGroupPermissionsColumns = handlers => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 300,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 450,
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
   },
 
   {
@@ -71,8 +71,8 @@ export const adminGroupPermissionsColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Updated)} />,
 
-    renderCell: params => <NormDateCell params={params} />,
-    width: 405,
+    renderCell: params => <ShortDateCell params={params} />,
+    width: 110,
     type: 'date',
   },
 ]

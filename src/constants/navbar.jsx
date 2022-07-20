@@ -160,7 +160,7 @@ export const navbarConfig = () => ({
           // key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH,
         },
       ],
-      key: navBarActiveCategory.NAVBAR_BATCHES,
+      key: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT),

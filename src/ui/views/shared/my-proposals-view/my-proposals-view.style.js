@@ -24,6 +24,7 @@ export const styles = createStyles(() => ({
 
   dashboardCardWrapper: {
     width: '100%',
+    // padding: 0
   },
 
   tablePanelViewWrapper: {
@@ -50,11 +51,11 @@ export const styles = createStyles(() => ({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
+    height: 52,
   },
   tablePanelSortWrapper: {
     display: 'flex',
     alignItems: 'center',
-    padding: '0 20px',
     marginBottom: '20px',
     transition: '0.3s ease',
     cursor: 'pointer',
