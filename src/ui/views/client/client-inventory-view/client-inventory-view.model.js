@@ -297,6 +297,7 @@ export class ClientInventoryViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
+
       this.getDataGridState()
       await this.getShops()
       await this.getProductsMy()

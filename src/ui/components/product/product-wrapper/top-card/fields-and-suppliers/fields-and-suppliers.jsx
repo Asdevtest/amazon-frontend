@@ -65,7 +65,7 @@ export const FieldsAndSuppliers = observer(
     }, [shops])
 
     useEffect(() => {
-      onChangeField('shopIds')({target: {value: [...currentShopsIds]}})
+      checkIsClient(curUserRole) && onChangeField('shopIds')({target: {value: [...currentShopsIds]}})
     }, [currentShopsIds])
 
     const onClickSkuBtn = () => {

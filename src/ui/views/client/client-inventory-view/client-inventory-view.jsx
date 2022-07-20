@@ -180,20 +180,22 @@ export class ClientInventoryViewRaw extends Component {
                   {t(TranslationKey['Products without shops'])}
                 </Button>
 
-                {shopsData.map(shop => (
-                  <Button
-                    key={shop._id}
-                    // disabled={!productsMy.some(product => product.originalData?.shopIds.includes(shop._id))}
-                    className={clsx(classNames.button, {
-                      [classNames.selectedShopsBtn]: currentShop?._id === shop._id,
-                    })}
-                    variant="text"
-                    color="primary"
-                    onClick={() => onClickShopBtn(shop)}
-                  >
-                    {shop.name}
-                  </Button>
-                ))}
+                {shopsData.map(
+                  shop =>
+                    productsMy.some(product => product.originalData.shopIds.includes(shop._id)) && (
+                      <Button
+                        key={shop._id}
+                        className={clsx(classNames.button, {
+                          [classNames.selectedShopsBtn]: currentShop?._id === shop._id,
+                        })}
+                        variant="text"
+                        color="primary"
+                        onClick={() => onClickShopBtn(shop)}
+                      >
+                        {shop.name}
+                      </Button>
+                    ),
+                )}
               </div>
               <div className={classNames.addProductBtnsWrapper}>
                 {!isArchive && (
