@@ -147,9 +147,7 @@ export class SuppliersAndIdeasModel {
       if (this.inEdit) {
         await this.editIdea(formFields._id, submitData)
       } else {
-        await this.createIdea(
-          getObjectFilteredByKeyArrayBlackList({...submitData, linksToMediaFiles: submitData.media}, 'media'),
-        )
+        await this.createIdea(submitData)
       }
 
       this.inCreate = false
@@ -172,6 +170,10 @@ export class SuppliersAndIdeasModel {
         height: this.dataToCreateProduct.height,
         length: this.dataToCreateProduct.length,
         asin: '',
+
+        lamazon: this.dataToCreateProduct.productLinks[0],
+        amazonDetail: this.dataToCreateProduct.criteria,
+        clientComment: this.dataToCreateProduct.comments,
       }
 
       await ClientModel.createProduct(createData)

@@ -221,9 +221,23 @@ export const useClassNames = makeStyles(() => ({
   },
 
   sizesWrapper: {
-    width: '341px',
     display: 'flex',
+    flexDirection: 'column',
+
+    width: 341,
+  },
+
+  sizesSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
+  },
+
+  sizesBottomWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: '10px',
   },
 
   sizesContainer: {

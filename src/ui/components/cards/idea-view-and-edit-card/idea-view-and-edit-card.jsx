@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
@@ -9,18 +8,22 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
+import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
-// import {SettingsModel} from '@models/settings-model'
 import {Button} from '@components/buttons/button'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {TableSupplier} from '@components/product/table-supplier'
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UploadFilesInput} from '@components/upload-files-input'
 
+import {roundSafely} from '@utils/calculation'
 import {checkIsClient, checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './idea-view-and-edit-card.style'
@@ -88,17 +91,13 @@ export const IdeaViewAndEditCard = observer(
     }
 
     const [formFields, setFormFields] = useState(sourceFormFields)
-    // const [product, setProduct] = useState(formFields)
 
-    // useEffect(() => {
-    //   setProduct(() => ({...formFields}))
-    // }, [formFields, SettingsModel.languageTag])
+    useEffect(() => {
+      setFormFields(sourceFormFields)
+    }, [idea])
 
     const onChangeField = fieldName => event => {
       const newFormFields = {...formFields}
-      // if (['execution_time'].includes(fieldName)) {
-      //   newFormFields[fieldName] = parseInt(event.target.value) || ''
-      // } else
       if (
         ['price', 'quantity', 'width', 'height', 'length'].includes(fieldName) &&
         !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
@@ -123,6 +122,46 @@ export const IdeaViewAndEditCard = observer(
       onChangeField('productLinks')({target: {value: [...newArr]}})
     }
 
+    const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
+
+    const handleChange = (event, newAlignment) => {
+      setSizeSetting(newAlignment)
+
+      if (newAlignment === sizesType.INCHES) {
+        setFormFields({
+          ...formFields,
+          width: toFixed(formFields.width / inchesCoefficient, 4),
+          height: toFixed(formFields.height / inchesCoefficient, 4),
+          length: toFixed(formFields.length / inchesCoefficient, 4),
+        })
+      } else {
+        setFormFields({
+          ...formFields,
+          width: toFixed(roundSafely(formFields.width * inchesCoefficient), 2),
+          height: toFixed(roundSafely(formFields.height * inchesCoefficient), 2),
+          length: toFixed(roundSafely(formFields.length * inchesCoefficient), 2),
+        })
+      }
+    }
+
+    const calculateFieldsToSubmit = () => {
+      const res = {
+        ...formFields,
+
+        width:
+          (sizeSetting === sizesType.INCHES ? roundSafely(formFields.width * inchesCoefficient) : formFields.width) ||
+          0,
+        height:
+          (sizeSetting === sizesType.INCHES ? roundSafely(formFields.height * inchesCoefficient) : formFields.height) ||
+          0,
+        length:
+          (sizeSetting === sizesType.INCHES ? roundSafely(formFields.length * inchesCoefficient) : formFields.length) ||
+          0,
+      }
+
+      return res
+    }
+
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
 
     return (
@@ -135,7 +174,7 @@ export const IdeaViewAndEditCard = observer(
           <div className={classNames.cardBlockWrapper}>
             <div className={!disableFields ? classNames.leftSubBlockWrapper : classNames.leftDisSubBlockWrapper}>
               <div className={!disableFields ? classNames.photoWrapper : classNames.bigPhotoWrapper}>
-                <PhotoCarousel files={idea?.media} />
+                <PhotoCarousel files={formFields?.media} />
               </div>
 
               {!disableFields ? <UploadFilesInput images={images} setImages={setImages} maxNumber={50} /> : null}
@@ -276,33 +315,48 @@ export const IdeaViewAndEditCard = observer(
                 </div>
 
                 <div className={classNames.sizesWrapper}>
-                  <Field
-                    disabled={disableFields}
-                    labelClasses={classNames.spanLabel}
-                    inputClasses={classNames.sizesInput}
-                    containerClasses={classNames.sizesContainer}
-                    label={t(TranslationKey.Width)}
-                    value={formFields.width}
-                    onChange={onChangeField('width')}
-                  />
-                  <Field
-                    disabled={disableFields}
-                    labelClasses={classNames.spanLabel}
-                    inputClasses={classNames.sizesInput}
-                    containerClasses={classNames.sizesContainer}
-                    label={t(TranslationKey.Height)}
-                    value={formFields.height}
-                    onChange={onChangeField('height')}
-                  />
-                  <Field
-                    disabled={disableFields}
-                    labelClasses={classNames.spanLabel}
-                    inputClasses={classNames.sizesInput}
-                    containerClasses={classNames.sizesContainer}
-                    label={t(TranslationKey.Length)}
-                    value={formFields.length}
-                    onChange={onChangeField('length')}
-                  />
+                  <div className={classNames.sizesSubWrapper}>
+                    <Typography>{t(TranslationKey.Demensions)}</Typography>
+
+                    <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+                      <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                        {'In'}
+                      </ToggleBtn>
+                      <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                        {'Cm'}
+                      </ToggleBtn>
+                    </ToggleBtnGroup>
+                  </div>
+
+                  <div className={classNames.sizesBottomWrapper}>
+                    <Field
+                      disabled={disableFields}
+                      labelClasses={classNames.spanLabel}
+                      inputClasses={classNames.sizesInput}
+                      containerClasses={classNames.sizesContainer}
+                      label={t(TranslationKey.Width)}
+                      value={formFields.width}
+                      onChange={onChangeField('width')}
+                    />
+                    <Field
+                      disabled={disableFields}
+                      labelClasses={classNames.spanLabel}
+                      inputClasses={classNames.sizesInput}
+                      containerClasses={classNames.sizesContainer}
+                      label={t(TranslationKey.Height)}
+                      value={formFields.height}
+                      onChange={onChangeField('height')}
+                    />
+                    <Field
+                      disabled={disableFields}
+                      labelClasses={classNames.spanLabel}
+                      inputClasses={classNames.sizesInput}
+                      containerClasses={classNames.sizesContainer}
+                      label={t(TranslationKey.Length)}
+                      value={formFields.length}
+                      onChange={onChangeField('length')}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -327,7 +381,7 @@ export const IdeaViewAndEditCard = observer(
               variant="contained"
               color="primary"
               className={classNames.actionButton}
-              onClick={() => onClickSaveBtn(formFields, images)}
+              onClick={() => onClickSaveBtn(calculateFieldsToSubmit(), images)}
             >
               {t(TranslationKey.Save)}
             </Button>
@@ -374,7 +428,6 @@ export const IdeaViewAndEditCard = observer(
                     color="alert"
                     className={[classNames.actionButton, classNames.cancelBtn, classNames.btnLeftMargin]}
                     onClick={() => {
-                      // console.log('formFields', formFields)
                       onRemove(formFields._id)
                     }}
                   >
