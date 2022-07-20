@@ -6,7 +6,6 @@ export const useClassNames = makeStyles(() => ({
   },
 
   mainTitle: {
-    fontFamily: 'Noto Sans',
     fontStyle: 'normal',
     fontWeight: 'bold',
     fontSize: '24px',
@@ -40,7 +39,6 @@ export const useClassNames = makeStyles(() => ({
   },
 
   searchBtnText: {
-    fontFamily: 'Montserrat',
     fontSize: '14px',
     lineHeight: '17px',
     color: '#006CFF',

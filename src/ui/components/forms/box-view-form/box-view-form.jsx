@@ -61,7 +61,8 @@ export const BoxViewForm = observer(
             />
 
             <Typography>{`${t(TranslationKey.Batch)} № ${
-              (batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) || 'N/A'
+              (batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) ||
+              t(TranslationKey['Not available'])
             }`}</Typography>
           </div>
         </div>
@@ -135,7 +136,9 @@ export const BoxViewForm = observer(
                               />
                             </div>
                           ) : (
-                            <Typography className={classNames.linkField}>{'N/A'}</Typography>
+                            <Typography className={classNames.linkField}>
+                              {t(TranslationKey['Not available'])}
+                            </Typography>
                           )
                         }
                       />
@@ -249,7 +252,7 @@ export const BoxViewForm = observer(
                         // <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
                         //   <Typography className={classNames.linkField}>{box.shippingLabel}</Typography>
                         // </Link>
-                        <Typography className={classNames.linkField}>{'N/A'}</Typography>
+                        <Typography className={classNames.linkField}>{t(TranslationKey['Not available'])}</Typography>
                       )}
                     </div>
                   }
@@ -259,7 +262,9 @@ export const BoxViewForm = observer(
                   label={t(TranslationKey['FBA Shipment'])}
                   inputComponent={
                     <div>
-                      <Typography className={classNames.linkField}>{box.fbaShipment || 'N/A'}</Typography>
+                      <Typography className={classNames.linkField}>
+                        {box.fbaShipment || t(TranslationKey['Not available'])}
+                      </Typography>
                     </div>
                   }
                 />

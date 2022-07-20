@@ -180,6 +180,7 @@ export const AddOrEditBatchForm = observer(
             <Field
               disabled
               className={classNames.filterField}
+              tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
               label={t(TranslationKey.Tariff)}
               value={
                 (sourceDataForFilters
@@ -192,6 +193,7 @@ export const AddOrEditBatchForm = observer(
             <Field
               disabled
               className={classNames.filterField}
+              tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
               label={t(TranslationKey.Destination)}
               value={
                 (sourceDataForFilters
@@ -263,6 +265,7 @@ export const AddOrEditBatchForm = observer(
             <Field
               disabled
               containerClasses={classNames.sumField}
+              tooltipInfoContent={t(TranslationKey['Calculated from the dimensions of the box'])}
               label={t(TranslationKey['Volume weight'])}
               value={toFixed(
                 chosenBoxes.reduce(
@@ -277,6 +280,7 @@ export const AddOrEditBatchForm = observer(
             <Field
               disabled
               containerClasses={classNames.sumField}
+              tooltipInfoContent={t(TranslationKey['Total weight of boxes in a batch'])}
               label={t(TranslationKey['Final weight'])}
               value={toFixed(
                 chosenBoxes.reduce(
@@ -291,6 +295,7 @@ export const AddOrEditBatchForm = observer(
             <Field
               disabled
               containerClasses={classNames.sumField}
+              tooltipInfoContent={t(TranslationKey['Cost of shipping boxes in a batch'])}
               label={t(TranslationKey['Total price'])}
               value={toFixed(
                 chosenBoxes.reduce((ac, cur) => (ac += cur.deliveryTotalPrice), 0),

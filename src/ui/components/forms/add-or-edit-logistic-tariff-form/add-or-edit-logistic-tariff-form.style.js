@@ -113,4 +113,11 @@ export const useClassNames = makeStyles(() => ({
   middleInput: {
     width: '80px',
   },
+
+  rateTitle: {
+    fontSize: '18px',
+    fontWeight: '600',
+    lineHeight: '140%',
+    color: '#001029',
+  },
 }))

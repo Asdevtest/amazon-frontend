@@ -68,6 +68,10 @@ export const FieldsAndSuppliers = observer(
       checkIsClient(curUserRole) && onChangeField('shopIds')({target: {value: [...currentShopsIds]}})
     }, [currentShopsIds])
 
+    useEffect(() => {
+      !selectedItem ? setClearSelect(true) : setClearSelect(false)
+    }, [selectedItem])
+
     const onClickSkuBtn = () => {
       onChangeField('skusByClient')({target: {value: [...product.skusByClient, skuLine.toUpperCase()]}})
 
@@ -87,6 +91,7 @@ export const FieldsAndSuppliers = observer(
     }
 
     const onRemoveShop = (name, id) => {
+      setSelectedItem(null)
       setCurrentShops(currentShops.filter(shop => shop.name !== name))
       currentShopsIds && setCurrentShopsIds(currentShopsIds.filter(shopId => shopId !== id))
     }
@@ -406,7 +411,7 @@ export const FieldsAndSuppliers = observer(
                     renderValue={() => (clearSelect ? 'Выберите магазин' : selectedItem?.name)}
                     className={classNames.shopsSelect}
                     onChange={e => setSelectedItem(e.target.value)}
-                    onClick={() => setClearSelect(false)}
+                    // onClick={() => setClearSelect(false)}
                   >
                     {shops.map((shop, index) => (
                       <MenuItem key={index} disabled={currentShops.includes(shop)} value={shop}>

@@ -10,7 +10,9 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {Modal} from '@components/modal'
+import {SelectShopsModal} from '@components/modals/select-shops-modal'
+// import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
 import {PrivateLabelCard} from '@components/private-label-card'
@@ -37,6 +39,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
       productsVacant,
       drawerOpen,
       productToPay,
+      shopsData,
       showConfirmPayModal,
       showSuccessModal,
       onTriggerDrawer,
@@ -69,7 +72,20 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
           </Appbar>
         </Main>
 
-        <ConfirmationModal
+        <Modal openModal={showConfirmPayModal} setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}>
+          <SelectShopsModal
+            title={t(TranslationKey['You buy a product card, are you sure?'])}
+            message={`${t(TranslationKey['You will be charged'])} (${
+              productToPay && toFixedWithDollarSign(productToPay.priceForClient, 2)
+            })`}
+            shops={shopsData}
+            product={productToPay}
+            onClickSuccessBtn={onClickBuyProductBtn}
+            onClickCancelBtn={() => onTriggerOpenModal('showConfirmPayModal')}
+          />
+        </Modal>
+
+        {/* <ConfirmationModal
           openModal={showConfirmPayModal}
           setOpenModal={() => onTriggerOpenModal('showConfirmPayModal')}
           title={t(TranslationKey['You buy a product card, are you sure?'])}
@@ -82,7 +98,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
             onClickBuyProductBtn(productToPay)
           }}
           onClickCancelBtn={() => onTriggerOpenModal('showConfirmPayModal')}
-        />
+        /> */}
 
         <SuccessInfoModal
           openModal={showSuccessModal}

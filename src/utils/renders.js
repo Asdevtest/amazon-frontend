@@ -1,7 +1,7 @@
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
-import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor} from './checks'
+import {checkIsBuyer, checkIsClient, checkIsResearcher, checkIsStorekeeper, checkIsSupervisor} from './checks'
 import {t} from './translations'
 
 export const renderTooltipTitle = (categoryTitle, userRole) => {
@@ -82,6 +82,23 @@ export const renderTooltipTitle = (categoryTitle, userRole) => {
         return t(TranslationKey['Notices of required surcharges per box in a batch'])
       case t(TranslationKey['On boxes tariffs']):
         return t(TranslationKey['Notifications about the need to change to a new tariff'])
+    }
+  } else if (checkIsStorekeeper(UserRoleCodeMap[userRole])) {
+    switch (categoryTitle) {
+      case t(TranslationKey.Dashboard):
+        return t(TranslationKey['Statistics on goods/orders/finances'])
+      case t(TranslationKey.Tasks):
+        return t(TranslationKey['New, current and completed/rejected box tasks'])
+      case t(TranslationKey['My warehouse']):
+        return t(TranslationKey['List of boxes that are in stock'])
+      case t(TranslationKey['My batches']):
+        return t(TranslationKey['Management of batches and boxes related to them'])
+      case t(TranslationKey.Users):
+        return t(TranslationKey['Manage the list of employees'])
+      case t(TranslationKey.Finances):
+        return t(TranslationKey["Detailed description of the movement of the user's money"])
+      case t(TranslationKey['Warehouse management']):
+        return t(TranslationKey['Management of tariffs for logistics and warehousing services'])
     }
   }
 }

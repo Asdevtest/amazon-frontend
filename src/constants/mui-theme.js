@@ -11,23 +11,12 @@ export const muiTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      'Segoe UI',
-      'Roboto',
-      'Oxygen',
-      'Ubuntu',
-      'Cantarell',
-      'Fira Sans',
-      'Droid Sans',
-      'Helvetica Neue',
-      'sans-serif',
-    ],
+    fontFamily: ['Manrope', 'sans-serif'],
     h5: {
       fontWeight: 500,
     },
   },
+
   overrides: {
     MuiButton: {
       root: {

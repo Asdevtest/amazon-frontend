@@ -63,6 +63,8 @@ export const warehouseVacantTasksViewColumns = handlers => [
     width: 250,
     renderCell: params => (
       <NormalActionBtnCell
+        isFirstRow
+        tooltipText={t(TranslationKey['Take the task to work'])}
         bTnText={t(TranslationKey['Get to work'])}
         onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
       />

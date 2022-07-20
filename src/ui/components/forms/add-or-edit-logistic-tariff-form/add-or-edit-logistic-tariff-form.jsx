@@ -9,6 +9,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {DatePicker} from '@components/date-picker'
 import {Field} from '@components/field/field'
+import {Text} from '@components/text'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
@@ -178,6 +179,7 @@ export const AddOrEditLogisticTariffForm = observer(
           <div className={classNames.nameDeliveryWrapper}>
             <Field
               label={t(TranslationKey.Title) + '*'}
+              tooltipInfoContent={t(TranslationKey['Rate name'])}
               inputProps={{maxLength: 50}}
               labelClasses={classNames.fieldLabel}
               containerClasses={classNames.longContainer}
@@ -188,6 +190,7 @@ export const AddOrEditLogisticTariffForm = observer(
 
             <Field
               label={t(TranslationKey['Delivery time, days']) + '*'}
+              tooltipInfoContent={t(TranslationKey['Approximate delivery time'])}
               inputProps={{maxLength: 20}}
               labelClasses={classNames.fieldLabel}
               containerClasses={classNames.longContainer}
@@ -198,6 +201,7 @@ export const AddOrEditLogisticTariffForm = observer(
 
           <Field
             label={t(TranslationKey['Min. weight, kg']) + '*'}
+            tooltipInfoContent={t(TranslationKey['Minimum box weight available for this rate'])}
             inputProps={{maxLength: 12}}
             labelClasses={classNames.fieldLabel}
             containerClasses={classNames.longContainer}
@@ -206,7 +210,12 @@ export const AddOrEditLogisticTariffForm = observer(
           />
 
           <div className={classNames.costBlock}>
-            <Typography variant="h5">{t(TranslationKey.Rates)}</Typography>
+            <Text
+              tooltipInfoContent={t(TranslationKey['Shipping cost per kilogram to the region'])}
+              className={classNames.rateTitle}
+            >
+              {t(TranslationKey.Rates)}
+            </Text>
 
             <ToggleBtnGroup exclusive size="small" color="primary" value={currencyType} onChange={handleChange}>
               <ToggleBtn disabled={currencyType === rateSettings.IN_DOLLAR} value={rateSettings.IN_DOLLAR}>
@@ -221,6 +230,7 @@ export const AddOrEditLogisticTariffForm = observer(
               oneLine
               disabled
               label={t(TranslationKey['Current exchange rate'])}
+              tooltipInfoContent={t(TranslationKey['Course indicated by the system'])}
               containerClasses={classNames.rateContainer}
               labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
               inputClasses={classNames.middleInput}
@@ -231,6 +241,7 @@ export const AddOrEditLogisticTariffForm = observer(
               oneLine
               label={t(TranslationKey['Yuan to USD exchange rate'])}
               inputProps={{maxLength: 8}}
+              tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
               containerClasses={classNames.rateContainer}
               labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
               inputClasses={classNames.middleInput}
@@ -341,6 +352,7 @@ export const AddOrEditLogisticTariffForm = observer(
             minRows={4}
             rowsMax={4}
             className={classNames.descriptionField}
+            tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
             placeholder={t(TranslationKey.Description)}
             label={t(TranslationKey.Description)}
             value={formFields.description}

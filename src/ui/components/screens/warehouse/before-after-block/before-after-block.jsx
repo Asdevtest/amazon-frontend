@@ -11,6 +11,7 @@ import {Button} from '@components/buttons/button'
 import {CustomCarousel, PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
+import {Text} from '@components/text'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
@@ -81,9 +82,19 @@ const Box = observer(
     return (
       <div className={(classNames.box, classNames.mainPaper)}>
         <div className={classNames.fieldsWrapper}>
-          <Field disabled label={t(TranslationKey.Warehouse)} value={box.destination?.name} />
+          <Field
+            disabled
+            tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
+            label={t(TranslationKey.Warehouse)}
+            value={box.destination?.name}
+          />
 
-          <Field disabled label={t(TranslationKey.Tariff)} value={getFullTariffTextForBoxOrOrder(box) || 'N/A'} />
+          <Field
+            disabled
+            tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
+            label={t(TranslationKey.Tariff)}
+            value={getFullTariffTextForBoxOrOrder(box) || 'N/A'}
+          />
         </div>
 
         <Typography className={classNames.boxTitle}>{`${t(TranslationKey['Box number:'])} ${
@@ -284,7 +295,12 @@ const Box = observer(
 
         <div>
           <div className={classNames.chipWrapper}>
-            <Typography className={classNames.subTitle}>{t(TranslationKey['Shipping label']) + ':'}</Typography>
+            <Text
+              tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
+              className={classNames.subTitle}
+            >
+              {t(TranslationKey['Shipping label']) + ':'}
+            </Text>
 
             {box.shippingLabel ? (
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
@@ -317,6 +333,7 @@ const Box = observer(
               {isEdit && (
                 <Button
                   className={classNames.editBtn}
+                  tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
                   onClick={() => {
                     setCurBox(box)
                     onClickEditBox(box)
@@ -351,7 +368,9 @@ const NewBoxes = observer(
 
     return (
       <div className={classNames.newBoxes}>
-        <Typography className={classNames.sectionTitle}>{t(TranslationKey['New boxes'])}</Typography>
+        <Text tooltipInfoContent={t(TranslationKey['New box condition'])} className={classNames.sectionTitle}>
+          {t(TranslationKey['New boxes'])}
+        </Text>
 
         {newBoxes.map((box, boxIndex) => (
           <Box
@@ -406,7 +425,12 @@ export const BeforeAfterBlock = observer(
 
     const CurrentBox = ({currentBoxes}) => (
       <div className={classNames.currentBox}>
-        <Typography className={classNames.sectionTitle}>{t(TranslationKey.Incoming)}</Typography>
+        <Text
+          tooltipInfoContent={t(TranslationKey['Previous condition of the box'])}
+          className={classNames.sectionTitle}
+        >
+          {t(TranslationKey.Incoming)}
+        </Text>
 
         {/* {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
           <div className={classNames.fieldsWrapper}>

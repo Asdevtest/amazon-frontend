@@ -13,8 +13,6 @@ export const useClassNames = makeStyles(() => ({
     outline: 'none',
     border: '1px solid rgba(217, 222, 229, 1)',
     borderRadius: '10px',
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
     fontWeight: '400',
     lineHeight: '1.5',
   },
@@ -28,8 +26,6 @@ export const useClassNames = makeStyles(() => ({
     outline: 'none',
     border: '1px solid rgba(217, 222, 229, 1)',
     borderRadius: '10px',
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
     fontWeight: '400',
     lineHeight: '1.5',
   },

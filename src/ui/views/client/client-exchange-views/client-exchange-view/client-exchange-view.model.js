@@ -324,7 +324,7 @@ export class ClientExchangeViewModel {
       await ClientModel.makePayments([this.selectedProduct._id])
 
       this.selectedShops = shops
-      console.log(this.selectedShops)
+
       await this.onSaveProductData()
       this.onTriggerOpenModal('showSelectShopsModal')
 

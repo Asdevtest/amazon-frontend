@@ -378,6 +378,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
         </Button>
         <Button
           className={classNames.button}
+          tooltipInfoContent={t(TranslationKey['Add a box'])}
           onClick={() => {
             setNewBoxes(newBoxes.concat(getEmptyBox()))
           }}

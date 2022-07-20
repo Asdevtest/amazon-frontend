@@ -6,6 +6,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
 import {Input} from '@components/input'
+import {Text} from '@components/text'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
@@ -23,13 +24,20 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode}
 
         <div className={classNames.attributeWrapper}>
           <div className={classNames.countWrapper}>
-            <Typography className={classNames.subTitle}>{t(TranslationKey.Quantity) + ':'}</Typography>
+            <Text
+              tooltipInfoContent={t(TranslationKey['Number of products in the box'])}
+              className={classNames.subTitle}
+            >
+              {t(TranslationKey.Quantity) + ':'}
+            </Text>
             <Input readOnly classes={{root: classNames.inputWrapper, input: classNames.input}} value={item.amount} />
             {superCount > 1 && <Typography className={classNames.superCount}>{`x ${superCount}`}</Typography>}
           </div>
 
           <div className={classNames.chipWrapper}>
-            <Typography className={classNames.subTitle}>{t(TranslationKey.BarCode) + ':'}</Typography>
+            <Text tooltipInfoContent={t(TranslationKey['Product barcode'])} className={classNames.subTitle}>
+              {t(TranslationKey.BarCode) + ':'}
+            </Text>
 
             {item.barCode ? (
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
@@ -46,6 +54,7 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode}
                     oneLine
                     containerClasses={classNames.checkboxContainer}
                     label={t(TranslationKey['BarCode is glued by supplier'])}
+                    tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
                     inputComponent={
                       <Checkbox
                         disabled={!isNewBox}
@@ -68,6 +77,9 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode}
                     oneLine
                     containerClasses={classNames.checkboxContainer}
                     label={t(TranslationKey['BarCode is glued by storekeeper'])}
+                    tooltipInfoContent={t(
+                      TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
+                    )}
                     inputComponent={
                       <Checkbox
                         disabled={!isNewBox}

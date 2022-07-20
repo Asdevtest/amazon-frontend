@@ -11,6 +11,7 @@ export const checkIsSupervisor = userRole => userRole === UserRole.SUPERVISOR
 export const checkIsBuyer = userRole => userRole === UserRole.BUYER
 export const checkIsClient = userRole => userRole === UserRole.CLIENT
 export const checkIsAdmin = userRole => userRole === UserRole.ADMIN
+export const checkIsStorekeeper = userRole => userRole === UserRole.STOREKEEPER
 
 export const checkIsAbsoluteUrl = url => new RegExp('^(?:[a-z]+:)?//', 'i').test(url)
 

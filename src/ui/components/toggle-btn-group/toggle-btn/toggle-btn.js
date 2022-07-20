@@ -12,5 +12,6 @@ export const ToggleBtn = styled(ToggleButton)({
     borderRadius: '4px',
     width: '27px',
     height: '24px',
+    fontFamily: "'Manrope, sans-serif'",
   },
 })

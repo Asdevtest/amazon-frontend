@@ -474,7 +474,7 @@ export const styles = createStyles(() => ({
     width: '100%',
     textAlign: 'left',
     whiteSpace: 'normal',
-    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
@@ -498,8 +498,7 @@ export const styles = createStyles(() => ({
     width: '100%',
     textAlign: 'left',
     whiteSpace: 'normal',
-    // fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
-    // fontWeight: '600',
+    fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
 
@@ -528,7 +527,7 @@ export const styles = createStyles(() => ({
     whiteSpace: 'normal',
 
     color: 'rgba(0, 0, 0, 0.87)',
-    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '16px',
@@ -541,7 +540,7 @@ export const styles = createStyles(() => ({
     whiteSpace: 'normal',
 
     color: 'rgba(0, 0, 0, 0.87)',
-    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '16px',
