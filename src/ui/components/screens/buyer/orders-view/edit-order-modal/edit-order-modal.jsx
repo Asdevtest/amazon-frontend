@@ -29,6 +29,7 @@ import {Text} from '@components/text'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {BoxesToCreateTable} from './boxes-to-create-table'
@@ -122,7 +123,7 @@ export const EditOrderModal = ({
     amount: order?.amount || 0,
     trackingNumberChina: order?.trackingNumberChina,
     batchPrice: 0,
-    totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
+    totalPriceChanged: toFixed(order?.totalPriceChanged, 2) || toFixed(order?.totalPrice, 2),
     yuanToDollarRate: order?.yuanToDollarRate || 6.3,
   })
 

@@ -76,6 +76,8 @@ export const CreateOrEditRequestContent = ({
       setDeadlineError(false)
     } else if (['needCheckBySupervisor', 'restrictMoreThanOneProposalFromOneAssignee'].includes(fieldName)) {
       newFormFields[section][fieldName] = event.target.checked
+    } else if (['title'].includes(fieldName)) {
+      newFormFields[section][fieldName] = event.target.value.replace(/\n/g, '')
     } else {
       newFormFields[section][fieldName] = event.target.value
     }

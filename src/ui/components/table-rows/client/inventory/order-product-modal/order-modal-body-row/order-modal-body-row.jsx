@@ -206,7 +206,7 @@ export const OrderModalBodyRow = ({
             input={<Input />}
             onChange={e => onChangeInput(e, 'destinationId')}
           >
-            <option value={''}>{'none'}</option>
+            <option value={''}>{t(TranslationKey['not selected'])}</option>
 
             {destinations.map(item => (
               <option key={item._id} value={item._id}>

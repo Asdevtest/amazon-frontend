@@ -1281,8 +1281,7 @@ export enum TranslationKey {
   'Box length' = 'Box length',
   'Box width' = 'Box width',
   'Box height' = 'Box height',
-
-  // '' = '',
+  'not selected' = 'not selected',
   // '' = '',
   // '' = '',
   // '' = '',

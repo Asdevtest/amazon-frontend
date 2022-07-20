@@ -6,7 +6,7 @@ import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
@@ -209,8 +209,8 @@ export const EditBoxTasksModal = ({
       />
 
       <div className={classNames.photoWrapper}>
-        <Typography>{t(TranslationKey['Box photos:'])}</Typography>
-        <PhotoCarousel files={box.images} />
+        <Typography>{t(TranslationKey.Files) + ': '}</Typography>
+        <PhotoAndFilesCarousel files={box.images} width="600px" />
       </div>
 
       <Box className={classNames.boxCode}>
