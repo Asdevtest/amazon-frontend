@@ -75,6 +75,7 @@ export class ClientInventoryViewModel {
   ordersDataStateToSubmit = undefined
 
   productsMy = []
+  productsMyBase = []
   withoutProduct = false
   withProduct = false
 
@@ -391,6 +392,9 @@ export class ClientInventoryViewModel {
 
       runInAction(() => {
         this.productsMy = clientInventoryDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+        )
+        this.productsMyBase = clientInventoryDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })

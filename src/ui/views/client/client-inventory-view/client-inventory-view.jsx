@@ -85,6 +85,7 @@ export class ClientInventoryViewRaw extends Component {
       showConfirmModal,
       curPage,
       productsMy,
+      productsMyBase,
 
       rowsPerPage,
 
@@ -182,9 +183,10 @@ export class ClientInventoryViewRaw extends Component {
 
                 {shopsData.map(
                   shop =>
-                    productsMy.some(product => product.originalData.shopIds.includes(shop._id)) && (
+                    productsMyBase.some(product => product.originalData.shopIds.includes(shop._id)) && (
                       <Button
                         key={shop._id}
+                        // disabled={productsMy.some(product => !product.originalData.shopIds.includes(shop._id))}
                         className={clsx(classNames.button, {
                           [classNames.selectedShopsBtn]: currentShop?._id === shop._id,
                         })}
