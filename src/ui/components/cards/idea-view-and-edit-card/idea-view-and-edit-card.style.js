@@ -37,10 +37,14 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+
+    padding: '0 0 35px',
   },
 
   bigPhotoWrapper: {
     width: '400px',
+    height: 280,
+    padding: '0 0 35px',
   },
 
   imgBox: {
@@ -217,9 +221,23 @@ export const useClassNames = makeStyles(() => ({
   },
 
   sizesWrapper: {
-    width: '341px',
     display: 'flex',
+    flexDirection: 'column',
+
+    width: 341,
+  },
+
+  sizesSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
+  },
+
+  sizesBottomWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: '10px',
   },
 
   sizesContainer: {

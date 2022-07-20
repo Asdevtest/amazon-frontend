@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersIds** | **[String]** | GUIDы поставщиков, которые нужно добавить в БД. | [optional] 
+**payload** | [**[ApiV1IntegrationsCreateAndLinkSkuProductsPayload]**](ApiV1IntegrationsCreateAndLinkSkuProductsPayload.md) |  | [optional] 
 
 

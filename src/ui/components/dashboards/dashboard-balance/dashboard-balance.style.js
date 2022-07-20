@@ -19,4 +19,10 @@ export const useClassNames = makeStyles(() => ({
     color: '#FFC7C7',
     marginLeft: 70,
   },
+
+  title: {
+    fontSize: 18,
+    color: '#001029',
+    marginBottom: 20,
+  },
 }))

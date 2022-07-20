@@ -47,10 +47,13 @@ import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from 
 import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1IntegrationsSellerboardWarehouseStocksShop';
 import ApiV1RequestProposalsCreatedBy from './model/ApiV1RequestProposalsCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1RequestProposalsCustomByRequestIdGuidDetails';
+import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './model/ApiV1RequestProposalsCustomByRequestIdGuidProposal';
+import ApiV1RequestProposalsDetailsCustom from './model/ApiV1RequestProposalsDetailsCustom';
+import ApiV1RequestProposalsRequest from './model/ApiV1RequestProposalsRequest';
+import ApiV1RequestProposalsRequestDetailsCustom from './model/ApiV1RequestProposalsRequestDetailsCustom';
 import ApiV1RequestsCountProposalsByStatuses from './model/ApiV1RequestsCountProposalsByStatuses';
 import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
-import ApiV1RequestsCustomGuidDetails from './model/ApiV1RequestsCustomGuidDetails';
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
@@ -144,6 +147,9 @@ import InlineObject80 from './model/InlineObject80';
 import InlineObject81 from './model/InlineObject81';
 import InlineObject82 from './model/InlineObject82';
 import InlineObject83 from './model/InlineObject83';
+import InlineObject84 from './model/InlineObject84';
+import InlineObject85 from './model/InlineObject85';
+import InlineObject86 from './model/InlineObject86';
 import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
@@ -488,6 +494,30 @@ export {
     ApiV1RequestProposalsCustomByRequestIdGuidDetails,
 
     /**
+     * The ApiV1RequestProposalsCustomByRequestIdGuidProposal model constructor.
+     * @property {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposal}
+     */
+    ApiV1RequestProposalsCustomByRequestIdGuidProposal,
+
+    /**
+     * The ApiV1RequestProposalsDetailsCustom model constructor.
+     * @property {module:model/ApiV1RequestProposalsDetailsCustom}
+     */
+    ApiV1RequestProposalsDetailsCustom,
+
+    /**
+     * The ApiV1RequestProposalsRequest model constructor.
+     * @property {module:model/ApiV1RequestProposalsRequest}
+     */
+    ApiV1RequestProposalsRequest,
+
+    /**
+     * The ApiV1RequestProposalsRequestDetailsCustom model constructor.
+     * @property {module:model/ApiV1RequestProposalsRequestDetailsCustom}
+     */
+    ApiV1RequestProposalsRequestDetailsCustom,
+
+    /**
      * The ApiV1RequestsCountProposalsByStatuses model constructor.
      * @property {module:model/ApiV1RequestsCountProposalsByStatuses}
      */
@@ -504,12 +534,6 @@ export {
      * @property {module:model/ApiV1RequestsCustomDetailsCustom}
      */
     ApiV1RequestsCustomDetailsCustom,
-
-    /**
-     * The ApiV1RequestsCustomGuidDetails model constructor.
-     * @property {module:model/ApiV1RequestsCustomGuidDetails}
-     */
-    ApiV1RequestsCustomGuidDetails,
 
     /**
      * The ApiV1RequestsCustomGuidRequest model constructor.
@@ -1068,6 +1092,24 @@ export {
      * @property {module:model/InlineObject83}
      */
     InlineObject83,
+
+    /**
+     * The InlineObject84 model constructor.
+     * @property {module:model/InlineObject84}
+     */
+    InlineObject84,
+
+    /**
+     * The InlineObject85 model constructor.
+     * @property {module:model/InlineObject85}
+     */
+    InlineObject85,
+
+    /**
+     * The InlineObject86 model constructor.
+     * @property {module:model/InlineObject86}
+     */
+    InlineObject86,
 
     /**
      * The InlineObject9 model constructor.

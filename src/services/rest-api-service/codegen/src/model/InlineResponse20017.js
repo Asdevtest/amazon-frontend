@@ -13,6 +13,8 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1RequestProposalsCreatedBy from './ApiV1RequestProposalsCreatedBy';
+import ApiV1RequestProposalsDetailsCustom from './ApiV1RequestProposalsDetailsCustom';
+import ApiV1RequestProposalsRequest from './ApiV1RequestProposalsRequest';
 
 /**
  * The InlineResponse20017 model module.
@@ -101,6 +103,12 @@ class InlineResponse20017 {
             }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1RequestProposalsCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('detailsCustom')) {
+                obj['detailsCustom'] = ApiV1RequestProposalsDetailsCustom.constructFromObject(data['detailsCustom']);
+            }
+            if (data.hasOwnProperty('request')) {
+                obj['request'] = ApiV1RequestProposalsRequest.constructFromObject(data['request']);
             }
         }
         return obj;
@@ -215,6 +223,16 @@ InlineResponse20017.prototype['title'] = undefined;
  * @member {module:model/ApiV1RequestProposalsCreatedBy} createdBy
  */
 InlineResponse20017.prototype['createdBy'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestProposalsDetailsCustom} detailsCustom
+ */
+InlineResponse20017.prototype['detailsCustom'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestProposalsRequest} request
+ */
+InlineResponse20017.prototype['request'] = undefined;
 
 
 

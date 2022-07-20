@@ -218,7 +218,12 @@ Class | Method | HTTP request | Description
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfileStartPost**](docs/GoLoginApi.md#apiV1GologinProfileStartPost) | **POST** /api/v1/gologin/profile/start | # Запустить пользователя.
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfileStopPost**](docs/GoLoginApi.md#apiV1GologinProfileStopPost) | **POST** /api/v1/gologin/profile/stop | # Остановить профайл пользователя.
 *TestSwagger.IdeaApi* | [**apiV1IdeasAddSuppliersGuidPost**](docs/IdeaApi.md#apiV1IdeasAddSuppliersGuidPost) | **POST** /api/v1/ideas/add_suppliers/{guid} | Добавить поставщиков к идее
+*TestSwagger.IdeaApi* | [**apiV1IdeasEditRequestGuidPatch**](docs/IdeaApi.md#apiV1IdeasEditRequestGuidPatch) | **PATCH** /api/v1/ideas/edit_request/{guid} | Изменить заявку на поиск поставщика к идее
+*TestSwagger.IdeaApi* | [**apiV1IdeasEditRequestsStatusGuidPatch**](docs/IdeaApi.md#apiV1IdeasEditRequestsStatusGuidPatch) | **PATCH** /api/v1/ideas/edit_requests_status/{guid} | Изменить стаус заявки на поиск поставщика
+*TestSwagger.IdeaApi* | [**apiV1IdeasFindSupplierGuidPost**](docs/IdeaApi.md#apiV1IdeasFindSupplierGuidPost) | **POST** /api/v1/ideas/find_supplier/{guid} | Создать заявку на поиск поставщика к идее
 *TestSwagger.IdeaApi* | [**apiV1IdeasGet**](docs/IdeaApi.md#apiV1IdeasGet) | **GET** /api/v1/ideas/ | Список всех идей
+*TestSwagger.IdeaApi* | [**apiV1IdeasGetSupplierRequestsGet**](docs/IdeaApi.md#apiV1IdeasGetSupplierRequestsGet) | **GET** /api/v1/ideas/get_supplier_requests/ | Получить все заяки на поиск поставщика
+*TestSwagger.IdeaApi* | [**apiV1IdeasGetSupplierRequestsGuidGet**](docs/IdeaApi.md#apiV1IdeasGetSupplierRequestsGuidGet) | **GET** /api/v1/ideas/get_supplier_requests/{guid} | Получить определенную заявку на поиск поставщика
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidDelete**](docs/IdeaApi.md#apiV1IdeasGuidDelete) | **DELETE** /api/v1/ideas/{guid} | Удалить идею
 *TestSwagger.IdeaApi* | [**apiV1IdeasGuidPatch**](docs/IdeaApi.md#apiV1IdeasGuidPatch) | **PATCH** /api/v1/ideas/{guid} | Редактировать идею
 *TestSwagger.IdeaApi* | [**apiV1IdeasPost**](docs/IdeaApi.md#apiV1IdeasPost) | **POST** /api/v1/ideas/ | Добавить идею
@@ -372,10 +377,13 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1IntegrationsSellerboardWarehouseStocksShop](docs/ApiV1IntegrationsSellerboardWarehouseStocksShop.md)
  - [TestSwagger.ApiV1RequestProposalsCreatedBy](docs/ApiV1RequestProposalsCreatedBy.md)
  - [TestSwagger.ApiV1RequestProposalsCustomByRequestIdGuidDetails](docs/ApiV1RequestProposalsCustomByRequestIdGuidDetails.md)
+ - [TestSwagger.ApiV1RequestProposalsCustomByRequestIdGuidProposal](docs/ApiV1RequestProposalsCustomByRequestIdGuidProposal.md)
+ - [TestSwagger.ApiV1RequestProposalsDetailsCustom](docs/ApiV1RequestProposalsDetailsCustom.md)
+ - [TestSwagger.ApiV1RequestProposalsRequest](docs/ApiV1RequestProposalsRequest.md)
+ - [TestSwagger.ApiV1RequestProposalsRequestDetailsCustom](docs/ApiV1RequestProposalsRequestDetailsCustom.md)
  - [TestSwagger.ApiV1RequestsCountProposalsByStatuses](docs/ApiV1RequestsCountProposalsByStatuses.md)
  - [TestSwagger.ApiV1RequestsCustomDetails](docs/ApiV1RequestsCustomDetails.md)
  - [TestSwagger.ApiV1RequestsCustomDetailsCustom](docs/ApiV1RequestsCustomDetailsCustom.md)
- - [TestSwagger.ApiV1RequestsCustomGuidDetails](docs/ApiV1RequestsCustomGuidDetails.md)
  - [TestSwagger.ApiV1RequestsCustomGuidRequest](docs/ApiV1RequestsCustomGuidRequest.md)
  - [TestSwagger.ApiV1RequestsCustomRequest](docs/ApiV1RequestsCustomRequest.md)
  - [TestSwagger.ApiV1StorekeepersTariffWarehouses](docs/ApiV1StorekeepersTariffWarehouses.md)
@@ -469,6 +477,9 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject81](docs/InlineObject81.md)
  - [TestSwagger.InlineObject82](docs/InlineObject82.md)
  - [TestSwagger.InlineObject83](docs/InlineObject83.md)
+ - [TestSwagger.InlineObject84](docs/InlineObject84.md)
+ - [TestSwagger.InlineObject85](docs/InlineObject85.md)
+ - [TestSwagger.InlineObject86](docs/InlineObject86.md)
  - [TestSwagger.InlineObject9](docs/InlineObject9.md)
  - [TestSwagger.InlineResponse200](docs/InlineResponse200.md)
  - [TestSwagger.InlineResponse2001](docs/InlineResponse2001.md)

@@ -18,6 +18,9 @@ import InlineObject43 from '../model/InlineObject43';
 import InlineObject44 from '../model/InlineObject44';
 import InlineObject45 from '../model/InlineObject45';
 import InlineObject46 from '../model/InlineObject46';
+import InlineObject47 from '../model/InlineObject47';
+import InlineObject48 from '../model/InlineObject48';
+import InlineObject49 from '../model/InlineObject49';
 import InlineResponse20013 from '../model/InlineResponse20013';
 import InlineResponse2014 from '../model/InlineResponse2014';
 import InternalServerError from '../model/InternalServerError';
@@ -99,6 +102,174 @@ export default class IdeaApi {
 
 
     /**
+     * Изменить заявку на поиск поставщика к идее
+     * ## Изменение заявки на поиск поставщика  
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject48} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+    apiV1IdeasEditRequestGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasEditRequestGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/ideas/edit_request/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Изменить заявку на поиск поставщика к идее
+     * ## Изменение заявки на поиск поставщика  
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject48} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    apiV1IdeasEditRequestGuidPatch(guid, opts) {
+      return this.apiV1IdeasEditRequestGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Изменить стаус заявки на поиск поставщика
+     * ## Изменение статуса заявки на поиск поставщика  
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject49} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+    apiV1IdeasEditRequestsStatusGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasEditRequestsStatusGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/ideas/edit_requests_status/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Изменить стаус заявки на поиск поставщика
+     * ## Изменение статуса заявки на поиск поставщика  
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject49} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    apiV1IdeasEditRequestsStatusGuidPatch(guid, opts) {
+      return this.apiV1IdeasEditRequestsStatusGuidPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Создать заявку на поиск поставщика к идее
+     * ## Создание заявки на поиск поставщика  
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject47} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+    apiV1IdeasFindSupplierGuidPostWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasFindSupplierGuidPost");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/ideas/find_supplier/{guid}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Создать заявку на поиск поставщика к идее
+     * ## Создание заявки на поиск поставщика  
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject47} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    apiV1IdeasFindSupplierGuidPost(guid, opts) {
+      return this.apiV1IdeasFindSupplierGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * Список всех идей
      * Получить список всех идей
      * @param {Object} opts Optional parameters
@@ -139,6 +310,107 @@ export default class IdeaApi {
      */
     apiV1IdeasGet(opts) {
       return this.apiV1IdeasGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Получить все заяки на поиск поставщика
+     * ## Получение всех заявок на поиск поставщика  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+    apiV1IdeasGetSupplierRequestsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/ideas/get_supplier_requests/', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить все заяки на поиск поставщика
+     * ## Получение всех заявок на поиск поставщика  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    apiV1IdeasGetSupplierRequestsGet(opts) {
+      return this.apiV1IdeasGetSupplierRequestsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Получить определенную заявку на поиск поставщика
+     * ## Получение определенной заявки на поиск поставщика  
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+    apiV1IdeasGetSupplierRequestsGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1IdeasGetSupplierRequestsGuidGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/api/v1/ideas/get_supplier_requests/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить определенную заявку на поиск поставщика
+     * ## Получение определенной заявки на поиск поставщика  
+     * @param {String} guid ID идеи
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    apiV1IdeasGetSupplierRequestsGuidGet(guid, opts) {
+      return this.apiV1IdeasGetSupplierRequestsGuidGetWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

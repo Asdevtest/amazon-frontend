@@ -39,7 +39,7 @@ export class ResearcherDashboardViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Dashboard)} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <DashboardBalance user={userInfo} />
+              <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
 
               <div className={classNames.amountWithLabelCardsWrapper}>
                 <SectionalDashboard

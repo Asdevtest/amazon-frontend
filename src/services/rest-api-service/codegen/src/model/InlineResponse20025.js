@@ -13,7 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
-import InlineResponse20017 from './InlineResponse20017';
+import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './ApiV1RequestProposalsCustomByRequestIdGuidProposal';
 
 /**
  * The InlineResponse20025 model module.
@@ -51,7 +51,7 @@ class InlineResponse20025 {
             obj = obj || new InlineResponse20025();
 
             if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = InlineResponse20017.constructFromObject(data['proposal']);
+                obj['proposal'] = ApiV1RequestProposalsCustomByRequestIdGuidProposal.constructFromObject(data['proposal']);
             }
             if (data.hasOwnProperty('details')) {
                 obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
@@ -64,7 +64,7 @@ class InlineResponse20025 {
 }
 
 /**
- * @member {module:model/InlineResponse20017} proposal
+ * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposal} proposal
  */
 InlineResponse20025.prototype['proposal'] = undefined;
 

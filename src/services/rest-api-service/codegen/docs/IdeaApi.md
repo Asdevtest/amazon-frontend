@@ -5,7 +5,12 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1IdeasAddSuppliersGuidPost**](IdeaApi.md#apiV1IdeasAddSuppliersGuidPost) | **POST** /api/v1/ideas/add_suppliers/{guid} | Добавить поставщиков к идее
+[**apiV1IdeasEditRequestGuidPatch**](IdeaApi.md#apiV1IdeasEditRequestGuidPatch) | **PATCH** /api/v1/ideas/edit_request/{guid} | Изменить заявку на поиск поставщика к идее
+[**apiV1IdeasEditRequestsStatusGuidPatch**](IdeaApi.md#apiV1IdeasEditRequestsStatusGuidPatch) | **PATCH** /api/v1/ideas/edit_requests_status/{guid} | Изменить стаус заявки на поиск поставщика
+[**apiV1IdeasFindSupplierGuidPost**](IdeaApi.md#apiV1IdeasFindSupplierGuidPost) | **POST** /api/v1/ideas/find_supplier/{guid} | Создать заявку на поиск поставщика к идее
 [**apiV1IdeasGet**](IdeaApi.md#apiV1IdeasGet) | **GET** /api/v1/ideas/ | Список всех идей
+[**apiV1IdeasGetSupplierRequestsGet**](IdeaApi.md#apiV1IdeasGetSupplierRequestsGet) | **GET** /api/v1/ideas/get_supplier_requests/ | Получить все заяки на поиск поставщика
+[**apiV1IdeasGetSupplierRequestsGuidGet**](IdeaApi.md#apiV1IdeasGetSupplierRequestsGuidGet) | **GET** /api/v1/ideas/get_supplier_requests/{guid} | Получить определенную заявку на поиск поставщика
 [**apiV1IdeasGuidDelete**](IdeaApi.md#apiV1IdeasGuidDelete) | **DELETE** /api/v1/ideas/{guid} | Удалить идею
 [**apiV1IdeasGuidPatch**](IdeaApi.md#apiV1IdeasGuidPatch) | **PATCH** /api/v1/ideas/{guid} | Редактировать идею
 [**apiV1IdeasPost**](IdeaApi.md#apiV1IdeasPost) | **POST** /api/v1/ideas/ | Добавить идею
@@ -69,6 +74,174 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1IdeasEditRequestGuidPatch
+
+> apiV1IdeasEditRequestGuidPatch(guid, opts)
+
+Изменить заявку на поиск поставщика к идее
+
+## Изменение заявки на поиск поставщика  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.IdeaApi();
+let guid = null; // String | ID идеи
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject48() // InlineObject48 | 
+};
+apiInstance.apiV1IdeasEditRequestGuidPatch(guid, opts).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| ID идеи | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject48**](InlineObject48.md)|  | [optional] 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+
+## apiV1IdeasEditRequestsStatusGuidPatch
+
+> apiV1IdeasEditRequestsStatusGuidPatch(guid, opts)
+
+Изменить стаус заявки на поиск поставщика
+
+## Изменение статуса заявки на поиск поставщика  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.IdeaApi();
+let guid = null; // String | ID идеи
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject49() // InlineObject49 | 
+};
+apiInstance.apiV1IdeasEditRequestsStatusGuidPatch(guid, opts).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| ID идеи | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject49**](InlineObject49.md)|  | [optional] 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+
+## apiV1IdeasFindSupplierGuidPost
+
+> apiV1IdeasFindSupplierGuidPost(guid, opts)
+
+Создать заявку на поиск поставщика к идее
+
+## Создание заявки на поиск поставщика  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.IdeaApi();
+let guid = null; // String | ID идеи
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject47() // InlineObject47 | 
+};
+apiInstance.apiV1IdeasFindSupplierGuidPost(guid, opts).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| ID идеи | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject47**](InlineObject47.md)|  | [optional] 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+
 ## apiV1IdeasGet
 
 > [InlineResponse20013] apiV1IdeasGet(opts)
@@ -119,6 +292,112 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+
+## apiV1IdeasGetSupplierRequestsGet
+
+> apiV1IdeasGetSupplierRequestsGet(opts)
+
+Получить все заяки на поиск поставщика
+
+## Получение всех заявок на поиск поставщика  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.IdeaApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1IdeasGetSupplierRequestsGet(opts).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+
+## apiV1IdeasGetSupplierRequestsGuidGet
+
+> apiV1IdeasGetSupplierRequestsGuidGet(guid, opts)
+
+Получить определенную заявку на поиск поставщика
+
+## Получение определенной заявки на поиск поставщика  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.IdeaApi();
+let guid = null; // String | ID идеи
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1IdeasGetSupplierRequestsGuidGet(guid, opts).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| ID идеи | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 
 ## apiV1IdeasGuidDelete

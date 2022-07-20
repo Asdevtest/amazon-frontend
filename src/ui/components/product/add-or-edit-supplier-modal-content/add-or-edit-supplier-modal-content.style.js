@@ -51,7 +51,6 @@ export const useClassNames = makeStyles(() => ({
   saveBtn: {
     backgroundColor: 'rgba(0, 123, 255, 1)',
     color: '#fff',
-    marginRight: '8px',
   },
   cancelBtn: {
     backgroundColor: '#d5d5d5',
@@ -60,6 +59,7 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       color: '#fff',
     },
+    marginLeft: '8px',
   },
   commentField: {
     height: 'auto',

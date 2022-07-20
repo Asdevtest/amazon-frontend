@@ -19,6 +19,7 @@ import {
   SettingsIcon,
   ShopsIcon,
   TasksIcon,
+  TradingShops,
   UsersPermissionsIcon,
 } from './navbar-svg-icons'
 import {TranslationKey} from './translations/translation-key'
@@ -67,6 +68,7 @@ const permissionsKeys = {
     SHOW_NOTIFICATIONS_CLIENT: 'SHOW_NOTIFICATIONS_CLIENT',
     SHOW_SHOPS_CLIENT: 'SHOW_SHOPS_CLIENT',
     SHOW_FREELANCE_CLIENT: 'SHOW_FREELANCE_CLIENT',
+    SHOW_TRADING_SHOPS_CLIENT: 'SHOW_TRADING_SHOPS_CLIENT',
   },
   researcher: {
     SHOW_PAYMENTS_RESEARCHER: 'SHOW_PAYMENTS_RESEARCHER',
@@ -140,7 +142,31 @@ export const navbarConfig = () => ({
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_VACANT_CLIENT),
     },
+    //
 
+    {
+      icon: TradingShops,
+      title: t(TranslationKey['Trading stores']),
+      route: '/client/',
+      subtitles: [
+        {
+          subtitle: t(TranslationKey['Buy Shop']),
+          subRoute: '/client/',
+          // key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
+        },
+        {
+          subtitle: t(TranslationKey['Sell the Shop']),
+          subRoute: '/client/',
+          // key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH,
+        },
+      ],
+      key: navBarActiveCategory.NAVBAR_BATCHES,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT),
+    },
+
+    //
     {
       icon: MyOrdersIcon,
       title: t(TranslationKey['My orders']),

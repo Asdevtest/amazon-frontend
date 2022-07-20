@@ -129,10 +129,10 @@ export const NewAddOrEditUserPermissionsForm = observer(
               .map(item => (
                 <Tooltip
                   key={item.key}
-                  followCursor
+                  // followCursor
                   arrow
                   title={item.description}
-                  placement="top-start"
+                  placement="right-end"
                   TransitionComponent={Zoom}
                   TransitionProps={{timeout: 900}}
                 >

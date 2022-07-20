@@ -276,7 +276,7 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
   )
 }
 
-export const PhotoCarousel = ({files, isAmazonPhoto}) => {
+export const PhotoCarousel = observer(({files, isAmazonPhoto}) => {
   const classNames = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -285,7 +285,6 @@ export const PhotoCarousel = ({files, isAmazonPhoto}) => {
     ? files?.map(el => getAmazonImageUrl(el))
     : files?.filter(el => checkIsImageLink(el?.file?.name || el))
 
-  console.log(notEmptyPhotos)
   return files?.length ? (
     <div className={classNames.imagesCarouselWrapper}>
       <div className={classNames.imageWrapper}>
@@ -338,4 +337,4 @@ export const PhotoCarousel = ({files, isAmazonPhoto}) => {
       </div>
     </div>
   )
-}
+})

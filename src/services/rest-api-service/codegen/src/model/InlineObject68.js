@@ -21,15 +21,11 @@ import ApiClient from '../ApiClient';
 class InlineObject68 {
     /**
      * Constructs a new <code>InlineObject68</code>.
-     * Схема магазина.
      * @alias module:model/InlineObject68
-     * @param name {String} Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
-     * @param sellerBoardWarehouseReportUrlDaily {String} uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
-     * @param sellerBoardWarehouseReportUrlMonthly {String} uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
      */
-    constructor(name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
+    constructor() { 
         
-        InlineObject68.initialize(this, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly);
+        InlineObject68.initialize(this);
     }
 
     /**
@@ -37,10 +33,7 @@ class InlineObject68 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
-        obj['name'] = name;
-        obj['sellerBoardWarehouseReportUrlDaily'] = sellerBoardWarehouseReportUrlDaily;
-        obj['sellerBoardWarehouseReportUrlMonthly'] = sellerBoardWarehouseReportUrlMonthly;
+    static initialize(obj) { 
     }
 
     /**
@@ -54,14 +47,8 @@ class InlineObject68 {
         if (data) {
             obj = obj || new InlineObject68();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
-            }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -71,22 +58,10 @@ class InlineObject68 {
 }
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * Причины закрытия приема предложений.
+ * @member {String} reason
  */
-InlineObject68.prototype['name'] = undefined;
-
-/**
- * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
- */
-InlineObject68.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
-
-/**
- * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
- */
-InlineObject68.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineObject68.prototype['reason'] = undefined;
 
 
 

@@ -22,12 +22,10 @@ class InlineResponse20013 {
     /**
      * Constructs a new <code>InlineResponse20013</code>.
      * @alias module:model/InlineResponse20013
-     * @param productName {String} Назавние продукта
-     * @param price {Number} Желаемая цена
      */
-    constructor(productName, price) { 
+    constructor() { 
         
-        InlineResponse20013.initialize(this, productName, price);
+        InlineResponse20013.initialize(this);
     }
 
     /**
@@ -35,9 +33,7 @@ class InlineResponse20013 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productName, price) { 
-        obj['productName'] = productName;
-        obj['price'] = price;
+    static initialize(obj) { 
     }
 
     /**
@@ -51,8 +47,8 @@ class InlineResponse20013 {
         if (data) {
             obj = obj || new InlineResponse20013();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'String');
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
             if (data.hasOwnProperty('media')) {
                 obj['media'] = ApiClient.convertToType(data['media'], [Object]);
@@ -102,9 +98,9 @@ class InlineResponse20013 {
 
 /**
  * GUID идеи
- * @member {String} id
+ * @member {String} _id
  */
-InlineResponse20013.prototype['id'] = undefined;
+InlineResponse20013.prototype['_id'] = undefined;
 
 /**
  * Image URL

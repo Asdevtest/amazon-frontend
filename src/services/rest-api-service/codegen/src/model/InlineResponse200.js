@@ -209,6 +209,9 @@ class InlineResponse200 {
             if (data.hasOwnProperty('buyersComment')) {
                 obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
             }
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
+            }
             if (data.hasOwnProperty('researcherRate')) {
                 obj['researcherRate'] = ApiClient.convertToType(data['researcherRate'], 'Number');
             }
@@ -613,6 +616,12 @@ InlineResponse200.prototype['buyerTimeoutAt'] = undefined;
  * @member {String} buyersComment
  */
 InlineResponse200.prototype['buyersComment'] = undefined;
+
+/**
+ * ID магазинов для продукта
+ * @member {Array.<String>} shopIds
+ */
+InlineResponse200.prototype['shopIds'] = undefined;
 
 /**
  * Савка ресечера.

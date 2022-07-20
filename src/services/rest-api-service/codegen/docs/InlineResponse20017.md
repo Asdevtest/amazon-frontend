@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 **updatedAt** | **Date** | Дата изменения | [optional] 
 **title** | **String** | Название предложения | [optional] 
 **createdBy** | [**ApiV1RequestProposalsCreatedBy**](ApiV1RequestProposalsCreatedBy.md) |  | [optional] 
+**detailsCustom** | [**ApiV1RequestProposalsDetailsCustom**](ApiV1RequestProposalsDetailsCustom.md) |  | [optional] 
+**request** | [**ApiV1RequestProposalsRequest**](ApiV1RequestProposalsRequest.md) |  | [optional] 
 
 
 

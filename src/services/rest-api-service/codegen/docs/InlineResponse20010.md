@@ -57,6 +57,7 @@ Name | Type | Description | Notes
 **buyer** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **buyerTimeoutAt** | **Date** | Дедлаин на на поиск поставщика байером. | [optional] 
 **buyersComment** | **String** | Комментарии к товару от байера. | [optional] 
+**shopIds** | **[String]** | ID магазинов для продукта | [optional] 
 **researcherRate** | **Number** | Савка ресечера. | [optional] 
 **supervisorRate** | **Number** | Савка супервайзера. | [optional] 
 **paidAt** | **Date** | Дата оплаты | [optional] 
