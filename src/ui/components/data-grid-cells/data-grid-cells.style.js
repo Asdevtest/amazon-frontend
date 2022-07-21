@@ -341,7 +341,7 @@ export const styles = createStyles(() => ({
     textAlign: 'center',
     width: '100%',
     whiteSpace: 'pre-line',
-    fontSize: '14px',
+    fontSize: '12px',
     lineHeight: '16px',
     fontWeight: '400',
   },

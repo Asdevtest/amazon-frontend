@@ -149,7 +149,7 @@ export class BuyerProductViewModel {
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
-        this.product = result
+        this.product = this.product ? {...result, status: this.product.status} : result
 
         this.productBase = result
         updateProductAutoCalculatedFields.call(this)

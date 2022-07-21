@@ -1,35 +1,43 @@
+/* eslint-disable no-unused-vars */
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import SearchIcon from '@mui/icons-material/Search'
+import TableRowsIcon from '@mui/icons-material/TableRows'
+import ViewModuleIcon from '@mui/icons-material/ViewModule'
 
 import React, {Component} from 'react'
 
-import {Grid, Typography} from '@material-ui/core'
+import {Box, InputAdornment, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
+import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
-import {MyProposalsListCard} from '@components/cards/my-proposals-list-card'
+import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
+import {VacantRequestShortCard} from '@components/cards/vacant-request-short-card'
+import {ClientSellShopsContent} from '@components/contents/client-sell-shops-content'
+import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
+import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
+import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
 
-import {MyProposalsViewModel} from './my-proposals-view.model'
-import {styles} from './my-proposals-view.style'
+import {ClientSellShopsViewModel} from './client-sell-shops-view.model'
+import {styles} from './client-sell-shops-view.style'
 
-const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_TRADING_SHOPS
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS
 
 @observer
-class MyProposalsViewRaw extends Component {
-  viewModel = new MyProposalsViewModel({history: this.props.history})
+class ClientSellShopsViewRaw extends Component {
+  viewModel = new ClientSellShopsViewModel({history: this.props.history})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -37,18 +45,16 @@ class MyProposalsViewRaw extends Component {
 
   render() {
     const {
-      sortMode,
+      nameSearchValue,
       viewMode,
       getCurrentData,
+      sortMode,
       drawerOpen,
-      showConfirmModal,
-      onTriggerDrawerOpen,
-      onTriggerOpenModal,
-      onSubmitDeleteProposal,
-      onClickDeleteBtn,
-      onClickEditBtn,
-      onClickOpenBtn,
       onTriggerSortMode,
+      onTriggerDrawerOpen,
+      onClickViewMore,
+      onChangeViewMode,
+      onChangeNameSearchValue,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -71,25 +77,25 @@ class MyProposalsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey['My proposals'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['Sell the Shop'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <div className={classNames.tablePanelWrapper}>
-                {/* <div className={classNames.tablePanelViewWrapper}>
-                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey.Location)}</Typography>
+              <ClientSellShopsContent />
 
-                  <ToggleButtonGroup exclusive value={viewMode} onChange={onChangeViewMode}>
-                    <ToggleButton value={tableViewMode.LIST}>
-                      <TableRowsIcon color="primary" />
-                    </ToggleButton>
-                    <ToggleButton value={tableViewMode.BLOCKS}>
-                      <ViewModuleIcon color="primary" />
-                    </ToggleButton>
-                  </ToggleButtonGroup>
-                </div> */}
+              {/* <div className={classNames.tablePanelWrapper}>
+                <div className={classNames.tablePanelViewWrapper}>
+                  <ToggleBtnGroup disabled exclusive value={viewMode} onChange={onChangeViewMode}>
+                    <ToggleBtn value={tableViewMode.LIST}>
+                      <TableRowsIcon color="#fff" />
+                    </ToggleBtn>
+                    <ToggleBtn value={tableViewMode.BLOCKS}>
+                      <ViewModuleIcon color="#fff" />
+                    </ToggleBtn>
+                  </ToggleBtnGroup>
+                </div>
 
-                {/* <div>
+                <div>
                   <Field
-                    containerClasses={classNames.searchcontainer}
+                    containerClasses={classNames.searchContainer}
                     inputClasses={classNames.searchInput}
                     value={nameSearchValue}
                     endAdornment={
@@ -99,7 +105,7 @@ class MyProposalsViewRaw extends Component {
                     }
                     onChange={onChangeNameSearchValue}
                   />
-                </div> */}
+                </div>
 
                 <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
                   <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
@@ -113,52 +119,39 @@ class MyProposalsViewRaw extends Component {
               </div>
 
               {getSortedData(sortMode)?.length ? (
-                <Grid
+                <Box
                   container
                   classes={{root: classNames.dashboardCardWrapper}}
-                  // spacing={3}
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="flex-start"
+                  display="grid"
+                  gridTemplateColumns={
+                    viewMode === tableViewMode.LIST
+                      ? 'repeat(auto-fill, minmax(100%, 1fr))'
+                      : 'repeat(auto-fill, minmax(330px, 1fr))'
+                  }
+                  gridGap="20px"
                 >
                   {getSortedData(sortMode)?.map(item =>
                     viewMode === tableViewMode.LIST ? (
-                      <MyProposalsListCard
-                        key={item._id}
-                        item={item}
-                        onClickEditBtn={onClickEditBtn}
-                        onClickDeleteBtn={onClickDeleteBtn}
-                        onClickOpenBtn={onClickOpenBtn}
-                      />
-                    ) : null,
+                      <VacantRequestListCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
+                    ) : (
+                      <VacantRequestShortCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
+                    ),
                   )}
-                </Grid>
+                </Box>
               ) : (
                 <div className={classNames.emptyTableWrapper}>
                   <img src="/assets/icons/empty-table.svg" />
                   <Typography variant="h5" className={classNames.emptyTableText}>
-                    {t(TranslationKey['No suggestions'])}
+                    {t(TranslationKey['No stores for sale yet'])}
                   </Typography>
                 </div>
-              )}
+              )} */}
             </MainContent>
           </Appbar>
-
-          <ConfirmationModal
-            isWarning
-            openModal={showConfirmModal}
-            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            title={t(TranslationKey.Attention)}
-            message={t(TranslationKey['Are you sure you want to cancel the proposal?'])}
-            successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.No)}
-            onClickSuccessBtn={onSubmitDeleteProposal}
-            onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-          />
         </Main>
       </React.Fragment>
     )
   }
 }
 
-export const MyProposalsView = withStyles(styles)(MyProposalsViewRaw)
+export const ClientSellShopsView = withStyles(styles)(ClientSellShopsViewRaw)

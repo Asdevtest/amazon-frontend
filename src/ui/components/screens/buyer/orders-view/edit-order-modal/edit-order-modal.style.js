@@ -142,4 +142,20 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 400,
     lineHeight: '140%',
   },
+
+  disableSelect: {
+    color: 'rgba(0, 0, 0, .2) !important',
+  },
+
+  orange: {
+    color: '#F3AF00',
+  },
+
+  red: {
+    color: 'red',
+  },
+
+  green: {
+    color: 'green',
+  },
 }))

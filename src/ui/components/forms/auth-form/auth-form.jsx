@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import LockIcon from '@mui/icons-material/Lock'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import VisibilityIcon from '@mui/icons-material/Visibility'
@@ -20,7 +21,7 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
   const onSubmitForm = event => {
     event.preventDefault()
     setIsSubmit(true)
-    isSubmit && !emptyEmail && !emptyPassword && onSubmit()
+    !emptyEmail && !emptyPassword && onSubmit()
   }
 
   useEffect(() => {

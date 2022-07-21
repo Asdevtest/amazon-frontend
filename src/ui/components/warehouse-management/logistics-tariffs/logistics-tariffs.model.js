@@ -39,18 +39,24 @@ export class LogisticsTariffsModel {
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
+  firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = logisticsTariffsColumns(this.rowHandlers)
+  columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId)
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
   }
@@ -66,6 +72,8 @@ export class LogisticsTariffsModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
+
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -86,7 +94,7 @@ export class LogisticsTariffsModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = logisticsTariffsColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = logisticsTariffsColumns(this.rowHandlers, this.firstRowId).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))

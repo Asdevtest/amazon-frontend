@@ -1282,5 +1282,11 @@
   "Shop": "Магазин",
   "Box length": "Длина коробки",
   "Box width": "Ширина коробки",
-  "Box height": "Высота коробки"
+  "Box height": "Высота коробки",
+  "not selected": "не выбрано",
+  "Choose a section in Trading Shops": "Выберите раздел в Торговле Магазинами",
+  "No stores for sale yet": "Пока нет магазинов на продажу",
+  "Ads": "Объявления",
+  "Deals": "Сделки",
+  "No deals yet": "Пока нет сделок"
 }

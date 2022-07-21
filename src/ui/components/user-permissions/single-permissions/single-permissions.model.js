@@ -41,18 +41,24 @@ export class SinglePermissionsModel {
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
+  firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = adminSinglePermissionsColumns(this.rowHandlers)
+  columnsModel = adminSinglePermissionsColumns(this.rowHandlers, this.firstRowId)
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
   }
@@ -68,6 +74,8 @@ export class SinglePermissionsModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
+
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -88,7 +96,7 @@ export class SinglePermissionsModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = adminSinglePermissionsColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = adminSinglePermissionsColumns(this.rowHandlers, this.firstRowId).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))

@@ -81,7 +81,7 @@ export const ResearcherAddProductFormRaw = observer(
                     input={<Input />}
                     onChange={onChangeFormFields('strategyStatus')}
                   >
-                    <option value={''}>none</option>
+                    <option value={''}>{t(TranslationKey['not selected'])}</option>
 
                     {Object.keys(mapProductStrategyStatusEnum)
                       .filter(el => user.allowedStrategies.includes(Number(el)))

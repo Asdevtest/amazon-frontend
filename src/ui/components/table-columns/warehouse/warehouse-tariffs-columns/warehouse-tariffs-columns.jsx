@@ -3,16 +3,16 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  EditOrRemoveBtnsCell,
   MultilineTextHeaderCell,
   NormDateCell,
   MultilineTextCell,
   ScrollingCell,
+  EditOrRemoveIconBtnsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
-export const warehouseTariffsColumns = handlers => [
+export const warehouseTariffsColumns = (handlers, firstRowId) => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
@@ -56,7 +56,18 @@ export const warehouseTariffsColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 250,
-    renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
+    renderCell: (
+      params, // <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />
+    ) => (
+      <EditOrRemoveIconBtnsCell
+        tooltipFirstButton={t(TranslationKey.Edit)}
+        tooltipSecondButton={t(TranslationKey.Remove)}
+        handlers={handlers}
+        row={params.row}
+        isFirstRow={firstRowId === params.row.id}
+      />
+    ),
+
     filterable: false,
     sortable: false,
   },

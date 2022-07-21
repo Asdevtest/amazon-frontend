@@ -46,6 +46,8 @@ import {ClientProductExchangeView} from '@views/client/client-product-exchange-v
 import {ClientProductView} from '@views/client/client-product-view/'
 import {ClientSettingsView} from '@views/client/client-settings-view'
 import {ClientShopsView} from '@views/client/client-shops-view'
+import {ClientSellShopsView} from '@views/client/client-trading-shops-views/client-sell-shops-view'
+import {ClientTradingShopsView} from '@views/client/client-trading-shops-views/client-trading-shops-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {FreelancerDashboardView} from '@views/freelancer/freelancer-dashboard-view'
 import {FreelancerFinancesViews} from '@views/freelancer/freelancer-finances-views'
@@ -346,6 +348,30 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.CLIENT],
     crumbNameKey: TranslationKey['My proposals'],
+  },
+
+  {
+    routePath: '/client/trading-shops',
+    component: ClientTradingShopsView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Trading stores'],
+  },
+
+  {
+    routePath: '/client/trading-shops/buy-shops',
+    component: ClientSellShopsView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Buy Shop'],
+  },
+
+  {
+    routePath: '/client/trading-shops/sell-shops',
+    component: ClientSellShopsView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Sell the Shop'],
   },
 
   {

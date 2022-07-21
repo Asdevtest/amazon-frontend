@@ -81,7 +81,6 @@ export const LogisticsTariffs = observer(() => {
         rowsPerPageOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
         getRowHeight={() => 'auto'}
-        // rowHeight={120}
         components={{
           Toolbar: GridToolbar,
         }}

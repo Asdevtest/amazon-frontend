@@ -24,7 +24,6 @@ export const styles = createStyles(() => ({
 
   dashboardCardWrapper: {
     width: '100%',
-    // padding: 0
   },
 
   tablePanelViewWrapper: {
@@ -32,6 +31,26 @@ export const styles = createStyles(() => ({
     alignItems: 'center',
 
     marginBottom: '20px',
+  },
+
+  tablePanelSortWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+
+    marginBottom: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      opacity: '.8',
+    },
+  },
+
+  tablePanelViewText: {
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#006CFF',
+
+    marginRight: '15px',
   },
 
   emptyTableWrapper: {
@@ -49,26 +68,16 @@ export const styles = createStyles(() => ({
 
   tablePanelWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    height: 52,
-  },
-  tablePanelSortWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '20px',
-    transition: '0.3s ease',
-    cursor: 'pointer',
-    '&:hover': {
-      opacity: '.8',
-    },
   },
 
-  tablePanelViewText: {
-    fontSize: '16px',
-    lineHeight: '19px',
-    color: '#006CFF',
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '400px',
+  },
 
-    marginRight: '15px',
+  searchContainer: {
+    width: 'auto',
   },
 }))

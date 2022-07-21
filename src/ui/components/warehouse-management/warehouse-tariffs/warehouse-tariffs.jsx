@@ -58,7 +58,7 @@ export const WarehouseTariffs = observer(() => {
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.placeAddBtnWrapper}>
-        <Button success onClick={() => onClickAddBtn()}>
+        <Button success className={classNames.placeAddBtn} onClick={() => onClickAddBtn()}>
           {t(TranslationKey.Add)}
         </Button>
       </div>
@@ -78,7 +78,7 @@ export const WarehouseTariffs = observer(() => {
         pageSize={rowsPerPage}
         rowsPerPageOptions={[15, 25, 50, 100]}
         rows={getCurrentData()}
-        rowHeight={70}
+        getRowHeight={() => 'auto'}
         components={{
           Toolbar: GridToolbar,
         }}

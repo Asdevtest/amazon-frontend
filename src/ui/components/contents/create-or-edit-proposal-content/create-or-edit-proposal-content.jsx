@@ -45,7 +45,7 @@ export const CreateOrEditProposalContent = ({
 
   const [formFields, setFormFields] = useState(sourceFormFields)
   const [checked, setChecked] = useState(false)
-  console.log(formFields.title)
+
   const onChangeField = fieldName => event => {
     const newFormFields = {...formFields}
     if (['execution_time'].includes(fieldName)) {
@@ -55,6 +55,8 @@ export const CreateOrEditProposalContent = ({
       !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
     ) {
       return
+    } else if (['title'].includes(fieldName)) {
+      newFormFields[fieldName] = event.target.value.replace(/\n/g, '')
     } else {
       newFormFields[fieldName] = event.target.value
     }

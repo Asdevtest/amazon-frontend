@@ -1,6 +1,8 @@
+import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+
 import React, {useEffect, useState} from 'react'
 
-import {Box, NativeSelect, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Box, InputAdornment, NativeSelect, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -29,6 +31,7 @@ import {Text} from '@components/text'
 
 import {checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot} from '@utils/checks'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {BoxesToCreateTable} from './boxes-to-create-table'
@@ -122,7 +125,7 @@ export const EditOrderModal = ({
     amount: order?.amount || 0,
     trackingNumberChina: order?.trackingNumberChina,
     batchPrice: 0,
-    totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
+    totalPriceChanged: toFixed(order?.totalPriceChanged, 2) || toFixed(order?.totalPrice, 2),
     yuanToDollarRate: order?.yuanToDollarRate || 6.3,
   })
 
@@ -199,6 +202,8 @@ export const EditOrderModal = ({
 
   const disableSubmit = requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status)
 
+  // const statusesColor =
+
   return (
     <Box className={classNames.modalWrapper}>
       <div className={classNames.modalHeader}>
@@ -209,17 +214,55 @@ export const EditOrderModal = ({
           <Field
             tooltipInfoContent={t(TranslationKey['Current order status'])}
             value={order.storekeeper?.name}
-            inputClasses={classNames.nativeSelect}
             labelClasses={classNames.label}
             inputComponent={
               <NativeSelect
                 disabled={
-                  order.status !== orderFields.status || +orderFields.totalPriceChanged - orderFields.totalPrice > 0
+                  order.status !== orderFields.status ||
+                  +orderFields.totalPriceChanged - orderFields.totalPrice > 0 ||
+                  orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
+                  orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK]
                 }
                 variant="filled"
                 value={orderFields.status}
-                className={classNames.nativeSelect}
-                input={<Input />}
+                classes={{
+                  select: clsx({
+                    [classNames.orange]:
+                      orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
+                      orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
+                      orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] ||
+                      orderFields.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+
+                    [classNames.green]: orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK],
+
+                    [classNames.red]:
+                      orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
+                      orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+                  }),
+                }}
+                input={
+                  <Input
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <FiberManualRecordRoundedIcon
+                          className={clsx({
+                            [classNames.orange]:
+                              orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
+                              orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
+                              orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] ||
+                              orderFields.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+
+                            [classNames.green]: orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK],
+
+                            [classNames.red]:
+                              orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
+                              orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+                          })}
+                        />
+                      </InputAdornment>
+                    }
+                  />
+                }
                 onChange={setOrderField('status')}
               >
                 {Object.keys({
@@ -231,9 +274,22 @@ export const EditOrderModal = ({
                   <option
                     key={statusIndex}
                     value={statusCode}
-                    className={clsx({
-                      [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
-                    })}
+                    className={clsx(
+                      clsx({
+                        [classNames.orange]:
+                          statusCode === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
+                          statusCode === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
+                          statusCode === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] ||
+                          statusCode === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+
+                        [classNames.green]: statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+
+                        [classNames.red]:
+                          statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
+                          statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+                        [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
+                      }),
+                    )}
                     disabled={disabledOrderStatuses.includes(statusCode)}
                   >
                     {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}

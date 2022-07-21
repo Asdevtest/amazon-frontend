@@ -142,31 +142,29 @@ export const navbarConfig = () => ({
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_VACANT_CLIENT),
     },
-    //
 
     {
       icon: TradingShops,
       title: t(TranslationKey['Trading stores']),
-      route: '/client/',
+      route: '/client/trading-shops/sell-shops',
       subtitles: [
         {
           subtitle: t(TranslationKey['Buy Shop']),
-          subRoute: '/client/',
-          // key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_READY_TO_BATCH,
+          subRoute: '/client/trading-shops/buy-shops',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
         },
         {
           subtitle: t(TranslationKey['Sell the Shop']),
-          subRoute: '/client/',
-          // key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH,
+          subRoute: '/client/trading-shops/sell-shops',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
         },
       ],
-      key: navBarActiveCategory.NAVBAR_BATCHES,
+      key: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
       checkHideBlock: user =>
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT),
     },
 
-    //
     {
       icon: MyOrdersIcon,
       title: t(TranslationKey['My orders']),

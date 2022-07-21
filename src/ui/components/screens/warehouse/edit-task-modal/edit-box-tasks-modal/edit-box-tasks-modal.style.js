@@ -107,10 +107,9 @@ export const useClassNames = makeStyles(() => ({
   },
 
   photoWrapper: {
-    width: '400px',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    marginTop: 10,
   },
 
   imgBox: {
