@@ -22,6 +22,7 @@ export const useClassNames = makeStyles(theme => ({
   },
   button: {
     marginLeft: '10px',
+    display: 'flex',
   },
   subTitle: {
     color: theme.palette.text.secondary,

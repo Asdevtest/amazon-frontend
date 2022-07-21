@@ -298,10 +298,11 @@ export class ClientInventoryViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
       this.getDataGridState()
       await this.getShops()
+
       await this.getProductsMy()
+
       await this.getOrders()
 
       this.setRequestStatus(loadingStatuses.success)
@@ -347,8 +348,9 @@ export class ClientInventoryViewModel {
 
   onClickShopBtn(shop) {
     this.currentShop = shop ? shop : undefined
+    const noProductBaseUpdate = true
+    this.getProductsMy(noProductBaseUpdate)
 
-    this.getProductsMy()
     this.withoutProduct = false
     this.withProduct = false
   }
@@ -386,7 +388,7 @@ export class ClientInventoryViewModel {
     }
   }
 
-  async getProductsMy() {
+  async getProductsMy(noProductBaseUpdate) {
     try {
       const result = await ClientModel.getProductsMyFilteredByShopId(this.currentShop && {shopId: this.currentShop._id})
 
@@ -394,9 +396,11 @@ export class ClientInventoryViewModel {
         this.productsMy = clientInventoryDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
-        this.productsMyBase = clientInventoryDataConverter(result).sort(
-          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        )
+        if (!noProductBaseUpdate) {
+          this.productsMyBase = clientInventoryDataConverter(result).sort(
+            sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+          )
+        }
       })
     } catch (error) {
       console.log(error)
@@ -441,7 +445,8 @@ export class ClientInventoryViewModel {
 
     await ClientModel.updateProductBarCode(this.selectedProduct._id, {barCode: this.uploadedFiles[0]})
 
-    this.getProductsMy()
+    const noProductBaseUpdate = true
+    this.getProductsMy(noProductBaseUpdate)
 
     this.onTriggerOpenModal('showSetBarcodeModal')
     runInAction(() => {
@@ -535,7 +540,8 @@ export class ClientInventoryViewModel {
       }
       this.onTriggerOpenModal('showConfirmModal')
       // this.onTriggerOpenModal('showOrderModal')
-      await this.getProductsMy()
+      const noProductBaseUpdate = true
+      await this.getProductsMy(noProductBaseUpdate)
 
       this.setActionStatus(loadingStatuses.success)
     } catch (error) {
@@ -763,8 +769,9 @@ export class ClientInventoryViewModel {
 
       this.successModalText = t(TranslationKey['Product added'])
       this.onTriggerOpenModal('showSuccessModal')
+      const noProductBaseUpdate = true
+      await this.getProductsMy(noProductBaseUpdate)
 
-      await this.getProductsMy()
       this.onTriggerOpenModal('showSendOwnProductModal')
     } catch (error) {
       console.log(error)

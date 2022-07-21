@@ -98,6 +98,9 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                       (isNeedConfirmPriceBoxSelected &&
                         t(TranslationKey['Selected lot contains a box for which you need to confirm the price change']))
                     }
+                    tooltipInfoContent={t(
+                      TranslationKey['After confirmation it will be impossible to return the batch'],
+                    )}
                     color="primary"
                     variant="contained"
                     onClick={() => onTriggerOpenModal('showConfirmModal')}
@@ -108,6 +111,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                   <Button
                     disabled={selectedBatches.length !== 1}
                     className={classNames.editBtn}
+                    tooltipInfoContent={t(TranslationKey['Add/remove a box or files to a batch'])}
                     color="primary"
                     variant="contained"
                     onClick={() => onClickAddOrEditBatch({isAdding: false})}
@@ -116,7 +120,12 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                   </Button>
                 </div>
 
-                <Button success className={classNames.addBtn} onClick={() => onClickAddOrEditBatch({isAdding: true})}>
+                <Button
+                  success
+                  tooltipInfoContent={t(TranslationKey['Open a form to create a new batch'])}
+                  className={classNames.addBtn}
+                  onClick={() => onClickAddOrEditBatch({isAdding: true})}
+                >
                   {t(TranslationKey['Create a batch'])}
                 </Button>
               </div>

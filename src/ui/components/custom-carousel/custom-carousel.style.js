@@ -199,12 +199,9 @@ export const useClassNames = makeStyles(() => ({
     cursor: 'pointer',
     minWidth: 60,
     minHeight: 60,
-
-    objectFit: 'contain',
-    objectPosition: 'center',
-
-    // maxHeight: 280,
     maxHeight: '100%',
+    objectFit: 'contain',
+    objectPosition: 'center ',
   },
 
   emptyWrapper: {

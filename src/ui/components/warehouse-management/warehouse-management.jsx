@@ -2,12 +2,14 @@ import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
 
 import React, {useEffect} from 'react'
 
-import {Typography, Box, Tabs, Tab} from '@material-ui/core'
+import {Typography, Box, Tabs} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
+
+import {ITab} from '@components/i-tab/i-tab'
 
 import {t} from '@utils/translations'
 
@@ -52,8 +54,16 @@ export const WarehouseManagement = observer(() => {
         value={tabIndex}
         onChange={(e, index) => setTabIndex(index)}
       >
-        <Tab classes={tabItemStyles} label={t(TranslationKey['Logistics tariffs'])} />
-        <Tab classes={tabItemStyles} label={t(TranslationKey['Tariffs of warehouse services'])} />
+        <ITab
+          tooltipInfoContent={t(TranslationKey['Rates for shipping boxes to Amazon warehouses'])}
+          classes={tabItemStyles}
+          label={t(TranslationKey['Logistics tariffs'])}
+        />
+        <ITab
+          tooltipInfoContent={t(TranslationKey['Prices for additional warehouse services'])}
+          classes={tabItemStyles}
+          label={t(TranslationKey['Tariffs of warehouse services'])}
+        />
       </Tabs>
       <TabPanel value={tabIndex} index={0}>
         <LogisticsTariffs />

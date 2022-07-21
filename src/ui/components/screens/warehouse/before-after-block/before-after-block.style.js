@@ -63,9 +63,9 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '10px',
     height: '220px',
   },
-  editBtn: {
-    marginTop: '5px',
-  },
+  // editBtn: {
+  //   marginTop: '5px',
+  // },
   bottomBlockWrapper: {
     marginTop: '5px',
   },

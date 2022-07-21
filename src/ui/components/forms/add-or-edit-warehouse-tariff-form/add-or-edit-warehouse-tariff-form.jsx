@@ -64,6 +64,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
         <Field
           label={t(TranslationKey.Title)}
           inputProps={{maxLength: 50}}
+          tooltipInfoContent={t(TranslationKey['Rate name'])}
           value={formFields.name}
           placeholder={t(TranslationKey.Title)}
           onChange={onChangeField('name')}
@@ -72,6 +73,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
         <Field
           label={t(TranslationKey['Service cost per kg, $']) + '*'}
           inputProps={{maxLength: 10}}
+          tooltipInfoContent={t(TranslationKey['The cost of providing the service'])}
           value={formFields.price}
           onChange={onChangeField('price')}
         />
@@ -81,6 +83,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
           minRows={4}
           rowsMax={4}
           inputProps={{maxLength: 255}}
+          tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
           className={classNames.descriptionField}
           label={t(TranslationKey.Description)}
           value={formFields.description}

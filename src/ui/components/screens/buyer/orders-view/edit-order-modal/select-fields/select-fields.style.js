@@ -125,6 +125,7 @@ export const useClassNames = makeStyles(() => ({
 
   photoWrapper: {
     width: '339px',
+    height: '254px',
   },
 
   photoAndFieldsWrapper: {

@@ -619,13 +619,19 @@ export const NormalActionBtnCell = withStyles(styles)(
 
 export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
   <div className={classNames.warehouseMyTasksBtnsWrapper}>
-    <Button success className={classNames.warehouseMyTasksSuccessBtn} onClick={() => handlers.onClickResolveBtn(row)}>
+    <Button
+      success
+      tooltipInfoContent={t(TranslationKey['Open a window to perform a task'])}
+      className={classNames.warehouseMyTasksSuccessBtn}
+      onClick={() => handlers.onClickResolveBtn(row)}
+    >
       {t(TranslationKey.Resolve)}
     </Button>
 
     {row.operationType !== TaskOperationType.RECEIVE && (
       <Button
         danger
+        tooltipInfoContent={t(TranslationKey['The task will be canceled, the box will keep its previous state'])}
         className={clsx(classNames.rowCancelBtn, classNames.warehouseMyTasksCancelBtn)}
         onClick={() => {
           handlers.onClickCancelTask(row.boxes[0]._id, row._id, row.operationType)
@@ -979,6 +985,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
           row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF &&
           t(TranslationKey['The tariff is invalid or has been removed!'])
         }
+        tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
         disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF}
         className={classNames.warehouseBoxesBtn}
         variant="contained"
@@ -990,13 +997,19 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
     )}
 
     {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
-      <Button success className={classNames.warehouseBoxesBtn} onClick={() => handlers.moveBox(row)}>
+      <Button
+        success
+        tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
+        className={classNames.warehouseBoxesBtn}
+        onClick={() => handlers.moveBox(row)}
+      >
         {t(TranslationKey['Add to batch'])}
       </Button>
     )}
 
     <Button
       className={classNames.warehouseBoxesBtn}
+      tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
       variant="contained"
       color="primary"
       onClick={() => handlers.setHsCode(row)}

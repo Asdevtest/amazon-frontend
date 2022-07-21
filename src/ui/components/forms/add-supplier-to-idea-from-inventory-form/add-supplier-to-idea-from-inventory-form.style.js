@@ -8,7 +8,6 @@ export const useClassNames = makeStyles(() => ({
   },
 
   mainTitle: {
-    fontFamily: 'Noto Sans',
     fontStyle: 'normal',
     fontWeight: 'bold',
     fontSize: '24px',

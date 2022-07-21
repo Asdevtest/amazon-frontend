@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Checkbox, ListItemText, MenuItem, Select, Typography} from '@material-ui/core'
 
@@ -19,7 +19,10 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
   const [selectedItem, setSelectedItem] = useState(null)
   const [currentShops, setCurrentShops] = useState([])
   const [currentShopsIds, setCurrentShopsIds] = useState([])
-  console.log(currentShopsIds)
+
+  useEffect(() => {
+    !selectedItem ? setClearSelect(true) : setClearSelect(false)
+  }, [selectedItem])
 
   const onChangeShopNamesField = () => {
     setClearSelect(true)
@@ -28,6 +31,7 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
   }
 
   const onRemoveShop = (name, id) => {
+    setSelectedItem(null)
     setCurrentShops(currentShops.filter(shop => shop.name !== name))
     currentShopsIds && setCurrentShopsIds(currentShopsIds.filter(shopId => shopId !== id))
   }
@@ -52,7 +56,6 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
                   renderValue={() => (clearSelect ? 'Выберите магазин' : selectedItem?.name)}
                   className={classNames.shopsSelect}
                   onChange={e => setSelectedItem(e.target.value)}
-                  onClick={() => setClearSelect(false)}
                 >
                   {shops.map((shop, index) => (
                     <MenuItem key={index} disabled={currentShops.includes(shop)} value={shop}>

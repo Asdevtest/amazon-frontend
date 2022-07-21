@@ -100,6 +100,8 @@ class BuyerFreeOrdersViewRaw extends Component {
         </Main>
 
         <TwoVerticalChoicesModal
+          tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
+          tooltipSecondButton={t(TranslationKey['Stay in "Free Orders"'])}
           openModal={showTwoVerticalChoicesModal}
           setOpenModal={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
           title={t(TranslationKey['Order picked up'])}

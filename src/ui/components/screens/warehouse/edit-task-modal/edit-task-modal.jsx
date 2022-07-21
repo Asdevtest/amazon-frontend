@@ -126,6 +126,7 @@ export const EditTaskModal = observer(
             <Button
               disableElevation
               className={classNames.button}
+              tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
               color="primary"
               variant="contained"
               onClick={() => {
@@ -140,6 +141,7 @@ export const EditTaskModal = observer(
               disableElevation
               className={classNames.successBtn}
               disabled={newBoxes.length === 0 || requestStatus === loadingStatuses.isLoading}
+              tooltipInfoContent={t(TranslationKey['Save task data'])}
               variant="contained"
               onClick={() => {
                 onClickSolveTask({

@@ -29,8 +29,6 @@ export const useClassNames = makeStyles(() => ({
     outline: 'none',
     backgroundColor: 'inherit',
     border: 'none',
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
     fontWeight: '400',
     lineHeight: '1.5',
     resize: 'none',

@@ -4,9 +4,12 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {mapProductStrategyStatusEnumToKey, ProductStrategyStatus} from '@constants/product-strategy-status'
 
 import {ClientModel} from '@models/client-model'
+import {ShopModel} from '@models/shop-model'
 import {UserModel} from '@models/user-model'
 
+import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {getObjectFilteredByKeyArrayBlackList} from '@utils/object'
 
 export class ClientExchangePrivateLabelViewModel {
   history = undefined
@@ -16,6 +19,7 @@ export class ClientExchangePrivateLabelViewModel {
   productsVacant = []
   selectedProduct = {}
   drawerOpen = false
+  shopsData = []
 
   productToPay = {}
   showConfirmPayModal = false
@@ -34,6 +38,7 @@ export class ClientExchangePrivateLabelViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getProductsVacant()
+      await this.getShops()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -82,14 +87,48 @@ export class ClientExchangePrivateLabelViewModel {
     }
   }
 
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+      runInAction(() => {
+        this.shopsData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onSaveProductData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await ClientModel.updateProduct(
+        this.productToPay._id,
+        getObjectFilteredByKeyArrayBlackList(
+          {
+            shopIds: this.selectedShops,
+          },
+          ['suppliers'],
+        ),
+      )
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log('error', error)
+    }
+  }
+
   async updateUserInfo() {
     await UserModel.getUserInfo()
   }
 
-  async onClickBuyProductBtn(product) {
+  async onClickBuyProductBtn(shops) {
     try {
-      await ClientModel.makePayments([product._id])
+      await ClientModel.makePayments([this.productToPay._id])
+      this.selectedShops = shops
 
+      await this.onSaveProductData()
       this.onTriggerOpenModal('showConfirmPayModal')
       this.onTriggerOpenModal('showOrderModal')
 

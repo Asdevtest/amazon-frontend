@@ -72,6 +72,8 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     width: 250,
     renderCell: params => (
       <NormalActionBtnCell
+        isFirstRow
+        tooltipText={t(TranslationKey['Open the window with task information'])}
         bTnText={t(TranslationKey.View)}
         onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
       />
