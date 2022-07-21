@@ -206,8 +206,12 @@ export const useClassNames = makeStyles(() => ({
     display: 'block',
   },
 
-  input: {
-    zIndex: '0',
+  linkWrapper: {
+    cursor: 'pointer',
+    whiteSpace: 'nowrap',
+    width: '182px',
+    overflow: 'hidden',
+    marginRight: '10px',
   },
 
   countContainer: {

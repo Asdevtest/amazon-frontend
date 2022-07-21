@@ -296,7 +296,7 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto}) => {
                 variant="square"
                 alt={'!'}
                 src={photo?.data_url || photo}
-                className={classNames.image}
+                classes={{img: classNames.image}}
                 onClick={() => {
                   setShowPhotosModal(!showPhotosModal)
 

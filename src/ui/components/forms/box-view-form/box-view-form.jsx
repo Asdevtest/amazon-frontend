@@ -12,7 +12,6 @@ import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
-import {Input} from '@components/input'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UserLink} from '@components/user-link'
@@ -122,9 +121,12 @@ export const BoxViewForm = observer(
                         inputComponent={
                           item.barCode ? (
                             <div className={classNames.barCode}>
-                              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
-                                <Input disabled value={item.barCode} />
-                              </Link>
+                              <Typography className={classNames.linkWrapper}>
+                                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
+                                  {item.barCode}
+                                </Link>
+                              </Typography>
+
                               <img
                                 className={classNames.copyImg}
                                 src="/assets/icons/copy-img.svg"
@@ -243,18 +245,27 @@ export const BoxViewForm = observer(
                 <Field
                   label={t(TranslationKey['Shipping label'])}
                   inputComponent={
-                    <div>
-                      {box.shippingLabel ? (
-                        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                          <Input disabled inputClasses={classNames.input} value={box.shippingLabel} />
-                        </Link>
-                      ) : (
-                        // <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                        //   <Typography className={classNames.linkField}>{box.shippingLabel}</Typography>
-                        // </Link>
-                        <Typography className={classNames.linkField}>{t(TranslationKey['Not available'])}</Typography>
-                      )}
-                    </div>
+                    box.shippingLabel ? (
+                      <div className={classNames.barCode}>
+                        <Typography className={classNames.linkWrapper}>
+                          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+                            {box.shippingLabel}
+                          </Link>
+                        </Typography>
+
+                        <img
+                          className={classNames.copyImg}
+                          src="/assets/icons/copy-img.svg"
+                          alt=""
+                          onClick={e => {
+                            e.stopPropagation()
+                            copyValue(box.shippingLabel)
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <Typography className={classNames.linkField}>{t(TranslationKey['Not available'])}</Typography>
+                    )
                   }
                 />
 
