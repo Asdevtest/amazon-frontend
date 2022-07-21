@@ -22,7 +22,7 @@ import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {roundSafely} from '@utils/calculation'
-import {checkIsClient, checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {checkIsAdmin, checkIsClient, checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -399,43 +399,47 @@ export const IdeaViewAndEditCard = observer(
 
         {idea && disableFields ? (
           <div className={classNames.existedIdeaBtnsWrapper}>
-            <div className={classNames.existedIdeaBtnsSubWrapper}>
-              {checkIsClient(UserRoleCodeMap[curUser.role]) ? (
-                <Button
-                  success
-                  tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
-                  tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
-                  variant="contained"
-                  color="primary"
-                  className={[classNames.actionButton]}
-                  onClick={() => onCreateProduct(formFields)}
-                >
-                  {t(TranslationKey['Create a product card'])}
-                </Button>
-              ) : null}
-              <div>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classNames.actionButton}
-                  onClick={() => onEditIdea(idea)}
-                >
-                  {t(TranslationKey.Edit)}
-                </Button>
+            {!checkIsAdmin(UserRoleCodeMap[curUser.role]) ? (
+              <div className={classNames.existedIdeaBtnsSubWrapper}>
                 {checkIsClient(UserRoleCodeMap[curUser.role]) ? (
                   <Button
+                    success
+                    tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
+                    tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
                     variant="contained"
-                    color="alert"
-                    className={[classNames.actionButton, classNames.cancelBtn, classNames.btnLeftMargin]}
-                    onClick={() => {
-                      onRemove(formFields._id)
-                    }}
+                    color="primary"
+                    className={[classNames.actionButton]}
+                    onClick={() => onCreateProduct(formFields)}
                   >
-                    {t(TranslationKey.Remove)}
+                    {t(TranslationKey['Create a product card'])}
                   </Button>
                 ) : null}
+                <div>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classNames.actionButton}
+                    onClick={() => onEditIdea(idea)}
+                  >
+                    {t(TranslationKey.Edit)}
+                  </Button>
+                  {checkIsClient(UserRoleCodeMap[curUser.role]) ? (
+                    <Button
+                      variant="contained"
+                      color="alert"
+                      className={[classNames.actionButton, classNames.cancelBtn, classNames.btnLeftMargin]}
+                      onClick={() => {
+                        onRemove(formFields._id)
+                      }}
+                    >
+                      {t(TranslationKey.Remove)}
+                    </Button>
+                  ) : null}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className={classNames.existedIdeaBtnsSubWrapper} />
+            )}
 
             <div className={classNames.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
               <Typography className={classNames.tablePanelViewText}>

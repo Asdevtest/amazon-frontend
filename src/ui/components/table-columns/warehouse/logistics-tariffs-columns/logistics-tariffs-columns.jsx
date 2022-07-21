@@ -17,7 +17,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const logisticsTariffsColumns = handlers => [
+export const logisticsTariffsColumns = (handlers, firstRowId) => [
   {
     field: 'name',
     headerName: t(TranslationKey.Title),
@@ -100,6 +100,7 @@ export const logisticsTariffsColumns = handlers => [
         tooltipSecondButton={t(TranslationKey.Remove)}
         handlers={handlers}
         row={params.row}
+        isFirstRow={firstRowId === params.row.id}
       />
     ),
     filterable: false,

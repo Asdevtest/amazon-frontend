@@ -54,12 +54,13 @@ export class ClientExchangeViewModel {
     onClickLaunchPrivateLabelBtn: item => this.onClickLaunchPrivateLabelBtn(item),
   }
 
+  firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientExchangeViewColumns(this.rowHandlers)
+  columnsModel = clientExchangeViewColumns(this.rowHandlers, this.firstRowId)
 
   showOrderModal = false
 
@@ -76,6 +77,11 @@ export class ClientExchangeViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
   }
@@ -96,6 +102,8 @@ export class ClientExchangeViewModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
+
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -116,7 +124,7 @@ export class ClientExchangeViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = clientExchangeViewColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = clientExchangeViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))

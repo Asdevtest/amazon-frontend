@@ -590,13 +590,15 @@ export const ToFixedWithDollarSignCell = withStyles(styles)(({classes: className
   </div>
 ))
 
-export const SuccessActionBtnCell = withStyles(styles)(({classes: classNames, onClickOkBtn, bTnText, tooltipText}) => (
-  <div className={classNames.successActionBtnWrapper}>
-    <Button success tooltipInfoContent={tooltipText} onClick={onClickOkBtn}>
-      {bTnText}
-    </Button>
-  </div>
-))
+export const SuccessActionBtnCell = withStyles(styles)(
+  ({classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow}) => (
+    <div className={classNames.successActionBtnWrapper}>
+      <Button success tooltipInfoContent={isFirstRow && tooltipText} onClick={onClickOkBtn}>
+        {bTnText}
+      </Button>
+    </div>
+  ),
+)
 
 export const NormalActionBtnCell = withStyles(styles)(
   ({classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow}) => (
@@ -884,11 +886,12 @@ export const EditOrRemoveIconBtnsCell = withStyles(styles)(
     disableActionBtn,
     tooltipFirstButton,
     tooltipSecondButton,
+    isFirstRow,
   }) => (
     <div className={classNames.editOrRemoveIconBtnsCell}>
       <div className={classNames.editOrRemoveBtnWrapper}>
         <Button
-          tooltipInfoContent={tooltipFirstButton}
+          tooltipInfoContent={isFirstRow && tooltipFirstButton}
           variant="contained"
           color="primary"
           disabled={disableActionBtn}
@@ -902,7 +905,7 @@ export const EditOrRemoveIconBtnsCell = withStyles(styles)(
       <div className={classNames.editOrRemoveBtnWrapper}>
         <Button
           danger
-          tooltipInfoContent={tooltipSecondButton}
+          tooltipInfoContent={isFirstRow && tooltipSecondButton}
           disabled={disableActionBtn}
           // className={classNames.rowCancelBtn}
           className={classNames.removeOrEditBtn}

@@ -35,6 +35,9 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '0 80px',
+
+    position: 'sticky',
+    top: 0,
   },
 
   headerSubWrapper: {
@@ -63,6 +66,9 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingRight: '80px',
+
+    position: 'sticky',
+    bottom: 0,
   },
 
   footerSubWrapper: {

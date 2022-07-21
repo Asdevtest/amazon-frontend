@@ -11,7 +11,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const adminSinglePermissionsColumns = handlers => [
+export const adminSinglePermissionsColumns = (handlers, firstRowId) => [
   {
     field: 'key',
     headerName: t(TranslationKey.Key),
@@ -60,6 +60,7 @@ export const adminSinglePermissionsColumns = handlers => [
         tooltipSecondButton={t(TranslationKey.Remove)}
         handlers={handlers}
         row={params.row.originalData}
+        isFirstRow={firstRowId === params.row.id}
       />
     ),
 

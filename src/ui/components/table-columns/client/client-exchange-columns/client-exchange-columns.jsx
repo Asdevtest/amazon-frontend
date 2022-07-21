@@ -15,7 +15,7 @@ import {
 import {toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-export const clientExchangeViewColumns = handlers => [
+export const clientExchangeViewColumns = (handlers, firstRowId) => [
   {
     field: 'image',
     headerName: t(TranslationKey.Image),
@@ -136,6 +136,7 @@ export const clientExchangeViewColumns = handlers => [
       <SuccessActionBtnCell
         tooltipText={t(TranslationKey['Purchase a product card'])}
         bTnText={`${t(TranslationKey['Buy for'])} ${toFixedWithDollarSign(params.row.originalData.priceForClient, 2)}`}
+        isFirstRow={firstRowId === params.row.id}
         onClickOkBtn={() => handlers.onClickLaunchPrivateLabelBtn(params.row.originalData)}
       />
     ),
