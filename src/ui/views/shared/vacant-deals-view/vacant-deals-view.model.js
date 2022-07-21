@@ -81,7 +81,7 @@ export class VacantDealsViewModel {
     try {
       const result = await RequestProposalModel.getRequestProposalsForSupervisor(
         RequestType.CUSTOM,
-        RequestSubType.LINKED_TO_ME,
+        RequestSubType.VACANT,
       )
 
       runInAction(() => {

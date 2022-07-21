@@ -81,7 +81,7 @@ export class DealsOnReviewModel {
     try {
       const result = await RequestProposalModel.getRequestProposalsForSupervisor(
         RequestType.CUSTOM,
-        RequestSubType.VACANT,
+        RequestSubType.LINKED_TO_ME,
       )
 
       runInAction(() => {
@@ -106,10 +106,9 @@ export class DealsOnReviewModel {
 
   async onClickViewMore(id) {
     try {
-      this.history.push(
-        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request`,
-        {requestId: id},
-      )
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-deals/deal-details`, {
+        requestId: id,
+      })
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
       console.log(error)

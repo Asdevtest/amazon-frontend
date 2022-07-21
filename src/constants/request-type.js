@@ -10,5 +10,5 @@ export const RequestSubType = {
   ASSIGNED_TO_ME: 'ASSIGNED_TO_ME',
   PICKUPED_BY_ME: 'PICKUPED_BY_ME',
   LINKED_TO_ME: 'LINKED_TO_ME',
-  ALL: 'ALL ',
+  ALL: 'ALL',
 }

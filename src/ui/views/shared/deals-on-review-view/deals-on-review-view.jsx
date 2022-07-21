@@ -43,7 +43,7 @@ export class DealsOnReviewView extends Component {
       deals,
       // onTriggerSortMode,
       onTriggerDrawerOpen,
-      // onClickViewMore,
+      onClickViewMore,
       // onChangeViewMode,
       // onChangeNameSearchValue,
     } = this.viewModel
@@ -70,7 +70,15 @@ export class DealsOnReviewView extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Deals on review'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <VacantDealsListCard dealsOnReview />
+              {deals.map((deal, index) => (
+                <VacantDealsListCard
+                  key={index}
+                  dealsOnReview
+                  item={deal}
+                  onClickViewMore={onClickViewMore}
+                  // onClickGetToWorkModal={onClickGetToWorkModal}
+                />
+              ))}
             </MainContent>
           </Appbar>
         </Main>

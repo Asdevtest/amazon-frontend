@@ -8,9 +8,13 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 // import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {UserLink} from '@components/user-link'
 
+import {formatNormDateTime} from '@utils/date-time'
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
+import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 // import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
 // import {getUserAvatarSrc} from '@utils/get-user-avatar'
 // import {minsToTime, toFixedWithDollarSign} from '@utils/text'
@@ -19,9 +23,9 @@ import {t} from '@utils/translations'
 // import {translateProposalsLeftMessage} from '@utils/validation'
 import {useClassNames} from './deal-details-card.style'
 
-export const DealDetailsCard = ({onClickGetToWorkModal, showDetails}) => {
+export const DealDetailsCard = ({onClickGetToWorkModal, showDetails, item}) => {
   const classNames = useClassNames()
-
+  console.log(item)
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -42,34 +46,34 @@ export const DealDetailsCard = ({onClickGetToWorkModal, showDetails}) => {
             <div className={classNames.userInfoWrapper}>
               <Typography className={classNames.userInfoName}>{t(TranslationKey.Performer)}</Typography>
               <div className={classNames.userInfo}>
-                <Avatar src={''} className={classNames.cardImg} />
+                <Avatar src={getUserAvatarSrc(item?.proposal.createdBy._id)} className={classNames.cardImg} />
 
                 <div className={classNames.nameWrapper}>
-                  <UserLink blackText name={'Pete'} userId={'2'} />
+                  <UserLink blackText name={item?.proposal.createdBy.name} userId={item?.proposal.createdBy._id} />
 
-                  <Rating disabled value={'3'} />
+                  <Rating disabled value={item?.proposal.createdBy.rating} />
                 </div>
               </div>
             </div>
           </div>
           <div className={classNames.cardTitleBlockWrapper}>
             <div className={classNames.cardTitleBlockHeaderWrapper}>
-              <Typography className={classNames.cardTitle}>{'Вакантная сделка'}</Typography>
-              <Typography className={classNames.cardDescription}>{'Описание вакантной сделки'}</Typography>
+              <Typography className={classNames.cardTitle}>{item?.proposal.title}</Typography>
+              <Typography className={classNames.cardDescription}>{item?.proposal.comment}</Typography>
             </div>
           </div>
           <div className={classNames.sumAndTimeWrapper}>
             <div>
               <Typography className={classNames.sumAndTimeTitle}>{t(TranslationKey.Budget)}</Typography>
-              <Typography>{'30$'}</Typography>
+              <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item?.proposal.price, 2)}</Typography>
             </div>
             <div>
               <Typography className={classNames.sumAndTimeTitle}>{t(TranslationKey.Deadline)}</Typography>
-              <Typography>{'Уже вчера'}</Typography>
+              <Typography>{formatNormDateTime(item?.proposal.timeoutAt)}</Typography>
             </div>
           </div>
           <div className={classNames.filesWrapper}>
-            <PhotoAndFilesCarousel />
+            <PhotoAndFilesCarousel files={item?.proposal.linksToMediaFiles} />
           </div>
           {!showDetails ? (
             <div>
@@ -84,33 +88,37 @@ export const DealDetailsCard = ({onClickGetToWorkModal, showDetails}) => {
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey['Time to complete'])}</Typography>
 
-                <Typography>{'Уже поздно'}</Typography>
+                <Typography>{minsToTime(item?.proposal.execution_time)}</Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey.Status)}</Typography>
 
-                <Typography className={classNames.statusText}>{'Возьми в работу'}</Typography>
+                <Typography className={classNames.statusText}>
+                  {<RequestStatusCell status={item?.proposal.status} />}
+                </Typography>
               </div>
             </div>
             <div className={classNames.rightSubBlockWrapper}>
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey.Deadline)}</Typography>
 
-                <Typography>{'Уже поздно'}</Typography>
+                <Typography>{formatNormDateTime(item?.proposal.timeoutAt)}</Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey['Total price'])}</Typography>
 
-                <Typography className={classNames.cardPrice}>{'666ye'}</Typography>
+                <Typography className={classNames.cardPrice}>
+                  {toFixedWithDollarSign(item?.proposal.price, 2)}
+                </Typography>
               </div>
             </div>
           </div>
           <div className={classNames.resultWrapper}>
             <Typography className={classNames.result}>{t(TranslationKey.Result)}</Typography>
-            <Typography className={classNames.resultDescription}>{'Тут будет результат сделки'}</Typography>
+            <Typography className={classNames.resultDescription}>{item?.details.result}</Typography>
           </div>
           <div className={classNames.filesAndTimeWrapper}>
-            <div className={classNames.filesWrapper}>
+            <div className={classNames.filesWrapper} files={item?.details.linksToMediaFiles}>
               <PhotoAndFilesCarousel />
             </div>
 

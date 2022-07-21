@@ -15,6 +15,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '30px',
+    backgroundColor: '#fff',
   },
 
   nameWrapper: {

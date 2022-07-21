@@ -42,8 +42,9 @@ export class VacantDealsDetailsView extends Component {
       // sortMode,
       showDetails,
       drawerOpen,
-      deals,
+
       showConfirmModal,
+      requestProposals,
       // onTriggerSortMode,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
@@ -63,7 +64,7 @@ export class VacantDealsDetailsView extends Component {
     //       return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
     //   }
     // }
-    console.log(deals)
+
     return (
       <React.Fragment>
         <Navbar
@@ -75,7 +76,11 @@ export class VacantDealsDetailsView extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Vacant deals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <DealDetailsCard showDetails={showDetails} onClickGetToWorkModal={onClickGetToWorkModal} />
+              <DealDetailsCard
+                showDetails={showDetails}
+                item={requestProposals[0]}
+                onClickGetToWorkModal={onClickGetToWorkModal}
+              />
             </MainContent>
           </Appbar>
 
