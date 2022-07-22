@@ -73,7 +73,7 @@ export class DealsOnReviewView extends Component {
               {deals.map((deal, index) => (
                 <VacantDealsListCard
                   key={index}
-                  dealsOnReview
+                  showDetails
                   item={deal}
                   onClickViewMore={onClickViewMore}
                   // onClickGetToWorkModal={onClickGetToWorkModal}

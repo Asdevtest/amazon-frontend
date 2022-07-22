@@ -22,7 +22,7 @@ import {t} from '@utils/translations'
 // import {translateProposalsLeftMessage} from '@utils/validation'
 import {useClassNames} from './vacant-deals-list-card.style'
 
-export const VacantDealsListCard = ({onClickViewMore, dealsOnReview, onClickGetToWorkModal, item}) => {
+export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToWorkModal, item}) => {
   const classNames = useClassNames()
 
   return (
@@ -90,8 +90,8 @@ export const VacantDealsListCard = ({onClickViewMore, dealsOnReview, onClickGetT
               </div>
             </div>
           </div>
-          <div className={!dealsOnReview ? classNames.buttonsWrapper : classNames.buttonWrapper}>
-            {!dealsOnReview && (
+          <div className={!showDetails ? classNames.buttonsWrapper : classNames.buttonWrapper}>
+            {!showDetails && (
               <Button
                 success
                 // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}

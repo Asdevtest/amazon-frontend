@@ -23,7 +23,7 @@ import {t} from '@utils/translations'
 // import {translateProposalsLeftMessage} from '@utils/validation'
 import {useClassNames} from './deal-details-card.style'
 
-export const DealDetailsCard = ({onClickGetToWorkModal, showDetails, item}) => {
+export const DealDetailsCard = ({onClickGetToWorkModal, dealsOnReview, item}) => {
   const classNames = useClassNames()
   console.log(item)
   return (
@@ -75,7 +75,7 @@ export const DealDetailsCard = ({onClickGetToWorkModal, showDetails, item}) => {
           <div className={classNames.filesWrapper}>
             <PhotoAndFilesCarousel files={item?.proposal.linksToMediaFiles} />
           </div>
-          {!showDetails ? (
+          {!dealsOnReview ? (
             <div>
               <Button className={classNames.actionButton}>{t(TranslationKey['Send in for rework'])}</Button>
             </div>
@@ -127,7 +127,7 @@ export const DealDetailsCard = ({onClickGetToWorkModal, showDetails, item}) => {
               <Typography className={classNames.timeOnReview}>{'24ч 00мин'}</Typography>
             </div>
           </div>
-          {!showDetails ? (
+          {!dealsOnReview ? (
             <div className={classNames.buttonsWrapper}>
               <Button
                 danger

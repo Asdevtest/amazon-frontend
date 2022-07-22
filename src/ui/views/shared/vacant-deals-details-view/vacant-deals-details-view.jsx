@@ -40,7 +40,7 @@ export class VacantDealsDetailsView extends Component {
       // viewMode,
       // getCurrentData,
       // sortMode,
-      showDetails,
+
       drawerOpen,
 
       showConfirmModal,
@@ -76,11 +76,7 @@ export class VacantDealsDetailsView extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Vacant deals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <DealDetailsCard
-                showDetails={showDetails}
-                item={requestProposals[0]}
-                onClickGetToWorkModal={onClickGetToWorkModal}
-              />
+              <DealDetailsCard dealsOnReview item={requestProposals[0]} onClickGetToWorkModal={onClickGetToWorkModal} />
             </MainContent>
           </Appbar>
 
