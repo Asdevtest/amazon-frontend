@@ -297,7 +297,7 @@ export const FieldsAndSuppliers = observer(
                       input={<Input />}
                       onChange={onChangeField('strategyStatus')}
                     >
-                      <option>{'none'}</option>
+                      <option value={''}>{t(TranslationKey['not selected'])}</option>
                       {Object.keys(mapProductStrategyStatusEnum).map((statusCode, statusIndex) => (
                         <option
                           key={statusIndex}

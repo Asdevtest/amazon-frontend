@@ -354,7 +354,7 @@ export const TextHeaderCell = withStyles(styles)(({classes: classNames, text}) =
 
 export const MultilineStatusCell = withStyles(styles)(({classes: classNames, status}) => (
   <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText}>{status?.replace(/_/g, ' ')}</Typography>
+    <Typography className={classNames.statusMultilineText}>{status?.replace(/_/g, ' ')}</Typography>
   </div>
 ))
 

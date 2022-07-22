@@ -178,7 +178,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   filesWrapper: {
-    height: '140px',
+    height: 'auto',
     display: 'flex',
     alignItems: 'center',
   },

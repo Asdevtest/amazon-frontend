@@ -146,7 +146,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   label: {
-    maxWidth: '180px',
+    maxWidth: '231px',
   },
 
   yuanToDollarRate: {
