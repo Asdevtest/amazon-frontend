@@ -461,6 +461,19 @@ export const styles = createStyles(() => ({
     lineHeight: '16px',
   },
 
+  statusMultilineText: {
+    width: '100%',
+    maxHeight: '100%',
+    textAlign: 'center',
+    whiteSpace: 'normal',
+    textOverflow: 'ellipsis',
+    // overflow: 'hidden',
+
+    fontWeight: '400',
+    fontSize: '10px',
+    lineHeight: '16px',
+  },
+
   multilineTextAlignLeftHeaderWrapper: {
     width: '100%',
     display: 'flex',

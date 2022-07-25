@@ -116,6 +116,7 @@ export const useClassNames = makeStyles(() => ({
     gap: '10px',
     marginBottom: '20px',
   },
+
   buttonNormal: {
     flexGrow: 1,
     width: '100%',

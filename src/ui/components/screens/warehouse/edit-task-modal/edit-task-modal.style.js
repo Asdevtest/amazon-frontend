@@ -120,7 +120,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   imageFileInputWrapper: {
-    maxWidth: '866px',
+    width: '100%',
   },
 
   successBtn: {

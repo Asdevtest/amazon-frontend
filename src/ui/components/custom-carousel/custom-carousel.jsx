@@ -177,92 +177,89 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
   const notEmptyPhotos = files?.length ? files.filter(el => checkIsImageLink(el?.file?.name || el)) : []
 
   return files?.length ? (
-    <div>
-      <div
-        className={classNames.imagesAndFilesWrapper}
-        style={{width, flexDirection: direction === 'column' ? 'column' : 'row'}}
-      >
-        <div className={classNames.imagesWrapper}>
-          {notEmptyPhotos?.length ? (
-            <CustomCarousel>
-              {notEmptyPhotos.map((photo, index) => (
-                <Avatar
-                  key={index}
-                  variant="square"
-                  alt={'!'}
-                  src={photo?.data_url || photo}
-                  className={classNames.image}
-                  height="113px"
-                  onClick={() => {
-                    setShowPhotosModal(!showPhotosModal)
+    <div
+      className={classNames.imagesAndFilesWrapper}
+      style={{width, flexDirection: direction === 'column' ? 'column' : 'row'}}
+    >
+      <div className={classNames.imagesWrapper}>
+        {notEmptyPhotos?.length ? (
+          <CustomCarousel>
+            {notEmptyPhotos.map((photo, index) => (
+              <Avatar
+                key={index}
+                variant="square"
+                alt={'!'}
+                src={photo?.data_url || photo}
+                // className={classNames.image}
+                classes={{img: classNames.image}}
+                height="113px"
+                onClick={() => {
+                  setShowPhotosModal(!showPhotosModal)
 
-                    setBigImagesOptions({
-                      images: files
-                        .filter(el => checkIsImageLink(el?.file?.name || el))
-                        .map(img => img?.data_url || img),
-                      imgIndex: index,
-                    })
-                  }}
-                />
-              ))}
-            </CustomCarousel>
-          ) : (
-            <div className={classNames.emptyIconWrapper}>
-              <div className={classNames.emptyWrapper}>
-                <div className={classNames.emptyIcon}>
-                  <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
-                </div>
-                <Typography>{t(TranslationKey['No photos'])}</Typography>
+                  setBigImagesOptions({
+                    images: files.filter(el => checkIsImageLink(el?.file?.name || el)).map(img => img?.data_url || img),
+                    imgIndex: index,
+                  })
+                }}
+              />
+            ))}
+          </CustomCarousel>
+        ) : (
+          <div className={classNames.emptyIconWrapper}>
+            <div className={classNames.emptyWrapper}>
+              <div className={classNames.emptyIcon}>
+                <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
               </div>
+              <Typography>{t(TranslationKey['No photos'])}</Typography>
             </div>
-          )}
-        </div>
-
-        <div className={classNames.documentsWrapper}>
-          {notEmptyFiles?.length ? (
-            <CustomCarousel>
-              {notEmptyFiles.map((file, index) =>
-                file?.data_url ? (
-                  <div
-                    key={index}
-                    className={classNames.documentWrapper}
-                    onClick={() => file.data_url && openPdfFile(file.data_url)}
-                  >
-                    <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
-                    <Typography className={classNames.documentTitle}>
-                      {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
-                    </Typography>
-                    <span className={classNames.documentHover}>{file?.file?.name || file}</span>
-                  </div>
-                ) : (
-                  <Link key={index} href={file} className={classNames.documentWrapper} target="__blank">
-                    <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
-                    <Typography className={classNames.documentTitle}>
-                      {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
-                    </Typography>
-                    <span className={classNames.documentHover}>{file?.file?.name || file}</span>
-                  </Link>
-                ),
-              )}
-            </CustomCarousel>
-          ) : (
-            <div className={classNames.emptyIconWrapper}>
-              <div className={classNames.emptyWrapper}>
-                <div className={classNames.emptyIcon}>
-                  <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
-                </div>
-                <Typography>{t(TranslationKey['No documents'])}</Typography>
-              </div>
-            </div>
-          )}
-        </div>
-        <BigImagesModal
-          openModal={showPhotosModal}
-          setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
-          images={bigImagesOptions.images}
-          imgIndex={bigImagesOptions.imgIndex}
-        />
+          </div>
+        )}
       </div>
+
+      <div className={classNames.documentsWrapper}>
+        {notEmptyFiles?.length ? (
+          <CustomCarousel>
+            {notEmptyFiles.map((file, index) =>
+              file?.data_url ? (
+                <div
+                  key={index}
+                  className={classNames.documentWrapper}
+                  onClick={() => file.data_url && openPdfFile(file.data_url)}
+                >
+                  <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                  <Typography className={classNames.documentTitle}>
+                    {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
+                  </Typography>
+                  <span className={classNames.documentHover}>{file?.file?.name || file}</span>
+                </div>
+              ) : (
+                <Link key={index} href={file} className={classNames.documentWrapper} target="__blank">
+                  <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                  <Typography className={classNames.documentTitle}>
+                    {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
+                  </Typography>
+                  <span className={classNames.documentHover}>{file?.file?.name || file}</span>
+                </Link>
+              ),
+            )}
+          </CustomCarousel>
+        ) : (
+          <div className={classNames.emptyIconWrapper}>
+            <div className={classNames.emptyWrapper}>
+              <div className={classNames.emptyIcon}>
+                <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+              </div>
+              <Typography>{t(TranslationKey['No documents'])}</Typography>
+            </div>
+          </div>
+        )}
+      </div>
+      <BigImagesModal
+        openModal={showPhotosModal}
+        setOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        images={bigImagesOptions.images}
+        imgIndex={bigImagesOptions.imgIndex}
+      />
     </div>
   ) : (
     <div className={classNames.emptyProposalsIconWrapper}>

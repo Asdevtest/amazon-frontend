@@ -14,7 +14,7 @@ import {useClassNames} from './extra-order-info.style'
 
 export const ExtraOrderInfo = ({order}) => {
   const classNames = useClassNames()
-  console.log(order)
+
   return (
     <div className={classNames.orderContainer}>
       <div className={classNames.photosWrapper}>

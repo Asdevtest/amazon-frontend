@@ -168,18 +168,16 @@ export const RightSideComments = observer(
               )}
             </div>
           ) : (
-            <div>
-              <Button
-                tooltipInfoContent={t(TranslationKey['Close product card'])}
-                className={clsx(classNames.buttonClose, {
-                  [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
-                })}
-                variant="contained"
-                onClick={() => handleProductActionButtons('cancel')}
-              >
-                {t(TranslationKey.Close)}
-              </Button>
-            </div>
+            <Button
+              tooltipInfoContent={t(TranslationKey['Close product card'])}
+              className={clsx(classNames.buttonClose, {
+                [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
+              })}
+              variant="contained"
+              onClick={() => handleProductActionButtons('cancel')}
+            >
+              {t(TranslationKey.Close)}
+            </Button>
           )}
         </Box>
       </Grid>
