@@ -3,7 +3,9 @@ import Rating from '@mui/material/Rating'
 import React from 'react'
 
 import {Avatar, Grid, Typography} from '@material-ui/core'
+import clsx from 'clsx'
 
+import {RequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -23,23 +25,31 @@ import {t} from '@utils/translations'
 // import {translateProposalsLeftMessage} from '@utils/validation'
 import {useClassNames} from './deal-details-card.style'
 
-export const DealDetailsCard = ({onClickGetToWorkModal, dealsOnReview, item}) => {
+export const DealDetailsCard = ({
+  onClickGetToWorkModal,
+  onClickConfirmDealModal,
+  onClickRejectDealModal,
+  onClickReworkDealModal,
+  dealsOnReview,
+  item,
+  requester,
+}) => {
   const classNames = useClassNames()
   console.log(item)
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
-        <div className={classNames.leftBlockWrapper}>
+        <div className={clsx(classNames.leftBlockWrapper, {[classNames.leftBlockMarginWrapper]: dealsOnReview})}>
           <div className={classNames.usersInfoBlockWrapper}>
             <div className={classNames.userInfoWrapper}>
               <Typography className={classNames.userInfoName}>{t(TranslationKey.Client)}</Typography>
               <div className={classNames.userInfo}>
-                <Avatar src={''} className={classNames.cardImg} />
+                <Avatar src={getUserAvatarSrc(requester?._id)} className={classNames.cardImg} />
 
                 <div className={classNames.nameWrapper}>
-                  <UserLink blackText name={'Pete'} userId={'2'} />
+                  <UserLink blackText name={requester?.name} userId={requester?._id} />
 
-                  <Rating disabled value={'3'} />
+                  <Rating disabled value={requester?.rating} />
                 </div>
               </div>
             </div>
@@ -50,8 +60,7 @@ export const DealDetailsCard = ({onClickGetToWorkModal, dealsOnReview, item}) =>
 
                 <div className={classNames.nameWrapper}>
                   <UserLink blackText name={item?.proposal.createdBy.name} userId={item?.proposal.createdBy._id} />
-
-                  <Rating disabled value={item?.proposal.createdBy.rating} />
+                  {item && <Rating disabled value={item?.proposal?.createdBy?.rating} />}
                 </div>
               </div>
             </div>
@@ -75,9 +84,16 @@ export const DealDetailsCard = ({onClickGetToWorkModal, dealsOnReview, item}) =>
           <div className={classNames.filesWrapper}>
             <PhotoAndFilesCarousel files={item?.proposal.linksToMediaFiles} />
           </div>
-          {!dealsOnReview ? (
+          {!dealsOnReview &&
+          [
+            RequestStatus.CORRECTED,
+            RequestStatus.TO_CORRECT_BY_SUPERVISOR,
+            RequestStatus.VERIFYING_BY_SUPERVISOR,
+          ].includes(item?.proposal.status) ? (
             <div>
-              <Button className={classNames.actionButton}>{t(TranslationKey['Send in for rework'])}</Button>
+              <Button className={classNames.actionButton} onClick={() => onClickReworkDealModal(item?.proposal._id)}>
+                {t(TranslationKey['Send in for rework'])}
+              </Button>
             </div>
           ) : null}
         </div>
@@ -127,31 +143,37 @@ export const DealDetailsCard = ({onClickGetToWorkModal, dealsOnReview, item}) =>
               <Typography className={classNames.timeOnReview}>{'24ч 00мин'}</Typography>
             </div>
           </div>
-          {!dealsOnReview ? (
-            <div className={classNames.buttonsWrapper}>
-              <Button
-                danger
-                // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-                variant="contained"
-                color="primary"
-                className={classNames.actionButton}
-                // onClick={() => onClickViewMore('2')}
-              >
-                {t(TranslationKey['Reject the deal'])}
-              </Button>
+          {!dealsOnReview &&
+            [
+              RequestStatus.CORRECTED,
+              RequestStatus.TO_CORRECT_BY_SUPERVISOR,
+              RequestStatus.VERIFYING_BY_SUPERVISOR,
+            ].includes(item?.proposal.status) && (
+              <div className={classNames.buttonsWrapper}>
+                <Button
+                  danger
+                  // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
+                  variant="contained"
+                  color="primary"
+                  className={classNames.actionButton}
+                  onClick={() => onClickRejectDealModal(item?.proposal._id)}
+                >
+                  {t(TranslationKey['Reject the deal'])}
+                </Button>
 
-              <Button
-                success
-                // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
-                variant="contained"
-                color="primary"
-                className={classNames.actionButton}
-                // onClick={() => onClickViewMore('2')}
-              >
-                {t(TranslationKey['Accept the deal'])}
-              </Button>
-            </div>
-          ) : (
+                <Button
+                  success
+                  // tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
+                  variant="contained"
+                  color="primary"
+                  className={classNames.actionButton}
+                  onClick={() => onClickConfirmDealModal(item?.proposal._id)}
+                >
+                  {t(TranslationKey['Accept the deal'])}
+                </Button>
+              </div>
+            )}
+          {dealsOnReview ? (
             <div className={classNames.buttonWrapper}>
               <Button
                 success
@@ -159,12 +181,12 @@ export const DealDetailsCard = ({onClickGetToWorkModal, dealsOnReview, item}) =>
                 variant="contained"
                 color="primary"
                 className={classNames.actionButton}
-                onClick={() => onClickGetToWorkModal()}
+                onClick={() => onClickGetToWorkModal(item?.proposal._id)}
               >
                 {t(TranslationKey['Get to work'])}
               </Button>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </Grid>

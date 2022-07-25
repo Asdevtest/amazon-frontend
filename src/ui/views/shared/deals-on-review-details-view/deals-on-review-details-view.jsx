@@ -8,12 +8,14 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {DealDetailsCard} from '@components/cards/deal-details-card'
+import {RequestProposalResultToCorrectForm} from '@components/forms/request-proposal-result-to-correct-form'
 // import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
 // import {VacantRequestShortCard} from '@components/cards/vacant-request-short-card'
 // import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {Modal} from '@components/modal'
+import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
 import {Navbar} from '@components/navbar'
 
 // import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
@@ -21,13 +23,13 @@ import {Navbar} from '@components/navbar'
 // import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
 
-import {VacantDealsDetailsViewModel} from './vacant-deals-details-view.model'
+import {VacantDealsDetailsViewModel} from './deals-on-review-details-view.model'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_DEALS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_VACANT_DEALS
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_DEALS_ON_REVIEW
 
 @observer
-export class VacantDealsDetailsView extends Component {
+export class DealsOnReviewDetailsView extends Component {
   viewModel = new VacantDealsDetailsViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
@@ -40,17 +42,23 @@ export class VacantDealsDetailsView extends Component {
       // viewMode,
       // getCurrentData,
       // sortMode,
-      proposalId,
-      requestId,
+
       drawerOpen,
       requester,
+      proposalId,
       showConfirmModal,
+      showRejectModal,
+      showReworkModal,
       requestProposals,
       // onTriggerSortMode,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
-      onClickGetToWorkModal,
-      onClickGetToWork,
+      onClickConfirmDealModal,
+      onClickRejectDealModal,
+      onClickConfirmDeal,
+      onClickRejectDeal,
+      onClickReworkDeal,
+      onClickReworkDealModal,
       // onClickViewMore,
       // onChangeViewMode,
       // onChangeNameSearchValue,
@@ -69,24 +77,38 @@ export class VacantDealsDetailsView extends Component {
           <Appbar title={t(TranslationKey['Vacant deals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DealDetailsCard
-                dealsOnReview
                 item={requestProposals[0]}
                 requester={requester}
-                onClickGetToWorkModal={onClickGetToWorkModal}
+                onClickConfirmDealModal={onClickConfirmDealModal}
+                onClickRejectDealModal={onClickRejectDealModal}
+                onClickReworkDealModal={onClickReworkDealModal}
               />
             </MainContent>
           </Appbar>
 
-          <ConfirmationModal
+          <ConfirmWithCommentModal
             openModal={showConfirmModal}
             setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            title={t(TranslationKey.Attention)}
-            message={t(TranslationKey['Taking the deal check to work?'])}
-            successBtnText={t(TranslationKey.Yes)}
-            cancelBtnText={t(TranslationKey.No)}
-            onClickSuccessBtn={() => onClickGetToWork(proposalId, requestId)}
-            onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+            titleText={t(TranslationKey['Accept the deal'])}
+            commentLabelText={t(TranslationKey['Cover letter'])}
+            okBtnText={t(TranslationKey['Accept the deal'])}
+            cancelBtnText={t(TranslationKey.Cancel)}
+            onSubmit={() => onClickConfirmDeal(proposalId)}
           />
+          <ConfirmWithCommentModal
+            isWarning
+            openModal={showRejectModal}
+            setOpenModal={() => onTriggerOpenModal('showRejectModal')}
+            titleText={t(TranslationKey['Reject the deal'])}
+            commentLabelText={t(TranslationKey['Cover letter'])}
+            okBtnText={t(TranslationKey['Reject the deal'])}
+            cancelBtnText={t(TranslationKey.Cancel)}
+            onSubmit={() => onClickRejectDeal(proposalId)}
+          />
+
+          <Modal openModal={showReworkModal} setOpenModal={() => onTriggerOpenModal('showReworkModal')}>
+            <RequestProposalResultToCorrectForm onPressSubmitForm={() => onClickReworkDeal(proposalId)} />
+          </Modal>
         </Main>
       </React.Fragment>
     )

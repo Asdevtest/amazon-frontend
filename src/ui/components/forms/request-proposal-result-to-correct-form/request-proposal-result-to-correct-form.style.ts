@@ -5,12 +5,13 @@ export const useClassNames = makeStyles(() => ({
     width: '586px',
   },
   reasonInputWrapper: {
-    width: '100%',
+    width: '374px',
   },
   reasonInput: {
-    height: '135px',
+    height: '40px',
     width: '100%',
   },
+
   inputWrapper: {
     width: '50px',
     height: '20px',
@@ -76,5 +77,27 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
 
     borderBottom: '1px solid #e0e0e0',
+  },
+
+  reasonWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  time: {
+    fontWeight: 400,
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+    marginBottom: '10px',
+  },
+
+  coverLetterWrapper: {
+    width: '100%',
+    marginTop: '30px',
+  },
+
+  coverLetterInput: {
+    height: '136px',
   },
 }))

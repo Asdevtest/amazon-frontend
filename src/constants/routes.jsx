@@ -60,6 +60,7 @@ import {ResearcherProductsView} from '@views/researcher/researcher-products-view
 import {AnotherUserProfileView} from '@views/shared/another-user-profile-view'
 import {CreateOrEditProposalView} from '@views/shared/create-or-edit-proposal-view'
 import {CreateOrEditRequestView} from '@views/shared/create-or-edit-request-view'
+import {DealsOnReviewDetailsView} from '@views/shared/deals-on-review-details-view'
 import {DealsOnReviewView} from '@views/shared/deals-on-review-view/deals-on-review-view'
 import {MyProposalsView} from '@views/shared/my-proposals-view'
 import {MyRequestsView} from '@views/shared/my-requests-view'
@@ -643,7 +644,7 @@ export const privateRoutesConfigs = [
   {
     routePath: '/supervisor/freelance/deals-on-review',
     component: DealsOnReviewView,
-    exact: false,
+    exact: true,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey['Deals on review'],
   },
@@ -651,6 +652,14 @@ export const privateRoutesConfigs = [
   {
     routePath: '/supervisor/freelance/vacant-deals/deal-details',
     component: VacantDealsDetailsView,
+    exact: true,
+    permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Deal,
+  },
+
+  {
+    routePath: '/supervisor/freelance/deals-on-review/deal-on-review',
+    component: DealsOnReviewDetailsView,
     exact: true,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey.Deal,

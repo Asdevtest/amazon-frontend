@@ -172,7 +172,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   leftSubBlockWrapper: {
-    width: '301px',
+    width: '325px',
 
     borderRadius: '8px',
 

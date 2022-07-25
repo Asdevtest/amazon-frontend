@@ -12,11 +12,13 @@ export class VacantDealsDetailsViewModel {
   actionStatus = undefined
 
   requestId = undefined
-  requester = undefined
   proposalId = undefined
+  requester = undefined
 
   drawerOpen = false
   showConfirmModal = false
+  showRejectModal = false
+  showReworkModal = false
   showDetails = true
 
   requestProposals = []
@@ -55,22 +57,52 @@ export class VacantDealsDetailsViewModel {
     }
   }
 
-  async onClickGetToWork(id, requestId) {
+  async onClickConfirmDeal(id) {
     try {
-      await RequestProposalModel.requestProposalLinkOrUnlinkSupervisor(id, {action: 'LINK'})
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
-        requestId,
-      })
+      await RequestProposalModel.requestProposalResultAccept(id)
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review`)
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
-      this.onTriggerOpenModal('showWarningModal')
       console.log(error)
+      this.error = error
     }
   }
 
-  onClickGetToWorkModal(proposalId) {
-    this.proposalId = proposalId
+  async onClickRejectDeal(id) {
+    try {
+      await RequestProposalModel.requestProposalCancel(id)
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review`)
+      this.onTriggerOpenModal('showRejectModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onClickReworkDeal(id, data) {
+    try {
+      await RequestProposalModel.requestProposalResultToCorrect(id, {...data})
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review`)
+      this.onTriggerOpenModal('showReworkModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  onClickConfirmDealModal(id) {
+    this.proposalId = id
     this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  onClickReworkDealModal(id) {
+    this.proposalId = id
+    this.onTriggerOpenModal('showReworkModal')
+  }
+
+  onClickRejectDealModal(id) {
+    this.proposalId = id
+    this.onTriggerOpenModal('showRejectModal')
   }
 
   onTriggerDrawerOpen() {

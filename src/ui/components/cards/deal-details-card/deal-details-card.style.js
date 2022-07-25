@@ -15,12 +15,20 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '30px',
+    backgroundColor: '#fff',
   },
 
   leftBlockWrapper: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+
+  leftBlockMarginWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginBottom: '80px',
   },
 
   nameWrapper: {

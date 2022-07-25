@@ -1,13 +1,9 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {RequestSubType, RequestType} from '@constants/request-type'
-import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
-import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
-import {RequestModel} from '@models/request-model'
 import {RequestProposalModel} from '@models/request-proposal'
-import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 export class VacantDealsViewModel {
@@ -16,17 +12,14 @@ export class VacantDealsViewModel {
   error = undefined
   actionStatus = undefined
 
-  nameSearchValue = ''
-
   drawerOpen = false
   showConfirmModal = false
+  requestId = undefined
+  proposalId = undefined
+  client = {}
 
-  searchMyRequestsIds = []
   requests = []
   deals = []
-
-  viewMode = tableViewMode.LIST
-  sortMode = tableSortMode.DESK
 
   get user() {
     return UserModel.userInfo
@@ -35,38 +28,6 @@ export class VacantDealsViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  setTableModeState() {
-    const state = {viewMode: this.viewMode, sortMode: this.sortMode}
-
-    SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.VACANT_REQUESTS)
-  }
-
-  getTableModeState() {
-    const state = SettingsModel.viewTableModeState[ViewTableModeStateKeys.VACANT_REQUESTS]
-
-    if (state) {
-      this.viewMode = state.viewMode
-      this.sortMode = state.sortMode
-    }
-  }
-
-  onChangeViewMode(event, nextView) {
-    this.viewMode = nextView
-    this.setTableModeState()
-  }
-
-  getCurrentData() {
-    if (this.nameSearchValue) {
-      return toJS(this.requests).filter(el => el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
-    } else {
-      return toJS(this.requests)
-    }
-  }
-
-  onChangeNameSearchValue(e) {
-    this.nameSearchValue = e.target.value
   }
 
   async loadData() {
@@ -92,22 +53,11 @@ export class VacantDealsViewModel {
     }
   }
 
-  async getRequestsVacant() {
-    try {
-      const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.ALL)
-
-      runInAction(() => {
-        this.requests = result
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async onClickViewMore(id) {
+  async onClickViewMore(id, client) {
     try {
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-deals/deal-details`, {
         requestId: id,
+        requester: client,
       })
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
@@ -115,7 +65,24 @@ export class VacantDealsViewModel {
     }
   }
 
-  onClickGetToWorkModal() {
+  async onClickGetToWork(id, requestId) {
+    try {
+      await RequestProposalModel.requestProposalLinkOrUnlinkSupervisor(id, {action: 'LINK'})
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
+        requestId,
+        // requester: this.client,
+      })
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      this.onTriggerOpenModal('showWarningModal')
+      console.log(error)
+    }
+  }
+
+  onClickGetToWorkModal(proposalId, requestId) {
+    this.proposalId = proposalId
+    this.requestId = requestId
+
     this.onTriggerOpenModal('showConfirmModal')
   }
 
@@ -129,15 +96,5 @@ export class VacantDealsViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
-  }
-
-  onTriggerSortMode() {
-    if (this.sortMode === tableSortMode.DESK) {
-      this.sortMode = tableSortMode.ASC
-    } else {
-      this.sortMode = tableSortMode.DESK
-    }
-
-    this.setTableModeState()
   }
 }

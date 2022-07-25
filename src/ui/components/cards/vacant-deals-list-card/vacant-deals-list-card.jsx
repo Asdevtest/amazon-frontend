@@ -24,7 +24,7 @@ import {useClassNames} from './vacant-deals-list-card.style'
 
 export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToWorkModal, item}) => {
   const classNames = useClassNames()
-
+  console.log(item)
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -98,7 +98,13 @@ export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToW
                 variant="contained"
                 color="primary"
                 className={classNames.actionButton}
-                onClick={() => onClickGetToWorkModal()}
+                onClick={() =>
+                  onClickGetToWorkModal(item._id, item.requestId, {
+                    name: item.request.createdBy.name,
+                    _id: item.request.createdBy._id,
+                    rating: item.request.createdBy.rating,
+                  })
+                }
               >
                 {t(TranslationKey['Get to work'])}
               </Button>
@@ -109,7 +115,13 @@ export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToW
               variant="contained"
               color="primary"
               className={classNames.actionButton}
-              onClick={() => onClickViewMore(item.requestId)}
+              onClick={() =>
+                onClickViewMore(item.requestId, {
+                  name: item.request.createdBy.name,
+                  _id: item.request.createdBy._id,
+                  rating: item.request.createdBy.rating,
+                })
+              }
             >
               {t(TranslationKey['Open a deal'])}
             </Button>
