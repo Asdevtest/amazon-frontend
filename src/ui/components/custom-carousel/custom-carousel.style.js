@@ -85,11 +85,12 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imagesAndFilesWrapper: {
+    height: '100%',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
 
-    margin: '20px 0 20px 0',
+    // margin: '20px 0 20px 0',
   },
 
   imagesCarouselWrapper: {
@@ -104,6 +105,7 @@ export const useClassNames = makeStyles(() => ({
 
   imagesWrapper: {
     width: '50%',
+    height: '100%',
   },
 
   documentsWrapper: {

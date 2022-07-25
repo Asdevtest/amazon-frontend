@@ -204,7 +204,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
         <div className={classNames.dementionsSubWrapper}>
           <Typography
             className={clsx(classNames.dementionsTitle, {
-              [classNames.alertText]: calcVolumeWeightForBox(box, volumeWeightCoefficient) < 12,
+              [classNames.alertText]: toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2) < 12,
             })}
           >
             {t(TranslationKey['Final weight'])}
@@ -212,7 +212,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
           <Typography
             className={clsx(classNames.dementionsSpanText, {
-              [classNames.alertText]: calcVolumeWeightForBox(box, volumeWeightCoefficient) < 12,
+              [classNames.alertText]: toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2) < 12,
             })}
           >
             {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}
