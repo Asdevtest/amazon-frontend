@@ -13,6 +13,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './confirmation-with-comment-modal.style'
 
 export const ConfirmWithCommentModal = ({
+  isWarning,
   openModal,
   setOpenModal,
   titleText,
@@ -62,15 +63,28 @@ export const ConfirmWithCommentModal = ({
           onChange={e => setComment(e.target.value)}
         />
         <div className={classNames.buttonsWrapper}>
-          <Button
-            disabled={submitIsClicked}
-            color="primary"
-            variant="contained"
-            className={classNames.buttonOk}
-            onClick={onClickSubmit}
-          >
-            {okBtnText}
-          </Button>
+          {isWarning ? (
+            <Button
+              danger
+              disabled={submitIsClicked}
+              variant="contained"
+              className={classNames.buttonOk}
+              onClick={onClickSubmit}
+            >
+              {okBtnText}
+            </Button>
+          ) : (
+            <Button
+              success
+              disabled={submitIsClicked}
+              variant="contained"
+              className={classNames.buttonOk}
+              onClick={onClickSubmit}
+            >
+              {okBtnText}
+            </Button>
+          )}
+
           <Button
             disabled={submitIsClicked}
             color="primary"

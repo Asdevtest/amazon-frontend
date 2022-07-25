@@ -1,67 +1,57 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {RequestSubType, RequestType} from '@constants/request-type'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'
 
-export class VacantDealsViewModel {
+export class VacantDealsDetailsViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
   actionStatus = undefined
 
+  requestId = undefined
+  requester = undefined
+  proposalId = undefined
+
   drawerOpen = false
   showConfirmModal = false
-  requestId = undefined
-  proposalId = undefined
-  client = {}
+  showDetails = true
 
-  requests = []
-  deals = []
+  requestProposals = []
+
+  constructor({history, location}) {
+    this.history = history
+    if (location.state) {
+      this.requestId = location.state.requestId
+      this.requester = location.state.requester
+    }
+    makeAutoObservable(this, undefined, {autoBind: true})
+  }
 
   get user() {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
-    this.history = history
-    makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
   async loadData() {
     try {
-      await this.getDealsVacant()
+      await this.getDealsVacantCur()
     } catch (error) {
       console.log(error)
     }
   }
 
-  async getDealsVacant() {
+  async getDealsVacantCur() {
     try {
-      const result = await RequestProposalModel.getRequestProposalsForSupervisor(
-        RequestType.CUSTOM,
-        RequestSubType.VACANT,
-      )
+      const result = await RequestProposalModel.getRequestProposalsCustomByRequestId(this.requestId)
 
       runInAction(() => {
-        this.deals = result
+        this.requestProposals = result
       })
     } catch (error) {
       console.log(error)
-    }
-  }
-
-  async onClickViewMore(id, client) {
-    try {
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-deals/deal-details`, {
-        requestId: id,
-        requester: client,
-      })
-    } catch (error) {
-      this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
+      this.error = error
     }
   }
 
@@ -70,7 +60,6 @@ export class VacantDealsViewModel {
       await RequestProposalModel.requestProposalLinkOrUnlinkSupervisor(id, {action: 'LINK'})
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
         requestId,
-        // requester: this.client,
       })
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -79,10 +68,8 @@ export class VacantDealsViewModel {
     }
   }
 
-  onClickGetToWorkModal(proposalId, requestId) {
+  onClickGetToWorkModal(proposalId) {
     this.proposalId = proposalId
-    this.requestId = requestId
-
     this.onTriggerOpenModal('showConfirmModal')
   }
 

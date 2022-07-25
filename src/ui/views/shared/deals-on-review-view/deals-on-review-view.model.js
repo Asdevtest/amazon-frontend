@@ -6,19 +6,15 @@ import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'
 
-export class VacantDealsViewModel {
+export class DealsOnReviewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
   actionStatus = undefined
+  dealsOnReview = true
 
   drawerOpen = false
-  showConfirmModal = false
-  requestId = undefined
-  proposalId = undefined
-  client = {}
 
-  requests = []
   deals = []
 
   get user() {
@@ -42,7 +38,7 @@ export class VacantDealsViewModel {
     try {
       const result = await RequestProposalModel.getRequestProposalsForSupervisor(
         RequestType.CUSTOM,
-        RequestSubType.VACANT,
+        RequestSubType.LINKED_TO_ME,
       )
 
       runInAction(() => {
@@ -55,7 +51,7 @@ export class VacantDealsViewModel {
 
   async onClickViewMore(id, client) {
     try {
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-deals/deal-details`, {
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
         requestId: id,
         requester: client,
       })
@@ -63,27 +59,6 @@ export class VacantDealsViewModel {
       this.onTriggerOpenModal('showWarningModal')
       console.log(error)
     }
-  }
-
-  async onClickGetToWork(id, requestId) {
-    try {
-      await RequestProposalModel.requestProposalLinkOrUnlinkSupervisor(id, {action: 'LINK'})
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
-        requestId,
-        // requester: this.client,
-      })
-      this.onTriggerOpenModal('showConfirmModal')
-    } catch (error) {
-      this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
-    }
-  }
-
-  onClickGetToWorkModal(proposalId, requestId) {
-    this.proposalId = proposalId
-    this.requestId = requestId
-
-    this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerDrawerOpen() {

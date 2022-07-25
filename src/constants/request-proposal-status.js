@@ -102,9 +102,15 @@ export const MyRequestStatus = {
   READY_TO_VERIFY_BY_ADMIN: 'READY_TO_VERIFY_BY_ADMIN',
   CANCELED_BY_ADMIN: 'CANCELED_BY_ADMIN',
   READY_TO_VERIFY_BY_SUPERVISOR: 'READY_TO_VERIFY_BY_SUPERVISOR',
+  READY_TO_VERIFY: 'READY_TO_VERIFY',
   VERIFYING_BY_SUPERVISOR: 'VERIFYING_BY_SUPERVISOR',
   TO_CORRECT_BY_SUPERVISOR: 'TO_CORRECT_BY_SUPERVISOR',
+  TO_CORRECT: 'TO_CORRECT',
   EXPIRED: 'EXPIRED',
+  CANCELED_BY_SUPERVISOR: 'CANCELED_BY_SUPERVISOR',
+  ACCEPTED_BY_SUPERVISOR: 'ACCEPTED_BY_SUPERVISOR',
+  CORRECTED: 'CORRECTED',
+  CANCELED_BY_EXECUTOR: 'CANCELED_BY_EXECUTOR',
 }
 
 export const MyRequestStatusTranslate = s => {
@@ -137,5 +143,17 @@ export const MyRequestStatusTranslate = s => {
       return t(TranslationKey['To correct by Supervisor'])
     case MyRequestStatus.EXPIRED:
       return t(TranslationKey.Expired)
+    case MyRequestStatus.READY_TO_VERIFY:
+      return t(TranslationKey['Ready to verify'])
+    case MyRequestStatus.CANCELED_BY_SUPERVISOR:
+      return t(TranslationKey['Canceled by Supervisor'])
+    case MyRequestStatus.ACCEPTED_BY_SUPERVISOR:
+      return t(TranslationKey['Accepted by Supervisor'])
+    case MyRequestStatus.CORRECTED:
+      return t(TranslationKey.Corrected)
+    case MyRequestStatus.CANCELED_BY_EXECUTOR:
+      return t(TranslationKey['Canceled by Executor'])
+    case MyRequestStatus.TO_CORRECT:
+      return t(TranslationKey['To correct'])
   }
 }

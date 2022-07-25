@@ -368,12 +368,28 @@ export const RequestStatusCell = withStyles(styles)(({classes: classNames, statu
         RequestStatus.FORBID_NEW_PROPOSALS,
         RequestStatus.CANCELED_BY_ADMIN,
         RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED,
+        RequestStatus.CANCELED_BY_SUPERVISOR,
+        RequestStatus.CANCELED_BY_EXECUTOR,
       ].includes(status)
     ) {
       return '#FF1616'
-    } else if ([RequestStatus.IN_PROCESS].includes(status)) {
+    } else if (
+      [
+        RequestStatus.IN_PROCESS,
+        RequestStatus.VERIFYING_BY_SUPERVISOR,
+        RequestStatus.ACCEPTED_BY_SUPERVISOR,
+        RequestStatus.CORRECTED,
+      ].includes(status)
+    ) {
       return '#00B746'
-    } else if ([RequestStatus.PUBLISHED, RequestStatus.TO_CORRECT_BY_ADMIN].includes(status)) {
+    } else if (
+      [
+        RequestStatus.PUBLISHED,
+        RequestStatus.TO_CORRECT_BY_ADMIN,
+        RequestStatus.READY_TO_VERIFY,
+        RequestStatus.TO_CORRECT,
+      ].includes(status)
+    ) {
       return '#F3AF00'
     } else if ([RequestStatus.EXPIRED].includes(status)) {
       return '#C4C4C4'
@@ -385,9 +401,11 @@ export const RequestStatusCell = withStyles(styles)(({classes: classNames, statu
   const colorStatus = colorByStatus()
 
   return (
-    <Typography className={classNames.statusText} style={{color: colorStatus}}>
-      {MyRequestStatusTranslate(status)}
-    </Typography>
+    <div className={classNames.statusWrapper}>
+      <Typography className={classNames.statusText} style={{color: colorStatus}}>
+        {MyRequestStatusTranslate(status)}
+      </Typography>
+    </div>
   )
 })
 

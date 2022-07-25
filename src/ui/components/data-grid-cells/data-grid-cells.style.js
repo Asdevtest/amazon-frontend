@@ -654,11 +654,15 @@ export const styles = createStyles(() => ({
   },
 
   statusText: {
-    // textTransform: 'uppercase',
-    fontSize: '18px',
-    lineHeight: '140%',
-    fontWeight: '400',
+    width: '100%',
     textAlign: 'right',
+    textTransform: 'uppercase',
+  },
+
+  statusWrapper: {
+    width: '270px',
+    display: 'flex',
+    justifyContent: 'start',
   },
 
   editOrRemoveBtnsCell: {

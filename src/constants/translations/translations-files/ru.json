@@ -775,7 +775,7 @@
   "Are you sure you want to cancel the task?": "Вы уверены, что хотите отменить задачу?",
   "Are you sure you want to remove the idea?": "Вы уверены, что хотите удалить идею?",
   "The order has been created": "Заказ создан",
-  "Result": "Result",
+  "Result": "Результат",
   "Supplier glued the barcode": "Поставщик проклеил баркод",
   "The supplier stuck a barcode on the shipment": "Поставщик поклеил баркод при отправке",
   "Boxes will be created": "Будут созданы коробки",
@@ -1322,5 +1322,17 @@
   "Shipping cost per kilogram to the region": "Стоимость доставки за килограмм до региона",
   "Course indicated by the system": "Курс указанный системой",
   "Additional information about the rate": "Дополнительная информация по тарифу",
-  "The cost of providing the service": "Стоимость оказания услуги"
+  "The cost of providing the service": "Стоимость оказания услуги",
+  "Vacant deals": "Вакантные сделки",
+  "Deals on review": "Сделки на проверке",
+  "Performer": "Исполнитель",
+  "Open a deal": "Открыть сделку",
+  "Deal": "Сделка",
+  "Budget": "Бюджет",
+  "Reject the deal": "Отклонить сделку",
+  "Accept the deal": "Принять сделку",
+  "Taking the deal check to work?": "Взять проверку сделки в работу?",
+  "Cover letter": "Сопроводительное письмо",
+  "Reason for rework": "Причина доработки",
+  "Time for rework": "Время на доработку"
 }

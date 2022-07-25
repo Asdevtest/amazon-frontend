@@ -28,7 +28,16 @@ const regExpUriChecking =
 const maxSizeInBytes = 15728640
 
 export const UploadFilesInput = observer(
-  ({images, setImages, maxNumber, acceptType, withoutLinks, withoutTitle = false, oneLine, title}) => {
+  ({
+    images,
+    setImages,
+    maxNumber,
+    acceptType = [],
+    withoutLinks = false,
+    withoutTitle = false,
+    oneLine = false,
+    title = false,
+  }) => {
     const classNames = useClassNames()
 
     const [linkInput, setLinkInput] = useState('')
