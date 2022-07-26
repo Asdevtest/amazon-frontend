@@ -65,14 +65,15 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   inputWrapper: {
-    border: '1px solid rgba(143, 152, 165, 1)',
     borderRadius: '4px',
     width: '90px',
-    height: '30px',
+    height: '40px',
   },
   input: {
-    fontSize: '14px',
+    fontSize: '16px',
+    lineHeight: '22px',
     textAlign: 'center',
+    padding: 0,
   },
   row: {
     minWidth: '300px',

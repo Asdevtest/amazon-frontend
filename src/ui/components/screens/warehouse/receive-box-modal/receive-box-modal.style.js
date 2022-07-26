@@ -113,16 +113,14 @@ export const useClassNames = makeStyles(theme => ({
   },
   buttonsWrapper: {
     marginTop: '30px',
+    display: 'flex',
+    gap: '10px',
   },
   qtyCell: {
     minWidth: '80px',
   },
   deleteBtn: {
     color: 'rgba(189, 194, 209, 1)',
-  },
-
-  button: {
-    marginRight: '10px',
   },
 
   demensionsWrapper: {

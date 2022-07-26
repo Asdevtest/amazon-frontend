@@ -479,8 +479,6 @@ export const styles = createStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
-
-    // padding: '0 10px',
   },
 
   multilineTextAlignLeftHeader: {
@@ -503,8 +501,6 @@ export const styles = createStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
-
-    // padding: '0 10px',
   },
 
   multilineTextAlignLeft: {
@@ -812,5 +808,11 @@ export const styles = createStyles(() => ({
     lineHeight: '14px',
     fontWeight: '400',
     color: '#656565',
+  },
+
+  orderStatusText: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    fontWeight: '400',
   },
 }))

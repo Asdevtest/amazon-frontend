@@ -408,7 +408,14 @@ export const FieldsAndSuppliers = observer(
                 <div className={classNames.shopsFieldWrapper}>
                   <Select
                     value={shopsNames}
-                    renderValue={() => (clearSelect ? 'Выберите магазин' : selectedItem?.name)}
+                    disabled={!shops}
+                    renderValue={() =>
+                      clearSelect
+                        ? t(TranslationKey['Select a store'])
+                        : !shops
+                        ? t(TranslationKey['No stores'])
+                        : selectedItem?.name
+                    }
                     className={classNames.shopsSelect}
                     onChange={e => setSelectedItem(e.target.value)}
                     // onClick={() => setClearSelect(false)}

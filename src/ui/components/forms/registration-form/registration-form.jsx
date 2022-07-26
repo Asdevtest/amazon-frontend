@@ -257,13 +257,9 @@ export const RegistrationFormRaw = ({
       </div>
       {!isRecoverPassword ? (
         <>
-          <div className={classNames.formFooter}>
-            <Checkbox
-              className={classNames.checkbox}
-              color="primary"
-              value={formFields.acceptTerms}
-              onChange={onChangeFormField('acceptTerms')}
-            />
+          <div className={classNames.formFooter} onClick={onChangeFormField('acceptTerms')}>
+            <Checkbox className={classNames.checkbox} color="primary" checked={formFields.acceptTerms} />
+
             <Typography className={classNames.label}>
               {t(TranslationKey['Agree with']) + ' '}
               <Link href="#" to="/terms" target="_blank" rel="noopener">

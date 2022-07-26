@@ -45,7 +45,8 @@ export const SelectFields = ({
   const [usePriceInDollars, setUsePriceInDollars] = useState(true)
 
   const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(
-    orderFields.totalPriceChanged === orderFields.totalPrice,
+    true,
+    // orderFields?.totalPriceChanged === orderFields?.totalPrice,
   )
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -67,7 +68,7 @@ export const SelectFields = ({
               disabled
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
               label={t(TranslationKey.Warehouse)}
-              value={order.destination?.name}
+              value={order.destination?.name ? order.destination.name : t(TranslationKey['Not available'])}
               inputClasses={classNames.nativeSelect}
               labelClasses={classNames.label}
             />

@@ -120,4 +120,18 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '140%',
     color: '#001029',
   },
+
+  descriptionFieldWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'end',
+    marginBottom: '20px',
+    '& > span': {
+      marginTop: '-20px',
+    },
+  },
+
+  error: {
+    color: 'red',
+  },
 }))

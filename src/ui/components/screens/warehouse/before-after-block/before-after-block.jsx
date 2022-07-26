@@ -86,7 +86,7 @@ const Box = observer(
             disabled
             tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
             label={t(TranslationKey.Warehouse)}
-            value={box.destination?.name}
+            value={box.destination?.name ? box.destination?.name : t(TranslationKey['Not available'])}
           />
 
           <Field

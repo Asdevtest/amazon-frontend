@@ -1,6 +1,17 @@
 import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
+  // '@global': {
+  //   '@keyframes pulse': {
+  //     '0%': {
+  //       boxShadow: '0 0 #006CFF',
+  //     },
+  //     '100%': {
+  //       boxShadow: '0 0 0 5px #006aff91',
+  //     },
+  //   },
+  // },
+
   balanceButtonsWrapper: {
     display: 'flex',
     '& > button': {
@@ -174,7 +185,7 @@ export const useClassNames = makeStyles(() => ({
     width: '139px',
   },
 
-  actionButton: {
+  actionDelButton: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -184,6 +195,16 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: '#006CFF',
     borderRadius: '4px',
     color: '#fff',
+    cursor: 'pointer',
+  },
+
+  actionButton: {
+    width: '22px',
+    height: '22px',
+    fontSize: '18px',
+    // backgroundColor: '#006CFF',
+    // borderRadius: '4px',
+    color: '#00B746',
     cursor: 'pointer',
   },
 
@@ -227,4 +248,12 @@ export const useClassNames = makeStyles(() => ({
   securityButton: {
     width: '100%',
   },
+
+  roleSelect: {
+    width: '139px',
+  },
+
+  // actionPulseButton: {
+  //   animation: 'pulse .8s infinite ease-in-out',
+  // },
 }))

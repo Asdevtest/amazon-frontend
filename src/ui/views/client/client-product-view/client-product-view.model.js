@@ -411,7 +411,7 @@ export class ClientProductViewModel {
           ['suppliers'],
         ),
       )
-      this.setActionStatus(loadingStatuses.success)
+      // this.setActionStatus(loadingStatuses.success)
 
       this.warningModalTitle = t(TranslationKey['Data saved'])
       this.onTriggerOpenModal('showWarningModal')

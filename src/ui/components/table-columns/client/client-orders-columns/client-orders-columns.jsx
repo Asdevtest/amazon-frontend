@@ -12,6 +12,8 @@ import {
   MultilineTextCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
+  OrderStatusCell,
+  MultilineTextAlignLeftHeaderCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
@@ -37,10 +39,10 @@ export const clientOrdersViewColumns = () => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 230,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <OrderStatusCell status={params.value} />,
   },
 
   {

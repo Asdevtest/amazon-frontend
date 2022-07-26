@@ -1,3 +1,4 @@
+import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import {Rating} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
@@ -63,8 +64,9 @@ export const AdminUserEditContent = observer(
 
     const [formFields, setFormFields] = useState(sourceFormFields)
     const [selectedAllowedRoles, setSelectedAllowedRoles] = useState(formFields.allowedRoles)
+    const [selectedRole, setSelectedRole] = useState('')
     const [changedAllowedRoles, setChangedAllowedRoles] = useState([])
-    const [clearSelect, setClearSelect] = useState(true)
+    const [clearSelect, setClearSelect] = useState(false)
 
     const [accessTags, setAccessTags] = useState([])
     const [accessTag, setAccessTag] = useState('')
@@ -76,13 +78,14 @@ export const AdminUserEditContent = observer(
       ...groupPermissions.filter(item => item.role === formFields.role),
     ])
 
-    const addAllowedRole = () => {
-      JSON.stringify(formFields.allowedRoles) !== JSON.stringify(selectedAllowedRoles) &&
-        setSelectedAllowedRoles(prev => [...new Set([...prev, formFields.allowedRoles])])
-      setClearSelect(true)
-    }
+    useEffect(() => {
+      !selectedRole ? setClearSelect(true) : setClearSelect(false)
+    }, [selectedRole])
 
-    console.log(selectedAllowedRoles)
+    const addAllowedRole = () => {
+      setSelectedAllowedRoles(prev => [...new Set([...prev, selectedRole])])
+      setSelectedRole('')
+    }
 
     const removeAllowedRole = value => {
       const removeRole = selectedAllowedRoles.filter(role => role !== value)
@@ -315,7 +318,7 @@ export const AdminUserEditContent = observer(
                   </div>
                 </div>
 
-                <div className={classNames.actionButton} onClick={() => removeAllowedRole(role)}>
+                <div className={classNames.actionDelButton} onClick={() => removeAllowedRole(role)}>
                   {'-'}
                 </div>
               </div>
@@ -327,12 +330,13 @@ export const AdminUserEditContent = observer(
                     containerClasses={classNames.allowedRoleContainer}
                     inputComponent={
                       <Select
-                        // multiple
                         style={{height: '19px'}}
-                        value={formFields.allowedRoles}
-                        renderValue={selected => (clearSelect ? 'Выберите роль' : UserRoleCodeMap[selected])}
-                        onChange={onChangeFormField('allowedRoles')}
-                        onClick={() => setClearSelect(false)}
+                        value={selectedRole ? selectedRole : 'Роль'}
+                        renderValue={selected =>
+                          clearSelect ? t(TranslationKey['Choose a role']) : UserRoleCodeMap[selected]
+                        }
+                        className={classNames.roleSelect}
+                        onChange={e => setSelectedRole(e.target.value)}
                       >
                         {Object.keys(UserRoleCodeMap).map((role, index) => (
                           <MenuItem
@@ -369,10 +373,13 @@ export const AdminUserEditContent = observer(
                   />
                 </div>
               </div>
-
-              <Typography className={classNames.actionButton} onClick={() => addAllowedRole()}>
-                {'+'}
-              </Typography>
+              {selectedRole ? (
+                <CheckBoxIcon
+                  fontSize="medium"
+                  classes={{root: classNames.actionButton}}
+                  onClick={() => addAllowedRole()}
+                />
+              ) : null}
             </div>
 
             <Field
