@@ -27,7 +27,7 @@ export const styles = createStyles(theme => ({
     },
   },
   row: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/Cursor.svg), auto',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.01)',

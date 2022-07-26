@@ -38,8 +38,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   logo: {
-    width: '350px',
+    width: '283px',
     height: '150px',
-    objectFit: 'cover',
+    objectFit: 'contain',
   },
 }))

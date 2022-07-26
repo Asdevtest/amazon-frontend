@@ -47,6 +47,7 @@ export const styles = createStyles({
     },
   },
   button: {
+    width: '100%',
     display: 'flex',
   },
 })

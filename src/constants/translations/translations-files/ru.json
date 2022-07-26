@@ -1336,5 +1336,8 @@
   "Reason for rework": "Причина доработки",
   "Time for rework": "Время на доработку",
   "Production time, days": "Срок изготовления,дн",
-  "Price with delivery": "Цена с доставкой"
+  "Price with delivery": "Цена с доставкой",
+  "Select a store": "Выберите магазин",
+  "No stores": "Магазинов нет",
+  "Choose a role": "Выберите роль"
 }

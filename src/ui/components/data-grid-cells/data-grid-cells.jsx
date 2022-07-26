@@ -12,6 +12,7 @@ import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
 
 import {BoxStatus} from '@constants/box-status'
+import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
 import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
@@ -357,6 +358,30 @@ export const MultilineStatusCell = withStyles(styles)(({classes: classNames, sta
     <Typography className={classNames.statusMultilineText}>{status?.replace(/_/g, ' ')}</Typography>
   </div>
 ))
+
+export const OrderStatusCell = withStyles(styles)(({classes: classNames, status}) => {
+  const colorByStatus = () => {
+    if ([OrderStatus.AT_PROCESS, OrderStatus.PAID_TO_SUPPLIER].includes(status)) {
+      return '#F3AF00'
+    } else if ([OrderStatus.IN_STOCK, OrderStatus.TRACK_NUMBER_ISSUED].includes(status)) {
+      return '#00B746'
+    } else if ([OrderStatus.CANCELED_BY_BUYER, OrderStatus.CANCELED_BY_CLIENT].includes(status)) {
+      return '#FF1616'
+    } else {
+      return '#black'
+    }
+  }
+
+  const colorStatus = colorByStatus()
+
+  return (
+    <div className={classNames.statusWrapper}>
+      <Typography className={classNames.orderStatusText} style={{color: colorStatus}}>
+        {OrderStatusTranslate(status)}
+      </Typography>
+    </div>
+  )
+})
 
 export const RequestStatusCell = withStyles(styles)(({classes: classNames, status}) => {
   const colorByStatus = () => {

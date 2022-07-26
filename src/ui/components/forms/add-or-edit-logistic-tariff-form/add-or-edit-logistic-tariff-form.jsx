@@ -167,6 +167,7 @@ export const AddOrEditLogisticTariffForm = observer(
       formFields.conditionsByRegion.west.rate === '' ||
       formFields.conditionsByRegion.central.rate === '' ||
       formFields.conditionsByRegion.east.rate === '' ||
+      formFields.description.length > 255 ||
       checkDateByDeadline(formFields.cls) ||
       checkDateByDeadline(formFields.etd) ||
       checkDateByDeadline(formFields.eta)
@@ -346,18 +347,23 @@ export const AddOrEditLogisticTariffForm = observer(
               />
             </div>
           </div>
-
-          <Field
-            multiline
-            minRows={4}
-            rowsMax={4}
-            className={classNames.descriptionField}
-            tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
-            placeholder={t(TranslationKey.Description)}
-            label={t(TranslationKey.Description)}
-            value={formFields.description}
-            onChange={onChangeField('description')}
-          />
+          <div className={classNames.descriptionFieldWrapper}>
+            <Field
+              multiline
+              minRows={4}
+              rowsMax={4}
+              inputProps={{maxLength: 320}}
+              className={classNames.descriptionField}
+              tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
+              placeholder={t(TranslationKey.Description)}
+              label={t(TranslationKey.Description)}
+              value={formFields.description}
+              onChange={onChangeField('description')}
+            />
+            <span className={clsx(formFields.description.length > 255 && classNames.error)}>{`${
+              formFields.description.length
+            } ${t(TranslationKey.of)} 255 ${t(TranslationKey.characters)}`}</span>
+          </div>
         </div>
 
         <div className={classNames.btnsWrapper}>

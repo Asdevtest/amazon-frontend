@@ -1335,6 +1335,12 @@ export enum TranslationKey {
   'Time for rework' = 'Time for rework',
   'Production time, days' = 'Production time, days',
   'Price with delivery' = 'Price with delivery',
+  'Select a store' = 'Select a store',
+  'No stores' = 'No stores',
+  'Choose a role' = 'Choose a role',
+
+  // '' = '',
+  // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',
