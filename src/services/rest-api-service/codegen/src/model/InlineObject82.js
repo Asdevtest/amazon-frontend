@@ -107,6 +107,9 @@ class InlineObject82 {
             if (data.hasOwnProperty('batchTotalCostInYuan')) {
                 obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
             }
+            if (data.hasOwnProperty('productionTerm')) {
+                obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Date');
+            }
             if (data.hasOwnProperty('boxProperties')) {
                 obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
             }
@@ -200,6 +203,11 @@ InlineObject82.prototype['batchTotalCostInDollar'] = undefined;
  * @member {Number} batchTotalCostInYuan
  */
 InlineObject82.prototype['batchTotalCostInYuan'] = undefined;
+
+/**
+ * @member {Date} productionTerm
+ */
+InlineObject82.prototype['productionTerm'] = undefined;
 
 /**
  * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties

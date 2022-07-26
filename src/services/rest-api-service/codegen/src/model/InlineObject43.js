@@ -77,6 +77,9 @@ class InlineObject43 {
             if (data.hasOwnProperty('length')) {
                 obj['length'] = ApiClient.convertToType(data['length'], 'Number');
             }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
         }
         return obj;
     }
@@ -143,6 +146,12 @@ InlineObject43.prototype['height'] = undefined;
  * @member {Number} length
  */
 InlineObject43.prototype['length'] = undefined;
+
+/**
+ * Product ID
+ * @member {String} productId
+ */
+InlineObject43.prototype['productId'] = undefined;
 
 
 

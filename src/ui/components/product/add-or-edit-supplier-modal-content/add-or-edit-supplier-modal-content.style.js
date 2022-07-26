@@ -119,6 +119,10 @@ export const useClassNames = makeStyles(() => ({
     width: '340px',
   },
 
+  linkContainer: {
+    width: '545px',
+  },
+
   middleContainer: {
     width: '170px',
   },

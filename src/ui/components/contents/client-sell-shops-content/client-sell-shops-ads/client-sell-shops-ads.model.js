@@ -1,11 +1,9 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
-import {RequestSubType, RequestType} from '@constants/request-type'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
-import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
@@ -77,10 +75,29 @@ export class ClientSellShopsAdsModel {
 
   async getRequestsVacant() {
     try {
-      const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT)
-
+      // const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT)
       runInAction(() => {
-        this.requests = result
+        this.requests = [
+          {
+            images: [
+              'https://amazonapi.fvds.ru/uploads/0b00679a-f734-4b3a-ae5c-e1f7193aaa0f.102510_O.gif',
+              'https://amazonapi.fvds.ru/uploads/21dad3dc-4d37-4a75-a69e-9e8f5a0a9f37.____-___4x.webp',
+              'https://amazonapi.fvds.ru/uploads/75656336-406a-4bc3-9cc2-67b49b130936.102510_O.gif',
+            ],
+            title: 'Магазин столовых принадлежностей',
+            cost: 5000,
+            monthClearProfit: 1200.23,
+            monthProfit: 2002.23,
+            monetization: 'Заявления',
+            multiplier: 47,
+            createBusinesData: 2010,
+            description:
+              'Этот список предназначен для медийной рекламы и партнерского бизнеса, созданного в июле 2010 года в нише продуктов питания и напитков. Бизнес состоит из двух сайтов WordPress, на которых размещен информационный контент, рецепты и руководства по покупке, связанные с темами кулинарии и образа жизни. Один из сайтов устарел и рано вошел в популярную нишу, а у брендов более 3,7 млн ​​подписчиков в социальных сетях. Сайты привлекают значительный трафик из нескольких источников и росли из года в год за последние 6 месяцев.',
+            profit12Monthes: '10%',
+            income12Monthes: '10%',
+            traffic: '25%',
+          },
+        ]
       })
     } catch (error) {
       console.log(error)

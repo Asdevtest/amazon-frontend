@@ -68,6 +68,9 @@ class InlineObject47 {
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
         }
         return obj;
     }
@@ -116,6 +119,12 @@ InlineObject47.prototype['quantity'] = undefined;
  * @member {Number} price
  */
 InlineObject47.prototype['price'] = undefined;
+
+/**
+ * Product ID
+ * @member {String} productId
+ */
+InlineObject47.prototype['productId'] = undefined;
 
 
 

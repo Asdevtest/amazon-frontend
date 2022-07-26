@@ -108,6 +108,7 @@ export class ClientInventoryViewModel {
   showSetChipValueModal = false
   showBarcodeOrHscodeModal = false
   showSetFourMonthsStockValueModal = false
+  showCircularProgressModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -708,6 +709,10 @@ export class ClientInventoryViewModel {
 
   async onSubmitCreateProduct(data, photosOfNewProduct, isNoAsin) {
     try {
+      this.onTriggerOpenModal('showSendOwnProductModal')
+
+      this.showCircularProgressModal = true
+
       if (!isNoAsin) {
         this.product = {asin: data.asin, lamazon: data.lamazon, fba: true, images: []}
 
@@ -767,13 +772,16 @@ export class ClientInventoryViewModel {
         }
       }
 
+      this.showCircularProgressModal = false
+
       this.successModalText = t(TranslationKey['Product added'])
       this.onTriggerOpenModal('showSuccessModal')
       const noProductBaseUpdate = true
       await this.getProductsMy(noProductBaseUpdate)
 
-      this.onTriggerOpenModal('showSendOwnProductModal')
+      // this.onTriggerOpenModal('showSendOwnProductModal')
     } catch (error) {
+      this.showCircularProgressModal = false
       console.log(error)
       this.error = error
     }

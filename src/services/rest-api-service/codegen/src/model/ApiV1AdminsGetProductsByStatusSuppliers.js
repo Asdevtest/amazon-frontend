@@ -98,6 +98,9 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
             if (data.hasOwnProperty('boxProperties')) {
                 obj['boxProperties'] = ApiV1AdminsGetProductsByStatusBoxProperties.constructFromObject(data['boxProperties']);
             }
+            if (data.hasOwnProperty('productionTerm')) {
+                obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Date');
+            }
             if (data.hasOwnProperty('createdBy')) {
                 obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
             }
@@ -202,6 +205,11 @@ ApiV1AdminsGetProductsByStatusSuppliers.prototype['batchTotalCostInYuan'] = unde
  * @member {module:model/ApiV1AdminsGetProductsByStatusBoxProperties} boxProperties
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['boxProperties'] = undefined;
+
+/**
+ * @member {Date} productionTerm
+ */
+ApiV1AdminsGetProductsByStatusSuppliers.prototype['productionTerm'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy

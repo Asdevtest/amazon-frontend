@@ -87,4 +87,15 @@ export const useClassNames = makeStyles(() => ({
   searchContainer: {
     width: 'auto',
   },
+
+  btnsWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginBottom: 20,
+  },
+
+  addBtn: {
+    padding: '8px 55px',
+  },
 }))

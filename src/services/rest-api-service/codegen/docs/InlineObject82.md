@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **batchDeliveryCostInYuan** | **Number** | Доставка партии, yuan | [optional] 
 **batchTotalCostInDollar** | **Number** | Цена партии, dollar | [optional] 
 **batchTotalCostInYuan** | **Number** | Цена партии, yuan | [optional] 
+**productionTerm** | **Date** |  | [optional] 
 **boxProperties** | [**ApiV1SuppliersBoxProperties**](ApiV1SuppliersBoxProperties.md) |  | [optional] 
 
 

@@ -89,6 +89,9 @@ class InlineResponse20013 {
             if (data.hasOwnProperty('supplier')) {
                 obj['supplier'] = ApiClient.convertToType(data['supplier'], ['String']);
             }
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
         }
         return obj;
     }
@@ -179,6 +182,12 @@ InlineResponse20013.prototype['updatedAt'] = undefined;
  * @member {Array.<String>} supplier
  */
 InlineResponse20013.prototype['supplier'] = undefined;
+
+/**
+ * Product ID
+ * @member {String} productId
+ */
+InlineResponse20013.prototype['productId'] = undefined;
 
 
 

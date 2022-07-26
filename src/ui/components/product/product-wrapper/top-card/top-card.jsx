@@ -307,7 +307,10 @@ export const TopCard = observer(
                 <div disableGutters className={classNames.supplierContainer}>
                   {selectedSupplier ? (
                     <>
-                      {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) ? (
+                      {checkIsAdmin(curUserRole) ||
+                      checkIsSupervisor(curUserRole) ||
+                      checkIsClient(curUserRole) ||
+                      checkIsBuyer(curUserRole) ? (
                         <div className={classNames.supplierButtonWrapper}>
                           <Button
                             tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}

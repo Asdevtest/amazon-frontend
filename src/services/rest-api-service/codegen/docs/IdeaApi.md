@@ -264,6 +264,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.IdeaApi();
 let opts = {
+  'productId': "productId_example", // String | ID продукта, который должен быть в идее
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
 apiInstance.apiV1IdeasGet(opts).then((data) => {
@@ -279,6 +280,7 @@ apiInstance.apiV1IdeasGet(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **productId** | **String**| ID продукта, который должен быть в идее | [optional] 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type

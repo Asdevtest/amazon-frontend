@@ -86,6 +86,8 @@ export const AddOrEditSupplierModalContent = observer(
       price: supplier?.price || '',
       images: supplier?.images || [],
 
+      productionTerm: supplier?.productionTerm || '',
+
       priceInYuan: supplier?.priceInYuan || '',
       batchDeliveryCostInDollar: supplier?.batchDeliveryCostInDollar || 0,
       batchDeliveryCostInYuan: supplier?.batchDeliveryCostInYuan || 0,
@@ -426,30 +428,44 @@ export const AddOrEditSupplierModalContent = observer(
             />
           </div>
 
-          {onlyRead ? (
+          <div className={classNames.nameBlock}>
+            {onlyRead ? (
+              <Field
+                tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
+                label={t(TranslationKey.Link) + '*'}
+                inputProps={{maxLength: 2000}}
+                containerClasses={classNames.linkContainer}
+                labelClasses={classNames.normalLabel}
+                inputComponent={
+                  <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}>
+                    <Typography disabled className={classNames.link}>
+                      {tmpSupplier.link}
+                    </Typography>
+                  </Link>
+                }
+              />
+            ) : (
+              <Field
+                tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
+                label={t(TranslationKey.Link) + '*'}
+                inputProps={{maxLength: 2000}}
+                containerClasses={classNames.linkContainer}
+                labelClasses={classNames.normalLabel}
+                value={tmpSupplier.link}
+                onChange={onChangeField('link')}
+              />
+            )}
+
             <Field
-              tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
-              label={t(TranslationKey.Link) + '*'}
-              inputProps={{maxLength: 2000}}
+              disabled={onlyRead}
+              inputProps={{maxLength: 100}}
+              label={t(TranslationKey['Production time, days'])}
+              containerClasses={classNames.middleContainer}
               labelClasses={classNames.normalLabel}
-              inputComponent={
-                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(tmpSupplier.link)}>
-                  <Typography disabled className={classNames.link}>
-                    {tmpSupplier.link}
-                  </Typography>
-                </Link>
-              }
+              value={tmpSupplier.productionTerm}
+              onChange={onChangeField('productionTerm')}
             />
-          ) : (
-            <Field
-              tooltipInfoContent={t(TranslationKey['Link to supplier site'])}
-              label={t(TranslationKey.Link) + '*'}
-              inputProps={{maxLength: 2000}}
-              labelClasses={classNames.normalLabel}
-              value={tmpSupplier.link}
-              onChange={onChangeField('link')}
-            />
-          )}
+          </div>
         </div>
 
         <div>

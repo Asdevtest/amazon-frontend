@@ -273,7 +273,7 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
   )
 }
 
-export const PhotoCarousel = observer(({files, isAmazonPhoto}) => {
+export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons}) => {
   const classNames = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -286,7 +286,7 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto}) => {
     <div className={classNames.imagesCarouselWrapper}>
       <div className={classNames.imageWrapper}>
         {notEmptyPhotos?.length ? (
-          <CustomCarousel>
+          <CustomCarousel view={view || 'simple'} alignButtons={alignButtons || 'end'}>
             {notEmptyPhotos.map((photo, index) => (
               <Avatar
                 key={index}

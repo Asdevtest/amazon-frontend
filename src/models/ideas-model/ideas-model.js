@@ -1,8 +1,8 @@
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
 class IdeaModelStatic {
-  getIdeas = async () => {
-    const response = await restApiService.ideaApi.apiV1IdeasGet()
+  getIdeas = async productId => {
+    const response = await restApiService.ideaApi.apiV1IdeasGet(productId && {productId})
     return response
   }
 

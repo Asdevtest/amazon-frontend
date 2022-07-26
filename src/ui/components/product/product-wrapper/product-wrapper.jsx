@@ -175,7 +175,7 @@ export const ProductWrapper = observer(
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
-          <SuppliersAndIdeas />
+          <SuppliersAndIdeas productId={product._id} />
         </TabPanel>
       </React.Fragment>
     )

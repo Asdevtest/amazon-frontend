@@ -178,10 +178,10 @@ export const useClassNames = makeStyles(() => ({
   },
 
   emptyIconWrapper: {
-    width: '100px',
+    width: '100%',
     height: '100px',
     display: 'flex',
-    // justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
     marginBottom: '25px',
     marginLeft: '20px',

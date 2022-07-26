@@ -18,5 +18,6 @@ Name | Type | Description | Notes
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата последнего обновления | [optional] 
 **supplier** | **[String]** | Массив поставщиков. | [optional] 
+**productId** | **String** | Product ID | [optional] 
 
 

@@ -14,5 +14,6 @@ Name | Type | Description | Notes
 **width** | **Number** | Ширина, см | [optional] 
 **height** | **Number** | Высота, см | [optional] 
 **length** | **Number** | Длина, см | [optional] 
+**productId** | **String** | Product ID | [optional] 
 
 
