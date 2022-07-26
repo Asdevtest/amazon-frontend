@@ -30,8 +30,9 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
               {t(TranslationKey.Name)}
             </TableCell>
             <TableCell className={classNames.alignCenter}>{t(TranslationKey.Link)}</TableCell>
-            <TableCell className={classNames.alignCenter}>{t(TranslationKey.Price)}</TableCell>
-            <TableCell className={classNames.alignRight}>{t(TranslationKey.Delivery)}</TableCell>
+
+            <TableCell className={classNames.alignCenter}>{t(TranslationKey['Price with delivery'])}</TableCell>
+
             <TableCell className={classNames.alignCenter}>{t(TranslationKey['Minimum batch'])}</TableCell>
             <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
 
@@ -76,13 +77,12 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                   )}
                 </TableCell>
 
-                <TableCell className={classNames.alignRight}>{toFixedWithDollarSign(supplier.price, 2)}</TableCell>
-
-                <TableCell className={classNames.alignRight}>
-                  {toFixedWithDollarSign(supplier.batchDeliveryCostInDollar / supplier.amount, 2)}
+                <TableCell className={classNames.alignCenter}>
+                  {toFixedWithDollarSign(supplier.price + supplier.batchDeliveryCostInDollar / supplier.amount, 2)}
                 </TableCell>
 
                 <TableCell className={classNames.alignCenter}>{supplier.minlot}</TableCell>
+
                 <TableCell className={classNames.alignCenter}>{toFixedWithDollarSign(supplier.lotcost, 2)}</TableCell>
 
                 <TableCell className={[classNames.alignCenter, classNames.commentCell]}>{supplier.comment}</TableCell>

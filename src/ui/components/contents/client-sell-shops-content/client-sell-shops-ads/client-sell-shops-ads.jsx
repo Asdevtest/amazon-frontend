@@ -2,7 +2,6 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import SearchIcon from '@mui/icons-material/Search'
 import TableRowsIcon from '@mui/icons-material/TableRows'
-import ViewModuleIcon from '@mui/icons-material/ViewModule'
 
 import React, {useEffect, useRef} from 'react'
 
@@ -13,10 +12,9 @@ import {useHistory} from 'react-router-dom'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
-import {VacantRequestShortCard} from '@components/cards/vacant-request-short-card'
+import {Button} from '@components/buttons/button'
+import {TradingShopCard} from '@components/cards/trading-shop-card'
 import {Field} from '@components/field'
-import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
@@ -41,7 +39,6 @@ export const ClientSellShopsAds = observer(() => {
     sortMode,
     onTriggerSortMode,
     onClickViewMore,
-    onChangeViewMode,
     onChangeNameSearchValue,
   } = model.current
 
@@ -57,16 +54,17 @@ export const ClientSellShopsAds = observer(() => {
 
   return (
     <>
+      <div className={classNames.btnsWrapper}>
+        <Button success className={classNames.addBtn} /* onClick={() => onClickAddBtn()}*/>
+          {t(TranslationKey['Add shop'])}
+        </Button>
+      </div>
+
       <div className={classNames.tablePanelWrapper}>
         <div className={classNames.tablePanelViewWrapper}>
-          <ToggleBtnGroup disabled exclusive value={viewMode} onChange={onChangeViewMode}>
-            <ToggleBtn value={tableViewMode.LIST}>
-              <TableRowsIcon color="#fff" />
-            </ToggleBtn>
-            <ToggleBtn value={tableViewMode.BLOCKS}>
-              <ViewModuleIcon color="#fff" />
-            </ToggleBtn>
-          </ToggleBtnGroup>
+          <ToggleBtn disabled value={tableViewMode.LIST}>
+            <TableRowsIcon color="#fff" />
+          </ToggleBtn>
         </div>
 
         <div>
@@ -106,13 +104,9 @@ export const ClientSellShopsAds = observer(() => {
           }
           gridGap="20px"
         >
-          {getSortedData(sortMode)?.map(item =>
-            viewMode === tableViewMode.LIST ? (
-              <VacantRequestListCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
-            ) : (
-              <VacantRequestShortCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
-            ),
-          )}
+          {getSortedData(sortMode)?.map(item => (
+            <TradingShopCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
+          ))}
         </Box>
       ) : (
         <div className={classNames.emptyTableWrapper}>

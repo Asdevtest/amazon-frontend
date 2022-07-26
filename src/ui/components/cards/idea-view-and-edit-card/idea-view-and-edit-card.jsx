@@ -74,7 +74,7 @@ export const IdeaViewAndEditCard = observer(
     }
 
     const sourceFormFields = {
-      media: idea?.media.length ? [...idea.media] : [],
+      media: idea?.media?.length ? [...idea.media] : [],
       comments: idea?.comments || '',
       productName: idea?.productName || '',
       productLinks: idea?.productLinks || [],

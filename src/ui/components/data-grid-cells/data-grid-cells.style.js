@@ -748,6 +748,7 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
+    padding: '15px 0',
   },
 
   actionBtn: {

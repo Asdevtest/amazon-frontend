@@ -1333,9 +1333,8 @@ export enum TranslationKey {
   'Cover letter' = 'Cover letter',
   'Reason for rework' = 'Reason for rework',
   'Time for rework' = 'Time for rework',
-
-  // '' = '',
-  // '' = '',
+  'Production time, days' = 'Production time, days',
+  'Price with delivery' = 'Price with delivery',
   // '' = '',
   // '' = '',
   // '' = '',

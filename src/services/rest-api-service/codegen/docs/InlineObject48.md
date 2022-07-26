@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **dimensions** | **String** | Размеры | [optional] 
 **quantity** | **Number** | Количество товаров | [optional] 
 **price** | **Number** | Желаемая цена | [optional] 
+**productId** | **String** | Product ID | [optional] 
 
 

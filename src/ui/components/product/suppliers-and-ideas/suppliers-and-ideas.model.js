@@ -67,7 +67,7 @@ export class SuppliersAndIdeasModel {
 
   async getIdeas() {
     try {
-      const result = await IdeaModel.getIdeas()
+      const result = await IdeaModel.getIdeas(this.productId)
 
       runInAction(() => {
         this.ideasData = [...result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))]
@@ -147,7 +147,7 @@ export class SuppliersAndIdeasModel {
       if (this.inEdit) {
         await this.editIdea(formFields._id, submitData)
       } else {
-        await this.createIdea(submitData)
+        await this.createIdea({...submitData, productId: this.productId})
       }
 
       this.inCreate = false
