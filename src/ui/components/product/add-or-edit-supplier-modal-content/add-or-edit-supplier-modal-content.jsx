@@ -459,7 +459,7 @@ export const AddOrEditSupplierModalContent = observer(
             <Field
               disabled={onlyRead}
               inputProps={{maxLength: 10}}
-              label={t(TranslationKey['Production time, days'])}
+              label={t(TranslationKey['Production time'])}
               containerClasses={classNames.middleContainer}
               labelClasses={classNames.normalLabel}
               value={tmpSupplier.productionTerm}
@@ -480,7 +480,7 @@ export const AddOrEditSupplierModalContent = observer(
               inputProps={{maxLength: 8}}
               containerClasses={classNames.rateContainer}
               labelClasses={clsx(classNames.rateLabel)}
-              inputClasses={classNames.middleInput}
+              inputClasses={classNames.rateInput}
               value={yuanToDollarRate}
               onChange={onChangeYuanToDollarRate}
             />

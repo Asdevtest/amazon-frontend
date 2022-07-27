@@ -135,6 +135,11 @@ export const useClassNames = makeStyles(() => ({
     width: '160px',
   },
 
+  rateInput: {
+    width: '170px',
+    marginLeft: 10,
+  },
+
   normalLabel: {
     fontWeight: '400',
     fontSize: '14px',

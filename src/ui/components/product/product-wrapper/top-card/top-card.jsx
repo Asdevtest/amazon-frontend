@@ -156,7 +156,7 @@ export const TopCard = observer(
                           images={imagesForLoad}
                           setImages={onChangeImagesForLoad}
                           maxNumber={50}
-                          acceptType={['jpg', 'gif', 'png', 'jpeg']}
+                          // acceptType={['jpg', 'gif', 'png', 'jpeg', 'pdf']}
                         />
                       </div>
                     )}
@@ -232,7 +232,8 @@ export const TopCard = observer(
 
                   {selectedSupplier ? (
                     <>
-                      {selectedSupplier.name !== 'access denied' ? (
+                      {selectedSupplier.name !== 'access denied' ||
+                      (checkIsBuyer(curUserRole) && user._id === selectedSupplier?.createdBy._id) ? (
                         <>
                           {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) ? (
                             <div className={classNames.supplierButtonWrapper}>
@@ -314,7 +315,7 @@ export const TopCard = observer(
                       {checkIsAdmin(curUserRole) ||
                       checkIsSupervisor(curUserRole) ||
                       checkIsClient(curUserRole) ||
-                      checkIsBuyer(curUserRole) ? (
+                      (checkIsBuyer(curUserRole) && user._id === selectedSupplier?.createdBy._id) ? (
                         <div className={classNames.supplierButtonWrapper}>
                           <Button
                             tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}

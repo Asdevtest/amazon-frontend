@@ -68,6 +68,7 @@ export class BuyerProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  user={userInfo}
                   userRole={userInfo.role}
                   product={product}
                   productBase={productBase}
