@@ -17,6 +17,8 @@ export const styles = theme =>
       marginLeft: '-12px',
     },
     formFooter: {
+      width: '290px',
+      cursor: 'pointer',
       alignItems: 'center',
       display: 'flex',
       marginBottom: theme.spacing(2.5),

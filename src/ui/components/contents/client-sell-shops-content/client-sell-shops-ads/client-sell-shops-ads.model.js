@@ -108,10 +108,8 @@ export class ClientSellShopsAdsModel {
     this.history.push('/client/trading-shops/sell-shops/create-trading-shop')
   }
 
-  onClickViewMore(id) {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request`, {
-      requestId: id,
-    })
+  onClickViewMore() {
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/trading-shops/sell-shops/shop`)
   }
 
   onTriggerDrawerOpen() {

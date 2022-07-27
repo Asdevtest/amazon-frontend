@@ -1,0 +1,478 @@
+// import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
+// import {loadingStatuses} from '@constants/loading-statuses'
+// import {ProductDataParser} from '@constants/product-data-parser'
+// import {TranslationKey} from '@constants/translations/translation-key'
+// import {ClientModel} from '@models/client-model'
+// import {ProductModel} from '@models/product-model'
+// import {ShopModel} from '@models/shop-model'
+// import {StorekeeperModel} from '@models/storekeeper-model'
+// import {SupplierModel} from '@models/supplier-model'
+// import {UserModel} from '@models/user-model'
+// import {updateProductAutoCalculatedFields} from '@utils/calculation'
+// import {
+//   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
+//   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
+// } from '@utils/checks'
+// import {addIdDataConverter} from '@utils/data-grid-data-converters'
+// import {t} from '@utils/translations'
+
+export class ClientShopViewModel {
+  history = undefined
+  // requestStatus = undefined
+  // actionStatus = undefined
+  // product = undefined
+  // productBase = undefined
+  // productId = undefined
+  // storekeepersData = []
+  // shopsData = []
+  // curUpdateProductData = {}
+  // warningModalTitle = ''
+  // yuanToDollarRate = undefined
+  // volumeWeightCoefficient = undefined
+  drawerOpen = false
+  // selectedSupplier = undefined
+  // showWarningModal = false
+  // showConfirmModal = false
+  // showAddOrEditSupplierModal = false
+  // supplierModalReadOnly = false
+  // confirmModalSettings = {
+  //   isWarning: false,
+  //   title: '',
+  //   message: '',
+  //   successBtnText: '',
+  //   cancelBtnText: '',
+  //   onClickOkBtn: () => this.onSaveProductData(),
+  // }
+  // imagesForLoad = []
+  // uploadedImages = []
+  // readyImages = []
+  // progressValue = 0
+  // showProgress = false
+  // formFields = {...formFieldsDefault}
+  // formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+  // get userInfo() {
+  //   return UserModel.userInfo
+  // }
+  // constructor({history}) {
+  //   this.history = history
+  //   this.productId = history.location.search.slice(1)
+  //   makeAutoObservable(this, undefined, {autoBind: true})
+  // }
+  // async loadData() {
+  //   try {
+  //     await this.getProductById()
+  //     await this.getShops()
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+  // async getProductById() {
+  //   try {
+  //     const result = await ProductModel.getProductById(this.productId)
+  //     runInAction(() => {
+  //       this.product = result
+  //       this.productBase = result
+  //       updateProductAutoCalculatedFields.call(this)
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+  // onChangeProductFields = fieldName =>
+  //   action(e => {
+  //     this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
+  //     if (
+  //       [
+  //         'icomment',
+  //         'category',
+  //         'lamazon',
+  //         'clientComment',
+  //         'amazonTitle',
+  //         'amazonDescription',
+  //         'amazonDetail',
+  //         'skusByClient',
+  //         'niche',
+  //         'asins',
+  //         'shopIds',
+  //       ].includes(fieldName)
+  //     ) {
+  //       this.product = {...this.product, [fieldName]: e.target.value}
+  //     } else {
+  //       if (['asin'].includes(fieldName)) {
+  //         this.product = {...this.product, [fieldName]: e.target.value.replace(/[^0-9a-zA-Z]/g, '')}
+  //       }
+  //       if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
+  //         return
+  //       }
+  //       if (!['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 5)) {
+  //         return
+  //       }
+  //       if (
+  //         ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice', 'reffee', 'totalFba'].includes(fieldName) &&
+  //         !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
+  //       ) {
+  //         return
+  //       }
+  //       if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
+  //         this.product[fieldName] = parseInt(e.target.value)
+  //       }
+  //       this.product = {...this.product, [fieldName]: e.target.value}
+  //     }
+  //     if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {
+  //       updateProductAutoCalculatedFields.call(this)
+  //     }
+  //     console.log('this.product', this.product)
+  //   })
+  // onChangeProduct(e, value) {
+  //   this.product = value
+  // }
+  // onChangeImagesForLoad(value) {
+  //   this.imagesForLoad = value
+  // }
+  // onTriggerOpenModal(modal) {
+  //   this[modal] = !this[modal]
+  // }
+  // async getStorekeepers() {
+  //   try {
+  //     const result = await StorekeeperModel.getStorekeepers()
+  //     this.storekeepersData = result
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+  // async getShops() {
+  //   try {
+  //     const result = await ShopModel.getMyShops()
+  //     runInAction(() => {
+  //       this.shopsData = addIdDataConverter(result)
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.error = error
+  //   }
+  // }
+  // async handleProductActionButtons(actionType, withoutStatus) {
+  //   switch (actionType) {
+  //     case 'accept':
+  //       this.openConfirmModalWithTextByStatus(withoutStatus)
+  //       break
+  //     case 'cancel':
+  //       this.product.archive
+  //         ? this.history.push('/client/inventory/archive', {isArchive: this.product.archive})
+  //         : this.history.push('/client/inventory', {isArchive: this.product.archive})
+  //       break
+  //     case 'delete':
+  //       this.confirmModalSettings = {
+  //         isWarning: true,
+  //         title: t(TranslationKey['Delete a card']),
+  //         message: t(TranslationKey['After confirmation, the card will be moved to the archive. Delete?']),
+  //         successBtnText: t(TranslationKey.Delete),
+  //         cancelBtnText: t(TranslationKey.Cancel),
+  //         onClickOkBtn: () => this.onDeleteProduct(),
+  //       }
+  //       this.onTriggerOpenModal('showConfirmModal')
+  //       break
+  //     case 'restore':
+  //       this.confirmModalSettings = {
+  //         isWarning: false,
+  //         title: t(TranslationKey['Return to Inventory']),
+  //         message: t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?']),
+  //         successBtnText: t(TranslationKey.Yes),
+  //         cancelBtnText: t(TranslationKey.Cancel),
+  //         onClickOkBtn: () => this.onRestoreProduct(),
+  //       }
+  //       this.onTriggerOpenModal('showConfirmModal')
+  //       break
+  //   }
+  // }
+  // async onRestoreProduct() {
+  //   try {
+  //     await ClientModel.updateProduct(
+  //       this.product._id,
+  //       getObjectFilteredByKeyArrayWhiteList({...this.product, archive: false}, ['archive']),
+  //     )
+  //     this.history.goBack()
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.error = error
+  //   }
+  // }
+  // async onDeleteProduct() {
+  //   try {
+  //     await ClientModel.updateProduct(
+  //       this.product._id,
+  //       getObjectFilteredByKeyArrayWhiteList({...this.product, archive: true}, ['archive']),
+  //     )
+  //     this.history.goBack()
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.setActionStatus(loadingStatuses.failed)
+  //     this.error = error
+  //   }
+  // }
+  // async openConfirmModalWithTextByStatus(withoutStatus) {
+  //   try {
+  //     this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+  //     const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
+  //       toJS(this.product),
+  //       fieldsOfProductAllowedToUpdate,
+  //       true,
+  //       (key, value) => {
+  //         switch (key) {
+  //           case 'bsr':
+  //             return (value && parseInt(value)) || 0
+  //           case 'amazon':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'weight':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'length':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'width':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'height':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'fbaamount':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'fbafee':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'totalFba':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'profit':
+  //             return value && parseFloat(value)
+  //           case 'currentSupplier':
+  //             return this.product.currentSupplier._id
+  //           default:
+  //             return value
+  //         }
+  //       },
+  //     )
+  //     if (withoutStatus) {
+  //       this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(curUpdateProductData, ['status'])
+  //     } else {
+  //       this.curUpdateProductData = curUpdateProductData
+  //     }
+  //     await this.onSaveProductData()
+  //     await this.loadData()
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.setActionStatus(loadingStatuses.failed)
+  //     this.error = error
+  //   }
+  // }
+  // async onSaveProductData() {
+  //   try {
+  //     this.setActionStatus(loadingStatuses.isLoading)
+  //     this.uploadedImages = []
+  //     if (this.imagesForLoad.length) {
+  //       await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'uploadedImages'})
+  //       this.imagesForLoad = []
+  //     }
+  //     await ClientModel.updateProduct(
+  //       this.product._id,
+  //       getObjectFilteredByKeyArrayBlackList(
+  //         {
+  //           ...this.curUpdateProductData,
+  //           images: this.uploadedImages.length
+  //             ? [...this.curUpdateProductData.images, ...this.uploadedImages]
+  //             : this.curUpdateProductData.images,
+  //         },
+  //         ['suppliers'],
+  //       ),
+  //     )
+  //     // this.setActionStatus(loadingStatuses.success)
+  //     this.warningModalTitle = t(TranslationKey['Data saved'])
+  //     this.onTriggerOpenModal('showWarningModal')
+  //   } catch (error) {
+  //     this.setActionStatus(loadingStatuses.failed)
+  //     console.log('error', error)
+  //   }
+  // }
+  // async onClickSupplierButtons(actionType) {
+  //   switch (actionType) {
+  //     case 'add':
+  //       runInAction(() => {
+  //         this.selectedSupplier = undefined
+  //         this.supplierModalReadOnly = false
+  //       })
+  //       this.onTriggerAddOrEditSupplierModal()
+  //       break
+  //     case 'view':
+  //       this.supplierModalReadOnly = true
+  //       this.onTriggerAddOrEditSupplierModal()
+  //       break
+  //     case 'edit':
+  //       runInAction(() => {
+  //         this.supplierModalReadOnly = false
+  //       })
+  //       this.onTriggerAddOrEditSupplierModal()
+  //       break
+  //     case 'accept':
+  //       this.product = {...this.product, currentSupplierId: this.selectedSupplier._id}
+  //       this.product = {...this.product, currentSupplier: this.selectedSupplier}
+  //       this.selectedSupplier = undefined
+  //       updateProductAutoCalculatedFields.call(this)
+  //       break
+  //     case 'acceptRevoke':
+  //       this.product = {...this.product, currentSupplierId: null}
+  //       this.product = {...this.product, currentSupplier: undefined}
+  //       this.selectedSupplier = undefined
+  //       updateProductAutoCalculatedFields.call(this)
+  //       break
+  //     case 'delete':
+  //       runInAction(() => {
+  //         this.confirmModalSettings = {
+  //           isWarning: true,
+  //           message: t(TranslationKey['Are you sure you want to remove the supplier?']),
+  //           successBtnText: t(TranslationKey.Yes),
+  //           cancelBtnText: t(TranslationKey.Cancel),
+  //           onClickOkBtn: () => this.onRemoveSupplier(),
+  //         }
+  //       })
+  //       this.onTriggerOpenModal('showConfirmModal')
+  //       break
+  //   }
+  // }
+  // async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
+  //   try {
+  //     this.setRequestStatus(loadingStatuses.isLoading)
+  //     this.readyImages = []
+  //     if (photosOfSupplier.length) {
+  //       await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+  //     }
+  //     supplier = {
+  //       ...supplier,
+  //       amount: parseFloat(supplier?.amount) || '',
+  //       lotcost: parseFloat(supplier?.lotcost) || '',
+  //       minlot: parseInt(supplier?.minlot) || '',
+  //       price: parseFloat(supplier?.price) || '',
+  //       images: supplier.images.concat(this.readyImages),
+  //     }
+  //     if (supplier._id) {
+  //       const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+  //       await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
+  //       if (supplier._id === this.product.currentSupplierId) {
+  //         this.product.currentSupplier = supplier
+  //         updateProductAutoCalculatedFields.call(this)
+  //       }
+  //     } else {
+  //       const createSupplierResult = await SupplierModel.createSupplier(supplier)
+  //       await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
+  //       runInAction(() => {
+  //         this.product.suppliers.push(createSupplierResult.guid)
+  //       })
+  //     }
+  //     this.onSaveForceProductData()
+  //     this.setRequestStatus(loadingStatuses.success)
+  //     this.onTriggerAddOrEditSupplierModal()
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.setRequestStatus(loadingStatuses.failed)
+  //     if (error.body && error.body.message) {
+  //       this.error = error.body.message
+  //     }
+  //   }
+  // }
+  // async onSaveForceProductData() {
+  //   try {
+  //     await ClientModel.updateProduct(
+  //       this.productId,
+  //       getObjectFilteredByKeyArrayWhiteList(this.product, fieldsOfProductAllowedToUpdate, false, (key, value) => {
+  //         switch (key) {
+  //           case 'bsr':
+  //             return (value && parseInt(value)) || 0
+  //           case 'amazon':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'weight':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'length':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'width':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'height':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'fbaamount':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'fbafee':
+  //             return (value && parseFloat(value)) || 0
+  //           case 'profit':
+  //             return value && parseFloat(value)
+  //           default:
+  //             return value
+  //         }
+  //       }),
+  //     )
+  //     this.loadData()
+  //   } catch (error) {
+  //     console.log('error', error)
+  //   }
+  // }
+  onTriggerDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
+  }
+  // setRequestStatus(requestStatus) {
+  //   this.requestStatus = requestStatus
+  // }
+  // setActionStatus(actionStatus) {
+  //   this.actionStatus = actionStatus
+  // }
+  // async onTriggerAddOrEditSupplierModal() {
+  //   try {
+  //     if (this.showAddOrEditSupplierModal) {
+  //       this.selectedSupplier = undefined
+  //     } else {
+  //       const result = await UserModel.getPlatformSettings()
+  //       await this.getStorekeepers()
+  //       this.yuanToDollarRate = result.yuanToDollarRate
+  //       this.volumeWeightCoefficient = result.volumeWeightCoefficient
+  //     }
+  //     this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+  // onChangeSelectedSupplier(supplier) {
+  //   if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
+  //     this.selectedSupplier = undefined
+  //   } else {
+  //     this.selectedSupplier = supplier
+  //   }
+  // }
+  // async onClickParseProductData(productDataParser, product) {
+  //   try {
+  //     this.setActionStatus(loadingStatuses.isLoading)
+  //     this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
+  //     if (product.asin) {
+  //       const parseResult = await (() => {
+  //         switch (productDataParser) {
+  //           case ProductDataParser.AMAZON:
+  //             return ProductModel.parseAmazon(product.asin)
+  //           case ProductDataParser.SELLCENTRAL:
+  //             return ProductModel.parseParseSellerCentral(product.asin)
+  //         }
+  //       })()
+  //       runInAction(() => {
+  //         if (Object.keys(parseResult).length > 5) {
+  //           // проверка, что ответ не пустой (иначе приходит объект {length: 2})
+  //           this.product = {
+  //             ...this.product,
+  //             ...parseFieldsAdapter(parseResult, productDataParser),
+  //             weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
+  //             amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+  //             amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+  //           }
+  //         }
+  //         updateProductAutoCalculatedFields.call(this)
+  //       })
+  //     } else {
+  //       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
+  //     }
+  //     this.setActionStatus(loadingStatuses.success)
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.setActionStatus(loadingStatuses.failed)
+  //     if (error.body && error.body.message) {
+  //       this.error = error.body.message
+  //     }
+  //   }
+  // }
+}

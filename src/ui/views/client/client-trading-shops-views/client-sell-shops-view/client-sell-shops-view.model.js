@@ -13,6 +13,15 @@ export class ClientSellShopsViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  // async onClickViewMore() {
+  //   try {
+  //     this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/trading-shops/sell-shops/shop`)
+  //   } catch (error) {
+  //     this.onTriggerOpenModal('showWarningModal')
+  //     console.log(error)
+  //   }
+  // }
+
   onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
   }
