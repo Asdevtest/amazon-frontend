@@ -73,7 +73,7 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '16px',
     lineHeight: '22px',
     textAlign: 'center',
-    padding: 0,
+    padding: '6px 8px',
   },
   row: {
     minWidth: '300px',

@@ -131,4 +131,16 @@ export const useClassNames = makeStyles(theme => ({
   deleteBtn: {
     color: 'grey',
   },
+
+  orange: {
+    color: '#F3AF00',
+  },
+
+  red: {
+    color: 'red',
+  },
+
+  green: {
+    color: 'green',
+  },
 }))

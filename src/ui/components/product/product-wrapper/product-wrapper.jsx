@@ -12,7 +12,7 @@ import {SettingsModel} from '@models/settings-model'
 
 import {ITab} from '@components/i-tab/i-tab'
 
-import {checkIsBuyer, checkIsClient} from '@utils/checks'
+import {checkIsBuyer, checkIsClient, checkIsResearcher} from '@utils/checks'
 import {t} from '@utils/translations'
 
 import {Integrations} from '../integrations'
@@ -112,6 +112,7 @@ export const ProductWrapper = observer(
               value={tabsValues.ORDERS}
             />
           )}
+
           {checkIsClient(curUserRole) && (
             <ITab
               tooltipInfoContent={t(TranslationKey['Goods from the store, linked to the product card'])}
@@ -120,15 +121,18 @@ export const ProductWrapper = observer(
               value={tabsValues.INTEGRATIONS}
             />
           )}
+
           {!checkIsBuyer(curUserRole) && (
             <ITab classes={tabItemStyles} label={t(TranslationKey.Content)} value={tabsValues.LISTING} />
           )}
 
-          <ITab
-            classes={tabItemStyles}
-            label={t(TranslationKey['Suppliers and Ideas'])}
-            value={tabsValues.SUPPLIERS_AND_IDEAS}
-          />
+          {!checkIsResearcher(curUserRole) && (
+            <ITab
+              classes={tabItemStyles}
+              label={t(TranslationKey['Suppliers and Ideas'])}
+              value={tabsValues.SUPPLIERS_AND_IDEAS}
+            />
+          )}
         </Tabs>
 
         <TabPanel value={tabIndex} index={tabsValues.MAIN_INFO}>

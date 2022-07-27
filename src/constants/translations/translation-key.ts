@@ -1338,8 +1338,7 @@ export enum TranslationKey {
   'Select a store' = 'Select a store',
   'No stores' = 'No stores',
   'Choose a role' = 'Choose a role',
-
-  // '' = '',
+  'Price with delivery per unit' = 'Price with delivery per unit',
   // '' = '',
   // '' = '',
   // '' = '',

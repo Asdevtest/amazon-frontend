@@ -531,7 +531,7 @@ export const AddOrEditSupplierModalContent = observer(
                 <Grid item>
                   <Field
                     disabled
-                    label={t(TranslationKey['Delivery cost per unit']) + ', ¥*'}
+                    label={t(TranslationKey['Price with delivery per unit']) + ', ¥*'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
@@ -613,7 +613,7 @@ export const AddOrEditSupplierModalContent = observer(
                 <Grid item>
                   <Field
                     disabled
-                    label={t(TranslationKey['Delivery cost per unit']) + ', $*'}
+                    label={t(TranslationKey['Price with delivery per unit']) + ', $*'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}

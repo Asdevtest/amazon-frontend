@@ -9,7 +9,7 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: '24px',
   },
   modalContainer: {
-    width: '750px',
+    width: '800px',
   },
   titleDivider: {
     margin: '32px -24px',
@@ -81,7 +81,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imageFileInputWrapper: {
-    width: '748px',
+    width: '798px',
   },
 
   photoLinkWrapper: {
@@ -116,15 +116,15 @@ export const useClassNames = makeStyles(() => ({
   },
 
   nameContainer: {
-    width: '340px',
+    width: '380px',
   },
 
   linkContainer: {
-    width: '545px',
+    width: '590px',
   },
 
   middleContainer: {
-    width: '170px',
+    width: '185px',
   },
 
   shortContainer: {
@@ -136,7 +136,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   rateInput: {
-    width: '170px',
+    width: '185px',
     marginLeft: 10,
   },
 
