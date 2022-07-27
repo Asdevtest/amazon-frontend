@@ -1,0 +1,140 @@
+import {makeAutoObservable, runInAction, toJS} from 'mobx'
+
+import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
+import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
+import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
+
+import {SettingsModel} from '@models/settings-model'
+import {UserModel} from '@models/user-model'
+
+export class ClientBuyShopsAdsModel {
+  history = undefined
+  requestStatus = undefined
+  error = undefined
+  actionStatus = undefined
+
+  nameSearchValue = ''
+
+  drawerOpen = false
+
+  searchMyRequestsIds = []
+  requests = []
+
+  viewMode = tableViewMode.LIST
+  sortMode = tableSortMode.DESK
+
+  get user() {
+    return UserModel.userInfo
+  }
+
+  constructor({history}) {
+    this.history = history
+    makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  setTableModeState() {
+    const state = {viewMode: this.viewMode, sortMode: this.sortMode}
+
+    SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.VACANT_REQUESTS)
+  }
+
+  getTableModeState() {
+    const state = SettingsModel.viewTableModeState[ViewTableModeStateKeys.VACANT_REQUESTS]
+
+    if (state) {
+      this.viewMode = state.viewMode
+      this.sortMode = state.sortMode
+    }
+  }
+
+  onChangeViewMode(event, nextView) {
+    this.viewMode = nextView
+    this.setTableModeState()
+  }
+
+  getCurrentData() {
+    if (this.nameSearchValue) {
+      return toJS(this.requests).filter(el => el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+    } else {
+      return toJS(this.requests)
+    }
+  }
+
+  onChangeNameSearchValue(e) {
+    this.nameSearchValue = e.target.value
+  }
+
+  async loadData() {
+    try {
+      await this.getRequestsVacant()
+      this.getTableModeState()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getRequestsVacant() {
+    try {
+      // const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT)
+      runInAction(() => {
+        this.requests = [
+          {
+            images: [
+              'https://amazonapi.fvds.ru/uploads/0b00679a-f734-4b3a-ae5c-e1f7193aaa0f.102510_O.gif',
+              'https://amazonapi.fvds.ru/uploads/21dad3dc-4d37-4a75-a69e-9e8f5a0a9f37.____-___4x.webp',
+              'https://amazonapi.fvds.ru/uploads/75656336-406a-4bc3-9cc2-67b49b130936.102510_O.gif',
+            ],
+            title: 'Магазин столовых принадлежностей',
+            cost: 5000,
+            monthClearProfit: 1200.23,
+            monthProfit: 2002.23,
+            monetization: 'Заявления',
+            multiplier: 47,
+            createBusinesData: 2010,
+            description:
+              'Этот список предназначен для медийной рекламы и партнерского бизнеса, созданного в июле 2010 года в нише продуктов питания и напитков. Бизнес состоит из двух сайтов WordPress, на которых размещен информационный контент, рецепты и руководства по покупке, связанные с темами кулинарии и образа жизни. Один из сайтов устарел и рано вошел в популярную нишу, а у брендов более 3,7 млн ​​подписчиков в социальных сетях. Сайты привлекают значительный трафик из нескольких источников и росли из года в год за последние 6 месяцев.',
+            profit12Monthes: '10%',
+            income12Monthes: '10%',
+            traffic: '25%',
+          },
+        ]
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickViewMore(id) {
+    try {
+      this.history.push(
+        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request`,
+        {requestId: id},
+      )
+    } catch (error) {
+      this.onTriggerOpenModal('showWarningModal')
+      console.log(error)
+    }
+  }
+
+  onTriggerDrawerOpen() {
+    this.drawerOpen = !this.drawerOpen
+  }
+
+  setActionStatus(actionStatus) {
+    this.actionStatus = actionStatus
+  }
+
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
+  }
+
+  onTriggerSortMode() {
+    if (this.sortMode === tableSortMode.DESK) {
+      this.sortMode = tableSortMode.ASC
+    } else {
+      this.sortMode = tableSortMode.DESK
+    }
+
+    this.setTableModeState()
+  }
+}

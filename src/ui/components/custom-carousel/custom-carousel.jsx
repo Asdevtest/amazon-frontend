@@ -286,7 +286,7 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons
     <div className={classNames.imagesCarouselWrapper}>
       <div className={classNames.imageWrapper}>
         {notEmptyPhotos?.length ? (
-          <CustomCarousel view={view || 'simple'} alignButtons={alignButtons || 'end'}>
+          <CustomCarousel view={view || 'simple'} alignButtons={alignButtons || 'center'}>
             {notEmptyPhotos.map((photo, index) => (
               <Avatar
                 key={index}

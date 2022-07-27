@@ -232,47 +232,51 @@ export const TopCard = observer(
 
                   {selectedSupplier ? (
                     <>
-                      {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) ? (
-                        <div className={classNames.supplierButtonWrapper}>
-                          <Button
-                            tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                            className={classNames.iconBtn}
-                            onClick={() => onClickSupplierBtns('view')}
-                          >
-                            <VisibilityOutlinedIcon />
-                          </Button>
-                          <Typography className={classNames.supplierButtonText}>
-                            {t(TranslationKey['Open the parameters supplier'])}
-                          </Typography>
-                        </div>
-                      ) : null}
-                      <div className={classNames.supplierButtonWrapper}>
-                        <Button
-                          tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                          className={classNames.iconBtn}
-                          onClick={() => onClickSupplierBtns('edit')}
-                        >
-                          <EditOutlinedIcon />
-                        </Button>
-                        <Typography className={classNames.supplierButtonText}>
-                          {t(TranslationKey['Edit a supplier'])}
-                        </Typography>
-                      </div>
+                      {selectedSupplier.name !== 'access denied' ? (
+                        <>
+                          {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) ? (
+                            <div className={classNames.supplierButtonWrapper}>
+                              <Button
+                                tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                                className={classNames.iconBtn}
+                                onClick={() => onClickSupplierBtns('view')}
+                              >
+                                <VisibilityOutlinedIcon />
+                              </Button>
+                              <Typography className={classNames.supplierButtonText}>
+                                {t(TranslationKey['Open the parameters supplier'])}
+                              </Typography>
+                            </div>
+                          ) : null}
+                          <div className={classNames.supplierButtonWrapper}>
+                            <Button
+                              tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                              className={classNames.iconBtn}
+                              onClick={() => onClickSupplierBtns('edit')}
+                            >
+                              <EditOutlinedIcon />
+                            </Button>
+                            <Typography className={classNames.supplierButtonText}>
+                              {t(TranslationKey['Edit a supplier'])}
+                            </Typography>
+                          </div>
 
-                      {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
-                        <div className={classNames.supplierButtonWrapper}>
-                          <Button
-                            tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                            className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
-                            onClick={() => onClickSupplierBtns('delete')}
-                          >
-                            <DeleteOutlineOutlinedIcon />
-                          </Button>
-                          <Typography className={classNames.supplierButtonText}>
-                            {t(TranslationKey['Delete supplier'])}
-                          </Typography>
-                        </div>
-                      )}
+                          {product.status < ProductStatusByKey[ProductStatus.COMPLETE_SUCCESS] && (
+                            <div className={classNames.supplierButtonWrapper}>
+                              <Button
+                                tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
+                                className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
+                                onClick={() => onClickSupplierBtns('delete')}
+                              >
+                                <DeleteOutlineOutlinedIcon />
+                              </Button>
+                              <Typography className={classNames.supplierButtonText}>
+                                {t(TranslationKey['Delete supplier'])}
+                              </Typography>
+                            </div>
+                          )}
+                        </>
+                      ) : null}
 
                       <div className={classNames.supplierButtonWrapper}>
                         <Button
@@ -305,7 +309,7 @@ export const TopCard = observer(
             ) : (
               <div className={classNames.supplierActionsWrapper}>
                 <div disableGutters className={classNames.supplierContainer}>
-                  {selectedSupplier ? (
+                  {selectedSupplier && selectedSupplier.name !== 'access denied' ? (
                     <>
                       {checkIsAdmin(curUserRole) ||
                       checkIsSupervisor(curUserRole) ||

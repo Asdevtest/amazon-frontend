@@ -18,6 +18,7 @@ import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {toFixed} from '@utils/text'
 import {onSubmitPostImages} from '@utils/upload-files'
 
 const updateOrderKeys = [
@@ -209,10 +210,12 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode) {
+    console.log('order', order)
+    console.log('orderFields', orderFields)
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 
-      const isMismatchOrderPrice = orderFields.totalPriceChanged - orderFields.totalPrice > 0
+      const isMismatchOrderPrice = parseFloat(orderFields.totalPriceChanged) - parseFloat(orderFields.totalPrice) > 0
 
       if (isMismatchOrderPrice) {
         this.onTriggerOpenModal('showOrderPriceMismatchModal')
@@ -242,10 +245,10 @@ export class BuyerMyOrdersViewModel {
         await this.onSubmitCreateBoxes(order, boxesForCreation)
       }
 
-      if (orderFields.totalPriceChanged !== order.totalPriceChanged && isMismatchOrderPrice) {
+      if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2) && isMismatchOrderPrice) {
         await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
       } else {
-        if (orderFields.totalPriceChanged !== order.totalPriceChanged) {
+        if (orderFields.totalPriceChanged !== toFixed(order.totalPriceChanged, 2)) {
           await BuyerModel.setOrderTotalPriceChanged(order._id, {totalPriceChanged: orderFields.totalPriceChanged})
         }
 

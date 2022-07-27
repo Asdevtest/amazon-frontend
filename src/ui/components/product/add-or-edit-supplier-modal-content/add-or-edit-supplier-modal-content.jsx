@@ -458,7 +458,7 @@ export const AddOrEditSupplierModalContent = observer(
 
             <Field
               disabled={onlyRead}
-              inputProps={{maxLength: 100}}
+              inputProps={{maxLength: 10}}
               label={t(TranslationKey['Production time, days'])}
               containerClasses={classNames.middleContainer}
               labelClasses={classNames.normalLabel}
