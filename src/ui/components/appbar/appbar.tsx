@@ -1,4 +1,3 @@
-import LogoutIcon from '@mui/icons-material/Logout'
 import PersonIcon from '@mui/icons-material/Person'
 import Tooltip from '@mui/material/Tooltip'
 
@@ -191,7 +190,8 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               </MenuItem>
 
               <MenuItem className={classNames.menuWrapper} onClick={onClickExit}>
-                <LogoutIcon color="primary" classes={{root: classNames.icon}} />
+                <img src="/assets/icons/ion_log-out.svg" className={classNames.icon} />
+
                 {t(TranslationKey.Exit)}
               </MenuItem>
             </Menu>
