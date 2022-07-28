@@ -1,4 +1,5 @@
-// import {action, makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
+
 // import {loadingStatuses} from '@constants/loading-statuses'
 // import {ProductDataParser} from '@constants/product-data-parser'
 // import {TranslationKey} from '@constants/translations/translation-key'
@@ -18,461 +19,159 @@
 
 export class ClientShopViewModel {
   history = undefined
-  // requestStatus = undefined
-  // actionStatus = undefined
-  // product = undefined
-  // productBase = undefined
-  // productId = undefined
-  // storekeepersData = []
-  // shopsData = []
-  // curUpdateProductData = {}
-  // warningModalTitle = ''
-  // yuanToDollarRate = undefined
-  // volumeWeightCoefficient = undefined
+  shopInfo = {}
   drawerOpen = false
-  // selectedSupplier = undefined
-  // showWarningModal = false
-  // showConfirmModal = false
-  // showAddOrEditSupplierModal = false
-  // supplierModalReadOnly = false
-  // confirmModalSettings = {
-  //   isWarning: false,
-  //   title: '',
-  //   message: '',
-  //   successBtnText: '',
-  //   cancelBtnText: '',
-  //   onClickOkBtn: () => this.onSaveProductData(),
-  // }
-  // imagesForLoad = []
-  // uploadedImages = []
-  // readyImages = []
-  // progressValue = 0
-  // showProgress = false
-  // formFields = {...formFieldsDefault}
-  // formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
-  // get userInfo() {
-  //   return UserModel.userInfo
-  // }
-  // constructor({history}) {
-  //   this.history = history
-  //   this.productId = history.location.search.slice(1)
-  //   makeAutoObservable(this, undefined, {autoBind: true})
-  // }
-  // async loadData() {
-  //   try {
-  //     await this.getProductById()
-  //     await this.getShops()
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-  // async getProductById() {
-  //   try {
-  //     const result = await ProductModel.getProductById(this.productId)
-  //     runInAction(() => {
-  //       this.product = result
-  //       this.productBase = result
-  //       updateProductAutoCalculatedFields.call(this)
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-  // onChangeProductFields = fieldName =>
-  //   action(e => {
-  //     this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, [fieldName]: ''}
-  //     if (
-  //       [
-  //         'icomment',
-  //         'category',
-  //         'lamazon',
-  //         'clientComment',
-  //         'amazonTitle',
-  //         'amazonDescription',
-  //         'amazonDetail',
-  //         'skusByClient',
-  //         'niche',
-  //         'asins',
-  //         'shopIds',
-  //       ].includes(fieldName)
-  //     ) {
-  //       this.product = {...this.product, [fieldName]: e.target.value}
-  //     } else {
-  //       if (['asin'].includes(fieldName)) {
-  //         this.product = {...this.product, [fieldName]: e.target.value.replace(/[^0-9a-zA-Z]/g, '')}
-  //       }
-  //       if (['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 13)) {
-  //         return
-  //       }
-  //       if (!['weight'].includes(fieldName) && !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(e.target.value, 5)) {
-  //         return
-  //       }
-  //       if (
-  //         ['amazon', 'fbafee', 'avgRevenue', 'coefficient', 'avgPrice', 'reffee', 'totalFba'].includes(fieldName) &&
-  //         !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)
-  //       ) {
-  //         return
-  //       }
-  //       if (['fbaamount', 'avgBSR', 'totalRevenue', 'avgReviews'].includes(fieldName) && e.target.value !== '') {
-  //         this.product[fieldName] = parseInt(e.target.value)
-  //       }
-  //       this.product = {...this.product, [fieldName]: e.target.value}
-  //     }
-  //     if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {
-  //       updateProductAutoCalculatedFields.call(this)
-  //     }
-  //     console.log('this.product', this.product)
-  //   })
-  // onChangeProduct(e, value) {
-  //   this.product = value
-  // }
-  // onChangeImagesForLoad(value) {
-  //   this.imagesForLoad = value
-  // }
-  // onTriggerOpenModal(modal) {
-  //   this[modal] = !this[modal]
-  // }
-  // async getStorekeepers() {
-  //   try {
-  //     const result = await StorekeeperModel.getStorekeepers()
-  //     this.storekeepersData = result
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-  // async getShops() {
-  //   try {
-  //     const result = await ShopModel.getMyShops()
-  //     runInAction(() => {
-  //       this.shopsData = addIdDataConverter(result)
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.error = error
-  //   }
-  // }
-  // async handleProductActionButtons(actionType, withoutStatus) {
-  //   switch (actionType) {
-  //     case 'accept':
-  //       this.openConfirmModalWithTextByStatus(withoutStatus)
-  //       break
-  //     case 'cancel':
-  //       this.product.archive
-  //         ? this.history.push('/client/inventory/archive', {isArchive: this.product.archive})
-  //         : this.history.push('/client/inventory', {isArchive: this.product.archive})
-  //       break
-  //     case 'delete':
-  //       this.confirmModalSettings = {
-  //         isWarning: true,
-  //         title: t(TranslationKey['Delete a card']),
-  //         message: t(TranslationKey['After confirmation, the card will be moved to the archive. Delete?']),
-  //         successBtnText: t(TranslationKey.Delete),
-  //         cancelBtnText: t(TranslationKey.Cancel),
-  //         onClickOkBtn: () => this.onDeleteProduct(),
-  //       }
-  //       this.onTriggerOpenModal('showConfirmModal')
-  //       break
-  //     case 'restore':
-  //       this.confirmModalSettings = {
-  //         isWarning: false,
-  //         title: t(TranslationKey['Return to Inventory']),
-  //         message: t(TranslationKey['After confirmation, the card will be moved to the Inventory. Continue?']),
-  //         successBtnText: t(TranslationKey.Yes),
-  //         cancelBtnText: t(TranslationKey.Cancel),
-  //         onClickOkBtn: () => this.onRestoreProduct(),
-  //       }
-  //       this.onTriggerOpenModal('showConfirmModal')
-  //       break
-  //   }
-  // }
-  // async onRestoreProduct() {
-  //   try {
-  //     await ClientModel.updateProduct(
-  //       this.product._id,
-  //       getObjectFilteredByKeyArrayWhiteList({...this.product, archive: false}, ['archive']),
-  //     )
-  //     this.history.goBack()
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.error = error
-  //   }
-  // }
-  // async onDeleteProduct() {
-  //   try {
-  //     await ClientModel.updateProduct(
-  //       this.product._id,
-  //       getObjectFilteredByKeyArrayWhiteList({...this.product, archive: true}, ['archive']),
-  //     )
-  //     this.history.goBack()
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.setActionStatus(loadingStatuses.failed)
-  //     this.error = error
-  //   }
-  // }
-  // async openConfirmModalWithTextByStatus(withoutStatus) {
-  //   try {
-  //     this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
-  //     const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
-  //       toJS(this.product),
-  //       fieldsOfProductAllowedToUpdate,
-  //       true,
-  //       (key, value) => {
-  //         switch (key) {
-  //           case 'bsr':
-  //             return (value && parseInt(value)) || 0
-  //           case 'amazon':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'weight':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'length':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'width':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'height':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'fbaamount':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'fbafee':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'totalFba':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'profit':
-  //             return value && parseFloat(value)
-  //           case 'currentSupplier':
-  //             return this.product.currentSupplier._id
-  //           default:
-  //             return value
-  //         }
-  //       },
-  //     )
-  //     if (withoutStatus) {
-  //       this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(curUpdateProductData, ['status'])
-  //     } else {
-  //       this.curUpdateProductData = curUpdateProductData
-  //     }
-  //     await this.onSaveProductData()
-  //     await this.loadData()
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.setActionStatus(loadingStatuses.failed)
-  //     this.error = error
-  //   }
-  // }
-  // async onSaveProductData() {
-  //   try {
-  //     this.setActionStatus(loadingStatuses.isLoading)
-  //     this.uploadedImages = []
-  //     if (this.imagesForLoad.length) {
-  //       await onSubmitPostImages.call(this, {images: this.imagesForLoad, type: 'uploadedImages'})
-  //       this.imagesForLoad = []
-  //     }
-  //     await ClientModel.updateProduct(
-  //       this.product._id,
-  //       getObjectFilteredByKeyArrayBlackList(
-  //         {
-  //           ...this.curUpdateProductData,
-  //           images: this.uploadedImages.length
-  //             ? [...this.curUpdateProductData.images, ...this.uploadedImages]
-  //             : this.curUpdateProductData.images,
-  //         },
-  //         ['suppliers'],
-  //       ),
-  //     )
-  //     // this.setActionStatus(loadingStatuses.success)
-  //     this.warningModalTitle = t(TranslationKey['Data saved'])
-  //     this.onTriggerOpenModal('showWarningModal')
-  //   } catch (error) {
-  //     this.setActionStatus(loadingStatuses.failed)
-  //     console.log('error', error)
-  //   }
-  // }
-  // async onClickSupplierButtons(actionType) {
-  //   switch (actionType) {
-  //     case 'add':
-  //       runInAction(() => {
-  //         this.selectedSupplier = undefined
-  //         this.supplierModalReadOnly = false
-  //       })
-  //       this.onTriggerAddOrEditSupplierModal()
-  //       break
-  //     case 'view':
-  //       this.supplierModalReadOnly = true
-  //       this.onTriggerAddOrEditSupplierModal()
-  //       break
-  //     case 'edit':
-  //       runInAction(() => {
-  //         this.supplierModalReadOnly = false
-  //       })
-  //       this.onTriggerAddOrEditSupplierModal()
-  //       break
-  //     case 'accept':
-  //       this.product = {...this.product, currentSupplierId: this.selectedSupplier._id}
-  //       this.product = {...this.product, currentSupplier: this.selectedSupplier}
-  //       this.selectedSupplier = undefined
-  //       updateProductAutoCalculatedFields.call(this)
-  //       break
-  //     case 'acceptRevoke':
-  //       this.product = {...this.product, currentSupplierId: null}
-  //       this.product = {...this.product, currentSupplier: undefined}
-  //       this.selectedSupplier = undefined
-  //       updateProductAutoCalculatedFields.call(this)
-  //       break
-  //     case 'delete':
-  //       runInAction(() => {
-  //         this.confirmModalSettings = {
-  //           isWarning: true,
-  //           message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-  //           successBtnText: t(TranslationKey.Yes),
-  //           cancelBtnText: t(TranslationKey.Cancel),
-  //           onClickOkBtn: () => this.onRemoveSupplier(),
-  //         }
-  //       })
-  //       this.onTriggerOpenModal('showConfirmModal')
-  //       break
-  //   }
-  // }
-  // async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
-  //   try {
-  //     this.setRequestStatus(loadingStatuses.isLoading)
-  //     this.readyImages = []
-  //     if (photosOfSupplier.length) {
-  //       await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
-  //     }
-  //     supplier = {
-  //       ...supplier,
-  //       amount: parseFloat(supplier?.amount) || '',
-  //       lotcost: parseFloat(supplier?.lotcost) || '',
-  //       minlot: parseInt(supplier?.minlot) || '',
-  //       price: parseFloat(supplier?.price) || '',
-  //       images: supplier.images.concat(this.readyImages),
-  //     }
-  //     if (supplier._id) {
-  //       const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
-  //       await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
-  //       if (supplier._id === this.product.currentSupplierId) {
-  //         this.product.currentSupplier = supplier
-  //         updateProductAutoCalculatedFields.call(this)
-  //       }
-  //     } else {
-  //       const createSupplierResult = await SupplierModel.createSupplier(supplier)
-  //       await ProductModel.addSuppliersToProduct(this.product._id, [createSupplierResult.guid])
-  //       runInAction(() => {
-  //         this.product.suppliers.push(createSupplierResult.guid)
-  //       })
-  //     }
-  //     this.onSaveForceProductData()
-  //     this.setRequestStatus(loadingStatuses.success)
-  //     this.onTriggerAddOrEditSupplierModal()
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.setRequestStatus(loadingStatuses.failed)
-  //     if (error.body && error.body.message) {
-  //       this.error = error.body.message
-  //     }
-  //   }
-  // }
-  // async onSaveForceProductData() {
-  //   try {
-  //     await ClientModel.updateProduct(
-  //       this.productId,
-  //       getObjectFilteredByKeyArrayWhiteList(this.product, fieldsOfProductAllowedToUpdate, false, (key, value) => {
-  //         switch (key) {
-  //           case 'bsr':
-  //             return (value && parseInt(value)) || 0
-  //           case 'amazon':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'weight':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'length':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'width':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'height':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'fbaamount':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'fbafee':
-  //             return (value && parseFloat(value)) || 0
-  //           case 'profit':
-  //             return value && parseFloat(value)
-  //           default:
-  //             return value
-  //         }
-  //       }),
-  //     )
-  //     this.loadData()
-  //   } catch (error) {
-  //     console.log('error', error)
-  //   }
-  // }
+
+  constructor({history}) {
+    this.history = history
+
+    makeAutoObservable(this, undefined, {autoBind: true})
+  }
+  async loadData() {
+    try {
+      await this.getShopInfoById()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getShopInfoById() {
+    try {
+      // const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT)
+      runInAction(() => {
+        this.shopInfo = {
+          images: [
+            'https://amazonapi.fvds.ru/uploads/0b00679a-f734-4b3a-ae5c-e1f7193aaa0f.102510_O.gif',
+            'https://amazonapi.fvds.ru/uploads/21dad3dc-4d37-4a75-a69e-9e8f5a0a9f37.____-___4x.webp',
+            'https://amazonapi.fvds.ru/uploads/75656336-406a-4bc3-9cc2-67b49b130936.102510_O.gif',
+          ],
+          title: 'Магазин столовых принадлежностей',
+          pricePeriod: 12,
+          multiplier: 47,
+          cost: 5000,
+          shopLink: 'https://aliexpress.ru/',
+          createBusinesData: '10 июля 2010 г.',
+          profitForTheReportingPeriod: [
+            {
+              name: 'январь 2031',
+              uv: 4000,
+              pv: 2400,
+              amt: 2400,
+            },
+            {
+              name: 'февраль 2031',
+              uv: 3000,
+              pv: 1398,
+              amt: 2210,
+            },
+            {
+              name: 'март 2031',
+              uv: 2000,
+              pv: 9800,
+              amt: 2290,
+            },
+            {
+              name: 'апрель 2031',
+              uv: 2780,
+              pv: 3908,
+              amt: 2000,
+            },
+            {
+              name: 'май 2031',
+              uv: 1890,
+              pv: 4800,
+              amt: 2181,
+            },
+            {
+              name: 'июнь 2031',
+              uv: 2390,
+              pv: 3800,
+              amt: 2500,
+            },
+          ],
+          trafficForTheReportingPeriod: [
+            {
+              name: 'январь 2031',
+              uv: 1000,
+              pv: 400,
+              amt: 2400,
+            },
+            {
+              name: 'февраль 2031',
+              uv: 1200,
+              pv: 298,
+              amt: 2210,
+            },
+            {
+              name: 'март 2031',
+              uv: 2000,
+              pv: 870,
+              amt: 2290,
+            },
+            {
+              name: 'апрель 2031',
+              uv: 2780,
+              pv: 908,
+              amt: 2000,
+            },
+            {
+              name: 'май 2031',
+              uv: 1890,
+              pv: 500,
+              amt: 2181,
+            },
+            {
+              name: 'июнь 2031',
+              uv: 2390,
+              pv: 1130,
+              amt: 2500,
+            },
+          ],
+          asset: [
+            'Один домен перенаправления',
+            'Дополнительный домен и весь контент/файлы сайта',
+            'Аккаунты/страницы в социальных сетях (18 аккаунтов/страниц для Facebook, Twitter, Instagram, Pinterest, TikTok, Youtube, LinkedIn, PUBLC и Mewe)',
+            'Два списка адресов электронной почты (78 000+ подписчиков)',
+            'Пять фирменных электронных книг',
+            'Товарные знаки',
+          ],
+          features: [
+            'Диверсификация потоков доходов за счет публикации электронных книг, цифровых продуктов и физических продуктов.',
+            'Развитие каналов Youtube и TikTok',
+            'Повышение стоимости платной подписки за счет добавления дополнительных ресурсов для премиум-членов.',
+          ],
+          risks: [
+            'Алгоритмические изменения Google могут привести к колебаниям трафика.',
+            'Изменения рекламодателя могут повлиять на прибыль за клик (EPC) в вашем рекламном аккаунте.',
+          ],
+          workAndSkills: [
+            'Добавление изображений и контента в сообщения',
+            'Просмотр письменного контента, написанного писателями',
+            'Еженедельное электронное письмо',
+            'Проведение SEO-исследований',
+            'Проверка статистики сайта, чтобы определить, нужны ли изменения стратегии',
+          ],
+          sellerSupport: [
+            'Продавец готов предложить 3 месяца поддержки по электронной почте и телефону, чтобы обеспечить плавный переход для Покупателя. Это в три раза больше поддержки, чем обычно предлагают продавцы.',
+          ],
+          reasonsForSale: ['Продавец хотел бы изучить другие возможности.'],
+          additionalInformation: [
+            'Требуемая работа в неделю: 20 часов',
+            'Сеть частных блогов (PBN): Нет',
+            'Типы доменов: .com',
+            'Платформы: WordPress',
+            'Страны : США, Канада, Великобритания',
+          ],
+          description:
+            'Этот список предназначен для медийной рекламы и партнерского бизнеса, созданного в июле 2010 года в нише продуктов питания и напитков. Бизнес состоит из двух сайтов WordPress, на которых размещен информационный контент, рецепты и руководства по покупке, связанные с темами кулинарии и образа жизни. Один из сайтов устарел и рано вошел в популярную нишу, а у брендов более 3,7 млн ​​подписчиков в социальных сетях. Сайты привлекают значительный трафик из нескольких источников и росли из года в год за последние 6 месяцев.',
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
   }
-  // setRequestStatus(requestStatus) {
-  //   this.requestStatus = requestStatus
-  // }
-  // setActionStatus(actionStatus) {
-  //   this.actionStatus = actionStatus
-  // }
-  // async onTriggerAddOrEditSupplierModal() {
-  //   try {
-  //     if (this.showAddOrEditSupplierModal) {
-  //       this.selectedSupplier = undefined
-  //     } else {
-  //       const result = await UserModel.getPlatformSettings()
-  //       await this.getStorekeepers()
-  //       this.yuanToDollarRate = result.yuanToDollarRate
-  //       this.volumeWeightCoefficient = result.volumeWeightCoefficient
-  //     }
-  //     this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-  // onChangeSelectedSupplier(supplier) {
-  //   if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
-  //     this.selectedSupplier = undefined
-  //   } else {
-  //     this.selectedSupplier = supplier
-  //   }
-  // }
-  // async onClickParseProductData(productDataParser, product) {
-  //   try {
-  //     this.setActionStatus(loadingStatuses.isLoading)
-  //     this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
-  //     if (product.asin) {
-  //       const parseResult = await (() => {
-  //         switch (productDataParser) {
-  //           case ProductDataParser.AMAZON:
-  //             return ProductModel.parseAmazon(product.asin)
-  //           case ProductDataParser.SELLCENTRAL:
-  //             return ProductModel.parseParseSellerCentral(product.asin)
-  //         }
-  //       })()
-  //       runInAction(() => {
-  //         if (Object.keys(parseResult).length > 5) {
-  //           // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-  //           this.product = {
-  //             ...this.product,
-  //             ...parseFieldsAdapter(parseResult, productDataParser),
-  //             weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
-  //             amazonDescription: parseResult.info?.description || this.product.amazonDescription,
-  //             amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
-  //           }
-  //         }
-  //         updateProductAutoCalculatedFields.call(this)
-  //       })
-  //     } else {
-  //       this.formFieldsValidationErrors = {...this.formFieldsValidationErrors, asin: t(TranslationKey['No ASIN'])}
-  //     }
-  //     this.setActionStatus(loadingStatuses.success)
-  //   } catch (error) {
-  //     console.log(error)
-  //     this.setActionStatus(loadingStatuses.failed)
-  //     if (error.body && error.body.message) {
-  //       this.error = error.body.message
-  //     }
-  //   }
-  // }
 }

@@ -7,17 +7,17 @@ import {BottomCard} from './bottom-card'
 import {useClassNames} from './shop-wrapper.style'
 import {TopCard} from './top-card'
 
-export const ShopWrapper = observer(({data}) => {
+export const ShopWrapper = observer(({shopInfo}) => {
   const classNames = useClassNames()
 
   return (
     <div className={classNames.shopWrapper}>
-      <TopCard data={data} />
+      <TopCard data={shopInfo} />
       <div className={classNames.chartsWrapper}>
-        <BarChartsCard isRevenue data={data} />
-        <BarChartsCard data={data} />
+        <BarChartsCard isRevenue data={shopInfo.profitForTheReportingPeriod} />
+        <BarChartsCard data={shopInfo.trafficForTheReportingPeriod} />
       </div>
-      <BottomCard />
+      <BottomCard data={shopInfo} />
     </div>
   )
 })

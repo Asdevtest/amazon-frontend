@@ -16,8 +16,17 @@ import {useClassNames} from './shop-info.style'
 
 export const ShopInfo = observer(({data}) => {
   const classNames = useClassNames()
-  const avgProfit = toFixed(data.reduce((acc, cur) => acc + cur.pv, 0) / data.length, 2)
-  const avgRevenue = toFixed(data.reduce((acc, cur) => acc + cur.uv, 0) / data.length, 2)
+  const avgProfit = toFixed(
+    data?.profitForTheReportingPeriod?.reduce((acc, cur) => acc + cur.pv, 0) /
+      data?.profitForTheReportingPeriod?.length,
+    2,
+  )
+
+  const avgRevenue = toFixed(
+    data?.profitForTheReportingPeriod?.reduce((acc, cur) => acc + cur.uv, 0) /
+      data?.profitForTheReportingPeriod?.length,
+    2,
+  )
   const profitability = toFixed(avgRevenue / avgProfit, 2) * 100
   return (
     <Box className={classNames.shopInfoWrapper}>
@@ -46,7 +55,9 @@ export const ShopInfo = observer(({data}) => {
                 labelClasses={classNames.shortInfoLabel}
                 containerClasses={classNames.shortInfoContainer}
                 label={'Ценовой период'}
-                inputComponent={<Typography className={classNames.shortInfoValue}>{'12 месяцев'}</Typography>}
+                inputComponent={
+                  <Typography className={classNames.shortInfoValue}>{`${data?.pricePeriod} месяцев`}</Typography>
+                }
               />
             </div>
             <div>
@@ -54,7 +65,9 @@ export const ShopInfo = observer(({data}) => {
                 labelClasses={classNames.shortInfoLabel}
                 containerClasses={classNames.shortInfoContainer}
                 label={'Ежемесячный множитель'}
-                inputComponent={<Typography className={classNames.shortInfoValue}>{'47x'}</Typography>}
+                inputComponent={
+                  <Typography className={classNames.shortInfoValue}>{`${data?.multiplier} х`}</Typography>
+                }
               />
             </div>
 
@@ -63,7 +76,7 @@ export const ShopInfo = observer(({data}) => {
                 labelClasses={classNames.shortInfoLabel}
                 containerClasses={classNames.shortInfoContainer}
                 label={'Стоимость'}
-                inputComponent={<Typography className={classNames.shortInfoValue}>{'5000,55 $'}</Typography>}
+                inputComponent={<Typography className={classNames.shortInfoValue}>{`${data?.cost} $`}</Typography>}
               />
             </div>
           </div>
@@ -84,7 +97,7 @@ export const ShopInfo = observer(({data}) => {
               inputComponent={
                 <div className={classNames.chart}>
                   <Typography className={classNames.profit}>{avgRevenue + ' $'}</Typography>
-                  <LinesChart data={data} />
+                  <LinesChart data={data.profitForTheReportingPeriod} />
                 </div>
               }
             />
@@ -96,7 +109,7 @@ export const ShopInfo = observer(({data}) => {
               inputComponent={
                 <div className={classNames.chart}>
                   <Typography className={classNames.profit}>{avgProfit + ' $'}</Typography>
-                  <LinesChart profit data={data} />
+                  <LinesChart profit data={data.profitForTheReportingPeriod} />
                 </div>
               }
             />

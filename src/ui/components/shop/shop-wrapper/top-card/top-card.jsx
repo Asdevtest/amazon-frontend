@@ -16,7 +16,7 @@ export const TopCard = observer(({data}) => {
         <ShopInfo data={data} />
       </Paper>
       <Paper className={classNames.rightCardWrapper}>
-        <BusinessInfo />
+        <BusinessInfo data={data} />
       </Paper>
     </div>
   )
