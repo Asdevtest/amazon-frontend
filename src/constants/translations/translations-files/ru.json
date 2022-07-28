@@ -530,7 +530,7 @@
   "Cost of purchase per pc.": "Себестоимость в закупке за шт.",
   "The actual cost is the same as the planned": "Фактическая стоимость совпадает с запланированной",
   "Planned cost in yuan": "Запланированная стоимость в юанях",
-  "Planned cost in USD": "Запланированная стоимость в долларах",
+  "Planned cost in dollars": "Запланированная стоимость в долларах",
   "Add a box": "Добавить коробку",
   "Avg. shipping cost per 1 pc.": "Ср. стоимость доставки за 1 шт.",
   "Suppliers": "Поставщики",
@@ -1340,5 +1340,6 @@
   "Select a store": "Выберите магазин",
   "No stores": "Магазинов нет",
   "Choose a role": "Выберите роль",
-  "Price with delivery per unit": "Цена с доставкой за ед."
+  "Price with delivery per unit": "Цена с доставкой за ед.",
+  "Window will be closed": "Окно будет закрыто"
 }

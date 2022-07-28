@@ -47,11 +47,6 @@ const confirmModalModes = {
   SUBMIT: 'SUBMIT',
 }
 
-// const disabledOrderStatuses = [
-//   OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
-//   OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
-// ]
-
 export const EditOrderModal = ({
   requestStatus,
   order,
@@ -185,13 +180,11 @@ export const EditOrderModal = ({
     `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
     `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
     `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
-    // `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
     `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
   ]
 
   const disabledOrderStatuses = [
     `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
-    // `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
     // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
     `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
   ]

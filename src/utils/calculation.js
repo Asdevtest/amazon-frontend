@@ -1,4 +1,4 @@
-import {toFixed, toFixedWithDollarSign} from './text'
+import {toFixed} from './text'
 
 export const roundSafely = num => Math.round(num * 100) / 100
 
@@ -21,8 +21,7 @@ export const calcExchangePrice = (price, rate) => toFixed((parseFloat(price) || 
 export const calcExchangeDollarsInYuansPrice = (price, rate) =>
   toFixed((parseFloat(price) || 0) * (parseFloat(rate) || 0), 2)
 
-export const calcPriceForItem = (fullPrice, amount) =>
-  toFixedWithDollarSign((parseFloat(fullPrice) || 0) / (parseFloat(amount) || 0), 2)
+export const calcPriceForItem = (fullPrice, amount) => (parseFloat(fullPrice) || 0) / (parseFloat(amount) || 0)
 
 export const calcVolumeWeightForBox = (box, coefficient) => {
   if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {

@@ -98,7 +98,11 @@ export class ResearcherProductView extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
+        <Modal
+          missClickModalOn={!supplierModalReadOnly}
+          openModal={showAddOrEditSupplierModal}
+          setOpenModal={onTriggerAddOrEditSupplierModal}
+        >
           <AddOrEditSupplierModalContent
             onlyRead={supplierModalReadOnly}
             requestStatus={requestStatus}

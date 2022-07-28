@@ -124,7 +124,7 @@ export class WarehouseMyTasksViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={showEditTaskModal} setOpenModal={onTriggerEditTaskModal}>
+        <Modal missClickModalOn openModal={showEditTaskModal} setOpenModal={onTriggerEditTaskModal}>
           <Typography variant="h5">{t(TranslationKey['Resolve task'])}</Typography>
           <EditTaskModal
             requestStatus={requestStatus}

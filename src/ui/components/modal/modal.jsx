@@ -13,49 +13,52 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './modal.style'
 
-export const Modal = props => {
+export const Modal = ({openModal, isWarning, setOpenModal, dialogContextClassName, children, missClickModalOn}) => {
   const classNames = useClassNames()
 
   const [showMissclickModal, setShowMissclickModal] = useState(false)
 
   useEffect(() => {
-    if (!props.openModal) {
+    if (!openModal) {
       setShowMissclickModal(false)
     }
-  }, [props.openModal])
+  }, [openModal])
 
   return (
     <Dialog
       maxWidth={false}
       classes={{
-        paperScrollBody: clsx(classNames.dialogContent, {[classNames.warningPaper]: props.isWarning}),
+        paperScrollBody: clsx(classNames.dialogContent, {[classNames.warningPaper]: isWarning}),
       }}
-      open={props.openModal}
+      open={openModal}
       scroll="body"
       onClose={
-        event => (event.detail !== 0 || event.code === 'Escape') && setShowMissclickModal(!showMissclickModal) // event.detail!==0 чтобы модалка не закрывалась при клике на внешний скролл
+        event =>
+          (event.detail !== 0 || event.code === 'Escape') && missClickModalOn
+            ? setShowMissclickModal(!showMissclickModal)
+            : setOpenModal(false) // event.detail!==0 чтобы модалка не закрывалась при клике на внешний скролл
       }
     >
-      <CloseRoundedIcon className={classNames.closeIcon} fontSize="large" onClick={() => props.setOpenModal()} />
+      <CloseRoundedIcon className={classNames.closeIcon} fontSize="large" onClick={() => setOpenModal()} />
 
       <DialogContent
         className={clsx(
           classNames.dialogPadding,
-          {[classNames.warningDialogPadding]: props.isWarning},
-          props.dialogContextClassName,
+          {[classNames.warningDialogPadding]: isWarning},
+          dialogContextClassName,
         )}
       >
-        {props.children}
+        {children}
       </DialogContent>
 
       <ConfirmationModal
         openModal={showMissclickModal}
         setOpenModal={() => setShowMissclickModal(!showMissclickModal)}
         title={t(TranslationKey.Attention)}
-        message={t(TranslationKey['Data will not be saved!'])}
+        message={t(TranslationKey['Window will be closed'])}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => props.setOpenModal()}
+        onClickSuccessBtn={() => setOpenModal()}
         onClickCancelBtn={() => setShowMissclickModal(!showMissclickModal)}
       />
     </Dialog>

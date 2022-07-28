@@ -96,7 +96,11 @@ export class ClientProductView extends Component {
           </Appbar>
         </Main>
 
-        <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
+        <Modal
+          missClickModalOn={!supplierModalReadOnly}
+          openModal={showAddOrEditSupplierModal}
+          setOpenModal={onTriggerAddOrEditSupplierModal}
+        >
           <AddOrEditSupplierModalContent
             product={product}
             storekeepersData={storekeepersData}
