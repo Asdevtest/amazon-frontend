@@ -1,7 +1,6 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
 import {SettingsModel} from '@models/settings-model'
@@ -109,7 +108,7 @@ export class ClientSellShopsAdsModel {
   }
 
   onClickViewMore() {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/trading-shops/sell-shops/shop`)
+    this.history.push('/client/trading-shops/sell-shops/shop')
   }
 
   onTriggerDrawerOpen() {

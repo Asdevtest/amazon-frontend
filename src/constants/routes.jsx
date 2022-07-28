@@ -407,6 +407,14 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/client/trading-shops/buy-shops/shop',
+    component: ClientShopView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Shop,
+  },
+
+  {
     routePath: '/client/freelance/my-requests/custom-request',
     component: OwnerRequestDetailCustomView,
     exact: true,

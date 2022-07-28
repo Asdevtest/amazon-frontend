@@ -1,7 +1,6 @@
 import {makeAutoObservable, runInAction, toJS} from 'mobx'
 
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
 import {SettingsModel} from '@models/settings-model'
@@ -104,16 +103,8 @@ export class ClientBuyShopsAdsModel {
     }
   }
 
-  async onClickViewMore(id) {
-    try {
-      this.history.push(
-        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request`,
-        {requestId: id},
-      )
-    } catch (error) {
-      this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
-    }
+  async onClickViewMore() {
+    this.history.push('/client/trading-shops/buy-shops/shop')
   }
 
   onTriggerDrawerOpen() {
