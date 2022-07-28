@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **batchTotalCostInDollar** | **Number** | Цена партии, dollar | [optional] 
 **batchTotalCostInYuan** | **Number** | Цена партии, yuan | [optional] 
 **boxProperties** | [**ApiV1AdminsGetProductsByStatusBoxProperties**](ApiV1AdminsGetProductsByStatusBoxProperties.md) |  | [optional] 
-**productionTerm** | **Date** |  | [optional] 
+**productionTerm** | **Number** |  | [optional] 
 **createdBy** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 
 

@@ -48,6 +48,7 @@ import ApiV1IntegrationsSellerboardWarehouseStocksShop from './model/ApiV1Integr
 import ApiV1RequestProposalsCreatedBy from './model/ApiV1RequestProposalsCreatedBy';
 import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './model/ApiV1RequestProposalsCustomByRequestIdGuidDetails';
 import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './model/ApiV1RequestProposalsCustomByRequestIdGuidProposal';
+import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './model/ApiV1RequestProposalsCustomByRequestIdGuidRequest';
 import ApiV1RequestProposalsDetailsCustom from './model/ApiV1RequestProposalsDetailsCustom';
 import ApiV1RequestProposalsRequest from './model/ApiV1RequestProposalsRequest';
 import ApiV1RequestProposalsRequestDetailsCustom from './model/ApiV1RequestProposalsRequestDetailsCustom';
@@ -498,6 +499,12 @@ export {
      * @property {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposal}
      */
     ApiV1RequestProposalsCustomByRequestIdGuidProposal,
+
+    /**
+     * The ApiV1RequestProposalsCustomByRequestIdGuidRequest model constructor.
+     * @property {module:model/ApiV1RequestProposalsCustomByRequestIdGuidRequest}
+     */
+    ApiV1RequestProposalsCustomByRequestIdGuidRequest,
 
     /**
      * The ApiV1RequestProposalsDetailsCustom model constructor.

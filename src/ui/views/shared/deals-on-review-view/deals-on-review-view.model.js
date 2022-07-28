@@ -49,11 +49,10 @@ export class DealsOnReviewModel {
     }
   }
 
-  async onClickViewMore(id, client) {
+  async onClickViewMore(id) {
     try {
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
         requestId: id,
-        requester: client,
       })
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')

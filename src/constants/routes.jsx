@@ -45,6 +45,7 @@ import {ClientOrdersView} from '@views/client/client-orders-views/orders'
 import {ClientProductExchangeView} from '@views/client/client-product-exchange-view'
 import {ClientProductView} from '@views/client/client-product-view/'
 import {ClientSettingsView} from '@views/client/client-settings-view'
+import {ClientShopView} from '@views/client/client-shop-view'
 import {ClientShopsView} from '@views/client/client-shops-view'
 import {ClientBuyShopsView} from '@views/client/client-trading-shops-views/client-buy-shops-view'
 import {ClientSellShopsView} from '@views/client/client-trading-shops-views/client-sell-shops-view'
@@ -395,6 +396,14 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.CLIENT],
     crumbNameKey: TranslationKey['Edit ad for store sale'],
+  },
+
+  {
+    routePath: '/client/trading-shops/sell-shops/shop',
+    component: ClientShopView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Shop,
   },
 
   {

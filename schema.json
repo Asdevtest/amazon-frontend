@@ -968,11 +968,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -1074,11 +1070,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -1465,11 +1457,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -1571,11 +1559,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -1963,11 +1947,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -2069,11 +2049,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -2460,11 +2436,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -2566,11 +2538,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -3211,11 +3179,7 @@
                                 }
                               }
                             },
-                            "productionTerm": {
-                              "type": "string",
-                              "format": "date-time",
-                              "example": "2021-11-24T15:10:46.882Z"
-                            },
+                            "productionTerm": {"type": "number", "example": 20},
                             "createdBy": {
                               "type": "object",
                               "description": "Общая информация о пользователи",
@@ -3325,11 +3289,7 @@
                               }
                             }
                           },
-                          "productionTerm": {
-                            "type": "string",
-                            "format": "date-time",
-                            "example": "2021-11-24T15:10:46.882Z"
-                          },
+                          "productionTerm": {"type": "number", "example": 20},
                           "createdBy": {
                             "type": "object",
                             "description": "Общая информация о пользователи",
@@ -3731,11 +3691,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -4878,11 +4834,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -4984,11 +4936,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -5837,11 +5785,7 @@
                                             }
                                           }
                                         },
-                                        "productionTerm": {
-                                          "type": "string",
-                                          "format": "date-time",
-                                          "example": "2021-11-24T15:10:46.882Z"
-                                        },
+                                        "productionTerm": {"type": "number", "example": 20},
                                         "createdBy": {
                                           "type": "object",
                                           "description": "Общая информация о пользователи",
@@ -5971,11 +5915,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -6632,11 +6572,7 @@
                                                 }
                                               }
                                             },
-                                            "productionTerm": {
-                                              "type": "string",
-                                              "format": "date-time",
-                                              "example": "2021-11-24T15:10:46.882Z"
-                                            },
+                                            "productionTerm": {"type": "number", "example": 20},
                                             "createdBy": {
                                               "type": "object",
                                               "description": "Общая информация о пользователи",
@@ -6774,11 +6710,7 @@
                                               }
                                             }
                                           },
-                                          "productionTerm": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2021-11-24T15:10:46.882Z"
-                                          },
+                                          "productionTerm": {"type": "number", "example": 20},
                                           "createdBy": {
                                             "type": "object",
                                             "description": "Общая информация о пользователи",
@@ -7293,11 +7225,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -8215,11 +8143,7 @@
                                       }
                                     }
                                   },
-                                  "productionTerm": {
-                                    "type": "string",
-                                    "format": "date-time",
-                                    "example": "2021-11-24T15:10:46.882Z"
-                                  },
+                                  "productionTerm": {"type": "number", "example": 20},
                                   "createdBy": {
                                     "type": "object",
                                     "description": "Общая информация о пользователи",
@@ -8345,11 +8269,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -8946,11 +8866,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -9080,11 +8996,7 @@
                                         }
                                       }
                                     },
-                                    "productionTerm": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "example": "2021-11-24T15:10:46.882Z"
-                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
                                     "createdBy": {
                                       "type": "object",
                                       "description": "Общая информация о пользователи",
@@ -9536,11 +9448,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -10090,11 +9998,7 @@
                                       }
                                     }
                                   },
-                                  "productionTerm": {
-                                    "type": "string",
-                                    "format": "date-time",
-                                    "example": "2021-11-24T15:10:46.882Z"
-                                  },
+                                  "productionTerm": {"type": "number", "example": 20},
                                   "createdBy": {
                                     "type": "object",
                                     "description": "Общая информация о пользователи",
@@ -10220,11 +10124,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -10821,11 +10721,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -10955,11 +10851,7 @@
                                         }
                                       }
                                     },
-                                    "productionTerm": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "example": "2021-11-24T15:10:46.882Z"
-                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
                                     "createdBy": {
                                       "type": "object",
                                       "description": "Общая информация о пользователи",
@@ -11411,11 +11303,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -11938,11 +11826,7 @@
                                       }
                                     }
                                   },
-                                  "productionTerm": {
-                                    "type": "string",
-                                    "format": "date-time",
-                                    "example": "2021-11-24T15:10:46.882Z"
-                                  },
+                                  "productionTerm": {"type": "number", "example": 20},
                                   "createdBy": {
                                     "type": "object",
                                     "description": "Общая информация о пользователи",
@@ -12068,11 +11952,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -12669,11 +12549,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -12803,11 +12679,7 @@
                                         }
                                       }
                                     },
-                                    "productionTerm": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "example": "2021-11-24T15:10:46.882Z"
-                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
                                     "createdBy": {
                                       "type": "object",
                                       "description": "Общая информация о пользователи",
@@ -13259,11 +13131,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -14406,11 +14274,7 @@
                                       }
                                     }
                                   },
-                                  "productionTerm": {
-                                    "type": "string",
-                                    "format": "date-time",
-                                    "example": "2021-11-24T15:10:46.882Z"
-                                  },
+                                  "productionTerm": {"type": "number", "example": 20},
                                   "createdBy": {
                                     "type": "object",
                                     "description": "Общая информация о пользователи",
@@ -14536,11 +14400,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -15137,11 +14997,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -15271,11 +15127,7 @@
                                         }
                                       }
                                     },
-                                    "productionTerm": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "example": "2021-11-24T15:10:46.882Z"
-                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
                                     "createdBy": {
                                       "type": "object",
                                       "description": "Общая информация о пользователи",
@@ -15727,11 +15579,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -16557,11 +16405,7 @@
                                       }
                                     }
                                   },
-                                  "productionTerm": {
-                                    "type": "string",
-                                    "format": "date-time",
-                                    "example": "2021-11-24T15:10:46.882Z"
-                                  },
+                                  "productionTerm": {"type": "number", "example": 20},
                                   "createdBy": {
                                     "type": "object",
                                     "description": "Общая информация о пользователи",
@@ -16687,11 +16531,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -17288,11 +17128,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -17422,11 +17258,7 @@
                                         }
                                       }
                                     },
-                                    "productionTerm": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "example": "2021-11-24T15:10:46.882Z"
-                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
                                     "createdBy": {
                                       "type": "object",
                                       "description": "Общая информация о пользователи",
@@ -17878,11 +17710,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -18402,11 +18230,7 @@
                                       }
                                     }
                                   },
-                                  "productionTerm": {
-                                    "type": "string",
-                                    "format": "date-time",
-                                    "example": "2021-11-24T15:10:46.882Z"
-                                  },
+                                  "productionTerm": {"type": "number", "example": 20},
                                   "createdBy": {
                                     "type": "object",
                                     "description": "Общая информация о пользователи",
@@ -18532,11 +18356,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -19133,11 +18953,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -19267,11 +19083,7 @@
                                         }
                                       }
                                     },
-                                    "productionTerm": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "example": "2021-11-24T15:10:46.882Z"
-                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
                                     "createdBy": {
                                       "type": "object",
                                       "description": "Общая информация о пользователи",
@@ -19723,11 +19535,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -20194,11 +20002,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -20300,11 +20104,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -20718,11 +20518,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -20824,11 +20620,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -21449,11 +21241,7 @@
                                 }
                               }
                             },
-                            "productionTerm": {
-                              "type": "string",
-                              "format": "date-time",
-                              "example": "2021-11-24T15:10:46.882Z"
-                            },
+                            "productionTerm": {"type": "number", "example": 20},
                             "createdBy": {
                               "type": "object",
                               "description": "Общая информация о пользователи",
@@ -21563,11 +21351,7 @@
                               }
                             }
                           },
-                          "productionTerm": {
-                            "type": "string",
-                            "format": "date-time",
-                            "example": "2021-11-24T15:10:46.882Z"
-                          },
+                          "productionTerm": {"type": "number", "example": 20},
                           "createdBy": {
                             "type": "object",
                             "description": "Общая информация о пользователи",
@@ -21969,11 +21753,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -22290,11 +22070,7 @@
                               }
                             }
                           },
-                          "productionTerm": {
-                            "type": "string",
-                            "format": "date-time",
-                            "example": "2021-11-24T15:10:46.882Z"
-                          },
+                          "productionTerm": {"type": "number", "example": 20},
                           "createdBy": {
                             "type": "object",
                             "description": "Общая информация о пользователи",
@@ -22400,11 +22176,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -22797,7 +22569,7 @@
                         }
                       }
                     },
-                    "productionTerm": {"type": "string", "format": "date-time", "example": "2021-11-24T15:10:46.882Z"},
+                    "productionTerm": {"type": "number", "example": 20},
                     "createdBy": {
                       "type": "object",
                       "description": "Общая информация о пользователи",
@@ -23145,11 +22917,7 @@
                                 }
                               }
                             },
-                            "productionTerm": {
-                              "type": "string",
-                              "format": "date-time",
-                              "example": "2021-11-24T15:10:46.882Z"
-                            },
+                            "productionTerm": {"type": "number", "example": 20},
                             "createdBy": {
                               "type": "object",
                               "description": "Общая информация о пользователи",
@@ -23259,11 +23027,7 @@
                               }
                             }
                           },
-                          "productionTerm": {
-                            "type": "string",
-                            "format": "date-time",
-                            "example": "2021-11-24T15:10:46.882Z"
-                          },
+                          "productionTerm": {"type": "number", "example": 20},
                           "createdBy": {
                             "type": "object",
                             "description": "Общая информация о пользователи",
@@ -23665,11 +23429,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -24258,11 +24018,7 @@
                                             }
                                           }
                                         },
-                                        "productionTerm": {
-                                          "type": "string",
-                                          "format": "date-time",
-                                          "example": "2021-11-24T15:10:46.882Z"
-                                        },
+                                        "productionTerm": {"type": "number", "example": 20},
                                         "createdBy": {
                                           "type": "object",
                                           "description": "Общая информация о пользователи",
@@ -24392,11 +24148,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -25053,11 +24805,7 @@
                                                 }
                                               }
                                             },
-                                            "productionTerm": {
-                                              "type": "string",
-                                              "format": "date-time",
-                                              "example": "2021-11-24T15:10:46.882Z"
-                                            },
+                                            "productionTerm": {"type": "number", "example": 20},
                                             "createdBy": {
                                               "type": "object",
                                               "description": "Общая информация о пользователи",
@@ -25195,11 +24943,7 @@
                                               }
                                             }
                                           },
-                                          "productionTerm": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2021-11-24T15:10:46.882Z"
-                                          },
+                                          "productionTerm": {"type": "number", "example": 20},
                                           "createdBy": {
                                             "type": "object",
                                             "description": "Общая информация о пользователи",
@@ -25714,11 +25458,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -26248,11 +25988,7 @@
                                             }
                                           }
                                         },
-                                        "productionTerm": {
-                                          "type": "string",
-                                          "format": "date-time",
-                                          "example": "2021-11-24T15:10:46.882Z"
-                                        },
+                                        "productionTerm": {"type": "number", "example": 20},
                                         "createdBy": {
                                           "type": "object",
                                           "description": "Общая информация о пользователи",
@@ -26382,11 +26118,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -27043,11 +26775,7 @@
                                                 }
                                               }
                                             },
-                                            "productionTerm": {
-                                              "type": "string",
-                                              "format": "date-time",
-                                              "example": "2021-11-24T15:10:46.882Z"
-                                            },
+                                            "productionTerm": {"type": "number", "example": 20},
                                             "createdBy": {
                                               "type": "object",
                                               "description": "Общая информация о пользователи",
@@ -27185,11 +26913,7 @@
                                               }
                                             }
                                           },
-                                          "productionTerm": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2021-11-24T15:10:46.882Z"
-                                          },
+                                          "productionTerm": {"type": "number", "example": 20},
                                           "createdBy": {
                                             "type": "object",
                                             "description": "Общая информация о пользователи",
@@ -27704,11 +27428,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -28150,11 +27870,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -28256,11 +27972,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -28921,11 +28633,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -29027,11 +28735,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -29755,11 +29459,7 @@
                                 }
                               }
                             },
-                            "productionTerm": {
-                              "type": "string",
-                              "format": "date-time",
-                              "example": "2021-11-24T15:10:46.882Z"
-                            },
+                            "productionTerm": {"type": "number", "example": 20},
                             "createdBy": {
                               "type": "object",
                               "description": "Общая информация о пользователи",
@@ -29869,11 +29569,7 @@
                               }
                             }
                           },
-                          "productionTerm": {
-                            "type": "string",
-                            "format": "date-time",
-                            "example": "2021-11-24T15:10:46.882Z"
-                          },
+                          "productionTerm": {"type": "number", "example": 20},
                           "createdBy": {
                             "type": "object",
                             "description": "Общая информация о пользователи",
@@ -30275,11 +29971,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -30661,11 +30353,7 @@
                               }
                             }
                           },
-                          "productionTerm": {
-                            "type": "string",
-                            "format": "date-time",
-                            "example": "2021-11-24T15:10:46.882Z"
-                          },
+                          "productionTerm": {"type": "number", "example": 20},
                           "createdBy": {
                             "type": "object",
                             "description": "Общая информация о пользователи",
@@ -30771,11 +30459,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -31168,7 +30852,7 @@
                         }
                       }
                     },
-                    "productionTerm": {"type": "string", "format": "date-time", "example": "2021-11-24T15:10:46.882Z"},
+                    "productionTerm": {"type": "number", "example": 20},
                     "createdBy": {
                       "type": "object",
                       "description": "Общая информация о пользователи",
@@ -31497,11 +31181,7 @@
                                 }
                               }
                             },
-                            "productionTerm": {
-                              "type": "string",
-                              "format": "date-time",
-                              "example": "2021-11-24T15:10:46.882Z"
-                            },
+                            "productionTerm": {"type": "number", "example": 20},
                             "createdBy": {
                               "type": "object",
                               "description": "Общая информация о пользователи",
@@ -31611,11 +31291,7 @@
                               }
                             }
                           },
-                          "productionTerm": {
-                            "type": "string",
-                            "format": "date-time",
-                            "example": "2021-11-24T15:10:46.882Z"
-                          },
+                          "productionTerm": {"type": "number", "example": 20},
                           "createdBy": {
                             "type": "object",
                             "description": "Общая информация о пользователи",
@@ -32017,11 +31693,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -34808,11 +34480,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -34910,7 +34578,7 @@
                         }
                       }
                     },
-                    "productionTerm": {"type": "string", "format": "date-time", "example": "2021-11-24T15:10:46.882Z"},
+                    "productionTerm": {"type": "number", "example": 20},
                     "createdBy": {
                       "type": "object",
                       "description": "Общая информация о пользователи",
@@ -35292,11 +34960,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -35398,11 +35062,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -37259,11 +36919,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -37365,11 +37021,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -37882,11 +37534,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -37984,7 +37632,7 @@
                         }
                       }
                     },
-                    "productionTerm": {"type": "string", "format": "date-time", "example": "2021-11-24T15:10:46.882Z"},
+                    "productionTerm": {"type": "number", "example": 20},
                     "createdBy": {
                       "type": "object",
                       "description": "Общая информация о пользователи",
@@ -38949,11 +38597,7 @@
                                             }
                                           }
                                         },
-                                        "productionTerm": {
-                                          "type": "string",
-                                          "format": "date-time",
-                                          "example": "2021-11-24T15:10:46.882Z"
-                                        },
+                                        "productionTerm": {"type": "number", "example": 20},
                                         "createdBy": {
                                           "type": "object",
                                           "description": "Общая информация о пользователи",
@@ -39083,11 +38727,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -39744,11 +39384,7 @@
                                                 }
                                               }
                                             },
-                                            "productionTerm": {
-                                              "type": "string",
-                                              "format": "date-time",
-                                              "example": "2021-11-24T15:10:46.882Z"
-                                            },
+                                            "productionTerm": {"type": "number", "example": 20},
                                             "createdBy": {
                                               "type": "object",
                                               "description": "Общая информация о пользователи",
@@ -39886,11 +39522,7 @@
                                               }
                                             }
                                           },
-                                          "productionTerm": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2021-11-24T15:10:46.882Z"
-                                          },
+                                          "productionTerm": {"type": "number", "example": 20},
                                           "createdBy": {
                                             "type": "object",
                                             "description": "Общая информация о пользователи",
@@ -40405,11 +40037,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -40939,11 +40567,7 @@
                                             }
                                           }
                                         },
-                                        "productionTerm": {
-                                          "type": "string",
-                                          "format": "date-time",
-                                          "example": "2021-11-24T15:10:46.882Z"
-                                        },
+                                        "productionTerm": {"type": "number", "example": 20},
                                         "createdBy": {
                                           "type": "object",
                                           "description": "Общая информация о пользователи",
@@ -41073,11 +40697,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -41734,11 +41354,7 @@
                                                 }
                                               }
                                             },
-                                            "productionTerm": {
-                                              "type": "string",
-                                              "format": "date-time",
-                                              "example": "2021-11-24T15:10:46.882Z"
-                                            },
+                                            "productionTerm": {"type": "number", "example": 20},
                                             "createdBy": {
                                               "type": "object",
                                               "description": "Общая информация о пользователи",
@@ -41876,11 +41492,7 @@
                                               }
                                             }
                                           },
-                                          "productionTerm": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2021-11-24T15:10:46.882Z"
-                                          },
+                                          "productionTerm": {"type": "number", "example": 20},
                                           "createdBy": {
                                             "type": "object",
                                             "description": "Общая информация о пользователи",
@@ -42395,11 +42007,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -43002,11 +42610,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -43136,11 +42740,7 @@
                                         }
                                       }
                                     },
-                                    "productionTerm": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "example": "2021-11-24T15:10:46.882Z"
-                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
                                     "createdBy": {
                                       "type": "object",
                                       "description": "Общая информация о пользователи",
@@ -43757,11 +43357,7 @@
                                               }
                                             }
                                           },
-                                          "productionTerm": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2021-11-24T15:10:46.882Z"
-                                          },
+                                          "productionTerm": {"type": "number", "example": 20},
                                           "createdBy": {
                                             "type": "object",
                                             "description": "Общая информация о пользователи",
@@ -43891,11 +43487,7 @@
                                             }
                                           }
                                         },
-                                        "productionTerm": {
-                                          "type": "string",
-                                          "format": "date-time",
-                                          "example": "2021-11-24T15:10:46.882Z"
-                                        },
+                                        "productionTerm": {"type": "number", "example": 20},
                                         "createdBy": {
                                           "type": "object",
                                           "description": "Общая информация о пользователи",
@@ -44402,11 +43994,7 @@
                                         }
                                       }
                                     },
-                                    "productionTerm": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "example": "2021-11-24T15:10:46.882Z"
-                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
                                     "createdBy": {
                                       "type": "object",
                                       "description": "Общая информация о пользователи",
@@ -44928,11 +44516,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -45062,11 +44646,7 @@
                                         }
                                       }
                                     },
-                                    "productionTerm": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "example": "2021-11-24T15:10:46.882Z"
-                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
                                     "createdBy": {
                                       "type": "object",
                                       "description": "Общая информация о пользователи",
@@ -45683,11 +45263,7 @@
                                               }
                                             }
                                           },
-                                          "productionTerm": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2021-11-24T15:10:46.882Z"
-                                          },
+                                          "productionTerm": {"type": "number", "example": 20},
                                           "createdBy": {
                                             "type": "object",
                                             "description": "Общая информация о пользователи",
@@ -45817,11 +45393,7 @@
                                             }
                                           }
                                         },
-                                        "productionTerm": {
-                                          "type": "string",
-                                          "format": "date-time",
-                                          "example": "2021-11-24T15:10:46.882Z"
-                                        },
+                                        "productionTerm": {"type": "number", "example": 20},
                                         "createdBy": {
                                           "type": "object",
                                           "description": "Общая информация о пользователи",
@@ -46328,11 +45900,7 @@
                                         }
                                       }
                                     },
-                                    "productionTerm": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "example": "2021-11-24T15:10:46.882Z"
-                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
                                     "createdBy": {
                                       "type": "object",
                                       "description": "Общая информация о пользователи",
@@ -47322,11 +46890,7 @@
                                             }
                                           }
                                         },
-                                        "productionTerm": {
-                                          "type": "string",
-                                          "format": "date-time",
-                                          "example": "2021-11-24T15:10:46.882Z"
-                                        },
+                                        "productionTerm": {"type": "number", "example": 20},
                                         "createdBy": {
                                           "type": "object",
                                           "description": "Общая информация о пользователи",
@@ -47456,11 +47020,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -48117,11 +47677,7 @@
                                                 }
                                               }
                                             },
-                                            "productionTerm": {
-                                              "type": "string",
-                                              "format": "date-time",
-                                              "example": "2021-11-24T15:10:46.882Z"
-                                            },
+                                            "productionTerm": {"type": "number", "example": 20},
                                             "createdBy": {
                                               "type": "object",
                                               "description": "Общая информация о пользователи",
@@ -48259,11 +47815,7 @@
                                               }
                                             }
                                           },
-                                          "productionTerm": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2021-11-24T15:10:46.882Z"
-                                          },
+                                          "productionTerm": {"type": "number", "example": 20},
                                           "createdBy": {
                                             "type": "object",
                                             "description": "Общая информация о пользователи",
@@ -48778,11 +48330,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -49312,11 +48860,7 @@
                                             }
                                           }
                                         },
-                                        "productionTerm": {
-                                          "type": "string",
-                                          "format": "date-time",
-                                          "example": "2021-11-24T15:10:46.882Z"
-                                        },
+                                        "productionTerm": {"type": "number", "example": 20},
                                         "createdBy": {
                                           "type": "object",
                                           "description": "Общая информация о пользователи",
@@ -49446,11 +48990,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -50107,11 +49647,7 @@
                                                 }
                                               }
                                             },
-                                            "productionTerm": {
-                                              "type": "string",
-                                              "format": "date-time",
-                                              "example": "2021-11-24T15:10:46.882Z"
-                                            },
+                                            "productionTerm": {"type": "number", "example": 20},
                                             "createdBy": {
                                               "type": "object",
                                               "description": "Общая информация о пользователи",
@@ -50249,11 +49785,7 @@
                                               }
                                             }
                                           },
-                                          "productionTerm": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2021-11-24T15:10:46.882Z"
-                                          },
+                                          "productionTerm": {"type": "number", "example": 20},
                                           "createdBy": {
                                             "type": "object",
                                             "description": "Общая информация о пользователи",
@@ -50768,11 +50300,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -51420,11 +50948,7 @@
                                       }
                                     }
                                   },
-                                  "productionTerm": {
-                                    "type": "string",
-                                    "format": "date-time",
-                                    "example": "2021-11-24T15:10:46.882Z"
-                                  },
+                                  "productionTerm": {"type": "number", "example": 20},
                                   "createdBy": {
                                     "type": "object",
                                     "description": "Общая информация о пользователи",
@@ -51550,11 +51074,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -52151,11 +51671,7 @@
                                           }
                                         }
                                       },
-                                      "productionTerm": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2021-11-24T15:10:46.882Z"
-                                      },
+                                      "productionTerm": {"type": "number", "example": 20},
                                       "createdBy": {
                                         "type": "object",
                                         "description": "Общая информация о пользователи",
@@ -52285,11 +51801,7 @@
                                         }
                                       }
                                     },
-                                    "productionTerm": {
-                                      "type": "string",
-                                      "format": "date-time",
-                                      "example": "2021-11-24T15:10:46.882Z"
-                                    },
+                                    "productionTerm": {"type": "number", "example": 20},
                                     "createdBy": {
                                       "type": "object",
                                       "description": "Общая информация о пользователи",
@@ -52741,11 +52253,7 @@
                                     }
                                   }
                                 },
-                                "productionTerm": {
-                                  "type": "string",
-                                  "format": "date-time",
-                                  "example": "2021-11-24T15:10:46.882Z"
-                                },
+                                "productionTerm": {"type": "number", "example": 20},
                                 "createdBy": {
                                   "type": "object",
                                   "description": "Общая информация о пользователи",
@@ -53771,11 +53279,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -53877,11 +53381,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -54295,11 +53795,7 @@
                             }
                           }
                         },
-                        "productionTerm": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-11-24T15:10:46.882Z"
-                        },
+                        "productionTerm": {"type": "number", "example": 20},
                         "createdBy": {
                           "type": "object",
                           "description": "Общая информация о пользователи",
@@ -54401,11 +53897,7 @@
                           }
                         }
                       },
-                      "productionTerm": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2021-11-24T15:10:46.882Z"
-                      },
+                      "productionTerm": {"type": "number", "example": 20},
                       "createdBy": {
                         "type": "object",
                         "description": "Общая информация о пользователи",
@@ -54966,7 +54458,7 @@
                       }
                     }
                   },
-                  "productionTerm": {"type": "string", "format": "date-time", "example": "2021-11-24T15:10:46.882Z"},
+                  "productionTerm": {"type": "number", "example": 20},
                   "createdBy": {
                     "type": "object",
                     "description": "Общая информация о пользователи",
@@ -55097,7 +54589,7 @@
                   "exclusiveMinimum": 0,
                   "exclusiveMaximum": 1000000
                 },
-                "productionTerm": {"type": "string", "format": "date-time", "example": "2021-11-24T15:10:46.882Z"},
+                "productionTerm": {"type": "number", "example": 20},
                 "boxProperties": {
                   "type": "object",
                   "nullable": true,
@@ -55250,7 +54742,7 @@
                     }
                   }
                 },
-                "productionTerm": {"type": "string", "format": "date-time", "example": "2021-11-24T15:10:46.882Z"},
+                "productionTerm": {"type": "number", "example": 20},
                 "createdBy": {
                   "type": "object",
                   "description": "Общая информация о пользователи",
@@ -55369,7 +54861,7 @@
                   "exclusiveMinimum": 0,
                   "exclusiveMaximum": 1000000
                 },
-                "productionTerm": {"type": "string", "format": "date-time", "example": "2021-11-24T15:10:46.882Z"},
+                "productionTerm": {"type": "number", "example": 20},
                 "boxProperties": {
                   "type": "object",
                   "nullable": true,
@@ -56097,6 +55589,25 @@
                         "items": {
                           "type": "string",
                           "example": "https://krasivosti.pro/uploads/posts/2021-04/1617690122_41-p-koshachi-oboi-ochen-krasivie-kotiki-43.jpg"
+                        }
+                      }
+                    }
+                  },
+                  "request": {
+                    "type": "object",
+                    "properties": {
+                      "createdBy": {
+                        "type": "object",
+                        "description": "Общая информация о пользователи",
+                        "nullable": true,
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "description": "GUID пользователя.",
+                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                          },
+                          "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                          "rating": {"type": "number", "description": "Рейтинг пользователя."}
                         }
                       }
                     }

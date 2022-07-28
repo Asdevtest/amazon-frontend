@@ -77,8 +77,6 @@ const Box = observer(
       </div>
     )
 
-    console.log('box.tmpImages', box.tmpImages)
-
     return (
       <div className={(classNames.box, classNames.mainPaper)}>
         <div className={classNames.fieldsWrapper}>
@@ -240,8 +238,9 @@ const Box = observer(
             {box.images && (
               <div className={classNames.photoWrapper}>
                 <Typography>{t(TranslationKey['Box photos:'])}</Typography>
-
-                <PhotoAndFilesCarousel files={box.images} width="300px" />
+                <div className={classNames.photoSubWrapper}>
+                  <PhotoAndFilesCarousel files={box.images} width="300px" />
+                </div>
 
                 {isNewBox && box.tmpImages?.length ? (
                   <div>
@@ -286,8 +285,9 @@ const Box = observer(
             {box.items[0].order.images && (
               <div className={classNames.photoWrapper}>
                 <Typography>{t(TranslationKey['Order photos:'])}</Typography>
-
-                <PhotoAndFilesCarousel files={box.items[0].order.images} width="300px" />
+                <div className={classNames.photoSubWrapper}>
+                  <PhotoAndFilesCarousel files={box.items[0].order.images} width="300px" />
+                </div>
               </div>
             )}
           </div>

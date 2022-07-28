@@ -26,4 +26,8 @@ export const useClassNames = makeStyles(() => ({
     whiteSpace: 'nowrap',
     textAlign: 'center',
   },
+
+  title: {
+    fontSize: '24px',
+  },
 }))

@@ -181,7 +181,7 @@ export const AdminUserEditContent = observer(
       formFields.name === '' ||
       formFields.email === '' ||
       formFields.rate === '' ||
-      formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
+      // formFields.role === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
       (JSON.stringify(changedAllowedRoles) === JSON.stringify(selectedAllowedRoles) &&
         JSON.stringify(sourceFormFields) === JSON.stringify(formFields))
 

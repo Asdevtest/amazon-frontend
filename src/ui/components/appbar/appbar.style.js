@@ -77,7 +77,7 @@ export const useClassNames = makeStyles(theme => ({
     transition: '0.3s ease',
     height: '100%',
     '&:hover': {
-      backgroundColor: 'rgba(0,123,255,0.3)',
+      backgroundColor: '#CCE2FF',
     },
   },
   usernameAndBalanceWrapper: {
@@ -111,10 +111,32 @@ export const useClassNames = makeStyles(theme => ({
   footer: {
     bottom: 0,
   },
+
+  menu: {
+    width: '170px',
+    marginTop: '40px',
+    marginLeft: '60px',
+    display: 'flex',
+  },
+
   menuWrapper: {
     display: 'flex',
-    justifyContent: 'center',
-    width: '150px',
+    justifyContent: 'start',
+    width: '170px',
+    padding: '13px 0 13px 33px',
+    fontSize: 18,
+    lineHeight: '140%',
+    fontWeight: 400,
+    color: '#001029',
+    backgroundColor: '#fff',
+
+    '&:hover': {
+      backgroundColor: '#CCE2FF',
+    },
+  },
+
+  icon: {
+    marginRight: '13px',
   },
   menuTitle: {
     height: '30px',
@@ -211,4 +233,6 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 400,
     color: '#c4c4c4',
   },
+
+  e: {},
 }))

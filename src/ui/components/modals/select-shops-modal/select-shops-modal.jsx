@@ -101,7 +101,7 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
             variant="contained"
             onClick={() => onClickSuccessBtn(currentShopsIds)}
           >
-            {'ok'}
+            {t(TranslationKey.Yes)}
           </Button>
 
           <Button
@@ -111,7 +111,7 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
             color="primary"
             onClick={onClickCancelBtn}
           >
-            {'cancel'}
+            {t(TranslationKey.Cancel)}
           </Button>
         </div>
       </div>

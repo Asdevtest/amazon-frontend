@@ -18,7 +18,7 @@ export const UserMoneyTransferModal = ({openModal, setOpenModal, isWithdraw}) =>
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMessageWrapper}>
-        <Typography paragraph variant="h3">
+        <Typography paragraph className={classNames.title}>
           {isWithdraw ? t(TranslationKey['Withdraw money']) : t(TranslationKey['Add money'])}
         </Typography>
 
