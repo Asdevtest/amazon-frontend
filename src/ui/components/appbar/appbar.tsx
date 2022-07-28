@@ -1,4 +1,5 @@
-import SettingsIcon from '@mui/icons-material/Settings'
+import LogoutIcon from '@mui/icons-material/Logout'
+import PersonIcon from '@mui/icons-material/Person'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {useRef, useState, FC} from 'react'
@@ -175,18 +176,22 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
           </div>
 
           <div>
-            <Menu keepMounted id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-              <Typography className={classNames.menuTitle}>{t(TranslationKey.Menu)}</Typography>
-
-              {
-                <MenuItem className={classNames.menuWrapper} onClick={onClickProfile}>
-                  <SettingsIcon color="primary" />
-                  {t(TranslationKey.Profile)}
-                </MenuItem>
-              }
+            <Menu
+              keepMounted
+              id="simple-menu"
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              classes={{paper: classNames.menu}}
+              style={{padding: 0}}
+              onClose={handleClose}
+            >
+              <MenuItem className={classNames.menuWrapper} onClick={onClickProfile}>
+                <PersonIcon color="primary" classes={{root: classNames.icon}} />
+                {t(TranslationKey.Profile)}
+              </MenuItem>
 
               <MenuItem className={classNames.menuWrapper} onClick={onClickExit}>
-                <ExitToAppIcon color="primary" />
+                <LogoutIcon color="primary" classes={{root: classNames.icon}} />
                 {t(TranslationKey.Exit)}
               </MenuItem>
             </Menu>
