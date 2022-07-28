@@ -104,16 +104,14 @@ export class ClientSellShopsAdsModel {
     }
   }
 
-  async onClickViewMore(id) {
-    try {
-      this.history.push(
-        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request`,
-        {requestId: id},
-      )
-    } catch (error) {
-      this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
-    }
+  onClickAddBtn() {
+    this.history.push('/client/trading-shops/sell-shops/create-trading-shop')
+  }
+
+  onClickViewMore(id) {
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request`, {
+      requestId: id,
+    })
   }
 
   onTriggerDrawerOpen() {

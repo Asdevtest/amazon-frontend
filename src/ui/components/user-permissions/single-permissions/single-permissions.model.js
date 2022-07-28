@@ -74,17 +74,19 @@ export class SinglePermissionsModel {
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+    if (this.requestStatus && this.requestStatus !== loadingStatuses.isLoading) {
+      this.firstRowId = state.sorting.sortedRows[0]
 
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+      const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+        'sorting',
+        'filter',
+        'pagination',
+        'density',
+        'columns',
+      ])
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_SINGLE_PERMISSIONS)
+      SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_SINGLE_PERMISSIONS)
+    }
   }
 
   getDataGridState() {

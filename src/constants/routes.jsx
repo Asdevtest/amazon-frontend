@@ -49,6 +49,7 @@ import {ClientShopsView} from '@views/client/client-shops-view'
 import {ClientBuyShopsView} from '@views/client/client-trading-shops-views/client-buy-shops-view'
 import {ClientSellShopsView} from '@views/client/client-trading-shops-views/client-sell-shops-view'
 import {ClientTradingShopsView} from '@views/client/client-trading-shops-views/client-trading-shops-view'
+import {CreateOrEditTradingShopView} from '@views/client/client-trading-shops-views/create-or-edit-trading-shop-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {FreelancerDashboardView} from '@views/freelancer/freelancer-dashboard-view'
 import {FreelancerFinancesViews} from '@views/freelancer/freelancer-finances-views'
@@ -378,6 +379,22 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.CLIENT],
     crumbNameKey: TranslationKey['Sell the Shop'],
+  },
+
+  {
+    routePath: '/client/trading-shops/sell-shops/create-trading-shop',
+    component: CreateOrEditTradingShopView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Create an ad to sell your store'],
+  },
+
+  {
+    routePath: '/client/trading-shops/sell-shops/edit-trading-shop',
+    component: CreateOrEditTradingShopView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey['Edit ad for store sale'],
   },
 
   {

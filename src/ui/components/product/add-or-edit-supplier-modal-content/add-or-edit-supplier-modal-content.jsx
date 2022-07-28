@@ -135,6 +135,8 @@ export const AddOrEditSupplierModalContent = observer(
           amountInBox: tmpSupplier.boxProperties.amountInBox || 0,
           boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
         },
+
+        productionTerm: tmpSupplier.productionTerm ? tmpSupplier.productionTerm : 0,
       }
 
       if (
@@ -282,7 +284,7 @@ export const AddOrEditSupplierModalContent = observer(
         !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)
       ) {
         return
-      } else if (['minlot', 'amount'].includes(fieldName)) {
+      } else if (['minlot', 'amount', 'productionTerm'].includes(fieldName)) {
         setTmpSupplier({...tmpSupplier, [fieldName]: parseInt(event.target.value) || ''})
       } else if (['amountInBox'].includes(fieldName)) {
         setTmpSupplier({

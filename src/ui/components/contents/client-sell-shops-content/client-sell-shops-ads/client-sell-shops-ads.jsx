@@ -40,6 +40,7 @@ export const ClientSellShopsAds = observer(() => {
     onTriggerSortMode,
     onClickViewMore,
     onChangeNameSearchValue,
+    onClickAddBtn,
   } = model.current
 
   const getSortedData = mode => {
@@ -55,7 +56,7 @@ export const ClientSellShopsAds = observer(() => {
   return (
     <>
       <div className={classNames.btnsWrapper}>
-        <Button success className={classNames.addBtn} /* onClick={() => onClickAddBtn()}*/>
+        <Button success className={classNames.addBtn} onClick={onClickAddBtn}>
           {t(TranslationKey['Add shop'])}
         </Button>
       </div>
