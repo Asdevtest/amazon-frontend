@@ -13,7 +13,6 @@ export class VacantDealsDetailsViewModel {
 
   requestId = undefined
   proposalId = undefined
-  requester = undefined
 
   drawerOpen = false
   showConfirmModal = false

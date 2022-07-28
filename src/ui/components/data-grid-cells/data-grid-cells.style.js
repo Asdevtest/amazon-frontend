@@ -484,7 +484,9 @@ export const styles = createStyles(() => ({
   multilineTextAlignLeftHeader: {
     width: '100%',
     textAlign: 'left',
+
     whiteSpace: 'normal',
+    textOverflow: 'ellipsis',
 
     fontWeight: '600',
     fontSize: '14px',
@@ -493,7 +495,6 @@ export const styles = createStyles(() => ({
     color: 'rgba(0, 0, 0, 0.87)',
 
     height: '100%',
-    textOverflow: 'ellipsis',
   },
 
   multilineTextAlignLeftWrapper: {
@@ -501,20 +502,23 @@ export const styles = createStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
+    flexWrap: 'wrap',
   },
 
   multilineTextAlignLeft: {
-    width: '100%',
+    width: '300px',
     textAlign: 'left',
-    whiteSpace: 'normal',
-    fontWeight: '600',
+    // whiteSpace: 'wrap',
+    fontWeight: '400',
     fontSize: '14px',
     lineHeight: '17px',
-
+    fontFamily: 'inherit',
+    border: 'none',
+    backgroundColor: 'inherit',
     color: 'rgba(0, 0, 0, 0.87)',
-
+    resize: 'none',
     height: '100%',
-    textOverflow: 'ellipsis',
+    // textOverflow: 'ellipsis ',
   },
 
   multilineTextHeaderWrapper: {
@@ -656,7 +660,7 @@ export const styles = createStyles(() => ({
   },
 
   statusWrapper: {
-    width: '270px',
+    // width: '270px',
     display: 'flex',
     justifyContent: 'start',
   },

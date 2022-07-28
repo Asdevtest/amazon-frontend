@@ -136,7 +136,7 @@ export const TaskInfoBoxItemCard = ({item, superCount}) => {
               <Field
                 disabled
                 className={classNames.field}
-                label={t(TranslationKey['Refferal fee , $'])}
+                label={t(TranslationKey['Referral fee, $'])}
                 value={toFixed(item.product.reffee, 2) || ''}
               />
               <Field

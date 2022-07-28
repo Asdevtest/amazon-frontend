@@ -52,8 +52,17 @@ export const styles = createStyles({
     },
   },
 
+  '@keyframes cursor': {
+    '0%': {cursor: 'url(/assets/icons/Cursor.svg), auto'},
+    '25%': {cursor: 'url(/assets/icons/Cursor4.svg), auto'},
+    '50%': {cursor: 'url(/assets/icons/Cursor.svg), auto'},
+    '75%': {cursor: 'url(/assets/icons/Cursor4.svg), auto'},
+    '100%': {cursor: 'url(/assets/icons/Cursor.svg), auto'},
+  },
+
   row: {
     cursor: 'url(/assets/icons/Cursor.svg), auto',
+    animation: '$cursor .9s ease-in-out infinite ',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.01)',

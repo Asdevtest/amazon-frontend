@@ -53,11 +53,10 @@ export class VacantDealsViewModel {
     }
   }
 
-  async onClickViewMore(id, client) {
+  async onClickViewMore(id) {
     try {
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-deals/deal-details`, {
         requestId: id,
-        requester: client,
       })
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')
@@ -70,7 +69,6 @@ export class VacantDealsViewModel {
       await RequestProposalModel.requestProposalLinkOrUnlinkSupervisor(id, {action: 'LINK'})
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
         requestId,
-        // requester: this.client,
       })
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {

@@ -6,10 +6,11 @@ import {Rating} from '@mui/material'
 
 import React from 'react'
 
-import {Avatar, Badge, Chip, Link, Tooltip, Typography} from '@material-ui/core'
+import {Avatar, Badge, Chip, Link, TextareaAutosize, Tooltip, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
+import {TextArea} from 'react-mde'
 
 import {BoxStatus} from '@constants/box-status'
 import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
@@ -331,7 +332,9 @@ export const MultilineTextCell = withStyles(styles)(({classes: classNames, text,
 
 export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text}) => (
   <div className={classNames.multilineTextAlignLeftWrapper}>
-    <Typography className={classNames.multilineTextAlignLeft}>{text}</Typography>
+    <TextareaAutosize disabled className={classNames.multilineTextAlignLeft}>
+      {text}
+    </TextareaAutosize>
   </div>
 ))
 

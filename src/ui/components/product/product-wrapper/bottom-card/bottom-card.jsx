@@ -215,7 +215,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                   error={formFieldsValidationErrors.reffee}
                   containerClasses={classNames.infoContainer}
                   inputClasses={classNames.infoInput}
-                  label={t(TranslationKey['Refferal fee , $'])}
+                  label={t(TranslationKey['Referral fee, $'])}
                   value={product.reffee === 0 ? 0 : toFixed(product.reffee, 2) || ''}
                   onChange={onChangeField('reffee')}
                 />

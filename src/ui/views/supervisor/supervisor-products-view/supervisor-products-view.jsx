@@ -36,6 +36,7 @@ const attentionStatuses = [
   ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
   ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
   ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+  ProductStatus.RESEARCHER_CREATED_PRODUCT,
 ]
 
 @observer

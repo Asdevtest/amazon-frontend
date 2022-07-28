@@ -32,7 +32,6 @@ export const DealDetailsCard = ({
   onClickReworkDealModal,
   dealsOnReview,
   item,
-  requester,
 }) => {
   const classNames = useClassNames()
   console.log(item)
@@ -44,12 +43,11 @@ export const DealDetailsCard = ({
             <div className={classNames.userInfoWrapper}>
               <Typography className={classNames.userInfoName}>{t(TranslationKey.Client)}</Typography>
               <div className={classNames.userInfo}>
-                <Avatar src={getUserAvatarSrc(requester?._id)} className={classNames.cardImg} />
+                <Avatar src={getUserAvatarSrc(item?.request?.createdBy?._id)} className={classNames.cardImg} />
 
                 <div className={classNames.nameWrapper}>
-                  <UserLink blackText name={requester?.name} userId={requester?._id} />
-
-                  <Rating disabled value={requester?.rating} />
+                  <UserLink blackText name={item?.request?.createdBy?.name} userId={item?.request?.createdBy?._id} />
+                  {item && <Rating disabled value={item?.request?.createdBy?.rating} />}
                 </div>
               </div>
             </div>

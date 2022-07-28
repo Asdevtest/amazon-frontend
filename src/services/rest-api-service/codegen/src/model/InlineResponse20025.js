@@ -14,6 +14,7 @@
 import ApiClient from '../ApiClient';
 import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
 import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './ApiV1RequestProposalsCustomByRequestIdGuidProposal';
+import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestProposalsCustomByRequestIdGuidRequest';
 
 /**
  * The InlineResponse20025 model module.
@@ -56,6 +57,9 @@ class InlineResponse20025 {
             if (data.hasOwnProperty('details')) {
                 obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
             }
+            if (data.hasOwnProperty('request')) {
+                obj['request'] = ApiV1RequestProposalsCustomByRequestIdGuidRequest.constructFromObject(data['request']);
+            }
         }
         return obj;
     }
@@ -72,6 +76,11 @@ InlineResponse20025.prototype['proposal'] = undefined;
  * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails} details
  */
 InlineResponse20025.prototype['details'] = undefined;
+
+/**
+ * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidRequest} request
+ */
+InlineResponse20025.prototype['request'] = undefined;
 
 
 

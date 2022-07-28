@@ -44,7 +44,7 @@ export class DealsOnReviewDetailsView extends Component {
       // sortMode,
 
       drawerOpen,
-      requester,
+
       proposalId,
       showConfirmModal,
       showRejectModal,
@@ -78,7 +78,6 @@ export class DealsOnReviewDetailsView extends Component {
             <MainContent>
               <DealDetailsCard
                 item={requestProposals[0]}
-                requester={requester}
                 onClickConfirmDealModal={onClickConfirmDealModal}
                 onClickRejectDealModal={onClickRejectDealModal}
                 onClickReworkDealModal={onClickReworkDealModal}
