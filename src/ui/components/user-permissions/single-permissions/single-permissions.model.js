@@ -75,7 +75,7 @@ export class SinglePermissionsModel {
 
   setDataGridState(state) {
     if (this.requestStatus && this.requestStatus !== loadingStatuses.isLoading) {
-      this.firstRowId = state.sorting.sortedRows[0]
+      this.firstRowId = state?.sorting?.sortedRows[0]
 
       const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
         'sorting',
