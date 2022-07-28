@@ -68,6 +68,7 @@ export class BuyerProductView extends Component {
             <MainContent>
               {product ? (
                 <ProductWrapper
+                  user={userInfo}
                   userRole={userInfo.role}
                   product={product}
                   productBase={productBase}
@@ -83,7 +84,11 @@ export class BuyerProductView extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal openModal={showAddOrEditSupplierModal} setOpenModal={onTriggerAddOrEditSupplierModal}>
+        <Modal
+          missClickModalOn={!supplierModalReadOnly}
+          openModal={showAddOrEditSupplierModal}
+          setOpenModal={onTriggerAddOrEditSupplierModal}
+        >
           <AddOrEditSupplierModalContent
             product={product}
             storekeepersData={storekeepersData}

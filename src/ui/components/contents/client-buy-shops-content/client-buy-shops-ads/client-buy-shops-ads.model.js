@@ -7,7 +7,7 @@ import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
-export class ClientSellShopsAdsModel {
+export class ClientBuyShopsAdsModel {
   history = undefined
   requestStatus = undefined
   error = undefined
@@ -104,14 +104,16 @@ export class ClientSellShopsAdsModel {
     }
   }
 
-  onClickAddBtn() {
-    this.history.push('/client/trading-shops/sell-shops/create-trading-shop')
-  }
-
-  onClickViewMore(id) {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request`, {
-      requestId: id,
-    })
+  async onClickViewMore(id) {
+    try {
+      this.history.push(
+        `/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-requests/custom-search-request`,
+        {requestId: id},
+      )
+    } catch (error) {
+      this.onTriggerOpenModal('showWarningModal')
+      console.log(error)
+    }
   }
 
   onTriggerDrawerOpen() {

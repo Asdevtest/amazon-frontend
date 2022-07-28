@@ -208,6 +208,7 @@ class StockReportRaw extends Component {
         </Modal>
 
         <Modal
+          missClickModalOn
           openModal={showAddOrEditSupplierModal}
           setOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
         >

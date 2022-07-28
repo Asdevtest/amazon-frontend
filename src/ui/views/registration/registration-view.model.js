@@ -50,13 +50,13 @@ export class RegistrationViewModel {
     try {
       this.requestStatus = loadingStatuses.isLoading
       this.error = undefined
-      const result = await UserModel.isCheckUniqueUser({name: this.name, email: this.email})
+      const result = await UserModel.isCheckUniqueUser({name: this.name, email: this.email.toLowerCase()})
 
       runInAction(() => {
         this.checkValidationNameOrEmail = result
       })
 
-      const requestData = {name: this.name, email: this.email, password: this.password}
+      const requestData = {name: this.name, email: this.email.toLowerCase(), password: this.password}
 
       await transformAndValidate(UserRegistrationContract, requestData)
 

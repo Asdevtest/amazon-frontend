@@ -2,9 +2,10 @@ import {useState} from 'react'
 
 import {Divider, Typography, Checkbox} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
-import {getOrderStatusOptionByCode} from '@constants/order-status'
+import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -329,7 +330,25 @@ export const CreateBoxForm = observer(
               tooltipInfoContent={t(TranslationKey['Current order status'])}
               label={t(TranslationKey.Status)}
               inputComponent={
-                <Typography>{formItem.status && getOrderStatusOptionByCode(formItem.status).label}</Typography>
+                <Typography
+                  className={clsx({
+                    [classNames.orange]:
+                      formItem.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
+                      formItem.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
+                      formItem.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+
+                    [classNames.green]:
+                      formItem.status === OrderStatusByKey[OrderStatus.IN_STOCK] ||
+                      formItem.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+
+                    [classNames.red]:
+                      formItem.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
+                      formItem.status === OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+                  })}
+                >
+                  {/* {formItem.status && getOrderStatusOptionByCode(formItem.status).label} */}
+                  {OrderStatusTranslate(getOrderStatusOptionByCode(formItem.status).key)}
+                </Typography>
               }
             />
           </div>

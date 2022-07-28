@@ -32,7 +32,7 @@ export const UploadFilesInput = observer(
     images,
     setImages,
     maxNumber,
-    acceptType = [],
+    acceptType = ['jpg', 'gif', 'png', 'jpeg', 'pdf'],
     withoutLinks = false,
     withoutTitle = false,
     oneLine = false,

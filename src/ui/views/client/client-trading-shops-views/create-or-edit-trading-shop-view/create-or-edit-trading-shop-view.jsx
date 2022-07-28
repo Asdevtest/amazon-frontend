@@ -1,0 +1,76 @@
+import React, {Component} from 'react'
+
+import {observer} from 'mobx-react'
+
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {TranslationKey} from '@constants/translations/translation-key'
+
+import {Appbar} from '@components/appbar'
+import {CreateOrEditTradingShopContent} from '@components/contents/create-or-edit-trading-shop-content'
+import {Main} from '@components/main'
+import {MainContent} from '@components/main-content'
+import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import {Navbar} from '@components/navbar'
+
+import {t} from '@utils/translations'
+
+import {CreateOrEditTradingShopViewModel} from './create-or-edit-trading-shop-view.model'
+
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_TRADING_SHOPS
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS
+@observer
+export class CreateOrEditTradingShopView extends Component {
+  viewModel = new CreateOrEditTradingShopViewModel({
+    history: this.props.history,
+    location: this.props.location,
+  })
+
+  render() {
+    const {
+      progressValue,
+      showProgress,
+      requestToEdit,
+      infoModalText,
+      drawerOpen,
+      showInfoModal,
+      onTriggerDrawerOpen,
+      onTriggerOpenModal,
+      onSubmitCreateRequest,
+      onSubmitEditRequest,
+      onClickOkInfoModal,
+    } = this.viewModel
+
+    return (
+      <React.Fragment>
+        <Navbar
+          activeCategory={navbarActiveCategory}
+          activeSubCategory={navbarActiveSubCategory}
+          drawerOpen={drawerOpen}
+          setDrawerOpen={onTriggerDrawerOpen}
+        />
+        <Main>
+          <Appbar title={t(TranslationKey['Create a request'])} setDrawerOpen={onTriggerDrawerOpen}>
+            <MainContent>
+              <CreateOrEditTradingShopContent
+                progressValue={progressValue}
+                showProgress={showProgress}
+                requestToEdit={requestToEdit}
+                history={this.props.history}
+                onCreateSubmit={onSubmitCreateRequest}
+                onEditSubmit={onSubmitEditRequest}
+              />
+            </MainContent>
+          </Appbar>
+        </Main>
+
+        <WarningInfoModal
+          openModal={showInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
+          title={infoModalText}
+          btnText={t(TranslationKey.Close)}
+          onClickBtn={onClickOkInfoModal}
+        />
+      </React.Fragment>
+    )
+  }
+}

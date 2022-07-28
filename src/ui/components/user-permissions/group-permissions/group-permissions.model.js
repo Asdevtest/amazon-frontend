@@ -48,7 +48,7 @@ export class GroupPermissionsModel {
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
-  densityModel = 'standart'
+  densityModel = 'compact'
   columnsModel = adminGroupPermissionsColumns(this.rowHandlers, this.firstRowId)
 
   constructor({history}) {
@@ -76,17 +76,19 @@ export class GroupPermissionsModel {
   }
 
   setDataGridState(state) {
-    this.firstRowId = state.sorting.sortedRows[0]
+    if (this.requestStatus && this.requestStatus !== loadingStatuses.isLoading) {
+      this.firstRowId = state.sorting.sortedRows[0]
 
-    const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
-      'sorting',
-      'filter',
-      'pagination',
-      'density',
-      'columns',
-    ])
+      const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
+        'sorting',
+        'filter',
+        'pagination',
+        'density',
+        'columns',
+      ])
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_GROUP_PERMISSIONS)
+      SettingsModel.setDataGridState(requestState, DataGridTablesKeys.ADMIN_GROUP_PERMISSIONS)
+    }
   }
 
   getDataGridState() {
@@ -138,6 +140,8 @@ export class GroupPermissionsModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getGroupPermissions()
+
+      // this.getDataGridState()
 
       await this.getSinglePermissions()
 

@@ -183,8 +183,8 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: '25px',
-    marginLeft: '20px',
+    // marginBottom: '25px',
+    // marginLeft: '20px',
   },
 
   emptyIcon: {

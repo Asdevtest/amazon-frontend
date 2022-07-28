@@ -167,6 +167,20 @@ export const SelectFields = ({
               </div>
             </div>
 
+            <Box className={classNames.noFlexElement}>
+              <Field
+                // disabled={!usePriceInDollars || checkIsPlanningPrice}
+                disabled
+                inputProps={{maxLength: 10}}
+                inputClasses={classNames.input}
+                label={t(TranslationKey['Cost of purchase per pc.']) + ', ¥'}
+                value={toFixedWithYuanSign(
+                  calcPriceForItem(orderFields.totalPriceChanged, orderFields.amount) * orderFields.yuanToDollarRate,
+                  2,
+                )}
+              />
+            </Box>
+
             <div>
               <Field
                 disabled
@@ -253,11 +267,12 @@ export const SelectFields = ({
           </Box>
           <Box className={classNames.noFlexElement}>
             <Field
-              disabled={!usePriceInDollars || checkIsPlanningPrice}
+              // disabled={!usePriceInDollars || checkIsPlanningPrice}
+              disabled
               inputProps={{maxLength: 10}}
               inputClasses={classNames.input}
               label={t(TranslationKey['Cost of purchase per pc.']) + ', $'}
-              value={calcPriceForItem(orderFields.totalPriceChanged, orderFields.amount)}
+              value={toFixedWithDollarSign(calcPriceForItem(orderFields.totalPriceChanged, orderFields.amount), 2)}
             />
           </Box>
           <div>
@@ -266,7 +281,7 @@ export const SelectFields = ({
               inputProps={{maxLength: 10}}
               labelClasses={classNames.greenLabel}
               inputClasses={classNames.input}
-              label={t(TranslationKey['Planned cost in USD']) + ', $'}
+              label={t(TranslationKey['Planned cost in dollars']) + ', $'}
               value={toFixedWithDollarSign(orderFields.totalPrice, 2)}
             />
           </div>

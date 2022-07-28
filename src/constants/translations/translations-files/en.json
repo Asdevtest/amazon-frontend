@@ -523,7 +523,7 @@
   "Cost of purchase per pc.": "Cost of purchase per pc.",
   "The actual cost is the same as the planned": "The actual cost is the same as the planned",
   "Planned cost in yuan": "Planned cost in yuan",
-  "Planned cost in USD": "Planned cost in USD",
+  "Planned cost in dollars": "Planned cost in dollars",
   "Add a box": "Add a box",
   "Avg. shipping cost per 1 pc.": "Avg. shipping cost per 1 pc.",
   "Suppliers": "Suppliers",
@@ -1335,9 +1335,15 @@
   "Cover letter": "Cover letter",
   "Reason for rework": "Reason for rework",
   "Time for rework": "Time for rework",
-  "Production time, days": "Production time, days",
+  "Production time": "Production time",
   "Price with delivery": "Price with delivery",
   "Select a store": "Select a store",
   "No stores": "No stores",
-  "Choose a role": "Choose a role"
+  "Choose a role": "Choose a role",
+  "Price with delivery per unit": "Price with delivery per unit",
+  "Window will be closed": "Window will be closed",
+  "Create an ad to sell your store": "Create an ad to sell your store",
+  "Edit ad for store sale": "Edit ad for store sale",
+  "We will find a reliable buyer of your store": "We will find a reliable buyer of your store",
+  "Fill in basic information about your store": "Fill in basic information about your store"
 }

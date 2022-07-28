@@ -135,6 +135,8 @@ export const AddOrEditSupplierModalContent = observer(
           amountInBox: tmpSupplier.boxProperties.amountInBox || 0,
           boxWeighGrossKg: tmpSupplier.boxProperties.boxWeighGrossKg || 0,
         },
+
+        productionTerm: tmpSupplier.productionTerm ? tmpSupplier.productionTerm : 0,
       }
 
       if (
@@ -282,7 +284,7 @@ export const AddOrEditSupplierModalContent = observer(
         !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)
       ) {
         return
-      } else if (['minlot', 'amount'].includes(fieldName)) {
+      } else if (['minlot', 'amount', 'productionTerm'].includes(fieldName)) {
         setTmpSupplier({...tmpSupplier, [fieldName]: parseInt(event.target.value) || ''})
       } else if (['amountInBox'].includes(fieldName)) {
         setTmpSupplier({
@@ -458,8 +460,8 @@ export const AddOrEditSupplierModalContent = observer(
 
             <Field
               disabled={onlyRead}
-              inputProps={{maxLength: 100}}
-              label={t(TranslationKey['Production time, days'])}
+              inputProps={{maxLength: 10}}
+              label={t(TranslationKey['Production time'])}
               containerClasses={classNames.middleContainer}
               labelClasses={classNames.normalLabel}
               value={tmpSupplier.productionTerm}
@@ -480,7 +482,7 @@ export const AddOrEditSupplierModalContent = observer(
               inputProps={{maxLength: 8}}
               containerClasses={classNames.rateContainer}
               labelClasses={clsx(classNames.rateLabel)}
-              inputClasses={classNames.middleInput}
+              inputClasses={classNames.rateInput}
               value={yuanToDollarRate}
               onChange={onChangeYuanToDollarRate}
             />
@@ -531,7 +533,7 @@ export const AddOrEditSupplierModalContent = observer(
                 <Grid item>
                   <Field
                     disabled
-                    label={t(TranslationKey['Delivery cost per unit']) + ', ¥*'}
+                    label={t(TranslationKey['Price with delivery per unit']) + ', ¥*'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}
@@ -613,7 +615,7 @@ export const AddOrEditSupplierModalContent = observer(
                 <Grid item>
                   <Field
                     disabled
-                    label={t(TranslationKey['Delivery cost per unit']) + ', $*'}
+                    label={t(TranslationKey['Price with delivery per unit']) + ', $*'}
                     inputProps={{maxLength: 10}}
                     containerClasses={classNames.middleContainer}
                     labelClasses={classNames.normalLabel}

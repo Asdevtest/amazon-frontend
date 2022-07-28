@@ -18,9 +18,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './request-to-send-batch-box.styles'
 
 export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, volumeWeightCoefficient}) => {
-  console.log(price)
   const classNames = useClassNames()
-  console.log(box)
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
   const tableCellClsx = clsx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
@@ -32,6 +30,10 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
   const isNoBarCodGlued = box.items.some(
     item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper,
   )
+
+  const isSmallWeight = calcFinalWeightForBox(box, volumeWeightCoefficient) < 12
+
+  const isBadBox = isNoBarCodGlued || isSmallWeight || !box.shippingLabel
 
   const calculateDeliveryCostPerPcs = (items, boxWeigh, price, amount, amountInBox) => {
     if (items.length === 1 && boxWeigh) {
@@ -50,7 +52,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
   return (
     <div
-      className={clsx(classNames.box, classNames.row, {[classNames.badBox]: isNoBarCodGlued})}
+      className={clsx(classNames.box, classNames.row, {[classNames.badBox]: isBadBox})}
       onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
     >
       <div className={clsx(tableCellClsx, classNames.indexCell)}>
@@ -204,7 +206,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
         <div className={classNames.dementionsSubWrapper}>
           <Typography
             className={clsx(classNames.dementionsTitle, {
-              [classNames.alertText]: toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2) < 12,
+              [classNames.alertText]: isSmallWeight,
             })}
           >
             {t(TranslationKey['Final weight'])}
@@ -212,7 +214,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
           <Typography
             className={clsx(classNames.dementionsSpanText, {
-              [classNames.alertText]: toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2) < 12,
+              [classNames.alertText]: isSmallWeight,
             })}
           >
             {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}

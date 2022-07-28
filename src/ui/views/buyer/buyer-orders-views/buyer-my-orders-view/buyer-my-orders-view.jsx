@@ -134,6 +134,7 @@ class BuyerMyOrdersViewRaw extends Component {
         </Main>
 
         <Modal
+          missClickModalOn
           openModal={showOrderModal}
           setOpenModal={() => onTriggerOpenModal('showOrderModal')}
           dialogContextClassName={classNames.dialogContextClassName}

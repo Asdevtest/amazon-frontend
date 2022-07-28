@@ -88,7 +88,7 @@ export const GroupPermissions = observer(() => {
         onSortModelChange={onChangeSortingModel}
         onPageSizeChange={onChangeRowsPerPage}
         onPageChange={onChangeCurPage}
-        onStateChange={setDataGridState}
+        onStateChange={setDataGridState()}
         onFilterModelChange={model => onChangeFilterModel(model)}
       />
 

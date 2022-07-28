@@ -47,11 +47,6 @@ const confirmModalModes = {
   SUBMIT: 'SUBMIT',
 }
 
-// const disabledOrderStatuses = [
-//   OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER],
-//   OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
-// ]
-
 export const EditOrderModal = ({
   requestStatus,
   order,
@@ -185,13 +180,11 @@ export const EditOrderModal = ({
     `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
     `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
     `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
-    `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
     `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
   ]
 
   const disabledOrderStatuses = [
     `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
-    `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
     // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
     `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
   ]
@@ -230,10 +223,11 @@ export const EditOrderModal = ({
                     [classNames.orange]:
                       orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
                       orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
-                      orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] ||
-                      orderFields.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+                      orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
 
-                    [classNames.green]: orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK],
+                    [classNames.green]:
+                      orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK] ||
+                      orderFields.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
 
                     [classNames.red]:
                       orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
@@ -249,10 +243,11 @@ export const EditOrderModal = ({
                             [classNames.orange]:
                               orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
                               orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
-                              orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] ||
-                              orderFields.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+                              orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
 
-                            [classNames.green]: orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK],
+                            [classNames.green]:
+                              orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK] ||
+                              orderFields.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
 
                             [classNames.red]:
                               orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
@@ -279,10 +274,11 @@ export const EditOrderModal = ({
                         [classNames.orange]:
                           statusCode === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
                           statusCode === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
-                          statusCode === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] ||
-                          statusCode === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+                          statusCode === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
 
-                        [classNames.green]: statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+                        [classNames.green]:
+                          statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
+                          statusCode === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
 
                         [classNames.red]:
                           statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||

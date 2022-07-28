@@ -530,7 +530,7 @@
   "Cost of purchase per pc.": "Себестоимость в закупке за шт.",
   "The actual cost is the same as the planned": "Фактическая стоимость совпадает с запланированной",
   "Planned cost in yuan": "Запланированная стоимость в юанях",
-  "Planned cost in USD": "Запланированная стоимость в долларах",
+  "Planned cost in dollars": "Запланированная стоимость в долларах",
   "Add a box": "Добавить коробку",
   "Avg. shipping cost per 1 pc.": "Ср. стоимость доставки за 1 шт.",
   "Suppliers": "Поставщики",
@@ -1335,9 +1335,15 @@
   "Cover letter": "Сопроводительное письмо",
   "Reason for rework": "Причина доработки",
   "Time for rework": "Время на доработку",
-  "Production time, days": "Срок изготовления,дн",
+  "Production time": "Срок изготовления",
   "Price with delivery": "Цена с доставкой",
   "Select a store": "Выберите магазин",
   "No stores": "Магазинов нет",
-  "Choose a role": "Выберите роль"
+  "Choose a role": "Выберите роль",
+  "Price with delivery per unit": "Цена с доставкой за ед.",
+  "Window will be closed": "Окно будет закрыто",
+  "Create an ad to sell your store": "Создать объявление о продаже магазина",
+  "Edit ad for store sale": "Редактировать объявление",
+  "We will find a reliable buyer of your store": "Мы найдем надежного покупателя Вашего магазина",
+  "Fill in basic information about your store": "Заполните основную информацию о Вашем магазине"
 }

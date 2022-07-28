@@ -7,21 +7,21 @@ import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-a
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
-import {ClientSellShopsContent} from '@components/contents/client-sell-shops-content'
+import {ClientBuyShopsContent} from '@components/contents/client-buy-shops-content'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
 import {t} from '@utils/translations'
 
-import {ClientSellShopsViewModel} from './client-sell-shops-view.model'
-import {styles} from './client-sell-shops-view.style'
+import {ClientSellShopsViewModel} from './client-buy-shops-view.model'
+import {styles} from './client-buy-shops-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_TRADING_SHOPS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS
 
 @observer
-class ClientSellShopsViewRaw extends Component {
+class ClientBuyShopsViewRaw extends Component {
   viewModel = new ClientSellShopsViewModel({history: this.props.history})
 
   // componentDidMount() {
@@ -41,9 +41,9 @@ class ClientSellShopsViewRaw extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey['Sell the Shop'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['Buy Shop'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <ClientSellShopsContent />
+              <ClientBuyShopsContent />
             </MainContent>
           </Appbar>
         </Main>
@@ -52,4 +52,4 @@ class ClientSellShopsViewRaw extends Component {
   }
 }
 
-export const ClientSellShopsView = withStyles(styles)(ClientSellShopsViewRaw)
+export const ClientBuyShopsView = withStyles(styles)(ClientBuyShopsViewRaw)

@@ -12,7 +12,6 @@ import {useHistory} from 'react-router-dom'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {Button} from '@components/buttons/button'
 import {TradingShopCard} from '@components/cards/trading-shop-card'
 import {Field} from '@components/field'
 import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
@@ -20,13 +19,13 @@ import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
 
-import {ClientSellShopsAdsModel} from './client-sell-shops-ads.model'
-import {useClassNames} from './client-sell-shops-ads.style'
+import {ClientBuyShopsAdsModel} from './client-buy-shops-ads.model'
+import {useClassNames} from './client-buy-shops-ads.style'
 
-export const ClientSellShopsAds = observer(() => {
+export const ClientBuyShopsAds = observer(() => {
   const classNames = useClassNames()
   const history = useHistory()
-  const model = useRef(new ClientSellShopsAdsModel({history}))
+  const model = useRef(new ClientBuyShopsAdsModel({history}))
 
   useEffect(() => {
     model.current.loadData()
@@ -40,7 +39,6 @@ export const ClientSellShopsAds = observer(() => {
     onTriggerSortMode,
     onClickViewMore,
     onChangeNameSearchValue,
-    onClickAddBtn,
   } = model.current
 
   const getSortedData = mode => {
@@ -55,11 +53,11 @@ export const ClientSellShopsAds = observer(() => {
 
   return (
     <>
-      <div className={classNames.btnsWrapper}>
-        <Button success className={classNames.addBtn} onClick={onClickAddBtn}>
+      {/* <div className={classNames.btnsWrapper}>
+        <Button success className={classNames.addBtn}  onClick={() => onClickAddBtn()}>
           {t(TranslationKey['Add shop'])}
         </Button>
-      </div>
+      </div> */}
 
       <div className={classNames.tablePanelWrapper}>
         <div className={classNames.tablePanelViewWrapper}>
