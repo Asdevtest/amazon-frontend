@@ -272,13 +272,13 @@ export const EditOrderModal = ({
                     className={clsx(
                       clsx({
                         [classNames.orange]:
-                          statusCode === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
-                          statusCode === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
-                          statusCode === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+                          statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
+                          statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
+                          statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
 
                         [classNames.green]:
                           statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
-                          statusCode === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+                          statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
                         [classNames.red]:
                           statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||

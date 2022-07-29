@@ -310,7 +310,7 @@ export const SelectFields = ({
                     onChange={() => {
                       setCheckIsPlanningPrice(!checkIsPlanningPrice)
                       setOrderField('totalPriceChanged')({
-                        target: {value: orderFields.totalPrice},
+                        target: {value: toFixed(orderFields.totalPrice, 2)},
                       })
                       setPriceYuansForBatch(
                         calcExchangeDollarsInYuansPrice(orderFields.totalPrice, orderFields.yuanToDollarRate),

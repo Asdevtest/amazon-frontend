@@ -158,9 +158,9 @@ export const useClassNames = makeStyles(() => ({
   },
 
   descriptionField: {
-    height: '81px',
+    height: '225px',
     width: '100%',
-    overflowY: 'hidden',
+    // overflowY: 'scroll',
   },
 
   rightTwoStepSubFieldWrapper: {
@@ -247,8 +247,17 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     gap: '30px',
-    alignItems: 'center',
+    // alignItems: 'center',
   },
+
+  assetsAndFilesWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '30px',
+    // alignItems: 'center',
+  },
+
   priceAndAmountWrapper: {
     width: '100%',
     display: 'flex',
@@ -479,6 +488,14 @@ export const useClassNames = makeStyles(() => ({
     borderRadius: '50%',
   },
 
+  stepPaginationMiddleBar: {
+    width: '12px',
+    height: '12px',
+
+    backgroundColor: '#c4c4c4',
+    borderRadius: '50%',
+  },
+
   stepPaginationEndBar: {
     width: '12px',
     height: '12px',
@@ -498,5 +515,86 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '140%',
     fontWeight: '400',
     color: '#006CFF',
+  },
+
+  assetsPaper: {
+    padding: '20px 15px',
+    height: 220,
+    overflow: 'auto',
+  },
+
+  selectedRoleWrapper: {
+    border: '1px solid #C4C4C4',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: '40px',
+    padding: '0 15px',
+    borderRadius: '4px',
+    marginBottom: '10px',
+  },
+
+  assetInputWrapper: {
+    border: '1px solid #C4C4C4',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: '40px',
+    padding: '0 15px 0 0',
+    borderRadius: '4px',
+    marginBottom: '10px',
+  },
+
+  assetInput: {
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    width: 280,
+    border: 'none',
+    margin: 0,
+  },
+
+  selectedRole: {
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    width: '280px',
+  },
+
+  actionDelButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '22px',
+    height: '22px',
+    fontSize: '18px',
+    backgroundColor: '#006CFF',
+    borderRadius: '4px',
+    color: '#fff',
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  disabledActionButton: {
+    cursor: 'auto',
+    opacity: 0.5,
+    '&:hover': {
+      transform: 'none',
+    },
+  },
+
+  indicatorPaper: {
+    padding: '20px 5px',
+    height: 400,
+    width: 350,
+    overflow: 'auto',
+  },
+
+  indicatorInput: {
+    width: 70,
+    margin: '0 10px',
   },
 }))

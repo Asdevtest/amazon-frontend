@@ -32,6 +32,7 @@
     "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.8.6",
     "@mui/x-data-grid": "^5.12.3",
+    "@mui/x-date-pickers": "^5.0.0-beta.3",
     "@openapitools/openapi-generator-cli": "^2.4.13",
     "@sentry/react": "^6.19.7",
     "@sentry/tracing": "^6.19.7",

@@ -26,8 +26,9 @@ export const styles = createStyles(theme => ({
     whiteSpace: 'normal',
     cursor: 'pointer',
     transition: '0.3s ease',
+
     '&:hover': {
-      transform: 'scale(1.01)',
+      transform: 'scale(0.99, 1)',
     },
   },
 }))

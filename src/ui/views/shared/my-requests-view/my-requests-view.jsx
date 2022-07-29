@@ -89,7 +89,6 @@ class MyRequestsViewRaw extends Component {
               </div>
               <DataGrid
                 pagination
-                useResizeContainer
                 sx={{
                   border: 0,
                   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
@@ -105,7 +104,7 @@ class MyRequestsViewRaw extends Component {
                 pageSize={rowsPerPage}
                 rowsPerPageOptions={[15, 25, 50, 100]}
                 rows={getCurrentData()}
-                rowHeight={170}
+                rowHeight={100}
                 components={{
                   Toolbar: GridToolbar,
                 }}

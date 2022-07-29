@@ -9,6 +9,8 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {PurchaseHistory} from '@components/screens/users-views/user-profile-view/purchase-history'
 import {Reviews} from '@components/screens/users-views/user-profile-view/reviews'
 
@@ -37,82 +39,86 @@ export const UserProfile = observer(
     const classNames = useClassNames()
 
     return (
-      <Paper className={classNames.paper}>
-        <div>
-          <Box className={classNames.mainBox}>
-            <Box className={classNames.sendOrderBox}>
-              {isAnotherUser ? (
-                <Avatar src={getUserAvatarSrc(user._id)} className={classNames.avatar} />
-              ) : (
-                <div className={classNames.avatarWrapper} onClick={onClickChangeAvatar}>
-                  <Avatar src={getUserAvatarSrc(user._id)} className={classNames.avatar} />
+      <>
+        {SettingsModel.languageTag && (
+          <Paper className={classNames.paper}>
+            <div>
+              <Box className={classNames.mainBox}>
+                <Box className={classNames.sendOrderBox}>
+                  {isAnotherUser ? (
+                    <Avatar src={getUserAvatarSrc(user._id)} className={classNames.avatar} />
+                  ) : (
+                    <div className={classNames.avatarWrapper} onClick={onClickChangeAvatar}>
+                      <Avatar src={getUserAvatarSrc(user._id)} className={classNames.avatar} />
 
-                  <AutorenewIcon color="primary" fontSize="large" className={classNames.icon} />
+                      <AutorenewIcon color="primary" fontSize="large" className={classNames.icon} />
+                    </div>
+                  )}
+                </Box>
+
+                <Box flexGrow={1}>
+                  <Typography className={classNames.username}>{user?.name}</Typography>
+
+                  <Typography className={classNames.userEmail}>{user?.email}</Typography>
+
+                  <div className={classNames.ratingWrapper}>
+                    <Typography>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
+
+                    <Rating disabled className={classNames.userRating} value={user?.rating} />
+                  </div>
+
+                  {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
+                    <Button
+                      id="user-profile-change-btn"
+                      variant="contained"
+                      color="primary"
+                      className={classNames.changeBtn}
+                      onClick={onClickChangeUserInfo}
+                    >
+                      {t(TranslationKey.Edit)}
+                    </Button>
+                  )}
+                </Box>
+              </Box>
+
+              {!isAnotherUser && (
+                <div className={classNames.rolesWrapper}>
+                  <Typography variant="h6">{t(TranslationKey.Roles)}</Typography>
+
+                  {user?.allowedRoles.length && !user?.masterUser ? (
+                    <div className={classNames.roles}>
+                      {user?.allowedRoles.map((el, index) => (
+                        <Typography key={index} className={classNames.role}>
+                          {UserRoleCodeMap[el]}
+                        </Typography>
+                      ))}
+                    </div>
+                  ) : (
+                    <Typography className={classNames.role}>{UserRoleCodeMap[user?.role]}</Typography>
+                  )}
                 </div>
               )}
-            </Box>
 
-            <Box flexGrow={1}>
-              <Typography className={classNames.username}>{user?.name}</Typography>
+              <Info headerInfoData={headerInfoData} />
 
-              <Typography className={classNames.userEmail}>{user?.email}</Typography>
-
-              <div className={classNames.ratingWrapper}>
-                <Typography>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
-
-                <Rating disabled className={classNames.userRating} value={user?.rating} />
-              </div>
-
-              {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
-                <Button
-                  id="user-profile-change-btn"
-                  variant="contained"
-                  color="primary"
-                  className={classNames.changeBtn}
-                  onClick={onClickChangeUserInfo}
-                >
-                  {t(TranslationKey.Edit)}
-                </Button>
-              )}
-            </Box>
-          </Box>
-
-          {!isAnotherUser && (
-            <div className={classNames.rolesWrapper}>
-              <Typography variant="h6">{t(TranslationKey.Roles)}</Typography>
-
-              {user?.allowedRoles.length && !user?.masterUser ? (
-                <div className={classNames.roles}>
-                  {user?.allowedRoles.map((el, index) => (
-                    <Typography key={index} className={classNames.role}>
-                      {UserRoleCodeMap[el]}
-                    </Typography>
-                  ))}
-                </div>
-              ) : (
-                <Typography className={classNames.role}>{UserRoleCodeMap[user?.role]}</Typography>
-              )}
+              {user.allowedRoles?.includes(mapUserRoleEnumToKey[UserRole.RESEARCHER]) ? <Tested user={user} /> : null}
             </div>
-          )}
 
-          <Info headerInfoData={headerInfoData} />
+            <div className={classNames.rightSideWrapper}>
+              <Reviews tabReview={tabReview} setTabReview={setTabReview} />
 
-          {user.allowedRoles?.includes(mapUserRoleEnumToKey[UserRole.RESEARCHER]) ? <Tested user={user} /> : null}
-        </div>
+              <Box className={classNames.normalBox}>
+                <Box className={classNames.boxFeedbackCard}>
+                  <FeedbackCard isPositive counter={265} />
+                </Box>
+                <FeedbackCard isPositive={false} counter={1} />
+              </Box>
 
-        <div className={classNames.rightSideWrapper}>
-          <Reviews tabReview={tabReview} setTabReview={setTabReview} />
-
-          <Box className={classNames.normalBox}>
-            <Box className={classNames.boxFeedbackCard}>
-              <FeedbackCard isPositive counter={265} />
-            </Box>
-            <FeedbackCard isPositive={false} counter={1} />
-          </Box>
-
-          {!isAnotherUser && <PurchaseHistory user={user} tabHistory={tabHistory} setTabHistory={setTabHistory} />}
-        </div>
-      </Paper>
+              {!isAnotherUser && <PurchaseHistory user={user} tabHistory={tabHistory} setTabHistory={setTabHistory} />}
+            </div>
+          </Paper>
+        )}
+      </>
     )
   },
 )
