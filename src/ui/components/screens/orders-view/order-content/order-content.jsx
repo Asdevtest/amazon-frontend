@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell} from '@material-ui/core'
 
-import {OrderStatusByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
+import {OrderStatusByCode, OrderStatus, OrderStatusByKey, OrderStatusText} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -56,12 +56,7 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
         <div>
           <div className={classNames.orderContainer}>
             <div>
-              <Text
-                className={classNames.containerTitle}
-                tooltipInfoContent={t(TranslationKey['Current order status'])}
-              >
-                {OrderStatusTranslate(OrderStatusByCode[updatedOrder.status])}
-              </Text>
+              <OrderStatusText status={OrderStatusByCode[updatedOrder.status]} className={classNames.containerTitle} />
             </div>
 
             <div className={classNames.orderNumWrapper}>
@@ -95,7 +90,11 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
           <div className={classNames.panelsWrapper}>
             <LeftPanel order={updatedOrder} collapsed={collapsed} narrow={narrow} setCollapsed={setCollapsed} />
 
+            <Divider orientation={'vertical'} className={classNames.divider} />
+
             <DeliveryParameters order={updatedOrder} />
+
+            <Divider orientation={'vertical'} className={classNames.divider} />
 
             <ExtraOrderInfo order={updatedOrder} />
           </div>

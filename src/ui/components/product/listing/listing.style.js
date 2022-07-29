@@ -13,10 +13,12 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'flex-start',
     gap: '5px',
     width: '100%',
+    padding: '40px 50px',
   },
 
   productSubBlockWrapper: {
     display: 'flex',
+    justifyContent: 'space-between',
     width: '100%',
   },
 
@@ -26,8 +28,8 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     gap: '15px',
-    width: '50%',
-    padding: '16px',
+    width: '706px',
+    // padding: '16px',
   },
 
   title: {
@@ -114,11 +116,10 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '22px',
   },
   label: {
-    fontSize: '16px',
-    lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
-    fontWeight: '600',
-    marginBottom: '12px',
+    width: '142px',
+  },
+  secondLabel: {
+    width: '162px',
   },
   boxCode: {
     display: 'flex',
@@ -134,9 +135,7 @@ export const useClassNames = makeStyles(() => ({
   typoCode: {
     marginRight: '8px',
   },
-  input: {
-    width: '400px',
-  },
+
   imgBox: {
     width: '200px',
     height: '80px',
@@ -222,7 +221,11 @@ export const useClassNames = makeStyles(() => ({
   },
 
   descriptionProduct: {
-    width: '90%',
+    width: '80%',
+  },
+
+  descriptionSecondProduct: {
+    width: '77%',
   },
 
   photosWrapper: {

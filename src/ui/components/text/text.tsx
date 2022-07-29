@@ -21,10 +21,11 @@ interface Props {
   tooltipPosition?: tooltipPositions.Center | tooltipPositions.Corner
   className?: string
   containerClasses?: string
+  style?: {}
 }
 
 export const Text: FC<Props> = observer(
-  ({tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses}) => {
+  ({tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses, style}) => {
     const classNames = useClassNames()
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
@@ -40,7 +41,9 @@ export const Text: FC<Props> = observer(
           containerClasses,
         )}
       >
-        <Typography className={className}>{children}</Typography>
+        <Typography className={className} style={style}>
+          {children}
+        </Typography>
 
         {tooltipAttentionContent || tooltipInfoContent ? (
           <div className={tooltipPosition === 'corner' ? classNames.cornerTooltipsWrapper : classNames.tooltipsWrapper}>

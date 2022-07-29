@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 
-import {Box, Container, Divider, Link, Typography} from '@material-ui/core'
+import {Box, Container, Link, Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {Field} from '@components/field/field'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
@@ -15,24 +16,43 @@ import {useClassNames} from './set-shipping-label-modal.style'
 export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, item, tmpShippingLabel}) => {
   const classNames = useClassNames()
 
-  const shippingLabel = item?.shippingLabel
+  const shippingLabel =
+    item?.shippingLabel.length > 200
+      ? item?.shippingLabel.slice(0, 195) + '...' + item?.shippingLabel.slice(item?.shippingLabel.length - 3)
+      : item?.shippingLabel
 
   const [files, setFiles] = useState(tmpShippingLabel?.length ? [...tmpShippingLabel] : [])
 
+  const copyValue = value => {
+    navigator.clipboard.writeText(value)
+  }
+
   return (
-    <Container disableGutters>
+    <Container disableGutters className={classNames.modalWrapper}>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Set Shipping Label'])}</Typography>
-      <Divider className={classNames.divider} />
 
       {item?.shippingLabel && (
         <Box className={classNames.boxCode}>
-          <Typography className={(classNames.modalText, classNames.typoCode)}>
-            {t(TranslationKey['Shipping label'])}
-          </Typography>
+          <Field
+            label={t(TranslationKey['Shipping label'])}
+            inputComponent={
+              <div className={classNames.linkWrapper}>
+                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(shippingLabel)}>
+                  <Typography className={classNames.link}>{shippingLabel}</Typography>
+                </Link>
 
-          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(shippingLabel)}>
-            <Typography className={classNames.link}>{shippingLabel}</Typography>
-          </Link>
+                <img
+                  className={classNames.copyImg}
+                  src="/assets/icons/copy-img.svg"
+                  alt=""
+                  onClick={e => {
+                    e.stopPropagation()
+                    copyValue(shippingLabel)
+                  }}
+                />
+              </div>
+            }
+          />
         </Box>
       )}
 
@@ -40,16 +60,17 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, i
         <UploadFilesInput images={files} setImages={setFiles} maxNumber={1} />
       </div>
 
-      <Divider className={classNames.divider} />
       <Box className={classNames.saveBox}>
         <Button
           disabled={!files.length}
-          className={classNames.saveBtn}
+          className={classNames.actionButton}
           onClick={() => onClickSaveShippingLabel([files[0]])}
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button onClick={onCloseModal}>{t(TranslationKey.Close)}</Button>
+        <Button className={classNames.actionButton} onClick={onCloseModal}>
+          {t(TranslationKey.Close)}
+        </Button>
       </Box>
     </Container>
   )

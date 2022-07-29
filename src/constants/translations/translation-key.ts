@@ -534,7 +534,7 @@ export enum TranslationKey {
   'Avg. shipping cost per 1 pc.' = 'Avg. shipping cost per 1 pc.',
   'Suppliers' = 'Suppliers',
   'Boxes on this order:' = 'Boxes on this order:',
-  'Creating new boxes!' = 'Creating new boxes!',
+  'Creating new boxes' = 'Creating new boxes',
   'Add another box' = 'Add another box',
   'Box length in cm' = 'Box length in cm',
   'Box length in ' = 'Box length in ',
