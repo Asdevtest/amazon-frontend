@@ -13,7 +13,7 @@ export const EntryLeftPanel = () => {
   return (
     <div className={classNames.leftPanel}>
       <div className={classNames.header}>
-        <img className={classNames.logo} alt="company logo" src={'/assets/icons/logo.svg'} />
+        <img className={classNames.logo} alt="company logo" src={'/assets/icons/new-logo.svg'} />
       </div>
       <div className={classNames.main}>
         <Typography className={classNames.title}>{t(TranslationKey['Hello, nice to meet you'])}</Typography>

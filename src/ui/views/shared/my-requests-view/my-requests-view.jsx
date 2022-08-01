@@ -88,6 +88,7 @@ class MyRequestsViewRaw extends Component {
                 </Button>
               </div>
               <DataGrid
+                disableVirtualization
                 pagination
                 sx={{
                   border: 0,

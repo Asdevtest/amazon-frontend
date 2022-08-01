@@ -58,16 +58,10 @@ export const CreateOrEditTradingShopContent = ({
 
   const sourceFormFields = {
     title: requestToEdit?.title || '',
-    maxAmountOfProposals: requestToEdit?.maxAmountOfProposals || '',
+    shopDetails: '',
     price: requestToEdit?.price || '',
-    timeoutAt: requestToEdit?.timeoutAt || null,
-
-    timeLimitInMinutes: requestToEdit?.timeLimitInMinutes || 60,
-    roles: requestToEdit?.roles.length ? requestToEdit?.roles : [10, 35],
-    needCheckBySupervisor: requestToEdit?.needCheckBySupervisor || false,
-    restrictMoreThanOneProposalFromOneAssignee: requestToEdit?.restrictMoreThanOneProposalFromOneAssignee || false,
-
-    conditions: '',
+    businessStartDate: requestToEdit?.businessStartDate || null,
+    shopLink: '',
 
     assets: [
       'Аккаунты/страницы в социальных сетях (18 акка унт ов/страниц для Facebook, Twitter, Instagram, Pinterest, TikTok, Youtube, LinkedIn, PUBLC и Mewe)',
@@ -75,6 +69,9 @@ export const CreateOrEditTradingShopContent = ({
     ],
 
     grossIncome: [],
+    pureIncome: [],
+    uniqueCustomers: [],
+    webpageVisits: [],
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
 
@@ -82,7 +79,7 @@ export const CreateOrEditTradingShopContent = ({
     setFormFields(() => ({...formFields, grossIncome: formFields.grossIncome}))
   }, [SettingsModel.languageTag])
 
-  console.log('formFields.timeoutAt', formFields.timeoutAt)
+  console.log('formFields.businessStartDate', formFields.businessStartDate)
 
   const [deadlineError, setDeadlineError] = useState(false)
   const [assetLine, setAssetLine] = useState('')
@@ -135,7 +132,7 @@ export const CreateOrEditTradingShopContent = ({
       !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
     ) {
       return
-    } else if (['timeoutAt'].includes(fieldName)) {
+    } else if (['businessStartDate'].includes(fieldName)) {
       newFormFields[fieldName] = event
       setDeadlineError(false)
     } else if (['needCheckBySupervisor', 'restrictMoreThanOneProposalFromOneAssignee'].includes(fieldName)) {
@@ -149,7 +146,7 @@ export const CreateOrEditTradingShopContent = ({
     setFormFields(newFormFields)
   }
 
-  const isDeadlineError = formFields.timeoutAt > new Date()
+  const isDeadlineError = formFields.businessStartDate > new Date()
 
   const onSuccessSubmit = () => {
     // if (isDeadlineError) {
@@ -262,8 +259,8 @@ export const CreateOrEditTradingShopContent = ({
                   labelClasses={classNames.spanLabelSmall}
                   minRows={1}
                   rowsMax={2}
-                  // value={'Название магазина'}
-                  // onChange={onChangeField('title')}
+                  value={formFields.title}
+                  onChange={onChangeField('title')}
                 />
                 <span className={clsx(formFields.title.length > 80 && classNames.error)}>{`${
                   formFields.title.length
@@ -279,30 +276,22 @@ export const CreateOrEditTradingShopContent = ({
                   minRows={11}
                   rowsMax={11}
                   label={`${t(TranslationKey['Store Details'])} *`}
-                  //                   value={`Этот список предназначен для медийной рекламы и партнёрского бизнеса, созданного в июле 2010 года в нише продуктов питания и напитков. Бизнес состоит из двух сайтов WordPress, на которых размещён информационный контент, рецепты и руководства по покупке, связанные с темами кулинарии и образа жизни. Один из сайтов устарел и рано вошёл в популярную нишу, а у брендов более 3,7 млн ​​подписчиков в социальных сетях. Сайты привлекают значительный трафик из нескольких источников и росли из года в год за последние 6 месяцев.
-                  // Этот бизнес приносит доход от медийной рекламы (86%) и партнерских отношений (14%). У большого сайта чуть более 3000 бесплатных подписчиков и более 100 платных подписчиков.
-                  // Для первого веб-сайта трафик поступает в основном из социальных сетей (39,39%), обычного поиска (36,04%) и прямого (20%). В тройку лидеров по трафику входят США (80,19%), Канада (7,79%) и Великобритания (2,33%). Первые три страницы составляют 7,18% от общего трафика сайта, генерируя 3,56%, 1,95% и 1,67% от общего трафика.
-                  // Для второго веб-сайта трафик поступает в основном из социальных сетей (81,45%), прямого (10,14%) и органического (6,49%). В тройку лидеров по трафику входят США (74,27%), Канада (8,38%) и Австралия (3,75%). Первые три страницы составляют 24,06% от общего трафика сайта, генерируя 13,95%, 5,1% и 5,01% от общего трафика.
-                  // VA, писатели и видеографы помогают вести бизнес; писатели пишут два электронных письма в неделю; менеджер блога проводит SEO-исследования и публикует контент; Обмен в социальных сетях раньше обрабатывался виртуальными активами, но Продавец экспериментирует с обработкой обмена в социальных сетях самостоятельно.
-                  // *Подтверждение оплаты для определенных статей доходов доступно только через 2-4 недели после периода, в котором они были заработаны, например, в случае доходов от партнеров, выплачиваемых через PayPal. Проверьте подтверждение доходов аффилированных лиц за предыдущие месяцы, чтобы сопоставить, как они были указаны в отчете о прибылях и убытках.`}
-                  // onChange={onChangeField('conditions')}
+                  value={formFields.shopDetails}
+                  onChange={onChangeField('shopDetails')}
                 />
-                <span className={clsx(formFields.conditions.length > 1000 && classNames.error)}>{`${
-                  formFields.conditions.length
+                <span className={clsx(formFields.shopDetails.length > 1000 && classNames.error)}>{`${
+                  formFields.shopDetails.length
                 } ${t(TranslationKey.of)} 1000 ${t(TranslationKey.characters)}`}</span>
               </div>
 
               <div className={classNames.descriptionFieldWrapper}>
                 <Field
-                  // multiline
                   inputProps={{maxLength: 1900}}
                   className={classNames.nameField}
                   labelClasses={classNames.spanLabelSmall}
-                  // minRows={1}
-                  // rowsMax={2}
                   label={`${t(TranslationKey['Store link'])} *`}
-                  // value={formFields.details.conditions}
-                  // onChange={onChangeField('conditions')}
+                  value={formFields.shopLink}
+                  onChange={onChangeField('shopLink')}
                 />
               </div>
             </div>
@@ -313,13 +302,13 @@ export const CreateOrEditTradingShopContent = ({
                   <Field
                     multiline
                     inputProps={{maxLength: 100}}
-                    label={`${t(TranslationKey['Enter store cost'])} *`}
+                    label={`${t(TranslationKey['Enter store cost'])}, $ *`}
                     className={classNames.nameField}
                     labelClasses={classNames.spanLabelSmall}
                     minRows={1}
                     rowsMax={2}
-                    // value={formFields.request.title}
-                    // onChange={onChangeField('title')}
+                    value={formFields.price}
+                    onChange={onChangeField('price')}
                   />
 
                   <Field
@@ -327,7 +316,10 @@ export const CreateOrEditTradingShopContent = ({
                     labelClasses={classNames.spanLabelSmall}
                     inputComponent={
                       <div className={clsx({[classNames.deadlineError]: deadlineError})}>
-                        <DatePickerDate value={formFields.timeoutAt} onChange={onChangeField('timeoutAt')} />
+                        <DatePickerDate
+                          value={formFields.businessStartDate}
+                          onChange={onChangeField('businessStartDate')}
+                        />
                         {deadlineError && (
                           <p className={classNames.deadlineErrorText}>
                             {'The deadline date cannot be later than the current date'}
@@ -351,6 +343,7 @@ export const CreateOrEditTradingShopContent = ({
                             {/* <Typography className={classNames.selectedRole}>{asset}</Typography> */}
                             <Input
                               value={assetLine}
+                              placeholder={t(TranslationKey['Add assets'])}
                               className={classNames.assetInput}
                               onChange={e => setAssetLine(e.target.value)}
                             />
@@ -433,9 +426,7 @@ export const CreateOrEditTradingShopContent = ({
               inputComponent={
                 <Paper className={classNames.indicatorPaper}>
                   <div className={classNames.selectedRoleWrapper}>
-                    {/* <div className={classNames.leftContentWrapper}> */}
                     <DateMonthYearPicker value={grossIncomeDate} onChange={setGrossIncomeDate} />
-                    {/* </div> */}
 
                     <Input
                       value={grossIncomeValue}
@@ -467,7 +458,6 @@ export const CreateOrEditTradingShopContent = ({
                 </Paper>
               }
             />
-            <Typography className={classNames.mainTitle}>{'IN PROGRESS...'}</Typography>
             {renderBackNextBtns()}
           </>
         )}

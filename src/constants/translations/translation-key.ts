@@ -1351,7 +1351,7 @@ export enum TranslationKey {
   'Assets included in sale' = 'Assets included in sale',
   'Attach file with data for logging in to store' = 'Attach file with data for logging in to store',
   'Gross income' = 'Gross income',
-  // '' = '',
+  'Add assets' = 'Add assets',
 }
 
 // "After confirmation, the card will be moved to the Archive. Continue?": "After confirmation, the card will be moved to the Archive. Continue?"
