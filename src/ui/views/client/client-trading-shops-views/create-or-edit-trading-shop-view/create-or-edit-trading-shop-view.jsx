@@ -5,6 +5,8 @@ import {observer} from 'mobx-react'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {Appbar} from '@components/appbar'
 import {CreateOrEditTradingShopContent} from '@components/contents/create-or-edit-trading-shop-content'
 import {Main} from '@components/main'
@@ -51,14 +53,16 @@ export class CreateOrEditTradingShopView extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Create a request'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <CreateOrEditTradingShopContent
-                progressValue={progressValue}
-                showProgress={showProgress}
-                requestToEdit={requestToEdit}
-                history={this.props.history}
-                onCreateSubmit={onSubmitCreateRequest}
-                onEditSubmit={onSubmitEditRequest}
-              />
+              {SettingsModel.languageTag && (
+                <CreateOrEditTradingShopContent
+                  progressValue={progressValue}
+                  showProgress={showProgress}
+                  requestToEdit={requestToEdit}
+                  history={this.props.history}
+                  onCreateSubmit={onSubmitCreateRequest}
+                  onEditSubmit={onSubmitEditRequest}
+                />
+              )}
             </MainContent>
           </Appbar>
         </Main>

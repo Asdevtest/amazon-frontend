@@ -1344,15 +1344,14 @@ export enum TranslationKey {
   'Edit ad for store sale' = 'Edit ad for store sale',
   'We will find a reliable buyer of your store' = 'We will find a reliable buyer of your store',
   'Fill in basic information about your store' = 'Fill in basic information about your store',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
-  // '' = '',
+  'Store Details' = 'Store Details',
+  'Store link' = 'Store link',
+  'Enter store cost' = 'Enter store cost',
+  'When did business start?' = 'When did business start?',
+  'Assets included in sale' = 'Assets included in sale',
+  'Attach file with data for logging in to store' = 'Attach file with data for logging in to store',
+  'Gross income' = 'Gross income',
+  'Add assets' = 'Add assets',
 }
 
 // "After confirmation, the card will be moved to the Archive. Continue?": "After confirmation, the card will be moved to the Archive. Continue?"

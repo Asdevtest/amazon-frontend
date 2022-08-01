@@ -83,7 +83,7 @@ export const useClassNames = makeStyles(() => ({
 
   tabItemActiveContent: {
     padding: '0 20px',
-    height: '65vh',
+    height: '74vh',
   },
 
   placeAddBtnWrapper: {

@@ -1,5 +1,9 @@
 import DateFnsUtils from '@date-io/date-fns'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
+import TextField from '@mui/material/TextField'
+import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns'
+import {DatePicker as NewestDatePicker} from '@mui/x-date-pickers/DatePicker'
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider'
 
 import {useEffect, useState} from 'react'
 
@@ -27,6 +31,29 @@ const getLocalByLanguageTag = languageTag => {
     default:
       return enLocale
   }
+}
+
+export const DateMonthYearPicker = ({value, onChange, ...restProps}) => {
+  const [local, setLocal] = useState(enLocale)
+
+  useEffect(() => {
+    setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
+  }, [SettingsModel.languageTag])
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
+      <NewestDatePicker
+        views={['year', 'month']}
+        // label="Year and Month"
+        value={value}
+        renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
+        onChange={newValue => {
+          onChange(newValue)
+        }}
+        {...restProps}
+      />
+    </LocalizationProvider>
+  )
 }
 
 export const DatePicker = ({value, onChange}) => {
@@ -60,6 +87,7 @@ export const DatePickerDate = ({value, onChange}) => {
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={local}>
       <KeyboardDatePicker
         clearable
+        // views={['year', 'month']}
         value={value}
         style={{width: '100%'}}
         placeholder="10/10/2018"

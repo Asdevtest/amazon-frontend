@@ -381,7 +381,7 @@
   "Warehouse report": "Отчет со склада",
   "Dashboard by goods/days": "Dashboard по товарам/дням",
   "Add shop": "Добавление магазина",
-  "Store name": "Наименование магазина",
+  "Store name": "Название магазина",
   "Link to report from the warehouse": "Ссылка на отчет со склада",
   "Link to dashboard by item/day": "Ссылка на дашборд по товарам/дням",
   "All shops": "Все магазины",
@@ -1345,5 +1345,13 @@
   "Create an ad to sell your store": "Создать объявление о продаже магазина",
   "Edit ad for store sale": "Редактировать объявление",
   "We will find a reliable buyer of your store": "Мы найдем надежного покупателя Вашего магазина",
-  "Fill in basic information about your store": "Заполните основную информацию о Вашем магазине"
+  "Fill in basic information about your store": "Заполните основную информацию о Вашем магазине",
+  "Store Details": "Детали магазина",
+  "Store link": "Ссылка на магазин",
+  "Enter store cost": "Введите стоимость магазина",
+  "When did business start?": "Когда был начат бизнес?",
+  "Assets included in sale": "Активы, включенные в продажу",
+  "Attach file with data for logging in to store": "Прикрепить файл с данными для входа в магазин",
+  "Gross income": "Валовый доход",
+  "Add assets": "Добавить активы"
 }

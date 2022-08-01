@@ -11,9 +11,9 @@ import {getFullTariffTextForBoxOrOrder} from './text'
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
 
 export const myRequestsDataConverter = data =>
-  data.map((item, i) => ({
+  data.map(item => ({
     originalData: item,
-    id: i,
+    id: item._id,
     _id: item._id,
     status: item.status,
     title: item.title,
