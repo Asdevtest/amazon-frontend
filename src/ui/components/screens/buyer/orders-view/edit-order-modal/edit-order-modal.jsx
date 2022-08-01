@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import InputBase from '@mui/material/InputBase'
 
 import React, {useEffect, useState} from 'react'
 
 import {Box, InputAdornment, NativeSelect, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
 import clsx from 'clsx'
+import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {
@@ -47,410 +50,412 @@ const confirmModalModes = {
   SUBMIT: 'SUBMIT',
 }
 
-export const EditOrderModal = ({
-  requestStatus,
-  order,
-  boxes,
-  onTriggerOpenModal,
-  modalHeadCells,
-  onSubmitSaveOrder,
-  showProgress,
-  progressValue,
-  volumeWeightCoefficient,
-}) => {
-  const classNames = useClassNames()
+export const EditOrderModal = observer(
+  ({
+    requestStatus,
+    order,
+    boxes,
+    onTriggerOpenModal,
+    modalHeadCells,
+    onSubmitSaveOrder,
+    showProgress,
+    progressValue,
+    volumeWeightCoefficient,
+  }) => {
+    const classNames = useClassNames()
 
-  const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
+    const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
 
-  const [showConfirmModal, setShowConfirmModal] = useState(false)
+    const [showConfirmModal, setShowConfirmModal] = useState(false)
 
-  const [confirmModalMode, setConfirmModalMode] = useState(confirmModalModes.STATUS)
+    const [confirmModalMode, setConfirmModalMode] = useState(confirmModalModes.STATUS)
 
-  const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
+    const [tmpNewOrderFieldsState, setTmpNewOrderFieldsState] = useState({})
 
-  const [showWarningInfoModal, setShowWarningInfoModal] = useState(
-    order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
-  )
+    const [showWarningInfoModal, setShowWarningInfoModal] = useState(
+      order.status === OrderStatusByKey[OrderStatus.AT_PROCESS],
+    )
 
-  const [boxesForCreation, setBoxesForCreation] = useState([])
+    const [boxesForCreation, setBoxesForCreation] = useState([])
 
-  const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
+    const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
 
-  const renderHeadRow = () => (
-    <TableRow>
-      {headCells.map((item, index) => (
-        <TableCell key={index}>{item.label}</TableCell>
-      ))}
-    </TableRow>
-  )
+    const renderHeadRow = () => (
+      <TableRow>
+        {headCells.map((item, index) => (
+          <TableCell key={index}>{item.label}</TableCell>
+        ))}
+      </TableRow>
+    )
 
-  useEffect(() => {
-    setHeadCells(CLIENT_WAREHOUSE_HEAD_CELLS)
-  }, [SettingsModel.languageTag])
+    useEffect(() => {
+      setHeadCells(CLIENT_WAREHOUSE_HEAD_CELLS)
+    }, [SettingsModel.languageTag])
 
-  const onRemoveForCreationBox = boxIndex => {
-    const updatedNewBoxes = boxesForCreation.filter((box, i) => i !== boxIndex)
-    setBoxesForCreation(updatedNewBoxes)
-  }
+    const onRemoveForCreationBox = boxIndex => {
+      const updatedNewBoxes = boxesForCreation.filter((box, i) => i !== boxIndex)
+      setBoxesForCreation(updatedNewBoxes)
+    }
 
-  const onClickBarcodeCheckbox = boxIndex => e => {
-    const newStateFormFields = [...boxesForCreation]
+    const onClickBarcodeCheckbox = boxIndex => e => {
+      const newStateFormFields = [...boxesForCreation]
 
-    newStateFormFields[boxIndex].items[0].isBarCodeAlreadyAttachedByTheSupplier = e.target.checked
+      newStateFormFields[boxIndex].items[0].isBarCodeAlreadyAttachedByTheSupplier = e.target.checked
 
-    setBoxesForCreation(newStateFormFields)
-  }
+      setBoxesForCreation(newStateFormFields)
+    }
 
-  const onClickUpdateSupplierStandart = boxIndex => e => {
-    const newStateFormFields = [...boxesForCreation].map(el => ({...el, tmpUseToUpdateSupplierBoxDimensions: false}))
+    const onClickUpdateSupplierStandart = boxIndex => e => {
+      const newStateFormFields = [...boxesForCreation].map(el => ({...el, tmpUseToUpdateSupplierBoxDimensions: false}))
 
-    newStateFormFields[boxIndex].tmpUseToUpdateSupplierBoxDimensions = e.target.checked
+      newStateFormFields[boxIndex].tmpUseToUpdateSupplierBoxDimensions = e.target.checked
 
-    setBoxesForCreation(newStateFormFields)
-  }
+      setBoxesForCreation(newStateFormFields)
+    }
 
-  const [orderFields, setOrderFields] = useState({
-    ...order,
-    status: order?.status || undefined,
-    clientComment: order?.clientComment || '',
-    buyerComment: order?.buyerComment || '',
-    deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || 0,
-    trackId: '',
-    material: order?.product?.material || '',
-    amount: order?.amount || 0,
-    trackingNumberChina: order?.trackingNumberChina,
-    batchPrice: 0,
-    totalPriceChanged: toFixed(order?.totalPriceChanged, 2) || toFixed(order?.totalPrice, 2),
-    yuanToDollarRate: order?.yuanToDollarRate || 6.3,
-  })
+    const [orderFields, setOrderFields] = useState({
+      ...order,
+      status: order?.status || undefined,
+      clientComment: order?.clientComment || '',
+      buyerComment: order?.buyerComment || '',
+      deliveryCostToTheWarehouse: order?.deliveryCostToTheWarehouse || 0,
+      trackId: '',
+      material: order?.product?.material || '',
+      amount: order?.amount || 0,
+      trackingNumberChina: order?.trackingNumberChina,
+      batchPrice: 0,
+      totalPriceChanged: toFixed(order?.totalPriceChanged, 2) || toFixed(order?.totalPrice, 2),
+      yuanToDollarRate: order?.yuanToDollarRate || 6.3,
+    })
 
-  const setOrderField = filedName => e => {
-    const newOrderFieldsState = {...orderFields}
+    const setOrderField = filedName => e => {
+      const newOrderFieldsState = {...orderFields}
 
-    if (['totalPriceChanged', 'deliveryCostToTheWarehouse', 'yuanToDollarRate'].includes(filedName)) {
-      if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+      if (['totalPriceChanged', 'deliveryCostToTheWarehouse', 'yuanToDollarRate'].includes(filedName)) {
+        if (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
+          return
+        }
+
+        newOrderFieldsState[filedName] = e.target.value
+
+        if (e.updateTotalPriceChanged && filedName === 'yuanToDollarRate') {
+          newOrderFieldsState.totalPriceChanged = e.updateTotalPriceChangedValue
+        }
+      } else if (filedName === 'status') {
+        newOrderFieldsState[filedName] = e.target.value
+        setTmpNewOrderFieldsState(newOrderFieldsState)
+
+        setConfirmModalMode(confirmModalModes.STATUS)
+        setShowConfirmModal(!showConfirmModal)
         return
+      } else {
+        newOrderFieldsState[filedName] = e.target.value
       }
 
-      newOrderFieldsState[filedName] = e.target.value
-
-      if (e.updateTotalPriceChanged && filedName === 'yuanToDollarRate') {
-        newOrderFieldsState.totalPriceChanged = e.updateTotalPriceChangedValue
+      if (filedName === 'totalPriceChanged' && Number(e.target.value) - orderFields.totalPrice > 0) {
+        newOrderFieldsState.status = order.status
       }
-    } else if (filedName === 'status') {
-      newOrderFieldsState[filedName] = e.target.value
-      setTmpNewOrderFieldsState(newOrderFieldsState)
-
-      setConfirmModalMode(confirmModalModes.STATUS)
-      setShowConfirmModal(!showConfirmModal)
-      return
-    } else {
-      newOrderFieldsState[filedName] = e.target.value
+      setOrderFields(newOrderFieldsState)
     }
 
-    if (filedName === 'totalPriceChanged' && Number(e.target.value) - orderFields.totalPrice > 0) {
-      newOrderFieldsState.status = order.status
+    const confirmModalMessageByMode = () => {
+      switch (confirmModalMode) {
+        case 'STATUS':
+          return t(TranslationKey['Within the current edit, you can only change once!'])
+
+        case 'SUBMIT':
+          return t(TranslationKey['Are you sure you entered all the data correctly?'])
+      }
     }
-    setOrderFields(newOrderFieldsState)
-  }
 
-  const confirmModalMessageByMode = () => {
-    switch (confirmModalMode) {
-      case 'STATUS':
-        return t(TranslationKey['Within the current edit, you can only change once!'])
+    const confirmModalActionByMode = () => {
+      switch (confirmModalMode) {
+        case 'STATUS':
+          return setOrderFields(tmpNewOrderFieldsState)
 
-      case 'SUBMIT':
-        return t(TranslationKey['Are you sure you entered all the data correctly?'])
+        case 'SUBMIT':
+          return onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode)
+      }
     }
-  }
 
-  const confirmModalActionByMode = () => {
-    switch (confirmModalMode) {
-      case 'STATUS':
-        return setOrderFields(tmpNewOrderFieldsState)
+    const allowOrderStatuses = [
+      `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`,
+      `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+      `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
+      `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
+      `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+      `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+    ]
 
-      case 'SUBMIT':
-        return onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode)
-    }
-  }
+    const disabledOrderStatuses = [
+      `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
+      // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+      `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
+    ]
 
-  const allowOrderStatuses = [
-    `${OrderStatusByKey[OrderStatus.AT_PROCESS]}`,
-    `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
-    `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
-    `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
-    `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
-    `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
-  ]
+    const [photosToLoad, setPhotosToLoad] = useState([])
 
-  const disabledOrderStatuses = [
-    `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
-    // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
-    `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
-  ]
+    const [hsCode, setHsCode] = useState(order.product.hsCode)
 
-  const [photosToLoad, setPhotosToLoad] = useState([])
+    const disableSubmit = requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status)
 
-  const [hsCode, setHsCode] = useState(order.product.hsCode)
+    // const statusesColor =
 
-  const disableSubmit = requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status)
+    return (
+      <Box className={classNames.modalWrapper}>
+        <div className={classNames.modalHeader}>
+          <Typography className={classNames.modalText}>{`${t(TranslationKey.Order)} № ${order.id}`}</Typography>
+          <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
+          <div className={classNames.orderStatusWrapper}>
+            <Typography className={classNames.orderStatus}>{t(TranslationKey['Order status'])}</Typography>
+            <Field
+              tooltipInfoContent={t(TranslationKey['Current order status'])}
+              value={order.storekeeper?.name}
+              labelClasses={classNames.label}
+              inputComponent={
+                <NativeSelect
+                  disabled={
+                    order.status !== orderFields.status ||
+                    +orderFields.totalPriceChanged - orderFields.totalPrice > 0 ||
+                    orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
+                    orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK]
+                  }
+                  variant="filled"
+                  value={orderFields.status}
+                  classes={{
+                    select: clsx({
+                      [classNames.orange]:
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
+                        `${orderFields.status}` ===
+                          `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
 
-  // const statusesColor =
+                      [classNames.green]:
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
-  return (
-    <Box className={classNames.modalWrapper}>
-      <div className={classNames.modalHeader}>
-        <Typography className={classNames.modalText}>{`${t(TranslationKey.Order)} № ${order.id}`}</Typography>
-        <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
-        <div className={classNames.orderStatusWrapper}>
-          <Typography className={classNames.orderStatus}>{t(TranslationKey['Order status'])}</Typography>
-          <Field
-            tooltipInfoContent={t(TranslationKey['Current order status'])}
-            value={order.storekeeper?.name}
-            labelClasses={classNames.label}
-            inputComponent={
-              <NativeSelect
-                disabled={
-                  order.status !== orderFields.status ||
-                  +orderFields.totalPriceChanged - orderFields.totalPrice > 0 ||
-                  orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
-                  orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK]
-                }
-                variant="filled"
-                value={orderFields.status}
-                classes={{
-                  select: clsx({
-                    [classNames.orange]:
-                      orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
-                      orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
-                      orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+                      [classNames.red]:
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+                    }),
+                  }}
+                  input={
+                    <Input
+                      startAdornment={
+                        <InputAdornment position="start">
+                          <FiberManualRecordRoundedIcon
+                            className={clsx({
+                              [classNames.orange]:
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
+                                `${orderFields.status}` ===
+                                  `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
 
-                    [classNames.green]:
-                      orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK] ||
-                      orderFields.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+                              [classNames.green]:
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
-                    [classNames.red]:
-                      orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
-                      orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
-                  }),
-                }}
-                input={
-                  <Input
-                    startAdornment={
-                      <InputAdornment position="start">
-                        <FiberManualRecordRoundedIcon
-                          className={clsx({
-                            [classNames.orange]:
-                              orderFields.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
-                              orderFields.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
-                              orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+                              [classNames.red]:
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+                            })}
+                          />
+                        </InputAdornment>
+                      }
+                    />
+                  }
+                  onChange={setOrderField('status')}
+                >
+                  {Object.keys({
+                    ...getObjectFilteredByKeyArrayWhiteList(
+                      OrderStatusByCode,
+                      allowOrderStatuses.filter(el => el >= order.status),
+                    ),
+                  }).map((statusCode, statusIndex) => (
+                    <option
+                      key={statusIndex}
+                      value={statusCode}
+                      className={clsx(
+                        clsx({
+                          [classNames.orange]:
+                            statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
+                            statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
+                            statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
 
-                            [classNames.green]:
-                              orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK] ||
-                              orderFields.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+                          [classNames.green]:
+                            statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
+                            statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
-                            [classNames.red]:
-                              orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
-                              orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
-                          })}
-                        />
-                      </InputAdornment>
-                    }
-                  />
-                }
-                onChange={setOrderField('status')}
-              >
-                {Object.keys({
-                  ...getObjectFilteredByKeyArrayWhiteList(
-                    OrderStatusByCode,
-                    allowOrderStatuses.filter(el => el >= order.status),
-                  ),
-                }).map((statusCode, statusIndex) => (
-                  <option
-                    key={statusIndex}
-                    value={statusCode}
-                    className={clsx(
-                      clsx({
-                        [classNames.orange]:
-                          statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
-                          statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
-                          statusCode === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
-
-                        [classNames.green]:
-                          statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
-                          statusCode === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
-
-                        [classNames.red]:
-                          statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
-                          statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
-                        [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
-                      }),
-                    )}
-                    disabled={disabledOrderStatuses.includes(statusCode)}
-                  >
-                    {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
-                  </option>
-                ))}
-              </NativeSelect>
-            }
-          />
-        </div>
-      </div>
-
-      <Paper elevation={0} className={classNames.paper}>
-        <SelectFields
-          hsCode={hsCode}
-          setHsCode={setHsCode}
-          photosToLoad={photosToLoad}
-          order={order}
-          setOrderField={setOrderField}
-          orderFields={orderFields}
-          showProgress={showProgress}
-          progressValue={progressValue}
-          setPhotosToLoad={setPhotosToLoad}
-        />
-
-        <Text className={classNames.tableTitle} containerClasses={classNames.tableTitleContainer}>
-          {t(TranslationKey.Product)}
-        </Text>
-
-        <ProductTable
-          modalHeadCells={modalHeadCells}
-          order={order}
-          orderFields={orderFields}
-          setOrderField={setOrderField}
-        />
-
-        <Text
-          className={classNames.tableTitle}
-          containerClasses={classNames.tableTitleContainer}
-          tooltipInfoContent={t(TranslationKey['Current supplier through whom the order was placed'])}
-        >
-          {t(TranslationKey.Suppliers)}
-        </Text>
-
-        <EditOrderSuppliersTable
-          selectedSupplier={orderFields.orderSupplier}
-          suppliers={orderFields.product.suppliers}
-        />
-      </Paper>
-
-      <Box mt={2} className={classNames.buttonsBox}>
-        <Button
-          disabled={disableSubmit}
-          tooltipInfoContent={t(TranslationKey['Save changes to the order'])}
-          className={classNames.saveBtn}
-          onClick={() => {
-            if (boxesForCreation.length > 0) {
-              setConfirmModalMode(confirmModalModes.SUBMIT)
-              setShowConfirmModal(!showConfirmModal)
-            } else {
-              onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode)
-            }
-          }}
-        >
-          {t(TranslationKey.Save)}
-        </Button>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
-          className={classNames.cancelBtn}
-          onClick={() => onTriggerOpenModal('showOrderModal')}
-        >
-          {t(TranslationKey.Cancel)}
-        </Button>
-      </Box>
-
-      {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) && (
-        <div className={classNames.addBtn}>
-          <Typography className={classNames.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
-          <div className={classNames.addBoxButtonWrapper}>
-            <Button
-              disableElevation
-              tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
-              color="primary"
-              variant="contained"
-              className={classNames.addBoxButton}
-              onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
-            >
-              {t(TranslationKey['Add a box'])}
-            </Button>
+                          [classNames.red]:
+                            statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
+                            statusCode === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+                          [classNames.disableSelect]: disabledOrderStatuses.includes(statusCode),
+                        }),
+                      )}
+                      disabled={disabledOrderStatuses.includes(statusCode)}
+                    >
+                      {OrderStatusTranslate(getOrderStatusOptionByCode(statusCode).key)}
+                    </option>
+                  ))}
+                </NativeSelect>
+              }
+            />
           </div>
         </div>
-      )}
 
-      {boxesForCreation.length > 0 && (
-        <BoxesToCreateTable
-          volumeWeightCoefficient={volumeWeightCoefficient}
-          barcodeIsExist={order.product.barCode}
-          newBoxes={boxesForCreation}
-          onRemoveBox={onRemoveForCreationBox}
-          onClickBarcodeCheckbox={onClickBarcodeCheckbox}
-          onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
-        />
-      )}
-
-      <div className={classNames.tableWrapper}>
-        <Field
-          tooltipInfoContent={t(TranslationKey['All the boxes that the prep center received on order'])}
-          label={t(TranslationKey['Boxes on this order:'])}
-          inputClasses={classNames.hidden}
-          labelClasses={classNames.label}
-          containerClasses={classNames.fieldLabel}
-        />
-
-        {boxes.length > 0 ? (
-          <Table
-            rowsOnly
-            data={boxes}
-            BodyRow={WarehouseBodyRow}
-            renderHeadRow={renderHeadRow()}
-            mainProductId={order.product._id}
-            volumeWeightCoefficient={volumeWeightCoefficient}
+        <Paper elevation={0} className={classNames.paper}>
+          <SelectFields
+            hsCode={hsCode}
+            setHsCode={setHsCode}
+            photosToLoad={photosToLoad}
+            order={order}
+            setOrderField={setOrderField}
+            orderFields={orderFields}
+            showProgress={showProgress}
+            progressValue={progressValue}
+            setPhotosToLoad={setPhotosToLoad}
           />
-        ) : (
-          <Typography className={classNames.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
+
+          <Text className={classNames.tableTitle} containerClasses={classNames.tableTitleContainer}>
+            {t(TranslationKey.Product)}
+          </Text>
+
+          <ProductTable
+            modalHeadCells={modalHeadCells}
+            order={order}
+            orderFields={orderFields}
+            setOrderField={setOrderField}
+          />
+
+          <Text
+            className={classNames.tableTitle}
+            containerClasses={classNames.tableTitleContainer}
+            tooltipInfoContent={t(TranslationKey['Current supplier through whom the order was placed'])}
+          >
+            {t(TranslationKey.Suppliers)}
+          </Text>
+
+          <EditOrderSuppliersTable
+            selectedSupplier={orderFields.orderSupplier}
+            suppliers={orderFields.product.suppliers}
+          />
+        </Paper>
+
+        <Box mt={2} className={classNames.buttonsBox}>
+          <Button
+            disabled={disableSubmit}
+            tooltipInfoContent={t(TranslationKey['Save changes to the order'])}
+            className={classNames.saveBtn}
+            onClick={() => {
+              if (boxesForCreation.length > 0) {
+                setConfirmModalMode(confirmModalModes.SUBMIT)
+                setShowConfirmModal(!showConfirmModal)
+              } else {
+                onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode)
+              }
+            }}
+          >
+            {t(TranslationKey.Save)}
+          </Button>
+          <Button
+            tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
+            className={classNames.cancelBtn}
+            onClick={() => onTriggerOpenModal('showOrderModal')}
+          >
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </Box>
+
+        {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) && (
+          <div className={classNames.addBtn}>
+            <Typography className={classNames.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
+            <div className={classNames.addBoxButtonWrapper}>
+              <Button
+                disableElevation
+                tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])}
+                color="primary"
+                variant="contained"
+                className={classNames.addBoxButton}
+                onClick={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
+              >
+                {t(TranslationKey['Add a box'])}
+              </Button>
+            </div>
+          </div>
         )}
-      </div>
 
-      <Modal
-        openModal={collapseCreateOrEditBoxBlock}
-        setOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
-        dialogContextClassName={classNames.dialogContextClassName}
-      >
-        <CreateBoxForm
-          order={order}
-          currentSupplier={order.product.currentSupplier}
-          volumeWeightCoefficient={volumeWeightCoefficient}
-          formItem={orderFields}
-          boxesForCreation={boxesForCreation}
-          setBoxesForCreation={setBoxesForCreation}
-          onTriggerOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
+        {boxesForCreation.length > 0 && (
+          <BoxesToCreateTable
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            barcodeIsExist={order.product.barCode}
+            newBoxes={boxesForCreation}
+            onRemoveBox={onRemoveForCreationBox}
+            onClickBarcodeCheckbox={onClickBarcodeCheckbox}
+            onClickUpdateSupplierStandart={onClickUpdateSupplierStandart}
+          />
+        )}
+
+        <div className={classNames.tableWrapper}>
+          <Field
+            tooltipInfoContent={t(TranslationKey['All the boxes that the prep center received on order'])}
+            label={t(TranslationKey['Boxes on this order:'])}
+            inputClasses={classNames.hidden}
+            labelClasses={classNames.label}
+            containerClasses={classNames.fieldLabel}
+          />
+
+          {boxes.length > 0 ? (
+            <Table
+              rowsOnly
+              data={boxes}
+              BodyRow={WarehouseBodyRow}
+              renderHeadRow={renderHeadRow()}
+              mainProductId={order.product._id}
+              volumeWeightCoefficient={volumeWeightCoefficient}
+            />
+          ) : (
+            <Typography className={classNames.noBoxesText}>{t(TranslationKey['No boxes...'])}</Typography>
+          )}
+        </div>
+
+        <Modal
+          openModal={collapseCreateOrEditBoxBlock}
+          setOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
+          dialogContextClassName={classNames.dialogContextClassName}
+        >
+          <CreateBoxForm
+            order={order}
+            currentSupplier={order.product.currentSupplier}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            formItem={orderFields}
+            boxesForCreation={boxesForCreation}
+            setBoxesForCreation={setBoxesForCreation}
+            onTriggerOpenModal={() => setCollapseCreateOrEditBoxBlock(!collapseCreateOrEditBoxBlock)}
+          />
+        </Modal>
+
+        <ConfirmationModal
+          openModal={showConfirmModal}
+          setOpenModal={() => setShowConfirmModal(!showConfirmModal)}
+          title={t(TranslationKey['Attention. Are you sure?'])}
+          message={confirmModalMessageByMode(confirmModalMode)}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={() => {
+            confirmModalActionByMode(confirmModalMode)
+            setShowConfirmModal(!showConfirmModal)
+          }}
+          onClickCancelBtn={() => setShowConfirmModal(!showConfirmModal)}
         />
-      </Modal>
 
-      <ConfirmationModal
-        openModal={showConfirmModal}
-        setOpenModal={() => setShowConfirmModal(!showConfirmModal)}
-        title={t(TranslationKey['Attention. Are you sure?'])}
-        message={confirmModalMessageByMode(confirmModalMode)}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={() => {
-          confirmModalActionByMode(confirmModalMode)
-          setShowConfirmModal(!showConfirmModal)
-        }}
-        onClickCancelBtn={() => setShowConfirmModal(!showConfirmModal)}
-      />
-
-      <WarningInfoModal
-        openModal={showWarningInfoModal}
-        setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
-        title={t(TranslationKey['PAY ATTENTION!!!'])}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          setShowWarningInfoModal(!showWarningInfoModal)
-        }}
-      />
-    </Box>
-  )
-}
+        <WarningInfoModal
+          openModal={showWarningInfoModal}
+          setOpenModal={() => setShowWarningInfoModal(!showWarningInfoModal)}
+          title={t(TranslationKey['PAY ATTENTION!!!'])}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            setShowWarningInfoModal(!showWarningInfoModal)
+          }}
+        />
+      </Box>
+    )
+  },
+)

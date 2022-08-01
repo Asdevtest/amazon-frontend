@@ -26,6 +26,7 @@ import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
+import {checkIsString} from '@utils/checks'
 import {
   formatDateDistanceFromNow,
   formatDateForShowWithoutParseISO,
@@ -326,14 +327,16 @@ export const RenderFieldValueCell = withStyles(styles)(({classes: classNames, va
 
 export const MultilineTextCell = withStyles(styles)(({classes: classNames, text, noTextText}) => (
   <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText}>{text || noTextText || '-'}</Typography>
+    <Typography className={classNames.multilineText}>
+      {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
+    </Typography>
   </div>
 ))
 
 export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text}) => (
   <div className={classNames.multilineTextAlignLeftWrapper}>
     <TextareaAutosize disabled className={classNames.multilineTextAlignLeft}>
-      {text}
+      {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
     </TextareaAutosize>
   </div>
 ))

@@ -28,9 +28,8 @@ export const Navbar = observer(
     const drawerContent = (
       <React.Fragment>
         <div className={classNames.logoWrapper}>
-          <img alt="company logo" className={classNames.logo} src={'/assets/icons/new-logo.svg'} />
+          <img alt="company logo" className={classNames.logo} src={'/assets/icons/logo-01.08.svg'} />
         </div>
-        {/* <Divider /> */}
 
         <List className={classNames.categoriesWrapper}>
           {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]].map((category, index) =>
