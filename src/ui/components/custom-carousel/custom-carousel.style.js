@@ -105,7 +105,7 @@ export const useClassNames = makeStyles(() => ({
 
   imagesWrapper: {
     width: '50%',
-    height: '100%',
+    // height: '100px',
   },
 
   documentsWrapper: {
@@ -116,6 +116,7 @@ export const useClassNames = makeStyles(() => ({
   documentWrapper: {
     position: 'relative',
     width: '100%',
+
     color: '#001029',
 
     display: 'flex',
@@ -201,9 +202,20 @@ export const useClassNames = makeStyles(() => ({
     cursor: 'pointer',
     minWidth: 60,
     minHeight: 60,
+    // height: 50,
     maxHeight: '100%',
     objectFit: 'contain',
-    objectPosition: 'center ',
+
+    // objectPosition: 'center center',
+  },
+
+  smallImage: {
+    cursor: 'pointer',
+    minWidth: 60,
+    minHeight: 60,
+    // height: 50,
+    maxHeight: 70,
+    objectFit: 'contain',
   },
 
   emptyWrapper: {

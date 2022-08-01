@@ -72,7 +72,7 @@ class AdminOrdersViewsRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Orders)} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
-              <Grid container spacing={3} className={classNames.filterBtnWrapper}>
+              <Grid container spacing={1} className={classNames.filterBtnWrapper}>
                 {adminOrdersBtnsConfig()?.map((buttonConfig, index) => (
                   <Grid key={buttonConfig.status} item>
                     <Button

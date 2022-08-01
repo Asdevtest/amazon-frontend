@@ -167,7 +167,7 @@ const openPdfFile = url => {
   pdfWindow.document.write(`<iframe width='100%' height='1000%' src='${url}'></iframe>`)
 }
 
-export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
+export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 'row'}) => {
   const classNames = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -191,8 +191,7 @@ export const PhotoAndFilesCarousel = ({files, width, direction = 'row'}) => {
                 alt={'!'}
                 src={photo?.data_url || photo}
                 // className={classNames.image}
-                classes={{img: classNames.image}}
-                height="113px"
+                classes={{img: small ? classNames.smallImage : classNames.image}}
                 onClick={() => {
                   setShowPhotosModal(!showPhotosModal)
 
@@ -323,6 +322,63 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons
         images={bigImagesOptions.images}
         imgIndex={bigImagesOptions.imgIndex}
       />
+    </div>
+  ) : (
+    <div className={classNames.emptyIconWrapper}>
+      <div className={classNames.emptyWrapper}>
+        <div className={classNames.emptyIcon}>
+          <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
+        </div>
+        <Typography className={classNames.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
+      </div>
+    </div>
+  )
+})
+
+export const FilesCarousel = observer(({files}) => {
+  const classNames = useClassNames()
+
+  const notEmptyFiles = files?.length
+    ? files.filter(el => (el?.file?.name ? !checkIsImageLink(el?.file?.name) : !checkIsImageLink(el)))
+    : []
+
+  return files?.length ? (
+    <div className={classNames.imagesCarouselWrapper}>
+      <div className={classNames.imageWrapper}>
+        {notEmptyFiles?.length ? (
+          <CustomCarousel>
+            {notEmptyFiles.map((file, index) =>
+              file?.data_url ? (
+                <div
+                  key={index}
+                  className={classNames.documentWrapper}
+                  onClick={() => file.data_url && openPdfFile(file.data_url)}
+                >
+                  <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                  <Typography className={classNames.documentTitle}>
+                    {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
+                  </Typography>
+                  <span className={classNames.documentHover}>{file?.file?.name || file}</span>
+                </div>
+              ) : (
+                <Link key={index} href={file} className={classNames.documentWrapper} target="__blank">
+                  <InsertDriveFileIcon color="primary" style={{width: '40px', height: '40px'}} />
+                  <Typography className={classNames.documentTitle}>
+                    {shortenDocumentString(file?.file?.name ? file?.file?.name : file)}
+                  </Typography>
+                  <span className={classNames.documentHover}>{file?.file?.name || file}</span>
+                </Link>
+              ),
+            )}
+          </CustomCarousel>
+        ) : (
+          <div className={classNames.emptyIconWrapper}>
+            <div className={classNames.emptyIcon}>
+              <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '40px'}} />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   ) : (
     <div className={classNames.emptyIconWrapper}>

@@ -179,9 +179,9 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               keepMounted
               id="simple-menu"
               anchorEl={anchorEl}
+              autoFocus={false}
               open={Boolean(anchorEl)}
-              classes={{paper: classNames.menu}}
-              style={{padding: 0}}
+              classes={{paper: classNames.menu, list: classNames.list}}
               onClose={handleClose}
             >
               <MenuItem className={classNames.menuWrapper} onClick={onClickProfile}>

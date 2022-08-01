@@ -4,11 +4,11 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   TaskDescriptionCell,
-  MultilineTextCell,
   NormalActionBtnCell,
   NormDateFromUnixCell,
   TaskTypeCell,
   MultilineTextHeaderCell,
+  TaskStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -59,7 +59,7 @@ export const warehouseCompletedTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 150,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TaskStatusCell status={params.value} />,
     filterable: false,
     sortable: false,
   },

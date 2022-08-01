@@ -62,7 +62,13 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   buttonsWrapper: {
-    marginTop: '20px',
+    display: 'flex',
+    justifyContent: 'end',
+  },
+
+  actionButton: {
+    width: '126px',
+    height: '40px',
   },
 
   superboxTypo: {

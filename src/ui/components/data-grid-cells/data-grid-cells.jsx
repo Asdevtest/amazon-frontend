@@ -17,7 +17,7 @@ import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTr
 import {MyRequestStatusTranslate} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
 import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-operation-type'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
+import {mapTaskStatusEmumToKey, TaskStatus, TaskStatusTranslate} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from '@constants/user-roles'
 
@@ -364,6 +364,30 @@ export const MultilineStatusCell = withStyles(styles)(({classes: classNames, sta
     <Typography className={classNames.statusMultilineText}>{status?.replace(/_/g, ' ')}</Typography>
   </div>
 ))
+
+export const TaskStatusCell = withStyles(styles)(({classes: classNames, status}) => {
+  const colorByStatus = () => {
+    if ([TaskStatus.AT_PROCESS, TaskStatus.NEW].includes(status)) {
+      return '#F3AF00'
+    } else if ([TaskStatus.SOLVED].includes(status)) {
+      return '#00B746'
+    } else if ([TaskStatus.NOT_SOLVED].includes(status)) {
+      return '#FF1616'
+    } else {
+      return '#black'
+    }
+  }
+
+  const colorStatus = colorByStatus()
+
+  return (
+    <div className={classNames.statusWrapper}>
+      <Typography className={classNames.orderStatusText} style={{color: colorStatus}}>
+        {TaskStatusTranslate(status)}
+      </Typography>
+    </div>
+  )
+})
 
 export const OrderStatusCell = withStyles(styles)(({classes: classNames, status}) => {
   const colorByStatus = () => {
