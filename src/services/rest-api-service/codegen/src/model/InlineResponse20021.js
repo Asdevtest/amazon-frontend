@@ -21,7 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20021 {
     /**
      * Constructs a new <code>InlineResponse20021</code>.
-     * Схема магазина.
+     * Схема получение лайт версии продажи магазина
      * @alias module:model/InlineResponse20021
      */
     constructor() { 
@@ -51,29 +51,38 @@ class InlineResponse20021 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
-                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
-            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
-                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
+            if (data.hasOwnProperty('files')) {
+                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
             }
-            if (data.hasOwnProperty('ownerId')) {
-                obj['ownerId'] = ApiClient.convertToType(data['ownerId'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('createdById')) {
-                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
+            if (data.hasOwnProperty('monthlyProfit')) {
+                obj['monthlyProfit'] = ApiClient.convertToType(data['monthlyProfit'], 'Number');
             }
-            if (data.hasOwnProperty('lastModifiedById')) {
-                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
+            if (data.hasOwnProperty('monthlyPureProfit')) {
+                obj['monthlyPureProfit'] = ApiClient.convertToType(data['monthlyPureProfit'], 'Number');
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            if (data.hasOwnProperty('grossIncome')) {
+                obj['grossIncome'] = ApiClient.convertToType(data['grossIncome'], ['Number']);
             }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            if (data.hasOwnProperty('pureIncome')) {
+                obj['pureIncome'] = ApiClient.convertToType(data['pureIncome'], ['Number']);
+            }
+            if (data.hasOwnProperty('webpageVisits')) {
+                obj['webpageVisits'] = ApiClient.convertToType(data['webpageVisits'], ['Number']);
+            }
+            if (data.hasOwnProperty('businessStartYear')) {
+                obj['businessStartYear'] = ApiClient.convertToType(data['businessStartYear'], 'Date');
+            }
+            if (data.hasOwnProperty('shopDetails')) {
+                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
             }
         }
         return obj;
@@ -83,58 +92,76 @@ class InlineResponse20021 {
 }
 
 /**
- * ID магазина.
+ * GUID магазина на продажу.
  * @member {String} _id
  */
 InlineResponse20021.prototype['_id'] = undefined;
 
 /**
- * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
- * @member {String} name
+ * Имя магазина для продажи
+ * @member {String} title
  */
-InlineResponse20021.prototype['name'] = undefined;
+InlineResponse20021.prototype['title'] = undefined;
 
 /**
- * URL для скачивания ежедневных отчетов SellerBoard.
- * @member {String} sellerBoardWarehouseReportUrlDaily
+ * Статус магазина для продажи
+ * @member {String} status
  */
-InlineResponse20021.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+InlineResponse20021.prototype['status'] = undefined;
 
 /**
- * URL для скачивания отчетов SellerBoard за последний месяц.
- * @member {String} sellerBoardWarehouseReportUrlMonthly
+ * Файлы, которые привязаны к магазину
+ * @member {Array.<String>} files
  */
-InlineResponse20021.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
+InlineResponse20021.prototype['files'] = undefined;
 
 /**
- * GUID, владелеца.
- * @member {String} ownerId
+ * Стоимость магазина
+ * @member {Number} price
  */
-InlineResponse20021.prototype['ownerId'] = undefined;
+InlineResponse20021.prototype['price'] = undefined;
 
 /**
- * GUID любого, кто последний создал.
- * @member {String} createdById
+ * Ежемесячная прибыль
+ * @member {Number} monthlyProfit
  */
-InlineResponse20021.prototype['createdById'] = undefined;
+InlineResponse20021.prototype['monthlyProfit'] = undefined;
 
 /**
- * GUID любого, кто последний редактировал.
- * @member {String} lastModifiedById
+ * Ежемесячная чистая прибыль
+ * @member {Number} monthlyPureProfit
  */
-InlineResponse20021.prototype['lastModifiedById'] = undefined;
+InlineResponse20021.prototype['monthlyPureProfit'] = undefined;
 
 /**
- * Дата создания
- * @member {Date} createdAt
+ * Валовый доход по месяцам
+ * @member {Array.<Number>} grossIncome
  */
-InlineResponse20021.prototype['createdAt'] = undefined;
+InlineResponse20021.prototype['grossIncome'] = undefined;
 
 /**
- * Дата изменения
- * @member {Date} updatedAt
+ * Чистый доход по месяцам
+ * @member {Array.<Number>} pureIncome
  */
-InlineResponse20021.prototype['updatedAt'] = undefined;
+InlineResponse20021.prototype['pureIncome'] = undefined;
+
+/**
+ * Кол-во просмотров страницы по месяцам
+ * @member {Array.<Number>} webpageVisits
+ */
+InlineResponse20021.prototype['webpageVisits'] = undefined;
+
+/**
+ * Дата создания бизнеса
+ * @member {Date} businessStartYear
+ */
+InlineResponse20021.prototype['businessStartYear'] = undefined;
+
+/**
+ * Детали магазина
+ * @member {String} shopDetails
+ */
+InlineResponse20021.prototype['shopDetails'] = undefined;
 
 
 

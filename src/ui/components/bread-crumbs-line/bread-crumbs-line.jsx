@@ -14,7 +14,16 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './bread-crumbs-line.style'
 
-const exclusionWords = ['/client', '/freelancer', '/admin', '/buyer', '/supervisor', '/warehouse', '/researcher']
+const exclusionWords = [
+  '/client',
+  '/freelancer',
+  '/admin',
+  '/buyer',
+  '/supervisor',
+  '/warehouse',
+  '/researcher',
+  '/moderator',
+]
 
 export const BreadCrumbsLine = observer(({lastCrumbAdditionalText}) => {
   const classNames = useClassNames()

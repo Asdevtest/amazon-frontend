@@ -3,6 +3,7 @@ import {t} from '@utils/translations'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from './navbar-active-category'
 import {
+  Addresses,
   DashboardIcon,
   ExchangeIcon,
   FreelanceIcon,
@@ -724,6 +725,75 @@ export const navbarConfig = () => ({
       title: t(TranslationKey.Settings),
       subtitles: null,
       route: '/admin/settings',
+      key: navBarActiveCategory.NAVBAR_SETTINGS,
+      checkHideBlock: () => true,
+    },
+  ],
+
+  [UserRole.MODERATOR]: [
+    {
+      icon: DashboardIcon,
+      title: t(TranslationKey.Dashboard),
+      route: '/moderator/dashboard',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_DASHBOARD,
+      checkHideBlock: () => true,
+    },
+    {
+      icon: TradingShops,
+      title: t(TranslationKey['Trading stores']),
+      route: '/moderator/trading-shops/stores-to-check',
+      subtitles: [
+        {
+          subtitle: t(TranslationKey['Stores to check']),
+          subRoute: '/moderator/trading-shops/stores-to-check',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
+        },
+        {
+          subtitle: t(TranslationKey['Sell the Shop']),
+          subRoute: '/client/trading-shops/sell-shops',
+          key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_SELL_SHOPS,
+        },
+      ],
+      key: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT),
+    },
+    {
+      icon: Addresses,
+      title: t(TranslationKey.Appeals),
+      route: '/moderator/appeals',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_APPEALS,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
+    },
+    {
+      icon: MyProductsIcon,
+      title: t(TranslationKey['My products']),
+      route: '/moderator/my-products',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
+      checkHideBlock: user =>
+        !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
+    },
+
+    {
+      icon: MyUsersIcon,
+      title: t(TranslationKey.Users),
+      route: '/moderator/users/sub-users',
+      subtitles: [{subtitle: t(TranslationKey['My users']), subRoute: '/moderator/users/sub-users'}],
+      key: navBarActiveCategory.NAVBAR_USERS,
+      checkHideBlock: user =>
+        !isMasterUser(user) ||
+        user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER),
+    },
+    {
+      icon: SettingsIcon,
+      title: t(TranslationKey.Settings),
+      subtitles: null,
+      route: '/moderator/settings',
       key: navBarActiveCategory.NAVBAR_SETTINGS,
       checkHideBlock: () => true,
     },

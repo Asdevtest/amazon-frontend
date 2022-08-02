@@ -57,6 +57,7 @@ import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
+import ApiV1ShopSellGrossIncome from './model/ApiV1ShopSellGrossIncome';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
 import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
 import BadRequestError from './model/BadRequestError';
@@ -151,6 +152,7 @@ import InlineObject83 from './model/InlineObject83';
 import InlineObject84 from './model/InlineObject84';
 import InlineObject85 from './model/InlineObject85';
 import InlineObject86 from './model/InlineObject86';
+import InlineObject87 from './model/InlineObject87';
 import InlineObject9 from './model/InlineObject9';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
@@ -173,7 +175,8 @@ import InlineResponse20024 from './model/InlineResponse20024';
 import InlineResponse20025 from './model/InlineResponse20025';
 import InlineResponse20026 from './model/InlineResponse20026';
 import InlineResponse20027 from './model/InlineResponse20027';
-import InlineResponse20027Details from './model/InlineResponse20027Details';
+import InlineResponse20028 from './model/InlineResponse20028';
+import InlineResponse20028Details from './model/InlineResponse20028Details';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
@@ -246,6 +249,7 @@ import RequestProposalsApi from './api/RequestProposalsApi';
 import RequestsApi from './api/RequestsApi';
 import ResearcherApi from './api/ResearcherApi';
 import ShopApi from './api/ShopApi';
+import ShopSellApi from './api/ShopSellApi';
 import StorekeepersApi from './api/StorekeepersApi';
 import SupervisorApi from './api/SupervisorApi';
 import SupplierApi from './api/SupplierApi';
@@ -553,6 +557,12 @@ export {
      * @property {module:model/ApiV1RequestsCustomRequest}
      */
     ApiV1RequestsCustomRequest,
+
+    /**
+     * The ApiV1ShopSellGrossIncome model constructor.
+     * @property {module:model/ApiV1ShopSellGrossIncome}
+     */
+    ApiV1ShopSellGrossIncome,
 
     /**
      * The ApiV1StorekeepersTariffWarehouses model constructor.
@@ -1119,6 +1129,12 @@ export {
     InlineObject86,
 
     /**
+     * The InlineObject87 model constructor.
+     * @property {module:model/InlineObject87}
+     */
+    InlineObject87,
+
+    /**
      * The InlineObject9 model constructor.
      * @property {module:model/InlineObject9}
      */
@@ -1251,10 +1267,16 @@ export {
     InlineResponse20027,
 
     /**
-     * The InlineResponse20027Details model constructor.
-     * @property {module:model/InlineResponse20027Details}
+     * The InlineResponse20028 model constructor.
+     * @property {module:model/InlineResponse20028}
      */
-    InlineResponse20027Details,
+    InlineResponse20028,
+
+    /**
+     * The InlineResponse20028Details model constructor.
+     * @property {module:model/InlineResponse20028Details}
+     */
+    InlineResponse20028Details,
 
     /**
      * The InlineResponse2002AllowedUrls model constructor.
@@ -1687,6 +1709,12 @@ export {
     * @property {module:api/ShopApi}
     */
     ShopApi,
+
+    /**
+    * The ShopSellApi service constructor.
+    * @property {module:api/ShopSellApi}
+    */
+    ShopSellApi,
 
     /**
     * The StorekeepersApi service constructor.

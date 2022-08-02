@@ -22,10 +22,11 @@ class InlineObject79 {
     /**
      * Constructs a new <code>InlineObject79</code>.
      * @alias module:model/InlineObject79
+     * @param price {Number} Цена услуги.
      */
-    constructor() { 
+    constructor(price) { 
         
-        InlineObject79.initialize(this);
+        InlineObject79.initialize(this, price);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject79 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, price) { 
+        obj['price'] = price;
     }
 
     /**

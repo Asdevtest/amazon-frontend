@@ -112,8 +112,8 @@
         "email": {"type": "string", "format": "email", "description": "email", "example": "petia@gmail.com"},
         "role": {
           "type": "number",
-          "enum": [10, 20, 30, 35, 40, 45],
-          "description": "Код роли присвоенный пользователю. \n\n\nroles.root = 0 \n\n\nroles.client = 10 \n\n\nroles.super = 20 \n\n\nroles.researcher = 30 \n\n\nroles.freelancer = 35 \n\n\nroles.buyer = 40 \n\n\nroles.storekeeper = 45 \n\n\nroles.candidate = 50 \n\n\n",
+          "enum": [10, 20, 30, 35, 40, 45, 60],
+          "description": "Код роли присвоенный пользователю. \n\n\nroles.root = 0 \n\n\nroles.client = 10 \n\n\nroles.super = 20 \n\n\nroles.researcher = 30 \n\n\nroles.freelancer = 35 \n\n\nroles.buyer = 40 \n\n\nroles.storekeeper = 45 \n\n\nroles.candidate = 50 \n\n\nroles.moderator = 60 \n\n\n",
           "example": 35
         },
         "fba": {"type": "boolean", "description": "Флаг fba.", "example": false},
@@ -155,7 +155,7 @@
         "email": {"type": "string", "format": "email", "description": "email", "example": "petia@gmail.com"},
         "role": {
           "type": "number",
-          "description": "Код роли присвоенный пользователю. \n\n\nroles.root = 0 \n\n\nroles.client = 10 \n\n\nroles.super = 20 \n\n\nroles.researcher = 30 \n\n\nroles.freelancer = 35 \n\n\nroles.buyer = 40 \n\n\nroles.storekeeper = 45 \n\n\nroles.candidate = 50 \n\n\n",
+          "description": "Код роли присвоенный пользователю. \n\n\nroles.root = 0 \n\n\nroles.client = 10 \n\n\nroles.super = 20 \n\n\nroles.researcher = 30 \n\n\nroles.freelancer = 35 \n\n\nroles.buyer = 40 \n\n\nroles.storekeeper = 45 \n\n\nroles.candidate = 50 \n\n\nroles.moderator = 60 \n\n\n",
           "example": 5
         },
         "fba": {"type": "boolean", "description": "Флаг fba.", "example": false},
@@ -259,7 +259,7 @@
         },
         "role": {
           "type": "number",
-          "enum": [10, 20, 30, 35, 40, 45],
+          "enum": [10, 20, 30, 35, 40, 45, 60],
           "description": "Роль для которого данный permission",
           "example": 35
         },
@@ -359,7 +359,7 @@
               },
               "role": {
                 "type": "number",
-                "enum": [10, 20, 30, 35, 40, 45],
+                "enum": [10, 20, 30, 35, 40, 45, 60],
                 "description": "Роль для которого данный permission",
                 "example": 35
               },
@@ -386,7 +386,7 @@
         },
         "role": {
           "type": "number",
-          "enum": [10, 20, 30, 35, 40, 45],
+          "enum": [10, 20, 30, 35, 40, 45, 60],
           "description": "Роль для которого данная группа permission-ов",
           "example": 35
         },
@@ -446,7 +446,7 @@
         "permissions": {"type": "array", "items": {"type": "string", "description": "GUID permission-ов"}},
         "role": {
           "type": "number",
-          "enum": [10, 20, 30, 35, 40, 45],
+          "enum": [10, 20, 30, 35, 40, 45, 60],
           "description": "Роль для которого данная группа permission-ов",
           "example": 35
         }
@@ -492,7 +492,7 @@
         },
         "role": {
           "type": "number",
-          "enum": [10, 20, 30, 35, 40, 45],
+          "enum": [10, 20, 30, 35, 40, 45, 60],
           "description": "Роль для которого данный permission",
           "example": 35
         }
@@ -540,7 +540,7 @@
         },
         "role": {
           "type": "number",
-          "enum": [10, 20, 30, 35, 40, 45],
+          "enum": [10, 20, 30, 35, 40, 45, 60],
           "description": "Роль для которого данный permission",
           "example": 35
         }
@@ -551,7 +551,7 @@
       "properties": {
         "role": {
           "type": "number",
-          "enum": [10, 20, 30, 35, 40, 45],
+          "enum": [10, 20, 30, 35, 40, 45, 60],
           "description": "Если указать role - отфильтрует, нет - выведет все."
         }
       }
@@ -601,7 +601,7 @@
         "role": {
           "type": "number",
           "description": "Роль на которую требуется переключиться.",
-          "enum": [10, 20, 30, 35, 40, 45],
+          "enum": [10, 20, 30, 35, 40, 45, 60],
           "example": 30
         },
         "name": {"type": "string", "description": "Имя пользователя"},
@@ -651,7 +651,7 @@
         "email": {"type": "string", "format": "email", "description": "email", "example": "petia@gmail.com"},
         "role": {
           "type": "number",
-          "description": "Код роли присвоенный пользователю. \n\n\nroles.root = 0 \n\n\nroles.client = 10 \n\n\nroles.super = 20 \n\n\nroles.researcher = 30 \n\n\nroles.freelancer = 35 \n\n\nroles.buyer = 40 \n\n\nroles.storekeeper = 45 \n\n\nroles.candidate = 50 \n\n\n",
+          "description": "Код роли присвоенный пользователю. \n\n\nroles.root = 0 \n\n\nroles.client = 10 \n\n\nroles.super = 20 \n\n\nroles.researcher = 30 \n\n\nroles.freelancer = 35 \n\n\nroles.buyer = 40 \n\n\nroles.storekeeper = 45 \n\n\nroles.candidate = 50 \n\n\nroles.moderator = 60 \n\n\n",
           "example": 5
         },
         "fba": {"type": "boolean", "description": "Флаг fba.", "example": false},
@@ -3788,7 +3788,7 @@
                 "email": {"type": "string", "format": "email", "description": "email", "example": "petia@gmail.com"},
                 "role": {
                   "type": "number",
-                  "description": "Код роли присвоенный пользователю. \n\n\nroles.root = 0 \n\n\nroles.client = 10 \n\n\nroles.super = 20 \n\n\nroles.researcher = 30 \n\n\nroles.freelancer = 35 \n\n\nroles.buyer = 40 \n\n\nroles.storekeeper = 45 \n\n\nroles.candidate = 50 \n\n\n",
+                  "description": "Код роли присвоенный пользователю. \n\n\nroles.root = 0 \n\n\nroles.client = 10 \n\n\nroles.super = 20 \n\n\nroles.researcher = 30 \n\n\nroles.freelancer = 35 \n\n\nroles.buyer = 40 \n\n\nroles.storekeeper = 45 \n\n\nroles.candidate = 50 \n\n\nroles.moderator = 60 \n\n\n",
                   "example": 5
                 },
                 "fba": {"type": "boolean", "description": "Флаг fba.", "example": false},
@@ -4123,8 +4123,8 @@
                 "email": {"type": "string", "format": "email", "description": "email", "example": "petia@gmail.com"},
                 "role": {
                   "type": "number",
-                  "enum": [10, 20, 30, 35, 40, 45, 50],
-                  "description": "Код роли присвоенный пользователю. \n\n\nroles.root = 0 \n\n\nroles.client = 10 \n\n\nroles.super = 20 \n\n\nroles.researcher = 30 \n\n\nroles.freelancer = 35 \n\n\nroles.buyer = 40 \n\n\nroles.storekeeper = 45 \n\n\nroles.candidate = 50 \n\n\n",
+                  "enum": [10, 20, 30, 35, 40, 45, 50, 60],
+                  "description": "Код роли присвоенный пользователю. \n\n\nroles.root = 0 \n\n\nroles.client = 10 \n\n\nroles.super = 20 \n\n\nroles.researcher = 30 \n\n\nroles.freelancer = 35 \n\n\nroles.buyer = 40 \n\n\nroles.storekeeper = 45 \n\n\nroles.candidate = 50 \n\n\nroles.moderator = 60 \n\n\n",
                   "example": 35
                 },
                 "fba": {"type": "boolean", "description": "Флаг fba.", "example": false},
@@ -34153,7 +34153,7 @@
         "parameters": [
           {
             "type": "number",
-            "enum": [10, 20, 30, 35, 40, 45],
+            "enum": [10, 20, 30, 35, 40, 45, 60],
             "description": "Если указать role - отфильтрует, нет - выведет все.",
             "required": false,
             "in": "query",
@@ -34256,7 +34256,7 @@
         "parameters": [
           {
             "type": "number",
-            "enum": [10, 20, 30, 35, 40, 45],
+            "enum": [10, 20, 30, 35, 40, 45, 60],
             "description": "Если указать role - отфильтрует, нет - выведет все.",
             "required": false,
             "in": "query",
@@ -36650,7 +36650,7 @@
                   "roles": {
                     "type": "array",
                     "description": "Массив массив ролей.",
-                    "items": {"type": "integer", "enum": [0, 10, 20, 30, 35, 40, 45]},
+                    "items": {"type": "integer", "enum": [0, 10, 20, 30, 35, 40, 45, 60]},
                     "example": [10, 20, 30]
                   },
                   "needCheckBySupervisor": {"type": "boolean", "description": "Если требуется проверка супервайзером."},
@@ -37937,6 +37937,315 @@
           },
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/shop_sell/": {
+      "post": {
+        "summary": "# Добавить на продажу новый магазин.",
+        "tags": ["Shop Sell"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "description": "Схема продажи магазина",
+              "properties": {
+                "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
+                "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
+                "businessStartDate": {
+                  "type": "string",
+                  "description": "Дата создания бизнеса",
+                  "format": "date-time",
+                  "example": "2021-11-24T15:10:46.882Z"
+                },
+                "shopDetails": {
+                  "type": "string",
+                  "description": "Детали магазина",
+                  "example": "Some details about shop"
+                },
+                "shopAssets": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "Активы магазина",
+                  "example": ["Some asset", "Another asset", "And another one asset"]
+                },
+                "files": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)",
+                  "example": [
+                    "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+                    "https://image.shutterstock.com/image-photo/surreal-concept-roll-world-dice-260nw-1356798002.jpg"
+                  ]
+                },
+                "shopLink": {"type": "string", "description": "Ссылка на сайт магазина", "example": "example.com"},
+                "grossIncome": {
+                  "type": "array",
+                  "description": "Валовый доход по месяцам",
+                  "items": {
+                    "type": "object",
+                    "desciption": "Схема показателей дохода и трафика",
+                    "properties": {
+                      "month": {"type": "string", "description": "Месяц и год", "example": "June 2021"},
+                      "value": {"type": "number", "description": "Значение на данный месяц", "example": 300}
+                    }
+                  }
+                },
+                "pureIncome": {
+                  "type": "array",
+                  "description": "Чистый доход по месяцам",
+                  "items": {
+                    "type": "object",
+                    "desciption": "Схема показателей дохода и трафика",
+                    "properties": {
+                      "month": {"type": "string", "description": "Месяц и год", "example": "June 2021"},
+                      "value": {"type": "number", "description": "Значение на данный месяц", "example": 300}
+                    }
+                  }
+                },
+                "uniqueCustomers": {
+                  "type": "array",
+                  "description": "Кол-во посетителей по месяцам",
+                  "items": {
+                    "type": "object",
+                    "desciption": "Схема показателей дохода и трафика",
+                    "properties": {
+                      "month": {"type": "string", "description": "Месяц и год", "example": "June 2021"},
+                      "value": {"type": "number", "description": "Значение на данный месяц", "example": 300}
+                    }
+                  }
+                },
+                "webpageVisits": {
+                  "type": "array",
+                  "description": "Кол-во просмотров страницы по месяцам",
+                  "items": {
+                    "type": "object",
+                    "desciption": "Схема показателей дохода и трафика",
+                    "properties": {
+                      "month": {"type": "string", "description": "Месяц и год", "example": "June 2021"},
+                      "value": {"type": "number", "description": "Значение на данный месяц", "example": 300}
+                    }
+                  }
+                },
+                "opportunities": {
+                  "type": "array",
+                  "description": "Возможности магазина",
+                  "items": {"type": "string"},
+                  "example": ["Some opportunity", "Other opportunity"]
+                },
+                "risks": {
+                  "type": "array",
+                  "description": "Риски магазина",
+                  "items": {"type": "string"},
+                  "example": ["Some risky situation", "Other  risky situation"]
+                },
+                "requiredSkills": {
+                  "type": "array",
+                  "description": "Требуемые навыки",
+                  "items": {"type": "string"},
+                  "example": ["Consulting experience", "Team player"]
+                },
+                "sellIncludes": {
+                  "type": "array",
+                  "description": "В продажу также включено",
+                  "items": {"type": "string"},
+                  "example": ["All copyright for media", "Bench nearby shop"]
+                },
+                "reasonForSale": {
+                  "type": "array",
+                  "description": "Причина продажи",
+                  "items": {"type": "string"},
+                  "example": ["Very serious reason", "One more reason, just for example"]
+                },
+                "additionalInfo": {
+                  "type": "array",
+                  "description": "Дополнительная информация",
+                  "items": {"type": "string"},
+                  "example": ["Shop had problems with IRS back in 2010", "10% of employees are illegal immigrants"]
+                }
+              }
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "201": {
+            "description": "Успешный ответ",
+            "schema": {
+              "type": "object",
+              "description": "Успешный ответ",
+              "properties": {"guid": {"type": "string", "description": "guid созданного объекта"}}
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "get": {
+        "summary": "# Получить все магазины на продажу",
+        "description": "Если вызвал покупатель - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"\nЕсли вызвал покупатель, который забронировал магазин - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"/\"Вызван модератор\"\nЕсли вызвал продавец(создатель) - Видны объявления в статусах \"DRAFT\"/\"DELETED\"/\"MODERATING\"/\"PUBLISHED\"/\"BOOKED\"/\"MODERATOR_CALLED\"/\"SOLD\"",
+        "tags": ["Shop Sell"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "schema": {
+              "type": "array",
+              "description": "Успешный ответ",
+              "items": {
+                "type": "object",
+                "description": "Схема получение лайт версии продажи магазина",
+                "properties": {
+                  "_id": {"type": "string", "description": "GUID магазина на продажу."},
+                  "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
+                  "status": {"type": "string", "description": "Статус магазина для продажи", "example": "DRAFT"},
+                  "files": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Файлы, которые привязаны к магазину",
+                    "example": [
+                      "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+                      "https://image.shutterstock.com/image-photo/surreal-concept-roll-world-dice-260nw-1356798002.jpg"
+                    ]
+                  },
+                  "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
+                  "monthlyProfit": {"type": "number", "description": "Ежемесячная прибыль", "example": 174.56},
+                  "monthlyPureProfit": {
+                    "type": "number",
+                    "description": "Ежемесячная чистая прибыль",
+                    "example": 120.23
+                  },
+                  "monthlyMultiplier": {
+                    "type": ["number", "null"],
+                    "description": "Ежемесячный множитель",
+                    "example": 49
+                  },
+                  "grossIncome": {
+                    "type": "array",
+                    "description": "Валовый доход по месяцам",
+                    "items": {"type": "number"},
+                    "example": [123, 456]
+                  },
+                  "pureIncome": {
+                    "type": "array",
+                    "description": "Чистый доход по месяцам",
+                    "items": {"type": "number"},
+                    "example": [123, 456]
+                  },
+                  "webpageVisits": {
+                    "type": "array",
+                    "description": "Кол-во просмотров страницы по месяцам",
+                    "items": {"type": "number"},
+                    "example": [123, 456]
+                  },
+                  "businessStartYear": {
+                    "type": "string",
+                    "description": "Дата создания бизнеса",
+                    "format": "date-time",
+                    "example": "2021"
+                  },
+                  "shopDetails": {
+                    "type": "string",
+                    "description": "Детали магазина",
+                    "example": "Some details about shop"
+                  }
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/shop_sell/{guid}": {
+      "get": {
+        "summary": "# Получить магазин на продажу по GUID",
+        "description": "Если вызвал покупатель - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"\nЕсли вызвал покупатель, который забронировал магазин - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"/\"Вызван модератор\"\nЕсли вызвал продавец(создатель) - Видны объявления в статусах \"DRAFT\"/\"DELETED\"/\"MODERATING\"/\"PUBLISHED\"/\"BOOKED\"/\"MODERATOR_CALLED\"/\"SOLD\"",
+        "tags": ["Shop Sell"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID магазина на продажу в БД.",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Схема получение лайт версии продажи магазина",
+            "schema": {
+              "type": "object",
+              "description": "Схема получение лайт версии продажи магазина",
+              "properties": {
+                "_id": {"type": "string", "description": "GUID магазина на продажу."},
+                "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
+                "status": {"type": "string", "description": "Статус магазина для продажи", "example": "DRAFT"},
+                "files": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "Файлы, которые привязаны к магазину",
+                  "example": [
+                    "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+                    "https://image.shutterstock.com/image-photo/surreal-concept-roll-world-dice-260nw-1356798002.jpg"
+                  ]
+                },
+                "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
+                "monthlyProfit": {"type": "number", "description": "Ежемесячная прибыль", "example": 174.56},
+                "monthlyPureProfit": {"type": "number", "description": "Ежемесячная чистая прибыль", "example": 120.23},
+                "monthlyMultiplier": {
+                  "type": ["number", "null"],
+                  "description": "Ежемесячный множитель",
+                  "example": 49
+                },
+                "grossIncome": {
+                  "type": "array",
+                  "description": "Валовый доход по месяцам",
+                  "items": {"type": "number"},
+                  "example": [123, 456]
+                },
+                "pureIncome": {
+                  "type": "array",
+                  "description": "Чистый доход по месяцам",
+                  "items": {"type": "number"},
+                  "example": [123, 456]
+                },
+                "webpageVisits": {
+                  "type": "array",
+                  "description": "Кол-во просмотров страницы по месяцам",
+                  "items": {"type": "number"},
+                  "example": [123, 456]
+                },
+                "businessStartYear": {
+                  "type": "string",
+                  "description": "Дата создания бизнеса",
+                  "format": "date-time",
+                  "example": "2021"
+                },
+                "shopDetails": {
+                  "type": "string",
+                  "description": "Детали магазина",
+                  "example": "Some details about shop"
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
         }
       }
@@ -55709,7 +56018,7 @@
                   "roles": {
                     "type": "array",
                     "description": "Массив массив ролей.",
-                    "items": {"type": "integer", "enum": [0, 10, 20, 30, 35, 40, 45]},
+                    "items": {"type": "integer", "enum": [0, 10, 20, 30, 35, 40, 45, 60]},
                     "example": [10, 20, 30]
                   },
                   "needCheckBySupervisor": {"type": "boolean", "description": "Если требуется проверка супервайзером."},
@@ -55994,7 +56303,7 @@
                       "type": "array",
                       "description": "Массив массив ролей.",
                       "uniqueItems": true,
-                      "items": {"type": "integer", "enum": [10, 20, 30, 35, 40, 45]},
+                      "items": {"type": "integer", "enum": [10, 20, 30, 35, 40, 45, 60]},
                       "example": [10, 20, 30]
                     }
                   }
@@ -56107,7 +56416,7 @@
                       "type": "array",
                       "description": "Массив массив ролей.",
                       "uniqueItems": true,
-                      "items": {"type": "integer", "enum": [10, 20, 30, 35, 40, 45]},
+                      "items": {"type": "integer", "enum": [10, 20, 30, 35, 40, 45, 60]},
                       "example": [10, 20, 30]
                     }
                   }
@@ -56245,7 +56554,7 @@
                     "roles": {
                       "type": "array",
                       "description": "Массив массив ролей.",
-                      "items": {"type": "integer", "enum": [0, 10, 20, 30, 35, 40, 45]},
+                      "items": {"type": "integer", "enum": [0, 10, 20, 30, 35, 40, 45, 60]},
                       "example": [10, 20, 30]
                     },
                     "needCheckBySupervisor": {
