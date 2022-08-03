@@ -690,11 +690,11 @@ export const NormalActionBtnCell = withStyles(styles)(
   ),
 )
 
-export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
+export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers, isFirstRow}) => (
   <div className={classNames.warehouseMyTasksBtnsWrapper}>
     <Button
       success
-      tooltipInfoContent={t(TranslationKey['Open a window to perform a task'])}
+      tooltipInfoContent={isFirstRow && t(TranslationKey['Open a window to perform a task'])}
       className={classNames.warehouseMyTasksSuccessBtn}
       onClick={() => handlers.onClickResolveBtn(row)}
     >
@@ -704,7 +704,9 @@ export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames
     {row.operationType !== TaskOperationType.RECEIVE && (
       <Button
         danger
-        tooltipInfoContent={t(TranslationKey['The task will be canceled, the box will keep its previous state'])}
+        tooltipInfoContent={
+          isFirstRow && t(TranslationKey['The task will be canceled, the box will keep its previous state'])
+        }
         className={clsx(classNames.rowCancelBtn, classNames.warehouseMyTasksCancelBtn)}
         onClick={() => {
           handlers.onClickCancelTask(row.boxes[0]._id, row._id, row.operationType)

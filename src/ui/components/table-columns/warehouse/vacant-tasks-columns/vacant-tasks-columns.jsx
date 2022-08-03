@@ -13,7 +13,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const warehouseVacantTasksViewColumns = handlers => [
+export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
@@ -63,9 +63,9 @@ export const warehouseVacantTasksViewColumns = handlers => [
     width: 250,
     renderCell: params => (
       <NormalActionBtnCell
-        isFirstRow
         tooltipText={t(TranslationKey['Take the task to work'])}
         bTnText={t(TranslationKey['Get to work'])}
+        isFirstRow={firstRowId === params.row.id}
         onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
       />
     ),

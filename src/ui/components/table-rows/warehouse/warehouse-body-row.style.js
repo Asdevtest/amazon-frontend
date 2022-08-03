@@ -4,10 +4,19 @@ export const styles = createStyles({
   productCell: {
     display: 'flex',
     alignItems: 'center',
+    width: '300px',
+  },
+
+  productCellTitle: {
+    display: '-webkit-box',
+    '-webkitLineClamp': 4,
+    '-webkitBoxOrient': 'vertical',
+    width: '200px',
+    height: 90,
+    whiteSpace: 'normal',
+
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    maxWidth: '300px',
   },
   img: {
     height: '64px',

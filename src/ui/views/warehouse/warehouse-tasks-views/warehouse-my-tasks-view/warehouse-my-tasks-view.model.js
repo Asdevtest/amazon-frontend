@@ -49,12 +49,13 @@ export class WarehouseVacantViewModel {
     onClickCancelTask: (boxid, id, operationType) => this.onClickCancelTask(boxid, id, operationType),
   }
 
+  firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseMyTasksViewColumns(this.rowHandlers)
+  columnsModel = warehouseMyTasksViewColumns(this.rowHandlers, this.firstRowId)
 
   tmpDataForCancelTask = {}
 
@@ -70,6 +71,11 @@ export class WarehouseVacantViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.firstRowId,
+      () => this.updateColumnsModel(),
+    )
   }
 
   async updateColumnsModel() {
@@ -83,6 +89,8 @@ export class WarehouseVacantViewModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
+
     SettingsModel.setDataGridState(state, DataGridTablesKeys.WAREHOUSE_MY_TASKS)
   }
 
@@ -96,7 +104,7 @@ export class WarehouseVacantViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = warehouseMyTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))

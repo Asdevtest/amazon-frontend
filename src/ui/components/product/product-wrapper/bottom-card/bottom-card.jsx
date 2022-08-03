@@ -204,7 +204,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                   error={formFieldsValidationErrors.minpurchase}
                   containerClasses={classNames.infoContainer}
                   inputClasses={classNames.infoInput}
-                  inputProps={{maxLength: 15}}
+                  inputProps={{maxLength: 10}}
                   label={t(TranslationKey['Min purchase price, $'])}
                   value={product.minpurchase === 0 ? 0 : toFixed(product.minpurchase, 2) || ''}
                   onChange={onChangeField('minpurchase')}
@@ -215,6 +215,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
                   error={formFieldsValidationErrors.reffee}
                   containerClasses={classNames.infoContainer}
                   inputClasses={classNames.infoInput}
+                  inputProps={{maxLength: 10}}
                   label={t(TranslationKey['Referral fee, $'])}
                   value={product.reffee === 0 ? 0 : toFixed(product.reffee, 2) || ''}
                   onChange={onChangeField('reffee')}

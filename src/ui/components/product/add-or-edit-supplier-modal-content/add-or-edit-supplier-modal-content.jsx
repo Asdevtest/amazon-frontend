@@ -281,7 +281,7 @@ export const AddOrEditSupplierModalContent = observer(
         fieldName !== 'name' &&
         fieldName !== 'comment' &&
         fieldName !== 'link' &&
-        !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)
+        (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value) || +event.target.value >= 1000000)
       ) {
         return
       } else if (['minlot', 'amount', 'productionTerm'].includes(fieldName)) {

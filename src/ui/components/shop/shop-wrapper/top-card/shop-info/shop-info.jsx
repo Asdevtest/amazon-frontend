@@ -6,12 +6,12 @@ import {Box, Link, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {Button} from '@components/buttons/button'
+import {LinesChart} from '@components/charts/lines-chart/lines-chart'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
 
 import {toFixed} from '@utils/text'
 
-import {LinesChart} from '../../charts/lines-chart/lines-chart'
 import {useClassNames} from './shop-info.style'
 
 export const ShopInfo = observer(({data}) => {

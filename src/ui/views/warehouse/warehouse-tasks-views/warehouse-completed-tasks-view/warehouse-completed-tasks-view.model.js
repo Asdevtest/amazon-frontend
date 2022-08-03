@@ -30,12 +30,13 @@ export class WarehouseCompletedViewModel {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
 
+  firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers)
+  columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers, this.firstRowId)
 
   showTaskInfoModal = false
 
@@ -52,6 +53,11 @@ export class WarehouseCompletedViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
   }
@@ -73,6 +79,8 @@ export class WarehouseCompletedViewModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
+
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -104,7 +112,7 @@ export class WarehouseCompletedViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = warehouseCompletedTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))

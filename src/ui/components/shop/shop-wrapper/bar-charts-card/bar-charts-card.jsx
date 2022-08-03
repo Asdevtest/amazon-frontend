@@ -6,9 +6,9 @@ import {Paper, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
+import {TwoBarsChart} from '@components//charts/two-bars-chart/two-bars-chart'
 import {Button} from '@components/buttons/button'
 
-import {BarsChart} from '../charts/bars-chart/bars-chart'
 // import {TranslationKey} from '@constants/translations/translation-key'
 // import {Button} from '@components/buttons/button'
 // import {t} from '@utils/translations'
@@ -16,7 +16,7 @@ import {useClassNames} from './bar-charts-card.style'
 
 export const BarChartsCard = observer(({isRevenue, data}) => {
   const classNames = useClassNames()
-  console.log(isRevenue)
+
   return (
     <div className={classNames.mainWrapper}>
       <Paper className={classNames.cardWrapper}>
@@ -38,7 +38,7 @@ export const BarChartsCard = observer(({isRevenue, data}) => {
           </div>
         </div>
 
-        <BarsChart data={data} />
+        <TwoBarsChart data={data} xRowKey={'name'} firstBarKey={'uv'} secondBarKey={'pv'} />
 
         <div className={classNames.buttonsWrapper}>
           <Button className={clsx(classNames.button, {[classNames.selectedBtn]: true})} variant="text" color="primary">

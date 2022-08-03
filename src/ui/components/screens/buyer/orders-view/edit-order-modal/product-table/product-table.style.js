@@ -74,10 +74,17 @@ export const useClassNames = makeStyles(() => ({
     overflowX: 'auto',
   },
   amazonTitle: {
-    maxWidth: '350px',
-    whiteSpace: 'nowrap',
+    display: '-webkit-box',
+    '-webkitLineClamp': 3,
+    '-webkitBoxOrient': 'vertical',
+    height: 65,
+    whiteSpace: 'normal',
+
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+
+    width: '350px',
+    marginBottom: 10,
   },
 
   link: {

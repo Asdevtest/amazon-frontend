@@ -13,7 +13,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const warehouseCanceledTasksViewColumns = handlers => [
+export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
@@ -72,7 +72,7 @@ export const warehouseCanceledTasksViewColumns = handlers => [
     width: 250,
     renderCell: params => (
       <NormalActionBtnCell
-        isFirstRow
+        isFirstRow={firstRowId === params.row.id}
         tooltipText={t(TranslationKey['Open the window with task information'])}
         bTnText={t(TranslationKey.View)}
         onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}

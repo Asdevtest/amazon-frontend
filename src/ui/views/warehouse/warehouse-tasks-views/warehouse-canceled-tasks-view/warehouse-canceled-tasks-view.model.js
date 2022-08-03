@@ -29,13 +29,13 @@ export class WarehouseCanceledTasksViewModel {
   rowHandlers = {
     setCurrentOpenedTask: item => this.setCurrentOpenedTask(item),
   }
-
+  firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers)
+  columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers, this.firstRowId)
 
   showTaskInfoModal = false
 
@@ -44,6 +44,11 @@ export class WarehouseCanceledTasksViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
   }
@@ -59,6 +64,8 @@ export class WarehouseCanceledTasksViewModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
+
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -79,7 +86,7 @@ export class WarehouseCanceledTasksViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = warehouseCanceledTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
