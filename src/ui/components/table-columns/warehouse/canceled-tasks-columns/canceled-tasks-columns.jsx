@@ -8,7 +8,7 @@ import {
   NormalActionBtnCell,
   TaskTypeCell,
   MultilineTextHeaderCell,
-  TaskStatusCell,
+  TaskStatusCell, // WarehouseTasksBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'

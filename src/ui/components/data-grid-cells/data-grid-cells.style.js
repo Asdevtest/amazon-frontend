@@ -269,12 +269,12 @@ export const styles = createStyles(() => ({
   },
 
   rowCancelBtn: {
-    marginLeft: '10px',
+    height: '40px',
+    width: '166px',
     // color: '#fff',
     // backgroundColor: '#ff0000',
     // '&:hover': {
     //   backgroundColor: '#c51a1c',
-
     //   '@media (hover: none)': {
     //     backgroundColor: '#c51a1c',
     //   },
@@ -285,7 +285,8 @@ export const styles = createStyles(() => ({
   },
 
   warehouseMyTasksSuccessBtn: {
-    // height: '36.5px',
+    height: '40px',
+    width: '166px',
   },
 
   marginRightBtn: {
@@ -747,12 +748,15 @@ export const styles = createStyles(() => ({
   warehouseMyTasksBtnsWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'start',
     padding: '15px 0',
+    gap: '57px',
   },
 
   actionBtn: {
     display: 'flex',
+    width: '166px',
+    height: '40px',
   },
 
   successActionBtnWrapper: {
