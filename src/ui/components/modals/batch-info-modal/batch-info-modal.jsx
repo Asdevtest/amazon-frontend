@@ -206,11 +206,21 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
         <Field
           containerClasses={classNames.filesWrapper}
           label={t(TranslationKey.Files)}
-          inputComponent={<PhotoAndFilesCarousel files={batch.attachedDocuments} width="400px" />}
+          inputComponent={
+            <div className={classNames.filesSubWrapper}>
+              <PhotoAndFilesCarousel files={batch.attachedDocuments} width="400px" />
+            </div>
+          }
         />
 
         <div className={classNames.buttonsWrapper}>
-          <Button disableElevation color="primary" variant="contained" onClick={setOpenModal}>
+          <Button
+            disableElevation
+            color="primary"
+            variant="contained"
+            className={classNames.actionButton}
+            onClick={setOpenModal}
+          >
             {t(TranslationKey.Close)}
           </Button>
         </div>

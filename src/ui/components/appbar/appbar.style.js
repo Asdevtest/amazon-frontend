@@ -115,7 +115,7 @@ export const useClassNames = makeStyles(theme => ({
   menu: {
     width: '170px',
     marginTop: '40px',
-    marginLeft: '60px',
+    marginLeft: '85px',
     display: 'flex',
   },
 
@@ -133,6 +133,10 @@ export const useClassNames = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: '#CCE2FF',
     },
+  },
+
+  list: {
+    padding: 0,
   },
 
   icon: {

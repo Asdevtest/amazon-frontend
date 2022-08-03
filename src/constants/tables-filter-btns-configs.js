@@ -93,7 +93,7 @@ export const adminOrdersBtnsConfig = () => [
     colorHover: '#009a07',
   },
   {
-    label: t(TranslationKey.Closed),
+    label: t(TranslationKey['Canceled by Client']),
     color: 'rgb(15, 169, 20)',
     colorHover: '#009a07',
   },

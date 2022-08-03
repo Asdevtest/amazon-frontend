@@ -528,7 +528,7 @@
   "Avg. shipping cost per 1 pc.": "Avg. shipping cost per 1 pc.",
   "Suppliers": "Suppliers",
   "Boxes on this order:": "Boxes on this order:",
-  "Creating new boxes!": "Creating new boxes!",
+  "Creating new boxes": "Creating new boxes",
   "Add another box": "Add another box",
   "Box length in cm": "Box length in cm",
   "Box width in cm": "Box width in cm",
@@ -1364,5 +1364,10 @@
   "Average. Monthly net profit": "Average. Monthly net profit",
   "Profitability": "Profitability",
   "Monthly multiplier": "Monthly multiplier",
-  "Month": "Month"
+  "Month": "Month",
+  "Not solved": "Not solved",
+  "Solved": "Solved",
+  "Appeals": "Appeals",
+  "Appeal": "Appeal",
+  "Stores to check": "Stores to check"
 }

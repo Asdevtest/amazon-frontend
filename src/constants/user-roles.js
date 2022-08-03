@@ -9,6 +9,7 @@ export const UserRole = {
   STOREKEEPER: 'STOREKEEPER',
   CANDIDATE: `CANDIDATE`,
   FREELANCER: `FREELANCER`,
+  MODERATOR: `MODERATOR`,
 }
 
 export const UserRoleCodeMap = {
@@ -20,6 +21,7 @@ export const UserRoleCodeMap = {
   40: UserRole.BUYER,
   45: UserRole.STOREKEEPER,
   50: UserRole.CANDIDATE,
+  60: UserRole.MODERATOR,
 }
 
 export const UserRoleCodeMapForRoutes = {
@@ -31,6 +33,7 @@ export const UserRoleCodeMapForRoutes = {
   40: 'buyer',
   45: 'storekeeper',
   50: 'candidate',
+  60: 'moderator',
 }
 
 export const UserRolePrettyMap = {
@@ -42,6 +45,7 @@ export const UserRolePrettyMap = {
   40: 'Buyer',
   45: 'Storekeeper',
   50: 'Candidate',
+  60: 'Moderator',
 }
 
 export const mapUserRoleEnumToKey = objectFlip(UserRoleCodeMap, parseInt)

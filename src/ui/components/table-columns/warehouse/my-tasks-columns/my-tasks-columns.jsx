@@ -5,10 +5,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {
   NormDateFromUnixCell,
   TaskDescriptionCell,
-  MultilineTextCell,
   WarehouseMyTasksBtnsCell,
   TaskTypeCell,
   MultilineTextHeaderCell,
+  TaskStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -60,7 +60,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 150,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <TaskStatusCell status={params.value} />,
     filterable: false,
     sortable: false,
   },
@@ -70,7 +70,7 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 250,
+    width: 530,
 
     renderCell: params => <WarehouseMyTasksBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,

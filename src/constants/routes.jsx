@@ -55,6 +55,12 @@ import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {FreelancerDashboardView} from '@views/freelancer/freelancer-dashboard-view'
 import {FreelancerFinancesViews} from '@views/freelancer/freelancer-finances-views'
 import {FreelancerFreelanceView} from '@views/freelancer/freelancer-freelance-view'
+import {ModeratorAppealView} from '@views/moderator/moderator-appeal-view/moderator-appeal-view'
+// import {ModeratorAppealView} from '@views/moderator/moderator-appeal-view'
+import {ModeratorAppealsView} from '@views/moderator/moderator-appeals-view/moderator-appeals-view'
+import {ModeratorDashboardView} from '@views/moderator/moderator-dashboard-view'
+import {ModeratorMyProductsView} from '@views/moderator/moderator-my-products-view'
+import {ModeratorSettingsView} from '@views/moderator/moderator-settings-view'
 import {RegistrationView} from '@views/registration'
 import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
 import {ResearcherFinancesViews} from '@views/researcher/researcher-finances-views'
@@ -1117,6 +1123,62 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey['Proposal Creation'],
+  },
+
+  {
+    routePath: '/moderator/dashboard',
+    component: ModeratorDashboardView,
+    exact: false,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey.Dashboard,
+  },
+
+  {
+    routePath: '/moderator/appeals',
+    component: ModeratorAppealsView,
+    exact: true,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey.Appeals,
+  },
+
+  {
+    routePath: '/moderator/appeals/appeal',
+    component: ModeratorAppealView,
+    exact: true,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey.Appeal,
+  },
+
+  {
+    routePath: '/moderator/my-products',
+    component: ModeratorMyProductsView,
+    exact: false,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey['My products'],
+  },
+
+  {
+    routePath: '/moderator/users',
+    component: UsersView,
+    exact: true,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey.Users,
+  },
+
+  {
+    routePath: '/moderator/users/sub-users',
+    component: SubUsersView,
+    exact: true,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey['My users'],
+  },
+
+  {
+    routePath: '/moderator/settings',
+    component: ModeratorSettingsView,
+    exact: true,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey.Settings,
   },
 
   // ////////////////////////////////////////////////////////////////////////////////////////////////

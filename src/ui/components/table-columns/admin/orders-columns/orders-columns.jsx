@@ -10,6 +10,7 @@ import {
   MultilineTextCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
+  OrderStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
@@ -59,7 +60,7 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 210,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <OrderStatusCell status={params.value} />,
   },
 
   {

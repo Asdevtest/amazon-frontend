@@ -1,0 +1,72 @@
+import React, {Component} from 'react'
+
+import {withStyles} from '@material-ui/styles'
+import {observer} from 'mobx-react'
+
+import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {TranslationKey} from '@constants/translations/translation-key'
+
+import {Appbar} from '@components/appbar'
+import {AppealDetailsCard} from '@components/cards/appeal-details-card'
+import {Main} from '@components/main'
+import {MainContent} from '@components/main-content'
+// import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {Navbar} from '@components/navbar'
+
+import {t} from '@utils/translations'
+
+import {ModeratorAppealsViewModel} from './moderator-appeal-view.model'
+import {styles} from './moderator-appeal-view.style'
+
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_APPEALS
+
+@observer
+class ModeratorAppealViewRaw extends Component {
+  viewModel = new ModeratorAppealsViewModel({history: this.props.history})
+
+  // componentDidMount() {
+  //   this.viewModel.loadData()
+  // }
+
+  render() {
+    const {
+      drawerOpen,
+      // showConfirmModal,
+      // deals,
+      onTriggerDrawerOpen,
+      // onClickViewMore,
+      // onTriggerOpenModal,
+      // onClickGetToWorkModal,
+      // onClickGetToWork,
+      // requestId,
+      // proposalId,
+    } = this.viewModel
+    // const {classes: classNames} = this.props
+
+    return (
+      <React.Fragment>
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
+        <Main>
+          <Appbar title={t(TranslationKey.Appeal)} setDrawerOpen={onTriggerDrawerOpen}>
+            <MainContent>
+              <AppealDetailsCard />
+            </MainContent>
+          </Appbar>
+        </Main>
+
+        {/* <ConfirmationModal
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Taking the deal check to work?'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={() => onClickGetToWork(proposalId, requestId)}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        /> */}
+      </React.Fragment>
+    )
+  }
+}
+
+export const ModeratorAppealView = withStyles(styles)(ModeratorAppealViewRaw)

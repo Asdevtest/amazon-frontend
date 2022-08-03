@@ -316,7 +316,7 @@ export const CreateBoxForm = observer(
       <div className={classNames.root}>
         <div className={classNames.form}>
           <Typography paragraph className={classNames.subTitle}>
-            {t(TranslationKey['Creating new boxes!'])}
+            {t(TranslationKey['Creating new boxes'])}
           </Typography>
 
           <div className={classNames.labelFieldsWrapper}>

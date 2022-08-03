@@ -29,6 +29,7 @@ export const navBarActiveCategory = {
   NAVBAR_TASKS: 'NAVBAR_TASKS',
   NAVBAR_MANAGEMENT: 'NAVBAR_MANAGEMENT',
   NAVBAR_TRADING_SHOPS: 'NAVBAR_TRADING_SHOPS',
+  NAVBAR_APPEALS: 'NAVBAR_APPEALS',
 }
 
 export const navBarActiveSubCategory = {

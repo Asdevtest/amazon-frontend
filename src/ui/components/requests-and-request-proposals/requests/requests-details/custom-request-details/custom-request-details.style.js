@@ -23,7 +23,7 @@ export const useClassNames = makeStyles(() => ({
   conditionsField: {
     width: '100%',
     minHeight: '20vh',
-
+    fontFamily: 'inherit',
     padding: '8px',
     fontSize: '16px',
     outline: 'none',

@@ -109,7 +109,7 @@ AdminUserPatchDtoSchema.prototype['name'] = undefined;
 AdminUserPatchDtoSchema.prototype['email'] = undefined;
 
 /**
- * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    
+ * Код роли присвоенный пользователю.    roles.root = 0    roles.client = 10    roles.super = 20    roles.researcher = 30    roles.freelancer = 35    roles.buyer = 40    roles.storekeeper = 45    roles.candidate = 50    roles.moderator = 60    
  * @member {Number} role
  */
 AdminUserPatchDtoSchema.prototype['role'] = undefined;

@@ -47,6 +47,7 @@ docs/ApiV1RequestsCustomDetails.md
 docs/ApiV1RequestsCustomDetailsCustom.md
 docs/ApiV1RequestsCustomGuidRequest.md
 docs/ApiV1RequestsCustomRequest.md
+docs/ApiV1ShopSellGrossIncome.md
 docs/ApiV1StorekeepersTariffWarehouses.md
 docs/ApiV1SuppliersBoxProperties.md
 docs/BadRequestError.md
@@ -147,6 +148,7 @@ docs/InlineObject83.md
 docs/InlineObject84.md
 docs/InlineObject85.md
 docs/InlineObject86.md
+docs/InlineObject87.md
 docs/InlineObject9.md
 docs/InlineResponse200.md
 docs/InlineResponse2001.md
@@ -169,7 +171,8 @@ docs/InlineResponse20024.md
 docs/InlineResponse20025.md
 docs/InlineResponse20026.md
 docs/InlineResponse20027.md
-docs/InlineResponse20027Details.md
+docs/InlineResponse20028.md
+docs/InlineResponse20028Details.md
 docs/InlineResponse2002AllowedUrls.md
 docs/InlineResponse2002PermissionGroups.md
 docs/InlineResponse2002Permissions.md
@@ -215,6 +218,7 @@ docs/RequestsApi.md
 docs/ResearcherApi.md
 docs/SetPermissionsForUsersPathDTOSchema.md
 docs/ShopApi.md
+docs/ShopSellApi.md
 docs/SignInResponseSchema.md
 docs/SigninInputSchema.md
 docs/StorekeepersApi.md
@@ -258,6 +262,7 @@ src/api/RequestProposalsApi.js
 src/api/RequestsApi.js
 src/api/ResearcherApi.js
 src/api/ShopApi.js
+src/api/ShopSellApi.js
 src/api/StorekeepersApi.js
 src/api/SupervisorApi.js
 src/api/SupplierApi.js
@@ -307,6 +312,7 @@ src/model/ApiV1RequestsCustomDetails.js
 src/model/ApiV1RequestsCustomDetailsCustom.js
 src/model/ApiV1RequestsCustomGuidRequest.js
 src/model/ApiV1RequestsCustomRequest.js
+src/model/ApiV1ShopSellGrossIncome.js
 src/model/ApiV1StorekeepersTariffWarehouses.js
 src/model/ApiV1SuppliersBoxProperties.js
 src/model/BadRequestError.js
@@ -401,6 +407,7 @@ src/model/InlineObject83.js
 src/model/InlineObject84.js
 src/model/InlineObject85.js
 src/model/InlineObject86.js
+src/model/InlineObject87.js
 src/model/InlineObject9.js
 src/model/InlineResponse200.js
 src/model/InlineResponse2001.js
@@ -423,7 +430,8 @@ src/model/InlineResponse20024.js
 src/model/InlineResponse20025.js
 src/model/InlineResponse20026.js
 src/model/InlineResponse20027.js
-src/model/InlineResponse20027Details.js
+src/model/InlineResponse20028.js
+src/model/InlineResponse20028Details.js
 src/model/InlineResponse2002AllowedUrls.js
 src/model/InlineResponse2002PermissionGroups.js
 src/model/InlineResponse2002Permissions.js
@@ -481,4 +489,8 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/ApiV1RequestProposalsCustomByRequestIdGuidRequest.spec.js
+test/api/ShopSellApi.spec.js
+test/model/ApiV1ShopSellGrossIncome.spec.js
+test/model/InlineObject87.spec.js
+test/model/InlineResponse20028.spec.js
+test/model/InlineResponse20028Details.spec.js

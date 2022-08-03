@@ -1,3 +1,5 @@
+import {Text} from '@components/text'
+
 import {objectFlip} from '@utils/object'
 import {t} from '@utils/translations'
 
@@ -118,6 +120,33 @@ export const ORDER_STATUS_OPTIONS = [
     label: 'Shipped',
   },
 ]
+
+export const OrderStatusText = ({className, status}) => {
+  console.log(status)
+  const colorByStatus = () => {
+    if ([OrderStatus.AT_PROCESS, OrderStatus.PAID_TO_SUPPLIER, OrderStatus.READY_TO_PROCESS].includes(status)) {
+      return '#F3AF00'
+    } else if ([OrderStatus.IN_STOCK, OrderStatus.TRACK_NUMBER_ISSUED].includes(status)) {
+      return '#00B746'
+    } else if ([OrderStatus.CANCELED_BY_BUYER, OrderStatus.CANCELED_BY_CLIENT].includes(status)) {
+      return '#FF1616'
+    } else {
+      return '#black'
+    }
+  }
+
+  const colorStatus = colorByStatus()
+
+  return (
+    <Text
+      tooltipInfoContent={t(TranslationKey['Current order status'])}
+      className={className}
+      style={{color: colorStatus}}
+    >
+      {OrderStatusTranslate(status)}
+    </Text>
+  )
+}
 
 export const getOrderStatusOptionByCode = statusCode =>
   ORDER_STATUS_OPTIONS.find(statusOption => statusOption.key === OrderStatusByCode[statusCode])

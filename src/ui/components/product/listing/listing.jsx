@@ -83,6 +83,7 @@ export const Listing = observer(({productId, onClickBack}) => {
                 }
                 className={classNames.descriptionProduct}
                 inputProps={{maxLength: 1000}}
+                labelClasses={classNames.label}
                 label={`Bullet Point #${el}: `}
                 value={listingProduct.listingBulletPoints?.[index] || ''}
                 onChange={e => onChangeArrayField(e, 'listingBulletPoints', index)}
@@ -129,7 +130,8 @@ export const Listing = observer(({productId, onClickBack}) => {
                     : !listingProduct.listingSubjectMatters?.[index - 1]) || !userCanEdit
                 }
                 inputProps={{maxLength: 1000}}
-                className={classNames.descriptionProduct}
+                className={classNames.descriptionSecondProduct}
+                labelClasses={classNames.secondLabel}
                 label={`Subject Matter #${el}: `}
                 value={listingProduct.listingSubjectMatters?.[index] || ''}
                 onChange={e => onChangeArrayField(e, 'listingSubjectMatters', index)}

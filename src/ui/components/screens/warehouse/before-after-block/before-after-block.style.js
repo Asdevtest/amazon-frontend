@@ -114,7 +114,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   photoSubWrapper: {
-    height: 100,
+    height: '100px',
     marginTop: '10px',
   },
 

@@ -99,6 +99,7 @@ export const useClassNames = makeStyles(theme => ({
 
   sizeWrapper: {
     display: 'flex',
+    alignItems: 'center',
     gap: '5px',
   },
   descriptionWrapper: {

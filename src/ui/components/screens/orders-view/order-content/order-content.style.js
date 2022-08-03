@@ -10,7 +10,6 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     fontWeight: 400,
     lineHeight: '140%',
-    color: 'rgba(77, 189, 116, 1)',
   },
   panelsWrapper: {
     display: 'flex',
@@ -117,5 +116,9 @@ export const useClassNames = makeStyles(() => ({
 
   field: {
     margin: 0,
+  },
+
+  divider: {
+    height: '660px',
   },
 }))
