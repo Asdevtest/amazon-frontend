@@ -114,6 +114,7 @@ export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit}) => 
           success
           disableElevation
           disabled={submitDisabled}
+          className={classNames.saveButton}
           color="primary"
           variant="contained"
           onClick={onClickSubmit}
@@ -123,7 +124,7 @@ export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit}) => 
 
         <Button
           disableElevation
-          className={classNames.button}
+          className={classNames.closeButton}
           color="primary"
           variant="text"
           onClick={() => setOpenModal()}

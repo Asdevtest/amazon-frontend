@@ -670,6 +670,7 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
+    gap: '10px',
   },
 
   sabUserWrapper: {
@@ -755,7 +756,7 @@ export const styles = createStyles(() => ({
 
   actionBtn: {
     display: 'flex',
-    width: '166px',
+    width: '175px',
     height: '40px',
   },
 
@@ -822,5 +823,25 @@ export const styles = createStyles(() => ({
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: '400',
+  },
+
+  orderBoxesWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '18px',
+  },
+
+  viewBtn: {
+    height: '40px',
+  },
+
+  notificationBtnsWrapper: {
+    display: 'flex',
+    gap: '30px',
+  },
+
+  notificationBtn: {
+    width: '140px',
+    height: '40px',
   },
 }))

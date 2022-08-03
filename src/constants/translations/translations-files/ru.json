@@ -1392,5 +1392,9 @@
   "req": "рек",
   "Business is made": "Бизнес создан",
   "User permissions were changed": "Разрешения пользователя были изменены",
-  "User permissions are not changed": "Разрешения пользователя не изменены"
+  "User permissions are not changed": "Разрешения пользователя не изменены",
+  "Assign several supplier search tasks to a Buyer": "Закрепить несколько задач на поиск поставщика за Байером",
+  "Link to the product": "Ссылка на продукт",
+  "Reffee must be a number conforming to the specified constraints": "Reffee должно быть числом, соответствующим заданным ограничениям",
+  "Min purchase price must be a number conforming to the specified constraints": "Мин закуп. цена должна быть числом, соответствующим заданным ограничениям"
 }

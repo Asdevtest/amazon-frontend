@@ -26,6 +26,8 @@ export const depersonalizedPickColumns = handlers => [
 
     renderCell: params => (
       <NormalActionBtnCell
+        isFirstRow
+        tooltipText={t(TranslationKey['Assign the task of finding a supplier to Bayer'])}
         bTnText={t(TranslationKey['Get to work'])}
         onClickOkBtn={() => handlers.onPickUp(params.row.originalData)}
       />

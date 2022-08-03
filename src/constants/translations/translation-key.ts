@@ -1391,6 +1391,18 @@ export enum TranslationKey {
   'Business is made' = 'Business is made',
   'User permissions were changed' = 'User permissions were changed',
   'User permissions are not changed' = 'User permissions are not changed',
+  'Assign several supplier search tasks to a Buyer' = 'Assign several supplier search tasks to a Buyer',
+  'Link to the product' = 'Link to the product',
+  'Reffee must be a number conforming to the specified constraints' = 'Reffee must be a number conforming to the specified constraints',
+  'Min purchase price must be a number conforming to the specified constraints' = 'Min purchase price must be a number conforming to the specified constraints',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
   // '' = '',
 }
 

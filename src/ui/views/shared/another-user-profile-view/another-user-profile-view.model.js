@@ -9,6 +9,7 @@ import {AdministratorModel} from '@models/administrator-model'
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
 import {SettingsModel} from '@models/settings-model'
+import {ShopModel} from '@models/shop-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
@@ -16,7 +17,7 @@ import {clientExchangeViewColumns} from '@components/table-columns/client/client
 // import {UserModel} from '@models/user-model'
 import {vacByUserIdExchangeColumns} from '@components/table-columns/product/vac-by-user-id-exchange-columns'
 
-import {clientProductsDataConverter} from '@utils/data-grid-data-converters'
+import {addIdDataConverter, clientProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixedWithDollarSign} from '@utils/text'
@@ -39,6 +40,8 @@ export class AnotherProfileViewModel {
   productList = []
 
   productsVacant = []
+  shopsData = []
+  selectedShops = []
 
   tabExchange = 0
   tabHistory = 0
@@ -71,6 +74,7 @@ export class AnotherProfileViewModel {
   showWarningModal = false
   showSuccessModal = false
   showWarningModalText = ''
+  showSelectShopsModal = false
 
   selectedProduct = undefined
 
@@ -173,14 +177,50 @@ export class AnotherProfileViewModel {
       onClickConfirm: () => this.onClickBuyProductBtn(),
     }
 
-    this.onTriggerOpenModal('showConfirmModal')
+    this.onTriggerOpenModal('showSelectShopsModal')
   }
 
-  async onClickBuyProductBtn() {
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+      runInAction(() => {
+        this.shopsData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onSaveProductData() {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await ClientModel.updateProduct(
+        this.selectedProduct._id,
+        getObjectFilteredByKeyArrayBlackList(
+          {
+            shopIds: this.selectedShops,
+          },
+          ['suppliers'],
+        ),
+      )
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log('error', error)
+    }
+  }
+
+  async onClickBuyProductBtn(shops) {
     try {
       await ClientModel.makePayments([this.selectedProduct._id])
 
-      this.onTriggerOpenModal('showConfirmModal')
+      this.selectedShops = shops
+
+      await this.onSaveProductData()
+
+      this.onTriggerOpenModal('showSelectShopsModal')
 
       this.openCreateOrder()
 
@@ -333,6 +373,7 @@ export class AnotherProfileViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getUserById()
       this.getDataGridState()
+      await this.getShops()
       await this.getProductsVacant()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

@@ -67,6 +67,7 @@ export class BuyerSearchSupplierBySupervisorViewRaw extends Component {
                   color="primary"
                   variant="contained"
                   disabled={selectedRowIds.length === 0}
+                  tooltipInfoContent={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
                   onClick={onPickupSomeItems}
                 >
                   {t(TranslationKey['Take on the work of the selected'])}

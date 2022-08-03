@@ -188,7 +188,7 @@ export const useClassNames = makeStyles(() => ({
   row: {
     outline: '1px solid rgb(224, 224, 224)',
     borderRadius: '5px',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/Cursor.svg), auto',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(0.99)',

@@ -16,7 +16,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
 
-    width: 250,
+    width: 200,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -70,7 +70,7 @@ export const destinationsColumns = handlers => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 250,
+    width: 350,
     renderCell: params => <EditOrRemoveBtnsCell handlers={handlers} row={params.row} />,
     filterable: false,
     sortable: false,
