@@ -1,22 +1,12 @@
-/* eslint-disable no-unused-vars */
-import CircleIcon from '@mui/icons-material/Circle'
+import React, {useState} from 'react'
 
-import React, {useEffect, useState} from 'react'
-
-import {Checkbox, Typography, Link, List, ListItem, ListItemText, Paper} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {SettingsModel} from '@models/settings-model'
-
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {DateMonthYearPicker, DatePickerDate, DatePickerTime} from '@components/date-picker/date-picker'
-import {Field} from '@components/field'
-import {Input} from '@components/input'
-import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
@@ -24,6 +14,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './create-or-edit-trading-shop-content.style'
 import {FirstStep} from './first-step'
+import {SecondStep} from './second-step'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -31,27 +22,39 @@ const stepVariant = {
   STEP_THREE: 'STEP_THREE',
 }
 
+const fillMonthes = () => {
+  const curYear = new Date().getFullYear()
+  const curMonth = new Date().getMonth()
+
+  const arr = Array(12)
+    .fill({})
+    .map((e, index) => {
+      // const year = curMonth - index >= 0 ? curYear : curYear - 1
+      const year = curYear
+
+      const month = curMonth - index >= 0 ? curMonth - index : 0 + curMonth - index
+
+      return {
+        month: new Date(year, month),
+        grossIncome: '',
+        pureIncome: '',
+        uniqueCustomers: '',
+        webpageVisits: '',
+      }
+    })
+
+  return arr
+}
+
 export const CreateOrEditTradingShopContent = ({
   requestToEdit,
   history,
   onCreateSubmit,
-  onEditSubmit,
+  // onEditSubmit,
   showProgress,
   progressValue,
 }) => {
   const classNames = useClassNames()
-
-  // const today = new Date()
-
-  // const mm = String(today.getMonth() + 1).padStart(2, '0')
-
-  // console.log('mm', mm)
-
-  const [grossIncomeDate, setGrossIncomeDate] = useState(null)
-
-  const [grossIncomeValue, setGrossIncomeValue] = useState('')
-
-  // console.log('grossIncomeLine', grossIncomeLine)
 
   const [images, setImages] = useState([])
 
@@ -69,59 +72,30 @@ export const CreateOrEditTradingShopContent = ({
       'Пять фирменных электронных книг',
     ],
 
-    grossIncome: [],
-    pureIncome: [],
-    uniqueCustomers: [],
-    webpageVisits: [],
+    statistics: fillMonthes(),
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
 
-  useEffect(() => {
-    setFormFields(() => ({...formFields, grossIncome: formFields.grossIncome}))
-  }, [SettingsModel.languageTag])
-
-  console.log('formFields.businessStartDate', formFields.businessStartDate)
-
   const [deadlineError, setDeadlineError] = useState(false)
-  // const [assetLine, setAssetLine] = useState('')
 
-  // const removeAsset = index => {
-  //   const newFormFields = {...formFields}
-
-  //   newFormFields.assets = formFields.assets.filter((asset, i) => i !== index)
-
-  //   setFormFields(newFormFields)
-  // }
-
-  // const addAsset = e => {
-  //   const newFormFields = {...formFields}
-
-  //   newFormFields.assets = [assetLine, ...formFields.assets]
-
-  //   setFormFields(newFormFields)
-
-  //   setAssetLine('')
-  // }
-
-  const removeIndicator = index => {
+  const onChangeStatisticsField = (index, fieldName) => event => {
     const newFormFields = {...formFields}
 
-    newFormFields.grossIncome = formFields.grossIncome.filter((asset, i) => i !== index)
+    if (['month'].includes(fieldName)) {
+      newFormFields.statistics[index].month = event
 
+      newFormFields.statistics = [
+        ...formFields.statistics.map((el, i) => (i === index ? {...el, month: event} : el)),
+      ].sort(sortObjectsArrayByFiledDate('month'))
+    } else if (
+      ['grossIncome', 'pureIncome', 'uniqueCustomers', 'webpageVisits'].includes(fieldName) &&
+      !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
+    ) {
+      return
+    } else {
+      newFormFields.statistics[index][fieldName] = event.target.value
+    }
     setFormFields(newFormFields)
-  }
-
-  const addIndicator = e => {
-    const newFormFields = {...formFields}
-
-    newFormFields.grossIncome = [{month: grossIncomeDate, value: grossIncomeValue}, ...formFields.grossIncome].sort(
-      sortObjectsArrayByFiledDate('month'),
-    )
-
-    setFormFields(newFormFields)
-
-    setGrossIncomeDate(null)
-    setGrossIncomeValue('')
   }
 
   const onChangeField = fieldName => event => {
@@ -150,9 +124,6 @@ export const CreateOrEditTradingShopContent = ({
   const isDeadlineError = formFields.businessStartDate > new Date()
 
   const onSuccessSubmit = () => {
-    // if (isDeadlineError) {
-    //   setDeadlineError(!deadlineError)
-    // } else {
     if (curStep === stepVariant.STEP_ONE) {
       setCurStep(stepVariant.STEP_TWO)
     } else if (curStep === stepVariant.STEP_TWO) {
@@ -160,7 +131,6 @@ export const CreateOrEditTradingShopContent = ({
     } else {
       onCreateSubmit(formFields, images)
     }
-    // }
   }
 
   const onClickBackBtn = () => {
@@ -261,48 +231,12 @@ export const CreateOrEditTradingShopContent = ({
         )}
 
         {curStep === stepVariant.STEP_TWO && (
-          <>
-            <Field
-              inputProps={{maxLength: 100}}
-              labelClasses={classNames.spanLabelSmall}
-              label={`${t(TranslationKey['Gross income'])}, $`}
-              inputComponent={
-                <Paper className={classNames.indicatorPaper}>
-                  <div className={classNames.selectedRoleWrapper}>
-                    <DateMonthYearPicker value={grossIncomeDate} onChange={setGrossIncomeDate} />
-
-                    <Input
-                      value={grossIncomeValue}
-                      className={classNames.indicatorInput}
-                      onChange={e => setGrossIncomeValue(e.target.value)}
-                    />
-
-                    <div
-                      className={clsx(classNames.actionDelButton, {
-                        [classNames.disabledActionButton]: grossIncomeDate === null || !grossIncomeValue,
-                      })}
-                      onClick={grossIncomeDate !== null && grossIncomeValue && addIndicator}
-                    >
-                      {'+'}
-                    </div>
-                  </div>
-
-                  {formFields.grossIncome.map((indicator, index) => (
-                    <div key={index} className={classNames.selectedRoleWrapper}>
-                      <DateMonthYearPicker readOnly value={indicator.month} />
-
-                      <Input disabled value={indicator.value} className={classNames.indicatorInput} />
-
-                      <div className={classNames.actionDelButton} onClick={() => removeIndicator(index)}>
-                        {'-'}
-                      </div>
-                    </div>
-                  ))}
-                </Paper>
-              }
-            />
-            {renderBackNextBtns()}
-          </>
+          <SecondStep
+            formFields={formFields}
+            setFormFields={setFormFields}
+            renderBackNextBtns={renderBackNextBtns}
+            onChangeStatisticsField={onChangeStatisticsField}
+          />
         )}
 
         {curStep === stepVariant.STEP_THREE && renderBackNextBtns()}
