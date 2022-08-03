@@ -1353,5 +1353,16 @@
   "Assets included in sale": "Активы, включенные в продажу",
   "Attach file with data for logging in to store": "Прикрепить файл с данными для входа в магазин",
   "Gross income": "Валовый доход",
-  "Add assets": "Добавить активы"
+  "Add assets": "Добавить активы",
+  "Income Indicators": "Показатели дохода",
+  "Pure profit": "Чистая прибыль",
+  "Traffic Indicators": "Показатели трафика",
+  "Unique visitors": "Уникальные посетители",
+  "View page": "Просмотр страницы",
+  "The totals": "Итоговые показатели",
+  "Average. Monthly income": "Сред. Ежемесячный доход",
+  "Average. Monthly net profit": "Сред. Ежемесячная чистая прибыль",
+  "Profitability": "Рентабельность",
+  "Monthly multiplier": "Ежемесячный множитель",
+  "Month": "Месяц"
 }

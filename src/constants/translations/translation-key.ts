@@ -1352,6 +1352,22 @@ export enum TranslationKey {
   'Attach file with data for logging in to store' = 'Attach file with data for logging in to store',
   'Gross income' = 'Gross income',
   'Add assets' = 'Add assets',
+  'Income Indicators' = 'Income Indicators',
+  'Pure profit' = 'Pure profit',
+  'Traffic Indicators' = 'Traffic Indicators',
+  'Unique visitors' = 'Unique visitors',
+  'View page' = 'View page',
+  'The totals' = 'The totals',
+  'Average. Monthly income' = 'Average. Monthly income',
+  'Average. Monthly net profit' = 'Average. Monthly net profit',
+  'Profitability' = 'Profitability',
+  'Monthly multiplier' = 'Monthly multiplier',
+  'Month' = 'Month',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
 }
 
 // "After confirmation, the card will be moved to the Archive. Continue?": "After confirmation, the card will be moved to the Archive. Continue?"

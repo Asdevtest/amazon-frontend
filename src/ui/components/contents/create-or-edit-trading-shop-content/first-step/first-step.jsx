@@ -136,7 +136,6 @@ export const FirstStep = ({
                 <Paper className={classNames.assetsPaper}>
                   <div className={classNames.assetInputWrapper}>
                     <div className={classNames.leftContentWrapper}>
-                      {/* <Typography className={classNames.selectedRole}>{asset}</Typography> */}
                       <Input
                         value={assetLine}
                         placeholder={t(TranslationKey['Add assets'])}
