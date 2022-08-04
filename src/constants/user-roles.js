@@ -31,7 +31,7 @@ export const UserRoleCodeMapForRoutes = {
   30: 'researcher',
   35: 'freelancer',
   40: 'buyer',
-  45: 'storekeeper',
+  45: 'warehouse',
   50: 'candidate',
   60: 'moderator',
 }

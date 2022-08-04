@@ -57,7 +57,7 @@ import ApiV1RequestsCustomDetails from './model/ApiV1RequestsCustomDetails';
 import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetailsCustom';
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
-import ApiV1ShopSellGrossIncome from './model/ApiV1ShopSellGrossIncome';
+import ApiV1ShopSellStatistics from './model/ApiV1ShopSellStatistics';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
 import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
 import BadRequestError from './model/BadRequestError';
@@ -153,7 +153,10 @@ import InlineObject84 from './model/InlineObject84';
 import InlineObject85 from './model/InlineObject85';
 import InlineObject86 from './model/InlineObject86';
 import InlineObject87 from './model/InlineObject87';
+import InlineObject88 from './model/InlineObject88';
+import InlineObject89 from './model/InlineObject89';
 import InlineObject9 from './model/InlineObject9';
+import InlineObject90 from './model/InlineObject90';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
 import InlineResponse20010 from './model/InlineResponse20010';
@@ -559,10 +562,10 @@ export {
     ApiV1RequestsCustomRequest,
 
     /**
-     * The ApiV1ShopSellGrossIncome model constructor.
-     * @property {module:model/ApiV1ShopSellGrossIncome}
+     * The ApiV1ShopSellStatistics model constructor.
+     * @property {module:model/ApiV1ShopSellStatistics}
      */
-    ApiV1ShopSellGrossIncome,
+    ApiV1ShopSellStatistics,
 
     /**
      * The ApiV1StorekeepersTariffWarehouses model constructor.
@@ -1135,10 +1138,28 @@ export {
     InlineObject87,
 
     /**
+     * The InlineObject88 model constructor.
+     * @property {module:model/InlineObject88}
+     */
+    InlineObject88,
+
+    /**
+     * The InlineObject89 model constructor.
+     * @property {module:model/InlineObject89}
+     */
+    InlineObject89,
+
+    /**
      * The InlineObject9 model constructor.
      * @property {module:model/InlineObject9}
      */
     InlineObject9,
+
+    /**
+     * The InlineObject90 model constructor.
+     * @property {module:model/InlineObject90}
+     */
+    InlineObject90,
 
     /**
      * The InlineResponse200 model constructor.

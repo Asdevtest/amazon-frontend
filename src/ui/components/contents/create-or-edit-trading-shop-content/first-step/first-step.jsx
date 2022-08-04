@@ -31,7 +31,7 @@ export const FirstStep = ({
   const removeAsset = index => {
     const newFormFields = {...formFields}
 
-    newFormFields.assets = formFields.assets.filter((asset, i) => i !== index)
+    newFormFields.shopAssets = formFields.shopAssets.filter((asset, i) => i !== index)
 
     setFormFields(newFormFields)
   }
@@ -39,7 +39,7 @@ export const FirstStep = ({
   const addAsset = () => {
     const newFormFields = {...formFields}
 
-    newFormFields.assets = [assetLine, ...formFields.assets]
+    newFormFields.shopAssets = [assetLine, ...formFields.shopAssets]
 
     setFormFields(newFormFields)
 
@@ -154,7 +154,7 @@ export const FirstStep = ({
                     </div>
                   </div>
 
-                  {formFields.assets.map((asset, index) => (
+                  {formFields.shopAssets.map((asset, index) => (
                     <div key={index} className={classNames.selectedRoleWrapper}>
                       <div className={classNames.leftContentWrapper}>
                         <Typography className={classNames.selectedRole}>{asset}</Typography>

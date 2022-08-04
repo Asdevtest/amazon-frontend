@@ -21,11 +21,13 @@ import {useClassNames} from './trading-shop-card.style'
 export const TradingShopCard = ({item, onClickViewMore}) => {
   const classNames = useClassNames()
 
+  console.log('item', item)
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
         <div className={classNames.photoWrapper}>
-          <PhotoCarousel files={item.images} alignButtons="end" />
+          <PhotoCarousel files={item.files} alignButtons="end" />
         </div>
         <div className={classNames.subWrapper}>
           <div className={classNames.titleWrapper}>
@@ -41,52 +43,54 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
             <Field
               labelClasses={classNames.shortInfoLabel}
               containerClasses={classNames.shortInfoContainer}
-              label={'Стоимость'}
+              label={t(TranslationKey['Total price'])}
               inputComponent={
-                <Typography className={classNames.shortInfoValue}>{toFixedWithDollarSign(item.cost, 2)}</Typography>
+                <Typography className={classNames.shortInfoValue}>{toFixedWithDollarSign(item.price, 2)}</Typography>
               }
             />
             <Field
               labelClasses={classNames.shortInfoLabel}
               containerClasses={classNames.shortInfoContainer}
-              label={'Ежемесечная чистая прибыль'}
+              label={t(TranslationKey['Average. Monthly net profit'])}
               inputComponent={
                 <Typography className={classNames.shortInfoValue}>
-                  {toFixedWithDollarSign(item.monthClearProfit, 2)}
+                  {toFixedWithDollarSign(item.monthlyPureProfit, 2)}
                 </Typography>
               }
             />
             <Field
               labelClasses={classNames.shortInfoLabel}
               containerClasses={classNames.shortInfoContainer}
-              label={'Ежемесячный доход'}
+              label={t(TranslationKey['Average. Monthly income'])}
               inputComponent={
                 <Typography className={classNames.shortInfoValue}>
-                  {toFixedWithDollarSign(item.monthProfit, 2)}
+                  {toFixedWithDollarSign(item.monthlyProfit, 2)}
                 </Typography>
               }
             />
-            <Field
+            {/* <Field
               labelClasses={classNames.shortInfoLabel}
               containerClasses={classNames.shortInfoContainer}
               label={'Монетизация'}
               inputComponent={<Typography className={classNames.shortInfoValue}>{item.monetization}</Typography>}
+            /> */}
+            <Field
+              labelClasses={classNames.shortInfoLabel}
+              containerClasses={classNames.shortInfoContainer}
+              label={t(TranslationKey['Monthly multiplier'])}
+              inputComponent={
+                <Typography className={classNames.shortInfoValue}>{`${item.monthlyMultiplier}x`}</Typography>
+              }
             />
             <Field
               labelClasses={classNames.shortInfoLabel}
               containerClasses={classNames.shortInfoContainer}
-              label={'Ежемесячный множитель'}
-              inputComponent={<Typography className={classNames.shortInfoValue}>{`${item.multiplier}x`}</Typography>}
-            />
-            <Field
-              labelClasses={classNames.shortInfoLabel}
-              containerClasses={classNames.shortInfoContainer}
-              label={'Бизнес создан'}
-              inputComponent={<Typography className={classNames.shortInfoValue}>{item.createBusinesData}</Typography>}
+              label={t(TranslationKey['Business is made'])}
+              inputComponent={<Typography className={classNames.shortInfoValue}>{item.businessStartYear}</Typography>}
             />
           </div>
 
-          <Typography className={classNames.description}>{item.description}</Typography>
+          <Typography className={classNames.description}>{item.shopDetails}</Typography>
 
           <div className={classNames.footer}>
             <div className={classNames.footerInfoWrapper}>
@@ -94,7 +98,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                 oneLine
                 labelClasses={classNames.shortInfoLabel}
                 containerClasses={classNames.footerInfoContainer}
-                label={'Прибыль (12 месяцев)'}
+                label={t(TranslationKey['Profit (12 months)'])}
                 inputComponent={
                   <>
                     <ArrowDropDownIcon color="success" />
@@ -106,7 +110,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                 oneLine
                 labelClasses={classNames.shortInfoLabel}
                 containerClasses={classNames.footerInfoContainer}
-                label={'Доход (12 месяцев)'}
+                label={t(TranslationKey['Income (12 months)'])}
                 inputComponent={
                   <>
                     <ArrowDropDownIcon color="success" />
@@ -118,7 +122,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                 oneLine
                 labelClasses={classNames.shortInfoLabel}
                 containerClasses={classNames.footerInfoContainer}
-                label={'Трафик (12 месяцев)'}
+                label={t(TranslationKey['Traffic (12 months)'])}
                 inputComponent={
                   <>
                     <ArrowDropDownIcon color="error" />

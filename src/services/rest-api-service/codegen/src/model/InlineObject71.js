@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1ShopSellGrossIncome from './ApiV1ShopSellGrossIncome';
 
 /**
  * The InlineObject71 model module.
@@ -22,12 +21,13 @@ import ApiV1ShopSellGrossIncome from './ApiV1ShopSellGrossIncome';
 class InlineObject71 {
     /**
      * Constructs a new <code>InlineObject71</code>.
-     * Схема продажи магазина
      * @alias module:model/InlineObject71
+     * @param asin {String} ASIN продукта
+     * @param lamazon {String} Ссылка на этот продукт на амазоне.
      */
-    constructor() { 
+    constructor(asin, lamazon) { 
         
-        InlineObject71.initialize(this);
+        InlineObject71.initialize(this, asin, lamazon);
     }
 
     /**
@@ -35,7 +35,9 @@ class InlineObject71 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, asin, lamazon) { 
+        obj['asin'] = asin;
+        obj['lamazon'] = lamazon;
     }
 
     /**
@@ -49,56 +51,89 @@ class InlineObject71 {
         if (data) {
             obj = obj || new InlineObject71();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('asin')) {
+                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('lamazon')) {
+                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
             }
-            if (data.hasOwnProperty('businessStartDate')) {
-                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
+            if (data.hasOwnProperty('lsupplier')) {
+                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
             }
-            if (data.hasOwnProperty('shopDetails')) {
-                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
+            if (data.hasOwnProperty('currentSupplierId')) {
+                obj['currentSupplierId'] = ApiClient.convertToType(data['currentSupplierId'], 'String');
             }
-            if (data.hasOwnProperty('shopAssets')) {
-                obj['shopAssets'] = ApiClient.convertToType(data['shopAssets'], ['String']);
+            if (data.hasOwnProperty('category')) {
+                obj['category'] = ApiClient.convertToType(data['category'], 'String');
             }
-            if (data.hasOwnProperty('files')) {
-                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
+            if (data.hasOwnProperty('bsr')) {
+                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
             }
-            if (data.hasOwnProperty('shopLink')) {
-                obj['shopLink'] = ApiClient.convertToType(data['shopLink'], 'String');
+            if (data.hasOwnProperty('fba')) {
+                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
             }
-            if (data.hasOwnProperty('grossIncome')) {
-                obj['grossIncome'] = ApiClient.convertToType(data['grossIncome'], [ApiV1ShopSellGrossIncome]);
+            if (data.hasOwnProperty('fbm')) {
+                obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
             }
-            if (data.hasOwnProperty('pureIncome')) {
-                obj['pureIncome'] = ApiClient.convertToType(data['pureIncome'], [ApiV1ShopSellGrossIncome]);
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
             }
-            if (data.hasOwnProperty('uniqueCustomers')) {
-                obj['uniqueCustomers'] = ApiClient.convertToType(data['uniqueCustomers'], [ApiV1ShopSellGrossIncome]);
+            if (data.hasOwnProperty('amazon')) {
+                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
             }
-            if (data.hasOwnProperty('webpageVisits')) {
-                obj['webpageVisits'] = ApiClient.convertToType(data['webpageVisits'], [ApiV1ShopSellGrossIncome]);
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
-            if (data.hasOwnProperty('opportunities')) {
-                obj['opportunities'] = ApiClient.convertToType(data['opportunities'], ['String']);
+            if (data.hasOwnProperty('fbafee')) {
+                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
             }
-            if (data.hasOwnProperty('risks')) {
-                obj['risks'] = ApiClient.convertToType(data['risks'], ['String']);
+            if (data.hasOwnProperty('delivery')) {
+                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
             }
-            if (data.hasOwnProperty('requiredSkills')) {
-                obj['requiredSkills'] = ApiClient.convertToType(data['requiredSkills'], ['String']);
+            if (data.hasOwnProperty('icomment')) {
+                obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
             }
-            if (data.hasOwnProperty('sellIncludes')) {
-                obj['sellIncludes'] = ApiClient.convertToType(data['sellIncludes'], ['String']);
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('reasonForSale')) {
-                obj['reasonForSale'] = ApiClient.convertToType(data['reasonForSale'], ['String']);
+            if (data.hasOwnProperty('byboxprice')) {
+                obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
             }
-            if (data.hasOwnProperty('additionalInfo')) {
-                obj['additionalInfo'] = ApiClient.convertToType(data['additionalInfo'], ['String']);
+            if (data.hasOwnProperty('reffee')) {
+                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            }
+            if (data.hasOwnProperty('strategyStatus')) {
+                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
+            }
+            if (data.hasOwnProperty('niche')) {
+                obj['niche'] = ApiClient.convertToType(data['niche'], 'String');
+            }
+            if (data.hasOwnProperty('asins')) {
+                obj['asins'] = ApiClient.convertToType(data['asins'], 'String');
+            }
+            if (data.hasOwnProperty('totalRevenue')) {
+                obj['totalRevenue'] = ApiClient.convertToType(data['totalRevenue'], 'String');
+            }
+            if (data.hasOwnProperty('coefficient')) {
+                obj['coefficient'] = ApiClient.convertToType(data['coefficient'], 'String');
+            }
+            if (data.hasOwnProperty('avgRevenue')) {
+                obj['avgRevenue'] = ApiClient.convertToType(data['avgRevenue'], 'String');
+            }
+            if (data.hasOwnProperty('avgBSR')) {
+                obj['avgBSR'] = ApiClient.convertToType(data['avgBSR'], 'String');
+            }
+            if (data.hasOwnProperty('avgPrice')) {
+                obj['avgPrice'] = ApiClient.convertToType(data['avgPrice'], 'String');
+            }
+            if (data.hasOwnProperty('avgReviews')) {
+                obj['avgReviews'] = ApiClient.convertToType(data['avgReviews'], 'String');
+            }
+            if (data.hasOwnProperty('fourMonthesStock')) {
+                obj['fourMonthesStock'] = ApiClient.convertToType(data['fourMonthesStock'], 'Number');
+            }
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
         }
         return obj;
@@ -108,106 +143,172 @@ class InlineObject71 {
 }
 
 /**
- * Имя магазина для продажи
- * @member {String} title
+ * ASIN продукта
+ * @member {String} asin
  */
-InlineObject71.prototype['title'] = undefined;
+InlineObject71.prototype['asin'] = undefined;
 
 /**
- * Стоимость магазина
- * @member {Number} price
+ * Ссылка на этот продукт на амазоне.
+ * @member {String} lamazon
  */
-InlineObject71.prototype['price'] = undefined;
+InlineObject71.prototype['lamazon'] = undefined;
 
 /**
- * Дата создания бизнеса
- * @member {Date} businessStartDate
+ * Ссылка на этот продукт на поставщика.
+ * @member {String} lsupplier
  */
-InlineObject71.prototype['businessStartDate'] = undefined;
+InlineObject71.prototype['lsupplier'] = undefined;
 
 /**
- * Детали магазина
- * @member {String} shopDetails
+ * GUID поставщика
+ * @member {String} currentSupplierId
  */
-InlineObject71.prototype['shopDetails'] = undefined;
+InlineObject71.prototype['currentSupplierId'] = undefined;
 
 /**
- * Активы магазина
- * @member {Array.<String>} shopAssets
+ * Категория
+ * @member {String} category
  */
-InlineObject71.prototype['shopAssets'] = undefined;
+InlineObject71.prototype['category'] = undefined;
 
 /**
- * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
- * @member {Array.<String>} files
+ * 
+ * @member {Number} bsr
  */
-InlineObject71.prototype['files'] = undefined;
+InlineObject71.prototype['bsr'] = undefined;
 
 /**
- * Ссылка на сайт магазина
- * @member {String} shopLink
+ * Признак fba
+ * @member {Boolean} fba
  */
-InlineObject71.prototype['shopLink'] = undefined;
+InlineObject71.prototype['fba'] = undefined;
 
 /**
- * Валовый доход по месяцам
- * @member {Array.<module:model/ApiV1ShopSellGrossIncome>} grossIncome
+ * Признак fbm
+ * @member {Boolean} fbm
  */
-InlineObject71.prototype['grossIncome'] = undefined;
+InlineObject71.prototype['fbm'] = undefined;
 
 /**
- * Чистый доход по месяцам
- * @member {Array.<module:model/ApiV1ShopSellGrossIncome>} pureIncome
+ *  Статус товара. У ресечера: 0 - новый товар.  10 - новый товар с поставщиком
+ * @member {Number} status
  */
-InlineObject71.prototype['pureIncome'] = undefined;
+InlineObject71.prototype['status'] = undefined;
 
 /**
- * Кол-во посетителей по месяцам
- * @member {Array.<module:model/ApiV1ShopSellGrossIncome>} uniqueCustomers
+ * 
+ * @member {Number} amazon
  */
-InlineObject71.prototype['uniqueCustomers'] = undefined;
+InlineObject71.prototype['amazon'] = undefined;
 
 /**
- * Кол-во просмотров страницы по месяцам
- * @member {Array.<module:model/ApiV1ShopSellGrossIncome>} webpageVisits
+ * Массив поставщиков.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject71.prototype['webpageVisits'] = undefined;
+InlineObject71.prototype['suppliersIds'] = undefined;
 
 /**
- * Возможности магазина
- * @member {Array.<String>} opportunities
+ * ФБА комиссия
+ * @member {Number} fbafee
  */
-InlineObject71.prototype['opportunities'] = undefined;
+InlineObject71.prototype['fbafee'] = undefined;
 
 /**
- * Риски магазина
- * @member {Array.<String>} risks
+ * Стоимость доставки.
+ * @member {Number} delivery
  */
-InlineObject71.prototype['risks'] = undefined;
+InlineObject71.prototype['delivery'] = undefined;
 
 /**
- * Требуемые навыки
- * @member {Array.<String>} requiredSkills
+ * Комментарии к товару.
+ * @member {String} icomment
  */
-InlineObject71.prototype['requiredSkills'] = undefined;
+InlineObject71.prototype['icomment'] = undefined;
 
 /**
- * В продажу также включено
- * @member {Array.<String>} sellIncludes
+ * Массив изображений.
+ * @member {Array.<String>} images
  */
-InlineObject71.prototype['sellIncludes'] = undefined;
+InlineObject71.prototype['images'] = undefined;
 
 /**
- * Причина продажи
- * @member {Array.<String>} reasonForSale
+ * Цена
+ * @member {Number} byboxprice
  */
-InlineObject71.prototype['reasonForSale'] = undefined;
+InlineObject71.prototype['byboxprice'] = undefined;
 
 /**
- * Дополнительная информация
- * @member {Array.<String>} additionalInfo
+ * комиссия которую берет амазон за любой заказ - 15%
+ * @member {Number} reffee
  */
-InlineObject71.prototype['additionalInfo'] = undefined;
+InlineObject71.prototype['reffee'] = undefined;
+
+/**
+ * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
+ * @member {Number} strategyStatus
+ */
+InlineObject71.prototype['strategyStatus'] = undefined;
+
+/**
+ * Ниша
+ * @member {String} niche
+ */
+InlineObject71.prototype['niche'] = undefined;
+
+/**
+ * Асины
+ * @member {String} asins
+ */
+InlineObject71.prototype['asins'] = undefined;
+
+/**
+ * Общий доход
+ * @member {String} totalRevenue
+ */
+InlineObject71.prototype['totalRevenue'] = undefined;
+
+/**
+ * Коэффициент прибыли
+ * @member {String} coefficient
+ */
+InlineObject71.prototype['coefficient'] = undefined;
+
+/**
+ * Средний доход
+ * @member {String} avgRevenue
+ */
+InlineObject71.prototype['avgRevenue'] = undefined;
+
+/**
+ * Средний BSR
+ * @member {String} avgBSR
+ */
+InlineObject71.prototype['avgBSR'] = undefined;
+
+/**
+ * Средняя цена
+ * @member {String} avgPrice
+ */
+InlineObject71.prototype['avgPrice'] = undefined;
+
+/**
+ * Средний отзывы
+ * @member {String} avgReviews
+ */
+InlineObject71.prototype['avgReviews'] = undefined;
+
+/**
+ * Дополнительная инфа для дозакупок
+ * @member {Number} fourMonthesStock
+ */
+InlineObject71.prototype['fourMonthesStock'] = undefined;
+
+/**
+ * ID магазинов для продукта
+ * @member {Array.<String>} shopIds
+ */
+InlineObject71.prototype['shopIds'] = undefined;
 
 
 

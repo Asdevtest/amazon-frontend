@@ -27,6 +27,8 @@ import InlineObject35 from '../model/InlineObject35';
 import InlineObject36 from '../model/InlineObject36';
 import InlineObject37 from '../model/InlineObject37';
 import InlineObject38 from '../model/InlineObject38';
+import InlineObject39 from '../model/InlineObject39';
+import InlineObject40 from '../model/InlineObject40';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse20010 from '../model/InlineResponse20010';
 import InlineResponse20011 from '../model/InlineResponse20011';
@@ -111,7 +113,7 @@ export default class ClientApi {
      * @param {String} guid GUID коробки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject38} opts.body 
+     * @param {module:model/InlineObject40} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatchWithHttpInfo(guid, opts) {
@@ -150,7 +152,7 @@ export default class ClientApi {
      * @param {String} guid GUID коробки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject38} opts.body 
+     * @param {module:model/InlineObject40} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch(guid, opts) {
@@ -215,7 +217,7 @@ export default class ClientApi {
      * ## Обновить тариф если тариф был удален.  У коробок статус вернется на статус IN_BATCH или REQUESTED_SEND_TO_BATCH, в зависимости от того есть у коробки batchId         У клиента будут разморожены/разморожены средства на доставку в зависимости разницы стоимости.         Проверки:         Доступен только для коробок со статусами NEED_TO_UPDATE_THE_TARIFF
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject37} opts.body 
+     * @param {module:model/InlineObject39} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPostWithHttpInfo(opts) {
@@ -248,7 +250,7 @@ export default class ClientApi {
      * ## Обновить тариф если тариф был удален.  У коробок статус вернется на статус IN_BATCH или REQUESTED_SEND_TO_BATCH, в зависимости от того есть у коробки batchId         У клиента будут разморожены/разморожены средства на доставку в зависимости разницы стоимости.         Проверки:         Доступен только для коробок со статусами NEED_TO_UPDATE_THE_TARIFF
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject37} opts.body 
+     * @param {module:model/InlineObject39} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost(opts) {
@@ -728,6 +730,104 @@ export default class ClientApi {
 
 
     /**
+     * # Отправить  созданные клиентом товары на проверку супервайзеру.
+     * ## Отправить  созданные клиентом товары на проверку супервайзеру.   Данный метод ставит статус FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR (205).   Замораживает средства у клиента,( услуги баер + услуги супервайзера(если он требуется)) * 2    Затирает id баера и супервайзера  Записывает комментарий от клиента   ## Проверки  Вы можете ставить продукту статус FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR (205), если ранее товар имел статусы 200, 270, 275, 280, 290
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject37} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatchWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/clients/products/from_client_ready_to_be_checked_by_supervisor', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отправить  созданные клиентом товары на проверку супервайзеру.
+     * ## Отправить  созданные клиентом товары на проверку супервайзеру.   Данный метод ставит статус FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR (205).   Замораживает средства у клиента,( услуги баер + услуги супервайзера(если он требуется)) * 2    Затирает id баера и супервайзера  Записывает комментарий от клиента   ## Проверки  Вы можете ставить продукту статус FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR (205), если ранее товар имел статусы 200, 270, 275, 280, 290
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject37} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch(opts) {
+      return this.apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatchWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить цену для клиента на поиск поставщика множества товаров
+     * ## Получить цену для клиента на поиск поставщика   ## Проверки  только продуты созданные клиентом и принадлежавшие данному пользователю.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject36} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20011} and HTTP response
+     */
+    apiV1ClientsProductsGetPriceForClientPostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20011;
+      return this.apiClient.callApi(
+        '/api/v1/clients/products/get_price_for_client', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить цену для клиента на поиск поставщика множества товаров
+     * ## Получить цену для клиента на поиск поставщика   ## Проверки  только продуты созданные клиентом и принадлежавшие данному пользователю.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject36} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20011}
+     */
+    apiV1ClientsProductsGetPriceForClientPost(opts) {
+      return this.apiV1ClientsProductsGetPriceForClientPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Внести изменения в баркод товара.
      * ## Внести изменения в баркод товара.   Проверки:  Данный товар не принадлежит вам.
      * @param {String} guid GUID продукта, который будет изменен
@@ -789,7 +889,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject36} opts.body 
+     * @param {module:model/InlineObject38} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatchWithHttpInfo(guid, opts) {
@@ -828,7 +928,7 @@ export default class ClientApi {
      * @param {String} guid GUID продукта, который будет изменен
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject36} opts.body 
+     * @param {module:model/InlineObject38} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch(guid, opts) {

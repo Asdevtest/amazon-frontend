@@ -30,6 +30,7 @@ export class AdminProductView extends Component {
 
   render() {
     const {
+      storekeepersData,
       volumeWeightCoefficient,
       yuanToDollarRate,
       supplierModalReadOnly,
@@ -78,6 +79,8 @@ export class AdminProductView extends Component {
           setOpenModal={onTriggerAddOrEditSupplierModal}
         >
           <AddOrEditSupplierModalContent
+            product={product}
+            storekeepersData={storekeepersData}
             onlyRead={supplierModalReadOnly}
             sourceYuanToDollarRate={yuanToDollarRate}
             volumeWeightCoefficient={volumeWeightCoefficient}

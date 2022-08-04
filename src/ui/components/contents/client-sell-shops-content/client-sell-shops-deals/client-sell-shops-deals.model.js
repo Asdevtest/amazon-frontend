@@ -68,7 +68,7 @@ export class ClientSellShopsDealsModel {
 
   async loadData() {
     try {
-      await this.getRequestsVacant()
+      // await this.getRequestsVacant()
       this.getTableModeState()
     } catch (error) {
       console.log(error)

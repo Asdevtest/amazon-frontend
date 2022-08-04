@@ -4,6 +4,7 @@ import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
 import {SettingsModel} from '@models/settings-model'
+import {ShopSellModel} from '@models/shop-sell-model'
 import {UserModel} from '@models/user-model'
 
 export class ClientBuyShopsAdsModel {
@@ -17,7 +18,7 @@ export class ClientBuyShopsAdsModel {
   drawerOpen = false
 
   searchMyRequestsIds = []
-  requests = []
+  shopSellsData = []
 
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
@@ -53,9 +54,9 @@ export class ClientBuyShopsAdsModel {
 
   getCurrentData() {
     if (this.nameSearchValue) {
-      return toJS(this.requests).filter(el => el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+      return toJS(this.shopSellsData).filter(el => el.title.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
     } else {
-      return toJS(this.requests)
+      return toJS(this.shopSellsData)
     }
   }
 
@@ -65,46 +66,27 @@ export class ClientBuyShopsAdsModel {
 
   async loadData() {
     try {
-      await this.getRequestsVacant()
+      await this.getShopSells()
       this.getTableModeState()
     } catch (error) {
       console.log(error)
     }
   }
 
-  async getRequestsVacant() {
+  async getShopSells() {
     try {
-      // const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT)
+      const result = await ShopSellModel.getShopSells()
+
       runInAction(() => {
-        this.requests = [
-          {
-            images: [
-              'https://amazonapi.fvds.ru/uploads/0b00679a-f734-4b3a-ae5c-e1f7193aaa0f.102510_O.gif',
-              'https://amazonapi.fvds.ru/uploads/21dad3dc-4d37-4a75-a69e-9e8f5a0a9f37.____-___4x.webp',
-              'https://amazonapi.fvds.ru/uploads/75656336-406a-4bc3-9cc2-67b49b130936.102510_O.gif',
-            ],
-            title: 'Магазин столовых принадлежностей',
-            cost: 5000,
-            monthClearProfit: 1200.23,
-            monthProfit: 2002.23,
-            monetization: 'Заявления',
-            multiplier: 47,
-            createBusinesData: 2010,
-            description:
-              'Этот список предназначен для медийной рекламы и партнерского бизнеса, созданного в июле 2010 года в нише продуктов питания и напитков. Бизнес состоит из двух сайтов WordPress, на которых размещен информационный контент, рецепты и руководства по покупке, связанные с темами кулинарии и образа жизни. Один из сайтов устарел и рано вошел в популярную нишу, а у брендов более 3,7 млн ​​подписчиков в социальных сетях. Сайты привлекают значительный трафик из нескольких источников и росли из года в год за последние 6 месяцев.',
-            profit12Monthes: '10%',
-            income12Monthes: '10%',
-            traffic: '25%',
-          },
-        ]
+        this.shopSellsData = result
       })
     } catch (error) {
       console.log(error)
     }
   }
 
-  async onClickViewMore() {
-    this.history.push('/client/trading-shops/buy-shops/shop')
+  async onClickViewMore(id) {
+    this.history.push('/client/trading-shops/buy-shops/shop', {shopSellId: id})
   }
 
   onTriggerDrawerOpen() {

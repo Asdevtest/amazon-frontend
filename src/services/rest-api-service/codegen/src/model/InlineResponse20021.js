@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 
 /**
  * The InlineResponse20021 model module.
@@ -69,14 +70,11 @@ class InlineResponse20021 {
             if (data.hasOwnProperty('monthlyPureProfit')) {
                 obj['monthlyPureProfit'] = ApiClient.convertToType(data['monthlyPureProfit'], 'Number');
             }
-            if (data.hasOwnProperty('grossIncome')) {
-                obj['grossIncome'] = ApiClient.convertToType(data['grossIncome'], ['Number']);
+            if (data.hasOwnProperty('monthlyMultiplier')) {
+                obj['monthlyMultiplier'] = ApiClient.convertToType(data['monthlyMultiplier'], 'Number');
             }
-            if (data.hasOwnProperty('pureIncome')) {
-                obj['pureIncome'] = ApiClient.convertToType(data['pureIncome'], ['Number']);
-            }
-            if (data.hasOwnProperty('webpageVisits')) {
-                obj['webpageVisits'] = ApiClient.convertToType(data['webpageVisits'], ['Number']);
+            if (data.hasOwnProperty('statistics')) {
+                obj['statistics'] = ApiClient.convertToType(data['statistics'], [ApiV1ShopSellStatistics]);
             }
             if (data.hasOwnProperty('businessStartYear')) {
                 obj['businessStartYear'] = ApiClient.convertToType(data['businessStartYear'], 'Date');
@@ -134,22 +132,16 @@ InlineResponse20021.prototype['monthlyProfit'] = undefined;
 InlineResponse20021.prototype['monthlyPureProfit'] = undefined;
 
 /**
- * Валовый доход по месяцам
- * @member {Array.<Number>} grossIncome
+ * Ежемесячный множитель
+ * @member {Number} monthlyMultiplier
  */
-InlineResponse20021.prototype['grossIncome'] = undefined;
+InlineResponse20021.prototype['monthlyMultiplier'] = undefined;
 
 /**
- * Чистый доход по месяцам
- * @member {Array.<Number>} pureIncome
+ * Статистика магазина по месяцам
+ * @member {Array.<module:model/ApiV1ShopSellStatistics>} statistics
  */
-InlineResponse20021.prototype['pureIncome'] = undefined;
-
-/**
- * Кол-во просмотров страницы по месяцам
- * @member {Array.<Number>} webpageVisits
- */
-InlineResponse20021.prototype['webpageVisits'] = undefined;
+InlineResponse20021.prototype['statistics'] = undefined;
 
 /**
  * Дата создания бизнеса

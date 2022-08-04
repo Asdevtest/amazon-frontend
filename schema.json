@@ -32239,6 +32239,79 @@
         }
       }
     },
+    "/api/v1/clients/products/get_price_for_client": {
+      "post": {
+        "summary": "# Получить цену для клиента на поиск поставщика множества товаров",
+        "description": "## Получить цену для клиента на поиск поставщика\n\n ## Проверки \nтолько продуты созданные клиентом и принадлежавшие данному пользователю.",
+        "tags": ["Client"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": ["productIds"],
+              "properties": {
+                "productIds": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {"type": "string", "format": "uuid", "description": "Гуиды продуктов разделенные запятой."}
+                }
+              }
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "цену для клиента на поиск поставщика",
+            "schema": {
+              "type": "object",
+              "description": "цену для клиента на поиск поставщика",
+              "properties": {"priceForClient": {"type": "number"}}
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/clients/products/from_client_ready_to_be_checked_by_supervisor": {
+      "patch": {
+        "summary": "# Отправить  созданные клиентом товары на проверку супервайзеру.",
+        "description": "## Отправить  созданные клиентом товары на проверку супервайзеру. \n\nДанный метод ставит статус FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR (205). \n\nЗамораживает средства у клиента,( услуги баер + услуги супервайзера(если он требуется)) * 2 \n \nЗатирает id баера и супервайзера \nЗаписывает комментарий от клиента \n ## Проверки \nВы можете ставить продукту статус FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR (205), если ранее товар имел статусы 200, 270, 275, 280, 290",
+        "tags": ["Client"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": ["productIds"],
+              "properties": {
+                "productIds": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {"type": "string", "format": "uuid", "description": "Гуиды продуктов разделенные запятой."}
+                }
+              }
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/clients/products/{guid}/from_client_ready_to_be_checked_by_supervisor": {
       "patch": {
         "summary": "# Отправить  созданный клиентом товар на проверку супервайзеру.",
@@ -37983,51 +38056,17 @@
                   ]
                 },
                 "shopLink": {"type": "string", "description": "Ссылка на сайт магазина", "example": "example.com"},
-                "grossIncome": {
+                "statistics": {
                   "type": "array",
-                  "description": "Валовый доход по месяцам",
+                  "description": "Статистика магазина по месяцам",
                   "items": {
                     "type": "object",
-                    "desciption": "Схема показателей дохода и трафика",
                     "properties": {
-                      "month": {"type": "string", "description": "Месяц и год", "example": "June 2021"},
-                      "value": {"type": "number", "description": "Значение на данный месяц", "example": 300}
-                    }
-                  }
-                },
-                "pureIncome": {
-                  "type": "array",
-                  "description": "Чистый доход по месяцам",
-                  "items": {
-                    "type": "object",
-                    "desciption": "Схема показателей дохода и трафика",
-                    "properties": {
-                      "month": {"type": "string", "description": "Месяц и год", "example": "June 2021"},
-                      "value": {"type": "number", "description": "Значение на данный месяц", "example": 300}
-                    }
-                  }
-                },
-                "uniqueCustomers": {
-                  "type": "array",
-                  "description": "Кол-во посетителей по месяцам",
-                  "items": {
-                    "type": "object",
-                    "desciption": "Схема показателей дохода и трафика",
-                    "properties": {
-                      "month": {"type": "string", "description": "Месяц и год", "example": "June 2021"},
-                      "value": {"type": "number", "description": "Значение на данный месяц", "example": 300}
-                    }
-                  }
-                },
-                "webpageVisits": {
-                  "type": "array",
-                  "description": "Кол-во просмотров страницы по месяцам",
-                  "items": {
-                    "type": "object",
-                    "desciption": "Схема показателей дохода и трафика",
-                    "properties": {
-                      "month": {"type": "string", "description": "Месяц и год", "example": "June 2021"},
-                      "value": {"type": "number", "description": "Значение на данный месяц", "example": 300}
+                      "month": {"type": "string", "format": "date-time", "description": "Дата статистики"},
+                      "grossIncome": {"type": "number", "description": "Валовый доход"},
+                      "pureIncome": {"type": "number", "description": "Чистый доход"},
+                      "uniqueCustomers": {"type": "number", "description": "Кол-во клиентов"},
+                      "webpageVisits": {"type": "number", "description": "Кол-во посещений вебсайта"}
                     }
                   }
                 },
@@ -38123,28 +38162,20 @@
                     "description": "Ежемесячная чистая прибыль",
                     "example": 120.23
                   },
-                  "monthlyMultiplier": {
-                    "type": ["number", "null"],
-                    "description": "Ежемесячный множитель",
-                    "example": 49
-                  },
-                  "grossIncome": {
+                  "monthlyMultiplier": {"type": "number", "description": "Ежемесячный множитель", "example": 49},
+                  "statistics": {
                     "type": "array",
-                    "description": "Валовый доход по месяцам",
-                    "items": {"type": "number"},
-                    "example": [123, 456]
-                  },
-                  "pureIncome": {
-                    "type": "array",
-                    "description": "Чистый доход по месяцам",
-                    "items": {"type": "number"},
-                    "example": [123, 456]
-                  },
-                  "webpageVisits": {
-                    "type": "array",
-                    "description": "Кол-во просмотров страницы по месяцам",
-                    "items": {"type": "number"},
-                    "example": [123, 456]
+                    "description": "Статистика магазина по месяцам",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "month": {"type": "string", "format": "date-time", "description": "Дата статистики"},
+                        "grossIncome": {"type": "number", "description": "Валовый доход"},
+                        "pureIncome": {"type": "number", "description": "Чистый доход"},
+                        "uniqueCustomers": {"type": "number", "description": "Кол-во клиентов"},
+                        "webpageVisits": {"type": "number", "description": "Кол-во посещений вебсайта"}
+                      }
+                    }
                   },
                   "businessStartYear": {
                     "type": "string",
@@ -38207,28 +38238,20 @@
                 "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
                 "monthlyProfit": {"type": "number", "description": "Ежемесячная прибыль", "example": 174.56},
                 "monthlyPureProfit": {"type": "number", "description": "Ежемесячная чистая прибыль", "example": 120.23},
-                "monthlyMultiplier": {
-                  "type": ["number", "null"],
-                  "description": "Ежемесячный множитель",
-                  "example": 49
-                },
-                "grossIncome": {
+                "monthlyMultiplier": {"type": "number", "description": "Ежемесячный множитель", "example": 49},
+                "statistics": {
                   "type": "array",
-                  "description": "Валовый доход по месяцам",
-                  "items": {"type": "number"},
-                  "example": [123, 456]
-                },
-                "pureIncome": {
-                  "type": "array",
-                  "description": "Чистый доход по месяцам",
-                  "items": {"type": "number"},
-                  "example": [123, 456]
-                },
-                "webpageVisits": {
-                  "type": "array",
-                  "description": "Кол-во просмотров страницы по месяцам",
-                  "items": {"type": "number"},
-                  "example": [123, 456]
+                  "description": "Статистика магазина по месяцам",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "month": {"type": "string", "format": "date-time", "description": "Дата статистики"},
+                      "grossIncome": {"type": "number", "description": "Валовый доход"},
+                      "pureIncome": {"type": "number", "description": "Чистый доход"},
+                      "uniqueCustomers": {"type": "number", "description": "Кол-во клиентов"},
+                      "webpageVisits": {"type": "number", "description": "Кол-во посещений вебсайта"}
+                    }
+                  }
                 },
                 "businessStartYear": {
                   "type": "string",
@@ -38244,6 +38267,118 @@
               }
             }
           },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "patch": {
+        "summary": "# Обновить магазин на продажу.",
+        "tags": ["Shop Sell"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "description": "Схема продажи магазина",
+              "properties": {
+                "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
+                "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
+                "businessStartDate": {
+                  "type": "string",
+                  "description": "Дата создания бизнеса",
+                  "format": "date-time",
+                  "example": "2021-11-24T15:10:46.882Z"
+                },
+                "shopDetails": {
+                  "type": "string",
+                  "description": "Детали магазина",
+                  "example": "Some details about shop"
+                },
+                "shopAssets": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "Активы магазина",
+                  "example": ["Some asset", "Another asset", "And another one asset"]
+                },
+                "files": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)",
+                  "example": [
+                    "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+                    "https://image.shutterstock.com/image-photo/surreal-concept-roll-world-dice-260nw-1356798002.jpg"
+                  ]
+                },
+                "shopLink": {"type": "string", "description": "Ссылка на сайт магазина", "example": "example.com"},
+                "statistics": {
+                  "type": "array",
+                  "description": "Статистика магазина по месяцам",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "month": {"type": "string", "format": "date-time", "description": "Дата статистики"},
+                      "grossIncome": {"type": "number", "description": "Валовый доход"},
+                      "pureIncome": {"type": "number", "description": "Чистый доход"},
+                      "uniqueCustomers": {"type": "number", "description": "Кол-во клиентов"},
+                      "webpageVisits": {"type": "number", "description": "Кол-во посещений вебсайта"}
+                    }
+                  }
+                },
+                "opportunities": {
+                  "type": "array",
+                  "description": "Возможности магазина",
+                  "items": {"type": "string"},
+                  "example": ["Some opportunity", "Other opportunity"]
+                },
+                "risks": {
+                  "type": "array",
+                  "description": "Риски магазина",
+                  "items": {"type": "string"},
+                  "example": ["Some risky situation", "Other  risky situation"]
+                },
+                "requiredSkills": {
+                  "type": "array",
+                  "description": "Требуемые навыки",
+                  "items": {"type": "string"},
+                  "example": ["Consulting experience", "Team player"]
+                },
+                "sellIncludes": {
+                  "type": "array",
+                  "description": "В продажу также включено",
+                  "items": {"type": "string"},
+                  "example": ["All copyright for media", "Bench nearby shop"]
+                },
+                "reasonForSale": {
+                  "type": "array",
+                  "description": "Причина продажи",
+                  "items": {"type": "string"},
+                  "example": ["Very serious reason", "One more reason, just for example"]
+                },
+                "additionalInfo": {
+                  "type": "array",
+                  "description": "Дополнительная информация",
+                  "items": {"type": "string"},
+                  "example": ["Shop had problems with IRS back in 2010", "10% of employees are illegal immigrants"]
+                }
+              }
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID магазина на продажу в БД.",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}

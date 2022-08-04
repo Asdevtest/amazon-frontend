@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject41 model module.
@@ -22,11 +23,11 @@ class InlineObject41 {
     /**
      * Constructs a new <code>InlineObject41</code>.
      * @alias module:model/InlineObject41
-     * @param profileId {String} id профайла
+     * @param name {String} Название профиля
      */
-    constructor(profileId) { 
+    constructor(name) { 
         
-        InlineObject41.initialize(this, profileId);
+        InlineObject41.initialize(this, name);
     }
 
     /**
@@ -34,8 +35,8 @@ class InlineObject41 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, profileId) { 
-        obj['profileId'] = profileId;
+    static initialize(obj, name) { 
+        obj['name'] = name;
     }
 
     /**
@@ -49,8 +50,14 @@ class InlineObject41 {
         if (data) {
             obj = obj || new InlineObject41();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('os')) {
+                obj['os'] = ApiClient.convertToType(data['os'], 'String');
+            }
+            if (data.hasOwnProperty('navigator')) {
+                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
             }
         }
         return obj;
@@ -60,10 +67,22 @@ class InlineObject41 {
 }
 
 /**
- * id профайла
- * @member {String} profileId
+ * Название профиля
+ * @member {String} name
  */
-InlineObject41.prototype['profileId'] = undefined;
+InlineObject41.prototype['name'] = undefined;
+
+/**
+ * Название ОС
+ * @member {String} os
+ * @default 'mac'
+ */
+InlineObject41.prototype['os'] = 'mac';
+
+/**
+ * @member {module:model/ApiV1GologinProfileNavigator} navigator
+ */
+InlineObject41.prototype['navigator'] = undefined;
 
 
 

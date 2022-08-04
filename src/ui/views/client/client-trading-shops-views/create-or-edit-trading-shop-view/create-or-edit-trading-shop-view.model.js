@@ -3,6 +3,7 @@ import {makeAutoObservable} from 'mobx'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {RequestModel} from '@models/request-model'
+import {ShopSellModel} from '@models/shop-sell-model'
 
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
@@ -36,7 +37,7 @@ export class CreateOrEditTradingShopViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  async onSubmitCreateRequest(data, files) {
+  async onSubmitCreateShopSell(data, files) {
     try {
       this.uploadedFiles = []
 
@@ -44,9 +45,9 @@ export class CreateOrEditTradingShopViewModel {
         await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
       }
 
-      const dataWithFiles = {...data, details: {...data.details, linksToMediaFiles: this.uploadedFiles}}
+      const dataWithFiles = {...data, files: this.uploadedFiles}
 
-      await RequestModel.createRequest(dataWithFiles)
+      await ShopSellModel.createShopSell(dataWithFiles)
 
       this.infoModalText = t(TranslationKey['An request has been created'])
       this.onTriggerOpenModal('showInfoModal')

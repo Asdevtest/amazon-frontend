@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 
 /**
  * The InlineObject52 model module.
@@ -23,11 +24,11 @@ class InlineObject52 {
      * Constructs a new <code>InlineObject52</code>.
      * @alias module:model/InlineObject52
      * @param productId {String} 
-     * @param skus {Array.<String>} 
+     * @param warehouseStocks {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} 
      */
-    constructor(productId, skus) { 
+    constructor(productId, warehouseStocks) { 
         
-        InlineObject52.initialize(this, productId, skus);
+        InlineObject52.initialize(this, productId, warehouseStocks);
     }
 
     /**
@@ -35,9 +36,9 @@ class InlineObject52 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, productId, skus) { 
+    static initialize(obj, productId, warehouseStocks) { 
         obj['productId'] = productId;
-        obj['skus'] = skus;
+        obj['warehouseStocks'] = warehouseStocks;
     }
 
     /**
@@ -54,8 +55,8 @@ class InlineObject52 {
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
             }
-            if (data.hasOwnProperty('skus')) {
-                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
+            if (data.hasOwnProperty('warehouseStocks')) {
+                obj['warehouseStocks'] = ApiClient.convertToType(data['warehouseStocks'], [ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]);
             }
         }
         return obj;
@@ -70,9 +71,9 @@ class InlineObject52 {
 InlineObject52.prototype['productId'] = undefined;
 
 /**
- * @member {Array.<String>} skus
+ * @member {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} warehouseStocks
  */
-InlineObject52.prototype['skus'] = undefined;
+InlineObject52.prototype['warehouseStocks'] = undefined;
 
 
 

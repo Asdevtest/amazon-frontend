@@ -160,7 +160,12 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               aria-haspopup="true"
               onClick={handleClick}
             >
-              <Avatar className={classNames.avatar} src={getUserAvatarSrc(componentModel.current.userId)} />
+              <Avatar
+                className={classNames.avatar}
+                src={getUserAvatarSrc(componentModel.current.userId)}
+                // srcSet={'/assets/img/no-photo.jpg'}
+                // alt={'/assets/img/no-photo.jpg'}
+              />
 
               <div className={classNames.usernameAndBalanceWrapper}>
                 <Typography className={classNames.username}>{componentModel.current.userName}</Typography>

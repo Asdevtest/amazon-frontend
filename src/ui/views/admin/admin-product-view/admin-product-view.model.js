@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {ProductModel} from '@models/product-model'
+import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
@@ -41,6 +42,7 @@ export class AdminProductViewModel {
   product = undefined
   curUpdateProductData = {}
   confirmMessage = ''
+  storekeepersData = []
 
   drawerOpen = false
   selectedSupplier = undefined
@@ -90,6 +92,16 @@ export class AdminProductViewModel {
 
         this.onTriggerAddOrEditSupplierModal()
         break
+    }
+  }
+
+  async getStorekeepers() {
+    try {
+      const result = await StorekeeperModel.getStorekeepers()
+
+      this.storekeepersData = result
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -144,6 +156,8 @@ export class AdminProductViewModel {
         this.selectedSupplier = undefined
       } else {
         const result = await UserModel.getPlatformSettings()
+
+        await this.getStorekeepers()
 
         this.yuanToDollarRate = result.yuanToDollarRate
         this.volumeWeightCoefficient = result.volumeWeightCoefficient

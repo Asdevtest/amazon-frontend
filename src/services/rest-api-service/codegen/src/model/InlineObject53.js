@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
 
 /**
  * The InlineObject53 model module.
@@ -22,11 +23,10 @@ class InlineObject53 {
     /**
      * Constructs a new <code>InlineObject53</code>.
      * @alias module:model/InlineObject53
-     * @param fileUrl {String} uri полный путь до файла, для скачивания
      */
-    constructor(fileUrl) { 
+    constructor() { 
         
-        InlineObject53.initialize(this, fileUrl);
+        InlineObject53.initialize(this);
     }
 
     /**
@@ -34,8 +34,7 @@ class InlineObject53 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, fileUrl) { 
-        obj['fileUrl'] = fileUrl;
+    static initialize(obj) { 
     }
 
     /**
@@ -49,8 +48,8 @@ class InlineObject53 {
         if (data) {
             obj = obj || new InlineObject53();
 
-            if (data.hasOwnProperty('fileUrl')) {
-                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
+            if (data.hasOwnProperty('payload')) {
+                obj['payload'] = ApiClient.convertToType(data['payload'], [ApiV1IntegrationsCreateAndLinkSkuProductsPayload]);
             }
         }
         return obj;
@@ -60,10 +59,9 @@ class InlineObject53 {
 }
 
 /**
- * uri полный путь до файла, для скачивания
- * @member {String} fileUrl
+ * @member {Array.<module:model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload>} payload
  */
-InlineObject53.prototype['fileUrl'] = undefined;
+InlineObject53.prototype['payload'] = undefined;
 
 
 

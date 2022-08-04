@@ -9,6 +9,7 @@ import {
   RequestProposalsApi,
   RequestsApi,
   ShopApi,
+  ShopSellApi,
 } from './codegen/src'
 import AdministratorApi from './codegen/src/api/AdministratorApi'
 import BatchesApi from './codegen/src/api/BatchesApi'
@@ -53,6 +54,7 @@ class RestApiService {
     this.SearchRequestApi = new RequestsApi(this.apiClient)
     this.RequestProposalsApi = new RequestProposalsApi(this.apiClient)
     this.shopApi = new ShopApi(this.apiClient)
+    this.shopSellApi = new ShopSellApi(this.apiClient)
     this.ideaApi = new IdeaApi(this.apiClient)
   }
 

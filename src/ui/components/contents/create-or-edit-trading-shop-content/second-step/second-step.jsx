@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 
@@ -7,11 +6,9 @@ import React, {useState} from 'react'
 import {Divider, Typography} from '@material-ui/core'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import clsx from 'clsx'
-import {ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Bar} from 'recharts'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {TwoBarsChart} from '@components/charts/two-bars-chart/two-bars-chart'
 import {DateMonthYearPicker} from '@components/date-picker/date-picker'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
@@ -200,7 +197,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         className={classNames.indicatorInput}
                         onChange={e =>
                           checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
-                          setGrossIncomeValue(e.target.value)
+                          setGrossIncomeValue(Number(e.target.value))
                         }
                       />
                     </div>
@@ -240,7 +237,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         className={classNames.indicatorInput}
                         onChange={e =>
                           checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
-                          setPureIncomeValue(e.target.value)
+                          setPureIncomeValue(Number(e.target.value))
                         }
                       />
                     </div>
@@ -287,7 +284,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         className={classNames.indicatorInput}
                         onChange={e =>
                           checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
-                          setUniqueCustomersValue(e.target.value)
+                          setUniqueCustomersValue(Number(e.target.value))
                         }
                       />
                     </div>
@@ -325,7 +322,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         className={classNames.indicatorInput}
                         onChange={e =>
                           checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
-                          setWebpageVisitsValue(e.target.value)
+                          setWebpageVisitsValue(Number(e.target.value))
                         }
                       />
                     </div>
@@ -401,7 +398,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                   oneLine
                   labelClasses={classNames.totalLabel}
                   containerClasses={classNames.totalsPercentsContainer}
-                  label={'Трафик (12 месяцев)'}
+                  label={t(TranslationKey['Traffic (12 months)'])}
                   inputComponent={
                     <div className={classNames.percentWrapper}>
                       {trafficСhange < 0 ? <ArrowDropDownIcon color="error" /> : <ArrowDropUpIcon color="success" />}
@@ -418,7 +415,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                     oneLine
                     labelClasses={classNames.totalLabel}
                     containerClasses={classNames.totalsPercentsContainer}
-                    label={'Доход (12 месяцев)'}
+                    label={t(TranslationKey['Income (12 months)'])}
                     inputComponent={
                       <div className={classNames.percentWrapper}>
                         {grossIncomeСhange < 0 ? (
@@ -437,7 +434,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                     oneLine
                     labelClasses={classNames.totalLabel}
                     containerClasses={classNames.totalsPercentsContainer}
-                    label={'Прибыль (12 месяцев)'}
+                    label={t(TranslationKey['Profit (12 months)'])}
                     inputComponent={
                       <div className={classNames.percentWrapper}>
                         {pureIncomeСhange < 0 ? (
@@ -461,7 +458,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
 
         <Modal openModal={showBarChat} setOpenModal={() => setShowBarChat(!showBarChat)}>
           <ChartsForm
-            data={formFields.statistics.map((el, i) => ({
+            data={formFields.statistics.map(el => ({
               ...el,
               month: formatDateMonthYear(el.month),
             }))}

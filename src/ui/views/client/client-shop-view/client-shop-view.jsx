@@ -21,6 +21,7 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_TRADING_SHOPS
 export class ClientShopView extends Component {
   viewModel = new ClientShopViewModel({
     history: this.props.history,
+    location: this.props.location,
   })
 
   componentDidMount() {
@@ -45,9 +46,7 @@ export class ClientShopView extends Component {
         />
         <Main>
           <Appbar title={t(TranslationKey.Shop)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>
-              <ShopWrapper shopInfo={shopInfo} />
-            </MainContent>
+            <MainContent>{shopInfo ? <ShopWrapper shopInfo={shopInfo} /> : null}</MainContent>
           </Appbar>
         </Main>
       </React.Fragment>

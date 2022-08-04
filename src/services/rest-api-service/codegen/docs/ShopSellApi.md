@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiV1ShopSellGet**](ShopSellApi.md#apiV1ShopSellGet) | **GET** /api/v1/shop_sell/ | # Получить все магазины на продажу
 [**apiV1ShopSellGuidGet**](ShopSellApi.md#apiV1ShopSellGuidGet) | **GET** /api/v1/shop_sell/{guid} | # Получить магазин на продажу по GUID
+[**apiV1ShopSellGuidPatch**](ShopSellApi.md#apiV1ShopSellGuidPatch) | **PATCH** /api/v1/shop_sell/{guid} | # Обновить магазин на продажу.
 [**apiV1ShopSellPost**](ShopSellApi.md#apiV1ShopSellPost) | **POST** /api/v1/shop_sell/ | # Добавить на продажу новый магазин.
 
 
@@ -116,6 +117,60 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1ShopSellGuidPatch
+
+> String apiV1ShopSellGuidPatch(guid, opts)
+
+# Обновить магазин на продажу.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ShopSellApi();
+let guid = null; // String | GUID магазина на продажу в БД.
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject74() // InlineObject74 | 
+};
+apiInstance.apiV1ShopSellGuidPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID магазина на продажу в БД. | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject74**](InlineObject74.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## apiV1ShopSellPost
 
 > InlineResponse2015 apiV1ShopSellPost(opts)
@@ -136,7 +191,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ShopSellApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject71() // InlineObject71 | 
+  'body': new TestSwagger.InlineObject73() // InlineObject73 | 
 };
 apiInstance.apiV1ShopSellPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -152,7 +207,7 @@ apiInstance.apiV1ShopSellPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject71**](InlineObject71.md)|  | [optional] 
+ **body** | [**InlineObject73**](InlineObject73.md)|  | [optional] 
 
 ### Return type
 
