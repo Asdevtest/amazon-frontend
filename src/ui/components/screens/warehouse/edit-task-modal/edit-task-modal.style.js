@@ -2,15 +2,41 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(theme => ({
   root: {
+    width: '1480px',
     display: 'flex',
     flexDirection: 'column',
+  },
+  modalHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: '30px',
+    lineHeight: '41px',
+    fontWeight: 600,
+    color: '#001029',
+  },
+  typeTaskWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '20px',
+  },
+  typeTaskTitle: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: 600,
+    color: '#656565',
+  },
+  typeTaskSubTitle: {
+    fontSize: '30px',
+    lineHeight: '41px',
+    fontWeight: 600,
+    color: '#001029',
   },
   form: {
     marginTop: theme.spacing(2.5),
     marginBottom: theme.spacing(2.5),
-    border: '1px solid rgb(224, 224, 224)',
-    borderRadius: '5px',
-    padding: '20px',
   },
   warehouseInfoWrapper: {},
   ordersWrapper: {
@@ -19,14 +45,17 @@ export const useClassNames = makeStyles(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: '20px',
   },
   button: {
-    marginLeft: '10px',
-    display: 'flex',
+    width: '183px',
+    height: '40px',
   },
   subTitle: {
-    color: theme.palette.text.secondary,
-    marginLeft: theme.spacing(2),
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: 600,
+    color: '#001029',
   },
   field: {
     flexBasis: '100%',
@@ -41,6 +70,11 @@ export const useClassNames = makeStyles(theme => ({
     margin: '0 -20px',
     marginTop: theme.spacing(1.25),
     marginBottom: theme.spacing(2.5),
+  },
+
+  horizontalDivider: {
+    backgroundColor: '#E0E0E0',
+    margin: '20px 0',
   },
 
   carouselBox: {
@@ -107,12 +141,13 @@ export const useClassNames = makeStyles(theme => ({
     textAlign: 'center',
   },
   heightFieldAuto: {
-    height: 'auto',
-    minWidth: '380px',
+    height: '185px',
+    width: '330px',
   },
   commentsWrapper: {
+    width: '400px',
     display: 'flex',
-    gap: '10px',
+    gap: '30px',
   },
   filesInput: {
     width: '700px',
@@ -120,14 +155,27 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   imageFileInputWrapper: {
-    width: '100%',
+    width: '690px',
   },
 
   successBtn: {
-    backgroundColor: '#4CAF50',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#4CAF50',
-    },
+    width: '183px',
+    height: '40px',
+  },
+
+  commentsAndFilesWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  buttons: {
+    display: 'flex',
+    gap: '20px',
+  },
+
+  cancelButton: {
+    width: '183px',
+    height: '40px',
+    color: '#001029',
   },
 }))

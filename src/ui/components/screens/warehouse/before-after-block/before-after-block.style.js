@@ -3,6 +3,9 @@ import {tooltipClasses} from '@mui/material/Tooltip'
 const {makeStyles} = require('@material-ui/core')
 
 export const useClassNames = makeStyles(() => ({
+  boxWrapper: {
+    padding: '20px 30px',
+  },
   boxesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -18,7 +21,7 @@ export const useClassNames = makeStyles(() => ({
   },
   newBoxes: {},
   box: {
-    minWidth: '300px',
+    // width: '690px',
     marginBottom: '20px',
   },
   itemsWrapper: {
@@ -39,18 +42,20 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     marginBottom: '20px',
-    padding: '10px',
+    // padding: '10px',
+    width: '100%',
   },
   chipWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    marginTop: '10px',
-    padding: '5px',
+    alignItems: 'center',
+    gap: '30px',
+    // marginTop: '10px',
+    // padding: '5px',
   },
   categoryTitle: {
-    fontSize: '16px',
-    lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#001029',
     fontWeight: '600',
     marginBottom: '12px',
   },
@@ -63,16 +68,17 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '10px',
     height: '220px',
   },
-  // editBtn: {
-  //   marginTop: '5px',
-  // },
+  editBtn: {
+    width: '183px',
+    height: '40px',
+  },
   bottomBlockWrapper: {
-    marginTop: '5px',
+    marginTop: '20px',
   },
   editBtnWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   superWrapper: {
@@ -93,18 +99,20 @@ export const useClassNames = makeStyles(() => ({
     overflowX: 'auto',
   },
   fieldsWrapper: {
-    padding: '0 10px',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 
   boxInfoWrapper: {
     display: 'flex',
+    gap: '76px',
   },
 
   imagesWrapper: {
-    marginTop: '10px',
+    // marginTop: '10px',
     display: 'flex',
     flexDirection: 'column',
-    padding: '5px',
+    // padding: '5px',
   },
 
   photoWrapper: {
@@ -137,9 +145,9 @@ export const useClassNames = makeStyles(() => ({
 
   checkboxContainer: {
     display: 'flex',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     width: '100%',
-    padding: '5px',
+    margin: 0,
   },
 
   imageLinkListItem: {
@@ -216,5 +224,121 @@ export const useClassNames = makeStyles(() => ({
 
   greenText: {
     color: 'green',
+  },
+
+  field: {
+    width: '330px',
+  },
+
+  sectionTitle: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: 600,
+    color: '#001029',
+  },
+  sectionTitleWrapper: {
+    marginBottom: '20px',
+  },
+
+  hideBlock: {
+    maxHeight: 0,
+    overflow: 'hidden',
+  },
+
+  showFullBlock: {
+    maxHeight: '100%',
+    overflow: 'visible',
+  },
+
+  tablePanelSortWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '60px',
+    cursor: 'pointer',
+  },
+
+  tablePanelViewText: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: 400,
+    color: '#006CFF',
+  },
+
+  photoAndFilesTitle: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#001029',
+    fontWeight: '600',
+  },
+  label: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#001029',
+    fontWeight: 400,
+  },
+  footerWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  barCodeField: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#006CFF',
+    fontWeight: '400',
+  },
+
+  subTitle: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#001029',
+    fontWeight: 600,
+  },
+  copyImg: {
+    width: '20px',
+    height: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
+  },
+
+  barCode: {
+    display: 'flex',
+    gap: '12px',
+    alignItems: 'center',
+  },
+
+  receiveBoxWrapper: {
+    width: '690px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  receiveBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  buttonWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '20px',
+  },
+  button: {
+    width: '183px',
+    height: '40px',
+  },
+
+  receiveBoxTitle: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: 400,
+    color: '#001029',
+    marginTop: '90px',
   },
 }))

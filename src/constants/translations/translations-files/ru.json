@@ -1396,5 +1396,12 @@
   "Assign several supplier search tasks to a Buyer": "Закрепить несколько задач на поиск поставщика за Байером",
   "Link to the product": "Ссылка на продукт",
   "Reffee must be a number conforming to the specified constraints": "Reffee должно быть числом, соответствующим заданным ограничениям",
-  "Min purchase price must be a number conforming to the specified constraints": "Мин закуп. цена должна быть числом, соответствующим заданным ограничениям"
+  "Min purchase price must be a number conforming to the specified constraints": "Мин закуп. цена должна быть числом, соответствующим заданным ограничениям",
+  "Receiving the box": "Принятие коробки",
+  "Splitting the box": "Разделение коробки",
+  "Task type": "Тип задачи",
+  "Super Box": "Супер бокс",
+  "Photos and documents of the box": "Фотографии и документы коробки",
+  "Photos and order documents": "Фотографии и документы заказа",
+  "Add boxes that have arrived in stock": "Добавьте коробки, поступившие на склад"
 }

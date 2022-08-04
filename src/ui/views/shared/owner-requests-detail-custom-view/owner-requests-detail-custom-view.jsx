@@ -13,6 +13,7 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {OwnerRequestProposalsCard} from '@components/cards/owner-request-proposals-card'
 import {MultipleChats} from '@components/chat/multiple-chats'
+import {RequestProposalAcceptResultForm} from '@components/forms/request-proposal-accept-result-form'
 import {RequestProposalResultToCorrectForm} from '@components/forms/request-proposal-result-to-correct-form'
 import {ReviewsForm} from '@components/forms/reviews-form'
 import {Main} from '@components/main'
@@ -229,7 +230,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             openModal={showConfirmWorkResultFormModal}
             setOpenModal={() => onTriggerOpenModal('showConfirmWorkResultFormModal')}
           >
-            <RequestProposalResultToCorrectForm onPressSubmitForm={acceptProposalResultSetting.onSubmit} />
+            <RequestProposalAcceptResultForm onSubmit={acceptProposalResultSetting.onSubmit} />
           </Modal>
 
           <ConfirmationModal

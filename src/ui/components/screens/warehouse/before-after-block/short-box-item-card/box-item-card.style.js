@@ -23,18 +23,12 @@ export const useClassNames = makeStyles({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '19px',
-    width: '280px',
+    width: '100%',
     maxHeight: '150px',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     overflowY: 'auto',
     color: '#001029',
-  },
-  barCodeField: {
-    fontSize: '14px',
-    fontWeight: 400,
-    lineHeight: '16px',
-    // width: '280px',
   },
 
   subTitle: {
@@ -61,16 +55,7 @@ export const useClassNames = makeStyles({
     lineHeight: '19px',
     fontWeight: 600,
   },
-  inputWrapper: {
-    border: '1px solid rgba(143, 152, 165, 1)',
-    borderRadius: '4px',
-    maxWidth: '80px',
-    height: '40px',
-  },
-  input: {
-    fontSize: '20px',
-    textAlign: 'center',
-  },
+
   countWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -93,10 +78,7 @@ export const useClassNames = makeStyles({
     fontSize: '22px',
     color: 'rgba(143, 152, 165, 1)',
   },
-  chipWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
+
   mainWrapper: {
     display: 'flex',
     // justifyContent: 'space-between',
@@ -130,21 +112,11 @@ export const useClassNames = makeStyles({
       transform: 'scale(1.2)',
     },
   },
-  barCodeWrapper: {
-    display: 'flex',
-    gap: '15px',
-    alignItems: 'center',
-    marginTop: '10px',
-  },
-  barCode: {
-    display: 'flex',
-    gap: '12px',
-    alignItems: 'center',
-  },
+
   attributeFooterWrapper: {
-    display: 'flex',
-    alignItems: 'start',
-    justifyContent: 'space-between',
+    // display: 'flex',
+    // alignItems: 'start',
+    // justifyContent: 'space-between',
   },
 
   label: {

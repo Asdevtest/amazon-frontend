@@ -1396,5 +1396,12 @@
   "Assign several supplier search tasks to a Buyer": "Assign several supplier search tasks to a Buyer",
   "Link to the product": "Link to the product",
   "Reffee must be a number conforming to the specified constraints": "Reffee must be a number conforming to the specified constraints",
-  "Min purchase price must be a number conforming to the specified constraints": "Min purchase price must be a number conforming to the specified constraints"
+  "Min purchase price must be a number conforming to the specified constraints": "Min purchase price must be a number conforming to the specified constraints",
+  "Receiving the box": "Receiving the box",
+  "Splitting the box": "Splitting the box",
+  "Task type": "Task type",
+  "Super Box": "Super Box",
+  "Photos and documents of the box": "Photos and documents of the box",
+  "Photos and order documents": "Photos and order documents",
+  "Add boxes that have arrived in stock": "Add boxes that have arrived in stock"
 }
