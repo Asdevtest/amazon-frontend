@@ -652,14 +652,27 @@ export const useClassNames = makeStyles(() => ({
     margin: '0 20px',
   },
 
-  totalsSubWrapper: {
+  totalsSubMainWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
   },
+
+  totalsSubWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    // justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  // totalsSubWrapper: {
+  //   display: 'flex',
+  //   justifyContent: 'space-between',
+  //   alignItems: 'flex-end',
+  // },
 
   totalLabel: {
     fontSize: 14,
+    whiteSpace: 'nowrap',
 
     color: '#656565',
   },
@@ -669,10 +682,10 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
 
-    width: 250,
+    // width: 250,
     // width: 200,
     // width: 175,
-    // width: 'max-content',
+    width: 'min-content',
   },
 
   totalText: {
@@ -698,6 +711,7 @@ export const useClassNames = makeStyles(() => ({
   totalsContainer: {
     height: '600px',
     minWidth: 400,
+    // width: 700,
   },
 
   btnsWrapper: {
@@ -745,7 +759,7 @@ export const useClassNames = makeStyles(() => ({
   totalsPercentsContainer: {
     display: 'flex',
 
-    width: 250,
+    width: 200,
 
     justifyContent: 'space-between',
   },

@@ -349,48 +349,49 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
           containerClasses={classNames.totalsContainer}
           inputComponent={
             <div className={classNames.totalsWrapper}>
-              <div className={classNames.totalsSubWrapper}>
-                <Field
-                  labelClasses={classNames.totalLabel}
-                  containerClasses={classNames.totalContainer}
-                  label={t(TranslationKey['Average. Monthly income'])}
-                  inputComponent={
-                    <Typography className={classNames.totalText}>
-                      {toFixedWithDollarSign(averageGrossIncome, 2)}
-                    </Typography>
-                  }
-                />
+              <div className={classNames.totalsSubMainWrapper}>
+                <div className={classNames.totalsSubWrapper}>
+                  <Field
+                    labelClasses={classNames.totalLabel}
+                    containerClasses={classNames.totalContainer}
+                    label={t(TranslationKey['Average. Monthly net profit'])}
+                    inputComponent={
+                      <Typography className={classNames.totalText}>
+                        {toFixedWithDollarSign(averagePureIncome, 2)}
+                      </Typography>
+                    }
+                  />
+                  <Field
+                    labelClasses={classNames.totalLabel}
+                    containerClasses={classNames.totalContainer}
+                    label={t(TranslationKey.Profitability)}
+                    inputComponent={
+                      <Typography className={classNames.totalText}>{`${toFixed(profitability, 2)} %`}</Typography>
+                    }
+                  />
+                </div>
 
-                <Field
-                  labelClasses={classNames.totalLabel}
-                  containerClasses={classNames.totalContainer}
-                  label={t(TranslationKey['Average. Monthly net profit'])}
-                  inputComponent={
-                    <Typography className={classNames.totalText}>
-                      {toFixedWithDollarSign(averagePureIncome, 2)}
-                    </Typography>
-                  }
-                />
-              </div>
+                <div className={classNames.totalsSubWrapper}>
+                  <Field
+                    labelClasses={classNames.totalLabel}
+                    containerClasses={classNames.totalContainer}
+                    label={t(TranslationKey['Average. Monthly income'])}
+                    inputComponent={
+                      <Typography className={classNames.totalText}>
+                        {toFixedWithDollarSign(averageGrossIncome, 2)}
+                      </Typography>
+                    }
+                  />
 
-              <div className={classNames.totalsSubWrapper}>
-                <Field
-                  labelClasses={classNames.totalLabel}
-                  containerClasses={classNames.totalContainer}
-                  label={t(TranslationKey.Profitability)}
-                  inputComponent={
-                    <Typography className={classNames.totalText}>{`${toFixed(profitability, 2)} %`}</Typography>
-                  }
-                />
-
-                <Field
-                  labelClasses={classNames.totalLabel}
-                  containerClasses={classNames.totalContainer}
-                  label={t(TranslationKey['Monthly multiplier'])}
-                  inputComponent={
-                    <Typography className={classNames.totalText}>{`${toFixed(monthlyMultiplier, 2)} x`}</Typography>
-                  }
-                />
+                  <Field
+                    labelClasses={classNames.totalLabel}
+                    containerClasses={classNames.totalContainer}
+                    label={t(TranslationKey['Monthly multiplier'])}
+                    inputComponent={
+                      <Typography className={classNames.totalText}>{`${toFixed(monthlyMultiplier, 2)} x`}</Typography>
+                    }
+                  />
+                </div>
               </div>
 
               <div className={classNames.totalsPercentsWrapper}>

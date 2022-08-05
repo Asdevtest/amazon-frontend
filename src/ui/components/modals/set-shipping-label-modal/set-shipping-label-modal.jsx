@@ -17,9 +17,9 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, i
   const classNames = useClassNames()
 
   const shippingLabel =
-    item?.shippingLabel.length > 200
+    (item?.shippingLabel?.length > 200
       ? item?.shippingLabel.slice(0, 195) + '...' + item?.shippingLabel.slice(item?.shippingLabel.length - 3)
-      : item?.shippingLabel
+      : item?.shippingLabel) || ''
 
   const [files, setFiles] = useState(tmpShippingLabel?.length ? [...tmpShippingLabel] : [])
 
@@ -37,7 +37,7 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, i
             label={t(TranslationKey['Shipping label'])}
             inputComponent={
               <div className={classNames.linkWrapper}>
-                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(shippingLabel)}>
+                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item?.shippingLabel)}>
                   <Typography className={classNames.link}>{shippingLabel}</Typography>
                 </Link>
 

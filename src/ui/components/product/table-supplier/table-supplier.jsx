@@ -83,7 +83,9 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
 
                 <TableCell className={classNames.alignCenter}>{supplier.minlot}</TableCell>
 
-                <TableCell className={classNames.alignCenter}>{toFixedWithDollarSign(supplier.lotcost, 2)}</TableCell>
+                <TableCell className={classNames.alignCenter}>
+                  {toFixedWithDollarSign(supplier.batchTotalCostInDollar, 2)}
+                </TableCell>
 
                 <TableCell className={[classNames.alignCenter, classNames.commentCell]}>{supplier.comment}</TableCell>
 

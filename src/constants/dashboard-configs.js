@@ -51,6 +51,7 @@ export const getResearcherDashboardCardConfig = () => [
         dataKey: ResearcherDashboardCardDataKey.ON_SUPPLIER_SEEKING_BY_BUYER,
         title: t(TranslationKey["Buyer's search for a supplier"]),
         color: '#ffc107',
+        route: '/researcher/products',
       },
       {
         dataKey: ResearcherDashboardCardDataKey.NO_STATUS,

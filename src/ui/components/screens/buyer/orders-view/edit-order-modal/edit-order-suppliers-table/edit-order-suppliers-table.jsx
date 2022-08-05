@@ -92,7 +92,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                 </TableCell>
                 <TableCell className={classNames.alignCenter}>
                   <Typography className={classNames.amountCell}>
-                    {toFixedWithDollarSign(supplier.lotcost, 2)}
+                    {toFixedWithDollarSign(supplier.batchTotalCostInDollar, 2)}
                   </Typography>
                 </TableCell>
                 <TableCell className={classNames.alignCenter}>

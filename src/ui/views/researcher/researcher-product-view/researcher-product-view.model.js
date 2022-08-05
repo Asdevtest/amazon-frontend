@@ -482,7 +482,7 @@ export class ResearcherProductViewModel {
       supplier = {
         ...supplier,
         amount: parseFloat(supplier?.amount) || '',
-        lotcost: parseFloat(supplier?.lotcost) || '',
+
         minlot: parseInt(supplier?.minlot) || '',
         price: parseFloat(supplier?.price) || '',
         images: supplier.images.concat(this.readyImages),
