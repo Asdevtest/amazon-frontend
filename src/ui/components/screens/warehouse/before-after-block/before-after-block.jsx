@@ -42,7 +42,7 @@ const Box = observer(
   }) => {
     const classNames = useClassNames()
 
-    const [showFullCard, setShowFullCard] = useState(true)
+    const [showFullCard, setShowFullCard] = useState(false)
 
     const onChangeField = (value, field) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
@@ -89,7 +89,7 @@ const Box = observer(
     }
 
     return (
-      <div className={(classNames.box, classNames.mainPaper)}>
+      <div className={classNames.mainPaper}>
         <div className={classNames.fieldsWrapper}>
           <div>
             <Field
@@ -118,7 +118,7 @@ const Box = observer(
             <Typography>{`x${box.amount}`}</Typography>
           </div>
         )}
-        {!showFullCard ? (
+        {!showFullCard && isEdit ? (
           <Paper className={classNames.boxWrapper}>
             <div className={classNames.itemsWrapper}>
               {box.items?.map((item, index) => (
@@ -459,23 +459,24 @@ const NewBoxes = observer(
         >
           {t(TranslationKey['New boxes'])}
         </Text>
-
-        {newBoxes.map((box, boxIndex) => (
-          <Box
-            key={boxIndex}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            isNewBox={isNewBox}
-            box={box}
-            setCurBox={setCurBox}
-            isEdit={isEdit}
-            taskType={taskType}
-            newBoxes={newBoxes}
-            setNewBoxes={setNewBoxes}
-            showEditBoxModal={showEditBoxModal}
-            onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
-            onClickEditBox={onClickEditBox}
-          />
-        ))}
+        <div className={classNames.newBoxesWrapper}>
+          {newBoxes.map((box, boxIndex) => (
+            <Box
+              key={boxIndex}
+              volumeWeightCoefficient={volumeWeightCoefficient}
+              isNewBox={isNewBox}
+              box={box}
+              setCurBox={setCurBox}
+              isEdit={isEdit}
+              taskType={taskType}
+              newBoxes={newBoxes}
+              setNewBoxes={setNewBoxes}
+              showEditBoxModal={showEditBoxModal}
+              onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
+              onClickEditBox={onClickEditBox}
+            />
+          ))}
+        </div>
 
         <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
           <EditBoxTasksModal
@@ -555,9 +556,9 @@ export const BeforeAfterBlock = observer(
       <div className={classNames.boxesWrapper}>
         <CurrentBox currentBoxes={incomingBoxes} />
 
-        <Divider flexItem className={classNames.divider} orientation="vertical" />
+        {desiredBoxes.length > 0 && <Divider flexItem className={classNames.divider} orientation="vertical" />}
 
-        {desiredBoxes.length > 0 ? (
+        {desiredBoxes.length > 0 && (
           <NewBoxes
             isNewBox
             isEdit={isEdit}
@@ -570,7 +571,8 @@ export const BeforeAfterBlock = observer(
             onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
             onClickEditBox={onClickEditBox}
           />
-        ) : (
+        )}
+        {taskType === TaskOperationType.RECEIVE && desiredBoxes.length === 0 && incomingBoxes.length > 0 && (
           <ReceiveBoxes taskType={taskType} onClickOpenModal={onClickOpenModal} />
         )}
       </div>

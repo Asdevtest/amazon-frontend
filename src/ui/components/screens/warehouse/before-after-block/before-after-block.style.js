@@ -13,17 +13,20 @@ export const useClassNames = makeStyles(() => ({
   buttonsWrapper: {},
   currentBox: {
     marginBottom: '20px',
+    width: '690px',
   },
+
   currentBoxFooter: {
     display: 'flex',
     alignItems: 'flex-end',
     height: '60px',
   },
-  newBoxes: {},
-  box: {
-    // width: '690px',
-    marginBottom: '20px',
+  newBoxesWrapper: {
+    maxHeight: '730px',
+    overflow: 'auto',
   },
+  newBoxes: {},
+
   itemsWrapper: {
     marginTop: '5px',
   },
