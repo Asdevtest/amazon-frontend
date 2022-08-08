@@ -5,7 +5,7 @@ import {t} from 'i18n-js'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  ActiveBarcodeCell,
+  // ActiveBarcodeCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
@@ -14,11 +14,12 @@ import {
   UserLinkCell,
   OrderStatusCell,
   MultilineTextAlignLeftHeaderCell,
+  DownloadAndCopyBtnsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
 
-export const clientOrdersViewColumns = () => [
+export const clientOrdersViewColumns = firstRowId => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID),
@@ -50,8 +51,8 @@ export const clientOrdersViewColumns = () => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 150,
-    renderCell: params => <ActiveBarcodeCell barCode={params.value} />,
+    width: 170,
+    renderCell: params => <DownloadAndCopyBtnsCell value={params.value} isFirstRow={firstRowId === params.row.id} />,
   },
 
   {

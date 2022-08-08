@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **price** | **Number** | Цена за еденицу, dollar | 
 **amount** | **Number** | кол-во | 
 **minlot** | **Number** | Минимальный лот. | 
-**lotcost** | **Number** | Стоимость лота. | 
 **images** | **[String]** | Массив картинок. | [optional] 
 **comment** | **String** | Комментарий | 
 **yuanRate** | **Number** | Курс доллара к юаню поставщика.  | [optional] 

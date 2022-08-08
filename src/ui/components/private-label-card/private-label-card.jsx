@@ -52,10 +52,13 @@ export const PrivateLabelCard = ({item, setProductToPay, index}) => {
 
         <Divider className={classNames.divider} />
 
-        <InfoRow label={t(TranslationKey['Average BSR'])} value={item.bsr} />
+        <InfoRow label={t(TranslationKey['Average BSR'])} value={item.avgBSR || item.bsr} />
 
         <InfoRow label={t(TranslationKey['Average Review'])} value={item.avgReviews} />
-        <InfoRow label={t(TranslationKey['Average revenue'])} value={toFixedWithDollarSign(item.profit, 2)} />
+        <InfoRow
+          label={t(TranslationKey['Average revenue'])}
+          value={item.avgRevenue ? toFixedWithDollarSign(item.avgRevenue, 2) : toFixedWithDollarSign(item.profit, 2)}
+        />
 
         <div className={classNames.buttonsWrapper}>
           <Button

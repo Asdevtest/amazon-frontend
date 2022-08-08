@@ -1125,6 +1125,34 @@ export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, val
   )
 })
 
+export const DownloadAndCopyBtnsCell = withStyles(styles)(({classes: classNames, value, isFirstRow}) => {
+  const copyValue = () => {
+    navigator.clipboard.writeText(value)
+  }
+
+  return (
+    <>
+      {value ? (
+        <div className={classNames.shopsReportBtnsWrapper}>
+          <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
+            <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
+              {t(TranslationKey.download)}
+            </a>
+          </Text>
+          <Button
+            tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])}
+            className={classNames.copyImgButton}
+          >
+            <img className={classNames.copyImg} src="/assets/icons/copy-img.svg" alt="" onClick={copyValue} />
+          </Button>
+        </div>
+      ) : (
+        <Typography>{'-'}</Typography>
+      )}
+    </>
+  )
+})
+
 export const ShortBoxDimensions = withStyles(styles)(({classes: classNames, box, volumeWeightCoefficient}) => {
   const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
   return (

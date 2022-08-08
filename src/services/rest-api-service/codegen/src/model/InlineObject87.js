@@ -63,9 +63,6 @@ class InlineObject87 {
             if (data.hasOwnProperty('minlot')) {
                 obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
             }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
-            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -132,12 +129,6 @@ InlineObject87.prototype['amount'] = undefined;
  * @member {Number} minlot
  */
 InlineObject87.prototype['minlot'] = undefined;
-
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-InlineObject87.prototype['lotcost'] = undefined;
 
 /**
  * Массив картинок.

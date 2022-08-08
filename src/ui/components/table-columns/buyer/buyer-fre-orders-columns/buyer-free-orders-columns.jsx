@@ -3,13 +3,13 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  ActiveBarcodeCell,
   OrderCell,
   MultilineTextCell,
   NormDateCell,
   NormalActionBtnCell,
   UserLinkCell,
   MultilineTextHeaderCell,
+  DownloadAndCopyBtnsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -67,8 +67,8 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    renderCell: params => <ActiveBarcodeCell barCode={params.value} />,
     width: 200,
+    renderCell: params => <DownloadAndCopyBtnsCell value={params.value} isFirstRow={firstRowId === params.row.id} />,
   },
 
   {

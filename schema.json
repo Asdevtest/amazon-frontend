@@ -892,7 +892,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -998,7 +997,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -1381,7 +1379,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -1487,7 +1484,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -1871,7 +1867,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -1977,7 +1972,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -2360,7 +2354,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -2466,7 +2459,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -3095,7 +3087,6 @@
                             "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                             "amount": {"type": "number", "description": "кол-во", "example": 300},
                             "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                            "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                             "images": {
                               "type": "array",
                               "nullable": true,
@@ -3209,7 +3200,6 @@
                           "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                           "amount": {"type": "number", "description": "кол-во", "example": 300},
                           "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                          "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                           "images": {
                             "type": "array",
                             "nullable": true,
@@ -3619,7 +3609,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -4758,7 +4747,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -4864,7 +4852,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -5701,7 +5688,6 @@
                                         },
                                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                         "images": {
                                           "type": "array",
                                           "nullable": true,
@@ -5831,7 +5817,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -6484,11 +6469,6 @@
                                               "description": "Минимальный лот.",
                                               "example": 30
                                             },
-                                            "lotcost": {
-                                              "type": "number",
-                                              "description": "Стоимость лота.",
-                                              "example": 300
-                                            },
                                             "images": {
                                               "type": "array",
                                               "nullable": true,
@@ -6621,11 +6601,6 @@
                                             "type": "number",
                                             "description": "Минимальный лот.",
                                             "example": 30
-                                          },
-                                          "lotcost": {
-                                            "type": "number",
-                                            "description": "Стоимость лота.",
-                                            "example": 300
                                           },
                                           "images": {
                                             "type": "array",
@@ -7141,7 +7116,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -8059,7 +8033,6 @@
                                   },
                                   "amount": {"type": "number", "description": "кол-во", "example": 300},
                                   "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                  "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                   "images": {
                                     "type": "array",
                                     "nullable": true,
@@ -8185,7 +8158,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -8782,7 +8754,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -8912,7 +8883,6 @@
                                     },
                                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                     "images": {
                                       "type": "array",
                                       "nullable": true,
@@ -9364,7 +9334,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -9914,7 +9883,6 @@
                                   },
                                   "amount": {"type": "number", "description": "кол-во", "example": 300},
                                   "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                  "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                   "images": {
                                     "type": "array",
                                     "nullable": true,
@@ -10040,7 +10008,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -10637,7 +10604,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -10767,7 +10733,6 @@
                                     },
                                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                     "images": {
                                       "type": "array",
                                       "nullable": true,
@@ -11219,7 +11184,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -11742,7 +11706,6 @@
                                   },
                                   "amount": {"type": "number", "description": "кол-во", "example": 300},
                                   "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                  "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                   "images": {
                                     "type": "array",
                                     "nullable": true,
@@ -11868,7 +11831,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -12465,7 +12427,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -12595,7 +12556,6 @@
                                     },
                                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                     "images": {
                                       "type": "array",
                                       "nullable": true,
@@ -13047,7 +13007,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -14190,7 +14149,6 @@
                                   },
                                   "amount": {"type": "number", "description": "кол-во", "example": 300},
                                   "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                  "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                   "images": {
                                     "type": "array",
                                     "nullable": true,
@@ -14316,7 +14274,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -14913,7 +14870,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -15043,7 +14999,6 @@
                                     },
                                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                     "images": {
                                       "type": "array",
                                       "nullable": true,
@@ -15495,7 +15450,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -16321,7 +16275,6 @@
                                   },
                                   "amount": {"type": "number", "description": "кол-во", "example": 300},
                                   "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                  "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                   "images": {
                                     "type": "array",
                                     "nullable": true,
@@ -16447,7 +16400,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -17044,7 +16996,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -17174,7 +17125,6 @@
                                     },
                                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                     "images": {
                                       "type": "array",
                                       "nullable": true,
@@ -17626,7 +17576,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -18146,7 +18095,6 @@
                                   },
                                   "amount": {"type": "number", "description": "кол-во", "example": 300},
                                   "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                  "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                   "images": {
                                     "type": "array",
                                     "nullable": true,
@@ -18272,7 +18220,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -18869,7 +18816,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -18999,7 +18945,6 @@
                                     },
                                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                     "images": {
                                       "type": "array",
                                       "nullable": true,
@@ -19451,7 +19396,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -19926,7 +19870,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -20032,7 +19975,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -20442,7 +20384,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -20548,7 +20489,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -21157,7 +21097,6 @@
                             "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                             "amount": {"type": "number", "description": "кол-во", "example": 300},
                             "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                            "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                             "images": {
                               "type": "array",
                               "nullable": true,
@@ -21271,7 +21210,6 @@
                           "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                           "amount": {"type": "number", "description": "кол-во", "example": 300},
                           "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                          "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                           "images": {
                             "type": "array",
                             "nullable": true,
@@ -21681,7 +21619,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -21990,7 +21927,6 @@
                           "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                           "amount": {"type": "number", "description": "кол-во", "example": 300},
                           "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                          "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                           "images": {
                             "type": "array",
                             "nullable": true,
@@ -22100,7 +22036,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -22501,7 +22436,6 @@
                     "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                     "images": {
                       "type": "array",
                       "nullable": true,
@@ -22833,7 +22767,6 @@
                             "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                             "amount": {"type": "number", "description": "кол-во", "example": 300},
                             "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                            "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                             "images": {
                               "type": "array",
                               "nullable": true,
@@ -22947,7 +22880,6 @@
                           "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                           "amount": {"type": "number", "description": "кол-во", "example": 300},
                           "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                          "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                           "images": {
                             "type": "array",
                             "nullable": true,
@@ -23357,7 +23289,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -23934,7 +23865,6 @@
                                         },
                                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                         "images": {
                                           "type": "array",
                                           "nullable": true,
@@ -24064,7 +23994,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -24717,11 +24646,6 @@
                                               "description": "Минимальный лот.",
                                               "example": 30
                                             },
-                                            "lotcost": {
-                                              "type": "number",
-                                              "description": "Стоимость лота.",
-                                              "example": 300
-                                            },
                                             "images": {
                                               "type": "array",
                                               "nullable": true,
@@ -24854,11 +24778,6 @@
                                             "type": "number",
                                             "description": "Минимальный лот.",
                                             "example": 30
-                                          },
-                                          "lotcost": {
-                                            "type": "number",
-                                            "description": "Стоимость лота.",
-                                            "example": 300
                                           },
                                           "images": {
                                             "type": "array",
@@ -25374,7 +25293,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -25904,7 +25822,6 @@
                                         },
                                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                         "images": {
                                           "type": "array",
                                           "nullable": true,
@@ -26034,7 +25951,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -26687,11 +26603,6 @@
                                               "description": "Минимальный лот.",
                                               "example": 30
                                             },
-                                            "lotcost": {
-                                              "type": "number",
-                                              "description": "Стоимость лота.",
-                                              "example": 300
-                                            },
                                             "images": {
                                               "type": "array",
                                               "nullable": true,
@@ -26824,11 +26735,6 @@
                                             "type": "number",
                                             "description": "Минимальный лот.",
                                             "example": 30
-                                          },
-                                          "lotcost": {
-                                            "type": "number",
-                                            "description": "Стоимость лота.",
-                                            "example": 300
                                           },
                                           "images": {
                                             "type": "array",
@@ -27344,7 +27250,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -27794,7 +27699,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -27900,7 +27804,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -28557,7 +28460,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -28663,7 +28565,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -29375,7 +29276,6 @@
                             "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                             "amount": {"type": "number", "description": "кол-во", "example": 300},
                             "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                            "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                             "images": {
                               "type": "array",
                               "nullable": true,
@@ -29489,7 +29389,6 @@
                           "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                           "amount": {"type": "number", "description": "кол-во", "example": 300},
                           "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                          "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                           "images": {
                             "type": "array",
                             "nullable": true,
@@ -29899,7 +29798,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -30273,7 +30171,6 @@
                           "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                           "amount": {"type": "number", "description": "кол-во", "example": 300},
                           "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                          "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                           "images": {
                             "type": "array",
                             "nullable": true,
@@ -30383,7 +30280,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -30784,7 +30680,6 @@
                     "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                     "images": {
                       "type": "array",
                       "nullable": true,
@@ -31097,7 +30992,6 @@
                             "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                             "amount": {"type": "number", "description": "кол-во", "example": 300},
                             "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                            "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                             "images": {
                               "type": "array",
                               "nullable": true,
@@ -31211,7 +31105,6 @@
                           "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                           "amount": {"type": "number", "description": "кол-во", "example": 300},
                           "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                          "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                           "images": {
                             "type": "array",
                             "nullable": true,
@@ -31621,7 +31514,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -34200,6 +34092,24 @@
         }
       }
     },
+    "/api/v1/other/suppliers/suppliers_xlsx": {
+      "post": {
+        "summary": "# Добавить новых поставщиков через XLSX (Excel) файл",
+        "description": "## Пример файла: https://docs.google.com/spreadsheets/d/1k9WYc8A3vQZ_JiG9pmNQ7Yij-ESAn2oEG0a-8GETQuc/edit?usp=sharing \n\n ВОЗВРАЩАЕТ МАССИВ ИНДЕКСОВ СТРОК, КОТОРЫЕ БЫЛИ НЕВАЛИДНЫМИ И НЕ БЫЛИ ДОБАВЛЕНЫ",
+        "tags": ["Other"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "201": {
+            "description": "Успешный ответ.",
+            "schema": {"type": "array", "description": "Успешный ответ.", "items": {"type": "number"}}
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/permissions/": {
       "post": {
         "summary": "# Создать permission.",
@@ -34481,7 +34391,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -34583,7 +34492,6 @@
                     "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                     "images": {
                       "type": "array",
                       "nullable": true,
@@ -34957,7 +34865,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -35063,7 +34970,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -36916,7 +36822,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -37022,7 +36927,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -37535,7 +37439,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -37637,7 +37540,6 @@
                     "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                     "images": {
                       "type": "array",
                       "nullable": true,
@@ -38957,7 +38859,6 @@
                                         },
                                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                         "images": {
                                           "type": "array",
                                           "nullable": true,
@@ -39087,7 +38988,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -39740,11 +39640,6 @@
                                               "description": "Минимальный лот.",
                                               "example": 30
                                             },
-                                            "lotcost": {
-                                              "type": "number",
-                                              "description": "Стоимость лота.",
-                                              "example": 300
-                                            },
                                             "images": {
                                               "type": "array",
                                               "nullable": true,
@@ -39877,11 +39772,6 @@
                                             "type": "number",
                                             "description": "Минимальный лот.",
                                             "example": 30
-                                          },
-                                          "lotcost": {
-                                            "type": "number",
-                                            "description": "Стоимость лота.",
-                                            "example": 300
                                           },
                                           "images": {
                                             "type": "array",
@@ -40397,7 +40287,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -40927,7 +40816,6 @@
                                         },
                                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                         "images": {
                                           "type": "array",
                                           "nullable": true,
@@ -41057,7 +40945,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -41710,11 +41597,6 @@
                                               "description": "Минимальный лот.",
                                               "example": 30
                                             },
-                                            "lotcost": {
-                                              "type": "number",
-                                              "description": "Стоимость лота.",
-                                              "example": 300
-                                            },
                                             "images": {
                                               "type": "array",
                                               "nullable": true,
@@ -41847,11 +41729,6 @@
                                             "type": "number",
                                             "description": "Минимальный лот.",
                                             "example": 30
-                                          },
-                                          "lotcost": {
-                                            "type": "number",
-                                            "description": "Стоимость лота.",
-                                            "example": 300
                                           },
                                           "images": {
                                             "type": "array",
@@ -42367,7 +42244,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -42970,7 +42846,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -43100,7 +42975,6 @@
                                     },
                                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                     "images": {
                                       "type": "array",
                                       "nullable": true,
@@ -43713,11 +43587,6 @@
                                             "description": "Минимальный лот.",
                                             "example": 30
                                           },
-                                          "lotcost": {
-                                            "type": "number",
-                                            "description": "Стоимость лота.",
-                                            "example": 300
-                                          },
                                           "images": {
                                             "type": "array",
                                             "nullable": true,
@@ -43847,7 +43716,6 @@
                                         },
                                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                         "images": {
                                           "type": "array",
                                           "nullable": true,
@@ -44354,7 +44222,6 @@
                                     },
                                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                     "images": {
                                       "type": "array",
                                       "nullable": true,
@@ -44876,7 +44743,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -45006,7 +44872,6 @@
                                     },
                                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                     "images": {
                                       "type": "array",
                                       "nullable": true,
@@ -45619,11 +45484,6 @@
                                             "description": "Минимальный лот.",
                                             "example": 30
                                           },
-                                          "lotcost": {
-                                            "type": "number",
-                                            "description": "Стоимость лота.",
-                                            "example": 300
-                                          },
                                           "images": {
                                             "type": "array",
                                             "nullable": true,
@@ -45753,7 +45613,6 @@
                                         },
                                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                         "images": {
                                           "type": "array",
                                           "nullable": true,
@@ -46260,7 +46119,6 @@
                                     },
                                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                     "images": {
                                       "type": "array",
                                       "nullable": true,
@@ -47250,7 +47108,6 @@
                                         },
                                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                         "images": {
                                           "type": "array",
                                           "nullable": true,
@@ -47380,7 +47237,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -48033,11 +47889,6 @@
                                               "description": "Минимальный лот.",
                                               "example": 30
                                             },
-                                            "lotcost": {
-                                              "type": "number",
-                                              "description": "Стоимость лота.",
-                                              "example": 300
-                                            },
                                             "images": {
                                               "type": "array",
                                               "nullable": true,
@@ -48170,11 +48021,6 @@
                                             "type": "number",
                                             "description": "Минимальный лот.",
                                             "example": 30
-                                          },
-                                          "lotcost": {
-                                            "type": "number",
-                                            "description": "Стоимость лота.",
-                                            "example": 300
                                           },
                                           "images": {
                                             "type": "array",
@@ -48690,7 +48536,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -49220,7 +49065,6 @@
                                         },
                                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                         "images": {
                                           "type": "array",
                                           "nullable": true,
@@ -49350,7 +49194,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -50003,11 +49846,6 @@
                                               "description": "Минимальный лот.",
                                               "example": 30
                                             },
-                                            "lotcost": {
-                                              "type": "number",
-                                              "description": "Стоимость лота.",
-                                              "example": 300
-                                            },
                                             "images": {
                                               "type": "array",
                                               "nullable": true,
@@ -50140,11 +49978,6 @@
                                             "type": "number",
                                             "description": "Минимальный лот.",
                                             "example": 30
-                                          },
-                                          "lotcost": {
-                                            "type": "number",
-                                            "description": "Стоимость лота.",
-                                            "example": 300
                                           },
                                           "images": {
                                             "type": "array",
@@ -50660,7 +50493,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -51308,7 +51140,6 @@
                                   },
                                   "amount": {"type": "number", "description": "кол-во", "example": 300},
                                   "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                  "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                   "images": {
                                     "type": "array",
                                     "nullable": true,
@@ -51434,7 +51265,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -52031,7 +51861,6 @@
                                       },
                                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                       "images": {
                                         "type": "array",
                                         "nullable": true,
@@ -52161,7 +51990,6 @@
                                     },
                                     "amount": {"type": "number", "description": "кол-во", "example": 300},
                                     "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                    "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                     "images": {
                                       "type": "array",
                                       "nullable": true,
@@ -52613,7 +52441,6 @@
                                 },
                                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                                 "images": {
                                   "type": "array",
                                   "nullable": true,
@@ -53647,7 +53474,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -53753,7 +53579,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -54163,7 +53988,6 @@
                         "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                         "amount": {"type": "number", "description": "кол-во", "example": 300},
                         "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                        "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                         "images": {
                           "type": "array",
                           "nullable": true,
@@ -54269,7 +54093,6 @@
                       "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                       "amount": {"type": "number", "description": "кол-во", "example": 300},
                       "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                      "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                       "images": {
                         "type": "array",
                         "nullable": true,
@@ -54838,7 +54661,6 @@
                   "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                   "amount": {"type": "number", "description": "кол-во", "example": 300},
                   "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                  "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                   "images": {
                     "type": "array",
                     "nullable": true,
@@ -54938,16 +54760,7 @@
             "schema": {
               "type": "object",
               "description": "Новый поставщик.",
-              "required": [
-                "name",
-                "link",
-                "price",
-                "amount",
-                "minlot",
-                "lotcost",
-                "comment",
-                "batchDeliveryCostInDollar"
-              ],
+              "required": ["name", "link", "price", "amount", "minlot", "comment", "batchDeliveryCostInDollar"],
               "additionalProperties": false,
               "properties": {
                 "name": {"type": "string", "description": "Название поставщика.", "example": "Bond"},
@@ -54970,13 +54783,6 @@
                   "type": "number",
                   "description": "Минимальный лот.",
                   "example": 30,
-                  "exclusiveMinimum": 0,
-                  "exclusiveMaximum": 1000000
-                },
-                "lotcost": {
-                  "type": "number",
-                  "description": "Стоимость лота.",
-                  "example": 300,
                   "exclusiveMinimum": 0,
                   "exclusiveMaximum": 1000000
                 },
@@ -55122,7 +54928,6 @@
                 "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
                 "amount": {"type": "number", "description": "кол-во", "example": 300},
                 "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
-                "lotcost": {"type": "number", "description": "Стоимость лота.", "example": 300},
                 "images": {
                   "type": "array",
                   "nullable": true,
@@ -55242,13 +55047,6 @@
                   "type": "number",
                   "description": "Минимальный лот.",
                   "example": 30,
-                  "exclusiveMinimum": 0,
-                  "exclusiveMaximum": 1000000
-                },
-                "lotcost": {
-                  "type": "number",
-                  "description": "Стоимость лота.",
-                  "example": 300,
                   "exclusiveMinimum": 0,
                   "exclusiveMaximum": 1000000
                 },

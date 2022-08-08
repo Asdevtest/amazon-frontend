@@ -42,6 +42,9 @@ export class RequestDetailCustomViewModel {
 
   constructor({history, location}) {
     this.history = history
+
+    console.log('location.state', location)
+
     if (location.state) {
       this.requestId = location.state.requestId
     }

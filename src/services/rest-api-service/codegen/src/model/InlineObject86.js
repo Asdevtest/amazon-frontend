@@ -29,13 +29,12 @@ class InlineObject86 {
      * @param price {Number} Цена за еденицу, dollar
      * @param amount {Number} кол-во
      * @param minlot {Number} Минимальный лот.
-     * @param lotcost {Number} Стоимость лота.
      * @param comment {String} Комментарий
      * @param batchDeliveryCostInDollar {Number} Доставка партии, dollar
      */
-    constructor(name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar) { 
+    constructor(name, link, price, amount, minlot, comment, batchDeliveryCostInDollar) { 
         
-        InlineObject86.initialize(this, name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar);
+        InlineObject86.initialize(this, name, link, price, amount, minlot, comment, batchDeliveryCostInDollar);
     }
 
     /**
@@ -43,13 +42,12 @@ class InlineObject86 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, link, price, amount, minlot, lotcost, comment, batchDeliveryCostInDollar) { 
+    static initialize(obj, name, link, price, amount, minlot, comment, batchDeliveryCostInDollar) { 
         obj['name'] = name;
         obj['link'] = link;
         obj['price'] = price;
         obj['amount'] = amount;
         obj['minlot'] = minlot;
-        obj['lotcost'] = lotcost;
         obj['comment'] = comment;
         obj['batchDeliveryCostInDollar'] = batchDeliveryCostInDollar;
     }
@@ -79,9 +77,6 @@ class InlineObject86 {
             }
             if (data.hasOwnProperty('minlot')) {
                 obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
-            }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
@@ -149,12 +144,6 @@ InlineObject86.prototype['amount'] = undefined;
  * @member {Number} minlot
  */
 InlineObject86.prototype['minlot'] = undefined;
-
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-InlineObject86.prototype['lotcost'] = undefined;
 
 /**
  * Массив картинок.

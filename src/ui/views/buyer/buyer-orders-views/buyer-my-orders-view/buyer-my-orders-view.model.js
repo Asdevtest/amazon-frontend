@@ -57,12 +57,14 @@ export class BuyerMyOrdersViewModel {
 
   dataToCancelOrder = {orderId: undefined, buyerComment: undefined}
 
+  firstRowId = undefined
+
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = buyerMyOrdersViewColumns()
+  columnsModel = buyerMyOrdersViewColumns(this.firstRowId)
 
   progressValue = 0
   showProgress = false
@@ -81,6 +83,11 @@ export class BuyerMyOrdersViewModel {
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
     )
+
+    reaction(
+      () => this.firstRowId,
+      () => this.updateColumnsModel(),
+    )
   }
 
   async updateColumnsModel() {
@@ -94,6 +101,7 @@ export class BuyerMyOrdersViewModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -114,7 +122,7 @@ export class BuyerMyOrdersViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = buyerMyOrdersViewColumns().map(el => ({
+      this.columnsModel = buyerMyOrdersViewColumns(this.firstRowId).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))

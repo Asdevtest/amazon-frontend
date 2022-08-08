@@ -242,6 +242,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.OtherApi* | [**apiV1OtherPaymentsByProductGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByProductGuidGet) | **GET** /api/v1/other/payments/by_product/{guid} | # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
 *TestSwagger.OtherApi* | [**apiV1OtherPaymentsByUserGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByUserGuidGet) | **GET** /api/v1/other/payments/by_user/{guid} | # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
 *TestSwagger.OtherApi* | [**apiV1OtherPaymentsMyGet**](docs/OtherApi.md#apiV1OtherPaymentsMyGet) | **GET** /api/v1/other/payments/my | # Получить все оплаты, которые были произведены обратившемся пользователем.
+*TestSwagger.OtherApi* | [**apiV1OtherSuppliersSuppliersXlsxPost**](docs/OtherApi.md#apiV1OtherSuppliersSuppliersXlsxPost) | **POST** /api/v1/other/suppliers/suppliers_xlsx | # Добавить новых поставщиков через XLSX (Excel) файл
 *TestSwagger.OtherApi* | [**apiV1OtherUploadAvatarPost**](docs/OtherApi.md#apiV1OtherUploadAvatarPost) | **POST** /api/v1/other/upload_avatar | # Загрузить аватар.
 *TestSwagger.OtherApi* | [**apiV1OtherUploadFileByUrlPost**](docs/OtherApi.md#apiV1OtherUploadFileByUrlPost) | **POST** /api/v1/other/upload_file_by_url | # Загрузить изображение по ссылке.
 *TestSwagger.OtherApi* | [**apiV1OtherUploadFilePost**](docs/OtherApi.md#apiV1OtherUploadFilePost) | **POST** /api/v1/other/upload_file | # Загрузить изображение.

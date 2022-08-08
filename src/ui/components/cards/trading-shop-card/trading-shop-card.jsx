@@ -21,8 +21,6 @@ import {useClassNames} from './trading-shop-card.style'
 export const TradingShopCard = ({item, onClickViewMore}) => {
   const classNames = useClassNames()
 
-  console.log('item', item)
-
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>

@@ -36,7 +36,7 @@ export const CreateOrEditProposalContent = ({
   const [images, setImages] = useState([])
 
   const sourceFormFields = {
-    price: proposalToEdit?.price || parseInt(request?.request.price),
+    price: proposalToEdit?.price || request?.request.price,
     execution_time: proposalToEdit?.execution_time || '',
     comment: proposalToEdit?.comment || '',
     linksToMediaFiles: proposalToEdit?.linksToMediaFiles || [],
