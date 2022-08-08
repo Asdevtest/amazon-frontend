@@ -4,16 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID магазина на продажу. | [optional] 
-**title** | **String** | Имя магазина для продажи | [optional] 
-**status** | **String** | Статус магазина для продажи | [optional] 
-**files** | **[String]** | Файлы, которые привязаны к магазину | [optional] 
-**price** | **Number** | Стоимость магазина | [optional] 
-**monthlyProfit** | **Number** | Ежемесячная прибыль | [optional] 
-**monthlyPureProfit** | **Number** | Ежемесячная чистая прибыль | [optional] 
-**monthlyMultiplier** | **Number** | Ежемесячный множитель | [optional] 
-**statistics** | [**[ApiV1ShopSellStatistics]**](ApiV1ShopSellStatistics.md) | Статистика магазина по месяцам | [optional] 
-**businessStartYear** | **Date** | Дата создания бизнеса | [optional] 
-**shopDetails** | **String** | Детали магазина | [optional] 
+**_id** | **String** | ID магазина. | [optional] 
+**name** | **String** | Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами. | [optional] 
+**sellerBoardWarehouseReportUrlDaily** | **String** | URL для скачивания ежедневных отчетов SellerBoard. | [optional] 
+**sellerBoardWarehouseReportUrlMonthly** | **String** | URL для скачивания отчетов SellerBoard за последний месяц. | [optional] 
+**ownerId** | **String** | GUID, владелеца. | [optional] 
+**createdById** | **String** | GUID любого, кто последний создал. | [optional] 
+**lastModifiedById** | **String** | GUID любого, кто последний редактировал. | [optional] 
+**createdAt** | **Date** | Дата создания | [optional] 
+**updatedAt** | **Date** | Дата изменения | [optional] 
 
 

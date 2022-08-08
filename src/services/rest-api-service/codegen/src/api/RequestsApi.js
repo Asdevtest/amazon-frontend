@@ -25,7 +25,7 @@ import InlineResponse20019 from '../model/InlineResponse20019';
 import InlineResponse20027 from '../model/InlineResponse20027';
 import InlineResponse20028 from '../model/InlineResponse20028';
 import InlineResponse2015 from '../model/InlineResponse2015';
-import InlineResponse2019 from '../model/InlineResponse2019';
+import InlineResponse2018 from '../model/InlineResponse2018';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -572,7 +572,7 @@ export default class RequestsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2019;
+      let returnType = InlineResponse2018;
       return this.apiClient.callApi(
         '/api/v1/requests/{guid}/pickup', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,

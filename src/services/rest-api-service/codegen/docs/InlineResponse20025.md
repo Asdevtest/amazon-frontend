@@ -4,13 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_id** | **String** | GUID пользователя. | [optional] 
-**name** | **String** | Имя пользователя. | [optional] 
-**rating** | **Number** | Рейтинг пользователя. | [optional] 
-**numberOfPositiveFeedbacks** | **Number** | Количество положительных отзыв | [optional] 
-**numberOfNegativeFeedbacks** | **Number** | Количество негативных отзыв | [optional] 
-**country** | **String** | Страна | [optional] 
-**isOnline** | **Boolean** | Пользователь онлайн | [optional] 
-**countsOfDeals** | **Number** | Количество общих сделок | [optional] 
+**_id** | **String** | GUID магазина на продажу. | [optional] 
+**title** | **String** | Имя магазина для продажи | [optional] 
+**status** | **String** | Статус магазина для продажи | [optional] 
+**files** | **[String]** | Файлы, которые привязаны к магазину | [optional] 
+**price** | **Number** | Стоимость магазина | [optional] 
+**monthlyProfit** | **Number** | Ежемесячная прибыль | [optional] 
+**monthlyPureProfit** | **Number** | Ежемесячная чистая прибыль | [optional] 
+**monthlyMultiplier** | **Number** | Ежемесячный множитель | [optional] 
+**statistics** | [**[ApiV1ShopSellStatistics]**](ApiV1ShopSellStatistics.md) | Статистика магазина по месяцам | [optional] 
+**businessStartYear** | **Date** | Дата создания бизнеса | [optional] 
+**shopDetails** | **String** | Детали магазина | [optional] 
 
 

@@ -15,9 +15,9 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject73 from '../model/InlineObject73';
-import InlineObject74 from '../model/InlineObject74';
-import InlineResponse20021 from '../model/InlineResponse20021';
+import InlineObject86 from '../model/InlineObject86';
+import InlineObject87 from '../model/InlineObject87';
+import InlineResponse20025 from '../model/InlineResponse20025';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
 
@@ -46,7 +46,7 @@ export default class ShopSellApi {
      * Если вызвал покупатель - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\" Если вызвал покупатель, который забронировал магазин - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"/\"Вызван модератор\" Если вызвал продавец(создатель) - Видны объявления в статусах \"DRAFT\"/\"DELETED\"/\"MODERATING\"/\"PUBLISHED\"/\"BOOKED\"/\"MODERATOR_CALLED\"/\"SOLD\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20021>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20025>} and HTTP response
      */
     apiV1ShopSellGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -65,7 +65,7 @@ export default class ShopSellApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20021];
+      let returnType = [InlineResponse20025];
       return this.apiClient.callApi(
         '/api/v1/shop_sell/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -78,7 +78,7 @@ export default class ShopSellApi {
      * Если вызвал покупатель - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\" Если вызвал покупатель, который забронировал магазин - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"/\"Вызван модератор\" Если вызвал продавец(создатель) - Видны объявления в статусах \"DRAFT\"/\"DELETED\"/\"MODERATING\"/\"PUBLISHED\"/\"BOOKED\"/\"MODERATOR_CALLED\"/\"SOLD\"
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20021>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20025>}
      */
     apiV1ShopSellGet(opts) {
       return this.apiV1ShopSellGetWithHttpInfo(opts)
@@ -94,7 +94,7 @@ export default class ShopSellApi {
      * @param {String} guid GUID магазина на продажу в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20021} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20025} and HTTP response
      */
     apiV1ShopSellGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -118,7 +118,7 @@ export default class ShopSellApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20021;
+      let returnType = InlineResponse20025;
       return this.apiClient.callApi(
         '/api/v1/shop_sell/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -132,7 +132,7 @@ export default class ShopSellApi {
      * @param {String} guid GUID магазина на продажу в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20021}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20025}
      */
     apiV1ShopSellGuidGet(guid, opts) {
       return this.apiV1ShopSellGuidGetWithHttpInfo(guid, opts)
@@ -147,7 +147,7 @@ export default class ShopSellApi {
      * @param {String} guid GUID магазина на продажу в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject74} opts.body 
+     * @param {module:model/InlineObject87} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ShopSellGuidPatchWithHttpInfo(guid, opts) {
@@ -185,7 +185,7 @@ export default class ShopSellApi {
      * @param {String} guid GUID магазина на продажу в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject74} opts.body 
+     * @param {module:model/InlineObject87} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ShopSellGuidPatch(guid, opts) {
@@ -200,7 +200,7 @@ export default class ShopSellApi {
      * # Добавить на продажу новый магазин.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject73} opts.body 
+     * @param {module:model/InlineObject86} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
     apiV1ShopSellPostWithHttpInfo(opts) {
@@ -232,7 +232,7 @@ export default class ShopSellApi {
      * # Добавить на продажу новый магазин.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject73} opts.body 
+     * @param {module:model/InlineObject86} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
     apiV1ShopSellPost(opts) {

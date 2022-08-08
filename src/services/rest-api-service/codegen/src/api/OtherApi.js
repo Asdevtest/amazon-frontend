@@ -17,7 +17,6 @@ import BadRequestError from '../model/BadRequestError';
 import InlineObject55 from '../model/InlineObject55';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2017 from '../model/InlineResponse2017';
-import InlineResponse2018 from '../model/InlineResponse2018';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -255,7 +254,7 @@ export default class OtherApi {
      * ## Пример файла: https://docs.google.com/spreadsheets/d/1k9WYc8A3vQZ_JiG9pmNQ7Yij-ESAn2oEG0a-8GETQuc/edit?usp=sharing    ВОЗВРАЩАЕТ МАССИВ ИНДЕКСОВ СТРОК, КОТОРЫЕ БЫЛИ НЕВАЛИДНЫМИ И НЕ БЫЛИ ДОБАВЛЕНЫ
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Number>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link File} and HTTP response
      */
     apiV1OtherSuppliersSuppliersXlsxPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -274,7 +273,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = ['Number'];
+      let returnType = File;
       return this.apiClient.callApi(
         '/api/v1/other/suppliers/suppliers_xlsx', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -287,7 +286,7 @@ export default class OtherApi {
      * ## Пример файла: https://docs.google.com/spreadsheets/d/1k9WYc8A3vQZ_JiG9pmNQ7Yij-ESAn2oEG0a-8GETQuc/edit?usp=sharing    ВОЗВРАЩАЕТ МАССИВ ИНДЕКСОВ СТРОК, КОТОРЫЕ БЫЛИ НЕВАЛИДНЫМИ И НЕ БЫЛИ ДОБАВЛЕНЫ
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Number>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link File}
      */
     apiV1OtherSuppliersSuppliersXlsxPost(opts) {
       return this.apiV1OtherSuppliersSuppliersXlsxPostWithHttpInfo(opts)

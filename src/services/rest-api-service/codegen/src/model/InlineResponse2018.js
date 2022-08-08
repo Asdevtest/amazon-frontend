@@ -21,7 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse2018 {
     /**
      * Constructs a new <code>InlineResponse2018</code>.
-     * Массив строк, которые являются невалидными
+     * Успешный ответ
      * @alias module:model/InlineResponse2018
      */
     constructor() { 
@@ -48,11 +48,8 @@ class InlineResponse2018 {
         if (data) {
             obj = obj || new InlineResponse2018();
 
-            if (data.hasOwnProperty('row')) {
-                obj['row'] = ApiClient.convertToType(data['row'], 'Number');
-            }
-            if (data.hasOwnProperty('workSheet')) {
-                obj['workSheet'] = ApiClient.convertToType(data['workSheet'], 'Number');
+            if (data.hasOwnProperty('guid')) {
+                obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
             }
         }
         return obj;
@@ -62,14 +59,10 @@ class InlineResponse2018 {
 }
 
 /**
- * @member {Number} row
+ * guid обновленного объекта
+ * @member {String} guid
  */
-InlineResponse2018.prototype['row'] = undefined;
-
-/**
- * @member {Number} workSheet
- */
-InlineResponse2018.prototype['workSheet'] = undefined;
+InlineResponse2018.prototype['guid'] = undefined;
 
 
 

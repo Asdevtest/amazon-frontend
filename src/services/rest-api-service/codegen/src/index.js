@@ -192,7 +192,6 @@ import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse201 from './model/InlineResponse201';
 import InlineResponse2011 from './model/InlineResponse2011';
-import InlineResponse20110 from './model/InlineResponse20110';
 import InlineResponse2012 from './model/InlineResponse2012';
 import InlineResponse2013 from './model/InlineResponse2013';
 import InlineResponse2014 from './model/InlineResponse2014';
@@ -1371,12 +1370,6 @@ export {
      * @property {module:model/InlineResponse2011}
      */
     InlineResponse2011,
-
-    /**
-     * The InlineResponse20110 model constructor.
-     * @property {module:model/InlineResponse20110}
-     */
-    InlineResponse20110,
 
     /**
      * The InlineResponse2012 model constructor.

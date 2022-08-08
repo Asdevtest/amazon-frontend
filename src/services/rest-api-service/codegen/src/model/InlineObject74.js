@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 
 /**
  * The InlineObject74 model module.
@@ -22,7 +21,7 @@ import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 class InlineObject74 {
     /**
      * Constructs a new <code>InlineObject74</code>.
-     * Схема продажи магазина
+     * Схема магазина.
      * @alias module:model/InlineObject74
      */
     constructor() { 
@@ -49,47 +48,14 @@ class InlineObject74 {
         if (data) {
             obj = obj || new InlineObject74();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
             }
-            if (data.hasOwnProperty('businessStartDate')) {
-                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
-            }
-            if (data.hasOwnProperty('shopDetails')) {
-                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
-            }
-            if (data.hasOwnProperty('shopAssets')) {
-                obj['shopAssets'] = ApiClient.convertToType(data['shopAssets'], ['String']);
-            }
-            if (data.hasOwnProperty('files')) {
-                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
-            }
-            if (data.hasOwnProperty('shopLink')) {
-                obj['shopLink'] = ApiClient.convertToType(data['shopLink'], 'String');
-            }
-            if (data.hasOwnProperty('statistics')) {
-                obj['statistics'] = ApiClient.convertToType(data['statistics'], [ApiV1ShopSellStatistics]);
-            }
-            if (data.hasOwnProperty('opportunities')) {
-                obj['opportunities'] = ApiClient.convertToType(data['opportunities'], ['String']);
-            }
-            if (data.hasOwnProperty('risks')) {
-                obj['risks'] = ApiClient.convertToType(data['risks'], ['String']);
-            }
-            if (data.hasOwnProperty('requiredSkills')) {
-                obj['requiredSkills'] = ApiClient.convertToType(data['requiredSkills'], ['String']);
-            }
-            if (data.hasOwnProperty('sellIncludes')) {
-                obj['sellIncludes'] = ApiClient.convertToType(data['sellIncludes'], ['String']);
-            }
-            if (data.hasOwnProperty('reasonForSale')) {
-                obj['reasonForSale'] = ApiClient.convertToType(data['reasonForSale'], ['String']);
-            }
-            if (data.hasOwnProperty('additionalInfo')) {
-                obj['additionalInfo'] = ApiClient.convertToType(data['additionalInfo'], ['String']);
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
         }
         return obj;
@@ -99,88 +65,22 @@ class InlineObject74 {
 }
 
 /**
- * Имя магазина для продажи
- * @member {String} title
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineObject74.prototype['title'] = undefined;
+InlineObject74.prototype['name'] = undefined;
 
 /**
- * Стоимость магазина
- * @member {Number} price
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
  */
-InlineObject74.prototype['price'] = undefined;
+InlineObject74.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
 
 /**
- * Дата создания бизнеса
- * @member {Date} businessStartDate
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
  */
-InlineObject74.prototype['businessStartDate'] = undefined;
-
-/**
- * Детали магазина
- * @member {String} shopDetails
- */
-InlineObject74.prototype['shopDetails'] = undefined;
-
-/**
- * Активы магазина
- * @member {Array.<String>} shopAssets
- */
-InlineObject74.prototype['shopAssets'] = undefined;
-
-/**
- * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
- * @member {Array.<String>} files
- */
-InlineObject74.prototype['files'] = undefined;
-
-/**
- * Ссылка на сайт магазина
- * @member {String} shopLink
- */
-InlineObject74.prototype['shopLink'] = undefined;
-
-/**
- * Статистика магазина по месяцам
- * @member {Array.<module:model/ApiV1ShopSellStatistics>} statistics
- */
-InlineObject74.prototype['statistics'] = undefined;
-
-/**
- * Возможности магазина
- * @member {Array.<String>} opportunities
- */
-InlineObject74.prototype['opportunities'] = undefined;
-
-/**
- * Риски магазина
- * @member {Array.<String>} risks
- */
-InlineObject74.prototype['risks'] = undefined;
-
-/**
- * Требуемые навыки
- * @member {Array.<String>} requiredSkills
- */
-InlineObject74.prototype['requiredSkills'] = undefined;
-
-/**
- * В продажу также включено
- * @member {Array.<String>} sellIncludes
- */
-InlineObject74.prototype['sellIncludes'] = undefined;
-
-/**
- * Причина продажи
- * @member {Array.<String>} reasonForSale
- */
-InlineObject74.prototype['reasonForSale'] = undefined;
-
-/**
- * Дополнительная информация
- * @member {Array.<String>} additionalInfo
- */
-InlineObject74.prototype['additionalInfo'] = undefined;
+InlineObject74.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 

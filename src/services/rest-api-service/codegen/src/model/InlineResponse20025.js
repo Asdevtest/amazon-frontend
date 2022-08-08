@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 
 /**
  * The InlineResponse20025 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20025 {
     /**
      * Constructs a new <code>InlineResponse20025</code>.
+     * Схема получение лайт версии продажи магазина
      * @alias module:model/InlineResponse20025
      */
     constructor() { 
@@ -50,26 +52,35 @@ class InlineResponse20025 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
-            if (data.hasOwnProperty('numberOfPositiveFeedbacks')) {
-                obj['numberOfPositiveFeedbacks'] = ApiClient.convertToType(data['numberOfPositiveFeedbacks'], 'Number');
+            if (data.hasOwnProperty('files')) {
+                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
             }
-            if (data.hasOwnProperty('numberOfNegativeFeedbacks')) {
-                obj['numberOfNegativeFeedbacks'] = ApiClient.convertToType(data['numberOfNegativeFeedbacks'], 'Number');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('monthlyProfit')) {
+                obj['monthlyProfit'] = ApiClient.convertToType(data['monthlyProfit'], 'Number');
             }
-            if (data.hasOwnProperty('isOnline')) {
-                obj['isOnline'] = ApiClient.convertToType(data['isOnline'], 'Boolean');
+            if (data.hasOwnProperty('monthlyPureProfit')) {
+                obj['monthlyPureProfit'] = ApiClient.convertToType(data['monthlyPureProfit'], 'Number');
             }
-            if (data.hasOwnProperty('countsOfDeals')) {
-                obj['countsOfDeals'] = ApiClient.convertToType(data['countsOfDeals'], 'Number');
+            if (data.hasOwnProperty('monthlyMultiplier')) {
+                obj['monthlyMultiplier'] = ApiClient.convertToType(data['monthlyMultiplier'], 'Number');
+            }
+            if (data.hasOwnProperty('statistics')) {
+                obj['statistics'] = ApiClient.convertToType(data['statistics'], [ApiV1ShopSellStatistics]);
+            }
+            if (data.hasOwnProperty('businessStartYear')) {
+                obj['businessStartYear'] = ApiClient.convertToType(data['businessStartYear'], 'Date');
+            }
+            if (data.hasOwnProperty('shopDetails')) {
+                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
             }
         }
         return obj;
@@ -79,52 +90,70 @@ class InlineResponse20025 {
 }
 
 /**
- * GUID пользователя.
+ * GUID магазина на продажу.
  * @member {String} _id
  */
 InlineResponse20025.prototype['_id'] = undefined;
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * Имя магазина для продажи
+ * @member {String} title
  */
-InlineResponse20025.prototype['name'] = undefined;
+InlineResponse20025.prototype['title'] = undefined;
 
 /**
- * Рейтинг пользователя.
- * @member {Number} rating
+ * Статус магазина для продажи
+ * @member {String} status
  */
-InlineResponse20025.prototype['rating'] = undefined;
+InlineResponse20025.prototype['status'] = undefined;
 
 /**
- * Количество положительных отзыв
- * @member {Number} numberOfPositiveFeedbacks
+ * Файлы, которые привязаны к магазину
+ * @member {Array.<String>} files
  */
-InlineResponse20025.prototype['numberOfPositiveFeedbacks'] = undefined;
+InlineResponse20025.prototype['files'] = undefined;
 
 /**
- * Количество негативных отзыв
- * @member {Number} numberOfNegativeFeedbacks
+ * Стоимость магазина
+ * @member {Number} price
  */
-InlineResponse20025.prototype['numberOfNegativeFeedbacks'] = undefined;
+InlineResponse20025.prototype['price'] = undefined;
 
 /**
- * Страна
- * @member {String} country
+ * Ежемесячная прибыль
+ * @member {Number} monthlyProfit
  */
-InlineResponse20025.prototype['country'] = undefined;
+InlineResponse20025.prototype['monthlyProfit'] = undefined;
 
 /**
- * Пользователь онлайн
- * @member {Boolean} isOnline
+ * Ежемесячная чистая прибыль
+ * @member {Number} monthlyPureProfit
  */
-InlineResponse20025.prototype['isOnline'] = undefined;
+InlineResponse20025.prototype['monthlyPureProfit'] = undefined;
 
 /**
- * Количество общих сделок
- * @member {Number} countsOfDeals
+ * Ежемесячный множитель
+ * @member {Number} monthlyMultiplier
  */
-InlineResponse20025.prototype['countsOfDeals'] = undefined;
+InlineResponse20025.prototype['monthlyMultiplier'] = undefined;
+
+/**
+ * Статистика магазина по месяцам
+ * @member {Array.<module:model/ApiV1ShopSellStatistics>} statistics
+ */
+InlineResponse20025.prototype['statistics'] = undefined;
+
+/**
+ * Дата создания бизнеса
+ * @member {Date} businessStartYear
+ */
+InlineResponse20025.prototype['businessStartYear'] = undefined;
+
+/**
+ * Детали магазина
+ * @member {String} shopDetails
+ */
+InlineResponse20025.prototype['shopDetails'] = undefined;
 
 
 

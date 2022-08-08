@@ -530,7 +530,6 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse2009](docs/InlineResponse2009.md)
  - [TestSwagger.InlineResponse201](docs/InlineResponse201.md)
  - [TestSwagger.InlineResponse2011](docs/InlineResponse2011.md)
- - [TestSwagger.InlineResponse20110](docs/InlineResponse20110.md)
  - [TestSwagger.InlineResponse2012](docs/InlineResponse2012.md)
  - [TestSwagger.InlineResponse2013](docs/InlineResponse2013.md)
  - [TestSwagger.InlineResponse2014](docs/InlineResponse2014.md)

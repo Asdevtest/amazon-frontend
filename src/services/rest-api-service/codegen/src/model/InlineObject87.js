@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
+import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 
 /**
  * The InlineObject87 model module.
@@ -22,6 +22,7 @@ import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
 class InlineObject87 {
     /**
      * Constructs a new <code>InlineObject87</code>.
+     * Схема продажи магазина
      * @alias module:model/InlineObject87
      */
     constructor() { 
@@ -48,50 +49,47 @@ class InlineObject87 {
         if (data) {
             obj = obj || new InlineObject87();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('link')) {
-                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            if (data.hasOwnProperty('businessStartDate')) {
+                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
             }
-            if (data.hasOwnProperty('minlot')) {
-                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            if (data.hasOwnProperty('shopDetails')) {
+                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
             }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('shopAssets')) {
+                obj['shopAssets'] = ApiClient.convertToType(data['shopAssets'], ['String']);
             }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('files')) {
+                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
             }
-            if (data.hasOwnProperty('yuanRate')) {
-                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
+            if (data.hasOwnProperty('shopLink')) {
+                obj['shopLink'] = ApiClient.convertToType(data['shopLink'], 'String');
             }
-            if (data.hasOwnProperty('priceInYuan')) {
-                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            if (data.hasOwnProperty('statistics')) {
+                obj['statistics'] = ApiClient.convertToType(data['statistics'], [ApiV1ShopSellStatistics]);
             }
-            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
-                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
+            if (data.hasOwnProperty('opportunities')) {
+                obj['opportunities'] = ApiClient.convertToType(data['opportunities'], ['String']);
             }
-            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
-                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
+            if (data.hasOwnProperty('risks')) {
+                obj['risks'] = ApiClient.convertToType(data['risks'], ['String']);
             }
-            if (data.hasOwnProperty('batchTotalCostInDollar')) {
-                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
+            if (data.hasOwnProperty('requiredSkills')) {
+                obj['requiredSkills'] = ApiClient.convertToType(data['requiredSkills'], ['String']);
             }
-            if (data.hasOwnProperty('batchTotalCostInYuan')) {
-                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
+            if (data.hasOwnProperty('sellIncludes')) {
+                obj['sellIncludes'] = ApiClient.convertToType(data['sellIncludes'], ['String']);
             }
-            if (data.hasOwnProperty('productionTerm')) {
-                obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Number');
+            if (data.hasOwnProperty('reasonForSale')) {
+                obj['reasonForSale'] = ApiClient.convertToType(data['reasonForSale'], ['String']);
             }
-            if (data.hasOwnProperty('boxProperties')) {
-                obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
+            if (data.hasOwnProperty('additionalInfo')) {
+                obj['additionalInfo'] = ApiClient.convertToType(data['additionalInfo'], ['String']);
             }
         }
         return obj;
@@ -101,92 +99,88 @@ class InlineObject87 {
 }
 
 /**
- * Название поставщика.
- * @member {String} name
+ * Имя магазина для продажи
+ * @member {String} title
  */
-InlineObject87.prototype['name'] = undefined;
+InlineObject87.prototype['title'] = undefined;
 
 /**
- * Ссылка на поставщика.
- * @member {String} link
- */
-InlineObject87.prototype['link'] = undefined;
-
-/**
- * Цена за еденицу, dollar
+ * Стоимость магазина
  * @member {Number} price
  */
 InlineObject87.prototype['price'] = undefined;
 
 /**
- * кол-во
- * @member {Number} amount
+ * Дата создания бизнеса
+ * @member {Date} businessStartDate
  */
-InlineObject87.prototype['amount'] = undefined;
+InlineObject87.prototype['businessStartDate'] = undefined;
 
 /**
- * Минимальный лот.
- * @member {Number} minlot
+ * Детали магазина
+ * @member {String} shopDetails
  */
-InlineObject87.prototype['minlot'] = undefined;
+InlineObject87.prototype['shopDetails'] = undefined;
 
 /**
- * Массив картинок.
- * @member {Array.<String>} images
+ * Активы магазина
+ * @member {Array.<String>} shopAssets
  */
-InlineObject87.prototype['images'] = undefined;
+InlineObject87.prototype['shopAssets'] = undefined;
 
 /**
- * Комментарий
- * @member {String} comment
+ * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
+ * @member {Array.<String>} files
  */
-InlineObject87.prototype['comment'] = undefined;
+InlineObject87.prototype['files'] = undefined;
 
 /**
- * Курс доллара к юаню поставщика. 
- * @member {Number} yuanRate
+ * Ссылка на сайт магазина
+ * @member {String} shopLink
  */
-InlineObject87.prototype['yuanRate'] = undefined;
+InlineObject87.prototype['shopLink'] = undefined;
 
 /**
- * Цена за еденицу, yuan
- * @member {Number} priceInYuan
+ * Статистика магазина по месяцам
+ * @member {Array.<module:model/ApiV1ShopSellStatistics>} statistics
  */
-InlineObject87.prototype['priceInYuan'] = undefined;
+InlineObject87.prototype['statistics'] = undefined;
 
 /**
- * Доставка партии, dollar
- * @member {Number} batchDeliveryCostInDollar
+ * Возможности магазина
+ * @member {Array.<String>} opportunities
  */
-InlineObject87.prototype['batchDeliveryCostInDollar'] = undefined;
+InlineObject87.prototype['opportunities'] = undefined;
 
 /**
- * Доставка партии, yuan
- * @member {Number} batchDeliveryCostInYuan
+ * Риски магазина
+ * @member {Array.<String>} risks
  */
-InlineObject87.prototype['batchDeliveryCostInYuan'] = undefined;
+InlineObject87.prototype['risks'] = undefined;
 
 /**
- * Цена партии, dollar
- * @member {Number} batchTotalCostInDollar
+ * Требуемые навыки
+ * @member {Array.<String>} requiredSkills
  */
-InlineObject87.prototype['batchTotalCostInDollar'] = undefined;
+InlineObject87.prototype['requiredSkills'] = undefined;
 
 /**
- * Цена партии, yuan
- * @member {Number} batchTotalCostInYuan
+ * В продажу также включено
+ * @member {Array.<String>} sellIncludes
  */
-InlineObject87.prototype['batchTotalCostInYuan'] = undefined;
+InlineObject87.prototype['sellIncludes'] = undefined;
 
 /**
- * @member {Number} productionTerm
+ * Причина продажи
+ * @member {Array.<String>} reasonForSale
  */
-InlineObject87.prototype['productionTerm'] = undefined;
+InlineObject87.prototype['reasonForSale'] = undefined;
 
 /**
- * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
+ * Дополнительная информация
+ * @member {Array.<String>} additionalInfo
  */
-InlineObject87.prototype['boxProperties'] = undefined;
+InlineObject87.prototype['additionalInfo'] = undefined;
 
 
 

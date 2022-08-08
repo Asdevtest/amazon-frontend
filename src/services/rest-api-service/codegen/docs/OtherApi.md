@@ -231,7 +231,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherSuppliersSuppliersXlsxPost
 
-> [Number] apiV1OtherSuppliersSuppliersXlsxPost(opts)
+> File apiV1OtherSuppliersSuppliersXlsxPost(opts)
 
 # Добавить новых поставщиков через XLSX (Excel) файл
 
@@ -269,7 +269,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Number]**
+**File**
 
 ### Authorization
 
