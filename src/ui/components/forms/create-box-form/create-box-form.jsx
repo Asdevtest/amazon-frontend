@@ -252,7 +252,7 @@ export const CreateBoxForm = observer(
         items: [
           {
             ...newStateFormFields[orderBoxIndex].items[0],
-            amount: e.target.checked ? currentSupplier.boxProperties.amountInBox || 0 : '',
+            amount: e.target.checked ? currentSupplier.boxProperties.amountInBox || 0 : formItem?.amount,
           },
         ],
       }

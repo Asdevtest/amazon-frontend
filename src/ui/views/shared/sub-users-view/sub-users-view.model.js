@@ -222,7 +222,21 @@ export class SubUsersViewModel {
   async setPermissionsForUser(id, data) {
     try {
       await PermissionsModel.setPermissionsForUser(id, data)
+
+      this.warningInfoModalSettings = {
+        isWarning: false,
+        title: t(TranslationKey['User permissions were changed']),
+      }
+
+      this.onTriggerOpenModal('showWarningModal')
     } catch (error) {
+      this.warningInfoModalSettings = {
+        isWarning: true,
+        title: t(TranslationKey['User permissions are not changed']),
+      }
+
+      this.onTriggerOpenModal('showWarningModal')
+
       console.log(error)
       this.error = error
     }

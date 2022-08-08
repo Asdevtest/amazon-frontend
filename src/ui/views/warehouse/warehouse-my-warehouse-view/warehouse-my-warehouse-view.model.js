@@ -57,12 +57,13 @@ export class WarehouseMyWarehouseViewModel {
   progressValue = 0
   showProgress = false
 
+  firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns(this.rowHandlers)
+  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId)
 
   get isMasterBoxSelected() {
     return this.selectedBoxes.some(boxId => {
@@ -77,6 +78,11 @@ export class WarehouseMyWarehouseViewModel {
 
     reaction(
       () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
   }
@@ -96,6 +102,8 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
+
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -116,7 +124,7 @@ export class WarehouseMyWarehouseViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))

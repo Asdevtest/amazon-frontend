@@ -1390,5 +1390,7 @@
   "Estimated cost": "Рассчетная стоимость",
   "Apply": "Применить",
   "req": "рек",
-  "Business is made": "Бизнес создан"
+  "Business is made": "Бизнес создан",
+  "User permissions were changed": "Разрешения пользователя были изменены",
+  "User permissions are not changed": "Разрешения пользователя не изменены"
 }

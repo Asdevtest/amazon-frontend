@@ -16,6 +16,7 @@ export const SectionalDashboard = ({config, valuesData, onClickViewMore}) => {
         color={infoCardData.color}
         title={infoCardData.title}
         route={infoCardData.route || false}
+        dataGridFilter={infoCardData.dataGridFilter}
         value={valuesData[infoCardData.dataKey]}
         onClickViewMore={onClickViewMore}
       />

@@ -1389,8 +1389,8 @@ export enum TranslationKey {
   'Apply' = 'Apply',
   'req' = 'req',
   'Business is made' = 'Business is made',
-  // '' = '',
-  // '' = '',
+  'User permissions were changed' = 'User permissions were changed',
+  'User permissions are not changed' = 'User permissions are not changed',
   // '' = '',
 }
 
