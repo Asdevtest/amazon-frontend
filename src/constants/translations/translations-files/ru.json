@@ -300,7 +300,7 @@
   "kg": "кг",
   "pcs.": "шт",
   "cm": "см",
-  "All product parameters": "All product parameters",
+  "All product parameters": "Все параметры продукта",
   "Collapse": "Свернуть",
   "All warehouses": "Все склады",
   "Send batch": "Отправить партии",
@@ -505,7 +505,7 @@
   "Check": "Проверить",
   "Add a product card": "Добавить карточку товара",
   "Current exchange rate": "Актуальный обменный курс",
-  "Storekeeper": "Storekeeper",
+  "Storekeeper": "Кладовщик",
   "Sort by date": "Сортировать по дате",
   "Proposals for the request": "Предложения по заявке",
   "Use the supplier standard": "Использовать стандарт поставщика",
@@ -1413,5 +1413,6 @@
   "Adding a list of suppliers": "Добавление списка поставщиков",
   "For easier completion": "Для более удобного заполнения",
   "download the list template": "скачайте шаблон списка",
-  "Your ID": "Ваш ID"
+  "Your ID": "Ваш ID",
+  "Loading data": "Загрузка данных"
 }

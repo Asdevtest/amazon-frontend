@@ -469,6 +469,8 @@ export class ClientInventoryViewRaw extends Component {
         <Modal openModal={showAddSuppliersModal} setOpenModal={() => onTriggerOpenModal('showAddSuppliersModal')}>
           <AddSuppliersModal
             product={productsMy[0]}
+            showProgress={showProgress}
+            progressValue={progressValue}
             onSubmit={uploadTemplateFile}
             onClose={() => onTriggerOpenModal('showAddSuppliersModal')}
           />

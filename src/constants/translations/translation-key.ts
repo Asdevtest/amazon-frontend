@@ -1412,6 +1412,7 @@ export enum TranslationKey {
   'For easier completion' = 'For easier completion',
   'download the list template' = 'download the list template',
   'Your ID' = 'Your ID',
+  'Loading data' = 'Loading data',
   // '' = '',
   // '' = '',
   // '' = '',

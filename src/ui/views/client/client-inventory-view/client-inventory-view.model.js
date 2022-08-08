@@ -263,9 +263,10 @@ export class ClientInventoryViewModel {
   async uploadTemplateFile(file) {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-
+      this.showProgress = true
       await OtherModel.postTemplate(file)
-
+      this.showProgress = false
+      this.onTriggerOpenModal('showAddSuppliersModal')
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -438,10 +439,6 @@ export class ClientInventoryViewModel {
   }
 
   async onClickSaveFourMonthesStockValue(fourMonthesStock) {
-    console.log('this.selectedProduct', this.selectedProduct)
-
-    console.log('fourMonthesStock', fourMonthesStock)
-
     await ClientModel.updateProduct(this.selectedProduct._id, {fourMonthesStock})
 
     this.onTriggerOpenModal('showSetFourMonthsStockValueModal')

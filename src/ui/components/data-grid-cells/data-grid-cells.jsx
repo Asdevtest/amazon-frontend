@@ -405,7 +405,14 @@ export const TaskStatusCell = withStyles(styles)(({classes: classNames, status})
 
 export const OrderStatusCell = withStyles(styles)(({classes: classNames, status}) => {
   const colorByStatus = () => {
-    if ([OrderStatus.AT_PROCESS, OrderStatus.PAID_TO_SUPPLIER, OrderStatus.READY_TO_PROCESS].includes(status)) {
+    if (
+      [
+        OrderStatus.AT_PROCESS,
+        OrderStatus.PAID_TO_SUPPLIER,
+        OrderStatus.READY_TO_PROCESS,
+        OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
+      ].includes(status)
+    ) {
       return '#F3AF00'
     } else if ([OrderStatus.IN_STOCK, OrderStatus.TRACK_NUMBER_ISSUED].includes(status)) {
       return '#00B746'
