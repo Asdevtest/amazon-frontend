@@ -1,13 +1,11 @@
-/* eslint-disable no-unused-vars */
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 
 import React, {useState} from 'react'
 
-import {Divider, Paper, Typography} from '@material-ui/core'
+import {Divider, Typography} from '@material-ui/core'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import clsx from 'clsx'
-import {ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Bar} from 'recharts'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -15,19 +13,21 @@ import {DateMonthYearPicker} from '@components/date-picker/date-picker'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
-import {BarsChart} from '@components/shop/shop-wrapper/charts/bars-chart/bars-chart'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {formatDateMonthYear, sortObjectsArrayByFiledDate} from '@utils/date-time'
 import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
+import {ChartsForm} from './charts-form/charts-form'
 import {useClassNames} from './second-step.style'
 
 export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onChangeStatisticsField}) => {
   const classNames = useClassNames()
 
   const [showBarChat, setShowBarChat] = useState(false)
+
+  const [isRevenueBeggin, setIsRevenueBeggin] = useState(true)
 
   const [dateLine, setDateLine] = useState(null)
 
@@ -107,24 +107,22 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
 
   const disableFirstRow = formFields.statistics.length >= 12 || dateLine === null
 
-  console.log('formFields.statistics', formFields.statistics)
-
   return (
     <>
       <div className={classNames.mainWrapper}>
         <div className={classNames.chartsMainWrapper}>
           <Field
-            labelClasses={classNames.spanLabelSmall}
+            labelClasses={classNames.chartLabel}
             containerClasses={classNames.chartContainer}
             label={t(TranslationKey.Month)}
             inputComponent={
               <div className={classNames.chartSharedWrapper}>
                 <div className={classNames.dateChartWrapper}>
                   <div className={classNames.subLabelWrapper}>
-                    <Typography className={classNames.selectedRole}>{t(TranslationKey.Month)}</Typography>
+                    <Typography className={classNames.chartSubLabel}>{t(TranslationKey['Add month'])}</Typography>
                   </div>
 
-                  <Paper className={classNames.indicatorPaper}>
+                  <div className={classNames.indicatorPaper}>
                     <div className={classNames.dateIndicatorWrapper}>
                       <DateMonthYearPicker
                         disabled={formFields.statistics.length >= 12}
@@ -162,7 +160,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         </div>
                       </div>
                     ))}
-                  </Paper>
+                  </div>
                 </div>
               </div>
             }
@@ -171,20 +169,27 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
           <Divider orientation="vertical" className={classNames.divider} />
 
           <Field
-            labelClasses={classNames.spanLabelSmall}
+            labelClasses={classNames.chartLabel}
             containerClasses={classNames.chartContainer}
-            label={`${t(TranslationKey['Income Indicators'])}, $`}
+            label={`${t(TranslationKey['Income Indicators'])}, $*`}
             inputComponent={
               <div className={classNames.chartSharedWrapper}>
                 <div className={classNames.chartWrapper}>
                   <div className={classNames.subLabelWrapper}>
-                    <Typography className={classNames.selectedRole}>{`${t(
+                    <Typography className={classNames.chartSubLabel}>{`${t(
                       TranslationKey['Gross income'],
                     )}, $`}</Typography>
-                    <img src="/assets/icons/chart.svg" onClick={() => setShowBarChat(!showBarChat)} />
+                    <img
+                      src="/assets/icons/chart.svg"
+                      className={classNames.chartIcon}
+                      onClick={() => {
+                        setShowBarChat(!showBarChat)
+                        setIsRevenueBeggin(true)
+                      }}
+                    />
                   </div>
 
-                  <Paper className={classNames.indicatorPaper}>
+                  <div className={classNames.indicatorPaper}>
                     <div className={classNames.indicatorWrapper}>
                       <Input
                         disabled={disableFirstRow}
@@ -192,7 +197,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         className={classNames.indicatorInput}
                         onChange={e =>
                           checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
-                          setGrossIncomeValue(e.target.value)
+                          setGrossIncomeValue(Number(e.target.value))
                         }
                       />
                     </div>
@@ -206,18 +211,25 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         />
                       </div>
                     ))}
-                  </Paper>
+                  </div>
                 </div>
 
                 <div className={classNames.chartWrapper}>
                   <div className={classNames.subLabelWrapper}>
-                    <Typography className={classNames.selectedRole}>{`${t(
+                    <Typography className={classNames.chartSubLabel}>{`${t(
                       TranslationKey['Pure profit'],
                     )}, $`}</Typography>
-                    <img src="/assets/icons/chart.svg" />
+                    <img
+                      src="/assets/icons/chart.svg"
+                      className={classNames.chartIcon}
+                      onClick={() => {
+                        setShowBarChat(!showBarChat)
+                        setIsRevenueBeggin(true)
+                      }}
+                    />
                   </div>
 
-                  <Paper className={classNames.indicatorPaper}>
+                  <div className={classNames.indicatorPaper}>
                     <div className={classNames.indicatorWrapper}>
                       <Input
                         disabled={disableFirstRow}
@@ -225,7 +237,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         className={classNames.indicatorInput}
                         onChange={e =>
                           checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
-                          setPureIncomeValue(e.target.value)
+                          setPureIncomeValue(Number(e.target.value))
                         }
                       />
                     </div>
@@ -239,25 +251,32 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         />
                       </div>
                     ))}
-                  </Paper>
+                  </div>
                 </div>
               </div>
             }
           />
           <Divider orientation="vertical" className={classNames.divider} />
           <Field
-            labelClasses={classNames.spanLabelSmall}
+            labelClasses={classNames.chartLabel}
             containerClasses={classNames.chartContainer}
-            label={`${t(TranslationKey['Traffic Indicators'])}, $`}
+            label={`${t(TranslationKey['Traffic Indicators'])}*`}
             inputComponent={
               <div className={classNames.chartSharedWrapper}>
                 <div className={classNames.chartWrapper}>
                   <div className={classNames.subLabelWrapper}>
-                    <Typography className={classNames.selectedRole}>{t(TranslationKey['Unique visitors'])}</Typography>
-                    <img src="/assets/icons/chart.svg" />
+                    <Typography className={classNames.chartSubLabel}>{t(TranslationKey['Unique visitors'])}</Typography>
+                    <img
+                      src="/assets/icons/chart.svg"
+                      className={classNames.chartIcon}
+                      onClick={() => {
+                        setShowBarChat(!showBarChat)
+                        setIsRevenueBeggin(false)
+                      }}
+                    />
                   </div>
 
-                  <Paper className={classNames.indicatorPaper}>
+                  <div className={classNames.indicatorPaper}>
                     <div className={classNames.indicatorWrapper}>
                       <Input
                         disabled={disableFirstRow}
@@ -265,7 +284,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         className={classNames.indicatorInput}
                         onChange={e =>
                           checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
-                          setUniqueCustomersValue(e.target.value)
+                          setUniqueCustomersValue(Number(e.target.value))
                         }
                       />
                     </div>
@@ -279,16 +298,23 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         />
                       </div>
                     ))}
-                  </Paper>
+                  </div>
                 </div>
 
                 <div className={classNames.chartWrapper}>
                   <div className={classNames.subLabelWrapper}>
-                    <Typography className={classNames.selectedRole}>{t(TranslationKey['View page'])}</Typography>
-                    <img src="/assets/icons/chart.svg" />
+                    <Typography className={classNames.chartSubLabel}>{t(TranslationKey['View page'])}</Typography>
+                    <img
+                      src="/assets/icons/chart.svg"
+                      className={classNames.chartIcon}
+                      onClick={() => {
+                        setShowBarChat(!showBarChat)
+                        setIsRevenueBeggin(false)
+                      }}
+                    />
                   </div>
 
-                  <Paper className={classNames.indicatorPaper}>
+                  <div className={classNames.indicatorPaper}>
                     <div className={classNames.indicatorWrapper}>
                       <Input
                         disabled={disableFirstRow}
@@ -296,7 +322,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         className={classNames.indicatorInput}
                         onChange={e =>
                           checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2) &&
-                          setWebpageVisitsValue(e.target.value)
+                          setWebpageVisitsValue(Number(e.target.value))
                         }
                       />
                     </div>
@@ -310,7 +336,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         />
                       </div>
                     ))}
-                  </Paper>
+                  </div>
                 </div>
               </div>
             }
@@ -318,69 +344,70 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
         </div>
 
         <Field
-          labelClasses={classNames.spanLabelSmall}
+          labelClasses={classNames.chartLabel}
           label={t(TranslationKey['The totals'])}
           containerClasses={classNames.totalsContainer}
           inputComponent={
             <div className={classNames.totalsWrapper}>
-              <div className={classNames.totalsSubWrapper}>
-                <Field
-                  labelClasses={classNames.totalLabel}
-                  containerClasses={classNames.totalContainer}
-                  label={t(TranslationKey['Average. Monthly income'])}
-                  inputComponent={
-                    <Typography className={classNames.totalText}>
-                      {toFixedWithDollarSign(averageGrossIncome, 2)}
-                    </Typography>
-                  }
-                />
+              <div className={classNames.totalsSubMainWrapper}>
+                <div className={classNames.totalsSubWrapper}>
+                  <Field
+                    labelClasses={classNames.totalLabel}
+                    containerClasses={classNames.totalContainer}
+                    label={t(TranslationKey['Average. Monthly net profit'])}
+                    inputComponent={
+                      <Typography className={classNames.totalText}>
+                        {toFixedWithDollarSign(averagePureIncome, 2)}
+                      </Typography>
+                    }
+                  />
+                  <Field
+                    labelClasses={classNames.totalLabel}
+                    containerClasses={classNames.totalContainer}
+                    label={t(TranslationKey.Profitability)}
+                    inputComponent={
+                      <Typography className={classNames.totalText}>{`${toFixed(profitability, 2)} %`}</Typography>
+                    }
+                  />
+                </div>
 
-                <Field
-                  labelClasses={classNames.totalLabel}
-                  containerClasses={classNames.totalContainer}
-                  label={t(TranslationKey['Average. Monthly net profit'])}
-                  inputComponent={
-                    <Typography className={classNames.totalText}>
-                      {toFixedWithDollarSign(averagePureIncome, 2)}
-                    </Typography>
-                  }
-                />
+                <div className={classNames.totalsSubWrapper}>
+                  <Field
+                    labelClasses={classNames.totalLabel}
+                    containerClasses={classNames.totalContainer}
+                    label={t(TranslationKey['Average. Monthly income'])}
+                    inputComponent={
+                      <Typography className={classNames.totalText}>
+                        {toFixedWithDollarSign(averageGrossIncome, 2)}
+                      </Typography>
+                    }
+                  />
+
+                  <Field
+                    labelClasses={classNames.totalLabel}
+                    containerClasses={classNames.totalContainer}
+                    label={t(TranslationKey['Monthly multiplier'])}
+                    inputComponent={
+                      <Typography className={classNames.totalText}>{`${toFixed(monthlyMultiplier, 2)} x`}</Typography>
+                    }
+                  />
+                </div>
               </div>
 
-              <div className={classNames.totalsSubWrapper}>
-                <Field
-                  labelClasses={classNames.totalLabel}
-                  containerClasses={classNames.totalContainer}
-                  label={t(TranslationKey.Profitability)}
-                  inputComponent={
-                    <Typography className={classNames.totalText}>{`${toFixed(profitability, 2)} %`}</Typography>
-                  }
-                />
-
-                <Field
-                  labelClasses={classNames.totalLabel}
-                  containerClasses={classNames.totalContainer}
-                  label={t(TranslationKey['Monthly multiplier'])}
-                  inputComponent={
-                    <Typography className={classNames.totalText}>{`${toFixed(monthlyMultiplier, 2)} x`}</Typography>
-                  }
-                />
-              </div>
-
-              <div>
+              <div className={classNames.totalsPercentsWrapper}>
                 <Field
                   oneLine
                   labelClasses={classNames.totalLabel}
-                  containerClasses={classNames.totalContainer}
-                  label={'Трафик (12 месяцев)'}
+                  containerClasses={classNames.totalsPercentsContainer}
+                  label={t(TranslationKey['Traffic (12 months)'])}
                   inputComponent={
-                    <>
+                    <div className={classNames.percentWrapper}>
                       {trafficСhange < 0 ? <ArrowDropDownIcon color="error" /> : <ArrowDropUpIcon color="success" />}
                       <Typography className={clsx(classNames.green, {[classNames.red]: trafficСhange < 0})}>{`${toFixed(
                         trafficСhange,
                         2,
                       )} %`}</Typography>
-                    </>
+                    </div>
                   }
                 />
 
@@ -388,10 +415,10 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                   <Field
                     oneLine
                     labelClasses={classNames.totalLabel}
-                    containerClasses={classNames.totalContainer}
-                    label={'Доход (12 месяцев)'}
+                    containerClasses={classNames.totalsPercentsContainer}
+                    label={t(TranslationKey['Income (12 months)'])}
                     inputComponent={
-                      <>
+                      <div className={classNames.percentWrapper}>
                         {grossIncomeСhange < 0 ? (
                           <ArrowDropDownIcon color="error" />
                         ) : (
@@ -400,17 +427,17 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         <Typography
                           className={clsx(classNames.green, {[classNames.red]: grossIncomeСhange < 0})}
                         >{`${toFixed(grossIncomeСhange, 2)} %`}</Typography>
-                      </>
+                      </div>
                     }
                   />
 
                   <Field
                     oneLine
                     labelClasses={classNames.totalLabel}
-                    containerClasses={classNames.totalContainer}
-                    label={'Прибыль (12 месяцев)'}
+                    containerClasses={classNames.totalsPercentsContainer}
+                    label={t(TranslationKey['Profit (12 months)'])}
                     inputComponent={
-                      <>
+                      <div className={classNames.percentWrapper}>
                         {pureIncomeСhange < 0 ? (
                           <ArrowDropDownIcon color="error" />
                         ) : (
@@ -419,7 +446,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         <Typography
                           className={clsx(classNames.green, {[classNames.red]: pureIncomeСhange < 0})}
                         >{`${toFixed(pureIncomeСhange, 2)} %`}</Typography>
-                      </>
+                      </div>
                     }
                   />
                 </div>
@@ -431,28 +458,13 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
         />
 
         <Modal openModal={showBarChat} setOpenModal={() => setShowBarChat(!showBarChat)}>
-          {/* <BarsChart data={formFields.statistics.map((el, i) => ({...el, name: i}))} /> */}
-
-          <div style={{width: '1300px', height: '500px'}}>
-            <ResponsiveContainer width={'100%'} height={500}>
-              <BarChart
-                data={formFields.statistics.map((el, i) => ({...el, month: formatDateMonthYear(el.month)}))}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-
-                <Bar dataKey="grossIncome" fill="#006CFF" />
-                <Bar dataKey="pureIncome" fill="#CCE2FF" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          <ChartsForm
+            data={formFields.statistics.map(el => ({
+              ...el,
+              month: formatDateMonthYear(el.month),
+            }))}
+            isRevenueBeggin={isRevenueBeggin}
+          />
         </Modal>
       </div>
     </>

@@ -15,7 +15,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const warehouseBoxesViewColumns = handlers => [
+export const warehouseBoxesViewColumns = (handlers, firstRowId) => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Box ID']),
@@ -114,7 +114,13 @@ export const warehouseBoxesViewColumns = handlers => [
 
     width: 220,
 
-    renderCell: params => <WarehouseBoxesBtnsCell row={params.row.originalData} handlers={handlers} />,
+    renderCell: params => (
+      <WarehouseBoxesBtnsCell
+        row={params.row.originalData}
+        handlers={handlers}
+        isFirstRow={firstRowId === params.row.id}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

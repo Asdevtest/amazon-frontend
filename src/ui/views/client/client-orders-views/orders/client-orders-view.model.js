@@ -21,18 +21,24 @@ export class ClientOrdersViewModel {
   orders = []
   drawerOpen = false
 
+  firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = clientOrdersViewColumns()
+  columnsModel = clientOrdersViewColumns(this.firstRowId)
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
   }
@@ -48,6 +54,8 @@ export class ClientOrdersViewModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
+
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -68,7 +76,10 @@ export class ClientOrdersViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = clientOrdersViewColumns().map(el => ({...el, hide: state.columns?.lookup[el?.field]?.hide}))
+      this.columnsModel = clientOrdersViewColumns(this.firstRowId).map(el => ({
+        ...el,
+        hide: state.columns?.lookup[el?.field]?.hide,
+      }))
     }
   }
 

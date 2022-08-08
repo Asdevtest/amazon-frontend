@@ -14,7 +14,7 @@
 
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
-import InlineObject53 from '../model/InlineObject53';
+import InlineObject55 from '../model/InlineObject55';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2017 from '../model/InlineResponse2017';
 import InternalServerError from '../model/InternalServerError';
@@ -250,6 +250,53 @@ export default class OtherApi {
 
 
     /**
+     * # Добавить новых поставщиков через XLSX (Excel) файл
+     * ## Пример файла: https://docs.google.com/spreadsheets/d/1k9WYc8A3vQZ_JiG9pmNQ7Yij-ESAn2oEG0a-8GETQuc/edit?usp=sharing    ВОЗВРАЩАЕТ МАССИВ ИНДЕКСОВ СТРОК, КОТОРЫЕ БЫЛИ НЕВАЛИДНЫМИ И НЕ БЫЛИ ДОБАВЛЕНЫ
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<Number>} and HTTP response
+     */
+    apiV1OtherSuppliersSuppliersXlsxPostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = ['Number'];
+      return this.apiClient.callApi(
+        '/api/v1/other/suppliers/suppliers_xlsx', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Добавить новых поставщиков через XLSX (Excel) файл
+     * ## Пример файла: https://docs.google.com/spreadsheets/d/1k9WYc8A3vQZ_JiG9pmNQ7Yij-ESAn2oEG0a-8GETQuc/edit?usp=sharing    ВОЗВРАЩАЕТ МАССИВ ИНДЕКСОВ СТРОК, КОТОРЫЕ БЫЛИ НЕВАЛИДНЫМИ И НЕ БЫЛИ ДОБАВЛЕНЫ
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<Number>}
+     */
+    apiV1OtherSuppliersSuppliersXlsxPost(opts) {
+      return this.apiV1OtherSuppliersSuppliersXlsxPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Загрузить аватар.
      * ## Загрузить аватар.   Данный метод нужен для заливки аватара пользователем, при повторном вызове происходит обновление. Старая картинка затирается новой! картинка уменьшается до 300 на 300 точек(без обрезания). после сжиматься.  пример: \"https://amazonapi.fvds.ru/uploads/avatars/{userId}.webp\", где userId это GUID пользователя например, 90aac7d1-5777-4ef3-b29c-212f665a2543 https://amazonapi.fvds.ru/uploads/avatars/90aac7d1-5777-4ef3-b29c-212f665a2543.webp Проверки: Проверка расширений, доступные форматы:  'jpeg', 'jpg', 'png', 'webp', 'gif', 'avif', 'tiff' 
      * @param {Object} opts Optional parameters
@@ -301,7 +348,7 @@ export default class OtherApi {
      * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg Доступные форматы: jpeg, jpg, png, webp, gif, avif, tiff, pdf новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject53} opts.body 
+     * @param {module:model/InlineObject55} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
      */
     apiV1OtherUploadFileByUrlPostWithHttpInfo(opts) {
@@ -334,7 +381,7 @@ export default class OtherApi {
      * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg Доступные форматы: jpeg, jpg, png, webp, gif, avif, tiff, pdf новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject53} opts.body 
+     * @param {module:model/InlineObject55} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
      */
     apiV1OtherUploadFileByUrlPost(opts) {

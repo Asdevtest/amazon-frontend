@@ -37,7 +37,7 @@ export class CreateOrEditTradingShopView extends Component {
       showInfoModal,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
-      onSubmitCreateRequest,
+      onSubmitCreateShopSell,
       onSubmitEditRequest,
       onClickOkInfoModal,
     } = this.viewModel
@@ -51,7 +51,7 @@ export class CreateOrEditTradingShopView extends Component {
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
-          <Appbar title={t(TranslationKey['Create a request'])} setDrawerOpen={onTriggerDrawerOpen}>
+          <Appbar title={t(TranslationKey['Sell the Shop'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               {SettingsModel.languageTag && (
                 <CreateOrEditTradingShopContent
@@ -59,7 +59,7 @@ export class CreateOrEditTradingShopView extends Component {
                   showProgress={showProgress}
                   requestToEdit={requestToEdit}
                   history={this.props.history}
-                  onCreateSubmit={onSubmitCreateRequest}
+                  onCreateSubmit={onSubmitCreateShopSell}
                   onEditSubmit={onSubmitEditRequest}
                 />
               )}

@@ -119,7 +119,7 @@ export class ClientExchangePrivateLabelViewRaw extends Component {
 
     return productsVacant.map((item, index) => (
       <div key={`product_${item._id}_${index}`} className={classNames.cardWrapper}>
-        <PrivateLabelCard item={item} setProductToPay={setProductToPay} />
+        <PrivateLabelCard item={item} index={index} setProductToPay={setProductToPay} />
       </div>
     ))
   }

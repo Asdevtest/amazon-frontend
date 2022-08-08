@@ -13,7 +13,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const warehouseMyTasksViewColumns = handlers => [
+export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
@@ -70,9 +70,15 @@ export const warehouseMyTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 530,
+    width: 400,
 
-    renderCell: params => <WarehouseMyTasksBtnsCell handlers={handlers} row={params.row.originalData} />,
+    renderCell: params => (
+      <WarehouseMyTasksBtnsCell
+        handlers={handlers}
+        row={params.row.originalData}
+        isFirstRow={firstRowId === params.row.id}
+      />
+    ),
     filterable: false,
     sortable: false,
   },

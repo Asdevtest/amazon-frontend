@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**apiV1OtherPaymentsByProductGuidGet**](OtherApi.md#apiV1OtherPaymentsByProductGuidGet) | **GET** /api/v1/other/payments/by_product/{guid} | # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
 [**apiV1OtherPaymentsByUserGuidGet**](OtherApi.md#apiV1OtherPaymentsByUserGuidGet) | **GET** /api/v1/other/payments/by_user/{guid} | # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
 [**apiV1OtherPaymentsMyGet**](OtherApi.md#apiV1OtherPaymentsMyGet) | **GET** /api/v1/other/payments/my | # Получить все оплаты, которые были произведены обратившемся пользователем.
+[**apiV1OtherSuppliersSuppliersXlsxPost**](OtherApi.md#apiV1OtherSuppliersSuppliersXlsxPost) | **POST** /api/v1/other/suppliers/suppliers_xlsx | # Добавить новых поставщиков через XLSX (Excel) файл
 [**apiV1OtherUploadAvatarPost**](OtherApi.md#apiV1OtherUploadAvatarPost) | **POST** /api/v1/other/upload_avatar | # Загрузить аватар.
 [**apiV1OtherUploadFileByUrlPost**](OtherApi.md#apiV1OtherUploadFileByUrlPost) | **POST** /api/v1/other/upload_file_by_url | # Загрузить изображение по ссылке.
 [**apiV1OtherUploadFilePost**](OtherApi.md#apiV1OtherUploadFilePost) | **POST** /api/v1/other/upload_file | # Загрузить изображение.
@@ -228,6 +229,58 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1OtherSuppliersSuppliersXlsxPost
+
+> [Number] apiV1OtherSuppliersSuppliersXlsxPost(opts)
+
+# Добавить новых поставщиков через XLSX (Excel) файл
+
+## Пример файла: https://docs.google.com/spreadsheets/d/1k9WYc8A3vQZ_JiG9pmNQ7Yij-ESAn2oEG0a-8GETQuc/edit?usp&#x3D;sharing    ВОЗВРАЩАЕТ МАССИВ ИНДЕКСОВ СТРОК, КОТОРЫЕ БЫЛИ НЕВАЛИДНЫМИ И НЕ БЫЛИ ДОБАВЛЕНЫ
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.OtherApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1OtherSuppliersSuppliersXlsxPost(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**[Number]**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## apiV1OtherUploadAvatarPost
 
 > InlineResponse2017 apiV1OtherUploadAvatarPost(opts)
@@ -302,7 +355,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.OtherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject53() // InlineObject53 | 
+  'body': new TestSwagger.InlineObject55() // InlineObject55 | 
 };
 apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -318,7 +371,7 @@ apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject53**](InlineObject53.md)|  | [optional] 
+ **body** | [**InlineObject55**](InlineObject55.md)|  | [optional] 
 
 ### Return type
 

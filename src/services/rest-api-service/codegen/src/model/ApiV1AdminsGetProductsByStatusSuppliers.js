@@ -68,9 +68,6 @@ class ApiV1AdminsGetProductsByStatusSuppliers {
             if (data.hasOwnProperty('minlot')) {
                 obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
             }
-            if (data.hasOwnProperty('lotcost')) {
-                obj['lotcost'] = ApiClient.convertToType(data['lotcost'], 'Number');
-            }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
@@ -146,12 +143,6 @@ ApiV1AdminsGetProductsByStatusSuppliers.prototype['amount'] = undefined;
  * @member {Number} minlot
  */
 ApiV1AdminsGetProductsByStatusSuppliers.prototype['minlot'] = undefined;
-
-/**
- * Стоимость лота.
- * @member {Number} lotcost
- */
-ApiV1AdminsGetProductsByStatusSuppliers.prototype['lotcost'] = undefined;
 
 /**
  * Массив картинок.

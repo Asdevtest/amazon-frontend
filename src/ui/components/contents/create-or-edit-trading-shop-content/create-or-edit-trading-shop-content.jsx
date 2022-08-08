@@ -7,6 +7,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {EstimateCreateTradingShopForm} from '@components/forms/estimate-create-trading-shop-form'
+import {Modal} from '@components/modal'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {sortObjectsArrayByFiledDate} from '@utils/date-time'
@@ -15,6 +17,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './create-or-edit-trading-shop-content.style'
 import {FirstStep} from './first-step'
 import {SecondStep} from './second-step'
+import {ThirdStep} from './third-step'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -60,19 +63,29 @@ export const CreateOrEditTradingShopContent = ({
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
 
+  const [makeEstimate, setMakeEstimate] = useState(false)
+
+  const [showEstimateModal, setShowEstimateModal] = useState(false)
+
   const sourceFormFields = {
     title: requestToEdit?.title || '',
-    shopDetails: '',
     price: requestToEdit?.price || '',
     businessStartDate: requestToEdit?.businessStartDate || null,
+    shopDetails: '',
+
+    shopAssets: [],
+
+    files: [],
     shopLink: '',
 
-    assets: [
-      'Аккаунты/страницы в социальных сетях (18 акка унт ов/страниц для Facebook, Twitter, Instagram, Pinterest, TikTok, Youtube, LinkedIn, PUBLC и Mewe)',
-      'Пять фирменных электронных книг',
-    ],
-
     statistics: fillMonthes(),
+
+    opportunities: [],
+    risks: [],
+    requiredSkills: [],
+    sellIncludes: [],
+    reasonForSale: [],
+    additionalInfo: [],
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
 
@@ -129,7 +142,12 @@ export const CreateOrEditTradingShopContent = ({
     } else if (curStep === stepVariant.STEP_TWO) {
       setCurStep(stepVariant.STEP_THREE)
     } else {
-      onCreateSubmit(formFields, images)
+      // if (makeEstimate) {
+      // } else {
+      //   onCreateSubmit(formFields, images)
+      // }
+
+      setShowEstimateModal(true)
     }
   }
 
@@ -239,7 +257,16 @@ export const CreateOrEditTradingShopContent = ({
           />
         )}
 
-        {curStep === stepVariant.STEP_THREE && renderBackNextBtns()}
+        {curStep === stepVariant.STEP_THREE && (
+          <ThirdStep
+            makeEstimate={makeEstimate}
+            formFields={formFields}
+            renderBackNextBtns={renderBackNextBtns}
+            setMakeEstimate={setMakeEstimate}
+            setFormFields={setFormFields}
+            onChangeField={onChangeField}
+          />
+        )}
       </div>
 
       <div className={classNames.steps}>
@@ -277,6 +304,17 @@ export const CreateOrEditTradingShopContent = ({
             : `${t(TranslationKey.Step)} 3`}
         </Typography>
       </div>
+
+      <Modal openModal={showEstimateModal} setOpenModal={() => setShowEstimateModal(!showEstimateModal)}>
+        <EstimateCreateTradingShopForm
+          files={images}
+          makeEstimate={makeEstimate}
+          formFields={formFields}
+          setOpenModal={() => setShowEstimateModal(!showEstimateModal)}
+          onChangeField={onChangeField}
+          onCreateSubmit={onCreateSubmit}
+        />
+      </Modal>
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}
     </div>

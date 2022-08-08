@@ -690,11 +690,11 @@ export const NormalActionBtnCell = withStyles(styles)(
   ),
 )
 
-export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
+export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers, isFirstRow}) => (
   <div className={classNames.warehouseMyTasksBtnsWrapper}>
     <Button
       success
-      tooltipInfoContent={t(TranslationKey['Open a window to perform a task'])}
+      tooltipInfoContent={isFirstRow && t(TranslationKey['Open a window to perform a task'])}
       className={classNames.warehouseMyTasksSuccessBtn}
       onClick={() => handlers.onClickResolveBtn(row)}
     >
@@ -704,7 +704,9 @@ export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames
     {row.operationType !== TaskOperationType.RECEIVE && (
       <Button
         danger
-        tooltipInfoContent={t(TranslationKey['The task will be canceled, the box will keep its previous state'])}
+        tooltipInfoContent={
+          isFirstRow && t(TranslationKey['The task will be canceled, the box will keep its previous state'])
+        }
         className={clsx(classNames.rowCancelBtn, classNames.warehouseMyTasksCancelBtn)}
         onClick={() => {
           handlers.onClickCancelTask(row.boxes[0]._id, row._id, row.operationType)
@@ -1046,7 +1048,7 @@ export const TrashCell = withStyles(styles)(({classes: classNames, onClick, tool
   </Button>
 ))
 
-export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => (
+export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, row, handlers, isFirstRow}) => (
   <div className={classNames.warehouseBoxesBtnsWrapper}>
     {row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
       <Typography>{t(TranslationKey['Not ready to ship'])}</Typography>
@@ -1058,7 +1060,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
           row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF &&
           t(TranslationKey['The tariff is invalid or has been removed!'])
         }
-        tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
+        tooltipInfoContent={isFirstRow && t(TranslationKey['Move a box from the current batch to another'])}
         disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF}
         className={classNames.warehouseBoxesBtn}
         variant="contained"
@@ -1072,7 +1074,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
     {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
       <Button
         success
-        tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
+        tooltipInfoContent={isFirstRow && t(TranslationKey['Add a box to a new or existing batch'])}
         className={classNames.warehouseBoxesBtn}
         onClick={() => handlers.moveBox(row)}
       >
@@ -1082,7 +1084,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
 
     <Button
       className={classNames.warehouseBoxesBtn}
-      tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
+      tooltipInfoContent={isFirstRow && t(TranslationKey['Code for Harmonized System Product Identification'])}
       variant="contained"
       color="primary"
       onClick={() => handlers.setHsCode(row)}
@@ -1120,6 +1122,34 @@ export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, val
         {t(TranslationKey.View)}
       </Button>
     </div>
+  )
+})
+
+export const DownloadAndCopyBtnsCell = withStyles(styles)(({classes: classNames, value, isFirstRow}) => {
+  const copyValue = () => {
+    navigator.clipboard.writeText(value)
+  }
+
+  return (
+    <>
+      {value ? (
+        <div className={classNames.shopsReportBtnsWrapper}>
+          <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
+            <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
+              {t(TranslationKey.download)}
+            </a>
+          </Text>
+          <Button
+            tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])}
+            className={classNames.copyImgButton}
+          >
+            <img className={classNames.copyImg} src="/assets/icons/copy-img.svg" alt="" onClick={copyValue} />
+          </Button>
+        </div>
+      ) : (
+        <Typography>{'-'}</Typography>
+      )}
+    </>
   )
 })
 

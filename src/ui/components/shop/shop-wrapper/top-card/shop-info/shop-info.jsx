@@ -6,46 +6,55 @@ import {Box, Link, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {Button} from '@components/buttons/button'
+import {LinesChart} from '@components/charts/lines-chart/lines-chart'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
 
-import {toFixed} from '@utils/text'
-
-import {LinesChart} from '../../charts/lines-chart/lines-chart'
 import {useClassNames} from './shop-info.style'
 
 export const ShopInfo = observer(({data}) => {
   const classNames = useClassNames()
-  const avgProfit = toFixed(
-    data?.profitForTheReportingPeriod?.reduce((acc, cur) => acc + cur.pv, 0) /
-      data?.profitForTheReportingPeriod?.length,
-    2,
-  )
 
-  const avgRevenue = toFixed(
-    data?.profitForTheReportingPeriod?.reduce((acc, cur) => acc + cur.uv, 0) /
-      data?.profitForTheReportingPeriod?.length,
-    2,
-  )
-  const profitability = toFixed(avgRevenue / avgProfit, 2) * 100
+  const averageGrossIncome =
+    data.statistics.reduce((acc, cur) => (acc += +cur.grossIncome), 0) /
+      data.statistics.reduce((acc, cur) => (acc += cur.grossIncome ? 1 : 0), 0) || 0
+
+  const averagePureIncome =
+    data.statistics.reduce((acc, cur) => (acc += +cur.pureIncome), 0) /
+      data.statistics.reduce((acc, cur) => (acc += cur.pureIncome ? 1 : 0), 0) || 0
+
+  const profitability = averagePureIncome / (averageGrossIncome / 100) || 0
+
+  const monthlyMultiplier = data.price / averagePureIncome || 0
+
+  // const avgProfit = toFixed(
+  //   data?.profitForTheReportingPeriod?.reduce((acc, cur) => acc + cur.pv, 0) /
+  //     data?.profitForTheReportingPeriod?.length,
+  //   2,
+  // )
+
+  // const avgRevenue = toFixed(
+  //   data?.profitForTheReportingPeriod?.reduce((acc, cur) => acc + cur.uv, 0) /
+  //     data?.profitForTheReportingPeriod?.length,
+  //   2,
+  // )
+  // const profitability = toFixed(avgRevenue / avgProfit, 2) * 100
   return (
     <Box className={classNames.shopInfoWrapper}>
       <div className={classNames.shopInfoTopWrapper}>
         <div className={classNames.photosWrapper}>
-          <PhotoCarousel
-            files={['https://monarti.ru/wa-data/public/shop/products/00/41/4100/images/4825/4825.970.jpg']}
-          />
+          <PhotoCarousel files={data.files} />
         </div>
         <div className={classNames.rightSideWrapper}>
           <div className={classNames.rightSideHeader}>
-            <Typography className={classNames.shopTitle}>{'Магазин столовых принадлежностей'}</Typography>
+            <Typography className={classNames.shopTitle}>{data.title}</Typography>
             <div className={classNames.statusWrapper}>
               <Typography className={classNames.cardTitle}>{'Продается'}</Typography>
               <FiberManualRecordRoundedIcon color="success" />
             </div>
           </div>
           <div>
-            <Link target="__blank" href={'https://aliexpress.ru/'} className={classNames.link}>
+            <Link target="__blank" href={data.shopLink} className={classNames.link}>
               {'Перейти на сайт магазина '}
             </Link>
           </div>
@@ -56,7 +65,7 @@ export const ShopInfo = observer(({data}) => {
                 containerClasses={classNames.shortInfoContainer}
                 label={'Ценовой период'}
                 inputComponent={
-                  <Typography className={classNames.shortInfoValue}>{`${data?.pricePeriod} месяцев`}</Typography>
+                  <Typography className={classNames.shortInfoValue}>{`${data.statistics.length} месяцев`}</Typography>
                 }
               />
             </div>
@@ -66,7 +75,7 @@ export const ShopInfo = observer(({data}) => {
                 containerClasses={classNames.shortInfoContainer}
                 label={'Ежемесячный множитель'}
                 inputComponent={
-                  <Typography className={classNames.shortInfoValue}>{`${data?.multiplier} х`}</Typography>
+                  <Typography className={classNames.shortInfoValue}>{`${monthlyMultiplier} х`}</Typography>
                 }
               />
             </div>
@@ -76,7 +85,7 @@ export const ShopInfo = observer(({data}) => {
                 labelClasses={classNames.shortInfoLabel}
                 containerClasses={classNames.shortInfoContainer}
                 label={'Стоимость'}
-                inputComponent={<Typography className={classNames.shortInfoValue}>{`${data?.cost} $`}</Typography>}
+                inputComponent={<Typography className={classNames.shortInfoValue}>{`${data.price} $`}</Typography>}
               />
             </div>
           </div>
@@ -96,7 +105,7 @@ export const ShopInfo = observer(({data}) => {
               labelClasses={classNames.chartLabel}
               inputComponent={
                 <div className={classNames.chart}>
-                  <Typography className={classNames.profit}>{avgRevenue + ' $'}</Typography>
+                  <Typography className={classNames.profit}>{averageGrossIncome + ' $'}</Typography>
                   <LinesChart data={data.profitForTheReportingPeriod} />
                 </div>
               }
@@ -108,7 +117,7 @@ export const ShopInfo = observer(({data}) => {
               labelClasses={classNames.chartLabel}
               inputComponent={
                 <div className={classNames.chart}>
-                  <Typography className={classNames.profit}>{avgProfit + ' $'}</Typography>
+                  <Typography className={classNames.profit}>{averagePureIncome + ' $'}</Typography>
                   <LinesChart profit data={data.profitForTheReportingPeriod} />
                 </div>
               }

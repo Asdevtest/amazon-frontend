@@ -212,10 +212,16 @@ export const useClassNames = makeStyles(() => ({
     color: '#001029',
   },
 
-  spanLabelSmall: {
+  chartSubLabel: {
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
+    color: '#001029',
+  },
+
+  chartLabel: {
+    fontSize: '16px',
+    lineHeight: '22px',
     color: '#001029',
   },
 
@@ -527,6 +533,7 @@ export const useClassNames = makeStyles(() => ({
     padding: '0 5px',
     borderRadius: '4px',
     marginBottom: '10px',
+    backgroundColor: '#fff',
   },
 
   indicatorWrapper: {
@@ -538,6 +545,7 @@ export const useClassNames = makeStyles(() => ({
     // padding: '0 5px',
     borderRadius: '4px',
     marginBottom: '10px',
+    // backgroundColor: '#fafafa',
   },
 
   assetInputWrapper: {
@@ -611,6 +619,7 @@ export const useClassNames = makeStyles(() => ({
   indicatorInput: {
     // width: 70,
     // margin: '0 5px',
+    backgroundColor: '#fff',
   },
 
   subLabelWrapper: {
@@ -643,15 +652,27 @@ export const useClassNames = makeStyles(() => ({
     margin: '0 20px',
   },
 
-  totalsSubWrapper: {
+  totalsSubMainWrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
+    justifyContent: 'space-between',
   },
 
-  totalLabel: {
-    textAlign: 'center',
+  totalsSubWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    // justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 
+  // totalsSubWrapper: {
+  //   display: 'flex',
+  //   justifyContent: 'space-between',
+  //   alignItems: 'flex-end',
+  // },
+
+  totalLabel: {
     fontSize: 14,
+    whiteSpace: 'nowrap',
 
     color: '#656565',
   },
@@ -660,6 +681,11 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+
+    // width: 250,
+    // width: 200,
+    // width: 175,
+    width: 'min-content',
   },
 
   totalText: {
@@ -679,10 +705,13 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
+    marginTop: 20,
   },
 
   totalsContainer: {
     height: '600px',
+    minWidth: 400,
+    // width: 700,
   },
 
   btnsWrapper: {
@@ -699,6 +728,7 @@ export const useClassNames = makeStyles(() => ({
 
   mainWrapper: {
     display: 'flex',
+    justifyContent: 'space-between',
   },
 
   actionButton: {
@@ -712,5 +742,30 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       transform: 'scale(1.1)',
     },
+  },
+
+  chartIcon: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+
+  totalsPercentsWrapper: {
+    marginTop: 40,
+  },
+
+  totalsPercentsContainer: {
+    display: 'flex',
+
+    width: 200,
+
+    justifyContent: 'space-between',
+  },
+
+  percentWrapper: {
+    display: 'flex',
+    alignItems: 'center',
   },
 }))

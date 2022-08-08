@@ -47,11 +47,8 @@ class InlineObject59 {
         if (data) {
             obj = obj || new InlineObject59();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('suppliersIds')) {
+                obj['suppliersIds'] = ApiClient.convertToType(data['suppliersIds'], ['String']);
             }
         }
         return obj;
@@ -61,16 +58,10 @@ class InlineObject59 {
 }
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * GUIDы магазинов, которые нужно удалить.
+ * @member {Array.<String>} suppliersIds
  */
-InlineObject59.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject59.prototype['linksToMediaFiles'] = undefined;
+InlineObject59.prototype['suppliersIds'] = undefined;
 
 
 

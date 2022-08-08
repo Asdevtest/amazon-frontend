@@ -52,6 +52,7 @@ export class ResearcherProductsViewModel {
   chekedCode = ''
 
   sortModel = []
+  startFilterModel = undefined
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
@@ -67,8 +68,13 @@ export class ResearcherProductsViewModel {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+
+    if (location?.state?.dataGridFilter) {
+      this.startFilterModel = location.state.dataGridFilter
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -104,7 +110,7 @@ export class ResearcherProductsViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
+      this.filterModel = this.startFilterModel ? this.startFilterModel : state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -144,6 +150,7 @@ export class ResearcherProductsViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
       await this.getPropductsVacant()
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

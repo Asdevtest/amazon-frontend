@@ -39,7 +39,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
   const ProductCell = ({imgSrc, title}) => (
     <TableCell className={classNames.productCell}>
       <img className={classNames.img} src={imgSrc} />
-      {title}
+      <Typography className={classNames.productCellTitle}>{title}</Typography>
     </TableCell>
   )
 

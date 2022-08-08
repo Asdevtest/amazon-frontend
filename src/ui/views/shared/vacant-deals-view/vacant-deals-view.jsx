@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 
+import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -56,14 +57,25 @@ class VacantDealsViewRaw extends Component {
           <Appbar title={t(TranslationKey['Vacant deals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.vacantDealsWrapper}>
-                {deals.map((deal, index) => (
-                  <VacantDealsListCard
-                    key={index}
-                    item={deal}
-                    onClickViewMore={onClickViewMore}
-                    onClickGetToWorkModal={onClickGetToWorkModal}
-                  />
-                ))}
+                {deals.length ? (
+                  <>
+                    {deals.map((deal, index) => (
+                      <VacantDealsListCard
+                        key={index}
+                        item={deal}
+                        onClickViewMore={onClickViewMore}
+                        onClickGetToWorkModal={onClickGetToWorkModal}
+                      />
+                    ))}
+                  </>
+                ) : (
+                  <div className={classNames.emptyTableWrapper}>
+                    <img src="/assets/icons/empty-table.svg" />
+                    <Typography variant="h5" className={classNames.emptyTableText}>
+                      {t(TranslationKey['No deals yet'])}
+                    </Typography>
+                  </div>
+                )}
               </div>
             </MainContent>
           </Appbar>

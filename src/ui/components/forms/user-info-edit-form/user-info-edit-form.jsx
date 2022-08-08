@@ -71,7 +71,9 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
     return res
   }
 
-  const onClickSubmit = () => {
+  const onClickSubmit = event => {
+    event.preventDefault()
+
     const emailIsValid = regExpEmailChecking.test(formFields.email)
 
     if (emailIsValid) {
@@ -88,7 +90,7 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
     formFields.email === ''
 
   return (
-    <div className={classNames.mainWrapper}>
+    <form className={classNames.mainWrapper} onSubmit={onClickSubmit}>
       <Typography variant="h5" className={classNames.mainTitle}>
         {t(TranslationKey['Enter information'])}
       </Typography>
@@ -110,6 +112,7 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
           (emailInputError && t(TranslationKey['Invalid email!']))
         }
         className={classNames.textField}
+        type="email"
         value={formFields.email}
         onChange={onChangeField('email')}
       />
@@ -117,7 +120,7 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
       <RegistrationForm isRecoverPassword formFields={{password: ''}} onChangeFormField={onChangeField} />
 
       <div className={classNames.btnsWrapper}>
-        <Button disabled={disabledSubmit} className={classNames.actionBtn} onClick={onClickSubmit}>
+        <Button disabled={disabledSubmit} className={classNames.actionBtn} type="submit" /* onClick={onClickSubmit}*/>
           {t(TranslationKey.Save)}
         </Button>
 
@@ -125,6 +128,6 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
           {t(TranslationKey.Cancel)}
         </Button>
       </div>
-    </div>
+    </form>
   )
 })

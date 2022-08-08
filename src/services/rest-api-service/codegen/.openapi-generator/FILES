@@ -47,7 +47,7 @@ docs/ApiV1RequestsCustomDetails.md
 docs/ApiV1RequestsCustomDetailsCustom.md
 docs/ApiV1RequestsCustomGuidRequest.md
 docs/ApiV1RequestsCustomRequest.md
-docs/ApiV1ShopSellGrossIncome.md
+docs/ApiV1ShopSellStatistics.md
 docs/ApiV1StorekeepersTariffWarehouses.md
 docs/ApiV1SuppliersBoxProperties.md
 docs/BadRequestError.md
@@ -149,7 +149,10 @@ docs/InlineObject84.md
 docs/InlineObject85.md
 docs/InlineObject86.md
 docs/InlineObject87.md
+docs/InlineObject88.md
+docs/InlineObject89.md
 docs/InlineObject9.md
+docs/InlineObject90.md
 docs/InlineResponse200.md
 docs/InlineResponse2001.md
 docs/InlineResponse20010.md
@@ -312,7 +315,7 @@ src/model/ApiV1RequestsCustomDetails.js
 src/model/ApiV1RequestsCustomDetailsCustom.js
 src/model/ApiV1RequestsCustomGuidRequest.js
 src/model/ApiV1RequestsCustomRequest.js
-src/model/ApiV1ShopSellGrossIncome.js
+src/model/ApiV1ShopSellStatistics.js
 src/model/ApiV1StorekeepersTariffWarehouses.js
 src/model/ApiV1SuppliersBoxProperties.js
 src/model/BadRequestError.js
@@ -408,7 +411,10 @@ src/model/InlineObject84.js
 src/model/InlineObject85.js
 src/model/InlineObject86.js
 src/model/InlineObject87.js
+src/model/InlineObject88.js
+src/model/InlineObject89.js
 src/model/InlineObject9.js
+src/model/InlineObject90.js
 src/model/InlineResponse200.js
 src/model/InlineResponse2001.js
 src/model/InlineResponse20010.js
@@ -489,8 +495,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/api/ShopSellApi.spec.js
-test/model/ApiV1ShopSellGrossIncome.spec.js
-test/model/InlineObject87.spec.js
-test/model/InlineResponse20028.spec.js
-test/model/InlineResponse20028Details.spec.js

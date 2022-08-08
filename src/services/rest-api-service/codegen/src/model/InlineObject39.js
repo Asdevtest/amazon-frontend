@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 
 /**
  * The InlineObject39 model module.
@@ -22,12 +21,14 @@ import ApiV1GologinProfileNavigator from './ApiV1GologinProfileNavigator';
 class InlineObject39 {
     /**
      * Constructs a new <code>InlineObject39</code>.
+     * Схема подтверждения возрата коробок на склад
      * @alias module:model/InlineObject39
-     * @param name {String} Название профиля
+     * @param boxId {String} GUID коробки, который планируем изменить
+     * @param logicsTariffId {String} GUID тарифа, на которую планируем изменить
      */
-    constructor(name) { 
+    constructor(boxId, logicsTariffId) { 
         
-        InlineObject39.initialize(this, name);
+        InlineObject39.initialize(this, boxId, logicsTariffId);
     }
 
     /**
@@ -35,8 +36,9 @@ class InlineObject39 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name) { 
-        obj['name'] = name;
+    static initialize(obj, boxId, logicsTariffId) { 
+        obj['boxId'] = boxId;
+        obj['logicsTariffId'] = logicsTariffId;
     }
 
     /**
@@ -50,14 +52,11 @@ class InlineObject39 {
         if (data) {
             obj = obj || new InlineObject39();
 
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            if (data.hasOwnProperty('boxId')) {
+                obj['boxId'] = ApiClient.convertToType(data['boxId'], 'String');
             }
-            if (data.hasOwnProperty('os')) {
-                obj['os'] = ApiClient.convertToType(data['os'], 'String');
-            }
-            if (data.hasOwnProperty('navigator')) {
-                obj['navigator'] = ApiV1GologinProfileNavigator.constructFromObject(data['navigator']);
+            if (data.hasOwnProperty('logicsTariffId')) {
+                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
             }
         }
         return obj;
@@ -67,22 +66,16 @@ class InlineObject39 {
 }
 
 /**
- * Название профиля
- * @member {String} name
+ * GUID коробки, который планируем изменить
+ * @member {String} boxId
  */
-InlineObject39.prototype['name'] = undefined;
+InlineObject39.prototype['boxId'] = undefined;
 
 /**
- * Название ОС
- * @member {String} os
- * @default 'mac'
+ * GUID тарифа, на которую планируем изменить
+ * @member {String} logicsTariffId
  */
-InlineObject39.prototype['os'] = 'mac';
-
-/**
- * @member {module:model/ApiV1GologinProfileNavigator} navigator
- */
-InlineObject39.prototype['navigator'] = undefined;
+InlineObject39.prototype['logicsTariffId'] = undefined;
 
 
 

@@ -51,12 +51,31 @@ export const getResearcherDashboardCardConfig = () => [
         dataKey: ResearcherDashboardCardDataKey.ON_SUPPLIER_SEEKING_BY_BUYER,
         title: t(TranslationKey["Buyer's search for a supplier"]),
         color: '#ffc107',
+        route: '/researcher/products',
+        // dataGridFilter: {
+        //   items: [
+        //     {columnField: 'status', id: Date.now(), operatorValue: 'contains', value: 'TO_BUYER_FOR_RESEARCH'},
+        //     {columnField: 'status', id: Date.now(), operatorValue: 'contains', value: 'BUYER_PICKED_PRODUCT'},
+        //     {columnField: 'status', id: Date.now(), operatorValue: 'contains', value: 'BUYER_FOUND_SUPPLIER'},
+        //   ],
+
+        //   // items: [
+        //   //             {
+        //   //               columnField: 'status',
+        //   //               operatorValue: 'isAnyOf',
+        //   //               value: ['BUYER_FOUND_SUPPLIER', 'TO_BUYER_FOR_RESEARCH', 'BUYER_FOUND_SUPPLIER'],
+        //   //             },
+        //   //           ],
+        // },
       },
       {
         dataKey: ResearcherDashboardCardDataKey.NO_STATUS,
         title: t(TranslationKey['No status']),
         color: '#4dbd74',
         route: '/researcher/products',
+        // dataGridFilter: {
+        //   items: [{columnField: 'status', id: Date.now(), operatorValue: 'contains', value: 'NEW_PRODUCT'}],
+        // },
       },
     ],
   },

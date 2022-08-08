@@ -29,18 +29,24 @@ export class WarehouseVacantViewModel {
     onClickPickupBtn: item => this.onClickPickupBtn(item),
   }
 
+  firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers)
+  columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId)
 
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
+      () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.firstRowId,
       () => this.updateColumnsModel(),
     )
   }
@@ -56,6 +62,7 @@ export class WarehouseVacantViewModel {
   }
 
   setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
     const requestState = getObjectFilteredByKeyArrayWhiteList(state, [
       'sorting',
       'filter',
@@ -76,7 +83,7 @@ export class WarehouseVacantViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers).map(el => ({
+      this.columnsModel = warehouseVacantTasksViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))

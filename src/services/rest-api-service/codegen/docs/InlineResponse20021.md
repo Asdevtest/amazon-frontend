@@ -11,9 +11,8 @@ Name | Type | Description | Notes
 **price** | **Number** | Стоимость магазина | [optional] 
 **monthlyProfit** | **Number** | Ежемесячная прибыль | [optional] 
 **monthlyPureProfit** | **Number** | Ежемесячная чистая прибыль | [optional] 
-**grossIncome** | **[Number]** | Валовый доход по месяцам | [optional] 
-**pureIncome** | **[Number]** | Чистый доход по месяцам | [optional] 
-**webpageVisits** | **[Number]** | Кол-во просмотров страницы по месяцам | [optional] 
+**monthlyMultiplier** | **Number** | Ежемесячный множитель | [optional] 
+**statistics** | [**[ApiV1ShopSellStatistics]**](ApiV1ShopSellStatistics.md) | Статистика магазина по месяцам | [optional] 
 **businessStartYear** | **Date** | Дата создания бизнеса | [optional] 
 **shopDetails** | **String** | Детали магазина | [optional] 
 

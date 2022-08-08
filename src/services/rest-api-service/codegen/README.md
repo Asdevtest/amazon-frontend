@@ -203,6 +203,8 @@ Class | Method | HTTP request | Description
 *TestSwagger.ClientApi* | [**apiV1ClientsOrdersGuidGet**](docs/ClientApi.md#apiV1ClientsOrdersGuidGet) | **GET** /api/v1/clients/orders/{guid} | # Получить заказ по его GUID.
 *TestSwagger.ClientApi* | [**apiV1ClientsOrdersGuidPatch**](docs/ClientApi.md#apiV1ClientsOrdersGuidPatch) | **PATCH** /api/v1/clients/orders/{guid} | # Внести изменения в заказ.
 *TestSwagger.ClientApi* | [**apiV1ClientsOrdersPost**](docs/ClientApi.md#apiV1ClientsOrdersPost) | **POST** /api/v1/clients/orders | # Создать заказ.
+*TestSwagger.ClientApi* | [**apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch**](docs/ClientApi.md#apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch) | **PATCH** /api/v1/clients/products/from_client_ready_to_be_checked_by_supervisor | # Отправить  созданные клиентом товары на проверку супервайзеру.
+*TestSwagger.ClientApi* | [**apiV1ClientsProductsGetPriceForClientPost**](docs/ClientApi.md#apiV1ClientsProductsGetPriceForClientPost) | **POST** /api/v1/clients/products/get_price_for_client | # Получить цену для клиента на поиск поставщика множества товаров
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsGuidChangeBarCodePatch**](docs/ClientApi.md#apiV1ClientsProductsGuidChangeBarCodePatch) | **PATCH** /api/v1/clients/products/{guid}/change_barCode | # Внести изменения в баркод товара.
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch**](docs/ClientApi.md#apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch) | **PATCH** /api/v1/clients/products/{guid}/from_client_ready_to_be_checked_by_supervisor | # Отправить  созданный клиентом товар на проверку супервайзеру.
 *TestSwagger.ClientApi* | [**apiV1ClientsProductsGuidGetPriceForClientGet**](docs/ClientApi.md#apiV1ClientsProductsGuidGetPriceForClientGet) | **GET** /api/v1/clients/products/{guid}/get_price_for_client | # Получить цену для клиента на поиск поставщика
@@ -240,6 +242,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.OtherApi* | [**apiV1OtherPaymentsByProductGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByProductGuidGet) | **GET** /api/v1/other/payments/by_product/{guid} | # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
 *TestSwagger.OtherApi* | [**apiV1OtherPaymentsByUserGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByUserGuidGet) | **GET** /api/v1/other/payments/by_user/{guid} | # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
 *TestSwagger.OtherApi* | [**apiV1OtherPaymentsMyGet**](docs/OtherApi.md#apiV1OtherPaymentsMyGet) | **GET** /api/v1/other/payments/my | # Получить все оплаты, которые были произведены обратившемся пользователем.
+*TestSwagger.OtherApi* | [**apiV1OtherSuppliersSuppliersXlsxPost**](docs/OtherApi.md#apiV1OtherSuppliersSuppliersXlsxPost) | **POST** /api/v1/other/suppliers/suppliers_xlsx | # Добавить новых поставщиков через XLSX (Excel) файл
 *TestSwagger.OtherApi* | [**apiV1OtherUploadAvatarPost**](docs/OtherApi.md#apiV1OtherUploadAvatarPost) | **POST** /api/v1/other/upload_avatar | # Загрузить аватар.
 *TestSwagger.OtherApi* | [**apiV1OtherUploadFileByUrlPost**](docs/OtherApi.md#apiV1OtherUploadFileByUrlPost) | **POST** /api/v1/other/upload_file_by_url | # Загрузить изображение по ссылке.
 *TestSwagger.OtherApi* | [**apiV1OtherUploadFilePost**](docs/OtherApi.md#apiV1OtherUploadFilePost) | **POST** /api/v1/other/upload_file | # Загрузить изображение.
@@ -299,6 +302,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ShopApi* | [**apiV1ShopsPost**](docs/ShopApi.md#apiV1ShopsPost) | **POST** /api/v1/shops/ | # Добавить новый магазин клиентом.
 *TestSwagger.ShopSellApi* | [**apiV1ShopSellGet**](docs/ShopSellApi.md#apiV1ShopSellGet) | **GET** /api/v1/shop_sell/ | # Получить все магазины на продажу
 *TestSwagger.ShopSellApi* | [**apiV1ShopSellGuidGet**](docs/ShopSellApi.md#apiV1ShopSellGuidGet) | **GET** /api/v1/shop_sell/{guid} | # Получить магазин на продажу по GUID
+*TestSwagger.ShopSellApi* | [**apiV1ShopSellGuidPatch**](docs/ShopSellApi.md#apiV1ShopSellGuidPatch) | **PATCH** /api/v1/shop_sell/{guid} | # Обновить магазин на продажу.
 *TestSwagger.ShopSellApi* | [**apiV1ShopSellPost**](docs/ShopSellApi.md#apiV1ShopSellPost) | **POST** /api/v1/shop_sell/ | # Добавить на продажу новый магазин.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersBoxesGet**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesGet) | **GET** /api/v1/storekeepers/boxes | # Получить коробки и их строки по текущему сторкиперу.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersGet**](docs/StorekeepersApi.md#apiV1StorekeepersGet) | **GET** /api/v1/storekeepers/ | # Получить всех сторкиперов(все склады).
@@ -391,7 +395,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.ApiV1RequestsCustomDetailsCustom](docs/ApiV1RequestsCustomDetailsCustom.md)
  - [TestSwagger.ApiV1RequestsCustomGuidRequest](docs/ApiV1RequestsCustomGuidRequest.md)
  - [TestSwagger.ApiV1RequestsCustomRequest](docs/ApiV1RequestsCustomRequest.md)
- - [TestSwagger.ApiV1ShopSellGrossIncome](docs/ApiV1ShopSellGrossIncome.md)
+ - [TestSwagger.ApiV1ShopSellStatistics](docs/ApiV1ShopSellStatistics.md)
  - [TestSwagger.ApiV1StorekeepersTariffWarehouses](docs/ApiV1StorekeepersTariffWarehouses.md)
  - [TestSwagger.ApiV1SuppliersBoxProperties](docs/ApiV1SuppliersBoxProperties.md)
  - [TestSwagger.BadRequestError](docs/BadRequestError.md)
@@ -487,7 +491,10 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject85](docs/InlineObject85.md)
  - [TestSwagger.InlineObject86](docs/InlineObject86.md)
  - [TestSwagger.InlineObject87](docs/InlineObject87.md)
+ - [TestSwagger.InlineObject88](docs/InlineObject88.md)
+ - [TestSwagger.InlineObject89](docs/InlineObject89.md)
  - [TestSwagger.InlineObject9](docs/InlineObject9.md)
+ - [TestSwagger.InlineObject90](docs/InlineObject90.md)
  - [TestSwagger.InlineResponse200](docs/InlineResponse200.md)
  - [TestSwagger.InlineResponse2001](docs/InlineResponse2001.md)
  - [TestSwagger.InlineResponse20010](docs/InlineResponse20010.md)

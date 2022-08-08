@@ -12,7 +12,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './dashboard-info-card.style'
 
 export const DashboardInfoCard = observer(
-  ({color, title, value, route, onClickViewMore, sectionIndex, sectionSubIndex}) => {
+  ({color, title, value, route, onClickViewMore, sectionIndex, sectionSubIndex, dataGridFilter}) => {
     const classNames = useClassNames()
 
     return (
@@ -31,7 +31,7 @@ export const DashboardInfoCard = observer(
                   sectionIndex === 0 && sectionSubIndex === 0 && t(TranslationKey['Open the appropriate section'])
                 }
                 className={classNames.subTitle}
-                onClick={() => onClickViewMore(route)}
+                onClick={() => onClickViewMore(route, dataGridFilter)}
               >
                 {t(TranslationKey['View more'])}
               </Button>

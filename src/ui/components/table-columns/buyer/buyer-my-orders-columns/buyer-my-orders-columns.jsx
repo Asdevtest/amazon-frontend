@@ -3,7 +3,6 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  ActiveBarcodeCell,
   OrderCell,
   MultilineTextCell,
   NormDateCell,
@@ -12,11 +11,12 @@ import {
   OrderStatusCell,
   MultilineTextAlignLeftHeaderCell,
   MultilineTextAlignLeftCell,
+  DownloadAndCopyBtnsCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
-export const buyerMyOrdersViewColumns = () => [
+export const buyerMyOrdersViewColumns = firstRowId => [
   {
     field: 'ID',
     headerName: t(TranslationKey.ID),
@@ -55,10 +55,10 @@ export const buyerMyOrdersViewColumns = () => [
   {
     field: 'barCode',
     headerName: t(TranslationKey.BarCode),
-    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.BarCode)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    renderCell: params => <ActiveBarcodeCell barCode={params.value} />,
     width: 200,
+    renderCell: params => <DownloadAndCopyBtnsCell value={params.value} isFirstRow={firstRowId === params.row.id} />,
   },
 
   {

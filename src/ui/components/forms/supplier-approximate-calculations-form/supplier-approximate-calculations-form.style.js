@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    width: 800,
+    width: 850,
   },
   indicator: {
     backgroundColor: '#1da1f2',

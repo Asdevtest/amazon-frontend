@@ -43,14 +43,21 @@ export const useClassNames = makeStyles(theme => ({
     marginTop: '10px',
   },
   title: {
+    display: '-webkit-box',
+    '-webkitLineClamp': 4,
+    '-webkitBoxOrient': 'vertical',
+    height: 85,
+    whiteSpace: 'normal',
+
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
     marginRight: '10px',
+
     width: '160px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
   },
   titleOfCurBox: {
     fontSize: '14px',

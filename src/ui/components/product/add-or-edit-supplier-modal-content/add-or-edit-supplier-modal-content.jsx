@@ -80,7 +80,7 @@ export const AddOrEditSupplierModalContent = observer(
       amount: supplier?.amount || '',
       comment: supplier?.comment || '',
       link: supplier?.link || '',
-      lotcost: supplier?.lotcost || '',
+      // lotcost: supplier?.lotcost || '',
       minlot: supplier?.minlot || '',
       name: supplier?.name || '',
       price: supplier?.price || '',
@@ -115,7 +115,7 @@ export const AddOrEditSupplierModalContent = observer(
           2,
         ),
 
-        lotcost: toFixed(+tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar, 2),
+        // lotcost: toFixed(+tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar, 2),
 
         boxProperties: {
           ...tmpSupplier.boxProperties,
@@ -281,7 +281,7 @@ export const AddOrEditSupplierModalContent = observer(
         fieldName !== 'name' &&
         fieldName !== 'comment' &&
         fieldName !== 'link' &&
-        !checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value)
+        (!checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(event.target.value) || +event.target.value >= 1000000)
       ) {
         return
       } else if (['minlot', 'amount', 'productionTerm'].includes(fieldName)) {
@@ -360,7 +360,14 @@ export const AddOrEditSupplierModalContent = observer(
       tmpSupplier.boxProperties?.boxHeightCm &&
       tmpSupplier.boxProperties?.boxWeighGrossKg
 
+    const itHaveBigInt =
+      +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan >= 1000000 ||
+      tmpSupplier.batchDeliveryCostInYuan >= 1000000 ||
+      tmpSupplier.priceInYuan >= 1000000 ||
+      +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar >= 1000000
+
     const diasabledSubmit =
+      itHaveBigInt ||
       '' === tmpSupplier.name ||
       '' === tmpSupplier.price ||
       '' === tmpSupplier.link ||
@@ -502,6 +509,7 @@ export const AddOrEditSupplierModalContent = observer(
               >
                 <Grid item>
                   <Field
+                    error={tmpSupplier.priceInYuan >= 1000000 && '> 1000000 !'}
                     disabled={onlyRead}
                     tooltipInfoContent={t(TranslationKey['Price per unit'])}
                     label={t(TranslationKey['price per unit']) + ', ¥*'}
@@ -516,6 +524,10 @@ export const AddOrEditSupplierModalContent = observer(
                 <Grid item>
                   <Field
                     disabled
+                    error={
+                      +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan >=
+                        1000000 && '> 1000000 !'
+                    }
                     tooltipInfoContent={t(
                       TranslationKey['Calculated from the price per unit multiplied by the number of purchases'],
                     )}
@@ -555,6 +567,7 @@ export const AddOrEditSupplierModalContent = observer(
                 <Grid item>
                   <Field
                     disabled={onlyRead}
+                    error={tmpSupplier.batchDeliveryCostInYuan >= 1000000 && '> 1000000 !'}
                     tooltipInfoContent={t(
                       TranslationKey['Shipping price for a batch in China for a specified number of purchases'],
                     )}
@@ -598,6 +611,10 @@ export const AddOrEditSupplierModalContent = observer(
                 <Grid item>
                   <Field
                     disabled
+                    error={
+                      +tmpSupplier.price * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInDollar >=
+                        1000000 && '> 1000000 !'
+                    }
                     tooltipInfoContent={t(
                       TranslationKey['Calculated from the price per unit multiplied by the number of purchases'],
                     )}

@@ -115,8 +115,12 @@ export class ResearcherDashboardViewModel {
     }
   }
 
-  onClickInfoCardViewMode(route) {
-    this.history.push(route)
+  onClickInfoCardViewMode(route, dataGridFilter) {
+    if (dataGridFilter) {
+      this.history.push(route, {dataGridFilter})
+    } else {
+      this.history.push(route)
+    }
   }
 
   onTriggerDrawerOpen() {

@@ -4,6 +4,7 @@ import React, {Component} from 'react'
 
 import {Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -27,7 +28,7 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
 @observer
 class ResearcherProductsViewRaw extends Component {
-  viewModel = new ResearcherProductsViewModel({history: this.props.history})
+  viewModel = new ResearcherProductsViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -68,6 +69,8 @@ class ResearcherProductsViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
+    console.log('filterModel', toJS(filterModel))
+
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
@@ -91,6 +94,7 @@ class ResearcherProductsViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
+                // disableMultipleColumnsFiltering={false}
                 sx={{
                   border: 0,
                   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',

@@ -17,6 +17,8 @@ Method | HTTP request | Description
 [**apiV1ClientsOrdersGuidGet**](ClientApi.md#apiV1ClientsOrdersGuidGet) | **GET** /api/v1/clients/orders/{guid} | # Получить заказ по его GUID.
 [**apiV1ClientsOrdersGuidPatch**](ClientApi.md#apiV1ClientsOrdersGuidPatch) | **PATCH** /api/v1/clients/orders/{guid} | # Внести изменения в заказ.
 [**apiV1ClientsOrdersPost**](ClientApi.md#apiV1ClientsOrdersPost) | **POST** /api/v1/clients/orders | # Создать заказ.
+[**apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch**](ClientApi.md#apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch) | **PATCH** /api/v1/clients/products/from_client_ready_to_be_checked_by_supervisor | # Отправить  созданные клиентом товары на проверку супервайзеру.
+[**apiV1ClientsProductsGetPriceForClientPost**](ClientApi.md#apiV1ClientsProductsGetPriceForClientPost) | **POST** /api/v1/clients/products/get_price_for_client | # Получить цену для клиента на поиск поставщика множества товаров
 [**apiV1ClientsProductsGuidChangeBarCodePatch**](ClientApi.md#apiV1ClientsProductsGuidChangeBarCodePatch) | **PATCH** /api/v1/clients/products/{guid}/change_barCode | # Внести изменения в баркод товара.
 [**apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch**](ClientApi.md#apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch) | **PATCH** /api/v1/clients/products/{guid}/from_client_ready_to_be_checked_by_supervisor | # Отправить  созданный клиентом товар на проверку супервайзеру.
 [**apiV1ClientsProductsGuidGetPriceForClientGet**](ClientApi.md#apiV1ClientsProductsGuidGetPriceForClientGet) | **GET** /api/v1/clients/products/{guid}/get_price_for_client | # Получить цену для клиента на поиск поставщика
@@ -107,7 +109,7 @@ let apiInstance = new TestSwagger.ClientApi();
 let guid = null; // String | GUID коробки
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject38() // InlineObject38 | 
+  'body': new TestSwagger.InlineObject40() // InlineObject40 | 
 };
 apiInstance.apiV1ClientsBoxesGuidEditShippingLabelFirstTimePatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -124,7 +126,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID коробки | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
+ **body** | [**InlineObject40**](InlineObject40.md)|  | [optional] 
 
 ### Return type
 
@@ -216,7 +218,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject37() // InlineObject37 | 
+  'body': new TestSwagger.InlineObject39() // InlineObject39 | 
 };
 apiInstance.apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -232,7 +234,7 @@ apiInstance.apiV1ClientsBoxesUpdateTariffIfTariffWasDeletedPost(opts).then((data
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject37**](InlineObject37.md)|  | [optional] 
+ **body** | [**InlineObject39**](InlineObject39.md)|  | [optional] 
 
 ### Return type
 
@@ -736,6 +738,114 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch
+
+> String apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch(opts)
+
+# Отправить  созданные клиентом товары на проверку супервайзеру.
+
+## Отправить  созданные клиентом товары на проверку супервайзеру.   Данный метод ставит статус FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR (205).   Замораживает средства у клиента,( услуги баер + услуги супервайзера(если он требуется)) * 2    Затирает id баера и супервайзера  Записывает комментарий от клиента   ## Проверки  Вы можете ставить продукту статус FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR (205), если ранее товар имел статусы 200, 270, 275, 280, 290
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject37() // InlineObject37 | 
+};
+apiInstance.apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject37**](InlineObject37.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1ClientsProductsGetPriceForClientPost
+
+> InlineResponse20011 apiV1ClientsProductsGetPriceForClientPost(opts)
+
+# Получить цену для клиента на поиск поставщика множества товаров
+
+## Получить цену для клиента на поиск поставщика   ## Проверки  только продуты созданные клиентом и принадлежавшие данному пользователю.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject36() // InlineObject36 | 
+};
+apiInstance.apiV1ClientsProductsGetPriceForClientPost(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject36**](InlineObject36.md)|  | [optional] 
+
+### Return type
+
+[**InlineResponse20011**](InlineResponse20011.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## apiV1ClientsProductsGuidChangeBarCodePatch
 
 > String apiV1ClientsProductsGuidChangeBarCodePatch(guid, opts)
@@ -815,7 +925,7 @@ let apiInstance = new TestSwagger.ClientApi();
 let guid = null; // String | GUID продукта, который будет изменен
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject36() // InlineObject36 | 
+  'body': new TestSwagger.InlineObject38() // InlineObject38 | 
 };
 apiInstance.apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -832,7 +942,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который будет изменен | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject36**](InlineObject36.md)|  | [optional] 
+ **body** | [**InlineObject38**](InlineObject38.md)|  | [optional] 
 
 ### Return type
 

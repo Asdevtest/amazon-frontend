@@ -11,7 +11,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './private-label-card.style'
 
-export const PrivateLabelCard = ({item, setProductToPay}) => {
+export const PrivateLabelCard = ({item, setProductToPay, index}) => {
   const classNames = useClassNames()
 
   const InfoRow = ({label, value}) => (
@@ -52,16 +52,19 @@ export const PrivateLabelCard = ({item, setProductToPay}) => {
 
         <Divider className={classNames.divider} />
 
-        <InfoRow label={t(TranslationKey['Average BSR'])} value={item.bsr} />
+        <InfoRow label={t(TranslationKey['Average BSR'])} value={item.avgBSR || item.bsr} />
 
         <InfoRow label={t(TranslationKey['Average Review'])} value={item.avgReviews} />
-        <InfoRow label={t(TranslationKey['Average revenue'])} value={toFixedWithDollarSign(item.profit, 2)} />
+        <InfoRow
+          label={t(TranslationKey['Average revenue'])}
+          value={item.avgRevenue ? toFixedWithDollarSign(item.avgRevenue, 2) : toFixedWithDollarSign(item.profit, 2)}
+        />
 
         <div className={classNames.buttonsWrapper}>
           <Button
             success
             disableElevation
-            tooltipInfoContent={t(TranslationKey['Purchase a product card by Private Label strategy'])}
+            tooltipInfoContent={index === 0 && t(TranslationKey['Purchase a product card by Private Label strategy'])}
             variant="contained"
             onClick={() => {
               setProductToPay(item)
