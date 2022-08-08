@@ -1,6 +1,10 @@
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+
 import React, {useState} from 'react'
 
 import {Divider, Typography, Paper, Checkbox, Link, Tooltip, Avatar} from '@material-ui/core'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
@@ -21,6 +25,7 @@ import {t} from '@utils/translations'
 import {EditBoxTasksModal} from '../edit-task-modal/edit-box-tasks-modal'
 import {useClassNames} from './before-after-block.style'
 import {BoxItemCard} from './box-item-card'
+import {ShortBoxItemCard} from './short-box-item-card'
 
 const Box = observer(
   ({
@@ -32,10 +37,13 @@ const Box = observer(
     isEdit,
     taskType,
     setNewBoxes,
+
     newBoxes,
     volumeWeightCoefficient,
   }) => {
     const classNames = useClassNames()
+
+    const [showFullCard, setShowFullCard] = useState(false)
 
     const onChangeField = (value, field) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]
@@ -77,27 +85,33 @@ const Box = observer(
       </div>
     )
 
+    const copyValue = value => {
+      navigator.clipboard.writeText(value)
+    }
+
     return (
-      <div className={(classNames.box, classNames.mainPaper)}>
+      <div className={classNames.mainPaper}>
         <div className={classNames.fieldsWrapper}>
-          <Field
-            disabled
-            tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
-            label={t(TranslationKey.Warehouse)}
-            value={box.destination?.name ? box.destination?.name : t(TranslationKey['Not available'])}
-          />
+          <div>
+            <Field
+              disabled
+              tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
+              label={t(TranslationKey.Warehouse)}
+              value={box.destination?.name ? box.destination?.name : t(TranslationKey['Not available'])}
+              className={classNames.field}
+            />
+          </div>
 
-          <Field
-            disabled
-            tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
-            label={t(TranslationKey.Tariff)}
-            value={getFullTariffTextForBoxOrOrder(box) || 'N/A'}
-          />
+          <div>
+            <Field
+              disabled
+              tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
+              label={t(TranslationKey.Tariff)}
+              value={getFullTariffTextForBoxOrOrder(box) || 'N/A'}
+              className={classNames.field}
+            />
+          </div>
         </div>
-
-        <Typography className={classNames.boxTitle}>{`${t(TranslationKey['Box number:'])} ${
-          box.humanFriendlyId
-        }`}</Typography>
 
         {box.amount > 1 && (
           <div className={classNames.superWrapper}>
@@ -105,243 +119,301 @@ const Box = observer(
             <Typography>{`x${box.amount}`}</Typography>
           </div>
         )}
-        <div className={classNames.itemsWrapper}>
-          {box.items?.map((item, index) => (
-            <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
-              <BoxItemCard
-                item={item}
-                index={index}
-                superCount={box.amount}
-                isNewBox={isNewBox}
-                onChangeBarCode={onChangeBarCode}
-              />
+        {(!showFullCard && isEdit) || (!showFullCard && taskType === TaskOperationType.MERGE) ? (
+          <Paper className={classNames.boxWrapper}>
+            <div className={classNames.itemsWrapper}>
+              {box.items?.map((item, index) => (
+                <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
+                  <ShortBoxItemCard
+                    item={item}
+                    boxId={box.humanFriendlyId}
+                    superCount={box.amount}
+                    onChangeBarCode={onChangeBarCode}
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-
-        <Paper className={classNames.boxInfoWrapper}>
-          <div>
-            <Typography className={classNames.categoryTitle}>
-              {isCurrentBox && taskType === TaskOperationType.RECEIVE
-                ? t(TranslationKey['Sizes from supplier:'])
-                : t(TranslationKey['Sizes from storekeeper:'])}
-            </Typography>
-
-            <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
-              <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
-                {'In'}
-              </ToggleBtn>
-              <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
-                {'Cm'}
-              </ToggleBtn>
-            </ToggleBtnGroup>
-
-            {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
-              <div className={classNames.demensionsWrapper}>
-                <Typography>
-                  {t(TranslationKey.Length) + ': '}
-
-                  {toFixed(box.lengthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-                </Typography>
-                <Typography>
-                  {t(TranslationKey.Width) + ': '}
-                  {toFixed(box.widthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-                </Typography>
-                <Typography>
-                  {t(TranslationKey.Height) + ': '}
-                  {toFixed(box.heightCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+          </Paper>
+        ) : (
+          <Paper className={classNames.boxWrapper}>
+            <div className={classNames.itemsWrapper}>
+              {box.items?.map((item, index) => (
+                <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
+                  <BoxItemCard
+                    item={item}
+                    boxId={box.humanFriendlyId}
+                    index={index}
+                    superCount={box.amount}
+                    isNewBox={isNewBox}
+                    onChangeBarCode={onChangeBarCode}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className={clsx(classNames.boxInfoWrapper)}>
+              <div>
+                <Typography className={classNames.categoryTitle}>
+                  {isCurrentBox && taskType === TaskOperationType.RECEIVE
+                    ? t(TranslationKey['Sizes from supplier:'])
+                    : t(TranslationKey['Sizes from storekeeper:'])}
                 </Typography>
 
-                <Typography>
-                  {t(TranslationKey.Weight) + ': '}
-                  {toFixedWithKg(box.weighGrossKgSupplier, 2)}
-                </Typography>
+                <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+                  <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                    {'In'}
+                  </ToggleBtn>
+                  <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                    {'Cm'}
+                  </ToggleBtn>
+                </ToggleBtnGroup>
 
-                <Typography>
-                  {t(TranslationKey['Volume weight']) + ': '}
-                  {toFixedWithKg(
-                    ((parseFloat(box.lengthCmSupplier) || 0) *
-                      (parseFloat(box.heightCmSupplier) || 0) *
-                      (parseFloat(box.widthCmSupplier) || 0)) /
-                      volumeWeightCoefficient,
-                    2,
-                  )}
-                </Typography>
+                {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
+                  <div className={classNames.demensionsWrapper}>
+                    <Typography>
+                      {t(TranslationKey.Length) + ': '}
 
-                <Typography>
-                  {t(TranslationKey['Final weight']) + ': '}
-                  {toFixedWithKg(
-                    box.weighGrossKgSupplier >
-                      ((parseFloat(box.lengthCmSupplier) || 0) *
-                        (parseFloat(box.heightCmSupplier) || 0) *
-                        (parseFloat(box.widthCmSupplier) || 0)) /
-                        volumeWeightCoefficient
-                      ? box.weighGrossKgSupplier
-                      : ((parseFloat(box.lengthCmSupplier) || 0) *
+                      {toFixed(box.lengthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    </Typography>
+                    <Typography>
+                      {t(TranslationKey.Width) + ': '}
+                      {toFixed(box.widthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    </Typography>
+                    <Typography>
+                      {t(TranslationKey.Height) + ': '}
+                      {toFixed(box.heightCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    </Typography>
+
+                    <Typography>
+                      {t(TranslationKey.Weight) + ': '}
+                      {toFixedWithKg(box.weighGrossKgSupplier, 2)}
+                    </Typography>
+
+                    <Typography>
+                      {t(TranslationKey['Volume weight']) + ': '}
+                      {toFixedWithKg(
+                        ((parseFloat(box.lengthCmSupplier) || 0) *
                           (parseFloat(box.heightCmSupplier) || 0) *
                           (parseFloat(box.widthCmSupplier) || 0)) /
                           volumeWeightCoefficient,
-                    2,
-                  )}
-                </Typography>
-              </div>
-            ) : (
-              <div className={classNames.demensionsWrapper}>
-                <Typography>
-                  {t(TranslationKey.Length) + ': '}
-                  {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-                </Typography>
-                <Typography>
-                  {t(TranslationKey.Width) + ': '}
-                  {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-                </Typography>
-                <Typography>
-                  {t(TranslationKey.Height) + ': '}
-                  {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
-                </Typography>
+                        2,
+                      )}
+                    </Typography>
 
-                <Typography>
-                  {t(TranslationKey.Weight) + ': '}
-                  {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
-                </Typography>
-                <Typography>
-                  {t(TranslationKey['Volume weight']) + ': '}
-                  {toFixedWithKg(
-                    ((parseFloat(box.lengthCmWarehouse) || 0) *
-                      (parseFloat(box.heightCmWarehouse) || 0) *
-                      (parseFloat(box.widthCmWarehouse) || 0)) /
-                      volumeWeightCoefficient,
-                    2,
-                  )}
-                </Typography>
-                <Typography>
-                  {t(TranslationKey['Final weight']) + ': '}
-                  {toFixedWithKg(
-                    box.weighGrossKgWarehouse >
-                      ((parseFloat(box.lengthCmWarehouse) || 0) *
-                        (parseFloat(box.heightCmWarehouse) || 0) *
-                        (parseFloat(box.widthCmWarehouse) || 0)) /
-                        volumeWeightCoefficient
-                      ? box.weighGrossKgWarehouse
-                      : ((parseFloat(box.lengthCmWarehouse) || 0) *
+                    <Typography>
+                      {t(TranslationKey['Final weight']) + ': '}
+                      {toFixedWithKg(
+                        box.weighGrossKgSupplier >
+                          ((parseFloat(box.lengthCmSupplier) || 0) *
+                            (parseFloat(box.heightCmSupplier) || 0) *
+                            (parseFloat(box.widthCmSupplier) || 0)) /
+                            volumeWeightCoefficient
+                          ? box.weighGrossKgSupplier
+                          : ((parseFloat(box.lengthCmSupplier) || 0) *
+                              (parseFloat(box.heightCmSupplier) || 0) *
+                              (parseFloat(box.widthCmSupplier) || 0)) /
+                              volumeWeightCoefficient,
+                        2,
+                      )}
+                    </Typography>
+                  </div>
+                ) : (
+                  <div className={classNames.demensionsWrapper}>
+                    <Typography>
+                      {t(TranslationKey.Length) + ': '}
+                      {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    </Typography>
+                    <Typography>
+                      {t(TranslationKey.Width) + ': '}
+                      {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    </Typography>
+                    <Typography>
+                      {t(TranslationKey.Height) + ': '}
+                      {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    </Typography>
+
+                    <Typography>
+                      {t(TranslationKey.Weight) + ': '}
+                      {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
+                    </Typography>
+                    <Typography>
+                      {t(TranslationKey['Volume weight']) + ': '}
+                      {toFixedWithKg(
+                        ((parseFloat(box.lengthCmWarehouse) || 0) *
                           (parseFloat(box.heightCmWarehouse) || 0) *
                           (parseFloat(box.widthCmWarehouse) || 0)) /
                           volumeWeightCoefficient,
-                    2,
-                  )}
-                </Typography>
-              </div>
-            )}
-          </div>
-
-          <div className={classNames.imagesWrapper}>
-            {box.images && (
-              <div className={classNames.photoWrapper}>
-                <Typography>{t(TranslationKey['Box photos:'])}</Typography>
-                <div className={classNames.photoSubWrapper}>
-                  <PhotoAndFilesCarousel small files={box.images} width="300px" />
-                </div>
-
-                {isNewBox && box.tmpImages?.length ? (
-                  <div>
-                    <Typography className={classNames.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
-                      box.tmpImages?.length
-                    })`}</Typography>
-                    <CustomCarousel>
-                      {box.tmpImages?.map((image, index) =>
-                        typeof image === 'string' ? (
-                          <div key={index} className={classNames.imageLinkListItem}>
-                            <Tooltip title={renderImageInfo(image, image)} classes={{popper: classNames.imgTooltip}}>
-                              <Avatar className={classNames.image} src={image} alt={image} variant="square" />
-                            </Tooltip>
-
-                            <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
-                              <Typography className={classNames.linkName}>{image}</Typography>
-                            </Link>
-                          </div>
-                        ) : (
-                          <div key={index} className={classNames.imageListItem}>
-                            <Tooltip
-                              title={renderImageInfo(image.data_url, image.file.name)}
-                              classes={{popper: classNames.imgTooltip}}
-                            >
-                              <img
-                                className={classNames.image}
-                                src={image.file.type.includes('image') ? image.data_url : '/assets/icons/file.png'}
-                                alt={image.file.name}
-                              />
-                            </Tooltip>
-
-                            <Typography className={classNames.fileName}>{image.file.name} </Typography>
-                          </div>
-                        ),
+                        2,
                       )}
-                    </CustomCarousel>
+                    </Typography>
+                    <Typography>
+                      {t(TranslationKey['Final weight']) + ': '}
+                      {toFixedWithKg(
+                        box.weighGrossKgWarehouse >
+                          ((parseFloat(box.lengthCmWarehouse) || 0) *
+                            (parseFloat(box.heightCmWarehouse) || 0) *
+                            (parseFloat(box.widthCmWarehouse) || 0)) /
+                            volumeWeightCoefficient
+                          ? box.weighGrossKgWarehouse
+                          : ((parseFloat(box.lengthCmWarehouse) || 0) *
+                              (parseFloat(box.heightCmWarehouse) || 0) *
+                              (parseFloat(box.widthCmWarehouse) || 0)) /
+                              volumeWeightCoefficient,
+                        2,
+                      )}
+                    </Typography>
                   </div>
-                ) : null}
+                )}
               </div>
-            )}
 
-            {box.items[0].order.images && (
-              <div className={classNames.photoWrapper}>
-                <Typography>{t(TranslationKey['Order photos:'])}</Typography>
-                <div className={classNames.photoSubWrapper}>
-                  <PhotoAndFilesCarousel files={box.items[0].order.images} width="300px" />
-                </div>
+              <div className={classNames.imagesWrapper}>
+                {box.images && (
+                  <div className={classNames.photoWrapper}>
+                    <Typography className={classNames.photoAndFilesTitle}>{`${t(
+                      TranslationKey['Photos and documents of the box'],
+                    )}:`}</Typography>
+                    <div className={classNames.photoSubWrapper}>
+                      <PhotoAndFilesCarousel small files={box.images} width="350px" />
+                    </div>
+
+                    {isNewBox && box.tmpImages?.length ? (
+                      <div>
+                        <Typography className={classNames.greenText}>{`${t(TranslationKey['New files'])}: (+ ${
+                          box.tmpImages?.length
+                        })`}</Typography>
+                        <CustomCarousel>
+                          {box.tmpImages?.map((image, index) =>
+                            typeof image === 'string' ? (
+                              <div key={index} className={classNames.imageLinkListItem}>
+                                <Tooltip
+                                  title={renderImageInfo(image, image)}
+                                  classes={{popper: classNames.imgTooltip}}
+                                >
+                                  <Avatar className={classNames.image} src={image} alt={image} variant="square" />
+                                </Tooltip>
+
+                                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(image)}>
+                                  <Typography className={classNames.linkName}>{image}</Typography>
+                                </Link>
+                              </div>
+                            ) : (
+                              <div key={index} className={classNames.imageListItem}>
+                                <Tooltip
+                                  title={renderImageInfo(image.data_url, image.file.name)}
+                                  classes={{popper: classNames.imgTooltip}}
+                                >
+                                  <img
+                                    className={classNames.image}
+                                    src={image.file.type.includes('image') ? image.data_url : '/assets/icons/file.png'}
+                                    alt={image.file.name}
+                                  />
+                                </Tooltip>
+
+                                <Typography className={classNames.fileName}>{image.file.name} </Typography>
+                              </div>
+                            ),
+                          )}
+                        </CustomCarousel>
+                      </div>
+                    ) : null}
+                  </div>
+                )}
+
+                {box.items[0].order.images && (
+                  <div className={classNames.photoWrapper}>
+                    <Typography className={classNames.photoAndFilesTitle}>{`${t(
+                      TranslationKey['Photos and order documents'],
+                    )}:`}</Typography>
+                    <div className={classNames.photoSubWrapper}>
+                      <PhotoAndFilesCarousel small files={box.items[0].order.images} width="350px" />
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </Paper>
+            </div>
+            <div className={classNames.footerWrapper}>
+              <div className={classNames.chipWrapper}>
+                <Text
+                  tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
+                  className={classNames.subTitle}
+                >
+                  {t(TranslationKey['Shipping label']) + ':'}
+                </Text>
 
-        <div>
-          <div className={classNames.chipWrapper}>
-            <Text
-              tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
-              className={classNames.subTitle}
-            >
-              {t(TranslationKey['Shipping label']) + ':'}
-            </Text>
-
-            {box.shippingLabel ? (
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                <Typography className={classNames.link}>{box.shippingLabel}</Typography>
-              </Link>
-            ) : (
-              <Typography className={classNames.link}>{'N/A'}</Typography>
-            )}
-          </div>
-          <Field
-            oneLine
-            containerClasses={classNames.checkboxContainer}
-            label={t(TranslationKey['Shipping label was glued to the warehouse'])}
-            inputComponent={
-              <Checkbox
-                color="primary"
-                disabled={!box.shippingLabel || !isNewBox}
-                checked={box.isShippingLabelAttachedByStorekeeper}
-                onClick={() =>
-                  onChangeField(!box.isShippingLabelAttachedByStorekeeper, 'isShippingLabelAttachedByStorekeeper')
-                }
-              />
-            }
-          />
-        </div>
+                {box.shippingLabel ? (
+                  <div className={classNames.barCode}>
+                    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
+                      <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
+                    </Link>
+                    <img
+                      className={classNames.copyImg}
+                      src="/assets/icons/copy-img.svg"
+                      alt=""
+                      onClick={() => copyValue(box.shippingLabel)}
+                    />
+                  </div>
+                ) : (
+                  <Typography className={classNames.link}>{'N/A'}</Typography>
+                )}
+              </div>
+              <div>
+                <Field
+                  oneLine
+                  containerClasses={classNames.checkboxContainer}
+                  labelClasses={classNames.label}
+                  label={t(TranslationKey['Shipping label was glued to the warehouse'])}
+                  inputComponent={
+                    <Checkbox
+                      color="primary"
+                      disabled={!box.shippingLabel || !isNewBox}
+                      checked={box.isShippingLabelAttachedByStorekeeper}
+                      onClick={() =>
+                        onChangeField(!box.isShippingLabelAttachedByStorekeeper, 'isShippingLabelAttachedByStorekeeper')
+                      }
+                    />
+                  }
+                />
+              </div>
+            </div>
+          </Paper>
+        )}
 
         {isNewBox && (
           <div className={classNames.bottomBlockWrapper}>
             <div className={classNames.editBtnWrapper}>
               {isEdit && (
-                <Button
-                  className={classNames.editBtn}
-                  tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
-                  onClick={() => {
-                    setCurBox(box)
-                    onClickEditBox(box)
-                  }}
-                >
-                  {t(TranslationKey.Edit)}
-                </Button>
+                <div>
+                  <Button
+                    className={classNames.editBtn}
+                    tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
+                    onClick={() => {
+                      setCurBox(box)
+                      onClickEditBox(box)
+                    }}
+                  >
+                    {t(TranslationKey.Edit)}
+                  </Button>
+                </div>
               )}
+              <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
+                <Typography className={classNames.tablePanelViewText}>
+                  {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
+                </Typography>
+
+                {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+              </div>
+            </div>
+          </div>
+        )}
+        {!isNewBox && taskType === TaskOperationType.MERGE && (
+          <div className={classNames.bottomBlockWrapper}>
+            <div className={classNames.incomingBtnWrapper}>
+              <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
+                <Typography className={classNames.tablePanelViewText}>
+                  {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
+                </Typography>
+
+                {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+              </div>
             </div>
           </div>
         )}
@@ -349,6 +421,34 @@ const Box = observer(
     )
   },
 )
+
+const ReceiveBoxes = ({taskType, onClickOpenModal}) => {
+  const classNames = useClassNames()
+  return (
+    <div className={classNames.receiveBoxWrapper}>
+      <div className={classNames.receiveBox}>
+        <img src="/assets/img/receive-big.png" />
+        <Typography className={classNames.receiveBoxTitle}>
+          {t(TranslationKey['Add boxes that have arrived in stock'])}
+        </Typography>
+        <div className={classNames.buttonWrapper}>
+          {taskType === TaskOperationType.RECEIVE && (
+            <Button
+              disableElevation
+              className={classNames.button}
+              // tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
+              color="primary"
+              variant="contained"
+              onClick={onClickOpenModal}
+            >
+              {t(TranslationKey.Receive)}
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 const NewBoxes = observer(
   ({
@@ -368,26 +468,32 @@ const NewBoxes = observer(
 
     return (
       <div className={classNames.newBoxes}>
-        <Text tooltipInfoContent={t(TranslationKey['New box condition'])} className={classNames.sectionTitle}>
+        <Text
+          tooltipInfoContent={t(TranslationKey['New box condition'])}
+          className={classNames.sectionTitle}
+          containerClasses={classNames.sectionTitleWrapper}
+        >
           {t(TranslationKey['New boxes'])}
         </Text>
-
-        {newBoxes.map((box, boxIndex) => (
-          <Box
-            key={boxIndex}
-            volumeWeightCoefficient={volumeWeightCoefficient}
-            isNewBox={isNewBox}
-            box={box}
-            setCurBox={setCurBox}
-            isEdit={isEdit}
-            taskType={taskType}
-            newBoxes={newBoxes}
-            setNewBoxes={setNewBoxes}
-            showEditBoxModal={showEditBoxModal}
-            onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
-            onClickEditBox={onClickEditBox}
-          />
-        ))}
+        <div className={classNames.newBoxesWrapper}>
+          {newBoxes.map((box, boxIndex) => (
+            <Box
+              key={boxIndex}
+              volumeWeightCoefficient={volumeWeightCoefficient}
+              isNewBox={isNewBox}
+              box={box}
+              curBox={curBox}
+              setCurBox={setCurBox}
+              isEdit={isEdit}
+              taskType={taskType}
+              newBoxes={newBoxes}
+              setNewBoxes={setNewBoxes}
+              showEditBoxModal={showEditBoxModal}
+              onTriggerShowEditBoxModal={onTriggerShowEditBoxModal}
+              onClickEditBox={onClickEditBox}
+            />
+          ))}
+        </div>
 
         <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
           <EditBoxTasksModal
@@ -416,6 +522,7 @@ export const BeforeAfterBlock = observer(
     setNewBoxes,
     setAmountFieldNewBox,
     volumeWeightCoefficient,
+    onClickOpenModal,
   }) => {
     const classNames = useClassNames()
 
@@ -423,11 +530,14 @@ export const BeforeAfterBlock = observer(
       onEditBox(box)
     }
 
+    // const [showFullIncomingCard, setShowFullIncomingCard] = useState(false)
+
     const CurrentBox = ({currentBoxes}) => (
       <div className={classNames.currentBox}>
         <Text
           tooltipInfoContent={t(TranslationKey['Previous condition of the box'])}
           className={classNames.sectionTitle}
+          containerClasses={classNames.sectionTitleWrapper}
         >
           {t(TranslationKey.Incoming)}
         </Text>
@@ -447,25 +557,44 @@ export const BeforeAfterBlock = observer(
             )}
           </div>
         )} */}
+        <div className={classNames.newBoxesWrapper}>
+          {currentBoxes &&
+            currentBoxes.map((box, boxIndex) => (
+              <>
+                <Box
+                  key={boxIndex}
+                  isCurrentBox
+                  box={box}
+                  taskType={taskType}
+                  volumeWeightCoefficient={volumeWeightCoefficient}
+                />
+                {/* {taskType === TaskOperationType.MERGE && (
+                  <div
+                    className={classNames.tablePanelSortWrapper}
+                    onClick={() => setShowFullIncomingCard(!showFullIncomingCard)}
+                  >
+                    <Typography className={classNames.tablePanelViewText}>
+                      {showFullIncomingCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
+                    </Typography>
 
-        {currentBoxes &&
-          currentBoxes.map((box, boxIndex) => (
-            <Box
-              key={boxIndex}
-              isCurrentBox
-              box={box}
-              taskType={taskType}
-              volumeWeightCoefficient={volumeWeightCoefficient}
-            />
-          ))}
+                    {!showFullIncomingCard ? (
+                      <ArrowDropDownIcon color="primary" />
+                    ) : (
+                      <ArrowDropUpIcon color="primary" />
+                    )}
+                  </div>
+                )} */}
+              </>
+            ))}
+        </div>
       </div>
     )
 
     return (
-      <Paper className={classNames.boxesWrapper}>
+      <div className={classNames.boxesWrapper}>
         <CurrentBox currentBoxes={incomingBoxes} />
 
-        <Divider flexItem className={classNames.divider} orientation="vertical" />
+        {desiredBoxes.length > 0 && <Divider flexItem className={classNames.divider} orientation="vertical" />}
 
         {desiredBoxes.length > 0 && (
           <NewBoxes
@@ -481,7 +610,10 @@ export const BeforeAfterBlock = observer(
             onClickEditBox={onClickEditBox}
           />
         )}
-      </Paper>
+        {taskType === TaskOperationType.RECEIVE && desiredBoxes.length === 0 && incomingBoxes.length > 0 && (
+          <ReceiveBoxes taskType={taskType} onClickOpenModal={onClickOpenModal} />
+        )}
+      </div>
     )
   },
 )

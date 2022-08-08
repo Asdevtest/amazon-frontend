@@ -1,6 +1,8 @@
+import AddIcon from '@mui/icons-material/Add'
+
 import React, {useState} from 'react'
 
-import {Divider, IconButton, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Divider, IconButton, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {transformAndValidate} from 'class-transformer-validator'
 
@@ -279,27 +281,25 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
   }
   const CurrentBox = () => (
     <div className={classNames.currentBox}>
-      <Typography className={classNames.boxTitle}>{`Box ${selectedBox.humanFriendlyId}`}</Typography>
       <div className={classNames.order}>
         <img className={classNames.img} src={getAmazonImageUrl(selectedBox?.items[0]?.product.images[0])} />
         <Typography className={classNames.titleOfCurBox}>{selectedBox.items[0].product.amazonTitle}</Typography>
       </div>
       <div className={classNames.currentBoxFooter}>
         <div className={classNames.qtyWrapper}>
-          <Typography className={classNames.footerTitle}>{t(TranslationKey.Quantity)}</Typography>
-          <Input
-            readOnly
-            classes={{root: classNames.inputWrapper, input: classNames.input}}
-            value={`${selectedBox.items[0].amount} x ${selectedBox.amount}`}
-          />
+          <Typography className={classNames.qtyTitle}>{t(TranslationKey.Quantity)}</Typography>
+          <Typography
+            className={classNames.qtySubTitle}
+          >{`${selectedBox.items[0].amount} x ${selectedBox.amount}`}</Typography>
         </div>
-        <Typography className={classNames.footerTitle}>{`${t(
-          TranslationKey['Left to redistribute'],
-        )}: ${totalProductsAmount}`}</Typography>
-
-        <Typography className={classNames.footerTitle}>{`${t(
-          TranslationKey['Actually assembled'],
-        )}: ${actuallyAssembled}`}</Typography>
+        <div className={classNames.qtyWrapper}>
+          <Typography className={classNames.qtyTitle}>{t(TranslationKey['Left to redistribute'])}</Typography>
+          <Typography className={classNames.qtySubTitle}>{totalProductsAmount}</Typography>
+        </div>
+        <div className={classNames.qtyWrapper}>
+          <Typography className={classNames.qtyTitle}>{t(TranslationKey['Actually assembled'])}</Typography>
+          <Typography className={classNames.qtySubTitle}>{actuallyAssembled}</Typography>
+        </div>
       </div>
 
       <div className={classNames.demensionsWrapper}>
@@ -348,26 +348,39 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
 
   return (
     <div className={classNames.root}>
-      <Typography className={classNames.modalTitle}>{t(TranslationKey['Receive and distribute'])}</Typography>
+      <div className={classNames.modalHeaderWrapper}>
+        <Typography className={classNames.modalTitle}>{t(TranslationKey['Receive and distribute'])}</Typography>
+        <Button
+          className={classNames.addButton}
+          tooltipInfoContent={t(TranslationKey['Add a box'])}
+          onClick={() => {
+            setNewBoxes(newBoxes.concat(getEmptyBox()))
+          }}
+        >
+          {t(TranslationKey['New box'])}
+          <AddIcon fontSize="small" className={classNames.icon} />
+        </Button>
+      </div>
 
       {/* <CommentsLine /> */}
 
-      <Divider className={classNames.divider} />
-
-      <div className={classNames.boxesWrapper}>
+      <Paper className={classNames.boxesWrapper}>
         <CurrentBox />
         <Divider flexItem className={classNames.divider} orientation="vertical" />
-        <NewBoxes
-          newBoxes={newBoxes}
-          onChangeQtyInput={onChangeQtyInput}
-          onChangeFieldInput={onChangeFieldInput}
-          onRemoveBox={onRemoveBox}
-          onAddImages={onAddImages}
-        />
-      </div>
+        <div className={classNames.boxesTableWrapper}>
+          <NewBoxes
+            newBoxes={newBoxes}
+            onChangeQtyInput={onChangeQtyInput}
+            onChangeFieldInput={onChangeFieldInput}
+            onRemoveBox={onRemoveBox}
+            onAddImages={onAddImages}
+          />
+        </div>
+      </Paper>
 
       <div className={classNames.buttonsWrapper}>
         <Button
+          success
           disabled={disableSubmit}
           className={classNames.button}
           onClick={() => {
@@ -376,15 +389,7 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button
-          className={classNames.button}
-          tooltipInfoContent={t(TranslationKey['Add a box'])}
-          onClick={() => {
-            setNewBoxes(newBoxes.concat(getEmptyBox()))
-          }}
-        >
-          {t(TranslationKey['New box'])}
-        </Button>
+
         <Button
           className={classNames.button}
           onClick={() => {

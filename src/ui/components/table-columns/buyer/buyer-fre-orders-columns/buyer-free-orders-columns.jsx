@@ -30,7 +30,7 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 190,
+    width: 200,
     renderCell: params => (
       <NormalActionBtnCell
         tooltipText={t(TranslationKey['To assign the order to Byer'])}

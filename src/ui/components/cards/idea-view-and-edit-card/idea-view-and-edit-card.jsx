@@ -244,7 +244,7 @@ export const IdeaViewAndEditCard = observer(
                       <div className={classNames.inputWrapper}>
                         <Input
                           disabled={disableFields}
-                          placeholder={'Link to the product'}
+                          placeholder={t(TranslationKey['Link to the product'])}
                           inputProps={{maxLength: 1500}}
                           value={linkLine}
                           className={classNames.input}

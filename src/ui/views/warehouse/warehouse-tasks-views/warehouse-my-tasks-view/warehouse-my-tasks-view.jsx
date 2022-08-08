@@ -2,7 +2,6 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -125,7 +124,6 @@ export class WarehouseMyTasksViewRaw extends Component {
           </Appbar>
         </Main>
         <Modal missClickModalOn openModal={showEditTaskModal} setOpenModal={onTriggerEditTaskModal}>
-          <Typography variant="h5">{t(TranslationKey['Resolve task'])}</Typography>
           <EditTaskModal
             requestStatus={requestStatus}
             volumeWeightCoefficient={volumeWeightCoefficient}

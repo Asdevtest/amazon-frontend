@@ -6,6 +6,8 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
@@ -21,26 +23,30 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
     navigator.clipboard.writeText(value)
   }
 
+  const renderHeader = () => (
+    <TableHead>
+      <TableRow>
+        <TableCell className={(classNames.tableCellPadding, classNames.alignCenter)}>
+          {t(TranslationKey.Name)}
+        </TableCell>
+        <TableCell className={classNames.alignCenter}>{t(TranslationKey.Link)}</TableCell>
+
+        <TableCell className={classNames.alignCenter}>{t(TranslationKey['Price with delivery'])}</TableCell>
+
+        <TableCell className={classNames.alignCenter}>{t(TranslationKey['Minimum batch'])}</TableCell>
+        <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
+
+        <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
+        <TableCell className={classNames.alignCenter}>{t(TranslationKey.Files)}</TableCell>
+        <TableCell className={classNames.alignRight}>{t(TranslationKey['Created by'])}</TableCell>
+      </TableRow>
+    </TableHead>
+  )
+
   return (
     <TableContainer className={classNames.table}>
       <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell className={(classNames.tableCellPadding, classNames.alignCenter)}>
-              {t(TranslationKey.Name)}
-            </TableCell>
-            <TableCell className={classNames.alignCenter}>{t(TranslationKey.Link)}</TableCell>
-
-            <TableCell className={classNames.alignCenter}>{t(TranslationKey['Price with delivery'])}</TableCell>
-
-            <TableCell className={classNames.alignCenter}>{t(TranslationKey['Minimum batch'])}</TableCell>
-            <TableCell className={classNames.alignCenter}>{t(TranslationKey['Batch price'])}</TableCell>
-
-            <TableCell className={classNames.alignCenter}>{t(TranslationKey.Comment)}</TableCell>
-            <TableCell className={classNames.alignCenter}>{t(TranslationKey.Files)}</TableCell>
-            <TableCell className={classNames.alignRight}>{t(TranslationKey['Created by'])}</TableCell>
-          </TableRow>
-        </TableHead>
+        {SettingsModel.languageTag && renderHeader()}
         <TableBody>
           {product.suppliers.length ? (
             product.suppliers.map((supplier, index) => (

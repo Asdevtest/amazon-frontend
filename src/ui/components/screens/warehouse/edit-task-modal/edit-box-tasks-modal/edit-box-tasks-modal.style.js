@@ -1,11 +1,14 @@
 import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
+  modalWrapper: {
+    width: '700px',
+  },
   modalTitle: {
-    color: 'rgb(61, 81, 112)',
-    fontSize: '24px',
-    fontWeight: 500,
-    lineHeight: '28px',
+    color: '#001029',
+    fontSize: '18px',
+    fontWeight: 600,
+    lineHeight: '140%',
     marginBottom: '24px',
   },
   modalText: {
@@ -62,11 +65,11 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    margin: '48px 0px',
+    margin: '30px 0px',
   },
 
   imageFileInputWrapper: {
-    width: '694px',
+    width: '700px',
   },
   typoCode: {
     marginRight: '8px',
@@ -74,11 +77,15 @@ export const useClassNames = makeStyles(() => ({
   input: {
     width: '400px',
   },
-  button: {
-    marginRight: '10px',
+
+  saveButton: {
+    width: '179px',
+    height: '40px',
   },
-  saveBtn: {
-    marginRight: '8px',
+  cancelButton: {
+    width: '179px',
+    height: '40px',
+    color: '#001029',
   },
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
@@ -86,12 +93,14 @@ export const useClassNames = makeStyles(() => ({
     alignSelf: 'center',
     width: '100%',
     marginTop: '20px',
-    gap: '10px',
+    gap: '30px',
   },
   numberInputFieldsWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    gap: '20px',
   },
   numberInputField: {
     margin: '0 5px',
@@ -103,7 +112,9 @@ export const useClassNames = makeStyles(() => ({
   },
   buttonsWrapper: {
     display: 'flex',
-    marginTop: '16px',
+    justifyContent: 'end',
+    marginTop: '30px',
+    gap: '20px',
   },
 
   photoWrapper: {
@@ -124,6 +135,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   sizesSubWrapper: {
-    margin: '5px 0 0 25px',
+    // margin: '5px 0 0 25px',
+  },
+
+  photoAndFilesTitle: {
+    color: '#001029',
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    marginBottom: '10px',
   },
 }))

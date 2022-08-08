@@ -20,6 +20,7 @@ import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-go
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
+import {AddSuppliersModal} from '@components/modals/add-suppliers-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SelectionSupplierModal} from '@components/modals/selection-supplier-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
@@ -99,6 +100,7 @@ export class ClientInventoryViewRaw extends Component {
       showBarcodeOrHscodeModal,
       showInfoModal,
       showSetFourMonthsStockValueModal,
+      showAddSuppliersModal,
       showCircularProgressModal,
       onSubmitBindStockGoods,
       getStockGoodsByFilters,
@@ -114,6 +116,7 @@ export class ClientInventoryViewRaw extends Component {
       // onClickMonthStockValue,
       onClickSaveFourMonthesStockValue,
       onClickShopBtn,
+      uploadTemplateFile,
 
       onSelectionModel,
       setDataGridState,
@@ -285,12 +288,20 @@ export class ClientInventoryViewRaw extends Component {
                   </Button>
 
                   {!isArchive && (
+                    <Button success onClick={() => onTriggerOpenModal('showAddSuppliersModal')}>
+                      {t(TranslationKey['Add a supplier list'])}
+                      <img src="/assets/icons/+.svg" className={classNames.icon} />
+                    </Button>
+                  )}
+
+                  {!isArchive && (
                     <Button
                       success
                       tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
                       onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
                     >
-                      {t(TranslationKey['Add your product'])}
+                      {t(TranslationKey['Add product'])}
+                      <img src="/assets/icons/+.svg" className={classNames.icon} />
                     </Button>
                   )}
                 </div>
@@ -452,6 +463,16 @@ export class ClientInventoryViewRaw extends Component {
             stockData={sellerBoardDailyData}
             updateStockData={getStockGoodsByFilters}
             onSubmit={onSubmitBindStockGoods}
+          />
+        </Modal>
+
+        <Modal openModal={showAddSuppliersModal} setOpenModal={() => onTriggerOpenModal('showAddSuppliersModal')}>
+          <AddSuppliersModal
+            product={productsMy[0]}
+            showProgress={showProgress}
+            progressValue={progressValue}
+            onSubmit={uploadTemplateFile}
+            onClose={() => onTriggerOpenModal('showAddSuppliersModal')}
           />
         </Modal>
 

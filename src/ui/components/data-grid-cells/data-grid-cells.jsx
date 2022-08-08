@@ -284,6 +284,20 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
   </div>
 ))
 
+export const OrderBoxesCell = withStyles(styles)(({classes: classNames, superbox, superboxQty, qty, box, product}) =>
+  superbox ? (
+    <div className={classNames.orderBoxesWrapper}>
+      <SuperboxQtyCell qty={qty} superbox={superboxQty} />
+      <OrderManyItemsCell box={box} />
+    </div>
+  ) : (
+    <div className={classNames.orderBoxesWrapper}>
+      <MultilineTextCell text={`x${qty}`} />
+      <OrderCell product={product} superbox={superboxQty} box={box} />
+    </div>
+  ),
+)
+
 export const renderFieldValueCell = value => (!value && value !== 0 ? '-' : value)
 
 export const WarehouseTariffDestinationCell = withStyles(styles)(() => (
@@ -391,7 +405,14 @@ export const TaskStatusCell = withStyles(styles)(({classes: classNames, status})
 
 export const OrderStatusCell = withStyles(styles)(({classes: classNames, status}) => {
   const colorByStatus = () => {
-    if ([OrderStatus.AT_PROCESS, OrderStatus.PAID_TO_SUPPLIER, OrderStatus.READY_TO_PROCESS].includes(status)) {
+    if (
+      [
+        OrderStatus.AT_PROCESS,
+        OrderStatus.PAID_TO_SUPPLIER,
+        OrderStatus.READY_TO_PROCESS,
+        OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
+      ].includes(status)
+    ) {
       return '#F3AF00'
     } else if ([OrderStatus.IN_STOCK, OrderStatus.TRACK_NUMBER_ISSUED].includes(status)) {
       return '#00B746'
@@ -793,11 +814,12 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
 })
 
 export const ClientNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers, disabled}) => (
-  <div>
+  <div className={classNames.notificationBtnsWrapper}>
     <Button
       disabled={disabled}
       variant="contained"
       color="primary"
+      className={classNames.notificationBtn}
       onClick={() => handlers.onTriggerOpenConfirmModal(row)}
     >
       {t(TranslationKey.Confirm)}
@@ -805,7 +827,7 @@ export const ClientNotificationsBtnsCell = withStyles(styles)(({classes: classNa
     <Button
       danger
       disabled={disabled}
-      className={classNames.rowCancelBtn}
+      className={classNames.notificationBtn}
       onClick={() => {
         handlers.onTriggerOpenRejectModal(row)
       }}
@@ -938,6 +960,7 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
         variant="contained"
         color="primary"
         disabled={disableActionBtn}
+        className={classNames.rowCancelBtn}
         onClick={() => handlers.onClickEditBtn(row)}
       >
         {isSubUsersTable ? t(TranslationKey['Assign permissions']) : t(TranslationKey.Edit)}
@@ -1117,6 +1140,7 @@ export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, val
         tooltipInfoContent={isFirstRow && t(TranslationKey['Opens the table of a particular store'])}
         variant="contained"
         color="primary"
+        className={classNames.viewBtn}
         onClick={onClickSeeMore}
       >
         {t(TranslationKey.View)}

@@ -201,18 +201,18 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               <div className={classNames.infoSubWrapper}>
                 <Field
                   disabled
-                  error={formFieldsValidationErrors.minpurchase}
+                  error={errorMessagesTranslate(formFieldsValidationErrors.minpurchase)}
                   containerClasses={classNames.infoContainer}
                   inputClasses={classNames.infoInput}
                   inputProps={{maxLength: 10}}
                   label={t(TranslationKey['Min purchase price, $'])}
-                  value={product.minpurchase === 0 ? 0 : toFixed(product.minpurchase, 2) || ''}
+                  value={product.minpurchase === 0 ? '' : toFixed(product.minpurchase, 2) || ''}
                   onChange={onChangeField('minpurchase')}
                 />
                 <Field
                   disabled={defaultFieldDisable}
                   tooltipInfoContent={t(TranslationKey['Amazon Fee'])}
-                  error={formFieldsValidationErrors.reffee}
+                  error={errorMessagesTranslate(formFieldsValidationErrors.reffee)}
                   containerClasses={classNames.infoContainer}
                   inputClasses={classNames.infoInput}
                   inputProps={{maxLength: 10}}

@@ -17,6 +17,7 @@ import BadRequestError from '../model/BadRequestError';
 import InlineObject55 from '../model/InlineObject55';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2017 from '../model/InlineResponse2017';
+import InlineResponse2018 from '../model/InlineResponse2018';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 

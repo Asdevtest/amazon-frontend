@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Box, Container, Divider, Typography} from '@material-ui/core'
+import {Box, Container, Typography} from '@material-ui/core'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -103,6 +103,7 @@ export const EditBoxTasksModal = ({
   box,
   operationType,
   setNewBoxes,
+
   newBoxes,
   volumeWeightCoefficient,
 }) => {
@@ -185,9 +186,8 @@ export const EditBoxTasksModal = ({
     !Number(editingBox.weighGrossKgWarehouse)
 
   return (
-    <Container disableGutters>
+    <Container disableGutters className={classNames.modalWrapper}>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Editing the box'])}</Typography>
-      <Divider className={classNames.divider} />
 
       <div className={classNames.sizesSubWrapper}>
         <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
@@ -208,29 +208,26 @@ export const EditBoxTasksModal = ({
         sizeSetting={sizeSetting}
       />
 
-      <div className={classNames.photoWrapper}>
-        <Typography>{t(TranslationKey.Files) + ': '}</Typography>
-        <PhotoAndFilesCarousel files={box.images} width="600px" />
-      </div>
-
       <Box className={classNames.boxCode}>
         <div className={classNames.imageFileInputWrapper}>
           <UploadFilesInput images={editingBox.tmpImages} setImages={setImagesOfBox} maxNumber={50} />
         </div>
       </Box>
-
-      <Divider className={classNames.divider} />
+      <div className={classNames.photoWrapper}>
+        <Typography className={classNames.photoAndFilesTitle}>
+          {t(TranslationKey['Photos and documents of the box']) + ': '}
+        </Typography>
+        <PhotoAndFilesCarousel small files={box.images} width="400px" />
+      </div>
 
       <div className={classNames.buttonsWrapper}>
-        <Box className={classNames.button}>
-          <Button disabled={disabledSubmit} onClick={onSubmit}>
-            {t(TranslationKey.Save)}
-          </Button>
-        </Box>
+        <Button success disabled={disabledSubmit} className={classNames.saveButton} onClick={onSubmit}>
+          {t(TranslationKey.Save)}
+        </Button>
 
-        <Box className={classNames.button}>
-          <Button onClick={() => setEditModal()}>{t(TranslationKey.Close)}</Button>
-        </Box>
+        <Button variant="text" className={classNames.cancelButton} onClick={() => setEditModal()}>
+          {t(TranslationKey.Close)}
+        </Button>
       </div>
     </Container>
   )

@@ -8,18 +8,13 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-// import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {UserLink} from '@components/user-link'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
-// import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
-// import {getUserAvatarSrc} from '@utils/get-user-avatar'
-// import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-// import {translateProposalsLeftMessage} from '@utils/validation'
 import {useClassNames} from './vacant-deals-list-card.style'
 
 export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToWorkModal, item}) => {

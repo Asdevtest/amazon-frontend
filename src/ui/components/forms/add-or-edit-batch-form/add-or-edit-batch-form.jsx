@@ -3,6 +3,7 @@ import {DataGrid} from '@mui/x-data-grid'
 import React, {useEffect, useState} from 'react'
 
 import {Typography} from '@material-ui/core'
+import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -129,79 +130,91 @@ export const AddOrEditBatchForm = observer(
 
     return (
       <div className={classNames.root}>
-        <Typography variant="h5">
+        <Typography className={classNames.modalTitle}>
           {batchToEdit ? t(TranslationKey['Editing a batch']) : t(TranslationKey['Creating a batch'])}
         </Typography>
 
         <div className={classNames.form}>
           <div className={classNames.filtersWrapper}>
-            <Field
-              disabled
-              className={classNames.filterField}
-              label={t(TranslationKey['CLS (batch closing date)'])}
-              value={
-                sourceDataForFilters
-                  ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.cls)
-                  : (chosenBoxes[0]?.originalData?.logicsTariff?.cls &&
-                      formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.cls)) ||
-                    ''
-              }
-              placeholder={t(TranslationKey['dd.mm.yyyy'])}
-            />
+            <div>
+              <Field
+                disabled
+                className={classNames.filterField}
+                labelClasses={classNames.label}
+                containerClasses={classNames.filterFieldWrapper}
+                label={t(TranslationKey['CLS (batch closing date)'])}
+                value={
+                  sourceDataForFilters
+                    ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.cls)
+                    : (chosenBoxes[0]?.originalData?.logicsTariff?.cls &&
+                        formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.cls)) ||
+                      ''
+                }
+                placeholder={t(TranslationKey['dd.mm.yyyy'])}
+              />
+            </div>
 
-            <Field
-              disabled
-              className={classNames.filterField}
-              label={t(TranslationKey['ETD (date of shipment)'])}
-              value={
-                sourceDataForFilters
-                  ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.etd)
-                  : (chosenBoxes[0]?.originalData?.logicsTariff?.etd &&
-                      formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.etd)) ||
-                    ''
-              }
-              placeholder={t(TranslationKey['dd.mm.yyyy'])}
-            />
+            <div>
+              <Field
+                disabled
+                className={classNames.filterField}
+                label={t(TranslationKey['ETD (date of shipment)'])}
+                value={
+                  sourceDataForFilters
+                    ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.etd)
+                    : (chosenBoxes[0]?.originalData?.logicsTariff?.etd &&
+                        formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.etd)) ||
+                      ''
+                }
+                placeholder={t(TranslationKey['dd.mm.yyyy'])}
+              />
+            </div>
 
-            <Field
-              disabled
-              className={classNames.filterField}
-              label={t(TranslationKey['ETA (arrival date)'])}
-              value={
-                sourceDataForFilters
-                  ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.eta)
-                  : (chosenBoxes[0]?.originalData?.logicsTariff?.eta &&
-                      formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.eta)) ||
-                    ''
-              }
-              placeholder={t(TranslationKey['dd.mm.yyyy'])}
-            />
+            <div>
+              <Field
+                disabled
+                className={classNames.filterField}
+                label={t(TranslationKey['ETA (arrival date)'])}
+                value={
+                  sourceDataForFilters
+                    ? formatDateWithoutTime(sourceDataForFilters.logicsTariff?.eta)
+                    : (chosenBoxes[0]?.originalData?.logicsTariff?.eta &&
+                        formatDateWithoutTime(chosenBoxes[0]?.originalData?.logicsTariff?.eta)) ||
+                      ''
+                }
+                placeholder={t(TranslationKey['dd.mm.yyyy'])}
+              />
+            </div>
 
-            <Field
-              disabled
-              className={classNames.filterField}
-              tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
-              label={t(TranslationKey.Tariff)}
-              value={
-                (sourceDataForFilters
-                  ? getFullTariffTextForBoxOrOrder(sourceDataForFilters)
-                  : getFullTariffTextForBoxOrOrder(chosenBoxes[0]?.originalData)) || ''
-              }
-              placeholder={'N/A'}
-            />
+            <div>
+              <Field
+                disabled
+                className={classNames.filterField}
+                tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
+                label={t(TranslationKey.Tariff)}
+                value={
+                  (sourceDataForFilters
+                    ? getFullTariffTextForBoxOrOrder(sourceDataForFilters)
+                    : getFullTariffTextForBoxOrOrder(chosenBoxes[0]?.originalData)) || ''
+                }
+                placeholder={'N/A'}
+              />
+            </div>
 
-            <Field
-              disabled
-              className={classNames.filterField}
-              tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
-              label={t(TranslationKey.Destination)}
-              value={
-                (sourceDataForFilters
-                  ? sourceDataForFilters.destination?.name
-                  : chosenBoxes[0]?.originalData?.destination?.name) || ''
-              }
-              placeholder={'N/A'}
-            />
+            <div>
+              <Field
+                disabled
+                className={classNames.filterField}
+                tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
+                label={t(TranslationKey.Destination)}
+                value={
+                  (sourceDataForFilters
+                    ? sourceDataForFilters.destination?.name
+                    : chosenBoxes[0]?.originalData?.destination?.name) || ''
+                }
+                placeholder={'N/A'}
+              />
+            </div>
           </div>
 
           <Typography>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
@@ -229,6 +242,7 @@ export const AddOrEditBatchForm = observer(
               disabled={!boxesToAddIds.length || (!chosenBoxes.length && boxesToAddIds.length !== 1 && !batchToEdit)}
               color="primary"
               variant="contained"
+              className={classNames.actionBtn}
               onClick={onClickAdd}
             >
               {t(TranslationKey.Add)}
@@ -254,72 +268,75 @@ export const AddOrEditBatchForm = observer(
             />
           </div>
 
-          <div className={classNames.btnsWrapper}>
+          <div className={classNames.footerWrapper}>
+            <div className={classNames.sumsWrapper}>
+              <Field
+                disabled
+                containerClasses={classNames.sumField}
+                tooltipInfoContent={t(TranslationKey['Calculated from the dimensions of the box'])}
+                label={t(TranslationKey['Volume weight'])}
+                value={toFixed(
+                  chosenBoxes.reduce(
+                    (ac, cur) => (ac += calcVolumeWeightForBox(cur.originalData, volumeWeightCoefficient)),
+                    0,
+                  ),
+                  4,
+                )}
+                placeholder={'0'}
+              />
+
+              <Field
+                disabled
+                containerClasses={classNames.sumField}
+                tooltipInfoContent={t(TranslationKey['Total weight of boxes in a batch'])}
+                label={t(TranslationKey['Final weight'])}
+                value={toFixed(
+                  chosenBoxes.reduce(
+                    (ac, cur) => (ac += calcFinalWeightForBox(cur.originalData, volumeWeightCoefficient)),
+                    0,
+                  ),
+                  4,
+                )}
+                placeholder={'0'}
+              />
+
+              <Field
+                disabled
+                containerClasses={classNames.sumField}
+                tooltipInfoContent={t(TranslationKey['Cost of shipping boxes in a batch'])}
+                label={t(TranslationKey['Total price'])}
+                value={toFixed(
+                  chosenBoxes.reduce((ac, cur) => (ac += cur.deliveryTotalPrice), 0),
+                  2,
+                )}
+                placeholder={'0'}
+              />
+            </div>
             <Button
               danger
               disabled={!boxesToDeliteIds.length}
               color="primary"
               variant="contained"
+              className={classNames.actionBtn}
               onClick={onClickTrash}
             >
               {t(TranslationKey.Remove)}
             </Button>
           </div>
 
-          <div className={classNames.sumsWrapper}>
-            <Field
-              disabled
-              containerClasses={classNames.sumField}
-              tooltipInfoContent={t(TranslationKey['Calculated from the dimensions of the box'])}
-              label={t(TranslationKey['Volume weight'])}
-              value={toFixed(
-                chosenBoxes.reduce(
-                  (ac, cur) => (ac += calcVolumeWeightForBox(cur.originalData, volumeWeightCoefficient)),
-                  0,
-                ),
-                4,
-              )}
-              placeholder={'0'}
-            />
-
-            <Field
-              disabled
-              containerClasses={classNames.sumField}
-              tooltipInfoContent={t(TranslationKey['Total weight of boxes in a batch'])}
-              label={t(TranslationKey['Final weight'])}
-              value={toFixed(
-                chosenBoxes.reduce(
-                  (ac, cur) => (ac += calcFinalWeightForBox(cur.originalData, volumeWeightCoefficient)),
-                  0,
-                ),
-                4,
-              )}
-              placeholder={'0'}
-            />
-
-            <Field
-              disabled
-              containerClasses={classNames.sumField}
-              tooltipInfoContent={t(TranslationKey['Cost of shipping boxes in a batch'])}
-              label={t(TranslationKey['Total price'])}
-              value={toFixed(
-                chosenBoxes.reduce((ac, cur) => (ac += cur.deliveryTotalPrice), 0),
-                2,
-              )}
-              placeholder={'0'}
-            />
-          </div>
-
           <div className={classNames.imageFileInputWrapper}>
-            <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} maxNumber={50} />
-
-            <Field
-              containerClasses={classNames.filesWrapper}
-              label={t(TranslationKey.Files)}
-              inputComponent={
-                <PhotoAndFilesCarousel files={batchToEdit?.originalData.attachedDocuments} width="400px" />
-              }
-            />
+            <div className={classNames.uploadFilesWrapper}>
+              <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} maxNumber={50} />
+            </div>
+            <div>
+              <Field
+                containerClasses={classNames.filesWrapper}
+                label={t(TranslationKey.Files)}
+                inputComponent={
+                  <PhotoAndFilesCarousel files={batchToEdit?.originalData.attachedDocuments} width="400px" />
+                }
+              />
+            </div>
           </div>
 
           <div className={classNames.btnsWrapper}>
@@ -329,12 +346,18 @@ export const AddOrEditBatchForm = observer(
               disabled={(chosenBoxes.length < 1 && !batchToEdit) || submitIsClicked}
               variant="contained"
               color="primary"
+              className={classNames.actionBtn}
               onClick={onClickSubmit}
             >
               {t(TranslationKey.Save)}
             </Button>
 
-            <Button color="primary" variant="text" className={classNames.cancelBtn} onClick={onClose}>
+            <Button
+              color="primary"
+              variant="text"
+              className={clsx(classNames.actionBtn, classNames.cancelBtn)}
+              onClick={onClose}
+            >
               {t(TranslationKey.Cancel)}
             </Button>
           </div>

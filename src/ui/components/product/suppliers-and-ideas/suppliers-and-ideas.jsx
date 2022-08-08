@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
@@ -51,6 +51,12 @@ export const SuppliersAndIdeas = observer(({productId}) => {
     onClickCreateProduct,
   } = model.current
 
+  const [updatedIdea, setUpdatedIdea] = useState(curIdea)
+
+  useEffect(() => {
+    setUpdatedIdea(() => ({...curIdea}))
+  }, [SettingsModel.languageTag, curIdea])
+
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.btnsWrapper}>
@@ -64,7 +70,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
       {inCreate ? (
         <IdeaViewAndEditCard
           inCreate
-          curIdea={curIdea}
+          curIdea={updatedIdea}
           onClickSaveBtn={onClickSaveBtn}
           onClickCancelBtn={onClickCancelBtn}
           onSetCurIdea={onSetCurIdea}

@@ -7,6 +7,7 @@ import {ProductStatus} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
+import {OtherModel} from '@models/other-model'
 import {ProductModel} from '@models/product-model'
 import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
@@ -78,7 +79,7 @@ export class ClientInventoryViewModel {
   productsMyBase = []
   withoutProduct = false
   withProduct = false
-
+  user = undefined
   orders = []
   selectedRowIds = []
   sellerBoardDailyData = []
@@ -109,6 +110,7 @@ export class ClientInventoryViewModel {
   showBarcodeOrHscodeModal = false
   showSetFourMonthsStockValueModal = false
   showCircularProgressModal = false
+  showAddSuppliersModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -256,6 +258,20 @@ export class ClientInventoryViewModel {
     return this.isArchive
       ? toJS(this.productsMy.filter(el => el.originalData.archive))
       : toJS(this.productsMy.filter(el => !el.originalData.archive))
+  }
+
+  async uploadTemplateFile(file) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+      this.showProgress = true
+      await OtherModel.postTemplate(file)
+      this.showProgress = false
+      this.onTriggerOpenModal('showAddSuppliersModal')
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
   }
 
   onClickTriggerArchOrResetProducts() {
@@ -423,10 +439,6 @@ export class ClientInventoryViewModel {
   }
 
   async onClickSaveFourMonthesStockValue(fourMonthesStock) {
-    console.log('this.selectedProduct', this.selectedProduct)
-
-    console.log('fourMonthesStock', fourMonthesStock)
-
     await ClientModel.updateProduct(this.selectedProduct._id, {fourMonthesStock})
 
     this.onTriggerOpenModal('showSetFourMonthsStockValueModal')

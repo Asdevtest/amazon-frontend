@@ -34103,7 +34103,19 @@
         "responses": {
           "201": {
             "description": "Успешный ответ.",
+<<<<<<< HEAD
             "schema": {"type": "array", "description": "Успешный ответ.", "items": {"type": "number"}}
+=======
+            "schema": {
+              "type": "array",
+              "description": "Успешный ответ.",
+              "items": {
+                "type": "object",
+                "description": "Массив строк, которые являются невалидными",
+                "properties": {"row": {"type": "number"}, "workSheet": {"type": "number"}}
+              }
+            }
+>>>>>>> 0989689d (3201 3218 3226 3221 3214 3227 3228 3229 3217 3202 3242 3223 3243)
           },
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}

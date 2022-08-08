@@ -142,7 +142,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cardPrice: {
-    fontSize: '18px',
+    fontSize: '16px',
     lineHeight: '21px',
     color: '#006CFF',
   },

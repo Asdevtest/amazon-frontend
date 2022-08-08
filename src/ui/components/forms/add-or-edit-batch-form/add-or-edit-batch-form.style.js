@@ -2,7 +2,14 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    width: '1580px',
+    width: '1360px',
+  },
+
+  modalTitle: {
+    fontWeight: '600',
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
   },
 
   mainTitle: {
@@ -24,9 +31,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   btnsWrapper: {
-    marginTop: '20px',
+    marginTop: '30px',
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: '20px',
+  },
+
+  cancelBtn: {
+    color: '#001029',
   },
 
   searchInput: {
@@ -108,16 +120,13 @@ export const useClassNames = makeStyles(() => ({
     margin: '15px 0 10px',
   },
 
-  cancelBtn: {
-    marginLeft: '40px',
-  },
-
   filterField: {
     width: '220px',
   },
 
   sumField: {
     width: '230px',
+    margin: 0,
   },
 
   sumsWrapper: {
@@ -147,5 +156,25 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       opacity: '0.8',
     },
+  },
+
+  actionBtn: {
+    width: '144px',
+    height: '40px',
+  },
+
+  footerWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'end',
+    margin: '25px 0 30px',
+  },
+
+  uploadFilesWrapper: {
+    width: '690px',
+  },
+  imageFileInputWrapper: {
+    display: 'flex',
+    gap: '60px',
   },
 }))

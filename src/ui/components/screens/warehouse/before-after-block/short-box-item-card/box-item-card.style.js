@@ -1,0 +1,125 @@
+import {makeStyles} from '@material-ui/core'
+
+export const useClassNames = makeStyles({
+  root: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    paddingBottom: '20px',
+    width: '630px',
+    gap: '20px',
+  },
+
+  img: {
+    width: '128px',
+    height: '128px',
+    marginRight: '4px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+
+  title: {
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    width: '100%',
+    maxHeight: '150px',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    overflowY: 'auto',
+    color: '#001029',
+  },
+
+  subTitle: {
+    fontSize: '14px',
+    color: '#656565',
+    lineHeight: '19px',
+    // marginRight: theme.spacing(1),
+  },
+  asin: {
+    fontSize: '14px',
+    color: '#656565',
+    lineHeight: '19px',
+  },
+
+  count: {
+    fontSize: '14px',
+    color: '#001029',
+    lineHeight: '19px',
+    fontWeight: 600,
+  },
+  asinTitle: {
+    fontSize: '14px',
+    color: '#001029',
+    lineHeight: '19px',
+    fontWeight: 600,
+  },
+
+  countWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '42px',
+  },
+
+  countSubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '25px',
+  },
+  asinWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '25px',
+    marginBottom: '7px',
+  },
+  superCount: {
+    marginLeft: '5px',
+    fontSize: '22px',
+    color: 'rgba(143, 152, 165, 1)',
+  },
+
+  mainWrapper: {
+    display: 'flex',
+    // justifyContent: 'space-between',
+    width: '100%',
+    // padding: '10px',
+    gap: '10px',
+  },
+  attributeWrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+
+  attributeHeaderWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  link: {
+    maxWidth: '280px',
+    whiteSpace: 'nowrap',
+    overflowX: 'auto',
+  },
+  copyImg: {
+    width: '20px',
+    height: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
+  },
+
+  attributeFooterWrapper: {
+    // display: 'flex',
+    // alignItems: 'start',
+    // justifyContent: 'space-between',
+  },
+
+  label: {
+    fontSize: '14px',
+  },
+})

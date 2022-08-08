@@ -2,12 +2,30 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(theme => ({
   root: {
-    minWidth: '1500px',
+    width: '1779px',
+  },
+
+  modalTitle: {
+    fontSize: '30px',
+    lineHeight: '41px',
+    fontWeight: 600,
+    color: '#001029',
+    marginBottom: '27px',
+  },
+
+  modalHeaderWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 
   boxesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    padding: '20px',
+  },
+  boxesTableWrapper: {
+    maxHeight: '575px',
+    overflow: 'auto',
   },
   currentBox: {
     display: 'flex',
@@ -32,12 +50,12 @@ export const useClassNames = makeStyles(theme => ({
     gap: '5px',
   },
   divider: {
-    margin: '0 10px',
+    margin: '-20px 10px',
   },
   img: {
-    width: '40px',
-    height: '40px',
-    marginRight: '4px',
+    width: '70px',
+    height: '70px',
+    marginRight: '20px',
     objectFit: 'contain',
     objectPosition: 'center',
   },
@@ -59,7 +77,8 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
-    width: '250px',
+    width: '218px',
+    color: '#001029',
   },
   subTitle: {
     fontSize: '14px',
@@ -109,12 +128,24 @@ export const useClassNames = makeStyles(theme => ({
   },
   qtyWrapper: {
     display: 'flex',
-    gap: '5px',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  qtyTitle: {
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '19px',
+    color: '#656565',
+  },
+  qtySubTitle: {
+    fontWeight: 600,
+    color: '#001029',
   },
   buttonsWrapper: {
     marginTop: '30px',
     display: 'flex',
-    gap: '10px',
+    justifyContent: 'end',
+    gap: '20px',
   },
   qtyCell: {
     minWidth: '80px',
@@ -135,9 +166,20 @@ export const useClassNames = makeStyles(theme => ({
 
   categoryTitle: {
     fontSize: '16px',
-    lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    lineHeight: '19px',
+    color: '#001029',
     fontWeight: '600',
-    marginBottom: '12px',
+    marginBottom: '15px',
+  },
+  icon: {
+    marginLeft: '16px',
+  },
+  addButton: {
+    width: '216px',
+    height: '40px',
+  },
+  button: {
+    width: '162px',
+    height: '40px',
   },
 }))

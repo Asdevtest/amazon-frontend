@@ -64,7 +64,7 @@ export const shopsColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Actions),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-    width: 300,
+    width: 370,
     renderCell: params => (
       <EditOrRemoveBtnsCell
         tooltipFirstButton={t(TranslationKey['Change store name or links to reports'])}

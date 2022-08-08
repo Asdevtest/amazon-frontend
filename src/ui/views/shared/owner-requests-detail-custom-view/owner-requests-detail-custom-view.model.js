@@ -154,7 +154,7 @@ export class OwnerRequestDetailCustomViewModel {
   async onClickProposalResultAcceptForm(proposalId) {
     try {
       await RequestProposalModel.requestProposalResultAccept(proposalId)
-      this.onTriggerOpenModal('showConfirmWithCommentModal')
+      this.onTriggerOpenModal('showConfirmWorkResultFormModal')
       this.loadData()
     } catch (error) {
       console.warn('onClickProposalResultAccept error ', error)

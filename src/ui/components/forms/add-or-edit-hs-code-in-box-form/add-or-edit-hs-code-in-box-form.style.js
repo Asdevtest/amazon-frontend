@@ -1,18 +1,23 @@
 import {makeStyles} from '@material-ui/core'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles({
   commentsWrapper: {
     display: 'flex',
     gap: '10px',
   },
   form: {
-    marginTop: theme.spacing(2.5),
-    marginBottom: theme.spacing(2.5),
+    // marginTop: theme.spacing(2.5),
+    // marginBottom: theme.spacing(2.5),
     display: 'flex',
     flexDirection: 'column',
+    width: '700px',
   },
   modalTitle: {
-    marginBottom: '20px',
+    marginBottom: '25px',
+    fontSize: '22px',
+    lineHeight: '30px',
+    fontWeight: '600',
+    color: '#001029',
   },
   subTitle: {
     color: 'rgba(61, 81, 112, 1)',
@@ -63,9 +68,10 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   buttonsWrapper: {
-    marginTop: '20px',
+    marginTop: '30px',
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: '20px',
   },
 
   superboxTypo: {
@@ -85,7 +91,13 @@ export const useClassNames = makeStyles(theme => ({
     gap: '10px',
   },
 
-  button: {
-    marginLeft: '40px',
+  closeButton: {
+    width: '136px',
+    height: '40px',
+    color: '#001029',
   },
-}))
+  saveButton: {
+    width: '136px',
+    height: '40px',
+  },
+})

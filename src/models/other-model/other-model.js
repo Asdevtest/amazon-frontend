@@ -49,6 +49,26 @@ class OtherModelStatic {
     return response
   }
 
+  postTemplate = async file => {
+    const blob = new Blob([file], {type: file?.type})
+    const fileData = new FormData()
+    fileData.append('file', blob, file.name)
+
+    const response = await axios({
+      method: 'post',
+      url: `${BACKEND_API_URL}/api/v1/other/suppliers/suppliers_xlsx`,
+      data: fileData,
+
+      headers: {
+        'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
+
+        Authorization: `${restApiService.apiClient.authentications.AccessTokenBearer.apiKeyPrefix} ${restApiService.apiClient.authentications.AccessTokenBearer.apiKey}`,
+      },
+    })
+
+    return response
+  }
+
   getAllImages = async () => {
     const response = await axios({
       method: 'get',

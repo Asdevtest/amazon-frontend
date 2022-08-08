@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 
 ## apiV1SuppliersPost
 
-> InlineResponse2019 apiV1SuppliersPost(opts)
+> InlineResponse20110 apiV1SuppliersPost(opts)
 
 # Добавить нового поставщика.
 
@@ -270,7 +270,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2019**](InlineResponse2019.md)
+[**InlineResponse20110**](InlineResponse20110.md)
 
 ### Authorization
 
