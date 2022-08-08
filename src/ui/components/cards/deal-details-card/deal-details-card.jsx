@@ -11,18 +11,13 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-// import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {UserLink} from '@components/user-link'
 
 import {formatNormDateTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
-// import {formatNormDateTime, formatNormDateTimeWithParseISO} from '@utils/date-time'
-// import {getUserAvatarSrc} from '@utils/get-user-avatar'
-// import {minsToTime, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
-// import {translateProposalsLeftMessage} from '@utils/validation'
 import {useClassNames} from './deal-details-card.style'
 
 export const DealDetailsCard = ({
@@ -132,8 +127,8 @@ export const DealDetailsCard = ({
             <Typography className={classNames.resultDescription}>{item?.details.result}</Typography>
           </div>
           <div className={classNames.filesAndTimeWrapper}>
-            <div className={classNames.filesWrapper} files={item?.details.linksToMediaFiles}>
-              <PhotoAndFilesCarousel />
+            <div className={classNames.filesWrapper}>
+              <PhotoAndFilesCarousel small files={item?.details?.linksToMediaFiles} />
             </div>
 
             <div className={classNames.timeOnReviewWrapper}>

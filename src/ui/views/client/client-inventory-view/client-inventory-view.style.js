@@ -27,9 +27,7 @@ export const styles = createStyles({
   archiveBtnsWrapper: {
     display: 'flex',
 
-    '& > :first-child': {
-      marginRight: '30px',
-    },
+    gap: '30px',
   },
 
   archiveAddBtn: {
@@ -92,5 +90,9 @@ export const styles = createStyles({
   shopsFiltersWrapper: {
     marginBottom: '30px',
     display: 'flex',
+  },
+
+  icon: {
+    marginLeft: '15px',
   },
 })

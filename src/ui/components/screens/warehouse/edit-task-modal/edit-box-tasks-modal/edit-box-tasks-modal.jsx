@@ -103,6 +103,7 @@ export const EditBoxTasksModal = ({
   box,
   operationType,
   setNewBoxes,
+
   newBoxes,
   volumeWeightCoefficient,
 }) => {

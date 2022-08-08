@@ -5,11 +5,12 @@ export const useClassNames = makeStyles(() => ({
     width: '586px',
   },
   reasonInputWrapper: {
-    width: '374px',
+    width: '100%',
   },
   reasonInput: {
-    height: '40px',
+    height: '136px',
     width: '100%',
+    overflow: 'auto',
   },
 
   inputWrapper: {
@@ -99,5 +100,8 @@ export const useClassNames = makeStyles(() => ({
 
   coverLetterInput: {
     height: '136px',
+  },
+  totalTime: {
+    marginBottom: '30px',
   },
 }))

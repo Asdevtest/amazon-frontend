@@ -657,7 +657,6 @@ export const styles = createStyles(() => ({
   statusText: {
     width: '100%',
     textAlign: 'right',
-    textTransform: 'uppercase',
   },
 
   statusWrapper: {

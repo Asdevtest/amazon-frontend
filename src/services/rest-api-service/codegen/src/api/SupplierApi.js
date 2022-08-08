@@ -277,7 +277,7 @@ export default class SupplierApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse2019;
+      let returnType = InlineResponse20110;
       return this.apiClient.callApi(
         '/api/v1/suppliers/', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,

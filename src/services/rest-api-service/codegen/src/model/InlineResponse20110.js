@@ -14,19 +14,19 @@
 import ApiClient from '../ApiClient';
 
 /**
- * The InlineResponse2019 model module.
- * @module model/InlineResponse2019
+ * The InlineResponse20110 model module.
+ * @module model/InlineResponse20110
  * @version 0.1.0
  */
-class InlineResponse2019 {
+class InlineResponse20110 {
     /**
-     * Constructs a new <code>InlineResponse2019</code>.
-     * Успешный ответ
-     * @alias module:model/InlineResponse2019
+     * Constructs a new <code>InlineResponse20110</code>.
+     * Успешный ответ.
+     * @alias module:model/InlineResponse20110
      */
     constructor() { 
         
-        InlineResponse2019.initialize(this);
+        InlineResponse20110.initialize(this);
     }
 
     /**
@@ -38,15 +38,15 @@ class InlineResponse2019 {
     }
 
     /**
-     * Constructs a <code>InlineResponse2019</code> from a plain JavaScript object, optionally creating a new instance.
+     * Constructs a <code>InlineResponse20110</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/InlineResponse2019} obj Optional instance to populate.
-     * @return {module:model/InlineResponse2019} The populated <code>InlineResponse2019</code> instance.
+     * @param {module:model/InlineResponse20110} obj Optional instance to populate.
+     * @return {module:model/InlineResponse20110} The populated <code>InlineResponse20110</code> instance.
      */
     static constructFromObject(data, obj) {
         if (data) {
-            obj = obj || new InlineResponse2019();
+            obj = obj || new InlineResponse20110();
 
             if (data.hasOwnProperty('guid')) {
                 obj['guid'] = ApiClient.convertToType(data['guid'], 'String');
@@ -59,15 +59,15 @@ class InlineResponse2019 {
 }
 
 /**
- * guid обновленного объекта
+ * guid созданного объекта
  * @member {String} guid
  */
-InlineResponse2019.prototype['guid'] = undefined;
+InlineResponse20110.prototype['guid'] = undefined;
 
 
 
 
 
 
-export default InlineResponse2019;
+export default InlineResponse20110;
 

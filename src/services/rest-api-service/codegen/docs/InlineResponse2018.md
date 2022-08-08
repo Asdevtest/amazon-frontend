@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**guid** | **String** | guid обновленного объекта | [optional] 
+**row** | **Number** |  | [optional] 
+**workSheet** | **Number** |  | [optional] 
 
 

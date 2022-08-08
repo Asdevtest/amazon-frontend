@@ -13,7 +13,7 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {OwnerRequestProposalsCard} from '@components/cards/owner-request-proposals-card'
 import {MultipleChats} from '@components/chat/multiple-chats'
-import {RequestProposalAcceptResultForm} from '@components/forms/request-proposal-accept-result-form'
+import {RequestProposalAcceptOrRejectResultForm} from '@components/forms/request-proposal-accept-or-reject-result-form/request-proposal-accept-or-reject-result-form'
 import {RequestProposalResultToCorrectForm} from '@components/forms/request-proposal-result-to-correct-form'
 import {ReviewsForm} from '@components/forms/reviews-form'
 import {Main} from '@components/main'
@@ -230,7 +230,12 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             openModal={showConfirmWorkResultFormModal}
             setOpenModal={() => onTriggerOpenModal('showConfirmWorkResultFormModal')}
           >
-            <RequestProposalAcceptResultForm onSubmit={acceptProposalResultSetting.onSubmit} />
+            <RequestProposalAcceptOrRejectResultForm
+              title={t(TranslationKey['Confirm acceptance of the work result'])}
+              rateLabel={t(TranslationKey['Rate the performer'])}
+              reviewLabel={t(TranslationKey["Review of the performer's work"])}
+              onSubmit={acceptProposalResultSetting.onSubmit}
+            />
           </Modal>
 
           <ConfirmationModal

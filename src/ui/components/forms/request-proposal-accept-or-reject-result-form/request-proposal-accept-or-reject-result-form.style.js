@@ -32,7 +32,17 @@ export const useClassNames = makeStyles(() => ({
   inputsWrapper: {
     height: '141px',
   },
-  // ratingWrapper: {
-  //   marginBottom: '30px',
-  // },
+  ratingWrapper: {
+    width: '100%',
+  },
+
+  rating: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  icon: {
+    fontSize: '40px',
+
+    marginRight: '25px',
+  },
 }))

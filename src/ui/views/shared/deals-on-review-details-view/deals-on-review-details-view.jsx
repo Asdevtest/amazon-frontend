@@ -3,24 +3,17 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
-// import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {DealDetailsCard} from '@components/cards/deal-details-card'
+import {RequestProposalAcceptOrRejectResultForm} from '@components/forms/request-proposal-accept-or-reject-result-form'
 import {RequestProposalResultToCorrectForm} from '@components/forms/request-proposal-result-to-correct-form'
-// import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
-// import {VacantRequestShortCard} from '@components/cards/vacant-request-short-card'
-// import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
-import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
 import {Navbar} from '@components/navbar'
 
-// import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
-// import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
-// import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 import {VacantDealsDetailsViewModel} from './deals-on-review-details-view.model'
@@ -38,19 +31,13 @@ export class DealsOnReviewDetailsView extends Component {
 
   render() {
     const {
-      // nameSearchValue,
-      // viewMode,
-      // getCurrentData,
-      // sortMode,
-
       drawerOpen,
 
-      proposalId,
       showConfirmModal,
       showRejectModal,
       showReworkModal,
       requestProposals,
-      // onTriggerSortMode,
+
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickConfirmDealModal,
@@ -59,9 +46,6 @@ export class DealsOnReviewDetailsView extends Component {
       onClickRejectDeal,
       onClickReworkDeal,
       onClickReworkDealModal,
-      // onClickViewMore,
-      // onChangeViewMode,
-      // onChangeNameSearchValue,
     } = this.viewModel
     // const {classes: classNames} = this.props
 
@@ -85,28 +69,27 @@ export class DealsOnReviewDetailsView extends Component {
             </MainContent>
           </Appbar>
 
-          <ConfirmWithCommentModal
-            openModal={showConfirmModal}
-            setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-            titleText={t(TranslationKey['Accept the deal'])}
-            commentLabelText={t(TranslationKey['Cover letter'])}
-            okBtnText={t(TranslationKey['Accept the deal'])}
-            cancelBtnText={t(TranslationKey.Cancel)}
-            onSubmit={() => onClickConfirmDeal(proposalId)}
-          />
-          <ConfirmWithCommentModal
-            isWarning
-            openModal={showRejectModal}
-            setOpenModal={() => onTriggerOpenModal('showRejectModal')}
-            titleText={t(TranslationKey['Reject the deal'])}
-            commentLabelText={t(TranslationKey['Cover letter'])}
-            okBtnText={t(TranslationKey['Reject the deal'])}
-            cancelBtnText={t(TranslationKey.Cancel)}
-            onSubmit={() => onClickRejectDeal(proposalId)}
-          />
+          <Modal openModal={showConfirmModal} setOpenModal={() => onTriggerOpenModal('showConfirmModal')}>
+            <RequestProposalAcceptOrRejectResultForm
+              title={t(TranslationKey['Confirm acceptance of the work result'])}
+              rateLabel={t(TranslationKey['Rate the performer'])}
+              reviewLabel={t(TranslationKey["Review of the performer's work"])}
+              onSubmit={onClickConfirmDeal}
+            />
+          </Modal>
+
+          <Modal openModal={showRejectModal} setOpenModal={() => onTriggerOpenModal('showRejectModal')}>
+            <RequestProposalAcceptOrRejectResultForm
+              isReject
+              title={t(TranslationKey['Reject the deal'])}
+              rateLabel={t(TranslationKey['Rate the performer'])}
+              reviewLabel={t(TranslationKey['Reason for cancelling the deal'])}
+              onSubmit={onClickRejectDeal}
+            />
+          </Modal>
 
           <Modal openModal={showReworkModal} setOpenModal={() => onTriggerOpenModal('showReworkModal')}>
-            <RequestProposalResultToCorrectForm onPressSubmitForm={() => onClickReworkDeal(proposalId)} />
+            <RequestProposalResultToCorrectForm onPressSubmitForm={onClickReworkDeal} />
           </Modal>
         </Main>
       </React.Fragment>

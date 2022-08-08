@@ -58,12 +58,10 @@ export const EditTaskModal = observer(
           return '/assets/img/edit.png'
         case TaskOperationType.RECEIVE:
           return '/assets/img/receive.png'
-        // case TaskOperationType.MERGE:
-        //   return t(TranslationKey['Merging boxes'])
-        // case TaskOperationType.RECEIVE:
-        //   return t(TranslationKey['Receiving the box'])
-        // case TaskOperationType.SPLIT:
-        //   return t(TranslationKey['Splitting the box'])
+        case TaskOperationType.SPLIT:
+          return '/assets/img/split.png'
+        case TaskOperationType.MERGE:
+          return '/assets/img/merge.png'
       }
     }
 

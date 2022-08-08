@@ -24,6 +24,7 @@ export const useClassNames = makeStyles(() => ({
   newBoxesWrapper: {
     maxHeight: '730px',
     overflow: 'auto',
+    overflowX: 'hidden',
   },
   newBoxes: {},
 
@@ -343,5 +344,10 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 400,
     color: '#001029',
     marginTop: '90px',
+  },
+
+  incomingBtnWrapper: {
+    display: 'flex',
+    justifyContent: 'end',
   },
 }))

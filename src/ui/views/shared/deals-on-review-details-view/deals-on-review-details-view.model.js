@@ -56,9 +56,9 @@ export class VacantDealsDetailsViewModel {
     }
   }
 
-  async onClickConfirmDeal(id) {
+  async onClickConfirmDeal(data) {
     try {
-      await RequestProposalModel.requestProposalResultAccept(id)
+      await RequestProposalModel.requestProposalResultAccept(this.proposalId, {...data})
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review`)
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -67,9 +67,9 @@ export class VacantDealsDetailsViewModel {
     }
   }
 
-  async onClickRejectDeal(id) {
+  async onClickRejectDeal(data) {
     try {
-      await RequestProposalModel.requestProposalCancel(id)
+      await RequestProposalModel.requestProposalCancel(this.proposalId, {...data})
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review`)
       this.onTriggerOpenModal('showRejectModal')
     } catch (error) {
@@ -78,9 +78,9 @@ export class VacantDealsDetailsViewModel {
     }
   }
 
-  async onClickReworkDeal(id, data) {
+  async onClickReworkDeal(data) {
     try {
-      await RequestProposalModel.requestProposalResultToCorrect(id, {...data})
+      await RequestProposalModel.requestProposalResultToCorrect(this.proposalId, {...data})
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review`)
       this.onTriggerOpenModal('showReworkModal')
     } catch (error) {

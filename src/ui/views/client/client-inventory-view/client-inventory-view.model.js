@@ -7,6 +7,7 @@ import {ProductStatus} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
+import {OtherModel} from '@models/other-model'
 import {ProductModel} from '@models/product-model'
 import {SellerBoardModel} from '@models/seller-board-model'
 import {SettingsModel} from '@models/settings-model'
@@ -78,7 +79,7 @@ export class ClientInventoryViewModel {
   productsMyBase = []
   withoutProduct = false
   withProduct = false
-
+  user = undefined
   orders = []
   selectedRowIds = []
   sellerBoardDailyData = []
@@ -109,6 +110,7 @@ export class ClientInventoryViewModel {
   showBarcodeOrHscodeModal = false
   showSetFourMonthsStockValueModal = false
   showCircularProgressModal = false
+  showAddSuppliersModal = false
 
   successModalText = ''
   confirmMessage = ''
@@ -256,6 +258,19 @@ export class ClientInventoryViewModel {
     return this.isArchive
       ? toJS(this.productsMy.filter(el => el.originalData.archive))
       : toJS(this.productsMy.filter(el => !el.originalData.archive))
+  }
+
+  async uploadTemplateFile(file) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      await OtherModel.postTemplate(file)
+
+      this.setRequestStatus(loadingStatuses.success)
+    } catch (error) {
+      this.setRequestStatus(loadingStatuses.failed)
+      console.log(error)
+    }
   }
 
   onClickTriggerArchOrResetProducts() {

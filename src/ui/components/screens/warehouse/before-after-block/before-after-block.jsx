@@ -37,6 +37,7 @@ const Box = observer(
     isEdit,
     taskType,
     setNewBoxes,
+
     newBoxes,
     volumeWeightCoefficient,
   }) => {
@@ -118,7 +119,7 @@ const Box = observer(
             <Typography>{`x${box.amount}`}</Typography>
           </div>
         )}
-        {!showFullCard && isEdit ? (
+        {(!showFullCard && isEdit) || (!showFullCard && taskType === TaskOperationType.MERGE) ? (
           <Paper className={classNames.boxWrapper}>
             <div className={classNames.itemsWrapper}>
               {box.items?.map((item, index) => (
@@ -380,17 +381,32 @@ const Box = observer(
           <div className={classNames.bottomBlockWrapper}>
             <div className={classNames.editBtnWrapper}>
               {isEdit && (
-                <Button
-                  className={classNames.editBtn}
-                  tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
-                  onClick={() => {
-                    setCurBox(box)
-                    onClickEditBox(box)
-                  }}
-                >
-                  {t(TranslationKey.Edit)}
-                </Button>
+                <div>
+                  <Button
+                    className={classNames.editBtn}
+                    tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
+                    onClick={() => {
+                      setCurBox(box)
+                      onClickEditBox(box)
+                    }}
+                  >
+                    {t(TranslationKey.Edit)}
+                  </Button>
+                </div>
               )}
+              <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
+                <Typography className={classNames.tablePanelViewText}>
+                  {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
+                </Typography>
+
+                {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+              </div>
+            </div>
+          </div>
+        )}
+        {!isNewBox && taskType === TaskOperationType.MERGE && (
+          <div className={classNames.bottomBlockWrapper}>
+            <div className={classNames.incomingBtnWrapper}>
               <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
                 <Typography className={classNames.tablePanelViewText}>
                   {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
@@ -466,6 +482,7 @@ const NewBoxes = observer(
               volumeWeightCoefficient={volumeWeightCoefficient}
               isNewBox={isNewBox}
               box={box}
+              curBox={curBox}
               setCurBox={setCurBox}
               isEdit={isEdit}
               taskType={taskType}
@@ -513,6 +530,8 @@ export const BeforeAfterBlock = observer(
       onEditBox(box)
     }
 
+    // const [showFullIncomingCard, setShowFullIncomingCard] = useState(false)
+
     const CurrentBox = ({currentBoxes}) => (
       <div className={classNames.currentBox}>
         <Text
@@ -538,17 +557,36 @@ export const BeforeAfterBlock = observer(
             )}
           </div>
         )} */}
+        <div className={classNames.newBoxesWrapper}>
+          {currentBoxes &&
+            currentBoxes.map((box, boxIndex) => (
+              <>
+                <Box
+                  key={boxIndex}
+                  isCurrentBox
+                  box={box}
+                  taskType={taskType}
+                  volumeWeightCoefficient={volumeWeightCoefficient}
+                />
+                {/* {taskType === TaskOperationType.MERGE && (
+                  <div
+                    className={classNames.tablePanelSortWrapper}
+                    onClick={() => setShowFullIncomingCard(!showFullIncomingCard)}
+                  >
+                    <Typography className={classNames.tablePanelViewText}>
+                      {showFullIncomingCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
+                    </Typography>
 
-        {currentBoxes &&
-          currentBoxes.map((box, boxIndex) => (
-            <Box
-              key={boxIndex}
-              isCurrentBox
-              box={box}
-              taskType={taskType}
-              volumeWeightCoefficient={volumeWeightCoefficient}
-            />
-          ))}
+                    {!showFullIncomingCard ? (
+                      <ArrowDropDownIcon color="primary" />
+                    ) : (
+                      <ArrowDropUpIcon color="primary" />
+                    )}
+                  </div>
+                )} */}
+              </>
+            ))}
+        </div>
       </div>
     )
 
