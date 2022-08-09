@@ -459,10 +459,12 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
 
         <Modal openModal={showBarChat} setOpenModal={() => setShowBarChat(!showBarChat)}>
           <ChartsForm
-            data={formFields.statistics.map(el => ({
-              ...el,
-              month: formatDateMonthYear(el.month),
-            }))}
+            data={formFields.statistics
+              .map(el => ({
+                ...el,
+                month: formatDateMonthYear(el.month),
+              }))
+              .reverse()}
             isRevenueBeggin={isRevenueBeggin}
           />
         </Modal>

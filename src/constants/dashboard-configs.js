@@ -45,7 +45,7 @@ export const getResearcherDashboardCardConfig = () => [
             {
               columnField: 'status',
               operatorValue: 'isAnyOf',
-              value: ['COMPLETE_SUCCESS'],
+              value: [TranslationKey['Search complete']],
             },
           ],
         },
@@ -61,7 +61,7 @@ export const getResearcherDashboardCardConfig = () => [
             {
               columnField: 'status',
               operatorValue: 'isAnyOf',
-              value: ['REJECTED_BY_SUPERVISOR_AT_FIRST_STEP', 'COMPLETE_PRICE_WAS_NOT_ACCEPTABLE'],
+              value: [TranslationKey['Rejected by Supervisor'], TranslationKey['Supplier price does not fit']],
             },
           ],
         },
@@ -77,7 +77,10 @@ export const getResearcherDashboardCardConfig = () => [
             {
               columnField: 'status',
               operatorValue: 'isAnyOf',
-              value: ['RESEARCHER_CREATED_PRODUCT'],
+              value: [
+                TranslationKey['Product on check with Supervisor'],
+                TranslationKey['Product checked by Supervisor'],
+              ],
             },
           ],
         },
@@ -93,7 +96,11 @@ export const getResearcherDashboardCardConfig = () => [
             {
               columnField: 'status',
               operatorValue: 'isAnyOf',
-              value: ['BUYER_FOUND_SUPPLIER', 'TO_BUYER_FOR_RESEARCH', 'BUYER_PICKED_PRODUCT'],
+              value: [
+                TranslationKey['Buyer found a supplier'],
+                TranslationKey['Is in search of a Buyer'],
+                TranslationKey['Product at the Buyer in work'],
+              ],
             },
           ],
         },
@@ -104,7 +111,7 @@ export const getResearcherDashboardCardConfig = () => [
         color: '#4dbd74',
         route: '/researcher/products',
         dataGridFilter: {
-          items: [{columnField: 'status', operatorValue: 'contains', value: 'NEW_PRODUCT'}],
+          items: [{columnField: 'status', operatorValue: 'isAnyOf', value: [TranslationKey['New product']]}],
         },
       },
     ],

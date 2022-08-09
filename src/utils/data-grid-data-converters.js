@@ -1,5 +1,5 @@
 import {OrderStatusByCode} from '@constants/order-status'
-import {ProductStatusByCode} from '@constants/product-status'
+import {ProductStatusByCode, productStatusTranslateKey} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
 import {mapTaskStatusKeyToEnum} from '@constants/task-status'
@@ -7,6 +7,7 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {calcFinalWeightForBox, calcPriceForBox, calcTotalPriceForBatch, calcVolumeWeightForBox} from './calculation'
 import {getFullTariffTextForBoxOrOrder} from './text'
+import {t} from './translations'
 
 export const addIdDataConverter = data => data.map((item, index) => ({...item, id: item._id ? item._id : index}))
 
@@ -41,7 +42,7 @@ export const researcherCustomRequestsDataConverter = data =>
 export const researcherProductsDataConverter = data =>
   data.map(item => ({
     originalData: item,
-    status: ProductStatusByCode[item.status],
+    status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
     strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
     createdAt: item.createdAt,
     amazon: item.amazon,

@@ -16,6 +16,7 @@ import {researcherProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getAmazonCodeFromLink} from '@utils/get-amazon-code-from-link'
 import {getNewObjectWithDefaultValue, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 import {isValidationErrors, plainValidationErrorAndApplyFuncForEachError} from '@utils/validation'
 
 const formFieldsDefault = {
@@ -48,6 +49,7 @@ export class ResearcherProductsViewModel {
 
   formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
 
+  baseNoConvertedProducts = []
   products = []
   chekedCode = ''
 
@@ -86,6 +88,10 @@ export class ResearcherProductsViewModel {
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
+
+      this.products = researcherProductsDataConverter(
+        this.baseNoConvertedProducts.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
+      )
     }
   }
 
@@ -110,7 +116,12 @@ export class ResearcherProductsViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = this.startFilterModel ? this.startFilterModel : state.filter.filterModel
+      this.filterModel = this.startFilterModel
+        ? {
+            ...this.startFilterModel,
+            items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+          }
+        : state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -261,6 +272,8 @@ export class ResearcherProductsViewModel {
     try {
       const result = await ResearcherModel.getProductsVacant()
       runInAction(() => {
+        this.baseNoConvertedProducts = result
+
         this.products = researcherProductsDataConverter(
           result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt')),
         )

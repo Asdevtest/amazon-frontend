@@ -339,9 +339,9 @@ export const RenderFieldValueCell = withStyles(styles)(({classes: classNames, va
   <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
 ))
 
-export const MultilineTextCell = withStyles(styles)(({classes: classNames, text, noTextText}) => (
+export const MultilineTextCell = withStyles(styles)(({classes: classNames, text, noTextText, color}) => (
   <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText}>
+    <Typography className={classNames.multilineText} style={color && {color}}>
       {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
     </Typography>
   </div>
