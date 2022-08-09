@@ -232,7 +232,12 @@ export class ClientInventoryViewRaw extends Component {
                     <Button
                       variant="contained"
                       tooltipInfoContent={t(TranslationKey['Supplier Addition Services'])}
-                      disabled={selectedRowIds.length !== 1}
+                      tooltipAttentionContent={
+                        selectedRowIds.length &&
+                        isNoEditProductSelected &&
+                        t(TranslationKey['Product with invalid status selected'])
+                      }
+                      disabled={!selectedRowIds.length || isNoEditProductSelected}
                       className={classNames.buttonOffset}
                       onClick={() => onClickAddSupplierBtn()}
                     >

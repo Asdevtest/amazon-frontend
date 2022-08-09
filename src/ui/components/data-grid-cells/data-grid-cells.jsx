@@ -1164,7 +1164,7 @@ export const DownloadAndCopyBtnsCell = withStyles(styles)(({classes: classNames,
             </a>
           </Text>
           <Button
-            tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])}
+            tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link'])}
             className={classNames.copyImgButton}
           >
             <img className={classNames.copyImg} src="/assets/icons/copy-img.svg" alt="" onClick={copyValue} />

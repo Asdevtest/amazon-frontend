@@ -1413,7 +1413,7 @@ export enum TranslationKey {
   'download the list template' = 'download the list template',
   'Your ID' = 'Your ID',
   'Loading data' = 'Loading data',
-  // '' = '',
+  'Copy the link' = 'Copy the link',
   // '' = '',
   // '' = '',
   // '' = '',

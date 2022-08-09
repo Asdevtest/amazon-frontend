@@ -25,12 +25,30 @@ export const getResearcherDashboardCardConfig = () => [
         title: t(TranslationKey['Total products']),
         color: '#006CFF',
         route: '/researcher/products',
+        dataGridFilter: {
+          items: [
+            {
+              columnField: 'status',
+              operatorValue: 'isAnyOf',
+              value: [],
+            },
+          ],
+        },
       },
       {
         dataKey: ResearcherDashboardCardDataKey.SUCCESS_PRODUCTS,
         title: t(TranslationKey.Completed),
         color: '#00B746',
         route: '/researcher/products',
+        dataGridFilter: {
+          items: [
+            {
+              columnField: 'status',
+              operatorValue: 'isAnyOf',
+              value: ['COMPLETE_SUCCESS'],
+            },
+          ],
+        },
       },
 
       {
@@ -38,6 +56,15 @@ export const getResearcherDashboardCardConfig = () => [
         title: t(TranslationKey['Rejected by supervisor/buyer']),
         color: '#BC3030',
         route: '/researcher/products',
+        dataGridFilter: {
+          items: [
+            {
+              columnField: 'status',
+              operatorValue: 'isAnyOf',
+              value: ['REJECTED_BY_SUPERVISOR_AT_FIRST_STEP', 'COMPLETE_PRICE_WAS_NOT_ACCEPTABLE'],
+            },
+          ],
+        },
       },
 
       {
@@ -45,6 +72,15 @@ export const getResearcherDashboardCardConfig = () => [
         title: t(TranslationKey["At the supervisor's check"]),
         color: '#00B746',
         route: '/researcher/products',
+        dataGridFilter: {
+          items: [
+            {
+              columnField: 'status',
+              operatorValue: 'isAnyOf',
+              value: ['RESEARCHER_CREATED_PRODUCT'],
+            },
+          ],
+        },
       },
 
       {
@@ -52,30 +88,24 @@ export const getResearcherDashboardCardConfig = () => [
         title: t(TranslationKey["Buyer's search for a supplier"]),
         color: '#ffc107',
         route: '/researcher/products',
-        // dataGridFilter: {
-        //   items: [
-        //     {columnField: 'status', id: Date.now(), operatorValue: 'contains', value: 'TO_BUYER_FOR_RESEARCH'},
-        //     {columnField: 'status', id: Date.now(), operatorValue: 'contains', value: 'BUYER_PICKED_PRODUCT'},
-        //     {columnField: 'status', id: Date.now(), operatorValue: 'contains', value: 'BUYER_FOUND_SUPPLIER'},
-        //   ],
-
-        //   // items: [
-        //   //             {
-        //   //               columnField: 'status',
-        //   //               operatorValue: 'isAnyOf',
-        //   //               value: ['BUYER_FOUND_SUPPLIER', 'TO_BUYER_FOR_RESEARCH', 'BUYER_FOUND_SUPPLIER'],
-        //   //             },
-        //   //           ],
-        // },
+        dataGridFilter: {
+          items: [
+            {
+              columnField: 'status',
+              operatorValue: 'isAnyOf',
+              value: ['BUYER_FOUND_SUPPLIER', 'TO_BUYER_FOR_RESEARCH', 'BUYER_PICKED_PRODUCT'],
+            },
+          ],
+        },
       },
       {
         dataKey: ResearcherDashboardCardDataKey.NO_STATUS,
         title: t(TranslationKey['No status']),
         color: '#4dbd74',
         route: '/researcher/products',
-        // dataGridFilter: {
-        //   items: [{columnField: 'status', id: Date.now(), operatorValue: 'contains', value: 'NEW_PRODUCT'}],
-        // },
+        dataGridFilter: {
+          items: [{columnField: 'status', operatorValue: 'contains', value: 'NEW_PRODUCT'}],
+        },
       },
     ],
   },
@@ -89,12 +119,30 @@ export const getResearcherDashboardCardConfig = () => [
         title: t(TranslationKey.Accruals),
         color: '#00B746',
         route: '/researcher/finances',
+        dataGridFilter: {
+          items: [
+            {
+              columnField: 'sum',
+              operatorValue: '>=',
+              value: '0',
+            },
+          ],
+        },
       },
       {
         dataKey: ResearcherDashboardCardDataKey.FINES,
         title: t(TranslationKey.Fines),
         color: '#BC3030',
         route: '/researcher/finances',
+        dataGridFilter: {
+          items: [
+            {
+              columnField: 'sum',
+              operatorValue: '<',
+              value: '0',
+            },
+          ],
+        },
       },
     ],
   },

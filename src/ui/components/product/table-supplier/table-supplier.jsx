@@ -49,7 +49,13 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
         {SettingsModel.languageTag && renderHeader()}
         <TableBody>
           {product.suppliers.length ? (
-            product.suppliers.map((supplier, index) => (
+            (product.currentSupplier
+              ? [
+                  product.suppliers.find(el => product.currentSupplier._id === el._id),
+                  ...product.suppliers.filter(el => product.currentSupplier._id !== el._id),
+                ]
+              : product.suppliers
+            ).map((supplier, index) => (
               <TableRow
                 key={`supplier_${supplier.id}_${index}`}
                 className={clsx({

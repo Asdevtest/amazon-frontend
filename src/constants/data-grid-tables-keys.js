@@ -4,7 +4,6 @@ export const DataGridTablesKeys = {
   ADMIN_ORDERS: 'adminOrdersDataGridState',
   ADMIN_TASKS: 'adminTasksDataGridState',
   ADMIN_BOXES: 'adminBoxesDataGridState',
-  ADMIN_FINANCES: 'adminFinancesDataGridState',
   ADMIN_USER_FINANCES: 'adminUserFinancesDataGridState',
   // ADMIN_BATCHES: 'adminBatchesDataGridState',
   ADMIN_DESTINATIONS: 'adminDestinationsDataGridState',
@@ -32,7 +31,6 @@ export const DataGridTablesKeys = {
   WAREHOUSE_COMPLETED_TASKS: 'warehouseCompletedTasksDataGridState',
   WAREHOUSE_CANCELED_TASKS: 'warehouseCanceledTasksDataGridState',
   WAREHOUSE_SUB_USERS: 'warehouseSubUsersDataGridState',
-  WAREHOUSE_FINANCES: 'warehouseFinancesDataGridState',
 
   WAREHOUSE_AWAITING_BATCHES: 'warehouseAwaitingBatchesDataGridState',
   WAREHOUSE_BATCHES: 'warehouseBatchesDataGridState',
@@ -48,18 +46,15 @@ export const DataGridTablesKeys = {
   RESEARCHER_NICHE_MY_REQUESTS: 'researcherNicheMyRequestsDataGridState',
   RESEARCHER_CUSTOM_MY_REQUESTS: 'researcherCustomMyRequestsDataGridState',
   RESEARCHER_SUB_USERS: 'researcherSubUsersDataGridState',
-  RESEARCHER_FINANCES: 'researcherFinancesDataGridState',
 
   SUPERVISOR_PRODUCTS: 'supervisorProductsDataGridState',
   SUPERVISOR_SUB_USERS: 'supervisorSubUsersDataGridState',
-  SUPERVISOR_FINANCES: 'supervisorFinancesDataGridState',
 
   BUYER_PRODUCTS: 'buyerProductsDataGridState',
   BUYER_MY_ORDERS: 'buyerMyOrdersDataGridState',
   BUYER_FREE_ORDERS: 'buyerFreeOrdersDataGridState',
   BUYER_SUB_USERS: 'buyerSubUsersDataGridState',
   BUYER_BATCHES: 'buyerBatchesDataGridState',
-  BUYER_FINANCES: 'buyerFinancesDataGridState',
 
   CLIENT_EXCHANGE: 'clientExchangeCreatedDataGridState',
   CLIENT_INVENTORY: 'clientInventoryDataGridState',
@@ -73,14 +68,12 @@ export const DataGridTablesKeys = {
   CLIENT_SUB_USERS: 'clientSubUsersDataGridState',
   CLIENT_DAILY_SELLER_BOARD: 'clientDailySellerBoardDataGridState',
   CLIENT_LAST_30_DAY_SELLER_BOARD: 'clientLast30DaySellerBoardDataGridState',
-  CLIENT_FINANCES: 'clientFinancesDataGridState',
   CLIENT_SHOPS: 'clientShopsDataGridState',
 
   CLIENT_BATCHES: 'clientBatchesDataGridState',
   CLIENT_AWAITING_BATCHES: 'clientAwaitingBatchesDataGridState',
   CLIENT_BOXES_READY_TO_BATCH: 'clientReadyToBatchDataGridState',
 
-  FREELANCER_FINANCES: 'freelancerFinancesDataGridState',
   FREELANCER_CUSTOM_MY_REQUESTS: 'freelancerCustomMyRequestsDataGridState',
   FREELANCER_CUSTOM_VACANT_REQUESTS: 'freelancerCustomVacantRequestsDataGridState',
   FREELANCER_CUSTOM_SEARCH_REQUESTS: 'freelancerCustomSearchRequestsDataGridState',
@@ -88,6 +81,7 @@ export const DataGridTablesKeys = {
 
   OVERALL_CUSTOM_SEARCH_REQUESTS: 'overallCustomSearchRequestsDataGridState',
   OVERALL_SUB_USERS: 'overallSubUsersDataGridState',
+  SHARED_FINANCES: 'overallSharedFinancesDataGridState',
 
   PROFILE_VAC_PRODUCTS: 'profileVacProductsDataGridState',
 }

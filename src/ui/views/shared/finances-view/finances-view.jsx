@@ -17,14 +17,14 @@ import {Navbar} from '@components/navbar'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
-import {BuyerFinancesViewsModel} from './buyer-finances-views.model'
-import {styles} from './buyer-finances-views.style'
+import {FinancesViewModel} from './finances-view.model'
+import {styles} from './finances-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_FINANCES
 
 @observer
-class BuyerFinancesViewsRaw extends Component {
-  viewModel = new BuyerFinancesViewsModel({history: this.props.history})
+class FinancesViewRaw extends Component {
+  viewModel = new FinancesViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.getPayments(this.viewModel.activeSubCategory)
@@ -105,4 +105,4 @@ class BuyerFinancesViewsRaw extends Component {
   }
 }
 
-export const BuyerFinancesViews = withStyles(styles)(BuyerFinancesViewsRaw)
+export const FinancesView = withStyles(styles)(FinancesViewRaw)

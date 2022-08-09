@@ -629,9 +629,28 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onClickAddSupplierBtn() {
-    this.selectedRowId = this.selectedRowIds[0]
-    this.onTriggerOpenModal('showSelectionSupplierModal')
+  async onClickAddSupplierBtn() {
+    try {
+      if (this.selectedRowIds.length) {
+        const result = await ClientModel.calculatePriceToSeekSomeSuppliers(this.selectedRowIds)
+        this.confirmMessage = this.confirmModalSettings = {
+          isWarning: false,
+          confirmTitle: t(TranslationKey.Attention),
+          confirmMessage: `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
+            result.priceForClient,
+            2,
+          )}.\n ${t(TranslationKey['Apply?'])}`,
+          onClickConfirm: () => this.onSubmitSeekSomeSuppliers(),
+        }
+
+        this.onTriggerOpenModal('showConfirmModal')
+      } else {
+        this.selectedRowId = this.selectedRowIds[0]
+        this.onTriggerOpenModal('showSelectionSupplierModal')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onSubmitCalculateSeekSupplier(clientComment) {
@@ -651,6 +670,18 @@ export class ClientInventoryViewModel {
         )}.\n ${t(TranslationKey['Apply?'])}`,
         onClickConfirm: () => this.onSubmitSeekSupplier(),
       }
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitSeekSomeSuppliers() {
+    try {
+      await ClientModel.sendProductToSeekSomeSuppliers(this.selectedRowIds)
+
+      this.loadData()
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {

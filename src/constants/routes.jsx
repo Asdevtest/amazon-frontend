@@ -3,7 +3,6 @@ import {AdminBatchesView} from '@views/admin/admin-batches-views/admin-batches-v
 import {AdminSentBatchesView} from '@views/admin/admin-batches-views/admin-sent-batches-view'
 import {AdminDashboardView} from '@views/admin/admin-dashboard-view'
 import {AdminExchangeViews} from '@views/admin/admin-exchange-views'
-import {AdminFinancesViews} from '@views/admin/admin-finances-views/admin-finances-views'
 import {AdminInventoryView} from '@views/admin/admin-inventory-view'
 import {AdminOrderView} from '@views/admin/admin-orders-views/order'
 import {AdminOrdersViews} from '@views/admin/admin-orders-views/orders'
@@ -19,7 +18,6 @@ import {AdminWarehouseTasksView} from '@views/admin/admin-warehouse-views/admin-
 import {AdminWarehouseView} from '@views/admin/admin-warehouse-views/admin-warehouse-view'
 import {AuthView} from '@views/auth'
 import {BuyerDashboardView} from '@views/buyer/buyer-dashboard-view'
-import {BuyerFinancesViews} from '@views/buyer/buyer-finances-views'
 import {BuyerMyProductsView} from '@views/buyer/buyer-my-products-view'
 import {BuyerFreeOrdersView} from '@views/buyer/buyer-orders-views/buyer-free-orders-view'
 import {BuyerMyOrdersView} from '@views/buyer/buyer-orders-views/buyer-my-orders-view'
@@ -33,7 +31,6 @@ import {ClientSentBatchesView} from '@views/client/client-batches-views/client-s
 import {ClientDashboardView} from '@views/client/client-dashboard-view'
 import {ClientExchangePrivateLabelView} from '@views/client/client-exchange-views/client-exchange-private-label-view'
 import {ClientExchangeView} from '@views/client/client-exchange-views/client-exchange-view'
-import {ClientFinancesViews} from '@views/client/client-finances-views'
 import {ClientFreelanceView} from '@views/client/client-freelance-view'
 import {ClientInventoryView} from '@views/client/client-inventory-view'
 import {ClientBoxesNotificationsView} from '@views/client/client-notifications-views/client-boxes-notifications-view'
@@ -53,7 +50,6 @@ import {ClientTradingShopsView} from '@views/client/client-trading-shops-views/c
 import {CreateOrEditTradingShopView} from '@views/client/client-trading-shops-views/create-or-edit-trading-shop-view'
 import {ClientWarehouseView} from '@views/client/client-warehouse-view'
 import {FreelancerDashboardView} from '@views/freelancer/freelancer-dashboard-view'
-import {FreelancerFinancesViews} from '@views/freelancer/freelancer-finances-views'
 import {FreelancerFreelanceView} from '@views/freelancer/freelancer-freelance-view'
 import {ModeratorAppealView} from '@views/moderator/moderator-appeal-view/moderator-appeal-view'
 // import {ModeratorAppealView} from '@views/moderator/moderator-appeal-view'
@@ -63,7 +59,6 @@ import {ModeratorMyProductsView} from '@views/moderator/moderator-my-products-vi
 import {ModeratorSettingsView} from '@views/moderator/moderator-settings-view'
 import {RegistrationView} from '@views/registration'
 import {ResearcherDashboardView} from '@views/researcher/researcher-dashboard-view'
-import {ResearcherFinancesViews} from '@views/researcher/researcher-finances-views'
 import {ResearcherProductView} from '@views/researcher/researcher-product-view/researcher-product-view'
 import {ResearcherProductsView} from '@views/researcher/researcher-products-view'
 import {AnotherUserProfileView} from '@views/shared/another-user-profile-view'
@@ -71,6 +66,7 @@ import {CreateOrEditProposalView} from '@views/shared/create-or-edit-proposal-vi
 import {CreateOrEditRequestView} from '@views/shared/create-or-edit-request-view'
 import {DealsOnReviewDetailsView} from '@views/shared/deals-on-review-details-view'
 import {DealsOnReviewView} from '@views/shared/deals-on-review-view/deals-on-review-view'
+import {FinancesView} from '@views/shared/finances-view'
 import {MyProposalsView} from '@views/shared/my-proposals-view'
 import {MyRequestsView} from '@views/shared/my-requests-view'
 import {OwnerRequestDetailCustomView} from '@views/shared/owner-requests-detail-custom-view'
@@ -82,7 +78,6 @@ import {VacantDealsDetailsView} from '@views/shared/vacant-deals-details-view'
 import {VacantDealsView} from '@views/shared/vacant-deals-view'
 import {VacantRequestsView} from '@views/shared/vacant-requests-view/vacant-requests-view'
 import {SupervisorDashboardView} from '@views/supervisor/supervisor-dashboard-view'
-import {SupervisorFinancesViews} from '@views/supervisor/supervisor-finances-views'
 import {SupervisorFreelanceView} from '@views/supervisor/supervisor-freelance-view'
 import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
@@ -93,7 +88,6 @@ import {WarehouseAwaitingBatchesView} from '@views/warehouse/warehouse-batches-v
 import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-batches-view'
 import {WarehouseSentBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-sent-batches-view/warehouse-sent-batches-view'
 import {WarehouseDashboardView} from '@views/warehouse/warehouse-dashboard-view'
-import {WarehouseFinancesViews} from '@views/warehouse/warehouse-finances-views'
 import {WarehouseManagementView} from '@views/warehouse/warehouse-management-view'
 import {WarehouseMyWarehouseView} from '@views/warehouse/warehouse-my-warehouse-view'
 import {WarehouseCanceledTasksView} from '@views/warehouse/warehouse-tasks-views/warehouse-canceled-tasks-view'
@@ -277,7 +271,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/buyer/finances',
-    component: BuyerFinancesViews,
+    component: FinancesView,
     exact: false,
     permission: [UserRole.BUYER],
     crumbNameKey: TranslationKey.Finances,
@@ -324,7 +318,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/researcher/finances',
-    component: ResearcherFinancesViews,
+    component: FinancesView,
     exact: false,
     permission: [UserRole.RESEARCHER],
     crumbNameKey: TranslationKey.Finances,
@@ -652,7 +646,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/client/finances',
-    component: ClientFinancesViews,
+    component: FinancesView,
     exact: false,
     permission: [UserRole.CLIENT],
     crumbNameKey: TranslationKey.Finances,
@@ -770,7 +764,7 @@ export const privateRoutesConfigs = [
   },
   {
     routePath: '/supervisor/finances',
-    component: SupervisorFinancesViews,
+    component: FinancesView,
     exact: false,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey.Finances,
@@ -880,7 +874,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/warehouse/finances',
-    component: WarehouseFinancesViews,
+    component: FinancesView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey.Finances,
@@ -999,7 +993,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/admin/finances',
-    component: AdminFinancesViews,
+    component: FinancesView,
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Finances,
@@ -1061,7 +1055,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/freelancer/finances',
-    component: FreelancerFinancesViews,
+    component: FinancesView,
     exact: false,
     permission: [UserRole.FREELANCER],
     crumbNameKey: TranslationKey.Finances,
