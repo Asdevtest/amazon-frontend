@@ -12,7 +12,7 @@ export const useClassNames = makeStyles(() => ({
   messageWrapper: {
     width: '100%',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'end',
     marginBottom: '30px',
     flexDirection: 'row-reverse',
     // justifyContent: 'flex-end',
@@ -22,7 +22,7 @@ export const useClassNames = makeStyles(() => ({
   },
   messageWrapperIsIncomming: {
     flexDirection: 'row',
-    // justifyContent: 'flex-start',
+    alignItems: 'end',
   },
   messageWrapperIsLastMessage: {
     marginBottom: 0,

@@ -84,6 +84,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
           <Field
             multiline
             className={classNames.reasonInput}
+            inputProps={{maxLength: 1100}}
             minRows={6}
             maxRow={6}
             label={t(TranslationKey['Reason for rework']) + '*'}

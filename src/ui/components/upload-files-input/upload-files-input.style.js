@@ -173,7 +173,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   loadImageInput: {
-    height: '26px',
+    height: '40px',
     borderRadius: '8px',
     width: 'calc(100% - 182px)',
   },
@@ -181,7 +181,7 @@ export const useClassNames = makeStyles(() => ({
   loadBtn: {
     marginLeft: '10px',
     borderRadius: '4px',
-    height: '26px',
+    height: '40px',
     width: '172px',
   },
 

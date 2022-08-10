@@ -89,7 +89,7 @@ export const UploadFilesInput = observer(
           {!withoutLinks && (
             <Field
               tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])}
-              label={withoutTitle ? '' : title ? title : t(TranslationKey['Add file'])}
+              label={withoutTitle ? '' : title ? title : t(TranslationKey['Attach file'])}
               error={linkInputError && t(TranslationKey['Invalid link!'])}
               inputComponent={
                 <div className={classNames.amazonLinkWrapper}>
@@ -109,7 +109,7 @@ export const UploadFilesInput = observer(
                     color="primary"
                     onClick={() => onClickLoadBtn()}
                   >
-                    {t(TranslationKey.Add)}
+                    {t(TranslationKey.Download)}
                   </Button>
                 </div>
               }

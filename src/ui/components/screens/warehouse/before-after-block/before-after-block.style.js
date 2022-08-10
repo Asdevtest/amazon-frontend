@@ -21,11 +21,11 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'flex-end',
     height: '60px',
   },
-  newBoxesWrapper: {
-    maxHeight: '730px',
-    overflow: 'auto',
-    overflowX: 'hidden',
-  },
+  // newBoxesWrapper: {
+  //   maxHeight: '730px',
+  //   overflow: 'auto',
+  //   overflowX: 'hidden',
+  // },
   newBoxes: {},
 
   itemsWrapper: {

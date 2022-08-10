@@ -116,7 +116,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   standartCell: {
-    minWidth: '100px',
+    width: '100px',
   },
 
   sizeWrapper: {
@@ -159,7 +159,7 @@ export const useClassNames = makeStyles(theme => ({
     justifyContent: 'space-between',
     flexDirection: 'column',
     minWidth: '200px',
-    padding: '5px',
+
     marginTop: '10px',
     height: '220px',
   },

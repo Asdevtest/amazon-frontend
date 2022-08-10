@@ -376,6 +376,7 @@
   "Sending boxes": "Отправка коробок",
   "Total cost of shipment": "Общая стоимость отправки",
   "download": "скачать",
+  "Download": "Скачать",
   "Actual weight": "Фактический вес",
   "Return to stock": "Вернуть на склад",
   "Warehouse report": "Отчет со склада",
@@ -1432,5 +1433,6 @@
   "Created by Client": "Создан Клиентом",
   "Paid by the Client": "Оплачено клиентом",
   "Parsing data updated": "Данные парсинга обновлены",
-  "Parsing data not updated": "Данные парсинга не обновлены"
+  "Parsing data not updated": "Данные парсинга не обновлены",
+  "Attach file": "Прикрепить файл"
 }

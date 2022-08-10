@@ -7,7 +7,7 @@ import {useClassNames} from './label-value-pair-block.style'
 interface Props {
   bgColor?: 'white' | 'green'
   label: string
-  value: string | undefined
+  value: string | undefined | React.ReactNode
 }
 
 export const LabelValuePairBlock: FC<Props> = ({bgColor, label, value}) => {
