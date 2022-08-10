@@ -77,7 +77,8 @@ export const supervisorProductsDataConverter = data =>
   data.map(item => ({
     originalData: item,
 
-    status: ProductStatusByCode[item.status],
+    status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
+    statusForAttention: ProductStatusByCode[item.status],
     researcherName: item.createdBy?.name,
     buyerName: item.buyer?.name,
     strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
@@ -105,7 +106,8 @@ export const buyerProductsDataConverter = data =>
   data.map(item => ({
     originalData: item,
 
-    status: ProductStatusByCode[item.status],
+    status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
+    statusForAttention: ProductStatusByCode[item.status],
     strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -188,7 +190,7 @@ export const clientInventoryDataConverter = data =>
     researcherName: item.createdBy?.name,
     buyerName: item.buyer?.name,
     strategyStatus: mapProductStrategyStatusEnum[item.strategyStatus],
-    status: ProductStatusByCode[item.status],
+    status: t(productStatusTranslateKey(ProductStatusByCode[item.status])),
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
 

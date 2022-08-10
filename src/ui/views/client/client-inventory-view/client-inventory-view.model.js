@@ -75,6 +75,7 @@ export class ClientInventoryViewModel {
   product = undefined
   ordersDataStateToSubmit = undefined
 
+  baseNoConvertedProducts = undefined
   productsMy = []
   productsMyBase = []
   withoutProduct = false
@@ -188,6 +189,10 @@ export class ClientInventoryViewModel {
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
+
+      this.productsMy = clientInventoryDataConverter(
+        this.baseNoConvertedProducts.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+      )
     }
   }
 
@@ -410,6 +415,8 @@ export class ClientInventoryViewModel {
       const result = await ClientModel.getProductsMyFilteredByShopId(this.currentShop && {shopId: this.currentShop._id})
 
       runInAction(() => {
+        this.baseNoConvertedProducts = result
+
         this.productsMy = clientInventoryDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )

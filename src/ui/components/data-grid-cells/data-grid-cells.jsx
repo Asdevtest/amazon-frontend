@@ -1191,11 +1191,11 @@ export const ShortBoxDimensions = withStyles(styles)(({classes: classNames, box,
         calcVolumeWeightForBox(box, volumeWeightCoefficient),
         2,
       )}`}</Typography>
-      <Typography className={clsx({[classNames.alertText]: finalWeight < 12})}>{`${t(
+      <Typography className={clsx({[classNames.alertText]: !box.isDraft && finalWeight < 12})}>{`${t(
         TranslationKey['Final weight'],
       )}: ${toFixedWithKg(finalWeight, 2)}`}</Typography>
 
-      {finalWeight < 12 ? (
+      {!box.isDraft && finalWeight < 12 ? (
         <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
       ) : null}
     </div>

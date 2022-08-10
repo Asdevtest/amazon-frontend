@@ -3,7 +3,13 @@ import React from 'react'
 import {Grid, Typography, Paper} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
-import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
+import {
+  colorByProductStatus,
+  ProductStatus,
+  ProductStatusByCode,
+  ProductStatusByKey,
+  productStatusTranslateKey,
+} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Field} from '@components/field'
@@ -240,10 +246,11 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
             <Field
               disabled
               tooltipInfoContent={t(TranslationKey['The status in which the product card is at the moment'])}
+              inputProps={{style: {color: colorByProductStatus(ProductStatusByCode[product.status])}}}
               error={formFieldsValidationErrors.status}
               label={t(TranslationKey.Status)}
-              value={ProductStatusByCode[product.status]}
-              onChange={onChangeField('status')}
+              value={t(productStatusTranslateKey(ProductStatusByCode[product.status]))}
+              // onChange={onChangeField('status')}
             />
           </Paper>
         </Grid>

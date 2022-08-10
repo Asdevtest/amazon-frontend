@@ -12,11 +12,13 @@ import {buyerProductsViewColumns} from '@components/table-columns/buyer/buyer-pr
 import {buyerProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 
 export class BuyerMyProductsViewModel {
   history = undefined
   requestStatus = undefined
 
+  baseNoConvertedProducts = []
   productsMy = []
   drawerOpen = false
 
@@ -28,14 +30,20 @@ export class BuyerMyProductsViewModel {
   }
 
   sortModel = []
+  startFilterModel = undefined
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = buyerProductsViewColumns(this.rowHandlers)
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+
+    if (location?.state?.dataGridFilter) {
+      this.startFilterModel = location.state.dataGridFilter
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -47,6 +55,10 @@ export class BuyerMyProductsViewModel {
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
+
+      this.productsMy = buyerProductsDataConverter(
+        this.baseNoConvertedProducts.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+      )
     }
   }
 
@@ -81,7 +93,12 @@ export class BuyerMyProductsViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
+      this.filterModel = this.startFilterModel
+        ? {
+            ...this.startFilterModel,
+            items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+          }
+        : state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -135,6 +152,8 @@ export class BuyerMyProductsViewModel {
       this.error = undefined
       const result = await BuyerModel.getProductsMy()
       runInAction(() => {
+        this.baseNoConvertedProducts = result
+
         this.productsMy = buyerProductsDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
       })
       this.setRequestStatus(loadingStatuses.success)

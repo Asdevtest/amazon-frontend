@@ -11,6 +11,7 @@ import {supervisorProductsViewColumns} from '@components/table-columns/superviso
 import {supervisorProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {t} from '@utils/translations'
 
 export class SupervisorProductsViewModel {
   history = undefined
@@ -19,17 +20,24 @@ export class SupervisorProductsViewModel {
 
   drawerOpen = false
 
+  baseNoConvertedProducts = []
   productsMy = []
 
   sortModel = []
+  startFilterModel = undefined
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = supervisorProductsViewColumns()
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+
+    if (location?.state?.dataGridFilter) {
+      this.startFilterModel = location.state.dataGridFilter
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -41,6 +49,10 @@ export class SupervisorProductsViewModel {
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
+
+      this.productsMy = supervisorProductsDataConverter(
+        this.baseNoConvertedProducts.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+      )
     }
   }
 
@@ -65,7 +77,12 @@ export class SupervisorProductsViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
+      this.filterModel = this.startFilterModel
+        ? {
+            ...this.startFilterModel,
+            items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+          }
+        : state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -117,6 +134,8 @@ export class SupervisorProductsViewModel {
       const result = await SupervisorModel.getProductsMy()
 
       runInAction(() => {
+        this.baseNoConvertedProducts = result
+
         this.productsMy = supervisorProductsDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )

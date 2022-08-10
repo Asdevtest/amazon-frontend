@@ -1416,7 +1416,7 @@ export enum TranslationKey {
   'Copy the link' = 'Copy the link',
   'New product' = 'New product',
   'Product on check with Supervisor' = 'Product on check with Supervisor',
-  'Rescher found supplier' = 'Rescher found supplier',
+  'Researcher found supplier' = 'Researcher found supplier',
   'Product checked by Supervisor' = 'Product checked by Supervisor',
   'Rejected by Supervisor' = 'Rejected by Supervisor',
   'Is in search of a Buyer' = 'Is in search of a Buyer',

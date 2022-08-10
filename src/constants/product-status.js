@@ -95,6 +95,7 @@ export const colorByProductStatus = status => {
       ProductStatus.COMPLETE_SUCCESS,
       ProductStatus.PURCHASED_PRODUCT,
       ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS,
+      ProductStatus.FROM_CLIENT_PAID_BY_CLIENT,
     ].includes(status)
   ) {
     return '#00B746'
@@ -126,7 +127,7 @@ export const productStatusTranslateKey = status => {
       return TranslationKey['Product on check with Supervisor']
 
     case ProductStatus.RESEARCHER_FOUND_SUPPLIER:
-      return TranslationKey['Rescher found supplier']
+      return TranslationKey['Researcher found supplier']
 
     case ProductStatus.CHECKED_BY_SUPERVISOR:
       return TranslationKey['Product checked by Supervisor']
