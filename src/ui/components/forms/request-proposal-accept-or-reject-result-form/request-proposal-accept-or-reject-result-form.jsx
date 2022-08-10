@@ -5,17 +5,24 @@ import {Rating} from '@material-ui/lab'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
-import {TranslationKey} from '@constants/translations/translation-key'
-
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
-
-import {t} from '@utils/translations'
 
 import {useClassNames} from './request-proposal-accept-or-reject-result-form.style'
 
 export const RequestProposalAcceptOrRejectResultForm = observer(
-  ({isReject, title, rateLabel, reviewLabel, onSubmit}) => {
+  ({
+    isReject,
+    isSupervisor,
+    title,
+    rateLabel,
+    reviewLabel,
+    onSubmit,
+    onClose,
+    confirmButtonText,
+    cancelBtnText,
+    rejectButtonText,
+  }) => {
     const classNames = useClassNames()
     const [rating, setRating] = useState('')
 
@@ -47,18 +54,13 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
             success={!isReject}
             danger={isReject}
             color="primary"
-            className={classNames.btnSubmit}
+            className={clsx(classNames.btnSubmit, {[classNames.btnLargeSubmit]: isSupervisor})}
             onClick={() => onSubmit()}
           >
-            {isReject ? t(TranslationKey.Reject) : t(TranslationKey.Accept)}
+            {isReject ? rejectButtonText : confirmButtonText}
           </Button>
-          <Button
-            variant="text"
-            className={clsx(classNames.btnSubmit, classNames.cancelSubmit)}
-            // disabled={!formFields.reason || totalTimeInMinute === '0'}
-            // onClick={() => onPressSubmitForm(formFields)}
-          >
-            {t(TranslationKey.Cancel)}
+          <Button variant="text" className={clsx(classNames.btnSubmit, classNames.cancelSubmit)} onClick={onClose}>
+            {cancelBtnText}
           </Button>
         </div>
       </div>

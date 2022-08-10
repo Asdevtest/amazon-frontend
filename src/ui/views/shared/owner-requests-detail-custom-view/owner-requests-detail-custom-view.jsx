@@ -234,7 +234,10 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
               title={t(TranslationKey['Confirm acceptance of the work result'])}
               rateLabel={t(TranslationKey['Rate the performer'])}
               reviewLabel={t(TranslationKey["Review of the performer's work"])}
+              confirmButtonText={t(TranslationKey.Confirm)}
+              cancelBtnText={t(TranslationKey.Reject)}
               onSubmit={acceptProposalResultSetting.onSubmit}
+              onClose={() => onTriggerOpenModal('showConfirmWorkResultFormModal')}
             />
           </Modal>
 

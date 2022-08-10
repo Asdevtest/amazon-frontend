@@ -5,6 +5,8 @@ import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {RequestProposalModel} from '@models/request-proposal'
 import {UserModel} from '@models/user-model'
 
+import {onSubmitPostImages} from '@utils/upload-files'
+
 export class VacantDealsDetailsViewModel {
   history = undefined
   requestStatus = undefined
@@ -19,6 +21,8 @@ export class VacantDealsDetailsViewModel {
   showRejectModal = false
   showReworkModal = false
   showDetails = true
+
+  uploadedFiles = []
 
   requestProposals = []
 
@@ -78,9 +82,17 @@ export class VacantDealsDetailsViewModel {
     }
   }
 
-  async onClickReworkDeal(data) {
+  async onClickReworkDeal(data, files) {
     try {
-      await RequestProposalModel.requestProposalResultToCorrect(this.proposalId, {...data})
+      this.uploadedFiles = []
+
+      if (files.length) {
+        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+      }
+      await RequestProposalModel.requestProposalResultToCorrect(this.proposalId, {
+        ...data,
+        linksToMediaFiles: this.uploadedFiles,
+      })
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review`)
       this.onTriggerOpenModal('showReworkModal')
     } catch (error) {

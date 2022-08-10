@@ -42,7 +42,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'action',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     headerName: t(TranslationKey.Action),
-    width: 250,
+    width: 325,
     renderCell: params => <ClientNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,
     sortable: false,
