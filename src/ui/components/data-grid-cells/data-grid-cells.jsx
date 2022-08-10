@@ -1083,7 +1083,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
           row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF &&
           t(TranslationKey['The tariff is invalid or has been removed!'])
         }
-        tooltipInfoContent={isFirstRow && t(TranslationKey['Move a box from the current batch to another'])}
+        tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
         disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF}
         className={classNames.warehouseBoxesBtn}
         variant="contained"
@@ -1097,7 +1097,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
     {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
       <Button
         success
-        tooltipInfoContent={isFirstRow && t(TranslationKey['Add a box to a new or existing batch'])}
+        tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
         className={classNames.warehouseBoxesBtn}
         onClick={() => handlers.moveBox(row)}
       >

@@ -40,8 +40,8 @@ export const BreadCrumbsLine = observer(({lastCrumbAdditionalText}) => {
 
   const getCrumbNameKey = path => allRoutesConfigs.find(el => el.routePath === path)?.crumbNameKey || '---'
 
-  const onClickCrumb = (to, isPreLast) => {
-    if (isPreLast) {
+  const onClickCrumb = (to, isPreLast, index) => {
+    if (isPreLast && index !== 1) {
       hostory.goBack()
     } else {
       hostory.push(to)
@@ -69,7 +69,7 @@ export const BreadCrumbsLine = observer(({lastCrumbAdditionalText}) => {
               //   {t(getCrumbNameKey(to))}
               // </LinkRouter>
 
-              <Typography key={to} className={classNames.сrumb} onClick={() => onClickCrumb(to, isPreLast)}>
+              <Typography key={to} className={classNames.сrumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
                 {t(getCrumbNameKey(to))}
               </Typography>
             )

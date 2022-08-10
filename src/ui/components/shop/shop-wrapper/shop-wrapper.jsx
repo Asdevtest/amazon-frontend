@@ -2,6 +2,8 @@ import React from 'react'
 
 import {observer} from 'mobx-react'
 
+import {formatDateMonthYearWithoutFormatISO} from '@utils/date-time'
+
 import {BarChartsCard} from './bar-charts-card/bar-charts-card'
 import {BottomCard} from './bottom-card'
 import {useClassNames} from './shop-wrapper.style'
@@ -14,8 +16,23 @@ export const ShopWrapper = observer(({shopInfo}) => {
     <div className={classNames.shopWrapper}>
       <TopCard data={shopInfo} />
       <div className={classNames.chartsWrapper}>
-        <BarChartsCard isRevenue data={shopInfo.profitForTheReportingPeriod} />
-        <BarChartsCard data={shopInfo.trafficForTheReportingPeriod} />
+        <BarChartsCard
+          isRevenue
+          data={shopInfo.statistics
+            .map(el => ({
+              ...el,
+              month: formatDateMonthYearWithoutFormatISO(el.month),
+            }))
+            .reverse()}
+        />
+        <BarChartsCard
+          data={shopInfo.statistics
+            .map(el => ({
+              ...el,
+              month: formatDateMonthYearWithoutFormatISO(el.month),
+            }))
+            .reverse()}
+        />
       </div>
       <BottomCard data={shopInfo} />
     </div>

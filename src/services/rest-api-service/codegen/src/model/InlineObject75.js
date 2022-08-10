@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject13 from './InlineObject13';
 
 /**
  * The InlineObject75 model module.
@@ -22,11 +21,15 @@ import InlineObject13 from './InlineObject13';
 class InlineObject75 {
     /**
      * Constructs a new <code>InlineObject75</code>.
+     * Схема магазина.
      * @alias module:model/InlineObject75
+     * @param name {String} Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+     * @param sellerBoardWarehouseReportUrlDaily {String} uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+     * @param sellerBoardWarehouseReportUrlMonthly {String} uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
      */
-    constructor() { 
+    constructor(name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
         
-        InlineObject75.initialize(this);
+        InlineObject75.initialize(this, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly);
     }
 
     /**
@@ -34,7 +37,10 @@ class InlineObject75 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, sellerBoardWarehouseReportUrlDaily, sellerBoardWarehouseReportUrlMonthly) { 
+        obj['name'] = name;
+        obj['sellerBoardWarehouseReportUrlDaily'] = sellerBoardWarehouseReportUrlDaily;
+        obj['sellerBoardWarehouseReportUrlMonthly'] = sellerBoardWarehouseReportUrlMonthly;
     }
 
     /**
@@ -48,8 +54,14 @@ class InlineObject75 {
         if (data) {
             obj = obj || new InlineObject75();
 
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject13]);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
         }
         return obj;
@@ -59,10 +71,22 @@ class InlineObject75 {
 }
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject13>} additionalBoxes
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineObject75.prototype['additionalBoxes'] = undefined;
+InlineObject75.prototype['name'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
+ */
+InlineObject75.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
+ */
+InlineObject75.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 

@@ -1430,5 +1430,7 @@
   "Product purchased": "Товар куплен",
   "Not published": "Не опубликован",
   "Created by Client": "Создан Клиентом",
-  "Paid by the Client": "Оплачено клиентом"
+  "Paid by the Client": "Оплачено клиентом",
+  "Parsing data updated": "Данные парсинга обновлены",
+  "Parsing data not updated": "Данные парсинга не обновлены"
 }

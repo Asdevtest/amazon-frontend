@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 
 /**
  * The InlineResponse20025 model module.
@@ -22,7 +21,6 @@ import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 class InlineResponse20025 {
     /**
      * Constructs a new <code>InlineResponse20025</code>.
-     * Схема получение лайт версии продажи магазина
      * @alias module:model/InlineResponse20025
      */
     constructor() { 
@@ -49,38 +47,11 @@ class InlineResponse20025 {
         if (data) {
             obj = obj || new InlineResponse20025();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'String');
-            }
-            if (data.hasOwnProperty('files')) {
-                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('monthlyProfit')) {
-                obj['monthlyProfit'] = ApiClient.convertToType(data['monthlyProfit'], 'Number');
-            }
-            if (data.hasOwnProperty('monthlyPureProfit')) {
-                obj['monthlyPureProfit'] = ApiClient.convertToType(data['monthlyPureProfit'], 'Number');
-            }
-            if (data.hasOwnProperty('monthlyMultiplier')) {
-                obj['monthlyMultiplier'] = ApiClient.convertToType(data['monthlyMultiplier'], 'Number');
-            }
-            if (data.hasOwnProperty('statistics')) {
-                obj['statistics'] = ApiClient.convertToType(data['statistics'], [ApiV1ShopSellStatistics]);
-            }
-            if (data.hasOwnProperty('businessStartYear')) {
-                obj['businessStartYear'] = ApiClient.convertToType(data['businessStartYear'], 'Date');
-            }
-            if (data.hasOwnProperty('shopDetails')) {
-                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
+            if (data.hasOwnProperty('volumeWeightCoefficient')) {
+                obj['volumeWeightCoefficient'] = ApiClient.convertToType(data['volumeWeightCoefficient'], 'Number');
             }
         }
         return obj;
@@ -90,70 +61,16 @@ class InlineResponse20025 {
 }
 
 /**
- * GUID магазина на продажу.
- * @member {String} _id
+ * Курс юаня к доллару.
+ * @member {Number} yuanToDollarRate
  */
-InlineResponse20025.prototype['_id'] = undefined;
+InlineResponse20025.prototype['yuanToDollarRate'] = undefined;
 
 /**
- * Имя магазина для продажи
- * @member {String} title
+ * Коэффициент расчета объемного веса.
+ * @member {Number} volumeWeightCoefficient
  */
-InlineResponse20025.prototype['title'] = undefined;
-
-/**
- * Статус магазина для продажи
- * @member {String} status
- */
-InlineResponse20025.prototype['status'] = undefined;
-
-/**
- * Файлы, которые привязаны к магазину
- * @member {Array.<String>} files
- */
-InlineResponse20025.prototype['files'] = undefined;
-
-/**
- * Стоимость магазина
- * @member {Number} price
- */
-InlineResponse20025.prototype['price'] = undefined;
-
-/**
- * Ежемесячная прибыль
- * @member {Number} monthlyProfit
- */
-InlineResponse20025.prototype['monthlyProfit'] = undefined;
-
-/**
- * Ежемесячная чистая прибыль
- * @member {Number} monthlyPureProfit
- */
-InlineResponse20025.prototype['monthlyPureProfit'] = undefined;
-
-/**
- * Ежемесячный множитель
- * @member {Number} monthlyMultiplier
- */
-InlineResponse20025.prototype['monthlyMultiplier'] = undefined;
-
-/**
- * Статистика магазина по месяцам
- * @member {Array.<module:model/ApiV1ShopSellStatistics>} statistics
- */
-InlineResponse20025.prototype['statistics'] = undefined;
-
-/**
- * Дата создания бизнеса
- * @member {Date} businessStartYear
- */
-InlineResponse20025.prototype['businessStartYear'] = undefined;
-
-/**
- * Детали магазина
- * @member {String} shopDetails
- */
-InlineResponse20025.prototype['shopDetails'] = undefined;
+InlineResponse20025.prototype['volumeWeightCoefficient'] = undefined;
 
 
 

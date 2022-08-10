@@ -126,4 +126,12 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '140%',
     color: '#001029',
   },
+
+  reviews: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: '400',
+    color: '#006CFF',
+    cursor: 'pointer',
+  },
 }))

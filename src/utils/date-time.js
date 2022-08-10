@@ -4,6 +4,8 @@ import ruLocale from 'date-fns/locale/ru'
 
 import {SettingsModel} from '@models/settings-model'
 
+export const getYearDate = dateString => format(parseISO(dateString), 'yyyy')
+
 export const formatDate = dateString => format(parseISO(dateString), 'dd-MM-yyyy') // предпочтительный формат
 export const formatDateForBackend = dateString => format(parseISO(dateString), 'yyyy-MM-dd')
 
@@ -39,6 +41,16 @@ export const formatDateDistanceFromNowStrict = (date, tryNow) =>
 
 export const formatDateMonthYear = date =>
   format(parseISO(formatISO(date, {representation: 'date'})), 'MMM yyyy', {
+    locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
+  })
+
+export const formatDateMonthYearWithoutFormatISO = date =>
+  format(parseISO(date), 'MMM yyyy', {
+    locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
+  })
+
+export const formatDateDayMonthYear = date =>
+  format(parseISO(date), 'dd MMMM yyyy', {
     locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
   })
 

@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 
 /**
  * The InlineObject83 model module.
@@ -48,41 +47,14 @@ class InlineObject83 {
         if (data) {
             obj = obj || new InlineObject83();
 
-            if (data.hasOwnProperty('fbm')) {
-                obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('listingName')) {
-                obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('listingBulletPoints')) {
-                obj['listingBulletPoints'] = ApiClient.convertToType(data['listingBulletPoints'], ['String']);
-            }
-            if (data.hasOwnProperty('listingProductDetails')) {
-                obj['listingProductDetails'] = ApiClient.convertToType(data['listingProductDetails'], 'String');
-            }
-            if (data.hasOwnProperty('listingSearchTerms')) {
-                obj['listingSearchTerms'] = ApiClient.convertToType(data['listingSearchTerms'], 'String');
-            }
-            if (data.hasOwnProperty('listingSubjectMatters')) {
-                obj['listingSubjectMatters'] = ApiClient.convertToType(data['listingSubjectMatters'], ['String']);
-            }
-            if (data.hasOwnProperty('listingImages')) {
-                obj['listingImages'] = ApiClient.convertToType(data['listingImages'], ['String']);
-            }
-            if (data.hasOwnProperty('listingTaskToFindSupplier')) {
-                obj['listingTaskToFindSupplier'] = ApiClient.convertToType(data['listingTaskToFindSupplier'], 'String');
-            }
-            if (data.hasOwnProperty('listingSupplierImportantPoints')) {
-                obj['listingSupplierImportantPoints'] = ApiClient.convertToType(data['listingSupplierImportantPoints'], 'String');
-            }
-            if (data.hasOwnProperty('listingExtraInfo')) {
-                obj['listingExtraInfo'] = ApiClient.convertToType(data['listingExtraInfo'], 'String');
-            }
-            if (data.hasOwnProperty('listingSupplierCompetitors')) {
-                obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], [ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]);
-            }
-            if (data.hasOwnProperty('strategyStatus')) {
-                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -92,76 +64,22 @@ class InlineObject83 {
 }
 
 /**
- * Признак fbm
- * @member {Boolean} fbm
+ * Название услуги
+ * @member {String} name
  */
-InlineObject83.prototype['fbm'] = undefined;
+InlineObject83.prototype['name'] = undefined;
 
 /**
- * 
- * @member {String} listingName
+ * Описание услуги
+ * @member {String} description
  */
-InlineObject83.prototype['listingName'] = undefined;
+InlineObject83.prototype['description'] = undefined;
 
 /**
- * Массив ...
- * @member {Array.<String>} listingBulletPoints
+ * Цена услуги.
+ * @member {Number} price
  */
-InlineObject83.prototype['listingBulletPoints'] = undefined;
-
-/**
- * 
- * @member {String} listingProductDetails
- */
-InlineObject83.prototype['listingProductDetails'] = undefined;
-
-/**
- * 
- * @member {String} listingSearchTerms
- */
-InlineObject83.prototype['listingSearchTerms'] = undefined;
-
-/**
- * Массив ...
- * @member {Array.<String>} listingSubjectMatters
- */
-InlineObject83.prototype['listingSubjectMatters'] = undefined;
-
-/**
- * массив картинок(в виде прямых ссылок).
- * @member {Array.<String>} listingImages
- */
-InlineObject83.prototype['listingImages'] = undefined;
-
-/**
- * 
- * @member {String} listingTaskToFindSupplier
- */
-InlineObject83.prototype['listingTaskToFindSupplier'] = undefined;
-
-/**
- * 
- * @member {String} listingSupplierImportantPoints
- */
-InlineObject83.prototype['listingSupplierImportantPoints'] = undefined;
-
-/**
- * 
- * @member {String} listingExtraInfo
- */
-InlineObject83.prototype['listingExtraInfo'] = undefined;
-
-/**
- * Массив объектов: ссылки и комментарии к конкурентам
- * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors>} listingSupplierCompetitors
- */
-InlineObject83.prototype['listingSupplierCompetitors'] = undefined;
-
-/**
- * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
- * @member {Number} strategyStatus
- */
-InlineObject83.prototype['strategyStatus'] = undefined;
+InlineObject83.prototype['price'] = undefined;
 
 
 

@@ -20,25 +20,25 @@ export const BottomCard = observer(({data}) => {
         <div className={classNames.topWrapper}>
           <Paper className={classNames.detailsWrapper}>
             <Typography className={classNames.title}>{'Детали магазина'}</Typography>
-            <Typography>{data?.description}</Typography>
+            <Typography>{data?.shopDetails}</Typography>
           </Paper>
           <Paper className={classNames.featuresWrapper}>
-            <CustomList title="Возможности" dataList={data?.features} />
+            <CustomList title="Возможности" dataList={data?.opportunities} />
             <CustomList title="Риски" dataList={data?.risks} />
           </Paper>
         </div>
         <div className={classNames.bottomWrapper}>
           <Paper className={classNames.bottomCardWrapper}>
-            <CustomList title="Требуемая работа и навыки" dataList={data?.workAndSkills} />
+            <CustomList title="Требуемая работа и навыки" dataList={data?.requiredSkills} />
           </Paper>
           <Paper className={classNames.bottomCardWrapper}>
-            <CustomList title="Поддержка продавца включает" dataList={data?.sellerSupport} />
+            <CustomList title="Поддержка продавца включает" dataList={data?.sellIncludes} />
           </Paper>
           <Paper className={classNames.bottomCardWrapper}>
-            <CustomList title="Причины продажи" dataList={data?.reasonsForSale} />
+            <CustomList title="Причины продажи" dataList={data?.reasonForSale} />
           </Paper>
           <Paper className={classNames.bottomCardWrapper}>
-            <CustomList title="Дополнительная информация" dataList={data?.additionalInformation} />
+            <CustomList title="Дополнительная информация" dataList={data?.additionalInfo} />
           </Paper>
         </div>
       </div>

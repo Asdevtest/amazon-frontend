@@ -125,6 +125,7 @@ export class ClientInventoryViewRaw extends Component {
       onSubmitCreateProduct,
       onSubmitSaveSupplier,
       onClickAddSupplierBtn,
+      onClickParseProductsBtn,
       onSubmitCalculateSeekSupplier,
       onClickOrderBtn,
       onTriggerArchive,
@@ -150,58 +151,84 @@ export class ClientInventoryViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Inventory)}>
             <MainContent>
-              <div className={classNames.shopsFiltersWrapper}>
-                <Button
-                  disabled={!productsMy}
-                  className={clsx(classNames.button, {
-                    [classNames.selectedShopsBtn]: !withProduct && !withoutProduct && !currentShop?._id,
-                  })}
-                  variant="text"
-                  color="primary"
-                  onClick={onClickShopBtn}
-                >
-                  {t(TranslationKey['All Products'])}
-                </Button>
-                <Button
-                  disabled={!productsMy}
-                  className={clsx(classNames.button, {
-                    [classNames.selectedShopsBtn]: withProduct,
-                  })}
-                  variant="text"
-                  color="primary"
-                  onClick={onClickWithProductsShopBtn}
-                >
-                  {t(TranslationKey['Products in shops'])}
-                </Button>
+              <div className={classNames.topHeaderBtnsWrapper}>
+                <div className={classNames.shopsFiltersWrapper}>
+                  <Button
+                    disabled={!productsMy}
+                    className={clsx(classNames.button, {
+                      [classNames.selectedShopsBtn]: !withProduct && !withoutProduct && !currentShop?._id,
+                    })}
+                    variant="text"
+                    color="primary"
+                    onClick={onClickShopBtn}
+                  >
+                    {t(TranslationKey['All Products'])}
+                  </Button>
+                  <Button
+                    disabled={!productsMy}
+                    className={clsx(classNames.button, {
+                      [classNames.selectedShopsBtn]: withProduct,
+                    })}
+                    variant="text"
+                    color="primary"
+                    onClick={onClickWithProductsShopBtn}
+                  >
+                    {t(TranslationKey['Products in shops'])}
+                  </Button>
 
-                <Button
-                  disabled={!productsMy}
-                  className={clsx(classNames.button, {
-                    [classNames.selectedShopsBtn]: withoutProduct,
-                  })}
-                  variant="text"
-                  color="primary"
-                  onClick={onClickWithoutProductsShopBtn}
-                >
-                  {t(TranslationKey['Products without shops'])}
-                </Button>
+                  <Button
+                    disabled={!productsMy}
+                    className={clsx(classNames.button, {
+                      [classNames.selectedShopsBtn]: withoutProduct,
+                    })}
+                    variant="text"
+                    color="primary"
+                    onClick={onClickWithoutProductsShopBtn}
+                  >
+                    {t(TranslationKey['Products without shops'])}
+                  </Button>
 
-                {shopsData.map(shop =>
-                  productsMyBase.some(product => product.originalData.shopIds.includes(shop._id)) ? (
+                  {shopsData.map(shop =>
+                    productsMyBase.some(product => product.originalData.shopIds.includes(shop._id)) ? (
+                      <Button
+                        key={shop._id}
+                        className={clsx(classNames.button, {
+                          [classNames.selectedShopsBtn]: currentShop?._id === shop._id,
+                        })}
+                        variant="text"
+                        color="primary"
+                        onClick={() => onClickShopBtn(shop)}
+                      >
+                        {shop.name}
+                      </Button>
+                    ) : null,
+                  )}
+                </div>
+
+                {!isArchive ? (
+                  <div className={classNames.simpleBtnsWrapper}>
                     <Button
-                      key={shop._id}
-                      className={clsx(classNames.button, {
-                        [classNames.selectedShopsBtn]: currentShop?._id === shop._id,
-                      })}
-                      variant="text"
-                      color="primary"
-                      onClick={() => onClickShopBtn(shop)}
+                      tooltipInfoContent={t(TranslationKey['Deleted product archive'])}
+                      variant="outlined"
+                      className={classNames.openArchiveBtn}
+                      onClick={onTriggerArchive}
                     >
-                      {shop.name}
+                      {t(TranslationKey['Open archive'])}
                     </Button>
-                  ) : null,
-                )}
+
+                    <Button
+                      success
+                      tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
+                      className={classNames.rightAddingBtn}
+                      onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
+                    >
+                      {t(TranslationKey['Add product'])}
+                      <img src="/assets/icons/+.svg" className={classNames.icon} />
+                    </Button>
+                  </div>
+                ) : null}
               </div>
+
               <div className={classNames.addProductBtnsWrapper}>
                 {!isArchive && (
                   <div className={classNames.btnsWrapper}>
@@ -245,70 +272,73 @@ export class ClientInventoryViewRaw extends Component {
                     </Button>
 
                     <Button
-                      disableElevation
                       tooltipAttentionContent={
                         isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
                       }
-                      tooltipInfoContent={t(
-                        TranslationKey['Delete the selected product (the product is moved to the archive)'],
-                      )}
+                      variant="contained"
                       disabled={!selectedRowIds.length || isNoEditProductSelected}
-                      variant="outlined"
-                      className={classNames.archiveAddBtn}
-                      onClick={onClickTriggerArchOrResetProducts}
+                      onClick={onClickParseProductsBtn}
                     >
-                      {t(TranslationKey['Move to archive'])}
-                      {<DeleteIcon className={classNames.archiveIcon} />}
+                      {'Parce all'}
                     </Button>
                   </div>
                 )}
 
-                <div className={classNames.archiveBtnsWrapper}>
+                <div className={classNames.simpleBtnsWrapper}>
+                  {!isArchive && (
+                    <>
+                      <Button
+                        tooltipAttentionContent={
+                          isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
+                        }
+                        tooltipInfoContent={t(
+                          TranslationKey['Delete the selected product (the product is moved to the archive)'],
+                        )}
+                        disabled={!selectedRowIds.length || isNoEditProductSelected}
+                        variant="outlined"
+                        className={classNames.archiveAddBtn}
+                        onClick={onClickTriggerArchOrResetProducts}
+                      >
+                        {t(TranslationKey['Move to archive'])}
+                        {<DeleteIcon className={classNames.archiveIcon} />}
+                      </Button>
+
+                      <Button
+                        success
+                        className={classNames.rightAddingBtn}
+                        onClick={() => onTriggerOpenModal('showAddSuppliersModal')}
+                      >
+                        {t(TranslationKey['Add a supplier list'])}
+                        <img src="/assets/icons/+.svg" className={classNames.icon} />
+                      </Button>
+                    </>
+                  )}
+
                   {isArchive ? (
-                    <Button
-                      disableElevation
-                      tooltipAttentionContent={
-                        isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
-                      }
-                      tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
-                      disabled={!selectedRowIds.length || isNoEditProductSelected}
-                      variant="contained"
-                      onClick={onClickTriggerArchOrResetProducts}
-                    >
-                      {t(TranslationKey['Return to inventory'])}
-                    </Button>
+                    <>
+                      <Button
+                        disableElevation
+                        tooltipAttentionContent={
+                          isNoEditProductSelected && t(TranslationKey['Product with invalid status selected'])
+                        }
+                        tooltipInfoContent={t(TranslationKey['Return the selected product to the inventory list'])}
+                        disabled={!selectedRowIds.length || isNoEditProductSelected}
+                        variant="contained"
+                        onClick={onClickTriggerArchOrResetProducts}
+                      >
+                        {t(TranslationKey['Return to inventory'])}
+                      </Button>
+
+                      <Button
+                        tooltipInfoContent={t(TranslationKey['Return to inventory with a list of items'])}
+                        variant="outlined"
+                        className={classNames.openArchiveBtn}
+                        onClick={onTriggerArchive}
+                      >
+                        {t(TranslationKey['Open inventory'])}
+                      </Button>
+                    </>
                   ) : null}
-
-                  <Button
-                    tooltipInfoContent={
-                      isArchive
-                        ? t(TranslationKey['Return to inventory with a list of items'])
-                        : t(TranslationKey['Deleted product archive'])
-                    }
-                    variant="outlined"
-                    className={classNames.openArchiveBtn}
-                    onClick={onTriggerArchive}
-                  >
-                    {isArchive ? t(TranslationKey['Open inventory']) : t(TranslationKey['Open archive'])}
-                  </Button>
-
-                  {!isArchive && (
-                    <Button success onClick={() => onTriggerOpenModal('showAddSuppliersModal')}>
-                      {t(TranslationKey['Add a supplier list'])}
-                      <img src="/assets/icons/+.svg" className={classNames.icon} />
-                    </Button>
-                  )}
-
-                  {!isArchive && (
-                    <Button
-                      success
-                      tooltipInfoContent={t(TranslationKey['Allows you to add your product to inventory'])}
-                      onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
-                    >
-                      {t(TranslationKey['Add product'])}
-                      <img src="/assets/icons/+.svg" className={classNames.icon} />
-                    </Button>
-                  )}
                 </div>
               </div>
 

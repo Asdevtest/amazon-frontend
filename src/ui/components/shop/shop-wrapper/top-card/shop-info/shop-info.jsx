@@ -10,6 +10,8 @@ import {LinesChart} from '@components/charts/lines-chart/lines-chart'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
 
+import {toFixed} from '@utils/text'
+
 import {useClassNames} from './shop-info.style'
 
 export const ShopInfo = observer(({data}) => {
@@ -27,18 +29,6 @@ export const ShopInfo = observer(({data}) => {
 
   const monthlyMultiplier = data.price / averagePureIncome || 0
 
-  // const avgProfit = toFixed(
-  //   data?.profitForTheReportingPeriod?.reduce((acc, cur) => acc + cur.pv, 0) /
-  //     data?.profitForTheReportingPeriod?.length,
-  //   2,
-  // )
-
-  // const avgRevenue = toFixed(
-  //   data?.profitForTheReportingPeriod?.reduce((acc, cur) => acc + cur.uv, 0) /
-  //     data?.profitForTheReportingPeriod?.length,
-  //   2,
-  // )
-  // const profitability = toFixed(avgRevenue / avgProfit, 2) * 100
   return (
     <Box className={classNames.shopInfoWrapper}>
       <div className={classNames.shopInfoTopWrapper}>
@@ -75,7 +65,7 @@ export const ShopInfo = observer(({data}) => {
                 containerClasses={classNames.shortInfoContainer}
                 label={'Ежемесячный множитель'}
                 inputComponent={
-                  <Typography className={classNames.shortInfoValue}>{`${monthlyMultiplier} х`}</Typography>
+                  <Typography className={classNames.shortInfoValue}>{`${toFixed(monthlyMultiplier, 2)} х`}</Typography>
                 }
               />
             </div>
@@ -90,8 +80,10 @@ export const ShopInfo = observer(({data}) => {
             </div>
           </div>
           <div className={classNames.buttonsWrapper}>
-            <Button className={classNames.editButton}>{'Редактировать'}</Button>
-            <Button danger className={classNames.deleteButton}>
+            <Button disabled className={classNames.editButton}>
+              {'Редактировать'}
+            </Button>
+            <Button disabled danger className={classNames.deleteButton}>
               {'Удалить объявление'}
             </Button>
           </div>
@@ -105,7 +97,7 @@ export const ShopInfo = observer(({data}) => {
               labelClasses={classNames.chartLabel}
               inputComponent={
                 <div className={classNames.chart}>
-                  <Typography className={classNames.profit}>{averageGrossIncome + ' $'}</Typography>
+                  <Typography className={classNames.profit}>{toFixed(averageGrossIncome, 2) + ' $'}</Typography>
                   <LinesChart data={data.profitForTheReportingPeriod} />
                 </div>
               }
@@ -117,7 +109,7 @@ export const ShopInfo = observer(({data}) => {
               labelClasses={classNames.chartLabel}
               inputComponent={
                 <div className={classNames.chart}>
-                  <Typography className={classNames.profit}>{averagePureIncome + ' $'}</Typography>
+                  <Typography className={classNames.profit}>{toFixed(averagePureIncome, 2) + ' $'}</Typography>
                   <LinesChart profit data={data.profitForTheReportingPeriod} />
                 </div>
               }
@@ -129,7 +121,7 @@ export const ShopInfo = observer(({data}) => {
               labelClasses={classNames.chartLabel}
               inputComponent={
                 <div className={classNames.chart}>
-                  <Typography className={classNames.profitability}>{profitability + ' %'}</Typography>
+                  <Typography className={classNames.profitability}>{toFixed(profitability, 2) + ' %'}</Typography>
                   <Link>{'Посмотреть прибыль'}</Link>
                 </div>
               }

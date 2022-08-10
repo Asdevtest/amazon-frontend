@@ -130,7 +130,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
               {requestProposals?.length ? (
                 <div className={classNames.detailsWrapper}>
-                  <DealsOfRequest requestProposals={requestProposals} />
+                  <DealsOfRequest requestProposals={requestProposals} onClickReview={onClickReview} />
                 </div>
               ) : null}
 

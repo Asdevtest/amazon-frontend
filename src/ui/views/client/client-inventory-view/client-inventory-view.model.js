@@ -3,7 +3,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
-import {ProductStatus} from '@constants/product-status'
+import {ProductStatus, ProductStatusByCode} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -168,7 +168,7 @@ export class ClientInventoryViewModel {
         ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
         ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
         ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-      ].includes(findProduct?.status)
+      ].includes(ProductStatusByCode[findProduct?.originalData.status])
     })
   }
 
@@ -632,6 +632,20 @@ export class ClientInventoryViewModel {
 
       this.onTriggerOpenModal('showAddOrEditSupplierModal')
     } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onClickParseProductsBtn() {
+    try {
+      await SellerBoardModel.refreshProducts(this.selectedRowIds)
+
+      this.successModalText = t(TranslationKey['Parsing data updated'])
+      this.onTriggerOpenModal('showSuccessModal')
+    } catch (error) {
+      this.showInfoModalTitle = t(TranslationKey['Parsing data not updated'])
+      this.onTriggerOpenModal('showInfoModal')
+
       console.log(error)
     }
   }

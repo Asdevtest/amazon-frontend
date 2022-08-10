@@ -33563,6 +33563,29 @@
         }
       }
     },
+    "/api/v1/integrations/refresh_products": {
+      "patch": {
+        "summary": "# Обновить товары через парсер",
+        "description": "## Обновить товары через парсер.",
+        "tags": ["Integrations"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {"type": "array", "items": {"type": "string", "description": "GUID товара"}}
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/integrations/create_and_link_sku_products": {
       "post": {
         "summary": "# Создать, привязать товары к SKU. Спарсить данные. ",
@@ -37909,6 +37932,424 @@
           },
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/shop_sell/": {
+      "post": {
+        "summary": "# Добавить на продажу новый магазин.",
+        "tags": ["Shop Sell"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "description": "Схема продажи магазина",
+              "properties": {
+                "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
+                "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
+                "businessStartDate": {
+                  "type": "string",
+                  "description": "Дата создания бизнеса",
+                  "format": "date-time",
+                  "example": "2021-11-24T15:10:46.882Z"
+                },
+                "shopDetails": {
+                  "type": "string",
+                  "description": "Детали магазина",
+                  "example": "Some details about shop"
+                },
+                "shopAssets": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "Активы магазина",
+                  "example": ["Some asset", "Another asset", "And another one asset"]
+                },
+                "files": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)",
+                  "example": [
+                    "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+                    "https://image.shutterstock.com/image-photo/surreal-concept-roll-world-dice-260nw-1356798002.jpg"
+                  ]
+                },
+                "shopLink": {"type": "string", "description": "Ссылка на сайт магазина", "example": "example.com"},
+                "statistics": {
+                  "type": "array",
+                  "description": "Статистика магазина по месяцам",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "month": {"type": "string", "format": "date-time", "description": "Дата статистики"},
+                      "grossIncome": {"type": "number", "description": "Валовый доход"},
+                      "pureIncome": {"type": "number", "description": "Чистый доход"},
+                      "uniqueCustomers": {"type": "number", "description": "Кол-во клиентов"},
+                      "webpageVisits": {"type": "number", "description": "Кол-во посещений вебсайта"}
+                    }
+                  }
+                },
+                "opportunities": {
+                  "type": "array",
+                  "description": "Возможности магазина",
+                  "items": {"type": "string"},
+                  "example": ["Some opportunity", "Other opportunity"]
+                },
+                "risks": {
+                  "type": "array",
+                  "description": "Риски магазина",
+                  "items": {"type": "string"},
+                  "example": ["Some risky situation", "Other  risky situation"]
+                },
+                "requiredSkills": {
+                  "type": "array",
+                  "description": "Требуемые навыки",
+                  "items": {"type": "string"},
+                  "example": ["Consulting experience", "Team player"]
+                },
+                "sellIncludes": {
+                  "type": "array",
+                  "description": "В продажу также включено",
+                  "items": {"type": "string"},
+                  "example": ["All copyright for media", "Bench nearby shop"]
+                },
+                "reasonForSale": {
+                  "type": "array",
+                  "description": "Причина продажи",
+                  "items": {"type": "string"},
+                  "example": ["Very serious reason", "One more reason, just for example"]
+                },
+                "additionalInfo": {
+                  "type": "array",
+                  "description": "Дополнительная информация",
+                  "items": {"type": "string"},
+                  "example": ["Shop had problems with IRS back in 2010", "10% of employees are illegal immigrants"]
+                }
+              }
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "201": {
+            "description": "Успешный ответ",
+            "schema": {
+              "type": "object",
+              "description": "Успешный ответ",
+              "properties": {"guid": {"type": "string", "description": "guid созданного объекта"}}
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "get": {
+        "summary": "# Получить все магазины на продажу",
+        "description": "Если вызвал покупатель - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"\nЕсли вызвал покупатель, который забронировал магазин - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"/\"Вызван модератор\"\nЕсли вызвал продавец(создатель) - Видны объявления в статусах \"DRAFT\"/\"DELETED\"/\"MODERATING\"/\"PUBLISHED\"/\"BOOKED\"/\"MODERATOR_CALLED\"/\"SOLD\"",
+        "tags": ["Shop Sell"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "schema": {
+              "type": "array",
+              "description": "Успешный ответ",
+              "items": {
+                "type": "object",
+                "description": "Схема получение лайт версии продажи магазина",
+                "properties": {
+                  "_id": {"type": "string", "description": "GUID магазина на продажу."},
+                  "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
+                  "status": {"type": "string", "description": "Статус магазина для продажи", "example": "DRAFT"},
+                  "files": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Файлы, которые привязаны к магазину",
+                    "example": [
+                      "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+                      "https://image.shutterstock.com/image-photo/surreal-concept-roll-world-dice-260nw-1356798002.jpg"
+                    ]
+                  },
+                  "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
+                  "monthlyMultiplier": {"type": "number", "description": "Ежемесячный множитель", "example": 49},
+                  "statistics": {
+                    "type": "object",
+                    "description": "Средняя статистика магазина за месяц",
+                    "properties": {
+                      "monthlyProfit": {"type": "number", "description": "Ежемесячная прибыль", "example": 174.56},
+                      "monthlyPureProfit": {
+                        "type": "number",
+                        "description": "Ежемесячная чистая прибыль",
+                        "example": 120.23
+                      },
+                      "monthlyProfitDiffPercentage": {
+                        "type": "number",
+                        "description": "Разница валового дохода (в процентах)"
+                      },
+                      "monthlyPureProfitDiffPercentage": {
+                        "type": "number",
+                        "description": "Разница чистого дохода (в процентах)"
+                      },
+                      "webpageVisitsDiffPercentage": {
+                        "type": "number",
+                        "description": "Разница кол-ва посещений вебсайта (в процентах)"
+                      }
+                    }
+                  },
+                  "businessStartDate": {
+                    "type": "string",
+                    "description": "Дата создания бизнеса",
+                    "format": "date-time"
+                  },
+                  "shopDetails": {
+                    "type": "string",
+                    "description": "Детали магазина",
+                    "example": "Some details about shop"
+                  }
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/shop_sell/{guid}": {
+      "get": {
+        "summary": "# Получить магазин на продажу по GUID",
+        "description": "Если вызвал покупатель - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"\nЕсли вызвал покупатель, который забронировал магазин - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"/\"Вызван модератор\"\nЕсли вызвал продавец(создатель) - Видны объявления в статусах \"DRAFT\"/\"DELETED\"/\"MODERATING\"/\"PUBLISHED\"/\"BOOKED\"/\"MODERATOR_CALLED\"/\"SOLD\"",
+        "tags": ["Shop Sell"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID магазина на продажу в БД.",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Схема получение лайт версии продажи магазина",
+            "schema": {
+              "type": "object",
+              "description": "Схема получение лайт версии продажи магазина",
+              "properties": {
+                "_id": {"type": "string", "description": "GUID магазина на продажу."},
+                "ownerId": {"type": "string", "description": "GUID владельца магазина"},
+                "bidderId": {"type": "string", "description": "GUID покупателя магазина"},
+                "moderatorId": {"type": "string", "description": "GUID модератора магазина"},
+                "chatId": {"type": "string", "description": "GUID чата"},
+                "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
+                "status": {"type": "string", "description": "Статус магазина для продажи", "example": "DRAFT"},
+                "files": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "Файлы, которые привязаны к магазину",
+                  "example": [
+                    "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+                    "https://image.shutterstock.com/image-photo/surreal-concept-roll-world-dice-260nw-1356798002.jpg"
+                  ]
+                },
+                "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
+                "monthlyProfit": {"type": "number", "description": "Ежемесячная прибыль", "example": 174.56},
+                "monthlyPureProfit": {"type": "number", "description": "Ежемесячная чистая прибыль", "example": 120.23},
+                "monthlyMultiplier": {"type": "number", "description": "Ежемесячный множитель", "example": 49},
+                "statistics": {
+                  "type": "array",
+                  "description": "Статистика магазина по месяцам",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "month": {"type": "string", "format": "date-time", "description": "Дата статистики"},
+                      "grossIncome": {"type": "number", "description": "Валовый доход"},
+                      "pureIncome": {"type": "number", "description": "Чистый доход"},
+                      "uniqueCustomers": {"type": "number", "description": "Кол-во клиентов"},
+                      "webpageVisits": {"type": "number", "description": "Кол-во посещений вебсайта"}
+                    }
+                  }
+                },
+                "businessStartDate": {"type": "string", "description": "Дата создания бизнеса", "format": "date-time"},
+                "shopDetails": {
+                  "type": "string",
+                  "description": "Детали магазина",
+                  "example": "Some details about shop"
+                },
+                "shopLink": {"type": "string", "description": "Ссылка магазина", "example": "example.com"},
+                "shopAssets": {
+                  "type": "array",
+                  "description": "Массив активов",
+                  "example": ["Asset 1", "Asset 2"],
+                  "items": {"type": "string"}
+                },
+                "opportunities": {
+                  "type": "array",
+                  "description": "Массив возможностей",
+                  "example": ["opportunity 1", "opportunity 2"],
+                  "items": {"type": "string"}
+                },
+                "risks": {
+                  "type": "array",
+                  "description": "Массив рисков",
+                  "example": ["risk 1", "risk 2"],
+                  "items": {"type": "string"}
+                },
+                "requiredSkills": {
+                  "type": "array",
+                  "description": "Массив требуемых навыков",
+                  "example": ["required skill 1", "required skill 2"],
+                  "items": {"type": "string"}
+                },
+                "sellIncludes": {
+                  "type": "array",
+                  "description": "Поддержка продавца включает",
+                  "example": ["something included 1", "something included 2"],
+                  "items": {"type": "string"}
+                },
+                "reasonForSale": {
+                  "type": "array",
+                  "description": "Причины продажи",
+                  "example": ["reason 1", "reason 2"],
+                  "items": {"type": "string"}
+                },
+                "additionalInfo": {
+                  "type": "array",
+                  "description": "Дополнительная информация",
+                  "example": ["info 1", "info 2"],
+                  "items": {"type": "string"}
+                },
+                "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
+                "updatedAt": {"type": "string", "format": "date-time", "description": "Дата изменения"}
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "patch": {
+        "summary": "# Обновить магазин на продажу.",
+        "tags": ["Shop Sell"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "description": "Схема продажи магазина",
+              "properties": {
+                "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
+                "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
+                "businessStartDate": {
+                  "type": "string",
+                  "description": "Дата создания бизнеса",
+                  "format": "date-time",
+                  "example": "2021-11-24T15:10:46.882Z"
+                },
+                "shopDetails": {
+                  "type": "string",
+                  "description": "Детали магазина",
+                  "example": "Some details about shop"
+                },
+                "shopAssets": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "Активы магазина",
+                  "example": ["Some asset", "Another asset", "And another one asset"]
+                },
+                "files": {
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "description": "Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)",
+                  "example": [
+                    "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+                    "https://image.shutterstock.com/image-photo/surreal-concept-roll-world-dice-260nw-1356798002.jpg"
+                  ]
+                },
+                "shopLink": {"type": "string", "description": "Ссылка на сайт магазина", "example": "example.com"},
+                "statistics": {
+                  "type": "array",
+                  "description": "Статистика магазина по месяцам",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "month": {"type": "string", "format": "date-time", "description": "Дата статистики"},
+                      "grossIncome": {"type": "number", "description": "Валовый доход"},
+                      "pureIncome": {"type": "number", "description": "Чистый доход"},
+                      "uniqueCustomers": {"type": "number", "description": "Кол-во клиентов"},
+                      "webpageVisits": {"type": "number", "description": "Кол-во посещений вебсайта"}
+                    }
+                  }
+                },
+                "opportunities": {
+                  "type": "array",
+                  "description": "Возможности магазина",
+                  "items": {"type": "string"},
+                  "example": ["Some opportunity", "Other opportunity"]
+                },
+                "risks": {
+                  "type": "array",
+                  "description": "Риски магазина",
+                  "items": {"type": "string"},
+                  "example": ["Some risky situation", "Other  risky situation"]
+                },
+                "requiredSkills": {
+                  "type": "array",
+                  "description": "Требуемые навыки",
+                  "items": {"type": "string"},
+                  "example": ["Consulting experience", "Team player"]
+                },
+                "sellIncludes": {
+                  "type": "array",
+                  "description": "В продажу также включено",
+                  "items": {"type": "string"},
+                  "example": ["All copyright for media", "Bench nearby shop"]
+                },
+                "reasonForSale": {
+                  "type": "array",
+                  "description": "Причина продажи",
+                  "items": {"type": "string"},
+                  "example": ["Very serious reason", "One more reason, just for example"]
+                },
+                "additionalInfo": {
+                  "type": "array",
+                  "description": "Дополнительная информация",
+                  "items": {"type": "string"},
+                  "example": ["Shop had problems with IRS back in 2010", "10% of employees are illegal immigrants"]
+                }
+              }
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID магазина на продажу в БД.",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
         }
       }
@@ -55102,377 +55543,6 @@
           },
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/shop_sell/": {
-      "post": {
-        "summary": "# Добавить на продажу новый магазин.",
-        "tags": ["Shop Sell"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "description": "Схема продажи магазина",
-              "properties": {
-                "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
-                "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
-                "businessStartDate": {
-                  "type": "string",
-                  "description": "Дата создания бизнеса",
-                  "format": "date-time",
-                  "example": "2021-11-24T15:10:46.882Z"
-                },
-                "shopDetails": {
-                  "type": "string",
-                  "description": "Детали магазина",
-                  "example": "Some details about shop"
-                },
-                "shopAssets": {
-                  "type": "array",
-                  "items": {"type": "string"},
-                  "description": "Активы магазина",
-                  "example": ["Some asset", "Another asset", "And another one asset"]
-                },
-                "files": {
-                  "type": "array",
-                  "items": {"type": "string"},
-                  "description": "Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)",
-                  "example": [
-                    "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
-                    "https://image.shutterstock.com/image-photo/surreal-concept-roll-world-dice-260nw-1356798002.jpg"
-                  ]
-                },
-                "shopLink": {"type": "string", "description": "Ссылка на сайт магазина", "example": "example.com"},
-                "statistics": {
-                  "type": "array",
-                  "description": "Статистика магазина по месяцам",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "month": {"type": "string", "format": "date-time", "description": "Дата статистики"},
-                      "grossIncome": {"type": "number", "description": "Валовый доход"},
-                      "pureIncome": {"type": "number", "description": "Чистый доход"},
-                      "uniqueCustomers": {"type": "number", "description": "Кол-во клиентов"},
-                      "webpageVisits": {"type": "number", "description": "Кол-во посещений вебсайта"}
-                    }
-                  }
-                },
-                "opportunities": {
-                  "type": "array",
-                  "description": "Возможности магазина",
-                  "items": {"type": "string"},
-                  "example": ["Some opportunity", "Other opportunity"]
-                },
-                "risks": {
-                  "type": "array",
-                  "description": "Риски магазина",
-                  "items": {"type": "string"},
-                  "example": ["Some risky situation", "Other  risky situation"]
-                },
-                "requiredSkills": {
-                  "type": "array",
-                  "description": "Требуемые навыки",
-                  "items": {"type": "string"},
-                  "example": ["Consulting experience", "Team player"]
-                },
-                "sellIncludes": {
-                  "type": "array",
-                  "description": "В продажу также включено",
-                  "items": {"type": "string"},
-                  "example": ["All copyright for media", "Bench nearby shop"]
-                },
-                "reasonForSale": {
-                  "type": "array",
-                  "description": "Причина продажи",
-                  "items": {"type": "string"},
-                  "example": ["Very serious reason", "One more reason, just for example"]
-                },
-                "additionalInfo": {
-                  "type": "array",
-                  "description": "Дополнительная информация",
-                  "items": {"type": "string"},
-                  "example": ["Shop had problems with IRS back in 2010", "10% of employees are illegal immigrants"]
-                }
-              }
-            }
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "201": {
-            "description": "Успешный ответ",
-            "schema": {
-              "type": "object",
-              "description": "Успешный ответ",
-              "properties": {"guid": {"type": "string", "description": "guid созданного объекта"}}
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      },
-      "get": {
-        "summary": "# Получить все магазины на продажу",
-        "description": "Если вызвал покупатель - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"\nЕсли вызвал покупатель, который забронировал магазин - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"/\"Вызван модератор\"\nЕсли вызвал продавец(создатель) - Видны объявления в статусах \"DRAFT\"/\"DELETED\"/\"MODERATING\"/\"PUBLISHED\"/\"BOOKED\"/\"MODERATOR_CALLED\"/\"SOLD\"",
-        "tags": ["Shop Sell"],
-        "produces": ["application/json"],
-        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Успешный ответ",
-            "schema": {
-              "type": "array",
-              "description": "Успешный ответ",
-              "items": {
-                "type": "object",
-                "description": "Схема получение лайт версии продажи магазина",
-                "properties": {
-                  "_id": {"type": "string", "description": "GUID магазина на продажу."},
-                  "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
-                  "status": {"type": "string", "description": "Статус магазина для продажи", "example": "DRAFT"},
-                  "files": {
-                    "type": "array",
-                    "items": {"type": "string"},
-                    "description": "Файлы, которые привязаны к магазину",
-                    "example": [
-                      "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
-                      "https://image.shutterstock.com/image-photo/surreal-concept-roll-world-dice-260nw-1356798002.jpg"
-                    ]
-                  },
-                  "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
-                  "monthlyProfit": {"type": "number", "description": "Ежемесячная прибыль", "example": 174.56},
-                  "monthlyPureProfit": {
-                    "type": "number",
-                    "description": "Ежемесячная чистая прибыль",
-                    "example": 120.23
-                  },
-                  "monthlyMultiplier": {"type": "number", "description": "Ежемесячный множитель", "example": 49},
-                  "statistics": {
-                    "type": "array",
-                    "description": "Статистика магазина по месяцам",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "month": {"type": "string", "format": "date-time", "description": "Дата статистики"},
-                        "grossIncome": {"type": "number", "description": "Валовый доход"},
-                        "pureIncome": {"type": "number", "description": "Чистый доход"},
-                        "uniqueCustomers": {"type": "number", "description": "Кол-во клиентов"},
-                        "webpageVisits": {"type": "number", "description": "Кол-во посещений вебсайта"}
-                      }
-                    }
-                  },
-                  "businessStartYear": {
-                    "type": "string",
-                    "description": "Дата создания бизнеса",
-                    "format": "date-time",
-                    "example": "2021"
-                  },
-                  "shopDetails": {
-                    "type": "string",
-                    "description": "Детали магазина",
-                    "example": "Some details about shop"
-                  }
-                }
-              }
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/shop_sell/{guid}": {
-      "get": {
-        "summary": "# Получить магазин на продажу по GUID",
-        "description": "Если вызвал покупатель - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"\nЕсли вызвал покупатель, который забронировал магазин - Видны объявления в статусах \"Опубликовано\"/\"Забронировано\"/\"Вызван модератор\"\nЕсли вызвал продавец(создатель) - Видны объявления в статусах \"DRAFT\"/\"DELETED\"/\"MODERATING\"/\"PUBLISHED\"/\"BOOKED\"/\"MODERATOR_CALLED\"/\"SOLD\"",
-        "tags": ["Shop Sell"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "GUID магазина на продажу в БД.",
-            "required": true,
-            "in": "path",
-            "name": "guid"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "200": {
-            "description": "Схема получение лайт версии продажи магазина",
-            "schema": {
-              "type": "object",
-              "description": "Схема получение лайт версии продажи магазина",
-              "properties": {
-                "_id": {"type": "string", "description": "GUID магазина на продажу."},
-                "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
-                "status": {"type": "string", "description": "Статус магазина для продажи", "example": "DRAFT"},
-                "files": {
-                  "type": "array",
-                  "items": {"type": "string"},
-                  "description": "Файлы, которые привязаны к магазину",
-                  "example": [
-                    "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
-                    "https://image.shutterstock.com/image-photo/surreal-concept-roll-world-dice-260nw-1356798002.jpg"
-                  ]
-                },
-                "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
-                "monthlyProfit": {"type": "number", "description": "Ежемесячная прибыль", "example": 174.56},
-                "monthlyPureProfit": {"type": "number", "description": "Ежемесячная чистая прибыль", "example": 120.23},
-                "monthlyMultiplier": {"type": "number", "description": "Ежемесячный множитель", "example": 49},
-                "statistics": {
-                  "type": "array",
-                  "description": "Статистика магазина по месяцам",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "month": {"type": "string", "format": "date-time", "description": "Дата статистики"},
-                      "grossIncome": {"type": "number", "description": "Валовый доход"},
-                      "pureIncome": {"type": "number", "description": "Чистый доход"},
-                      "uniqueCustomers": {"type": "number", "description": "Кол-во клиентов"},
-                      "webpageVisits": {"type": "number", "description": "Кол-во посещений вебсайта"}
-                    }
-                  }
-                },
-                "businessStartYear": {
-                  "type": "string",
-                  "description": "Дата создания бизнеса",
-                  "format": "date-time",
-                  "example": "2021"
-                },
-                "shopDetails": {
-                  "type": "string",
-                  "description": "Детали магазина",
-                  "example": "Some details about shop"
-                }
-              }
-            }
-          },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      },
-      "patch": {
-        "summary": "# Обновить магазин на продажу.",
-        "tags": ["Shop Sell"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "description": "Схема продажи магазина",
-              "properties": {
-                "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
-                "price": {"type": "number", "description": "Стоимость магазина", "example": 5000},
-                "businessStartDate": {
-                  "type": "string",
-                  "description": "Дата создания бизнеса",
-                  "format": "date-time",
-                  "example": "2021-11-24T15:10:46.882Z"
-                },
-                "shopDetails": {
-                  "type": "string",
-                  "description": "Детали магазина",
-                  "example": "Some details about shop"
-                },
-                "shopAssets": {
-                  "type": "array",
-                  "items": {"type": "string"},
-                  "description": "Активы магазина",
-                  "example": ["Some asset", "Another asset", "And another one asset"]
-                },
-                "files": {
-                  "type": "array",
-                  "items": {"type": "string"},
-                  "description": "Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)",
-                  "example": [
-                    "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
-                    "https://image.shutterstock.com/image-photo/surreal-concept-roll-world-dice-260nw-1356798002.jpg"
-                  ]
-                },
-                "shopLink": {"type": "string", "description": "Ссылка на сайт магазина", "example": "example.com"},
-                "statistics": {
-                  "type": "array",
-                  "description": "Статистика магазина по месяцам",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "month": {"type": "string", "format": "date-time", "description": "Дата статистики"},
-                      "grossIncome": {"type": "number", "description": "Валовый доход"},
-                      "pureIncome": {"type": "number", "description": "Чистый доход"},
-                      "uniqueCustomers": {"type": "number", "description": "Кол-во клиентов"},
-                      "webpageVisits": {"type": "number", "description": "Кол-во посещений вебсайта"}
-                    }
-                  }
-                },
-                "opportunities": {
-                  "type": "array",
-                  "description": "Возможности магазина",
-                  "items": {"type": "string"},
-                  "example": ["Some opportunity", "Other opportunity"]
-                },
-                "risks": {
-                  "type": "array",
-                  "description": "Риски магазина",
-                  "items": {"type": "string"},
-                  "example": ["Some risky situation", "Other  risky situation"]
-                },
-                "requiredSkills": {
-                  "type": "array",
-                  "description": "Требуемые навыки",
-                  "items": {"type": "string"},
-                  "example": ["Consulting experience", "Team player"]
-                },
-                "sellIncludes": {
-                  "type": "array",
-                  "description": "В продажу также включено",
-                  "items": {"type": "string"},
-                  "example": ["All copyright for media", "Bench nearby shop"]
-                },
-                "reasonForSale": {
-                  "type": "array",
-                  "description": "Причина продажи",
-                  "items": {"type": "string"},
-                  "example": ["Very serious reason", "One more reason, just for example"]
-                },
-                "additionalInfo": {
-                  "type": "array",
-                  "description": "Дополнительная информация",
-                  "items": {"type": "string"},
-                  "example": ["Shop had problems with IRS back in 2010", "10% of employees are illegal immigrants"]
-                }
-              }
-            }
-          },
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "GUID магазина на продажу в БД.",
-            "required": true,
-            "in": "path",
-            "name": "guid"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "409": {"description": "Default Response", "schema": {"$ref": "#/definitions/conflictInTheState"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
         }
       }

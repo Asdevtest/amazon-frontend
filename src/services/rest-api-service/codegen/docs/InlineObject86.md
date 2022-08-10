@@ -4,19 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** | Имя магазина для продажи | [optional] 
-**price** | **Number** | Стоимость магазина | [optional] 
-**businessStartDate** | **Date** | Дата создания бизнеса | [optional] 
-**shopDetails** | **String** | Детали магазина | [optional] 
-**shopAssets** | **[String]** | Активы магазина | [optional] 
-**files** | **[String]** | Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки) | [optional] 
-**shopLink** | **String** | Ссылка на сайт магазина | [optional] 
-**statistics** | [**[ApiV1ShopSellStatistics]**](ApiV1ShopSellStatistics.md) | Статистика магазина по месяцам | [optional] 
-**opportunities** | **[String]** | Возможности магазина | [optional] 
-**risks** | **[String]** | Риски магазина | [optional] 
-**requiredSkills** | **[String]** | Требуемые навыки | [optional] 
-**sellIncludes** | **[String]** | В продажу также включено | [optional] 
-**reasonForSale** | **[String]** | Причина продажи | [optional] 
-**additionalInfo** | **[String]** | Дополнительная информация | [optional] 
+**name** | **String** | Название поставщика. | 
+**link** | **String** | Ссылка на поставщика. | 
+**price** | **Number** | Цена за еденицу, dollar | 
+**amount** | **Number** | кол-во | 
+**minlot** | **Number** | Минимальный лот. | 
+**images** | **[String]** | Массив картинок. | [optional] 
+**comment** | **String** | Комментарий | 
+**yuanRate** | **Number** | Курс доллара к юаню поставщика.  | [optional] 
+**priceInYuan** | **Number** | Цена за еденицу, yuan | [optional] 
+**batchDeliveryCostInDollar** | **Number** | Доставка партии, dollar | 
+**batchDeliveryCostInYuan** | **Number** | Доставка партии, yuan | [optional] 
+**batchTotalCostInDollar** | **Number** | Цена партии, dollar | [optional] 
+**batchTotalCostInYuan** | **Number** | Цена партии, yuan | [optional] 
+**productionTerm** | **Number** |  | [optional] 
+**boxProperties** | [**ApiV1SuppliersBoxProperties**](ApiV1SuppliersBoxProperties.md) |  | [optional] 
 
 
