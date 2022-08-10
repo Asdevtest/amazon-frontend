@@ -81,16 +81,25 @@ class DealsOnReviewViewRaw extends Component {
               </div>
 
               <div className={classNames.dealsOnReviewWrapper}>
-                {getSortedData(sortMode).map((deal, index) =>
-                  viewMode === tableViewMode.LIST ? (
-                    <VacantDealsListCard
-                      key={index}
-                      showDetails
-                      item={deal}
-                      onClickViewMore={onClickViewMore}
-                      // onClickGetToWorkModal={onClickGetToWorkModal}
-                    />
-                  ) : null,
+                {getSortedData(sortMode).length ? (
+                  getSortedData(sortMode).map((deal, index) =>
+                    viewMode === tableViewMode.LIST ? (
+                      <VacantDealsListCard
+                        key={index}
+                        showDetails
+                        item={deal}
+                        onClickViewMore={onClickViewMore}
+                        // onClickGetToWorkModal={onClickGetToWorkModal}
+                      />
+                    ) : null,
+                  )
+                ) : (
+                  <div className={classNames.emptyTableWrapper}>
+                    <img src="/assets/icons/empty-table.svg" />
+                    <Typography variant="h5" className={classNames.emptyTableText}>
+                      {t(TranslationKey['No deals yet'])}
+                    </Typography>
+                  </div>
                 )}
               </div>
             </MainContent>

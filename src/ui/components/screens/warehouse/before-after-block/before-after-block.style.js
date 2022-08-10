@@ -75,6 +75,7 @@ export const useClassNames = makeStyles(() => ({
   editBtn: {
     width: '183px',
     height: '40px',
+    display: 'flex',
   },
   bottomBlockWrapper: {
     marginTop: '20px',
@@ -83,6 +84,12 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  noEditBtnWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'end',
     alignItems: 'center',
   },
   superWrapper: {

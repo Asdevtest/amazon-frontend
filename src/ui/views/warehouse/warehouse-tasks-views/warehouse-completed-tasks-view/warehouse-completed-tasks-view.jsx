@@ -12,8 +12,9 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {TaskInfoModal} from '@components/modals/task-info-modal'
+import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
+import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -105,12 +106,18 @@ export class WarehouseCompletedTasksViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <TaskInfoModal
+        <Modal
+          missClickModalOn
           openModal={showTaskInfoModal}
           setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
-          volumeWeightCoefficient={volumeWeightCoefficient}
-          task={curOpenedTask}
-        />
+        >
+          <EditTaskModal
+            readOnly
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            task={curOpenedTask}
+            onClickOpenCloseModal={() => onTriggerOpenModal('showTaskInfoModal')}
+          />
+        </Modal>
       </React.Fragment>
     )
   }

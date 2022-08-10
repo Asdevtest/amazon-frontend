@@ -26,9 +26,9 @@ import {MergeBoxesModal} from '@components/modals/merge-boxes-modal'
 import {SetChipValueModal} from '@components/modals/set-chip-value-modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
-import {TaskInfoModal} from '@components/modals/task-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
+import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 import {RedistributeBox} from '@components/screens/warehouse/reditstribute-box-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -277,12 +277,18 @@ export class ClientWarehouseViewRaw extends Component {
           />
         </Modal>
 
-        <TaskInfoModal
+        <Modal
+          missClickModalOn
           openModal={showTaskInfoModal}
           setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
-          task={curOpenedTask}
-          volumeWeightCoefficient={volumeWeightCoefficient}
-        />
+        >
+          <EditTaskModal
+            readOnly
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            task={curOpenedTask}
+            onClickOpenCloseModal={() => onTriggerOpenModal('showTaskInfoModal')}
+          />
+        </Modal>
 
         <SuccessInfoModal
           openModal={showSuccessInfoModal}

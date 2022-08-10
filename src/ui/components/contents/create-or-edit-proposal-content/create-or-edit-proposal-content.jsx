@@ -34,6 +34,7 @@ export const CreateOrEditProposalContent = ({
   const classNames = useClassNames()
 
   const [images, setImages] = useState([])
+  console.log(proposalToEdit)
 
   const sourceFormFields = {
     price: proposalToEdit?.price || request?.request.price,
@@ -210,21 +211,7 @@ export const CreateOrEditProposalContent = ({
                 {t(TranslationKey['Attach a file (link to your portfolio, examples of work)'])}
               </Typography>
               <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
-              <PhotoAndFilesCarousel files={formFields.linksToMediaFiles} />
-
-              {/* <Button
-              disableElevation
-              disabled={!formFields.linksToMediaFiles?.length}
-              color="primary"
-              className={classNames.imagesButton}
-              variant="contained"
-              onClick={() => {
-                setShowPhotosModal(!showPhotosModal)
-                setBigImagesOptions({images: formFields.linksToMediaFiles})
-              }}
-            >
-              {t(TranslationKey['Available files'])}
-            </Button> */}
+              <PhotoAndFilesCarousel small files={formFields.linksToMediaFiles} />
             </div>
             <div className={classNames.descriptionWrapper}>
               <Field

@@ -37,7 +37,7 @@ const Box = observer(
     isEdit,
     taskType,
     setNewBoxes,
-
+    readOnly,
     newBoxes,
     volumeWeightCoefficient,
   }) => {
@@ -140,6 +140,7 @@ const Box = observer(
               {box.items?.map((item, index) => (
                 <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
                   <BoxItemCard
+                    readOnly={readOnly}
                     item={item}
                     boxId={box.humanFriendlyId}
                     index={index}
@@ -352,7 +353,7 @@ const Box = observer(
                     />
                   </div>
                 ) : (
-                  <Typography className={classNames.link}>{'N/A'}</Typography>
+                  <Typography className={classNames.link}>{t(TranslationKey['Not available'])}</Typography>
                 )}
               </div>
               <div>
@@ -364,7 +365,7 @@ const Box = observer(
                   inputComponent={
                     <Checkbox
                       color="primary"
-                      disabled={!box.shippingLabel || !isNewBox}
+                      disabled={!box.shippingLabel || !isNewBox || readOnly}
                       checked={box.isShippingLabelAttachedByStorekeeper}
                       onClick={() =>
                         onChangeField(!box.isShippingLabelAttachedByStorekeeper, 'isShippingLabelAttachedByStorekeeper')
@@ -379,8 +380,8 @@ const Box = observer(
 
         {isNewBox && (
           <div className={classNames.bottomBlockWrapper}>
-            <div className={classNames.editBtnWrapper}>
-              {isEdit && (
+            <div className={clsx(classNames.editBtnWrapper, {[classNames.noEditBtnWrapper]: readOnly})}>
+              {isEdit && !readOnly && (
                 <div>
                   <Button
                     className={classNames.editBtn}
@@ -461,6 +462,7 @@ const NewBoxes = observer(
     onTriggerShowEditBoxModal,
     setNewBoxes,
     volumeWeightCoefficient,
+    readOnly,
   }) => {
     const classNames = useClassNames()
 
@@ -479,6 +481,7 @@ const NewBoxes = observer(
           {newBoxes.map((box, boxIndex) => (
             <Box
               key={boxIndex}
+              readOnly={readOnly}
               volumeWeightCoefficient={volumeWeightCoefficient}
               isNewBox={isNewBox}
               box={box}
@@ -523,6 +526,7 @@ export const BeforeAfterBlock = observer(
     setAmountFieldNewBox,
     volumeWeightCoefficient,
     onClickOpenModal,
+    readOnly,
   }) => {
     const classNames = useClassNames()
 
@@ -532,7 +536,7 @@ export const BeforeAfterBlock = observer(
 
     // const [showFullIncomingCard, setShowFullIncomingCard] = useState(false)
 
-    const CurrentBox = ({currentBoxes}) => (
+    const CurrentBox = ({currentBoxes, readOnly}) => (
       <div className={classNames.currentBox}>
         <Text
           tooltipInfoContent={t(TranslationKey['Previous condition of the box'])}
@@ -564,6 +568,7 @@ export const BeforeAfterBlock = observer(
                 <Box
                   key={boxIndex}
                   isCurrentBox
+                  readOnly={readOnly}
                   box={box}
                   taskType={taskType}
                   volumeWeightCoefficient={volumeWeightCoefficient}
@@ -592,13 +597,14 @@ export const BeforeAfterBlock = observer(
 
     return (
       <div className={classNames.boxesWrapper}>
-        <CurrentBox currentBoxes={incomingBoxes} />
+        <CurrentBox currentBoxes={incomingBoxes} readOnly={readOnly} />
 
         {desiredBoxes.length > 0 && <Divider flexItem className={classNames.divider} orientation="vertical" />}
 
         {desiredBoxes.length > 0 && (
           <NewBoxes
             isNewBox
+            readOnly={readOnly}
             isEdit={isEdit}
             volumeWeightCoefficient={volumeWeightCoefficient}
             newBoxes={desiredBoxes}

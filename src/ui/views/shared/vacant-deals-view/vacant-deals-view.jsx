@@ -1,3 +1,6 @@
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+
 import React, {Component} from 'react'
 
 import {Typography} from '@material-ui/core'
@@ -5,6 +8,7 @@ import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
+import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -14,6 +18,7 @@ import {MainContent} from '@components/main-content'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {Navbar} from '@components/navbar'
 
+import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
 
 import {VacantDealsViewModel} from './vacant-deals-view.model'
@@ -34,7 +39,10 @@ class VacantDealsViewRaw extends Component {
     const {
       drawerOpen,
       showConfirmModal,
-      deals,
+      getCurrentData,
+      sortMode,
+      viewMode,
+      onTriggerSortMode,
       onTriggerDrawerOpen,
       onClickViewMore,
       onTriggerOpenModal,
@@ -44,6 +52,16 @@ class VacantDealsViewRaw extends Component {
       proposalId,
     } = this.viewModel
     const {classes: classNames} = this.props
+
+    const getSortedData = mode => {
+      switch (mode) {
+        case tableSortMode.DESK:
+          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+
+        case tableSortMode.ASC:
+          return getCurrentData().sort(sortObjectsArrayByFiledDateWithParseISOAsc('updatedAt'))
+      }
+    }
 
     return (
       <React.Fragment>
@@ -56,17 +74,30 @@ class VacantDealsViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Vacant deals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
+              <div className={classNames.tablePanelWrapper}>
+                <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
+                  <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+
+                  {sortMode === tableSortMode.DESK ? (
+                    <ArrowDropDownIcon color="primary" />
+                  ) : (
+                    <ArrowDropUpIcon color="primary" />
+                  )}
+                </div>
+              </div>
               <div className={classNames.vacantDealsWrapper}>
-                {deals.length ? (
+                {getSortedData(sortMode).length ? (
                   <>
-                    {deals.map((deal, index) => (
-                      <VacantDealsListCard
-                        key={index}
-                        item={deal}
-                        onClickViewMore={onClickViewMore}
-                        onClickGetToWorkModal={onClickGetToWorkModal}
-                      />
-                    ))}
+                    {getSortedData(sortMode).map((deal, index) =>
+                      viewMode === tableViewMode.LIST ? (
+                        <VacantDealsListCard
+                          key={index}
+                          item={deal}
+                          onClickViewMore={onClickViewMore}
+                          onClickGetToWorkModal={onClickGetToWorkModal}
+                        />
+                      ) : null,
+                    )}
                   </>
                 ) : (
                   <div className={classNames.emptyTableWrapper}>

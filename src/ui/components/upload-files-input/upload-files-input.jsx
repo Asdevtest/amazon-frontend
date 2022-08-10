@@ -37,6 +37,7 @@ export const UploadFilesInput = observer(
     withoutTitle = false,
     oneLine = false,
     title = false,
+    disabled = false,
   }) => {
     const classNames = useClassNames()
 
@@ -94,6 +95,7 @@ export const UploadFilesInput = observer(
               inputComponent={
                 <div className={classNames.amazonLinkWrapper}>
                   <Input
+                    disabled={disabled}
                     placeholder={t(TranslationKey.Link)}
                     className={classNames.loadImageInput}
                     value={linkInput}
@@ -142,6 +144,7 @@ export const UploadFilesInput = observer(
 
                 <div className={classNames.mainSubWrapper}>
                   <button
+                    disabled={disabled}
                     className={clsx(classNames.dragAndDropBtn, {[classNames.dragingOnDropBtn]: isDragging})}
                     onClick={onImageUpload}
                     {...dragProps}
