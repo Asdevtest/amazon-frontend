@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import SearchIcon from '@mui/icons-material/Search'
@@ -9,11 +8,7 @@ import {Button, ClickAwayListener, InputAdornment, Typography} from '@material-u
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
-import {TranslationKey} from '@constants/translations/translation-key'
-
 import {Field} from '@components/field'
-
-import {t} from '@utils/translations'
 
 import {styles} from './with-search-select.style'
 
@@ -26,14 +21,14 @@ const WithSearchSelectRaw = ({classes: classNames, data, fieldName, onClickSelec
 
   useEffect(() => {
     if (nameSearchValue) {
-      setDataToRender(data.slice().filter(el => el[fieldName].toLowerCase().includes(nameSearchValue.toLowerCase())))
+      setDataToRender(data.slice().filter(el => el[fieldName]?.toLowerCase().includes(nameSearchValue.toLowerCase())))
     } else {
       setDataToRender(data)
     }
   }, [nameSearchValue, data])
 
   return (
-    <ClickAwayListener onClickAway={() => setSelectorIsOpen(false)}>
+    <ClickAwayListener mouseEvent="onMouseDown" onClickAway={() => setSelectorIsOpen(false)}>
       <div className={classNames.root}>
         <div className={clsx(classNames.mainWrapper, {[classNames.selectorIsOpen]: selectorIsOpen})}>
           <div className={classNames.chosenItem} onClick={() => setSelectorIsOpen(!selectorIsOpen)}>

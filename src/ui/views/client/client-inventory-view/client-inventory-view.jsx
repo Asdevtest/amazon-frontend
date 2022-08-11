@@ -161,10 +161,11 @@ export class ClientInventoryViewRaw extends Component {
                       (currentShop && currentShop.name)
                     }
                     data={shopsData
-                      .filter(shop => currentShop?.id !== shop._id)
+
                       .map(
                         shop => productsMyBase.some(product => product.originalData.shopIds.includes(shop._id)) && shop,
-                      )}
+                      )
+                      .filter(shop => currentShop?.id !== shop._id)}
                     fieldName="name"
                     firstItems={
                       <>
