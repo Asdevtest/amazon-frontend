@@ -20,7 +20,15 @@ export const styles = createStyles(() => ({
 
   button: {
     marginBottom: 5,
-    marginLeft: '10px',
+
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+  },
+
+  rightButton: {
+    marginBottom: 5,
+    marginLeft: 10,
   },
 
   shopsFiltersWrapper: {

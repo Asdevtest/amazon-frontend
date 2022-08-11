@@ -243,7 +243,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   price: {
-    color: '#001029',
+    color: '#006CFF',
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '19px',

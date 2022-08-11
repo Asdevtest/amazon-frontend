@@ -30,7 +30,7 @@ export const Table = observer(
     return (
       <Paper>
         {!rowsOnly && <TableToolbar handlerRowsPerPage={handlerRowsPerPage} rowsPerPage={rowsPerPage} />}
-        <TableContainer className={classNames.tableContainer}>
+        <TableContainer>
           <MuiTable className={classNames.table}>
             <TableHead className={classNames.tableHead}>{renderHeadRow}</TableHead>
 
