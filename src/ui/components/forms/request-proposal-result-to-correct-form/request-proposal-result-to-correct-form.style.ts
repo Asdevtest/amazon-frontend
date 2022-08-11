@@ -8,9 +8,10 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
   },
   reasonInput: {
+    display: 'flex',
     height: '136px',
     width: '100%',
-    overflow: 'auto',
+    overflowY: 'auto',
   },
 
   inputWrapper: {

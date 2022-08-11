@@ -7,6 +7,7 @@ import {ChatMessageDataCreatedNewProposalRequestDescriptionContract} from '@mode
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
+import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field/field'
 
 import {formatDateTimeHourAndMinutes, formatNormDateTime} from '@utils/date-time'
@@ -48,7 +49,11 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
             <LabelValuePairBlock label="Сроки" value={formatNormDateTime(message.data?.timeoutAt)} bgColor="green" />
           </div>
           <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
-            <LabelValuePairBlock label="Статус" value={message.data?.status} bgColor="green" />
+            <LabelValuePairBlock
+              label="Статус"
+              value={<RequestStatusCell status={message.data?.status} />}
+              bgColor="green"
+            />
           </div>
 
           <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>

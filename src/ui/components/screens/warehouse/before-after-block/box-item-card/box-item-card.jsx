@@ -13,13 +13,13 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './box-item-card.style'
 
-export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode, boxId}) => {
+export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode, boxId, readOnly}) => {
   const classNames = useClassNames()
 
   const copyValue = value => {
     navigator.clipboard.writeText(value)
   }
-
+  console.log(readOnly)
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
@@ -69,7 +69,7 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode,
                   />
                 </div>
               ) : (
-                <Typography className={classNames.barCodeField}>{'N/A'}</Typography>
+                <Typography className={classNames.barCodeField}>{t(TranslationKey['Not available'])}</Typography>
               )}
             </div>
             <div>
@@ -85,7 +85,7 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode,
                         tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
                         inputComponent={
                           <Checkbox
-                            disabled={!isNewBox}
+                            disabled={!isNewBox || readOnly}
                             color="primary"
                             checked={item.isBarCodeAlreadyAttachedByTheSupplier}
                             onClick={() =>
@@ -111,7 +111,7 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode,
                         )}
                         inputComponent={
                           <Checkbox
-                            disabled={!isNewBox}
+                            disabled={!isNewBox || readOnly}
                             color="primary"
                             checked={item.isBarCodeAttachedByTheStorekeeper}
                             onClick={() =>

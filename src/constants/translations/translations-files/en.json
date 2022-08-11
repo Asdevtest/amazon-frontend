@@ -372,6 +372,7 @@
   "Total cost of shipment": "Total cost of shipment",
   "glued": "glued",
   "download": "download",
+  "Download": "Download",
   "Actual weight": "Actual weight",
   "Box delivery cost": "Box delivery cost",
   "Return to stock": "Return to stock",
@@ -1432,5 +1433,6 @@
   "Created by Client": "Created by Client",
   "Paid by the Client": "Paid by the Client",
   "Parsing data updated": "Parsing data updated",
-  "Parsing data not updated": "Parsing data not updated"
+  "Parsing data not updated": "Parsing data not updated",
+  "Attach file": "Attach file"
 }

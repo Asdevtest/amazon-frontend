@@ -9,6 +9,7 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 import {UserModel} from '@models/user-model'
 
 import {Button} from '@components/buttons/button'
+import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {formatDateTime} from '@utils/date-time'
 
@@ -126,7 +127,8 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
     <div className={classNames.root}>
       <div className={classNames.statusWrapper}>
         <p className={classNames.statusTextDesciption}>
-          Новый статус предложения: <span className={classNames.statusText}>{message.data.status}</span>
+          Новый статус предложения:{' '}
+          <span className={classNames.statusText}>{<RequestStatusCell status={message.data.status} />}</span>
         </p>
       </div>
       {renderDetails()}

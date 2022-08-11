@@ -14,6 +14,9 @@ export const useClassNames = makeStyles(() => ({
     color: 'grey',
     fontSize: '18px',
     marginBottom: 0,
+    display: 'flex',
+    alignItems: 'end',
+    gap: '10px',
   },
   statusText: {
     color: 'black',

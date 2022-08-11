@@ -14,7 +14,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './request-proposal-result-to-correct-form.style'
 
 interface Props {
-  onPressSubmitForm: (formFields: FormFileds) => void
+  onPressSubmitForm: (formFields: FormFileds, images?: Array<{}>) => void
 }
 
 interface FormFileds {
@@ -71,8 +71,6 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
     setFormFields(prev => ({...prev, linksToMediaFiles: images, timeLimitInMinutes: totalTimeInMinute}))
   }, [totalTimeInMinute, images])
 
-  console.log(formFields.timeLimitInMinutes)
-  console.log(formFields.linksToMediaFiles)
   return (
     <div className={classNames.root}>
       <div className={classNames.modalHeader}>
@@ -84,6 +82,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
           <Field
             multiline
             className={classNames.reasonInput}
+            inputProps={{maxLength: 1100}}
             minRows={6}
             maxRow={6}
             label={t(TranslationKey['Reason for rework']) + '*'}
@@ -137,7 +136,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
           color="primary"
           className={classNames.btnSubmit}
           disabled={!formFields.reason || totalTimeInMinute === '0'}
-          onClick={() => onPressSubmitForm(formFields)}
+          onClick={() => onPressSubmitForm(formFields, images)}
         >
           {t(TranslationKey['Send in for rework'])}
         </Button>

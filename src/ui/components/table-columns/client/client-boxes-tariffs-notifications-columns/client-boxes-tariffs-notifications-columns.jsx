@@ -41,7 +41,7 @@ export const clientBoxesTariffsNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 250,
+    width: 325,
     renderCell: params => <ClientNotificationsBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,
     sortable: false,

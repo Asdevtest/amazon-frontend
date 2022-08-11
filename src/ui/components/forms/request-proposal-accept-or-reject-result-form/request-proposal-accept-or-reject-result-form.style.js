@@ -20,10 +20,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   btnSubmit: {
-    width: '187px',
+    width: '144px',
     height: '40px',
-    fontSize: '18px',
-    lineHeight: '140%',
+    fontSize: '14px',
+    lineHeight: '19px',
+  },
+
+  btnLargeSubmit: {
+    width: '197px',
   },
 
   cancelSubmit: {

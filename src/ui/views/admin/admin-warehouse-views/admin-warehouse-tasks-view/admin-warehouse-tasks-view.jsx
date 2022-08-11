@@ -13,8 +13,9 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {TaskInfoModal} from '@components/modals/task-info-modal'
+import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
+import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -110,12 +111,18 @@ export class AdminWarehouseTasksViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <TaskInfoModal
+        <Modal
+          missClickModalOn
           openModal={showTaskInfoModal}
           setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
-          task={curOpenedTask}
-          volumeWeightCoefficient={volumeWeightCoefficient}
-        />
+        >
+          <EditTaskModal
+            readOnly
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            task={curOpenedTask}
+            onClickOpenCloseModal={() => onTriggerOpenModal('showTaskInfoModal')}
+          />
+        </Modal>
       </React.Fragment>
     )
   }

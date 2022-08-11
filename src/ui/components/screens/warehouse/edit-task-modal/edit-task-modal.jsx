@@ -32,6 +32,7 @@ export const EditTaskModal = observer(
     showProgress,
     showEditBoxModal,
     onTriggerShowEditBoxModal,
+    readOnly,
   }) => {
     const classNames = useClassNames()
 
@@ -118,6 +119,7 @@ export const EditTaskModal = observer(
               <Field
                 multiline
                 className={classNames.heightFieldAuto}
+                disabled={readOnly}
                 rows={9}
                 rowsMax={9}
                 inputProps={{maxLength: 2000}}
@@ -128,7 +130,7 @@ export const EditTaskModal = observer(
               />
             </div>
             <div className={classNames.imageFileInputWrapper}>
-              <UploadFilesInput images={photosOfTask} setImages={setPhotosOfTask} maxNumber={50} />
+              <UploadFilesInput disabled={readOnly} images={photosOfTask} setImages={setPhotosOfTask} maxNumber={50} />
             </div>
           </div>
 
@@ -148,6 +150,7 @@ export const EditTaskModal = observer(
           )} */}
 
           <BeforeAfterBlock
+            readOnly={readOnly}
             volumeWeightCoefficient={volumeWeightCoefficient}
             incomingBoxes={task.boxesBefore}
             desiredBoxes={newBoxes}
@@ -161,52 +164,62 @@ export const EditTaskModal = observer(
           />
         </div>
 
-        <div className={classNames.buttonsWrapper}>
-          {task.operationType === TaskOperationType.SPLIT && (
-            <Button
-              disableElevation
-              className={classNames.button}
-              tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-              color="primary"
-              variant="contained"
-              onClick={() => {
-                setReceiveBoxModal(!receiveBoxModal)
-              }}
-            >
-              {t(TranslationKey.Redistribute)}
-            </Button>
-          )}
-          <div className={classNames.buttons}>
-            <Button
-              success
-              disableElevation
-              className={classNames.successBtn}
-              disabled={newBoxes.length === 0 || requestStatus === loadingStatuses.isLoading}
-              tooltipInfoContent={t(TranslationKey['Save task data'])}
-              variant="contained"
-              onClick={() => {
-                onClickSolveTask({
-                  task,
-                  newBoxes,
-                  operationType: task.operationType,
-                  comment: storekeeperComment,
-                  photos: photosOfTask,
-                })
-              }}
-            >
-              {t(TranslationKey.Save)}
-            </Button>
-            <Button
-              disableElevation
-              className={classNames.cancelButton}
-              color="primary"
-              variant="text"
-              onClick={onClickOpenCloseModal}
-            >
-              {t(TranslationKey.Cancel)}
+        {!readOnly ? (
+          <div className={classNames.buttonsWrapper}>
+            {task.operationType === TaskOperationType.SPLIT && (
+              <Button
+                disableElevation
+                className={classNames.button}
+                tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
+                color="primary"
+                variant="contained"
+                onClick={() => {
+                  setReceiveBoxModal(!receiveBoxModal)
+                }}
+              >
+                {t(TranslationKey.Redistribute)}
+              </Button>
+            )}
+
+            <div className={classNames.buttons}>
+              <Button
+                success
+                disableElevation
+                className={classNames.successBtn}
+                disabled={newBoxes.length === 0 || requestStatus === loadingStatuses.isLoading}
+                tooltipInfoContent={t(TranslationKey['Save task data'])}
+                variant="contained"
+                onClick={() => {
+                  onClickSolveTask({
+                    task,
+                    newBoxes,
+                    operationType: task.operationType,
+                    comment: storekeeperComment,
+                    photos: photosOfTask,
+                  })
+                }}
+              >
+                {t(TranslationKey.Save)}
+              </Button>
+              <Button
+                disableElevation
+                className={classNames.cancelButton}
+                color="primary"
+                variant="text"
+                onClick={onClickOpenCloseModal}
+              >
+                {t(TranslationKey.Cancel)}
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className={classNames.buttonWrapper}>
+            <Button className={classNames.closeButton} color="primary" onClick={onClickOpenCloseModal}>
+              {t(TranslationKey.Close)}
             </Button>
           </div>
-        </div>
+        )}
+
         <Modal
           openModal={receiveBoxModal}
           setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}

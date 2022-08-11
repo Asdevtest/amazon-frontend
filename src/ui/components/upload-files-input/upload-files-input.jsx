@@ -37,6 +37,7 @@ export const UploadFilesInput = observer(
     withoutTitle = false,
     oneLine = false,
     title = false,
+    disabled = false,
   }) => {
     const classNames = useClassNames()
 
@@ -89,11 +90,12 @@ export const UploadFilesInput = observer(
           {!withoutLinks && (
             <Field
               tooltipInfoContent={t(TranslationKey['Ability to attach photos/documents/links'])}
-              label={withoutTitle ? '' : title ? title : t(TranslationKey['Add file'])}
+              label={withoutTitle ? '' : title ? title : t(TranslationKey['Attach file'])}
               error={linkInputError && t(TranslationKey['Invalid link!'])}
               inputComponent={
                 <div className={classNames.amazonLinkWrapper}>
                   <Input
+                    disabled={disabled}
                     placeholder={t(TranslationKey.Link)}
                     className={classNames.loadImageInput}
                     value={linkInput}
@@ -109,7 +111,7 @@ export const UploadFilesInput = observer(
                     color="primary"
                     onClick={() => onClickLoadBtn()}
                   >
-                    {t(TranslationKey.Add)}
+                    {t(TranslationKey.Download)}
                   </Button>
                 </div>
               }
@@ -142,6 +144,7 @@ export const UploadFilesInput = observer(
 
                 <div className={classNames.mainSubWrapper}>
                   <button
+                    disabled={disabled}
                     className={clsx(classNames.dragAndDropBtn, {[classNames.dragingOnDropBtn]: isDragging})}
                     onClick={onImageUpload}
                     {...dragProps}

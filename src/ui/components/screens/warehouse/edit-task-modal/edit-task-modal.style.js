@@ -178,4 +178,14 @@ export const useClassNames = makeStyles(theme => ({
     height: '40px',
     color: '#001029',
   },
+
+  closeButton: {
+    width: '183px',
+    height: '40px',
+  },
+
+  buttonWrapper: {
+    display: 'flex',
+    justifyContent: 'end',
+  },
 }))

@@ -45,7 +45,7 @@ export const DeliveryParameters = ({order}) => {
       <div className={classNames.storekeeperWrapper}>
         <Field
           oneLine
-          label={t(TranslationKey.Storekeeper)}
+          label={t(TranslationKey['Int warehouse'])}
           tooltipInfoContent={t(TranslationKey['Prep Center in China'])}
           containerClasses={classNames.parameterTableCellWrapper}
           labelClasses={classNames.fieldLabel}
