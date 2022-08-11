@@ -640,7 +640,7 @@ export class ClientInventoryViewModel {
     try {
       await SellerBoardModel.refreshProducts(this.selectedRowIds)
 
-      this.successModalText = t(TranslationKey['Parsing data updated'])
+      this.successModalText = t(TranslationKey['Products will be updated soon'])
       this.onTriggerOpenModal('showSuccessModal')
     } catch (error) {
       this.showInfoModalTitle = t(TranslationKey['Parsing data not updated'])

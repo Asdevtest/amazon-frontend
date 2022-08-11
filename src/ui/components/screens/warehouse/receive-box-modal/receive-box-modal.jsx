@@ -367,15 +367,14 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
       <Paper className={classNames.boxesWrapper}>
         <CurrentBox />
         <Divider flexItem className={classNames.divider} orientation="vertical" />
-        <div className={classNames.boxesTableWrapper}>
-          <NewBoxes
-            newBoxes={newBoxes}
-            onChangeQtyInput={onChangeQtyInput}
-            onChangeFieldInput={onChangeFieldInput}
-            onRemoveBox={onRemoveBox}
-            onAddImages={onAddImages}
-          />
-        </div>
+
+        <NewBoxes
+          newBoxes={newBoxes}
+          onChangeQtyInput={onChangeQtyInput}
+          onChangeFieldInput={onChangeFieldInput}
+          onRemoveBox={onRemoveBox}
+          onAddImages={onAddImages}
+        />
       </Paper>
 
       <div className={classNames.buttonsWrapper}>

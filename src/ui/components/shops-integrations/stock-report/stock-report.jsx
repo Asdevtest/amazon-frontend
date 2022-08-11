@@ -3,7 +3,6 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 import React, {Component} from 'react'
 
 import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -18,6 +17,7 @@ import {SelectionSupplierModal} from '@components/modals/selection-supplier-moda
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -90,29 +90,30 @@ class StockReportRaw extends Component {
     return (
       <React.Fragment>
         <div className={className.shopsFiltersWrapper}>
-          <Button
-            disabled={!currentShop?._id}
-            tooltipInfoContent={t(TranslationKey['Filter for sorting by store'])}
-            className={clsx({[className.selectedShopBtn]: !currentShop?._id})}
-            variant="text"
-            color="primary"
-            onClick={onClickShopBtn}
-          >
-            {t(TranslationKey['All shops'])}
-          </Button>
-
-          {shopsData.map(shop => (
-            <Button
-              key={shop._id}
-              disabled={currentShop?._id === shop._id}
-              className={clsx(className.button, {[className.selectedShopBtn]: currentShop?._id === shop._id})}
-              variant="text"
-              color="primary"
-              onClick={() => onClickShopBtn(shop)}
-            >
-              {shop.name}
-            </Button>
-          ))}
+          <WithSearchSelect
+            selectedItemName={
+              (!currentShop?._id && t(TranslationKey['All shops'])) || (currentShop && currentShop.name)
+            }
+            data={shopsData.filter(shop => currentShop?.id !== shop._id)}
+            fieldName="name"
+            firstItems={
+              <>
+                {currentShop?._id && (
+                  <Button
+                    disabled={!currentShop?._id}
+                    // tooltipInfoContent={t(TranslationKey['Filter for sorting by store'])}
+                    className={className.button}
+                    variant="text"
+                    color="primary"
+                    onClick={onClickShopBtn}
+                  >
+                    {t(TranslationKey['All shops'])}
+                  </Button>
+                )}
+              </>
+            }
+            onClickSelect={shop => onClickShopBtn(shop)}
+          />
         </div>
 
         <div className={className.btnsWrapper}>
@@ -135,7 +136,7 @@ class StockReportRaw extends Component {
               TranslationKey['Adds integration from the report to the selected item from the inventory'],
             )}
             disabled={selectedRows.length === 0}
-            className={className.button}
+            className={className.rightButton}
             variant="contained"
             color="primary"
             onClick={onClickBindStockGoodsToInventoryBtn}

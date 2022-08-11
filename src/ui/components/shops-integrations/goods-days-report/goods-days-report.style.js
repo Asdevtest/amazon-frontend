@@ -7,8 +7,12 @@ export const styles = createStyles(() => ({
   },
   button: {
     marginBottom: 5,
-    marginRight: '24px',
+
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-start',
   },
+
   buttonsWrapper: {
     textAlign: 'right',
   },

@@ -3,13 +3,13 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 import React, {Component} from 'react'
 
 import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -52,29 +52,30 @@ class GoodsDaysReportRaw extends Component {
       <React.Fragment>
         <div>
           <div className={className.shopsFiltersWrapper}>
-            <Button
-              disabled={!currentShop?._id}
-              tooltipInfoContent={t(TranslationKey['Filter for sorting by store'])}
-              className={clsx({[className.selectedShopBtn]: !currentShop?._id})}
-              variant="text"
-              color="primary"
-              onClick={onClickShopBtn}
-            >
-              {t(TranslationKey['All shops'])}
-            </Button>
-
-            {shopsData.map(shop => (
-              <Button
-                key={shop._id}
-                disabled={currentShop?._id === shop._id}
-                className={clsx(className.button, {[className.selectedShopBtn]: currentShop?._id === shop._id})}
-                variant="text"
-                color="primary"
-                onClick={() => onClickShopBtn(shop)}
-              >
-                {shop.name}
-              </Button>
-            ))}
+            <WithSearchSelect
+              selectedItemName={
+                (!currentShop?._id && t(TranslationKey['All shops'])) || (currentShop && currentShop.name)
+              }
+              data={shopsData.filter(shop => currentShop?.id !== shop._id)}
+              fieldName="name"
+              firstItems={
+                <>
+                  {currentShop?._id && (
+                    <Button
+                      disabled={!currentShop?._id}
+                      // tooltipInfoContent={t(TranslationKey['Filter for sorting by store'])}
+                      className={className.button}
+                      variant="text"
+                      color="primary"
+                      onClick={onClickShopBtn}
+                    >
+                      {t(TranslationKey['All shops'])}
+                    </Button>
+                  )}
+                </>
+              }
+              onClickSelect={shop => onClickShopBtn(shop)}
+            />
           </div>
 
           <div className={className.dataGridWrapper}>

@@ -38,9 +38,6 @@ export const useClassNames = makeStyles(theme => ({
   pagination: {
     flexShrink: 0,
   },
-  tableContainer: {
-    maxHeight: '100vh',
-  },
 
   noRowsTitleWrapper: {
     display: 'flex',

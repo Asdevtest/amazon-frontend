@@ -79,7 +79,10 @@ export const styles = createStyles({
 
   button: {
     marginBottom: 5,
-    marginRight: '10px',
+
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-start',
   },
 
   selectedShopsBtn: {

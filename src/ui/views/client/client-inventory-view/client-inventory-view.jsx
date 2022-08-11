@@ -4,7 +4,6 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 import React, {Component} from 'react'
 
 import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -32,8 +31,8 @@ import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
-// import {WithSearchSelect} from '@components/selects/with-search-select'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
@@ -154,64 +153,59 @@ export class ClientInventoryViewRaw extends Component {
             <MainContent>
               <div className={classNames.topHeaderBtnsWrapper}>
                 <div className={classNames.shopsFiltersWrapper}>
-                  <Button
-                    disabled={!productsMy}
-                    className={clsx(classNames.button, {
-                      [classNames.selectedShopsBtn]: !withProduct && !withoutProduct && !currentShop?._id,
-                    })}
-                    variant="text"
-                    color="primary"
-                    onClick={onClickShopBtn}
-                  >
-                    {t(TranslationKey['All Products'])}
-                  </Button>
-                  <Button
-                    disabled={!productsMy}
-                    className={clsx(classNames.button, {
-                      [classNames.selectedShopsBtn]: withProduct,
-                    })}
-                    variant="text"
-                    color="primary"
-                    onClick={onClickWithProductsShopBtn}
-                  >
-                    {t(TranslationKey['Products in shops'])}
-                  </Button>
-
-                  <Button
-                    disabled={!productsMy}
-                    className={clsx(classNames.button, {
-                      [classNames.selectedShopsBtn]: withoutProduct,
-                    })}
-                    variant="text"
-                    color="primary"
-                    onClick={onClickWithoutProductsShopBtn}
-                  >
-                    {t(TranslationKey['Products without shops'])}
-                  </Button>
-
-                  {shopsData.map(shop =>
-                    productsMyBase.some(product => product.originalData.shopIds.includes(shop._id)) ? (
-                      <Button
-                        key={shop._id}
-                        className={clsx(classNames.button, {
-                          [classNames.selectedShopsBtn]: currentShop?._id === shop._id,
-                        })}
-                        variant="text"
-                        color="primary"
-                        onClick={() => onClickShopBtn(shop)}
-                      >
-                        {shop.name}
-                      </Button>
-                    ) : null,
-                  )}
-
-                  {/* <WithSearchSelect
-                    data={shopsData.map(
-                      shop => productsMyBase.some(product => product.originalData.shopIds.includes(shop._id)) && shop,
-                    )}
+                  <WithSearchSelect
+                    selectedItemName={
+                      (!withProduct && !withoutProduct && !currentShop?._id && t(TranslationKey['All Products'])) ||
+                      (withProduct && t(TranslationKey['Products in shops'])) ||
+                      (withoutProduct && t(TranslationKey['Products without shops'])) ||
+                      (currentShop && currentShop.name)
+                    }
+                    data={shopsData
+                      .filter(shop => currentShop?.id !== shop._id)
+                      .map(
+                        shop => productsMyBase.some(product => product.originalData.shopIds.includes(shop._id)) && shop,
+                      )}
                     fieldName="name"
+                    firstItems={
+                      <>
+                        {!(!withProduct && !withoutProduct && !currentShop?._id) && (
+                          <Button
+                            disabled={!productsMy}
+                            className={classNames.button}
+                            variant="text"
+                            color="primary"
+                            onClick={onClickShopBtn}
+                          >
+                            {t(TranslationKey['All Products'])}
+                          </Button>
+                        )}
+                        {!withProduct && (
+                          <Button
+                            disabled={!productsMy}
+                            className={classNames.button}
+                            variant="text"
+                            color="primary"
+                            onClick={onClickWithProductsShopBtn}
+                          >
+                            {t(TranslationKey['Products in shops'])}
+                          </Button>
+                        )}
+
+                        {!withoutProduct && (
+                          <Button
+                            disabled={!productsMy}
+                            className={classNames.button}
+                            variant="text"
+                            color="primary"
+                            onClick={onClickWithoutProductsShopBtn}
+                          >
+                            {t(TranslationKey['Products without shops'])}
+                          </Button>
+                        )}
+                      </>
+                    }
                     onClickSelect={shop => onClickShopBtn(shop)}
-                  /> */}
+                  />
                 </div>
 
                 {!isArchive ? (

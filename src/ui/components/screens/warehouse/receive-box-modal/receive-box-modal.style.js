@@ -23,10 +23,11 @@ export const useClassNames = makeStyles(theme => ({
     justifyContent: 'space-between',
     padding: '20px',
   },
-  boxesTableWrapper: {
-    maxHeight: '575px',
-    overflow: 'auto',
-  },
+
+  // boxesTableWrapper: {
+  //   height: '575px',
+  //   overflow: 'auto',
+  // },
   currentBox: {
     display: 'flex',
     flexDirection: 'column',
@@ -104,6 +105,8 @@ export const useClassNames = makeStyles(theme => ({
 
   tableWrapper: {
     minWidth: '1275px',
+    height: '575px',
+    overflow: 'scroll',
   },
 
   sizesCell: {
