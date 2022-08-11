@@ -33,6 +33,7 @@ import {Navbar} from '@components/navbar'
 import {AddOrEditSupplierModalContent} from '@components/product/add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
+// import {WithSearchSelect} from '@components/selects/with-search-select'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
@@ -203,6 +204,14 @@ export class ClientInventoryViewRaw extends Component {
                       </Button>
                     ) : null,
                   )}
+
+                  {/* <WithSearchSelect
+                    data={shopsData.map(
+                      shop => productsMyBase.some(product => product.originalData.shopIds.includes(shop._id)) && shop,
+                    )}
+                    fieldName="name"
+                    onClickSelect={shop => onClickShopBtn(shop)}
+                  /> */}
                 </div>
 
                 {!isArchive ? (
@@ -279,7 +288,7 @@ export class ClientInventoryViewRaw extends Component {
                       disabled={!selectedRowIds.length || isNoEditProductSelected}
                       onClick={onClickParseProductsBtn}
                     >
-                      {'Parce all'}
+                      {'Parse all'}
                     </Button>
                   </div>
                 )}

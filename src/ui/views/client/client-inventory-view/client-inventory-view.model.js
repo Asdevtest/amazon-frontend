@@ -652,7 +652,7 @@ export class ClientInventoryViewModel {
 
   async onClickAddSupplierBtn() {
     try {
-      if (this.selectedRowIds.length) {
+      if (this.selectedRowIds.length > 1) {
         const result = await ClientModel.calculatePriceToSeekSomeSuppliers(this.selectedRowIds)
         this.confirmMessage = this.confirmModalSettings = {
           isWarning: false,
