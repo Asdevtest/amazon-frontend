@@ -19,6 +19,7 @@ export const TabMainContent = ({
   disabledSubmit,
   onChangeField,
   onSubmit,
+  onSubmitProxy,
   formFields,
   disabledAddButton,
   setProxyArr,
@@ -83,6 +84,11 @@ export const TabMainContent = ({
         // value={formFields.volumeWeightCoefficient}
         // onChange={onChangeField('volumeWeightCoefficient')}
       />
+      <div className={classNames.placeAddBtnWrapper}>
+        <Button disabled={disabledSubmit} className={classNames.submitButton} onClick={onSubmit}>
+          {t(TranslationKey.Save)}
+        </Button>
+      </div>
       <div className={classNames.proxyFieldWrapper}>
         <Typography className={disabled ? classNames.proxyFieldTextUnSelection : classNames.proxyFieldText}>
           {t(TranslationKey['Proxy servers for parsing'])}
@@ -123,12 +129,12 @@ export const TabMainContent = ({
               <DeleteOutlineOutlinedIcon className={classNames.deleteProxy} onClick={() => onClickDeleteProxy(proxy)} />
             </div>
           ))}
-      </div>
 
-      <div className={classNames.placeAddBtnWrapper}>
-        <Button disabled={disabledSubmit} className={classNames.submitButton} onClick={onSubmit}>
-          {t(TranslationKey.Save)}
-        </Button>
+        <div className={classNames.proxyButtonWrapper}>
+          <Button className={classNames.submitButton} onClick={() => onSubmitProxy()}>
+            {t(TranslationKey['Save Proxy'])}
+          </Button>
+        </div>
       </div>
     </>
   )

@@ -271,10 +271,18 @@ export class AdminSettingsModel {
     }
   }
 
-  async createAdminSettings(data, proxy) {
+  async createProxy(proxy) {
+    try {
+      await AdministratorModel.createProxy(proxy)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async createAdminSettings(data) {
     try {
       await AdministratorModel.setSettings(data)
-      await AdministratorModel.createProxy(proxy)
+
       this.infoModalText = t(TranslationKey['The settings are saved.'])
       this.onTriggerOpenModal('showInfoModal')
 
