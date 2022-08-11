@@ -45,8 +45,8 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
           />
         </div>
 
-        <div>
-          <Field label={reviewLabel} inputClasses={classNames.inputsWrapper} />
+        <div className={classNames.fieldWrapper}>
+          <Field multiline label={reviewLabel} minRows={6} maxRow={6} className={classNames.inputsWrapper} />
         </div>
 
         <div className={classNames.btnsWrapper}>

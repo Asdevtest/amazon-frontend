@@ -34,6 +34,7 @@ export class AdminSettingsModel {
   columnsModel = destinationsColumns(this.rowHandlers)
 
   adminSettings = {}
+  serverProxy = []
   infoModalText = ''
 
   showSuccessModal = false
@@ -133,6 +134,7 @@ export class AdminSettingsModel {
     try {
       await this.getDestinations()
       await this.getAdminSettings()
+      await this.getServerProxy()
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
 
@@ -257,10 +259,22 @@ export class AdminSettingsModel {
     }
   }
 
-  async createAdminSettings(data) {
+  async getServerProxy() {
+    try {
+      const result = await AdministratorModel.getProxy()
+
+      runInAction(() => {
+        this.serverProxy = result
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async createAdminSettings(data, proxy) {
     try {
       await AdministratorModel.setSettings(data)
-
+      await AdministratorModel.createProxy(proxy)
       this.infoModalText = t(TranslationKey['The settings are saved.'])
       this.onTriggerOpenModal('showInfoModal')
 

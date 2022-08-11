@@ -1433,6 +1433,7 @@ export enum TranslationKey {
   'Products will be updated soon' = 'Products will be updated soon',
   'Parsing data not updated' = 'Parsing data not updated',
   'Attach file' = 'Attach file',
+  'Invalid proxy' = 'Invalid proxy',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -50,6 +50,11 @@ class AdministratorModelStatic {
     return response
   }
 
+  createProxy = async data => {
+    const response = await restApiService.administratorApi.apiV1AdminsProxyPost({body: data})
+    return response
+  }
+
   removeUser = async id => {
     const response = await restApiService.administratorApi.apiV1AdminsUsersGuidDelete(id)
     return response
@@ -107,6 +112,11 @@ class AdministratorModelStatic {
 
   getSettings = async () => {
     const response = await restApiService.administratorApi.apiV1AdminsGetSettingsGet()
+    return response
+  }
+
+  getProxy = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsProxyGet()
     return response
   }
 

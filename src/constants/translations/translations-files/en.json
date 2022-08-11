@@ -1434,5 +1434,6 @@
   "Paid by the Client": "Paid by the Client",
   "Products will be updated soon": "Products will be updated soon",
   "Parsing data not updated": "Parsing data not updated",
-  "Attach file": "Attach file"
+  "Attach file": "Attach file",
+  "Invalid proxy": "Invalid proxy"
 }

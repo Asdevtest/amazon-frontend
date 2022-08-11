@@ -123,7 +123,7 @@ export const useClassNames = makeStyles(() => ({
 
   proxyField: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'start',
   },
 
   proxyFieldText: {
@@ -172,5 +172,39 @@ export const useClassNames = makeStyles(() => ({
 
   unselectable: {
     userSelect: 'none',
+  },
+  proxyWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '10px',
+    marginTop: '22px',
+  },
+  proxySubWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  proxy: {
+    color: '#006CFF',
+    fontSize: '16px',
+    lineHeight: '19px',
+  },
+  copyImg: {
+    width: '20px',
+    height: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.07)',
+    },
+  },
+
+  deleteProxy: {
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.07)',
+    },
   },
 }))

@@ -22,12 +22,13 @@ export class SupervisorReadyToCheckViewModel {
   selectedRowIds = []
 
   productsReadyToCheck = []
+  isSupervisor = true
 
   rowHandlers = {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
 
-  columnsModel = depersonalizedPickColumns(this.rowHandlers)
+  columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor)
 
   constructor({history}) {
     this.history = history

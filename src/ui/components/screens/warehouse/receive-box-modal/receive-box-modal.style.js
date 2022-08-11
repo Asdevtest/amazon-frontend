@@ -22,12 +22,9 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '20px',
+    // overflow: 'auto',
   },
 
-  // boxesTableWrapper: {
-  //   height: '575px',
-  //   overflow: 'auto',
-  // },
   currentBox: {
     display: 'flex',
     flexDirection: 'column',

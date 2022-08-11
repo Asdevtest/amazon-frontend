@@ -803,6 +803,7 @@ export const styles = createStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     gap: '40px',
+    padding: '20px 0',
   },
 
   editOrRemoveBtnWrapper: {
