@@ -10,7 +10,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const depersonalizedPickColumns = handlers => [
+export const depersonalizedPickColumns = (handlers, isSupervisor) => [
   {
     field: 'number',
     headerName: '№',
@@ -27,7 +27,11 @@ export const depersonalizedPickColumns = handlers => [
     renderCell: params => (
       <NormalActionBtnCell
         isFirstRow
-        tooltipText={t(TranslationKey['Assign the task of finding a supplier to Bayer'])}
+        tooltipText={
+          isSupervisor
+            ? t(TranslationKey['Assign a product card to a supervisor'])
+            : t(TranslationKey['To assign the order to Byer'])
+        }
         bTnText={t(TranslationKey['Get to work'])}
         onClickOkBtn={() => handlers.onPickUp(params.row.originalData)}
       />

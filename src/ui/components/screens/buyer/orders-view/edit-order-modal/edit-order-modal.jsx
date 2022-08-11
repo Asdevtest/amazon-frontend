@@ -205,7 +205,11 @@ export const EditOrderModal = observer(
       <Box className={classNames.modalWrapper}>
         <div className={classNames.modalHeader}>
           <Typography className={classNames.modalText}>{`${t(TranslationKey.Order)} № ${order.id}`}</Typography>
-          <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
+          <Typography className={classNames.amazonTitle}>
+            {order.product.amazonTitle.length > 130
+              ? order.product.amazonTitle.slice(0, 130) + '...'
+              : order.product.amazonTitle}
+          </Typography>
           <div className={classNames.orderStatusWrapper}>
             <Typography className={classNames.orderStatus}>{t(TranslationKey['Order status'])}</Typography>
             <Field

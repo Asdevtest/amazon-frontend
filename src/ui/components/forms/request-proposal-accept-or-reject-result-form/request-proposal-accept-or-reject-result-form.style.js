@@ -33,8 +33,11 @@ export const useClassNames = makeStyles(() => ({
   cancelSubmit: {
     color: '#001029',
   },
+
   inputsWrapper: {
     height: '141px',
+
+    overflowY: 'auto',
   },
   ratingWrapper: {
     width: '100%',

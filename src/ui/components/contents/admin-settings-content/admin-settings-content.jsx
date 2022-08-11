@@ -52,6 +52,7 @@ export const AdminSettingsContent = observer(() => {
 
   const {
     adminSettings,
+    serverProxy,
     infoModalText,
     showInfoModal,
     createAdminSettings,
@@ -81,6 +82,11 @@ export const AdminSettingsContent = observer(() => {
 
   const [formFields, setFormFields] = useState({})
   const [activeTab, setActiveTab] = useState(tabsValues.MAIN)
+  const [proxyArr, setProxyArr] = useState(serverProxy)
+
+  useEffect(() => {
+    setProxyArr(serverProxy)
+  }, [serverProxy])
 
   useEffect(() => {
     const sourceFormFields = {
@@ -128,7 +134,7 @@ export const AdminSettingsContent = observer(() => {
     //   })
     // }
 
-    createAdminSettings(formFields)
+    createAdminSettings(formFields, proxyArr)
   }
 
   const onChangeField = fieldName => event => {
@@ -210,6 +216,8 @@ export const AdminSettingsContent = observer(() => {
                 formFields={formFields}
                 disabledSubmit={disabledSubmitFirstBlock || activeTab !== tabsValues.MAIN}
                 disabledAddButton={activeTab !== tabsValues.MAIN}
+                proxyArr={proxyArr}
+                setProxyArr={setProxyArr}
                 onChangeField={onChangeField}
                 onSubmit={onCreateSubmit}
               />

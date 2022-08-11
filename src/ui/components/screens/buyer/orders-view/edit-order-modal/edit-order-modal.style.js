@@ -97,6 +97,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
+    textAlign: 'left',
   },
 
   orderStatus: {

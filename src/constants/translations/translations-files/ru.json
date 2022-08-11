@@ -1434,5 +1434,6 @@
   "Paid by the Client": "Оплачено клиентом",
   "Products will be updated soon": "Продукты будут обновлены в ближайшее время",
   "Parsing data not updated": "Данные парсинга не обновлены",
-  "Attach file": "Прикрепить файл"
+  "Attach file": "Прикрепить файл",
+  "Invalid proxy": "Невалидный proxy"
 }
