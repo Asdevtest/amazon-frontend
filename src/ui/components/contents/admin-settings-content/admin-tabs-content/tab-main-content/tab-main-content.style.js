@@ -90,6 +90,13 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'end',
     marginTop: '20px',
+    marginBottom: '20px',
+  },
+
+  proxyButtonWrapper: {
+    display: 'flex',
+    justifyContent: 'end',
+    marginTop: '20px',
   },
 
   submitButton: {

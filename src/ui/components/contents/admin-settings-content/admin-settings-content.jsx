@@ -70,6 +70,7 @@ export const AdminSettingsContent = observer(() => {
     onChangeRowsPerPage,
     onChangeFilterModel,
     onChangeCurPage,
+    createProxy,
     setDataGridState,
     showAddOrEditDestinationModal,
     destinationToEdit,
@@ -134,7 +135,11 @@ export const AdminSettingsContent = observer(() => {
     //   })
     // }
 
-    createAdminSettings(formFields, proxyArr)
+    createAdminSettings(formFields)
+  }
+
+  const onSubmitProxy = () => {
+    createProxy(proxyArr)
   }
 
   const onChangeField = fieldName => event => {
@@ -220,6 +225,7 @@ export const AdminSettingsContent = observer(() => {
                 setProxyArr={setProxyArr}
                 onChangeField={onChangeField}
                 onSubmit={onCreateSubmit}
+                onSubmitProxy={onSubmitProxy}
               />
             </div>
           </Box>

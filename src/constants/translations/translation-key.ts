@@ -1434,6 +1434,7 @@ export enum TranslationKey {
   'Parsing data not updated' = 'Parsing data not updated',
   'Attach file' = 'Attach file',
   'Invalid proxy' = 'Invalid proxy',
+  'Save Proxy' = 'Save Proxy',
   // '' = '',
   // '' = '',
   // '' = '',

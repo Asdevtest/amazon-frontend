@@ -1435,5 +1435,6 @@
   "Products will be updated soon": "Продукты будут обновлены в ближайшее время",
   "Parsing data not updated": "Данные парсинга не обновлены",
   "Attach file": "Прикрепить файл",
-  "Invalid proxy": "Невалидный proxy"
+  "Invalid proxy": "Невалидный proxy",
+  "Save Proxy": "Сохранить Прокси"
 }
