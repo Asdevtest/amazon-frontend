@@ -12,7 +12,7 @@ import {financesDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
-export class ClientFinancesViewsModel {
+export class FinancesViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
@@ -24,14 +24,20 @@ export class ClientFinancesViewsModel {
   drawerOpen = false
 
   sortModel = []
+  startFilterModel = undefined
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = financesViewColumns()
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+
+    if (location?.state?.dataGridFilter) {
+      this.startFilterModel = location.state.dataGridFilter
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -59,15 +65,15 @@ export class ClientFinancesViewsModel {
       'columns',
     ])
 
-    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.CLIENT_FINANCES)
+    SettingsModel.setDataGridState(requestState, DataGridTablesKeys.SHARED_FINANCES)
   }
 
   getDataGridState() {
-    const state = SettingsModel.dataGridState[DataGridTablesKeys.CLIENT_FINANCES]
+    const state = SettingsModel.dataGridState[DataGridTablesKeys.SHARED_FINANCES]
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
+      this.filterModel = this.startFilterModel ? this.startFilterModel : state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value

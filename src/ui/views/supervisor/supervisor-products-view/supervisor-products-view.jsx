@@ -41,7 +41,7 @@ const attentionStatuses = [
 
 @observer
 class SupervisorProductsViewRaw extends Component {
-  viewModel = new SupervisorProductsViewModel({history: this.props.history})
+  viewModel = new SupervisorProductsViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -73,7 +73,8 @@ class SupervisorProductsViewRaw extends Component {
     const {classes: classNames} = this.props
 
     const getRowClassName = params =>
-      attentionStatuses.includes(params.getValue(params.id, 'status')) && classNames.attentionRow
+      attentionStatuses.includes(params.getValue(params.id, 'statusForAttention')) && classNames.attentionRow
+    // attentionStatuses.includes(params.row.originalData.status) && classNames.attentionRow
 
     return (
       <React.Fragment>

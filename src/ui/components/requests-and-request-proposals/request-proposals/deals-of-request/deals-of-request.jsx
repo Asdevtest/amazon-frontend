@@ -20,7 +20,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './deals-of-request.style'
 
-export const DealsOfRequest = ({requestProposals}) => {
+export const DealsOfRequest = ({requestProposals, onClickReview}) => {
   const classNames = useClassNames()
 
   const [showDetails, setShowDetails] = useState(false)
@@ -51,7 +51,10 @@ export const DealsOfRequest = ({requestProposals}) => {
                   <div className={classNames.userNameWrapper}>
                     <UserLink blackText name={deal.proposal.createdBy.name} userId={deal.proposal.createdBy._id} />
 
-                    <Typography>{t(TranslationKey.Reviews)}</Typography>
+                    {/* <Typography>{t(TranslationKey.Reviews)}</Typography> */}
+                    <Typography className={classNames.reviews} onClick={() => onClickReview()}>
+                      {t(TranslationKey.Reviews)}
+                    </Typography>
                   </div>
 
                   <div className={classNames.userRatingWrapper}>

@@ -6,6 +6,8 @@ import Rating from '@mui/material/Rating'
 import React from 'react'
 
 import {Grid, Typography} from '@material-ui/core'
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
+import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -13,7 +15,8 @@ import {Button} from '@components/buttons/button'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 
-import {toFixedWithDollarSign} from '@utils/text'
+import {getYearDate} from '@utils/date-time'
+import {toFixed, toFixedWithDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './trading-shop-card.style'
@@ -52,7 +55,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
               label={t(TranslationKey['Average. Monthly net profit'])}
               inputComponent={
                 <Typography className={classNames.shortInfoValue}>
-                  {toFixedWithDollarSign(item.monthlyPureProfit, 2)}
+                  {toFixedWithDollarSign(item.statistics.monthlyPureProfit, 2)}
                 </Typography>
               }
             />
@@ -62,7 +65,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
               label={t(TranslationKey['Average. Monthly income'])}
               inputComponent={
                 <Typography className={classNames.shortInfoValue}>
-                  {toFixedWithDollarSign(item.monthlyProfit, 2)}
+                  {toFixedWithDollarSign(item.statistics.monthlyProfit, 2)}
                 </Typography>
               }
             />
@@ -77,14 +80,19 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
               containerClasses={classNames.shortInfoContainer}
               label={t(TranslationKey['Monthly multiplier'])}
               inputComponent={
-                <Typography className={classNames.shortInfoValue}>{`${item.monthlyMultiplier}x`}</Typography>
+                <Typography className={classNames.shortInfoValue}>{`${toFixed(
+                  item.price / item.statistics.monthlyPureProfit,
+                  2,
+                )}x`}</Typography>
               }
             />
             <Field
               labelClasses={classNames.shortInfoLabel}
               containerClasses={classNames.shortInfoContainer}
               label={t(TranslationKey['Business is made'])}
-              inputComponent={<Typography className={classNames.shortInfoValue}>{item.businessStartYear}</Typography>}
+              inputComponent={
+                <Typography className={classNames.shortInfoValue}>{getYearDate(item.businessStartDate)}</Typography>
+              }
             />
           </div>
 
@@ -98,10 +106,18 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                 containerClasses={classNames.footerInfoContainer}
                 label={t(TranslationKey['Profit (12 months)'])}
                 inputComponent={
-                  <>
-                    <ArrowDropDownIcon color="success" />
-                    <Typography className={classNames.green}>{item.profit12Monthes}</Typography>
-                  </>
+                  <div className={classNames.percentWrapper}>
+                    {item.statistics.monthlyPureProfitDiffPercentage < 0 ? (
+                      <ArrowDropDownIcon color="error" />
+                    ) : (
+                      <ArrowDropUpIcon color="success" />
+                    )}
+                    <Typography
+                      className={clsx(classNames.green, {
+                        [classNames.red]: item.statistics.monthlyPureProfitDiffPercentage < 0,
+                      })}
+                    >{`${toFixed(item.statistics.monthlyPureProfitDiffPercentage)} %`}</Typography>
+                  </div>
                 }
               />
               <Field
@@ -110,10 +126,18 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                 containerClasses={classNames.footerInfoContainer}
                 label={t(TranslationKey['Income (12 months)'])}
                 inputComponent={
-                  <>
-                    <ArrowDropDownIcon color="success" />
-                    <Typography className={classNames.green}>{item.income12Monthes}</Typography>
-                  </>
+                  <div className={classNames.percentWrapper}>
+                    {item.statistics.monthlyProfitDiffPercentage < 0 ? (
+                      <ArrowDropDownIcon color="error" />
+                    ) : (
+                      <ArrowDropUpIcon color="success" />
+                    )}
+                    <Typography
+                      className={clsx(classNames.green, {
+                        [classNames.red]: item.statistics.monthlyProfitDiffPercentage < 0,
+                      })}
+                    >{`${toFixed(item.statistics.monthlyProfitDiffPercentage)} %`}</Typography>
+                  </div>
                 }
               />
               <Field
@@ -122,10 +146,18 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                 containerClasses={classNames.footerInfoContainer}
                 label={t(TranslationKey['Traffic (12 months)'])}
                 inputComponent={
-                  <>
-                    <ArrowDropDownIcon color="error" />
-                    <Typography className={classNames.red}>{item.traffic}</Typography>
-                  </>
+                  <div className={classNames.percentWrapper}>
+                    {item.statistics.webpageVisitsDiffPercentage < 0 ? (
+                      <ArrowDropDownIcon color="error" />
+                    ) : (
+                      <ArrowDropUpIcon color="success" />
+                    )}
+                    <Typography
+                      className={clsx(classNames.green, {
+                        [classNames.red]: item.statistics.webpageVisitsDiffPercentage < 0,
+                      })}
+                    >{`${toFixed(item.statistics.webpageVisitsDiffPercentage)} %`}</Typography>
+                  </div>
                 }
               />
             </div>

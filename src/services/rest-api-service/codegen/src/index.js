@@ -58,6 +58,7 @@ import ApiV1RequestsCustomDetailsCustom from './model/ApiV1RequestsCustomDetails
 import ApiV1RequestsCustomGuidRequest from './model/ApiV1RequestsCustomGuidRequest';
 import ApiV1RequestsCustomRequest from './model/ApiV1RequestsCustomRequest';
 import ApiV1ShopSellStatistics from './model/ApiV1ShopSellStatistics';
+import ApiV1ShopSellStatistics1 from './model/ApiV1ShopSellStatistics1';
 import ApiV1StorekeepersTariffWarehouses from './model/ApiV1StorekeepersTariffWarehouses';
 import ApiV1SuppliersBoxProperties from './model/ApiV1SuppliersBoxProperties';
 import BadRequestError from './model/BadRequestError';
@@ -179,7 +180,8 @@ import InlineResponse20025 from './model/InlineResponse20025';
 import InlineResponse20026 from './model/InlineResponse20026';
 import InlineResponse20027 from './model/InlineResponse20027';
 import InlineResponse20028 from './model/InlineResponse20028';
-import InlineResponse20028Details from './model/InlineResponse20028Details';
+import InlineResponse20029 from './model/InlineResponse20029';
+import InlineResponse20029Details from './model/InlineResponse20029Details';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
@@ -566,6 +568,12 @@ export {
      * @property {module:model/ApiV1ShopSellStatistics}
      */
     ApiV1ShopSellStatistics,
+
+    /**
+     * The ApiV1ShopSellStatistics1 model constructor.
+     * @property {module:model/ApiV1ShopSellStatistics1}
+     */
+    ApiV1ShopSellStatistics1,
 
     /**
      * The ApiV1StorekeepersTariffWarehouses model constructor.
@@ -1294,10 +1302,16 @@ export {
     InlineResponse20028,
 
     /**
-     * The InlineResponse20028Details model constructor.
-     * @property {module:model/InlineResponse20028Details}
+     * The InlineResponse20029 model constructor.
+     * @property {module:model/InlineResponse20029}
      */
-    InlineResponse20028Details,
+    InlineResponse20029,
+
+    /**
+     * The InlineResponse20029Details model constructor.
+     * @property {module:model/InlineResponse20029Details}
+     */
+    InlineResponse20029Details,
 
     /**
      * The InlineResponse2002AllowedUrls model constructor.

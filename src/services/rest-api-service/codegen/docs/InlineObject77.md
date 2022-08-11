@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | **Number** | Статус | [optional] 
+**additionalBoxes** | [**[InlineObject13]**](InlineObject13.md) | Массив дополнительных коробок которые случились при обработки. | [optional] 
 
 

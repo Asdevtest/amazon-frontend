@@ -147,6 +147,24 @@ class ClientModelStatic {
     return response
   }
 
+  calculatePriceToSeekSomeSuppliers = async ids => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGetPriceForClientPost({
+      body: {
+        productIds: ids,
+      },
+    })
+    return response
+  }
+
+  sendProductToSeekSomeSuppliers = async ids => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch({
+      body: {
+        productIds: ids,
+      },
+    })
+    return response
+  }
+
   sendProductToSeekSupplier = async (id, data) => {
     const response = await restApiService.clientApi.apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch(
       id,

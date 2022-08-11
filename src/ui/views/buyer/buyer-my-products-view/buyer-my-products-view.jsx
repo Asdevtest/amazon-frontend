@@ -26,7 +26,7 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 const attentionStatuses = [ProductStatus.BUYER_PICKED_PRODUCT, ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT]
 @observer
 export class BuyerMyProductsViewRaw extends Component {
-  viewModel = new BuyerMyProductsViewModel({history: this.props.history})
+  viewModel = new BuyerMyProductsViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()
@@ -57,7 +57,7 @@ export class BuyerMyProductsViewRaw extends Component {
     const {classes: classNames} = this.props
 
     const getRowClassName = params =>
-      attentionStatuses.includes(params.getValue(params.id, 'status')) && classNames.attentionRow
+      attentionStatuses.includes(params.getValue(params.id, 'statusForAttention')) && classNames.attentionRow
 
     return (
       <React.Fragment>

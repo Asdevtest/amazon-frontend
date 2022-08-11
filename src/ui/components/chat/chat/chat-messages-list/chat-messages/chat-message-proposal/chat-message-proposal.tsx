@@ -3,6 +3,7 @@ import React, {FC, useContext} from 'react'
 import clsx from 'clsx'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataCreatedNewProposalProposalDescriptionContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
@@ -12,6 +13,7 @@ import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel
 
 import {formatDateTimeHourAndMinutes} from '@utils/date-time'
 import {minsToTime, toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
@@ -92,7 +94,7 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
                   className={clsx(classNames.actionButton, classNames.successBtn)}
                   onClick={() => handlers.onClickProposalAccept(message.data._id, message.data.price)}
                 >
-                  {`Заказать за $${message.data.price}`}
+                  {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(message.data.price, 2)}`}
                 </Button>
               </div>
             ) : undefined}

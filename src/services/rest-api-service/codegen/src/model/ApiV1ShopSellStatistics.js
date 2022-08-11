@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class ApiV1ShopSellStatistics {
     /**
      * Constructs a new <code>ApiV1ShopSellStatistics</code>.
+     * Средняя статистика магазина за месяц
      * @alias module:model/ApiV1ShopSellStatistics
      */
     constructor() { 
@@ -47,20 +48,20 @@ class ApiV1ShopSellStatistics {
         if (data) {
             obj = obj || new ApiV1ShopSellStatistics();
 
-            if (data.hasOwnProperty('month')) {
-                obj['month'] = ApiClient.convertToType(data['month'], 'Date');
+            if (data.hasOwnProperty('monthlyProfit')) {
+                obj['monthlyProfit'] = ApiClient.convertToType(data['monthlyProfit'], 'Number');
             }
-            if (data.hasOwnProperty('grossIncome')) {
-                obj['grossIncome'] = ApiClient.convertToType(data['grossIncome'], 'Number');
+            if (data.hasOwnProperty('monthlyPureProfit')) {
+                obj['monthlyPureProfit'] = ApiClient.convertToType(data['monthlyPureProfit'], 'Number');
             }
-            if (data.hasOwnProperty('pureIncome')) {
-                obj['pureIncome'] = ApiClient.convertToType(data['pureIncome'], 'Number');
+            if (data.hasOwnProperty('monthlyProfitDiffPercentage')) {
+                obj['monthlyProfitDiffPercentage'] = ApiClient.convertToType(data['monthlyProfitDiffPercentage'], 'Number');
             }
-            if (data.hasOwnProperty('uniqueCustomers')) {
-                obj['uniqueCustomers'] = ApiClient.convertToType(data['uniqueCustomers'], 'Number');
+            if (data.hasOwnProperty('monthlyPureProfitDiffPercentage')) {
+                obj['monthlyPureProfitDiffPercentage'] = ApiClient.convertToType(data['monthlyPureProfitDiffPercentage'], 'Number');
             }
-            if (data.hasOwnProperty('webpageVisits')) {
-                obj['webpageVisits'] = ApiClient.convertToType(data['webpageVisits'], 'Number');
+            if (data.hasOwnProperty('webpageVisitsDiffPercentage')) {
+                obj['webpageVisitsDiffPercentage'] = ApiClient.convertToType(data['webpageVisitsDiffPercentage'], 'Number');
             }
         }
         return obj;
@@ -70,34 +71,34 @@ class ApiV1ShopSellStatistics {
 }
 
 /**
- * Дата статистики
- * @member {Date} month
+ * Ежемесячная прибыль
+ * @member {Number} monthlyProfit
  */
-ApiV1ShopSellStatistics.prototype['month'] = undefined;
+ApiV1ShopSellStatistics.prototype['monthlyProfit'] = undefined;
 
 /**
- * Валовый доход
- * @member {Number} grossIncome
+ * Ежемесячная чистая прибыль
+ * @member {Number} monthlyPureProfit
  */
-ApiV1ShopSellStatistics.prototype['grossIncome'] = undefined;
+ApiV1ShopSellStatistics.prototype['monthlyPureProfit'] = undefined;
 
 /**
- * Чистый доход
- * @member {Number} pureIncome
+ * Разница валового дохода (в процентах)
+ * @member {Number} monthlyProfitDiffPercentage
  */
-ApiV1ShopSellStatistics.prototype['pureIncome'] = undefined;
+ApiV1ShopSellStatistics.prototype['monthlyProfitDiffPercentage'] = undefined;
 
 /**
- * Кол-во клиентов
- * @member {Number} uniqueCustomers
+ * Разница чистого дохода (в процентах)
+ * @member {Number} monthlyPureProfitDiffPercentage
  */
-ApiV1ShopSellStatistics.prototype['uniqueCustomers'] = undefined;
+ApiV1ShopSellStatistics.prototype['monthlyPureProfitDiffPercentage'] = undefined;
 
 /**
- * Кол-во посещений вебсайта
- * @member {Number} webpageVisits
+ * Разница кол-ва посещений вебсайта (в процентах)
+ * @member {Number} webpageVisitsDiffPercentage
  */
-ApiV1ShopSellStatistics.prototype['webpageVisits'] = undefined;
+ApiV1ShopSellStatistics.prototype['webpageVisitsDiffPercentage'] = undefined;
 
 
 

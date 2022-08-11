@@ -33,8 +33,12 @@ export class FreelancerDashboardViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
-  onClickInfoCardViewMode(route) {
-    this.history.push(route)
+  onClickInfoCardViewMode(route, dataGridFilter) {
+    if (dataGridFilter) {
+      this.history.push(route, {dataGridFilter})
+    } else {
+      this.history.push(route)
+    }
   }
 
   async getPayments() {

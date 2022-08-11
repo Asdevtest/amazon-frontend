@@ -1,5 +1,6 @@
 import React from 'react'
 
+import {colorByProductStatus, ProductStatusByCode} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -28,7 +29,12 @@ export const researcherProductsViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 350,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={params.value}
+        color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
+      />
+    ),
   },
 
   {

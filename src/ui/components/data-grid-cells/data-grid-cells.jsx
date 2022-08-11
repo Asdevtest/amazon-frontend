@@ -339,9 +339,9 @@ export const RenderFieldValueCell = withStyles(styles)(({classes: classNames, va
   <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
 ))
 
-export const MultilineTextCell = withStyles(styles)(({classes: classNames, text, noTextText}) => (
+export const MultilineTextCell = withStyles(styles)(({classes: classNames, text, noTextText, color}) => (
   <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText}>
+    <Typography className={classNames.multilineText} style={color && {color}}>
       {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
     </Typography>
   </div>
@@ -1083,7 +1083,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
           row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF &&
           t(TranslationKey['The tariff is invalid or has been removed!'])
         }
-        tooltipInfoContent={isFirstRow && t(TranslationKey['Move a box from the current batch to another'])}
+        tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
         disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF}
         className={classNames.warehouseBoxesBtn}
         variant="contained"
@@ -1097,7 +1097,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
     {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
       <Button
         success
-        tooltipInfoContent={isFirstRow && t(TranslationKey['Add a box to a new or existing batch'])}
+        tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
         className={classNames.warehouseBoxesBtn}
         onClick={() => handlers.moveBox(row)}
       >
@@ -1164,7 +1164,7 @@ export const DownloadAndCopyBtnsCell = withStyles(styles)(({classes: classNames,
             </a>
           </Text>
           <Button
-            tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])}
+            tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link'])}
             className={classNames.copyImgButton}
           >
             <img className={classNames.copyImg} src="/assets/icons/copy-img.svg" alt="" onClick={copyValue} />
@@ -1191,11 +1191,11 @@ export const ShortBoxDimensions = withStyles(styles)(({classes: classNames, box,
         calcVolumeWeightForBox(box, volumeWeightCoefficient),
         2,
       )}`}</Typography>
-      <Typography className={clsx({[classNames.alertText]: finalWeight < 12})}>{`${t(
+      <Typography className={clsx({[classNames.alertText]: !box.isDraft && finalWeight < 12})}>{`${t(
         TranslationKey['Final weight'],
       )}: ${toFixedWithKg(finalWeight, 2)}`}</Typography>
 
-      {finalWeight < 12 ? (
+      {!box.isDraft && finalWeight < 12 ? (
         <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
       ) : null}
     </div>

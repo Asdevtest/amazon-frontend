@@ -60,7 +60,10 @@ export class ResearcherDashboardViewModel {
         ).length,
 
         [ResearcherDashboardCardDataKey.ON_SUPERVISOR_CHECKING]: result.filter(el =>
-          [ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT]].includes(el.status),
+          [
+            ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
+            ProductStatusByKey[ProductStatus.CHECKED_BY_SUPERVISOR],
+          ].includes(el.status),
         ).length,
 
         [ResearcherDashboardCardDataKey.ON_SUPPLIER_SEEKING_BY_BUYER]: result.filter(el =>

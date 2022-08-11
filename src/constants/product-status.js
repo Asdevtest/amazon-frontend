@@ -3,6 +3,8 @@
 */
 import {objectFlip} from '@utils/object'
 
+import {TranslationKey} from './translations/translation-key'
+
 export const ProductStatus = {
   NEW_PRODUCT: 'NEW_PRODUCT',
   RESEARCHER_FOUND_SUPPLIER: 'RESEARCHER_FOUND_SUPPLIER',
@@ -67,6 +69,135 @@ export const ProductStatusByCode = {
   275: ProductStatus.FROM_CLIENT_PAID_BY_CLIENT,
   280: ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND,
   290: ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
+}
+
+export const colorByProductStatus = status => {
+  if (
+    [
+      ProductStatus.NO_PUBLISHED,
+      ProductStatus.CREATED_BY_CLIENT,
+      ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR,
+      ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH,
+      ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT,
+      ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
+      ProductStatus.NEW_PRODUCT,
+      ProductStatus.RESEARCHER_CREATED_PRODUCT,
+      ProductStatus.RESEARCHER_FOUND_SUPPLIER,
+      ProductStatus.CHECKED_BY_SUPERVISOR,
+      ProductStatus.TO_BUYER_FOR_RESEARCH,
+      ProductStatus.BUYER_PICKED_PRODUCT,
+      ProductStatus.BUYER_FOUND_SUPPLIER,
+    ].includes(status)
+  ) {
+    return '#F3AF00'
+  } else if (
+    [
+      ProductStatus.COMPLETE_SUCCESS,
+      ProductStatus.PURCHASED_PRODUCT,
+      ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS,
+      ProductStatus.FROM_CLIENT_PAID_BY_CLIENT,
+    ].includes(status)
+  ) {
+    return '#00B746'
+  } else if (
+    [
+      ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP,
+      ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
+      ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+      ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND,
+      ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
+      ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
+      ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
+      ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND,
+      ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE,
+    ].includes(status)
+  ) {
+    return '#FF1616'
+  } else {
+    return '#black'
+  }
+}
+
+export const productStatusTranslateKey = status => {
+  switch (status) {
+    case ProductStatus.NEW_PRODUCT:
+      return TranslationKey['New product']
+
+    case ProductStatus.RESEARCHER_CREATED_PRODUCT:
+      return TranslationKey['Product on check with Supervisor']
+
+    case ProductStatus.RESEARCHER_FOUND_SUPPLIER:
+      return TranslationKey['Researcher found supplier']
+
+    case ProductStatus.CHECKED_BY_SUPERVISOR:
+      return TranslationKey['Product checked by Supervisor']
+
+    case ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP:
+      return TranslationKey['Rejected by Supervisor']
+
+    case ProductStatus.TO_BUYER_FOR_RESEARCH:
+      return TranslationKey['Is in search of a Buyer']
+
+    case ProductStatus.BUYER_PICKED_PRODUCT:
+      return TranslationKey['Product at the Buyer in work']
+
+    case ProductStatus.BUYER_FOUND_SUPPLIER:
+      return TranslationKey['Buyer found a supplier']
+
+    case ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER:
+      return TranslationKey['Supplier was not found']
+
+    case ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE:
+      return TranslationKey['Supplier price does not fit']
+
+    case ProductStatus.COMPLETE_SUCCESS:
+      return TranslationKey['Search complete']
+
+    case ProductStatus.PURCHASED_PRODUCT:
+      return TranslationKey['Product purchased']
+
+    case ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND:
+      return TranslationKey['Supplier was not found']
+
+    case ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE:
+      return TranslationKey['Supplier price does not fit']
+
+    case ProductStatus.NO_PUBLISHED:
+      return TranslationKey['Not published']
+
+    case ProductStatus.CREATED_BY_CLIENT:
+      return TranslationKey['Created by Client']
+
+    case ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR:
+      return TranslationKey['Product on check with Supervisor']
+
+    case ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH:
+      return TranslationKey['Is in search of a Buyer']
+
+    case ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT:
+      return TranslationKey['Product at the Buyer in work']
+
+    case ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER:
+      return TranslationKey['Buyer found a supplier']
+
+    case ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER:
+      return TranslationKey['Supplier was not found']
+
+    case ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE:
+      return TranslationKey['Supplier price does not fit']
+
+    case ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS:
+      return TranslationKey['Search complete']
+
+    case ProductStatus.FROM_CLIENT_PAID_BY_CLIENT:
+      return TranslationKey['Paid by the Client']
+
+    case ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND:
+      return TranslationKey['Supplier was not found']
+
+    case ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE:
+      return TranslationKey['Supplier price does not fit']
+  }
 }
 
 export const ProductStatusByKey = objectFlip(ProductStatusByCode, parseInt)

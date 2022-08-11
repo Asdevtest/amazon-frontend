@@ -40,6 +40,13 @@ class SellerBoardModelStatic {
     })
     return response
   }
+
+  refreshProducts = async data => {
+    const response = await restApiService.integrationsApi.apiV1IntegrationsRefreshProductsPatch({
+      body: data,
+    })
+    return response
+  }
 }
 
 export const SellerBoardModel = new SellerBoardModelStatic()

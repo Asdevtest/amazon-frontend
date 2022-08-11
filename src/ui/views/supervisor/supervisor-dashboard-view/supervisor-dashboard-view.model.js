@@ -90,15 +90,15 @@ export class SupervisorDashboardViewModel {
             [
               ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH],
               ProductStatusByKey[ProductStatus.BUYER_PICKED_PRODUCT],
-              ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
-              ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
-              ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
+              // ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
+              // ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
+              // ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
 
               ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH],
               ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_PICKED_PRODUCT],
-              ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER],
-              ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
-              ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
+              // ProductStatusByKey[ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER],
+              // ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
+              // ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],
             ].includes(el.status),
           ).length,
 
@@ -190,8 +190,12 @@ export class SupervisorDashboardViewModel {
     }
   }
 
-  onClickInfoCardViewMode(route) {
-    this.history.push(route)
+  onClickInfoCardViewMode(route, dataGridFilter) {
+    if (dataGridFilter) {
+      this.history.push(route, {dataGridFilter})
+    } else {
+      this.history.push(route)
+    }
   }
 
   async getProductsVacant() {

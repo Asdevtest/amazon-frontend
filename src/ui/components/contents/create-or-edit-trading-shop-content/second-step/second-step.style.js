@@ -759,7 +759,7 @@ export const useClassNames = makeStyles(() => ({
   totalsPercentsContainer: {
     display: 'flex',
 
-    width: 200,
+    width: 240,
 
     justifyContent: 'space-between',
   },

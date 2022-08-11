@@ -120,7 +120,7 @@ export const OwnerRequestProposalsCard = ({
                 className={clsx(classNames.actionButton, classNames.successBtn)}
                 onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
               >
-                {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price)}`}
+                {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
               </Button>
             </>
           ) : undefined}

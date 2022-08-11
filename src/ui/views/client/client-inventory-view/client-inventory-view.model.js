@@ -3,7 +3,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
-import {ProductStatus} from '@constants/product-status'
+import {ProductStatus, ProductStatusByCode} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -75,6 +75,7 @@ export class ClientInventoryViewModel {
   product = undefined
   ordersDataStateToSubmit = undefined
 
+  baseNoConvertedProducts = undefined
   productsMy = []
   productsMyBase = []
   withoutProduct = false
@@ -167,7 +168,7 @@ export class ClientInventoryViewModel {
         ProductStatus.FROM_CLIENT_BUYER_FOUND_SUPPLIER,
         ProductStatus.FROM_CLIENT_SUPPLIER_WAS_NOT_FOUND_BY_BUYER,
         ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE,
-      ].includes(findProduct?.status)
+      ].includes(ProductStatusByCode[findProduct?.originalData.status])
     })
   }
 
@@ -188,6 +189,10 @@ export class ClientInventoryViewModel {
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
+
+      this.productsMy = clientInventoryDataConverter(
+        this.baseNoConvertedProducts.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+      )
     }
   }
 
@@ -410,6 +415,8 @@ export class ClientInventoryViewModel {
       const result = await ClientModel.getProductsMyFilteredByShopId(this.currentShop && {shopId: this.currentShop._id})
 
       runInAction(() => {
+        this.baseNoConvertedProducts = result
+
         this.productsMy = clientInventoryDataConverter(result).sort(
           sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
@@ -629,9 +636,42 @@ export class ClientInventoryViewModel {
     }
   }
 
-  onClickAddSupplierBtn() {
-    this.selectedRowId = this.selectedRowIds[0]
-    this.onTriggerOpenModal('showSelectionSupplierModal')
+  async onClickParseProductsBtn() {
+    try {
+      await SellerBoardModel.refreshProducts(this.selectedRowIds)
+
+      this.successModalText = t(TranslationKey['Parsing data updated'])
+      this.onTriggerOpenModal('showSuccessModal')
+    } catch (error) {
+      this.showInfoModalTitle = t(TranslationKey['Parsing data not updated'])
+      this.onTriggerOpenModal('showInfoModal')
+
+      console.log(error)
+    }
+  }
+
+  async onClickAddSupplierBtn() {
+    try {
+      if (this.selectedRowIds.length > 1) {
+        const result = await ClientModel.calculatePriceToSeekSomeSuppliers(this.selectedRowIds)
+        this.confirmMessage = this.confirmModalSettings = {
+          isWarning: false,
+          confirmTitle: t(TranslationKey.Attention),
+          confirmMessage: `${t(TranslationKey['The cost of the supplier search service will be'])} $${toFixed(
+            result.priceForClient,
+            2,
+          )}.\n ${t(TranslationKey['Apply?'])}`,
+          onClickConfirm: () => this.onSubmitSeekSomeSuppliers(),
+        }
+
+        this.onTriggerOpenModal('showConfirmModal')
+      } else {
+        this.selectedRowId = this.selectedRowIds[0]
+        this.onTriggerOpenModal('showSelectionSupplierModal')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async onSubmitCalculateSeekSupplier(clientComment) {
@@ -651,6 +691,18 @@ export class ClientInventoryViewModel {
         )}.\n ${t(TranslationKey['Apply?'])}`,
         onClickConfirm: () => this.onSubmitSeekSupplier(),
       }
+
+      this.onTriggerOpenModal('showConfirmModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onSubmitSeekSomeSuppliers() {
+    try {
+      await ClientModel.sendProductToSeekSomeSuppliers(this.selectedRowIds)
+
+      this.loadData()
 
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {

@@ -101,7 +101,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   footerInfoContainer: {
-    width: 'min-content',
+    // width: 'min-content',
     margin: '0 20px 0 0',
   },
 
@@ -114,5 +114,10 @@ export const useClassNames = makeStyles(() => ({
 
   actionButton: {
     padding: '8px 60px',
+  },
+
+  percentWrapper: {
+    display: 'flex',
+    alignItems: 'center',
   },
 }))

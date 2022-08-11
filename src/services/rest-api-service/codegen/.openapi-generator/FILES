@@ -48,6 +48,7 @@ docs/ApiV1RequestsCustomDetailsCustom.md
 docs/ApiV1RequestsCustomGuidRequest.md
 docs/ApiV1RequestsCustomRequest.md
 docs/ApiV1ShopSellStatistics.md
+docs/ApiV1ShopSellStatistics1.md
 docs/ApiV1StorekeepersTariffWarehouses.md
 docs/ApiV1SuppliersBoxProperties.md
 docs/BadRequestError.md
@@ -175,7 +176,8 @@ docs/InlineResponse20025.md
 docs/InlineResponse20026.md
 docs/InlineResponse20027.md
 docs/InlineResponse20028.md
-docs/InlineResponse20028Details.md
+docs/InlineResponse20029.md
+docs/InlineResponse20029Details.md
 docs/InlineResponse2002AllowedUrls.md
 docs/InlineResponse2002PermissionGroups.md
 docs/InlineResponse2002Permissions.md
@@ -316,6 +318,7 @@ src/model/ApiV1RequestsCustomDetailsCustom.js
 src/model/ApiV1RequestsCustomGuidRequest.js
 src/model/ApiV1RequestsCustomRequest.js
 src/model/ApiV1ShopSellStatistics.js
+src/model/ApiV1ShopSellStatistics1.js
 src/model/ApiV1StorekeepersTariffWarehouses.js
 src/model/ApiV1SuppliersBoxProperties.js
 src/model/BadRequestError.js
@@ -437,7 +440,8 @@ src/model/InlineResponse20025.js
 src/model/InlineResponse20026.js
 src/model/InlineResponse20027.js
 src/model/InlineResponse20028.js
-src/model/InlineResponse20028Details.js
+src/model/InlineResponse20029.js
+src/model/InlineResponse20029Details.js
 src/model/InlineResponse2002AllowedUrls.js
 src/model/InlineResponse2002PermissionGroups.js
 src/model/InlineResponse2002Permissions.js

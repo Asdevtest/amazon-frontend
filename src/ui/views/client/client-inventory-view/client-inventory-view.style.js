@@ -31,6 +31,7 @@ export const styles = createStyles({
   },
 
   archiveAddBtn: {
+    width: 230,
     border: '1px solid #FF1616',
     color: '#FF1616',
 
@@ -72,6 +73,7 @@ export const styles = createStyles({
   },
 
   openArchiveBtn: {
+    width: 230,
     padding: '0 30px 0 30px',
   },
 
@@ -94,5 +96,23 @@ export const styles = createStyles({
 
   icon: {
     marginLeft: '15px',
+    justifySelf: 'flex-end',
+  },
+
+  simpleBtnsWrapper: {
+    display: 'flex',
+    gap: '30px',
+  },
+
+  topHeaderBtnsWrapper: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+
+  rightAddingBtn: {
+    width: 260,
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 })

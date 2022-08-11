@@ -60,6 +60,7 @@ export class BuyerMyOrdersViewModel {
   firstRowId = undefined
 
   sortModel = []
+  startFilterModel = undefined
   filterModel = {items: []}
   curPage = 0
   rowsPerPage = 15
@@ -75,6 +76,10 @@ export class BuyerMyOrdersViewModel {
 
     if (location.state?.orderId) {
       this.onClickOrder(location.state.orderId)
+    }
+
+    if (location?.state?.dataGridFilter) {
+      this.startFilterModel = location.state.dataGridFilter
     }
 
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -118,7 +123,7 @@ export class BuyerMyOrdersViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
+      this.filterModel = this.startFilterModel ? this.startFilterModel : state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value

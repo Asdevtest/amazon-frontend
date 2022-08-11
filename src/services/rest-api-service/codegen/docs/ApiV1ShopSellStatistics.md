@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**month** | **Date** | Дата статистики | [optional] 
-**grossIncome** | **Number** | Валовый доход | [optional] 
-**pureIncome** | **Number** | Чистый доход | [optional] 
-**uniqueCustomers** | **Number** | Кол-во клиентов | [optional] 
-**webpageVisits** | **Number** | Кол-во посещений вебсайта | [optional] 
+**monthlyProfit** | **Number** | Ежемесячная прибыль | [optional] 
+**monthlyPureProfit** | **Number** | Ежемесячная чистая прибыль | [optional] 
+**monthlyProfitDiffPercentage** | **Number** | Разница валового дохода (в процентах) | [optional] 
+**monthlyPureProfitDiffPercentage** | **Number** | Разница чистого дохода (в процентах) | [optional] 
+**webpageVisitsDiffPercentage** | **Number** | Разница кол-ва посещений вебсайта (в процентах) | [optional] 
 
 
