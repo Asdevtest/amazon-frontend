@@ -381,7 +381,7 @@
   "Return to stock": "Вернуть на склад",
   "Warehouse report": "Отчет со склада",
   "Dashboard by goods/days": "Dashboard по товарам/дням",
-  "Add shop": "Добавление магазина",
+  "Add shop": "Добавить магазин",
   "Store name": "Название магазина",
   "Link to report from the warehouse": "Ссылка на отчет со склада",
   "Link to dashboard by item/day": "Ссылка на дашборд по товарам/дням",
@@ -1436,5 +1436,10 @@
   "Parsing data not updated": "Данные парсинга не обновлены",
   "Attach file": "Прикрепить файл",
   "Invalid proxy": "Невалидный proxy",
-  "Save Proxy": "Сохранить Прокси"
+  "Save Proxy": "Сохранить Прокси",
+  "All Ads": "Все объявления",
+  "Sold Ads": "Проданные",
+  "Purchased Ads": "Купленные",
+  "Editing an ad to sell the store": "Редактирование объявления для продажи магазина",
+  "Accept the changes": "Принять изменения"
 }

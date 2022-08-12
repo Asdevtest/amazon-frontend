@@ -98,4 +98,21 @@ export const useClassNames = makeStyles(() => ({
   addBtn: {
     padding: '8px 55px',
   },
+
+  boxesFiltersWrapper: {
+    display: 'flex',
+    gap: '40px',
+    marginBottom: 10,
+  },
+
+  button: {
+    marginBottom: 5,
+  },
+
+  selectedBoxesBtn: {
+    marginBottom: 0,
+    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
+
+    borderBottom: '5px solid #0460DE',
+  },
 }))

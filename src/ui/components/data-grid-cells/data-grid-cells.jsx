@@ -426,8 +426,8 @@ export const OrderStatusCell = withStyles(styles)(({classes: classNames, status}
   const colorStatus = colorByStatus()
 
   return (
-    <div className={classNames.statusWrapper}>
-      <Typography className={classNames.orderStatusText} style={{color: colorStatus}}>
+    <div className={classNames.multilineTextWrapper}>
+      <Typography className={classNames.multilineStatusText} style={{color: colorStatus}}>
         {OrderStatusTranslate(status)}
       </Typography>
     </div>

@@ -17,9 +17,11 @@ import {useClassNames} from './estimate-create-trading-shop-form.style'
 const reqMultiplier = 20
 
 export const EstimateCreateTradingShopForm = ({
+  isEdit,
   formFields,
   onChangeField,
   onCreateSubmit,
+  onEditSubmit,
   setOpenModal,
   makeEstimate,
   files,
@@ -42,7 +44,12 @@ export const EstimateCreateTradingShopForm = ({
         })),
     }
 
-    onCreateSubmit(dataToCreate, files)
+    if (isEdit) {
+      onEditSubmit(dataToCreate, files)
+    } else {
+      onCreateSubmit(dataToCreate, files)
+    }
+
     setSubmitIsClicked(true)
   }
 
@@ -65,7 +72,9 @@ export const EstimateCreateTradingShopForm = ({
   return (
     <div className={classNames.modalMessageWrapper}>
       <Typography className={classNames.modalMessageTitle}>
-        {t(TranslationKey['Adding an ad to sell the store'])}
+        {isEdit
+          ? t(TranslationKey['Editing an ad to sell the store'])
+          : t(TranslationKey['Adding an ad to sell the store'])}
       </Typography>
 
       <div className={clsx(classNames.fieldsWrapper, {[classNames.oneFieldInRow]: !makeEstimate})}>
@@ -82,7 +91,7 @@ export const EstimateCreateTradingShopForm = ({
             label={t(TranslationKey['Estimated cost'])}
             inputComponent={
               <div className={classNames.estimateCostWrapper}>
-                <Typography>{averagePureIncome * reqMultiplier}</Typography>
+                <Typography>{toFixed(averagePureIncome * reqMultiplier, 2)}</Typography>
 
                 <Button variant="text" className={classNames.applyBtn} onClick={applyReqMultiplier}>
                   {t(TranslationKey.Apply)}
@@ -136,7 +145,9 @@ export const EstimateCreateTradingShopForm = ({
       </div>
 
       <Typography className={classNames.confirmText}>
-        {`${t(TranslationKey['Post an ad for a store for'])} ${formFields.price || 0} $ ?`}
+        {isEdit
+          ? `${t(TranslationKey['Accept the changes'])}?`
+          : `${t(TranslationKey['Post an ad for a store for'])} ${formFields.price || 0} $ ?`}
       </Typography>
 
       <div className={classNames.buttonsWrapper}>

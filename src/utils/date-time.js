@@ -1,4 +1,13 @@
-import {format, formatDistance, compareDesc, compareAsc, parseISO, formatDistanceStrict, formatISO} from 'date-fns'
+import {
+  format,
+  formatDistance,
+  compareDesc,
+  compareAsc,
+  parseISO,
+  formatDistanceStrict,
+  formatISO,
+  isValid,
+} from 'date-fns'
 import enUS from 'date-fns/locale/en-US'
 import ruLocale from 'date-fns/locale/ru'
 
@@ -40,9 +49,14 @@ export const formatDateDistanceFromNowStrict = (date, tryNow) =>
   })
 
 export const formatDateMonthYear = date =>
-  format(parseISO(formatISO(date, {representation: 'date'})), 'MMM yyyy', {
+  format(parseISO(isValid(date) ? formatISO(date, {representation: 'date'}) : date), 'MMM yyyy', {
     locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
   })
+
+// export const formatDateMonthYear = date =>
+//   format(parseISO(formatISO(date, {representation: 'date'})), 'MMM yyyy', {
+//     locale: SettingsModel.languageTag === 'ru' ? ruLocale : enUS,
+//   })
 
 export const formatDateMonthYearWithoutFormatISO = date =>
   format(parseISO(date), 'MMM yyyy', {

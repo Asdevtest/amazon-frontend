@@ -29,7 +29,7 @@ export class ClientShopView extends Component {
   }
 
   render() {
-    const {drawerOpen, shopInfo, onTriggerDrawerOpen, history} = this.viewModel
+    const {drawerOpen, userInfo, shopInfo, onTriggerDrawerOpen, history, onClickEditBtn} = this.viewModel
     console.log(shopInfo)
 
     return (
@@ -46,7 +46,11 @@ export class ClientShopView extends Component {
         />
         <Main>
           <Appbar title={t(TranslationKey.Shop)} setDrawerOpen={onTriggerDrawerOpen}>
-            <MainContent>{shopInfo ? <ShopWrapper shopInfo={shopInfo} /> : null}</MainContent>
+            <MainContent>
+              {shopInfo ? (
+                <ShopWrapper userInfo={userInfo} shopInfo={shopInfo} onClickEditBtn={onClickEditBtn} />
+              ) : null}
+            </MainContent>
           </Appbar>
         </Main>
       </React.Fragment>

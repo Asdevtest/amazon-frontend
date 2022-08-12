@@ -14,7 +14,7 @@ import {toFixed} from '@utils/text'
 
 import {useClassNames} from './shop-info.style'
 
-export const ShopInfo = observer(({data}) => {
+export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
   const classNames = useClassNames()
 
   const averageGrossIncome =
@@ -80,12 +80,16 @@ export const ShopInfo = observer(({data}) => {
             </div>
           </div>
           <div className={classNames.buttonsWrapper}>
-            <Button disabled className={classNames.editButton}>
-              {'Редактировать'}
-            </Button>
-            <Button disabled danger className={classNames.deleteButton}>
-              {'Удалить объявление'}
-            </Button>
+            {userInfo._id === data.ownerId ? (
+              <>
+                <Button className={classNames.editButton} onClick={onClickEditBtn}>
+                  {'Редактировать'}
+                </Button>
+                <Button disabled danger className={classNames.deleteButton}>
+                  {'Удалить объявление'}
+                </Button>
+              </>
+            ) : null}
           </div>
         </div>
       </div>

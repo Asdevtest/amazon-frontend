@@ -1,12 +1,10 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import SearchIcon from '@mui/icons-material/Search'
-import TableRowsIcon from '@mui/icons-material/TableRows'
-import ViewModuleIcon from '@mui/icons-material/ViewModule'
 
 import React, {useEffect, useRef} from 'react'
 
-import {Box, InputAdornment, Typography} from '@material-ui/core'
+import {InputAdornment, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
@@ -16,8 +14,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
 import {VacantRequestShortCard} from '@components/cards/vacant-request-short-card'
 import {Field} from '@components/field'
-import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
-import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
 import {t} from '@utils/translations'
@@ -41,7 +37,6 @@ export const ClientSellShopsDeals = observer(() => {
     sortMode,
     onTriggerSortMode,
     onClickViewMore,
-    onChangeViewMode,
     onChangeNameSearchValue,
   } = model.current
 
@@ -58,20 +53,11 @@ export const ClientSellShopsDeals = observer(() => {
   return (
     <>
       <div className={classNames.tablePanelWrapper}>
-        <div className={classNames.tablePanelViewWrapper}>
-          <ToggleBtnGroup disabled exclusive value={viewMode} onChange={onChangeViewMode}>
-            <ToggleBtn value={tableViewMode.LIST}>
-              <TableRowsIcon color="#fff" />
-            </ToggleBtn>
-            <ToggleBtn value={tableViewMode.BLOCKS}>
-              <ViewModuleIcon color="#fff" />
-            </ToggleBtn>
-          </ToggleBtnGroup>
-        </div>
-
+        <div />
         <div>
           <Field
             containerClasses={classNames.searchContainer}
+            placeholder={t(TranslationKey.search)}
             inputClasses={classNames.searchInput}
             value={nameSearchValue}
             endAdornment={
@@ -95,7 +81,7 @@ export const ClientSellShopsDeals = observer(() => {
       </div>
 
       {getSortedData(sortMode)?.length ? (
-        <Box
+        <div
           container
           classes={{root: classNames.dashboardCardWrapper}}
           display="grid"
@@ -113,7 +99,7 @@ export const ClientSellShopsDeals = observer(() => {
               <VacantRequestShortCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
             ),
           )}
-        </Box>
+        </div>
       ) : (
         <div className={classNames.emptyTableWrapper}>
           <img src="/assets/icons/empty-table.svg" />

@@ -23,6 +23,14 @@ export class ClientSellShopsAdsModel {
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
 
+  filtersSettings = {
+    ALL_ADS: 'ALL_ADS',
+    SOLD_ADS: 'SOLD_ADS',
+    PURCHASED_ADS: 'PURCHASED_ADS',
+  }
+
+  curFilter = this.filtersSettings.ALL_ADS
+
   get user() {
     return UserModel.userInfo
   }
@@ -62,6 +70,10 @@ export class ClientSellShopsAdsModel {
 
   onChangeNameSearchValue(e) {
     this.nameSearchValue = e.target.value
+  }
+
+  onClickFilterBtn(filter) {
+    this.curFilter = filter
   }
 
   async loadData() {
