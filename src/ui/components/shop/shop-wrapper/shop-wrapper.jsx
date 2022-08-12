@@ -9,12 +9,12 @@ import {BottomCard} from './bottom-card'
 import {useClassNames} from './shop-wrapper.style'
 import {TopCard} from './top-card'
 
-export const ShopWrapper = observer(({shopInfo}) => {
+export const ShopWrapper = observer(({userInfo, shopInfo, onClickEditBtn}) => {
   const classNames = useClassNames()
 
   return (
     <div className={classNames.shopWrapper}>
-      <TopCard data={shopInfo} />
+      <TopCard userInfo={userInfo} data={shopInfo} onClickEditBtn={onClickEditBtn} />
       <div className={classNames.chartsWrapper}>
         <BarChartsCard
           isRevenue

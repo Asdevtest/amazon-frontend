@@ -23,13 +23,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   photoWrapper: {
-    width: 333,
-    height: 270,
+    // display: 'flex',
+    width: '23%',
+    height: 290,
     marginRight: 15,
   },
 
   subWrapper: {
-    width: '100%',
+    width: '77%',
   },
 
   titleWrapper: {
@@ -40,6 +41,7 @@ export const useClassNames = makeStyles(() => ({
 
   statusWrapper: {
     display: 'flex',
+    alignItems: 'center',
   },
 
   title: {
@@ -119,5 +121,14 @@ export const useClassNames = makeStyles(() => ({
   percentWrapper: {
     display: 'flex',
     alignItems: 'center',
+  },
+
+  status: {
+    marginRight: 10,
+  },
+
+  statusIcon: {
+    width: 12,
+    height: 12,
   },
 }))

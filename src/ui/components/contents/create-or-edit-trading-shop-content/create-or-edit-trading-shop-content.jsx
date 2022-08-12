@@ -53,7 +53,7 @@ export const CreateOrEditTradingShopContent = ({
   requestToEdit,
   history,
   onCreateSubmit,
-  // onEditSubmit,
+  onEditSubmit,
   showProgress,
   progressValue,
 }) => {
@@ -71,21 +71,21 @@ export const CreateOrEditTradingShopContent = ({
     title: requestToEdit?.title || '',
     price: requestToEdit?.price || '',
     businessStartDate: requestToEdit?.businessStartDate || null,
-    shopDetails: '',
+    shopDetails: requestToEdit?.shopDetails || '',
 
-    shopAssets: [],
+    shopAssets: requestToEdit?.shopAssets || [],
 
-    files: [],
-    shopLink: '',
+    files: requestToEdit?.files || [],
+    shopLink: requestToEdit?.shopLink || '',
 
-    statistics: fillMonthes(),
+    statistics: requestToEdit?.statistics || fillMonthes(),
 
-    opportunities: [],
-    risks: [],
-    requiredSkills: [],
-    sellIncludes: [],
-    reasonForSale: [],
-    additionalInfo: [],
+    opportunities: requestToEdit?.opportunities || [],
+    risks: requestToEdit?.risks || [],
+    requiredSkills: requestToEdit?.requiredSkills || [],
+    sellIncludes: requestToEdit?.sellIncludes || [],
+    reasonForSale: requestToEdit?.reasonForSale || [],
+    additionalInfo: requestToEdit?.additionalInfo || [],
   }
   const [formFields, setFormFields] = useState(sourceFormFields)
 
@@ -142,11 +142,6 @@ export const CreateOrEditTradingShopContent = ({
     } else if (curStep === stepVariant.STEP_TWO) {
       setCurStep(stepVariant.STEP_THREE)
     } else {
-      // if (makeEstimate) {
-      // } else {
-      //   onCreateSubmit(formFields, images)
-      // }
-
       setShowEstimateModal(true)
     }
   }
@@ -307,12 +302,14 @@ export const CreateOrEditTradingShopContent = ({
 
       <Modal openModal={showEstimateModal} setOpenModal={() => setShowEstimateModal(!showEstimateModal)}>
         <EstimateCreateTradingShopForm
+          isEdit={requestToEdit}
           files={images}
           makeEstimate={makeEstimate}
           formFields={formFields}
           setOpenModal={() => setShowEstimateModal(!showEstimateModal)}
           onChangeField={onChangeField}
           onCreateSubmit={onCreateSubmit}
+          onEditSubmit={onEditSubmit}
         />
       </Modal>
 

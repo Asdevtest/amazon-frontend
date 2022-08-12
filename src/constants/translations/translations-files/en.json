@@ -1436,5 +1436,10 @@
   "Parsing data not updated": "Parsing data not updated",
   "Attach file": "Attach file",
   "Invalid proxy": "Invalid proxy",
-  "Save Proxy": "Save Proxy"
+  "Save Proxy": "Save Proxy",
+  "All Ads": "All Ads",
+  "Sold Ads": "Sold Ads",
+  "Purchased Ads": "Purchased Ads",
+  "Editing an ad to sell the store": "Editing an ad to sell the store",
+  "Accept the changes": "Accept the changes"
 }

@@ -30,13 +30,14 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
         <div className={classNames.photoWrapper}>
           <PhotoCarousel files={item.files} alignButtons="end" />
         </div>
+
         <div className={classNames.subWrapper}>
           <div className={classNames.titleWrapper}>
             <Typography className={classNames.title}>{item.title}</Typography>
 
             <div className={classNames.statusWrapper}>
-              <Typography className={classNames.cardTitle}>{'Продается'}</Typography>
-              <FiberManualRecordRoundedIcon color="#007bff" />
+              <Typography className={classNames.status}>{'Продается'}</Typography>
+              <FiberManualRecordRoundedIcon color="#007bff" classes={{root: classNames.statusIcon}} fontSize="small" />
             </div>
           </div>
 

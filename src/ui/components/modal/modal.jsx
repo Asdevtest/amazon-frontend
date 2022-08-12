@@ -34,9 +34,8 @@ export const Modal = ({openModal, isWarning, setOpenModal, dialogContextClassNam
       scroll="body"
       onClose={
         event =>
-          (event.detail !== 0 || event.code === 'Escape') && missClickModalOn
-            ? setShowMissclickModal(!showMissclickModal)
-            : setOpenModal(false) // event.detail!==0 чтобы модалка не закрывалась при клике на внешний скролл
+          (event.detail !== 0 || event.code === 'Escape') &&
+          (missClickModalOn ? setShowMissclickModal(!showMissclickModal) : setOpenModal(false)) // event.detail!==0 чтобы модалка не закрывалась при клике на внешний скролл
       }
     >
       <CloseRoundedIcon className={classNames.closeIcon} fontSize="large" onClick={() => setOpenModal()} />

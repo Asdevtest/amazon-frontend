@@ -91,11 +91,29 @@ export const useClassNames = makeStyles(() => ({
   btnsWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20,
   },
 
   addBtn: {
-    padding: '8px 55px',
+    height: 52,
+    padding: '8px 25px',
+  },
+
+  boxesFiltersWrapper: {
+    display: 'flex',
+    gap: '40px',
+  },
+
+  button: {
+    marginBottom: 5,
+  },
+
+  selectedBoxesBtn: {
+    marginBottom: 0,
+    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
+
+    borderBottom: '5px solid #0460DE',
   },
 }))

@@ -108,6 +108,7 @@ export const styles = createStyles({
   },
 
   topHeaderBtnsWrapper: {
+    paddingTop: 5,
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',

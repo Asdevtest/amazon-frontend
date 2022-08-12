@@ -23,6 +23,13 @@ export class ClientBuyShopsAdsModel {
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
 
+  filtersSettings = {
+    ALL_ADS: 'ALL_ADS',
+    PURCHASED_ADS: 'PURCHASED_ADS',
+  }
+
+  curFilter = this.filtersSettings.ALL_ADS
+
   get user() {
     return UserModel.userInfo
   }
@@ -50,6 +57,10 @@ export class ClientBuyShopsAdsModel {
   onChangeViewMode(event, nextView) {
     this.viewMode = nextView
     this.setTableModeState()
+  }
+
+  onClickFilterBtn(filter) {
+    this.curFilter = filter
   }
 
   getCurrentData() {

@@ -562,7 +562,7 @@ export const styles = createStyles(() => ({
   },
 
   multilineStatusText: {
-    textAlign: 'left',
+    textAlign: 'center',
     whiteSpace: 'normal',
     fontSize: '14px',
     lineHeight: '16px',

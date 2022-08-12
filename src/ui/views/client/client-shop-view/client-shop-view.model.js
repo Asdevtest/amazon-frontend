@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {ShopSellModel} from '@models/shop-sell-model'
+import {UserModel} from '@models/user-model'
 
 export class ClientShopViewModel {
   history = undefined
@@ -8,6 +9,10 @@ export class ClientShopViewModel {
   drawerOpen = false
 
   shopSellId = undefined
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   constructor({history, location}) {
     this.history = history
@@ -36,6 +41,10 @@ export class ClientShopViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  onClickEditBtn() {
+    this.history.push('/client/trading-shops/sell-shops/edit-trading-shop', {request: this.shopInfo})
   }
 
   onTriggerDrawerOpen() {
