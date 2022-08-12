@@ -113,7 +113,7 @@ export const BoxViewForm = observer(
                         disabled
                         inputClasses={classNames.countField}
                         label={t(TranslationKey['HS code'])}
-                        value={item.product.hsCode}
+                        value={item.product.hsCode || t(TranslationKey['Not available'])}
                         placeholder={'N/A'}
                       />
                       <Field

@@ -1441,5 +1441,7 @@
   "Sold Ads": "Проданные",
   "Purchased Ads": "Купленные",
   "Editing an ad to sell the store": "Редактирование объявления для продажи магазина",
-  "Accept the changes": "Принять изменения"
+  "Accept the changes": "Принять изменения",
+  "Proxy successfully saved": "Прокси успешно сохранены",
+  "Proxy is not saved": "Прокси не сохранены"
 }

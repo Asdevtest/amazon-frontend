@@ -31,7 +31,7 @@ export const Modal = ({openModal, isWarning, setOpenModal, dialogContextClassNam
         paperScrollBody: clsx(classNames.dialogContent, {[classNames.warningPaper]: isWarning}),
       }}
       open={openModal}
-      scroll="body"
+      scroll={'body'}
       onClose={
         event =>
           (event.detail !== 0 || event.code === 'Escape') &&

@@ -79,6 +79,7 @@ export const AdminSettingsContent = observer(() => {
     confirmModalSettings,
     showConfirmModal,
     onClickCancelBtn,
+    onCloseInfoModal,
   } = asModel.current
 
   const [formFields, setFormFields] = useState({})
@@ -175,6 +176,8 @@ export const AdminSettingsContent = observer(() => {
     Number(formFields.deadlineForFindingSupplier) === 0 ||
     Number(formFields.costOfCheckingProduct) === 0
 
+  const disabledSubmitProxy = JSON.stringify(serverProxy) === JSON.stringify(proxyArr)
+
   return (
     SettingsModel.languageTag && (
       <div className={classNames.mainWrapper}>
@@ -221,6 +224,7 @@ export const AdminSettingsContent = observer(() => {
                 formFields={formFields}
                 disabledSubmit={disabledSubmitFirstBlock || activeTab !== tabsValues.MAIN}
                 disabledAddButton={activeTab !== tabsValues.MAIN}
+                disabledSubmitProxy={disabledSubmitProxy}
                 proxyArr={proxyArr}
                 setProxyArr={setProxyArr}
                 onChangeField={onChangeField}
@@ -341,11 +345,11 @@ export const AdminSettingsContent = observer(() => {
 
         <WarningInfoModal
           openModal={showInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showInfoModal')}
+          setOpenModal={() => onCloseInfoModal()}
           title={infoModalText}
           btnText={t(TranslationKey.Close)}
           onClickBtn={() => {
-            onTriggerOpenModal('showInfoModal')
+            onCloseInfoModal()
           }}
         />
       </div>

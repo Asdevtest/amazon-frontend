@@ -22,14 +22,14 @@ export const TabMainContent = ({
   onSubmitProxy,
   formFields,
   disabledAddButton,
+  disabledSubmitProxy,
   setProxyArr,
   proxyArr,
 }) => {
   const classNames = useClassNames()
   const [proxy, setProxy] = useState('')
   const [error, setError] = useState(false)
-  console.log(proxy)
-  console.log(error)
+
   const regExp =
     /\b[a-zA-Z0-9]+:[a-zA-Z0-9]+@(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\d{1,5}\b/
 
@@ -131,7 +131,7 @@ export const TabMainContent = ({
           ))}
 
         <div className={classNames.proxyButtonWrapper}>
-          <Button className={classNames.submitButton} onClick={() => onSubmitProxy()}>
+          <Button disabled={disabledSubmitProxy} className={classNames.submitButton} onClick={() => onSubmitProxy()}>
             {t(TranslationKey['Save Proxy'])}
           </Button>
         </div>
