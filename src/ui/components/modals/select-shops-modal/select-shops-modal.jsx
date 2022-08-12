@@ -21,8 +21,8 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
   const [currentShopsIds, setCurrentShopsIds] = useState([])
 
   useEffect(() => {
-    !selectedItem ? setClearSelect(true) : setClearSelect(false)
-  }, [selectedItem])
+    !selectedItem && shops?.length ? setClearSelect(true) : setClearSelect(false)
+  }, [selectedItem, shops])
 
   const onChangeShopNamesField = () => {
     setClearSelect(true)
@@ -52,12 +52,12 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
             inputComponent={
               <div className={classNames.shopsFieldWrapper}>
                 <Select
-                  value={shopsNames}
-                  disabled={!shops}
+                  value={shops?.length ? shopsNames : t(TranslationKey['No stores'])}
+                  disabled={!shops.length}
                   renderValue={() =>
                     clearSelect
                       ? t(TranslationKey['Select a store'])
-                      : !shops
+                      : !shopsNames.length
                       ? t(TranslationKey['No stores'])
                       : selectedItem?.name
                   }
@@ -71,7 +71,11 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
                     </MenuItem>
                   ))}
                 </Select>
-                <Button disabled={!shops} className={classNames.shopsFieldAddButton} onClick={onChangeShopNamesField}>
+                <Button
+                  disabled={!shops.length}
+                  className={classNames.shopsFieldAddButton}
+                  onClick={onChangeShopNamesField}
+                >
                   {t(TranslationKey.Add)}
                 </Button>
               </div>

@@ -69,8 +69,8 @@ export const FieldsAndSuppliers = observer(
     }, [currentShopsIds])
 
     useEffect(() => {
-      !selectedItem ? setClearSelect(true) : setClearSelect(false)
-    }, [selectedItem])
+      !selectedItem && shops?.length ? setClearSelect(true) : setClearSelect(false)
+    }, [selectedItem, shops])
 
     const onClickSkuBtn = () => {
       onChangeField('skusByClient')({target: {value: [...product.skusByClient, skuLine.toUpperCase()]}})
@@ -407,12 +407,12 @@ export const FieldsAndSuppliers = observer(
               inputComponent={
                 <div className={classNames.shopsFieldWrapper}>
                   <Select
-                    value={shopsNames}
-                    disabled={!shops}
+                    value={shops?.length ? shopsNames : t(TranslationKey['No stores'])}
+                    disabled={!shops.length}
                     renderValue={() =>
                       clearSelect
                         ? t(TranslationKey['Select a store'])
-                        : !shops
+                        : !shopsNames.length
                         ? t(TranslationKey['No stores'])
                         : selectedItem?.name
                     }
@@ -427,7 +427,9 @@ export const FieldsAndSuppliers = observer(
                       </MenuItem>
                     ))}
                   </Select>
-                  <Button onClick={onChangeShopNamesField}>{t(TranslationKey.Add)}</Button>
+                  <Button disabled={!shops.length} onClick={onChangeShopNamesField}>
+                    {t(TranslationKey.Add)}
+                  </Button>
                 </div>
               }
             />
