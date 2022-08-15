@@ -219,8 +219,8 @@ export const styles = createStyles(() => ({
     textAlign: 'center',
   },
   taskDescriptionImg: {
-    width: '40px',
-    height: '40px',
+    width: '30px',
+    height: '30px',
     objectFit: 'contain',
     objectPosition: 'center',
   },
@@ -241,15 +241,21 @@ export const styles = createStyles(() => ({
     marginRight: '5px',
   },
   imgNum: {
-    margin: '0',
-    fontSize: '14px',
+    // margin: '0',
+    // fontSize: '14px',
+
+    fontWeight: 600,
+    fontSize: 14,
+    color: '#006CFF',
   },
   imgWrapper: {
     display: 'flex',
+    alignItems: 'flex-end',
     gap: '2px',
   },
   buttonsWrapper: {
     display: 'flex',
+
     gap: '10px',
   },
   cancelBtn: {
@@ -257,10 +263,15 @@ export const styles = createStyles(() => ({
   },
   blockProductsImagesWrapper: {
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'flex-start',
-    gap: '3px',
+    // gap: '3px',
   },
+
+  taskDescriptionIcon: {
+    margin: '0 17px',
+  },
+
   taskTableCell: {
     display: 'flex',
     flexDirection: 'column',

@@ -544,7 +544,7 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
     }
     return (
       <div key={key} className={classNames.imagesWrapper}>
-        <Typography className={classNames.imgNum}>{`#${key + 1}`}</Typography>
+        {/* <Typography className={classNames.imgNum}>{`#${key + 1}`}</Typography> */}
         {box.items &&
           box.items.map((product, productIndex) => (
             <div key={productIndex} className={classNames.imgWrapper}>
@@ -553,7 +553,7 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
                 className={classNames.taskDescriptionImg}
                 src={getAmazonImageUrl(product.product.images[0])}
               />
-              <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
+              <Typography className={classNames.imgNum}>{product.amount}</Typography>
             </div>
           ))}
         <Typography className={classNames.imgNum}>{box.amount > 1 && `Super x${box.amount}`}</Typography>
@@ -563,17 +563,37 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
 
   const renderBlockProductsImages = (
     <div className={classNames.blockProductsImagesWrapper}>
-      <>
-        {task.boxesBefore && task.boxesBefore.map((box, index) => renderProductImage(box, index))}
-        {!hideImage && <Typography>{'=>'}</Typography>}
-      </>
+      {task.boxesBefore &&
+        task.boxesBefore.map((box, index) =>
+          index !== task.boxesBefore.length - 1 ? (
+            <>
+              {renderProductImage(box, index)}
+              <img key={index + 'i'} src="/assets/icons/+.svg" className={classNames.taskDescriptionIcon} />
+            </>
+          ) : (
+            renderProductImage(box, index)
+          ),
+        )}
 
-      {task.boxes.map((box, index) => renderProductImage(box, index))}
+      {!hideImage && <img src="/assets/icons/equal.svg" className={classNames.taskDescriptionIcon} />}
+
+      {task.boxes.map((box, index) =>
+        index !== task.boxes.length - 1 ? (
+          <>
+            {renderProductImage(box, index)}
+            <img key={index + 'i'} src="/assets/icons/+.svg" className={classNames.taskDescriptionIcon} />
+          </>
+        ) : (
+          renderProductImage(box, index)
+        ),
+      )}
     </div>
   )
 
   const taskMergeDescription = () => <div className={classNames.taskTableCell}>{renderBlockProductsImages}</div>
+
   const taskDivideDescription = () => <div className={classNames.taskTableCell}>{renderBlockProductsImages}</div>
+
   const taskReceiveDescription = () => (
     <div className={classNames.blockProductsImagesWrapper}>
       <div className={classNames.taskTableCell}>

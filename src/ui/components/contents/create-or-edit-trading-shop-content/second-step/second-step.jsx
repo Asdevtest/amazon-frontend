@@ -402,7 +402,11 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                   label={t(TranslationKey['Traffic (12 months)'])}
                   inputComponent={
                     <div className={classNames.percentWrapper}>
-                      {trafficСhange < 0 ? <ArrowDropDownIcon color="error" /> : <ArrowDropUpIcon color="success" />}
+                      {trafficСhange < 0 ? (
+                        <ArrowDropDownIcon color="error" />
+                      ) : (
+                        <ArrowDropUpIcon color="success" className={classNames.green} />
+                      )}
                       <Typography className={clsx(classNames.green, {[classNames.red]: trafficСhange < 0})}>{`${toFixed(
                         trafficСhange,
                         2,
@@ -422,7 +426,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         {grossIncomeСhange < 0 ? (
                           <ArrowDropDownIcon color="error" />
                         ) : (
-                          <ArrowDropUpIcon color="success" />
+                          <ArrowDropUpIcon color="success" className={classNames.green} />
                         )}
                         <Typography
                           className={clsx(classNames.green, {[classNames.red]: grossIncomeСhange < 0})}
@@ -441,7 +445,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         {pureIncomeСhange < 0 ? (
                           <ArrowDropDownIcon color="error" />
                         ) : (
-                          <ArrowDropUpIcon color="success" />
+                          <ArrowDropUpIcon color="success" className={classNames.green} />
                         )}
                         <Typography
                           className={clsx(classNames.green, {[classNames.red]: pureIncomeСhange < 0})}
