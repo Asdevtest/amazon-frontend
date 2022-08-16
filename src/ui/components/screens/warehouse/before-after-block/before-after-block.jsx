@@ -43,7 +43,7 @@ const Box = observer(
   }) => {
     const classNames = useClassNames()
 
-    const [showFullCard, setShowFullCard] = useState(false)
+    const [showFullCard, setShowFullCard] = useState(isEdit && newBoxes[0]._id === box._id ? true : false)
 
     const onChangeField = (value, field) => {
       const targetBox = newBoxes.filter(newBox => newBox._id === box._id)[0]

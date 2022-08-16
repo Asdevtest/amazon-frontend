@@ -61,7 +61,7 @@ export const RequestToSendBatchesGroupBoxes = ({
           </div>
 
           <div className={classNames.headerSubWrapper}>
-            <Typography className={classNames.headerTitle}>{'Storekeeper'}</Typography>
+            <Typography className={classNames.headerTitle}>{t(TranslationKey['Int warehouse'])}</Typography>
 
             <div className={classNames.userLinkWrapper}>
               <UserLink blackText name={selectedGroup.storekeeper?.name} userId={selectedGroup.storekeeper?._id} />

@@ -115,11 +115,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <Modal
-          missClickModalOn
-          openModal={showTaskInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
-        >
+        <Modal openModal={showTaskInfoModal} setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}>
           <EditTaskModal
             readOnly
             volumeWeightCoefficient={volumeWeightCoefficient}

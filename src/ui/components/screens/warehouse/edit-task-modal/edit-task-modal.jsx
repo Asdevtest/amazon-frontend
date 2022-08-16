@@ -5,6 +5,7 @@ import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TaskOperationType} from '@constants/task-operation-type'
+import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -39,6 +40,17 @@ export const EditTaskModal = observer(
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
 
     const [storekeeperComment, setStorekeeperComment] = useState(task.storekeeperComment)
+
+    const renderModalTitle = status => {
+      switch (status) {
+        case mapTaskStatusEmumToKey[TaskStatus.SOLVED]:
+          return t(TranslationKey['Viewing a completed task'])
+        case mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED]:
+          return t(TranslationKey['Viewing a canceled task'])
+        case mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS]:
+          return t(TranslationKey['Resolve task'])
+      }
+    }
 
     const renderTypeTaskTitle = type => {
       switch (type) {
@@ -90,7 +102,7 @@ export const EditTaskModal = observer(
     return (
       <div className={classNames.root}>
         <div className={classNames.modalHeader}>
-          <Typography className={classNames.modalTitle}>{t(TranslationKey['Resolve task'])}</Typography>
+          <Typography className={classNames.modalTitle}>{renderModalTitle(task.status)}</Typography>
           <div className={classNames.typeTaskWrapper}>
             <img src={renderTypeTaskImages(task.operationType)} />
             <Typography className={classNames.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
@@ -129,9 +141,11 @@ export const EditTaskModal = observer(
                 onChange={e => setStorekeeperComment(e.target.value)}
               />
             </div>
-            <div className={classNames.imageFileInputWrapper}>
-              <UploadFilesInput disabled={readOnly} images={photosOfTask} setImages={setPhotosOfTask} maxNumber={50} />
-            </div>
+            {!readOnly ? (
+              <div className={classNames.imageFileInputWrapper}>
+                <UploadFilesInput images={photosOfTask} setImages={setPhotosOfTask} maxNumber={50} />
+              </div>
+            ) : null}
           </div>
 
           <Divider orientation="horizontal" className={classNames.horizontalDivider} />

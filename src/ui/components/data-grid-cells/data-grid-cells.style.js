@@ -499,13 +499,14 @@ export const styles = createStyles(() => ({
     height: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'start',
     // marginLeft: '6px',
   },
 
   multilineText: {
     width: '100%',
     maxHeight: '100%',
+
     textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
@@ -897,5 +898,9 @@ export const styles = createStyles(() => ({
   notificationBtn: {
     width: '140px',
     height: '40px',
+  },
+
+  userLink: {
+    display: 'inline-flex',
   },
 }))

@@ -50,7 +50,9 @@ export const UserCell = withStyles(styles)(({classes: classNames, user}) => (
     </div>
 
     <div className={classNames.sabUserInfoWrapper}>
-      <UserLink name={user?.name} userId={user?._id} />
+      <div className={classNames.userLink}>
+        <UserLink name={user?.name} userId={user?._id} />
+      </div>
 
       <Typography className={classNames.userEmail}>{user?.email}</Typography>
 

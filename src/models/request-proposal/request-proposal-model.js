@@ -93,10 +93,10 @@ class RequestProposalModelStatic {
     return response
   }
 
-  requestProposalResultCorrected = async proposalId => {
+  requestProposalResultCorrected = async (proposalId, data) => {
     const response = await restApiService.RequestProposalsApi.apiV1RequestProposalsGuidResultCorrectedPatch(
       proposalId,
-      {body: {}},
+      {body: data},
     )
     return response
   }
