@@ -128,6 +128,7 @@ export const RequestToSendBatchForm = observer(
               )}
           </Typography>
         </div>
+
         <div className={classNames.btnsWrapper}>
           <Button
             disableElevation
