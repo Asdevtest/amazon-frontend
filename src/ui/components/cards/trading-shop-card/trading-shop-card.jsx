@@ -111,7 +111,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                     {item.statistics.monthlyPureProfitDiffPercentage < 0 ? (
                       <ArrowDropDownIcon color="error" />
                     ) : (
-                      <ArrowDropUpIcon color="success" />
+                      <ArrowDropUpIcon color="success" className={classNames.green} />
                     )}
                     <Typography
                       className={clsx(classNames.green, {
@@ -131,7 +131,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                     {item.statistics.monthlyProfitDiffPercentage < 0 ? (
                       <ArrowDropDownIcon color="error" />
                     ) : (
-                      <ArrowDropUpIcon color="success" />
+                      <ArrowDropUpIcon color="success" className={classNames.green} />
                     )}
                     <Typography
                       className={clsx(classNames.green, {
@@ -151,7 +151,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                     {item.statistics.webpageVisitsDiffPercentage < 0 ? (
                       <ArrowDropDownIcon color="error" />
                     ) : (
-                      <ArrowDropUpIcon color="success" />
+                      <ArrowDropUpIcon color="success" className={classNames.green} />
                     )}
                     <Typography
                       className={clsx(classNames.green, {

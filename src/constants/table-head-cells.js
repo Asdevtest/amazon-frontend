@@ -54,7 +54,6 @@ export const CLIENT_WAREHOUSE_HEAD_CELLS = () => [
   {id: 'img', label: t(TranslationKey.Product)},
   {id: 'img', label: t(TranslationKey.Photos)},
   {id: 'img', label: t(TranslationKey.Quantity)},
-  {id: 'img', label: t(TranslationKey.Material)},
   {id: 'img', label: t(TranslationKey.Warehouse)},
   {id: 'img', label: t(TranslationKey.Boxes)},
   {id: 'img', label: t(TranslationKey.Price)},

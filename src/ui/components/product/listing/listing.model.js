@@ -19,10 +19,6 @@ const fieldsOfProductAllowedToUpdate = [
   'listingSearchTerms',
   'listingSubjectMatters',
   'listingImages',
-  'listingTaskToFindSupplier',
-  'listingSupplierImportantPoints',
-  'listingExtraInfo',
-  'listingSupplierCompetitors',
 ]
 
 export class ListingModel {
@@ -138,14 +134,6 @@ export class ListingModel {
           listingSubjectMatters: result.listingSubjectMatters || [],
 
           listingImages: result.listingImages || [],
-
-          listingTaskToFindSupplier: result.listingTaskToFindSupplier || '',
-
-          listingSupplierImportantPoints: result.listingSupplierImportantPoints || '',
-
-          listingExtraInfo: result.listingExtraInfo || '',
-
-          listingSupplierCompetitors: result.listingSupplierCompetitors || [],
         }
       })
     } catch (error) {

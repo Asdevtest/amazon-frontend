@@ -77,7 +77,7 @@ export const ChartsForm = observer(({data, isRevenueBeggin}) => {
             <FiberManualRecordRoundedIcon color="primary" />
             <Typography className={classNames.cardTitle}>
               {isRevenue
-                ? t(TranslationKey['Website traffic']).toLowerCase()
+                ? t(TranslationKey['Gross income']).toLowerCase()
                 : t(TranslationKey['View page']).toLowerCase()}
             </Typography>
           </div>

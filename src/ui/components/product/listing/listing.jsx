@@ -10,7 +10,6 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
-import {AddCompetitorModal} from '@components/modals/add-competitor-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {UserBalanceHistory} from '@components/screens/user-balance-history'
 import {UploadFilesInput} from '@components/upload-files-input'
@@ -40,7 +39,6 @@ export const Listing = observer(({productId, onClickBack}) => {
     imagesFromBoxes,
     showSuccessModal,
     showProgress,
-    showCompetitorModal,
     onTriggerOpenModal,
     onChangeField,
     onChangeArrayField,
@@ -225,13 +223,6 @@ export const Listing = observer(({productId, onClickBack}) => {
         onClickSuccessBtn={() => {
           onTriggerOpenModal('showSuccessModal')
         }}
-      />
-
-      <AddCompetitorModal
-        openModal={showCompetitorModal}
-        setOpenModal={() => onTriggerOpenModal('showCompetitorModal')}
-        currentCompetitors={listingProduct.listingSupplierCompetitors}
-        onChangeField={onChangeField}
       />
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title="Загрузка фотографий..." />}

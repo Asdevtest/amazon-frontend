@@ -6,7 +6,7 @@ import {Rating} from '@mui/material'
 
 import React from 'react'
 
-import {Avatar, Badge, Chip, Link, TextareaAutosize, Tooltip, Typography} from '@material-ui/core'
+import {Avatar, Badge, Chip, Grid, Link, TextareaAutosize, Tooltip, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
@@ -537,55 +537,101 @@ export const TaskTypeCell = withStyles(styles)(({classes: classNames, task}) => 
   return <div className={classNames.taskDescriptionScrollWrapper}>{renderTaskDescription(task.operationType)}</div>
 })
 
-export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, task, hideImage}) => {
-  const renderProductImage = (box, key) => {
-    if (hideImage) {
-      return
-    }
-    return (
-      <div key={key} className={classNames.imagesWrapper}>
-        <Typography className={classNames.imgNum}>{`#${key + 1}`}</Typography>
-        {box.items &&
-          box.items.map((product, productIndex) => (
-            <div key={productIndex} className={classNames.imgWrapper}>
-              <img
-                alt=""
-                className={classNames.taskDescriptionImg}
-                src={getAmazonImageUrl(product.product.images[0])}
-              />
-              <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>
-            </div>
-          ))}
-        <Typography className={classNames.imgNum}>{box.amount > 1 && `Super x${box.amount}`}</Typography>
+export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, task}) => {
+  const renderProductImages = (product, key) => (
+    <Grid key={key && key} item className={classNames.imgWrapper}>
+      <img alt="" className={classNames.taskDescriptionImg} src={getAmazonImageUrl(product?.product.images[0])} />
+      <Typography className={classNames.imgNum}>{product?.amount}</Typography>
+    </Grid>
+  )
+
+  const renderBox = (box, key, isOneBox) => (
+    <div key={key && key} className={classNames.imagesWrapper}>
+      {/* {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex))} */}
+
+      <div
+        container
+        spacing={1}
+        className={clsx(classNames.standartBoxWrapper, {[classNames.isOneBoxWrapper]: isOneBox})}
+      >
+        {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex))}
       </div>
-    )
-  }
+
+      {/* {box.amount > 1 && (
+        <div className={classNames.superboxWrapper}>
+          <img src="/assets/icons/cube.svg" />
+          <Typography className={classNames.imgNum}>{box.amount > 1 && ` x${box.amount}`}</Typography>
+        </div>
+      )} */}
+    </div>
+  )
 
   const renderBlockProductsImages = (
     <div className={classNames.blockProductsImagesWrapper}>
-      <>
-        {task.boxesBefore && task.boxesBefore.map((box, index) => renderProductImage(box, index))}
-        {!hideImage && <Typography>{'=>'}</Typography>}
-      </>
+      {task.boxesBefore && (
+        <div className={classNames.sideWrapper}>
+          {task.boxesBefore.map((box, index) =>
+            index !== task.boxesBefore.length - 1 ? (
+              <>
+                {renderBox(box, index)}
+                <img key={index + '+'} src="/assets/icons/+.svg" className={classNames.taskDescriptionIcon} />
+              </>
+            ) : (
+              renderBox(box, index, task.boxesBefore.length === 1)
+            ),
+          )}
+        </div>
+      )}
 
-      {task.boxes.map((box, index) => renderProductImage(box, index))}
+      <img src="/assets/icons/equal.svg" className={classNames.taskDescriptionIcon} />
+
+      <div className={classNames.sideWrapper}>
+        {task.boxes.map((box, index) =>
+          index !== task.boxes.length - 1 ? (
+            <>
+              {renderBox(box, index)}
+              <img key={index + '+'} src="/assets/icons/+.svg" className={classNames.taskDescriptionIcon} />
+            </>
+          ) : (
+            renderBox(box, index, task.boxes.length === 1)
+          ),
+        )}
+      </div>
     </div>
   )
 
   const taskMergeDescription = () => <div className={classNames.taskTableCell}>{renderBlockProductsImages}</div>
+
   const taskDivideDescription = () => <div className={classNames.taskTableCell}>{renderBlockProductsImages}</div>
+
   const taskReceiveDescription = () => (
     <div className={classNames.blockProductsImagesWrapper}>
-      <div className={classNames.taskTableCell}>
-        {task.boxesBefore && task.boxesBefore.map((box, index) => renderProductImage(box, index))}
+      <div className={classNames.receiveOrEditWrapper}>
+        <img src="/assets/icons/big-box.svg" />
+        <img src="/assets/icons/box-arrow.svg" />
+        {renderProductImages(task.boxesBefore[0]?.items[0])}
       </div>
     </div>
   )
 
   const taskEditDescription = () => (
     <div className={classNames.blockProductsImagesWrapper}>
-      <div className={classNames.taskTableCell}>
-        {task.boxesBefore && task.boxesBefore.map((box, index) => renderProductImage(box, index))}
+      <div className={classNames.receiveOrEditWrapper}>
+        <img src="/assets/icons/big-box.svg" />
+        <img src="/assets/icons/box-edit.svg" />
+
+        {task.boxesBefore[0]?.amount > 1 && (
+          <div className={classNames.superboxWrapper}>
+            <img src="/assets/icons/cube.svg" />
+            <Typography className={classNames.imgNum}>
+              {task.boxesBefore[0].amount > 1 && ` x${task.boxesBefore[0].amount}`}
+            </Typography>
+          </div>
+        )}
+
+        <Grid container spacing={2} className={classNames.gridEditWrapper}>
+          {task.boxesBefore[0]?.items.map((product, productIndex) => renderProductImages(product, productIndex))}
+        </Grid>
       </div>
     </div>
   )

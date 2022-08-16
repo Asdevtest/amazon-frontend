@@ -117,8 +117,6 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
           {isMasterBox ? `${box.amount} boxes x ${order.amount} units` : order.amount}
         </TableCell>
 
-        <TableCell>{order.product.material}</TableCell>
-
         {orderIndex === 0 && (
           <React.Fragment>
             <TableCell rowSpan={ordersQty}>{box.destination?.name}</TableCell>

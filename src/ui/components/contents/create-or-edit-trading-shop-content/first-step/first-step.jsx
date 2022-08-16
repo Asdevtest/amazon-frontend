@@ -177,36 +177,13 @@ export const FirstStep = ({
               inputComponent={
                 <div className={classNames.imageFileInputWrapper}>
                   <UploadFilesInput withoutTitle images={images} setImages={setImages} maxNumber={50} />
-                  {formFields.linksToMediaFiles?.length ? (
-                    <PhotoAndFilesCarousel files={formFields.linksToMediaFiles} width="400px" />
-                  ) : null}
+                  {formFields.files?.length ? <PhotoAndFilesCarousel files={formFields.files} width="400px" /> : null}
                 </div>
               }
             />
           </div>
         </div>
-        {/* {requestToEdit ? (
-          <div className={classNames.footerWrapper}>
-            <div className={classNames.footerRightWrapper}>
-              <div className={classNames.buttonsWrapper}>
-                <Button variant={'text'} className={classNames.backBtn} onClick={onClickBackBtn}>
-                  {t(TranslationKey.Cancel)}
-                </Button>
-
-                <Button
-                  success
-                  // disabled={disableSubmit}
-                  className={classNames.successBtn}
-                  onClick={() => onEditSubmit(formFields, images)}
-                >
-                  {t(TranslationKey.Edit)}
-                </Button>
-              </div>
-            </div>
-          </div>
-        ) : ( */}
         {renderBackNextBtns()}
-        {/* )} */}
       </div>
     </div>
   )

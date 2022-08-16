@@ -93,7 +93,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
 
               <div className={classNames.requestItemInfoWrapper}>
                 <Typography>{t(TranslationKey['Total price'])}</Typography>
-                <Typography>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
+                <Typography className={classNames.price}>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
               </div>
             </div>
           </div>
@@ -174,7 +174,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
 
           <div className={classNames.requestItemInfoProposalsWrapper}>
             <Typography>{t(TranslationKey['Total price'])}</Typography>
-            <Typography>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
+            <Typography className={classNames.price}>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
           </div>
         </div>
         <div className={classNames.proposalsWrapper}>
