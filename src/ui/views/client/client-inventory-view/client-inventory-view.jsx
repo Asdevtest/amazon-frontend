@@ -227,7 +227,7 @@ export class ClientInventoryViewRaw extends Component {
                       onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
                     >
                       {t(TranslationKey['Add product'])}
-                      <img src="/assets/icons/+.svg" className={classNames.icon} />
+                      <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
                     </Button>
                   </div>
                 ) : null}
@@ -313,7 +313,7 @@ export class ClientInventoryViewRaw extends Component {
                         onClick={() => onTriggerOpenModal('showAddSuppliersModal')}
                       >
                         {t(TranslationKey['Add a supplier list'])}
-                        <img src="/assets/icons/+.svg" className={classNames.icon} />
+                        <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
                       </Button>
                     </>
                   )}

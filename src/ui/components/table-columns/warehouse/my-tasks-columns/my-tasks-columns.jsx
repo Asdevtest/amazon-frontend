@@ -19,7 +19,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
-    width: 150,
+    width: 120,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
@@ -29,7 +29,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: 150,
+    width: 120,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },
@@ -39,7 +39,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Type),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Type)} />,
 
-    width: 200,
+    width: 150,
     renderCell: params => <TaskTypeCell task={params.row.originalData} />,
   },
 
@@ -48,7 +48,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 400,
+    width: 600,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -59,7 +59,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 150,
+    width: 110,
     renderCell: params => <TaskStatusCell status={params.value} />,
     filterable: false,
     sortable: false,

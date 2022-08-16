@@ -47,7 +47,7 @@ export const warehouseCompletedTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 400,
+    width: 600,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,

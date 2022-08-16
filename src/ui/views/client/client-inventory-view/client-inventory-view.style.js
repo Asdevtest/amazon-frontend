@@ -100,6 +100,8 @@ export const styles = createStyles({
   icon: {
     marginLeft: '15px',
     justifySelf: 'flex-end',
+    width: 15,
+    height: 15,
   },
 
   simpleBtnsWrapper: {

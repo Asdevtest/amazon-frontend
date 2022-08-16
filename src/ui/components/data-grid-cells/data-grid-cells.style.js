@@ -230,20 +230,45 @@ export const styles = createStyles(() => ({
     alignItems: 'center',
   },
 
+  gridEditWrapper: {
+    maxWidth: 250,
+    overflow: 'auto',
+  },
+
+  superboxWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  standartBoxWrapper: {
+    display: 'grid',
+    gridAutoFlow: 'column',
+    gridTemplateRows: 'repeat(3, min-content)',
+    gap: 5,
+
+    maxHeight: 120,
+  },
+
+  isOneBoxWrapper: {
+    gridAutoFlow: 'row',
+
+    gridTemplateRows: 'repeat(auto, 1fr)',
+    gridTemplateColumns: 'repeat(4, min-content)',
+
+    maxHeight: 400,
+    overflow: 'auto',
+  },
+
   imagesWrapper: {
-    flexDirection: 'column',
-    border: '1px solid rgba(0, 123, 255, 0.5)',
-    borderRadius: '10px',
+    width: 'max-content',
+    border: '1px solid #006CFF',
+    borderRadius: 4,
     gap: '5px',
     padding: '3px',
-    textAlign: 'center',
-    display: 'inline-block',
     marginRight: '5px',
   },
   imgNum: {
-    // margin: '0',
-    // fontSize: '14px',
-
     fontWeight: 600,
     fontSize: 14,
     color: '#006CFF',
@@ -268,8 +293,25 @@ export const styles = createStyles(() => ({
     // gap: '3px',
   },
 
+  receiveOrEditWrapper: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+    gap: 10,
+  },
+
   taskDescriptionIcon: {
-    margin: '0 17px',
+    margin: '0 8px',
+  },
+
+  sideWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+
+    maxWidth: 300,
+    overflow: 'auto',
+    padding: '10px 0',
   },
 
   taskTableCell: {
@@ -365,6 +407,7 @@ export const styles = createStyles(() => ({
     justifyContent: 'flex-start',
     overflowY: 'auto',
     margin: 10,
+    paddingBottom: 20,
   },
 
   smallRowImgWrapper: {
