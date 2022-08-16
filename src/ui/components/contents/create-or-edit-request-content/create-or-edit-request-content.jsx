@@ -202,15 +202,15 @@ export const CreateOrEditRequestContent = ({
                     label={`${t(TranslationKey['When do you want results?'])}`}
                     labelClasses={classNames.spanLabelSmall}
                     inputComponent={
-                      <div className={clsx({[classNames.deadlineError]: deadlineError})}>
+                      <div>
                         <DatePickerDate
                           value={formFields.request.timeoutAt}
                           onChange={onChangeField('request')('timeoutAt')}
                         />
                         {deadlineError && (
-                          <p className={classNames.deadlineErrorText}>
-                            {'The deadline date cannot be later than the current date'}
-                          </p>
+                          <span className={classNames.deadlineErrorText}>
+                            {t(TranslationKey['The deadline cannot be earlier than the current date'])}
+                          </span>
                         )}
                       </div>
                     }
@@ -220,15 +220,15 @@ export const CreateOrEditRequestContent = ({
                     label={`${t(TranslationKey['What time do you want the result?'])}`}
                     labelClasses={classNames.spanLabelSmall}
                     inputComponent={
-                      <div className={clsx({[classNames.deadlineError]: deadlineError})}>
+                      <div>
                         <DatePickerTime
                           value={formFields.request.timeoutAt}
                           onChange={onChangeField('request')('timeoutAt')}
                         />
                         {deadlineError && (
-                          <p className={classNames.deadlineErrorText}>
-                            {'The deadline date cannot be later than the current date'}
-                          </p>
+                          <span className={classNames.deadlineErrorText}>
+                            {t(TranslationKey['The deadline cannot be earlier than the current date'])}
+                          </span>
                         )}
                       </div>
                     }

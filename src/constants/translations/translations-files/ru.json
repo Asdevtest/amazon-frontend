@@ -1443,5 +1443,9 @@
   "Editing an ad to sell the store": "Редактирование объявления для продажи магазина",
   "Accept the changes": "Принять изменения",
   "Proxy successfully saved": "Прокси успешно сохранены",
-  "Proxy is not saved": "Прокси не сохранены"
+  "Proxy is not saved": "Прокси не сохранены",
+  "Assign the task of finding a supplier to the Buyer": "Закрепить задачу на поиск поставщика за Байером",
+  "Viewing a completed task": "Просмотр выполненной задачи",
+  "Viewing a canceled task": "Просмотр отмененной задачи",
+  "The deadline cannot be earlier than the current date": "Срок не может быть раньше текущей даты"
 }

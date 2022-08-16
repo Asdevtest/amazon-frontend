@@ -187,9 +187,6 @@ export const useClassNames = makeStyles(() => ({
     whiteSpace: 'pre-wrap',
   },
 
-  deadlineError: {
-    borderBottom: '1px solid red',
-  },
   deadlineErrorText: {
     color: 'red',
   },

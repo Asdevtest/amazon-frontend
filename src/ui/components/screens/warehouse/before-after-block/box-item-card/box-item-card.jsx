@@ -19,7 +19,7 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode,
   const copyValue = value => {
     navigator.clipboard.writeText(value)
   }
-  console.log(readOnly)
+
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>

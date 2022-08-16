@@ -42,7 +42,7 @@ export const CustomSearchRequestDetails = ({request}) => {
             <div>
               <Typography className={classNames.files}>{t(TranslationKey.Files)}</Typography>
 
-              <PhotoAndFilesCarousel files={request?.details?.linksToMediaFiles} width="400px" />
+              <PhotoAndFilesCarousel small files={request?.details?.linksToMediaFiles} width="400px" />
             </div>
 
             <Field
