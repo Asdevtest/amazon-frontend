@@ -60,7 +60,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.btnsWrapper}>
-        {!checkIsAdmin(UserRoleCodeMap[curUser.role]) ? (
+        {!checkIsAdmin(UserRoleCodeMap[curUser.role]) && !inCreate && !inEdit ? (
           <Button success variant="contained" onClick={onCreateIdea}>
             {t(TranslationKey['Add a product idea'])}{' '}
           </Button>
