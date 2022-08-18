@@ -123,7 +123,7 @@ export const BoxViewForm = observer(
                             <div className={classNames.barCode}>
                               <Typography className={classNames.linkWrapper}>
                                 <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
-                                  {item.barCode}
+                                  {t(TranslationKey.View)}
                                 </Link>
                               </Typography>
 
@@ -249,7 +249,7 @@ export const BoxViewForm = observer(
                       <div className={classNames.barCode}>
                         <Typography className={classNames.linkWrapper}>
                           <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                            {box.shippingLabel}
+                            {t(TranslationKey.View)}
                           </Link>
                         </Typography>
 

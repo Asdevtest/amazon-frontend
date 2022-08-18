@@ -358,7 +358,11 @@ export const AddOrEditSupplierModalContent = observer(
       tmpSupplier.boxProperties?.boxLengthCm &&
       tmpSupplier.boxProperties?.boxWidthCm &&
       tmpSupplier.boxProperties?.boxHeightCm &&
-      tmpSupplier.boxProperties?.boxWeighGrossKg
+      tmpSupplier.boxProperties?.boxWeighGrossKg &&
+      tmpSupplier.amount &&
+      tmpSupplier.minlot &&
+      tmpSupplier.priceInYuan &&
+      tmpSupplier.price
 
     const itHaveBigInt =
       +tmpSupplier.priceInYuan * (+tmpSupplier.amount || 0) + +tmpSupplier.batchDeliveryCostInYuan >= 1000000 ||

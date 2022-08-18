@@ -1395,6 +1395,7 @@
   "User permissions were changed": "Разрешения пользователя были изменены",
   "User permissions are not changed": "Разрешения пользователя не изменены",
   "Assign several supplier search tasks to a Buyer": "Закрепить несколько задач на поиск поставщика за Байером",
+  "Assign several product cards to a Supervisor": "Закрепить несколько карточек товаров за Супервайзером",
   "Link to the product": "Ссылка на продукт",
   "Reffee must be a number conforming to the specified constraints": "Reffee должно быть числом, соответствующим заданным ограничениям",
   "Min purchase price must be a number conforming to the specified constraints": "Мин закуп. цена должна быть числом, соответствующим заданным ограничениям",
@@ -1449,5 +1450,11 @@
   "Viewing a canceled task": "Просмотр отмененной задачи",
   "The deadline cannot be earlier than the current date": "Срок не может быть раньше текущей даты",
   "The deadline date cannot be later than the current date": "Дата не может быть позже текущей даты",
-  "Attach files to the ad": "Прикрепить файлы к объявлению"
+  "Attach files to the ad": "Прикрепить файлы к объявлению",
+  "The user is waiting for confirmation by the Administrator": "Пользователь ждет подтверждения Администратором",
+  "User not found": "Пользователь не найден",
+  "Access to products": "Доступ к товарам",
+  "Access to all products in the store": "Доступ ко всем товарам в магазине",
+  "Access to selected products only": "Доступ только к выбранным товарам",
+  "Search by product description and ASIN:": "Поиск по описанию товара и ASIN:"
 }

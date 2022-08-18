@@ -208,9 +208,7 @@ export const useClassNames = makeStyles(() => ({
 
   linkWrapper: {
     cursor: 'pointer',
-    whiteSpace: 'nowrap',
-    width: '182px',
-    overflow: 'hidden',
+
     marginRight: '10px',
   },
 

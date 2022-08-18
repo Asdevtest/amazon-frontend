@@ -5,26 +5,16 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {
   NormDateFromUnixCell,
   TaskDescriptionCell,
-  MultilineTextCell,
   NormalActionBtnCell,
   UserLinkCell,
   TaskTypeCell,
   MultilineTextHeaderCell,
+  TaskStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
 export const adminTasksViewColumns = handlers => [
-  {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
-    width: 120,
-    renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    type: 'date',
-  },
-
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
@@ -49,7 +39,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 400,
+    width: 580,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -60,7 +50,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Storekeeper),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
-    width: 250,
+    width: 200,
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
@@ -86,7 +76,7 @@ export const adminTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 250,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 150,
+    renderCell: params => <TaskStatusCell status={params.value} />,
   },
 ]

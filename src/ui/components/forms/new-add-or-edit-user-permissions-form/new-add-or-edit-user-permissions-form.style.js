@@ -2,8 +2,8 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    width: '1000px',
-    height: '75vh',
+    width: '734px',
+    minHeight: '699px',
     display: 'flex',
     flexDirection: 'column',
     overflowY: 'auto',
@@ -15,10 +15,10 @@ export const useClassNames = makeStyles(() => ({
   },
 
   buttonsWrapper: {
-    margin: 'auto 0 0 ',
-    position: 'sticky',
-    bottom: '0',
-    left: '0',
+    display: 'flex',
+    justifyContent: 'end',
+    marginTop: '30px',
+    gap: '10px',
   },
 
   divider: {
@@ -66,7 +66,11 @@ export const useClassNames = makeStyles(() => ({
   },
 
   button: {
-    marginLeft: '10px',
+    width: '152px',
+    height: '40px',
+  },
+  cancelBtn: {
+    color: '#001029',
   },
   multiline: {
     width: '100%',
@@ -166,5 +170,72 @@ export const useClassNames = makeStyles(() => ({
 
   tabWillBeOpened: {
     backgroundColor: 'rgba(0,123,255, 0.4)',
+  },
+
+  // root: {
+  //   width: '100%',
+  //   boxShadow: 'inset 0 -1px 0 0 #E6ECF0',
+  // },
+  indicator: {
+    backgroundColor: '#006CFF',
+    height: '6px',
+  },
+  row: {
+    width: '100%',
+    padding: '0 0px',
+    margin: '0 auto',
+  },
+
+  tab: {
+    color: '#006CFF',
+  },
+
+  selectedTab: {
+    background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
+  },
+  tableWrapper: {
+    marginTop: '10px',
+    height: '30vh',
+  },
+
+  details: {
+    height: '48vh',
+  },
+  detailsShopWrapper: {
+    width: '100%',
+  },
+  selectedValue: {
+    marginLeft: '5px',
+    color: '#656565',
+  },
+  // accordionWrapper: {
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   gap: '10px',
+  // },
+  accordion: {
+    boxShadow: 'none',
+
+    '&::before': {
+      display: 'none',
+    },
+  },
+  accordionSummary: {
+    height: '64px',
+  },
+  searchWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: '20px 0',
+  },
+
+  searchContainer: {
+    margin: 0,
+  },
+
+  searchInput: {
+    width: '290px',
+    height: '40px',
   },
 }))
