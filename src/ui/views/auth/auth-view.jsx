@@ -6,6 +6,8 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {EntryLeftPanel} from '@components/entry-left-panel'
 import {EntryRightPanel} from '@components/entry-right-panel'
 import {AuthForm} from '@components/forms/auth-form'
@@ -18,8 +20,10 @@ import {styles} from './auth-view.style'
 @observer
 export class AuthViewRaw extends Component {
   viewModel = new AuthViewModel({history: this.props.history})
+
   render() {
     const {classes: classNames} = this.props
+
     return (
       <div className={classNames.root}>
         <Hidden smDown>
@@ -39,7 +43,7 @@ export class AuthViewRaw extends Component {
             onChangeFormField={this.onChangeFormField}
             onSubmit={this.viewModel.onSubmitForm}
           />
-          {this.renderError()}
+          {SettingsModel.languageTag && this.renderError()}
         </EntryRightPanel>
       </div>
     )
@@ -48,7 +52,8 @@ export class AuthViewRaw extends Component {
   renderError = () => (
     <h3>
       {this.viewModel.error &&
-        ((this.viewModel.error.body && this.viewModel.error.body.message) || this.viewModel.error.message)}
+        ((this.viewModel.error.body && t(TranslationKey['User not found'])) ||
+          t(TranslationKey['The user is waiting for confirmation by the Administrator']))}
     </h3>
   )
 

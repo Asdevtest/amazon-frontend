@@ -67,6 +67,7 @@ class SupervisorReadyToCheckViewRaw extends Component {
                 <Button
                   color="primary"
                   variant="contained"
+                  tooltipInfoContent={t(TranslationKey['Assign several product cards to a Supervisor'])}
                   disabled={selectedRowIds.length === 0}
                   onClick={onPickupSomeItems}
                 >

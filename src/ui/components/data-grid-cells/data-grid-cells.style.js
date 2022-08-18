@@ -8,6 +8,22 @@ export const styles = createStyles(() => ({
     objectFit: 'contain',
     objectPosition: 'center',
   },
+  productCellImg: {
+    height: '43px',
+    width: '43px',
+    marginRight: '16px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+  productWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+  },
+  skuAndAsinWrapper: {
+    display: 'flex',
+    gap: '10px',
+  },
   chip: {
     height: '20px',
     color: 'rgba(61, 81, 112, 1)',
@@ -25,6 +41,10 @@ export const styles = createStyles(() => ({
     height: '88px',
     scope: 'row',
   },
+  productCell: {
+    padding: '20px 0px',
+    height: '88px',
+  },
   asinCellContainer: {
     display: 'inline-flex',
   },
@@ -41,6 +61,14 @@ export const styles = createStyles(() => ({
     fontSize: '14px',
     lineHeight: '21px',
     color: 'rgba(189, 194, 209, 1)',
+  },
+
+  productTypoCell: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#656565',
+    display: 'flex',
+    gap: '3px',
   },
   typoSpan: {
     color: 'rgba(61, 81, 112, 1)',
@@ -309,7 +337,7 @@ export const styles = createStyles(() => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
 
-    maxWidth: 300,
+    maxWidth: 450,
     overflow: 'auto',
     padding: '10px 0',
   },

@@ -88,6 +88,7 @@ export class ClientInventoryViewRaw extends Component {
       curPage,
       productsMy,
       productsMyBase,
+      ideasData,
 
       rowsPerPage,
 
@@ -144,6 +145,8 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerOpenModal('showAddOrEditSupplierModal')
       onTriggerOpenModal('showSelectionSupplierModal')
     }
+    console.log(ideasData)
+    console.log(selectedProduct)
 
     return (
       <React.Fragment>
@@ -406,7 +409,9 @@ export class ClientInventoryViewRaw extends Component {
           <AddSupplierToIdeaFromInventoryForm
             showProgress={showProgress}
             progressValue={progressValue}
+            ideas={ideasData}
             onClose={() => onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
+
             // onSubmit={onSubmitCreateProduct}
           />
         </Modal>

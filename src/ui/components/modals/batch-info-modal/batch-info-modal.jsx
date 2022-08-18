@@ -125,7 +125,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
 
           <Field
             oneLine
-            label={t(TranslationKey.Storekeeper) + ': '}
+            label={t(TranslationKey['Int warehouse']) + ': '}
             containerClasses={classNames.storekeeperField}
             inputComponent={
               <div className={classNames.userLinkWrapper}>

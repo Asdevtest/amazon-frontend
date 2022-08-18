@@ -2,11 +2,13 @@ import {action, makeAutoObservable} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {privateRoutesConfigs} from '@constants/routes'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {UserModel} from '@models/user-model'
 
 import {getObjectKeys} from '@utils/object'
+import {t} from '@utils/translations'
 
 export class AuthViewModel {
   history = undefined
@@ -56,7 +58,7 @@ export class AuthViewModel {
         this.history.push(allowedRoutes[0].routePath)
       } else {
         this.requestStatus = loadingStatuses.failed
-        this.error = new Error('No accessToken in response')
+        this.error = new Error(t(TranslationKey['The user is waiting for confirmation by the Administrator']))
       }
     } catch (error) {
       this.requestStatus = loadingStatuses.failed

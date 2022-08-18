@@ -97,6 +97,31 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
   </div>
 ))
 
+export const ProductCell = withStyles(styles)(({classes: classNames, product}) => (
+  <div className={classNames.productCell}>
+    <div className={classNames.asinCellContainer}>
+      <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images[0])} />
+
+      <div className={classNames.productWrapper}>
+        <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
+        <div className={classNames.skuAndAsinWrapper}>
+          <Typography className={classNames.productTypoCell}>
+            {t(TranslationKey.SKU)}
+            <span className={classNames.typoSpan}>{product.skusByClient?.length ? product.skusByClient[0] : '-'}</span>
+            {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
+          </Typography>
+          {'/'}
+          <Typography className={classNames.productTypoCell}>
+            {t(TranslationKey.ASIN)}
+            <span className={classNames.typoSpan}>{product.asin}</span>
+            {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
+          </Typography>
+        </div>
+      </div>
+    </div>
+  </div>
+))
+
 export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
   ({classes: classNames, product, noCalculate, onClickCalculate}) => (
     <div className={classNames.feesTableWrapper}>

@@ -7,6 +7,7 @@ import {ProductStatus, ProductStatusByCode} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
+import {IdeaModel} from '@models/ideas-model'
 import {OtherModel} from '@models/other-model'
 import {ProductModel} from '@models/product-model'
 import {SellerBoardModel} from '@models/seller-board-model'
@@ -82,6 +83,7 @@ export class ClientInventoryViewModel {
   withProduct = false
   user = undefined
   orders = []
+  ideasData = []
   selectedRowIds = []
   sellerBoardDailyData = []
   storekeepers = []
@@ -183,6 +185,11 @@ export class ClientInventoryViewModel {
     reaction(
       () => SettingsModel.languageTag,
       () => this.updateColumnsModel(),
+    )
+
+    reaction(
+      () => this.selectedRowIds,
+      () => this.getIdeas(),
     )
   }
 
@@ -365,6 +372,18 @@ export class ClientInventoryViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+    }
+  }
+
+  async getIdeas() {
+    try {
+      const result = await IdeaModel.getIdeas(this.selectedRowIds[0])
+
+      runInAction(() => {
+        this.ideasData = [...result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))]
+      })
+    } catch (error) {
+      console.log(error)
     }
   }
 

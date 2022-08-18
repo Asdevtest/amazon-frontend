@@ -1395,6 +1395,7 @@
   "User permissions were changed": "User permissions were changed",
   "User permissions are not changed": "User permissions are not changed",
   "Assign several supplier search tasks to a Buyer": "Assign several supplier search tasks to a Buyer",
+  "Assign several product cards to a Supervisor": "Assign several product cards to a Supervisor",
   "Link to the product": "Link to the product",
   "Reffee must be a number conforming to the specified constraints": "Reffee must be a number conforming to the specified constraints",
   "Min purchase price must be a number conforming to the specified constraints": "Min purchase price must be a number conforming to the specified constraints",
@@ -1449,5 +1450,11 @@
   "Viewing a canceled task": "Viewing a canceled task",
   "The deadline cannot be earlier than the current date": "The deadline cannot be earlier than the current date",
   "The deadline date cannot be later than the current date": "The deadline date cannot be later than the current date",
-  "Attach files to the ad": "Attach files to the ad"
+  "Attach files to the ad": "Attach files to the ad",
+  "The user is waiting for confirmation by the Administrator": "The user is waiting for confirmation by the Administrator",
+  "User not found": "User not found",
+  "Access to products": "Access to products",
+  "Access to all products in the store": "Access to all products in the store",
+  "Access to selected products only": "Access to selected products only",
+  "Search by product description and ASIN:": "Search by product description and ASIN:"
 }

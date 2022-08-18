@@ -53,6 +53,11 @@ class SubUsersViewRaw extends Component {
 
       requestStatus,
       getCurrentData,
+
+      shopsData,
+      productsMy,
+      onClickShop,
+
       sortModel,
       filterModel,
       densityModel,
@@ -161,6 +166,9 @@ class SubUsersViewRaw extends Component {
             permissionsToSelect={singlePermissions}
             permissionGroupsToSelect={groupPermissions}
             sourceData={selectedSubUser}
+            shops={shopsData}
+            products={productsMy}
+            onClickShop={onClickShop}
             onCloseModal={() => onTriggerOpenModal('showPermissionModal')}
             onSubmit={onSubmitUserPermissionsForm}
           />

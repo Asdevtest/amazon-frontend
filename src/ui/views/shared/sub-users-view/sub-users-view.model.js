@@ -4,13 +4,16 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {ClientModel} from '@models/client-model'
 import {PermissionsModel} from '@models/permissions-model'
 import {SettingsModel} from '@models/settings-model'
+import {ShopModel} from '@models/shop-model'
 import {UserModel} from '@models/user-model'
 
 import {subUsersColumns} from '@components/table-columns/sub-users-columns/sub-users-columns'
 
-import {addIdDataConverter} from '@utils/data-grid-data-converters'
+import {addIdDataConverter, clientInventoryDataConverter} from '@utils/data-grid-data-converters'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
@@ -24,6 +27,8 @@ export class SubUsersViewModel {
   subUsersData = []
   singlePermissions = []
   groupPermissions = []
+  shopsData = []
+  productsMy = []
 
   drawerOpen = false
 
@@ -162,6 +167,7 @@ export class SubUsersViewModel {
       this.getDataGridState()
 
       await this.getUsers()
+      await this.getShops()
 
       await this.getGroupPermissions()
       await this.getSinglePermissions()
@@ -170,6 +176,39 @@ export class SubUsersViewModel {
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
       console.log(error)
+    }
+  }
+
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+      runInAction(() => {
+        this.shopsData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async onClickShop(shopId) {
+    await this.getProductsMy(shopId)
+  }
+
+  async getProductsMy(shopId) {
+    try {
+      const result = await ClientModel.getProductsMyFilteredByShopId({shopId})
+
+      runInAction(() => {
+        this.productsMy = clientInventoryDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+        )
+      })
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
     }
   }
 

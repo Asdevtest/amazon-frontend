@@ -163,7 +163,14 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               <Avatar className={classNames.avatar} src={getUserAvatarSrc(componentModel.current.userId)} />
 
               <div className={classNames.usernameAndBalanceWrapper}>
-                <Typography className={classNames.username}>{componentModel.current.userName}</Typography>
+                <Tooltip title={componentModel.current.userName}>
+                  <Typography className={classNames.username}>
+                    {componentModel.current.userName.length > 10
+                      ? componentModel.current.userName.slice(0, 10) + '...'
+                      : componentModel.current.userName}
+                  </Typography>
+                </Tooltip>
+
                 {componentModel.current.balance && (
                   <Typography className={classNames.balance}>
                     {toFixedWithDollarSign(componentModel.current.balance, 2)}

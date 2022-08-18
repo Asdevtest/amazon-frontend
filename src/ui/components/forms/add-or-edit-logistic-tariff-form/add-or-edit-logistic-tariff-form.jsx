@@ -306,27 +306,6 @@ export const AddOrEditLogisticTariffForm = observer(
 
             <div className={classNames.blockItem}>
               <Field
-                label={t(TranslationKey['ETA (arrival date)'])}
-                labelClasses={classNames.fieldLabel}
-                inputComponent={
-                  <div
-                    className={clsx({
-                      [classNames.deadlineError]: checkDateByDeadline(formFields.eta),
-                    })}
-                  >
-                    <DatePicker value={formFields.eta} onChange={onChangeField('eta')} />
-                    {checkDateByDeadline(formFields.eta) && (
-                      <p className={classNames.deadlineErrorText}>
-                        {'The deadline date cannot be later than the current date'}
-                      </p>
-                    )}
-                  </div>
-                }
-              />
-            </div>
-
-            <div className={classNames.blockItem}>
-              <Field
                 label={t(TranslationKey['ETD (date of shipment)'])}
                 labelClasses={classNames.fieldLabel}
                 inputComponent={
@@ -338,6 +317,27 @@ export const AddOrEditLogisticTariffForm = observer(
                     <DatePicker value={formFields.etd} onChange={onChangeField('etd')} />
 
                     {checkDateByDeadline(formFields.etd) && (
+                      <p className={classNames.deadlineErrorText}>
+                        {'The deadline date cannot be later than the current date'}
+                      </p>
+                    )}
+                  </div>
+                }
+              />
+            </div>
+
+            <div className={classNames.blockItem}>
+              <Field
+                label={t(TranslationKey['ETA (arrival date)'])}
+                labelClasses={classNames.fieldLabel}
+                inputComponent={
+                  <div
+                    className={clsx({
+                      [classNames.deadlineError]: checkDateByDeadline(formFields.eta),
+                    })}
+                  >
+                    <DatePicker value={formFields.eta} onChange={onChangeField('eta')} />
+                    {checkDateByDeadline(formFields.eta) && (
                       <p className={classNames.deadlineErrorText}>
                         {'The deadline date cannot be later than the current date'}
                       </p>
