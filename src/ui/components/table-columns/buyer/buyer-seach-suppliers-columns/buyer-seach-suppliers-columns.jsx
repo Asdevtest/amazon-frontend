@@ -10,7 +10,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const buyerSearchSuppliersViewColumns = handlers => [
+export const buyerSearchSuppliersViewColumns = (handlers, firstRowId) => [
   {
     field: 'number',
     headerName: '№',
@@ -26,7 +26,7 @@ export const buyerSearchSuppliersViewColumns = handlers => [
 
     renderCell: params => (
       <NormalActionBtnCell
-        isFirstRow
+        isFirstRow={firstRowId === params.row.id}
         tooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
         bTnText={t(TranslationKey['Get to work'])}
         onClickOkBtn={() => handlers.onPickUp(params.row.originalData)}

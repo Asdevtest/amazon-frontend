@@ -1,11 +1,9 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable, toJS} from 'mobx'
 
-import {RequestSubType, RequestType} from '@constants/request-type'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
 import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
 
-import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
@@ -68,7 +66,7 @@ export class ClientBuyShopsDealsModel {
 
   async loadData() {
     try {
-      await this.getRequestsVacant()
+      // await this.getRequestsVacant()
       this.getTableModeState()
     } catch (error) {
       console.log(error)
@@ -77,11 +75,10 @@ export class ClientBuyShopsDealsModel {
 
   async getRequestsVacant() {
     try {
-      const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT)
-
-      runInAction(() => {
-        this.requests = result
-      })
+      // const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.VACANT)
+      // runInAction(() => {
+      //   this.requests = result
+      // })
     } catch (error) {
       console.log(error)
     }

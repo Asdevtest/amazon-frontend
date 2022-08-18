@@ -10,7 +10,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const depersonalizedPickColumns = (handlers, isSupervisor) => [
+export const depersonalizedPickColumns = (handlers, isSupervisor, firstRowId) => [
   {
     field: 'number',
     headerName: '№',
@@ -26,7 +26,7 @@ export const depersonalizedPickColumns = (handlers, isSupervisor) => [
 
     renderCell: params => (
       <NormalActionBtnCell
-        isFirstRow
+        isFirstRow={firstRowId === params.row.id}
         tooltipText={
           isSupervisor
             ? t(TranslationKey['Assign a product card to a supervisor'])

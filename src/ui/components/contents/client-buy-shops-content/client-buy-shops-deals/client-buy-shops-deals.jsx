@@ -11,8 +11,7 @@ import {useHistory} from 'react-router-dom'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {VacantRequestListCard} from '@components/cards/vacant-request-list-card'
-import {VacantRequestShortCard} from '@components/cards/vacant-request-short-card'
+import {TradingShopCard} from '@components/cards/trading-shop-card'
 import {Field} from '@components/field'
 
 import {sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc} from '@utils/date-time'
@@ -93,13 +92,9 @@ export const ClientBuyShopsDeals = observer(() => {
           }
           gridGap="20px"
         >
-          {getSortedData(sortMode)?.map(item =>
-            viewMode === tableViewMode.LIST ? (
-              <VacantRequestListCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
-            ) : (
-              <VacantRequestShortCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
-            ),
-          )}
+          {getSortedData(sortMode)?.map(item => (
+            <TradingShopCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
+          ))}
         </div>
       ) : (
         <div className={classNames.emptyTableWrapper}>

@@ -28,6 +28,8 @@ export class SupervisorReadyToCheckViewModel {
     onPickUp: row => this.onClickTableRowBtn(row),
   }
 
+  firstRowId = undefined
+
   columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor)
 
   constructor({history}) {
@@ -41,6 +43,12 @@ export class SupervisorReadyToCheckViewModel {
 
   onSelectionModel(model) {
     this.selectedRowIds = model
+  }
+
+  setDataGridState(state) {
+    this.firstRowId = state.sorting.sortedRows[0]
+
+    this.columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor, this.firstRowId)
   }
 
   async loadData() {

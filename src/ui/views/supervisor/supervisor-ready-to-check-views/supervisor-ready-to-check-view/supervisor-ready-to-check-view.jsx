@@ -45,6 +45,7 @@ class SupervisorReadyToCheckViewRaw extends Component {
       onSelectionModel,
       onTriggerOpenModal,
       onPickupSomeItems,
+      setDataGridState,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -89,6 +90,7 @@ class SupervisorReadyToCheckViewRaw extends Component {
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
                 onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                onStateChange={setDataGridState}
               />
             </MainContent>
           </Appbar>

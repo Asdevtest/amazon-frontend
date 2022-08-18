@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {DatePickerDate} from '@components/date-picker/date-picker'
+import {NewDatePicker} from '@components/date-picker/date-picker'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 import {UploadFilesInput} from '@components/upload-files-input'
@@ -111,14 +111,16 @@ export const FirstStep = ({
             />
 
             <Field
-              label={`${t(TranslationKey['When did business start?'])}`}
+              label={`${t(TranslationKey['When did business start?'])} *`}
               labelClasses={classNames.spanLabelSmall}
               inputComponent={
                 <div className={clsx({[classNames.deadlineError]: deadlineError})}>
-                  <DatePickerDate value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} />
+                  {/* <DatePickerDate value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} /> */}
+                  <NewDatePicker value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} />
+
                   {deadlineError && (
                     <p className={classNames.deadlineErrorText}>
-                      {'The deadline date cannot be later than the current date'}
+                      {t(TranslationKey['The deadline date cannot be later than the current date'])}
                     </p>
                   )}
                 </div>
@@ -173,7 +175,7 @@ export const FirstStep = ({
               multiline
               inputProps={{maxLength: 100}}
               labelClasses={classNames.spanLabelSmall}
-              label={`${t(TranslationKey['Attach file with data for logging in to store'])} *`}
+              label={`${t(TranslationKey['Attach files to the ad'])} *`}
               inputComponent={
                 <div className={classNames.imageFileInputWrapper}>
                   <UploadFilesInput withoutTitle images={images} setImages={setImages} maxNumber={50} />

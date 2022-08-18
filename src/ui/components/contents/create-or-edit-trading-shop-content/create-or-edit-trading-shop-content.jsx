@@ -154,22 +154,25 @@ export const CreateOrEditTradingShopContent = ({
     } else {
       if (isDeadlineError) {
         setDeadlineError(!deadlineError)
+        setCurStep(stepVariant.STEP_TWO)
       } else {
         setCurStep(stepVariant.STEP_TWO)
       }
     }
   }
 
-  // const disableSubmit =
-  //   formFields.request.title === '' ||
-  //   formFields.request.title.length > 80 ||
-  //   formFields.request.maxAmountOfProposals === '' ||
-  //   formFields.request.timeLimitInMinutes === '' ||
-  //   formFields.request.price === '' ||
-  //   formFields.request.timeoutAt === '' ||
-  //   formFields.details.conditions === '' ||
-  //   formFields.details.conditions.length > 1000 ||
-  //   formFields?.request?.timeoutAt?.toString() === 'Invalid Date'
+  const disableSubmit =
+    !formFields.title ||
+    formFields.title.length > 80 ||
+    !formFields.shopDetails ||
+    !formFields.shopLink ||
+    !formFields.price ||
+    !formFields.businessStartDate ||
+    !formFields.shopAssets.length ||
+    (!requestToEdit && !images.length) ||
+    (curStep === stepVariant.STEP_TWO &&
+      !formFields.statistics.filter(el => el.grossIncome || el.pureIncome || el.uniqueCustomers || el.webpageVisits)
+        .length)
 
   const renderBackNextBtns = () => (
     <div className={classNames.footerWrapper}>
@@ -195,7 +198,7 @@ export const CreateOrEditTradingShopContent = ({
                 ? t(TranslationKey['Creates a completed request'])
                 : t(TranslationKey['Go to Step 2'])
             }
-            // disabled={disableSubmit}
+            disabled={disableSubmit}
             className={classNames.successBtn}
             onClick={onSuccessSubmit}
           >
@@ -207,7 +210,7 @@ export const CreateOrEditTradingShopContent = ({
                 <img
                   src="/assets/icons/right-arrow.svg"
                   className={clsx(classNames.successBtnArrow, {
-                    // [classNames.disablesBtnArrow]: disableSubmit,
+                    [classNames.disablesBtnArrow]: disableSubmit,
                   })}
                 />
               </div>

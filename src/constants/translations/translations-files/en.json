@@ -1447,5 +1447,7 @@
   "Assign the task of finding a supplier to the Buyer": "Assign the task of finding a supplier to the Buyer",
   "Viewing a completed task": "Viewing a completed task",
   "Viewing a canceled task": "Viewing a canceled task",
-  "The deadline cannot be earlier than the current date": "The deadline cannot be earlier than the current date"
+  "The deadline cannot be earlier than the current date": "The deadline cannot be earlier than the current date",
+  "The deadline date cannot be later than the current date": "The deadline date cannot be later than the current date",
+  "Attach files to the ad": "Attach files to the ad"
 }

@@ -79,7 +79,7 @@ export class SuppliersAndIdeasModel {
 
   async createIdea(data) {
     try {
-      await IdeaModel.createIdea(data)
+      await IdeaModel.createIdea({...data, price: data.price || 0, quantity: data.quantity || 0})
 
       this.successModalTitle = t(TranslationKey['Idea created'])
 

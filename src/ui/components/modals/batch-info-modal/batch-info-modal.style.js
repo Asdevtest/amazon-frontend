@@ -154,7 +154,7 @@ export const useClassNames = makeStyles(theme => ({
 
   filesWrapper: {
     marginTop: 20,
-    height: 240,
+    height: 125,
   },
 
   files: {
