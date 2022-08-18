@@ -168,7 +168,11 @@ export const CreateOrEditTradingShopContent = ({
     !formFields.shopLink ||
     !formFields.price ||
     !formFields.businessStartDate ||
-    !formFields.shopAssets.length
+    !formFields.shopAssets.length ||
+    (!requestToEdit && !images.length) ||
+    (curStep === stepVariant.STEP_TWO &&
+      !formFields.statistics.filter(el => el.grossIncome || el.pureIncome || el.uniqueCustomers || el.webpageVisits)
+        .length)
 
   const renderBackNextBtns = () => (
     <div className={classNames.footerWrapper}>

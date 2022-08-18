@@ -1447,5 +1447,7 @@
   "Assign the task of finding a supplier to the Buyer": "Закрепить задачу на поиск поставщика за Байером",
   "Viewing a completed task": "Просмотр выполненной задачи",
   "Viewing a canceled task": "Просмотр отмененной задачи",
-  "The deadline cannot be earlier than the current date": "Срок не может быть раньше текущей даты"
+  "The deadline cannot be earlier than the current date": "Срок не может быть раньше текущей даты",
+  "The deadline date cannot be later than the current date": "Дата не может быть позже текущей даты",
+  "Attach files to the ad": "Прикрепить файлы к объявлению"
 }

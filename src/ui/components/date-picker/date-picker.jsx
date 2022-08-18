@@ -56,6 +56,29 @@ export const DateMonthYearPicker = ({value, onChange, ...restProps}) => {
   )
 }
 
+export const NewDatePicker = ({value, onChange, ...restProps}) => {
+  const [local, setLocal] = useState(enLocale)
+
+  useEffect(() => {
+    setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
+  }, [SettingsModel.languageTag])
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
+      <NewestDatePicker
+        // views={['year', 'month']}
+        // label="Year and Month"
+        value={value}
+        renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
+        onChange={newValue => {
+          onChange(newValue)
+        }}
+        {...restProps}
+      />
+    </LocalizationProvider>
+  )
+}
+
 export const DatePicker = ({value, onChange}) => {
   const [local, setLocal] = useState(enLocale)
 

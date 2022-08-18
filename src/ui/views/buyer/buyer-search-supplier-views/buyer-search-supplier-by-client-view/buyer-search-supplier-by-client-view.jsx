@@ -45,6 +45,7 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
       onSelectionModel,
       onTriggerOpenModal,
       onPickupSomeItems,
+      setDataGridState,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -90,6 +91,7 @@ export class BuyerSearchSupplierByClientViewRaw extends Component {
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
                 onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                onStateChange={setDataGridState}
               />
             </MainContent>
           </Appbar>
