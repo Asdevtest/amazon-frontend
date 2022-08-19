@@ -272,7 +272,7 @@ export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 
   )
 }
 
-export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons}) => {
+export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons, small = false}) => {
   const classNames = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -292,7 +292,7 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons
                 variant="square"
                 alt={'!'}
                 src={photo?.data_url || photo}
-                classes={{img: classNames.image}}
+                classes={{img: small ? classNames.smallImage : classNames.image}}
                 onClick={() => {
                   setShowPhotosModal(!showPhotosModal)
 

@@ -108,7 +108,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                   }}
                 >
                   <div className={classNames.filesWrapper}>
-                    <PhotoAndFilesCarousel files={supplier.images} width="350px" />
+                    <PhotoAndFilesCarousel small files={supplier.images} width="350px" />
                   </div>
                 </TableCell>
 

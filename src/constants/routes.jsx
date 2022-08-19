@@ -9,7 +9,6 @@ import {AdminOrdersViews} from '@views/admin/admin-orders-views/orders'
 import {AdminProductView} from '@views/admin/admin-product-view'
 import {AdminSettingsView} from '@views/admin/admin-settings-view'
 import {AdminUserPermissionsView} from '@views/admin/admin-user-permissions-view'
-import {AdminUserBalanceView} from '@views/admin/admin-users-view/admin-user-balance-view'
 import {AdminUserView} from '@views/admin/admin-users-view/admin-user-view'
 import {AdminUsersView} from '@views/admin/admin-users-view/admin-users-view'
 import {AdminDestinationsView} from '@views/admin/admin-warehouse-views/admin-destinations-view'
@@ -1014,13 +1013,6 @@ export const privateRoutesConfigs = [
     crumbNameKey: TranslationKey.User,
   },
 
-  {
-    routePath: '/admin/users/balance',
-    component: AdminUserBalanceView,
-    exact: false,
-    permission: [UserRole.ADMIN],
-    crumbNameKey: TranslationKey['User balance'],
-  },
   {
     routePath: '/admin/settings',
     component: AdminSettingsView,

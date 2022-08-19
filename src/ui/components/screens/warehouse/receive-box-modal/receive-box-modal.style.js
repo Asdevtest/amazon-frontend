@@ -103,7 +103,7 @@ export const useClassNames = makeStyles(theme => ({
   tableWrapper: {
     minWidth: '1275px',
     height: '575px',
-    overflow: 'scroll',
+    overflow: 'auto',
   },
 
   sizesCell: {

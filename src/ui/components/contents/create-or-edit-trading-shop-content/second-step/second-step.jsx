@@ -76,7 +76,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
 
   const profitability = averagePureIncome / (averageGrossIncome / 100) || 0
 
-  const monthlyMultiplier = formFields.price / averagePureIncome || 0
+  const monthlyMultiplier = averagePureIncome ? formFields.price / averagePureIncome : 0
 
   const filledTrafficWebpageVisitsMonthes = formFields.statistics.filter(el => el.webpageVisits)
 

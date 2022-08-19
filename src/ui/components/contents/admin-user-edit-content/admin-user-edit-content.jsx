@@ -68,8 +68,8 @@ export const AdminUserEditContent = observer(
     const [changedAllowedRoles, setChangedAllowedRoles] = useState([])
     const [clearSelect, setClearSelect] = useState(false)
 
-    const [accessTags, setAccessTags] = useState([])
-    const [accessTag, setAccessTag] = useState('')
+    // const [accessTags, setAccessTags] = useState([]) // ТЕГИ
+    // const [accessTag, setAccessTag] = useState('')
 
     const [permissionsToSelect, setPermissionsToSelect] = useState([
       ...singlePermissions.filter(item => item.role === formFields.role),
@@ -92,15 +92,15 @@ export const AdminUserEditContent = observer(
       setSelectedAllowedRoles(removeRole)
     }
 
-    const addAccessTag = () => {
-      setAccessTags(prev => [...prev, accessTag])
-      setAccessTag('')
-    }
+    // const addAccessTag = () => {  // ТЕГИ ВОЗМОЖНО ВЕРНУТЬСЯ
+    //   setAccessTags(prev => [...prev, accessTag])
+    //   setAccessTag('')
+    // }
 
-    const removeAccessTag = value => {
-      const removeTag = accessTags.filter(tag => tag !== value)
-      setAccessTags(removeTag)
-    }
+    // const removeAccessTag = value => {
+    //   const removeTag = accessTags.filter(tag => tag !== value)
+    //   setAccessTags(removeTag)
+    // }
 
     const onChangeFormField = fieldName => event => {
       const newFormFields = {...formFields}
@@ -402,7 +402,7 @@ export const AdminUserEditContent = observer(
               }
             />
 
-            <Field
+            {/* <Field  // ТЕГИ, ВОЗМОЖНО ВЕРНУТЬСЯ
               label={t(TranslationKey['Add user access tags'])}
               value={accessTag}
               endAdornment={
@@ -423,7 +423,7 @@ export const AdminUserEditContent = observer(
                   </Typography>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
 
           <div className={classNames.rightWrapper}>

@@ -105,7 +105,7 @@ export const useClassNames = makeStyles(() => ({
 
   imagesWrapper: {
     width: '50%',
-    // height: '100px',
+    height: '100%',
   },
 
   documentsWrapper: {
@@ -203,7 +203,8 @@ export const useClassNames = makeStyles(() => ({
     minWidth: 60,
     minHeight: 60,
     // height: 50,
-    maxHeight: 60,
+    // maxHeight: 60,
+    maxHeight: '100%',
     objectFit: 'contain',
 
     // objectPosition: 'center center',

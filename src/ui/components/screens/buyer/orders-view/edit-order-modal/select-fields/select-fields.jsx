@@ -403,7 +403,7 @@ export const SelectFields = ({
                         />
                       </div>
                     ) : (
-                      <Typography className={classNames.barCodeText}>{'N/A'}</Typography>
+                      <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>
                     )
                   }
                 />
