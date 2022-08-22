@@ -2,8 +2,8 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    width: '734px',
-    minHeight: '699px',
+    width: '674px',
+    height: '619px',
     display: 'flex',
     flexDirection: 'column',
     overflowY: 'auto',
@@ -118,14 +118,18 @@ export const useClassNames = makeStyles(() => ({
   leftSideWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    height: '465px',
+    overflow: 'auto',
+    padding: '0 2px',
     minWidth: '300px',
-    paddingTop: '15px',
   },
 
   rightSideWrapper: {
     display: 'flex',
     flexDirection: 'column',
     minWidth: '300px',
+    height: '465px',
+    overflow: 'auto',
   },
 
   permissionGroupsToSelectItemWrapper: {
@@ -188,31 +192,17 @@ export const useClassNames = makeStyles(() => ({
 
   tab: {
     color: '#006CFF',
+    textTransform: 'inherit',
   },
 
   selectedTab: {
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
   },
-  tableWrapper: {
-    marginTop: '10px',
-    height: '30vh',
+  accordionWrapper: {
+    height: '475px',
+    overflowY: 'auto',
+    overflowX: 'hidden',
   },
-
-  details: {
-    height: '48vh',
-  },
-  detailsShopWrapper: {
-    width: '100%',
-  },
-  selectedValue: {
-    marginLeft: '5px',
-    color: '#656565',
-  },
-  // accordionWrapper: {
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   gap: '10px',
-  // },
   accordion: {
     boxShadow: 'none',
 
@@ -222,6 +212,19 @@ export const useClassNames = makeStyles(() => ({
   },
   accordionSummary: {
     height: '64px',
+  },
+  accordionExpanded: {
+    background: '#F4F4F4',
+  },
+  selectedValue: {
+    marginLeft: '5px',
+    color: '#656565',
+  },
+  details: {
+    height: '53vh',
+  },
+  detailsShopWrapper: {
+    width: '100%',
   },
   searchWrapper: {
     display: 'flex',
@@ -237,5 +240,9 @@ export const useClassNames = makeStyles(() => ({
   searchInput: {
     width: '290px',
     height: '40px',
+  },
+  tableWrapper: {
+    marginTop: '10px',
+    height: '350px',
   },
 }))

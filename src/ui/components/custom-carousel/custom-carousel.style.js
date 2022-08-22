@@ -203,7 +203,6 @@ export const useClassNames = makeStyles(() => ({
     minWidth: 60,
     minHeight: 60,
     // height: 50,
-    // maxHeight: 60,
     maxHeight: '100%',
     objectFit: 'contain',
 

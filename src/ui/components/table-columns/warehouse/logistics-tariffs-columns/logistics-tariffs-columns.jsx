@@ -42,7 +42,7 @@ export const logisticsTariffsColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Region)} />,
 
     renderCell: () => <WarehouseTariffDestinationCell />,
-    width: 130,
+    width: 150,
     filterable: false,
     sortable: false,
   },

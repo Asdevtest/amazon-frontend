@@ -616,9 +616,10 @@ export const BeforeAfterBlock = observer(
             onClickEditBox={onClickEditBox}
           />
         )}
-        {taskType === TaskOperationType.RECEIVE && desiredBoxes.length === 0 && incomingBoxes.length > 0 && (
-          <ReceiveBoxes taskType={taskType} onClickOpenModal={onClickOpenModal} />
-        )}
+        {taskType === TaskOperationType.RECEIVE &&
+          desiredBoxes.length === 0 &&
+          incomingBoxes.length > 0 &&
+          !readOnly && <ReceiveBoxes taskType={taskType} onClickOpenModal={onClickOpenModal} />}
       </div>
     )
   },

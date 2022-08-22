@@ -3,7 +3,7 @@ const {makeStyles} = require('@material-ui/core')
 export const useClassNames = makeStyles(theme => ({
   boxesWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
+    gap: '40px',
   },
   buttonsWrapper: {
     display: 'flex',
@@ -22,20 +22,24 @@ export const useClassNames = makeStyles(theme => ({
     marginBottom: '20px',
   },
   box: {
-    minWidth: 390,
+    width: 527,
+    backgroundColor: '#F8F8F8',
+    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+    borderRadius: '4px',
+    padding: '20px 17px',
   },
   order: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'start',
     justifyContent: 'space-between',
   },
   divider: {
     margin: '0 30px',
   },
   img: {
-    width: '32px',
-    height: '32px',
-    marginRight: '4px',
+    width: '66px',
+    height: '66px',
+
     objectFit: 'contain',
     objectPosition: 'center',
   },
@@ -48,10 +52,10 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 400,
     lineHeight: '21px',
     marginRight: '10px',
-    width: '160px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+    width: '299px',
+    // overflow: 'hidden',
+    // textOverflow: 'ellipsis',
+    // whiteSpace: 'wrap',
   },
   subTitle: {
     fontSize: '14px',
@@ -136,5 +140,15 @@ export const useClassNames = makeStyles(theme => ({
 
   field: {
     margin: '0',
+  },
+
+  currentBoxTitle: {
+    display: 'flex',
+    gap: '23px',
+  },
+
+  asinWrapper: {
+    display: 'flex',
+    gap: '10px',
   },
 }))

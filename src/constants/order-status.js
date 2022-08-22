@@ -122,7 +122,6 @@ export const ORDER_STATUS_OPTIONS = [
 ]
 
 export const OrderStatusText = ({className, status}) => {
-  console.log(status)
   const colorByStatus = () => {
     if (
       [

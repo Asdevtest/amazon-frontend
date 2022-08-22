@@ -39,7 +39,7 @@ export const clientTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Description),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-    width: 750,
+    width: 700,
     renderCell: params => <TaskDescriptionCell task={params.row.originalData} />,
     filterable: false,
     sortable: false,
@@ -61,7 +61,7 @@ export const clientTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 170,
+    width: 250,
 
     renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row.originalData} />,
     filterable: false,

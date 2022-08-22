@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Chip, Divider, IconButton, Link, NativeSelect, Typography} from '@material-ui/core'
+import {Chip, IconButton, Link, NativeSelect, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 
@@ -80,30 +80,30 @@ const Box = ({
 
   return (
     <div className={classNames.box}>
-      {!isNewBox && (
-        <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
-      )}
       <div className={classNames.itemWrapper}>
         <div>
           {box.items.map((order, orderIndex) => (
             <div key={`box_${box._id}_${readOnly ? 1 : 0}_${orderIndex}`}>
               <div key={orderIndex} className={classNames.order}>
                 <img className={classNames.img} src={getAmazonImageUrl(order.product.images[0])} />
-                <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
-                <Text
-                  tooltipPosition="corner"
-                  tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
-                  className={classNames.subTitle}
-                >
-                  {t(TranslationKey.Quantity)}
-                </Text>
+                <div>
+                  <div className={classNames.asinWrapper}>
+                    <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
+                    <Typography className={classNames.asinValue}>{order.product.asin}</Typography>
+                  </div>
 
-                <Input
-                  classes={{root: classNames.inputWrapper, input: classNames.input}}
-                  readOnly={readOnly}
-                  value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}
-                  onChange={e => checkIsPositiveNum(e.target.value) && onChangeAmountInput(e, box._id, order.order)}
-                />
+                  <Typography className={classNames.title}>{order.product.amazonTitle}</Typography>
+                </div>
+
+                <div>
+                  <Field
+                    disabled={readOnly}
+                    label={t(TranslationKey.Quantity)}
+                    value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}
+                    tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
+                    onChange={e => checkIsPositiveNum(e.target.value) && onChangeAmountInput(e, box._id, order.order)}
+                  />
+                </div>
               </div>
               {isMasterBox ? (
                 <Typography className={classNames.subTitle}>{`${t(TranslationKey['Units in a box'])} ${
@@ -424,7 +424,12 @@ export const RedistributeBox = ({
 
   const CurrentBox = () => (
     <div className={classNames.currentBox}>
-      <Typography className={classNames.sectionTitle}>{t(TranslationKey.Redistribute)}</Typography>
+      <div className={classNames.currentBoxTitle}>
+        <Typography className={classNames.sectionTitle}>{t(TranslationKey.Redistribute)}</Typography>
+        <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${
+          currentBox.humanFriendlyId
+        }`}</Typography>
+      </div>
 
       <Box
         readOnly
@@ -458,7 +463,7 @@ export const RedistributeBox = ({
     <React.Fragment>
       <div className={classNames.boxesWrapper}>
         <CurrentBox />
-        <Divider flexItem className={classNames.divider} orientation="vertical" />
+
         <NewBoxes
           newBoxes={newBoxes}
           isMasterBox={isMasterBox}
@@ -469,7 +474,7 @@ export const RedistributeBox = ({
           onChangeField={onChangeField}
           onRemoveBox={onRemoveBox}
         />
-        <Divider flexItem className={classNames.divider} orientation="vertical" />
+
         <Field
           multiline
           className={classNames.heightFieldAuto}

@@ -97,8 +97,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   addBtn: {
-    height: 52,
-    padding: '8px 25px',
+    width: '173px',
+    height: '40px',
   },
 
   boxesFiltersWrapper: {

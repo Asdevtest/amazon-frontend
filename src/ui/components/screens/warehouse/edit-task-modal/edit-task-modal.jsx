@@ -10,6 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {UploadFilesInput} from '@components/upload-files-input'
@@ -36,6 +37,7 @@ export const EditTaskModal = observer(
     readOnly,
   }) => {
     const classNames = useClassNames()
+    console.log(task)
 
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
 
@@ -145,7 +147,11 @@ export const EditTaskModal = observer(
               <div className={classNames.imageFileInputWrapper}>
                 <UploadFilesInput images={photosOfTask} setImages={setPhotosOfTask} maxNumber={50} />
               </div>
-            ) : null}
+            ) : (
+              <div className={classNames.photosWrapper}>
+                <PhotoCarousel files={task.images} />
+              </div>
+            )}
           </div>
 
           <Divider orientation="horizontal" className={classNames.horizontalDivider} />

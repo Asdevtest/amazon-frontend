@@ -163,7 +163,7 @@ export const OrderModalBodyRow = ({
             size="small"
             label={
               orderState.tmpBarCode.length
-                ? 'FILE IS ADDED'
+                ? t(TranslationKey['File added'])
                 : orderState.barCode
                 ? trimBarcode(orderState.barCode)
                 : t(TranslationKey['Set Barcode'])

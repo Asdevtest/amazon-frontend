@@ -92,7 +92,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
                       variant="contained"
                       color="primary"
                       btnWrapperStyle={classNames.actionBtnWrapperStyle}
-                      className={clsx(classNames.actionButton, classNames.cancelBtn)}
+                      className={clsx(classNames.actionButton, classNames.editBtn)}
                       onClick={() =>
                         chatRequestAndRequestProposal.requestProposal &&
                         handlers.onClickProposalResultToCorrect(
