@@ -65,9 +65,10 @@ export const useClassNames = makeStyles(() => ({
   },
 
   actionButton: {
-    minWidth: '240px',
+    height: '40px',
   },
   successBtn: {
+    width: '107px',
     marginLeft: '30px',
     backgroundColor: '#4CAF50',
     '&:hover': {
@@ -75,7 +76,8 @@ export const useClassNames = makeStyles(() => ({
       backgroundColor: '#4CAF50',
     },
   },
-  cancelBtn: {
+  editBtn: {
+    width: '214px',
     backgroundColor: '#F44336',
     '&:hover': {
       opacity: '0.8',

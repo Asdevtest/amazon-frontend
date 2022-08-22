@@ -9,7 +9,7 @@ export const sourceColumns = () => [
     field: 'product',
     headerName: t(TranslationKey.Product),
     renderCell: params => <ProductCell product={params.row.originalData} />,
-    width: 620,
+    width: 550,
     sortable: false,
   },
 ]

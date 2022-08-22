@@ -188,4 +188,9 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'end',
   },
+  photosWrapper: {
+    display: 'flex',
+    height: '200px',
+    width: '650px',
+  },
 }))

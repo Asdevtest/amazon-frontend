@@ -526,7 +526,7 @@ export const styles = createStyles(() => ({
   multilineTextWrapper: {
     width: '100%',
     height: '100%',
-    display: 'flex',
+    display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'start',
     // marginLeft: '6px',
@@ -646,7 +646,7 @@ export const styles = createStyles(() => ({
   },
 
   multilineStatusText: {
-    textAlign: 'center',
+    textAlign: 'left',
     whiteSpace: 'normal',
     fontSize: '14px',
     lineHeight: '16px',

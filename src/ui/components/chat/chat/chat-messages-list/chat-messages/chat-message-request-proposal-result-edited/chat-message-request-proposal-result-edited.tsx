@@ -71,9 +71,8 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
       </div>
       <div className={classNames.footerWrapper}>
         {chatRequestAndRequestProposal &&
-        (chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.CORRECTED ||
-          chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
-            RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
+        (chatRequestAndRequestProposal.requestProposal?.proposal?.status ===
+          RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
           chatRequestAndRequestProposal.requestProposal?.proposal?.status === RequestProposalStatus.READY_TO_VERIFY) &&
         curUserId &&
         message.data.needApproveBy?.includes(curUserId) ? (

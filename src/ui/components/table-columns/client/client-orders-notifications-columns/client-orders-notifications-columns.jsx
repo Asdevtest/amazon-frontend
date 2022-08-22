@@ -4,12 +4,12 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   ClientNotificationsBtnsCell,
-  ActiveBarcodeCell,
   NormDateCell,
   OrderCell,
   MultilineTextHeaderCell,
   MultilineTextCell,
-  MultilineStatusCell,
+  DownloadAndCopyBtnsCell,
+  OrderStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
@@ -70,8 +70,8 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 150,
-    renderCell: params => <MultilineStatusCell status={params.value} />,
+    width: 250,
+    renderCell: params => <OrderStatusCell status={params.value} />,
   },
 
   {
@@ -80,7 +80,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
     width: 150,
-    renderCell: params => <ActiveBarcodeCell barCode={params.value} />,
+    renderCell: params => <DownloadAndCopyBtnsCell value={params.value} />,
   },
 
   {

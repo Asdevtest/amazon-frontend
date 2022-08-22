@@ -1246,7 +1246,7 @@ export const DownloadAndCopyBtnsCell = withStyles(styles)(({classes: classNames,
         <div className={classNames.shopsReportBtnsWrapper}>
           <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
             <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
-              {t(TranslationKey.download)}
+              {t(TranslationKey.View)}
             </a>
           </Text>
           <Button

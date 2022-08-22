@@ -59,7 +59,7 @@ class SupervisorReadyToCheckViewRaw extends Component {
         />
         <Main>
           <Appbar
-            title={`${t(TranslationKey['Supplier search'])} - ${t(TranslationKey['From the Researcher'])}`}
+            title={`${t(TranslationKey['Ready to check'])} - ${t(TranslationKey['From the Researcher'])}`}
             setDrawerOpen={onTriggerDrawerOpen}
           >
             <MainContent>
