@@ -180,7 +180,7 @@ export const BoxViewForm = observer(
               <div className={classNames.imgWrapper}>
                 <Typography>{t(TranslationKey['Box photos:'])}</Typography>
                 <div className={classNames.imgBoxWrapper}>
-                  <PhotoCarousel files={box.images} />
+                  <PhotoCarousel small files={box.images} />
                 </div>
               </div>
 

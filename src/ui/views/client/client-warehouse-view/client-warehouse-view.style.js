@@ -84,4 +84,21 @@ export const styles = createStyles(theme => ({
   virtualScrollerContent: {
     maxHeight: '69vh',
   },
+
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '400px',
+    height: 36,
+  },
+
+  searchContainer: {
+    width: 'auto',
+  },
+
+  topHeaderBtnsWrapper: {
+    paddingTop: 5,
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+  },
 }))

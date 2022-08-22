@@ -1,8 +1,10 @@
 import DeleteIcon from '@mui/icons-material/Delete'
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
+import {InputAdornment} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -13,6 +15,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {Field} from '@components/field'
 import {AddOwnProductForm} from '@components/forms/add-own-product-form'
 import {AddSupplierToIdeaFromInventoryForm} from '@components/forms/add-supplier-to-idea-from-inventory-form'
 import {BindInventoryGoodsToStockForm} from '@components/forms/bind-inventory-goods-to-stock-form'
@@ -51,6 +54,7 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       showInfoModalTitle,
       requestStatus,
       getCurrentData,
@@ -137,6 +141,8 @@ export class ClientInventoryViewRaw extends Component {
       onClickWithoutProductsShopBtn,
       onClickWithProductsShopBtn,
 
+      onChangeNameSearchValue,
+
       withoutProduct,
       withProduct,
     } = this.viewModel
@@ -145,8 +151,6 @@ export class ClientInventoryViewRaw extends Component {
       onTriggerOpenModal('showAddOrEditSupplierModal')
       onTriggerOpenModal('showSelectionSupplierModal')
     }
-    console.log(ideasData)
-    console.log(selectedProduct)
 
     return (
       <React.Fragment>
@@ -212,6 +216,19 @@ export class ClientInventoryViewRaw extends Component {
                   />
                 </div>
 
+                <Field
+                  containerClasses={classNames.searchContainer}
+                  inputClasses={classNames.searchInput}
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon color="primary" />
+                    </InputAdornment>
+                  }
+                  onChange={onChangeNameSearchValue}
+                />
+
                 {!isArchive ? (
                   <div className={classNames.simpleBtnsWrapper}>
                     <Button
@@ -233,7 +250,9 @@ export class ClientInventoryViewRaw extends Component {
                       <img src="/assets/icons/white-plus.svg" className={classNames.icon} />
                     </Button>
                   </div>
-                ) : null}
+                ) : (
+                  <div />
+                )}
               </div>
 
               <div className={classNames.addProductBtnsWrapper}>

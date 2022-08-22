@@ -1,8 +1,9 @@
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
+import {InputAdornment, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {toJS} from 'mobx'
@@ -14,6 +15,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {Field} from '@components/field'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {EditBoxForm} from '@components/forms/edit-box-form'
 import {RequestToSendBatchForm} from '@components/forms/request-to-send-batch-form'
@@ -49,6 +51,7 @@ export class ClientWarehouseViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       confirmModalSettings,
       selectedBox,
       curBox,
@@ -111,6 +114,7 @@ export class ClientWarehouseViewRaw extends Component {
       onClickSaveFbaShipment,
       onClickSaveShippingLabel,
       onClickCancelAfterConfirm,
+      onChangeNameSearchValue,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -128,37 +132,52 @@ export class ClientWarehouseViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
             <MainContent>
-              <div className={classNames.boxesFiltersWrapper}>
-                <Button
-                  disabled={!currentStorekeeper?._id}
-                  tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-                  className={clsx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
-                  variant="text"
-                  color="primary"
-                  onClick={onClickStorekeeperBtn}
-                >
-                  {t(TranslationKey['All warehouses'])}
-                </Button>
+              <div className={classNames.topHeaderBtnsWrapper}>
+                <div className={classNames.boxesFiltersWrapper}>
+                  <Button
+                    disabled={!currentStorekeeper?._id}
+                    tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
+                    className={clsx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
+                    variant="text"
+                    color="primary"
+                    onClick={onClickStorekeeperBtn}
+                  >
+                    {t(TranslationKey['All warehouses'])}
+                  </Button>
 
-                {storekeepersData
-                  .slice()
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map(storekeeper =>
-                    storekeeper.boxesCount !== 0 ? (
-                      <Button
-                        key={storekeeper._id}
-                        disabled={currentStorekeeper?._id === storekeeper._id}
-                        className={clsx(classNames.button, {
-                          [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
-                        })}
-                        variant="text"
-                        color="primary"
-                        onClick={() => onClickStorekeeperBtn(storekeeper)}
-                      >
-                        {storekeeper.name}
-                      </Button>
-                    ) : null,
-                  )}
+                  {storekeepersData
+                    .slice()
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map(storekeeper =>
+                      storekeeper.boxesCount !== 0 ? (
+                        <Button
+                          key={storekeeper._id}
+                          disabled={currentStorekeeper?._id === storekeeper._id}
+                          className={clsx(classNames.button, {
+                            [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
+                          })}
+                          variant="text"
+                          color="primary"
+                          onClick={() => onClickStorekeeperBtn(storekeeper)}
+                        >
+                          {storekeeper.name}
+                        </Button>
+                      ) : null,
+                    )}
+                </div>
+
+                <Field
+                  containerClasses={classNames.searchContainer}
+                  inputClasses={classNames.searchInput}
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon color="primary" />
+                    </InputAdornment>
+                  }
+                  onChange={onChangeNameSearchValue}
+                />
               </div>
 
               <div className={classNames.btnsWrapper}>

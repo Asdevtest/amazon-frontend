@@ -94,6 +94,7 @@ class BuyerMyOrdersViewRaw extends Component {
           <Appbar title={t(TranslationKey['My orders'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DataGrid
+                disableVirtualization
                 pagination
                 useResizeContainer
                 sx={{

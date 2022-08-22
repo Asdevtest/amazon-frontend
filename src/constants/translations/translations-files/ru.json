@@ -1456,5 +1456,6 @@
   "Access to products": "Доступ к товарам",
   "Access to all products in the store": "Доступ ко всем товарам в магазине",
   "Access to selected products only": "Доступ только к выбранным товарам",
-  "Search by product description and ASIN:": "Поиск по описанию товара и ASIN:"
+  "Search by product description and ASIN:": "Поиск по описанию товара и ASIN:",
+  "Search by SKU, ASIN, Title": "Поиск по SKU, ASIN, Title"
 }

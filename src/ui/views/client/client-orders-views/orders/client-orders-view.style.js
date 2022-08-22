@@ -27,4 +27,21 @@ export const styles = createStyles(() => ({
       transform: 'scale(1.01)',
     },
   },
+
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '400px',
+    height: 36,
+  },
+
+  searchContainer: {
+    width: 'auto',
+  },
+
+  topHeaderBtnsWrapper: {
+    paddingTop: 5,
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+  },
 }))

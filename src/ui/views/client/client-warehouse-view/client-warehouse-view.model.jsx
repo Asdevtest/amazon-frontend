@@ -59,6 +59,8 @@ export class ClientWarehouseViewModel {
   boxesMy = []
   tasksMy = []
 
+  nameSearchValue = ''
+
   curBox = undefined
   showBoxViewModal = false
 
@@ -227,8 +229,29 @@ export class ClientWarehouseViewModel {
     this.selectedBoxes = res
   }
 
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
+  }
+
   getCurrentData() {
-    return toJS(this.boxesMy)
+    if (this.nameSearchValue) {
+      return toJS(this.boxesMy).filter(
+        el =>
+          el.originalData.items.some(item =>
+            item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ) ||
+          el.originalData.items.some(item =>
+            item.product.skusByClient?.some(sku => sku.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
+          ) ||
+          el.originalData.items.some(item =>
+            item.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ),
+      )
+    } else {
+      return toJS(this.boxesMy)
+    }
   }
 
   getCurrentTaskData() {
