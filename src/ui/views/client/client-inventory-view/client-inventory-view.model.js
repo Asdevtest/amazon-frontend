@@ -93,6 +93,8 @@ export class ClientInventoryViewModel {
 
   isArchive = false
 
+  nameSearchValue = ''
+
   selectedRowId = undefined
   yuanToDollarRate = undefined
   volumeWeightCoefficient = undefined
@@ -203,6 +205,12 @@ export class ClientInventoryViewModel {
     }
   }
 
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
+  }
+
   onChangeFilterModel(model) {
     this.filterModel = model
   }
@@ -267,9 +275,20 @@ export class ClientInventoryViewModel {
   }
 
   getCurrentData() {
-    return this.isArchive
+    const dataByArchive = this.isArchive
       ? toJS(this.productsMy.filter(el => el.originalData.archive))
       : toJS(this.productsMy.filter(el => !el.originalData.archive))
+
+    if (this.nameSearchValue) {
+      return dataByArchive.filter(
+        el =>
+          el.originalData.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el.originalData.skusByClient?.some(sku => sku.toLowerCase().includes(this.nameSearchValue.toLowerCase())) ||
+          el.originalData.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return dataByArchive
+    }
   }
 
   async uploadTemplateFile(file) {
@@ -657,11 +676,16 @@ export class ClientInventoryViewModel {
 
   async onClickParseProductsBtn() {
     try {
+      this.showCircularProgressModal = true
+
       await SellerBoardModel.refreshProducts(this.selectedRowIds)
 
       this.successModalText = t(TranslationKey['Products will be updated soon'])
       this.onTriggerOpenModal('showSuccessModal')
+      this.showCircularProgressModal = false
     } catch (error) {
+      this.showCircularProgressModal = false
+
       this.showInfoModalTitle = t(TranslationKey['Parsing data not updated'])
       this.onTriggerOpenModal('showInfoModal')
 

@@ -121,4 +121,14 @@ export const styles = createStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
+
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '400px',
+    height: 36,
+  },
+
+  searchContainer: {
+    width: 'auto',
+  },
 })

@@ -71,6 +71,7 @@ export const styles = createStyles(() => ({
     gap: '3px',
   },
   typoSpan: {
+    marginLeft: 10,
     color: 'rgba(61, 81, 112, 1)',
   },
   cellBtn: {

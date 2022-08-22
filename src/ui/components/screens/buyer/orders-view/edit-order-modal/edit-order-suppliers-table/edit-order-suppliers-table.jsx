@@ -109,7 +109,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                   <UserLinkCell name={supplier.createdBy?.name} userId={supplier.createdBy?._id} />
                 </TableCell>
                 <TableCell>
-                  <PhotoAndFilesCarousel files={supplier.images} width="400px" />
+                  <PhotoAndFilesCarousel small files={supplier.images} width="400px" />
                 </TableCell>
               </TableRow>
             ))

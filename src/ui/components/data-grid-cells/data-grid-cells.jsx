@@ -89,9 +89,13 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
         <Typography className={classNames.typoCell}>
           {t(TranslationKey.ASIN)}
           <span className={classNames.typoSpan}>{product.asin}</span>
-          {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
         </Typography>
-        <Typography className={classNames.csCodeTypo}>{product.category}</Typography>
+        <Typography className={classNames.typoCell}>
+          {t(TranslationKey.SKU)}
+          <span className={classNames.typoSpan}>
+            {product.skusByClient?.length ? product.skusByClient.join(',') : t(TranslationKey.Missing)}
+          </span>
+        </Typography>
       </div>
     </div>
   </div>
@@ -292,6 +296,10 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
       <Typography className={classNames.orderText}>
         <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
         {product.asin}
+      </Typography>
+      <Typography className={classNames.orderText}>
+        <span className={classNames.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
+        {product.skusByClient?.length ? product.skusByClient.join(',') : t(TranslationKey.Missing)}
       </Typography>
       {superbox && <Typography className={classNames.superboxTypo}>{`${'SB'} x ${superbox}`}</Typography>}
 
@@ -953,6 +961,11 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box,
             <Typography className={classNames.orderText}>
               <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
               {item.product.asin}
+            </Typography>
+
+            <Typography className={classNames.orderText}>
+              <span className={classNames.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
+              {item.product.skusByClient?.length ? item.product.skusByClient.join(',') : t(TranslationKey.Missing)}
             </Typography>
 
             {item.deliveryTotalPrice - item.deliveryTotalPriceChanged < 0 && itemIndex === 0 && (

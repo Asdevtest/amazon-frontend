@@ -1455,7 +1455,7 @@ export enum TranslationKey {
   'Access to all products in the store' = 'Access to all products in the store',
   'Access to selected products only' = 'Access to selected products only',
   'Search by product description and ASIN:' = 'Search by product description and ASIN:',
-  // '' = '',
+  'Search by SKU, ASIN, Title' = 'Search by SKU, ASIN, Title',
   // '' = '',
   // '' = '',
   // '' = '',

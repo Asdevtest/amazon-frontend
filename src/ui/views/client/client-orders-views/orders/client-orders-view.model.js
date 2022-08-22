@@ -18,6 +18,7 @@ export class ClientOrdersViewModel {
   actionStatus = undefined
   error = undefined
 
+  nameSearchValue = ''
   orders = []
   drawerOpen = false
 
@@ -47,6 +48,12 @@ export class ClientOrdersViewModel {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
     }
+  }
+
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   onChangeFilterModel(model) {
@@ -104,7 +111,18 @@ export class ClientOrdersViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.orders)
+    if (this.nameSearchValue) {
+      return toJS(this.orders).filter(
+        el =>
+          el.originalData.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el.originalData.product.skusByClient?.some(sku =>
+            sku.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ) ||
+          el.originalData.product.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
+    } else {
+      return toJS(this.orders)
+    }
   }
 
   async loadData() {

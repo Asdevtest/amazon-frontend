@@ -1,7 +1,9 @@
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
+import {InputAdornment} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -10,6 +12,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -32,6 +35,7 @@ class ClientOrdersViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       requestStatus,
       getCurrentData,
       sortModel,
@@ -51,10 +55,9 @@ class ClientOrdersViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      onChangeNameSearchValue,
     } = this.viewModel
     const {classes: classNames} = this.props
-
-    console.log('rowsPerPage', rowsPerPage)
 
     return (
       <React.Fragment>
@@ -62,6 +65,21 @@ class ClientOrdersViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Orders)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
+              <div className={classNames.topHeaderBtnsWrapper}>
+                <Field
+                  containerClasses={classNames.searchContainer}
+                  inputClasses={classNames.searchInput}
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon color="primary" />
+                    </InputAdornment>
+                  }
+                  onChange={onChangeNameSearchValue}
+                />
+              </div>
+
               <DataGrid
                 pagination
                 useResizeContainer

@@ -384,7 +384,7 @@ export const EditBoxForm = observer(
                 <Typography className={classNames.subTitle}>
                   {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                 </Typography>
-                <PhotoCarousel files={boxFields.images} />
+                <PhotoCarousel small files={boxFields.images} />
               </div>
             </div>
           </div>
