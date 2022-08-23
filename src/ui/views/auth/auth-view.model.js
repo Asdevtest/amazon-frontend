@@ -48,7 +48,7 @@ export class AuthViewModel {
     try {
       this.requestStatus = loadingStatuses.isLoading
       this.error = undefined
-      await UserModel.signIn(this.email, this.password)
+      await UserModel.signIn(this.email.toLowerCase(), this.password)
       await UserModel.getUserInfo()
       if (UserModel.accessToken) {
         this.requestStatus = loadingStatuses.success

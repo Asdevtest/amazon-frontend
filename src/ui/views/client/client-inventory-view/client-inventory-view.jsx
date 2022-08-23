@@ -214,9 +214,22 @@ export class ClientInventoryViewRaw extends Component {
                     }
                     onClickSelect={shop => onClickShopBtn(shop)}
                   />
+
+                  <Field
+                    containerClasses={classNames.searchContainer}
+                    inputClasses={classNames.searchInput}
+                    value={nameSearchValue}
+                    placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                    endAdornment={
+                      <InputAdornment position="start">
+                        <SearchIcon color="primary" />
+                      </InputAdornment>
+                    }
+                    onChange={onChangeNameSearchValue}
+                  />
                 </div>
 
-                <Field
+                {/* <Field
                   containerClasses={classNames.searchContainer}
                   inputClasses={classNames.searchInput}
                   value={nameSearchValue}
@@ -227,7 +240,7 @@ export class ClientInventoryViewRaw extends Component {
                     </InputAdornment>
                   }
                   onChange={onChangeNameSearchValue}
-                />
+                /> */}
 
                 {!isArchive ? (
                   <div className={classNames.simpleBtnsWrapper}>

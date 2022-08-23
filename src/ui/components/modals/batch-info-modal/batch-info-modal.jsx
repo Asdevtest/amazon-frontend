@@ -208,7 +208,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
           label={t(TranslationKey.Files)}
           inputComponent={
             <div className={classNames.filesSubWrapper}>
-              <PhotoAndFilesCarousel files={batch.attachedDocuments} width="400px" />
+              <PhotoAndFilesCarousel small files={batch.attachedDocuments} width="400px" />
             </div>
           }
         />

@@ -416,7 +416,7 @@ export const SelectFields = ({
           <div className={classNames.imageFileInputWrapper}>
             <UploadFilesInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
           </div>
-          <PhotoAndFilesCarousel files={order.images} width="400px" />
+          <PhotoAndFilesCarousel small files={order.images} width="400px" />
         </div>
       </Grid>
 

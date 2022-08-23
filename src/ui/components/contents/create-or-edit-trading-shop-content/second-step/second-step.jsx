@@ -80,30 +80,33 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
 
   const filledTrafficWebpageVisitsMonthes = formFields.statistics.filter(el => el.webpageVisits)
 
-  const trafficСhange = filledTrafficWebpageVisitsMonthes.length
-    ? ((filledTrafficWebpageVisitsMonthes[0].webpageVisits -
-        filledTrafficWebpageVisitsMonthes[filledTrafficWebpageVisitsMonthes.length - 1].webpageVisits) /
-        filledTrafficWebpageVisitsMonthes[filledTrafficWebpageVisitsMonthes.length - 1].webpageVisits) *
-      100
-    : 0
+  const trafficСhange =
+    filledTrafficWebpageVisitsMonthes.length > 1
+      ? ((filledTrafficWebpageVisitsMonthes[0].webpageVisits -
+          filledTrafficWebpageVisitsMonthes[filledTrafficWebpageVisitsMonthes.length - 1].webpageVisits) /
+          filledTrafficWebpageVisitsMonthes[filledTrafficWebpageVisitsMonthes.length - 1].webpageVisits) *
+        100
+      : 0
 
   const filledTrafficGrossIncomeMonthes = formFields.statistics.filter(el => el.grossIncome)
 
-  const grossIncomeСhange = filledTrafficGrossIncomeMonthes.length
-    ? ((filledTrafficGrossIncomeMonthes[0].grossIncome -
-        filledTrafficGrossIncomeMonthes[filledTrafficGrossIncomeMonthes.length - 1].grossIncome) /
-        filledTrafficGrossIncomeMonthes[filledTrafficGrossIncomeMonthes.length - 1].grossIncome) *
-      100
-    : 0
+  const grossIncomeСhange =
+    filledTrafficGrossIncomeMonthes.length > 1
+      ? ((filledTrafficGrossIncomeMonthes[0].grossIncome -
+          filledTrafficGrossIncomeMonthes[filledTrafficGrossIncomeMonthes.length - 1].grossIncome) /
+          filledTrafficGrossIncomeMonthes[filledTrafficGrossIncomeMonthes.length - 1].grossIncome) *
+        100
+      : 0
 
   const filledTrafficPureIncomeMonthes = formFields.statistics.filter(el => el.pureIncome)
 
-  const pureIncomeСhange = filledTrafficPureIncomeMonthes.length
-    ? ((filledTrafficPureIncomeMonthes[0].pureIncome -
-        filledTrafficPureIncomeMonthes[filledTrafficPureIncomeMonthes.length - 1].pureIncome) /
-        filledTrafficPureIncomeMonthes[filledTrafficPureIncomeMonthes.length - 1].pureIncome) *
-      100
-    : 0
+  const pureIncomeСhange =
+    filledTrafficPureIncomeMonthes.length > 1
+      ? ((filledTrafficPureIncomeMonthes[0].pureIncome -
+          filledTrafficPureIncomeMonthes[filledTrafficPureIncomeMonthes.length - 1].pureIncome) /
+          filledTrafficPureIncomeMonthes[filledTrafficPureIncomeMonthes.length - 1].pureIncome) *
+        100
+      : 0
 
   const disableFirstRow = formFields.statistics.length >= 12 || dateLine === null
 

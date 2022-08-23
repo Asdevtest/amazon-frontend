@@ -191,7 +191,7 @@ export const IdeaViewAndEditCard = observer(
               disabled={disableFields}
               className={classNames.commentField}
               labelClasses={classNames.spanLabel}
-              inputProps={{maxLength: 1000}}
+              inputProps={{maxLength: 255}}
               minRows={6}
               rowsMax={6}
               label={t(TranslationKey.Comments)}
@@ -212,6 +212,7 @@ export const IdeaViewAndEditCard = observer(
                 <Field
                   disabled={disableFields}
                   labelClasses={classNames.spanLabel}
+                  inputProps={{maxLength: 255}}
                   label={t(TranslationKey['Product name'])}
                   value={formFields.productName}
                   onChange={onChangeField('productName')}
@@ -221,7 +222,7 @@ export const IdeaViewAndEditCard = observer(
                   multiline
                   disabled={disableFields}
                   className={classNames.criterionsField}
-                  inputProps={{maxLength: 1000}}
+                  inputProps={{maxLength: 255}}
                   minRows={9}
                   rowsMax={9}
                   label={t(TranslationKey['Important criteria'])}
@@ -402,27 +403,30 @@ export const IdeaViewAndEditCard = observer(
             {!checkIsAdmin(UserRoleCodeMap[curUser.role]) ? (
               <div className={classNames.existedIdeaBtnsSubWrapper}>
                 {checkIsClient(UserRoleCodeMap[curUser.role]) ? (
-                  <Button
-                    success
-                    tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
-                    tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
-                    variant="contained"
-                    color="primary"
-                    className={[classNames.actionButton]}
-                    onClick={() => onCreateProduct(formFields)}
-                  >
-                    {t(TranslationKey['Create a product card'])}
-                  </Button>
+                  <>
+                    <Button
+                      success
+                      tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
+                      tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
+                      variant="contained"
+                      color="primary"
+                      className={[classNames.actionButton]}
+                      onClick={() => onCreateProduct(formFields)}
+                    >
+                      {t(TranslationKey['Create a product card'])}
+                    </Button>
+
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className={classNames.actionButton}
+                      onClick={() => onEditIdea(idea)}
+                    >
+                      {t(TranslationKey.Edit)}
+                    </Button>
+                  </>
                 ) : null}
                 <div>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={classNames.actionButton}
-                    onClick={() => onEditIdea(idea)}
-                  >
-                    {t(TranslationKey.Edit)}
-                  </Button>
                   {checkIsClient(UserRoleCodeMap[curUser.role]) ? (
                     <Button
                       variant="contained"
