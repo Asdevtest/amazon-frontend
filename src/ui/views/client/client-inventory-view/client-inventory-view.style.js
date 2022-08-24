@@ -85,7 +85,6 @@ export const styles = createStyles({
   },
 
   shopsFiltersWrapper: {
-    marginBottom: '10px',
     display: 'flex',
     gap: 30,
   },
