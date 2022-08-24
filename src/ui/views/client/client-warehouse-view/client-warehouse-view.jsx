@@ -249,8 +249,6 @@ export class ClientWarehouseViewRaw extends Component {
         </Main>
 
         <Modal openModal={showEditBoxModal} setOpenModal={() => onTriggerOpenModal('showEditBoxModal')}>
-          <Typography variant="h5">{t(TranslationKey['Editing the box'])}</Typography>
-
           <EditBoxForm
             destinations={destinations}
             storekeepers={storekeepersData}

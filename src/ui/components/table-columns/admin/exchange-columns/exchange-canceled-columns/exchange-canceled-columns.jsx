@@ -9,6 +9,7 @@ import {
   NormDateCell,
   UserLinkCell,
   MultilineTextHeaderCell,
+  MultilineStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
@@ -47,7 +48,7 @@ export const exchangeCanceledColumns = () => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineStatusCell status={params.value} />,
     width: 250,
   },
   {

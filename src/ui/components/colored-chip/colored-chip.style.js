@@ -61,6 +61,13 @@ export const useClassNames = makeStyles(() => ({
     zIndex: '10',
   },
 
+  tooltipsCenterWrapper: {
+    position: 'absolute',
+    top: 'calc(50% - 8.5px)',
+    right: '20px',
+    zIndex: '10',
+  },
+
   tooltip: {
     width: '17px',
     height: '17px',

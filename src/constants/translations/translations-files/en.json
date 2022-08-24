@@ -1458,5 +1458,9 @@
   "Access to selected products only": "Access to selected products only",
   "Search by product description and ASIN:": "Search by product description and ASIN:",
   "Search by SKU, ASIN, Title": "Search by SKU, ASIN, Title",
-  "Repeat order": "Repeat order"
+  "Repeat order": "Repeat order",
+  "Box data": "Box data",
+  "Total goods In Box": "Total goods In Box",
+  "Quantity units of product": "Quantity units of product",
+  "Comments on order": "Comments on order"
 }

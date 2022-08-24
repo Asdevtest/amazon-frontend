@@ -44,9 +44,9 @@ export const OrderProductModal = ({
             ...reorderOrder.product,
             amount: reorderOrder.amount,
 
-            destinationId: reorderOrder.destination._id,
-            storekeeperId: reorderOrder.storekeeper._id,
-            logicsTariffId: reorderOrder.logicsTariff._id,
+            destinationId: reorderOrder.destination?._id || '',
+            storekeeperId: reorderOrder.storekeeper?._id || '',
+            logicsTariffId: reorderOrder.logicsTariff?._id || '',
           },
         ]
       : selectedProductsData.map(product => ({
@@ -66,10 +66,10 @@ export const OrderProductModal = ({
             images: reorderOrder.product.images,
             tmpBarCode: [],
 
-            destinationId: reorderOrder.destination._id,
+            destinationId: reorderOrder.destination?._id || '',
 
-            storekeeperId: reorderOrder.storekeeper._id,
-            logicsTariffId: reorderOrder.logicsTariff._id,
+            storekeeperId: reorderOrder.storekeeper?._id || '',
+            logicsTariffId: reorderOrder.logicsTariff?._id || '',
           },
         ]
       : selectedProductsData.map(product => ({

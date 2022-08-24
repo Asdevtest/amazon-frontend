@@ -222,12 +222,17 @@ export class SupervisorProductViewModel {
 
   onClickSetProductStatusBtn(statusKey) {
     if (
-      statusKey === ProductStatus.COMPLETE_SUCCESS &&
-      (!this.product.currentSupplierId ||
-        this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] ||
-        this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER])
+      (statusKey === ProductStatus.COMPLETE_SUCCESS ||
+        statusKey === ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE ||
+        statusKey === ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE) &&
+      !this.product.currentSupplierId
+      // this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] ||
+      // this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER])
     ) {
-      if (this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE]) {
+      if (
+        this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] &&
+        this.product.currentSupplierId
+      ) {
         this.warningModalTitle = warningModalTitleVariants().PRICE_WAS_NOT_ACCEPTABLE
       } else if (this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) {
         this.warningModalTitle = warningModalTitleVariants().SUPPLIER_WAS_NOT_FOUND_BY_BUYER
