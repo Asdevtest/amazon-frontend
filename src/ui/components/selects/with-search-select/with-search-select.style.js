@@ -3,7 +3,7 @@ import {createStyles} from '@material-ui/styles'
 export const styles = () =>
   createStyles({
     root: {
-      width: 360,
+      width: 280,
       height: 36,
       position: 'relative',
     },

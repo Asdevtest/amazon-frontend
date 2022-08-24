@@ -24,6 +24,11 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
           <Typography className={classNames.text}>
             <span className={classNames.asinTypo}>{t(TranslationKey.ASIN) + ': '}</span> {order.product.asin}
           </Typography>
+
+          <Typography className={classNames.text}>
+            <span className={classNames.asinTypo}>{t(TranslationKey.SKU) + ': '}</span>{' '}
+            {order.product.skusByClient?.length ? order.product.skusByClient.join(',') : t(TranslationKey.Missing)}
+          </Typography>
         </div>
       </div>
 

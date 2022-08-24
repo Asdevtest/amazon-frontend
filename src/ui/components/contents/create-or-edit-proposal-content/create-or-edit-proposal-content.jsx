@@ -159,7 +159,7 @@ export const CreateOrEditProposalContent = ({
         {request.details.linksToMediaFiles?.length > 0 ? (
           <Field
             label={'Файлы'}
-            inputComponent={<PhotoAndFilesCarousel files={request.details.linksToMediaFiles} width="400px" />}
+            inputComponent={<PhotoAndFilesCarousel small files={request.details.linksToMediaFiles} width="400px" />}
           />
         ) : null}
 

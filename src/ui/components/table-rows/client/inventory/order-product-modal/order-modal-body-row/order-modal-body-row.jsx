@@ -116,15 +116,17 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <div>
-            <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
-            <Typography>{`ASIN: ${item.asin}`}</Typography>
-            {!item.currentSupplier && (
-              <Typography className={classNames.noCurrentSupplierText}>
-                {t(TranslationKey['No supplier selected!'])}
-              </Typography>
-            )}
-          </div>
+          <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
+          <Typography>{`ASIN: ${item.asin}`}</Typography>
+          <Typography>{`SKU: ${
+            item.skusByClient?.length ? item.skusByClient.join(',') : t(TranslationKey.Missing)
+          }`}</Typography>
+
+          {!item.currentSupplier && (
+            <Typography className={classNames.noCurrentSupplierText}>
+              {t(TranslationKey['No supplier selected!'])}
+            </Typography>
+          )}
         </TableCell>
 
         <TableCell className={classNames.cell}>
@@ -204,6 +206,7 @@ export const OrderModalBodyRow = ({
             }}
             className={classNames.destinationSelect}
             input={<Input />}
+            value={item.destinationId}
             onChange={e => onChangeInput(e, 'destinationId')}
           >
             <option value={''}>{t(TranslationKey['not selected'])}</option>

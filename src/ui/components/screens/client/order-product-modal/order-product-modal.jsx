@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 
 import {Container, Typography, Table, TableBody, TableCell, TableHead, TableContainer} from '@material-ui/core'
 
-import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
@@ -21,12 +20,12 @@ export const OrderProductModal = ({
   volumeWeightCoefficient,
   destinations,
   storekeepers,
-  requestStatus,
   onTriggerOpenModal,
   selectedProductsData,
   onDoubleClickBarcode,
   onSubmit,
   onClickCancel,
+  reorderOrder,
 }) => {
   const classNames = useClassNames()
 
@@ -39,26 +38,53 @@ export const OrderProductModal = ({
   }
 
   const [productsForRender, setProductsForRender] = useState(
-    selectedProductsData.map(product => ({
-      ...product,
-      amount: 1,
-    })),
+    reorderOrder
+      ? [
+          {
+            ...reorderOrder.product,
+            amount: reorderOrder.amount,
+
+            destinationId: reorderOrder.destination?._id || '',
+            storekeeperId: reorderOrder.storekeeper?._id || '',
+            logicsTariffId: reorderOrder.logicsTariff?._id || '',
+          },
+        ]
+      : selectedProductsData.map(product => ({
+          ...product,
+          amount: 1,
+        })),
   )
 
   const [orderState, setOrderState] = useState(
-    selectedProductsData.map(product => ({
-      amount: 1,
-      clientComment: '',
-      barCode: product.barCode || '',
-      productId: product._id,
-      images: [],
-      tmpBarCode: [],
+    reorderOrder
+      ? [
+          {
+            amount: reorderOrder.amount,
+            clientComment: '',
+            barCode: reorderOrder.product.barCode || '',
+            productId: reorderOrder.product._id,
+            images: reorderOrder.product.images,
+            tmpBarCode: [],
 
-      destinationId: null,
+            destinationId: reorderOrder.destination?._id || '',
 
-      storekeeperId: '',
-      logicsTariffId: '',
-    })),
+            storekeeperId: reorderOrder.storekeeper?._id || '',
+            logicsTariffId: reorderOrder.logicsTariff?._id || '',
+          },
+        ]
+      : selectedProductsData.map(product => ({
+          amount: 1,
+          clientComment: '',
+          barCode: product.barCode || '',
+          productId: product._id,
+          images: [],
+          tmpBarCode: [],
+
+          destinationId: null,
+
+          storekeeperId: '',
+          logicsTariffId: '',
+        })),
   )
 
   useEffect(() => {
@@ -104,7 +130,6 @@ export const OrderProductModal = ({
   )
 
   const onClickSubmit = () => {
-    // onTriggerOpenModal('showOrderModal')
     onSubmit(
       orderState.map(el => ({...el, destinationId: el.destinationId ? el.destinationId : null})),
       totalOrdersCost,
@@ -122,7 +147,6 @@ export const OrderProductModal = ({
         Number(order.amount) <= 0 ||
         !Number.isInteger(Number(order.amount)),
     ) ||
-    requestStatus === loadingStatuses.isLoading ||
     productsForRender.some(item => !item.currentSupplier) ||
     !orderState.length ||
     submitIsClicked
@@ -220,7 +244,7 @@ export const OrderProductModal = ({
                 destinations={destinations}
                 storekeepers={storekeepers}
                 item={product}
-                withRemove={selectedProductsData.length > 1}
+                withRemove={selectedProductsData?.length > 1}
                 orderState={orderState[index]}
                 setOrderStateFiled={setOrderStateFiled(index)}
                 itemIndex={index}

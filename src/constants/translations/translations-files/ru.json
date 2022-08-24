@@ -361,7 +361,7 @@
   "Real weight": "Реальный вес, кг",
   "Photos of the box taken at the warehouse:": "Фотографии коробки, сделанные на складе:",
   "Order comment": "Комментарий к заказу",
-  "Write a comment on the task": "Написать комментарий к задаче",
+  "Write a comment on the task": "Оставить комментарий к задаче",
   "Task commentary": "Kомментарий к задаче...",
   "The barcode is glued by the supplier": "Баркод проклеен поставщиком",
   "Not glued!": "Не проклеен!",
@@ -1457,5 +1457,10 @@
   "Access to all products in the store": "Доступ ко всем товарам в магазине",
   "Access to selected products only": "Доступ только к выбранным товарам",
   "Search by product description and ASIN:": "Поиск по описанию товара и ASIN:",
-  "Search by SKU, ASIN, Title": "Поиск по SKU, ASIN, Title"
+  "Search by SKU, ASIN, Title": "Поиск по SKU, ASIN, Title",
+  "Repeat order": "Повторить заказ",
+  "Box data": "Данные коробки",
+  "Total goods In Box": "Всего товаров в коробке",
+  "Quantity units of product": "Количество единиц товара",
+  "Comments on order": "Комментарии к заказу"
 }

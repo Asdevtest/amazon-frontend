@@ -8,6 +8,7 @@ import {
   NormDateCell,
   MultilineTextCell,
   ToFixedWithDollarSignCell,
+  MultilineStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -53,7 +54,7 @@ export const researcherProductsViewColumns = () => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineStatusCell status={params.value} />,
     width: 250,
   },
 

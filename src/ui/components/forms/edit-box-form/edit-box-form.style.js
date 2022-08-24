@@ -6,12 +6,13 @@ export const useClassNames = makeStyles(theme => ({
     flexDirection: 'column',
   },
   form: {
-    flexWrap: 'wrap',
-    marginTop: theme.spacing(2.5),
-    marginBottom: theme.spacing(2.5),
-    border: '1px solid rgb(224, 224, 224)',
     borderRadius: '5px',
-    padding: '20px',
+
+    display: 'flex',
+
+    // alignItems: 'stretch',
+
+    gap: 40,
   },
   warehouseInfoWrapper: {},
   ordersWrapper: {
@@ -25,24 +26,25 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   button: {
-    marginLeft: '10px',
+    marginLeft: '40px',
   },
   subTitle: {
     color: theme.palette.text.secondary,
   },
   field: {
-    flexBasis: '100%',
+    width: '100%',
   },
   multiline: {
     height: 'auto',
     width: '100%',
   },
+
   divider: {
     width: '100%',
     flexGrow: 1,
-    margin: '0 -20px',
-    marginTop: theme.spacing(1.25),
-    marginBottom: theme.spacing(2.5),
+    // margin: '0 -20px',
+    // marginTop: theme.spacing(1.25),
+    // marginBottom: theme.spacing(2.5),
   },
   submit: {
     marginRight: theme.spacing(2),
@@ -65,8 +67,17 @@ export const useClassNames = makeStyles(theme => ({
     margin: '0 5px',
   },
   blockOfNewBoxWrapper: {
+    height: '100%',
+
+    minWidth: 350,
+
+    padding: '10px 20px',
+
+    backgroundColor: '#F8F8F8',
+
     display: 'flex',
     flexDirection: 'column',
+
     gap: '20px',
   },
   barcodeChip: {
@@ -74,7 +85,7 @@ export const useClassNames = makeStyles(theme => ({
     color: 'white',
     fontSize: '13px',
     borderRadius: '4px',
-    width: '300px',
+    width: '230px',
     height: '30px',
   },
   barcodeChipHover: {
@@ -89,12 +100,14 @@ export const useClassNames = makeStyles(theme => ({
     },
   },
   barcodeChiplabel: {
-    width: '300px',
+    width: '100%',
+
     textAlign: 'center',
   },
 
   barcodeChipExists: {
     backgroundColor: 'rgb(61, 81, 112)',
+    width: '230px',
   },
   topWrapper: {
     display: 'flex',
@@ -109,16 +122,11 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     gap: '10px',
   },
-  tableTitle: {
-    color: 'rgba(61, 81, 112, 1)',
-    fontSize: '24px',
-    fontWeight: 500,
-    lineHeight: '28px',
-  },
 
   boxTitleWrapper: {
     display: 'flex',
     alignItems: 'center',
+    marginLeft: 20,
   },
   amountSpan: {
     margin: '0 0 0 20px',
@@ -135,21 +143,23 @@ export const useClassNames = makeStyles(theme => ({
     },
   },
   photoWrapper: {
-    width: '400px',
+    width: '250px',
+    height: 200,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    alignSelf: 'center',
   },
 
   storekeeperBtn: {
     height: '32px',
+    width: '230px',
   },
 
   sizesTitleWrapper: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '300px',
+    gap: 40,
   },
   successBtn: {
     backgroundColor: '#4CAF50',
@@ -161,5 +171,106 @@ export const useClassNames = makeStyles(theme => ({
 
   alertText: {
     color: 'red',
+  },
+
+  shareBoxWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '10px 20px 0',
+  },
+
+  shareBoxSubWrapper: {
+    display: 'flex',
+    gap: 20,
+    // width: 350,
+  },
+
+  destinationSelect: {
+    width: '230px',
+  },
+
+  fbaShipmentInput: {
+    width: '230px',
+  },
+
+  editBlockWrapper: {
+    backgroundColor: '#F8F8F8',
+    height: '100%',
+  },
+
+  disabledNumInput: {
+    width: 80,
+    height: 40,
+    marginLeft: 55,
+  },
+
+  editBlockHeaderWrapper: {
+    display: 'flex',
+    padding: '10px 20px 0',
+    gap: 20,
+  },
+
+  disabledNumContainer: {
+    // width: 230,
+  },
+
+  productsWrapper: {
+    width: 500,
+  },
+
+  productWrapper: {
+    padding: '10px 20px 0',
+    display: 'flex',
+    justifyContent: 'space-between',
+
+    // gap: 20,
+    // height: '330px',
+    // width: '480px',
+
+    // padding: '10px',
+  },
+
+  amazonTitle: {
+    display: '-webkit-box',
+    '-webkitLineClamp': 3,
+    '-webkitBoxOrient': 'vertical',
+    maxHeight: 65,
+    whiteSpace: 'normal',
+
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
+    width: '230px',
+    marginBottom: '5px',
+  },
+
+  asinText: {
+    marginLeft: 10,
+  },
+
+  titleWrapper: {
+    marginBottom: 20,
+    display: 'flex',
+    alignItems: 'center',
+
+    gap: 20,
+  },
+
+  title: {
+    fontWeight: 600,
+    fontSize: 30,
+
+    color: '#001029',
+  },
+
+  standartLabel: {
+    fontSize: 14,
+    color: '#656565',
+  },
+
+  tableTitle: {
+    fontWeight: 600,
+    fontSize: 16,
+    color: '#001029',
   },
 }))

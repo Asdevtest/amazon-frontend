@@ -149,7 +149,7 @@ export const EditTaskModal = observer(
               </div>
             ) : (
               <div className={classNames.photosWrapper}>
-                <PhotoCarousel files={task.images} />
+                <PhotoCarousel small files={task.images} />
               </div>
             )}
           </div>

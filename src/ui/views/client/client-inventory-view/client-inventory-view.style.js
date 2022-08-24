@@ -95,6 +95,7 @@ export const styles = createStyles({
   shopsFiltersWrapper: {
     marginBottom: '30px',
     display: 'flex',
+    gap: 30,
   },
 
   icon: {
@@ -124,11 +125,12 @@ export const styles = createStyles({
 
   searchInput: {
     border: '1px solid #007bff',
-    width: '400px',
+    width: '300px',
     height: 36,
   },
 
   searchContainer: {
     width: 'auto',
+    justifySelf: 'flex-start',
   },
 })

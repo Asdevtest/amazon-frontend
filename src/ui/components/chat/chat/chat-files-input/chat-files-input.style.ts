@@ -3,8 +3,8 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(() => ({
   root: {
     width: '100%',
-    overflow: 'scroll',
+    overflow: 'auto',
     height: '100%',
-    padding: '0 20px',
+    padding: '10px 20px',
   },
 }))

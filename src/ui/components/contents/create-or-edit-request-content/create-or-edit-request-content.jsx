@@ -189,7 +189,7 @@ export const CreateOrEditRequestContent = ({
               <div className={classNames.imageFileInputWrapper}>
                 <UploadFilesInput images={images} setImages={setImages} maxNumber={50} />
                 {formFields.details.linksToMediaFiles?.length ? (
-                  <PhotoAndFilesCarousel files={formFields.details.linksToMediaFiles} width="400px" />
+                  <PhotoAndFilesCarousel small files={formFields.details.linksToMediaFiles} width="400px" />
                 ) : null}
               </div>
             </div>

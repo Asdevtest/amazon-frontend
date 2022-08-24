@@ -214,20 +214,20 @@ export class ClientInventoryViewRaw extends Component {
                     }
                     onClickSelect={shop => onClickShopBtn(shop)}
                   />
-                </div>
 
-                <Field
-                  containerClasses={classNames.searchContainer}
-                  inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                  endAdornment={
-                    <InputAdornment position="start">
-                      <SearchIcon color="primary" />
-                    </InputAdornment>
-                  }
-                  onChange={onChangeNameSearchValue}
-                />
+                  <Field
+                    containerClasses={classNames.searchContainer}
+                    inputClasses={classNames.searchInput}
+                    value={nameSearchValue}
+                    placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                    endAdornment={
+                      <InputAdornment position="start">
+                        <SearchIcon color="primary" />
+                      </InputAdornment>
+                    }
+                    onChange={onChangeNameSearchValue}
+                  />
+                </div>
 
                 {!isArchive ? (
                   <div className={classNames.simpleBtnsWrapper}>
@@ -507,7 +507,6 @@ export class ClientInventoryViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             destinations={destinations}
             storekeepers={storekeepers}
-            requestStatus={requestStatus}
             selectedProductsData={productsMy
               .filter(product => selectedRowIds.includes(product.id))
               .map(prod => prod.originalData)}
