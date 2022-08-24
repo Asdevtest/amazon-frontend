@@ -186,7 +186,7 @@ export const EditTaskModal = observer(
 
         {!readOnly ? (
           <div className={classNames.buttonsWrapper}>
-            {task.operationType === TaskOperationType.SPLIT && (
+            {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
               <Button
                 disableElevation
                 className={classNames.button}

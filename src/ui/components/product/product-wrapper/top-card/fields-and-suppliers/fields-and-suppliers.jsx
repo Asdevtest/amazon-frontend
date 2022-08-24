@@ -1,19 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
-import {
-  Box,
-  Grid,
-  IconButton,
-  Typography,
-  Link,
-  NativeSelect,
-  Select,
-  MenuItem,
-  Checkbox,
-  ListItemText,
-} from '@material-ui/core'
+import {Box, Grid, Typography, Link, NativeSelect, Select, MenuItem, Checkbox, ListItemText} from '@material-ui/core'
 import MuiCheckbox from '@material-ui/core/Checkbox'
-import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
@@ -47,7 +35,6 @@ export const FieldsAndSuppliers = observer(
   ({user, showActionBtns, curUserRole, onChangeField, product, productBase, formFieldsValidationErrors, shops}) => {
     const classNames = useClassNames()
 
-    const [skuLine, setSkuLine] = useState('')
     const [edit, setEdit] = useState(true)
 
     const [clearSelect, setClearSelect] = useState(true)
@@ -72,18 +59,6 @@ export const FieldsAndSuppliers = observer(
       !selectedItem && shops?.length ? setClearSelect(true) : setClearSelect(false)
     }, [selectedItem, shops])
 
-    const onClickSkuBtn = () => {
-      onChangeField('skusByClient')({target: {value: [...product.skusByClient, skuLine.toUpperCase()]}})
-
-      setSkuLine('')
-    }
-
-    const onRemoveSku = index => {
-      const newArr = product.skusByClient.filter((el, i) => i !== index)
-
-      onChangeField('skusByClient')({target: {value: [...newArr]}})
-    }
-
     const onChangeShopNamesField = () => {
       setClearSelect(true)
       selectedItem && setCurrentShops(prev => [...new Set([...prev, selectedItem])])
@@ -96,6 +71,10 @@ export const FieldsAndSuppliers = observer(
       currentShopsIds && setCurrentShopsIds(currentShopsIds.filter(shopId => shopId !== id))
     }
 
+    const copyValue = value => {
+      navigator.clipboard.writeText(value)
+    }
+
     const disabledPrivateLabelFields = !(
       checkIsResearcher(curUserRole) ||
       (checkIsSupervisor(curUserRole) && showActionBtns) ||
@@ -105,6 +84,7 @@ export const FieldsAndSuppliers = observer(
         checkIsClient(curUserRole) &&
         !product.archive)
     )
+    console.log(product.skusByClient)
 
     return (
       <Grid item xs={12}>
@@ -160,21 +140,36 @@ export const FieldsAndSuppliers = observer(
           <div>
             <Field
               tooltipInfoContent={t(TranslationKey['Amazon ID number'])}
-              disabled={
-                !(
-                  checkIsClient(curUserRole) &&
-                  product.isCreatedByClient &&
-                  clientToEditStatuses.includes(productBase.status) &&
-                  checkIsClient(curUserRole) &&
-                  !product.archive
-                )
-              }
-              inputProps={{maxLength: 254}}
               error={formFieldsValidationErrors.asin}
-              // inputClasses={classNames.inputAsin}
               label={t(TranslationKey.ASIN)}
-              value={product.asin}
-              onChange={onChangeField('asin')}
+              inputComponent={
+                <div className={classNames.subInputWrapper}>
+                  <Input
+                    disabled={
+                      !(
+                        checkIsClient(curUserRole) &&
+                        product.isCreatedByClient &&
+                        clientToEditStatuses.includes(productBase.status) &&
+                        checkIsClient(curUserRole) &&
+                        !product.archive
+                      )
+                    }
+                    value={product.asin}
+                    inputProps={{maxLength: 254}}
+                    className={classNames.inputAsin}
+                    onChange={onChangeField('asin')}
+                  />
+                  <img
+                    className={classNames.copyImg}
+                    src="/assets/icons/copy-img.svg"
+                    alt=""
+                    onClick={e => {
+                      e.stopPropagation()
+                      copyValue(product.asin)
+                    }}
+                  />
+                </div>
+              }
             />
 
             {checkIsClient(curUserRole) && product.isCreatedByClient && (
@@ -182,49 +177,27 @@ export const FieldsAndSuppliers = observer(
                 label={t(TranslationKey['SKU by Client'])}
                 inputComponent={
                   <div>
-                    {product.skusByClient.length ? (
-                      <Grid container className={classNames.skuItemsWrapper}>
-                        {product.skusByClient.map((item, index) => (
-                          <Grid key={index} item className={classNames.skuItemWrapper}>
-                            <Typography className={classNames.skuItemTitle}>{item}</Typography>
-
-                            {checkIsClient(curUserRole) &&
-                              product.isCreatedByClient &&
-                              clientToEditStatuses.includes(productBase.status) && (
-                                <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveSku(index)}>
-                                  <DeleteIcon className={classNames.deleteBtn} />
-                                </IconButton>
-                              )}
-                          </Grid>
-                        ))}
-                      </Grid>
-                    ) : null}
-
                     {checkIsClient(curUserRole) &&
                       product.isCreatedByClient &&
                       !product.archive &&
                       clientToEditStatuses.includes(productBase.status) && (
-                        <div className={classNames.inputWrapper}>
+                        <div className={classNames.subInputWrapper}>
                           <Input
                             placeholder={t(TranslationKey.SKU)}
                             inputProps={{maxLength: 50}}
-                            value={skuLine}
-                            className={classNames.input}
-                            onChange={e => setSkuLine(e.target.value.replace(/ /g, ''))}
+                            value={product.skusByClient}
+                            className={classNames.inputAsin}
+                            onChange={e => onChangeField('skusByClient')({target: {value: [e.target.value]}})}
                           />
-                          <Button
-                            disableElevation
-                            tooltipInfoContent={t(
-                              TranslationKey['Adds SKU to the card entered in the SKU field of the client'],
-                            )}
-                            disabled={skuLine === ''}
-                            className={classNames.defaultBtn}
-                            variant="contained"
-                            color="primary"
-                            onClick={onClickSkuBtn}
-                          >
-                            {t(TranslationKey.Add)}
-                          </Button>
+                          <img
+                            className={classNames.copyImg}
+                            src="/assets/icons/copy-img.svg"
+                            alt=""
+                            onClick={e => {
+                              e.stopPropagation()
+                              copyValue(product.asin)
+                            }}
+                          />
                         </div>
                       )}
                   </div>

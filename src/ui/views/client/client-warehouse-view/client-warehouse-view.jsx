@@ -300,11 +300,7 @@ export class ClientWarehouseViewRaw extends Component {
           />
         </Modal>
 
-        <Modal
-          missClickModalOn
-          openModal={showTaskInfoModal}
-          setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
-        >
+        <Modal openModal={showTaskInfoModal} setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}>
           <EditTaskModal
             readOnly
             volumeWeightCoefficient={volumeWeightCoefficient}

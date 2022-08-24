@@ -76,8 +76,8 @@ export const BoxViewForm = observer(
                   disabled
                   inputClasses={classNames.deliveryInfoField}
                   label={t(TranslationKey.Destination)}
-                  value={box.destination?.name || ''}
-                  placeholder={'N/A'}
+                  value={box.destination?.name || t(TranslationKey['Not available'])}
+                  placeholder={t(TranslationKey['Not available'])}
                 />
               </Grid>
 

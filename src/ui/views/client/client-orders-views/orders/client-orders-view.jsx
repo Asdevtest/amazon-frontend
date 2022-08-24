@@ -100,42 +100,43 @@ class ClientOrdersViewRaw extends Component {
                   onChange={onChangeNameSearchValue}
                 />
               </div>
-
-              <DataGrid
-                pagination
-                useResizeContainer
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
-                }}
-                localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: classNames.row,
-                }}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                rowHeight={100}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection[0])
-                }}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onRowDoubleClick={e => onClickTableRow(e.row)}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-              />
+              <div className={classNames.datagridWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  sx={{
+                    border: 0,
+                    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                    backgroundColor: '#fff',
+                  }}
+                  localeText={getLocalizationByLanguageTag()}
+                  classes={{
+                    row: classNames.row,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  rowHeight={100}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection[0])
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onRowDoubleClick={e => onClickTableRow(e.row)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                />
+              </div>
             </MainContent>
 
             <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>

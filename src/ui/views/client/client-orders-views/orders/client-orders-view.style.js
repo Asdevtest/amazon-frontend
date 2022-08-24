@@ -44,4 +44,7 @@ export const styles = createStyles(() => ({
     width: '100%',
     justifyContent: 'center',
   },
+  datagridWrapper: {
+    height: '80vh',
+  },
 }))
