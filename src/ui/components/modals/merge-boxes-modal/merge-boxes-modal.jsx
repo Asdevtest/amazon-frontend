@@ -182,7 +182,7 @@ export const MergeBoxesModal = ({
                     input={<Input />}
                     onChange={e => setBoxBody({...boxBody, destinationId: e.target.value})}
                   >
-                    <option value={''}>{'none'}</option>
+                    <option value={''}>{t(TranslationKey['Not chosen'])}</option>
 
                     {destinations.map(item => (
                       <option key={item._id} value={item._id}>

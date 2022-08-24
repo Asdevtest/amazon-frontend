@@ -627,9 +627,9 @@ export const styles = createStyles(() => ({
     color: 'rgba(0, 0, 0, 0.87)',
 
     fontWeight: '600',
-    fontSize: '14px',
-    lineHeight: '16px',
-    padding: '0 10px',
+    fontSize: '12px',
+    lineHeight: '14px',
+    // padding: '0 10px',
   },
 
   headerText: {

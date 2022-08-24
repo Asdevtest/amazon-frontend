@@ -3,7 +3,7 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(theme => ({
   root: {
     // padding: theme.spacing(3.75),
-    padding: '10px 30px',
+    padding: '10px 10px',
     flexGrow: 1,
     // overflow: 'auto',
 

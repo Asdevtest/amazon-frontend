@@ -12,8 +12,6 @@ export const styles = createStyles({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // padding: '10px',
-    marginBottom: '30px',
   },
 
   btnsWrapper: {
@@ -87,7 +85,7 @@ export const styles = createStyles({
   },
 
   shopsFiltersWrapper: {
-    marginBottom: '30px',
+    marginBottom: '10px',
     display: 'flex',
     gap: 30,
   },
@@ -105,14 +103,14 @@ export const styles = createStyles({
   },
 
   topHeaderBtnsWrapper: {
-    paddingTop: 5,
+    // paddingTop: 5,
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
   },
 
   rightAddingBtn: {
-    width: 260,
+    width: 270,
     display: 'flex',
     justifyContent: 'space-between',
   },
@@ -133,6 +131,7 @@ export const styles = createStyles({
     backgroundColor: '#fff',
   },
   datagridWrapper: {
-    height: '700px',
+    marginTop: '10px',
+    height: '740px',
   },
 })
