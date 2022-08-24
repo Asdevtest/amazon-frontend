@@ -132,6 +132,18 @@ export const styles = createStyles({
   },
   datagridWrapper: {
     marginTop: '10px',
-    height: '740px',
+    height: '760px',
+  },
+  footerContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
+  footerCell: {
+    padding: 0,
+    margin: 0,
+  },
+  toolbarContainer: {
+    height: '52px',
   },
 })

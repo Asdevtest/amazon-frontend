@@ -163,7 +163,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     headerName: t(TranslationKey['Recommend amount']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 100,
+    width: 90,
     type: 'number',
     headerAlign: 'center',
   },

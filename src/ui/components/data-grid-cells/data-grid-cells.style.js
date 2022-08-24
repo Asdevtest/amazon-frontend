@@ -734,6 +734,22 @@ export const styles = createStyles(() => ({
     },
   },
 
+  copyImgAsin: {
+    width: '14px',
+    height: '14px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
+  },
+
+  copyAsin: {
+    display: 'flex',
+    gap: '5px',
+    alignItems: 'center',
+  },
+
   changeChipCellLabel: {
     fontSize: '12px',
   },
