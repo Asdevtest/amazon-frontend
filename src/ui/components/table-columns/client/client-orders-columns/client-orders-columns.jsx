@@ -15,11 +15,12 @@ import {
   OrderStatusCell,
   MultilineTextAlignLeftHeaderCell,
   DownloadAndCopyBtnsCell,
+  NormalActionBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
 
-export const clientOrdersViewColumns = firstRowId => [
+export const clientOrdersViewColumns = (handlers, firstRowId) => [
   {
     field: 'id',
     headerName: t(TranslationKey.ID),
@@ -42,8 +43,23 @@ export const clientOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 230,
+    width: 160,
     renderCell: params => <OrderStatusCell status={params.value} />,
+  },
+
+  {
+    field: 'action',
+    headerName: t(TranslationKey.Actions),
+    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Actions)} />,
+    width: 200,
+    renderCell: params => (
+      <NormalActionBtnCell
+        bTnText={t(TranslationKey['Repeat order'])}
+        onClickOkBtn={() => handlers.onClickReorder(params.row.originalData)}
+      />
+    ),
+    filterable: false,
+    sortable: false,
   },
 
   {

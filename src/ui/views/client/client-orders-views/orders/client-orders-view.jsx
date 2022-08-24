@@ -15,7 +15,12 @@ import {Appbar} from '@components/appbar'
 import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {Navbar} from '@components/navbar'
+import {OrderProductModal} from '@components/screens/client/order-product-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -35,6 +40,13 @@ class ClientOrdersViewRaw extends Component {
 
   render() {
     const {
+      confirmModalSettings,
+      successModalText,
+      reorderOrder,
+      selectedProduct,
+      storekeepers,
+      destinations,
+      volumeWeightCoefficient,
       nameSearchValue,
       requestStatus,
       getCurrentData,
@@ -42,6 +54,10 @@ class ClientOrdersViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
+      showOrderModal,
+      showSetBarcodeModal,
+      showSuccessModal,
+      showConfirmModal,
 
       drawerOpen,
       rowsPerPage,
@@ -56,6 +72,11 @@ class ClientOrdersViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
       onChangeNameSearchValue,
+
+      onTriggerOpenModal,
+      onClickSaveBarcode,
+      onDoubleClickBarcode,
+      onConfirmSubmitOrderProductModal,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -116,6 +137,52 @@ class ClientOrdersViewRaw extends Component {
                 onFilterModelChange={model => onChangeFilterModel(model)}
               />
             </MainContent>
+
+            <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
+              <SetBarcodeModal
+                item={selectedProduct}
+                onClickSaveBarcode={onClickSaveBarcode}
+                onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
+              />
+            </Modal>
+
+            <Modal
+              missClickModalOn
+              openModal={showOrderModal}
+              setOpenModal={() => onTriggerOpenModal('showOrderModal')}
+            >
+              <OrderProductModal
+                reorderOrder={reorderOrder}
+                volumeWeightCoefficient={volumeWeightCoefficient}
+                destinations={destinations}
+                storekeepers={storekeepers}
+                onTriggerOpenModal={onTriggerOpenModal}
+                onDoubleClickBarcode={onDoubleClickBarcode}
+                onSubmit={onConfirmSubmitOrderProductModal}
+              />
+            </Modal>
+
+            <SuccessInfoModal
+              openModal={showSuccessModal}
+              setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+              title={successModalText}
+              successBtnText={t(TranslationKey.Ok)}
+              onClickSuccessBtn={() => {
+                onTriggerOpenModal('showSuccessModal')
+              }}
+            />
+
+            <ConfirmationModal
+              openModal={showConfirmModal}
+              setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+              isWarning={confirmModalSettings.isWarning}
+              title={confirmModalSettings.confirmTitle}
+              message={confirmModalSettings.confirmMessage}
+              successBtnText={t(TranslationKey.Yes)}
+              cancelBtnText={t(TranslationKey.Cancel)}
+              onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+              onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+            />
           </Appbar>
         </Main>
       </React.Fragment>

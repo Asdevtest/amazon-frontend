@@ -45,8 +45,6 @@ export class SupervisorReadyToCheckByClientViewModel {
 
   setDataGridState(state) {
     this.firstRowId = state.sorting.sortedRows[0]
-
-    this.columnsModel = depersonalizedPickColumns(this.rowHandlers, this.isSupervisor, this.firstRowId)
   }
 
   async loadData() {

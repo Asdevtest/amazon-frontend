@@ -45,8 +45,6 @@ export class BuyerSearchSupplierByClientModel {
 
   setDataGridState(state) {
     this.firstRowId = state.sorting.sortedRows[0]
-
-    this.columnsModel = buyerSearchSuppliersViewColumns(this.rowHandlers, this.firstRowId)
   }
 
   async loadData() {

@@ -229,19 +229,6 @@ export class ClientInventoryViewRaw extends Component {
                   />
                 </div>
 
-                {/* <Field
-                  containerClasses={classNames.searchContainer}
-                  inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
-                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-                  endAdornment={
-                    <InputAdornment position="start">
-                      <SearchIcon color="primary" />
-                    </InputAdornment>
-                  }
-                  onChange={onChangeNameSearchValue}
-                /> */}
-
                 {!isArchive ? (
                   <div className={classNames.simpleBtnsWrapper}>
                     <Button
@@ -520,7 +507,6 @@ export class ClientInventoryViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             destinations={destinations}
             storekeepers={storekeepers}
-            requestStatus={requestStatus}
             selectedProductsData={productsMy
               .filter(product => selectedRowIds.includes(product.id))
               .map(prod => prod.originalData)}

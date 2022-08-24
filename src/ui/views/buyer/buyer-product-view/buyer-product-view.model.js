@@ -424,6 +424,8 @@ export class BuyerProductViewModel {
 
       this.onSaveForceProductData()
 
+      this.loadData()
+
       this.setRequestStatus(loadingStatuses.success)
       this.onTriggerAddOrEditSupplierModal()
     } catch (error) {

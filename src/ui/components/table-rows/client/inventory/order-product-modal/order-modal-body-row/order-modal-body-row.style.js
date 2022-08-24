@@ -167,8 +167,16 @@ export const useClassNames = makeStyles(() => ({
   },
 
   amazonTitle: {
-    maxHeight: '110px',
-    overflowX: 'auto',
+    display: '-webkit-box',
+    '-webkitLineClamp': 3,
+    '-webkitBoxOrient': 'vertical',
+    maxHeight: 65,
+    whiteSpace: 'normal',
+
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
+    width: '100%',
     marginBottom: '5px',
   },
 
