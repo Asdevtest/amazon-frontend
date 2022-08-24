@@ -31,4 +31,8 @@ export const styles = createStyles(theme => ({
       transform: 'scale(0.99, 1)',
     },
   },
+
+  datagridWrapper: {
+    height: '80vh',
+  },
 }))

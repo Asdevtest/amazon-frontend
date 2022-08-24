@@ -5,12 +5,15 @@ import React from 'react'
 import {Box, Link, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {Button} from '@components/buttons/button'
 import {LinesChart} from '@components/charts/lines-chart/lines-chart'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
 
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './shop-info.style'
 
@@ -39,13 +42,13 @@ export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
           <div className={classNames.rightSideHeader}>
             <Typography className={classNames.shopTitle}>{data.title}</Typography>
             <div className={classNames.statusWrapper}>
-              <Typography className={classNames.cardTitle}>{'Продается'}</Typography>
+              <Typography className={classNames.cardTitle}>{t(TranslationKey['For sale'])}</Typography>
               <FiberManualRecordRoundedIcon color="success" />
             </div>
           </div>
           <div>
             <Link target="__blank" href={data.shopLink} className={classNames.link}>
-              {'Перейти на сайт магазина '}
+              {t(TranslationKey['Go to the store website'])}
             </Link>
           </div>
           <div className={classNames.shortInfoWrapper}>
@@ -53,7 +56,7 @@ export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
               <Field
                 labelClasses={classNames.shortInfoLabel}
                 containerClasses={classNames.shortInfoContainer}
-                label={'Ценовой период'}
+                label={t(TranslationKey['Price period'])}
                 inputComponent={
                   <Typography className={classNames.shortInfoValue}>{`${data.statistics.length} месяцев`}</Typography>
                 }
@@ -63,7 +66,7 @@ export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
               <Field
                 labelClasses={classNames.shortInfoLabel}
                 containerClasses={classNames.shortInfoContainer}
-                label={'Ежемесячный множитель'}
+                label={t(TranslationKey['Monthly multiplier'])}
                 inputComponent={
                   <Typography className={classNames.shortInfoValue}>{`${toFixed(monthlyMultiplier, 2)} х`}</Typography>
                 }
@@ -74,7 +77,7 @@ export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
               <Field
                 labelClasses={classNames.shortInfoLabel}
                 containerClasses={classNames.shortInfoContainer}
-                label={'Стоимость'}
+                label={t(TranslationKey.Price)}
                 inputComponent={<Typography className={classNames.shortInfoValue}>{`${data.price} $`}</Typography>}
               />
             </div>
@@ -83,10 +86,10 @@ export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
             {userInfo._id === data.ownerId ? (
               <>
                 <Button className={classNames.editButton} onClick={onClickEditBtn}>
-                  {'Редактировать'}
+                  {t(TranslationKey.Edit)}
                 </Button>
                 <Button disabled danger className={classNames.deleteButton}>
-                  {'Удалить объявление'}
+                  {t(TranslationKey['Delete ad'])}
                 </Button>
               </>
             ) : null}
@@ -97,7 +100,7 @@ export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
         <div className={classNames.chartsWrapper}>
           <div className={classNames.chartWrapper}>
             <Field
-              label={'Сред. Ежемесечная чистая прибыль'}
+              label={t(TranslationKey['Average. Monthly net profit'])}
               labelClasses={classNames.chartLabel}
               inputComponent={
                 <div className={classNames.chart}>
@@ -109,7 +112,7 @@ export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
           </div>
           <div className={classNames.chartWrapper}>
             <Field
-              label={'Сред. Ежемесячный доход'}
+              label={t(TranslationKey['Average. Monthly income'])}
               labelClasses={classNames.chartLabel}
               inputComponent={
                 <div className={classNames.chart}>
@@ -121,12 +124,12 @@ export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
           </div>
           <div className={classNames.chartWrapper}>
             <Field
-              label={'Рентабельность'}
+              label={t(TranslationKey.Profitability)}
               labelClasses={classNames.chartLabel}
               inputComponent={
                 <div className={classNames.chart}>
                   <Typography className={classNames.profitability}>{toFixed(profitability, 2) + ' %'}</Typography>
-                  <Link>{'Посмотреть прибыль'}</Link>
+                  <Link>{t(TranslationKey['View profit'])}</Link>
                 </div>
               }
             />

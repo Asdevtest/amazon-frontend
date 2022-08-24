@@ -317,4 +317,20 @@ export const useClassNames = makeStyles(() => ({
   shopsWrapper: {
     marginBottom: '30px',
   },
+
+  inputAsin: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '10px',
+    padding: '0 5px',
+    height: '50px',
+
+    border: '1px solid rgba(0, 0, 0, .1)',
+    borderRadius: '10px',
+    fontSize: '20px',
+
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 }))

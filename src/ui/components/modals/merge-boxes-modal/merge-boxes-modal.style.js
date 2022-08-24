@@ -2,9 +2,8 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(theme => ({
   heightFieldAuto: {
-    height: 'auto',
-    maxWidth: '380px',
-    minWidth: '380px',
+    height: '376px',
+    width: '330px',
   },
 
   boxesWrapper: {
@@ -29,16 +28,16 @@ export const useClassNames = makeStyles(theme => ({
   },
   order: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'start',
     justifyContent: 'space-between',
+    marginBottom: '30px',
   },
   divider: {
     margin: '0 30px',
   },
   img: {
-    width: '32px',
-    height: '32px',
-    marginRight: '4px',
+    width: '66px',
+    height: '66px',
     objectFit: 'contain',
     objectPosition: 'center',
   },
@@ -51,10 +50,10 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 400,
     lineHeight: '21px',
     marginRight: '10px',
-    width: '160px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+    width: '299px',
+    // overflow: 'hidden',
+    // textOverflow: 'ellipsis',
+    // whiteSpace: 'wrap',
   },
   subTitle: {
     fontSize: '14px',
@@ -84,8 +83,8 @@ export const useClassNames = makeStyles(theme => ({
     color: 'white',
     fontSize: '13px',
     borderRadius: '4px',
-    width: '300px',
-    height: '30px',
+    width: 230,
+    height: '40px',
   },
   barcodeChipHover: {
     '&:hover, &:focus': {
@@ -109,8 +108,8 @@ export const useClassNames = makeStyles(theme => ({
 
   mainWrapper: {
     display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
+    // flexDirection: 'column',
+    gap: '40px',
   },
 
   attentionDifStorekeepers: {
@@ -129,5 +128,80 @@ export const useClassNames = makeStyles(theme => ({
 
   field: {
     margin: '0',
+  },
+  finalBoxWrapper: {
+    width: 527,
+    backgroundColor: '#F8F8F8',
+    boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
+    borderRadius: '4px',
+    padding: '20px 17px',
+  },
+
+  itemSubWrapper: {
+    width: '100%',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 231px)',
+    columnGap: '25px',
+    rowGap: '30px',
+  },
+
+  destinationSelect: {
+    height: '40px',
+  },
+
+  label: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#656565',
+  },
+  fieldInput: {
+    height: '40px',
+  },
+  marginBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+  asinWrapper: {
+    display: 'flex',
+    gap: '10px',
+  },
+  asinTitle: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#656565',
+  },
+  asinValue: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#001029',
+  },
+  orderInput: {
+    width: '79px',
+  },
+  modalFooter: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: '40px',
+  },
+  modalAlternateFooter: {
+    display: 'flex',
+    justifyContent: 'end',
+    alignItems: 'center',
+    marginTop: '40px',
+  },
+  button: {
+    width: '183px',
+    height: '40px',
+  },
+  cancelButton: {
+    color: '#001029',
+  },
+  boxTitle: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+    marginBottom: '12px',
   },
 }))

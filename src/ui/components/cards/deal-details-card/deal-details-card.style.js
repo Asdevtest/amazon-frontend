@@ -72,6 +72,8 @@ export const useClassNames = makeStyles(() => ({
     color: '#001029',
     marginTop: '10px',
     height: '57px',
+    overflow: 'auto',
+    marginRight: '20px',
   },
 
   cardSubTitle: {
@@ -235,6 +237,7 @@ export const useClassNames = makeStyles(() => ({
 
   filesWrapper: {
     width: '70%',
+    height: '100px',
   },
   timeOnReviewWrapper: {
     width: '200px',

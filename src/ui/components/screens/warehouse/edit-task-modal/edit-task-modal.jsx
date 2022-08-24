@@ -10,7 +10,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
-import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
 import {UploadFilesInput} from '@components/upload-files-input'
@@ -149,7 +149,7 @@ export const EditTaskModal = observer(
               </div>
             ) : (
               <div className={classNames.photosWrapper}>
-                <PhotoCarousel small files={task.images} />
+                <PhotoAndFilesCarousel files={task.images} width="600px" />
               </div>
             )}
           </div>

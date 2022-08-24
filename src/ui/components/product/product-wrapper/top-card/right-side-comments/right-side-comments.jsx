@@ -43,6 +43,7 @@ export const RightSideComments = observer(
     onClickSetProductStatusBtn,
     handleProductActionButtons,
     formFieldsValidationErrors,
+    acceptMessage,
   }) => {
     const classNames = useClassNames()
     const productStatusButtonsConfig =
@@ -168,16 +169,23 @@ export const RightSideComments = observer(
               )}
             </div>
           ) : (
-            <Button
-              tooltipInfoContent={t(TranslationKey['Close product card'])}
-              className={clsx(classNames.buttonClose, {
-                [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
-              })}
-              variant="contained"
-              onClick={() => handleProductActionButtons('cancel')}
-            >
-              {t(TranslationKey.Close)}
-            </Button>
+            <div className={classNames.buttonWrapper}>
+              <Button
+                tooltipInfoContent={t(TranslationKey['Close product card'])}
+                className={clsx(classNames.buttonClose, {
+                  [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
+                })}
+                variant="contained"
+                onClick={() => handleProductActionButtons('cancel')}
+              >
+                {t(TranslationKey.Close)}
+              </Button>
+            </div>
+          )}
+          {acceptMessage && (
+            <div className={classNames.acceptMessageWrapper}>
+              <Typography className={classNames.acceptMessage}>{acceptMessage}</Typography>
+            </div>
           )}
         </Box>
       </Grid>

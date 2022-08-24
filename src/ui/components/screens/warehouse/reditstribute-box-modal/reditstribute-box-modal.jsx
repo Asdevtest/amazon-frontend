@@ -1,7 +1,10 @@
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+
 import React, {useState} from 'react'
 
-import {Chip, IconButton, Link, NativeSelect, Typography} from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
+import {Chip, IconButton, NativeSelect, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -16,12 +19,11 @@ import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
-import {Text} from '@components/text'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
-import {checkAndMakeAbsoluteUrl} from '@utils/text'
+// import {checkAndMakeAbsoluteUrl} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './reditstribute-box-modal.style'
@@ -38,10 +40,12 @@ const Box = ({
   onRemoveBox,
   onChangeField,
   isNewBox,
+  totalProductsAmount,
 }) => {
   const classNames = useClassNames()
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
+  const [showFullCard, setShowFullCard] = useState(true)
 
   const setShippingLabel = () => value => {
     onChangeField({target: {value}}, 'tmpShippingLabel', box._id)
@@ -99,6 +103,8 @@ const Box = ({
                   <Field
                     disabled={readOnly}
                     label={t(TranslationKey.Quantity)}
+                    className={classNames.orderInput}
+                    labelClasses={classNames.label}
                     value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}
                     tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
                     onChange={e => checkIsPositiveNum(e.target.value) && onChangeAmountInput(e, box._id, order.order)}
@@ -112,53 +118,57 @@ const Box = ({
               ) : undefined}
             </div>
           ))}
+          {showFullCard ? (
+            <div className={classNames.itemSubWrapper}>
+              <Field
+                containerClasses={classNames.field}
+                tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}
+                label={t(TranslationKey.Destination)}
+                labelClasses={classNames.label}
+                inputComponent={
+                  <NativeSelect
+                    disabled={!isNewBox}
+                    variant="filled"
+                    inputProps={{
+                      name: 'destinationId',
+                      id: 'destinationId',
+                    }}
+                    className={classNames.destinationSelect}
+                    input={<Input />}
+                    value={box.destinationId}
+                    onChange={e => onChangeField(e, 'destinationId', box._id)}
+                  >
+                    <option value={''}>{'none'}</option>
 
-          <div className={classNames.itemSubWrapper}>
-            <Field
-              containerClasses={classNames.field}
-              tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the USA, available for change"])}
-              label={t(TranslationKey.Destination)}
-              inputComponent={
-                <NativeSelect
-                  disabled={!isNewBox}
-                  variant="filled"
-                  inputProps={{
-                    name: 'destinationId',
-                    id: 'destinationId',
-                  }}
-                  className={classNames.destinationSelect}
-                  input={<Input />}
-                  value={box.destinationId}
-                  onChange={e => onChangeField(e, 'destinationId', box._id)}
-                >
-                  <option value={''}>{'none'}</option>
+                    {destinations.map(item => (
+                      <option key={item._id} value={item._id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </NativeSelect>
+                }
+              />
 
-                  {destinations.map(item => (
-                    <option key={item._id} value={item._id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </NativeSelect>
-              }
-            />
-
-            <Field
-              containerClasses={classNames.field}
-              tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
-              label={'Storekeeper / ' + t(TranslationKey.Tariff)}
-              inputComponent={
-                <div>
-                  {isNewBox ? (
-                    <Button
-                      disableElevation
-                      disabled={!isNewBox}
-                      color="primary"
-                      variant={box.logicsTariffId && 'text'}
-                      className={clsx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
-                      onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-                    >
-                      {box.logicsTariffId
-                        ? `${storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'} /  
+              <Field
+                containerClasses={classNames.field}
+                tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
+                label={`${t(TranslationKey['Int warehouse'])} / ` + t(TranslationKey.Tariff)}
+                labelClasses={classNames.label}
+                inputComponent={
+                  <div>
+                    {isNewBox ? (
+                      <Button
+                        disableElevation
+                        disabled={!isNewBox}
+                        color="primary"
+                        variant={box.logicsTariffId && 'text'}
+                        className={clsx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
+                        onClick={() =>
+                          setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
+                        }
+                      >
+                        {box.logicsTariffId
+                          ? `${storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'} /  
                             ${
                               box.logicsTariffId
                                 ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
@@ -166,12 +176,12 @@ const Box = ({
                                   }`
                                 : 'none'
                             }`
-                        : t(TranslationKey.Select)}
-                    </Button>
-                  ) : (
-                    <Typography className={classNames.storekeeperDisableBtn}>{`${
-                      storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'
-                    } /  
+                          : t(TranslationKey.Select)}
+                      </Button>
+                    ) : (
+                      <Typography className={classNames.storekeeperDisableBtn}>{`${
+                        storekeepers.find(el => el._id === box.storekeeperId)?.name || 'N/A'
+                      } /  
                         ${
                           box.logicsTariffId
                             ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
@@ -179,66 +189,82 @@ const Box = ({
                               }`
                             : 'none'
                         }`}</Typography>
-                  )}
+                    )}
+                  </div>
+                }
+              />
+
+              <Field
+                disabled={!isNewBox}
+                inputProps={{maxLength: 255}}
+                tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
+                containerClasses={classNames.field}
+                labelClasses={classNames.label}
+                className={classNames.fieldInput}
+                label={t(TranslationKey['FBA Shipment'])}
+                value={box.fbaShipment}
+                onChange={e => onChangeField(e, 'fbaShipment', box._id)}
+              />
+
+              {isNewBox ? (
+                <div>
+                  <Field
+                    label={t(TranslationKey['Shipping label']) + ':'}
+                    tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
+                    labelClasses={classNames.label}
+                    inputComponent={
+                      <Chip
+                        classes={{
+                          root: classNames.barcodeChip,
+                          clickable: classNames.barcodeChipHover,
+                          deletable: classNames.barcodeChipHover,
+                          deleteIcon: classNames.barcodeChipIcon,
+                          label: classNames.barcodeChiplabel,
+                        }}
+                        className={clsx({[classNames.barcodeChipExists]: box.shippingLabel})}
+                        size="small"
+                        label={
+                          box.tmpShippingLabel?.length
+                            ? t(TranslationKey['File added'])
+                            : box.shippingLabel
+                            ? box.shippingLabel
+                            : t(TranslationKey['Set Shipping Label'])
+                        }
+                        onClick={() => onClickShippingLabel()}
+                        onDelete={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                      />
+                    }
+                  />
                 </div>
-              }
-            />
+              ) : null}
+            </div>
+          ) : null}
 
-            <Field
-              disabled={!isNewBox}
-              inputProps={{maxLength: 255}}
-              tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
-              containerClasses={classNames.field}
-              label={t(TranslationKey['FBA Shipment'])}
-              value={box.fbaShipment}
-              onChange={e => onChangeField(e, 'fbaShipment', box._id)}
-            />
+          {!isNewBox && (
+            <div className={classNames.currentBoxFooter}>
+              <Typography className={classNames.footerTitle}>{`${t(
+                TranslationKey['Left to redistribute'],
+              )}: ${totalProductsAmount}`}</Typography>
+            </div>
+          )}
 
-            {isNewBox ? (
-              <div>
-                <Text
-                  tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
-                  textClasses={classNames.linkTitle}
-                >
-                  {t(TranslationKey['Shipping label']) + ':'}
-                </Text>
-                <Chip
-                  classes={{
-                    root: classNames.barcodeChip,
-                    clickable: classNames.barcodeChipHover,
-                    deletable: classNames.barcodeChipHover,
-                    deleteIcon: classNames.barcodeChipIcon,
-                    label: classNames.barcodeChiplabel,
-                  }}
-                  className={clsx({[classNames.barcodeChipExists]: box.shippingLabel})}
-                  size="small"
-                  label={
-                    box.tmpShippingLabel?.length
-                      ? t(TranslationKey['File added'])
-                      : box.shippingLabel
-                      ? box.shippingLabel
-                      : t(TranslationKey['Set Shipping Label'])
-                  }
-                  onClick={() => onClickShippingLabel()}
-                  onDelete={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
-                />
+          {isNewBox && (
+            <div className={classNames.bottomBlockWrapper}>
+              <IconButton classes={{root: classNames.icon}} onClick={() => onRemoveBox(box._id)}>
+                <DeleteOutlineOutlinedIcon className={classNames.deleteBtn} />
+              </IconButton>
+              <div className={classNames.incomingBtnWrapper}>
+                <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
+                  <Typography className={classNames.tablePanelViewText}>
+                    {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
+                  </Typography>
+
+                  {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+                </div>
               </div>
-            ) : (
-              <div>
-                <Typography className={classNames.linkTitle}>{t(TranslationKey['Shipping label']) + ':'}</Typography>
-                <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
-                  <Typography className={classNames.link}>{box.shippingLabel}</Typography>
-                </Link>
-              </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
-
-        {isNewBox && (
-          <IconButton onClick={() => onRemoveBox(box._id)}>
-            <DeleteIcon className={classNames.deleteBtn} />
-          </IconButton>
-        )}
       </div>
 
       <Modal
@@ -282,25 +308,29 @@ const NewBoxes = ({
   storekeepers,
 }) => {
   const classNames = useClassNames()
+
   return (
     <div className={classNames.newBoxes}>
-      <Typography className={classNames.sectionTitle}>{t(TranslationKey['New boxes'])}</Typography>
+      <div className={classNames.currentBoxTitle}>
+        <Typography className={classNames.sectionTitle}>{t(TranslationKey['New boxes'])}</Typography>
+      </div>
 
       {newBoxes.map((box, boxIndex) => (
-        <Box
-          key={boxIndex}
-          isNewBox
-          destinations={destinations}
-          storekeepers={storekeepers}
-          index={boxIndex}
-          box={box}
-          readOnly={isMasterBox}
-          isMasterBox={isMasterBox}
-          selectedBox={selectedBox}
-          onChangeAmountInput={onChangeAmountInput}
-          onChangeField={onChangeField}
-          onRemoveBox={onRemoveBox}
-        />
+        <div key={boxIndex} className={clsx({[classNames.marginBox]: newBoxes.length > 1})}>
+          <Box
+            isNewBox
+            destinations={destinations}
+            storekeepers={storekeepers}
+            index={boxIndex}
+            box={box}
+            readOnly={isMasterBox}
+            isMasterBox={isMasterBox}
+            selectedBox={selectedBox}
+            onChangeAmountInput={onChangeAmountInput}
+            onChangeField={onChangeField}
+            onRemoveBox={onRemoveBox}
+          />
+        </div>
       ))}
     </div>
   )
@@ -437,17 +467,12 @@ export const RedistributeBox = ({
         storekeepers={storekeepers}
         boxIsMasterBox={isMasterBox}
         box={currentBox}
+        totalProductsAmount={totalProductsAmount}
         index={0}
         isMasterBox={isMasterBox}
         selectedBox={selectedBox}
         onChangeAmountInput={onChangeAmountInput}
       />
-
-      <div className={classNames.currentBoxFooter}>
-        <Typography className={classNames.footerTitle}>{`${t(
-          TranslationKey['Left to redistribute'],
-        )}: ${totalProductsAmount}`}</Typography>
-      </div>
     </div>
   )
 
@@ -478,8 +503,8 @@ export const RedistributeBox = ({
         <Field
           multiline
           className={classNames.heightFieldAuto}
-          rows={15}
-          rowsMax={15}
+          rows={18}
+          rowsMax={18}
           label={t(TranslationKey['Client comment on the task'])}
           placeholder={t(TranslationKey['Task commentary'])}
           value={comment}
@@ -489,31 +514,35 @@ export const RedistributeBox = ({
 
       <div className={classNames.buttonsWrapper}>
         <Button
+          tooltipInfoContent={t(TranslationKey['Add a new box to the task'])}
+          disabled={totalProductsAmount < 1 && isMasterBox}
+          color="primary"
+          variant="contained"
+          className={classNames.button}
+          onClick={() => {
+            setNewBoxes(newBoxes.concat(getEmptyBox()))
+          }}
+        >
+          {t(TranslationKey['Create a new box'])}
+        </Button>
+        <Button
           color="primary"
           variant="contained"
           tooltipInfoContent={t(TranslationKey['Create a task to split the box'])}
           disabled={disabledSubmitBtn}
+          className={classNames.button}
           onClick={() => {
             onClickRedistributeBtn()
           }}
         >
           {t(TranslationKey.Redistribute)}
         </Button>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Add a new box to the task'])}
-          disabled={totalProductsAmount < 1 && isMasterBox}
-          color="primary"
-          variant="contained"
-          onClick={() => {
-            setNewBoxes(newBoxes.concat(getEmptyBox()))
-          }}
-        >
-          {t(TranslationKey['New box'])}
-        </Button>
+
         <Button
           color="primary"
-          variant="contained"
+          variant="text"
           tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
+          className={clsx(classNames.button, classNames.cancelButton)}
           onClick={() => {
             onTriggerOpenModal('showRedistributeBoxModal')
             setShowNewBoxAttention(false)

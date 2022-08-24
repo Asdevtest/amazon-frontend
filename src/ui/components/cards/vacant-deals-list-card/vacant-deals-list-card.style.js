@@ -59,6 +59,7 @@ export const useClassNames = makeStyles(() => ({
     color: '#001029',
     marginTop: '10px',
     height: '57px',
+    overflow: 'auto',
   },
 
   cardSubTitle: {

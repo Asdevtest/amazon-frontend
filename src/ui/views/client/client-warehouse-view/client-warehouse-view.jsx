@@ -262,9 +262,11 @@ export class ClientWarehouseViewRaw extends Component {
 
         <Modal openModal={showRedistributeBoxModal} setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}>
           <div className={classNames.redistributionWrapper}>
-            <Typography paragraph variant="h5">
-              {t(TranslationKey['Box redistributing'])}
-            </Typography>
+            <div className={classNames.modalTitleWrapper}>
+              <Typography className={classNames.modalTitle}>{t(TranslationKey['Box redistributing'])}</Typography>
+              <img src="/assets/img/split.png" />
+            </div>
+
             <RedistributeBox
               destinations={destinations}
               storekeepers={storekeepersData}
@@ -279,6 +281,10 @@ export class ClientWarehouseViewRaw extends Component {
         </Modal>
 
         <Modal openModal={showMergeBoxModal} setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}>
+          <div className={classNames.modalTitleWrapper}>
+            <Typography className={classNames.modalTitle}>{t(TranslationKey['Merging boxes'])}</Typography>
+            <img src="/assets/img/merge.png" />
+          </div>
           <MergeBoxesModal
             destinations={destinations}
             storekeepers={storekeepersData}

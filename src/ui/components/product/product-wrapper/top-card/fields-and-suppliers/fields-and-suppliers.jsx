@@ -171,6 +171,7 @@ export const FieldsAndSuppliers = observer(
               }
               inputProps={{maxLength: 254}}
               error={formFieldsValidationErrors.asin}
+              // inputClasses={classNames.inputAsin}
               label={t(TranslationKey.ASIN)}
               value={product.asin}
               onChange={onChangeField('asin')}

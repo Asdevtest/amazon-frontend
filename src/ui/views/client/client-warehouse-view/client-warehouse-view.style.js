@@ -101,4 +101,17 @@ export const styles = createStyles(theme => ({
     width: '100%',
     justifyContent: 'space-between',
   },
+  modalTitleWrapper: {
+    width: '100%',
+    display: 'flex',
+    gap: '20px',
+    alignItems: 'center',
+    marginBottom: '40px',
+  },
+  modalTitle: {
+    fontSize: '30px',
+    lineHeight: '40px',
+    fontWeight: '600',
+    color: '#001029',
+  },
 }))

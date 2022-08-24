@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {formatDateMonthYearWithoutFormatISO} from '@utils/date-time'
 
@@ -11,14 +13,19 @@ import {TopCard} from './top-card'
 
 export const ShopWrapper = observer(({userInfo, shopInfo, onClickEditBtn}) => {
   const classNames = useClassNames()
+  const [updatedShopInfo, setUpdatedShopInfo] = useState(shopInfo)
+
+  useEffect(() => {
+    setUpdatedShopInfo(() => ({...shopInfo}))
+  }, [SettingsModel.languageTag])
 
   return (
     <div className={classNames.shopWrapper}>
-      <TopCard userInfo={userInfo} data={shopInfo} onClickEditBtn={onClickEditBtn} />
+      <TopCard userInfo={userInfo} data={updatedShopInfo} onClickEditBtn={onClickEditBtn} />
       <div className={classNames.chartsWrapper}>
         <BarChartsCard
           isRevenue
-          data={shopInfo.statistics
+          data={updatedShopInfo.statistics
             .map(el => ({
               ...el,
               month: formatDateMonthYearWithoutFormatISO(el.month),
@@ -26,7 +33,7 @@ export const ShopWrapper = observer(({userInfo, shopInfo, onClickEditBtn}) => {
             .reverse()}
         />
         <BarChartsCard
-          data={shopInfo.statistics
+          data={updatedShopInfo.statistics
             .map(el => ({
               ...el,
               month: formatDateMonthYearWithoutFormatISO(el.month),
@@ -34,7 +41,7 @@ export const ShopWrapper = observer(({userInfo, shopInfo, onClickEditBtn}) => {
             .reverse()}
         />
       </div>
-      <BottomCard data={shopInfo} />
+      <BottomCard data={updatedShopInfo} />
     </div>
   )
 })
