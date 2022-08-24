@@ -95,6 +95,7 @@ export class ClientProductViewModel {
   history = undefined
   requestStatus = undefined
   actionStatus = undefined
+  acceptMessage = ''
 
   product = undefined
   productBase = undefined
@@ -411,10 +412,10 @@ export class ClientProductViewModel {
           ['suppliers'],
         ),
       )
-      // this.setActionStatus(loadingStatuses.success)
-
-      this.warningModalTitle = t(TranslationKey['Data saved'])
-      this.onTriggerOpenModal('showWarningModal')
+      this.acceptMessage = t(TranslationKey['Data was successfully saved'])
+      setTimeout(() => {
+        this.acceptMessage = ''
+      }, 5000)
     } catch (error) {
       this.setActionStatus(loadingStatuses.failed)
       console.log('error', error)

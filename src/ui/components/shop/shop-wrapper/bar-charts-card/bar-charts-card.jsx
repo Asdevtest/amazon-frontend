@@ -48,18 +48,18 @@ export const BarChartsCard = observer(({isRevenue, data}) => {
     <div className={classNames.mainWrapper}>
       <Paper className={classNames.cardWrapper}>
         <div className={classNames.cardHeaderWrapper}>
-          <Typography>{isRevenue ? 'Доход' : 'Трафик сайта'}</Typography>
+          <Typography>{isRevenue ? t(TranslationKey.Revenue) : t(TranslationKey['Website traffic'])}</Typography>
           <div className={classNames.barStatusesWrapper}>
             <div className={classNames.barStatusWrapper}>
               <FiberManualRecordRoundedIcon color="primary" />
               <Typography className={classNames.cardTitle}>
-                {isRevenue ? 'валовый доход' : 'просмотр страницы'}
+                {isRevenue ? t(TranslationKey['gross profit']) : t(TranslationKey['page view'])}
               </Typography>
             </div>
             <div className={classNames.barStatusWrapper}>
               <FiberManualRecordRoundedIcon classes={{root: classNames.indicator}} />
               <Typography className={classNames.cardTitle}>
-                {isRevenue ? 'чистая прибыль' : 'уникальные пользователи'}
+                {isRevenue ? t(TranslationKey['net income']) : t(TranslationKey['unique users'])}
               </Typography>
             </div>
           </div>

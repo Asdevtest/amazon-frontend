@@ -88,7 +88,7 @@ export const useClassNames = makeStyles(() => ({
     height: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'baseline',
 
     // margin: '20px 0 20px 0',
   },

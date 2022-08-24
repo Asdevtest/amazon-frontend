@@ -475,7 +475,7 @@ export const CreateOrEditRequestContent = ({
                         }
                       />
                     </div>
-                    <Typography>
+                    <Typography className={classNames.restrictMoreThanOneProposal}>
                       {formFields.request.restrictMoreThanOneProposalFromOneAssignee &&
                         t(TranslationKey['Multiple performances by the same performer are allowed'])}
                     </Typography>

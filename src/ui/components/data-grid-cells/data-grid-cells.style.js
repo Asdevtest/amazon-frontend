@@ -627,9 +627,9 @@ export const styles = createStyles(() => ({
     color: 'rgba(0, 0, 0, 0.87)',
 
     fontWeight: '600',
-    fontSize: '14px',
-    lineHeight: '16px',
-    padding: '0 10px',
+    fontSize: '12px',
+    lineHeight: '14px',
+    // padding: '0 10px',
   },
 
   headerText: {
@@ -732,6 +732,22 @@ export const styles = createStyles(() => ({
     '&:hover': {
       transform: 'scale(1.2)',
     },
+  },
+
+  copyImgAsin: {
+    width: '14px',
+    height: '14px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
+  },
+
+  copyAsin: {
+    display: 'flex',
+    gap: '5px',
+    alignItems: 'center',
   },
 
   changeChipCellLabel: {

@@ -3,9 +3,12 @@ import React from 'react'
 import {Box, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {CustomList} from '@components/custom-list'
 
 import {formatDateDayMonthYear, formatDateDistanceFromNowStrict} from '@utils/date-time'
+import {t} from '@utils/translations'
 
 import {useClassNames} from './business-info.style'
 
@@ -14,7 +17,7 @@ export const BusinessInfo = observer(({data}) => {
 
   return (
     <Box className={classNames.businessInfoWrapper}>
-      <Typography className={classNames.businessInfoTitle}>{'Бизнес начат'}</Typography>
+      <Typography className={classNames.businessInfoTitle}>{t(TranslationKey['Business Started'])}</Typography>
 
       <div>
         <Typography className={classNames.businessInfoDate}>
@@ -25,7 +28,7 @@ export const BusinessInfo = observer(({data}) => {
         </Typography>
       </div>
       <div>
-        <CustomList title="Активы, включенные в продажу" dataList={data?.shopAssets} />
+        <CustomList title={t(TranslationKey['Assets included in the sale'])} dataList={data?.shopAssets} />
       </div>
     </Box>
   )

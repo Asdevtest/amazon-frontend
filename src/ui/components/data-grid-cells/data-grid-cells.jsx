@@ -79,6 +79,10 @@ export const UserRolesCell = withStyles(styles)(({classes: classNames, user}) =>
   </div>
 ))
 
+const copyValue = value => {
+  navigator.clipboard.writeText(value)
+}
+
 export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
   <div className={classNames.asinCell}>
     <div className={classNames.asinCellContainer}>
@@ -86,10 +90,22 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
 
       <div>
         <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
-        <Typography className={classNames.typoCell}>
-          {t(TranslationKey.ASIN)}
-          <span className={classNames.typoSpan}>{product.asin}</span>
-        </Typography>
+        <div className={classNames.copyAsin}>
+          <Typography className={classNames.typoCell}>
+            {t(TranslationKey.ASIN)}
+            <span className={classNames.typoSpan}>{product.asin}</span>
+          </Typography>
+          <img
+            className={classNames.copyImgAsin}
+            src="/assets/icons/copy-img.svg"
+            alt=""
+            onClick={e => {
+              e.stopPropagation()
+              copyValue(product.asin)
+            }}
+          />
+        </div>
+
         <Typography className={classNames.typoCell}>
           {t(TranslationKey.SKU)}
           <span className={classNames.typoSpan}>

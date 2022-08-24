@@ -23,7 +23,7 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode,
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
-        <img className={classNames.img} src={item.product?.images[0] && getAmazonImageUrl(item.product.images[0])} />
+        <img className={classNames.img} src={getAmazonImageUrl(item.product.images[0])} />
 
         <div className={classNames.attributeWrapper}>
           <div className={classNames.attributeHeaderWrapper}>

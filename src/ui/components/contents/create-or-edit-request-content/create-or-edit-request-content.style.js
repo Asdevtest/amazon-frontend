@@ -496,4 +496,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     color: '#006CFF',
   },
+  restrictMoreThanOneProposal: {
+    fontWeight: '600',
+  },
 }))

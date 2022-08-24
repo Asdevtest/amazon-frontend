@@ -34,7 +34,6 @@ export const CreateOrEditProposalContent = ({
   const classNames = useClassNames()
 
   const [images, setImages] = useState([])
-  console.log(proposalToEdit)
 
   const sourceFormFields = {
     price: proposalToEdit?.price || request?.request.price,
@@ -64,7 +63,7 @@ export const CreateOrEditProposalContent = ({
 
     setFormFields(newFormFields)
   }
-
+  console.log(formFields.price)
   const onClickCreateSubmit = () => {
     onCreateSubmit(formFields, images)
   }
@@ -77,6 +76,8 @@ export const CreateOrEditProposalContent = ({
     formFields.execution_time === '' ||
     formFields.comment === '' ||
     formFields.comment.length > 2000 ||
+    formFields.price < '0.01' ||
+    formFields.price.charAt(1) === '0' ||
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
   return (

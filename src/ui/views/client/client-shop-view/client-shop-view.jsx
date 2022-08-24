@@ -30,7 +30,6 @@ export class ClientShopView extends Component {
 
   render() {
     const {drawerOpen, userInfo, shopInfo, onTriggerDrawerOpen, history, onClickEditBtn} = this.viewModel
-    console.log(shopInfo)
 
     return (
       <React.Fragment>

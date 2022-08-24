@@ -39,17 +39,6 @@ export const researcherProductsViewColumns = () => [
   },
 
   {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-
-    minWidth: 250,
-    renderCell: params => <NormDateCell params={params} />,
-    type: 'date',
-    flex: 1,
-  },
-
-  {
     field: 'strategyStatus',
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
@@ -65,7 +54,6 @@ export const researcherProductsViewColumns = () => [
 
     renderCell: params => <ToFixedWithDollarSignCell value={params.row.amazon} fix={2} />,
     minWidth: 150,
-    type: 'number',
     flex: 1,
   },
 
@@ -76,7 +64,18 @@ export const researcherProductsViewColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     minWidth: 150,
-    type: 'number',
+
+    flex: 1,
+  },
+
+  {
+    field: 'createdAt',
+    headerName: t(TranslationKey.Created),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
+    minWidth: 250,
+    renderCell: params => <NormDateCell params={params} />,
+    type: 'date',
     flex: 1,
   },
 ]

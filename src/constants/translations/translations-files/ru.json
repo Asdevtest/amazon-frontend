@@ -1462,5 +1462,21 @@
   "Box data": "Данные коробки",
   "Total goods In Box": "Всего товаров в коробке",
   "Quantity units of product": "Количество единиц товара",
-  "Comments on order": "Комментарии к заказу"
+  "Comments on order": "Комментарии к заказу",
+  "Create a new box": "Создать новую коробку",
+  "Source boxes": "Исходные коробки",
+  "For sale": "Продается",
+  "Price period": "Ценовой период",
+  "Delete ad": "Удалить объявление",
+  "View profit": "Посмотреть прибыль",
+  "Go to the store website": "Перейти на сайт магазина",
+  "Business Started": "Бизнес начат",
+  "Assets included in the sale": "Активы, включенные в продажу",
+  "gross profit": "валовый доход",
+  "net income": "чистая прибыль",
+  "page view": "просмотр страницы",
+  "unique users": "уникальные пользователи",
+  "Features": "Возможности",
+  "Required work and skills": "Требуемая работа и навыки",
+  "Data was successfully saved": "Данные успешно сохранены"
 }

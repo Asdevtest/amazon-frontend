@@ -111,10 +111,25 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
   },
   buttonsWrapper: {
+    position: 'fixed',
+    bottom: 50,
+
+    zIndex: 999,
     display: 'grid',
-    gridTemplateColumns: 'repeat(3,1fr)',
+    gridTemplateColumns: 'repeat(3,auto)',
     gap: '10px',
     marginBottom: '20px',
+    width: '33%',
+  },
+
+  buttonWrapper: {
+    position: 'fixed',
+    bottom: 50,
+    right: 60,
+    zIndex: 999,
+    marginBottom: '20px',
+    width: '33%',
+    display: 'grid',
   },
 
   buttonNormal: {
@@ -165,5 +180,27 @@ export const useClassNames = makeStyles(() => ({
     '&$disabled': {
       backgroundColor: 'rgba(210, 35, 35, 0.5)',
     },
+  },
+
+  '@keyframes ani': {
+    '0%': {transform: 'translateY(-150%)', opacity: 0},
+    '100%': {transform: 'translateY(0)', opacity: 1},
+  },
+
+  acceptMessageWrapper: {
+    position: 'absolute',
+    top: 0,
+    left: '50%',
+    backgroundColor: '#e2e2e2ff',
+    padding: '10px',
+    marginTop: '63px',
+    borderRadius: '4px',
+    opacity: 0,
+    transform: 'translateY(-150%)',
+    animation: '$ani 1s forwards',
+  },
+
+  acceptMessage: {
+    color: '#00B746',
   },
 }))

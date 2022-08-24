@@ -7,20 +7,17 @@ export const useClassNames = makeStyles(theme => ({
   },
   buttonsWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
-    width: 410,
+    justifyContent: 'end',
+    gap: '36px',
+    marginTop: '40px',
   },
-  currentBox: {
-    marginBottom: '20px',
-  },
+
   currentBoxFooter: {
     display: 'flex',
     alignItems: 'flex-end',
-    height: '60px',
+    marginTop: '30px',
   },
-  newBoxes: {
-    marginBottom: '20px',
-  },
+
   box: {
     width: 527,
     backgroundColor: '#F8F8F8',
@@ -32,6 +29,10 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'start',
     justifyContent: 'space-between',
+    marginBottom: '30px',
+  },
+  orderInput: {
+    width: '79px',
   },
   divider: {
     margin: '0 30px',
@@ -44,8 +45,9 @@ export const useClassNames = makeStyles(theme => ({
     objectPosition: 'center',
   },
   sectionTitle: {
-    color: theme.palette.text.secondary,
-    marginBottom: theme.spacing(1),
+    color: '#001029',
+    fontSize: '18px',
+    lineHeight: '140%',
   },
   title: {
     fontSize: '14px',
@@ -74,22 +76,21 @@ export const useClassNames = makeStyles(theme => ({
     textAlign: 'center',
   },
   heightFieldAuto: {
-    height: 'auto',
-    maxWidth: '380px',
-    minWidth: '250px',
+    height: '376px',
+    width: '330px',
   },
 
   itemWrapper: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: '20px',
   },
 
   itemSubWrapper: {
     width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 231px)',
+    columnGap: '25px',
+    rowGap: '30px',
   },
 
   barcodeChip: {
@@ -97,8 +98,8 @@ export const useClassNames = makeStyles(theme => ({
     color: 'white',
     fontSize: '13px',
     borderRadius: '4px',
-    width: 350,
-    height: '30px',
+    width: 230,
+    height: '40px',
   },
   barcodeChipHover: {
     '&:hover, &:focus': {
@@ -131,24 +132,90 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   storekeeperBtn: {
-    height: '32px',
+    height: '40px',
   },
 
   storekeeperDisableBtn: {
-    fontWeight: 'bold',
+    backgroundColor: '#e4e7ea',
+    borderRadius: '4px',
+    padding: '6px 7px',
   },
 
   field: {
     margin: '0',
   },
+  fieldInput: {
+    height: '40px',
+  },
 
   currentBoxTitle: {
     display: 'flex',
     gap: '23px',
+    alignItems: 'center',
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#656565',
+    marginBottom: '10px',
   },
 
   asinWrapper: {
     display: 'flex',
     gap: '10px',
+  },
+
+  destinationSelect: {
+    height: '40px',
+  },
+  icon: {
+    padding: 4,
+  },
+  button: {
+    height: '40px',
+    padding: '0 25px',
+  },
+  cancelButton: {
+    color: '#001029',
+  },
+
+  bottomBlockWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  incomingBtnWrapper: {
+    display: 'flex',
+    justifyContent: 'end',
+  },
+  tablePanelSortWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '27px',
+    cursor: 'pointer',
+  },
+  tablePanelViewText: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    fontWeight: 400,
+    color: '#006CFF',
+  },
+
+  marginBox: {
+    '&:not(:last-child)': {
+      marginBottom: '20px',
+    },
+  },
+  label: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#656565',
+  },
+  asinTitle: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#656565',
+  },
+  asinValue: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#001029',
   },
 }))

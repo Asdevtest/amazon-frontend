@@ -69,6 +69,7 @@ export const ProductWrapper = observer(
     handleProductActionButtons,
     onClickParseProductData,
     onChangeImagesForLoad,
+    acceptMessage,
   }) => {
     const classNames = useClassNames()
 
@@ -148,6 +149,7 @@ export const ProductWrapper = observer(
             productBase={productBase}
             selectedSupplier={selectedSupplier}
             actionStatus={actionStatus}
+            acceptMessage={acceptMessage}
             handleProductActionButtons={handleProductActionButtons}
             formFieldsValidationErrors={formFieldsValidationErrors}
             onChangeField={onChangeField}

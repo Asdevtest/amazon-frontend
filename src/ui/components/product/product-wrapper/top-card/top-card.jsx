@@ -64,6 +64,7 @@ export const TopCard = observer(
     onClickSetProductStatusBtn,
     handleProductActionButtons,
     onChangeImagesForLoad,
+    acceptMessage,
   }) => {
     const classNames = useClassNames()
 
@@ -193,6 +194,7 @@ export const TopCard = observer(
               curUserRole={curUserRole}
               product={product}
               productBase={productBase}
+              acceptMessage={acceptMessage}
               formFieldsValidationErrors={formFieldsValidationErrors}
               handleProductActionButtons={handleProductActionButtons}
               onClickSetProductStatusBtn={onClickSetProductStatusBtn}

@@ -63,6 +63,7 @@ export class ClientProductView extends Component {
       onTriggerAddOrEditSupplierModal,
       onChangeSelectedSupplier,
       onClickParseProductData,
+      acceptMessage,
     } = this.viewModel
 
     return (
@@ -80,6 +81,7 @@ export class ClientProductView extends Component {
                   progressValue={progressValue}
                   product={product}
                   shops={shopsData}
+                  acceptMessage={acceptMessage}
                   actionStatus={actionStatus}
                   productBase={productBase}
                   selectedSupplier={selectedSupplier}

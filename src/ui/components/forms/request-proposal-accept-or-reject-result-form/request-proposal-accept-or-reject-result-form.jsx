@@ -25,6 +25,15 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
   }) => {
     const classNames = useClassNames()
     const [rating, setRating] = useState('')
+    const [formFields, setFormFields] = useState({reason: ''})
+
+    const onChangeField = fieldName => event => {
+      setFormFields({
+        ...formFields,
+        [fieldName]: event.target.value,
+      })
+    }
+    console.log(formFields)
 
     return (
       <div className={classNames.root}>
@@ -46,7 +55,14 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
         </div>
 
         <div className={classNames.fieldWrapper}>
-          <Field multiline label={reviewLabel} minRows={6} maxRow={6} className={classNames.inputsWrapper} />
+          <Field
+            multiline
+            label={reviewLabel}
+            minRows={6}
+            maxRow={6}
+            className={classNames.inputsWrapper}
+            onChange={onChangeField('reason')}
+          />
         </div>
 
         <div className={classNames.btnsWrapper}>
@@ -55,7 +71,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
             danger={isReject}
             color="primary"
             className={clsx(classNames.btnSubmit, {[classNames.btnLargeSubmit]: isSupervisor})}
-            onClick={() => onSubmit()}
+            onClick={() => onSubmit(formFields)}
           >
             {isReject ? rejectButtonText : confirmButtonText}
           </Button>

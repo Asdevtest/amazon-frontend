@@ -367,46 +367,52 @@ export class ClientInventoryViewRaw extends Component {
                   ) : null}
                 </div>
               </div>
-
-              <DataGrid
-                pagination
-                useResizeContainer
-                checkboxSelection
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
-                }}
-                localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: classNames.row,
-                }}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                rowHeight={100}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-                // onRowClick={(params, event) => // в один клик(с фильтрами)
-                //   event.target.checked === undefined &&
-                //   !event.target.className.includes('Chip') &&
-                //   onClickShowProduct(params.row)
-                // }
-                onRowDoubleClick={params => onClickShowProduct(params.row)}
-              />
+              <div className={classNames.datagridWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  checkboxSelection
+                  // sx={{
+                  //   border: 0,
+                  //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                  //   backgroundColor: '#fff',
+                  //   height: '700px',
+                  // }}
+                  localeText={getLocalizationByLanguageTag()}
+                  classes={{
+                    row: classNames.row,
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  rowHeight={100}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  // onRowClick={(params, event) => // в один клик(с фильтрами)
+                  //   event.target.checked === undefined &&
+                  //   !event.target.className.includes('Chip') &&
+                  //   onClickShowProduct(params.row)
+                  // }
+                  onRowDoubleClick={params => onClickShowProduct(params.row)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

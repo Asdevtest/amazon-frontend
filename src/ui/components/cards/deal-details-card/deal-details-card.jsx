@@ -128,7 +128,7 @@ export const DealDetailsCard = ({
           </div>
           <div className={classNames.filesAndTimeWrapper}>
             <div className={classNames.filesWrapper}>
-              <PhotoAndFilesCarousel small files={item?.details?.linksToMediaFiles} />
+              <PhotoAndFilesCarousel files={item?.details?.linksToMediaFiles} />
             </div>
 
             <div className={classNames.timeOnReviewWrapper}>

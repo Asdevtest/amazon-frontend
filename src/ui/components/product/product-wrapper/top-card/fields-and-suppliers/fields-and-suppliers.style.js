@@ -211,7 +211,7 @@ export const useClassNames = makeStyles(() => ({
     marginLeft: '10px',
     borderRadius: '4px',
     height: '32px',
-    width: '100px',
+    width: '120px',
   },
 
   inputWrapper: {
@@ -316,5 +316,37 @@ export const useClassNames = makeStyles(() => ({
 
   shopsWrapper: {
     marginBottom: '30px',
+  },
+
+  inputAsin: {
+    width: '300px',
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '10px',
+    padding: '0 5px',
+    height: '50px',
+
+    border: '1px solid rgba(0, 0, 0, .1)',
+    borderRadius: '10px',
+    fontSize: '20px',
+
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
+  subInputWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
+
+  copyImg: {
+    width: '30px',
+    height: '30px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
   },
 }))
