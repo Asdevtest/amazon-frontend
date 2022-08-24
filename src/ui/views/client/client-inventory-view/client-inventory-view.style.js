@@ -138,6 +138,7 @@ export const styles = createStyles({
     position: 'absolute',
     top: 0,
     right: 0,
+    borderTop: 'none !important',
   },
   footerCell: {
     padding: 0,
