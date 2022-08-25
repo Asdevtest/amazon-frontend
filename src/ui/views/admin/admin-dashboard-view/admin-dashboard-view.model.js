@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
+import {AdminDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {AdministratorModel} from '@models/administrator-model'
@@ -11,8 +12,16 @@ export class AdminDashboardViewModel {
 
   drawerOpen = false
 
-  productsWaitingToChek = []
-  productsOnCheking = []
+  dashboardData = {
+    [AdminDashboardCardDataKey.EXCHANGE_WAITING_TO_CHECK]: '',
+    [AdminDashboardCardDataKey.EXCHANGE_BEING_CHECKED]: '',
+    [AdminDashboardCardDataKey.EXCHANGE_CHECKED]: '',
+    [AdminDashboardCardDataKey.EXCHANGE_REJECTED]: '',
+    [AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_RESEARCHERS]: '',
+    [AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_SUPERVISORS]: '',
+    [AdminDashboardCardDataKey.FINANCES_SUPERVISORS_FINES]: '',
+    [AdminDashboardCardDataKey.FINANCES_RESEARCHERS_FINES]: '',
+  }
 
   constructor({history}) {
     this.history = history
@@ -39,7 +48,10 @@ export class AdminDashboardViewModel {
     try {
       const result = await AdministratorModel.getProductsWaiting()
       runInAction(() => {
-        this.productsWaitingToChek = result
+        this.dashboardData = {
+          ...this.dashboardData,
+          [AdminDashboardCardDataKey.EXCHANGE_WAITING_TO_CHECK]: result.length,
+        }
       })
     } catch (error) {
       console.log(error)
@@ -51,7 +63,10 @@ export class AdminDashboardViewModel {
     try {
       const result = await AdministratorModel.getProductsChecking()
       runInAction(() => {
-        this.productsOnCheking = result
+        this.dashboardData = {
+          ...this.dashboardData,
+          [AdminDashboardCardDataKey.EXCHANGE_BEING_CHECKED]: result.length,
+        }
       })
     } catch (error) {
       console.log(error)
@@ -61,5 +76,9 @@ export class AdminDashboardViewModel {
 
   setRequestStatus(requestStatus) {
     this.requestStatus = requestStatus
+  }
+
+  onClickInfoCardViewMode(route) {
+    this.history.push(route)
   }
 }

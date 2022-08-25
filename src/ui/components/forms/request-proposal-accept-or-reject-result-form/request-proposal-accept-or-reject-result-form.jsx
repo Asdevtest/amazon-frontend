@@ -33,7 +33,6 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
         [fieldName]: event.target.value,
       })
     }
-    console.log(formFields)
 
     return (
       <div className={classNames.root}>
@@ -57,10 +56,12 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
         <div className={classNames.fieldWrapper}>
           <Field
             multiline
+            inputProps={{maxLength: 500}}
             label={reviewLabel}
             minRows={6}
             maxRow={6}
-            className={classNames.inputsWrapper}
+            value={formFields.reason}
+            inputClasses={classNames.inputsWrapper}
             onChange={onChangeField('reason')}
           />
         </div>

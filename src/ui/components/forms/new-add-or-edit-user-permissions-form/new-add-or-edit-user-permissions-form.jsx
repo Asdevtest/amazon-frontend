@@ -70,7 +70,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
     }
 
     useEffect(() => {
-      onClickShop(selectedShop)
+      onClickShop && onClickShop(selectedShop)
     }, [selectedShop])
 
     useEffect(() => {
@@ -78,12 +78,12 @@ export const NewAddOrEditUserPermissionsForm = observer(
     }, [showDetails])
 
     useEffect(() => {
-      const productsWithoutShops = products.filter(p => !p.originalData.shopIds.length)
+      const productsWithoutShops = products?.filter(p => !p.originalData.shopIds.length)
       const currentProducts = selectedShop !== null ? products : productsWithoutShops
 
       setUpdatedProducts(currentProducts)
 
-      const filter = currentProducts.filter(
+      const filter = currentProducts?.filter(
         i =>
           i.asin.toLowerCase().includes(searchInputValue.toLowerCase()) ||
           i.originalData.amazonTitle.toLowerCase().includes(searchInputValue.toLowerCase()),
@@ -261,6 +261,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
                 onClickToShowDetails={onClickToShowDetails}
               />
             ))}
+
             {/* <AccessToProductForm
               showDetails={showDetails}
               searchInputValue={searchInputValue}

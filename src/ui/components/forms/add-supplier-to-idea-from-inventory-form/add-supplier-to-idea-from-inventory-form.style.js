@@ -130,4 +130,19 @@ export const useClassNames = makeStyles(() => ({
   defaultBtn: {
     width: '171px',
   },
+
+  sizesInput: {
+    width: '100px',
+  },
+
+  sizesContainer: {
+    width: 'min-content',
+  },
+
+  sizesBottomWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: '10px',
+  },
 }))
