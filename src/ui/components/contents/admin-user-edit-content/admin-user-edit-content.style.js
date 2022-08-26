@@ -62,7 +62,8 @@ export const useClassNames = makeStyles(() => ({
 
   ratingWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
     width: '100%',
     overflow: 'hidden',

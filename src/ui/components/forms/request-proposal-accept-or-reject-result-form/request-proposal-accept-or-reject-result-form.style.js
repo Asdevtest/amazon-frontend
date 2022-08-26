@@ -36,8 +36,9 @@ export const useClassNames = makeStyles(() => ({
 
   inputsWrapper: {
     height: '141px',
+    width: '100%',
 
-    overflowY: 'auto',
+    // overflow: 'auto',
   },
   ratingWrapper: {
     width: '100%',

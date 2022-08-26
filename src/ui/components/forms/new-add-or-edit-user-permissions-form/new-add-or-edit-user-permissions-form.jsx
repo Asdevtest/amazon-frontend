@@ -23,6 +23,8 @@ const tabsValues = {
   ACCESS_TO_PRODUCTS: 'ACCESS_TO_PRODUCTS',
 }
 
+const PRODUCTS_WITHOUT_SHOPS_ID = 'PRODUCTS_WITHOUT_SHOPS_ID'
+
 const TabPanel = ({children, value, index, ...other}) => (
   <div
     role="tabpanel"
@@ -54,42 +56,33 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
     const [tabIndex, setTabIndex] = React.useState(tabsValues.ASSIGN_PERMISSIONS)
 
-    const [showDetails, setShowDetails] = useState(false)
-    const [selectedShop, setSelectedShop] = useState('')
+    const [selectedShop, setSelectedShop] = useState(null)
 
-    const [shopDataToRender, setShopDataToRender] = useState(
-      shops.slice(0, 2).map(shop => ({...shop, tmpProductsIds: []})),
-    )
+    const [isReady, setIsReady] = useState(true)
 
-    const [searchInputValue, setSearchInputValue] = useState('')
-    const [updatedProducts, setUpdatedProducts] = useState([])
-    console.log(shopDataToRender)
-    const onClickToShowDetails = value => (e, isExpanded) => {
-      setShowDetails(isExpanded ? value : false)
+    const sourceDataToProductsPermissions = [
+      {_id: PRODUCTS_WITHOUT_SHOPS_ID, name: t(TranslationKey['Products without shops']), tmpProductsIds: []},
+      ...shops.map(shop => ({...shop, tmpProductsIds: []})),
+    ]
+
+    const [shopDataToRender, setShopDataToRender] = useState(sourceDataToProductsPermissions)
+
+    const [updatedProducts, setUpdatedProducts] = useState(null)
+
+    const onClickToShowDetails = value => {
       setSelectedShop(value)
+
+      setIsReady(false)
+      onClickShop && onClickShop(value === PRODUCTS_WITHOUT_SHOPS_ID ? null : value)
     }
 
     useEffect(() => {
-      onClickShop(selectedShop)
-    }, [selectedShop])
+      const productsWithoutShops = products?.filter(p => !p.originalData.shopIds.length)
+      const currentProducts = selectedShop === PRODUCTS_WITHOUT_SHOPS_ID ? productsWithoutShops : products
 
-    useEffect(() => {
-      !showDetails && setSearchInputValue('')
-    }, [showDetails])
-
-    useEffect(() => {
-      const productsWithoutShops = products.filter(p => !p.originalData.shopIds.length)
-      const currentProducts = selectedShop !== null ? products : productsWithoutShops
-
+      setIsReady(true)
       setUpdatedProducts(currentProducts)
-
-      const filter = currentProducts.filter(
-        i =>
-          i.asin.toLowerCase().includes(searchInputValue.toLowerCase()) ||
-          i.originalData.amazonTitle.toLowerCase().includes(searchInputValue.toLowerCase()),
-      )
-      setUpdatedProducts(filter)
-    }, [searchInputValue, selectedShop, products])
+    }, [selectedShop, products])
 
     const permissionsIdsFromGroups = permissionGroupsToSelect.reduce(
       (ac, cur) => (ac = [...ac, ...cur.permissions.map(el => el._id)]),
@@ -144,7 +137,8 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
     const submitDisabled =
       (!formFields.length && !sourceData?.permissions.length) ||
-      JSON.stringify(formFields.slice().sort()) === JSON.stringify(sourceData?.permissions.slice().sort())
+      (JSON.stringify(formFields.slice().sort()) === JSON.stringify(sourceData?.permissions.slice().sort()) &&
+        JSON.stringify(sourceDataToProductsPermissions) === JSON.stringify(shopDataToRender))
 
     return (
       <div className={classNames.root}>
@@ -156,8 +150,6 @@ export const NewAddOrEditUserPermissionsForm = observer(
           }}
           value={tabIndex}
           onChange={(e, value) => {
-            console.log('event', e)
-            console.log('value', value)
             setTabIndex(value)
           }}
         >
@@ -251,23 +243,15 @@ export const NewAddOrEditUserPermissionsForm = observer(
             {shopDataToRender.map(shop => (
               <AccessToProductForm
                 key={shop._id}
+                isReady={isReady}
                 shop={shop}
+                selectedShop={selectedShop}
                 shops={shopDataToRender}
-                showDetails={showDetails}
-                searchInputValue={searchInputValue}
                 setShopDataToRender={setShopDataToRender}
                 updatedProducts={updatedProducts}
-                setSearchInputValue={setSearchInputValue}
                 onClickToShowDetails={onClickToShowDetails}
               />
             ))}
-            {/* <AccessToProductForm
-              showDetails={showDetails}
-              searchInputValue={searchInputValue}
-              updatedProducts={updatedProducts}
-              setSearchInputValue={setSearchInputValue}
-              onClickToShowDetails={onClickToShowDetails}
-            /> */}
           </div>
         </TabPanel>
 
@@ -279,7 +263,11 @@ export const NewAddOrEditUserPermissionsForm = observer(
             color="primary"
             variant="contained"
             onClick={() => {
-              onSubmit(formFields, sourceData._id)
+              onSubmit(
+                formFields,
+                sourceData._id,
+                shopDataToRender.reduce((ac, cur) => (ac = [...ac, ...cur.tmpProductsIds]), []),
+              )
               onCloseModal()
             }}
           >

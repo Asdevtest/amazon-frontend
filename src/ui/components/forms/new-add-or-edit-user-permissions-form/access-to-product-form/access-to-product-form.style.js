@@ -10,6 +10,7 @@ export const useClassNames = makeStyles(() => ({
   },
   accordionSummary: {
     height: '64px',
+    width: '650px',
   },
   accordionExpanded: {
     background: '#F4F4F4',
@@ -42,5 +43,16 @@ export const useClassNames = makeStyles(() => ({
   tableWrapper: {
     marginTop: '10px',
     height: '350px',
+  },
+
+  accardionTitleWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    width: '100%',
+  },
+
+  chosenText: {
+    color: '#007bff',
+    marginLeft: 'auto',
   },
 }))

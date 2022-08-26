@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
-import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './ApiV1RequestProposalsCustomByRequestIdGuidProposal';
-import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestProposalsCustomByRequestIdGuidRequest';
 
 /**
  * The InlineResponse20027 model module.
@@ -24,7 +21,6 @@ import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestPro
 class InlineResponse20027 {
     /**
      * Constructs a new <code>InlineResponse20027</code>.
-     * Схема универсального предложения
      * @alias module:model/InlineResponse20027
      */
     constructor() { 
@@ -51,14 +47,11 @@ class InlineResponse20027 {
         if (data) {
             obj = obj || new InlineResponse20027();
 
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = ApiV1RequestProposalsCustomByRequestIdGuidProposal.constructFromObject(data['proposal']);
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
-            }
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestProposalsCustomByRequestIdGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('volumeWeightCoefficient')) {
+                obj['volumeWeightCoefficient'] = ApiClient.convertToType(data['volumeWeightCoefficient'], 'Number');
             }
         }
         return obj;
@@ -68,19 +61,16 @@ class InlineResponse20027 {
 }
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposal} proposal
+ * Курс юаня к доллару.
+ * @member {Number} yuanToDollarRate
  */
-InlineResponse20027.prototype['proposal'] = undefined;
+InlineResponse20027.prototype['yuanToDollarRate'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails} details
+ * Коэффициент расчета объемного веса.
+ * @member {Number} volumeWeightCoefficient
  */
-InlineResponse20027.prototype['details'] = undefined;
-
-/**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidRequest} request
- */
-InlineResponse20027.prototype['request'] = undefined;
+InlineResponse20027.prototype['volumeWeightCoefficient'] = undefined;
 
 
 

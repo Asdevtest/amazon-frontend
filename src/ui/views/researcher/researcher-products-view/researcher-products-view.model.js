@@ -231,7 +231,7 @@ export class ResearcherProductsViewModel {
       this.setActionStatus(loadingStatuses.isLoading)
       const productFullData = {
         ...product,
-        reffee: 15,
+        // reffee: '',
       }
 
       const response = await ResearcherModel.createProduct(productFullData)

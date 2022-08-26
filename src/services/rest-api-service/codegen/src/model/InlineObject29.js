@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 
 /**
  * The InlineObject29 model module.
@@ -54,29 +53,17 @@ class InlineObject29 {
             if (data.hasOwnProperty('skusByClient')) {
                 obj['skusByClient'] = ApiClient.convertToType(data['skusByClient'], ['String']);
             }
-            if (data.hasOwnProperty('material')) {
-                obj['material'] = ApiClient.convertToType(data['material'], 'String');
-            }
-            if (data.hasOwnProperty('fbm')) {
-                obj['fbm'] = ApiClient.convertToType(data['fbm'], 'Boolean');
-            }
             if (data.hasOwnProperty('category')) {
                 obj['category'] = ApiClient.convertToType(data['category'], 'String');
             }
             if (data.hasOwnProperty('lamazon')) {
                 obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
             }
-            if (data.hasOwnProperty('lsupplier')) {
-                obj['lsupplier'] = ApiClient.convertToType(data['lsupplier'], 'String');
-            }
             if (data.hasOwnProperty('bsr')) {
                 obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
             }
             if (data.hasOwnProperty('fba')) {
                 obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
-            }
-            if (data.hasOwnProperty('express')) {
-                obj['express'] = ApiClient.convertToType(data['express'], 'Boolean');
             }
             if (data.hasOwnProperty('amazon')) {
                 obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
@@ -101,12 +88,6 @@ class InlineObject29 {
             }
             if (data.hasOwnProperty('fbaamount')) {
                 obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
-            }
-            if (data.hasOwnProperty('fbalink')) {
-                obj['fbalink'] = ApiClient.convertToType(data['fbalink'], 'String');
-            }
-            if (data.hasOwnProperty('delivery')) {
-                obj['delivery'] = ApiClient.convertToType(data['delivery'], 'Number');
             }
             if (data.hasOwnProperty('icomment')) {
                 obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
@@ -135,9 +116,6 @@ class InlineObject29 {
             if (data.hasOwnProperty('margin')) {
                 obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
             }
-            if (data.hasOwnProperty('byboxprice')) {
-                obj['byboxprice'] = ApiClient.convertToType(data['byboxprice'], 'Number');
-            }
             if (data.hasOwnProperty('listingName')) {
                 obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
             }
@@ -155,18 +133,6 @@ class InlineObject29 {
             }
             if (data.hasOwnProperty('listingImages')) {
                 obj['listingImages'] = ApiClient.convertToType(data['listingImages'], ['String']);
-            }
-            if (data.hasOwnProperty('listingTaskToFindSupplier')) {
-                obj['listingTaskToFindSupplier'] = ApiClient.convertToType(data['listingTaskToFindSupplier'], 'String');
-            }
-            if (data.hasOwnProperty('listingSupplierImportantPoints')) {
-                obj['listingSupplierImportantPoints'] = ApiClient.convertToType(data['listingSupplierImportantPoints'], 'String');
-            }
-            if (data.hasOwnProperty('listingExtraInfo')) {
-                obj['listingExtraInfo'] = ApiClient.convertToType(data['listingExtraInfo'], 'String');
-            }
-            if (data.hasOwnProperty('listingSupplierCompetitors')) {
-                obj['listingSupplierCompetitors'] = ApiClient.convertToType(data['listingSupplierCompetitors'], [ApiV1AdminsGetProductsByStatusListingSupplierCompetitors]);
             }
             if (data.hasOwnProperty('strategyStatus')) {
                 obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
@@ -229,18 +195,6 @@ InlineObject29.prototype['asin'] = undefined;
 InlineObject29.prototype['skusByClient'] = undefined;
 
 /**
- * add to new functional
- * @member {String} material
- */
-InlineObject29.prototype['material'] = undefined;
-
-/**
- * Признак fbm
- * @member {Boolean} fbm
- */
-InlineObject29.prototype['fbm'] = undefined;
-
-/**
  * Категория
  * @member {String} category
  */
@@ -253,12 +207,6 @@ InlineObject29.prototype['category'] = undefined;
 InlineObject29.prototype['lamazon'] = undefined;
 
 /**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lsupplier
- */
-InlineObject29.prototype['lsupplier'] = undefined;
-
-/**
  * 
  * @member {Number} bsr
  */
@@ -269,12 +217,6 @@ InlineObject29.prototype['bsr'] = undefined;
  * @member {Boolean} fba
  */
 InlineObject29.prototype['fba'] = undefined;
-
-/**
- *  уточнить 
- * @member {Boolean} express
- */
-InlineObject29.prototype['express'] = undefined;
 
 /**
  * 
@@ -319,17 +261,6 @@ InlineObject29.prototype['fbafee'] = undefined;
  * @member {Number} fbaamount
  */
 InlineObject29.prototype['fbaamount'] = undefined;
-
-/**
- * @member {String} fbalink
- */
-InlineObject29.prototype['fbalink'] = undefined;
-
-/**
- * Стоимость доставки.
- * @member {Number} delivery
- */
-InlineObject29.prototype['delivery'] = undefined;
 
 /**
  * Комментарии к товару.
@@ -382,12 +313,6 @@ InlineObject29.prototype['profit'] = undefined;
 InlineObject29.prototype['margin'] = undefined;
 
 /**
- * Цена
- * @member {Number} byboxprice
- */
-InlineObject29.prototype['byboxprice'] = undefined;
-
-/**
  * 
  * @member {String} listingName
  */
@@ -422,30 +347,6 @@ InlineObject29.prototype['listingSubjectMatters'] = undefined;
  * @member {Array.<String>} listingImages
  */
 InlineObject29.prototype['listingImages'] = undefined;
-
-/**
- * 
- * @member {String} listingTaskToFindSupplier
- */
-InlineObject29.prototype['listingTaskToFindSupplier'] = undefined;
-
-/**
- * 
- * @member {String} listingSupplierImportantPoints
- */
-InlineObject29.prototype['listingSupplierImportantPoints'] = undefined;
-
-/**
- * 
- * @member {String} listingExtraInfo
- */
-InlineObject29.prototype['listingExtraInfo'] = undefined;
-
-/**
- * Массив объектов: ссылки и комментарии к конкурентам
- * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors>} listingSupplierCompetitors
- */
-InlineObject29.prototype['listingSupplierCompetitors'] = undefined;
 
 /**
  * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40

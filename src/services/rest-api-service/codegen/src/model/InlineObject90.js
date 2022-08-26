@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsRequestDetailsCustom from './ApiV1RequestProposalsRequestDetailsCustom';
-import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 
 /**
  * The InlineObject90 model module.
@@ -23,7 +21,6 @@ import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 class InlineObject90 {
     /**
      * Constructs a new <code>InlineObject90</code>.
-     * Схема универсальной заявки.
      * @alias module:model/InlineObject90
      */
     constructor() { 
@@ -50,11 +47,11 @@ class InlineObject90 {
         if (data) {
             obj = obj || new InlineObject90();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('result')) {
+                obj['result'] = ApiClient.convertToType(data['result'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestProposalsRequestDetailsCustom.constructFromObject(data['details']);
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -64,14 +61,16 @@ class InlineObject90 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomGuidRequest} request
+ * Результат работы исполнителя.
+ * @member {String} result
  */
-InlineObject90.prototype['request'] = undefined;
+InlineObject90.prototype['result'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsRequestDetailsCustom} details
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject90.prototype['details'] = undefined;
+InlineObject90.prototype['linksToMediaFiles'] = undefined;
 
 
 

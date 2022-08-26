@@ -76,8 +76,7 @@ export const CreateOrEditProposalContent = ({
     formFields.execution_time === '' ||
     formFields.comment === '' ||
     formFields.comment.length > 2000 ||
-    formFields.price < 0.01 ||
-    formFields.price.toString().charAt(1) === '0' ||
+    +formFields.price <= 0 ||
     JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
 
   return (

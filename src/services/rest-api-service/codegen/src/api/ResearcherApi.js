@@ -15,10 +15,10 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject71 from '../model/InlineObject71';
-import InlineObject72 from '../model/InlineObject72';
+import InlineObject73 from '../model/InlineObject73';
+import InlineObject74 from '../model/InlineObject74';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse20020 from '../model/InlineResponse20020';
+import InlineResponse20022 from '../model/InlineResponse20022';
 import InlineResponse2015 from '../model/InlineResponse2015';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
@@ -49,7 +49,7 @@ export default class ResearcherApi {
      * @param {String} asin ASIN для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20020} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20022} and HTTP response
      */
     apiV1ResearchersCheckProductsAsinGetWithHttpInfo(asin, opts) {
       opts = opts || {};
@@ -73,7 +73,7 @@ export default class ResearcherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20020;
+      let returnType = InlineResponse20022;
       return this.apiClient.callApi(
         '/api/v1/researchers/check_products/{asin}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -87,7 +87,7 @@ export default class ResearcherApi {
      * @param {String} asin ASIN для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20020}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20022}
      */
     apiV1ResearchersCheckProductsAsinGet(asin, opts) {
       return this.apiV1ResearchersCheckProductsAsinGetWithHttpInfo(asin, opts)
@@ -258,7 +258,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject72} opts.body 
+     * @param {module:model/InlineObject74} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -297,7 +297,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject72} opts.body 
+     * @param {module:model/InlineObject74} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ResearchersProductsGuidPatch(guid, opts) {
@@ -313,7 +313,7 @@ export default class ResearcherApi {
      * ## Добавить новый продукт.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject71} opts.body 
+     * @param {module:model/InlineObject73} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
     apiV1ResearchersProductsPostWithHttpInfo(opts) {
@@ -346,7 +346,7 @@ export default class ResearcherApi {
      * ## Добавить новый продукт.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject71} opts.body 
+     * @param {module:model/InlineObject73} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
     apiV1ResearchersProductsPost(opts) {

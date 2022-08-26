@@ -30,6 +30,8 @@ export class SubUsersViewModel {
   shopsData = []
   productsMy = []
 
+  curUserProductPermissions = []
+
   drawerOpen = false
 
   modalPermission = false
@@ -206,6 +208,8 @@ export class SubUsersViewModel {
       })
     } catch (error) {
       console.log(error)
+      this.productsMy = []
+
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
@@ -248,9 +252,23 @@ export class SubUsersViewModel {
     }
   }
 
-  onClickEditBtn(row) {
-    this.selectedSubUser = row
-    this.onTriggerOpenModal('showPermissionModal')
+  async onClickEditBtn(row) {
+    try {
+      this.selectedSubUser = row
+
+      const result = await PermissionsModel.getProductsPermissionsForUser()
+
+      console.log('result', result)
+
+      this.curUserProductPermissions = result.filter(el => el.userId === row._id).map(el => el.productId)
+
+      console.log('this.curUserProductPermissions', this.curUserProductPermissions)
+
+      this.onTriggerOpenModal('showPermissionModal')
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
   }
 
   onClickRemoveBtn(row) {
@@ -258,9 +276,11 @@ export class SubUsersViewModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  async setPermissionsForUser(id, data) {
+  async setPermissionsForUser(id, data, allowedProductsIds) {
     try {
       await PermissionsModel.setPermissionsForUser(id, data)
+
+      await PermissionsModel.setProductsPermissionsForUser({userId: id, productIds: allowedProductsIds})
 
       this.warningInfoModalSettings = {
         isWarning: false,
@@ -281,9 +301,9 @@ export class SubUsersViewModel {
     }
   }
 
-  async onSubmitUserPermissionsForm(permissions, subUserId) {
+  async onSubmitUserPermissionsForm(permissions, subUserId, allowedProductsIds) {
     try {
-      await this.setPermissionsForUser(subUserId, {permissions, permissionGroups: []})
+      await this.setPermissionsForUser(subUserId, {permissions, permissionGroups: []}, allowedProductsIds)
 
       await this.getUsers()
     } catch (error) {

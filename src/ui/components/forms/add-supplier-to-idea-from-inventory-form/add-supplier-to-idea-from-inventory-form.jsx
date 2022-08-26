@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Typography, IconButton, Grid, Checkbox, NativeSelect, Link} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -33,6 +33,13 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
 
     const sourceFormFields = {
       links: [],
+      criteria: '',
+      quantity: '',
+      price: '',
+
+      width: '',
+      height: '',
+      length: '',
 
       asin: '',
       skusByClient: [],
@@ -42,11 +49,34 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
       fba: true,
     }
 
-    console.log(ideas)
+    console.log('ideas', ideas)
 
     const [linkLine, setLinkLine] = useState('')
 
+    const [curIdeaId, setCurIdeaId] = useState(null)
+
     const [formFields, setFormFields] = useState(sourceFormFields)
+
+    console.log('formFields', formFields)
+
+    useEffect(() => {
+      if (curIdeaId) {
+        const curIdea = ideas.find(el => el._id === curIdeaId)
+
+        setFormFields({
+          ...formFields,
+          links: curIdea.productLinks,
+          images: curIdea.media,
+          criteria: curIdea.criteria,
+          quantity: curIdea.quantity,
+          price: curIdea.price,
+
+          width: curIdea.width,
+          height: curIdea.height,
+          length: curIdea.length,
+        })
+      }
+    }, [curIdeaId])
 
     const onChangeField = fieldName => event => {
       const newFormFields = {...formFields}
@@ -54,7 +84,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
       //   newFormFields[fieldName] = parseInt(event.target.value) || ''
       // } else
       if (
-        ['price', 'count'].includes(fieldName) &&
+        ['price', 'quantity', 'width', 'height', 'length'].includes(fieldName) &&
         !checkIsPositiveNummberAndNoMoreNCharactersAfterDot(event.target.value, 2)
       ) {
         return
@@ -98,14 +128,15 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
           inputComponent={
             <NativeSelect
               variant="filled"
-              // value={order.storekeeper?.name}
+              value={curIdeaId}
               className={classNames.nativeSelect}
               input={<Input />}
+              onChange={e => setCurIdeaId(e.target.value)}
             >
-              <option value={''}>{'none'}</option>
+              <option value={null}>{'none'}</option>
               {ideas.map((idea, statusIndex) => (
                 <option key={statusIndex} value={idea._id}>
-                  {idea.comments}
+                  {`Idea № ${statusIndex + 1}`}
                 </option>
               ))}
             </NativeSelect>
@@ -197,36 +228,55 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
               labelClasses={classNames.label}
               inputClasses={classNames.bigInput}
               containerClasses={classNames.bigInputContainer}
-              // value={formFields.asin}
+              value={formFields.criteria}
               placeholder={t(TranslationKey['Important criteria and features, material, color, markings'])}
-              // onChange={onChangeField('asin')}
+              onChange={onChangeField('criteria')}
             />
           </div>
 
           <div className={classNames.bottomFieldsSubWrapper}>
-            <Field
-              inputProps={{maxLength: 50}}
-              label={t(TranslationKey.Demensions)}
-              labelClasses={classNames.label}
-              // value={formFields.asin}
-              placeholder={t(TranslationKey['Approximate or exact size'])}
-              // onChange={onChangeField('asin')}
-            />
+            <div className={classNames.sizesBottomWrapper}>
+              <Field
+                labelClasses={classNames.label}
+                inputClasses={classNames.sizesInput}
+                containerClasses={classNames.sizesContainer}
+                label={t(TranslationKey.Width)}
+                value={formFields.width}
+                onChange={onChangeField('width')}
+              />
+              <Field
+                labelClasses={classNames.label}
+                inputClasses={classNames.sizesInput}
+                containerClasses={classNames.sizesContainer}
+                label={t(TranslationKey.Height)}
+                value={formFields.height}
+                onChange={onChangeField('height')}
+              />
+              <Field
+                labelClasses={classNames.label}
+                inputClasses={classNames.sizesInput}
+                containerClasses={classNames.sizesContainer}
+                label={t(TranslationKey.Length)}
+                value={formFields.length}
+                onChange={onChangeField('length')}
+              />
+            </div>
+
             <Field
               inputProps={{maxLength: 50}}
               label={t(TranslationKey.Quantity)}
               labelClasses={classNames.label}
-              // value={formFields.asin}
+              value={formFields.quantity}
               placeholder={t(TranslationKey['Estimated number of order units'])}
-              // onChange={onChangeField('asin')}
+              onChange={onChangeField('quantity')}
             />
             <Field
               inputProps={{maxLength: 50}}
               label={t(TranslationKey['Desired purchase price'])}
               labelClasses={classNames.label}
-              // value={formFields.asin}
+              value={formFields.price}
               placeholder={t(TranslationKey['Price per unit'])}
-              // onChange={onChangeField('asin')}
+              onChange={onChangeField('price')}
             />
           </div>
         </div>
