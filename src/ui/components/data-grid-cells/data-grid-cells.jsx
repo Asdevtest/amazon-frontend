@@ -106,12 +106,25 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
           />
         </div>
 
-        <Typography className={classNames.typoCell}>
-          {t(TranslationKey.SKU)}
-          <span className={classNames.typoSpan}>
-            {product.skusByClient?.length ? product.skusByClient.join(',') : t(TranslationKey.Missing)}
-          </span>
-        </Typography>
+        <div className={classNames.copyAsin}>
+          <Typography className={classNames.typoCell}>
+            {t(TranslationKey.SKU)}
+            <span className={classNames.typoSpan}>
+              {product.skusByClient?.length ? product.skusByClient.join(',') : t(TranslationKey.Missing)}
+            </span>
+          </Typography>
+          {product.skusByClient?.length ? (
+            <img
+              className={classNames.copyImgAsin}
+              src="/assets/icons/copy-img.svg"
+              alt=""
+              onClick={e => {
+                e.stopPropagation()
+                copyValue(product.asin)
+              }}
+            />
+          ) : null}
+        </div>
       </div>
     </div>
   </div>
@@ -505,6 +518,7 @@ export const RequestStatusCell = withStyles(styles)(({classes: classNames, statu
         RequestStatus.IN_PROCESS,
         RequestStatus.VERIFYING_BY_SUPERVISOR,
         RequestStatus.ACCEPTED_BY_SUPERVISOR,
+        RequestStatus.ACCEPTED_BY_CLIENT,
         RequestStatus.CORRECTED,
       ].includes(status)
     ) {

@@ -18,6 +18,7 @@ export const RequestProposalStatus = {
   CANCELED_BY_EXECUTOR: 'CANCELED_BY_EXECUTOR',
   EXPIRED: 'EXPIRED',
   OFFER_CONDITIONS_CORRECTED: 'OFFER_CONDITIONS_CORRECTED',
+  PROPOSAL_EDITED: 'PROPOSAL_EDITED',
 }
 
 export const RequestProposalStatusTranslate = s => {
@@ -109,6 +110,7 @@ export const MyRequestStatus = {
   EXPIRED: 'EXPIRED',
   CANCELED_BY_SUPERVISOR: 'CANCELED_BY_SUPERVISOR',
   ACCEPTED_BY_SUPERVISOR: 'ACCEPTED_BY_SUPERVISOR',
+  ACCEPTED_BY_CLIENT: 'ACCEPTED_BY_CLIENT',
   CORRECTED: 'CORRECTED',
   CANCELED_BY_EXECUTOR: 'CANCELED_BY_EXECUTOR',
 }
@@ -149,6 +151,8 @@ export const MyRequestStatusTranslate = s => {
       return t(TranslationKey['Canceled by Supervisor'])
     case MyRequestStatus.ACCEPTED_BY_SUPERVISOR:
       return t(TranslationKey['Accepted by Supervisor'])
+    case MyRequestStatus.ACCEPTED_BY_CLIENT:
+      return t(TranslationKey['Accepted by Client'])
     case MyRequestStatus.CORRECTED:
       return t(TranslationKey.Corrected)
     case MyRequestStatus.CANCELED_BY_EXECUTOR:

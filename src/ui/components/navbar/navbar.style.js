@@ -3,7 +3,7 @@ import {makeStyles} from '@material-ui/styles'
 export const useClassNames = makeStyles(theme => ({
   root: {
     zIndex: 1200,
-    width: '220px',
+    width: '240px',
   },
   paper: {
     boxShadow: `0px 1px 2px 0px rgba(225, 229, 235, 0.8),
@@ -19,7 +19,7 @@ export const useClassNames = makeStyles(theme => ({
     alignItems: 'center',
     height: theme.spacing(7),
     flexShrink: 0,
-    width: '220px',
+    width: '240px',
   },
   logo: {
     marginTop: '15px',

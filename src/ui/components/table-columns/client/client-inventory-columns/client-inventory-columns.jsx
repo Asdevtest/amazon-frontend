@@ -26,7 +26,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
     renderCell: params => <AsinCell product={params.row.originalData} />,
-    minWidth: 250,
+    minWidth: 253,
   },
 
   {

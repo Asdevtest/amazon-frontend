@@ -138,7 +138,7 @@ const Box = ({
                     value={box.destinationId}
                     onChange={e => onChangeField(e, 'destinationId', box._id)}
                   >
-                    <option value={''}>{'none'}</option>
+                    <option value={''}>{t(TranslationKey['Not chosen'])}</option>
 
                     {destinations.map(item => (
                       <option key={item._id} value={item._id}>

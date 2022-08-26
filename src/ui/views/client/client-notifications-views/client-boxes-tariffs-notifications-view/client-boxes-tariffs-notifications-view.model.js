@@ -18,6 +18,7 @@ import {calcFinalWeightForBox} from '@utils/calculation'
 import {clientWarehouseDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
+import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
 export class ClientBoxesTariffsNotificationsViewModel {
@@ -157,7 +158,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
       this.confirmModalSettings = {
         isWarning: false,
-        message: `${t(TranslationKey['The total cost of shipping the box will be'])}: ${finalSum} $`,
+        message: `${t(TranslationKey['The total cost of shipping the box will be'])}: ${toFixed(finalSum, 2)} $`,
         onClickOkBtn: () => this.onSubmitSelectTariff(),
       }
 

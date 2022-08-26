@@ -118,7 +118,7 @@ class MyRequestsViewRaw extends Component {
                   onPageChange={onChangeCurPage}
                   onStateChange={setDataGridState}
                   onFilterModelChange={model => onChangeFilterModel(model)}
-                  onRowClick={e => onClickTableRow(e.row)}
+                  onRowDoubleClick={e => onClickTableRow(e.row)}
                 />
               </div>
             </MainContent>
