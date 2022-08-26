@@ -2,7 +2,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid} from '@mui/x-data-grid'
 
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {
   Accordion,
@@ -30,16 +30,35 @@ import {useClassNames} from './access-to-product-form.style'
 export const AccessToProductForm = observer(
   ({
     shop,
+    shops,
     updatedProducts,
     onClickToShowDetails,
-    handleChangeRadio,
-    selectedAccess,
     showDetails,
     searchInputValue,
     setSearchInputValue,
+
+    setShopDataToRender,
   }) => {
     const classNames = useClassNames()
+    const [selectedAccess, setSelectedAccess] = useState(t(TranslationKey['Access to selected products only']))
+    const [chosenGoods, setChosenGoods] = useState(shop?.tmpProductsId ? shop?.tmpProductsId : [])
 
+    // const allProductsIds = updatedProducts.map(product => product._id)
+
+    const handleChangeRadio = value => {
+      setSelectedAccess(value)
+    }
+
+    useEffect(() => {
+      shops &&
+        setShopDataToRender(
+          shops.map(item =>
+            item._id === shop._id ? {...item, tmpProductsIds: [...item.tmpProductsIds, ...chosenGoods]} : item,
+          ),
+        )
+    }, [chosenGoods])
+    // console.log('chosenGoods', chosenGoods)
+    // console.log('shops', shops)
     return (
       <Accordion
         // defaultValue={shop.name}
@@ -101,8 +120,8 @@ export const AccessToProductForm = observer(
             <div className={classNames.tableWrapper}>
               <DataGrid
                 hideFooter
-                checkboxSelection
                 disableSelectionOnClick
+                checkboxSelection
                 sx={{
                   border: 0,
                   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
@@ -111,7 +130,10 @@ export const AccessToProductForm = observer(
                 rows={toJS(updatedProducts)}
                 columns={sourceColumns()}
                 rowHeight={65}
-                onSelectionModelChange={newSelection => console.log(newSelection)}
+                selectionModel={chosenGoods}
+                onSelectionModelChange={newSelection => {
+                  setChosenGoods(newSelection)
+                }}
               />
             </div>
           </div>
