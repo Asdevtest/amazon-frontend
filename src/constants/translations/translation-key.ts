@@ -1477,7 +1477,7 @@ export enum TranslationKey {
   'Features' = 'Features',
   'Required work and skills' = 'Required work and skills',
   'Data was successfully saved' = 'Data was successfully saved',
-
+  'Open an appeal' = 'Open an appeal',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -67,7 +67,7 @@ export const BoxForMerge = ({box, readOnly = false, index}) => {
                   input={<Input />}
                   value={box.destination?.name}
                 >
-                  <option value={''}>{'none'}</option>
+                  <option value={''}>{t(TranslationKey['Not chosen'])}</option>
 
                   <option>{box.destination?.name}</option>
                 </NativeSelect>

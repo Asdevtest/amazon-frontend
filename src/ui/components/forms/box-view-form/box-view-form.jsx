@@ -75,6 +75,7 @@ export const BoxViewForm = observer(
                 <Field
                   disabled
                   inputClasses={classNames.deliveryInfoField}
+                  labelClasses={classNames.label}
                   label={t(TranslationKey.Destination)}
                   value={box.destination?.name || t(TranslationKey['Not available'])}
                   placeholder={t(TranslationKey['Not available'])}
@@ -85,6 +86,7 @@ export const BoxViewForm = observer(
                 <Field
                   disabled
                   inputClasses={classNames.deliveryInfoField}
+                  labelClasses={classNames.label}
                   label={t(TranslationKey.Tariff)}
                   value={getFullTariffTextForBoxOrOrder(box) || ''}
                   placeholder={'N/A'}
@@ -112,12 +114,14 @@ export const BoxViewForm = observer(
                       <Field
                         disabled
                         inputClasses={classNames.countField}
+                        labelClasses={classNames.label}
                         label={t(TranslationKey['HS code'])}
                         value={item.product.hsCode || t(TranslationKey['Not available'])}
                         placeholder={'N/A'}
                       />
                       <Field
                         label={t(TranslationKey.BarCode)}
+                        labelClasses={classNames.label}
                         inputComponent={
                           item.barCode ? (
                             <div className={classNames.barCode}>
@@ -149,6 +153,7 @@ export const BoxViewForm = observer(
                         <Field
                           oneLine
                           containerClasses={classNames.checkboxContainer}
+                          labelClasses={classNames.label}
                           label={t(TranslationKey['BarCode is glued by supplier'])}
                           inputComponent={<Checkbox disabled checked={item.isBarCodeAlreadyAttachedByTheSupplier} />}
                         />
@@ -156,6 +161,7 @@ export const BoxViewForm = observer(
                         <Field
                           oneLine
                           containerClasses={classNames.checkboxContainer}
+                          labelClasses={classNames.label}
                           label={t(TranslationKey['BarCode is glued by storekeeper'])}
                           inputComponent={<Checkbox disabled checked={item.isBarCodeAttachedByTheStorekeeper} />}
                         />
@@ -164,6 +170,7 @@ export const BoxViewForm = observer(
                         disabled
                         inputClasses={classNames.countField}
                         containerClasses={classNames.countContainer}
+                        labelClasses={classNames.label}
                         label={t(TranslationKey.Quantity)}
                         value={(box.amount > 1 ? `${item.amount} * ${box.amount}` : item.amount) || 0}
                         placeholder={'N/A'}
@@ -178,7 +185,7 @@ export const BoxViewForm = observer(
           <div className={classNames.blockWrapper}>
             <div className={classNames.imgSizesWrapper}>
               <div className={classNames.imgWrapper}>
-                <Typography>{t(TranslationKey['Box photos:'])}</Typography>
+                <Typography className={classNames.label}>{t(TranslationKey['Box photos:'])}</Typography>
                 <div className={classNames.imgBoxWrapper}>
                   <PhotoCarousel small files={box.images} />
                 </div>
@@ -187,7 +194,9 @@ export const BoxViewForm = observer(
               <div className={classNames.sizesWrapper}>
                 <div className={classNames.demensionsWrapper}>
                   <div className={classNames.sizesSubWrapper}>
-                    <Typography>{`${t(TranslationKey['Dimensions from warehouse'])}:`}</Typography>
+                    <Typography className={classNames.label}>{`${t(
+                      TranslationKey['Dimensions from warehouse'],
+                    )}:`}</Typography>
 
                     <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                       <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
@@ -237,6 +246,7 @@ export const BoxViewForm = observer(
               <Field
                 oneLine
                 containerClasses={classNames.checkboxContainer}
+                labelClasses={classNames.label}
                 label={t(TranslationKey['Shipping label was glued to the warehouse'])}
                 inputComponent={<Checkbox disabled checked={box.isShippingLabelAttachedByStorekeeper} />}
               />
@@ -244,6 +254,7 @@ export const BoxViewForm = observer(
               <div className={classNames.labelsInfoWrapper}>
                 <Field
                   label={t(TranslationKey['Shipping label'])}
+                  labelClasses={classNames.label}
                   inputComponent={
                     box.shippingLabel ? (
                       <div className={classNames.barCode}>
@@ -271,6 +282,7 @@ export const BoxViewForm = observer(
 
                 <Field
                   label={t(TranslationKey['FBA Shipment'])}
+                  labelClasses={classNames.label}
                   inputComponent={
                     <div>
                       <Typography className={classNames.linkField}>

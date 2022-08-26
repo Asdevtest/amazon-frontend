@@ -24,7 +24,7 @@ export const styles = createStyles(theme => ({
 
   row: {
     whiteSpace: 'normal',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/Cursor.svg), auto',
     transition: '0.3s ease',
 
     '&:hover': {

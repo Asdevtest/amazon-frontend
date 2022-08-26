@@ -228,4 +228,9 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: '#E0E0E0',
     margin: '0 -40px 15px -40px',
   },
+  label: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#656565',
+  },
 }))

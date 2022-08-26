@@ -104,7 +104,7 @@ export const AppealsListCard = ({onClickViewMore}) => {
               className={classNames.actionButton}
               onClick={() => onClickViewMore()}
             >
-              {'Открыть жалобу'}
+              {t(TranslationKey['Open an appeal'])}
             </Button>
           </div>
         </div>

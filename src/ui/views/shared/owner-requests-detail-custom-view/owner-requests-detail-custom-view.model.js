@@ -11,12 +11,13 @@ import {UserModel} from '@models/user-model'
 
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
+import {onSubmitPostImages} from '@utils/upload-files'
 
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-
+  uploadedFiles = []
   drawerOpen = false
   requestId = undefined
   request = undefined
@@ -165,9 +166,13 @@ export class OwnerRequestDetailCustomViewModel {
     this.triggerShowResultToCorrectFormModal()
   }
 
-  async onPressSubmitRequestProposalResultToCorrectForm(formFields) {
+  async onPressSubmitRequestProposalResultToCorrectForm(formFields, files) {
     this.triggerShowResultToCorrectFormModal()
     try {
+      this.uploadedFiles = []
+      if (files.length) {
+        await onSubmitPostImages.call(this, {images: files, type: 'uploadedFiles'})
+      }
       const findProposalByChatId = this.requestProposals.find(
         requestProposal => requestProposal.proposal.chatId === this.chatSelectedId,
       )
@@ -177,6 +182,7 @@ export class OwnerRequestDetailCustomViewModel {
       await RequestProposalModel.requestProposalResultToCorrect(findProposalByChatId.proposal._id, {
         ...formFields,
         timeLimitInMinutes: parseInt(formFields.timeLimitInMinutes),
+        linksToMediaFiles: this.uploadedFiles,
       })
       this.loadData()
     } catch (error) {

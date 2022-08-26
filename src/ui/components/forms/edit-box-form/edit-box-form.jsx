@@ -457,7 +457,7 @@ export const EditBoxForm = observer(
                           value={boxFields.destinationId}
                           onChange={e => setBoxFields({...boxFields, destinationId: e.target.value})}
                         >
-                          <option value={''}>{'none'}</option>
+                          <option value={''}>{t(TranslationKey['Not chosen'])}</option>
 
                           {destinations.map(item => (
                             <option key={item._id} value={item._id}>
