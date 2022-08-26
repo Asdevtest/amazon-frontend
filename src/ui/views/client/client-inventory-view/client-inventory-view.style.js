@@ -131,7 +131,7 @@ export const styles = createStyles({
   },
   datagridWrapper: {
     marginTop: '10px',
-    height: '760px',
+    height: '76vh',
   },
   footerContainer: {
     position: 'absolute',

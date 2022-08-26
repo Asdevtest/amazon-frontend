@@ -1,40 +1,21 @@
-// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-// import SearchIcon from '@mui/icons-material/Search'
 import Checkbox from '@mui/material/Checkbox'
 import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
 
-// import {DataGrid} from '@mui/x-data-grid'
 import React, {useEffect, useState} from 'react'
 
-import {
-  // Accordion,
-  // AccordionDetails,
-  // AccordionSummary,
-  Box,
-  Divider, // FormControl,
-  // FormControlLabel,
-  // InputAdornment,
-  ListItemText, // Radio,
-  // RadioGroup,
-  Tabs,
-  Typography,
-} from '@material-ui/core'
+import {Box, Divider, ListItemText, Tabs, Typography} from '@material-ui/core'
 import clsx from 'clsx'
-// import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-// import {Field} from '@components/field'
 import {ITab} from '@components/i-tab/i-tab'
 
 import {t} from '@utils/translations'
 
 import {AccessToProductForm} from './access-to-product-form'
-// import {AccessToProductForm} from './access-to-product-form'
-// import {sourceColumns} from './access-to-products-columns'
 import {useClassNames} from './new-add-or-edit-user-permissions-form.style'
 
 const tabsValues = {
@@ -75,10 +56,14 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
     const [showDetails, setShowDetails] = useState(false)
     const [selectedShop, setSelectedShop] = useState('')
-    const [selectedAccess, setSelectedAccess] = useState(t(TranslationKey['Access to all products in the store']))
+
+    const [shopDataToRender, setShopDataToRender] = useState(
+      shops.slice(0, 2).map(shop => ({...shop, tmpProductsIds: []})),
+    )
+
     const [searchInputValue, setSearchInputValue] = useState('')
     const [updatedProducts, setUpdatedProducts] = useState([])
-
+    console.log(shopDataToRender)
     const onClickToShowDetails = value => (e, isExpanded) => {
       setShowDetails(isExpanded ? value : false)
       setSelectedShop(value)
@@ -110,15 +95,6 @@ export const NewAddOrEditUserPermissionsForm = observer(
       (ac, cur) => (ac = [...ac, ...cur.permissions.map(el => el._id)]),
       [],
     )
-
-    // const onSelectionModel = model => {
-    //   const curChosenGoodsIds = chosenGoods.map(el => el.id)
-
-    //   const newRowIds = model.filter(el => !curChosenGoodsIds.includes(el))
-    //   console.log(newRowIds)
-    //   const newSelectedItems = toJS(updatedProducts).filter(el => newRowIds.includes(el.id))
-    //   setChosenGoods([...chosenGoods, ...newSelectedItems])
-    // }
 
     const otherPermissionsGroup = {
       key: 'WITHOUT_GROUP',
@@ -164,10 +140,6 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
         setFormFields([...formFields, ...permsToCheckIds])
       }
-    }
-
-    const handleChangeRadio = value => {
-      setSelectedAccess(value)
     }
 
     const submitDisabled =
@@ -276,28 +248,26 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
         <TabPanel value={tabIndex} index={tabsValues.ACCESS_TO_PRODUCTS}>
           <div className={classNames.accordionWrapper}>
-            {shops.map(shop => (
+            {shopDataToRender.map(shop => (
               <AccessToProductForm
                 key={shop._id}
                 shop={shop}
+                shops={shopDataToRender}
                 showDetails={showDetails}
                 searchInputValue={searchInputValue}
-                selectedAccess={selectedAccess}
+                setShopDataToRender={setShopDataToRender}
                 updatedProducts={updatedProducts}
                 setSearchInputValue={setSearchInputValue}
-                handleChangeRadio={handleChangeRadio}
                 onClickToShowDetails={onClickToShowDetails}
               />
             ))}
-            <AccessToProductForm
+            {/* <AccessToProductForm
               showDetails={showDetails}
               searchInputValue={searchInputValue}
-              selectedAccess={selectedAccess}
               updatedProducts={updatedProducts}
               setSearchInputValue={setSearchInputValue}
-              handleChangeRadio={handleChangeRadio}
               onClickToShowDetails={onClickToShowDetails}
-            />
+            /> */}
           </div>
         </TabPanel>
 
