@@ -16,7 +16,6 @@ import ApiClient from './ApiClient';
 import AdminUserPatchDtoSchema from './model/AdminUserPatchDtoSchema';
 import ApiV1AdminsGetProductsByStatusBoxProperties from './model/ApiV1AdminsGetProductsByStatusBoxProperties';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './model/ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1AdminsGetProductsByStatusListingSupplierCompetitors from './model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors';
 import ApiV1AdminsGetProductsByStatusSuppliers from './model/ApiV1AdminsGetProductsByStatusSuppliers';
 import ApiV1AdminsOrdersDestination from './model/ApiV1AdminsOrdersDestination';
 import ApiV1AdminsOrdersLogicsTariff from './model/ApiV1AdminsOrdersLogicsTariff';
@@ -158,6 +157,8 @@ import InlineObject88 from './model/InlineObject88';
 import InlineObject89 from './model/InlineObject89';
 import InlineObject9 from './model/InlineObject9';
 import InlineObject90 from './model/InlineObject90';
+import InlineObject91 from './model/InlineObject91';
+import InlineObject92 from './model/InlineObject92';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
 import InlineResponse20010 from './model/InlineResponse20010';
@@ -181,11 +182,14 @@ import InlineResponse20026 from './model/InlineResponse20026';
 import InlineResponse20027 from './model/InlineResponse20027';
 import InlineResponse20028 from './model/InlineResponse20028';
 import InlineResponse20029 from './model/InlineResponse20029';
-import InlineResponse20029Details from './model/InlineResponse20029Details';
 import InlineResponse2002AllowedUrls from './model/InlineResponse2002AllowedUrls';
 import InlineResponse2002PermissionGroups from './model/InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './model/InlineResponse2002Permissions';
+import InlineResponse2002SubUsers from './model/InlineResponse2002SubUsers';
 import InlineResponse2003 from './model/InlineResponse2003';
+import InlineResponse20030 from './model/InlineResponse20030';
+import InlineResponse20031 from './model/InlineResponse20031';
+import InlineResponse20031Details from './model/InlineResponse20031Details';
 import InlineResponse2004 from './model/InlineResponse2004';
 import InlineResponse2005 from './model/InlineResponse2005';
 import InlineResponse2006 from './model/InlineResponse2006';
@@ -316,12 +320,6 @@ export {
      * @property {module:model/ApiV1AdminsGetProductsByStatusCreatedBy}
      */
     ApiV1AdminsGetProductsByStatusCreatedBy,
-
-    /**
-     * The ApiV1AdminsGetProductsByStatusListingSupplierCompetitors model constructor.
-     * @property {module:model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors}
-     */
-    ApiV1AdminsGetProductsByStatusListingSupplierCompetitors,
 
     /**
      * The ApiV1AdminsGetProductsByStatusSuppliers model constructor.
@@ -1170,6 +1168,18 @@ export {
     InlineObject90,
 
     /**
+     * The InlineObject91 model constructor.
+     * @property {module:model/InlineObject91}
+     */
+    InlineObject91,
+
+    /**
+     * The InlineObject92 model constructor.
+     * @property {module:model/InlineObject92}
+     */
+    InlineObject92,
+
+    /**
      * The InlineResponse200 model constructor.
      * @property {module:model/InlineResponse200}
      */
@@ -1308,12 +1318,6 @@ export {
     InlineResponse20029,
 
     /**
-     * The InlineResponse20029Details model constructor.
-     * @property {module:model/InlineResponse20029Details}
-     */
-    InlineResponse20029Details,
-
-    /**
      * The InlineResponse2002AllowedUrls model constructor.
      * @property {module:model/InlineResponse2002AllowedUrls}
      */
@@ -1332,10 +1336,34 @@ export {
     InlineResponse2002Permissions,
 
     /**
+     * The InlineResponse2002SubUsers model constructor.
+     * @property {module:model/InlineResponse2002SubUsers}
+     */
+    InlineResponse2002SubUsers,
+
+    /**
      * The InlineResponse2003 model constructor.
      * @property {module:model/InlineResponse2003}
      */
     InlineResponse2003,
+
+    /**
+     * The InlineResponse20030 model constructor.
+     * @property {module:model/InlineResponse20030}
+     */
+    InlineResponse20030,
+
+    /**
+     * The InlineResponse20031 model constructor.
+     * @property {module:model/InlineResponse20031}
+     */
+    InlineResponse20031,
+
+    /**
+     * The InlineResponse20031Details model constructor.
+     * @property {module:model/InlineResponse20031Details}
+     */
+    InlineResponse20031Details,
 
     /**
      * The InlineResponse2004 model constructor.

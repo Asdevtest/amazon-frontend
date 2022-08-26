@@ -612,13 +612,16 @@ export class ClientProductViewModel {
         runInAction(() => {
           if (Object.keys(parseResult).length > 5) {
             // проверка, что ответ не пустой (иначе приходит объект {length: 2})
-            this.product = {
-              ...this.product,
-              ...parseFieldsAdapter(parseResult, productDataParser),
-              weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
-              amazonDescription: parseResult.info?.description || this.product.amazonDescription,
-              amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
-            }
+            this.product = getObjectFilteredByKeyArrayBlackList(
+              {
+                ...this.product,
+                ...parseFieldsAdapter(parseResult, productDataParser),
+                weight: this.product.weight > parseResult.weight ? this.product.weight : parseResult.weight,
+                amazonDescription: parseResult.info?.description || this.product.amazonDescription,
+                amazonDetail: parseResult.info?.detail || this.product.amazonDetail,
+              },
+              ['fbafee'],
+            )
           }
           updateProductAutoCalculatedFields.call(this)
         })

@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 ## apiV1IntegrationsRefreshProductsPatch
 
-> String apiV1IntegrationsRefreshProductsPatch(opts)
+> InlineResponse20016 apiV1IntegrationsRefreshProductsPatch(opts)
 
 # Обновить товары через парсер
 
@@ -165,7 +165,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**InlineResponse20016**](InlineResponse20016.md)
 
 ### Authorization
 

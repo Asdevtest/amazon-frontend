@@ -12,9 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import InlineResponse2002PermissionGroups from './InlineResponse2002PermissionGroups';
 import InlineResponse2002Permissions from './InlineResponse2002Permissions';
+import InlineResponse2002SubUsers from './InlineResponse2002SubUsers';
 
 /**
  * The InlineResponse2002 model module.
@@ -117,10 +117,10 @@ class InlineResponse2002 {
                 obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
             }
             if (data.hasOwnProperty('subUsers')) {
-                obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [ApiV1AdminsGetProductsByStatusCreatedBy]);
+                obj['subUsers'] = ApiClient.convertToType(data['subUsers'], [InlineResponse2002SubUsers]);
             }
             if (data.hasOwnProperty('masterUserInfo')) {
-                obj['masterUserInfo'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['masterUserInfo']);
+                obj['masterUserInfo'] = InlineResponse2002SubUsers.constructFromObject(data['masterUserInfo']);
             }
             if (data.hasOwnProperty('hideSuppliers')) {
                 obj['hideSuppliers'] = ApiClient.convertToType(data['hideSuppliers'], 'Boolean');
@@ -242,12 +242,12 @@ InlineResponse2002.prototype['rating'] = undefined;
 
 /**
  * Массив id сабюзеров.
- * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusCreatedBy>} subUsers
+ * @member {Array.<module:model/InlineResponse2002SubUsers>} subUsers
  */
 InlineResponse2002.prototype['subUsers'] = undefined;
 
 /**
- * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} masterUserInfo
+ * @member {module:model/InlineResponse2002SubUsers} masterUserInfo
  */
 InlineResponse2002.prototype['masterUserInfo'] = undefined;
 

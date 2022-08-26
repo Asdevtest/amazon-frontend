@@ -44,9 +44,13 @@ export const OrderProductModal = ({
             ...reorderOrder.product,
             amount: reorderOrder.amount,
 
-            destinationId: reorderOrder.destination?._id || '',
-            storekeeperId: reorderOrder.storekeeper?._id || '',
-            logicsTariffId: reorderOrder.logicsTariff?._id || '',
+            destinationId: destinations.includes(reorderOrder.destination?._id) ? reorderOrder.destination?._id : '',
+            storekeeperId: storekeepers.includes(reorderOrder.storekeepers?._id) ? reorderOrder.storekeepers?._id : '',
+            logicsTariffId: storekeepers
+              .find(el => el._id === reorderOrder.storekeepers?._id)
+              ?.tariffLogistics.includes(reorderOrder.logicsTariff?._id)
+              ? reorderOrder.logicsTariff?._id
+              : '',
           },
         ]
       : selectedProductsData.map(product => ({
@@ -66,10 +70,13 @@ export const OrderProductModal = ({
             images: reorderOrder.product.images,
             tmpBarCode: [],
 
-            destinationId: reorderOrder.destination?._id || '',
-
-            storekeeperId: reorderOrder.storekeeper?._id || '',
-            logicsTariffId: reorderOrder.logicsTariff?._id || '',
+            destinationId: destinations.includes(reorderOrder.destination?._id) ? reorderOrder.destination?._id : '',
+            storekeeperId: storekeepers.includes(reorderOrder.storekeepers?._id) ? reorderOrder.storekeepers?._id : '',
+            logicsTariffId: storekeepers
+              .find(el => el._id === reorderOrder.storekeepers?._id)
+              ?.tariffLogistics.includes(reorderOrder.logicsTariff?._id)
+              ? reorderOrder.logicsTariff?._id
+              : '',
           },
         ]
       : selectedProductsData.map(product => ({

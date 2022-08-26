@@ -20,6 +20,7 @@ import InlineObject53 from '../model/InlineObject53';
 import InlineObject54 from '../model/InlineObject54';
 import InlineResponse20014 from '../model/InlineResponse20014';
 import InlineResponse20015 from '../model/InlineResponse20015';
+import InlineResponse20016 from '../model/InlineResponse20016';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -152,7 +153,7 @@ export default class IntegrationsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<String>} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20016} and HTTP response
      */
     apiV1IntegrationsRefreshProductsPatchWithHttpInfo(opts) {
       opts = opts || {};
@@ -171,7 +172,7 @@ export default class IntegrationsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = 'String';
+      let returnType = InlineResponse20016;
       return this.apiClient.callApi(
         '/api/v1/integrations/refresh_products', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -185,7 +186,7 @@ export default class IntegrationsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<String>} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20016}
      */
     apiV1IntegrationsRefreshProductsPatch(opts) {
       return this.apiV1IntegrationsRefreshProductsPatchWithHttpInfo(opts)

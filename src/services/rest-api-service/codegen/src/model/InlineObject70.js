@@ -22,10 +22,11 @@ class InlineObject70 {
     /**
      * Constructs a new <code>InlineObject70</code>.
      * @alias module:model/InlineObject70
+     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
      */
-    constructor() { 
+    constructor(totalCost) { 
         
-        InlineObject70.initialize(this);
+        InlineObject70.initialize(this, totalCost);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject70 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, totalCost) { 
+        obj['totalCost'] = totalCost;
     }
 
     /**
@@ -47,8 +49,8 @@ class InlineObject70 {
         if (data) {
             obj = obj || new InlineObject70();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            if (data.hasOwnProperty('totalCost')) {
+                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
             }
         }
         return obj;
@@ -58,10 +60,10 @@ class InlineObject70 {
 }
 
 /**
- * Причины закрытия приема предложений.
- * @member {String} reason
+ * Для подтверждения нужно вернуть totalCost из калькулятора.
+ * @member {Number} totalCost
  */
-InlineObject70.prototype['reason'] = undefined;
+InlineObject70.prototype['totalCost'] = undefined;
 
 
 

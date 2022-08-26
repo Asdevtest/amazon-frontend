@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## apiV1ShopSellGet
 
-> [InlineResponse20021] apiV1ShopSellGet(opts)
+> [InlineResponse20023] apiV1ShopSellGet(opts)
 
 # Получить все магазины на продажу
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20021]**](InlineResponse20021.md)
+[**[InlineResponse20023]**](InlineResponse20023.md)
 
 ### Authorization
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ShopSellGuidGet
 
-> InlineResponse20022 apiV1ShopSellGuidGet(guid, opts)
+> InlineResponse20024 apiV1ShopSellGuidGet(guid, opts)
 
 # Получить магазин на продажу по GUID
 
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20022**](InlineResponse20022.md)
+[**InlineResponse20024**](InlineResponse20024.md)
 
 ### Authorization
 
@@ -138,7 +138,7 @@ let apiInstance = new TestSwagger.ShopSellApi();
 let guid = null; // String | GUID магазина на продажу в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject74() // InlineObject74 | 
+  'body': new TestSwagger.InlineObject76() // InlineObject76 | 
 };
 apiInstance.apiV1ShopSellGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID магазина на продажу в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject74**](InlineObject74.md)|  | [optional] 
+ **body** | [**InlineObject76**](InlineObject76.md)|  | [optional] 
 
 ### Return type
 
@@ -191,7 +191,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ShopSellApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject73() // InlineObject73 | 
+  'body': new TestSwagger.InlineObject75() // InlineObject75 | 
 };
 apiInstance.apiV1ShopSellPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -207,7 +207,7 @@ apiInstance.apiV1ShopSellPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject73**](InlineObject73.md)|  | [optional] 
+ **body** | [**InlineObject75**](InlineObject75.md)|  | [optional] 
 
 ### Return type
 

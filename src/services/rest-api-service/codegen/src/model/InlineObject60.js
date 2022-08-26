@@ -47,11 +47,8 @@ class InlineObject60 {
         if (data) {
             obj = obj || new InlineObject60();
 
-            if (data.hasOwnProperty('reason')) {
-                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
-            }
-            if (data.hasOwnProperty('linksToMediaFiles')) {
-                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
+            if (data.hasOwnProperty('shopIds')) {
+                obj['shopIds'] = ApiClient.convertToType(data['shopIds'], ['String']);
             }
         }
         return obj;
@@ -61,16 +58,10 @@ class InlineObject60 {
 }
 
 /**
- * Комментарий причин изменения статуса.
- * @member {String} reason
+ * GUIDы магазинов, которые нужно добавить к продукту.
+ * @member {Array.<String>} shopIds
  */
-InlineObject60.prototype['reason'] = undefined;
-
-/**
- * Массив ссылок на медиафайлы.
- * @member {Array.<String>} linksToMediaFiles
- */
-InlineObject60.prototype['linksToMediaFiles'] = undefined;
+InlineObject60.prototype['shopIds'] = undefined;
 
 
 

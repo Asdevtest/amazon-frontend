@@ -6,7 +6,6 @@ docs/AdminUserPatchDtoSchema.md
 docs/AdministratorApi.md
 docs/ApiV1AdminsGetProductsByStatusBoxProperties.md
 docs/ApiV1AdminsGetProductsByStatusCreatedBy.md
-docs/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.md
 docs/ApiV1AdminsGetProductsByStatusSuppliers.md
 docs/ApiV1AdminsOrdersDestination.md
 docs/ApiV1AdminsOrdersLogicsTariff.md
@@ -154,6 +153,8 @@ docs/InlineObject88.md
 docs/InlineObject89.md
 docs/InlineObject9.md
 docs/InlineObject90.md
+docs/InlineObject91.md
+docs/InlineObject92.md
 docs/InlineResponse200.md
 docs/InlineResponse2001.md
 docs/InlineResponse20010.md
@@ -177,11 +178,14 @@ docs/InlineResponse20026.md
 docs/InlineResponse20027.md
 docs/InlineResponse20028.md
 docs/InlineResponse20029.md
-docs/InlineResponse20029Details.md
 docs/InlineResponse2002AllowedUrls.md
 docs/InlineResponse2002PermissionGroups.md
 docs/InlineResponse2002Permissions.md
+docs/InlineResponse2002SubUsers.md
 docs/InlineResponse2003.md
+docs/InlineResponse20030.md
+docs/InlineResponse20031.md
+docs/InlineResponse20031Details.md
 docs/InlineResponse2004.md
 docs/InlineResponse2005.md
 docs/InlineResponse2006.md
@@ -276,7 +280,6 @@ src/index.js
 src/model/AdminUserPatchDtoSchema.js
 src/model/ApiV1AdminsGetProductsByStatusBoxProperties.js
 src/model/ApiV1AdminsGetProductsByStatusCreatedBy.js
-src/model/ApiV1AdminsGetProductsByStatusListingSupplierCompetitors.js
 src/model/ApiV1AdminsGetProductsByStatusSuppliers.js
 src/model/ApiV1AdminsOrdersDestination.js
 src/model/ApiV1AdminsOrdersLogicsTariff.js
@@ -418,6 +421,8 @@ src/model/InlineObject88.js
 src/model/InlineObject89.js
 src/model/InlineObject9.js
 src/model/InlineObject90.js
+src/model/InlineObject91.js
+src/model/InlineObject92.js
 src/model/InlineResponse200.js
 src/model/InlineResponse2001.js
 src/model/InlineResponse20010.js
@@ -441,11 +446,14 @@ src/model/InlineResponse20026.js
 src/model/InlineResponse20027.js
 src/model/InlineResponse20028.js
 src/model/InlineResponse20029.js
-src/model/InlineResponse20029Details.js
 src/model/InlineResponse2002AllowedUrls.js
 src/model/InlineResponse2002PermissionGroups.js
 src/model/InlineResponse2002Permissions.js
+src/model/InlineResponse2002SubUsers.js
 src/model/InlineResponse2003.js
+src/model/InlineResponse20030.js
+src/model/InlineResponse20031.js
+src/model/InlineResponse20031Details.js
 src/model/InlineResponse2004.js
 src/model/InlineResponse2005.js
 src/model/InlineResponse2006.js
@@ -499,3 +507,4 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
+test/model/InlineResponse2002SubUsers.spec.js

@@ -218,7 +218,7 @@ export const AdminUserEditContent = observer(
                       <div key={subUser._id} className={classNames.ratingWrapper}>
                         <UserLink name={subUser.name} userId={subUser._id} />
 
-                        <Typography disabled>{'subUser@email.ru'}</Typography>
+                        <Typography disabled>{subUser.email}</Typography>
                       </div>
                     ))}
                   </div>

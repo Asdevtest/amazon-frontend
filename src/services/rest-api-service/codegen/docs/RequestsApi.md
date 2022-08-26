@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 ## apiV1RequestsCalculateRequestCostGuidGet
 
-> InlineResponse20018 apiV1RequestsCalculateRequestCostGuidGet(guid, opts)
+> InlineResponse20020 apiV1RequestsCalculateRequestCostGuidGet(guid, opts)
 
 Получить детализацию стоимости заявки
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20018**](InlineResponse20018.md)
+[**InlineResponse20020**](InlineResponse20020.md)
 
 ### Authorization
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGet
 
-> [InlineResponse20028] apiV1RequestsCustomGet(guid, opts)
+> [InlineResponse20030] apiV1RequestsCustomGet(guid, opts)
 
 Получить все уникальные заявки для исполнителя.
 
@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20028]**](InlineResponse20028.md)
+[**[InlineResponse20030]**](InlineResponse20030.md)
 
 ### Authorization
 
@@ -128,7 +128,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGuidGet
 
-> InlineResponse20029 apiV1RequestsCustomGuidGet(guid, opts)
+> InlineResponse20031 apiV1RequestsCustomGuidGet(guid, opts)
 
 Получить уникальную заявку по его guid.
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20029**](InlineResponse20029.md)
+[**InlineResponse20031**](InlineResponse20031.md)
 
 ### Authorization
 
@@ -203,7 +203,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject90() // InlineObject90 | 
+  'body': new TestSwagger.InlineObject92() // InlineObject92 | 
 };
 apiInstance.apiV1RequestsCustomGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject90**](InlineObject90.md)|  | [optional] 
+ **body** | [**InlineObject92**](InlineObject92.md)|  | [optional] 
 
 ### Return type
 
@@ -258,7 +258,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.RequestsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject89() // InlineObject89 | 
+  'body': new TestSwagger.InlineObject91() // InlineObject91 | 
 };
 apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -274,7 +274,7 @@ apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject89**](InlineObject89.md)|  | [optional] 
+ **body** | [**InlineObject91**](InlineObject91.md)|  | [optional] 
 
 ### Return type
 
@@ -292,7 +292,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsGet
 
-> [InlineResponse20019] apiV1RequestsGet(type, kind, opts)
+> [InlineResponse20021] apiV1RequestsGet(type, kind, opts)
 
 Получить список заявок
 
@@ -334,7 +334,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20019]**](InlineResponse20019.md)
+[**[InlineResponse20021]**](InlineResponse20021.md)
 
 ### Authorization
 
@@ -369,7 +369,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject70() // InlineObject70 | 
+  'body': new TestSwagger.InlineObject72() // InlineObject72 | 
 };
 apiInstance.apiV1RequestsGuidAbortPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -386,7 +386,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject70**](InlineObject70.md)|  | [optional] 
+ **body** | [**InlineObject72**](InlineObject72.md)|  | [optional] 
 
 ### Return type
 
@@ -533,7 +533,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = null; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject69() // InlineObject69 | 
+  'body': new TestSwagger.InlineObject71() // InlineObject71 | 
 };
 apiInstance.apiV1RequestsGuidPickupPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -550,7 +550,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject69**](InlineObject69.md)|  | [optional] 
+ **body** | [**InlineObject71**](InlineObject71.md)|  | [optional] 
 
 ### Return type
 
@@ -589,7 +589,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject68() // InlineObject68 | 
+  'body': new TestSwagger.InlineObject70() // InlineObject70 | 
 };
 apiInstance.apiV1RequestsGuidToPublishPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -606,7 +606,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject68**](InlineObject68.md)|  | [optional] 
+ **body** | [**InlineObject70**](InlineObject70.md)|  | [optional] 
 
 ### Return type
 

@@ -41,6 +41,7 @@ class SubUsersViewRaw extends Component {
 
   render() {
     const {
+      curUserProductPermissions,
       nameSearchValue,
       showConfirmModal,
       showAddSubUserModal,
@@ -163,6 +164,7 @@ class SubUsersViewRaw extends Component {
 
         <Modal openModal={showPermissionModal} setOpenModal={() => onTriggerOpenModal('showPermissionModal')}>
           <NewAddOrEditUserPermissionsForm
+            curUserProductPermissions={curUserProductPermissions}
             permissionsToSelect={singlePermissions}
             permissionGroupsToSelect={groupPermissions}
             sourceData={selectedSubUser}
