@@ -256,13 +256,9 @@ export class SubUsersViewModel {
     try {
       this.selectedSubUser = row
 
-      const result = await PermissionsModel.getProductsPermissionsForUser()
+      const result = await PermissionsModel.getProductsPermissionsForUserById(row._id)
 
-      console.log('result', result)
-
-      this.curUserProductPermissions = result.filter(el => el.userId === row._id).map(el => el.productId)
-
-      console.log('this.curUserProductPermissions', this.curUserProductPermissions)
+      this.curUserProductPermissions = result
 
       this.onTriggerOpenModal('showPermissionModal')
     } catch (error) {

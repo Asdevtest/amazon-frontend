@@ -43,6 +43,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 
 export const NewAddOrEditUserPermissionsForm = observer(
   ({
+    curUserProductPermissions,
     onCloseModal,
     onSubmit,
     permissionsToSelect,
@@ -61,8 +62,15 @@ export const NewAddOrEditUserPermissionsForm = observer(
     const [isReady, setIsReady] = useState(true)
 
     const sourceDataToProductsPermissions = [
-      {_id: PRODUCTS_WITHOUT_SHOPS_ID, name: t(TranslationKey['Products without shops']), tmpProductsIds: []},
-      ...shops.map(shop => ({...shop, tmpProductsIds: []})),
+      {
+        _id: PRODUCTS_WITHOUT_SHOPS_ID,
+        name: t(TranslationKey['Products without shops']),
+        tmpProductsIds: curUserProductPermissions.filter(el => !el.shopIds.length).map(el => el.productId),
+      },
+      ...shops.map(shop => ({
+        ...shop,
+        tmpProductsIds: curUserProductPermissions.filter(el => el.shopIds.includes(shop._id)).map(el => el.productId),
+      })),
     ]
 
     const [shopDataToRender, setShopDataToRender] = useState(sourceDataToProductsPermissions)
