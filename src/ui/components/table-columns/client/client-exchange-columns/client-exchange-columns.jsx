@@ -10,6 +10,7 @@ import {
   SuccessActionBtnCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
+  MultilineStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
@@ -42,7 +43,8 @@ export const clientExchangeViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Strategy),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineStatusCell status={params.value} />,
+
     width: 150,
   },
 

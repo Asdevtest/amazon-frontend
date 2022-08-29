@@ -29,8 +29,6 @@ export const OrderProductModal = ({
 }) => {
   const classNames = useClassNames()
 
-  console.log('reorderOrder', reorderOrder)
-
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
   const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)
@@ -65,8 +63,6 @@ export const OrderProductModal = ({
           amount: 1,
         })),
   )
-
-  console.log('productsForRender', productsForRender)
 
   const [orderState, setOrderState] = useState(
     reorderOrder

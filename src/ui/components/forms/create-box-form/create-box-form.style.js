@@ -143,4 +143,11 @@ export const useClassNames = makeStyles(theme => ({
   green: {
     color: 'green',
   },
+
+  destinationWrapper: {
+    maxWidth: '400px',
+    textAlign: 'right',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 }))

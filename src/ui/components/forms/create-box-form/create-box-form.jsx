@@ -323,7 +323,9 @@ export const CreateBoxForm = observer(
             <Field
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
               label={t(TranslationKey.Warehouse)}
-              inputComponent={<Typography>{formItem.destination?.name}</Typography>}
+              inputComponent={
+                <Typography className={classNames.destinationWrapper}>{formItem.destination?.name}</Typography>
+              }
             />
 
             <Field

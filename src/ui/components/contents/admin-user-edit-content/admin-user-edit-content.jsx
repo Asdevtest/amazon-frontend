@@ -199,6 +199,7 @@ export const AdminUserEditContent = observer(
                       userId={editUserFormFields.masterUserInfo?._id}
                     />
 
+                    <Typography disabled>{editUserFormFields.masterUserInfo.email}</Typography>
                     <div className={classNames.ratingSubWrapper}>
                       <Typography className={classNames.rating}>{t(TranslationKey.Rating)}</Typography>
 

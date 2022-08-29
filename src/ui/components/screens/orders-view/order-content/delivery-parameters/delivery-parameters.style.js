@@ -30,6 +30,8 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '19px',
     maxWidth: '200px',
     textAlign: 'right',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 
   scrollingText: {
