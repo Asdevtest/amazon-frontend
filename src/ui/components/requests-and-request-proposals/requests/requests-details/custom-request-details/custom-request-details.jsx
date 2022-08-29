@@ -39,11 +39,19 @@ export const CustomSearchRequestDetails = ({request}) => {
 
         <AccordionDetails classes={{root: classNames.details}} style={{padding: 0}}>
           <div className={classNames.mainWrapper}>
-            <div>
+            {/* <div>
               <Typography className={classNames.files}>{t(TranslationKey.Files)}</Typography>
 
               <PhotoAndFilesCarousel small files={request?.details?.linksToMediaFiles} width="400px" />
-            </div>
+            </div> */}
+
+            <Field
+              multiline
+              labelClasses={classNames.conditionsLabel}
+              label={t(TranslationKey.Files)}
+              containerClasses={classNames.filesWrapper}
+              inputComponent={<PhotoAndFilesCarousel small files={request?.details?.linksToMediaFiles} width="400px" />}
+            />
 
             <Field
               multiline

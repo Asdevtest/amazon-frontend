@@ -5,6 +5,7 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
 import {TaskOperationType} from '@constants/task-operation-type'
+import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {BatchesModel} from '@models/batches-model'
@@ -909,10 +910,27 @@ export class ClientWarehouseViewModel {
     }
   }
 
-  onClickCancelBtn(id, taskId, type) {
-    this.toCancelData = {id, taskId, type}
+  async onClickCancelBtn(id, taskId, type) {
+    try {
+      const task = await StorekeeperModel.getTaskById(taskId)
 
-    this.onTriggerOpenModal('showConfirmWithCommentModal')
+      if (task.status !== mapTaskStatusEmumToKey[TaskStatus.NEW]) {
+        this.getTasksMy()
+
+        this.warningInfoModalSettings = {
+          isWarning: true,
+          title: t(TranslationKey['The warehouse has already taken the task to work']),
+        }
+
+        this.onTriggerOpenModal('showWarningInfoModal')
+      } else {
+        this.toCancelData = {id, taskId, type}
+
+        this.onTriggerOpenModal('showConfirmWithCommentModal')
+      }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   async onClickCancelAfterConfirm(comment) {

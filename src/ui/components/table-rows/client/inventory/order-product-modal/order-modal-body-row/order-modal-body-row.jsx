@@ -81,7 +81,7 @@ export const OrderModalBodyRow = ({
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
 
   const curTariffRate = curStorekeeper?.tariffLogistics.find(el => el._id === orderState.logicsTariffId)
-    .conditionsByRegion[regionOfDeliveryName]?.rate
+    ?.conditionsByRegion[regionOfDeliveryName]?.rate
 
   const costDeliveryOfBatch = weightOfBatch * curTariffRate || ''
 

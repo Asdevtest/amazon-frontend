@@ -29,6 +29,8 @@ export const OrderProductModal = ({
 }) => {
   const classNames = useClassNames()
 
+  console.log('reorderOrder', reorderOrder)
+
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
   const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)
@@ -44,11 +46,16 @@ export const OrderProductModal = ({
             ...reorderOrder.product,
             amount: reorderOrder.amount,
 
-            destinationId: destinations.includes(reorderOrder.destination?._id) ? reorderOrder.destination?._id : '',
-            storekeeperId: storekeepers.includes(reorderOrder.storekeepers?._id) ? reorderOrder.storekeepers?._id : '',
+            destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
+              ? reorderOrder.destination?._id
+              : '',
+            storekeeperId: storekeepers.map(el => el._id).includes(reorderOrder.storekeeper?._id)
+              ? reorderOrder.storekeeper?._id
+              : '',
             logicsTariffId: storekeepers
-              .find(el => el._id === reorderOrder.storekeepers?._id)
-              ?.tariffLogistics.includes(reorderOrder.logicsTariff?._id)
+              .find(el => el._id === reorderOrder.storekeeper?._id)
+              ?.tariffLogistics.map(el => el._id)
+              .includes(reorderOrder.logicsTariff?._id)
               ? reorderOrder.logicsTariff?._id
               : '',
           },
@@ -58,6 +65,8 @@ export const OrderProductModal = ({
           amount: 1,
         })),
   )
+
+  console.log('productsForRender', productsForRender)
 
   const [orderState, setOrderState] = useState(
     reorderOrder
@@ -70,11 +79,16 @@ export const OrderProductModal = ({
             images: reorderOrder.product.images,
             tmpBarCode: [],
 
-            destinationId: destinations.includes(reorderOrder.destination?._id) ? reorderOrder.destination?._id : '',
-            storekeeperId: storekeepers.includes(reorderOrder.storekeepers?._id) ? reorderOrder.storekeepers?._id : '',
+            destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)
+              ? reorderOrder.destination?._id
+              : '',
+            storekeeperId: storekeepers.map(el => el._id).includes(reorderOrder.storekeeper?._id)
+              ? reorderOrder.storekeeper?._id
+              : '',
             logicsTariffId: storekeepers
-              .find(el => el._id === reorderOrder.storekeepers?._id)
-              ?.tariffLogistics.includes(reorderOrder.logicsTariff?._id)
+              .find(el => el._id === reorderOrder.storekeeper?._id)
+              ?.tariffLogistics.map(el => el._id)
+              .includes(reorderOrder.logicsTariff?._id)
               ? reorderOrder.logicsTariff?._id
               : '',
           },
