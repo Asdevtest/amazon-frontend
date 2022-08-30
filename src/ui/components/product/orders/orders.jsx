@@ -6,10 +6,18 @@ import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
 import {loadingStatuses} from '@constants/loading-statuses'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
+import {Modal} from '@components/modal'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
+import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
+import {SuccessInfoModal} from '@components/modals/success-info-modal'
+import {OrderProductModal} from '@components/screens/client/order-product-modal'
+
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
+import {t} from '@utils/translations'
 
 import {OrdersModel} from './orders.model'
 import {useClassNames} from './orders.style'
@@ -19,7 +27,29 @@ export const Orders = observer(({productId}) => {
   const history = useHistory()
   const model = useRef(new OrdersModel({history, productId}))
 
-  const {getCurrentData, requestStatus, columnsModel, onClickTableRow, updateColumnsModel} = model.current
+  const {
+    volumeWeightCoefficient,
+    storekeepers,
+    destinations,
+    reorderOrder,
+    selectedProduct,
+    successModalText,
+    confirmModalSettings,
+    getCurrentData,
+    requestStatus,
+    columnsModel,
+    showSetBarcodeModal,
+    showOrderModal,
+    showSuccessModal,
+    showConfirmModal,
+    onClickTableRow,
+    updateColumnsModel,
+    onTriggerOpenModal,
+    onConfirmSubmitOrderProductModal,
+    onClickSaveBarcode,
+    onDoubleClickBarcode,
+    setDataGridState,
+  } = model.current
 
   useEffect(() => {
     model.current.loadData()
@@ -52,6 +82,49 @@ export const Orders = observer(({productId}) => {
         columns={columnsModel}
         loading={requestStatus === loadingStatuses.isLoading}
         onRowDoubleClick={e => onClickTableRow(e.row)}
+        onStateChange={setDataGridState}
+      />
+
+      <Modal openModal={showSetBarcodeModal} setOpenModal={() => onTriggerOpenModal('showSetBarcodeModal')}>
+        <SetBarcodeModal
+          item={selectedProduct}
+          onClickSaveBarcode={onClickSaveBarcode}
+          onCloseModal={() => onTriggerOpenModal('showSetBarcodeModal')}
+        />
+      </Modal>
+
+      <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
+        <OrderProductModal
+          reorderOrder={reorderOrder}
+          volumeWeightCoefficient={volumeWeightCoefficient}
+          destinations={destinations}
+          storekeepers={storekeepers}
+          onTriggerOpenModal={onTriggerOpenModal}
+          onDoubleClickBarcode={onDoubleClickBarcode}
+          onSubmit={onConfirmSubmitOrderProductModal}
+        />
+      </Modal>
+
+      <SuccessInfoModal
+        openModal={showSuccessModal}
+        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+        title={successModalText}
+        successBtnText={t(TranslationKey.Ok)}
+        onClickSuccessBtn={() => {
+          onTriggerOpenModal('showSuccessModal')
+        }}
+      />
+
+      <ConfirmationModal
+        openModal={showConfirmModal}
+        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+        isWarning={confirmModalSettings.isWarning}
+        title={confirmModalSettings.confirmTitle}
+        message={confirmModalSettings.confirmMessage}
+        successBtnText={t(TranslationKey.Yes)}
+        cancelBtnText={t(TranslationKey.Cancel)}
+        onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
       />
     </div>
   )

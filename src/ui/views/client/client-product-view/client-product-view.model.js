@@ -225,8 +225,6 @@ export class ClientProductViewModel {
       if (['bsr', 'express', 'weight', 'fbafee', 'amazon', 'delivery', 'totalFba', 'reffee'].includes(fieldName)) {
         updateProductAutoCalculatedFields.call(this)
       }
-
-      console.log('this.product', this.product)
     })
 
   onChangeProduct(e, value) {

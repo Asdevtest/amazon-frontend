@@ -143,7 +143,7 @@ export const Listing = observer(({productId, onClickBack}) => {
                 </Typography>
 
                 <div className={classNames.carouselWrapper}>
-                  <PhotoCarousel files={imagesFromBoxes} />
+                  <PhotoCarousel small files={imagesFromBoxes} />
                 </div>
               </div>
 
@@ -151,7 +151,7 @@ export const Listing = observer(({productId, onClickBack}) => {
                 <Typography className={classNames.subTitle}>{t(TranslationKey['Listing photos:'])}</Typography>
 
                 <div className={classNames.carouselWrapper}>
-                  <PhotoCarousel files={listingProduct.listingImages} />
+                  <PhotoCarousel small files={listingProduct.listingImages} />
                 </div>
               </div>
             </div>

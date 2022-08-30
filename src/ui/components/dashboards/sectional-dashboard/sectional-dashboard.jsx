@@ -29,7 +29,14 @@ export const SectionalDashboard = ({config, valuesData, onClickViewMore}) => {
         <Typography paragraph variant="h5" className={classNames.sectionTitle}>
           {section.title}
         </Typography>
-        <Grid container spacing={3} direction="row" justifyContent="flex-start" alignItems="flex-start">
+        <Grid
+          container
+          spacing={3}
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          classes={{'spacing-xs-3': classNames.correctSpacingXs3}}
+        >
           {section.items.map((item, sectionSubIndex) => renderInfoCard(item, section, sectionIndex, sectionSubIndex))}
         </Grid>
       </div>

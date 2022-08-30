@@ -27,7 +27,6 @@ export const OwnerGeneralRequestInfo = ({
   onClickAbortBtn,
 }) => {
   const classNames = useClassNames()
-  console.log('requestProposals', requestProposals)
   const now = new Date()
 
   const requestIsNotDraftAndPublished =

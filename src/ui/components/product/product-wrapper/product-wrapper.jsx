@@ -93,8 +93,6 @@ export const ProductWrapper = observer(
           }}
           value={tabIndex}
           onChange={(e, value) => {
-            console.log('event', e)
-            console.log('value', value)
             setTabIndex(value)
           }}
         >

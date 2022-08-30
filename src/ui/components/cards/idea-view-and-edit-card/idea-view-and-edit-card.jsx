@@ -162,6 +162,21 @@ export const IdeaViewAndEditCard = observer(
       return res
     }
 
+    const calculateFieldsToCreateProductSubmit = () => {
+      const res = {
+        ...formFields,
+
+        width:
+          (sizeSetting === sizesType.CM ? roundSafely(formFields.width / inchesCoefficient) : formFields.width) || 0,
+        height:
+          (sizeSetting === sizesType.CM ? roundSafely(formFields.height / inchesCoefficient) : formFields.height) || 0,
+        length:
+          (sizeSetting === sizesType.CM ? roundSafely(formFields.length / inchesCoefficient) : formFields.length) || 0,
+      }
+
+      return res
+    }
+
     const disableFields = idea && !(curIdea?._id === idea?._id && inEdit)
 
     return (
@@ -411,7 +426,7 @@ export const IdeaViewAndEditCard = observer(
                       variant="contained"
                       color="primary"
                       className={[classNames.actionButton]}
-                      onClick={() => onCreateProduct(formFields)}
+                      onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
                     >
                       {t(TranslationKey['Create a product card'])}
                     </Button>
