@@ -70,7 +70,7 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 400,
+    width: 250,
 
     renderCell: params => (
       <WarehouseMyTasksBtnsCell

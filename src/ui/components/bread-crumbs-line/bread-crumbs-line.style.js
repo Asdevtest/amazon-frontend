@@ -15,4 +15,13 @@ export const useClassNames = makeStyles({
       textDecoration: 'underline',
     },
   },
+
+  '@media (max-width: 768px)': {
+    сrumb: {
+      fontSize: '14px !important',
+    },
+    lastCrumb: {
+      fontSize: '14px !important',
+    },
+  },
 })

@@ -51,7 +51,7 @@ export const styles = createStyles(theme => ({
   tasksWrapper: {
     marginTop: '30px',
 
-    height: '60vh',
+    height: '63vh',
   },
 
   boxesFiltersWrapper: {
@@ -113,5 +113,27 @@ export const styles = createStyles(theme => ({
     lineHeight: '40px',
     fontWeight: '600',
     color: '#001029',
+  },
+  root: {
+    border: '0 !important',
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    backgroundColor: '#fff',
+  },
+  datagridWrapper: {
+    marginTop: '10px',
+    height: '79vh',
+  },
+  footerContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    borderTop: 'none !important',
+  },
+  footerCell: {
+    padding: 0,
+    margin: 0,
+  },
+  toolbarContainer: {
+    height: '52px',
   },
 }))

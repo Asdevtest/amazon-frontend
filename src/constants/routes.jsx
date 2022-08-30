@@ -66,6 +66,7 @@ import {CreateOrEditRequestView} from '@views/shared/create-or-edit-request-view
 import {DealsOnReviewDetailsView} from '@views/shared/deals-on-review-details-view'
 import {DealsOnReviewView} from '@views/shared/deals-on-review-view/deals-on-review-view'
 import {FinancesView} from '@views/shared/finances-view'
+import {MessagesView} from '@views/shared/messages-view'
 import {MyProposalsView} from '@views/shared/my-proposals-view'
 import {MyRequestsView} from '@views/shared/my-requests-view'
 import {OwnerRequestDetailCustomView} from '@views/shared/owner-requests-detail-custom-view'
@@ -274,6 +275,14 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
     crumbNameKey: TranslationKey.Finances,
+  },
+
+  {
+    routePath: '/buyer/messages',
+    component: MessagesView,
+    exact: false,
+    permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey.Messages,
   },
 
   {
@@ -649,6 +658,14 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.CLIENT],
     crumbNameKey: TranslationKey.Finances,
+  },
+
+  {
+    routePath: '/client/messages',
+    component: MessagesView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Messages,
   },
 
   {
@@ -1112,6 +1129,14 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/freelancer/messages',
+    component: MessagesView,
+    exact: false,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey.Messages,
+  },
+
+  {
     routePath: '/moderator/dashboard',
     component: ModeratorDashboardView,
     exact: false,
@@ -1165,6 +1190,14 @@ export const privateRoutesConfigs = [
     exact: true,
     permission: [UserRole.MODERATOR],
     crumbNameKey: TranslationKey.Settings,
+  },
+
+  {
+    routePath: '/moderator/messages',
+    component: MessagesView,
+    exact: false,
+    permission: [UserRole.MODERATOR],
+    crumbNameKey: TranslationKey.Messages,
   },
 
   // ////////////////////////////////////////////////////////////////////////////////////////////////

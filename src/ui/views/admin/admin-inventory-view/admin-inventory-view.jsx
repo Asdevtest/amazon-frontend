@@ -63,14 +63,13 @@ export class AdminInventoryViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
-                }}
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
+                  root: classNames.root,
+                  footerContainer: classNames.footerContainer,
+                  footerCell: classNames.footerCell,
+                  toolbarContainer: classNames.toolbarContainer,
                 }}
                 density={densityModel}
                 columns={columnsModel}

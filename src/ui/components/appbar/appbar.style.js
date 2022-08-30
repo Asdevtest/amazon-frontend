@@ -214,7 +214,7 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     paddingLeft: 30,
     alignItems: 'center',
-    margin: '30px 0 5px 0',
+    margin: '10px 0 5px 0',
     height: 'min-content',
   },
 
@@ -236,6 +236,53 @@ export const useClassNames = makeStyles(theme => ({
     lineHeight: '140%',
     fontWeight: 400,
     color: '#c4c4c4',
+  },
+  hideOnModile: {
+    display: 'block',
+  },
+
+  menuIcon: {
+    color: '#006CFF',
+  },
+
+  '@media (max-width: 768px)': {
+    hintsTextActive: {
+      display: 'none',
+    },
+    hintsTextNoActive: {
+      display: 'none',
+    },
+    userroleTitle: {
+      display: 'none',
+    },
+    allowedRolesMainWrapper: {
+      display: 'none',
+    },
+    hideOnModile: {
+      display: 'none',
+    },
+    usernameAndBalanceWrapper: {
+      display: 'none',
+    },
+    hintsIcon: {
+      marginLeft: 10,
+    },
+
+    avatar: {
+      marginLeft: 0,
+      marginRight: 0,
+      width: '32px',
+      height: '32px',
+    },
+    menu: {
+      width: '170px',
+      marginTop: '40px',
+      marginLeft: '15px',
+      display: 'flex',
+    },
+    breadCrumbsWrapper: {
+      paddingLeft: 10,
+    },
   },
 
   e: {},

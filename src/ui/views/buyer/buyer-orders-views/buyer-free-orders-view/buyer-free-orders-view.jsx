@@ -56,7 +56,7 @@ class BuyerFreeOrdersViewRaw extends Component {
       onChangeSortingModel,
       onChangeFilterModel,
     } = this.viewModel
-
+    const {classes: classNames} = this.props
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
@@ -67,10 +67,11 @@ class BuyerFreeOrdersViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
+                classes={{
+                  root: classNames.root,
+                  footerContainer: classNames.footerContainer,
+                  footerCell: classNames.footerCell,
+                  toolbarContainer: classNames.toolbarContainer,
                 }}
                 localeText={getLocalizationByLanguageTag()}
                 sortModel={sortModel}

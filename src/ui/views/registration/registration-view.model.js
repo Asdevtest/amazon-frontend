@@ -1,12 +1,14 @@
 import {transformAndValidate} from 'class-transformer-validator'
-import {action, makeAutoObservable, runInAction} from 'mobx'
+import {action, makeAutoObservable, reaction, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 import {UserRegistrationContract} from '@models/user-model/user-model.contracts'
 
 import {getObjectKeys} from '@utils/object'
+import {setI18nConfig} from '@utils/translations'
 
 const delayRedirectToAuthTime = 1000
 
@@ -19,6 +21,7 @@ export class RegistrationViewModel {
   confirmPassword = ''
   acceptTerms = false
   checkValidationNameOrEmail = {}
+  language = ''
 
   requestStatus = undefined
   error = undefined
@@ -34,6 +37,10 @@ export class RegistrationViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.onLoadPage(),
+    )
   }
 
   get hasFormErrors() {
@@ -72,6 +79,12 @@ export class RegistrationViewModel {
     } catch (error) {
       this.requestStatus = loadingStatuses.failed
     }
+  }
+
+  onLoadPage() {
+    this.language = SettingsModel.languageTag
+    SettingsModel.setLanguageTag(this.language)
+    setI18nConfig()
   }
 
   onTriggerOpenModal(modalState) {

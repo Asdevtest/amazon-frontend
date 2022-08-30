@@ -98,4 +98,31 @@ export const useClassNames = makeStyles(() => ({
     width: '98px',
     color: '#001029',
   },
+
+  '@media (max-width: 768px)': {
+    modalMessageWrapper: {
+      width: '180px',
+      minHeight: '0',
+      height: '122px',
+
+      padding: 0,
+    },
+    title: {
+      width: '220px',
+      textAlign: 'center',
+      marginBottom: '0',
+      fontSize: '16px',
+      lineHeight: '22px',
+    },
+
+    modalMessage: {
+      fontSize: '12px',
+    },
+    button: {
+      width: '69px',
+    },
+    warningButtonsWrapper: {
+      marginTop: '18px',
+    },
+  },
 }))

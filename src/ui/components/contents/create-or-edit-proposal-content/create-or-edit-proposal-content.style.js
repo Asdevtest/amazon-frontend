@@ -5,6 +5,7 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
+    padding: '0 20px',
   },
 
   mainRightWrapper: {

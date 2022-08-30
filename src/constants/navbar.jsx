@@ -9,6 +9,7 @@ import {
   FreelanceIcon,
   FreeOrdersIcon,
   InventoryIcon,
+  Message,
   MyBatchesIcon,
   MyFinanceIcon,
   MyNotificationsIcon,
@@ -252,6 +253,15 @@ export const navbarConfig = () => ({
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT),
     },
+
+    {
+      icon: Message,
+      title: t(TranslationKey.Messages),
+      route: '/client/messages',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_MESSAGES,
+      checkHideBlock: () => true,
+    },
   ],
   [UserRole.RESEARCHER]: [
     {
@@ -343,6 +353,14 @@ export const navbarConfig = () => ({
       title: t(TranslationKey.Finances),
       route: '/freelancer/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
+      checkHideBlock: () => true,
+    },
+    {
+      icon: Message,
+      title: t(TranslationKey.Messages),
+      route: '/freelancer/messages',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: () => true,
     },
   ],
@@ -522,6 +540,14 @@ export const navbarConfig = () => ({
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
         !isMasterUser(user) || user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_PAYMENTS_BUYER),
+    },
+    {
+      icon: Message,
+      title: t(TranslationKey.Messages),
+      route: '/buyer/messages',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_MESSAGES,
+      checkHideBlock: () => true,
     },
   ],
   [UserRole.STOREKEEPER]: [
@@ -795,6 +821,14 @@ export const navbarConfig = () => ({
       subtitles: null,
       route: '/moderator/settings',
       key: navBarActiveCategory.NAVBAR_SETTINGS,
+      checkHideBlock: () => true,
+    },
+    {
+      icon: Message,
+      title: t(TranslationKey.Messages),
+      route: '/moderator/messages',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: () => true,
     },
   ],

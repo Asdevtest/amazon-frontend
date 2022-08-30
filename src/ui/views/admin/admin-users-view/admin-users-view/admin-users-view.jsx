@@ -92,38 +92,40 @@ class AdminUsersViewRaw extends Component {
                   onChange={onChangeNameSearchValue}
                 />
               </div>
-
-              <DataGrid
-                pagination
-                // autoHeight
-                useResizeContainer
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
-                }}
-                localeText={getLocalizationByLanguageTag()}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection[0])
-                }}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-              />
+              <div className={classNames.datagridWrapper}>
+                <DataGrid
+                  pagination
+                  // autoHeight
+                  useResizeContainer
+                  classes={{
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
+                  }}
+                  localeText={getLocalizationByLanguageTag()}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection[0])
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

@@ -45,7 +45,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   const renderNavbarButton = (
     <Hidden mdUp>
       <IconButton onClick={setDrawerOpen}>
-        <MenuIcon />
+        <MenuIcon classes={{root: classNames.menuIcon}} />
       </IconButton>
     </Hidden>
   )
@@ -143,7 +143,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               )}
             </div>
 
-            <Divider orientation="vertical" />
+            <Divider orientation="vertical" className={classNames.hideOnModile} />
             {/* <Badge showZero badgeContent={2}>
             <NotificationsIcon color="action" />
           </Badge> */}
@@ -152,7 +152,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               <LanguageSelector />
             </div>
 
-            <Divider orientation="vertical" />
+            <Divider orientation="vertical" className={classNames.hideOnModile} />
 
             <div
               className={classNames.userInfoWrapper}
@@ -177,7 +177,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                   </Typography>
                 )}
               </div>
-              <ArrowDropDownIcon color="action" />
+              <ArrowDropDownIcon className={classNames.hideOnModile} />
             </div>
           </div>
 

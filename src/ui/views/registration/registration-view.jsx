@@ -21,6 +21,15 @@ import {styles} from './registration-view.style'
 @observer
 class RegistrationViewRaw extends Component {
   viewModel = new RegistrationViewModel({history: this.props.history})
+
+  componentDidMount() {
+    this.viewModel.onLoadPage()
+  }
+
+  componentDidUpdate() {
+    this.viewModel.onLoadPage()
+  }
+
   render() {
     const {classes: classNames} = this.props
 

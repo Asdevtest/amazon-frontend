@@ -603,8 +603,8 @@ export const styles = createStyles(() => ({
     backgroundColor: 'inherit',
     color: 'rgba(0, 0, 0, 0.87)',
     resize: 'none',
-
-    // height: '100%',
+    height: '100%',
+    cursor: 'url(/assets/icons/Cursor.svg), auto',
     // textOverflow: 'ellipsis ',
 
     // whiteSpace: 'normal',
@@ -642,7 +642,6 @@ export const styles = createStyles(() => ({
     fontWeight: '600',
     fontSize: '12px',
     lineHeight: '14px',
-    // padding: '0 10px',
   },
 
   headerText: {
@@ -753,8 +752,8 @@ export const styles = createStyles(() => ({
   },
 
   copyImgAsin: {
-    width: '14px',
-    height: '14px',
+    width: '18px',
+    height: '18px',
     transition: '0.3s ease',
     cursor: 'pointer',
     '&:hover': {
@@ -966,11 +965,33 @@ export const styles = createStyles(() => ({
   userLink: {
     display: 'inline-flex',
   },
+<<<<<<< HEAD
   normalizeLink: {
     textDecoration: 'none',
     transition: '.3s ease',
     '&:hover': {
       opacity: '.7',
+=======
+
+  '@media (max-width: 768px)': {
+    actionBtn: {
+      height: '30px !important',
+    },
+    warehouseMyTasksBtnsWrapper: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '5px',
+    },
+
+    warehouseMyTasksSuccessBtn: {
+      width: '114px',
+      height: '36px',
+    },
+
+    warehouseMyTasksCancelBtn: {
+      width: '114px',
+      height: '36px',
+>>>>>>> aa1c03ab (3440 3442 3437 3443 3445 3433 3446 3448 3457 3451 3459)
     },
   },
 }))

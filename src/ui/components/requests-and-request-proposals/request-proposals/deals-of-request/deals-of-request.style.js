@@ -74,9 +74,10 @@ export const useClassNames = makeStyles(() => ({
 
   requestItemInfoWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
+
     alignItems: 'center',
     padding: '15px',
+    gap: '10px',
   },
 
   requestStatusWrapper: {

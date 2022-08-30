@@ -21,8 +21,19 @@ import {styles} from './auth-view.style'
 export class AuthViewRaw extends Component {
   viewModel = new AuthViewModel({history: this.props.history})
 
+  componentDidMount() {
+    this.viewModel.onLoadPage()
+  }
+
+  componentDidUpdate() {
+    this.viewModel.onLoadPage()
+  }
+
   render() {
     const {classes: classNames} = this.props
+
+    // const {language} = this.viewModel
+    // console.log(language)
 
     return (
       <div className={classNames.root}>

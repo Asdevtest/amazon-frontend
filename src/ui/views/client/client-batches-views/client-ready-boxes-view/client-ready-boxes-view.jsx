@@ -131,46 +131,46 @@ export class ClientReadyBoxesViewRaw extends Component {
                   {t(TranslationKey['Return to stock'])}
                 </Button>
               </div>
-
-              <DataGrid
-                pagination
-                useResizeContainer
-                checkboxSelection
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
-                }}
-                localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: classNames.row,
-                }}
-                isRowSelectable={params => params.row.isDraft === false}
-                getRowClassName={getRowClassName}
-                selectionModel={selectedBoxes}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                rowHeight={150}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection)
-                }}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-                onStateChange={setDataGridState}
-                onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
-              />
+              <div className={classNames.datagridWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  checkboxSelection
+                  localeText={getLocalizationByLanguageTag()}
+                  classes={{
+                    row: classNames.row,
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
+                  }}
+                  isRowSelectable={params => params.row.isDraft === false}
+                  getRowClassName={getRowClassName}
+                  selectionModel={selectedBoxes}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  rowHeight={150}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection)
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onStateChange={setDataGridState}
+                  onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>
