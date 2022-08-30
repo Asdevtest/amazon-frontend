@@ -259,6 +259,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsPost**](docs/PermissionsApi.md#apiV1PermissionsPost) | **POST** /api/v1/permissions/ | # Создать permission.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsProductsDelete**](docs/PermissionsApi.md#apiV1PermissionsProductsDelete) | **DELETE** /api/v1/permissions/products | Удалить разрешение для продукта для саба.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsProductsGet**](docs/PermissionsApi.md#apiV1PermissionsProductsGet) | **GET** /api/v1/permissions/products | Получить список разрешений для продуктов всех сабъюзеров.
+*TestSwagger.PermissionsApi* | [**apiV1PermissionsProductsGuidGet**](docs/PermissionsApi.md#apiV1PermissionsProductsGuidGet) | **GET** /api/v1/permissions/products/{guid} | Получить список разрешений для продуктов юзера по его айди.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsProductsPost**](docs/PermissionsApi.md#apiV1PermissionsProductsPost) | **POST** /api/v1/permissions/products | Создать разрешение для продукта для саба.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsSetForUserGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsSetForUserGuidPatch) | **PATCH** /api/v1/permissions/set-for-user/{guid} | #   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
 *TestSwagger.ProductApi* | [**apiV1ProductsAddShopsGuidPost**](docs/ProductApi.md#apiV1ProductsAddShopsGuidPost) | **POST** /api/v1/products/add_shops/{guid} | Добавить магазины к продукту.
@@ -533,7 +534,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse2003](docs/InlineResponse2003.md)
  - [TestSwagger.InlineResponse20030](docs/InlineResponse20030.md)
  - [TestSwagger.InlineResponse20031](docs/InlineResponse20031.md)
- - [TestSwagger.InlineResponse20031Details](docs/InlineResponse20031Details.md)
+ - [TestSwagger.InlineResponse20032](docs/InlineResponse20032.md)
+ - [TestSwagger.InlineResponse20032Details](docs/InlineResponse20032Details.md)
  - [TestSwagger.InlineResponse2004](docs/InlineResponse2004.md)
  - [TestSwagger.InlineResponse2005](docs/InlineResponse2005.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)

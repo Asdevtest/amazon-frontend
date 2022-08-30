@@ -18,6 +18,7 @@ import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject56 from '../model/InlineObject56';
 import InlineObject57 from '../model/InlineObject57';
 import InlineResponse20017 from '../model/InlineResponse20017';
+import InlineResponse20018 from '../model/InlineResponse20018';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 import PermissionGetDtoSchema from '../model/PermissionGetDtoSchema';
@@ -557,6 +558,60 @@ export default class PermissionsApi {
      */
     apiV1PermissionsProductsGet(opts) {
       return this.apiV1PermissionsProductsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Получить список разрешений для продуктов юзера по его айди.
+     * ## Получить список разрешений для продуктов юзера по его айди.
+     * @param {String} guid GUID permission в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20018>} and HTTP response
+     */
+    apiV1PermissionsProductsGuidGetWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1PermissionsProductsGuidGet");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [InlineResponse20018];
+      return this.apiClient.callApi(
+        '/api/v1/permissions/products/{guid}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Получить список разрешений для продуктов юзера по его айди.
+     * ## Получить список разрешений для продуктов юзера по его айди.
+     * @param {String} guid GUID permission в БД
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20018>}
+     */
+    apiV1PermissionsProductsGuidGet(guid, opts) {
+      return this.apiV1PermissionsProductsGuidGetWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

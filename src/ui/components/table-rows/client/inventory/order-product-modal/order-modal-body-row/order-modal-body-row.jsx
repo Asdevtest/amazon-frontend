@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
-import {Chip, Typography, TableCell, TableRow, NativeSelect, IconButton} from '@material-ui/core'
+import {Chip, Typography, TableCell, TableRow, IconButton} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 
@@ -12,6 +12,7 @@ import {Field} from '@components/field/field'
 import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
@@ -81,7 +82,7 @@ export const OrderModalBodyRow = ({
   const curStorekeeper = storekeepers.find(el => el._id === orderState.storekeeperId)
 
   const curTariffRate = curStorekeeper?.tariffLogistics.find(el => el._id === orderState.logicsTariffId)
-    .conditionsByRegion[regionOfDeliveryName]?.rate
+    ?.conditionsByRegion[regionOfDeliveryName]?.rate
 
   const costDeliveryOfBatch = weightOfBatch * curTariffRate || ''
 
@@ -198,25 +199,15 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <NativeSelect
-            variant="filled"
-            inputProps={{
-              name: 'destinationId',
-              id: 'destinationId',
-            }}
-            className={classNames.destinationSelect}
-            input={<Input />}
-            value={item.destinationId}
-            onChange={e => onChangeInput(e, 'destinationId')}
-          >
-            <option value={''}>{t(TranslationKey['not selected'])}</option>
-
-            {destinations.map(item => (
-              <option key={item._id} value={item._id}>
-                {item.name}
-              </option>
-            ))}
-          </NativeSelect>
+          <WithSearchSelect
+            width={160}
+            selectedItemName={
+              destinations.find(el => el._id === item.destinationId)?.name || t(TranslationKey['Not chosen'])
+            }
+            data={destinations}
+            fieldName="name"
+            onClickSelect={el => onChangeInput({target: {value: el._id}}, 'destinationId')}
+          />
         </TableCell>
 
         <TableCell className={classNames.cell}>

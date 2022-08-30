@@ -9,8 +9,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
@@ -36,6 +38,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
       criteria: '',
       quantity: '',
       price: '',
+      title: '',
 
       width: '',
       height: '',
@@ -70,6 +73,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
           criteria: curIdea.criteria,
           quantity: curIdea.quantity,
           price: curIdea.price,
+          title: curIdea.productName,
 
           width: curIdea.width,
           height: curIdea.height,
@@ -126,20 +130,13 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
           inputClasses={classNames.nativeSelect}
           labelClasses={classNames.label}
           inputComponent={
-            <NativeSelect
-              variant="filled"
-              value={curIdeaId}
-              className={classNames.nativeSelect}
-              input={<Input />}
-              onChange={e => setCurIdeaId(e.target.value)}
-            >
-              <option value={null}>{'none'}</option>
-              {ideas.map((idea, statusIndex) => (
-                <option key={statusIndex} value={idea._id}>
-                  {`Idea № ${statusIndex + 1}`}
-                </option>
-              ))}
-            </NativeSelect>
+            <WithSearchSelect
+              width={400}
+              selectedItemName={ideas.find(el => el._id === curIdeaId)?.productName || t(TranslationKey['Not chosen'])}
+              data={ideas}
+              fieldName="productName"
+              onClickSelect={idea => setCurIdeaId(idea._id)}
+            />
           }
         />
 
@@ -147,9 +144,9 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
           inputProps={{maxLength: 50}}
           label={t(TranslationKey['Product name'])}
           labelClasses={classNames.label}
-          // value={formFields.asin}
+          value={formFields.title}
           placeholder={t(TranslationKey['Product name'])}
-          // onChange={onChangeField('asin')}
+          onChange={onChangeField('title')}
         />
 
         <Field
@@ -207,15 +204,22 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
           }
         />
 
-        <div className={classNames.imageFileInputWrapper}>
-          <UploadFilesInput
-            title={t(TranslationKey['Product photo'])}
-            images={images}
-            setImages={setImages}
-            maxNumber={50}
-            acceptType={['jpg', 'gif', 'png', 'jpeg']}
-          />
-        </div>
+        <Field
+          labelClasses={classNames.label}
+          label={t(TranslationKey['Product photo'])}
+          inputComponent={
+            <div className={classNames.imageFileInputWrapper}>
+              <PhotoAndFilesCarousel small files={formFields.images} />
+
+              <UploadFilesInput
+                images={images}
+                setImages={setImages}
+                maxNumber={50}
+                acceptType={['jpg', 'gif', 'png', 'jpeg']}
+              />
+            </div>
+          }
+        />
 
         <div className={classNames.bottomFieldsWrapper}>
           <div className={classNames.bottomFieldsSubWrapper}>

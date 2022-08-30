@@ -223,8 +223,6 @@ export class BuyerMyOrdersViewModel {
   }
 
   async onSubmitSaveOrder(order, orderFields, boxesForCreation, photosToLoad, hsCode) {
-    console.log('order', order)
-    console.log('orderFields', orderFields)
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
 

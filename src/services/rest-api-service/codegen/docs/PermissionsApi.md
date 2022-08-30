@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**apiV1PermissionsPost**](PermissionsApi.md#apiV1PermissionsPost) | **POST** /api/v1/permissions/ | # Создать permission.
 [**apiV1PermissionsProductsDelete**](PermissionsApi.md#apiV1PermissionsProductsDelete) | **DELETE** /api/v1/permissions/products | Удалить разрешение для продукта для саба.
 [**apiV1PermissionsProductsGet**](PermissionsApi.md#apiV1PermissionsProductsGet) | **GET** /api/v1/permissions/products | Получить список разрешений для продуктов всех сабъюзеров.
+[**apiV1PermissionsProductsGuidGet**](PermissionsApi.md#apiV1PermissionsProductsGuidGet) | **GET** /api/v1/permissions/products/{guid} | Получить список разрешений для продуктов юзера по его айди.
 [**apiV1PermissionsProductsPost**](PermissionsApi.md#apiV1PermissionsProductsPost) | **POST** /api/v1/permissions/products | Создать разрешение для продукта для саба.
 [**apiV1PermissionsSetForUserGuidPatch**](PermissionsApi.md#apiV1PermissionsSetForUserGuidPatch) | **PATCH** /api/v1/permissions/set-for-user/{guid} | #   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
 
@@ -550,6 +551,60 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[InlineResponse20017]**](InlineResponse20017.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1PermissionsProductsGuidGet
+
+> [InlineResponse20018] apiV1PermissionsProductsGuidGet(guid, opts)
+
+Получить список разрешений для продуктов юзера по его айди.
+
+## Получить список разрешений для продуктов юзера по его айди.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.PermissionsApi();
+let guid = null; // String | GUID permission в БД
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1PermissionsProductsGuidGet(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID permission в БД | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**[InlineResponse20018]**](InlineResponse20018.md)
 
 ### Authorization
 

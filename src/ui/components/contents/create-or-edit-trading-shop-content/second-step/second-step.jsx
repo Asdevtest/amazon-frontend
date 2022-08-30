@@ -411,7 +411,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         <ArrowDropUpIcon color="success" className={classNames.green} />
                       )}
                       <Typography className={clsx(classNames.green, {[classNames.red]: trafficСhange < 0})}>{`${toFixed(
-                        trafficСhange,
+                        isNaN(trafficСhange) ? 0 : trafficСhange,
                         2,
                       )} %`}</Typography>
                     </div>
@@ -433,7 +433,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         )}
                         <Typography
                           className={clsx(classNames.green, {[classNames.red]: grossIncomeСhange < 0})}
-                        >{`${toFixed(grossIncomeСhange, 2)} %`}</Typography>
+                        >{`${toFixed(isNaN(grossIncomeСhange) ? 0 : grossIncomeСhange, 2)} %`}</Typography>
                       </div>
                     }
                   />
@@ -452,7 +452,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         )}
                         <Typography
                           className={clsx(classNames.green, {[classNames.red]: pureIncomeСhange < 0})}
-                        >{`${toFixed(pureIncomeСhange, 2)} %`}</Typography>
+                        >{`${toFixed(isNaN(pureIncomeСhange) ? 0 : pureIncomeСhange, 2)} %`}</Typography>
                       </div>
                     }
                   />

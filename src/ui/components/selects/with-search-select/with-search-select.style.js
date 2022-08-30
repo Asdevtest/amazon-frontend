@@ -6,10 +6,18 @@ export const styles = () =>
       width: 280,
       height: 36,
       position: 'relative',
+
+      display: 'visible !important',
+
+      // position: 'fixed',
+    },
+
+    disableRoot: {
+      opacity: '.7',
     },
 
     mainWrapper: {
-      zIndex: 99,
+      zIndex: 9999,
       width: '100%',
 
       border: '1px solid #006CFF',
@@ -24,7 +32,10 @@ export const styles = () =>
 
     selectorIsOpen: {
       backgroundColor: '#fff',
-      maxHeight: 600,
+      maxHeight: 400,
+      position: 'absolute',
+
+      overflow: 'visible !important',
     },
 
     chosenItem: {
@@ -49,24 +60,35 @@ export const styles = () =>
       },
     },
 
+    disabledChosenItem: {
+      cursor: 'auto',
+      '&:hover': {
+        transform: 'none',
+      },
+    },
+
     subMainWrapper: {
-      padding: '0 17px 10px',
+      padding: '10px 17px',
+      width: 280,
     },
 
     itemsWrapper: {
+      zIndex: 9999,
       display: 'flex',
       flexDirection: 'column',
-      maxHeight: 500,
+      maxHeight: 300,
       overflow: 'auto',
+      width: '100%',
     },
 
     button: {
-      marginBottom: 5,
-      width: '100%',
+      marginBottom: 10,
+      width: '90%',
       display: 'flex',
       justifyContent: 'flex-start',
 
       textOverflow: 'ellipsis',
+      height: 15,
       overflow: 'hidden',
       whiteSpace: 'nowrap',
     },

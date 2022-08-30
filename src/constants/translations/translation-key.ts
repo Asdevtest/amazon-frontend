@@ -1479,7 +1479,7 @@ export enum TranslationKey {
   'Data was successfully saved' = 'Data was successfully saved',
   'Open an appeal' = 'Open an appeal',
   'chosen' = 'chosen',
-  // '' = '',
+  'The warehouse has already taken the task to work' = 'The warehouse has already taken the task to work',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -59,8 +59,8 @@ class PermissionsModelStatic {
     return response
   }
 
-  getProductsPermissionsForUser = async () => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsProductsGet()
+  getProductsPermissionsForUserById = async guid => {
+    const response = await restApiService.permissionsApi.apiV1PermissionsProductsGuidGet(guid)
     return response
   }
 }

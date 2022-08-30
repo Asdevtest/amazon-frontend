@@ -5,6 +5,6 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     overflow: 'auto',
     height: '100%',
-    padding: '10px 20px',
+    padding: '5px 20px',
   },
 }))

@@ -74,7 +74,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   rating: {
-    margin: '0 20px',
+    // margin: '0 20px',
   },
 
   mainWrapper: {

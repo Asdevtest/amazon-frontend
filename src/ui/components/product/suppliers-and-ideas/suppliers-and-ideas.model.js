@@ -166,9 +166,9 @@ export class SuppliersAndIdeasModel {
         images: this.dataToCreateProduct.media,
         amazonTitle: this.dataToCreateProduct.productName,
         amazon: this.dataToCreateProduct.price,
-        width: this.dataToCreateProduct.width,
-        height: this.dataToCreateProduct.height,
-        length: this.dataToCreateProduct.length,
+        width: this.dataToCreateProduct.width || 0,
+        height: this.dataToCreateProduct.height || 0,
+        length: this.dataToCreateProduct.length || 0,
         asin: '',
 
         lamazon: this.dataToCreateProduct.productLinks[0],

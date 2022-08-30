@@ -539,7 +539,7 @@ export const styles = createStyles(() => ({
     textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
-    // overflow: 'hidden',
+    overflow: 'hidden',
 
     fontWeight: '400',
     fontSize: '14px',
@@ -584,6 +584,7 @@ export const styles = createStyles(() => ({
 
   multilineTextAlignLeftWrapper: {
     width: '100%',
+    height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
@@ -602,8 +603,20 @@ export const styles = createStyles(() => ({
     backgroundColor: 'inherit',
     color: 'rgba(0, 0, 0, 0.87)',
     resize: 'none',
-    height: '100%',
+
+    // height: '100%',
     // textOverflow: 'ellipsis ',
+
+    // whiteSpace: 'normal',
+
+    // // whiteSpace: 'normal',
+    // height: 65,
+    // textOverflow: 'ellipsis',
+    // overflow: 'hidden',
+
+    // display: '-webkit-box',
+    // '-webkitLineClamp': 3,
+    // '-webkitBoxOrient': 'vertical',
   },
 
   multilineTextHeaderWrapper: {
@@ -685,7 +698,12 @@ export const styles = createStyles(() => ({
   },
 
   renderFieldValueCellText: {
-    fontSize: '12px',
+    fontSize: '14px',
+
+    whiteSpace: 'nowrap',
+
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 
   warehouseTariffDatesItem: {
@@ -947,5 +965,12 @@ export const styles = createStyles(() => ({
 
   userLink: {
     display: 'inline-flex',
+  },
+  normalizeLink: {
+    textDecoration: 'none',
+    transition: '.3s ease',
+    '&:hover': {
+      opacity: '.7',
+    },
   },
 }))

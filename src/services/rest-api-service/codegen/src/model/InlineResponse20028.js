@@ -47,29 +47,11 @@ class InlineResponse20028 {
         if (data) {
             obj = obj || new InlineResponse20028();
 
-            if (data.hasOwnProperty('_id')) {
-                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
+            if (data.hasOwnProperty('yuanToDollarRate')) {
+                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
             }
-            if (data.hasOwnProperty('name')) {
-                obj['name'] = ApiClient.convertToType(data['name'], 'String');
-            }
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
-            }
-            if (data.hasOwnProperty('numberOfPositiveFeedbacks')) {
-                obj['numberOfPositiveFeedbacks'] = ApiClient.convertToType(data['numberOfPositiveFeedbacks'], 'Number');
-            }
-            if (data.hasOwnProperty('numberOfNegativeFeedbacks')) {
-                obj['numberOfNegativeFeedbacks'] = ApiClient.convertToType(data['numberOfNegativeFeedbacks'], 'Number');
-            }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
-            }
-            if (data.hasOwnProperty('isOnline')) {
-                obj['isOnline'] = ApiClient.convertToType(data['isOnline'], 'Boolean');
-            }
-            if (data.hasOwnProperty('countsOfDeals')) {
-                obj['countsOfDeals'] = ApiClient.convertToType(data['countsOfDeals'], 'Number');
+            if (data.hasOwnProperty('volumeWeightCoefficient')) {
+                obj['volumeWeightCoefficient'] = ApiClient.convertToType(data['volumeWeightCoefficient'], 'Number');
             }
         }
         return obj;
@@ -79,52 +61,16 @@ class InlineResponse20028 {
 }
 
 /**
- * GUID пользователя.
- * @member {String} _id
+ * Курс юаня к доллару.
+ * @member {Number} yuanToDollarRate
  */
-InlineResponse20028.prototype['_id'] = undefined;
+InlineResponse20028.prototype['yuanToDollarRate'] = undefined;
 
 /**
- * Имя пользователя.
- * @member {String} name
+ * Коэффициент расчета объемного веса.
+ * @member {Number} volumeWeightCoefficient
  */
-InlineResponse20028.prototype['name'] = undefined;
-
-/**
- * Рейтинг пользователя.
- * @member {Number} rating
- */
-InlineResponse20028.prototype['rating'] = undefined;
-
-/**
- * Количество положительных отзыв
- * @member {Number} numberOfPositiveFeedbacks
- */
-InlineResponse20028.prototype['numberOfPositiveFeedbacks'] = undefined;
-
-/**
- * Количество негативных отзыв
- * @member {Number} numberOfNegativeFeedbacks
- */
-InlineResponse20028.prototype['numberOfNegativeFeedbacks'] = undefined;
-
-/**
- * Страна
- * @member {String} country
- */
-InlineResponse20028.prototype['country'] = undefined;
-
-/**
- * Пользователь онлайн
- * @member {Boolean} isOnline
- */
-InlineResponse20028.prototype['isOnline'] = undefined;
-
-/**
- * Количество общих сделок
- * @member {Number} countsOfDeals
- */
-InlineResponse20028.prototype['countsOfDeals'] = undefined;
+InlineResponse20028.prototype['volumeWeightCoefficient'] = undefined;
 
 
 

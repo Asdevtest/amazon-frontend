@@ -12,9 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
-import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './ApiV1RequestProposalsCustomByRequestIdGuidProposal';
-import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestProposalsCustomByRequestIdGuidRequest';
 
 /**
  * The InlineResponse20029 model module.
@@ -24,7 +21,6 @@ import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestPro
 class InlineResponse20029 {
     /**
      * Constructs a new <code>InlineResponse20029</code>.
-     * Схема универсального предложения
      * @alias module:model/InlineResponse20029
      */
     constructor() { 
@@ -51,14 +47,29 @@ class InlineResponse20029 {
         if (data) {
             obj = obj || new InlineResponse20029();
 
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = ApiV1RequestProposalsCustomByRequestIdGuidProposal.constructFromObject(data['proposal']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestProposalsCustomByRequestIdGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
+            if (data.hasOwnProperty('numberOfPositiveFeedbacks')) {
+                obj['numberOfPositiveFeedbacks'] = ApiClient.convertToType(data['numberOfPositiveFeedbacks'], 'Number');
+            }
+            if (data.hasOwnProperty('numberOfNegativeFeedbacks')) {
+                obj['numberOfNegativeFeedbacks'] = ApiClient.convertToType(data['numberOfNegativeFeedbacks'], 'Number');
+            }
+            if (data.hasOwnProperty('country')) {
+                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            }
+            if (data.hasOwnProperty('isOnline')) {
+                obj['isOnline'] = ApiClient.convertToType(data['isOnline'], 'Boolean');
+            }
+            if (data.hasOwnProperty('countsOfDeals')) {
+                obj['countsOfDeals'] = ApiClient.convertToType(data['countsOfDeals'], 'Number');
             }
         }
         return obj;
@@ -68,19 +79,52 @@ class InlineResponse20029 {
 }
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposal} proposal
+ * GUID пользователя.
+ * @member {String} _id
  */
-InlineResponse20029.prototype['proposal'] = undefined;
+InlineResponse20029.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails} details
+ * Имя пользователя.
+ * @member {String} name
  */
-InlineResponse20029.prototype['details'] = undefined;
+InlineResponse20029.prototype['name'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidRequest} request
+ * Рейтинг пользователя.
+ * @member {Number} rating
  */
-InlineResponse20029.prototype['request'] = undefined;
+InlineResponse20029.prototype['rating'] = undefined;
+
+/**
+ * Количество положительных отзыв
+ * @member {Number} numberOfPositiveFeedbacks
+ */
+InlineResponse20029.prototype['numberOfPositiveFeedbacks'] = undefined;
+
+/**
+ * Количество негативных отзыв
+ * @member {Number} numberOfNegativeFeedbacks
+ */
+InlineResponse20029.prototype['numberOfNegativeFeedbacks'] = undefined;
+
+/**
+ * Страна
+ * @member {String} country
+ */
+InlineResponse20029.prototype['country'] = undefined;
+
+/**
+ * Пользователь онлайн
+ * @member {Boolean} isOnline
+ */
+InlineResponse20029.prototype['isOnline'] = undefined;
+
+/**
+ * Количество общих сделок
+ * @member {Number} countsOfDeals
+ */
+InlineResponse20029.prototype['countsOfDeals'] = undefined;
 
 
 

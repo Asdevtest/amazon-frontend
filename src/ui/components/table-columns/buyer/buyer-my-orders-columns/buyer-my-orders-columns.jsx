@@ -10,8 +10,8 @@ import {
   MultilineTextHeaderCell,
   OrderStatusCell,
   MultilineTextAlignLeftHeaderCell,
-  MultilineTextAlignLeftCell,
   DownloadAndCopyBtnsCell,
+  RenderFieldValueCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -88,7 +88,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey.Warehouse),
     renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Warehouse)} />,
 
-    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
+    renderCell: params => <RenderFieldValueCell value={params.value} />,
     width: 200,
   },
 

@@ -63,9 +63,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   filesWrapper: {
-    width: '350px',
-    maxHeight: '220px',
-    overflow: 'auto',
+    height: 'min-content',
   },
 
   filesContainer: {
