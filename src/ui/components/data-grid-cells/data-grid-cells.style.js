@@ -865,9 +865,11 @@ export const styles = createStyles(() => ({
   warehouseMyTasksBtnsWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'start',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: '15px 0',
-    gap: '57px',
+    gap: '10px',
   },
 
   actionBtn: {
