@@ -92,43 +92,43 @@ class ClientAwaitingBatchesViewRaw extends Component {
                   {t(TranslationKey['Cancel Send'])}
                 </Button>
               </div>
-
-              <DataGrid
-                pagination
-                useResizeContainer
-                checkboxSelection
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
-                }}
-                localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: className.row,
-                }}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                getRowHeight={() => 'auto'}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection)
-                }}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-                onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
-              />
+              <div className={className.datagridWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  checkboxSelection
+                  localeText={getLocalizationByLanguageTag()}
+                  classes={{
+                    row: className.row,
+                    root: className.root,
+                    footerContainer: className.footerContainer,
+                    footerCell: className.footerCell,
+                    toolbarContainer: className.toolbarContainer,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  getRowHeight={() => 'auto'}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection)
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onRowDoubleClick={e => setCurrentOpenedBatch(e.row.originalData)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

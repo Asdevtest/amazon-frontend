@@ -1480,6 +1480,8 @@ export enum TranslationKey {
   'Open an appeal' = 'Open an appeal',
   'chosen' = 'chosen',
   'The warehouse has already taken the task to work' = 'The warehouse has already taken the task to work',
+  'Messages' = 'Messages',
+  // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',

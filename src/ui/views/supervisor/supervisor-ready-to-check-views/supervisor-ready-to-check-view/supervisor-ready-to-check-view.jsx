@@ -74,25 +74,27 @@ class SupervisorReadyToCheckViewRaw extends Component {
                   {t(TranslationKey['Take on the work of the selected'])}
                 </Button>
               </div>
-
-              <DataGrid
-                checkboxSelection
-                pagination
-                useResizeContainer
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
-                }}
-                localeText={getLocalizationByLanguageTag()}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                rowHeight={100}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
-                onStateChange={setDataGridState}
-              />
+              <div className={classNames.datagridWrapper}>
+                <DataGrid
+                  checkboxSelection
+                  pagination
+                  useResizeContainer
+                  classes={{
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
+                  }}
+                  localeText={getLocalizationByLanguageTag()}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  rowHeight={100}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                  onStateChange={setDataGridState}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

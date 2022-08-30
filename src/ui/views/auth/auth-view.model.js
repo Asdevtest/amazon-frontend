@@ -1,14 +1,15 @@
-import {action, makeAutoObservable} from 'mobx'
+import {action, makeAutoObservable, reaction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {privateRoutesConfigs} from '@constants/routes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
+import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {getObjectKeys} from '@utils/object'
-import {t} from '@utils/translations'
+import {setI18nConfig, t} from '@utils/translations'
 
 export class AuthViewModel {
   history = undefined
@@ -18,6 +19,7 @@ export class AuthViewModel {
   email = ''
   password = ''
   remember = false
+  language = ''
 
   formValidationErrors = {
     email: null,
@@ -27,6 +29,18 @@ export class AuthViewModel {
   constructor({history}) {
     this.history = history
     makeAutoObservable(this, undefined, {autoBind: true})
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.onLoadPage(),
+    )
+  }
+
+  onLoadPage() {
+    this.language = SettingsModel.languageTag
+
+    SettingsModel.setLanguageTag(this.language)
+
+    setI18nConfig()
   }
 
   get hasFormErrors() {

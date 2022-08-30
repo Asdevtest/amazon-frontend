@@ -33,4 +33,12 @@ export const useClassNames = makeStyles(() => ({
       transform: 'scale(1.2)',
     },
   },
+  '@media (max-width: 768px)': {
+    dialogPadding: {
+      padding: '20px 50px',
+    },
+    closeIcon: {
+      visibility: 'hidden',
+    },
+  },
 }))

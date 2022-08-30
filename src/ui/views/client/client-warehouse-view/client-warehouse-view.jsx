@@ -189,16 +189,15 @@ export class ClientWarehouseViewRaw extends Component {
                 pagination
                 useResizeContainer
                 checkboxSelection
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
-                }}
                 localeText={getLocalizationByLanguageTag()}
                 isRowSelectable={params => params.row.isDraft === false}
                 classes={{
                   row: classNames.row,
                   virtualScrollerContent: classNames.virtualScrollerContent,
+                  root: classNames.root,
+                  footerContainer: classNames.footerContainer,
+                  footerCell: classNames.footerCell,
+                  toolbarContainer: classNames.toolbarContainer,
                 }}
                 getRowClassName={getRowClassName}
                 selectionModel={selectedBoxes}
@@ -228,10 +227,11 @@ export class ClientWarehouseViewRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
-                  sx={{
-                    border: 0,
-                    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                    backgroundColor: '#fff',
+                  classes={{
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
                   }}
                   localeText={getLocalizationByLanguageTag()}
                   rowsPerPageOptions={[15, 25, 50, 100]}

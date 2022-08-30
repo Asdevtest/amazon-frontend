@@ -113,6 +113,7 @@ export const MyRequestStatus = {
   ACCEPTED_BY_CLIENT: 'ACCEPTED_BY_CLIENT',
   CORRECTED: 'CORRECTED',
   CANCELED_BY_EXECUTOR: 'CANCELED_BY_EXECUTOR',
+  OFFER_CONDITIONS_REJECTED: 'OFFER_CONDITIONS_REJECTED',
 }
 
 export const MyRequestStatusTranslate = s => {
@@ -159,5 +160,7 @@ export const MyRequestStatusTranslate = s => {
       return t(TranslationKey['Canceled by Executor'])
     case MyRequestStatus.TO_CORRECT:
       return t(TranslationKey['To correct'])
+    case MyRequestStatus.OFFER_CONDITIONS_REJECTED:
+      return t(TranslationKey['Proposal conditions rejected'])
   }
 }

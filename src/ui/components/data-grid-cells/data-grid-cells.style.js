@@ -603,8 +603,8 @@ export const styles = createStyles(() => ({
     backgroundColor: 'inherit',
     color: 'rgba(0, 0, 0, 0.87)',
     resize: 'none',
-
-    // height: '100%',
+    height: '100%',
+    cursor: 'url(/assets/icons/Cursor.svg), auto',
     // textOverflow: 'ellipsis ',
 
     // whiteSpace: 'normal',
@@ -642,7 +642,6 @@ export const styles = createStyles(() => ({
     fontWeight: '600',
     fontSize: '12px',
     lineHeight: '14px',
-    // padding: '0 10px',
   },
 
   headerText: {
@@ -753,8 +752,8 @@ export const styles = createStyles(() => ({
   },
 
   copyImgAsin: {
-    width: '14px',
-    height: '14px',
+    width: '18px',
+    height: '18px',
     transition: '0.3s ease',
     cursor: 'pointer',
     '&:hover': {
@@ -866,9 +865,11 @@ export const styles = createStyles(() => ({
   warehouseMyTasksBtnsWrapper: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'start',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: '15px 0',
-    gap: '57px',
+    gap: '10px',
   },
 
   actionBtn: {
@@ -971,6 +972,27 @@ export const styles = createStyles(() => ({
     transition: '.3s ease',
     '&:hover': {
       opacity: '.7',
+    },
+  },
+
+  '@media (max-width: 768px)': {
+    actionBtn: {
+      height: '30px !important',
+    },
+    warehouseMyTasksBtnsWrapper: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '5px',
+    },
+
+    warehouseMyTasksSuccessBtn: {
+      width: '114px',
+      height: '36px',
+    },
+
+    warehouseMyTasksCancelBtn: {
+      width: '114px',
+      height: '36px',
     },
   },
 }))

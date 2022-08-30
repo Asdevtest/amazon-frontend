@@ -35,7 +35,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 85,
+    width: 80,
   },
 
   {
@@ -44,7 +44,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 70,
+    width: 60,
   },
 
   {
@@ -53,7 +53,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={'In stock'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    width: 70,
   },
 
   {
@@ -62,7 +62,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={'Amazon'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    width: 70,
   },
 
   {
@@ -71,7 +71,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    width: 65,
   },
 
   {
@@ -80,7 +80,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={'In Board'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    width: 70,
   },
 
   {
@@ -88,7 +88,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     headerName: t(TranslationKey['Stock sum']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 80,
+    width: 75,
   },
 
   {
@@ -180,7 +180,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
         // <ActiveBarcodeCell barCode={params.row.originalData.barCode} handlers={barCodeHandlers} />
         <BarcodeCell product={params.row.originalData} handlers={barCodeHandlers} />
       ),
-    minWidth: 150,
+    minWidth: 100,
     headerAlign: 'center',
     type: 'actions',
   },
@@ -197,7 +197,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
         // <NoActiveBarcodeCell barCode={params.row.originalData.hsCode} />
         <HsCodeCell product={params.row.originalData} handlers={hsCodeHandlers} />
       ),
-    minWidth: 150,
+    minWidth: 100,
     headerAlign: 'center',
     type: 'actions',
   },
@@ -222,7 +222,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     renderCell: params => <ShortDateCell params={params} />,
-    minWidth: 100,
+    minWidth: 90,
     type: 'date',
   },
 
@@ -232,7 +232,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <ShortDateCell params={params} />,
-    minWidth: 100,
+    minWidth: 90,
     type: 'date',
   },
 ]

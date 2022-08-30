@@ -103,15 +103,17 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
               <span className={classNames.typoSpan}>{product.asin}</span>
             </a>
           </Typography>
-          <img
-            className={classNames.copyImgAsin}
-            src="/assets/icons/copy-img.svg"
-            alt=""
-            onClick={e => {
-              e.stopPropagation()
-              copyValue(product.asin)
-            }}
-          />
+          {product.asin ? (
+            <img
+              className={classNames.copyImgAsin}
+              src="/assets/icons/copy-img.svg"
+              alt=""
+              onClick={e => {
+                e.stopPropagation()
+                copyValue(product.asin)
+              }}
+            />
+          ) : null}
         </div>
 
         <div className={classNames.copyAsin}>
@@ -128,7 +130,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
               alt=""
               onClick={e => {
                 e.stopPropagation()
-                copyValue(product.asin)
+                copyValue(product.skusByClient[0])
               }}
             />
           ) : null}
@@ -138,30 +140,42 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
   </div>
 ))
 
-export const ProductCell = withStyles(styles)(({classes: classNames, product}) => (
-  <div className={classNames.productCell}>
-    <div className={classNames.asinCellContainer}>
-      <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images[0])} />
+export const ProductCell = withStyles(styles)(({classes: classNames, product}) => {
+  const shortSku = value => {
+    const shortTitle = value.length > 12 ? value.slice(0, 12) + '...' : value
+    return shortTitle
+  }
+  const shortAsin = value => {
+    const shortTitle = value.length > 10 ? value.slice(0, 10) + '...' : value
+    return shortTitle
+  }
+  return (
+    <div className={classNames.productCell}>
+      <div className={classNames.asinCellContainer}>
+        <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images[0])} />
 
-      <div className={classNames.productWrapper}>
-        <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
-        <div className={classNames.skuAndAsinWrapper}>
-          <Typography className={classNames.productTypoCell}>
-            {t(TranslationKey.SKU)}
-            <span className={classNames.typoSpan}>{product.skusByClient?.length ? product.skusByClient[0] : '-'}</span>
-            {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
-          </Typography>
-          {'/'}
-          <Typography className={classNames.productTypoCell}>
-            {t(TranslationKey.ASIN)}
-            <span className={classNames.typoSpan}>{product.asin}</span>
-            {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
-          </Typography>
+        <div className={classNames.productWrapper}>
+          <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
+          <div className={classNames.skuAndAsinWrapper}>
+            <Typography className={classNames.productTypoCell}>
+              {t(TranslationKey.SKU)}
+              <span className={classNames.typoSpan}>
+                {product.skusByClient?.length ? shortSku(product.skusByClient[0]) : '-'}
+              </span>
+              {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
+            </Typography>
+            {'/'}
+            <Typography className={classNames.productTypoCell}>
+              {t(TranslationKey.ASIN)}
+              <span className={classNames.typoSpan}>{shortAsin(product.asin)}</span>
+              {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
+            </Typography>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-))
+  )
+})
 
 export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
   ({classes: classNames, product, noCalculate, onClickCalculate}) => (
@@ -243,7 +257,7 @@ export const BarcodeCell = withStyles(styles)(({classes: classNames, product, ha
       }}
       className={clsx({[classNames.barcodeChipExists]: product.barCode})}
       size="small"
-      label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey['Set Barcode'])}
+      label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey.BarCode)}
       onClick={() => handlers.onClickBarcode(product)}
       onDoubleClick={() => handlers.onDoubleClickBarcode(product)}
       onDelete={!product.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
@@ -262,7 +276,7 @@ export const HsCodeCell = withStyles(styles)(({classes: classNames, product, han
       }}
       className={clsx({[classNames.barcodeChipExists]: product.hsCode})}
       size="small"
-      label={product.hsCode ? trimBarcode(product.hsCode) : t(TranslationKey['Set HS code'])}
+      label={product.hsCode ? trimBarcode(product.hsCode) : t(TranslationKey['HS code'])}
       onClick={() => handlers.onClickHsCode(product)}
       onDoubleClick={() => handlers.onDoubleClickHsCode(product)}
       onDelete={!product.hsCode ? undefined : () => handlers.onDeleteHsCode(product)}
@@ -518,6 +532,7 @@ export const RequestStatusCell = withStyles(styles)(({classes: classNames, statu
         RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED,
         RequestStatus.CANCELED_BY_SUPERVISOR,
         RequestStatus.CANCELED_BY_EXECUTOR,
+        RequestStatus.OFFER_CONDITIONS_REJECTED,
       ].includes(status)
     ) {
       return '#FF1616'

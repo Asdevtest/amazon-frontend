@@ -71,7 +71,7 @@ class AdminExchangeViewsRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['Commodity exchange'])}>
             <MainContent>
-              <Grid container spacing={3} className={classNames.filterBtnWrapper}>
+              <Grid container spacing={2} className={classNames.filterBtnWrapper}>
                 {adminExchangeBtnsConfig()?.map((buttonConfig, index) => (
                   <Grid key={buttonConfig.status} item>
                     <Button
@@ -86,42 +86,42 @@ class AdminExchangeViewsRaw extends Component {
                   </Grid>
                 ))}
               </Grid>
-
-              <DataGrid
-                pagination
-                useResizeContainer
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
-                }}
-                localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: classNames.row,
-                }}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rowHeight={100}
-                rows={getCurrentData()}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection[0])
-                }}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onRowDoubleClick={e => onClickTableRow(e.row)}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-              />
+              <div className={classNames.datagridWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  localeText={getLocalizationByLanguageTag()}
+                  classes={{
+                    row: classNames.row,
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
+                  }}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rowHeight={100}
+                  rows={getCurrentData()}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => {
+                    onSelectionModel(newSelection[0])
+                  }}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onRowDoubleClick={e => onClickTableRow(e.row)}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

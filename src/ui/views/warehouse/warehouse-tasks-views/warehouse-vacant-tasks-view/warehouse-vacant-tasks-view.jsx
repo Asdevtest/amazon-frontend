@@ -82,6 +82,10 @@ export class WarehouseVacantTasksViewRaw extends Component {
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
+                  root: classNames.root,
+                  footerContainer: classNames.footerContainer,
+                  footerCell: classNames.footerCell,
+                  toolbarContainer: classNames.toolbarContainer,
                 }}
                 sortModel={sortModel}
                 filterModel={filterModel}

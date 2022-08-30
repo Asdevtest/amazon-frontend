@@ -26,7 +26,13 @@ export const TwoVerticalChoicesModal = ({
         <Typography variant="h5">{title}</Typography>
 
         <div className={classNames.resultButtonsWrapper}>
-          <Button tooltipInfoContent={tooltipFirstButton} color="primary" variant="contained" onClick={onClickTopBtn}>
+          <Button
+            tooltipInfoContent={tooltipFirstButton}
+            className={classNames.button}
+            color="primary"
+            variant="contained"
+            onClick={onClickTopBtn}
+          >
             {topBtnText}
           </Button>
           <Button tooltipInfoContent={tooltipSecondButton} color="primary" variant="text" onClick={onClickBottomBtn}>

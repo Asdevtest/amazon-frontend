@@ -19,4 +19,17 @@ export const useClassNames = makeStyles(() => ({
     width: '445px',
     minHeight: '168px',
   },
+
+  '@media (max-width: 768px)': {
+    resultButtonsWrapper: {
+      width: '280px',
+    },
+    modalMessageWrapper: {
+      width: '280px',
+    },
+    button: {
+      width: '191px',
+      height: '40px',
+    },
+  },
 }))
