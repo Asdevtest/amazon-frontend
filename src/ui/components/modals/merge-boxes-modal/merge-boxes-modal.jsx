@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Chip, NativeSelect, Typography} from '@material-ui/core'
+import {Chip, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -10,8 +10,8 @@ import {zipCodeGroups} from '@constants/zip-code-groups'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
-import {Input} from '@components/input'
 import {Modal} from '@components/modal'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {t} from '@utils/translations'
@@ -171,25 +171,15 @@ export const MergeBoxesModal = ({
                 label={t(TranslationKey.Destination)}
                 labelClasses={classNames.label}
                 inputComponent={
-                  <NativeSelect
-                    variant="filled"
-                    inputProps={{
-                      name: 'destinationId',
-                      id: 'destinationId',
-                    }}
-                    value={boxBody.destinationId}
-                    className={classNames.destinationSelect}
-                    input={<Input />}
-                    onChange={e => setBoxBody({...boxBody, destinationId: e.target.value})}
-                  >
-                    <option value={''}>{t(TranslationKey['Not chosen'])}</option>
-
-                    {destinations.map(item => (
-                      <option key={item._id} value={item._id}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </NativeSelect>
+                  <WithSearchSelect
+                    width={230}
+                    selectedItemName={
+                      destinations.find(el => el._id === boxBody.destinationId)?.name || t(TranslationKey['Not chosen'])
+                    }
+                    data={destinations}
+                    fieldName="name"
+                    onClickSelect={el => setBoxBody({...boxBody, destinationId: el._id})}
+                  />
                 }
               />
               <Field

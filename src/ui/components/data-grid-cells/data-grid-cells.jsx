@@ -11,6 +11,7 @@ import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
 import {TextArea} from 'react-mde'
+import {useHistory} from 'react-router-dom'
 
 import {BoxStatus} from '@constants/box-status'
 import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
@@ -93,7 +94,14 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
         <div className={classNames.copyAsin}>
           <Typography className={classNames.typoCell}>
             {t(TranslationKey.ASIN)}
-            <span className={classNames.typoSpan}>{product.asin}</span>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`https://www.amazon.com/dp/${product.asin}`}
+              className={classNames.normalizeLink}
+            >
+              <span className={classNames.typoSpan}>{product.asin}</span>
+            </a>
           </Typography>
           <img
             className={classNames.copyImgAsin}

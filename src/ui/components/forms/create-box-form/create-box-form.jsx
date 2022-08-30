@@ -110,10 +110,11 @@ const BlockOfNewBox = ({
 
       <div className={classNames.numberInputFieldsWrapper}>
         <Field
-          disabled
           containerClasses={classNames.numberInputField}
+          error={orderBox.amount < 1}
           label={t(TranslationKey['Quantity of boxes'])}
-          value={1}
+          value={orderBox.amount}
+          onChange={setFormField('amount', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
@@ -122,6 +123,7 @@ const BlockOfNewBox = ({
           onChange={setAmountField(orderBoxIndex)}
         />
       </div>
+
       <div className={classNames.checkboxWithLabelWrapper}>
         <Checkbox
           color="primary"
@@ -188,20 +190,29 @@ export const CreateBoxForm = observer(
     const [formFieldsArr, setFormFieldsArr] = useState([sourceBox])
 
     const setFormField = (fieldName, orderBoxIndex) => e => {
-      if (isNaN(e.target.value) || Number(e.target.value) < 0) {
+      if (
+        isNaN(e.target.value) ||
+        Number(e.target.value) < 0 ||
+        (fieldName === 'amount' && !checkIsPositiveNum(e.target.value))
+      ) {
         return
       }
 
       const newFormFields = {...formFieldsArr[orderBoxIndex]}
-      newFormFields[fieldName] = e.target.value
-      newFormFields.tmpUseCurrentSupplierDimensions = false
+
+      if (fieldName === 'amount') {
+        newFormFields[fieldName] = isNaN(parseInt(e.target.value)) ? '' : parseInt(e.target.value)
+      } else {
+        newFormFields[fieldName] = e.target.value
+        newFormFields.tmpUseCurrentSupplierDimensions = false
+      }
 
       const updatedNewBoxes = formFieldsArr.map((oldBox, index) => (index === orderBoxIndex ? newFormFields : oldBox))
       setFormFieldsArr(updatedNewBoxes)
     }
 
     const onSubmit = () => {
-      const newArr = formFieldsArr.map(editingBox => ({
+      const newArr = formFieldsArr.map(editingBox => /* editingBox.amount > 1 ?  */ ({
         ...editingBox,
 
         lengthCmSupplier:
@@ -220,7 +231,21 @@ export const CreateBoxForm = observer(
             : editingBox.heightCmSupplier) || 0,
       }))
 
-      setBoxesForCreation([...boxesForCreation, ...newArr])
+      const res = []
+
+      newArr.forEach(el => {
+        if (el.amount <= 1) {
+          res.push({...el, amount: 1})
+        } else {
+          let i = 0
+          while (i < el.amount) {
+            res.push({...el, amount: 1})
+            i++
+          }
+        }
+      })
+
+      setBoxesForCreation([...boxesForCreation, ...res])
       onTriggerOpenModal()
     }
 
@@ -284,7 +309,7 @@ export const CreateBoxForm = observer(
       setFormFieldsArr(updatedNewBoxes)
     }
 
-    const disableSubmit = formFieldsArr.length < 1 || formFieldsArr.some(el => el.items[0].amount < 1)
+    const disableSubmit = formFieldsArr.length < 1 || formFieldsArr.some(el => el.items[0].amount < 1 || el.amount < 1)
 
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 

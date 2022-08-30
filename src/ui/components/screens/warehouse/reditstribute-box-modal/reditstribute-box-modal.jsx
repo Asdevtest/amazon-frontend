@@ -4,7 +4,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 
 import React, {useState} from 'react'
 
-import {Chip, IconButton, NativeSelect, Typography} from '@material-ui/core'
+import {Chip, IconButton, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -15,10 +15,10 @@ import {zipCodeGroups} from '@constants/zip-code-groups'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
-import {Input} from '@components/input'
 import {Modal} from '@components/modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 
 import {checkIsPositiveNum} from '@utils/checks'
 import {filterEmptyBoxes, filterEmptyOrders} from '@utils/filters'
@@ -126,26 +126,16 @@ const Box = ({
                 label={t(TranslationKey.Destination)}
                 labelClasses={classNames.label}
                 inputComponent={
-                  <NativeSelect
+                  <WithSearchSelect
                     disabled={!isNewBox}
-                    variant="filled"
-                    inputProps={{
-                      name: 'destinationId',
-                      id: 'destinationId',
-                    }}
-                    className={classNames.destinationSelect}
-                    input={<Input />}
-                    value={box.destinationId}
-                    onChange={e => onChangeField(e, 'destinationId', box._id)}
-                  >
-                    <option value={''}>{t(TranslationKey['Not chosen'])}</option>
-
-                    {destinations.map(item => (
-                      <option key={item._id} value={item._id}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </NativeSelect>
+                    width={230}
+                    selectedItemName={
+                      destinations.find(el => el._id === box.destinationId)?.name || t(TranslationKey['Not chosen'])
+                    }
+                    data={destinations}
+                    fieldName="name"
+                    onClickSelect={el => onChangeField({target: {value: el._id}}, 'destinationId', box._id)}
+                  />
                 }
               />
 

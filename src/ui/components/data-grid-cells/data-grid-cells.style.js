@@ -966,4 +966,11 @@ export const styles = createStyles(() => ({
   userLink: {
     display: 'inline-flex',
   },
+  normalizeLink: {
+    textDecoration: 'none',
+    transition: '.3s ease',
+    '&:hover': {
+      opacity: '.7',
+    },
+  },
 }))

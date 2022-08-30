@@ -20,6 +20,7 @@ import {Modal} from '@components/modal'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {SetBarcodeModal} from '@components/modals/set-barcode-modal'
 import {SetShippingLabelModal} from '@components/modals/set-shipping-label-modal'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 import {Table} from '@components/table'
 import {Text} from '@components/text'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
@@ -446,25 +447,16 @@ export const EditBoxForm = observer(
                         TranslationKey["Amazon's final warehouse in the USA, available for change"],
                       )}
                       inputComponent={
-                        <NativeSelect
-                          variant="filled"
-                          inputProps={{
-                            name: 'destinationId',
-                            id: 'destinationId',
-                          }}
-                          className={classNames.destinationSelect}
-                          input={<Input />}
-                          value={boxFields.destinationId}
-                          onChange={e => setBoxFields({...boxFields, destinationId: e.target.value})}
-                        >
-                          <option value={''}>{t(TranslationKey['Not chosen'])}</option>
-
-                          {destinations.map(item => (
-                            <option key={item._id} value={item._id}>
-                              {item.name}
-                            </option>
-                          ))}
-                        </NativeSelect>
+                        <WithSearchSelect
+                          width={230}
+                          selectedItemName={
+                            destinations.find(el => el._id === boxFields.destinationId)?.name ||
+                            t(TranslationKey['Not chosen'])
+                          }
+                          data={destinations}
+                          fieldName="name"
+                          onClickSelect={el => setBoxFields({...boxFields, destinationId: el._id})}
+                        />
                       }
                     />
 

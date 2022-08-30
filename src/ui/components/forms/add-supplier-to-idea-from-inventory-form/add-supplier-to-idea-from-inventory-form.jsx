@@ -12,6 +12,7 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
+import {WithSearchSelect} from '@components/selects/with-search-select'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
@@ -129,21 +130,13 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
           inputClasses={classNames.nativeSelect}
           labelClasses={classNames.label}
           inputComponent={
-            <NativeSelect
-              variant="filled"
-              value={curIdeaId}
-              className={classNames.nativeSelect}
-              input={<Input />}
-              onChange={e => setCurIdeaId(e.target.value)}
-            >
-              <option value={null}>{'none'}</option>
-              {ideas.map((idea, statusIndex) => (
-                <option key={statusIndex} value={idea._id}>
-                  {/* {`Idea № ${statusIndex + 1}`} */}
-                  {idea.productName}
-                </option>
-              ))}
-            </NativeSelect>
+            <WithSearchSelect
+              width={400}
+              selectedItemName={ideas.find(el => el._id === curIdeaId)?.productName || t(TranslationKey['Not chosen'])}
+              data={ideas}
+              fieldName="productName"
+              onClickSelect={idea => setCurIdeaId(idea._id)}
+            />
           }
         />
 
