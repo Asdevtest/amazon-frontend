@@ -967,13 +967,13 @@ export const styles = createStyles(() => ({
   userLink: {
     display: 'inline-flex',
   },
-<<<<<<< HEAD
   normalizeLink: {
     textDecoration: 'none',
     transition: '.3s ease',
     '&:hover': {
       opacity: '.7',
-=======
+    },
+  },
 
   '@media (max-width: 768px)': {
     actionBtn: {
@@ -993,7 +993,6 @@ export const styles = createStyles(() => ({
     warehouseMyTasksCancelBtn: {
       width: '114px',
       height: '36px',
->>>>>>> aa1c03ab (3440 3442 3437 3443 3445 3433 3446 3448 3457 3451 3459)
     },
   },
 }))
