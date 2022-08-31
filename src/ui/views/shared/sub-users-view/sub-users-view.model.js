@@ -3,11 +3,15 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
+import {BuyerModel} from '@models/buyer-model'
 import {ClientModel} from '@models/client-model'
 import {PermissionsModel} from '@models/permissions-model'
+import {ResearcherModel} from '@models/researcher-model'
 import {SettingsModel} from '@models/settings-model'
 import {ShopModel} from '@models/shop-model'
+import {SupervisorModel} from '@models/supervisor-model'
 import {UserModel} from '@models/user-model'
 
 import {subUsersColumns} from '@components/table-columns/sub-users-columns/sub-users-columns'
@@ -199,7 +203,26 @@ export class SubUsersViewModel {
 
   async getProductsMy(shopId) {
     try {
-      const result = await ClientModel.getProductsMyFilteredByShopId({shopId})
+      const methodByRole = () => {
+        switch (UserRoleCodeMap[this.userInfo.role]) {
+          case UserRole.CLIENT:
+            return ClientModel.getProductsMyFilteredByShopId({shopId})
+
+          case UserRole.BUYER:
+            return BuyerModel.getProductsMy()
+
+          case UserRole.SUPERVISOR:
+            return SupervisorModel.getProductsMy()
+
+          case UserRole.RESEARCHER:
+            return ResearcherModel.getProductsVacant()
+
+          default:
+            return ClientModel.getProductsMyFilteredByShopId({shopId})
+        }
+      }
+
+      const result = await methodByRole()
 
       runInAction(() => {
         this.productsMy = clientInventoryDataConverter(result).sort(

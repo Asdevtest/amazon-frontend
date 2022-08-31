@@ -59,4 +59,11 @@ export const styles = createStyles({
     width: '100%',
     display: 'flex',
   },
+
+  textEllipsis: {
+    maxWidth: 150,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 })

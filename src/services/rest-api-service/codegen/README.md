@@ -260,6 +260,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsProductsDelete**](docs/PermissionsApi.md#apiV1PermissionsProductsDelete) | **DELETE** /api/v1/permissions/products | Удалить разрешение для продукта для саба.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsProductsGet**](docs/PermissionsApi.md#apiV1PermissionsProductsGet) | **GET** /api/v1/permissions/products | Получить список разрешений для продуктов всех сабъюзеров.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsProductsGuidGet**](docs/PermissionsApi.md#apiV1PermissionsProductsGuidGet) | **GET** /api/v1/permissions/products/{guid} | Получить список разрешений для продуктов юзера по его айди.
+*TestSwagger.PermissionsApi* | [**apiV1PermissionsProductsPatch**](docs/PermissionsApi.md#apiV1PermissionsProductsPatch) | **PATCH** /api/v1/permissions/products | Переписать разрешения для продукта для саба.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsProductsPost**](docs/PermissionsApi.md#apiV1PermissionsProductsPost) | **POST** /api/v1/permissions/products | Создать разрешение для продукта для саба.
 *TestSwagger.PermissionsApi* | [**apiV1PermissionsSetForUserGuidPatch**](docs/PermissionsApi.md#apiV1PermissionsSetForUserGuidPatch) | **PATCH** /api/v1/permissions/set-for-user/{guid} | #   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
 *TestSwagger.ProductApi* | [**apiV1ProductsAddShopsGuidPost**](docs/ProductApi.md#apiV1ProductsAddShopsGuidPost) | **POST** /api/v1/products/add_shops/{guid} | Добавить магазины к продукту.
@@ -504,6 +505,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject90](docs/InlineObject90.md)
  - [TestSwagger.InlineObject91](docs/InlineObject91.md)
  - [TestSwagger.InlineObject92](docs/InlineObject92.md)
+ - [TestSwagger.InlineObject93](docs/InlineObject93.md)
  - [TestSwagger.InlineResponse200](docs/InlineResponse200.md)
  - [TestSwagger.InlineResponse2001](docs/InlineResponse2001.md)
  - [TestSwagger.InlineResponse20010](docs/InlineResponse20010.md)

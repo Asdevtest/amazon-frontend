@@ -159,6 +159,7 @@ import InlineObject9 from './model/InlineObject9';
 import InlineObject90 from './model/InlineObject90';
 import InlineObject91 from './model/InlineObject91';
 import InlineObject92 from './model/InlineObject92';
+import InlineObject93 from './model/InlineObject93';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
 import InlineResponse20010 from './model/InlineResponse20010';
@@ -1179,6 +1180,12 @@ export {
      * @property {module:model/InlineObject92}
      */
     InlineObject92,
+
+    /**
+     * The InlineObject93 model constructor.
+     * @property {module:model/InlineObject93}
+     */
+    InlineObject93,
 
     /**
      * The InlineResponse200 model constructor.

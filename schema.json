@@ -32729,6 +32729,33 @@
       }
     },
     "/api/v1/permissions/products": {
+      "patch": {
+        "summary": "Переписать разрешения для продукта для саба.",
+        "description": "## Переписать разрешения для продукта для саба.",
+        "tags": ["Permissions"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {"type": "string", "format": "uuid"},
+                "productIds": {"type": "array", "items": {"type": "string", "format": "uuid"}, "minItems": 1}
+              }
+            }
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
       "post": {
         "summary": "Создать разрешение для продукта для саба.",
         "description": "## Создать разрешение для продукта для саба.",

@@ -274,7 +274,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
               onSubmit(
                 formFields,
                 sourceData._id,
-                shopDataToRender.reduce((ac, cur) => (ac = [...ac, ...cur.tmpProductsIds]), []),
+                Array.from(new Set(shopDataToRender.reduce((ac, cur) => (ac = [...ac, ...cur.tmpProductsIds]), []))),
               )
               onCloseModal()
             }}
