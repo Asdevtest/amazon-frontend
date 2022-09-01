@@ -303,6 +303,15 @@ export const navbarConfig = () => ({
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.researcher.SHOW_PAYMENTS_RESEARCHER),
     },
+
+    {
+      icon: Message,
+      title: t(TranslationKey.Messages),
+      route: '/researcher/messages',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_MESSAGES,
+      checkHideBlock: () => true,
+    },
   ],
   [UserRole.FREELANCER]: [
     {
@@ -452,6 +461,15 @@ export const navbarConfig = () => ({
       checkHideBlock: user =>
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_PAYMENTS_SUPERVISOR),
+    },
+
+    {
+      icon: Message,
+      title: t(TranslationKey.Messages),
+      route: '/supervisor/messages',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_MESSAGES,
+      checkHideBlock: () => true,
     },
   ],
   [UserRole.BUYER]: [
@@ -655,6 +673,15 @@ export const navbarConfig = () => ({
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.storekeeper.SHOW_MANAGEMENT_STOREKEEPER),
     },
+
+    {
+      icon: Message,
+      title: t(TranslationKey.Messages),
+      route: '/warehouse/messages',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_MESSAGES,
+      checkHideBlock: () => true,
+    },
   ],
   [UserRole.ADMIN]: [
     {
@@ -752,6 +779,15 @@ export const navbarConfig = () => ({
       subtitles: null,
       route: '/admin/settings',
       key: navBarActiveCategory.NAVBAR_SETTINGS,
+      checkHideBlock: () => true,
+    },
+
+    {
+      icon: Message,
+      title: t(TranslationKey.Messages),
+      route: '/admin/messages',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: () => true,
     },
   ],

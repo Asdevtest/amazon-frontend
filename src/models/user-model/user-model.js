@@ -1,6 +1,8 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 import {makePersistable} from 'mobx-persist-store'
 
+import {ChatModel} from '@models/chat-model'
+
 import {ApiClient} from '@services/rest-api-service/codegen/src'
 import {restApiService} from '@services/rest-api-service/rest-api-service'
 
@@ -34,6 +36,10 @@ class UserModelStatic {
     return !!this.accessToken
   }
 
+  initChats() {
+    ChatModel.init()
+  }
+
   signOut() {
     this.accessToken = undefined
     this.userInfo = undefined
@@ -54,6 +60,8 @@ class UserModelStatic {
       this.accessToken = accessToken
     })
     restApiService.setAccessToken(accessToken)
+
+    this.initChats()
 
     return accessToken
   }

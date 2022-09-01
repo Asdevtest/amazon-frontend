@@ -43,14 +43,12 @@ export class RequestDetailCustomViewModel {
   constructor({history, location}) {
     this.history = history
 
-    console.log('location.state', location)
-
     if (location.state) {
       this.requestId = location.state.requestId
     }
     makeAutoObservable(this, undefined, {autoBind: true})
     try {
-      ChatModel.init()
+      // ChatModel.init()
 
       if (ChatModel.isConnected) {
         ChatModel.getChats(this.requestId, 'REQUEST')
@@ -70,7 +68,6 @@ export class RequestDetailCustomViewModel {
           },
         )
       }
-      // ChatModel.init()
     } catch (error) {
       console.warn(error)
     }

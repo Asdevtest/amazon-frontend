@@ -131,4 +131,8 @@ export const useClassNames = makeStyles(() => ({
     left: 'calc(50% - 15px)',
     visibility: 'hidden',
   },
+
+  writeBtn: {
+    marginTop: 20,
+  },
 }))

@@ -87,7 +87,7 @@ export const ResearcherAddProductFormRaw = observer(
                       .filter(el => user.allowedStrategies.includes(Number(el)))
                       .map((statusCode, statusIndex) => (
                         <option key={statusIndex} value={statusCode}>
-                          {mapProductStrategyStatusEnum[statusCode]}
+                          {mapProductStrategyStatusEnum[statusCode]?.replace(/_/g, ' ')}
                         </option>
                       ))}
                   </NativeSelect>

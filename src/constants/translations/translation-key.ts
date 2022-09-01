@@ -1488,7 +1488,7 @@ export enum TranslationKey {
   'No ideas yet' = 'No ideas yet',
   'To vacant requests' = 'To vacant requests',
   'To the list of proposals' = 'To the list of proposals',
-  // '' = '',
+  'Write' = 'Write',
   // '' = '',
   // '' = '',
   // '' = '',

@@ -3,7 +3,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
-import {mapUserRoleEnumToKey, UserRole} from '@constants/user-roles'
+import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {AdministratorModel} from '@models/administrator-model'
 import {ClientModel} from '@models/client-model'
@@ -216,6 +216,12 @@ export class AnotherProfileViewModel {
       this.setRequestStatus(loadingStatuses.failed)
       console.log('error', error)
     }
+  }
+
+  onClickWriteBtn(anotherUserId) {
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/messages`, {
+      anotherUserId,
+    })
   }
 
   async onClickBuyProductBtn(shops) {

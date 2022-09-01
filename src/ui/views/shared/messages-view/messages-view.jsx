@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -8,6 +7,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {MultipleChats} from '@components/chat/multiple-chats'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -23,15 +23,20 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_MESSAGES
 class MessagesViewRaw extends Component {
   viewModel = new MessagesViewModel({history: this.props.history})
 
-  componentDidMount() {
-    this.viewModel.loadData()
-  }
+  // componentDidMount() {
+  //   this.viewModel.loadData()
+  // }
 
   render() {
     const {
+      user,
+      chatSelectedId,
+      chats,
       drawerOpen,
 
+      onClickChat,
       onTriggerDrawerOpen,
+      onSubmitMessage,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -41,8 +46,16 @@ class MessagesViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Messages)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <div className={classNames.tablePanelWrapper}>
-                <Typography variant="h1">{'Тут будет чат'}</Typography>
+              <div className={classNames.chatWrapper}>
+                <MultipleChats
+                  ref={this.chatRef}
+                  chats={chats}
+                  userId={user._id}
+                  chatSelectedId={chatSelectedId}
+                  updateData={this.viewModel.loadData}
+                  onSubmitMessage={onSubmitMessage}
+                  onClickChat={onClickChat}
+                />
               </div>
             </MainContent>
           </Appbar>
