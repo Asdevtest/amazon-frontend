@@ -645,10 +645,9 @@ export class ClientWarehouseViewModel {
 
       if (
         !boxData.clientComment &&
-        boxData.shippingLabel === null &&
-        !boxData.tmpShippingLabel &&
-        boxData.shippingLabel === sourceData.shippingLabel &&
-        boxData.items.every(item => !item.tmpBarCode.length)
+        !boxData.tmpShippingLabel.length &&
+        boxData.items.every(item => !item.tmpBarCode.length) &&
+        (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
       ) {
         await BoxesModel.editBoxAtClient(id, {
           fbaShipment: boxData.fbaShipment,

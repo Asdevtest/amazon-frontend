@@ -22,7 +22,12 @@ import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {roundSafely} from '@utils/calculation'
-import {checkIsAdmin, checkIsClient, checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
+import {
+  checkIsAdmin,
+  checkIsBuyer,
+  checkIsClient,
+  checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
+} from '@utils/checks'
 import {toFixed} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -417,19 +422,23 @@ export const IdeaViewAndEditCard = observer(
           <div className={classNames.existedIdeaBtnsWrapper}>
             {!checkIsAdmin(UserRoleCodeMap[curUser.role]) ? (
               <div className={classNames.existedIdeaBtnsSubWrapper}>
-                {checkIsClient(UserRoleCodeMap[curUser.role]) ? (
+                {checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role]) ? (
                   <>
-                    <Button
-                      success
-                      tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
-                      tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
-                      variant="contained"
-                      color="primary"
-                      className={[classNames.actionButton]}
-                      onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
-                    >
-                      {t(TranslationKey['Create a product card'])}
-                    </Button>
+                    {!checkIsBuyer(UserRoleCodeMap[curUser.role]) ? (
+                      <Button
+                        success
+                        tooltipAttentionContent={t(TranslationKey['A new product card will appear in the inventory'])}
+                        tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
+                        variant="contained"
+                        color="primary"
+                        className={[classNames.actionButton]}
+                        onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
+                      >
+                        {t(TranslationKey['Create a product card'])}
+                      </Button>
+                    ) : (
+                      <div style={{width: 200}} />
+                    )}
 
                     <Button
                       variant="contained"
@@ -442,7 +451,7 @@ export const IdeaViewAndEditCard = observer(
                   </>
                 ) : null}
                 <div>
-                  {checkIsClient(UserRoleCodeMap[curUser.role]) ? (
+                  {checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role]) ? (
                     <Button
                       variant="contained"
                       color="alert"
