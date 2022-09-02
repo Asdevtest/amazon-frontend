@@ -122,4 +122,34 @@ export const useClassNames = makeStyles({
   label: {
     fontSize: '14px',
   },
+
+  attributeFooterMobileWrapper: {
+    display: 'none',
+  },
+
+  '@media (max-width: 768px)': {
+    root: {
+      width: '280px',
+    },
+
+    img: {
+      width: '85px',
+      height: '85px',
+    },
+    attributeHeaderWrapper: {
+      flexDirection: 'column',
+      gap: '14px',
+    },
+
+    attributeFooterMobileWrapper: {
+      display: 'block',
+    },
+    attributeFooterWrapper: {
+      display: 'none',
+    },
+
+    title: {
+      width: '243px',
+    },
+  },
 })

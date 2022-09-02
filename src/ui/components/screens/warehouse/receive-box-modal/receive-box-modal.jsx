@@ -5,6 +5,7 @@ import React, {useState} from 'react'
 import {Divider, IconButton, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {transformAndValidate} from 'class-transformer-validator'
+import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -151,7 +152,6 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
   return (
     <div className={classNames.newBoxes}>
       <Typography className={classNames.sectionTitle}>{t(TranslationKey['New boxes'])}</Typography>
-
       <div className={classNames.tableWrapper}>
         <Table
           rowsOnly
@@ -161,6 +161,117 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
           rowsHandlers={{onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages}}
         />
       </div>
+
+      {newBoxes.map(
+        (
+          item,
+          index, // mobile version
+        ) => (
+          <div key={index} className={classNames.tableWrapperMobile}>
+            <div className={classNames.boxesTitleWrapper}>
+              <Typography className={classNames.boxesTitle}>{t(TranslationKey.Box)}</Typography>
+              <IconButton onClick={() => onRemoveBox(item._id)}>
+                <DeleteIcon className={classNames.deleteBtn} />
+              </IconButton>
+            </div>
+            <div>
+              <Typography className={classNames.boxTitle}>{t(TranslationKey['New box'])}</Typography>
+              <div className={classNames.descriptionWrapper}>
+                <img className={classNames.img} src={getAmazonImageUrl(item.items[0]?.product.images[0])} />
+                <Typography className={classNames.title}>
+                  {item.items[0].product.amazonTitle.length > 50
+                    ? item.items[0].product.amazonTitle.slice(0, 50) + '...'
+                    : item.items[0].product.amazonTitle}
+                </Typography>
+              </div>
+            </div>
+            <div className={classNames.tableRow}>
+              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Quantity)}</Typography>
+              <Input
+                classes={{root: classNames.inputWrapper, input: classNames.input}}
+                inputProps={{maxLength: 6}}
+                value={item.items[0].amount}
+                onChange={e => onChangeQtyInput(e, item._id, item.items[0].order)}
+              />
+            </div>
+            <div className={classNames.tableRow}>
+              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Number of superboxes'])}</Typography>
+              <Input
+                classes={{root: classNames.inputWrapper, input: classNames.input}}
+                inputProps={{maxLength: 6}}
+                value={item.amount}
+                onChange={e => onChangeFieldInput(e, item._id, 'amount')}
+              />
+            </div>
+            <div className={classNames.tableRow}>
+              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Total)}</Typography>
+              <Input
+                disabled
+                classes={{root: classNames.inputWrapper, input: classNames.input}}
+                value={item.items[0].amount * item.amount}
+              />
+            </div>
+            <div className={classNames.tableRow}>
+              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Sizes)}</Typography>
+              <div className={classNames.sizeWrapper}>
+                <Typography className={classNames.sizeTitle}>{t(TranslationKey.H) + ': '}</Typography>
+                <Input
+                  classes={{root: classNames.inputWrapper, input: classNames.input}}
+                  inputProps={{maxLength: 6}}
+                  value={item.heightCmWarehouse}
+                  onChange={e => onChangeFieldInput(e, item._id, 'heightCmWarehouse')}
+                />
+              </div>
+              <div className={classNames.sizeWrapper}>
+                <Typography className={classNames.sizeTitle}>{t(TranslationKey.W) + ': '}</Typography>
+                <Input
+                  classes={{root: classNames.inputWrapper, input: classNames.input}}
+                  inputProps={{maxLength: 6}}
+                  value={item.widthCmWarehouse}
+                  onChange={e => onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
+                />
+              </div>
+              <div className={classNames.sizeWrapper}>
+                <Typography className={classNames.sizeTitle}>{t(TranslationKey.L) + ': '}</Typography>
+                <Input
+                  classes={{root: classNames.inputWrapper, input: classNames.input}}
+                  inputProps={{maxLength: 6}}
+                  value={item.lengthCmWarehouse}
+                  onChange={e => onChangeFieldInput(e, item._id, 'lengthCmWarehouse')}
+                />
+              </div>
+            </div>
+            <div className={classNames.tableRow}>
+              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Weight, kg'])}</Typography>
+              <Input
+                classes={{root: classNames.inputWrapper, input: classNames.input}}
+                inputProps={{maxLength: 6}}
+                value={item.weighGrossKgWarehouse}
+                onChange={e => onChangeFieldInput(e, item._id, 'weighGrossKgWarehouse')}
+              />
+            </div>
+            <div className={classNames.tableRow}>
+              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Volume weight, kg'])}</Typography>
+              <Input
+                disabled
+                classes={{root: classNames.inputWrapper, input: classNames.input}}
+                value={toFixed(item.volumeWeightKgWarehouse, 3)}
+              />
+            </div>
+            <div className={classNames.tableRow}>
+              <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Final weight, kg'])}</Typography>
+              <Input
+                disabled
+                classes={{root: classNames.inputWrapper, input: classNames.input}}
+                value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
+              />
+            </div>
+            <div className={classNames.photoBtnWrapper}>
+              <Button onClick={() => onAddImages(item._id)}>{t(TranslationKey.Photos)}</Button>
+            </div>
+          </div>
+        ),
+      )}
     </div>
   )
 }
@@ -350,16 +461,18 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
     <div className={classNames.root}>
       <div className={classNames.modalHeaderWrapper}>
         <Typography className={classNames.modalTitle}>{t(TranslationKey['Receive and distribute'])}</Typography>
-        <Button
-          className={classNames.addButton}
-          tooltipInfoContent={t(TranslationKey['Add a box'])}
-          onClick={() => {
-            setNewBoxes(newBoxes.concat(getEmptyBox()))
-          }}
-        >
-          {t(TranslationKey['New box'])}
-          <AddIcon fontSize="small" className={classNames.icon} />
-        </Button>
+        <div className={classNames.addButtonWrapper}>
+          <Button
+            className={classNames.addButton}
+            tooltipInfoContent={t(TranslationKey['Add a box'])}
+            onClick={() => {
+              setNewBoxes(newBoxes.concat(getEmptyBox()))
+            }}
+          >
+            {t(TranslationKey['New box'])}
+            <AddIcon fontSize="small" className={classNames.icon} />
+          </Button>
+        </div>
       </div>
 
       {/* <CommentsLine /> */}
@@ -376,6 +489,18 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
           onAddImages={onAddImages}
         />
       </Paper>
+      <div className={classNames.addButtonWrapperMobile}>
+        <Button
+          className={classNames.addButtonMobile}
+          tooltipInfoContent={t(TranslationKey['Add a box'])}
+          onClick={() => {
+            setNewBoxes(newBoxes.concat(getEmptyBox()))
+          }}
+        >
+          {t(TranslationKey['New box'])}
+          <AddIcon fontSize="small" className={classNames.icon} />
+        </Button>
+      </div>
 
       <div className={classNames.buttonsWrapper}>
         <Button
@@ -390,7 +515,8 @@ export const ReceiveBoxModal = ({setOpenModal, selectedBox, setSourceBoxes, volu
         </Button>
 
         <Button
-          className={classNames.button}
+          variant="text"
+          className={clsx(classNames.button, classNames.cancelButton)}
           onClick={() => {
             setOpenModal()
           }}

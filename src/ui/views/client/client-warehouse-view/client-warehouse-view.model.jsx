@@ -381,6 +381,40 @@ export class ClientWarehouseViewModel {
       this.error = error
     }
   }
+  onClickConfirmCreateSplitTasks(id, updatedBoxes, type, isMasterBox, comment, sourceBox) {
+    this.onTriggerOpenModal('showConfirmModal')
+
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
+        sourceBox?.storekeeper?.name
+      } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox?.humanFriendlyId}`,
+      onClickConfirm: () => this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox),
+    }
+  }
+  onClickConfirmCreateChangeTasks(id, boxData, sourceData) {
+    this.onTriggerOpenModal('showConfirmModal')
+
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
+        boxData?.storekeeper?.name
+      } ${t(TranslationKey['to change the Box'])} № ${boxData?.humanFriendlyId}`,
+      onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData),
+    }
+  }
+
+  onClickConfirmCreateMergeTasks(boxBody, boxData, comment) {
+    this.onTriggerOpenModal('showConfirmModal')
+
+    this.confirmModalSettings = {
+      isWarning: false,
+      confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
+        boxData?.storekeeper?.name
+      } ${t(TranslationKey['to merge boxes'])}`,
+      onClickConfirm: () => this.onClickMerge(boxBody, comment),
+    }
+  }
 
   onClickFbaShipment(item) {
     this.setSelectedBox(item)
@@ -539,7 +573,7 @@ export class ClientWarehouseViewModel {
 
           this.onTriggerOpenModal('showWarningInfoModal')
         }
-
+        this.onTriggerOpenModal('showConfirmModal')
         this.onTriggerOpenModal('showRedistributeBoxModal')
         this.onModalRedistributeBoxAddNewBox(null)
       }
@@ -701,7 +735,7 @@ export class ClientWarehouseViewModel {
 
       this.loadData()
       this.onTriggerOpenModal('showEditBoxModal')
-
+      this.onTriggerOpenModal('showConfirmModal')
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -744,6 +778,7 @@ export class ClientWarehouseViewModel {
       }
 
       this.onTriggerOpenModal('showMergeBoxModal')
+      this.onTriggerOpenModal('showConfirmModal')
 
       await this.postTask({
         idsData: [mergeBoxesResult.guid],

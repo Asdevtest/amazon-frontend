@@ -145,4 +145,50 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '19px',
     marginBottom: '10px',
   },
+  '@media (max-width: 768px)': {
+    modalWrapper: {
+      width: '280px',
+    },
+    modalTitle: {
+      color: '#001029',
+      fontSize: '16px',
+      fontWeight: 600,
+      lineHeight: '22px',
+      marginBottom: '24px',
+    },
+    imageFileInputWrapper: {
+      width: '280px',
+    },
+    label: {
+      fontSize: '14px',
+      lineHeight: '19px',
+      color: '#656565',
+    },
+    numberInputFieldsBlocksWrapper: {
+      flexDirection: 'column',
+      width: '280px',
+    },
+    numberInputFieldsWrapper: {
+      flexDirection: 'row',
+    },
+    photoAndFilesTitleMobileWrapper: {
+      marginLeft: '-15px',
+    },
+    photoAndFilesTitle: {
+      textAlign: 'center',
+    },
+    buttonsWrapper: {
+      justifyContent: 'center',
+      marginTop: '30px',
+      gap: '20px',
+    },
+    saveButton: {
+      width: '121px',
+      height: '40px',
+    },
+    cancelButton: {
+      width: '121px',
+      height: '40px',
+    },
+  },
 }))

@@ -315,27 +315,27 @@ export const getWarehouseDashboardCardConfig = () => [
         dataKey: WarehouseDashboardCardDataKey.VACANT_TASKS,
         title: t(TranslationKey['Number of vacant tasks']),
         color: '#0056B2',
-        route: '/warehouse/vacant-tasks',
+        route: '/warehouse/tasks/vacant-tasks',
       },
       {
         dataKey: WarehouseDashboardCardDataKey.TASKS_MY,
         title: t(TranslationKey['My tasks']),
         color: '#0056B2',
-        route: '/warehouse/my-tasks',
+        route: '/warehouse/tasks/my-tasks',
       },
 
       {
         dataKey: WarehouseDashboardCardDataKey.COMPLETED_TASKS,
         title: t(TranslationKey['Completed tasks']),
         color: '#4dbd74',
-        route: '/warehouse/completed-tasks',
+        route: '/warehouse/tasks/completed-tasks',
       },
 
       {
         dataKey: WarehouseDashboardCardDataKey.CANCELED_TASKS,
         title: t(TranslationKey['Canceled tasks']),
         color: '#BC3030',
-        route: '/warehouse/canceled-tasks',
+        route: '/warehouse/tasks/canceled-tasks',
       },
     ],
   },
@@ -368,14 +368,14 @@ export const getWarehouseDashboardCardConfig = () => [
         dataKey: WarehouseDashboardCardDataKey.NOT_SENT_BATCHES,
         title: t(TranslationKey['Awaiting send']),
         color: '#C69109',
-        route: '/warehouse/awaiting-batches',
+        route: '/warehouse/batches/awaiting-batches',
       },
 
       {
         dataKey: WarehouseDashboardCardDataKey.SENT_BATCHES,
         title: t(TranslationKey.Sent),
         color: '#00B746',
-        route: '/warehouse/batches',
+        route: '/warehouse/batches/sent-batches',
       },
     ],
   },

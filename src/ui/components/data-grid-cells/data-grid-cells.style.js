@@ -535,7 +535,7 @@ export const styles = createStyles(() => ({
   multilineText: {
     width: '100%',
     maxHeight: '100%',
-
+    userSelect: 'none',
     textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',
@@ -763,7 +763,7 @@ export const styles = createStyles(() => ({
 
   copyAsin: {
     display: 'flex',
-    gap: '5px',
+    gap: '2px',
     alignItems: 'center',
   },
 

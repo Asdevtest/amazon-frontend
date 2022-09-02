@@ -13,7 +13,6 @@ import {
   ToFixedWithKgSignCell,
   UserLinkCell,
   OrderStatusCell,
-  MultilineTextAlignLeftHeaderCell,
   DownloadAndCopyBtnsCell,
   NormalActionBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -41,7 +40,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Status)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 160,
     renderCell: params => <OrderStatusCell status={params.value} />,
@@ -50,7 +49,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
   {
     field: 'action',
     headerName: t(TranslationKey.Actions),
-    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Actions)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 200,
     renderCell: params => (
       <NormalActionBtnCell
@@ -77,7 +76,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    type: 'number',
+
     width: 150,
   },
 
@@ -107,7 +106,7 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
     width: 140,
-    type: 'number',
+
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
 

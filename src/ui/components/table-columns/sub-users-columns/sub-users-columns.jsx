@@ -2,8 +2,8 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
   EditOrRemoveBtnsCell,
+  MultilineTextHeaderCell,
   UserCell,
-  TextHeaderCell,
   UserRolesCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
@@ -13,7 +13,7 @@ export const subUsersColumns = (handlers, firstRowId) => [
   {
     field: 'name',
     headerName: t(TranslationKey.User),
-    renderHeader: () => <TextHeaderCell text={t(TranslationKey.User)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
 
     width: 500,
     renderCell: params => <UserCell user={params.row} />,
@@ -22,7 +22,7 @@ export const subUsersColumns = (handlers, firstRowId) => [
   {
     field: 'roles',
     headerName: t(TranslationKey.Roles),
-    renderHeader: () => <TextHeaderCell text={t(TranslationKey.Roles)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Roles)} />,
 
     width: 300,
     renderCell: params => <UserRolesCell user={params.row} />,
@@ -31,7 +31,7 @@ export const subUsersColumns = (handlers, firstRowId) => [
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
-    renderHeader: () => <TextHeaderCell text={t(TranslationKey.Action)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 365,
     renderCell: params => (

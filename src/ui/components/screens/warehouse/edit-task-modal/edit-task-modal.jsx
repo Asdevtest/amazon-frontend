@@ -106,7 +106,7 @@ export const EditTaskModal = observer(
         <div className={classNames.modalHeader}>
           <Typography className={classNames.modalTitle}>{renderModalTitle(task.status)}</Typography>
           <div className={classNames.typeTaskWrapper}>
-            <img src={renderTypeTaskImages(task.operationType)} />
+            <img src={renderTypeTaskImages(task.operationType)} className={classNames.hideBlock} />
             <Typography className={classNames.typeTaskTitle}>{`${t(TranslationKey['Task type'])}:`}</Typography>
             <Typography className={classNames.typeTaskSubTitle}>{renderTypeTaskTitle(task.operationType)}</Typography>
           </div>
@@ -124,8 +124,8 @@ export const EditTaskModal = observer(
                 multiline
                 disabled
                 className={classNames.heightFieldAuto}
-                rows={9}
-                rowsMax={9}
+                rows={window.screen.width < 768 ? 4 : 9}
+                rowsMax={window.screen.width < 768 ? 4 : 9}
                 label={t(TranslationKey['Client comment'])}
                 placeholder={t(TranslationKey['Client comment on the task'])}
                 value={task.clientComment || ''}
@@ -134,8 +134,8 @@ export const EditTaskModal = observer(
                 multiline
                 className={classNames.heightFieldAuto}
                 disabled={readOnly}
-                rows={9}
-                rowsMax={9}
+                rows={window.screen.width < 768 ? 4 : 9}
+                rowsMax={window.screen.width < 768 ? 4 : 9}
                 inputProps={{maxLength: 2000}}
                 label={t(TranslationKey['Storekeeper comment'])}
                 placeholder={t(TranslationKey['Storekeeper comment to client'])}
@@ -149,7 +149,12 @@ export const EditTaskModal = observer(
               </div>
             ) : (
               <div className={classNames.photosWrapper}>
-                <PhotoAndFilesCarousel files={task.images} width="600px" />
+                <PhotoAndFilesCarousel
+                  small
+                  direction={window.screen.width < 768 ? 'column' : 'row'}
+                  files={task.images}
+                  width="600px"
+                />
               </div>
             )}
           </div>
@@ -183,13 +188,12 @@ export const EditTaskModal = observer(
             onClickOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
           />
         </div>
-
         {!readOnly ? (
-          <div className={classNames.buttonsWrapper}>
+          <div className={classNames.buttonsWrapperMobile}>
             {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
               <Button
                 disableElevation
-                className={classNames.button}
+                className={classNames.buttonMobile}
                 tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
                 color="primary"
                 variant="contained"
@@ -199,6 +203,27 @@ export const EditTaskModal = observer(
               >
                 {t(TranslationKey.Redistribute)}
               </Button>
+            )}
+          </div>
+        ) : null}
+
+        {!readOnly ? (
+          <div className={classNames.buttonsWrapper}>
+            {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
+              <div className={classNames.hideButton}>
+                <Button
+                  disableElevation
+                  className={classNames.button}
+                  tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => {
+                    setReceiveBoxModal(!receiveBoxModal)
+                  }}
+                >
+                  {t(TranslationKey.Redistribute)}
+                </Button>
+              </div>
             )}
 
             <div className={classNames.buttons}>

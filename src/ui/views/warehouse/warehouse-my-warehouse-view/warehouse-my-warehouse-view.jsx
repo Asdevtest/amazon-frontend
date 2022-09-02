@@ -1,7 +1,9 @@
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
+import {InputAdornment} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -10,6 +12,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Field} from '@components/field/field'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {AddOrEditHsCodeInBox} from '@components/forms/add-or-edit-hs-code-in-box-form'
 import {BoxViewForm} from '@components/forms/box-view-form'
@@ -36,6 +39,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       showProgress,
       progressValue,
       sourceBoxForBatch,
@@ -71,7 +75,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       setCurrentOpenedBox,
       onSubmitMoveBoxToBatch,
       onSubmitCreateBatch,
-
+      onChangeNameSearchValue,
       onSubmitAddBatch,
       onSubmitAddOrEditHsCode,
     } = this.viewModel
@@ -86,41 +90,55 @@ export class WarehouseMyWarehouseViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey['My warehouse'])}>
             <MainContent>
-              <DataGrid
-                pagination
-                useResizeContainer
-                localeText={getLocalizationByLanguageTag()}
-                classes={{
-                  row: classNames.row,
-                  root: classNames.root,
-                  footerContainer: classNames.footerContainer,
-                  footerCell: classNames.footerCell,
-                  toolbarContainer: classNames.toolbarContainer,
-                }}
-                isRowSelectable={params => params.row.isDraft === false}
-                getRowClassName={getRowClassName}
-                selectionModel={selectedBoxes}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                rowHeight={170}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-                onStateChange={setDataGridState}
-                onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+              <Field
+                containerClasses={classNames.searchContainer}
+                inputClasses={classNames.searchInput}
+                value={nameSearchValue}
+                placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                endAdornment={
+                  <InputAdornment position="start">
+                    <SearchIcon color="primary" />
+                  </InputAdornment>
+                }
+                onChange={onChangeNameSearchValue}
               />
+              <div className={classNames.datagridWrapper}>
+                <DataGrid
+                  pagination
+                  useResizeContainer
+                  localeText={getLocalizationByLanguageTag()}
+                  classes={{
+                    row: classNames.row,
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
+                  }}
+                  isRowSelectable={params => params.row.isDraft === false}
+                  getRowClassName={getRowClassName}
+                  selectionModel={selectedBoxes}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  rowHeight={170}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onStateChange={setDataGridState}
+                  onRowDoubleClick={e => setCurrentOpenedBox(e.row.originalData)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

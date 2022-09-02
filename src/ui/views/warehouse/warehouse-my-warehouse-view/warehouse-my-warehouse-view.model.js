@@ -28,7 +28,7 @@ export class WarehouseMyWarehouseViewModel {
   error = undefined
 
   volumeWeightCoefficient = undefined
-
+  nameSearchValue = ''
   boxesMy = []
   tasksMy = []
   boxesData = []
@@ -100,6 +100,11 @@ export class WarehouseMyWarehouseViewModel {
   onChangeFilterModel(model) {
     this.filterModel = model
   }
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
+  }
 
   setDataGridState(state) {
     this.firstRowId = state.sorting.sortedRows[0]
@@ -154,7 +159,22 @@ export class WarehouseMyWarehouseViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.boxesMy)
+    if (this.nameSearchValue) {
+      return toJS(this.boxesMy).filter(
+        el =>
+          el.originalData.items.some(item =>
+            item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ) ||
+          el.originalData.items.some(item =>
+            item.product?.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ) ||
+          el.originalData.items.some(item =>
+            item.product?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ),
+      )
+    } else {
+      return toJS(this.boxesMy)
+    }
   }
 
   async loadData() {

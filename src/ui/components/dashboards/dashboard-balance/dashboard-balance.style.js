@@ -4,18 +4,17 @@ export const useClassNames = makeStyles(() => ({
   balanceWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
-    marginBottom: 30,
   },
 
   balanceTitle: {
-    fontSize: 46,
-    lineHeight: '54px',
+    fontSize: 36,
+    lineHeight: '49px',
     color: '#001029',
   },
 
   balanceFreeze: {
-    fontSize: '46px',
-    lineHeight: '53px',
+    fontSize: '36px',
+    lineHeight: '49px',
     color: '#c4c4c4',
     marginLeft: 28,
   },
@@ -23,6 +22,7 @@ export const useClassNames = makeStyles(() => ({
   title: {
     fontSize: 18,
     color: '#001029',
-    marginBottom: 20,
+    lineHeight: '140%',
+    marginBottom: '16px',
   },
 }))

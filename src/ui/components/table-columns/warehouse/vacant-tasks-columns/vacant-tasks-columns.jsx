@@ -8,20 +8,27 @@ import {
   NormalActionBtnCell,
   TaskTypeCell,
   MultilineTextHeaderCell,
-  TaskStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
 export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
   {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+    field: 'action',
+    headerName: t(TranslationKey.Action),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 150,
-    renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    type: 'date',
+    width: 250,
+    renderCell: params => (
+      <NormalActionBtnCell
+        tooltipText={t(TranslationKey['Take the task to work'])}
+        bTnText={t(TranslationKey['Get to work'])}
+        isFirstRow={firstRowId === params.row.id}
+        onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
+      />
+    ),
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -43,33 +50,13 @@ export const warehouseVacantTasksViewColumns = (handlers, firstRowId) => [
     filterable: false,
     sortable: false,
   },
-
   {
-    field: 'status',
-    headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     width: 150,
-    renderCell: params => <TaskStatusCell status={params.value} />,
-    filterable: false,
-    sortable: false,
-  },
-
-  {
-    field: 'action',
-    headerName: t(TranslationKey.Action),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-
-    width: 250,
-    renderCell: params => (
-      <NormalActionBtnCell
-        tooltipText={t(TranslationKey['Take the task to work'])}
-        bTnText={t(TranslationKey['Get to work'])}
-        isFirstRow={firstRowId === params.row.id}
-        onClickOkBtn={() => handlers.onClickPickupBtn(params.row.originalData)}
-      />
-    ),
-    filterable: false,
-    sortable: false,
+    renderCell: params => <NormDateFromUnixCell value={params.value} />,
+    type: 'date',
   },
 ]

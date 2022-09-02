@@ -28,10 +28,7 @@ import {useClassNames} from './servant-general-request-info.style'
 export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals}) => {
   const classNames = useClassNames()
 
-  const buttonDisabled =
-    request.request.status === RequestStatus.FORBID_NEW_PROPOSALS ||
-    requestProposals?.length ||
-    request?.request.restrictMoreThanOneProposalFromOneAssignee
+  const buttonDisabled = request?.request.restrictMoreThanOneProposalFromOneAssignee
 
   return requestProposals.length === 0 ? (
     <Paper className={classNames.root}>

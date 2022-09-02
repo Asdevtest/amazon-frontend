@@ -290,7 +290,7 @@ export const CreateOrEditRequestContent = ({
                   tooltipInfoContent={t(
                     TranslationKey['After providing the result, the same performer may make a new proposal'],
                   )}
-                  label={t(TranslationKey['Allow multiple performances by the same performer'])}
+                  label={t(TranslationKey['Prohibit multiple performances by the same performer'])}
                   containerClasses={classNames.checkboxWrapper}
                   inputComponent={
                     <Checkbox
@@ -477,7 +477,7 @@ export const CreateOrEditRequestContent = ({
                     </div>
                     <Typography className={classNames.restrictMoreThanOneProposal}>
                       {formFields.request.restrictMoreThanOneProposalFromOneAssignee &&
-                        t(TranslationKey['Multiple performances by the same performer are allowed'])}
+                        t(TranslationKey['Multiple performances by the same performer are prohibited'])}
                     </Typography>
                   </div>
                 </div>

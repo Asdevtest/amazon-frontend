@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 
+import {Avatar, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -10,12 +11,14 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
+import {DashboardButtons} from '@components/dashboards/dashboard-buttons'
 import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {UserMoneyTransferModal} from '@components/modals/user-money-transfer-modal'
 import {Navbar} from '@components/navbar'
 
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
 
 import {ClientDashboardViewModel} from './client-dashboard-view.model'
@@ -52,30 +55,34 @@ export class ClientDashboardViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Dashboard)} balance={userInfo.balance}>
             <MainContent>
-              <div className={classes.mb5}>
-                <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+              <Paper className={classes.userInfoWrapper}>
+                <Avatar src={getUserAvatarSrc(userInfo._id)} className={classes.cardImg} />
+                <div className={classes.balanceWrapper}>
+                  <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
 
-                <div className={classes.buttonWrapper}>
-                  <Button
-                    tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
-                    className={classes.button}
-                    color="primary"
-                    variant="contained"
-                    onClick={onClickWithdrawMoney}
-                  >
-                    {t(TranslationKey.Deposit)}
-                  </Button>
-                  <Button
-                    tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
-                    className={[classes.button, classes.withdrawBtn]}
-                    color="primary"
-                    variant="text"
-                    onClick={onClickAddMoney}
-                  >
-                    {t(TranslationKey.Withdraw)}
-                  </Button>
+                  <div className={classes.buttonWrapper}>
+                    <Button
+                      tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
+                      className={classes.button}
+                      color="primary"
+                      variant="contained"
+                      onClick={onClickWithdrawMoney}
+                    >
+                      {t(TranslationKey.Deposit)}
+                    </Button>
+                    <Button
+                      tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
+                      className={[classes.button, classes.withdrawBtn]}
+                      color="primary"
+                      variant="text"
+                      onClick={onClickAddMoney}
+                    >
+                      {t(TranslationKey.Withdraw)}
+                    </Button>
+                  </div>
                 </div>
-              </div>
+                <DashboardButtons />
+              </Paper>
 
               <SectionalDashboard
                 config={getClientDashboardCardConfig()}
