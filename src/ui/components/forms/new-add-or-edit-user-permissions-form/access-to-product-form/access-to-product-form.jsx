@@ -34,16 +34,7 @@ const accessProductSettings = {
 }
 
 export const AccessToProductForm = observer(
-  ({
-    isReady,
-    shop,
-    shops,
-    selectedShop,
-    updatedProducts,
-    onClickToShowDetails,
-
-    setShopDataToRender,
-  }) => {
+  ({isReady, shop, shops, selectedShop, updatedProducts, onClickToShowDetails, setShopDataToRender}) => {
     const classNames = useClassNames()
 
     const [curProdutsData, setCurProdutsData] = useState(updatedProducts || null)
@@ -125,13 +116,11 @@ export const AccessToProductForm = observer(
             classes={{root: classNames.accordionSummary, expanded: classNames.accordionExpanded}}
           >
             <div className={classNames.accardionTitleWrapper}>
-              <Typography className={classNames.title}>
-                {shop ? shop.name : t(TranslationKey['Products without shops'])}
-              </Typography>
+              <Typography className={classNames.title}>{shop?.name}</Typography>
               <Typography className={classNames.selectedValue}>{`(${
                 selectedAccess === accessProductSettings.NEED_SELECT
                   ? t(TranslationKey['Access to selected products only'])
-                  : t(TranslationKey['Access to all products in the store'])
+                  : t(TranslationKey['Access to all products'])
               })`}</Typography>
               {shop.tmpProductsIds.length ? (
                 <Typography className={classNames.chosenText}>
@@ -153,7 +142,7 @@ export const AccessToProductForm = observer(
                   <FormControlLabel
                     value={accessProductSettings.ALL_PRODUCTS}
                     control={<Radio color="primary" />}
-                    label={t(TranslationKey['Access to all products in the store'])}
+                    label={t(TranslationKey['Access to all products'])}
                   />
                   <FormControlLabel
                     value={accessProductSettings.NEED_SELECT}

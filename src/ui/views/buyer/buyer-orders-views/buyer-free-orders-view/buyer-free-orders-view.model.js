@@ -190,7 +190,10 @@ export class BuyerFreeOrdersViewModel {
       }
 
       this.selectedRowIds = []
-      this.onTriggerOpenModal('showInfoModal')
+
+      this.warningTitle = t(TranslationKey['Taken to Work'])
+
+      this.onTriggerOpenModal('showWarningModal')
       this.loadData()
     } catch (error) {
       console.log(error)

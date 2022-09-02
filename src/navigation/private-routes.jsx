@@ -6,6 +6,7 @@ import {Redirect, Route, useHistory} from 'react-router-dom'
 import {overallRoutesConfigs, privateRoutesConfigs} from '@constants/routes'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
+import {ChatModel} from '@models/chat-model'
 import {UserModel} from '@models/user-model'
 
 export const PrivateRoutes = observer(() => {
@@ -14,6 +15,7 @@ export const PrivateRoutes = observer(() => {
   useEffect(() => {
     if (UserModel.isAuthenticated()) {
       UserModel.getUserInfo()
+      ChatModel.init()
     }
   }, [history.location.pathname])
 

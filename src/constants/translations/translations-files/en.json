@@ -1454,7 +1454,7 @@
   "The user is waiting for confirmation by the Administrator": "The user is waiting for confirmation by the Administrator",
   "User not found": "User not found",
   "Access to products": "Access to products",
-  "Access to all products in the store": "Access to all products in the store",
+  "Access to all products": "Access to all products",
   "Access to selected products only": "Access to selected products only",
   "Search by product description and ASIN:": "Search by product description and ASIN:",
   "Search by SKU, ASIN, Title": "Search by SKU, ASIN, Title",
@@ -1490,5 +1490,6 @@
   "No ideas yet": "No ideas yet",
   "To vacant requests": "To vacant requests",
   "To the list of proposals": "To the list of proposals",
-  "Write": "Write"
+  "Write": "Write",
+  "All products": "All products"
 }
