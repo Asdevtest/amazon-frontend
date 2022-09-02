@@ -22,7 +22,7 @@ export class WarehouseAwaitingBatchesViewModel {
   error = undefined
 
   volumeWeightCoefficient = undefined
-
+  nameSearchValue = ''
   batches = []
   boxesData = []
 
@@ -131,7 +131,21 @@ export class WarehouseAwaitingBatchesViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.batches)
+    if (this.nameSearchValue) {
+      return toJS(this.batches).filter(
+        el =>
+          el.originalData.boxes?.some(box =>
+            box.items?.some(item => item.product?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
+          ) ||
+          el.originalData.boxes?.some(box =>
+            box.items?.some(item =>
+              item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+            ),
+          ),
+      )
+    } else {
+      return toJS(this.batches)
+    }
   }
 
   async loadData() {
@@ -153,6 +167,12 @@ export class WarehouseAwaitingBatchesViewModel {
 
   onChangeCurPage(e) {
     this.curPage = e
+  }
+
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   async getBatches() {

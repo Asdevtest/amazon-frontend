@@ -95,13 +95,16 @@ export class ClientWarehouseViewRaw extends Component {
       onChangeCurPage,
       onChangeRowsPerPage,
       onTriggerCheckbox,
-      onRedistribute,
+      onClickConfirmCreateSplitTasks,
+      onClickConfirmCreateChangeTasks,
+
       onTriggerOpenModal,
       onModalRedistributeBoxAddNewBox,
-      onEditBoxSubmit,
+
       triggerRequestToSendBatchModal,
       onClickSendBoxesToBatch,
-      onClickMerge,
+      onClickConfirmCreateMergeTasks,
+      // onClickMerge,
       onRemoveBoxFromSelected,
 
       onChangeFilterModel,
@@ -255,7 +258,7 @@ export class ClientWarehouseViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             requestStatus={requestStatus}
             formItem={boxesMy.find(box => box._id === selectedBoxes[0])?.originalData}
-            onSubmit={onEditBoxSubmit}
+            onSubmit={onClickConfirmCreateChangeTasks}
             onTriggerOpenModal={() => onTriggerOpenModal('showEditBoxModal')}
           />
         </Modal>
@@ -274,7 +277,7 @@ export class ClientWarehouseViewRaw extends Component {
               addNewBoxModal={showRedistributeBoxAddNewBoxModal}
               setAddNewBoxModal={value => onModalRedistributeBoxAddNewBox(value)}
               selectedBox={selectedBoxes.length && boxesMy.find(box => box._id === selectedBoxes[0])?.originalData}
-              onRedistribute={onRedistribute}
+              onRedistribute={onClickConfirmCreateSplitTasks}
               onTriggerOpenModal={onTriggerOpenModal}
             />
           </div>
@@ -296,7 +299,7 @@ export class ClientWarehouseViewRaw extends Component {
             requestStatus={requestStatus}
             setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
             onRemoveBoxFromSelected={onRemoveBoxFromSelected}
-            onSubmit={onClickMerge}
+            onSubmit={onClickConfirmCreateMergeTasks}
           />
         </Modal>
 

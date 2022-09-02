@@ -1,7 +1,9 @@
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
+import {InputAdornment} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -11,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {Field} from '@components/field/field'
 import {AddOrEditBatchForm} from '@components/forms/add-or-edit-batch-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -37,6 +40,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       isNeedConfirmPriceBoxSelected,
       isInvalidTariffBoxSelected,
       showProgress,
@@ -73,6 +77,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
       onClickAddOrEditBatch,
       onSubmitAddOrEditBatch,
       setCurrentOpenedBatch,
+      onChangeNameSearchValue,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -103,6 +108,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                     )}
                     color="primary"
                     variant="contained"
+                    className={classNames.batchBtn}
                     onClick={() => onTriggerOpenModal('showConfirmModal')}
                   >
                     {t(TranslationKey['Confirm send to batch'])}
@@ -119,11 +125,23 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
                     {t(TranslationKey['Edit batch'])}
                   </Button>
                 </div>
+                <Field
+                  containerClasses={classNames.searchContainer}
+                  inputClasses={classNames.searchInput}
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by ASIN, Title'])}
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon color="primary" />
+                    </InputAdornment>
+                  }
+                  onChange={onChangeNameSearchValue}
+                />
 
                 <Button
                   success
                   tooltipInfoContent={t(TranslationKey['Open a form to create a new batch'])}
-                  className={classNames.addBtn}
+                  className={classNames.createBtn}
                   onClick={() => onClickAddOrEditBatch({isAdding: true})}
                 >
                   {t(TranslationKey['Create a batch'])}

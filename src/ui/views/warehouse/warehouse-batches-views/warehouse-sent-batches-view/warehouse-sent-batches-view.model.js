@@ -18,7 +18,7 @@ export class WarehouseSentBatchesViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
-
+  nameSearchValue = ''
   batches = []
   selectedBatches = []
   volumeWeightCoefficient = undefined
@@ -105,7 +105,21 @@ export class WarehouseSentBatchesViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.batches)
+    if (this.nameSearchValue) {
+      return toJS(this.batches).filter(
+        el =>
+          el.originalData.boxes?.some(box =>
+            box.items?.some(item => item.product?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
+          ) ||
+          el.originalData.boxes?.some(box =>
+            box.items?.some(item =>
+              item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+            ),
+          ),
+      )
+    } else {
+      return toJS(this.batches)
+    }
   }
 
   async loadData() {
@@ -126,6 +140,12 @@ export class WarehouseSentBatchesViewModel {
 
   onChangeCurPage(e) {
     this.curPage = e
+  }
+
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   async getBatches() {

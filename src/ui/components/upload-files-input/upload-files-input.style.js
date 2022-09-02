@@ -197,4 +197,10 @@ export const useClassNames = makeStyles(() => ({
     width: '300px',
     overflowX: 'auto',
   },
+
+  '@media (max-width: 768px)': {
+    dragAndDropBtn: {
+      height: '68px',
+    },
+  },
 }))

@@ -584,7 +584,7 @@ export const EditBoxForm = observer(
             inputProps={{maxLength: 1000}}
             tooltipAttentionContent={t(TranslationKey['A task will be created for the prep center'])}
             label={t(TranslationKey['Write a comment on the task'])}
-            placeholder={t(TranslationKey['Task commentary'])}
+            placeholder={t(TranslationKey['Client comment on the task'])}
             onChange={setFormField('clientComment')}
           />
         </div>

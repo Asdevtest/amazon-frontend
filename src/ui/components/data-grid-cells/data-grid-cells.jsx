@@ -39,7 +39,15 @@ import {
 } from '@utils/date-time'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {toFixedWithDollarSign, trimBarcode, toFixedWithKg, checkAndMakeAbsoluteUrl, toFixed} from '@utils/text'
+import {
+  toFixedWithDollarSign,
+  trimBarcode,
+  toFixedWithKg,
+  checkAndMakeAbsoluteUrl,
+  toFixed,
+  shortSku,
+  shortAsin,
+} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {styles} from './data-grid-cells.style'
@@ -94,14 +102,18 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
         <div className={classNames.copyAsin}>
           <Typography className={classNames.typoCell}>
             {t(TranslationKey.ASIN)}
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={`https://www.amazon.com/dp/${product.asin}`}
-              className={classNames.normalizeLink}
-            >
-              <span className={classNames.typoSpan}>{product.asin}</span>
-            </a>
+            {product.asin ? (
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`https://www.amazon.com/dp/${product.asin}`}
+                className={classNames.normalizeLink}
+              >
+                <span className={classNames.typoSpan}>{shortAsin(product.asin)}</span>
+              </a>
+            ) : (
+              <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+            )}
           </Typography>
           {product.asin ? (
             <img
@@ -120,7 +132,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
           <Typography className={classNames.typoCell}>
             {t(TranslationKey.SKU)}
             <span className={classNames.typoSpan}>
-              {product.skusByClient?.length ? product.skusByClient.join(',') : t(TranslationKey.Missing)}
+              {product.skusByClient?.length ? shortSku(product.skusByClient[0]) : t(TranslationKey.Missing)}
             </span>
           </Typography>
           {product.skusByClient?.length ? (
@@ -140,42 +152,32 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
   </div>
 ))
 
-export const ProductCell = withStyles(styles)(({classes: classNames, product}) => {
-  const shortSku = value => {
-    const shortTitle = value.length > 12 ? value.slice(0, 12) + '...' : value
-    return shortTitle
-  }
-  const shortAsin = value => {
-    const shortTitle = value.length > 10 ? value.slice(0, 10) + '...' : value
-    return shortTitle
-  }
-  return (
-    <div className={classNames.productCell}>
-      <div className={classNames.asinCellContainer}>
-        <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images[0])} />
+export const ProductCell = withStyles(styles)(({classes: classNames, product}) => (
+  <div className={classNames.productCell}>
+    <div className={classNames.asinCellContainer}>
+      <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images[0])} />
 
-        <div className={classNames.productWrapper}>
-          <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
-          <div className={classNames.skuAndAsinWrapper}>
-            <Typography className={classNames.productTypoCell}>
-              {t(TranslationKey.SKU)}
-              <span className={classNames.typoSpan}>
-                {product.skusByClient?.length ? shortSku(product.skusByClient[0]) : '-'}
-              </span>
-              {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
-            </Typography>
-            {'/'}
-            <Typography className={classNames.productTypoCell}>
-              {t(TranslationKey.ASIN)}
-              <span className={classNames.typoSpan}>{shortAsin(product.asin)}</span>
-              {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
-            </Typography>
-          </div>
+      <div className={classNames.productWrapper}>
+        <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
+        <div className={classNames.skuAndAsinWrapper}>
+          <Typography className={classNames.productTypoCell}>
+            {t(TranslationKey.SKU)}
+            <span className={classNames.typoSpan}>
+              {product.skusByClient?.length ? shortSku(product.skusByClient[0]) : '-'}
+            </span>
+            {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
+          </Typography>
+          {'/'}
+          <Typography className={classNames.productTypoCell}>
+            {t(TranslationKey.ASIN)}
+            <span className={classNames.typoSpan}>{shortAsin(product.asin)}</span>
+            {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
+          </Typography>
         </div>
       </div>
     </div>
-  )
-})
+  </div>
+))
 
 export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
   ({classes: classNames, product, noCalculate, onClickCalculate}) => (

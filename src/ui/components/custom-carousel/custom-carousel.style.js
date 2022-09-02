@@ -93,6 +93,13 @@ export const useClassNames = makeStyles(() => ({
     // margin: '20px 0 20px 0',
   },
 
+  imagesAndFilesWrapperColumn: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    // justifyContent: 'space-between',
+  },
+
   imagesCarouselWrapper: {
     width: '100%',
     height: '100%',
@@ -212,6 +219,7 @@ export const useClassNames = makeStyles(() => ({
   smallImage: {
     cursor: 'pointer',
     minWidth: 60,
+
     minHeight: 60,
     // height: 50,
     maxHeight: 70,

@@ -53,6 +53,13 @@ export const ShortBoxItemCard = ({item, superCount, boxId}) => {
           </div>
         </div>
       </div>
+      <div className={classNames.attributeFooterMobileWrapper}>
+        <div className={classNames.asinWrapper}>
+          <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
+          <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
+        </div>
+        <Typography className={classNames.title}>{item.product?.amazonTitle}</Typography>
+      </div>
     </div>
   )
 }

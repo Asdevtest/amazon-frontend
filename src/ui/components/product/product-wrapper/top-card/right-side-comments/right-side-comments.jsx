@@ -1,3 +1,5 @@
+import {Alert} from '@mui/material'
+
 import React from 'react'
 
 import {Box, Grid, Typography} from '@material-ui/core'
@@ -184,7 +186,7 @@ export const RightSideComments = observer(
           )}
           {acceptMessage && (
             <div className={classNames.acceptMessageWrapper}>
-              <Typography className={classNames.acceptMessage}>{acceptMessage}</Typography>
+              <Alert security="success">{acceptMessage}</Alert>
             </div>
           )}
         </Box>

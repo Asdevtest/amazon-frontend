@@ -182,4 +182,138 @@ export const useClassNames = makeStyles(theme => ({
     width: '162px',
     height: '40px',
   },
+  tableWrapperMobile: {
+    display: 'none',
+  },
+  addButtonWrapperMobile: {
+    display: 'none',
+  },
+  '@media (max-width: 768px)': {
+    root: {
+      width: '300px',
+    },
+
+    modalTitle: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      fontWeight: 600,
+      color: '#001029',
+      marginBottom: '27px',
+    },
+    boxesWrapper: {
+      width: '300px',
+      // marginLeft: '-10px',
+      // marginRight: '-20px',
+      flexDirection: 'column',
+
+      padding: '20px',
+      // overflow: 'auto',
+    },
+    tableWrapper: {
+      display: 'none',
+    },
+    divider: {
+      display: 'none',
+    },
+    tableRow: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    tableWrapperMobile: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '10px',
+    },
+    addButtonWrapper: {
+      display: 'none',
+    },
+    sectionTitle: {
+      marginTop: '40px',
+      marginBottom: '40px',
+      fontSize: '16px',
+      lineHeight: '22px',
+      color: '#001029',
+    },
+    deleteBtn: {
+      color: '#001029',
+    },
+    boxesTitle: {
+      fontSize: '12px',
+      lineHeight: '140%',
+      fontWeight: 600,
+      color: '#001029',
+      textTransform: 'uppercase',
+    },
+    boxesTitleWrapper: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    boxTitle: {
+      fontSize: '12px',
+      lineHeight: '16px',
+      color: '#656565',
+      marginBottom: '12px',
+    },
+    img: {
+      width: '50px',
+      height: '50px',
+      marginRight: '10px',
+    },
+
+    title: {
+      fontSize: '14px',
+      fontWeight: 400,
+      lineHeight: '21px',
+      // marginRight: '10px',
+      width: '200px',
+      overflow: 'visible',
+      textOverflow: 'inherit',
+      whiteSpace: 'pre-wrap',
+    },
+    boxTitleMobile: {
+      fontSize: '12px',
+      lineHeight: '16px',
+      fontWeight: 600,
+      color: '#001029',
+    },
+    inputWrapper: {
+      border: '1px solid rgba(143, 152, 165, 1)',
+      borderRadius: '4px',
+      maxWidth: '45px',
+      height: '30px',
+    },
+    sizeTitle: {
+      fontSize: '12px',
+      lineHeight: '16px',
+      color: '#656565',
+    },
+    sizeWrapper: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '1px',
+    },
+    photoBtnWrapper: {
+      display: 'flex',
+      justifyContent: 'end',
+    },
+    addButtonWrapperMobile: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginTop: '30px',
+    },
+    buttonsWrapper: {
+      marginTop: '30px',
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '20px',
+    },
+    button: {
+      width: '121px',
+    },
+    cancelButton: {
+      color: '#001029',
+    },
+  },
 }))

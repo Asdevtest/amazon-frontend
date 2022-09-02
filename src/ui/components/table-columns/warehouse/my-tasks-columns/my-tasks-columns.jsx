@@ -8,30 +8,27 @@ import {
   WarehouseMyTasksBtnsCell,
   TaskTypeCell,
   MultilineTextHeaderCell,
-  TaskStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
 export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
   {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+    field: 'action',
+    headerName: t(TranslationKey.Action),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 120,
-    renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    type: 'date',
-  },
+    width: 250,
 
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    width: 120,
-    renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    type: 'date',
+    renderCell: params => (
+      <WarehouseMyTasksBtnsCell
+        handlers={handlers}
+        row={params.row.originalData}
+        isFirstRow={firstRowId === params.row.id}
+      />
+    ),
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -55,31 +52,23 @@ export const warehouseMyTasksViewColumns = (handlers, firstRowId) => [
   },
 
   {
-    field: 'status',
-    headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: 110,
-    renderCell: params => <TaskStatusCell status={params.value} />,
-    filterable: false,
-    sortable: false,
+    width: 120,
+    renderCell: params => <NormDateFromUnixCell value={params.value} />,
+    type: 'date',
   },
 
-  {
-    field: 'action',
-    headerName: t(TranslationKey.Action),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
+  // {
+  //   field: 'status',
+  //   headerName: t(TranslationKey.Status),
+  //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 250,
-
-    renderCell: params => (
-      <WarehouseMyTasksBtnsCell
-        handlers={handlers}
-        row={params.row.originalData}
-        isFirstRow={firstRowId === params.row.id}
-      />
-    ),
-    filterable: false,
-    sortable: false,
-  },
+  //   width: 110,
+  //   renderCell: params => <TaskStatusCell status={params.value} />,
+  //   filterable: false,
+  //   sortable: false,
+  // },
 ]

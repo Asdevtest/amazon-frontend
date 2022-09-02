@@ -97,6 +97,7 @@ const Box = observer(
               disabled
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
               label={t(TranslationKey.Warehouse)}
+              labelClasses={classNames.smallLabel}
               value={box.destination?.name ? box.destination?.name : t(TranslationKey['Not available'])}
               className={classNames.field}
             />
@@ -107,6 +108,7 @@ const Box = observer(
               disabled
               tooltipInfoContent={t(TranslationKey['Selected shipping tariff to USA'])}
               label={t(TranslationKey.Tariff)}
+              labelClasses={classNames.smallLabel}
               value={getFullTariffTextForBoxOrOrder(box) || 'N/A'}
               className={classNames.field}
             />
@@ -170,26 +172,26 @@ const Box = observer(
 
                 {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
                   <div className={classNames.demensionsWrapper}>
-                    <Typography>
+                    <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey.Length) + ': '}
 
                       {toFixed(box.lengthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                     </Typography>
-                    <Typography>
+                    <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey.Width) + ': '}
                       {toFixed(box.widthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                     </Typography>
-                    <Typography>
+                    <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey.Height) + ': '}
                       {toFixed(box.heightCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                     </Typography>
 
-                    <Typography>
+                    <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey.Weight) + ': '}
                       {toFixedWithKg(box.weighGrossKgSupplier, 2)}
                     </Typography>
 
-                    <Typography>
+                    <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey['Volume weight']) + ': '}
                       {toFixedWithKg(
                         ((parseFloat(box.lengthCmSupplier) || 0) *
@@ -200,7 +202,7 @@ const Box = observer(
                       )}
                     </Typography>
 
-                    <Typography>
+                    <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey['Final weight']) + ': '}
                       {toFixedWithKg(
                         box.weighGrossKgSupplier >
@@ -219,24 +221,24 @@ const Box = observer(
                   </div>
                 ) : (
                   <div className={classNames.demensionsWrapper}>
-                    <Typography>
+                    <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey.Length) + ': '}
                       {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                     </Typography>
-                    <Typography>
+                    <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey.Width) + ': '}
                       {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                     </Typography>
-                    <Typography>
+                    <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey.Height) + ': '}
                       {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                     </Typography>
 
-                    <Typography>
+                    <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey.Weight) + ': '}
                       {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
                     </Typography>
-                    <Typography>
+                    <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey['Volume weight']) + ': '}
                       {toFixedWithKg(
                         ((parseFloat(box.lengthCmWarehouse) || 0) *
@@ -246,7 +248,7 @@ const Box = observer(
                         2,
                       )}
                     </Typography>
-                    <Typography>
+                    <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey['Final weight']) + ': '}
                       {toFixedWithKg(
                         box.weighGrossKgWarehouse >
@@ -273,7 +275,12 @@ const Box = observer(
                       TranslationKey['Photos and documents of the box'],
                     )}:`}</Typography>
                     <div className={classNames.photoSubWrapper}>
-                      <PhotoAndFilesCarousel small files={box.images} width="350px" />
+                      <PhotoAndFilesCarousel
+                        small
+                        direction={window.screen.width < 768 ? 'column' : 'row'}
+                        files={box.images}
+                        width={'350px'}
+                      />
                     </div>
 
                     {isNewBox && box.tmpImages?.length ? (
@@ -325,7 +332,12 @@ const Box = observer(
                       TranslationKey['Photos and order documents'],
                     )}:`}</Typography>
                     <div className={classNames.photoSubWrapper}>
-                      <PhotoAndFilesCarousel small files={box.items[0].order.images} width="350px" />
+                      <PhotoAndFilesCarousel
+                        small
+                        direction={window.screen.width < 768 ? 'column' : 'row'}
+                        files={box.items[0].order.images}
+                        width="350px"
+                      />
                     </div>
                   </div>
                 )}
@@ -428,7 +440,7 @@ const ReceiveBoxes = ({taskType, onClickOpenModal}) => {
   return (
     <div className={classNames.receiveBoxWrapper}>
       <div className={classNames.receiveBox}>
-        <img src="/assets/img/receive-big.png" />
+        <img src="/assets/img/receive-big.png" className={classNames.imageBox} />
         <Typography className={classNames.receiveBoxTitle}>
           {t(TranslationKey['Add boxes that have arrived in stock'])}
         </Typography>

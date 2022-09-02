@@ -75,8 +75,8 @@
   "Photos of current supplier": "Фотографии текущего поставщика",
   "No photos yet...": "Фотографий пока нет...",
   "Order photos:": "Фотографии заказа:",
-  "Shipping label": "Шиппинг лебл",
-  "Shipping label was glued to the warehouse": "Шиппинг лебл был проклеен складом",
+  "Shipping label": "Шиппинг лейбл",
+  "Shipping label was glued to the warehouse": "Шиппинг лейбл был проклеен складом",
   "New boxes": "Новые коробки",
   "Incoming": "Поступление",
   "Close": "Закрыть",
@@ -1482,5 +1482,9 @@
   "Open an appeal": "Открыть обращение",
   "chosen": "выбрано",
   "The warehouse has already taken the task to work": "Склад уже взял задачу в работу",
-  "Messages": "Сообщения"
+  "Messages": "Сообщения",
+  "Search by ASIN, Title": "Поиск по ASIN, Title",
+  "Prohibit multiple performances by the same performer": "Запретить многократное исполнение одному исполнителю",
+  "Multiple performances by the same performer are prohibited": "Запрещено многократное исполнение одному исполнителю",
+  "The task for the warehouse will be formed": "Будет сформирована задача для склада"
 }

@@ -9,7 +9,6 @@ import {
   UserLinkCell,
   MultilineTextHeaderCell,
   OrderStatusCell,
-  MultilineTextAlignLeftHeaderCell,
   DownloadAndCopyBtnsCell,
   RenderFieldValueCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -29,7 +28,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
   {
     field: 'asin',
     headerName: t(TranslationKey.Orders),
-    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Orders)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Orders)} />,
 
     width: 400,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,
@@ -37,7 +36,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Status)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 200,
     renderCell: params => <OrderStatusCell status={params.value} />,
@@ -46,7 +45,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
   {
     field: 'amount',
     headerName: t(TranslationKey.Quantity),
-    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Quantity)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
 
     width: 150,
@@ -86,7 +85,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
   {
     field: 'warehouses',
     headerName: t(TranslationKey.Warehouse),
-    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey.Warehouse)} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
 
     renderCell: params => <RenderFieldValueCell value={params.value} />,
     width: 200,
@@ -95,7 +94,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
   {
     field: 'clientComment',
     headerName: t(TranslationKey['Client comment']),
-    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey['Client comment'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 300,
@@ -104,7 +103,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
   {
     field: 'buyerComment',
     headerName: t(TranslationKey['Buyer comment']),
-    renderHeader: () => <MultilineTextAlignLeftHeaderCell text={t(TranslationKey['Buyer comment'])} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 300,

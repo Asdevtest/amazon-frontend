@@ -7,31 +7,28 @@ import {
   TaskDescriptionCell,
   NormalActionBtnCell,
   TaskTypeCell,
-  MultilineTextHeaderCell,
-  TaskStatusCell, // WarehouseTasksBtnCell,
+  MultilineTextHeaderCell, // WarehouseTasksBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
 
 export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
   {
-    field: 'createdAt',
-    headerName: t(TranslationKey.Created),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+    field: 'action',
+    headerName: t(TranslationKey.Action),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 150,
-    renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    type: 'date',
-  },
-
-  {
-    field: 'updatedAt',
-    headerName: t(TranslationKey.Updated),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    width: 150,
-    renderCell: params => <NormDateFromUnixCell value={params.value} />,
-    type: 'date',
+    width: 250,
+    renderCell: params => (
+      <NormalActionBtnCell
+        isFirstRow={firstRowId === params.row.id}
+        tooltipText={t(TranslationKey['Open the window with task information'])}
+        bTnText={t(TranslationKey.View)}
+        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
+      />
+    ),
+    filterable: false,
+    sortable: false,
   },
 
   {
@@ -52,33 +49,13 @@ export const warehouseCanceledTasksViewColumns = (handlers, firstRowId) => [
     filterable: false,
     sortable: false,
   },
-
   {
-    field: 'status',
-    headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+    field: 'updatedAt',
+    headerName: t(TranslationKey.Updated),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     width: 150,
-    renderCell: params => <TaskStatusCell status={params.value} />,
-    filterable: false,
-    sortable: false,
-  },
-
-  {
-    field: 'action',
-    headerName: t(TranslationKey.Action),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
-
-    width: 250,
-    renderCell: params => (
-      <NormalActionBtnCell
-        isFirstRow={firstRowId === params.row.id}
-        tooltipText={t(TranslationKey['Open the window with task information'])}
-        bTnText={t(TranslationKey.View)}
-        onClickOkBtn={() => handlers.setCurrentOpenedTask(params.row.originalData)}
-      />
-    ),
-    filterable: false,
-    sortable: false,
+    renderCell: params => <NormDateFromUnixCell value={params.value} />,
+    type: 'date',
   },
 ]

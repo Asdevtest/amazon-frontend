@@ -178,7 +178,7 @@ export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 
 
   return files?.length ? (
     <div
-      className={classNames.imagesAndFilesWrapper}
+      className={direction === 'column' ? classNames.imagesAndFilesWrapperColumn : classNames.imagesAndFilesWrapper}
       style={{width, flexDirection: direction === 'column' ? 'column' : 'row'}}
     >
       <div className={classNames.imagesWrapper}>

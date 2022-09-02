@@ -191,10 +191,10 @@ export const useClassNames = makeStyles(() => ({
     position: 'absolute',
     top: 0,
     left: '50%',
-    backgroundColor: '#e2e2e2ff',
+
     padding: '10px',
     marginTop: '63px',
-    borderRadius: '4px',
+    zIndex: 999,
     opacity: 0,
     transform: 'translateY(-150%)',
     animation: '$ani 1s forwards',

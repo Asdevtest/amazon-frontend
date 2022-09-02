@@ -150,4 +150,39 @@ export const useClassNames = makeStyles({
   label: {
     fontSize: '14px',
   },
+
+  attributeFooterWrapperMobile: {
+    display: 'none',
+  },
+  '@media (max-width: 768px)': {
+    root: {
+      width: '280px',
+    },
+    img: {
+      width: '85px',
+      height: '85px',
+    },
+    attributeHeaderWrapper: {
+      flexDirection: 'column',
+      gap: '14px',
+    },
+
+    attributeFooterWrapper: {
+      display: 'none',
+    },
+    attributeFooterWrapperMobile: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '14px',
+    },
+    title: {
+      width: '243px',
+    },
+    countSubWrapper: {
+      gap: '10px',
+    },
+    label: {
+      width: '120px',
+    },
+  },
 })

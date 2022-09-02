@@ -287,6 +287,12 @@ export const useClassNames = makeStyles(() => ({
     color: '#001029',
     fontWeight: 400,
   },
+  labelShipping: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#001029',
+    fontWeight: 400,
+  },
   footerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -356,5 +362,98 @@ export const useClassNames = makeStyles(() => ({
   incomingBtnWrapper: {
     display: 'flex',
     justifyContent: 'end',
+  },
+
+  '@media (max-width: 768px)': {
+    boxesWrapper: {
+      flexDirection: 'column',
+    },
+    sectionTitleWrapper: {
+      marginTop: '30px',
+    },
+    fieldsWrapper: {
+      flexDirection: 'column',
+    },
+    field: {
+      width: '280px',
+    },
+    smallLabel: {
+      fontSize: '14px',
+      lineHeight: '19px',
+      color: '#656565',
+    },
+    boxWrapper: {
+      padding: '20px 20px',
+    },
+    currentBox: {
+      maxWidth: '280px',
+    },
+    newBoxes: {
+      width: '280px',
+    },
+    mobileDemensions: {
+      fontSize: '14px',
+      lineHeight: '19px',
+    },
+    boxInfoWrapper: {
+      flexDirection: 'column',
+      gap: '30px',
+    },
+    photoSubWrapper: {
+      height: '200px',
+      marginLeft: '-50px',
+      // display: 'flex',
+      // justifyContent: 'center',
+    },
+    photoAndFilesTitle: {
+      width: '243px',
+      textAlign: 'center',
+    },
+    photoWrapper: {
+      width: '280px',
+      marginLeft: 0,
+    },
+    imagesWrapper: {
+      width: '280px',
+    },
+    footerWrapper: {
+      flexDirection: 'column',
+      gap: '14px',
+    },
+    labelShipping: {
+      width: '100px',
+    },
+
+    subTitle: {
+      padding: 0,
+    },
+
+    chipWrapper: {
+      gap: '10px',
+    },
+    editBtnWrapper: {
+      flexDirection: 'column',
+      gap: '20px',
+    },
+    tablePanelSortWrapper: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px',
+      cursor: 'pointer',
+    },
+    receiveBoxWrapper: {
+      width: '280px',
+      marginBottom: '50px',
+    },
+
+    imageBox: {
+      width: '180px',
+    },
+
+    receiveBoxTitle: {
+      fontSize: '14px',
+      lineHeight: '19px',
+      marginTop: '40px',
+    },
   },
 }))

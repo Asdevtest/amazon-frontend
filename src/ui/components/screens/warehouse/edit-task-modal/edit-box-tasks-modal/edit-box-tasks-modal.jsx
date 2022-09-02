@@ -26,6 +26,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
           inputProps={{maxLength: 6}}
           error={Number(box.lengthCmWarehouse) === 0 && true}
           containerClasses={classNames.numberInputField}
+          labelClasses={classNames.label}
           label={t(TranslationKey.Length) + ': '}
           value={box.lengthCmWarehouse}
           onChange={setNewBoxField('lengthCmWarehouse')}
@@ -34,6 +35,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
           inputProps={{maxLength: 6}}
           error={Number(box.widthCmWarehouse) === 0 && true}
           containerClasses={classNames.numberInputField}
+          labelClasses={classNames.label}
           label={t(TranslationKey.Width) + ': '}
           value={box.widthCmWarehouse}
           onChange={setNewBoxField('widthCmWarehouse')}
@@ -43,6 +45,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
         <Field
           inputProps={{maxLength: 6}}
           error={Number(box.heightCmWarehouse) === 0 && true}
+          labelClasses={classNames.label}
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey.Height) + ': '}
           value={box.heightCmWarehouse}
@@ -52,6 +55,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
           inputProps={{maxLength: 6}}
           error={Number(box.weighGrossKgWarehouse) === 0 && true}
           containerClasses={classNames.numberInputField}
+          labelClasses={classNames.label}
           label={t(TranslationKey.Weight) + ', ' + t(TranslationKey.Kg) + ': '}
           value={box.weighGrossKgWarehouse}
           onChange={setNewBoxField('weighGrossKgWarehouse')}
@@ -62,6 +66,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
           disabled
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Volume weight']) + ', ' + t(TranslationKey.Kg) + ': '}
+          labelClasses={classNames.label}
           value={toFixed(
             (sizeSetting === sizesType.INCHES
               ? box.heightCmWarehouse *
@@ -78,6 +83,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
           disabled
           containerClasses={classNames.numberInputField}
           label={t(TranslationKey['Final weight']) + ', ' + t(TranslationKey.Kg) + ': '}
+          labelClasses={classNames.label}
           value={Math.max(
             toFixed(
               (sizeSetting === sizesType.INCHES
@@ -217,7 +223,14 @@ export const EditBoxTasksModal = ({
         <Typography className={classNames.photoAndFilesTitle}>
           {t(TranslationKey['Photos and documents of the box']) + ': '}
         </Typography>
-        <PhotoAndFilesCarousel small files={box.images} width="400px" />
+        <div className={classNames.photoAndFilesTitleMobileWrapper}>
+          <PhotoAndFilesCarousel
+            small
+            direction={window.screen.width < 768 ? 'column' : 'row'}
+            files={box.images}
+            width="300px"
+          />
+        </div>
       </div>
 
       <div className={classNames.buttonsWrapper}>

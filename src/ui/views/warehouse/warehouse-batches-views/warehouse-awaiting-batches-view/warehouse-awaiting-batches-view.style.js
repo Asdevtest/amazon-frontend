@@ -32,17 +32,25 @@ export const styles = createStyles(theme => ({
   btnsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
     margin: '15px 0',
   },
 
   leftBtnsWrapper: {
     display: 'flex',
-    justifyContent: 'space-between',
-    minWidth: '400px',
+    flexDirection: 'column',
+    // justifyContent: 'space-between',
+    gap: '20px',
   },
 
   editBtn: {
-    marginLeft: '30px',
+    width: '260px',
+  },
+  batchBtn: {
+    width: '260px',
+  },
+  createBtn: {
+    width: '200px',
   },
 
   addBtn: {
@@ -77,6 +85,15 @@ export const styles = createStyles(theme => ({
   },
   datagridWrapper: {
     marginTop: '10px',
-    height: '81vh',
+    height: '75vh',
+  },
+  searchContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '300px',
+    height: 36,
   },
 }))

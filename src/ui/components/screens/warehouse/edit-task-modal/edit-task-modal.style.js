@@ -193,4 +193,90 @@ export const useClassNames = makeStyles(theme => ({
     alignItems: 'center',
     height: '200px',
   },
+  buttonsWrapperMobile: {
+    display: 'none',
+  },
+
+  '@media (max-width: 768px)': {
+    root: {
+      width: '280px',
+      overflow: 'hidden',
+    },
+    modalTitle: {
+      display: 'none',
+    },
+    hideBlock: {
+      display: 'none',
+    },
+    typeTaskTitle: {
+      display: 'none',
+    },
+    typeTaskSubTitle: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      fontWeight: 600,
+    },
+    subTitle: {
+      display: 'none',
+    },
+
+    heightFieldAuto: {
+      height: '96px',
+      width: '280px',
+    },
+
+    commentsWrapper: {
+      width: '280px',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '20px',
+    },
+    commentsAndFilesWrapper: {
+      width: '280px',
+      flexDirection: 'column',
+    },
+    imageFileInputWrapper: {
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%',
+      padding: '0 10px',
+    },
+    horizontalDivider: {
+      display: 'none',
+    },
+
+    buttonsWrapper: {
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '20px',
+    },
+    successBtn: {
+      width: '121px',
+      height: '40px',
+    },
+    cancelButton: {
+      width: '121px',
+      height: '40px',
+    },
+    buttonsWrapperMobile: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginBottom: '20px',
+    },
+    hideButton: {
+      display: 'none',
+    },
+    buttonMobile: {
+      width: '183px',
+      height: '40px',
+    },
+    buttonWrapper: {
+      justifyContent: 'center',
+    },
+    photosWrapper: {
+      width: '400px',
+      height: '200px',
+      marginLeft: '-50px',
+    },
+  },
 }))

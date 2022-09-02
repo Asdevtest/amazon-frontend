@@ -496,7 +496,7 @@ export const RedistributeBox = ({
           rows={18}
           rowsMax={18}
           label={t(TranslationKey['Client comment on the task'])}
-          placeholder={t(TranslationKey['Task commentary'])}
+          placeholder={t(TranslationKey['Client comment on the task'])}
           value={comment}
           onChange={e => setComment(e.target.value)}
         />

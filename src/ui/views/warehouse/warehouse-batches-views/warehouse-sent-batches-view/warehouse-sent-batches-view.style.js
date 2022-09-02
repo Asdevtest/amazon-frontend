@@ -26,7 +26,7 @@ export const styles = createStyles(theme => ({
   tableWrapper: {
     marginTop: '32px',
     width: '100%',
-    height: '100%',
+    height: '75vh',
   },
 
   btnsWrapper: {
@@ -58,5 +58,18 @@ export const styles = createStyles(theme => ({
   },
   toolbarContainer: {
     height: '52px',
+  },
+  searchContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '300px',
+    height: 36,
+  },
+  datagridWrapper: {
+    marginTop: '10px',
+    height: '82vh',
   },
 }))

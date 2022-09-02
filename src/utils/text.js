@@ -80,3 +80,12 @@ export const getFullTariffTextForBoxOrOrder = box => {
       : ''
   }`
 }
+
+export const shortSku = value => {
+  const shortTitle = value.length > 12 ? value.slice(0, 12) + '...' : value
+  return shortTitle
+}
+export const shortAsin = value => {
+  const shortTitle = value.length > 10 ? value.slice(0, 10) + '...' : value
+  return shortTitle
+}

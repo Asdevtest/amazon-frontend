@@ -51,7 +51,7 @@ export const MergeBoxesModal = ({
 
   const [comment, setComment] = useState('')
   const onSubmitBoxesModal = () => {
-    onSubmit({...boxBody, destinationId: boxBody.destinationId || null}, comment)
+    onSubmit({...boxBody, destinationId: boxBody.destinationId || null}, selectedBoxes[0], comment)
     setBoxBody({shippingLabel: '', destinationId: null, logicsTariffId: '', fbaShipment: '', tmpShippingLabel: []})
     setComment('')
   }
@@ -257,7 +257,7 @@ export const MergeBoxesModal = ({
           rowsMax={18}
           inputProps={{maxLength: 2000}}
           label={t(TranslationKey['Client comment on the task'])}
-          placeholder={t(TranslationKey['Task commentary'])}
+          placeholder={t(TranslationKey['Client comment on the task'])}
           value={comment}
           onChange={e => setComment(e.target.value)}
         />
