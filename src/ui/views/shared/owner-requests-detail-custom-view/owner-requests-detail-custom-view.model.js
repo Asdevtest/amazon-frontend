@@ -64,7 +64,7 @@ export class OwnerRequestDetailCustomViewModel {
     }
     makeAutoObservable(this, undefined, {autoBind: true})
     try {
-      ChatModel.init()
+      // ChatModel.init()
 
       if (ChatModel.isConnected) {
         ChatModel.getChats(this.requestId, 'REQUEST')
@@ -84,7 +84,6 @@ export class OwnerRequestDetailCustomViewModel {
           },
         )
       }
-      // ChatModel.init()
     } catch (error) {
       console.warn(error)
     }

@@ -70,7 +70,7 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
       </TableCell>
 
       <TableCell>
-        <Typography>{item.destination?.name}</Typography>
+        <Typography className={classNames.textEllipsis}>{item.destination?.name}</Typography>
       </TableCell>
 
       <TableCell>

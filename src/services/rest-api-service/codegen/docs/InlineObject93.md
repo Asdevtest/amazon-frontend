@@ -1,4 +1,4 @@
-# TestSwagger.InlineObject91
+# TestSwagger.InlineObject93
 
 ## Properties
 

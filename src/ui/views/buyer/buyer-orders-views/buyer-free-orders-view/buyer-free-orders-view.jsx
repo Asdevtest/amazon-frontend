@@ -10,6 +10,7 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
@@ -34,6 +35,8 @@ class BuyerFreeOrdersViewRaw extends Component {
 
   render() {
     const {
+      selectedRowIds,
+      onPickupSomeItems,
       requestStatus,
       getCurrentData,
       sortModel,
@@ -64,7 +67,18 @@ class BuyerFreeOrdersViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['Free Orders'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
+              <div className={classNames.btnsWrapper}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  disabled={selectedRowIds.length === 0}
+                  onClick={onPickupSomeItems}
+                >
+                  {t(TranslationKey['Take on the work of the selected'])}
+                </Button>
+              </div>
               <DataGrid
+                checkboxSelection
                 pagination
                 useResizeContainer
                 classes={{
@@ -87,14 +101,12 @@ class BuyerFreeOrdersViewRaw extends Component {
                 density={densityModel}
                 columns={columnsModel}
                 loading={requestStatus === loadingStatuses.isLoading}
-                onSelectionModelChange={newSelection => {
-                  onSelectionModel(newSelection[0])
-                }}
                 onSortModelChange={onChangeSortingModel}
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
+                onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
               />
             </MainContent>
           </Appbar>

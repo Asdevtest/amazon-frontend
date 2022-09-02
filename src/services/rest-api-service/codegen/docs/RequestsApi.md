@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiV1ChatsGuidPost**](RequestsApi.md#apiV1ChatsGuidPost) | **POST** /api/v1/chats/{guid} | Создать обычный чат
 [**apiV1RequestsCalculateRequestCostGuidGet**](RequestsApi.md#apiV1RequestsCalculateRequestCostGuidGet) | **GET** /api/v1/requests/calculate_request_cost/{guid} | Получить детализацию стоимости заявки
 [**apiV1RequestsCustomGet**](RequestsApi.md#apiV1RequestsCustomGet) | **GET** /api/v1/requests/custom/ | Получить все уникальные заявки для исполнителя.
 [**apiV1RequestsCustomGuidGet**](RequestsApi.md#apiV1RequestsCustomGuidGet) | **GET** /api/v1/requests/custom/{guid} | Получить уникальную заявку по его guid.
@@ -16,6 +17,60 @@ Method | HTTP request | Description
 [**apiV1RequestsGuidPickupPost**](RequestsApi.md#apiV1RequestsGuidPickupPost) | **POST** /api/v1/requests/{guid}/pickup | # Этот метод вызывает тот кто бронирует место в заявке.
 [**apiV1RequestsGuidToPublishPatch**](RequestsApi.md#apiV1RequestsGuidToPublishPatch) | **PATCH** /api/v1/requests/{guid}/to_publish | #  Опубликовать заявку.
 
+
+
+## apiV1ChatsGuidPost
+
+> String apiV1ChatsGuidPost(guid, opts)
+
+Создать обычный чат
+
+Метод создает чат не привязаный к другим инстансам   
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.RequestsApi();
+let guid = null; // String | GUID юзера в БД.
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1ChatsGuidPost(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID юзера в БД. | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
 ## apiV1RequestsCalculateRequestCostGuidGet
@@ -203,7 +258,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject92() // InlineObject92 | 
+  'body': new TestSwagger.InlineObject91() // InlineObject91 | 
 };
 apiInstance.apiV1RequestsCustomGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -220,7 +275,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject92**](InlineObject92.md)|  | [optional] 
+ **body** | [**InlineObject91**](InlineObject91.md)|  | [optional] 
 
 ### Return type
 
@@ -258,7 +313,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.RequestsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject91() // InlineObject91 | 
+  'body': new TestSwagger.InlineObject90() // InlineObject90 | 
 };
 apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -274,7 +329,7 @@ apiInstance.apiV1RequestsCustomPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject91**](InlineObject91.md)|  | [optional] 
+ **body** | [**InlineObject90**](InlineObject90.md)|  | [optional] 
 
 ### Return type
 
@@ -369,7 +424,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = "guid_example"; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject72() // InlineObject72 | 
+  'body': new TestSwagger.InlineObject71() // InlineObject71 | 
 };
 apiInstance.apiV1RequestsGuidAbortPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -386,7 +441,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject72**](InlineObject72.md)|  | [optional] 
+ **body** | [**InlineObject71**](InlineObject71.md)|  | [optional] 
 
 ### Return type
 
@@ -533,7 +588,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = null; // String | GUID в сущности в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject71() // InlineObject71 | 
+  'body': new TestSwagger.InlineObject70() // InlineObject70 | 
 };
 apiInstance.apiV1RequestsGuidPickupPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -550,7 +605,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в сущности в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject71**](InlineObject71.md)|  | [optional] 
+ **body** | [**InlineObject70**](InlineObject70.md)|  | [optional] 
 
 ### Return type
 
@@ -589,7 +644,7 @@ let apiInstance = new TestSwagger.RequestsApi();
 let guid = null; // String | GUID в БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject70() // InlineObject70 | 
+  'body': new TestSwagger.InlineObject69() // InlineObject69 | 
 };
 apiInstance.apiV1RequestsGuidToPublishPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -606,7 +661,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID в БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject70**](InlineObject70.md)|  | [optional] 
+ **body** | [**InlineObject69**](InlineObject69.md)|  | [optional] 
 
 ### Return type
 

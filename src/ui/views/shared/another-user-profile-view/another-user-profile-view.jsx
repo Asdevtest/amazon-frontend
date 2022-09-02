@@ -76,6 +76,7 @@ class AnotherUserProfileViewRaw extends Component {
       onClickOrderNowBtn,
       onClickCancelBtn,
       onClickBuyProductBtn,
+      onClickWriteBtn,
     } = this.viewModel
 
     return (
@@ -88,10 +89,10 @@ class AnotherUserProfileViewRaw extends Component {
                 <UserProfile
                   isAnotherUser
                   user={user}
-                  timer={'14 минут'}
                   headerInfoData={headerInfoData}
                   tabReview={tabReview}
                   tabHistory={tabHistory}
+                  onClickWriteBtn={onClickWriteBtn}
                 />
               )}
 

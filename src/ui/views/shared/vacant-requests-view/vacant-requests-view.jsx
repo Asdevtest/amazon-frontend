@@ -126,11 +126,21 @@ class VacantRequestsViewRaw extends Component {
                   }
                   gridGap="20px"
                 >
-                  {getSortedData(sortMode)?.map(item =>
+                  {getSortedData(sortMode)?.map((item, index) =>
                     viewMode === tableViewMode.LIST ? (
-                      <VacantRequestListCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
+                      <VacantRequestListCard
+                        key={item._id}
+                        isFirst={index === 0}
+                        item={item}
+                        onClickViewMore={onClickViewMore}
+                      />
                     ) : (
-                      <VacantRequestShortCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
+                      <VacantRequestShortCard
+                        key={item._id}
+                        isFirst={index === 0}
+                        item={item}
+                        onClickViewMore={onClickViewMore}
+                      />
                     ),
                   )}
                 </Box>

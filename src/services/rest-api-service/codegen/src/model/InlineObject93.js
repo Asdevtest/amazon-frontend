@@ -16,19 +16,19 @@ import ApiV1RequestProposalsRequestDetailsCustom from './ApiV1RequestProposalsRe
 import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 
 /**
- * The InlineObject91 model module.
- * @module model/InlineObject91
+ * The InlineObject93 model module.
+ * @module model/InlineObject93
  * @version 0.1.0
  */
-class InlineObject91 {
+class InlineObject93 {
     /**
-     * Constructs a new <code>InlineObject91</code>.
+     * Constructs a new <code>InlineObject93</code>.
      * Схема универсальной заявки.
-     * @alias module:model/InlineObject91
+     * @alias module:model/InlineObject93
      */
     constructor() { 
         
-        InlineObject91.initialize(this);
+        InlineObject93.initialize(this);
     }
 
     /**
@@ -40,15 +40,15 @@ class InlineObject91 {
     }
 
     /**
-     * Constructs a <code>InlineObject91</code> from a plain JavaScript object, optionally creating a new instance.
+     * Constructs a <code>InlineObject93</code> from a plain JavaScript object, optionally creating a new instance.
      * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
      * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/InlineObject91} obj Optional instance to populate.
-     * @return {module:model/InlineObject91} The populated <code>InlineObject91</code> instance.
+     * @param {module:model/InlineObject93} obj Optional instance to populate.
+     * @return {module:model/InlineObject93} The populated <code>InlineObject93</code> instance.
      */
     static constructFromObject(data, obj) {
         if (data) {
-            obj = obj || new InlineObject91();
+            obj = obj || new InlineObject93();
 
             if (data.hasOwnProperty('request')) {
                 obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
@@ -66,17 +66,17 @@ class InlineObject91 {
 /**
  * @member {module:model/ApiV1RequestsCustomGuidRequest} request
  */
-InlineObject91.prototype['request'] = undefined;
+InlineObject93.prototype['request'] = undefined;
 
 /**
  * @member {module:model/ApiV1RequestProposalsRequestDetailsCustom} details
  */
-InlineObject91.prototype['details'] = undefined;
+InlineObject93.prototype['details'] = undefined;
 
 
 
 
 
 
-export default InlineObject91;
+export default InlineObject93;
 

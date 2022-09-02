@@ -35,6 +35,7 @@ export const UserProfile = observer(
     tabHistory,
     setTabHistory,
     setTabReview,
+    onClickWriteBtn,
   }) => {
     const classNames = useClassNames()
 
@@ -66,6 +67,18 @@ export const UserProfile = observer(
 
                     <Rating disabled className={classNames.userRating} value={user?.rating} />
                   </div>
+
+                  {isAnotherUser && (
+                    <Button
+                      id="user-profile-change-btn"
+                      variant="contained"
+                      color="primary"
+                      className={classNames.writeBtn}
+                      onClick={() => onClickWriteBtn(user._id)}
+                    >
+                      {t(TranslationKey.Write)}
+                    </Button>
+                  )}
 
                   {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
                     <Button

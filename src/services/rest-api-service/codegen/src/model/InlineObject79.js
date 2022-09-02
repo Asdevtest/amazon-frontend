@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import InlineObject13 from './InlineObject13';
 
 /**
  * The InlineObject79 model module.
@@ -48,8 +47,14 @@ class InlineObject79 {
         if (data) {
             obj = obj || new InlineObject79();
 
-            if (data.hasOwnProperty('additionalBoxes')) {
-                obj['additionalBoxes'] = ApiClient.convertToType(data['additionalBoxes'], [InlineObject13]);
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('storekeeperComment')) {
+                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
             }
         }
         return obj;
@@ -59,10 +64,22 @@ class InlineObject79 {
 }
 
 /**
- * Массив дополнительных коробок которые случились при обработки.
- * @member {Array.<module:model/InlineObject13>} additionalBoxes
+ * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено, 40 - отменено.
+ * @member {Number} status
  */
-InlineObject79.prototype['additionalBoxes'] = undefined;
+InlineObject79.prototype['status'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject79.prototype['images'] = undefined;
+
+/**
+ * Комментарий работника склада.
+ * @member {String} storekeeperComment
+ */
+InlineObject79.prototype['storekeeperComment'] = undefined;
 
 
 

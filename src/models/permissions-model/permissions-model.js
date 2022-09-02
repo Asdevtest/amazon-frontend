@@ -53,7 +53,7 @@ class PermissionsModelStatic {
   }
 
   setProductsPermissionsForUser = async data => {
-    const response = await restApiService.permissionsApi.apiV1PermissionsProductsPost({
+    const response = await restApiService.permissionsApi.apiV1PermissionsProductsPatch({
       body: data,
     })
     return response

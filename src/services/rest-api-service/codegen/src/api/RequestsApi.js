@@ -15,11 +15,11 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
+import InlineObject69 from '../model/InlineObject69';
 import InlineObject70 from '../model/InlineObject70';
 import InlineObject71 from '../model/InlineObject71';
-import InlineObject72 from '../model/InlineObject72';
+import InlineObject90 from '../model/InlineObject90';
 import InlineObject91 from '../model/InlineObject91';
-import InlineObject92 from '../model/InlineObject92';
 import InlineResponse20021 from '../model/InlineResponse20021';
 import InlineResponse20022 from '../model/InlineResponse20022';
 import InlineResponse20031 from '../model/InlineResponse20031';
@@ -47,6 +47,60 @@ export default class RequestsApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
+
+
+    /**
+     * Создать обычный чат
+     * Метод создает чат не привязаный к другим инстансам   
+     * @param {String} guid GUID юзера в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1ChatsGuidPostWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ChatsGuidPost");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/chats/{guid}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Создать обычный чат
+     * Метод создает чат не привязаный к другим инстансам   
+     * @param {String} guid GUID юзера в БД.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1ChatsGuidPost(guid, opts) {
+      return this.apiV1ChatsGuidPostWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
 
     /**
@@ -217,7 +271,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject92} opts.body 
+     * @param {module:model/InlineObject91} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsCustomGuidPatchWithHttpInfo(guid, opts) {
@@ -256,7 +310,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject92} opts.body 
+     * @param {module:model/InlineObject91} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsCustomGuidPatch(guid, opts) {
@@ -272,7 +326,7 @@ export default class RequestsApi {
      * ## Создать универсальную заявку.   Цена будет округлена на до 0,01$   Роли которые могут работать с заявками клиент, фрилансер и супервайзер  Проверки: пока нет проверки (Цена за предложение не должно быть меньше установленного в админке.)
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject91} opts.body 
+     * @param {module:model/InlineObject90} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
     apiV1RequestsCustomPostWithHttpInfo(opts) {
@@ -305,7 +359,7 @@ export default class RequestsApi {
      * ## Создать универсальную заявку.   Цена будет округлена на до 0,01$   Роли которые могут работать с заявками клиент, фрилансер и супервайзер  Проверки: пока нет проверки (Цена за предложение не должно быть меньше установленного в админке.)
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject91} opts.body 
+     * @param {module:model/InlineObject90} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
     apiV1RequestsCustomPost(opts) {
@@ -383,7 +437,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject72} opts.body 
+     * @param {module:model/InlineObject71} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsGuidAbortPatchWithHttpInfo(guid, opts) {
@@ -422,7 +476,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject72} opts.body 
+     * @param {module:model/InlineObject71} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsGuidAbortPatch(guid, opts) {
@@ -547,7 +601,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject71} opts.body 
+     * @param {module:model/InlineObject70} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2018} and HTTP response
      */
     apiV1RequestsGuidPickupPostWithHttpInfo(guid, opts) {
@@ -586,7 +640,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject71} opts.body 
+     * @param {module:model/InlineObject70} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2018}
      */
     apiV1RequestsGuidPickupPost(guid, opts) {
@@ -603,7 +657,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject70} opts.body 
+     * @param {module:model/InlineObject69} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestsGuidToPublishPatchWithHttpInfo(guid, opts) {
@@ -642,7 +696,7 @@ export default class RequestsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject70} opts.body 
+     * @param {module:model/InlineObject69} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestsGuidToPublishPatch(guid, opts) {

@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
 
 /**
  * The InlineObject74 model module.
@@ -21,6 +22,7 @@ import ApiClient from '../ApiClient';
 class InlineObject74 {
     /**
      * Constructs a new <code>InlineObject74</code>.
+     * Схема продажи магазина
      * @alias module:model/InlineObject74
      */
     constructor() { 
@@ -47,116 +49,47 @@ class InlineObject74 {
         if (data) {
             obj = obj || new InlineObject74();
 
-            if (data.hasOwnProperty('category')) {
-                obj['category'] = ApiClient.convertToType(data['category'], 'String');
+            if (data.hasOwnProperty('title')) {
+                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
-            if (data.hasOwnProperty('lamazon')) {
-                obj['lamazon'] = ApiClient.convertToType(data['lamazon'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('bsr')) {
-                obj['bsr'] = ApiClient.convertToType(data['bsr'], 'Number');
+            if (data.hasOwnProperty('businessStartDate')) {
+                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
             }
-            if (data.hasOwnProperty('fba')) {
-                obj['fba'] = ApiClient.convertToType(data['fba'], 'Boolean');
+            if (data.hasOwnProperty('shopDetails')) {
+                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
             }
-            if (data.hasOwnProperty('amazon')) {
-                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            if (data.hasOwnProperty('shopAssets')) {
+                obj['shopAssets'] = ApiClient.convertToType(data['shopAssets'], ['String']);
             }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
+            if (data.hasOwnProperty('files')) {
+                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
             }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
+            if (data.hasOwnProperty('shopLink')) {
+                obj['shopLink'] = ApiClient.convertToType(data['shopLink'], 'String');
             }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
+            if (data.hasOwnProperty('statistics')) {
+                obj['statistics'] = ApiClient.convertToType(data['statistics'], [ApiV1ShopSellStatistics1]);
             }
-            if (data.hasOwnProperty('weight')) {
-                obj['weight'] = ApiClient.convertToType(data['weight'], 'Number');
+            if (data.hasOwnProperty('opportunities')) {
+                obj['opportunities'] = ApiClient.convertToType(data['opportunities'], ['String']);
             }
-            if (data.hasOwnProperty('reffee')) {
-                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            if (data.hasOwnProperty('risks')) {
+                obj['risks'] = ApiClient.convertToType(data['risks'], ['String']);
             }
-            if (data.hasOwnProperty('fbafee')) {
-                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            if (data.hasOwnProperty('requiredSkills')) {
+                obj['requiredSkills'] = ApiClient.convertToType(data['requiredSkills'], ['String']);
             }
-            if (data.hasOwnProperty('fbaamount')) {
-                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+            if (data.hasOwnProperty('sellIncludes')) {
+                obj['sellIncludes'] = ApiClient.convertToType(data['sellIncludes'], ['String']);
             }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('reasonForSale')) {
+                obj['reasonForSale'] = ApiClient.convertToType(data['reasonForSale'], ['String']);
             }
-            if (data.hasOwnProperty('icomment')) {
-                obj['icomment'] = ApiClient.convertToType(data['icomment'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('amazonDescription')) {
-                obj['amazonDescription'] = ApiClient.convertToType(data['amazonDescription'], 'String');
-            }
-            if (data.hasOwnProperty('amazonDetail')) {
-                obj['amazonDetail'] = ApiClient.convertToType(data['amazonDetail'], 'String');
-            }
-            if (data.hasOwnProperty('amazonTitle')) {
-                obj['amazonTitle'] = ApiClient.convertToType(data['amazonTitle'], 'String');
-            }
-            if (data.hasOwnProperty('barCode')) {
-                obj['barCode'] = ApiClient.convertToType(data['barCode'], 'String');
-            }
-            if (data.hasOwnProperty('minpurchase')) {
-                obj['minpurchase'] = ApiClient.convertToType(data['minpurchase'], 'Number');
-            }
-            if (data.hasOwnProperty('profit')) {
-                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
-            }
-            if (data.hasOwnProperty('margin')) {
-                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
-            }
-            if (data.hasOwnProperty('listingName')) {
-                obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
-            }
-            if (data.hasOwnProperty('listingBulletPoints')) {
-                obj['listingBulletPoints'] = ApiClient.convertToType(data['listingBulletPoints'], ['String']);
-            }
-            if (data.hasOwnProperty('listingProductDetails')) {
-                obj['listingProductDetails'] = ApiClient.convertToType(data['listingProductDetails'], 'String');
-            }
-            if (data.hasOwnProperty('listingSearchTerms')) {
-                obj['listingSearchTerms'] = ApiClient.convertToType(data['listingSearchTerms'], 'String');
-            }
-            if (data.hasOwnProperty('listingSubjectMatters')) {
-                obj['listingSubjectMatters'] = ApiClient.convertToType(data['listingSubjectMatters'], ['String']);
-            }
-            if (data.hasOwnProperty('listingImages')) {
-                obj['listingImages'] = ApiClient.convertToType(data['listingImages'], ['String']);
-            }
-            if (data.hasOwnProperty('strategyStatus')) {
-                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
-            }
-            if (data.hasOwnProperty('niche')) {
-                obj['niche'] = ApiClient.convertToType(data['niche'], 'String');
-            }
-            if (data.hasOwnProperty('asins')) {
-                obj['asins'] = ApiClient.convertToType(data['asins'], 'String');
-            }
-            if (data.hasOwnProperty('totalRevenue')) {
-                obj['totalRevenue'] = ApiClient.convertToType(data['totalRevenue'], 'String');
-            }
-            if (data.hasOwnProperty('coefficient')) {
-                obj['coefficient'] = ApiClient.convertToType(data['coefficient'], 'String');
-            }
-            if (data.hasOwnProperty('avgRevenue')) {
-                obj['avgRevenue'] = ApiClient.convertToType(data['avgRevenue'], 'String');
-            }
-            if (data.hasOwnProperty('avgBSR')) {
-                obj['avgBSR'] = ApiClient.convertToType(data['avgBSR'], 'String');
-            }
-            if (data.hasOwnProperty('avgPrice')) {
-                obj['avgPrice'] = ApiClient.convertToType(data['avgPrice'], 'String');
-            }
-            if (data.hasOwnProperty('avgReviews')) {
-                obj['avgReviews'] = ApiClient.convertToType(data['avgReviews'], 'String');
+            if (data.hasOwnProperty('additionalInfo')) {
+                obj['additionalInfo'] = ApiClient.convertToType(data['additionalInfo'], ['String']);
             }
         }
         return obj;
@@ -166,217 +99,88 @@ class InlineObject74 {
 }
 
 /**
- * Категория
- * @member {String} category
+ * Имя магазина для продажи
+ * @member {String} title
  */
-InlineObject74.prototype['category'] = undefined;
+InlineObject74.prototype['title'] = undefined;
 
 /**
- * Ссылка на этот продукт на амазоне.
- * @member {String} lamazon
+ * Стоимость магазина
+ * @member {Number} price
  */
-InlineObject74.prototype['lamazon'] = undefined;
+InlineObject74.prototype['price'] = undefined;
 
 /**
- * 
- * @member {Number} bsr
+ * Дата создания бизнеса
+ * @member {Date} businessStartDate
  */
-InlineObject74.prototype['bsr'] = undefined;
+InlineObject74.prototype['businessStartDate'] = undefined;
 
 /**
- * Признак fba
- * @member {Boolean} fba
+ * Детали магазина
+ * @member {String} shopDetails
  */
-InlineObject74.prototype['fba'] = undefined;
+InlineObject74.prototype['shopDetails'] = undefined;
 
 /**
- * 
- * @member {Number} amazon
+ * Активы магазина
+ * @member {Array.<String>} shopAssets
  */
-InlineObject74.prototype['amazon'] = undefined;
+InlineObject74.prototype['shopAssets'] = undefined;
 
 /**
- * @member {Number} height
+ * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
+ * @member {Array.<String>} files
  */
-InlineObject74.prototype['height'] = undefined;
+InlineObject74.prototype['files'] = undefined;
 
 /**
- * @member {Number} width
+ * Ссылка на сайт магазина
+ * @member {String} shopLink
  */
-InlineObject74.prototype['width'] = undefined;
+InlineObject74.prototype['shopLink'] = undefined;
 
 /**
- * @member {Number} length
+ * Статистика магазина по месяцам
+ * @member {Array.<module:model/ApiV1ShopSellStatistics1>} statistics
  */
-InlineObject74.prototype['length'] = undefined;
+InlineObject74.prototype['statistics'] = undefined;
 
 /**
- * @member {Number} weight
+ * Возможности магазина
+ * @member {Array.<String>} opportunities
  */
-InlineObject74.prototype['weight'] = undefined;
+InlineObject74.prototype['opportunities'] = undefined;
 
 /**
- * комиссия которую берет амазон за любой заказ - 15%
- * @member {Number} reffee
+ * Риски магазина
+ * @member {Array.<String>} risks
  */
-InlineObject74.prototype['reffee'] = undefined;
+InlineObject74.prototype['risks'] = undefined;
 
 /**
- * ФБА комиссия
- * @member {Number} fbafee
+ * Требуемые навыки
+ * @member {Array.<String>} requiredSkills
  */
-InlineObject74.prototype['fbafee'] = undefined;
+InlineObject74.prototype['requiredSkills'] = undefined;
 
 /**
- *  Общая сумма с фба.
- * @member {Number} fbaamount
+ * В продажу также включено
+ * @member {Array.<String>} sellIncludes
  */
-InlineObject74.prototype['fbaamount'] = undefined;
+InlineObject74.prototype['sellIncludes'] = undefined;
 
 /**
- *  Статус товара. У ресечера: 0 - новый товар. 5- готов к проверке супером. 10 - новый товар с поставщиком
- * @member {Number} status
+ * Причина продажи
+ * @member {Array.<String>} reasonForSale
  */
-InlineObject74.prototype['status'] = undefined;
+InlineObject74.prototype['reasonForSale'] = undefined;
 
 /**
- * Комментарии к товару.
- * @member {String} icomment
+ * Дополнительная информация
+ * @member {Array.<String>} additionalInfo
  */
-InlineObject74.prototype['icomment'] = undefined;
-
-/**
- * Массив изображений.
- * @member {Array.<String>} images
- */
-InlineObject74.prototype['images'] = undefined;
-
-/**
- * @member {String} amazonDescription
- */
-InlineObject74.prototype['amazonDescription'] = undefined;
-
-/**
- * @member {String} amazonDetail
- */
-InlineObject74.prototype['amazonDetail'] = undefined;
-
-/**
- * @member {String} amazonTitle
- */
-InlineObject74.prototype['amazonTitle'] = undefined;
-
-/**
- * @member {String} barCode
- */
-InlineObject74.prototype['barCode'] = undefined;
-
-/**
- * @member {Number} minpurchase
- */
-InlineObject74.prototype['minpurchase'] = undefined;
-
-/**
- * Прибыль
- * @member {Number} profit
- */
-InlineObject74.prototype['profit'] = undefined;
-
-/**
- * Маржа
- * @member {Number} margin
- */
-InlineObject74.prototype['margin'] = undefined;
-
-/**
- * 
- * @member {String} listingName
- */
-InlineObject74.prototype['listingName'] = undefined;
-
-/**
- * Массив ...
- * @member {Array.<String>} listingBulletPoints
- */
-InlineObject74.prototype['listingBulletPoints'] = undefined;
-
-/**
- * 
- * @member {String} listingProductDetails
- */
-InlineObject74.prototype['listingProductDetails'] = undefined;
-
-/**
- * 
- * @member {String} listingSearchTerms
- */
-InlineObject74.prototype['listingSearchTerms'] = undefined;
-
-/**
- * Массив ...
- * @member {Array.<String>} listingSubjectMatters
- */
-InlineObject74.prototype['listingSubjectMatters'] = undefined;
-
-/**
- * массив картинок(в виде прямых ссылок).
- * @member {Array.<String>} listingImages
- */
-InlineObject74.prototype['listingImages'] = undefined;
-
-/**
- * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
- * @member {Number} strategyStatus
- */
-InlineObject74.prototype['strategyStatus'] = undefined;
-
-/**
- * Ниша
- * @member {String} niche
- */
-InlineObject74.prototype['niche'] = undefined;
-
-/**
- * Асины
- * @member {String} asins
- */
-InlineObject74.prototype['asins'] = undefined;
-
-/**
- * Общий доход
- * @member {String} totalRevenue
- */
-InlineObject74.prototype['totalRevenue'] = undefined;
-
-/**
- * Коэффициент прибыли
- * @member {String} coefficient
- */
-InlineObject74.prototype['coefficient'] = undefined;
-
-/**
- * Средний доход
- * @member {String} avgRevenue
- */
-InlineObject74.prototype['avgRevenue'] = undefined;
-
-/**
- * Средний BSR
- * @member {String} avgBSR
- */
-InlineObject74.prototype['avgBSR'] = undefined;
-
-/**
- * Средняя цена
- * @member {String} avgPrice
- */
-InlineObject74.prototype['avgPrice'] = undefined;
-
-/**
- * Средний отзывы
- * @member {String} avgReviews
- */
-InlineObject74.prototype['avgReviews'] = undefined;
+InlineObject74.prototype['additionalInfo'] = undefined;
 
 
 

@@ -1,12 +1,6 @@
-import {makeAutoObservable, runInAction, toJS} from 'mobx'
+import {makeAutoObservable} from 'mobx'
 
-import {RequestSubType, RequestType} from '@constants/request-type'
-import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
-import {UserRoleCodeMapForRoutes} from '@constants/user-roles'
-import {ViewTableModeStateKeys} from '@constants/view-table-mode-state-keys'
-
-import {RequestProposalModel} from '@models/request-proposal'
-import {SettingsModel} from '@models/settings-model'
+import {ChatModel} from '@models/chat-model'
 import {UserModel} from '@models/user-model'
 
 export class MessagesViewModel {
@@ -17,110 +11,55 @@ export class MessagesViewModel {
 
   drawerOpen = false
   showConfirmModal = false
-  requestId = undefined
-  proposalId = undefined
-  client = {}
 
-  requests = []
-  deals = []
-
-  viewMode = tableViewMode.LIST
-  sortMode = tableSortMode.DESK
+  chatSelectedId = undefined
 
   get user() {
     return UserModel.userInfo
   }
 
-  constructor({history}) {
+  get simpleChats() {
+    return ChatModel.simpleChats || []
+  }
+
+  constructor({history, location}) {
     this.history = history
+
+    if (location.state) {
+      this.chatSelectedId = this.simpleChats.find(el =>
+        el.users.map(e => e._id).includes(location.state.anotherUserId),
+      )?._id
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
-  }
-
-  onChangeViewMode(event, nextView) {
-    this.viewMode = nextView
-  }
-
-  getCurrentData() {
-    return toJS(this.deals)
-  }
-
-  setTableModeState() {
-    const state = {viewMode: this.viewMode, sortMode: this.sortMode}
-
-    SettingsModel.setViewTableModeState(state, ViewTableModeStateKeys.VACANT_DEALS)
-  }
-
-  getTableModeState() {
-    const state = SettingsModel.viewTableModeState[ViewTableModeStateKeys.VACANT_DEALS]
-
-    if (state) {
-      this.viewMode = state.viewMode
-      this.sortMode = state.sortMode
-    }
-  }
-
-  onTriggerSortMode() {
-    if (this.sortMode === tableSortMode.DESK) {
-      this.sortMode = tableSortMode.ASC
-    } else {
-      this.sortMode = tableSortMode.DESK
-    }
-
-    this.setTableModeState()
   }
 
   async loadData() {
     try {
-      await this.getDealsVacant()
+      await ChatModel.getSimpleChats()
     } catch (error) {
       console.log(error)
     }
   }
 
-  async getDealsVacant() {
-    try {
-      const result = await RequestProposalModel.getRequestProposalsForSupervisor(
-        RequestType.CUSTOM,
-        RequestSubType.VACANT,
-      )
+  onClickChat(chat) {
+    if (this.chatSelectedId === chat._id) {
+      this.chatSelectedId = undefined
+    } else {
+      this.chatSelectedId = chat._id
+    }
+  }
 
-      runInAction(() => {
-        this.deals = result
+  async onSubmitMessage(message, links, files, chatIdId) {
+    try {
+      await ChatModel.sendMessage({
+        chatId: chatIdId,
+        text: message,
+        files: files?.map(item => item?.file),
       })
     } catch (error) {
-      console.log(error)
+      console.warn('onSubmitMessage error ', error)
     }
-  }
-
-  async onClickViewMore(id) {
-    try {
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/vacant-deals/deal-details`, {
-        requestId: id,
-      })
-    } catch (error) {
-      this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
-    }
-  }
-
-  async onClickGetToWork(id, requestId) {
-    try {
-      await RequestProposalModel.requestProposalLinkOrUnlinkSupervisor(id, {action: 'LINK'})
-      this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
-        requestId,
-      })
-      this.onTriggerOpenModal('showConfirmModal')
-    } catch (error) {
-      this.onTriggerOpenModal('showWarningModal')
-      console.log(error)
-    }
-  }
-
-  onClickGetToWorkModal(proposalId, requestId) {
-    this.proposalId = proposalId
-    this.requestId = requestId
-
-    this.onTriggerOpenModal('showConfirmModal')
   }
 
   onTriggerDrawerOpen() {
@@ -133,5 +72,9 @@ export class MessagesViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

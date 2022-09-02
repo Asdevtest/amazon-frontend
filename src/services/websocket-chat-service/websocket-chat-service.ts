@@ -65,14 +65,16 @@ export class WebsocketChatService {
     })
   }
 
-  public async getChats(crmItemId?: string, crmItemType?: string): Promise<Chat[]> {
-    if (!crmItemId || !crmItemType) {
-      throw new Error('crmItemId and crmItemType should be both in parameters')
-    }
+  public async getChats(crmItemId?: string | null, crmItemType?: string | null): Promise<Chat[]> {
+    // if (!crmItemId || !crmItemType) {
+    //   throw new Error('crmItemId and crmItemType should be both in parameters')
+    // }
     return new Promise((resolve, reject) => {
       console.log('emit socket call')
       this.socket.emit(
-        EentToEmit.GET_CHATS,
+        crmItemType ? EentToEmit.GET_CHATS : EentToEmit.GET_SIMPLE_CHATS,
+        // 'Chat:user:get-simple-chats',
+        // {crmItemId: null, crmItemType: null},
         {crmItemId, crmItemType},
         (getChatsResponse: WebsocketChatResponse<Chat[]>) => {
           if (!getChatsResponse.success || !getChatsResponse.data) {

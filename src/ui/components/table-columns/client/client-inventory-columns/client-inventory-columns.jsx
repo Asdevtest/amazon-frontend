@@ -58,8 +58,8 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
 
   {
     field: 'stockValue',
-    headerName: 'Amazon',
-    renderHeader: () => <MultilineTextHeaderCell text={'Amazon'} />,
+    headerName: 'FBA/FBM Stock',
+    renderHeader: () => <MultilineTextHeaderCell text={'FBA/FBM Stock'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 70,

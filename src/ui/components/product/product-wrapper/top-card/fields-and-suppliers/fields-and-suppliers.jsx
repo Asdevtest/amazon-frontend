@@ -84,7 +84,6 @@ export const FieldsAndSuppliers = observer(
         checkIsClient(curUserRole) &&
         !product.archive)
     )
-    console.log(product.skusByClient)
 
     return (
       <Grid item xs={12}>
@@ -284,7 +283,7 @@ export const FieldsAndSuppliers = observer(
                             checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode))
                           }
                         >
-                          {mapProductStrategyStatusEnum[statusCode]}
+                          {mapProductStrategyStatusEnum[statusCode]?.replace(/_/g, ' ')}
                         </option>
                       ))}
                     </NativeSelect>

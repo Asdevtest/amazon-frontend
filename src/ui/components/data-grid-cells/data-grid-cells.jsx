@@ -102,6 +102,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
         <div className={classNames.copyAsin}>
           <Typography className={classNames.typoCell}>
             {t(TranslationKey.ASIN)}
+
             {product.asin ? (
               <a
                 target="_blank"

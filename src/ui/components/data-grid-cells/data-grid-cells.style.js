@@ -74,6 +74,11 @@ export const styles = createStyles(() => ({
     marginLeft: 10,
     color: 'rgba(61, 81, 112, 1)',
   },
+  linkSpan: {
+    marginLeft: 10,
+    color: '#007bff',
+  },
+
   cellBtn: {
     color: 'rgba(0, 123, 255, 1)',
     paddingTop: '0px',
@@ -968,6 +973,7 @@ export const styles = createStyles(() => ({
     display: 'inline-flex',
   },
   normalizeLink: {
+    color: '#007bff',
     textDecoration: 'none',
     transition: '.3s ease',
     '&:hover': {

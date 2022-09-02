@@ -59,6 +59,13 @@ export const useClassNames = makeStyles(() => ({
     marginLeft: '30px',
   },
 
+  textEllipsis: {
+    maxWidth: 150,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
   footerWrapper: {
     backgroundColor: '#F8F8F8',
     height: '65px',

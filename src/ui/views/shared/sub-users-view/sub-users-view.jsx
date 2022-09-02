@@ -10,6 +10,7 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
+import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
@@ -23,6 +24,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
+import {checkIsClient} from '@utils/checks'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
@@ -41,6 +43,7 @@ class SubUsersViewRaw extends Component {
 
   render() {
     const {
+      userInfo,
       curUserProductPermissions,
       nameSearchValue,
       showConfirmModal,
@@ -171,6 +174,7 @@ class SubUsersViewRaw extends Component {
 
         <Modal openModal={showPermissionModal} setOpenModal={() => onTriggerOpenModal('showPermissionModal')}>
           <NewAddOrEditUserPermissionsForm
+            isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[userInfo.role])}
             curUserProductPermissions={curUserProductPermissions}
             permissionsToSelect={singlePermissions}
             permissionGroupsToSelect={groupPermissions}

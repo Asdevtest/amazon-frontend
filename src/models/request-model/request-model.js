@@ -140,6 +140,11 @@ class RequestModelStatic {
     })
     return response
   }
+
+  createSimpleChatByUserId = async id => {
+    const response = await restApiService.SearchRequestApi.apiV1ChatsGuidPost(id)
+    return response
+  }
 }
 
 export const RequestModel = new RequestModelStatic()

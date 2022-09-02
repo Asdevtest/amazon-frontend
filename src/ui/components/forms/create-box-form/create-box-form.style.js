@@ -146,7 +146,7 @@ export const useClassNames = makeStyles(theme => ({
 
   destinationWrapper: {
     maxWidth: '400px',
-    textAlign: 'right',
+    textAlign: 'left',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },

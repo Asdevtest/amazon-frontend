@@ -121,10 +121,11 @@ class MyProposalsViewRaw extends Component {
                   justifyContent="flex-start"
                   alignItems="flex-start"
                 >
-                  {getSortedData(sortMode)?.map(item =>
+                  {getSortedData(sortMode)?.map((item, index) =>
                     viewMode === tableViewMode.LIST ? (
                       <MyProposalsListCard
                         key={item._id}
+                        isFirst={index === 0}
                         item={item}
                         onClickEditBtn={onClickEditBtn}
                         onClickDeleteBtn={onClickDeleteBtn}

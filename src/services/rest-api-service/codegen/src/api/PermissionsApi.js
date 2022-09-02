@@ -16,7 +16,6 @@ import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
 import InlineObject56 from '../model/InlineObject56';
-import InlineObject57 from '../model/InlineObject57';
 import InlineResponse20017 from '../model/InlineResponse20017';
 import InlineResponse20018 from '../model/InlineResponse20018';
 import InternalServerError from '../model/InternalServerError';
@@ -469,55 +468,6 @@ export default class PermissionsApi {
 
 
     /**
-     * Удалить разрешение для продукта для саба.
-     * ## Удалить разрешение для продукта для саба.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject57} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
-     */
-    apiV1PermissionsProductsDeleteWithHttpInfo(opts) {
-      opts = opts || {};
-      let postBody = opts['body'];
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-        'Accept-Encoding': opts['Accept_Encoding']
-      };
-      let formParams = {
-      };
-
-      let authNames = ['AccessTokenBearer'];
-      let contentTypes = ['application/json'];
-      let accepts = ['application/json'];
-      let returnType = 'String';
-      return this.apiClient.callApi(
-        '/api/v1/permissions/products', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Удалить разрешение для продукта для саба.
-     * ## Удалить разрешение для продукта для саба.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject57} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
-     */
-    apiV1PermissionsProductsDelete(opts) {
-      return this.apiV1PermissionsProductsDeleteWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
      * Получить список разрешений для продуктов всех сабъюзеров.
      * ## Получить список разрешений для продуктов всех сабъюзеров.
      * @param {Object} opts Optional parameters
@@ -619,14 +569,14 @@ export default class PermissionsApi {
 
 
     /**
-     * Создать разрешение для продукта для саба.
-     * ## Создать разрешение для продукта для саба.
+     * Переписать разрешения для продукта для саба.
+     * ## Переписать разрешения для продукта для саба.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject56} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
-    apiV1PermissionsProductsPostWithHttpInfo(opts) {
+    apiV1PermissionsProductsPatchWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['body'];
 
@@ -645,22 +595,22 @@ export default class PermissionsApi {
       let accepts = ['application/json'];
       let returnType = 'String';
       return this.apiClient.callApi(
-        '/api/v1/permissions/products', 'POST',
+        '/api/v1/permissions/products', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Создать разрешение для продукта для саба.
-     * ## Создать разрешение для продукта для саба.
+     * Переписать разрешения для продукта для саба.
+     * ## Переписать разрешения для продукта для саба.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {module:model/InlineObject56} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
-    apiV1PermissionsProductsPost(opts) {
-      return this.apiV1PermissionsProductsPostWithHttpInfo(opts)
+    apiV1PermissionsProductsPatch(opts) {
+      return this.apiV1PermissionsProductsPatchWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

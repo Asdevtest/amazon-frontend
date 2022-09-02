@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
 
 /**
  * The InlineObject87 model module.
@@ -21,11 +22,19 @@ import ApiClient from '../ApiClient';
 class InlineObject87 {
     /**
      * Constructs a new <code>InlineObject87</code>.
+     * Новый поставщик.
      * @alias module:model/InlineObject87
+     * @param name {String} Название поставщика.
+     * @param link {String} Ссылка на поставщика.
+     * @param price {Number} Цена за еденицу, dollar
+     * @param amount {Number} кол-во
+     * @param minlot {Number} Минимальный лот.
+     * @param comment {String} Комментарий
+     * @param batchDeliveryCostInDollar {Number} Доставка партии, dollar
      */
-    constructor() { 
+    constructor(name, link, price, amount, minlot, comment, batchDeliveryCostInDollar) { 
         
-        InlineObject87.initialize(this);
+        InlineObject87.initialize(this, name, link, price, amount, minlot, comment, batchDeliveryCostInDollar);
     }
 
     /**
@@ -33,7 +42,14 @@ class InlineObject87 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, link, price, amount, minlot, comment, batchDeliveryCostInDollar) { 
+        obj['name'] = name;
+        obj['link'] = link;
+        obj['price'] = price;
+        obj['amount'] = amount;
+        obj['minlot'] = minlot;
+        obj['comment'] = comment;
+        obj['batchDeliveryCostInDollar'] = batchDeliveryCostInDollar;
     }
 
     /**
@@ -47,26 +63,50 @@ class InlineObject87 {
         if (data) {
             obj = obj || new InlineObject87();
 
-            if (data.hasOwnProperty('listingName')) {
-                obj['listingName'] = ApiClient.convertToType(data['listingName'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('listingBulletPoints')) {
-                obj['listingBulletPoints'] = ApiClient.convertToType(data['listingBulletPoints'], ['String']);
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
             }
-            if (data.hasOwnProperty('listingProductDetails')) {
-                obj['listingProductDetails'] = ApiClient.convertToType(data['listingProductDetails'], 'String');
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('listingSearchTerms')) {
-                obj['listingSearchTerms'] = ApiClient.convertToType(data['listingSearchTerms'], 'String');
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
-            if (data.hasOwnProperty('listingSubjectMatters')) {
-                obj['listingSubjectMatters'] = ApiClient.convertToType(data['listingSubjectMatters'], ['String']);
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
             }
-            if (data.hasOwnProperty('listingImages')) {
-                obj['listingImages'] = ApiClient.convertToType(data['listingImages'], ['String']);
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('strategyStatus')) {
-                obj['strategyStatus'] = ApiClient.convertToType(data['strategyStatus'], 'Number');
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('yuanRate')) {
+                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
+            }
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
+                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
+                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInDollar')) {
+                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInYuan')) {
+                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('productionTerm')) {
+                obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Number');
+            }
+            if (data.hasOwnProperty('boxProperties')) {
+                obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
             }
         }
         return obj;
@@ -76,46 +116,92 @@ class InlineObject87 {
 }
 
 /**
- * 
- * @member {String} listingName
+ * Название поставщика.
+ * @member {String} name
  */
-InlineObject87.prototype['listingName'] = undefined;
+InlineObject87.prototype['name'] = undefined;
 
 /**
- * Массив ...
- * @member {Array.<String>} listingBulletPoints
+ * Ссылка на поставщика.
+ * @member {String} link
  */
-InlineObject87.prototype['listingBulletPoints'] = undefined;
+InlineObject87.prototype['link'] = undefined;
 
 /**
- * 
- * @member {String} listingProductDetails
+ * Цена за еденицу, dollar
+ * @member {Number} price
  */
-InlineObject87.prototype['listingProductDetails'] = undefined;
+InlineObject87.prototype['price'] = undefined;
 
 /**
- * 
- * @member {String} listingSearchTerms
+ * кол-во
+ * @member {Number} amount
  */
-InlineObject87.prototype['listingSearchTerms'] = undefined;
+InlineObject87.prototype['amount'] = undefined;
 
 /**
- * Массив ...
- * @member {Array.<String>} listingSubjectMatters
+ * Минимальный лот.
+ * @member {Number} minlot
  */
-InlineObject87.prototype['listingSubjectMatters'] = undefined;
+InlineObject87.prototype['minlot'] = undefined;
 
 /**
- * массив картинок(в виде прямых ссылок).
- * @member {Array.<String>} listingImages
+ * Массив картинок.
+ * @member {Array.<String>} images
  */
-InlineObject87.prototype['listingImages'] = undefined;
+InlineObject87.prototype['images'] = undefined;
 
 /**
- * У поля на данный момент будет 5 возможных значений: 0, 10, 20, 30, 40
- * @member {Number} strategyStatus
+ * Комментарий
+ * @member {String} comment
  */
-InlineObject87.prototype['strategyStatus'] = undefined;
+InlineObject87.prototype['comment'] = undefined;
+
+/**
+ * Курс доллара к юаню поставщика. 
+ * @member {Number} yuanRate
+ */
+InlineObject87.prototype['yuanRate'] = undefined;
+
+/**
+ * Цена за еденицу, yuan
+ * @member {Number} priceInYuan
+ */
+InlineObject87.prototype['priceInYuan'] = undefined;
+
+/**
+ * Доставка партии, dollar
+ * @member {Number} batchDeliveryCostInDollar
+ */
+InlineObject87.prototype['batchDeliveryCostInDollar'] = undefined;
+
+/**
+ * Доставка партии, yuan
+ * @member {Number} batchDeliveryCostInYuan
+ */
+InlineObject87.prototype['batchDeliveryCostInYuan'] = undefined;
+
+/**
+ * Цена партии, dollar
+ * @member {Number} batchTotalCostInDollar
+ */
+InlineObject87.prototype['batchTotalCostInDollar'] = undefined;
+
+/**
+ * Цена партии, yuan
+ * @member {Number} batchTotalCostInYuan
+ */
+InlineObject87.prototype['batchTotalCostInYuan'] = undefined;
+
+/**
+ * @member {Number} productionTerm
+ */
+InlineObject87.prototype['productionTerm'] = undefined;
+
+/**
+ * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
+ */
+InlineObject87.prototype['boxProperties'] = undefined;
 
 
 

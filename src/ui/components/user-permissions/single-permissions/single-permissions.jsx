@@ -63,6 +63,7 @@ export const SinglePermissions = observer(() => {
       </div>
       <div className={classNames.datagridWrapper}>
         <DataGrid
+          disableVirtualization
           pagination
           useResizeContainer
           classes={{

@@ -29,7 +29,11 @@ const WithSearchSelectRaw = ({
   const [anchorEl, setAnchorEl] = useState(null)
 
   const handleClick = event => {
-    setAnchorEl(event.currentTarget)
+    if (anchorEl) {
+      setAnchorEl(null)
+    } else {
+      setAnchorEl(event.currentTarget)
+    }
   }
 
   const handleClose = () => {

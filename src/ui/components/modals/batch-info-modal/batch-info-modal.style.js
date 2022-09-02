@@ -163,4 +163,11 @@ export const useClassNames = makeStyles(theme => ({
     lineHeight: '140%',
     color: '#001029',
   },
+
+  textEllipsis: {
+    maxWidth: 150,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 }))

@@ -23,7 +23,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './my-proposals-list-card.style'
 
-export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onClickOpenBtn}) => {
+export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onClickOpenBtn, isFirst}) => {
   const classNames = useClassNames()
 
   const noDisabledEditBtnStatuses = [
@@ -117,7 +117,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                   <div className={classNames.btnsWrapper}>
                     <Button
                       disableElevation
-                      tooltipInfoContent={t(TranslationKey['Cancel current proposal'])}
+                      tooltipInfoContent={isFirst && t(TranslationKey['Cancel current proposal'])}
                       disabled={disabledCancelBtnStatuses.includes(proposal.status)}
                       color="primary"
                       className={classNames.button}
@@ -129,7 +129,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                     <div className={classNames.editAndOpenButtonWrapper}>
                       <Button
                         disableElevation
-                        tooltipInfoContent={t(TranslationKey['Change the current proposal'])}
+                        tooltipInfoContent={isFirst && t(TranslationKey['Change the current proposal'])}
                         disabled={!noDisabledEditBtnStatuses.includes(proposal.status)}
                         color="primary"
                         className={classNames.button}
@@ -141,7 +141,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
 
                       <Button
                         disableElevation
-                        tooltipInfoContent={t(TranslationKey['Open an request for the selected proposal'])}
+                        tooltipInfoContent={isFirst && t(TranslationKey['Open an request for the selected proposal'])}
                         color="primary"
                         variant="contained"
                         className={classNames.button}

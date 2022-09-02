@@ -8,8 +8,6 @@ export const styles = () =>
       position: 'relative',
 
       display: 'visible !important',
-
-      // position: 'fixed',
     },
 
     disableRoot: {
@@ -17,12 +15,10 @@ export const styles = () =>
     },
 
     mainWrapper: {
-      zIndex: 9999,
       width: '100%',
 
       border: '1px solid #006CFF',
       borderRadius: 4,
-      // padding: '0 17px 10px',
 
       transition: '0.3s ease',
       maxHeight: 36,
@@ -73,7 +69,6 @@ export const styles = () =>
     },
 
     itemsWrapper: {
-      zIndex: 9999,
       display: 'flex',
       flexDirection: 'column',
       maxHeight: 300,
@@ -82,13 +77,13 @@ export const styles = () =>
     },
 
     button: {
-      marginBottom: 10,
+      marginBottom: 5,
       width: '90%',
       display: 'flex',
       justifyContent: 'flex-start',
 
       textOverflow: 'ellipsis',
-      height: 15,
+      minHeight: 20,
       overflow: 'hidden',
       whiteSpace: 'nowrap',
     },

@@ -63,7 +63,7 @@ export const CreateOrEditProposalContent = ({
 
     setFormFields(newFormFields)
   }
-  console.log(formFields.price)
+
   const onClickCreateSubmit = () => {
     onCreateSubmit(formFields, images)
   }
@@ -73,11 +73,12 @@ export const CreateOrEditProposalContent = ({
   }
 
   const disableSubmit =
-    formFields.execution_time === '' ||
-    formFields.comment === '' ||
+    !formFields.title ||
+    !formFields.execution_time ||
+    !formFields.comment ||
     formFields.comment.length > 2000 ||
     +formFields.price <= 0 ||
-    JSON.stringify(sourceFormFields) === JSON.stringify(formFields)
+    (JSON.stringify(sourceFormFields) === JSON.stringify(formFields) && !images.length)
 
   return (
     <div className={classNames.mainWrapper}>

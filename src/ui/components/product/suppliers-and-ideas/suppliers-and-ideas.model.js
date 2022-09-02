@@ -140,7 +140,12 @@ export class SuppliersAndIdeasModel {
       }
 
       const submitData = getObjectFilteredByKeyArrayBlackList(
-        {...formFields, media: this.readyFiles.length ? [...formFields.media, ...this.readyFiles] : formFields.media},
+        {
+          ...formFields,
+          media: this.readyFiles.length ? [...formFields.media, ...this.readyFiles] : formFields.media,
+          price: formFields.price || 0,
+          quantity: formFields.quantity || 0,
+        },
         ['_id', 'suppliers'],
       )
 

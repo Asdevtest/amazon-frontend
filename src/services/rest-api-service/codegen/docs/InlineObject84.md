@@ -6,6 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** | Название услуги | [optional] 
 **description** | **String** | Описание услуги | [optional] 
-**price** | **Number** | Цена услуги. | 
+**price** | **Number** | Цена услуги. | [optional] 
 
 

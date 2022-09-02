@@ -15,7 +15,7 @@ import {CircularProgressWithLabel} from '@components/circular-progress-with-labe
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 
-import {checkIsClient} from '@utils/checks'
+import {checkIsBuyer, checkIsClient} from '@utils/checks'
 import {t} from '@utils/translations'
 
 import {SuppliersAndIdeasModel} from './suppliers-and-ideas.model'
@@ -61,7 +61,9 @@ export const SuppliersAndIdeas = observer(({productId}) => {
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.btnsWrapper}>
-        {checkIsClient(UserRoleCodeMap[curUser.role]) && !inCreate && !inEdit ? (
+        {(checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
+        !inCreate &&
+        !inEdit ? (
           <Button success variant="contained" onClick={onCreateIdea}>
             {t(TranslationKey['Add a product idea'])}{' '}
           </Button>

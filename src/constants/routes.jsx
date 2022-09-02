@@ -333,6 +333,14 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/researcher/messages',
+    component: MessagesView,
+    exact: false,
+    permission: [UserRole.RESEARCHER],
+    crumbNameKey: TranslationKey.Messages,
+  },
+
+  {
     routePath: '/client/dashboard',
     component: ClientDashboardView,
     exact: false,
@@ -787,6 +795,14 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/supervisor/messages',
+    component: MessagesView,
+    exact: false,
+    permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Messages,
+  },
+
+  {
     routePath: '/warehouse/dashboard',
     component: WarehouseDashboardView,
     exact: false,
@@ -895,6 +911,15 @@ export const privateRoutesConfigs = [
     permission: [UserRole.STOREKEEPER],
     crumbNameKey: TranslationKey.Finances,
   },
+
+  {
+    routePath: '/warehouse/messages',
+    component: MessagesView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey.Messages,
+  },
+
   {
     routePath: '/admin/dashboard',
     component: AdminDashboardView,
@@ -1036,6 +1061,14 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Settings,
+  },
+
+  {
+    routePath: '/admin/messages',
+    component: MessagesView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Messages,
   },
 
   {

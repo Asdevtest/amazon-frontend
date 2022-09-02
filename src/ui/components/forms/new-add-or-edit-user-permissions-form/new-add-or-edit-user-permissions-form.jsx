@@ -52,6 +52,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
     shops,
     products,
     onClickShop,
+    isWithoutShopsDepends,
   }) => {
     const classNames = useClassNames()
 
@@ -61,11 +62,15 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
     const [isReady, setIsReady] = useState(true)
 
+    console.log('isWithoutShopsDepends', isWithoutShopsDepends)
+
     const sourceDataToProductsPermissions = [
       {
         _id: PRODUCTS_WITHOUT_SHOPS_ID,
-        name: t(TranslationKey['Products without shops']),
-        tmpProductsIds: curUserProductPermissions.filter(el => !el.shopIds.length).map(el => el.productId),
+        name: isWithoutShopsDepends ? t(TranslationKey['All products']) : t(TranslationKey['Products without shops']),
+        tmpProductsIds: curUserProductPermissions
+          .filter(el => (isWithoutShopsDepends ? true : !el.shopIds.length))
+          .map(el => el.productId),
       },
       ...shops.map(shop => ({
         ...shop,
@@ -86,7 +91,8 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
     useEffect(() => {
       const productsWithoutShops = products?.filter(p => !p.originalData.shopIds.length)
-      const currentProducts = selectedShop === PRODUCTS_WITHOUT_SHOPS_ID ? productsWithoutShops : products
+      const currentProducts =
+        selectedShop === PRODUCTS_WITHOUT_SHOPS_ID && !isWithoutShopsDepends ? productsWithoutShops : products
 
       setIsReady(true)
       setUpdatedProducts(currentProducts)
@@ -251,6 +257,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
             {shopDataToRender.map(shop => (
               <AccessToProductForm
                 key={shop._id}
+                isWithoutShopsDepends
                 isReady={isReady}
                 shop={shop}
                 selectedShop={selectedShop}
@@ -274,7 +281,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
               onSubmit(
                 formFields,
                 sourceData._id,
-                shopDataToRender.reduce((ac, cur) => (ac = [...ac, ...cur.tmpProductsIds]), []),
+                Array.from(new Set(shopDataToRender.reduce((ac, cur) => (ac = [...ac, ...cur.tmpProductsIds]), []))),
               )
               onCloseModal()
             }}

@@ -32,4 +32,9 @@ export const styles = createStyles(() => ({
   toolbarContainer: {
     height: '52px',
   },
+
+  btnsWrapper: {
+    margin: '0 0 15px 0',
+    display: 'flex',
+  },
 }))

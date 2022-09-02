@@ -123,7 +123,9 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
 
             {orderIndex === 0 && (
               <React.Fragment>
-                <TableCell rowSpan={ordersQty}>{box.destination?.name}</TableCell>
+                <TableCell rowSpan={ordersQty} className={classNames.textEllipsis}>
+                  {box.destination?.name}
+                </TableCell>
                 <TableCell rowSpan={ordersQty}>{'ID: ' + box.humanFriendlyId}</TableCell>
               </React.Fragment>
             )}
@@ -154,7 +156,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
               {toFixedWithKg(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier, 2)}
             </TableCell>
 
-            <TableCell>{order.order.trackingNumberChina || 'N/A'}</TableCell>
+            <TableCell>{order.order.trackingNumberChina || t(TranslationKey.Missing)}</TableCell>
           </TableRow>
           {isMaximizedMasterBox ? (
             <TableRow className={classNames.subBoxesTableWrapper}>

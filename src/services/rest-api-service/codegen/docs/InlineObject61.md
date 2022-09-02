@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersIds** | **[String]** | GUIDы магазинов, которые нужно удалить. | [optional] 
+**reason** | **String** | Комментарий причин изменения статуса. | [optional] 
+**linksToMediaFiles** | **[String]** | Массив ссылок на медиафайлы. | [optional] 
 
 

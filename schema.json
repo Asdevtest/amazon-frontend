@@ -26270,6 +26270,32 @@
         }
       }
     },
+    "/api/v1/chats/{guid}": {
+      "post": {
+        "summary": "Создать обычный чат",
+        "description": "Метод создает чат не привязаный к другим инстансам \n\n",
+        "tags": ["Requests"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID юзера в БД.",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "201": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/clients/products/vac": {
       "get": {
         "summary": "# Получить список вакантных товаров.",
@@ -32729,9 +32755,9 @@
       }
     },
     "/api/v1/permissions/products": {
-      "post": {
-        "summary": "Создать разрешение для продукта для саба.",
-        "description": "## Создать разрешение для продукта для саба.",
+      "patch": {
+        "summary": "Переписать разрешения для продукта для саба.",
+        "description": "## Переписать разрешения для продукта для саба.",
         "tags": ["Permissions"],
         "produces": ["application/json"],
         "parameters": [
@@ -32742,7 +32768,7 @@
               "type": "object",
               "properties": {
                 "userId": {"type": "string", "format": "uuid"},
-                "productIds": {"type": "array", "items": {"type": "string", "format": "uuid"}, "minItems": 1}
+                "productIds": {"type": "array", "items": {"type": "string", "format": "uuid"}}
               }
             }
           },
@@ -32778,33 +32804,6 @@
               }
             }
           },
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      },
-      "delete": {
-        "summary": "Удалить разрешение для продукта для саба.",
-        "description": "## Удалить разрешение для продукта для саба.",
-        "tags": ["Permissions"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {"type": "string", "format": "uuid"},
-                "productId": {"type": "string", "format": "uuid"}
-              }
-            }
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}

@@ -34,6 +34,8 @@ export class BuyerFreeOrdersViewModel {
     onClickTableRowBtn: item => this.onClickTableRowBtn(item),
   }
 
+  selectedRowIds = []
+
   firstRowId = undefined
   sortModel = []
   filterModel = {items: []}
@@ -116,7 +118,7 @@ export class BuyerFreeOrdersViewModel {
   }
 
   onSelectionModel(model) {
-    this.selectionModel = model
+    this.selectedRowIds = model
   }
 
   getCurrentData() {
@@ -160,26 +162,44 @@ export class BuyerFreeOrdersViewModel {
     this.history.push('/buyer/my-orders', {orderId: this.curOrder._id})
   }
 
-  async onClickTableRowBtn(order) {
+  async onClickTableRowBtn(order, noPush) {
     try {
-      this.setActionStatus(loadingStatuses.isLoading)
       await BuyerModel.pickupOrder(order.originalData._id)
 
-      this.curOrder = order.originalData
+      if (!noPush) {
+        this.curOrder = order.originalData
 
-      this.onTriggerOpenModal('showTwoVerticalChoicesModal')
-
-      this.setActionStatus(loadingStatuses.success)
-      this.loadData()
+        this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+      }
     } catch (error) {
-      this.setActionStatus(loadingStatuses.failed)
-
       this.warningTitle = t(TranslationKey['Not found'])
 
       this.onTriggerOpenModal('showWarningModal')
 
       this.loadData()
       console.log(error)
+    }
+  }
+
+  async onPickupSomeItems() {
+    try {
+      for (let i = 0; i < this.selectedRowIds.length; i++) {
+        const itemId = this.selectedRowIds[i]
+
+        await this.onClickTableRowBtn({originalData: {_id: itemId}}, true)
+      }
+
+      this.selectedRowIds = []
+
+      this.warningTitle = t(TranslationKey['Taken to Work'])
+
+      this.onTriggerOpenModal('showWarningModal')
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
     }
   }
 
