@@ -12,11 +12,9 @@ Method | HTTP request | Description
 [**apiV1PermissionsGuidDelete**](PermissionsApi.md#apiV1PermissionsGuidDelete) | **DELETE** /api/v1/permissions/{guid} | # Удалить permission по его GUID.
 [**apiV1PermissionsGuidPatch**](PermissionsApi.md#apiV1PermissionsGuidPatch) | **PATCH** /api/v1/permissions/{guid} | #  Изменить permission.
 [**apiV1PermissionsPost**](PermissionsApi.md#apiV1PermissionsPost) | **POST** /api/v1/permissions/ | # Создать permission.
-[**apiV1PermissionsProductsDelete**](PermissionsApi.md#apiV1PermissionsProductsDelete) | **DELETE** /api/v1/permissions/products | Удалить разрешение для продукта для саба.
 [**apiV1PermissionsProductsGet**](PermissionsApi.md#apiV1PermissionsProductsGet) | **GET** /api/v1/permissions/products | Получить список разрешений для продуктов всех сабъюзеров.
 [**apiV1PermissionsProductsGuidGet**](PermissionsApi.md#apiV1PermissionsProductsGuidGet) | **GET** /api/v1/permissions/products/{guid} | Получить список разрешений для продуктов юзера по его айди.
 [**apiV1PermissionsProductsPatch**](PermissionsApi.md#apiV1PermissionsProductsPatch) | **PATCH** /api/v1/permissions/products | Переписать разрешения для продукта для саба.
-[**apiV1PermissionsProductsPost**](PermissionsApi.md#apiV1PermissionsProductsPost) | **POST** /api/v1/permissions/products | Создать разрешение для продукта для саба.
 [**apiV1PermissionsSetForUserGuidPatch**](PermissionsApi.md#apiV1PermissionsSetForUserGuidPatch) | **PATCH** /api/v1/permissions/set-for-user/{guid} | #   !!! не актуально, нужно использовать  /users/edit_my_sub-users/:guid
 
 
@@ -457,60 +455,6 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1PermissionsProductsDelete
-
-> String apiV1PermissionsProductsDelete(opts)
-
-Удалить разрешение для продукта для саба.
-
-## Удалить разрешение для продукта для саба.
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.PermissionsApi();
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject57() // InlineObject57 | 
-};
-apiInstance.apiV1PermissionsProductsDelete(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject57**](InlineObject57.md)|  | [optional] 
-
-### Return type
-
-**String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
 ## apiV1PermissionsProductsGet
 
 > [InlineResponse20017] apiV1PermissionsProductsGet(opts)
@@ -639,63 +583,9 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.PermissionsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject58() // InlineObject58 | 
-};
-apiInstance.apiV1PermissionsProductsPatch(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject58**](InlineObject58.md)|  | [optional] 
-
-### Return type
-
-**String**
-
-### Authorization
-
-[AccessTokenBearer](../README.md#AccessTokenBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-
-## apiV1PermissionsProductsPost
-
-> String apiV1PermissionsProductsPost(opts)
-
-Создать разрешение для продукта для саба.
-
-## Создать разрешение для продукта для саба.
-
-### Example
-
-```javascript
-import TestSwagger from 'test_swagger';
-let defaultClient = TestSwagger.ApiClient.instance;
-// Configure API key authorization: AccessTokenBearer
-let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
-AccessTokenBearer.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//AccessTokenBearer.apiKeyPrefix = 'Token';
-
-let apiInstance = new TestSwagger.PermissionsApi();
-let opts = {
-  'Accept_Encoding': "Accept_Encoding_example", // String | 
   'body': new TestSwagger.InlineObject56() // InlineObject56 | 
 };
-apiInstance.apiV1PermissionsProductsPost(opts).then((data) => {
+apiInstance.apiV1PermissionsProductsPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);

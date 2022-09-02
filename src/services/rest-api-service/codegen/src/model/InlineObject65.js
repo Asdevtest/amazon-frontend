@@ -47,20 +47,14 @@ class InlineObject65 {
         if (data) {
             obj = obj || new InlineObject65();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
+            if (data.hasOwnProperty('timeLimitInMinutes')) {
+                obj['timeLimitInMinutes'] = ApiClient.convertToType(data['timeLimitInMinutes'], 'Number');
             }
         }
         return obj;
@@ -70,34 +64,21 @@ class InlineObject65 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject65.prototype['execution_time'] = undefined;
+InlineObject65.prototype['reason'] = undefined;
 
 /**
- * Цена предложения.
- * @member {Number} price
- */
-InlineObject65.prototype['price'] = undefined;
-
-/**
- * Комментарий к предложению.
- * @member {String} comment
- */
-InlineObject65.prototype['comment'] = undefined;
-
-/**
- * Ссылки на медиафайлы.
+ * Массив ссылок на медиафайлы.
  * @member {Array.<String>} linksToMediaFiles
  */
 InlineObject65.prototype['linksToMediaFiles'] = undefined;
 
 /**
- * Название предложения
- * @member {String} title
+ * @member {Number} timeLimitInMinutes
  */
-InlineObject65.prototype['title'] = undefined;
+InlineObject65.prototype['timeLimitInMinutes'] = undefined;
 
 
 

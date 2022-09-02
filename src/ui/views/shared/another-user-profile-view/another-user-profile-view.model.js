@@ -6,8 +6,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {AdministratorModel} from '@models/administrator-model'
+import {ChatModel} from '@models/chat-model'
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
+import {RequestModel} from '@models/request-model'
 import {SettingsModel} from '@models/settings-model'
 import {ShopModel} from '@models/shop-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
@@ -64,6 +66,10 @@ export class AnotherProfileViewModel {
 
   get curUser() {
     return UserModel.userInfo
+  }
+
+  get simpleChats() {
+    return ChatModel.simpleChats || []
   }
 
   rowHandlers = {
@@ -218,10 +224,20 @@ export class AnotherProfileViewModel {
     }
   }
 
-  onClickWriteBtn(anotherUserId) {
-    this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/messages`, {
-      anotherUserId,
-    })
+  async onClickWriteBtn(anotherUserId) {
+    try {
+      if (!this.simpleChats.some(el => el.users.map(e => e._id).includes(anotherUserId))) {
+        await RequestModel.createSimpleChatByUserId(anotherUserId)
+
+        ChatModel.init()
+      }
+
+      this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/messages`, {
+        anotherUserId,
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   async onClickBuyProductBtn(shops) {

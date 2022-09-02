@@ -5,6 +5,7 @@ export enum ChatEventListenName {
   CONNECT = 'connect',
   CONNECT_ERRROR = 'connect_error',
   CHAT_APP_NEW_MESSAGE = 'Chat:app:new-message',
+  CHAT_APP_NEW_CHAT = 'Chat:app:new-chat',
 }
 
 export enum ChatHandlerName {
@@ -12,6 +13,7 @@ export enum ChatHandlerName {
   onConnect = 'onConnect',
   onConnectionError = 'onConnectionError',
   onNewMessage = 'onNewMessage',
+  onNewChat = 'onNewChat',
 }
 
 export const eventToHandlerMapping: Record<ChatEventListenName, ChatHandlerName> = {
@@ -19,6 +21,7 @@ export const eventToHandlerMapping: Record<ChatEventListenName, ChatHandlerName>
   [ChatEventListenName.CONNECT]: ChatHandlerName.onConnect,
   [ChatEventListenName.CONNECT_ERRROR]: ChatHandlerName.onConnectionError,
   [ChatEventListenName.CHAT_APP_NEW_MESSAGE]: ChatHandlerName.onNewMessage,
+  [ChatEventListenName.CHAT_APP_NEW_CHAT]: ChatHandlerName.onNewChat,
 }
 
 type InvertResult<T extends Record<PropertyKey, PropertyKey>> = {

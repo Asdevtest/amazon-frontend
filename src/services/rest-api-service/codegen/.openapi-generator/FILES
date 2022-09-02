@@ -154,8 +154,6 @@ docs/InlineObject89.md
 docs/InlineObject9.md
 docs/InlineObject90.md
 docs/InlineObject91.md
-docs/InlineObject92.md
-docs/InlineObject93.md
 docs/InlineResponse200.md
 docs/InlineResponse2001.md
 docs/InlineResponse20010.md
@@ -424,8 +422,6 @@ src/model/InlineObject89.js
 src/model/InlineObject9.js
 src/model/InlineObject90.js
 src/model/InlineObject91.js
-src/model/InlineObject92.js
-src/model/InlineObject93.js
 src/model/InlineResponse200.js
 src/model/InlineResponse2001.js
 src/model/InlineResponse20010.js
@@ -511,4 +507,3 @@ src/model/UserSettingInputSchemaData.js
 src/model/UserSettingPatchSchema.js
 src/model/UserSettingPostResponseSchema.js
 src/model/UserSettingResponseSchema.js
-test/model/InlineObject93.spec.js

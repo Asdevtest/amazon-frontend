@@ -21,17 +21,17 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_MESSAGES
 
 @observer
 class MessagesViewRaw extends Component {
-  viewModel = new MessagesViewModel({history: this.props.history})
+  viewModel = new MessagesViewModel({history: this.props.history, location: this.props.location})
 
-  // componentDidMount() {
-  //   this.viewModel.loadData()
-  // }
+  componentDidMount() {
+    this.viewModel.loadData()
+  }
 
   render() {
     const {
       user,
       chatSelectedId,
-      chats,
+      simpleChats,
       drawerOpen,
 
       onClickChat,
@@ -49,7 +49,7 @@ class MessagesViewRaw extends Component {
               <div className={classNames.chatWrapper}>
                 <MultipleChats
                   ref={this.chatRef}
-                  chats={chats}
+                  chats={simpleChats}
                   userId={user._id}
                   chatSelectedId={chatSelectedId}
                   updateData={this.viewModel.loadData}

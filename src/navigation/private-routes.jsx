@@ -16,6 +16,8 @@ export const PrivateRoutes = observer(() => {
     if (UserModel.isAuthenticated()) {
       UserModel.getUserInfo()
       ChatModel.init()
+
+      ChatModel.getSimpleChats()
     }
   }, [history.location.pathname])
 

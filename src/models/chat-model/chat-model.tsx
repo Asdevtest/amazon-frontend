@@ -21,6 +21,8 @@ class ChatModelStatic {
 
   public chats: ChatContract[] = []
 
+  public simpleChats: ChatContract[] = []
+
   public loadedFiles: string[] = []
 
   constructor() {
@@ -38,6 +40,7 @@ class ChatModelStatic {
           onConnectionError: this.onConnectionError,
           onPong: this.onPong,
           onNewMessage: this.onNewMessage,
+          onNewChat: this.onNewChat,
         },
       })
     } else {
@@ -66,6 +69,26 @@ class ChatModelStatic {
       console.log('getChatsResult ', getChatsResult)
       runInAction(() => {
         this.chats = plainToClass(ChatContract, getChatsResult).map((chat: ChatContract) => ({
+          ...chat,
+          messages: chat.messages,
+        }))
+      })
+    } catch (error) {
+      console.warn(error)
+    }
+  }
+
+  public async getSimpleChats(): Promise<void> {
+    if (!this.websocketChatService) {
+      return
+    }
+    try {
+      console.log('getSimpleChats')
+
+      const getSimpleChatsResult = await this.websocketChatService.getChats()
+      console.log('getSimpleChatsResult ', getSimpleChatsResult)
+      runInAction(() => {
+        this.simpleChats = plainToClass(ChatContract, getSimpleChatsResult).map((chat: ChatContract) => ({
           ...chat,
           messages: chat.messages,
         }))
@@ -125,6 +148,7 @@ class ChatModelStatic {
       ChatMessageContract,
       newMessage,
     )
+
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
     if (findChatIndexById !== -1) {
@@ -133,6 +157,29 @@ class ChatModelStatic {
           ...this.chats[findChatIndexById].messages.filter(mes => mes._id !== message._id),
           message,
         ]
+      })
+    }
+
+    const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === message.chatId)
+
+    if (findSimpleChatIndexById !== -1) {
+      runInAction(() => {
+        this.simpleChats[findSimpleChatIndexById].messages = [
+          ...this.simpleChats[findSimpleChatIndexById].messages.filter(mes => mes._id !== message._id),
+          message,
+        ]
+      })
+    }
+  }
+
+  private onNewChat(newChat: ChatContract) {
+    const chat = plainToClass<ChatContract, unknown>(ChatContract, newChat)
+
+    const findSimpleChatIndexById = this.chats.findIndex((ch: ChatContract) => ch._id === newChat._id)
+
+    if (findSimpleChatIndexById !== -1) {
+      runInAction(() => {
+        this.simpleChats = [...this.simpleChats, chat]
       })
     }
   }

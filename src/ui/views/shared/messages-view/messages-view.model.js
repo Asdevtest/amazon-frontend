@@ -18,13 +18,28 @@ export class MessagesViewModel {
     return UserModel.userInfo
   }
 
-  get chats() {
-    return ChatModel.chats || []
+  get simpleChats() {
+    return ChatModel.simpleChats || []
   }
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+
+    if (location.state) {
+      this.chatSelectedId = this.simpleChats.find(el =>
+        el.users.map(e => e._id).includes(location.state.anotherUserId),
+      )?._id
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
+  }
+
+  async loadData() {
+    try {
+      await ChatModel.getSimpleChats()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   onClickChat(chat) {
@@ -57,5 +72,9 @@ export class MessagesViewModel {
 
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
+  }
+
+  setRequestStatus(requestStatus) {
+    this.requestStatus = requestStatus
   }
 }

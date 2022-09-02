@@ -58,7 +58,7 @@ class InlineObject60 {
 }
 
 /**
- * GUIDы поставщиков, которые нужно добавить в БД.
+ * GUIDы магазинов, которые нужно удалить.
  * @member {Array.<String>} suppliersIds
  */
 InlineObject60.prototype['suppliersIds'] = undefined;
