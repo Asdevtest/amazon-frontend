@@ -93,8 +93,8 @@ export class CreateOrEditProposalViewRaw extends Component {
             onClickResultModal({goBack: true})
           }}
           title={infoModalText}
-          topBtnText={'К вакантным заявкам'}
-          bottomBtnText={'К списку предложений'}
+          topBtnText={t(TranslationKey['To vacant requests'])}
+          bottomBtnText={t(TranslationKey['To the list of proposals'])}
           onClickTopBtn={() => onClickResultModal({goBack: true})}
           onClickBottomBtn={() => onClickResultModal({goBack: false})}
         />

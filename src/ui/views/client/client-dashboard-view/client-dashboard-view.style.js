@@ -6,10 +6,17 @@ export const styles = createStyles(theme => ({
     fontSize: '72px',
     fontWeight: 400,
     lineHeight: '84px',
-    marginBottom: '24px',
   },
-  mb5: {
+  userInfoWrapper: {
     marginBottom: theme.spacing(5),
+    padding: '40px 50px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '25px',
+  },
+  cardImg: {
+    width: '145px',
+    height: '145px',
   },
   mr2: {
     marginRight: theme.spacing(2),
@@ -24,7 +31,14 @@ export const styles = createStyles(theme => ({
     // Height: '40px !important'
   },
 
-  withdrawBtn: {
-    marginLeft: 50,
+  balanceWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '145px',
   },
+
+  // withdrawBtn: {
+  //   marginLeft: 50,
+  // },
 }))

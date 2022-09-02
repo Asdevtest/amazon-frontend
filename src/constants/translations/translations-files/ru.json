@@ -1486,5 +1486,8 @@
   "Search by ASIN, Title": "Поиск по ASIN, Title",
   "Prohibit multiple performances by the same performer": "Запретить многократное исполнение одному исполнителю",
   "Multiple performances by the same performer are prohibited": "Запрещено многократное исполнение одному исполнителю",
-  "The task for the warehouse will be formed": "Будет сформирована задача для склада"
+  "The task for the warehouse will be formed": "Будет сформирована задача для склада",
+  "No ideas yet": "Пока нет идей",
+  "To vacant requests": "К вакантным заявкам",
+  "To the list of proposals": "К списку предложений"
 }

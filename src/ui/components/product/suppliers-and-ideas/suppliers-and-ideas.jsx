@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 
+import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
@@ -77,7 +78,7 @@ export const SuppliersAndIdeas = observer(({productId}) => {
         />
       ) : null}
 
-      {SettingsModel.languageTag &&
+      {SettingsModel.languageTag && ideasData.length ? (
         ideasData.map(idea => (
           <IdeaViewAndEditCard
             key={idea._id}
@@ -92,7 +93,15 @@ export const SuppliersAndIdeas = observer(({productId}) => {
             onSetCurIdea={onSetCurIdea}
             onEditIdea={onEditIdea}
           />
-        ))}
+        ))
+      ) : (
+        <div className={classNames.emptyTableWrapper}>
+          <img src="/assets/icons/empty-table.svg" />
+          <Typography variant="h5" className={classNames.emptyTableText}>
+            {t(TranslationKey['No ideas yet'])}
+          </Typography>
+        </div>
+      )}
 
       <ConfirmationModal
         isWarning={confirmModalSettings.isWarning}
