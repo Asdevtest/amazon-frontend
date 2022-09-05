@@ -71,6 +71,7 @@ export class WarehouseMyTasksViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      onClickResolveBtn,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -118,6 +119,7 @@ export class WarehouseMyTasksViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
+                onRowDoubleClick={params => onClickResolveBtn(params.row.originalData)}
               />
             </MainContent>
           </Appbar>

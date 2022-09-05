@@ -59,6 +59,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
+      setCurrentOpenedTask,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -110,6 +111,7 @@ export class WarehouseCanceledTasksViewRaw extends Component {
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
+                onRowDoubleClick={params => setCurrentOpenedTask(params.row.originalData)}
               />
             </MainContent>
           </Appbar>

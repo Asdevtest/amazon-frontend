@@ -6,6 +6,7 @@ import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
+import {UserModel} from '@models/user-model'
 
 import {warehouseVacantTasksViewColumns} from '@components/table-columns/warehouse/vacant-tasks-columns'
 
@@ -22,8 +23,12 @@ export class WarehouseVacantViewModel {
 
   drawerOpen = false
   selectedTask = undefined
+  curOpenedTask = {}
+
+  volumeWeightCoefficient = undefined
 
   showTwoVerticalChoicesModal = false
+  showTaskInfoModal = false
 
   rowHandlers = {
     onClickPickupBtn: item => this.onClickPickupBtn(item),
@@ -137,6 +142,21 @@ export class WarehouseVacantViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+    }
+  }
+
+  async setCurrentOpenedTask(item) {
+    try {
+      const result = await StorekeeperModel.getTaskById(item._id)
+
+      const platformSettingsResult = await UserModel.getPlatformSettings()
+
+      this.volumeWeightCoefficient = platformSettingsResult.volumeWeightCoefficient
+
+      this.curOpenedTask = result
+      this.onTriggerOpenModal('showTaskInfoModal')
+    } catch (error) {
+      console.log(error)
     }
   }
 

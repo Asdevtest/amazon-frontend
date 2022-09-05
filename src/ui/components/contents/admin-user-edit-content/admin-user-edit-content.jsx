@@ -526,6 +526,7 @@ export const AdminUserEditContent = observer(
         </div>
         <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
           <NewAddOrEditUserPermissionsForm
+            shops={[]}
             permissionsToSelect={permissionsToSelect}
             permissionGroupsToSelect={permissionGroupsToSelect}
             sourceData={formFields}

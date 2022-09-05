@@ -638,8 +638,6 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
 
   const renderBox = (box, key, isOneBox) => (
     <div key={key && key} className={classNames.imagesWrapper}>
-      {/* {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex))} */}
-
       <div
         container
         spacing={1}
@@ -647,13 +645,6 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
       >
         {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex))}
       </div>
-
-      {/* {box.amount > 1 && (
-        <div className={classNames.superboxWrapper}>
-          <img src="/assets/icons/cube.svg" />
-          <Typography className={classNames.imgNum}>{box.amount > 1 && ` x${box.amount}`}</Typography>
-        </div>
-      )} */}
     </div>
   )
 
@@ -700,7 +691,7 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
       <div className={classNames.receiveOrEditWrapper}>
         <img src="/assets/icons/big-box.svg" />
         <img src="/assets/icons/box-arrow.svg" />
-        {renderProductImages(task.boxesBefore[0]?.items[0])}
+        {task.boxesBefore.map((box, index) => renderProductImages(box?.items[0], index))}
       </div>
     </div>
   )

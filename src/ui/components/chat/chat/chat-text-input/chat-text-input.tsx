@@ -72,10 +72,12 @@ export const ChatTextInput: FC<Props> = ({links, files, message, setMessage, set
         ]}
         childProps={{
           textArea: {
+            autoFocus: true,
+            maxlength: '1000',
             onKeyPress: handleKeyPress,
           },
         }}
-        onChange={e => message.length < 1000 && setMessage(e)}
+        onChange={e => setMessage(e)}
         onTabChange={setMdeSelectedTab}
       />
     </div>

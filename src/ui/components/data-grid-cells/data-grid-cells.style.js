@@ -253,8 +253,8 @@ export const styles = createStyles(() => ({
     textAlign: 'center',
   },
   taskDescriptionImg: {
-    width: '30px',
-    height: '30px',
+    width: '60px',
+    height: '60px',
     objectFit: 'contain',
     objectPosition: 'center',
   },
