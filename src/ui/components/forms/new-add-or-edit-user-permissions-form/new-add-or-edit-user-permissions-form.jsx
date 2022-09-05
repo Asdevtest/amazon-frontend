@@ -53,6 +53,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
     products,
     onClickShop,
     isWithoutShopsDepends,
+    isWithoutProductPermissions,
   }) => {
     const classNames = useClassNames()
 
@@ -61,8 +62,6 @@ export const NewAddOrEditUserPermissionsForm = observer(
     const [selectedShop, setSelectedShop] = useState(null)
 
     const [isReady, setIsReady] = useState(true)
-
-    console.log('isWithoutShopsDepends', isWithoutShopsDepends)
 
     const sourceDataToProductsPermissions = [
       {
@@ -176,6 +175,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
           />
 
           <ITab
+            disabled={isWithoutProductPermissions}
             classes={{root: classNames.tab, selected: classNames.selectedTab}}
             value={tabsValues.ACCESS_TO_PRODUCTS}
             label={t(TranslationKey['Access to products'])}

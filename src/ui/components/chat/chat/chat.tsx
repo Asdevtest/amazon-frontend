@@ -3,7 +3,9 @@ import React, {FC, ReactElement, useEffect, useState} from 'react'
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
+import {ChatContract} from '@models/chat-model/contracts'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
+import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 
@@ -25,7 +27,14 @@ export interface RenderAdditionalButtonsParams {
   files: any[]
 }
 
+export interface MessageStateParams {
+  message: string
+  links: string[]
+  files: any[]
+}
+
 interface Props {
+  chat: ChatContract
   messages: ChatMessageContract[]
   userId: string
   chatMessageHandlers?: ChatMessageUniversalHandlers
@@ -35,17 +44,42 @@ interface Props {
 }
 
 export const Chat: FC<Props> = observer(
-  ({messages, userId, chatMessageHandlers, onSubmitMessage, renderAdditionalButtons, updateData}) => {
+  ({chat, messages, userId, chatMessageHandlers, onSubmitMessage, renderAdditionalButtons, updateData}) => {
     const [inputMode, setInputMode] = useState<ChatInputMode>(ChatInputMode.TEXT)
-    const [message, setMessage] = useState('')
-    const [links, setLinks] = useState<string[]>([])
-    const [files, setFiles] = useState<any[]>([])
+
+    const messageInitialState: MessageStateParams = SettingsModel.chatMessageState?.[chat._id] || {
+      message: '',
+      links: [],
+      files: [],
+    }
+
+    const [message, setMessage] = useState(messageInitialState.message)
+    const [links, setLinks] = useState<string[]>(messageInitialState.links)
+    const [files, setFiles] = useState<any[]>(messageInitialState.files)
+
+    const changeMessageAndState = (value: string) => {
+      setMessage(value)
+      SettingsModel.setChatMessageState({message: value, links, files}, chat._id)
+    }
+
+    const changeLinksAndState = (value: string[]) => {
+      setLinks(value)
+      SettingsModel.setChatMessageState({message, links: value, files}, chat._id)
+    }
+
+    const changeFilesAndState = (value: any[]) => {
+      setFiles(value)
+      SettingsModel.setChatMessageState({message, links, files: value}, chat._id)
+    }
+
     const classNames = useClassNames()
 
     const resetAllInputs = () => {
       setMessage('')
       setLinks(() => [])
       setFiles(() => [])
+      SettingsModel.setChatMessageState({message: '', links: [], files: []}, chat._id)
+
       setInputMode(ChatInputMode.FILES) // КОСТЫЛЬ
       setTimeout(() => setInputMode(ChatInputMode.TEXT)) // СКИДЫВАЕТ СЧЕТЧИКИ С ИКОНКИ ФАЙЛОВ И ССЫЛОК
     }
@@ -74,6 +108,15 @@ export const Chat: FC<Props> = observer(
       }
     }, [messages?.length])
 
+    useEffect(() => {
+      setMessage(messageInitialState.message)
+      setLinks(messageInitialState.links)
+      setFiles(messageInitialState.files)
+
+      setInputMode(ChatInputMode.LINKS) // КОСТЫЛЬ
+      setTimeout(() => setInputMode(ChatInputMode.TEXT)) // СКИДЫВАЕТ СЧЕТЧИКИ
+    }, [chat?._id])
+
     return (
       <div className={classNames.root}>
         <div className={classNames.scrollViewWrapper}>
@@ -88,15 +131,22 @@ export const Chat: FC<Props> = observer(
                     links={links}
                     files={files}
                     message={message}
-                    setMessage={setMessage}
+                    setMessage={changeMessageAndState}
                     setInputMode={setInputMode}
                     onSubmitKeyPress={onSubmitMessageInternal}
                   />
                 )
               case ChatInputMode.FILES:
-                return <ChatFilesInput files={files} setFiles={setFiles} />
+                return <ChatFilesInput files={files} setFiles={changeFilesAndState} />
               case ChatInputMode.LINKS:
-                return <ChatLinksInput links={links} setLink={setLink} setLinks={setLinks} inputMode={inputMode} />
+                return (
+                  <ChatLinksInput
+                    links={links}
+                    setLink={setLink}
+                    setLinks={changeLinksAndState}
+                    inputMode={inputMode}
+                  />
+                )
             }
           })()}
           <div className={classNames.btnsWrapper}>

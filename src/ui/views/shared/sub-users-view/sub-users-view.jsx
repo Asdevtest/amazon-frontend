@@ -24,7 +24,7 @@ import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
-import {checkIsClient} from '@utils/checks'
+import {checkIsClient, checkIsStorekeeper} from '@utils/checks'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
@@ -174,6 +174,7 @@ class SubUsersViewRaw extends Component {
 
         <Modal openModal={showPermissionModal} setOpenModal={() => onTriggerOpenModal('showPermissionModal')}>
           <NewAddOrEditUserPermissionsForm
+            isWithoutProductPermissions={checkIsStorekeeper(UserRoleCodeMap[userInfo.role])}
             isWithoutShopsDepends={!checkIsClient(UserRoleCodeMap[userInfo.role])}
             curUserProductPermissions={curUserProductPermissions}
             permissionsToSelect={singlePermissions}

@@ -49,6 +49,7 @@ export const MultipleChats = observer(
             {isNotUndefined(chatSelectedId) && findChatByChatId ? (
               <Chat
                 userId={userId}
+                chat={findChatByChatId}
                 messages={findChatByChatId.messages}
                 chatMessageHandlers={chatMessageHandlers}
                 renderAdditionalButtons={renderAdditionalButtons}

@@ -5,13 +5,21 @@ import {LanguageKey} from '@constants/translations/language-key'
 
 import {setI18nConfig} from '@utils/translations'
 
-const persistProperties = ['dataGridState', 'activeSubCategoryState', 'viewTableModeState', 'languageTag']
+const persistProperties = [
+  'dataGridState',
+  'activeSubCategoryState',
+  'viewTableModeState',
+  'languageTag',
+  'chatMessageState',
+]
 
 const stateModelName = 'SettingsModel'
 class SettingsModelStatic {
   dataGridState = {}
   activeSubCategoryState = {}
   viewTableModeState = {}
+  chatMessageState = undefined
+
   languageTag = LanguageKey.en
   isHydrated = false
 
@@ -47,6 +55,10 @@ class SettingsModelStatic {
 
   setViewTableModeState(state, tableKey) {
     this.viewTableModeState = {...this.viewTableModeState, [tableKey]: state}
+  }
+
+  setChatMessageState(state, tableKey) {
+    this.chatMessageState = {...this.chatMessageState, [tableKey]: state}
   }
 
   setLanguageTag(languageKey) {
