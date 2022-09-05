@@ -12,6 +12,8 @@ import {useHistory} from 'react-router-dom'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {Button} from '@components/buttons/button'
 import {TradingShopCard} from '@components/cards/trading-shop-card'
 import {Field} from '@components/field'
@@ -56,83 +58,85 @@ export const ClientBuyShopsAds = observer(() => {
 
   return (
     <>
-      <div className={classNames.boxesFiltersWrapper}>
-        <Button
-          disabled={curFilter === filtersSettings.ALL_ADS}
-          className={clsx(classNames.button, {
-            [classNames.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
-          })}
-          variant="text"
-          color="primary"
-          onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
-        >
-          {t(TranslationKey['All Ads'])}
-        </Button>
+      {SettingsModel.languageTag && (
+        <>
+          <div className={classNames.boxesFiltersWrapper}>
+            <Button
+              disabled={curFilter === filtersSettings.ALL_ADS}
+              className={clsx(classNames.button, {
+                [classNames.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
+              })}
+              variant="text"
+              color="primary"
+              onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
+            >
+              {t(TranslationKey['All Ads'])}
+            </Button>
 
-        <Button
-          disabled={curFilter === filtersSettings.PURCHASED_ADS}
-          className={clsx(classNames.button, {
-            [classNames.selectedBoxesBtn]: curFilter === filtersSettings.PURCHASED_ADS,
-          })}
-          variant="text"
-          color="primary"
-          onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
-        >
-          {t(TranslationKey['Purchased Ads'])}
-        </Button>
-      </div>
+            <Button
+              disabled={curFilter === filtersSettings.PURCHASED_ADS}
+              className={clsx(classNames.button, {
+                [classNames.selectedBoxesBtn]: curFilter === filtersSettings.PURCHASED_ADS,
+              })}
+              variant="text"
+              color="primary"
+              onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
+            >
+              {t(TranslationKey['Purchased Ads'])}
+            </Button>
+          </div>
 
-      <div className={classNames.tablePanelWrapper}>
-        <div></div>
+          <div className={classNames.tablePanelWrapper}>
+            <div></div>
 
-        <div>
-          <Field
-            containerClasses={classNames.searchContainer}
-            placeholder={t(TranslationKey.search)}
-            inputClasses={classNames.searchInput}
-            value={nameSearchValue}
-            endAdornment={
-              <InputAdornment position="start">
-                <SearchIcon color="primary" />
-              </InputAdornment>
-            }
-            onChange={onChangeNameSearchValue}
-          />
-        </div>
+            <Field
+              containerClasses={classNames.searchContainer}
+              placeholder={t(TranslationKey.search)}
+              inputClasses={classNames.searchInput}
+              value={nameSearchValue}
+              endAdornment={
+                <InputAdornment position="start">
+                  <SearchIcon color="primary" />
+                </InputAdornment>
+              }
+              onChange={onChangeNameSearchValue}
+            />
 
-        <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-          <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+            <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
+              <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
-          {sortMode === tableSortMode.DESK ? (
-            <ArrowDropDownIcon color="primary" />
+              {sortMode === tableSortMode.DESK ? (
+                <ArrowDropDownIcon color="primary" />
+              ) : (
+                <ArrowDropUpIcon color="primary" />
+              )}
+            </div>
+          </div>
+
+          {getSortedData(sortMode)?.length ? (
+            <div
+              classes={{root: classNames.dashboardCardWrapper}}
+              display="grid"
+              gridTemplateColumns={
+                viewMode === tableViewMode.LIST
+                  ? 'repeat(auto-fill, minmax(100%, 1fr))'
+                  : 'repeat(auto-fill, minmax(330px, 1fr))'
+              }
+              gridGap="20px"
+            >
+              {getSortedData(sortMode)?.map(item => (
+                <TradingShopCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
+              ))}
+            </div>
           ) : (
-            <ArrowDropUpIcon color="primary" />
+            <div className={classNames.emptyTableWrapper}>
+              <img src="/assets/icons/empty-table.svg" />
+              <Typography variant="h5" className={classNames.emptyTableText}>
+                {t(TranslationKey['No stores for sale yet'])}
+              </Typography>
+            </div>
           )}
-        </div>
-      </div>
-
-      {getSortedData(sortMode)?.length ? (
-        <div
-          classes={{root: classNames.dashboardCardWrapper}}
-          display="grid"
-          gridTemplateColumns={
-            viewMode === tableViewMode.LIST
-              ? 'repeat(auto-fill, minmax(100%, 1fr))'
-              : 'repeat(auto-fill, minmax(330px, 1fr))'
-          }
-          gridGap="20px"
-        >
-          {getSortedData(sortMode)?.map(item => (
-            <TradingShopCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
-          ))}
-        </div>
-      ) : (
-        <div className={classNames.emptyTableWrapper}>
-          <img src="/assets/icons/empty-table.svg" />
-          <Typography variant="h5" className={classNames.emptyTableText}>
-            {t(TranslationKey['No stores for sale yet'])}
-          </Typography>
-        </div>
+        </>
       )}
     </>
   )

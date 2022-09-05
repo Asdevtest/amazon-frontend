@@ -1061,6 +1061,12 @@ export const ScrollingCell = withStyles(styles)(({classes: classNames, value}) =
   </React.Fragment>
 ))
 
+// export const ScrollingCell = withStyles(styles)(({classes: classNames, value}) => (
+//   <React.Fragment>
+//     <Typography className={classNames.scrollingValue}>{value || '-'}</Typography>
+//   </React.Fragment>
+// ))
+
 export const MultilineCell = withStyles(styles)(({classes: classNames, value}) => (
   <React.Fragment>
     <Typography className={classNames.multilineValue}>{value || '-'}</Typography>

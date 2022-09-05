@@ -11,6 +11,8 @@ import {useHistory} from 'react-router-dom'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {TradingShopCard} from '@components/cards/trading-shop-card'
 import {Field} from '@components/field'
 
@@ -51,57 +53,60 @@ export const ClientSellShopsDeals = observer(() => {
 
   return (
     <>
-      <div className={classNames.tablePanelWrapper}>
-        <div />
-        <div>
-          <Field
-            containerClasses={classNames.searchContainer}
-            placeholder={t(TranslationKey.search)}
-            inputClasses={classNames.searchInput}
-            value={nameSearchValue}
-            endAdornment={
-              <InputAdornment position="start">
-                <SearchIcon color="primary" />
-              </InputAdornment>
-            }
-            onChange={onChangeNameSearchValue}
-          />
-        </div>
+      {SettingsModel.languageTag && (
+        <>
+          <div className={classNames.tablePanelWrapper}>
+            <div></div>
 
-        <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-          <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+            <Field
+              containerClasses={classNames.searchContainer}
+              placeholder={t(TranslationKey.search)}
+              inputClasses={classNames.searchInput}
+              value={nameSearchValue}
+              endAdornment={
+                <InputAdornment position="start">
+                  <SearchIcon color="primary" />
+                </InputAdornment>
+              }
+              onChange={onChangeNameSearchValue}
+            />
 
-          {sortMode === tableSortMode.DESK ? (
-            <ArrowDropDownIcon color="primary" />
+            <div className={classNames.tablePanelSortWrapper} onClick={onTriggerSortMode}>
+              <Typography className={classNames.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+
+              {sortMode === tableSortMode.DESK ? (
+                <ArrowDropDownIcon color="primary" />
+              ) : (
+                <ArrowDropUpIcon color="primary" />
+              )}
+            </div>
+          </div>
+
+          {getSortedData(sortMode)?.length ? (
+            <div
+              container
+              classes={{root: classNames.dashboardCardWrapper}}
+              display="grid"
+              gridTemplateColumns={
+                viewMode === tableViewMode.LIST
+                  ? 'repeat(auto-fill, minmax(100%, 1fr))'
+                  : 'repeat(auto-fill, minmax(330px, 1fr))'
+              }
+              gridGap="20px"
+            >
+              {getSortedData(sortMode)?.map(item => (
+                <TradingShopCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
+              ))}
+            </div>
           ) : (
-            <ArrowDropUpIcon color="primary" />
+            <div className={classNames.emptyTableWrapper}>
+              <img src="/assets/icons/empty-table.svg" />
+              <Typography variant="h5" className={classNames.emptyTableText}>
+                {t(TranslationKey['No deals yet'])}
+              </Typography>
+            </div>
           )}
-        </div>
-      </div>
-
-      {getSortedData(sortMode)?.length ? (
-        <div
-          container
-          classes={{root: classNames.dashboardCardWrapper}}
-          display="grid"
-          gridTemplateColumns={
-            viewMode === tableViewMode.LIST
-              ? 'repeat(auto-fill, minmax(100%, 1fr))'
-              : 'repeat(auto-fill, minmax(330px, 1fr))'
-          }
-          gridGap="20px"
-        >
-          {getSortedData(sortMode)?.map(item => (
-            <TradingShopCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
-          ))}
-        </div>
-      ) : (
-        <div className={classNames.emptyTableWrapper}>
-          <img src="/assets/icons/empty-table.svg" />
-          <Typography variant="h5" className={classNames.emptyTableText}>
-            {t(TranslationKey['No deals yet'])}
-          </Typography>
-        </div>
+        </>
       )}
     </>
   )

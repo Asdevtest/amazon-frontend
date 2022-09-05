@@ -55,6 +55,7 @@ export const styles = createStyles({
     '&:hover': {
       transform: 'scale(1.01)',
     },
+
     border: 0,
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
     backgroundColor: '#fff',
@@ -75,6 +76,10 @@ export const styles = createStyles({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
+
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, .2)',
+    },
   },
 
   selectedShopsBtn: {

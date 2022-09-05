@@ -10,6 +10,7 @@ import {
   WarehouseTariffDestinationCell,
   WarehouseTariffRatesCell,
   MultilineTextHeaderCell,
+  MultilineTextAlignLeftCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -28,7 +29,8 @@ export const logisticsTariffsColumns = handlers => [
     headerName: t(TranslationKey['Tariff description']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Tariff description'])} />,
     width: 310,
-    renderCell: params => <ScrollingCell value={params.value} />,
+    // renderCell: params => <ScrollingCell value={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
   },
 
   {

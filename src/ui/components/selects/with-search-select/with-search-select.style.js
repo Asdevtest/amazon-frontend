@@ -78,7 +78,7 @@ export const styles = () =>
 
     button: {
       marginBottom: 5,
-      width: '90%',
+      width: '100%',
       display: 'flex',
       justifyContent: 'flex-start',
 
@@ -86,6 +86,10 @@ export const styles = () =>
       minHeight: 20,
       overflow: 'hidden',
       whiteSpace: 'nowrap',
+
+      '&:hover': {
+        backgroundColor: 'rgba(0, 0, 0, .2)',
+      },
     },
 
     selectedItemName: {

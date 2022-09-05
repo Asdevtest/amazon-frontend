@@ -173,15 +173,16 @@ class ChatModelStatic {
   }
 
   private onNewChat(newChat: ChatContract) {
+    console.log('***ON_NEW_CHAT!!!')
     const chat = plainToClass<ChatContract, unknown>(ChatContract, newChat)
 
-    const findSimpleChatIndexById = this.chats.findIndex((ch: ChatContract) => ch._id === newChat._id)
+    // const findSimpleChatIndexById = this.chats.findIndex((ch: ChatContract) => ch._id === newChat._id)
 
-    if (findSimpleChatIndexById !== -1) {
-      runInAction(() => {
-        this.simpleChats = [...this.simpleChats, chat]
-      })
-    }
+    // if (findSimpleChatIndexById !== -1) {
+    runInAction(() => {
+      this.simpleChats = [...this.simpleChats, chat]
+    })
+    // }
   }
 
   private onPong(result: string) {

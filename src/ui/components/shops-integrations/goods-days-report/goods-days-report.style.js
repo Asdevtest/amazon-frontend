@@ -11,6 +11,10 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
+
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, .2)',
+    },
   },
 
   buttonsWrapper: {
