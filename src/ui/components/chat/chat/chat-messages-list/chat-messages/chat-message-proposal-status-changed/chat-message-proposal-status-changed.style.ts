@@ -19,8 +19,8 @@ export const useClassNames = makeStyles(() => ({
     gap: '10px',
   },
   statusText: {
+    fontSize: '18px',
     color: 'black',
-    fontSize: '15px',
   },
   detailsWrapper: {
     marginTop: '5px',

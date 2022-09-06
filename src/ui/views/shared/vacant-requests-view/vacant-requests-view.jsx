@@ -35,7 +35,7 @@ const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUES
 
 @observer
 class VacantRequestsViewRaw extends Component {
-  viewModel = new VacantRequestsViewModel({history: this.props.history})
+  viewModel = new VacantRequestsViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()

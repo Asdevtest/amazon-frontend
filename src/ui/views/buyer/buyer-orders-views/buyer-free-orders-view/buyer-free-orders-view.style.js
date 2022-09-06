@@ -37,4 +37,7 @@ export const styles = createStyles(() => ({
     margin: '0 0 15px 0',
     display: 'flex',
   },
+  dataGridWrapper: {
+    height: '84vh',
+  },
 }))

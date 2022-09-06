@@ -215,28 +215,33 @@ export const ClientDashboardCardDataKey = {
   READY_TO_SEND: 'READY_TO_SEND',
   IS_BEING_COLLECTED: 'IS_BEING_COLLECTED',
   SEND_BOXES: 'SEND_BOXES',
+  PUBLISHED_STORES: 'PUBLISHED_STORES',
+  MODERATING: 'MODERATING',
+  BOOKED: 'BOOKED',
+  ALL_REQUESTS: 'ALL_REQUESTS',
+  REQUESTS_IN_WORK: 'REQUESTS_IN_WORK',
+  REQUESTS_WITHOUT_PROPOSAL: 'REQUESTS_WITHOUT_PROPOSAL',
 }
-export const getClientDashboardCardConfig = () => [
-  {
+
+export const getClientDashboardCardConfig = () => ({
+  inventory: {
     key: 'inventory',
     title: t(TranslationKey.Inventory),
+    route: '/client/inventory',
     items: [
       {
         dataKey: ClientDashboardCardDataKey.IN_INVENTORY,
         title: t(TranslationKey['Goods in inventory']),
-        color: '#20a8d8',
         route: '/client/inventory',
       },
       {
         dataKey: ClientDashboardCardDataKey.REPURCHASE_ITEMS,
         title: t(TranslationKey['Purchased product cards']),
-        color: '#4dbd74',
         route: '/client/inventory',
       },
     ],
   },
-
-  {
+  orders: {
     key: 'order',
     title: t(TranslationKey.Orders),
     items: [
@@ -260,38 +265,85 @@ export const getClientDashboardCardConfig = () => [
       },
     ],
   },
-  {
+  boxes: {
     key: 'boxes',
     title: t(TranslationKey.Warehouse),
     items: [
       {
         dataKey: ClientDashboardCardDataKey.BOXES_IN_WAREHOUSE,
         title: t(TranslationKey['Boxes in store']),
-        color: '#C69109',
+        icon: '/assets/icons/warehouse.svg',
         route: '/client/warehouse',
       },
       {
         dataKey: ClientDashboardCardDataKey.READY_TO_SEND,
         title: t(TranslationKey['Boxes ready to send']),
+        icon: '/assets/icons/party.svg',
+        subIcon: '/assets/icons/check.svg',
         color: '#C69109',
-        route: '/client/boxes-ready-to-batch',
+        route: '/client/batches/boxes-ready-to-batch',
       },
       {
         dataKey: ClientDashboardCardDataKey.IS_BEING_COLLECTED,
         title: t(TranslationKey['Awaiting send']),
+        icon: '/assets/icons/party.svg',
+        subIcon: '/assets/icons/clock.svg',
         color: '#ffc107',
-        route: '/client/awaiting-batch',
+        route: '/client/batches/awaiting-batch',
       },
 
       {
         dataKey: ClientDashboardCardDataKey.SEND_BOXES,
         title: t(TranslationKey['Sent boxes']),
+        icon: '/assets/icons/party.svg',
+        subIcon: '/assets/icons/ship.svg',
         color: '#00B746',
-        route: '/client/batches',
+        route: '/client/batches/sent-batches',
       },
     ],
   },
-]
+  stores: {
+    key: 'store',
+    title: t(TranslationKey['Trading stores']),
+    route: '/client/shops',
+    items: [
+      {
+        dataKey: ClientDashboardCardDataKey.PUBLISHED_STORES,
+        title: t(TranslationKey['Published stores']),
+      },
+      {
+        dataKey: ClientDashboardCardDataKey.MODERATING,
+        title: t(TranslationKey['In moderation']),
+      },
+      {
+        dataKey: ClientDashboardCardDataKey.BOOKED,
+        title: t(TranslationKey['In the reservation']),
+      },
+    ],
+  },
+  freelance: {
+    key: 'freelance',
+    title: t(TranslationKey.Freelance),
+    route: '/client/freelance/my-requests/create-request',
+    items: [
+      {
+        dataKey: ClientDashboardCardDataKey.ALL_REQUESTS,
+        title: t(TranslationKey['Total requests']),
+        color: '#ffc107',
+      },
+      {
+        dataKey: ClientDashboardCardDataKey.REQUESTS_IN_WORK,
+        title: t(TranslationKey['Requests in the works']),
+        color: '#00B746',
+      },
+      {
+        dataKey: ClientDashboardCardDataKey.REQUESTS_WITHOUT_PROPOSAL,
+        title: t(TranslationKey['Requests without proposals']),
+        color: '#BC3030',
+      },
+    ],
+  },
+})
 
 export const WarehouseDashboardCardDataKey = {
   VACANT_TASKS: 'VACANT_TASKS',

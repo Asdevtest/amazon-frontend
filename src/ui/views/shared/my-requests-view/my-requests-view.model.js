@@ -28,7 +28,7 @@ export class MyRequestsViewModel {
   researchIdToRemove = undefined
 
   searchRequests = []
-
+  openModal = null
   requestFormSettings = {
     request: {},
     isEdit: false,
@@ -48,6 +48,7 @@ export class MyRequestsViewModel {
 
   constructor({history}) {
     this.history = history
+
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(

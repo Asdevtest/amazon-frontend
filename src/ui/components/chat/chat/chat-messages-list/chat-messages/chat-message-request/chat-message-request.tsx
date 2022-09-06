@@ -3,6 +3,8 @@ import React, {FC} from 'react'
 import {TextareaAutosize} from '@material-ui/core'
 import clsx from 'clsx'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {ChatMessageDataCreatedNewProposalRequestDescriptionContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
@@ -12,6 +14,7 @@ import {Field} from '@components/field/field'
 
 import {formatDateTimeHourAndMinutes, formatNormDateTime} from '@utils/date-time'
 import {toFixedWithDollarSign} from '@utils/text'
+import {t} from '@utils/translations'
 
 import {LabelValuePairBlock} from '../label-value-pair-block'
 import {useClassNames} from './chat-message-request.style'
@@ -46,11 +49,15 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
       <div className={classNames.footerWrapper}>
         <div className={classNames.footerRow}>
           <div className={classNames.labelValueBlockWrapper}>
-            <LabelValuePairBlock label="Сроки" value={formatNormDateTime(message.data?.timeoutAt)} bgColor="green" />
+            <LabelValuePairBlock
+              label={t(TranslationKey.Deadline)}
+              value={formatNormDateTime(message.data?.timeoutAt)}
+              bgColor="green"
+            />
           </div>
           <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
             <LabelValuePairBlock
-              label="Статус"
+              label={t(TranslationKey.Status)}
               value={<RequestStatusCell status={message.data?.status} />}
               bgColor="green"
             />
@@ -58,7 +65,7 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
 
           <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
             <LabelValuePairBlock
-              label="Стоимость"
+              label={t(TranslationKey['Total price'])}
               value={toFixedWithDollarSign(message.data?.price, 2)}
               bgColor="green"
             />

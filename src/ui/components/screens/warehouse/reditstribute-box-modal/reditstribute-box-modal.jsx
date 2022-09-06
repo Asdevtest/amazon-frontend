@@ -4,7 +4,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 
 import React, {useState} from 'react'
 
-import {Chip, IconButton, Typography} from '@material-ui/core'
+import {Chip, IconButton, Link, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -46,6 +46,9 @@ const Box = ({
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
   const [showFullCard, setShowFullCard] = useState(true)
+  const copyValue = value => {
+    navigator.clipboard.writeText(value)
+  }
 
   const setShippingLabel = () => value => {
     onChangeField({target: {value}}, 'tmpShippingLabel', box._id)
@@ -196,6 +199,37 @@ const Box = ({
                 value={box.fbaShipment}
                 onChange={e => onChangeField(e, 'fbaShipment', box._id)}
               />
+
+              {!isNewBox ? (
+                <Field
+                  disabled={!isNewBox}
+                  inputProps={{maxLength: 255}}
+                  containerClasses={classNames.field}
+                  labelClasses={classNames.label}
+                  className={classNames.fieldInput}
+                  label={t(TranslationKey['Shipping label'])}
+                  value={box.shippingLabel}
+                  inputComponent={
+                    box.shippingLabel ? (
+                      <div className={classNames.shippingLabelWrapper}>
+                        <Link href={box.shippingLabel} target="_blank">
+                          {t(TranslationKey.View)}
+                        </Link>
+                        <img
+                          className={classNames.copyImg}
+                          src="/assets/icons/copy-img.svg"
+                          alt=""
+                          onClick={() => copyValue(box.shippingLabel)}
+                        />
+                      </div>
+                    ) : (
+                      <div className={classNames.shippingLabelWrapper}>
+                        <Typography>{t(TranslationKey['Not available'])}</Typography>
+                      </div>
+                    )
+                  }
+                />
+              ) : null}
 
               {isNewBox ? (
                 <div>

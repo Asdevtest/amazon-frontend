@@ -6,9 +6,13 @@ export class ClientShopsViewModel {
   error = undefined
 
   drawerOpen = false
+  openModal = null
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+    if (location.state) {
+      this.openModal = location.state.openModal
+    }
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 

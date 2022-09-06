@@ -40,7 +40,7 @@ const tabsValues = {
   GOODS_DAYS_REPORT: 'GOODS_DAYS_REPORT',
 }
 
-export const ShopsIntegrations = observer(() => {
+export const ShopsIntegrations = observer(({openModal}) => {
   const classNames = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(tabsValues.SHOPS)
@@ -83,7 +83,12 @@ export const ShopsIntegrations = observer(() => {
       )}
 
       <TabPanel value={tabIndex} index={tabsValues.SHOPS}>
-        <ShopsView tabsValues={tabsValues} onChangeTabIndex={setTabIndex} onChangeCurShop={setCurShop} />
+        <ShopsView
+          tabsValues={tabsValues}
+          openModal={openModal}
+          onChangeTabIndex={setTabIndex}
+          onChangeCurShop={setCurShop}
+        />
       </TabPanel>
       <TabPanel value={tabIndex} index={tabsValues.STOCK_REPORT}>
         <StockReport curShop={curShop} />

@@ -12,7 +12,8 @@ import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
 import {DashboardButtons} from '@components/dashboards/dashboard-buttons'
-import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
+import {DashboardWidgetsCard} from '@components/dashboards/dashboard-widgets-card'
+// import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {UserMoneyTransferModal} from '@components/modals/user-money-transfer-modal'
@@ -81,14 +82,19 @@ export class ClientDashboardViewRaw extends Component {
                     </Button>
                   </div>
                 </div>
-                <DashboardButtons />
+                <DashboardButtons user={userInfo} />
               </Paper>
-
-              <SectionalDashboard
+              <DashboardWidgetsCard
                 config={getClientDashboardCardConfig()}
                 valuesData={dashboardData}
                 onClickViewMore={onClickInfoCardViewMode}
               />
+
+              {/* <SectionalDashboard
+                config={getClientDashboardCardConfig()}
+                valuesData={dashboardData}
+                onClickViewMore={onClickInfoCardViewMode}
+              /> */}
             </MainContent>
           </Appbar>
         </Main>

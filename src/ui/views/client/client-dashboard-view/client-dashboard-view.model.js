@@ -5,10 +5,15 @@ import {BoxStatus} from '@constants/box-status'
 import {ClientDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {OrderStatus, OrderStatusByKey} from '@constants/order-status'
+import {RequestStatus} from '@constants/request-status'
+import {RequestSubType, RequestType} from '@constants/request-type'
+import {ShopStatus} from '@constants/shop-status'
 
 import {BatchesModel} from '@models/batches-model'
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
+import {RequestModel} from '@models/request-model'
+import {ShopSellModel} from '@models/shop-sell-model'
 import {UserModel} from '@models/user-model'
 
 export class ClientDashboardViewModel {
@@ -28,6 +33,10 @@ export class ClientDashboardViewModel {
     [ClientDashboardCardDataKey.READY_TO_SEND]: '',
     [ClientDashboardCardDataKey.IS_BEING_COLLECTED]: '',
     [ClientDashboardCardDataKey.SEND_BOXES]: '',
+    [ClientDashboardCardDataKey.PUBLISHED_STORES]: '',
+    [ClientDashboardCardDataKey.ALL_REQUESTS]: '',
+    [ClientDashboardCardDataKey.REQUESTS_IN_WORK]: '',
+    [ClientDashboardCardDataKey.REQUESTS_WITHOUT_PROPOSAL]: '',
   }
 
   showTransferModal = false
@@ -76,7 +85,8 @@ export class ClientDashboardViewModel {
       this.requestStatus = loadingStatuses.isLoading
       this.getProductsMy()
       this.getOrders()
-
+      this.getShops()
+      this.getRequestsVacant()
       this.getSendedBoxes()
 
       this.getReadyBoxes()
@@ -116,6 +126,44 @@ export class ClientDashboardViewModel {
     } catch (error) {
       console.log(error)
       this.error = error
+    }
+  }
+
+  async getShops() {
+    try {
+      const result = await ShopSellModel.getShopSells()
+
+      runInAction(() => {
+        this.dashboardData = {
+          ...this.dashboardData,
+          [ClientDashboardCardDataKey.PUBLISHED_STORES]: result.length,
+          [ClientDashboardCardDataKey.MODERATING]: result.filter(el => el.status === ShopStatus.MODERATING).length,
+          [ClientDashboardCardDataKey.BOOKED]: result.filter(el => el.status === ShopStatus.BOOKED).length,
+        }
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
+  async getRequestsVacant() {
+    try {
+      const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY)
+      console.log(result)
+      runInAction(() => {
+        this.dashboardData = {
+          ...this.dashboardData,
+          [ClientDashboardCardDataKey.ALL_REQUESTS]: result.length,
+          [ClientDashboardCardDataKey.REQUESTS_IN_WORK]: result.filter(el => el.status === RequestStatus.IN_PROCESS)
+            .length,
+          [ClientDashboardCardDataKey.REQUESTS_WITHOUT_PROPOSAL]: result.filter(
+            el => el.countProposalsByStatuses.allProposals === 0,
+          ).length,
+        }
+      })
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -200,6 +248,8 @@ export class ClientDashboardViewModel {
   }
 
   onClickInfoCardViewMode(route) {
-    this.history.push(route)
+    this.history.push(route, {
+      openModal: true,
+    })
   }
 }

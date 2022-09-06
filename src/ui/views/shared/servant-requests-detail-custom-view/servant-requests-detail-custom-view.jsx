@@ -119,7 +119,7 @@ export class RequestDetailCustomViewRaw extends Component {
                           findRequestProposalByChatSelectedId.proposal.status,
                         ) ? (
                           <Button danger onClick={onClickCancelRequestProposal}>
-                            Отменить сделку
+                            {t(TranslationKey['Reject the deal'])}
                           </Button>
                         ) : (
                           <div />
@@ -134,7 +134,7 @@ export class RequestDetailCustomViewRaw extends Component {
                               resetAllInputs()
                             }}
                           >
-                            Отправить как результат
+                            {t(TranslationKey['Send as a result'])}
                           </Button>
                         ) : undefined}
                         {/* {findRequestProposalByChatSelectedId?.proposal.status ===

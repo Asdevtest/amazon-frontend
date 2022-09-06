@@ -5,7 +5,6 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
-import {AdministratorModel} from '@models/administrator-model'
 import {ChatModel} from '@models/chat-model'
 import {ClientModel} from '@models/client-model'
 import {ProductModel} from '@models/product-model'
@@ -430,7 +429,7 @@ export class AnotherProfileViewModel {
 
   async getUserById() {
     try {
-      const result = await AdministratorModel.getUsersById(this.userId)
+      const result = await UserModel.getUserInfoById(this.userId)
 
       // const result = await UserModel.getUserInfoById(this.userId)
 
