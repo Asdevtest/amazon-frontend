@@ -51,19 +51,20 @@ export class ShopsViewModel {
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = shopsColumns(this.rowHandlers, this.firstRowId)
-
+  openModal = null
   warningInfoModalSettings = {
     isWarning: false,
     title: '',
   }
+  openModal = null
 
-  constructor({history, tabsValues, onChangeTabIndex, onChangeCurShop}) {
+  constructor({history, tabsValues, onChangeTabIndex, onChangeCurShop, openModal}) {
     this.history = history
 
     this.tabsValues = tabsValues
     this.onChangeTabIndex = onChangeTabIndex
     this.onChangeCurShop = onChangeCurShop
-
+    this.openModal = openModal
     makeAutoObservable(this, undefined, {autoBind: true})
 
     reaction(
@@ -177,9 +178,13 @@ export class ShopsViewModel {
   async getShops() {
     try {
       const result = await ShopModel.getMyShops()
+
       runInAction(() => {
         this.shopsData = addIdDataConverter(result)
       })
+      if (this.openModal) {
+        this.onTriggerOpenModal('showAddOrEditShopModal')
+      }
     } catch (error) {
       console.log(error)
       this.error = error

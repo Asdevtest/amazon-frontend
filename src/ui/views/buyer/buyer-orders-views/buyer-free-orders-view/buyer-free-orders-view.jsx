@@ -77,37 +77,39 @@ class BuyerFreeOrdersViewRaw extends Component {
                   {t(TranslationKey['Take on the work of the selected'])}
                 </Button>
               </div>
-              <DataGrid
-                checkboxSelection
-                pagination
-                useResizeContainer
-                classes={{
-                  root: classNames.root,
-                  footerContainer: classNames.footerContainer,
-                  footerCell: classNames.footerCell,
-                  toolbarContainer: classNames.toolbarContainer,
-                }}
-                localeText={getLocalizationByLanguageTag()}
-                sortModel={sortModel}
-                filterModel={filterModel}
-                page={curPage}
-                pageSize={rowsPerPage}
-                rowsPerPageOptions={[15, 25, 50, 100]}
-                rows={getCurrentData()}
-                rowHeight={100}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
-                density={densityModel}
-                columns={columnsModel}
-                loading={requestStatus === loadingStatuses.isLoading}
-                onSortModelChange={onChangeSortingModel}
-                onPageSizeChange={onChangeRowsPerPage}
-                onPageChange={onChangeCurPage}
-                onStateChange={setDataGridState}
-                onFilterModelChange={model => onChangeFilterModel(model)}
-                onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
-              />
+              <div className={classNames.dataGridWrapper}>
+                <DataGrid
+                  checkboxSelection
+                  pagination
+                  useResizeContainer
+                  classes={{
+                    root: classNames.root,
+                    footerContainer: classNames.footerContainer,
+                    footerCell: classNames.footerCell,
+                    toolbarContainer: classNames.toolbarContainer,
+                  }}
+                  localeText={getLocalizationByLanguageTag()}
+                  sortModel={sortModel}
+                  filterModel={filterModel}
+                  page={curPage}
+                  pageSize={rowsPerPage}
+                  rowsPerPageOptions={[15, 25, 50, 100]}
+                  rows={getCurrentData()}
+                  rowHeight={100}
+                  components={{
+                    Toolbar: GridToolbar,
+                  }}
+                  density={densityModel}
+                  columns={columnsModel}
+                  loading={requestStatus === loadingStatuses.isLoading}
+                  onSortModelChange={onChangeSortingModel}
+                  onPageSizeChange={onChangeRowsPerPage}
+                  onPageChange={onChangeCurPage}
+                  onStateChange={setDataGridState}
+                  onFilterModelChange={model => onChangeFilterModel(model)}
+                  onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
+                />
+              </div>
             </MainContent>
           </Appbar>
         </Main>

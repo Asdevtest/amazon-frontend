@@ -464,7 +464,7 @@ export const EditBoxForm = observer(
                     <Field
                       labelClasses={classNames.standartLabel}
                       containerClasses={classNames.field}
-                      label={'Storekeeper /' + t(TranslationKey.Tariff)}
+                      label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
                       tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
                       error={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
                       inputComponent={

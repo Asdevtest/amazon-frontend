@@ -90,7 +90,7 @@ export const useClassNames = makeStyles(() => ({
     color: '#001029',
   },
   timeToCheckBlockValueWrapper: {
-    width: '146px',
+    width: '158px',
     padding: '8px 16px 7px 56px',
     backgroundColor: '#fff',
     borderRadius: '4px',

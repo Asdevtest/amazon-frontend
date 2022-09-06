@@ -5,6 +5,8 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {ChatModel} from '@models/chat-model'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
@@ -12,6 +14,7 @@ import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel
 
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
+import {t} from '@utils/translations'
 import {
   checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract,
   checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract,
@@ -135,8 +138,8 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                         {renderMessageByType(isIncomming, messageItem)}
                         {messageItem.files.length ? (
                           <div className={classNames.filesMainWrapper}>
-                            <Typography className={classNames.filesTitle}>{'Файлы:'}</Typography>
-                            <PhotoAndFilesCarousel notToShowEmpty small files={messageItem.files} width="300px" />
+                            <Typography className={classNames.filesTitle}>{`${t(TranslationKey.Files)}:`}</Typography>
+                            <PhotoAndFilesCarousel small files={messageItem.files} width="300px" />
                           </div>
                         ) : undefined}
                       </div>

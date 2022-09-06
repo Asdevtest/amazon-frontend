@@ -3,11 +3,18 @@ import React, {FC, ReactElement, useEffect, useState} from 'react'
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
+<<<<<<< HEAD
 import {ChatContract} from '@models/chat-model/contracts'
+=======
+import {TranslationKey} from '@constants/translations/translation-key'
+
+>>>>>>> e342671f (3522 3495 3529 3534 3480 3536 3526 3446 3532 3533)
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
+
+import {t} from '@utils/translations'
 
 import {ChatFilesInput} from './chat-files-input'
 import {ChatLinksInput} from './chat-links-input'
@@ -156,7 +163,7 @@ export const Chat: FC<Props> = observer(
 
             {(inputMode === ChatInputMode.FILES || inputMode === ChatInputMode.LINKS) && (
               <Button className={classNames.backBtn} onClick={() => setInputMode(ChatInputMode.TEXT)}>
-                {'Назад'}
+                {t(TranslationKey.Back)}
               </Button>
             )}
             <Button
@@ -169,7 +176,7 @@ export const Chat: FC<Props> = observer(
                 }
               }}
             >
-              {inputMode === ChatInputMode.TEXT ? 'Отправить сообщение' : 'Прикрепить'}
+              {inputMode === ChatInputMode.TEXT ? t(TranslationKey['Send message']) : t(TranslationKey['Attach file'])}
             </Button>
           </div>
         </div>

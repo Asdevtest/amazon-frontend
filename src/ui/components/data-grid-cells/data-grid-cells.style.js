@@ -789,6 +789,10 @@ export const styles = createStyles(() => ({
     textAlign: 'right',
   },
 
+  statusTextChat: {
+    fontSize: '18px',
+  },
+
   statusWrapper: {
     // width: '270px',
     display: 'flex',
@@ -861,6 +865,12 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
+    gap: '10px',
+  },
+  avatarWrapper: {
+    width: '28px',
+    height: '28px',
   },
 
   clientTasksActionBtnsWrapper: {

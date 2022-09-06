@@ -221,6 +221,7 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
 
 export const UserLinkCell = withStyles(styles)(({classes: classNames, name, userId, blackText}) => (
   <div className={classNames.userLinkWrapper}>
+    <Avatar src={getUserAvatarSrc(userId)} className={classNames.avatarWrapper} />
     <UserLink name={name} userId={userId} blackText={blackText} />
   </div>
 ))
@@ -523,7 +524,7 @@ export const OrderStatusCell = withStyles(styles)(({classes: classNames, status}
   )
 })
 
-export const RequestStatusCell = withStyles(styles)(({classes: classNames, status}) => {
+export const RequestStatusCell = withStyles(styles)(({classes: classNames, status, isChat}) => {
   const colorByStatus = () => {
     if ([RequestStatus.DRAFT].includes(status)) {
       return '#006CFF'
@@ -569,7 +570,10 @@ export const RequestStatusCell = withStyles(styles)(({classes: classNames, statu
 
   return (
     <div className={classNames.statusWrapper}>
-      <Typography className={classNames.statusText} style={{color: colorStatus}}>
+      <Typography
+        className={clsx(classNames.statusText, {[classNames.statusTextChat]: isChat})}
+        style={{color: colorStatus}}
+      >
         {MyRequestStatusTranslate(status)}
       </Typography>
     </div>

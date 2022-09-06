@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 
+import {Avatar, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -9,11 +10,13 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
+import {DashboardButtons} from '@components/dashboards/dashboard-buttons'
 import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
 
 import {WarehouseDashboardViewModel} from './warehouse-dashboard-view.model'
@@ -31,7 +34,7 @@ export class WarehouseDashboardViewRaw extends Component {
 
   render() {
     const {dashboardData, userInfo, drawerOpen, onChangeTriggerDrawerOpen, onClickInfoCardViewMode} = this.viewModel
-
+    const {classes: classNames} = this.props
     return (
       <React.Fragment>
         <Navbar
@@ -42,7 +45,12 @@ export class WarehouseDashboardViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Dashboard)} setDrawerOpen={onChangeTriggerDrawerOpen}>
             <MainContent>
-              <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+              <Paper className={classNames.userInfoWrapper}>
+                <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
+
+                <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+                <DashboardButtons user={userInfo} />
+              </Paper>
 
               <SectionalDashboard
                 config={getWarehouseDashboardCardConfig()}

@@ -25,9 +25,11 @@ import {styles} from './shops-view.style'
 class ShopsViewRaw extends Component {
   viewModel = new ShopsViewModel({
     history: this.props.history,
+
     onChangeTabIndex: this.props.onChangeTabIndex,
     tabsValues: this.props.tabsValues,
     onChangeCurShop: this.props.onChangeCurShop,
+    openModal: this.props.openModal,
   })
 
   componentDidMount() {

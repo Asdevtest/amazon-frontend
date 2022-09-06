@@ -21,7 +21,7 @@ export class VacantRequestsViewModel {
 
   searchMyRequestsIds = []
   requests = []
-
+  openModal = null
   viewMode = tableViewMode.LIST
   sortMode = tableSortMode.DESK
 
@@ -31,6 +31,7 @@ export class VacantRequestsViewModel {
 
   constructor({history}) {
     this.history = history
+
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 

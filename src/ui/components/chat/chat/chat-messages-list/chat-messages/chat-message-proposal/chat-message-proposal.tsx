@@ -38,7 +38,7 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
         <div className={classNames.headerWrapper}>
-          <p className={classNames.headerText}>ПРЕДЛОЖЕНИЕ</p>
+          <p className={classNames.headerText}>{t(TranslationKey.Proposal)}</p>
         </div>
         <div className={classNames.timeWrapper}>
           <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</p>
@@ -53,14 +53,14 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
           <div className={classNames.leftSide}>
             <div className={classNames.labelValueBlockWrapper}>
               <LabelValuePairBlock
-                label="Время на выполнение"
+                label={t(TranslationKey['Time to complete'])}
                 value={minsToTime(message.data.execution_time)}
                 bgColor="green"
               />
             </div>
             <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
               <LabelValuePairBlock
-                label="Стоимость"
+                label={t(TranslationKey['Total price'])}
                 value={toFixedWithDollarSign(message.data.price, 2)}
                 bgColor="green"
               />
@@ -85,7 +85,7 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
                     className={clsx(classNames.actionButton, classNames.cancelBtn)}
                     onClick={() => handlers.onClickProposalRegect(message.data._id)}
                   >
-                    Отклонить
+                    {t(TranslationKey.Reject)}
                   </Button>
                 ) : null}
                 <Button

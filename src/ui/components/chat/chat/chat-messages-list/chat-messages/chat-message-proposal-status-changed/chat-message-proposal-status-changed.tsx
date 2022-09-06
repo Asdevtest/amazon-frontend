@@ -3,6 +3,7 @@ import React, {FC, useContext} from 'react'
 import clsx from 'clsx'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataProposalStatusChangedContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
@@ -12,6 +13,7 @@ import {Button} from '@components/buttons/button'
 import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
 
 import {formatDateTime} from '@utils/date-time'
+import {t} from '@utils/translations'
 
 import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
@@ -35,7 +37,9 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
     return (
       <div className={classNames.root}>
         <p className={classNames.statusTextDesciption}>
-          Предложение принято Клиентом и взято в работу {formatDateTime(message.createdAt)}
+          {`${t(TranslationKey['The proposal is accepted by the Client and taken on work'])} ${formatDateTime(
+            message.createdAt,
+          )}`}
         </p>
       </div>
     )
@@ -47,7 +51,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
         return (
           <div className={classNames.detailsWrapper}>
             <div className={classNames.titleWrapper}>
-              <p className={classNames.titleText}>Причина:</p>
+              <p className={classNames.titleText}>{`${t(TranslationKey.Reason)}:`}</p>
             </div>
             <div className={classNames.reasonWrapper}>
               <p className={classNames.reasonText}>{message.data.reason}</p>
@@ -57,7 +61,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
                 {message.data.timeLimitInMinutes ? (
                   <div className={classNames.labelValueBlockWrapper}>
                     <LabelValuePairBlock
-                      label="Ограничение по времени на исправление (мин)"
+                      label={`${t(TranslationKey['Time limit for correction'])} (${t(TranslationKey.minute)})`}
                       value={message.data.timeLimitInMinutes.toString()}
                       bgColor="green"
                     />
@@ -71,7 +75,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
         return (
           <div className={classNames.detailsWrapper}>
             <div className={classNames.titleWrapper}>
-              <p className={classNames.titleText}>Исправления:</p>
+              <p className={classNames.titleText}>{`${t(TranslationKey.Corrections)}:`}</p>
             </div>
             <div className={classNames.reasonWrapper}>
               <p className={classNames.reasonText}>{message.data.reason}</p>
@@ -100,7 +104,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
                         )
                       }
                     >
-                      Отправить на доработку
+                      {t(TranslationKey['Send in for rework'])}
                     </Button>
                   )}
                   <Button
@@ -113,7 +117,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
                       handlers.onClickProposalResultAccept(chatRequestAndRequestProposal.requestProposal.proposal._id)
                     }
                   >
-                    Принять
+                    {t(TranslationKey.Receive)}
                   </Button>
                 </div>
               ) : undefined}
@@ -127,8 +131,8 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
     <div className={classNames.root}>
       <div className={classNames.statusWrapper}>
         <p className={classNames.statusTextDesciption}>
-          Новый статус предложения:{' '}
-          <span className={classNames.statusText}>{<RequestStatusCell status={message.data.status} />}</span>
+          {`${t(TranslationKey['New proposal status'])}:`}
+          <span className={classNames.statusText}>{<RequestStatusCell isChat status={message.data.status} />}</span>
         </p>
       </div>
       {renderDetails()}

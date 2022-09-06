@@ -3,7 +3,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
 import React, {useState} from 'react'
 
-import {NativeSelect, Typography} from '@material-ui/core'
+import {Link, NativeSelect, Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -19,7 +19,9 @@ import {useClassNames} from './box-for-merge.style'
 export const BoxForMerge = ({box, readOnly = false, index}) => {
   const classNames = useClassNames()
   const [showFullCard, setShowFullCard] = useState(false)
-
+  const copyValue = value => {
+    navigator.clipboard.writeText(value)
+  }
   return (
     <div className={classNames.box}>
       <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
@@ -95,6 +97,34 @@ export const BoxForMerge = ({box, readOnly = false, index}) => {
               className={classNames.fieldInput}
               label={t(TranslationKey['FBA Shipment'])}
               value={box.fbaShipment}
+            />
+            <Field
+              disabled
+              inputProps={{maxLength: 255}}
+              containerClasses={classNames.field}
+              labelClasses={classNames.label}
+              className={classNames.fieldInput}
+              label={t(TranslationKey['Shipping label'])}
+              value={box.shippingLabel}
+              inputComponent={
+                box.shippingLabel ? (
+                  <div className={classNames.shippingLabelWrapper}>
+                    <Link href={box.shippingLabel} target="_blank">
+                      {t(TranslationKey.View)}
+                    </Link>
+                    <img
+                      className={classNames.copyImg}
+                      src="/assets/icons/copy-img.svg"
+                      alt=""
+                      onClick={() => copyValue(box.shippingLabel)}
+                    />
+                  </div>
+                ) : (
+                  <div className={classNames.shippingLabelWrapper}>
+                    <Typography>{t(TranslationKey['Not available'])}</Typography>
+                  </div>
+                )
+              }
             />
           </div>
         ) : null}

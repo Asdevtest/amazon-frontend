@@ -3,6 +3,7 @@ import React, {FC, useContext} from 'react'
 import clsx from 'clsx'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatMessageDataProposalResultEditedContract} from '@models/chat-model/contracts/chat-message-data.contract'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
@@ -12,6 +13,7 @@ import {Button} from '@components/buttons/button'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 
 import {formatDateTimeHourAndMinutes} from '@utils/date-time'
+import {t} from '@utils/translations'
 
 import {ChatRequestAndRequestProposalContext} from '@contexts/chat-request-and-request-proposal-context'
 
@@ -40,7 +42,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
     <div className={classNames.root}>
       <div className={classNames.headerAndTimeWrapper}>
         <div className={classNames.headerWrapper}>
-          <p className={classNames.headerText}>Результат</p>
+          <p className={classNames.headerText}>{t(TranslationKey.Result)}</p>
         </div>
         <div className={classNames.timeWrapper}>
           <p className={classNames.timeText}>{formatDateTimeHourAndMinutes(message.updatedAt)}</p>
@@ -62,9 +64,11 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
 
         <div className={classNames.resultRightSide}>
           <div className={classNames.timeToCheckBlockWrapper}>
-            <p className={classNames.timeToCheckBlockLabelText}>Время на проверку</p>
+            <p className={classNames.timeToCheckBlockLabelText}>{t(TranslationKey['Time to check'])}</p>
             <div className={classNames.timeToCheckBlockValueWrapper}>
-              <p className={classNames.timeToCheckBlockValueText}>24 ч 00м</p>
+              <p className={classNames.timeToCheckBlockValueText}>{`24 ${t(TranslationKey.hour)} 00 ${t(
+                TranslationKey.minute,
+              )}`}</p>
             </div>
           </div>
         </div>
@@ -85,7 +89,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
                 className={clsx(classNames.actionButton, classNames.editButton)}
                 onClick={() => handlers.onClickProposalResultToCorrect(proposal._id)}
               >
-                Отправить на доработку
+                {t(TranslationKey['Send in for rework'])}
               </Button>
             )}
             <Button
@@ -95,7 +99,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
               className={clsx(classNames.actionButton, classNames.successBtn)}
               onClick={() => handlers.onClickProposalResultAccept(proposal._id)}
             >
-              Принять
+              {t(TranslationKey.Receive)}
             </Button>
           </div>
         ) : undefined}

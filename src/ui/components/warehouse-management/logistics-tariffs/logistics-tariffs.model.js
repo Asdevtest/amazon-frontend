@@ -188,6 +188,7 @@ export class LogisticsTariffsModel {
       await StorekeeperModel.editLogisticTariff(tariffId, data)
 
       this.onTriggerOpenModal('showAddOrEditLogisticTariffModal')
+
       this.loadData()
     } catch (error) {
       console.log(error)

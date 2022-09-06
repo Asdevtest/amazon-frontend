@@ -148,4 +148,19 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 400,
     color: '#006CFF',
   },
+  copyImg: {
+    width: '20px',
+    height: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.07)',
+    },
+  },
+  shippingLabelWrapper: {
+    height: '40px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '20px',
+  },
 }))

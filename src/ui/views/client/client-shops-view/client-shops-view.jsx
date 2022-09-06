@@ -21,10 +21,10 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_SHOPS
 
 @observer
 class ClientShopsViewRaw extends Component {
-  viewModel = new ClientShopsViewModel({history: this.props.history})
+  viewModel = new ClientShopsViewModel({history: this.props.history, location: this.props.location})
 
   render() {
-    const {drawerOpen, onChangeDrawerOpen} = this.viewModel
+    const {drawerOpen, onChangeDrawerOpen, openModal} = this.viewModel
 
     return (
       <React.Fragment>
@@ -32,7 +32,7 @@ class ClientShopsViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Shops)} setDrawerOpen={onChangeDrawerOpen}>
             <MainContent>
-              <ShopsIntegrations />
+              <ShopsIntegrations openModal={openModal} />
             </MainContent>
           </Appbar>
         </Main>

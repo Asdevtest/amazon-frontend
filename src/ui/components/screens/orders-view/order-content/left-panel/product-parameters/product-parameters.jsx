@@ -112,7 +112,7 @@ export const ProductParameters = ({order, collapsed}) => {
                 <Typography className={classNames.scrollingText}>{order.product.barCode}</Typography>
               </Link>
             ) : (
-              <Typography className={classNames.scrollingText}>{'N/A'}</Typography>
+              <Typography className={classNames.scrollingText}>{t(TranslationKey['Not available'])}</Typography>
             )}
           </div>
         }
