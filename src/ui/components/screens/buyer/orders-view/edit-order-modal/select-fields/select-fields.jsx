@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Box, Grid, NativeSelect, Typography, Checkbox, Link} from '@material-ui/core'
+import {Box, Grid, Typography, Checkbox, Link} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
@@ -9,7 +9,6 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
-import {Input} from '@components/input'
 import {BigImagesModal} from '@components/modals/big-images-modal'
 import {UploadFilesInput} from '@components/upload-files-input'
 
@@ -79,17 +78,7 @@ export const SelectFields = ({
               label={t(TranslationKey['Int warehouse'])}
               inputClasses={classNames.nativeSelect}
               labelClasses={classNames.label}
-              inputComponent={
-                <NativeSelect
-                  disabled
-                  variant="filled"
-                  value={order.storekeeper?.name}
-                  className={classNames.nativeSelect}
-                  input={<Input />}
-                >
-                  <option value={'None'}>{order.storekeeper?.name}</option>
-                </NativeSelect>
-              }
+              value={order.storekeeper?.name}
             />
 
             <Field

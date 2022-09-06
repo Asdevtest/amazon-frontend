@@ -112,7 +112,12 @@ export const useClassNames = makeStyles(() => ({
 
   imagesWrapper: {
     width: '50%',
+
     height: '100%',
+  },
+
+  notToShowEmptyWrapper: {
+    width: '100%',
   },
 
   documentsWrapper: {

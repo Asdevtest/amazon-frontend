@@ -12,8 +12,10 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {Modal} from '@components/modal'
 import {TwoVerticalChoicesModal} from '@components/modals/two-vertical-choices-modal'
 import {Navbar} from '@components/navbar'
+import {EditTaskModal} from '@components/screens/warehouse/edit-task-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -34,6 +36,8 @@ export class WarehouseVacantTasksViewRaw extends Component {
 
   render() {
     const {
+      volumeWeightCoefficient,
+      curOpenedTask,
       requestStatus,
       getCurrentData,
       sortModel,
@@ -41,6 +45,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
       densityModel,
       columnsModel,
       showTwoVerticalChoicesModal,
+      showTaskInfoModal,
 
       drawerOpen,
       curPage,
@@ -56,6 +61,7 @@ export class WarehouseVacantTasksViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      setCurrentOpenedTask,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -108,10 +114,20 @@ export class WarehouseVacantTasksViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
+                onRowDoubleClick={params => setCurrentOpenedTask(params.row.originalData)}
               />
             </MainContent>
           </Appbar>
         </Main>
+
+        <Modal openModal={showTaskInfoModal} setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}>
+          <EditTaskModal
+            readOnly
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            task={curOpenedTask}
+            onClickOpenCloseModal={() => onTriggerOpenModal('showTaskInfoModal')}
+          />
+        </Modal>
 
         <TwoVerticalChoicesModal
           openModal={showTwoVerticalChoicesModal}

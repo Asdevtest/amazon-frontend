@@ -53,6 +53,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
     products,
     onClickShop,
     isWithoutShopsDepends,
+    isWithoutProductPermissions,
   }) => {
     const classNames = useClassNames()
 
@@ -62,19 +63,19 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
     const [isReady, setIsReady] = useState(true)
 
-    console.log('isWithoutShopsDepends', isWithoutShopsDepends)
-
     const sourceDataToProductsPermissions = [
       {
         _id: PRODUCTS_WITHOUT_SHOPS_ID,
         name: isWithoutShopsDepends ? t(TranslationKey['All products']) : t(TranslationKey['Products without shops']),
-        tmpProductsIds: curUserProductPermissions
-          .filter(el => (isWithoutShopsDepends ? true : !el.shopIds.length))
-          .map(el => el.productId),
+        tmpProductsIds:
+          curUserProductPermissions
+            ?.filter(el => (isWithoutShopsDepends ? true : !el.shopIds.length))
+            ?.map(el => el.productId) || [],
       },
       ...shops.map(shop => ({
         ...shop,
-        tmpProductsIds: curUserProductPermissions.filter(el => el.shopIds.includes(shop._id)).map(el => el.productId),
+        tmpProductsIds:
+          curUserProductPermissions?.filter(el => el.shopIds.includes(shop._id))?.map(el => el.productId) || [],
       })),
     ]
 
@@ -174,6 +175,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
           />
 
           <ITab
+            disabled={isWithoutProductPermissions}
             classes={{root: classNames.tab, selected: classNames.selectedTab}}
             value={tabsValues.ACCESS_TO_PRODUCTS}
             label={t(TranslationKey['Access to products'])}

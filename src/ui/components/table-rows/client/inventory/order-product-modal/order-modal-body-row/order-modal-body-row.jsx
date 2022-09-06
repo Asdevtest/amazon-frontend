@@ -206,6 +206,7 @@ export const OrderModalBodyRow = ({
             }
             data={destinations}
             fieldName="name"
+            onClickNotChosen={() => onChangeInput({target: {value: ''}}, 'destinationId')}
             onClickSelect={el => onChangeInput({target: {value: el._id}}, 'destinationId')}
           />
         </TableCell>

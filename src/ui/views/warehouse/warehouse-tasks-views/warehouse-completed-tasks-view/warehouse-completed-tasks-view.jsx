@@ -56,6 +56,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      setCurrentOpenedTask,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -101,6 +102,7 @@ export class WarehouseCompletedTasksViewRaw extends Component {
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
                 onFilterModelChange={model => onChangeFilterModel(model)}
+                onRowDoubleClick={params => setCurrentOpenedTask(params.row.originalData)}
               />
             </MainContent>
           </Appbar>

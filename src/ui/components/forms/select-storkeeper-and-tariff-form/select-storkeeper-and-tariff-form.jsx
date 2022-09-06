@@ -134,7 +134,7 @@ export const SelectStorekeeperAndTariffForm = observer(
                   : []
               }
               columns={logisticsTariffsColumns({onClickSelectTariff})}
-              rowHeight={100}
+              getRowHeight={() => 'auto'}
             />
           </div>
           {!inNotifications ? (

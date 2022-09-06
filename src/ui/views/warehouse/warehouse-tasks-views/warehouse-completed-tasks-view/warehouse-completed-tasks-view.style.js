@@ -25,6 +25,18 @@ export const styles = createStyles(() => ({
   toolbarContainer: {
     height: '52px',
   },
+
+  row: {
+    cursor: 'url(/assets/icons/Cursor.svg), auto',
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+    border: 0,
+    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+    backgroundColor: '#fff',
+  },
+
   '@media (max-width: 768px)': {
     toolbarContainer: {
       visibility: 'hidden',

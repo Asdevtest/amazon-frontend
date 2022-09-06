@@ -1,5 +1,8 @@
+import SearchIcon from '@mui/icons-material/Search'
+
 import React, {Component} from 'react'
 
+import {InputAdornment} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -8,6 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {MultipleChats} from '@components/chat/multiple-chats'
+import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -29,6 +33,7 @@ class MessagesViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       user,
       chatSelectedId,
       simpleChats,
@@ -37,6 +42,7 @@ class MessagesViewRaw extends Component {
       onClickChat,
       onTriggerDrawerOpen,
       onSubmitMessage,
+      onChangeNameSearchValue,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -46,9 +52,21 @@ class MessagesViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Messages)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
+              <Field
+                containerClasses={classNames.searchContainer}
+                inputClasses={classNames.searchInput}
+                value={nameSearchValue}
+                endAdornment={
+                  <InputAdornment position="start">
+                    <SearchIcon color="primary" />
+                  </InputAdornment>
+                }
+                onChange={onChangeNameSearchValue}
+              />
               <div className={classNames.chatWrapper}>
                 <MultipleChats
                   ref={this.chatRef}
+                  searchFilter={nameSearchValue}
                   chats={simpleChats}
                   userId={user._id}
                   chatSelectedId={chatSelectedId}

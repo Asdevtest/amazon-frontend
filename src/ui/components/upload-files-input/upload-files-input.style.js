@@ -131,6 +131,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imageListItem: {
+    overflow: 'hidden',
     border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
     background: '#EFEFEF',
@@ -141,6 +142,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imageLinkListItem: {
+    overflow: 'hidden',
     border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
     background: '#EFEFEF',

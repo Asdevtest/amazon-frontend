@@ -112,6 +112,7 @@ export const useClassNames = makeStyles(() => ({
     position: 'sticky',
     bottom: '0',
     right: '0',
+    zIndex: 999,
   },
   // **************************************
 

@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {ChatModel} from '@models/chat-model'
 import {UserModel} from '@models/user-model'
@@ -13,6 +13,8 @@ export class MessagesViewModel {
   showConfirmModal = false
 
   chatSelectedId = undefined
+
+  nameSearchValue = ''
 
   get user() {
     return UserModel.userInfo
@@ -48,6 +50,12 @@ export class MessagesViewModel {
     } else {
       this.chatSelectedId = chat._id
     }
+  }
+
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   async onSubmitMessage(message, links, files, chatIdId) {

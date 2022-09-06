@@ -178,6 +178,7 @@ export const MergeBoxesModal = ({
                     }
                     data={destinations}
                     fieldName="name"
+                    onClickNotChosen={() => setBoxBody({...boxBody, destinationId: ''})}
                     onClickSelect={el => setBoxBody({...boxBody, destinationId: el._id})}
                   />
                 }

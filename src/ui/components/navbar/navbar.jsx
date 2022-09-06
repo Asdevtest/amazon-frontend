@@ -41,10 +41,19 @@ export const Navbar = observer(
                   userInfo={viewModel.current.userInfo}
                   category={category}
                   badge={
-                    category.route?.includes('/client/notifications') &&
-                    viewModel.current.userInfo.needConfirmPriceChange.boxes +
-                      viewModel.current.userInfo.needConfirmPriceChange.orders +
-                      viewModel.current.userInfo.needUpdateTariff.boxes
+                    (category.route?.includes('/client/notifications') &&
+                      viewModel.current.userInfo.needConfirmPriceChange.boxes +
+                        viewModel.current.userInfo.needConfirmPriceChange.orders +
+                        viewModel.current.userInfo.needUpdateTariff.boxes) ||
+                    (category.route?.includes('/messages') &&
+                      viewModel.current.simpleChats.reduce(
+                        (ac, cur) =>
+                          (ac += cur.messages.reduce(
+                            (a, c) => (a += !c.isRead && c.userId !== viewModel.current.userInfo._id ? 1 : 0),
+                            0,
+                          )),
+                        0,
+                      ))
                   }
                 />
 

@@ -284,6 +284,8 @@ export const useClassNames = makeStyles(() => ({
   link: {
     // '&:hover': {
     cursor: 'pointer',
+    color: '#007bff',
+
     // }
   },
 

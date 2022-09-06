@@ -252,9 +252,17 @@ export const styles = createStyles(() => ({
   centerTextCell: {
     textAlign: 'center',
   },
-  taskDescriptionImg: {
+
+  ordersImg: {
     width: '30px',
     height: '30px',
+    objectFit: 'contain',
+    objectPosition: 'center',
+  },
+
+  taskDescriptionImg: {
+    width: '60px',
+    height: '60px',
     objectFit: 'contain',
     objectPosition: 'center',
   },
