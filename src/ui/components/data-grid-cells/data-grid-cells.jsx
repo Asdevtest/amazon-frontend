@@ -1042,7 +1042,7 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box,
             <div key={productIndex} className={classNames.manyItemsImgWrapper}>
               <img
                 alt=""
-                className={classNames.taskDescriptionImg}
+                className={classNames.ordersImg}
                 src={product.product?.images[0] && getAmazonImageUrl(product.product.images[0])}
               />
               <Typography className={classNames.imgNum}>{`x ${product.amount}`}</Typography>

@@ -134,6 +134,7 @@ const Box = ({
                     }
                     data={destinations}
                     fieldName="name"
+                    onClickNotChosen={() => onChangeField({target: {value: ''}}, 'destinationId', box._id)}
                     onClickSelect={el => onChangeField({target: {value: el._id}}, 'destinationId', box._id)}
                   />
                 }

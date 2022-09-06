@@ -30,6 +30,10 @@ export class ChatMessageContract<T extends TChatMessageDataUniversal = TChatMess
   @IsNotEmpty()
   @IsString()
   public chatId!: string
+
+  @IsNotEmpty()
+  @IsBoolean()
+  public isRead!: boolean
   @IsNotEmpty()
   @IsString()
   public text!: string

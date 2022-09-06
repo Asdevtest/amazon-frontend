@@ -455,6 +455,7 @@ export const EditBoxForm = observer(
                           }
                           data={destinations}
                           fieldName="name"
+                          onClickNotChosen={() => setBoxFields({...boxFields, destinationId: ''})}
                           onClickSelect={el => setBoxFields({...boxFields, destinationId: el._id})}
                         />
                       }

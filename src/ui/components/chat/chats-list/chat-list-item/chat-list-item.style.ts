@@ -28,14 +28,38 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
   },
   titleWrapper: {},
+
   titleText: {
-    color: 'black',
     margin: '0',
+
+    fontWeight: 600,
+    fontSize: 18,
+
+    color: '#001029',
   },
   lastMessageWrapper: {
     marginTop: '10px',
   },
+
   lastMessageText: {
-    margin: '0',
+    margin: 0,
+
+    fontSize: 14,
+    color: '#656565',
+  },
+
+  badge: {
+    marginTop: 5,
+    alignSelf: 'flex-start',
+    height: 18,
+    width: 18,
+    backgroundColor: '#006CFF',
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+    fontSize: '12px',
+    lineHeight: '14px',
   },
 }))

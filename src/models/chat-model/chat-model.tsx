@@ -40,7 +40,7 @@ class ChatModelStatic {
           onConnectionError: this.onConnectionError,
           onPong: this.onPong,
           onNewMessage: this.onNewMessage,
-          onNewChat: this.onNewChat,
+          // onNewChat: this.onNewChat,
         },
       })
     } else {
@@ -138,6 +138,45 @@ class ChatModelStatic {
     return plainToClass(ChatMessageContract, sendMessageResult)
   }
 
+  public async readMessages(messageIds: string[]) {
+    if (!this.websocketChatService) {
+      throw websocketChatServiceIsNotInitializedError
+    }
+
+    for (let i = 0; i < messageIds.length; i++) {
+      const messageId = messageIds[i]
+
+      const findChatIndexById = this.chats.findIndex((chat: ChatContract) =>
+        chat.messages.some(el => el._id === messageId),
+      )
+      if (findChatIndexById !== -1) {
+        runInAction(() => {
+          this.chats[findChatIndexById].messages = [
+            ...this.chats[findChatIndexById].messages.map(mes =>
+              mes._id !== messageId ? mes : {...mes, isRead: true},
+            ),
+          ]
+        })
+      }
+
+      const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) =>
+        chat.messages.some(el => el._id === messageId),
+      )
+
+      if (findSimpleChatIndexById !== -1) {
+        runInAction(() => {
+          this.simpleChats[findSimpleChatIndexById].messages = [
+            ...this.simpleChats[findSimpleChatIndexById].messages.map(mes =>
+              mes._id !== messageId ? mes : {...mes, isRead: true},
+            ),
+          ]
+        })
+      }
+
+      await this.websocketChatService.readMessage(messageId)
+    }
+  }
+
   private onConnectionError(error: Error) {
     console.warn('onConnectionError error ', error)
     this.isConnected = false
@@ -172,18 +211,18 @@ class ChatModelStatic {
     }
   }
 
-  private onNewChat(newChat: ChatContract) {
-    console.log('***ON_NEW_CHAT!!!')
-    const chat = plainToClass<ChatContract, unknown>(ChatContract, newChat)
+  // private onNewChat(newChat: ChatContract) {
+  //   console.log('***ON_NEW_CHAT!!!')
+  //   const chat = plainToClass<ChatContract, unknown>(ChatContract, newChat)
 
-    // const findSimpleChatIndexById = this.chats.findIndex((ch: ChatContract) => ch._id === newChat._id)
+  //   // const findSimpleChatIndexById = this.chats.findIndex((ch: ChatContract) => ch._id === newChat._id)
 
-    // if (findSimpleChatIndexById !== -1) {
-    runInAction(() => {
-      this.simpleChats = [...this.simpleChats, chat]
-    })
-    // }
-  }
+  //   // if (findSimpleChatIndexById !== -1) {
+  //   runInAction(() => {
+  //     this.simpleChats = [...this.simpleChats, chat]
+  //   })
+  //   // }
+  // }
 
   private onPong(result: string) {
     console.log('onPong result', result)

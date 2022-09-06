@@ -1,10 +1,11 @@
-import React, {FC} from 'react'
+import React, {FC, useEffect} from 'react'
 
 import {Avatar, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
 
+import {ChatModel} from '@models/chat-model'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
@@ -38,6 +39,14 @@ interface Props {
 
 export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers}) => {
   const classNames = useClassNames()
+
+  useEffect(() => {
+    if (messages) {
+      const unReadMessages = messages.filter(el => el.userId !== userId && !el.isRead)
+
+      ChatModel.readMessages(unReadMessages.map(el => el._id))
+    }
+  }, [messages])
 
   const renderMessageByType = (isIncomming: boolean, messageItem: ChatMessageContract) => {
     if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {

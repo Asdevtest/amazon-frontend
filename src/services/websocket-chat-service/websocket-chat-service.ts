@@ -98,4 +98,12 @@ export class WebsocketChatService {
       })
     })
   }
+
+  public async readMessage(guid: string): Promise<ChatMessage> {
+    console.log('***READ_MESSAGE!!!')
+
+    return new Promise((resolve, reject) => {
+      this.socket.emit(EentToEmit.READ_MESSAGE, {messageId: guid})
+    })
+  }
 }

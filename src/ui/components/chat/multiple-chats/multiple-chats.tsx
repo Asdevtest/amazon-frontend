@@ -1,8 +1,9 @@
 import React, {forwardRef, ReactElement} from 'react'
 
+import {compareDesc, parseISO} from 'date-fns'
 import {observer} from 'mobx-react'
 
-import {ChatContract} from '@models/chat-model/contracts'
+import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
 
 import {isNotUndefined} from '@utils/checks'
 
@@ -12,6 +13,7 @@ import {ChatsList} from '../chats-list'
 import {useClassNames} from './multiple-chats.style'
 
 interface Props {
+  searchFilter: string
   chats: ChatContract[]
   userId: string
   chatSelectedId?: string
@@ -26,6 +28,7 @@ export const MultipleChats = observer(
   forwardRef<HTMLDivElement, Props>(
     (
       {
+        searchFilter,
         chats,
         userId,
         chatSelectedId,
@@ -38,13 +41,38 @@ export const MultipleChats = observer(
       ref,
     ) => {
       const classNames = useClassNames()
-      const findChatByChatId = chats.find((chat: ChatContract) => chat._id === chatSelectedId)
+
+      const filteredChats = chats
+        .filter(el => {
+          const oponentUser = el.users.filter((user: ChatUserContract) => user._id !== userId)?.[0]
+          const title = typeof oponentUser?.name === 'string' ? oponentUser.name : 'User'
+          if (!searchFilter || title.toLocaleLowerCase().includes(searchFilter.toLocaleLowerCase())) {
+            return true
+          } else {
+            return false
+          }
+        })
+        .sort((a, b) => {
+          return compareDesc(
+            parseISO(a.messages[a.messages.length - 1].createdAt),
+            parseISO(b.messages[b.messages.length - 1].createdAt),
+          )
+        })
+
+      const findChatByChatId = filteredChats.find((chat: ChatContract) => chat._id === chatSelectedId)
 
       return (
         <div ref={ref} className={classNames.root}>
-          <div className={classNames.chatsWrapper}>
-            <ChatsList userId={userId} chats={chats} chatSelectedId={chatSelectedId} onClickChat={onClickChat} />
-          </div>
+          {
+            <div className={classNames.chatsWrapper}>
+              <ChatsList
+                userId={userId}
+                chats={filteredChats}
+                chatSelectedId={chatSelectedId}
+                onClickChat={onClickChat}
+              />
+            </div>
+          }
           <div className={classNames.chatWrapper}>
             {isNotUndefined(chatSelectedId) && findChatByChatId ? (
               <Chat

@@ -8,7 +8,11 @@ import {Button, ClickAwayListener, InputAdornment, Popover, Typography} from '@m
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 
+import {TranslationKey} from '@constants/translations/translation-key'
+
 import {Field} from '@components/field'
+
+import {t} from '@utils/translations'
 
 import {styles} from './with-search-select.style'
 
@@ -21,6 +25,7 @@ const WithSearchSelectRaw = ({
   firstItems,
   width,
   disabled,
+  onClickNotChosen,
 }) => {
   const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -83,6 +88,20 @@ const WithSearchSelectRaw = ({
                 onChange={e => setNameSearchValue(e.target.value)}
               />
               <div className={classNames.itemsWrapper}>
+                {onClickNotChosen && (
+                  <Button
+                    className={classNames.button}
+                    variant="text"
+                    color="primary"
+                    onClick={() => {
+                      onClickNotChosen()
+                      handleClose()
+                    }}
+                  >
+                    {t(TranslationKey['Not chosen'])}
+                  </Button>
+                )}
+
                 {firstItems}
 
                 {dataToRender.map((el, index) => (
