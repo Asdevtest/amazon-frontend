@@ -24,10 +24,6 @@ export const LogisticsTariffs = observer(() => {
   const history = useHistory()
   const gpModel = useRef(new LogisticsTariffsModel({history}))
 
-  useEffect(() => {
-    gpModel.current.loadData()
-  }, [])
-
   const {
     yuanToDollarRate,
     tariffToEdit,
@@ -56,6 +52,10 @@ export const LogisticsTariffs = observer(() => {
     onSubmitCreateTariff,
     onSubmitEditTariff,
   } = gpModel.current
+
+  useEffect(() => {
+    gpModel.current.loadData()
+  }, [])
 
   return (
     <div className={classNames.mainWrapper}>
@@ -112,7 +112,6 @@ export const LogisticsTariffs = observer(() => {
           onEditSubmit={onSubmitEditTariff}
         />
       </Modal>
-
       <ConfirmationModal
         isWarning={confirmModalSettings.isWarning}
         openModal={showConfirmModal}
