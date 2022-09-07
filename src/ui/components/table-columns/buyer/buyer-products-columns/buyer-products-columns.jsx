@@ -17,6 +17,91 @@ import {t} from '@utils/translations'
 
 export const buyerProductsViewColumns = handlers => [
   {
+    field: 'asin',
+    headerName: t(TranslationKey.Product),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+
+    renderCell: params => <AsinCell product={params.row.originalData} />,
+    width: 350,
+  },
+
+  {
+    field: 'status',
+    headerName: t(TranslationKey.Status),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+
+    width: 150,
+    renderCell: params => (
+      <MultilineTextCell
+        text={params.value}
+        color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
+      />
+    ),
+  },
+
+  {
+    field: 'strategyStatus',
+    headerName: t(TranslationKey.Strategy),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
+
+    renderCell: params => <MultilineStatusCell status={params.value} />,
+    width: 120,
+  },
+
+  {
+    field: 'feesAndNet',
+    headerName: t(TranslationKey['Fees & Net']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Fees & Net'])} />,
+
+    renderCell: params => (
+      <FeesValuesWithCalculateBtnCell
+        noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
+        product={params.row.originalData}
+        onClickCalculate={handlers.onClickFeesCalculate}
+      />
+    ),
+    minWidth: 110,
+
+    filterable: false,
+    sortable: false,
+  },
+
+  {
+    field: 'amazon',
+    headerName: t(TranslationKey['Amazon price']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
+
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    minWidth: 90,
+  },
+
+  {
+    field: 'profit',
+    headerName: t(TranslationKey.Profit),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
+
+    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
+    width: 90,
+  },
+
+  {
+    field: 'bsr',
+    headerName: t(TranslationKey.BSR),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    minWidth: 50,
+  },
+
+  {
+    field: 'fbaamount',
+    headerName: t(TranslationKey['Recommend amount']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    minWidth: 150,
+  },
+  {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
@@ -32,102 +117,8 @@ export const buyerProductsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     minWidth: 150,
+    flex: 1,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
-  },
-
-  {
-    field: 'asin',
-    headerName: t(TranslationKey.Product),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-
-    renderCell: params => <AsinCell product={params.row.originalData} />,
-    minWidth: 350,
-    flex: 3,
-  },
-
-  {
-    field: 'status',
-    headerName: t(TranslationKey.Status),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-
-    width: 300,
-    renderCell: params => (
-      <MultilineTextCell
-        text={params.value}
-        color={colorByProductStatus(ProductStatusByCode[params.row.originalData.status])}
-      />
-    ),
-  },
-
-  {
-    field: 'strategyStatus',
-    headerName: t(TranslationKey.Strategy),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
-
-    renderCell: params => <MultilineStatusCell status={params.value} />,
-    width: 250,
-  },
-
-  {
-    field: 'feesAndNet',
-    headerName: t(TranslationKey['Fees & Net']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Fees & Net'])} />,
-
-    renderCell: params => (
-      <FeesValuesWithCalculateBtnCell
-        noCalculate={!['30', '40', '50', '60'].includes(params.row.status)}
-        product={params.row.originalData}
-        onClickCalculate={handlers.onClickFeesCalculate}
-      />
-    ),
-    minWidth: 200,
-    flex: 1,
-    filterable: false,
-    sortable: false,
-  },
-
-  {
-    field: 'amazon',
-    headerName: t(TranslationKey['Amazon price']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
-
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    minWidth: 130,
-    type: 'number',
-    flex: 1,
-  },
-
-  {
-    field: 'profit',
-    headerName: t(TranslationKey.Profit),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Profit)} />,
-
-    renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    minWidth: 130,
-    type: 'number',
-    flex: 1,
-  },
-
-  {
-    field: 'bsr',
-    headerName: t(TranslationKey.BSR),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    minWidth: 130,
-    type: 'number',
-    flex: 1,
-  },
-
-  {
-    field: 'fbaamount',
-    headerName: t(TranslationKey['Recommend amount']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    minWidth: 150,
-    type: 'number',
-    flex: 1,
   },
 ]

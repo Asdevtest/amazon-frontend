@@ -14,21 +14,48 @@ import {ProductParameters} from './product-parameters'
 
 export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
   const classNames = useClassNames()
-
+  const copyValue = value => {
+    navigator.clipboard.writeText(value)
+  }
   return (
     <div className={classNames.orderContainer}>
       <div className={classNames.product}>
         <img alt="" className={classNames.productImg} src={getAmazonImageUrl(order.product.images[0])} />
         <div>
           <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
-          <Typography className={classNames.text}>
-            <span className={classNames.asinTypo}>{t(TranslationKey.ASIN) + ': '}</span> {order.product.asin}
-          </Typography>
-
-          <Typography className={classNames.text}>
-            <span className={classNames.asinTypo}>{t(TranslationKey.SKU) + ': '}</span>{' '}
-            {order.product.skusByClient?.length ? order.product.skusByClient.join(',') : t(TranslationKey.Missing)}
-          </Typography>
+          <div className={classNames.copyValueWrapper}>
+            <Typography className={classNames.text}>
+              <span className={classNames.asinTypo}>{t(TranslationKey.ASIN) + ': '}</span> {order.product.asin}
+            </Typography>
+            {order.product.asin ? (
+              <img
+                className={classNames.copyImg}
+                src="/assets/icons/copy-img.svg"
+                alt=""
+                onClick={e => {
+                  e.stopPropagation()
+                  copyValue(order.product.asin)
+                }}
+              />
+            ) : null}
+          </div>
+          <div className={classNames.copyValueWrapper}>
+            <Typography className={classNames.text}>
+              <span className={classNames.asinTypo}>{t(TranslationKey.SKU) + ': '}</span>{' '}
+              {order.product.skusByClient?.length ? order.product.skusByClient.join(',') : t(TranslationKey.Missing)}
+            </Typography>
+            {order.product?.skusByClient[0] ? (
+              <img
+                className={classNames.copyImg}
+                src="/assets/icons/copy-img.svg"
+                alt=""
+                onClick={e => {
+                  e.stopPropagation()
+                  copyValue(order.product.skusByClient[0])
+                }}
+              />
+            ) : null}
+          </div>
         </div>
       </div>
 

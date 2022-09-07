@@ -734,7 +734,7 @@ export class ClientWarehouseViewModel {
 
       this.loadData()
       this.onTriggerOpenModal('showEditBoxModal')
-      this.onTriggerOpenModal('showConfirmModal')
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)

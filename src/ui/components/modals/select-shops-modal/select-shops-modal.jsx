@@ -1,6 +1,8 @@
+import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+
 import React, {useEffect, useState} from 'react'
 
-import {Checkbox, ListItemText, MenuItem, Select, Typography} from '@material-ui/core'
+import {ListItemText, MenuItem, Select, Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -66,11 +68,12 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
                 >
                   {shops.map((shop, index) => (
                     <MenuItem key={index} disabled={currentShops.includes(shop)} value={shop}>
-                      <Checkbox color="primary" checked={currentShops.includes(shop)} />
+                      {/* <Checkbox color="primary" checked={currentShops.includes(shop._id)} /> */}
                       <ListItemText primary={shop.name} />
                     </MenuItem>
                   ))}
                 </Select>
+                <HighlightOffIcon className={classNames.deleteIcon} onClick={() => setSelectedItem('')} />
                 <Button
                   disabled={!shops.length}
                   className={classNames.shopsFieldAddButton}
@@ -100,6 +103,8 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
           <Button
             success
             disableElevation
+            disabled={!clearSelect}
+            // tooltipAttentionContent={!clearSelect && t(TranslationKey.)}
             className={classNames.button}
             // disabled={submitIsClicked}
             variant="contained"

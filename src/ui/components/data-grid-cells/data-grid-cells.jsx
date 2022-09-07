@@ -110,7 +110,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
                 href={`https://www.amazon.com/dp/${product.asin}`}
                 className={classNames.normalizeLink}
               >
-                <span className={classNames.typoSpan}>{shortAsin(product.asin)}</span>
+                <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
               </a>
             ) : (
               <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
@@ -133,10 +133,10 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
           <Typography className={classNames.typoCell}>
             {t(TranslationKey.SKU)}
             <span className={classNames.typoSpan}>
-              {product.skusByClient?.length ? shortSku(product.skusByClient[0]) : t(TranslationKey.Missing)}
+              {product.skusByClient[0] ? shortSku(product.skusByClient[0]) : t(TranslationKey.Missing)}
             </span>
           </Typography>
-          {product.skusByClient?.length ? (
+          {product.skusByClient[0] ? (
             <img
               className={classNames.copyImgAsin}
               src="/assets/icons/copy-img.svg"
@@ -168,12 +168,34 @@ export const ProductCell = withStyles(styles)(({classes: classNames, product}) =
             </span>
             {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
           </Typography>
+          {product.skusByClient[0] ? (
+            <img
+              className={classNames.copyImgAsin}
+              src="/assets/icons/copy-img.svg"
+              alt=""
+              onClick={e => {
+                e.stopPropagation()
+                copyValue(product.skusByClient[0])
+              }}
+            />
+          ) : null}
           {'/'}
           <Typography className={classNames.productTypoCell}>
             {t(TranslationKey.ASIN)}
             <span className={classNames.typoSpan}>{shortAsin(product.asin)}</span>
             {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
           </Typography>
+          {product.asin ? (
+            <img
+              className={classNames.copyImgAsin}
+              src="/assets/icons/copy-img.svg"
+              alt=""
+              onClick={e => {
+                e.stopPropagation()
+                copyValue(product.asin)
+              }}
+            />
+          ) : null}
         </div>
       </div>
     </div>
@@ -300,7 +322,7 @@ export const ChangeChipCell = withStyles(styles)(
           deletable: classNames.barcodeChipHover,
           deleteIcon: classNames.barcodeChipIcon,
         }}
-        className={clsx({[classNames.barcodeChipExists]: value})}
+        className={clsx(classNames.chipStock, {[classNames.barcodeChipExists]: value})}
         size="small"
         label={value ? trimBarcode(value) : text}
         onClick={() => onClickChip(row)}
@@ -348,14 +370,41 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
     <img alt="" src={getAmazonImageUrl(product.images[0])} className={classNames.orderImg} />
     <div>
       <Typography className={classNames.orderTitle}>{product.amazonTitle}</Typography>
-      <Typography className={classNames.orderText}>
-        <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-        {product.asin}
-      </Typography>
-      <Typography className={classNames.orderText}>
-        <span className={classNames.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
-        {product.skusByClient?.length ? product.skusByClient.join(',') : t(TranslationKey.Missing)}
-      </Typography>
+      <div className={classNames.copyAsin}>
+        <Typography className={classNames.orderText}>
+          <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
+          {product.asin}
+        </Typography>
+        {product.asin ? (
+          <img
+            className={classNames.copyImgAsin}
+            src="/assets/icons/copy-img.svg"
+            alt=""
+            onClick={e => {
+              e.stopPropagation()
+              copyValue(product.asin)
+            }}
+          />
+        ) : null}
+      </div>
+      <div className={classNames.copyAsin}>
+        <Typography className={classNames.orderText}>
+          <span className={classNames.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
+          {product?.skusByClient?.length ? product.skusByClient[0] : t(TranslationKey.Missing)}
+        </Typography>
+        {product?.skusByClient?.length ? (
+          <img
+            className={classNames.copyImgAsin}
+            src="/assets/icons/copy-img.svg"
+            alt=""
+            onClick={e => {
+              e.stopPropagation()
+              copyValue(product?.skusByClient[0])
+            }}
+          />
+        ) : null}
+      </div>
+
       {superbox && <Typography className={classNames.superboxTypo}>{`${'SB'} x ${superbox}`}</Typography>}
 
       {box && box.totalPrice - box.totalPriceChanged < 0 && (
@@ -1176,15 +1225,31 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
           <img alt="" src={getAmazonImageUrl(item.product.images[0])} className={classNames.orderImg} />
           <div>
             <Typography className={classNames.batchProductTitle}>{item.product.amazonTitle}</Typography>
-            <Typography className={classNames.orderText}>
-              <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-              {item.product.asin}
-              {box.deliveryTotalPrice - box.deliveryTotalPriceChanged < 0 && itemIndex === 0 && (
-                <span className={classNames.needPay}>{`${t(
-                  TranslationKey['Extra payment required!'],
-                )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
-              )}
-            </Typography>
+            <div className={classNames.copyAsin}>
+              <Typography className={classNames.orderText}>
+                <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
+                {item.product.asin}
+              </Typography>
+              {item.product.asin ? (
+                <img
+                  className={classNames.copyImg}
+                  src="/assets/icons/copy-img.svg"
+                  alt=""
+                  onClick={e => {
+                    e.stopPropagation()
+                    copyValue(item.product.asin)
+                  }}
+                />
+              ) : null}
+              <Typography className={classNames.orderText}>
+                {box.deliveryTotalPrice - box.deliveryTotalPriceChanged < 0 && itemIndex === 0 && (
+                  <span className={classNames.needPay}>{`${t(
+                    TranslationKey['Extra payment required!'],
+                  )} (${toFixedWithDollarSign(box.deliveryTotalPriceChanged - box.deliveryTotalPrice, 2)})`}</span>
+                )}
+              </Typography>
+            </div>
+
             <Typography className={classNames.imgNum}>{`x ${item.amount}`}</Typography>
             {box.amount > 1 && (
               <Typography className={classNames.superboxTypo}>{`Superbox x ${box.amount}`}</Typography>

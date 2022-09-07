@@ -72,7 +72,12 @@ export const styles = createStyles(() => ({
   },
   typoSpan: {
     marginLeft: 10,
-    color: 'rgba(61, 81, 112, 1)',
+    color: '#656565',
+  },
+
+  misSpan: {
+    marginLeft: 10,
+    color: '#656565',
   },
   linkSpan: {
     marginLeft: 10,
@@ -178,6 +183,10 @@ export const styles = createStyles(() => ({
     backgroundColor: 'rgb(61, 81, 112)',
   },
 
+  chipStock: {
+    width: '149px',
+  },
+
   noActivebarCode: {
     width: '170px',
     height: '45px',
@@ -273,8 +282,8 @@ export const styles = createStyles(() => ({
   },
 
   gridEditWrapper: {
-    maxWidth: 250,
-    overflow: 'auto',
+    maxWidth: 550,
+    // overflow: 'auto',
   },
 
   superboxWrapper: {
@@ -286,10 +295,10 @@ export const styles = createStyles(() => ({
   standartBoxWrapper: {
     display: 'grid',
     gridAutoFlow: 'column',
-    gridTemplateRows: 'repeat(3, min-content)',
+    gridTemplateColumns: 'repeat(3, auto)',
     gap: 5,
 
-    maxHeight: 120,
+    maxHeight: 200,
   },
 
   isOneBoxWrapper: {
@@ -304,6 +313,7 @@ export const styles = createStyles(() => ({
 
   imagesWrapper: {
     width: 'max-content',
+
     border: '1px solid #006CFF',
     borderRadius: 4,
     gap: '5px',

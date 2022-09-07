@@ -221,4 +221,17 @@ export const useClassNames = makeStyles(() => ({
   cell: {
     padding: '0 20px',
   },
+  copyImg: {
+    width: '20px',
+    height: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.07)',
+    },
+  },
+  copyValueWrapper: {
+    display: 'flex',
+    gap: '10px',
+  },
 }))

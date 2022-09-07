@@ -7,7 +7,7 @@ import {useClassNames} from './dashboard-single-card.style'
 
 export const DashboardSingleCard = observer(({item, valuesData, onClickViewMore}) => {
   const classNames = useClassNames()
-  console.log(valuesData[item.dataKey])
+
   return (
     <div className={classNames.cardWrapper} onClick={() => onClickViewMore(item.route)}>
       <div className={classNames.imagesWrapper}>

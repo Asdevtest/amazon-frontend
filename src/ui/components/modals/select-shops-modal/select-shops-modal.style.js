@@ -138,4 +138,8 @@ export const useClassNames = makeStyles(() => ({
     width: '131px',
     height: '40px',
   },
+
+  deleteIcon: {
+    cursor: 'pointer',
+  },
 }))

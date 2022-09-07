@@ -19,7 +19,7 @@ import {useClassNames} from './vacant-deals-list-card.style'
 
 export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToWorkModal, item}) => {
   const classNames = useClassNames()
-  console.log(item)
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>

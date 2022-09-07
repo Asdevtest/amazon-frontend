@@ -16,7 +16,7 @@ import {t} from '@utils/translations'
 export const DashboardButtons = ({user}) => {
   const classNames = useClassNames()
   const history = useHistory()
-  console.log(UserRoleCodeMapForRoutes[user.role])
+
   return (
     <div className={classNames.buttonsWrapper}>
       <div

@@ -137,8 +137,14 @@ export class ClientDashboardViewModel {
         this.dashboardData = {
           ...this.dashboardData,
           [ClientDashboardCardDataKey.PUBLISHED_STORES]: result.length,
-          [ClientDashboardCardDataKey.MODERATING]: result.filter(el => el.status === ShopStatus.MODERATING).length,
-          [ClientDashboardCardDataKey.BOOKED]: result.filter(el => el.status === ShopStatus.BOOKED).length,
+          [ClientDashboardCardDataKey.MODERATING]:
+            result.filter(el => el.status === ShopStatus.MODERATING).length === 0
+              ? '0'
+              : result.filter(el => el.status === ShopStatus.MODERATING).length,
+          [ClientDashboardCardDataKey.BOOKED]:
+            result.filter(el => el.status === ShopStatus.BOOKED).length === 0
+              ? '0'
+              : result.filter(el => el.status === ShopStatus.BOOKED).length === 0,
         }
       })
     } catch (error) {
@@ -150,7 +156,7 @@ export class ClientDashboardViewModel {
   async getRequestsVacant() {
     try {
       const result = await RequestModel.getRequests(RequestType.CUSTOM, RequestSubType.MY)
-      console.log(result)
+
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,

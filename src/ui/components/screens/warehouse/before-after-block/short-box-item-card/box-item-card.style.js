@@ -127,6 +127,11 @@ export const useClassNames = makeStyles({
     display: 'none',
   },
 
+  copyValueWrapper: {
+    display: 'flex',
+    gap: '10px',
+  },
+
   '@media (max-width: 768px)': {
     root: {
       width: '280px',
