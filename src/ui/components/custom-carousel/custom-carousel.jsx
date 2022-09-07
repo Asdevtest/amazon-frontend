@@ -186,7 +186,7 @@ export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 
         flexDirection: direction === 'column' ? 'column' : 'row',
       }}
     >
-      {notToShowEmpty && notEmptyPhotos?.length ? (
+      {(notToShowEmpty && notEmptyPhotos?.length) || !notToShowEmpty ? (
         <div className={clsx(classNames.imagesWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
           {notEmptyPhotos?.length ? (
             <CustomCarousel>
@@ -224,7 +224,7 @@ export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 
         </div>
       ) : null}
 
-      {notToShowEmpty && notEmptyFiles?.length ? (
+      {(notToShowEmpty && notEmptyFiles?.length) || !notToShowEmpty ? (
         <div className={clsx(classNames.documentsWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
           {notEmptyFiles?.length ? (
             <CustomCarousel>
