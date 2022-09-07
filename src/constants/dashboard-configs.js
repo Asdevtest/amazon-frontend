@@ -305,7 +305,7 @@ export const getClientDashboardCardConfig = () => ({
   stores: {
     key: 'store',
     title: t(TranslationKey['Trading stores']),
-    route: '/client/shops',
+    route: '/client/trading-shops/sell-shops/create-trading-shop',
     items: [
       {
         dataKey: ClientDashboardCardDataKey.PUBLISHED_STORES,
