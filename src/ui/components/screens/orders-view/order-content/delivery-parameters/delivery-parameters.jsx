@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Typography} from '@material-ui/core'
+import {Avatar, Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -8,6 +8,7 @@ import {Field} from '@components/field'
 import {UserLink} from '@components/user-link'
 
 import {formatDateWithoutTime} from '@utils/date-time'
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {getFullTariffTextForBoxOrOrder} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -49,7 +50,12 @@ export const DeliveryParameters = ({order}) => {
           tooltipInfoContent={t(TranslationKey['Prep Center in China'])}
           containerClasses={classNames.parameterTableCellWrapper}
           labelClasses={classNames.fieldLabel}
-          inputComponent={<UserLink blackText name={order.storekeeper?.name} userId={order.storekeeper?._id} />}
+          inputComponent={
+            <div className={classNames.intWarehouseWrapper}>
+              <Avatar className={classNames.avatar} src={getUserAvatarSrc(order.storekeeper?._id)} />
+              <UserLink blackText name={order.storekeeper?.name} userId={order.storekeeper?._id} />
+            </div>
+          }
         />
 
         <OrderParameter
@@ -82,7 +88,12 @@ export const DeliveryParameters = ({order}) => {
           )}
           containerClasses={classNames.parameterTableCellWrapper}
           labelClasses={classNames.fieldLabel}
-          inputComponent={<UserLink blackText name={order.buyer?.name} userId={order.buyer?._id} />}
+          inputComponent={
+            <div className={classNames.intWarehouseWrapper}>
+              <Avatar className={classNames.avatar} src={getUserAvatarSrc(order.buyer?._idv)} />
+              <UserLink blackText name={order.buyer?.name} userId={order.buyer?._id} />
+            </div>
+          }
         />
       </div>
     </div>

@@ -3,12 +3,9 @@ import React, {FC, ReactElement, useEffect, useState} from 'react'
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
-<<<<<<< HEAD
-import {ChatContract} from '@models/chat-model/contracts'
-=======
 import {TranslationKey} from '@constants/translations/translation-key'
 
->>>>>>> e342671f (3522 3495 3529 3534 3480 3536 3526 3446 3532 3533)
+import {ChatContract} from '@models/chat-model/contracts'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {SettingsModel} from '@models/settings-model'
 

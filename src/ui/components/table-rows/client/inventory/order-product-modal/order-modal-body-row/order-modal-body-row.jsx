@@ -37,6 +37,10 @@ export const OrderModalBodyRow = ({
 }) => {
   const classNames = useClassNames()
 
+  const copyValue = value => {
+    navigator.clipboard.writeText(value)
+  }
+
   const onChangeInput = (event, nameInput) => {
     setOrderStateFiled(nameInput)(event.target.value)
   }
@@ -118,10 +122,36 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={classNames.cell}>
           <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
-          <Typography>{`ASIN: ${item.asin}`}</Typography>
-          <Typography>{`SKU: ${
-            item.skusByClient?.length ? item.skusByClient.join(',') : t(TranslationKey.Missing)
-          }`}</Typography>
+          <div className={classNames.copyValueWrapper}>
+            <Typography>{`ASIN: ${item.asin}`}</Typography>
+            {item.asin ? (
+              <img
+                className={classNames.copyImg}
+                src="/assets/icons/copy-img.svg"
+                alt=""
+                onClick={e => {
+                  e.stopPropagation()
+                  copyValue(item.asin)
+                }}
+              />
+            ) : null}
+          </div>
+          <div className={classNames.copyValueWrapper}>
+            <Typography>{`SKU: ${
+              item.skusByClient?.length ? item.skusByClient.join(',') : t(TranslationKey.Missing)
+            }`}</Typography>
+            {item.skusByClient[0] ? (
+              <img
+                className={classNames.copyImg}
+                src="/assets/icons/copy-img.svg"
+                alt=""
+                onClick={e => {
+                  e.stopPropagation()
+                  copyValue(item.skusByClient[0])
+                }}
+              />
+            ) : null}
+          </div>
 
           {!item.currentSupplier && (
             <Typography className={classNames.noCurrentSupplierText}>

@@ -128,10 +128,24 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode,
                   </div>
                 )}
               </div>
-              <div className={classNames.asinWrapper}>
-                <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
-                <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
+              <div className={classNames.copyValueWrapper}>
+                <div className={classNames.asinWrapper}>
+                  <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
+                  <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
+                </div>
+                {item.product?.asin ? (
+                  <img
+                    className={classNames.copyImg}
+                    src="/assets/icons/copy-img.svg"
+                    alt=""
+                    onClick={e => {
+                      e.stopPropagation()
+                      copyValue(item.product?.asin)
+                    }}
+                  />
+                ) : null}
               </div>
+
               <Typography className={classNames.title}>{item.product?.amazonTitle}</Typography>
             </div>
           </div>

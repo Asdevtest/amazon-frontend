@@ -50,7 +50,6 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '16px',
-    marginTop: '19px',
   },
   input: {
     fontSize: '13px',
@@ -89,5 +88,20 @@ export const useClassNames = makeStyles(() => ({
     textAlign: 'center',
     cursor: 'pointer',
     marginTop: '79px',
+  },
+  copyImg: {
+    width: '20px',
+    height: '20px',
+    transition: '0.3s ease',
+    cursor: 'pointer',
+    '&:hover': {
+      transform: 'scale(1.07)',
+    },
+  },
+  copyValueWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    marginTop: '19px',
   },
 }))

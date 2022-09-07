@@ -22,6 +22,9 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     cursor: 'pointer',
     transition: '.3s ease',
+    maxWidth: '100px',
+    textAlign: 'end',
+    whiteSpace: 'pre-wrap',
 
     '&:hover': {
       transform: 'scale(1.01)',
