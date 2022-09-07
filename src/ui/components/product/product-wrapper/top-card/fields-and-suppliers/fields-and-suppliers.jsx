@@ -97,10 +97,11 @@ export const FieldsAndSuppliers = observer(
                 target="_blank"
                 rel="noopener"
                 href={checkAndMakeAbsoluteUrl(product.lamazon)}
+                className={clsx({[classNames.linkDecoration]: !edit})}
               >
                 <Input
                   disabled={edit}
-                  classes={{input: clsx({[classNames.link]: edit})}}
+                  classes={{input: clsx({[classNames.linkOnEdit]: edit})}}
                   placeholder={!product.lamazon && t(TranslationKey['Enter link'])}
                   value={product.lamazon}
                   onChange={onChangeField('lamazon')}

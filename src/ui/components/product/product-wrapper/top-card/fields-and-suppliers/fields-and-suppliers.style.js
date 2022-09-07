@@ -281,12 +281,15 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '15px',
   },
 
-  link: {
-    // '&:hover': {
+  linkDecoration: {
+    '&:hover': {
+      textDecoration: 'none',
+    },
+  },
+
+  linkOnEdit: {
     cursor: 'pointer',
     color: '#007bff',
-
-    // }
   },
 
   supplierButtonWrapper: {

@@ -3,6 +3,7 @@ import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {BACKEND_API_URL} from '@constants/env'
+import {noticeSound} from '@constants/sounds.js'
 
 import {OtherModel} from '@models/other-model'
 import {UserModel} from '@models/user-model'
@@ -17,6 +18,7 @@ const noTokenProvidedError = new Error('no access token in user model, login bef
 
 class ChatModelStatic {
   private websocketChatService?: WebsocketChatService // Do not init websocket on model create
+
   public isConnected?: boolean // undefined in case if not initilized
 
   public chats: ChatContract[] = []
@@ -24,6 +26,10 @@ class ChatModelStatic {
   public simpleChats: ChatContract[] = []
 
   public loadedFiles: string[] = []
+
+  get userId() {
+    return UserModel.userId
+  }
 
   constructor() {
     console.log('ChatModelStatic constructor')
@@ -40,7 +46,7 @@ class ChatModelStatic {
           onConnectionError: this.onConnectionError,
           onPong: this.onPong,
           onNewMessage: this.onNewMessage,
-          // onNewChat: this.onNewChat,
+          onNewChat: this.onNewChat,
         },
       })
     } else {
@@ -188,6 +194,10 @@ class ChatModelStatic {
       newMessage,
     )
 
+    if (message.userId !== this.userId) {
+      noticeSound.play()
+    }
+
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
     if (findChatIndexById !== -1) {
@@ -211,18 +221,20 @@ class ChatModelStatic {
     }
   }
 
-  // private onNewChat(newChat: ChatContract) {
-  //   console.log('***ON_NEW_CHAT!!!')
-  //   const chat = plainToClass<ChatContract, unknown>(ChatContract, newChat)
+  private onNewChat(newChat: ChatContract) {
+    console.log('***ON_NEW_CHAT!!!')
+    this.getSimpleChats()
 
-  //   // const findSimpleChatIndexById = this.chats.findIndex((ch: ChatContract) => ch._id === newChat._id)
+    const chat = plainToClass<ChatContract, unknown>(ChatContract, newChat)
 
-  //   // if (findSimpleChatIndexById !== -1) {
-  //   runInAction(() => {
-  //     this.simpleChats = [...this.simpleChats, chat]
-  //   })
-  //   // }
-  // }
+    const findSimpleChatIndexById = this.chats.findIndex((ch: ChatContract) => ch._id === newChat._id)
+
+    if (findSimpleChatIndexById !== -1) {
+      runInAction(() => {
+        this.simpleChats = [...this.simpleChats, chat]
+      })
+    }
+  }
 
   private onPong(result: string) {
     console.log('onPong result', result)

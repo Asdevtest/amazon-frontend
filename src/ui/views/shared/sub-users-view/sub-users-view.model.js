@@ -173,7 +173,10 @@ export class SubUsersViewModel {
       this.getDataGridState()
 
       await this.getUsers()
-      await this.getShops()
+
+      if (UserRoleCodeMap[this.userInfo.role] === UserRole.CLIENT) {
+        await this.getShops()
+      }
 
       await this.getGroupPermissions()
       await this.getSinglePermissions()

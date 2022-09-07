@@ -258,19 +258,19 @@ export const CreateBoxForm = observer(
         lengthCmSupplier: e.target.checked
           ? (sizeSetting === sizesType.INCHES
               ? roundSafely(currentSupplier.boxProperties.boxLengthCm / inchesCoefficient)
-              : currentSupplier.boxProperties.boxLengthCm) || 0
+              : toFixed(currentSupplier.boxProperties.boxLengthCm, 2)) || 0
           : '',
 
         widthCmSupplier: e.target.checked
           ? (sizeSetting === sizesType.INCHES
               ? roundSafely(currentSupplier.boxProperties.boxWidthCm / inchesCoefficient)
-              : currentSupplier.boxProperties.boxWidthCm) || 0
+              : toFixed(currentSupplier.boxProperties.boxWidthCm, 2)) || 0
           : '',
 
         heightCmSupplier: e.target.checked
           ? (sizeSetting === sizesType.INCHES
               ? roundSafely(currentSupplier.boxProperties.boxHeightCm / inchesCoefficient)
-              : currentSupplier.boxProperties.boxHeightCm) || 0
+              : toFixed(currentSupplier.boxProperties.boxHeightCm, 2)) || 0
           : '',
 
         weighGrossKgSupplier: e.target.checked ? roundSafely(currentSupplier.boxProperties.boxWeighGrossKg) || 0 : '',

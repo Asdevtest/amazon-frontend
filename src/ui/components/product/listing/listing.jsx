@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useEffect, useRef} from 'react'
 
 import {Typography, Divider, Paper} from '@material-ui/core'
@@ -49,6 +50,8 @@ export const Listing = observer(({productId, onClickBack}) => {
 
   const userCanEdit = checkIsSupervisor(UserRoleCodeMap[userRole]) || checkIsClient(UserRoleCodeMap[userRole])
 
+  const emptyArray = [1, 2, 3, 4, 5]
+
   return (
     <div className={classNames.mainWrapper}>
       <Paper className={classNames.productBlockWrapper}>
@@ -68,22 +71,22 @@ export const Listing = observer(({productId, onClickBack}) => {
               onChange={e => onChangeField(e, 'listingName')}
             />
 
-            {[1, 2, 3, 4, 5].map((el, index) => (
+            {emptyArray.map((el, index) => (
               <Field
                 key={index}
                 oneLine
                 disabled={
                   (index === 0
                     ? index !== 0
-                    : listingProduct.listingBulletPoints?.[index]
+                    : listingProduct.listingBulletPoints?.slice()[index]
                     ? false
-                    : !listingProduct.listingBulletPoints?.[index - 1]) || !userCanEdit
+                    : !listingProduct.listingBulletPoints?.slice()[index - 1]) || !userCanEdit
                 }
                 className={classNames.descriptionProduct}
                 inputProps={{maxLength: 1000}}
                 labelClasses={classNames.label}
                 label={`Bullet Point #${el}: `}
-                value={listingProduct.listingBulletPoints?.[index] || ''}
+                value={listingProduct.listingBulletPoints?.slice()[index] || ''}
                 onChange={e => onChangeArrayField(e, 'listingBulletPoints', index)}
               />
             ))}
@@ -116,22 +119,22 @@ export const Listing = observer(({productId, onClickBack}) => {
               onChange={e => onChangeField(e, 'listingSearchTerms')}
             />
 
-            {[1, 2, 3, 4, 5].map((el, index) => (
+            {emptyArray.map((el, index) => (
               <Field
                 key={index}
                 oneLine
                 disabled={
                   (index === 0
                     ? index !== 0
-                    : listingProduct.listingSubjectMatters?.[index]
+                    : listingProduct.listingSubjectMatters?.slice()[index]
                     ? false
-                    : !listingProduct.listingSubjectMatters?.[index - 1]) || !userCanEdit
+                    : !listingProduct.listingSubjectMatters?.slice()[index - 1]) || !userCanEdit
                 }
                 inputProps={{maxLength: 1000}}
                 className={classNames.descriptionSecondProduct}
                 labelClasses={classNames.secondLabel}
                 label={`Subject Matter #${el}: `}
-                value={listingProduct.listingSubjectMatters?.[index] || ''}
+                value={listingProduct.listingSubjectMatters?.slice()[index] || ''}
                 onChange={e => onChangeArrayField(e, 'listingSubjectMatters', index)}
               />
             ))}

@@ -139,7 +139,7 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                         {messageItem.files.length ? (
                           <div className={classNames.filesMainWrapper}>
                             <Typography className={classNames.filesTitle}>{`${t(TranslationKey.Files)}:`}</Typography>
-                            <PhotoAndFilesCarousel small files={messageItem.files} width="300px" />
+                            <PhotoAndFilesCarousel notToShowEmpty small files={messageItem.files} width="300px" />
                           </div>
                         ) : undefined}
                       </div>
