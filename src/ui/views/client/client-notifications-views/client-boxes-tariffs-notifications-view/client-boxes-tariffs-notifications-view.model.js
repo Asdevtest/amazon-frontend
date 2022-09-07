@@ -158,7 +158,7 @@ export class ClientBoxesTariffsNotificationsViewModel {
 
       this.confirmModalSettings = {
         isWarning: false,
-        message: `${t(TranslationKey['The total cost of shipping the box will be'])}: ${toFixed(finalSum, 2)} $`,
+        message: `${t(TranslationKey['The total cost of shipping the box will be'])}: $${toFixed(finalSum, 2)}`,
         onClickOkBtn: () => this.onSubmitSelectTariff(),
       }
 

@@ -48,10 +48,12 @@ export const Navbar = observer(
                     (category.route?.includes('/messages') &&
                       viewModel.current.simpleChats.reduce(
                         (ac, cur) =>
-                          (ac += cur.messages.reduce(
-                            (a, c) => (a += !c.isRead && c.userId !== viewModel.current.userInfo._id ? 1 : 0),
-                            0,
-                          )),
+                          (ac += cur.messages?.length
+                            ? cur.messages.reduce(
+                                (a, c) => (a += !c.isRead && c.userId !== viewModel.current.userInfo._id ? 1 : 0),
+                                0,
+                              )
+                            : 0),
                         0,
                       ))
                   }
