@@ -182,6 +182,13 @@ class ClientModelStatic {
     return response
   }
 
+  updateProductFourMonthesStock = async (id, data) => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsGuidFourMonthesStockPatch(id, {
+      body: data,
+    })
+    return response
+  }
+
   getDestinations = async () => {
     const response = await restApiService.clientApi.apiV1ClientsDestinationGet()
     return response

@@ -1509,5 +1509,7 @@
   "Request data": "Данные по заявкам",
   "Total requests": "Всего заявок",
   "Requests in the works": "Заявок в работе",
-  "Requests without proposals": "Заявок без предложений"
+  "Requests without proposals": "Заявок без предложений",
+  "Notices included": "Уведомления включены",
+  "Notices are off": "Уведомления выключены"
 }

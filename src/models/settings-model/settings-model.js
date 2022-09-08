@@ -24,6 +24,7 @@ class SettingsModelStatic {
   isHydrated = false
 
   showHints = true
+  noticeOfSimpleChats = true
 
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -43,6 +44,10 @@ class SettingsModelStatic {
 
   onTriggerShowHints() {
     this.showHints = !this.showHints
+  }
+
+  onTriggerNoticeOfSimpleChats() {
+    this.noticeOfSimpleChats = !this.noticeOfSimpleChats
   }
 
   setDataGridState(state, tableKey) {

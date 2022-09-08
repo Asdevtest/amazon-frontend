@@ -15,9 +15,18 @@ interface Props {
   setMessage: (message: string) => void
   setInputMode: (inputMode: ChatInputMode) => void
   onSubmitKeyPress: () => void
+  changeFilesAndState: (files: any[]) => void
 }
 
-export const ChatTextInput: FC<Props> = ({links, files, message, setMessage, setInputMode, onSubmitKeyPress}) => {
+export const ChatTextInput: FC<Props> = ({
+  links,
+  files,
+  message,
+  setMessage,
+  setInputMode,
+  onSubmitKeyPress,
+  changeFilesAndState,
+}) => {
   const [mdeSelectedTab, setMdeSelectedTab] = React.useState<'write' | 'preview'>('write')
   const classNames = useClassNames()
 
@@ -54,6 +63,28 @@ export const ChatTextInput: FC<Props> = ({links, files, message, setMessage, set
     },
   }
 
+  const onPasteFiles = async (evt: any) => {
+    if (evt.clipboardData.files.length === 0) {
+      return
+    } else {
+      const filesArr = Array.from(evt.clipboardData.files)
+
+      evt.preventDefault()
+
+      const readyFilesArr: any[] = filesArr.map((el: any) => ({
+        data_url: URL.createObjectURL(el),
+        file: new File([el], el.name?.replace(/ /g, ''), {
+          type: el.type,
+          lastModified: el.file?.lastModified,
+        }),
+      }))
+
+      setInputMode(ChatInputMode.FILES)
+
+      changeFilesAndState([...files, ...readyFilesArr])
+    }
+  }
+
   return (
     <div className={classNames.root}>
       <ReactMde
@@ -75,6 +106,7 @@ export const ChatTextInput: FC<Props> = ({links, files, message, setMessage, set
             autoFocus: true,
             maxlength: '1000',
             onKeyPress: handleKeyPress,
+            onPaste: evt => onPasteFiles(evt),
           },
         }}
         onChange={e => setMessage(e)}

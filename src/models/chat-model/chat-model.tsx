@@ -6,6 +6,7 @@ import {BACKEND_API_URL} from '@constants/env'
 import {noticeSound} from '@constants/sounds.js'
 
 import {OtherModel} from '@models/other-model'
+import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {WebsocketChatService} from '@services/websocket-chat-service'
@@ -29,6 +30,10 @@ class ChatModelStatic {
 
   get userId() {
     return UserModel.userId
+  }
+
+  get noticeOfSimpleChats() {
+    return SettingsModel.noticeOfSimpleChats
   }
 
   constructor() {
@@ -194,10 +199,6 @@ class ChatModelStatic {
       newMessage,
     )
 
-    if (message.userId !== this.userId) {
-      noticeSound.play()
-    }
-
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
     if (findChatIndexById !== -1) {
@@ -212,6 +213,10 @@ class ChatModelStatic {
     const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === message.chatId)
 
     if (findSimpleChatIndexById !== -1) {
+      if (this.noticeOfSimpleChats && message.userId !== this.userId) {
+        noticeSound.play()
+      }
+
       runInAction(() => {
         this.simpleChats[findSimpleChatIndexById].messages = [
           ...this.simpleChats[findSimpleChatIndexById].messages.filter(mes => mes._id !== message._id),

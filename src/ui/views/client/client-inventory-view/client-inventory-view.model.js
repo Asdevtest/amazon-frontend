@@ -484,7 +484,7 @@ export class ClientInventoryViewModel {
   }
 
   async onClickSaveFourMonthesStockValue(fourMonthesStock) {
-    await ClientModel.updateProduct(this.selectedProduct._id, {fourMonthesStock})
+    await ClientModel.updateProductFourMonthesStock(this.selectedProduct._id, {fourMonthesStock})
 
     this.onTriggerOpenModal('showSetFourMonthsStockValueModal')
     this.loadData()
@@ -926,7 +926,7 @@ export class ClientInventoryViewModel {
 
   async onDeleteFourMonthesStock(product) {
     try {
-      await ClientModel.updateProduct(product._id, {fourMonthesStock: 0})
+      await ClientModel.updateProductFourMonthesStock(product._id, {fourMonthesStock: 0})
 
       this.loadData()
     } catch (error) {

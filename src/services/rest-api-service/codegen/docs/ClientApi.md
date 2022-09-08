@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch**](ClientApi.md#apiV1ClientsProductsFromClientReadyToBeCheckedBySupervisorPatch) | **PATCH** /api/v1/clients/products/from_client_ready_to_be_checked_by_supervisor | # Отправить  созданные клиентом товары на проверку супервайзеру.
 [**apiV1ClientsProductsGetPriceForClientPost**](ClientApi.md#apiV1ClientsProductsGetPriceForClientPost) | **POST** /api/v1/clients/products/get_price_for_client | # Получить цену для клиента на поиск поставщика множества товаров
 [**apiV1ClientsProductsGuidChangeBarCodePatch**](ClientApi.md#apiV1ClientsProductsGuidChangeBarCodePatch) | **PATCH** /api/v1/clients/products/{guid}/change_barCode | # Внести изменения в баркод товара.
+[**apiV1ClientsProductsGuidFourMonthesStockPatch**](ClientApi.md#apiV1ClientsProductsGuidFourMonthesStockPatch) | **PATCH** /api/v1/clients/products/{guid}/fourMonthesStock | # Внести изменения в fourMonthesStock товара.
 [**apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch**](ClientApi.md#apiV1ClientsProductsGuidFromClientReadyToBeCheckedBySupervisorPatch) | **PATCH** /api/v1/clients/products/{guid}/from_client_ready_to_be_checked_by_supervisor | # Отправить  созданный клиентом товар на проверку супервайзеру.
 [**apiV1ClientsProductsGuidGetPriceForClientGet**](ClientApi.md#apiV1ClientsProductsGuidGetPriceForClientGet) | **GET** /api/v1/clients/products/{guid}/get_price_for_client | # Получить цену для клиента на поиск поставщика
 [**apiV1ClientsProductsGuidPatch**](ClientApi.md#apiV1ClientsProductsGuidPatch) | **PATCH** /api/v1/clients/products/{guid} | # Внести изменения в товар.
@@ -872,6 +873,62 @@ let opts = {
   'body': null // Object | 
 };
 apiInstance.apiV1ClientsProductsGuidChangeBarCodePatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID продукта, который будет изменен | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | **Object**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1ClientsProductsGuidFourMonthesStockPatch
+
+> String apiV1ClientsProductsGuidFourMonthesStockPatch(guid, opts)
+
+# Внести изменения в fourMonthesStock товара.
+
+## Внести изменения в fourMonthesStock товара.   Проверки:  Данный товар не принадлежит вам.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let guid = null; // String | GUID продукта, который будет изменен
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': null // Object | 
+};
+apiInstance.apiV1ClientsProductsGuidFourMonthesStockPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);

@@ -26975,6 +26975,46 @@
         }
       }
     },
+    "/api/v1/clients/products/{guid}/fourMonthesStock": {
+      "patch": {
+        "summary": "# Внести изменения в fourMonthesStock товара.",
+        "description": "## Внести изменения в fourMonthesStock товара. \n\nПроверки: \nДанный товар не принадлежит вам.",
+        "tags": ["Client"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fourMonthesStock": {
+                  "type": ["number", "null"],
+                  "description": "Каков должен быть сток за 4 месяца",
+                  "example": 32
+                }
+              }
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID продукта, который будет изменен",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/clients/products/my": {
       "get": {
         "summary": "# Получить список товаров данного клиента используя фильтр",
