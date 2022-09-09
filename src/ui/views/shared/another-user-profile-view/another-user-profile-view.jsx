@@ -78,7 +78,7 @@ class AnotherUserProfileViewRaw extends Component {
       onClickBuyProductBtn,
       onClickWriteBtn,
     } = this.viewModel
-
+    const {classes: classNames} = this.props
     return (
       <>
         <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
@@ -108,10 +108,11 @@ class AnotherUserProfileViewRaw extends Component {
                   <DataGrid
                     pagination
                     useResizeContainer
-                    sx={{
-                      border: 0,
-                      boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                      backgroundColor: '#fff',
+                    classes={{
+                      root: classNames.root,
+                      footerContainer: classNames.footerContainer,
+                      footerCell: classNames.footerCell,
+                      toolbarContainer: classNames.toolbarContainer,
                     }}
                     localeText={getLocalizationByLanguageTag()}
                     sortModel={sortModel}

@@ -214,7 +214,8 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
             <div className={classNames.tableRow}>
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Sizes)}</Typography>
               <div className={classNames.sizeWrapper}>
-                <Typography className={classNames.sizeTitle}>{t(TranslationKey.H) + ': '}</Typography>
+                <Typography className={classNames.sizeTitle}>{t(TranslationKey.L) + ': '}</Typography>
+
                 <Input
                   classes={{root: classNames.inputWrapper, input: classNames.input}}
                   inputProps={{maxLength: 6}}
@@ -232,7 +233,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                 />
               </div>
               <div className={classNames.sizeWrapper}>
-                <Typography className={classNames.sizeTitle}>{t(TranslationKey.L) + ': '}</Typography>
+                <Typography className={classNames.sizeTitle}>{t(TranslationKey.H) + ': '}</Typography>
                 <Input
                   classes={{root: classNames.inputWrapper, input: classNames.input}}
                   inputProps={{maxLength: 6}}

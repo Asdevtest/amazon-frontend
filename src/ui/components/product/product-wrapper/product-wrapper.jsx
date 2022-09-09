@@ -179,7 +179,13 @@ export const ProductWrapper = observer(
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
-          <SuppliersAndIdeas productId={product._id} />
+          <SuppliersAndIdeas
+            productId={product._id}
+            curUserRole={curUserRole}
+            selectedSupplier={selectedSupplier}
+            onClickSupplier={onClickSupplier}
+            onClickSupplierBtns={handleSupplierButtons}
+          />
         </TabPanel>
       </React.Fragment>
     )

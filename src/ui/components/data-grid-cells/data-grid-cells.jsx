@@ -4,7 +4,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import {Rating} from '@mui/material'
 
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Avatar, Badge, Chip, Grid, Link, TextareaAutosize, Tooltip, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
@@ -488,9 +488,11 @@ export const MultilineTextCell = withStyles(styles)(({classes: classNames, text,
 
 export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text}) => (
   <div className={classNames.multilineTextAlignLeftWrapper}>
-    <TextareaAutosize disabled className={classNames.multilineTextAlignLeft}>
-      {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
-    </TextareaAutosize>
+    <TextareaAutosize
+      disabled
+      value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+      className={classNames.multilineTextAlignLeft}
+    />
   </div>
 ))
 

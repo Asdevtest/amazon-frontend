@@ -1,9 +1,12 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 
 import React, {useEffect, useState} from 'react'
 
 import {Divider, Grid, Link, Typography, IconButton} from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
@@ -40,12 +43,16 @@ export const IdeaViewAndEditCard = observer(
     inCreate,
     idea,
     curIdea,
+    curUserRole,
     onRemove,
+    selectedSupplier,
     onClickCancelBtn,
     onClickSaveBtn,
     onSetCurIdea,
     onEditIdea,
     onCreateProduct,
+    onClickSupplierBtns,
+    onClickSupplier,
   }) => {
     const classNames = useClassNames()
 
@@ -388,9 +395,56 @@ export const IdeaViewAndEditCard = observer(
             label={t(TranslationKey.Suppliers)}
             containerClasses={classNames.linksContainer}
             inputComponent={
-              <TableSupplier
-                product={formFields} /* selectedSupplier={selectedSupplier} onClickSupplier={onClickSupplier}*/
-              />
+              <>
+                {checkIsBuyer(curUserRole) ||
+                  (checkIsClient(curUserRole) && (
+                    <div className={classNames.supplierActionsWrapper}>
+                      <div disableGutters className={classNames.supplierContainer}>
+                        <div className={classNames.supplierButtonWrapper}>
+                          <Button className={classNames.iconBtn} onClick={() => onClickSupplierBtns('add')}>
+                            <AddIcon />
+                          </Button>
+                          <Typography className={classNames.supplierButtonText}>
+                            {t(TranslationKey['Add supplier'])}
+                          </Typography>
+                        </div>
+                        {selectedSupplier ? (
+                          <>
+                            <div className={classNames.supplierButtonWrapper}>
+                              <Button
+                                tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                                className={classNames.iconBtn}
+                                onClick={() => onClickSupplierBtns('edit')}
+                              >
+                                <EditOutlinedIcon />
+                              </Button>
+                              <Typography className={classNames.supplierButtonText}>
+                                {t(TranslationKey['Edit a supplier'])}
+                              </Typography>
+                            </div>
+                            <div className={classNames.supplierButtonWrapper}>
+                              <Button
+                                tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
+                                className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
+                                onClick={() => onClickSupplierBtns('delete')}
+                              >
+                                <DeleteOutlineOutlinedIcon />
+                              </Button>
+                              <Typography className={classNames.supplierButtonText}>
+                                {t(TranslationKey['Delete supplier'])}
+                              </Typography>
+                            </div>
+                          </>
+                        ) : null}
+                      </div>
+                    </div>
+                  ))}
+                <TableSupplier
+                  product={formFields}
+                  selectedSupplier={selectedSupplier}
+                  onClickSupplier={onClickSupplier}
+                />
+              </>
             }
           />
         </div>
