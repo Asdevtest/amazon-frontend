@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
 import {ChatModel} from '@models/chat-model'
+import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 export class MessagesViewModel {
@@ -24,6 +25,10 @@ export class MessagesViewModel {
     return ChatModel.simpleChats || []
   }
 
+  get noticeOfSimpleChats() {
+    return SettingsModel.noticeOfSimpleChats
+  }
+
   constructor({history, location}) {
     this.history = history
 
@@ -42,6 +47,10 @@ export class MessagesViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  onTriggerNoticeOfSimpleChats() {
+    SettingsModel.onTriggerNoticeOfSimpleChats()
   }
 
   onClickChat(chat) {

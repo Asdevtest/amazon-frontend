@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 
 import React from 'react'
@@ -21,6 +22,7 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
     <div className={classNames.orderContainer}>
       <div className={classNames.product}>
         <img alt="" className={classNames.productImg} src={getAmazonImageUrl(order.product.images[0])} />
+
         <div>
           <Typography className={classNames.amazonTitle}>{order.product.amazonTitle}</Typography>
           <div className={classNames.copyValueWrapper}>
@@ -44,14 +46,15 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
               <span className={classNames.asinTypo}>{t(TranslationKey.SKU) + ': '}</span>{' '}
               {order.product.skusByClient?.length ? order.product.skusByClient.join(',') : t(TranslationKey.Missing)}
             </Typography>
-            {order.product?.skusByClient[0] ? (
+
+            {order.product?.skusByClient.slice()[0] ? (
               <img
                 className={classNames.copyImg}
                 src="/assets/icons/copy-img.svg"
                 alt=""
                 onClick={e => {
                   e.stopPropagation()
-                  copyValue(order.product.skusByClient[0])
+                  copyValue(order.product.skusByClient.slice()[0])
                 }}
               />
             ) : null}

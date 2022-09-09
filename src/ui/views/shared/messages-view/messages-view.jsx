@@ -1,9 +1,13 @@
 import SearchIcon from '@mui/icons-material/Search'
+import VolumeOffRoundedIcon from '@mui/icons-material/VolumeOffRounded'
+import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded'
+import {Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
 import {InputAdornment} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -33,6 +37,7 @@ class MessagesViewRaw extends Component {
 
   render() {
     const {
+      noticeOfSimpleChats,
       nameSearchValue,
       user,
       chatSelectedId,
@@ -43,6 +48,7 @@ class MessagesViewRaw extends Component {
       onTriggerDrawerOpen,
       onSubmitMessage,
       onChangeNameSearchValue,
+      onTriggerNoticeOfSimpleChats,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -52,17 +58,38 @@ class MessagesViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Messages)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <Field
-                containerClasses={classNames.searchContainer}
-                inputClasses={classNames.searchInput}
-                value={nameSearchValue}
-                endAdornment={
-                  <InputAdornment position="start">
-                    <SearchIcon color="primary" />
-                  </InputAdornment>
-                }
-                onChange={onChangeNameSearchValue}
-              />
+              <div className={classNames.chatHeaderWrapper}>
+                <Field
+                  containerClasses={classNames.searchContainer}
+                  inputClasses={classNames.searchInput}
+                  value={nameSearchValue}
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon color="primary" />
+                    </InputAdornment>
+                  }
+                  onChange={onChangeNameSearchValue}
+                />
+
+                <div className={classNames.tooltipWrapper} onClick={onTriggerNoticeOfSimpleChats}>
+                  {noticeOfSimpleChats ? (
+                    <VolumeUpRoundedIcon className={classNames.noticesIcon} />
+                  ) : (
+                    <VolumeOffRoundedIcon
+                      className={clsx(classNames.noticesIcon, {[classNames.noticesIconOff]: !noticeOfSimpleChats})}
+                    />
+                  )}
+                  {noticeOfSimpleChats ? (
+                    <Typography className={classNames.noticesTextActive}>
+                      {t(TranslationKey['Notices included'])}
+                    </Typography>
+                  ) : (
+                    <Typography className={classNames.noticesTextNoActive}>
+                      {t(TranslationKey['Notices are off'])}
+                    </Typography>
+                  )}
+                </div>
+              </div>
               <div className={classNames.chatWrapper}>
                 <MultipleChats
                   ref={this.chatRef}

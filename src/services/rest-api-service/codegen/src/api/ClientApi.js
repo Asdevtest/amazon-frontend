@@ -884,6 +884,62 @@ export default class ClientApi {
 
 
     /**
+     * # Внести изменения в fourMonthesStock товара.
+     * ## Внести изменения в fourMonthesStock товара.   Проверки:  Данный товар не принадлежит вам.
+     * @param {String} guid GUID продукта, который будет изменен
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Object} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1ClientsProductsGuidFourMonthesStockPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1ClientsProductsGuidFourMonthesStockPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/clients/products/{guid}/fourMonthesStock', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Внести изменения в fourMonthesStock товара.
+     * ## Внести изменения в fourMonthesStock товара.   Проверки:  Данный товар не принадлежит вам.
+     * @param {String} guid GUID продукта, который будет изменен
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Object} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1ClientsProductsGuidFourMonthesStockPatch(guid, opts) {
+      return this.apiV1ClientsProductsGuidFourMonthesStockPatchWithHttpInfo(guid, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Отправить  созданный клиентом товар на проверку супервайзеру.
      * ## Отправить  созданный клиентом товар на проверку супервайзеру.   Данный метод ставит статус FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR (205).   Замораживает средства у клиента,( услуги баер + услуги супервайзера(если он требуется)) * 2    Затирает id баера и супервайзера  Записывает комментарий от клиента   ## Проверки  Вы можете ставить продукту статус FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR (205), если ранее товар имел статусы 200, 270, 275, 280, 290
      * @param {String} guid GUID продукта, который будет изменен

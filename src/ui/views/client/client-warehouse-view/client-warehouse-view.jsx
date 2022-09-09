@@ -251,7 +251,11 @@ export class ClientWarehouseViewRaw extends Component {
           </Appbar>
         </Main>
 
-        <Modal openModal={showEditBoxModal} setOpenModal={() => onTriggerOpenModal('showEditBoxModal')}>
+        <Modal
+          missClickModalOn
+          openModal={showEditBoxModal}
+          setOpenModal={() => onTriggerOpenModal('showEditBoxModal')}
+        >
           <EditBoxForm
             destinations={destinations}
             storekeepers={storekeepersData}
@@ -263,7 +267,11 @@ export class ClientWarehouseViewRaw extends Component {
           />
         </Modal>
 
-        <Modal openModal={showRedistributeBoxModal} setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}>
+        <Modal
+          missClickModalOn
+          openModal={showRedistributeBoxModal}
+          setOpenModal={() => onTriggerOpenModal('showRedistributeBoxModal')}
+        >
           <div className={classNames.redistributionWrapper}>
             <div className={classNames.modalTitleWrapper}>
               <Typography className={classNames.modalTitle}>{t(TranslationKey['Box redistributing'])}</Typography>
@@ -283,7 +291,11 @@ export class ClientWarehouseViewRaw extends Component {
           </div>
         </Modal>
 
-        <Modal openModal={showMergeBoxModal} setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}>
+        <Modal
+          missClickModalOn
+          openModal={showMergeBoxModal}
+          setOpenModal={() => onTriggerOpenModal('showMergeBoxModal')}
+        >
           <div className={classNames.modalTitleWrapper}>
             <Typography className={classNames.modalTitle}>{t(TranslationKey['Merging boxes'])}</Typography>
             <img src="/assets/img/merge.png" />
@@ -303,7 +315,11 @@ export class ClientWarehouseViewRaw extends Component {
           />
         </Modal>
 
-        <Modal openModal={showTaskInfoModal} setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}>
+        <Modal
+          missClickModalOn
+          openModal={showTaskInfoModal}
+          setOpenModal={() => onTriggerOpenModal('showTaskInfoModal')}
+        >
           <EditTaskModal
             readOnly
             volumeWeightCoefficient={volumeWeightCoefficient}
@@ -333,7 +349,7 @@ export class ClientWarehouseViewRaw extends Component {
           }}
         />
 
-        <Modal openModal={showRequestToSendBatchModal} setOpenModal={triggerRequestToSendBatchModal}>
+        <Modal missClickModalOn openModal={showRequestToSendBatchModal} setOpenModal={triggerRequestToSendBatchModal}>
           <RequestToSendBatchForm
             storekeepersData={storekeepersData}
             closeModal={triggerRequestToSendBatchModal}

@@ -78,11 +78,6 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
                 }
               />
             </div>
-
-            {/* <div className={classNames.batchWrapper}>
-              <Typography className={classNames.batchPrice}>{t(TranslationKey['Batch cost'])}</Typography>
-              <Typography className={classNames.titleSpan}>{'N/A'}</Typography>
-            </div> */}
           </div>
 
           <Divider orientation={'horizontal'} />

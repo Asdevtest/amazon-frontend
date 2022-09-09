@@ -137,6 +137,7 @@ export const Chat: FC<Props> = observer(
                     message={message}
                     setMessage={changeMessageAndState}
                     setInputMode={setInputMode}
+                    changeFilesAndState={changeFilesAndState}
                     onSubmitKeyPress={onSubmitMessageInternal}
                   />
                 )
@@ -163,6 +164,7 @@ export const Chat: FC<Props> = observer(
                 {t(TranslationKey.Back)}
               </Button>
             )}
+
             <Button
               disabled={!message && inputMode === ChatInputMode.TEXT && !files.length}
               onClick={() => {
