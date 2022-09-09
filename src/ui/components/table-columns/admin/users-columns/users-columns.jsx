@@ -100,21 +100,13 @@ export const adminUsersViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
     renderCell: params => (
-      <div>
-        {/* <AdminUsersActionBtnsCell
-          editBtnText={t(TranslationKey['Edit user'])}
-          balanceBtnText={t(TranslationKey.Balance)}
-          handlers={handlers}
-          row={params.row.originalData}
-        /> */}
-
-        <NormalActionBtnCell
-          disabled={params.row.originalData.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
-          bTnText={t(TranslationKey['Edit and balance'])}
-          onClickOkBtn={() => handlers.onClickUser(params.row.originalData)}
-        />
-      </div>
+      <NormalActionBtnCell
+        disabled={params.row.originalData.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
+        bTnText={t(TranslationKey['Edit and balance'])}
+        onClickOkBtn={() => handlers.onClickUser(params.row.originalData)}
+      />
     ),
+
     width: 270,
     filterable: false,
     sortable: false,

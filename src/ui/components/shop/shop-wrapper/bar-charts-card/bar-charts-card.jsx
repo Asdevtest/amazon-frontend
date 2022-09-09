@@ -8,6 +8,8 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {TwoBarsChart} from '@components//charts/two-bars-chart/two-bars-chart'
 import {Button} from '@components/buttons/button'
 
@@ -29,6 +31,7 @@ export const BarChartsCard = observer(({isRevenue, data}) => {
   const [filteredData, setFilteredData] = useState(data)
 
   useEffect(() => {
+    setFilteredData(data)
     switch (curFilterSetting) {
       case filterSettings.ALL_MONTHS:
         return setFilteredData(data)
@@ -42,7 +45,7 @@ export const BarChartsCard = observer(({isRevenue, data}) => {
       default:
         return setFilteredData(data)
     }
-  }, [curFilterSetting])
+  }, [curFilterSetting, SettingsModel.languageTag])
 
   return (
     <div className={classNames.mainWrapper}>

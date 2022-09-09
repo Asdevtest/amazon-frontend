@@ -109,6 +109,7 @@ class AdminUsersViewRaw extends Component {
                   page={curPage}
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
+                  rowHeight={80}
                   rows={getCurrentData()}
                   density={densityModel}
                   columns={columnsModel}

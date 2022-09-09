@@ -90,7 +90,7 @@ export const DeliveryParameters = ({order}) => {
           labelClasses={classNames.fieldLabel}
           inputComponent={
             <div className={classNames.intWarehouseWrapper}>
-              <Avatar className={classNames.avatar} src={getUserAvatarSrc(order.buyer?._idv)} />
+              <Avatar className={classNames.avatar} src={getUserAvatarSrc(order.buyer?._id)} />
               <UserLink blackText name={order.buyer?.name} userId={order.buyer?._id} />
             </div>
           }

@@ -157,7 +157,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
             <div className={classNames.linksWrapper}>
               <div className={classNames.inputWrapper}>
                 <Input
-                  placeholder={'Link to the product'}
+                  placeholder={t(TranslationKey['Product Link'])}
                   inputProps={{maxLength: 1500}}
                   value={linkLine}
                   className={classNames.input}
