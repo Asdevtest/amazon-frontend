@@ -20,7 +20,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   button: {
-    minWidth: '130px',
+    width: '118px',
     fontSize: '18px',
   },
 }))

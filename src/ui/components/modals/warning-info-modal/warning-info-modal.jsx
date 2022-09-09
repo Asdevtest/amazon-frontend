@@ -18,7 +18,7 @@ export const WarningInfoModal = ({openModal, setOpenModal, title, btnText, onCli
           {title}
         </Typography>
 
-        <Button disableElevation variant="contained" className={classNames.button} onClick={onClickBtn}>
+        <Button success disableElevation variant="contained" className={classNames.button} onClick={onClickBtn}>
           {btnText}
         </Button>
       </div>

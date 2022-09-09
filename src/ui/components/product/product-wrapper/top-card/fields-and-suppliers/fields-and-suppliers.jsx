@@ -1,3 +1,5 @@
+import ClearIcon from '@mui/icons-material/Clear'
+
 import React, {useEffect, useState} from 'react'
 
 import {Box, Grid, Typography, Link, NativeSelect, Select, MenuItem, Checkbox, ListItemText} from '@material-ui/core'
@@ -409,12 +411,13 @@ export const FieldsAndSuppliers = observer(
             />
             <div className={classNames.selectedShopsWrapper}>
               {currentShops.map((shop, index) => (
-                <Typography key={index} className={classNames.selectedShop}>
-                  {shop.name}
-                  <Typography className={classNames.removeShopButton} onClick={() => onRemoveShop(shop.name, shop._id)}>
-                    {'х'}
-                  </Typography>
-                </Typography>
+                <div key={index} className={classNames.selectedShop}>
+                  <Typography>{shop.name}</Typography>
+                  <ClearIcon
+                    className={classNames.removeShopButton}
+                    onClick={() => onRemoveShop(shop.name, shop._id)}
+                  />
+                </div>
               ))}
             </div>
           </div>
