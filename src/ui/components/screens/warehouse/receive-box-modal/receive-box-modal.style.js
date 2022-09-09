@@ -177,6 +177,7 @@ export const useClassNames = makeStyles(theme => ({
   addButton: {
     width: '216px',
     height: '40px',
+    display: 'flex',
   },
   button: {
     width: '162px',

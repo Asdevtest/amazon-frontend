@@ -20,6 +20,10 @@ class IdeaModelStatic {
     const response = await restApiService.ideaApi.apiV1IdeasGuidDelete(id)
     return response
   }
+  addSuppliersToIdea = async (id, data) => {
+    const response = await restApiService.ideaApi.apiV1IdeasAddSuppliersGuidPost(id, {body: data})
+    return response
+  }
 }
 
 export const IdeaModel = new IdeaModelStatic()

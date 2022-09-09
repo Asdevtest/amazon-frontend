@@ -21,113 +21,123 @@ import {t} from '@utils/translations'
 import {SuppliersAndIdeasModel} from './suppliers-and-ideas.model'
 import {useClassNames} from './suppliers-and-ideas.style'
 
-export const SuppliersAndIdeas = observer(({productId}) => {
-  const classNames = useClassNames()
-  const history = useHistory()
-  const model = useRef(new SuppliersAndIdeasModel({history, productId}))
+export const SuppliersAndIdeas = observer(
+  ({productId, onClickSupplierBtns, curUserRole, onClickSupplier, selectedSupplier}) => {
+    const classNames = useClassNames()
+    const history = useHistory()
+    const model = useRef(new SuppliersAndIdeasModel({history, productId}))
 
-  useEffect(() => {
-    model.current.loadData()
-  }, [])
+    useEffect(() => {
+      model.current.loadData()
+    }, [])
 
-  const {
-    curUser,
-    curIdea,
-    inEdit,
-    inCreate,
-    ideasData,
-    progressValue,
-    showProgress,
-    showConfirmModal,
-    showSuccessModal,
-    confirmModalSettings,
-    successModalTitle,
-    onTriggerOpenModal,
-    onClickRemoveIdea,
-    onCreateIdea,
-    onClickCancelBtn,
-    onClickSaveBtn,
-    onSetCurIdea,
-    onEditIdea,
-    onClickCreateProduct,
-  } = model.current
+    const {
+      curUser,
+      curIdea,
+      inEdit,
+      inCreate,
+      ideasData,
+      progressValue,
+      showProgress,
+      showConfirmModal,
+      showSuccessModal,
+      confirmModalSettings,
+      successModalTitle,
+      onTriggerOpenModal,
+      onClickRemoveIdea,
+      onCreateIdea,
+      onClickCancelBtn,
+      onClickSaveBtn,
+      onSetCurIdea,
+      onEditIdea,
+      onClickCreateProduct,
+    } = model.current
 
-  const [updatedIdea, setUpdatedIdea] = useState(curIdea)
+    const [updatedIdea, setUpdatedIdea] = useState(curIdea)
 
-  useEffect(() => {
-    setUpdatedIdea(() => ({...curIdea}))
-  }, [SettingsModel.languageTag, curIdea])
+    useEffect(() => {
+      setUpdatedIdea(() => ({...curIdea}))
+    }, [SettingsModel.languageTag, curIdea])
 
-  return (
-    <div className={classNames.mainWrapper}>
-      <div className={classNames.btnsWrapper}>
-        {(checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
-        !inCreate &&
-        !inEdit ? (
-          <Button success variant="contained" onClick={onCreateIdea}>
-            {t(TranslationKey['Add a product idea'])}{' '}
-          </Button>
-        ) : null}
-      </div>
+    return (
+      <div className={classNames.mainWrapper}>
+        <div className={classNames.btnsWrapper}>
+          {(checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
+          !inCreate &&
+          !inEdit ? (
+            <Button success variant="contained" onClick={onCreateIdea}>
+              {t(TranslationKey['Add a product idea'])}{' '}
+            </Button>
+          ) : null}
+        </div>
 
-      {inCreate ? (
-        <IdeaViewAndEditCard
-          inCreate
-          curIdea={updatedIdea}
-          onClickSaveBtn={onClickSaveBtn}
-          onClickCancelBtn={onClickCancelBtn}
-          onSetCurIdea={onSetCurIdea}
-        />
-      ) : null}
-
-      {SettingsModel.languageTag && ideasData.length ? (
-        ideasData.map(idea => (
+        {inCreate ? (
           <IdeaViewAndEditCard
-            key={idea._id}
-            curUser={curUser}
-            curIdea={curIdea}
-            inEdit={inEdit}
-            idea={idea}
-            onCreateProduct={onClickCreateProduct}
+            inCreate
+            curIdea={updatedIdea}
+            curUserRole={curUserRole}
+            selectedSupplier={selectedSupplier}
             onClickSaveBtn={onClickSaveBtn}
             onClickCancelBtn={onClickCancelBtn}
-            onRemove={onClickRemoveIdea}
             onSetCurIdea={onSetCurIdea}
-            onEditIdea={onEditIdea}
+            onClickSupplierBtns={onClickSupplierBtns}
+            onClickSupplier={onClickSupplier}
           />
-        ))
-      ) : (
-        <div className={classNames.emptyTableWrapper}>
-          <img src="/assets/icons/empty-table.svg" />
-          <Typography variant="h5" className={classNames.emptyTableText}>
-            {t(TranslationKey['No ideas yet'])}
-          </Typography>
-        </div>
-      )}
+        ) : null}
 
-      <ConfirmationModal
-        isWarning={confirmModalSettings.isWarning}
-        openModal={showConfirmModal}
-        setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
-        title={t(TranslationKey.Attention)}
-        message={confirmModalSettings.confirmMessage}
-        successBtnText={t(TranslationKey.Yes)}
-        cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings.onClickConfirm}
-        onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
-      />
+        {SettingsModel.languageTag && ideasData.length ? (
+          ideasData.map(idea => (
+            <IdeaViewAndEditCard
+              key={idea._id}
+              curUser={curUser}
+              curIdea={curIdea}
+              inEdit={inEdit}
+              idea={idea}
+              curUserRole={curUserRole}
+              selectedSupplier={selectedSupplier}
+              onCreateProduct={onClickCreateProduct}
+              onClickSaveBtn={onClickSaveBtn}
+              onClickCancelBtn={onClickCancelBtn}
+              onRemove={onClickRemoveIdea}
+              onSetCurIdea={onSetCurIdea}
+              onEditIdea={onEditIdea}
+              onClickSupplierBtns={onClickSupplierBtns}
+              onClickSupplier={onClickSupplier}
+            />
+          ))
+        ) : (
+          <div className={classNames.emptyTableWrapper}>
+            <img src="/assets/icons/empty-table.svg" />
+            <Typography variant="h5" className={classNames.emptyTableText}>
+              {t(TranslationKey['No ideas yet'])}
+            </Typography>
+          </div>
+        )}
 
-      <SuccessInfoModal
-        openModal={showSuccessModal}
-        setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
-        title={successModalTitle}
-        successBtnText={t(TranslationKey.Ok)}
-        onClickSuccessBtn={() => {
-          onTriggerOpenModal('showSuccessModal')
-        }}
-      />
+        <ConfirmationModal
+          isWarning={confirmModalSettings.isWarning}
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={confirmModalSettings.confirmMessage}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={confirmModalSettings.onClickConfirm}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
+        />
 
-      {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
-    </div>
-  )
-})
+        <SuccessInfoModal
+          openModal={showSuccessModal}
+          setOpenModal={() => onTriggerOpenModal('showSuccessModal')}
+          title={successModalTitle}
+          successBtnText={t(TranslationKey.Ok)}
+          onClickSuccessBtn={() => {
+            onTriggerOpenModal('showSuccessModal')
+          }}
+        />
+
+        {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
+      </div>
+    )
+  },
+)
