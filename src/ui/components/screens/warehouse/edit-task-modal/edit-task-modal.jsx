@@ -273,7 +273,7 @@ export const EditTaskModal = observer(
           <ReceiveBoxModal
             volumeWeightCoefficient={volumeWeightCoefficient}
             setOpenModal={() => setReceiveBoxModal(!receiveBoxModal)}
-            selectedBox={task.boxesBefore[0]}
+            boxesBefore={task.boxesBefore}
             setSourceBoxes={setNewBoxes}
           />
         </Modal>

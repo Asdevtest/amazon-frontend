@@ -30,6 +30,11 @@ export const useClassNames = makeStyles(theme => ({
     flexDirection: 'column',
     gap: '20px',
   },
+
+  currentBoxesWrapper: {
+    width: 350,
+  },
+
   currentBoxFooter: {
     display: 'flex',
     flexDirection: 'column',

@@ -42,6 +42,8 @@ export class BuyerMyOrdersViewModel {
   ordersMy = []
   curBoxesOfOrder = []
 
+  createBoxesResult = []
+
   volumeWeightCoefficient = undefined
 
   drawerOpen = false
@@ -309,6 +311,8 @@ export class BuyerMyOrdersViewModel {
     try {
       this.error = undefined
 
+      this.createBoxesResult = []
+
       for (let i = 0; i < formFieldsArr.length; i++) {
         const elementOrderBox = formFieldsArr[i]
 
@@ -333,6 +337,14 @@ export class BuyerMyOrdersViewModel {
         }
       }
 
+      await BuyerModel.postTask({
+        taskId: 0,
+        boxes: [],
+        boxesBefore: [...this.createBoxesResult /* createBoxResult.guid*/],
+        operationType: 'receive',
+        clientComment: order.clientComment || '',
+      })
+
       if (!this.error) {
         this.onTriggerOpenModal('showSuccessModal')
       }
@@ -343,7 +355,7 @@ export class BuyerMyOrdersViewModel {
     }
   }
 
-  async onCreateBox(formFields, order) {
+  async onCreateBox(formFields /* , order*/) {
     try {
       const createBoxData = {
         ...getObjectFilteredByKeyArrayBlackList(formFields, [
@@ -379,13 +391,15 @@ export class BuyerMyOrdersViewModel {
 
       const createBoxResult = await BoxesModel.createBox(createBoxData)
 
-      await BuyerModel.postTask({
-        taskId: 0,
-        boxes: [],
-        boxesBefore: [createBoxResult.guid],
-        operationType: 'receive',
-        clientComment: order.clientComment || '',
-      })
+      this.createBoxesResult = [...this.createBoxesResult, createBoxResult.guid]
+
+      // await BuyerModel.postTask({
+      //   taskId: 0,
+      //   boxes: [],
+      //   boxesBefore: [createBoxResult.guid],
+      //   operationType: 'receive',
+      //   clientComment: order.clientComment || '',
+      // })
       return
     } catch (error) {
       console.log(error)
