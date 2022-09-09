@@ -37,7 +37,6 @@ export const EditTaskModal = observer(
     readOnly,
   }) => {
     const classNames = useClassNames()
-    console.log(task)
 
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
 
@@ -148,14 +147,12 @@ export const EditTaskModal = observer(
                 <UploadFilesInput images={photosOfTask} setImages={setPhotosOfTask} maxNumber={50} />
               </div>
             ) : (
-              <div className={classNames.photosWrapper}>
-                <PhotoAndFilesCarousel
-                  small
-                  direction={window.screen.width < 768 ? 'column' : 'row'}
-                  files={task.images}
-                  width="600px"
-                />
-              </div>
+              <PhotoAndFilesCarousel
+                small
+                direction={window.screen.width < 768 ? 'column' : 'row'}
+                files={task.images}
+                width="600px"
+              />
             )}
           </div>
 

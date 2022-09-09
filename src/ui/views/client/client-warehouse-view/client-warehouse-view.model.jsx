@@ -148,7 +148,7 @@ export class ClientWarehouseViewModel {
   }
 
   get isOneItemInBox() {
-    const findBox = this.boxesMy.find(box => box._id === this.selectedBoxes[0])
+    const findBox = this.boxesMy.find(box => box._id === this.selectedBoxes.slice()[0])
     return findBox?.originalData.items.reduce((ac, cur) => (ac += cur.amount), 0) <= 1
   }
 
