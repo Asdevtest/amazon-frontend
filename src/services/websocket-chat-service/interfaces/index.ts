@@ -25,6 +25,20 @@ export interface SendMessageRequestParams {
   is_draft?: boolean
 }
 
+export interface TypingMessageRequestParams {
+  chatId: string
+}
+
+export interface OnReadMessageResponse {
+  chatId: string
+  messageId: string
+}
+
+export interface OnTypingMessageResponse {
+  chatId: string
+  userId: string
+}
+
 export interface ChatMessage<T extends ChatMessageDataUniversal = ChatMessageDataUniversal> {
   _id: string
   userId: string

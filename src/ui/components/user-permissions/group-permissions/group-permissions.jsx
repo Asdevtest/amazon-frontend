@@ -80,7 +80,7 @@ export const GroupPermissions = observer(() => {
           pageSize={rowsPerPage}
           rowsPerPageOptions={[15, 25, 50, 100]}
           rows={getCurrentData()}
-          rowHeight={90}
+          getRowHeight={() => 'auto'}
           components={{
             Toolbar: GridToolbar,
           }}

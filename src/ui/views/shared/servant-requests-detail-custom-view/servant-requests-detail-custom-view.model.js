@@ -40,6 +40,10 @@ export class RequestDetailCustomViewModel {
     return UserModel.userInfo || {}
   }
 
+  get typingUsers() {
+    return ChatModel.typingUsers || []
+  }
+
   constructor({history, location}) {
     this.history = history
 
@@ -48,8 +52,6 @@ export class RequestDetailCustomViewModel {
     }
     makeAutoObservable(this, undefined, {autoBind: true})
     try {
-      // ChatModel.init()
-
       if (ChatModel.isConnected) {
         ChatModel.getChats(this.requestId, 'REQUEST')
         runInAction(() => {
@@ -71,6 +73,10 @@ export class RequestDetailCustomViewModel {
     } catch (error) {
       console.warn(error)
     }
+  }
+
+  onTypingMessage(chatId) {
+    ChatModel.typingMessage({chatId})
   }
 
   async loadData() {

@@ -431,8 +431,6 @@ export class AnotherProfileViewModel {
     try {
       const result = await UserModel.getUserInfoById(this.userId)
 
-      // const result = await UserModel.getUserInfoById(this.userId)
-
       runInAction(() => {
         this.user = result
       })

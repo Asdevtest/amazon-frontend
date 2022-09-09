@@ -112,8 +112,7 @@ class UserModelStatic {
 
       return response
     } catch (error) {
-      this.accessToken = undefined
-      this.userInfo = undefined
+      console.log(error)
     }
   }
 

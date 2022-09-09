@@ -5,6 +5,7 @@ import 'react-mde/lib/styles/css/react-mde-all.css'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {ChatModel} from '@models/chat-model'
 import {ChatContract} from '@models/chat-model/contracts'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {SettingsModel} from '@models/settings-model'
@@ -45,10 +46,20 @@ interface Props {
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, links: string[], files: any[]) => void
   updateData: () => void
+  onTypingMessage: (chatId: string) => void
 }
 
 export const Chat: FC<Props> = observer(
-  ({chat, messages, userId, chatMessageHandlers, onSubmitMessage, renderAdditionalButtons, updateData}) => {
+  ({
+    chat,
+    messages,
+    userId,
+    chatMessageHandlers,
+    onSubmitMessage,
+    renderAdditionalButtons,
+    updateData,
+    onTypingMessage,
+  }) => {
     const [inputMode, setInputMode] = useState<ChatInputMode>(ChatInputMode.TEXT)
 
     const messageInitialState: MessageStateParams = SettingsModel.chatMessageState?.[chat._id] || {
@@ -60,6 +71,16 @@ export const Chat: FC<Props> = observer(
     const [message, setMessage] = useState(messageInitialState.message)
     const [links, setLinks] = useState<string[]>(messageInitialState.links)
     const [files, setFiles] = useState<any[]>(messageInitialState.files)
+
+    const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
+
+    useEffect(() => {
+      if (isSendTypingPossible && message) {
+        onTypingMessage(chat._id)
+        setIsSendTypingPossible(false)
+        setTimeout(() => setIsSendTypingPossible(true), 3000)
+      }
+    }, [message])
 
     const changeMessageAndState = (value: string) => {
       setMessage(value)

@@ -100,7 +100,10 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
               const isNextMessageSameAuthor =
                 !isLastMessage && messages[index + 1]?.userId === messageItem.userId && !isNotPersonal
               return (
-                <div key={`chatMessage_${messageItem._id}`}>
+                <div
+                  key={`chatMessage_${messageItem._id}`}
+                  className={clsx(classNames.message, {[classNames.unReadMessage]: !messageItem.isRead})}
+                >
                   {index === 0 ||
                   formatDateWithoutTime(messages[index - 1].updatedAt) !==
                     formatDateWithoutTime(messageItem.updatedAt) ? (

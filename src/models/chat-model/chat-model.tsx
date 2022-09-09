@@ -10,6 +10,11 @@ import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {WebsocketChatService} from '@services/websocket-chat-service'
+import {
+  OnReadMessageResponse,
+  OnTypingMessageResponse,
+  TypingMessageRequestParams,
+} from '@services/websocket-chat-service/interfaces'
 
 import {ChatContract, SendMessageRequestParamsContract} from './contracts'
 import {ChatMessageContract, TChatMessageDataUniversal} from './contracts/chat-message.contract'
@@ -27,6 +32,8 @@ class ChatModelStatic {
   public simpleChats: ChatContract[] = []
 
   public loadedFiles: string[] = []
+
+  public typingUsers: OnTypingMessageResponse[] = []
 
   get userId() {
     return UserModel.userId
@@ -52,6 +59,8 @@ class ChatModelStatic {
           onPong: this.onPong,
           onNewMessage: this.onNewMessage,
           onNewChat: this.onNewChat,
+          onReadMessage: this.onReadMessage,
+          onTypingMessage: this.onTypingMessage,
         },
       })
     } else {
@@ -149,6 +158,15 @@ class ChatModelStatic {
     return plainToClass(ChatMessageContract, sendMessageResult)
   }
 
+  public async typingMessage(params: TypingMessageRequestParams) {
+    if (!this.websocketChatService) {
+      throw websocketChatServiceIsNotInitializedError
+    }
+    console.log('***TYPING_MESSAGE!!!')
+    await this.websocketChatService.typingMessage(params)
+    // return plainToClass(ChatMessageContract, sendMessageResult)
+  }
+
   public async readMessages(messageIds: string[]) {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
@@ -224,6 +242,50 @@ class ChatModelStatic {
         ]
       })
     }
+  }
+
+  private onReadMessage(response: OnReadMessageResponse) {
+    const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === response.chatId)
+
+    if (findChatIndexById !== -1) {
+      runInAction(() => {
+        this.chats[findChatIndexById].messages = [
+          ...this.chats[findChatIndexById].messages.map(mes =>
+            mes._id === response.messageId ? {...mes, isRead: true} : mes,
+          ),
+        ]
+      })
+    }
+
+    const findSimpleChatIndexById = this.simpleChats.findIndex((chat: ChatContract) => chat._id === response.chatId)
+
+    if (findSimpleChatIndexById !== -1) {
+      runInAction(() => {
+        this.simpleChats[findSimpleChatIndexById].messages = [
+          ...this.simpleChats[findSimpleChatIndexById].messages.map(mes =>
+            mes._id === response.messageId ? {...mes, isRead: true} : mes,
+          ),
+        ]
+      })
+    }
+  }
+
+  private onTypingMessage(response: OnTypingMessageResponse) {
+    console.log('***ON_TYPING_MESSAGE!!!')
+
+    runInAction(() => {
+      this.typingUsers = [...this.typingUsers, response]
+    })
+
+    setTimeout(() => {
+      const typingUserToRemove = this.typingUsers.findIndex(
+        el => el.chatId === response.chatId && el.userId === response.userId,
+      )
+
+      runInAction(() => {
+        this.typingUsers.splice(typingUserToRemove, 1)
+      })
+    }, 3000)
   }
 
   private onNewChat(newChat: ChatContract) {

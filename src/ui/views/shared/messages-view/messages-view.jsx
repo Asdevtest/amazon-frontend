@@ -37,6 +37,7 @@ class MessagesViewRaw extends Component {
 
   render() {
     const {
+      typingUsers,
       noticeOfSimpleChats,
       nameSearchValue,
       user,
@@ -44,6 +45,7 @@ class MessagesViewRaw extends Component {
       simpleChats,
       drawerOpen,
 
+      onTypingMessage,
       onClickChat,
       onTriggerDrawerOpen,
       onSubmitMessage,
@@ -93,11 +95,13 @@ class MessagesViewRaw extends Component {
               <div className={classNames.chatWrapper}>
                 <MultipleChats
                   ref={this.chatRef}
+                  typingUsers={typingUsers}
                   searchFilter={nameSearchValue}
                   chats={simpleChats}
                   userId={user._id}
                   chatSelectedId={chatSelectedId}
                   updateData={this.viewModel.loadData}
+                  onTypingMessage={onTypingMessage}
                   onSubmitMessage={onSubmitMessage}
                   onClickChat={onClickChat}
                 />

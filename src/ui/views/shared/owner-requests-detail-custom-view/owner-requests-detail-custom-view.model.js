@@ -56,6 +56,14 @@ export class OwnerRequestDetailCustomViewModel {
     return UserModel.userInfo
   }
 
+  get typingUsers() {
+    return ChatModel.typingUsers || []
+  }
+
+  get chats() {
+    return ChatModel.chats || []
+  }
+
   constructor({history, location, scrollToChat}) {
     this.history = history
     this.scrollToChat = scrollToChat
@@ -64,8 +72,6 @@ export class OwnerRequestDetailCustomViewModel {
     }
     makeAutoObservable(this, undefined, {autoBind: true})
     try {
-      // ChatModel.init()
-
       if (ChatModel.isConnected) {
         ChatModel.getChats(this.requestId, 'REQUEST')
         runInAction(() => {
@@ -89,8 +95,8 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  get chats() {
-    return ChatModel.chats || []
+  onTypingMessage(chatId) {
+    ChatModel.typingMessage({chatId})
   }
 
   async loadData() {

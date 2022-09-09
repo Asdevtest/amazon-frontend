@@ -8,6 +8,7 @@ import {
   Chat,
   ChatMessage,
   SendMessageRequestParams,
+  TypingMessageRequestParams,
   WebsocketChatResponse,
   WebsocketChatServiceHandlers,
 } from './interfaces'
@@ -96,6 +97,12 @@ export class WebsocketChatService {
           resolve(sendMessageResponse.data)
         }
       })
+    })
+  }
+
+  public async typingMessage(params: TypingMessageRequestParams): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(EentToEmit.TYPING_MESSAGE, params)
     })
   }
 

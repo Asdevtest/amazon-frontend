@@ -85,6 +85,12 @@ class AnotherUserProfileViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.User)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
+              {!user && (requestStatus === loadingStatuses.success || requestStatus === loadingStatuses.failed) && (
+                <Typography variant="h4" className={classNames.noDataText}>
+                  {t(TranslationKey['No data']) + '...'}
+                </Typography>
+              )}
+
               {user && (
                 <UserProfile
                   isAnotherUser
