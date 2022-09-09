@@ -1550,6 +1550,7 @@ export enum TranslationKey {
   'The primary size suitable for shipment' = 'The primary size suitable for shipment',
 >>>>>>> d9bae03c (3599 3603 3604 3605)
   // '' = '',
+  'Writes' = 'Writes',
   // '' = '',
   // '' = '',
   // '' = '',

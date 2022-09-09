@@ -180,6 +180,15 @@ class ChatModelStatic {
     // return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
+  public async typingMessage(params: TypingMessageRequestParams) {
+    if (!this.websocketChatService) {
+      throw websocketChatServiceIsNotInitializedError
+    }
+    console.log('***TYPING_MESSAGE!!!')
+    await this.websocketChatService.typingMessage(params)
+    // return plainToClass(ChatMessageContract, sendMessageResult)
+  }
+
   public async readMessages(messageIds: string[]) {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
