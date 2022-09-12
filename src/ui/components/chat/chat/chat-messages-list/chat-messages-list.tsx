@@ -142,7 +142,6 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                         />
                       </Link>
                     ) : null}
-
                     <div
                       className={clsx(classNames.messageInner, {
                         [classNames.messageInnerIsIncomming]: isIncomming,

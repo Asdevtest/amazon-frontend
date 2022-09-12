@@ -1551,7 +1551,7 @@ export enum TranslationKey {
 >>>>>>> d9bae03c (3599 3603 3604 3605)
   // '' = '',
   'Writes' = 'Writes',
-  // '' = '',
+  'Edit HS Code' = 'Edit HS Code',
   // '' = '',
   // '' = '',
 }
