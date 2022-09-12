@@ -177,4 +177,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     gap: '60px',
   },
+  photoAndFilesWrapper: {
+    height: '200px',
+  },
 }))

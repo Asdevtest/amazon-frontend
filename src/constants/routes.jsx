@@ -23,6 +23,7 @@ import {BuyerMyOrdersView} from '@views/buyer/buyer-orders-views/buyer-my-orders
 import {BuyerProductView} from '@views/buyer/buyer-product-view/'
 import {BuyerSearchSupplierByClientView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-client-view'
 import {BuyerSearchSupplierBySupervisorView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-by-supervisor-view'
+import {BuyerSearchSupplierForIdeaView} from '@views/buyer/buyer-search-supplier-views/buyer-search-supplier-for-idea-view'
 import {ClientAwaitingBatchesView} from '@views/client/client-batches-views/client-awaiting-batches-view'
 import {ClientBatchesView} from '@views/client/client-batches-views/client-batches-view'
 import {ClientReadyBoxesView} from '@views/client/client-batches-views/client-ready-boxes-view'
@@ -203,6 +204,14 @@ export const privateRoutesConfigs = [
   {
     routePath: '/buyer/search-supplier-by-client',
     component: BuyerSearchSupplierByClientView,
+    exact: true,
+    permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey['Supplier search'],
+  },
+
+  {
+    routePath: '/buyer/search-supplier-for-idea',
+    component: BuyerSearchSupplierForIdeaView,
     exact: true,
     permission: [UserRole.BUYER],
     crumbNameKey: TranslationKey['Supplier search'],

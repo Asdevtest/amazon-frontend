@@ -531,6 +531,13 @@ export const navbarConfig = () => ({
             !isMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER),
         },
+        // {
+        //   subtitle: t(TranslationKey.Idea),
+        //   subRoute: '/buyer/search-supplier-for-idea',
+        //   checkHideSubBlock: user =>
+        //     !isMasterUser(user) ||
+        //     user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER),
+        // },
       ],
       key: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
       checkHideBlock: user =>

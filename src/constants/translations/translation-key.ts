@@ -1510,6 +1510,9 @@ export enum TranslationKey {
   'Requests without proposals' = 'Requests without proposals',
   'Notices included' = 'Notices included',
   'Notices are off' = 'Notices are off',
+  'Price for the search of a supplier by a Buyer from the Client' = 'Price for the search of a supplier by a Buyer from the Client',
+  'for the idea' = 'for the idea',
+
   // '' = '',
   // '' = '',
   // '' = '',

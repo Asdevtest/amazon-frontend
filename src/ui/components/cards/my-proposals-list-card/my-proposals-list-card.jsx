@@ -41,7 +41,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
     RequestProposalStatus.ACCEPTED_BY_SUPERVISOR,
     RequestProposalStatus.EXPIRED,
   ]
-  console.log(item)
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -81,11 +81,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
           </div>
         </div>
 
-        <Divider
-          flexItem
-          orientation="vertical"
-          style={{minHeight: '293px', marginTop: '20px', marginBottom: '20px'}}
-        />
+        <Divider flexItem orientation="vertical" classes={{root: classNames.divider}} />
         <div className={classNames.rightBlockWrapper}>
           <CustomCarousel title={t(TranslationKey.Proposal)} view="complex">
             {item.proposals.map((proposal, index) => (

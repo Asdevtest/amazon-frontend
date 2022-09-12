@@ -333,7 +333,7 @@ export const AddOrEditBatchForm = observer(
                 containerClasses={classNames.filesWrapper}
                 label={t(TranslationKey.Files)}
                 inputComponent={
-                  <PhotoAndFilesCarousel files={batchToEdit?.originalData.attachedDocuments} width="400px" />
+                  <PhotoAndFilesCarousel small files={batchToEdit?.originalData.attachedDocuments} width="400px" />
                 }
               />
             </div>

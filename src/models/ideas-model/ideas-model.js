@@ -6,6 +6,16 @@ class IdeaModelStatic {
     return response
   }
 
+  getSupplierSearchRequests = async () => {
+    const response = await restApiService.ideaApi.apiV1IdeasGetSupplierRequestsGet()
+    return response
+  }
+
+  createSupplierSearchRequestForIdea = async (id, data) => {
+    const response = await restApiService.ideaApi.apiV1IdeasFindSupplierGuidPost(id, {body: data})
+    return response
+  }
+
   createIdea = async data => {
     const response = await restApiService.ideaApi.apiV1IdeasPost({body: data})
     return response

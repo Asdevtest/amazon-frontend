@@ -15,7 +15,7 @@ export const TabSearchSupplierContent = ({disabled, disabledSubmit, onChangeFiel
     <>
       <Field
         disabled={disabled}
-        label={t(TranslationKey['Price to find a supplier']) + ', $'}
+        label={t(TranslationKey['Price for the search of a supplier by a Buyer from the Client']) + ', $'}
         labelClasses={disabled && classNames.unselectable}
         className={disabled ? classNames.textFieldUnSelection : classNames.textField}
         value={formFields.costOfFindingSupplier}

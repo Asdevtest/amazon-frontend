@@ -270,4 +270,9 @@ export const useClassNames = makeStyles(() => ({
     height: '100px',
     overflow: 'auto',
   },
+  divider: {
+    minHeight: '293px',
+    marginTop: '20px',
+    marginBottom: '20px',
+  },
 }))

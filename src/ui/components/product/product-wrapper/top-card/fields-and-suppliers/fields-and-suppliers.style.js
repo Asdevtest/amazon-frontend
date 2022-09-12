@@ -200,6 +200,7 @@ export const useClassNames = makeStyles(() => ({
 
   removeShopButton: {
     cursor: 'pointer',
+    zIndex: 999,
   },
 
   productCheckboxBoxesWrapper: {

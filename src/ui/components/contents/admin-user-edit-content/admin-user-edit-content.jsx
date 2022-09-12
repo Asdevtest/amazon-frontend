@@ -331,12 +331,12 @@ export const AdminUserEditContent = observer(
                     containerClasses={classNames.allowedRoleContainer}
                     inputComponent={
                       <Select
-                        style={{height: '19px'}}
+                        classes={{select: classNames.roleSelect}}
                         value={selectedRole ? selectedRole : 'Роль'}
                         renderValue={selected =>
                           clearSelect ? t(TranslationKey['Choose a role']) : UserRoleCodeMap[selected]
                         }
-                        className={classNames.roleSelect}
+                        // className={classNames.roleSelect}
                         onChange={e => setSelectedRole(e.target.value)}
                       >
                         {Object.keys(UserRoleCodeMap).map((role, index) => (
