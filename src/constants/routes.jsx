@@ -83,6 +83,7 @@ import {SupervisorFreelanceView} from '@views/supervisor/supervisor-freelance-vi
 import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/supervisor-product-view'
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
 import {SupervisorReadyToCheckByClientView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-by-client-view'
+import {SupervisorReadyToCheckForIdeaView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-for-idea'
 import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-view'
 import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view'
 import {TermsView} from '@views/terms'
@@ -776,6 +777,14 @@ export const privateRoutesConfigs = [
   {
     routePath: '/supervisor/ready-to-check-by-client',
     component: SupervisorReadyToCheckByClientView,
+    exact: true,
+    permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey['Supplier search'],
+  },
+
+  {
+    routePath: '/supervisor/ready-to-check-for-idea',
+    component: SupervisorReadyToCheckForIdeaView,
     exact: true,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey['Supplier search'],

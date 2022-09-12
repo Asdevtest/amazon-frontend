@@ -105,6 +105,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
 }
 
 export const EditBoxTasksModal = ({
+  isChangeDimensions,
   setEditModal,
   box,
   operationType,
@@ -224,7 +225,11 @@ export const EditBoxTasksModal = ({
 
       <Box className={classNames.boxCode}>
         <div className={classNames.imageFileInputWrapper}>
-          <UploadFilesInput images={editingBox.tmpImages} setImages={setImagesOfBox} maxNumber={50} />
+          <UploadFilesInput
+            images={isChangeDimensions ? editingBox.images : editingBox.tmpImages}
+            setImages={setImagesOfBox}
+            maxNumber={50}
+          />
         </div>
       </Box>
       <div className={classNames.photoWrapper}>

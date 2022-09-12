@@ -21,6 +21,11 @@ class IdeaModelStatic {
     return response
   }
 
+  editSupplierSearchRequestStatus = async (id, status) => {
+    const response = await restApiService.ideaApi.apiV1IdeasEditRequestsStatusGuidPatch(id, {body: status})
+    return response
+  }
+
   createIdea = async data => {
     const response = await restApiService.ideaApi.apiV1IdeasPost({body: data})
     return response

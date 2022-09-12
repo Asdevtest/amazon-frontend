@@ -15,7 +15,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const warehouseBoxesViewColumns = (handlers, firstRowId) => [
+export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
   {
     field: 'humanFriendlyId',
     headerName: t(TranslationKey['Box ID']),
@@ -102,7 +102,12 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Demensions)} />,
 
     renderCell: params => (
-      <ShortBoxDimensions box={params.row.originalData} volumeWeightCoefficient={params.row.volumeWeightCoefficient} />
+      <ShortBoxDimensions
+        box={params.row.originalData}
+        volumeWeightCoefficient={params.row.volumeWeightCoefficient}
+        curUser={user.role}
+        handlers={handlers}
+      />
     ),
     width: 230,
   },

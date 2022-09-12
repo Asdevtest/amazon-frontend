@@ -23,7 +23,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './add-supplier-to-idea-from-inventory-form.style'
 
 export const AddSupplierToIdeaFromInventoryForm = observer(
-  ({onSubmit, showProgress, progressValue, onClose, ideas}) => {
+  ({onSubmit, showProgress, progressValue, onClose, ideas, product}) => {
     const classNames = useClassNames()
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
@@ -50,6 +50,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
     }
 
     console.log('ideas', ideas)
+    console.log('product', product)
 
     const [linkLine, setLinkLine] = useState('')
 
@@ -79,6 +80,8 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
       }
     }, [curIdeaId])
 
+    console.log(curIdeaId)
+
     const onChangeField = fieldName => event => {
       const newFormFields = {...formFields}
       // if (['execution_time'].includes(fieldName)) {
@@ -106,6 +109,33 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
       const newArr = formFields.links.filter((el, i) => i !== index)
 
       onChangeField('links')({target: {value: [...newArr]}})
+    }
+
+    const onCreateSearchSupplierRequest = () => {
+      const forCreateIdea = {
+        media: formFields.images,
+        comments: '',
+        productName: formFields.title,
+        productLinks: formFields.links,
+        criteria: formFields.criteria,
+        quantity: formFields.quantity,
+        price: formFields.price,
+        width: formFields.width,
+        height: formFields.height,
+        length: formFields.length,
+        productId: product._id,
+      }
+      const forCreateRequest = {
+        productName: formFields.title,
+        productLinks: formFields.links,
+        linksToMediaFiles: formFields.images,
+        criteria: formFields.criteria,
+        dimensions: `${formFields.width}, ${formFields.height}, ${formFields.length}`,
+        quantity: formFields.quantity,
+        price: formFields.price,
+        productId: product._id,
+      }
+      onSubmit(curIdeaId, forCreateIdea, forCreateRequest)
     }
 
     const disableSubmitBtn =
@@ -285,12 +315,11 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
             variant="contained"
             color="primary"
             className={classNames.successBtn}
-            // onClick={() => {
-            //   onSubmit(formFields, images, isNoAsin)
-            //   setSubmitIsClicked(true)
-            // }}
+            onClick={() => {
+              onCreateSearchSupplierRequest()
+            }}
           >
-            {t(TranslationKey.Next)}
+            {t(TranslationKey['Create a request'])}
           </Button>
 
           <Button variant="text" color="primary" className={classNames.cancelBtn} onClick={onClose}>

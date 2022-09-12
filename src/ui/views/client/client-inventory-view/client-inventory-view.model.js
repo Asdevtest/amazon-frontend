@@ -4,6 +4,7 @@ import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {ProductDataParser} from '@constants/product-data-parser'
 import {ProductStatus, ProductStatusByCode} from '@constants/product-status'
+import {RequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
@@ -90,7 +91,7 @@ export class ClientInventoryViewModel {
   destinations = []
   shopsData = []
   currentShop = undefined
-
+  ideaId = ''
   isArchive = false
 
   nameSearchValue = ''
@@ -620,6 +621,36 @@ export class ClientInventoryViewModel {
       this.showInfoModalTitle = `${t(TranslationKey["You can't order"])} "${error.body.message}"`
       this.onTriggerOpenModal('showInfoModal')
       this.error = error
+    }
+  }
+
+  async createIdea(data) {
+    try {
+      const resId = await IdeaModel.createIdea({...data, price: data.price || 0, quantity: data.quantity || 0})
+      runInAction(() => {
+        this.ideaId = resId.guid
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async createSupplierSearchRequest(curId, ideaData, data) {
+    try {
+      if (curId) {
+        await IdeaModel.createSupplierSearchRequestForIdea(curId, data)
+        await IdeaModel.editSupplierSearchRequestStatus(curId, {
+          requestStatus: RequestStatus.READY_TO_VERIFY_BY_SUPERVISOR,
+        })
+      } else {
+        await this.createIdea(ideaData)
+        await IdeaModel.createSupplierSearchRequestForIdea(this.ideaId, data)
+        await IdeaModel.editSupplierSearchRequestStatus(this.ideaId, {
+          requestStatus: RequestStatus.READY_TO_VERIFY_BY_SUPERVISOR,
+        })
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
