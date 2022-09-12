@@ -380,14 +380,14 @@ export const CreateOrEditRequestContent = ({
 
                 <List>
                   <ListItem className={classNames.adviceListItem}>
-                    <CircleIcon color="primary" style={{width: '8px'}} />
+                    <CircleIcon color="primary" classes={{root: classNames.listItemDot}} />
 
                     <ListItemText className={classNames.adviceListItemText}>
                       {t(TranslationKey['Read the reviews about the performer'])}
                     </ListItemText>
                   </ListItem>
                   <ListItem className={classNames.adviceListItem}>
-                    <CircleIcon color="primary" style={{width: '8px'}} />
+                    <CircleIcon color="primary" classes={{root: classNames.listItemDot}} />
 
                     <ListItemText className={classNames.adviceListItemText}>
                       {t(
@@ -396,7 +396,7 @@ export const CreateOrEditRequestContent = ({
                     </ListItemText>
                   </ListItem>
                   <ListItem className={classNames.adviceListItem}>
-                    <CircleIcon color="primary" style={{width: '8px'}} />
+                    <CircleIcon color="primary" classes={{root: classNames.listItemDot}} />
 
                     <ListItemText className={classNames.adviceListItemText}>
                       {t(

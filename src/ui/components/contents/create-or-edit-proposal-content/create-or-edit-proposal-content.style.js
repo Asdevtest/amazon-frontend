@@ -299,4 +299,7 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: 'inherit',
     resize: 'none',
   },
+  listItemDot: {
+    width: '8px !important',
+  },
 }))

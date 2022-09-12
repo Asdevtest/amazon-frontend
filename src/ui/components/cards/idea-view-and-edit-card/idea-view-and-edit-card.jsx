@@ -491,7 +491,7 @@ export const IdeaViewAndEditCard = observer(
                         {t(TranslationKey['Create a product card'])}
                       </Button>
                     ) : (
-                      <div style={{width: 200}} />
+                      <div className={classNames.emptyBlock} />
                     )}
 
                     <Button

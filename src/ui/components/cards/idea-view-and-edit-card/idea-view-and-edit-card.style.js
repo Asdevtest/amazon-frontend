@@ -341,4 +341,8 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     color: '#656565',
   },
+
+  emptyBlock: {
+    width: 200,
+  },
 }))

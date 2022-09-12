@@ -499,4 +499,8 @@ export const useClassNames = makeStyles(() => ({
   restrictMoreThanOneProposal: {
     fontWeight: '600',
   },
+
+  listItemDot: {
+    width: '8px !important',
+  },
 }))

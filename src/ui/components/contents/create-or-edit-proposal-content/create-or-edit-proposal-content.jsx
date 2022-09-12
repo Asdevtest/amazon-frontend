@@ -89,21 +89,21 @@ export const CreateOrEditProposalContent = ({
 
         <List>
           <ListItem className={classNames.adviceListItem}>
-            <CircleIcon color="primary" style={{width: '8px'}} />
+            <CircleIcon color="primary" classes={{root: classNames.listItemDot}} />
 
             <ListItemText className={classNames.adviceListItemText}>
               {t(TranslationKey['Specify exactly how you are going to perform this task. Describe the key points.'])}
             </ListItemText>
           </ListItem>
           <ListItem className={classNames.adviceListItem}>
-            <CircleIcon color="primary" style={{width: '8px'}} />
+            <CircleIcon color="primary" classes={{root: classNames.listItemDot}} />
 
             <ListItemText className={classNames.adviceListItemText}>
               {t(TranslationKey['Compose unique feedback that shows your competence and interest in the project.'])}
             </ListItemText>
           </ListItem>
           <ListItem className={classNames.adviceListItem}>
-            <CircleIcon color="primary" style={{width: '8px'}} />
+            <CircleIcon color="primary" classes={{root: classNames.listItemDot}} />
 
             <ListItemText className={classNames.adviceListItemText}>
               {t(
