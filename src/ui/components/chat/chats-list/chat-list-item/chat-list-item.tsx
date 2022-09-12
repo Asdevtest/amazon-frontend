@@ -67,7 +67,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
             <p className={classNames.lastMessageText}>
               {typingUsers?.find(el => el.chatId === chat._id && el.userId === oponentUser._id)
                 ? t(TranslationKey.Writes) + '...'
-                : shortenLongString(message, 20)}
+                : shortenLongString(message, 18)}
             </p>
           </div>
         ) : undefined}

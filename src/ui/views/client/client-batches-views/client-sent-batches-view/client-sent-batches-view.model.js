@@ -11,6 +11,7 @@ import {UserModel} from '@models/user-model'
 import {clientBatchesViewColumns} from '@components/table-columns/client/client-batches-columns'
 
 import {clientBatchesDataConverter} from '@utils/data-grid-data-converters'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class ClientSentBatchesViewModel {
@@ -134,7 +135,10 @@ export class ClientSentBatchesViewModel {
       runInAction(() => {
         this.volumeWeightCoefficient = result.volumeWeightCoefficient
 
-        this.batches = clientBatchesDataConverter(batches, this.volumeWeightCoefficient)
+        this.batches = clientBatchesDataConverter(
+          batches.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')),
+          this.volumeWeightCoefficient,
+        )
       })
     } catch (error) {
       console.log(error)
