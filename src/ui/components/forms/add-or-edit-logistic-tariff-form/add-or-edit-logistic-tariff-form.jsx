@@ -7,7 +7,7 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
-import {DatePicker} from '@components/date-picker'
+import {NewDatePicker} from '@components/date-picker/date-picker'
 import {Field} from '@components/field/field'
 import {Text} from '@components/text'
 import {ToggleBtnGroup} from '@components/toggle-btn-group/toggle-btn-group'
@@ -293,7 +293,7 @@ export const AddOrEditLogisticTariffForm = observer(
                       [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
                     })}
                   >
-                    <DatePicker value={formFields.cls} onChange={onChangeField('cls')} />
+                    <NewDatePicker value={formFields.cls} onChange={onChangeField('cls')} />
                     {checkDateByDeadline(formFields.cls) && (
                       <p className={classNames.deadlineErrorText}>
                         {'The deadline date cannot be later than the current date'}
@@ -314,7 +314,7 @@ export const AddOrEditLogisticTariffForm = observer(
                       [classNames.deadlineError]: checkDateByDeadline(formFields.etd),
                     })}
                   >
-                    <DatePicker value={formFields.etd} onChange={onChangeField('etd')} />
+                    <NewDatePicker value={formFields.etd} onChange={onChangeField('etd')} />
 
                     {checkDateByDeadline(formFields.etd) && (
                       <p className={classNames.deadlineErrorText}>
@@ -336,7 +336,7 @@ export const AddOrEditLogisticTariffForm = observer(
                       [classNames.deadlineError]: checkDateByDeadline(formFields.eta),
                     })}
                   >
-                    <DatePicker value={formFields.eta} onChange={onChangeField('eta')} />
+                    <NewDatePicker value={formFields.eta} onChange={onChangeField('eta')} />
                     {checkDateByDeadline(formFields.eta) && (
                       <p className={classNames.deadlineErrorText}>
                         {'The deadline date cannot be later than the current date'}

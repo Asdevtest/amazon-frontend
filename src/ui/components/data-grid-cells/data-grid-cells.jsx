@@ -243,8 +243,7 @@ export const SupplierCell = withStyles(styles)(({classes: classNames, product}) 
 
 export const UserLinkCell = withStyles(styles)(({classes: classNames, name, userId, blackText}) => (
   <div className={classNames.userLinkWrapper}>
-    <Avatar src={getUserAvatarSrc(userId)} className={classNames.avatarWrapper} />
-    <UserLink name={name} userId={userId} blackText={blackText} />
+    <UserLink withAvatar name={name} userId={userId} blackText={blackText} />
   </div>
 ))
 
@@ -1322,7 +1321,9 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
       color="primary"
       onClick={() => handlers.setHsCode(row)}
     >
-      {t(TranslationKey['Add HS Code'])}
+      {row.items.some(item => !item.product.hsCode)
+        ? t(TranslationKey['Add HS Code'])
+        : t(TranslationKey['Edit HS Code'])}
     </Button>
   </div>
 ))

@@ -13,12 +13,12 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     display: 'flex',
     alignItems: 'end',
-    marginBottom: '30px',
+    // marginBottom: '30px',
     flexDirection: 'row-reverse',
     // justifyContent: 'flex-end',
   },
   messageWrapperIsNextMessageSameAuthor: {
-    marginBottom: '40px',
+    // marginBottom: '40px',
   },
   messageWrapperIsIncomming: {
     flexDirection: 'row',
@@ -58,7 +58,15 @@ export const useClassNames = makeStyles(() => ({
     height: '32px',
     width: '32px',
   },
-  messageAvatarWrapperIsIncomming: {},
+  messageAvatarWrapperIsIncomming: {
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+    },
+  },
 
   timeText: {
     fontSize: '14px',
@@ -131,5 +139,15 @@ export const useClassNames = makeStyles(() => ({
   filesWrapper: {
     display: 'flex',
     maxWidth: '500px',
+  },
+
+  message: {
+    marginTop: 30,
+  },
+  unReadMessage: {
+    backgroundColor: 'rgba(0,0,0, .07)',
+    borderRadius: 10,
+
+    padding: 10,
   },
 }))

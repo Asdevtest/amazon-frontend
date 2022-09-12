@@ -25,4 +25,9 @@ export const styles = createStyles(() => ({
   toolbarContainer: {
     height: '52px',
   },
+
+  noDataText: {
+    textAlign: 'center',
+    marginTop: 300,
+  },
 }))

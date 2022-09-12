@@ -23,7 +23,6 @@ import {RequestDetailCustomViewModel} from './servant-requests-detail-custom-vie
 import {styles} from './servant-requests-detail-custom-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS
 
 const requestProposalCancelAllowedStatuses = [
   RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED,
@@ -50,6 +49,7 @@ export class RequestDetailCustomViewRaw extends Component {
   render() {
     const {classes: classNames} = this.props
     const {
+      typingUsers,
       drawerOpen,
       request,
       showWarningModal,
@@ -67,6 +67,7 @@ export class RequestDetailCustomViewRaw extends Component {
       onSubmitOfferDeal,
       onClickSendAsResult,
       onClickCancelRequestProposal,
+      onTypingMessage,
     } = this.viewModel
 
     const findRequestProposalByChatSelectedId = requestProposals?.find(
@@ -78,7 +79,11 @@ export class RequestDetailCustomViewRaw extends Component {
         <Navbar
           drawerOpen={drawerOpen}
           activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
+          activeSubCategory={
+            this.props.location.pathname.includes('my-proposals')
+              ? navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS
+              : navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS
+          }
           setDrawerOpen={onTriggerDrawerOpen}
         />
         <Main>
@@ -109,6 +114,7 @@ export class RequestDetailCustomViewRaw extends Component {
                 <div className={classNames.chatWrapper}>
                   <MultipleChats
                     chats={chats}
+                    typingUsers={typingUsers}
                     userId={userInfo._id}
                     chatSelectedId={chatSelectedId}
                     chatMessageHandlers={{}}
@@ -146,6 +152,7 @@ export class RequestDetailCustomViewRaw extends Component {
                     updateData={this.viewModel.loadData}
                     onSubmitMessage={onSubmitMessage}
                     onClickChat={onClickChat}
+                    onTypingMessage={onTypingMessage}
                   />
                 </div>
               ) : null}

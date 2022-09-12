@@ -10,7 +10,7 @@ import {SettingsModel} from '@models/settings-model'
 import {adminSinglePermissionsColumns} from '@components/table-columns/admin/single-permissions-columns'
 
 import {adminSinglePermissionsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
@@ -152,7 +152,7 @@ export class SinglePermissionsModel {
 
       runInAction(() => {
         this.singlePermissions = adminSinglePermissionsDataConverter(result).sort(
-          sortObjectsArrayByFiledDate('updatedAt'),
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })
     } catch (error) {

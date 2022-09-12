@@ -39,6 +39,8 @@ export const UserProfile = observer(
   }) => {
     const classNames = useClassNames()
 
+    console.log('user', user)
+
     return (
       <>
         {SettingsModel.languageTag && (
@@ -114,7 +116,9 @@ export const UserProfile = observer(
 
               <Info headerInfoData={headerInfoData} />
 
-              {user.allowedRoles?.includes(mapUserRoleEnumToKey[UserRole.RESEARCHER]) ? <Tested user={user} /> : null}
+              {isAnotherUser || user.allowedRoles?.includes(mapUserRoleEnumToKey[UserRole.RESEARCHER]) ? (
+                <Tested user={user} />
+              ) : null}
             </div>
 
             <div className={classNames.rightSideWrapper}>

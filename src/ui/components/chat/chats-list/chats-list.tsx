@@ -5,17 +5,20 @@ import {observer} from 'mobx-react'
 
 import {ChatContract} from '@models/chat-model/contracts'
 
+import {OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
+
 import {ChatListItem} from './chat-list-item'
 import {useClassNames} from './chats-list.style'
 
 interface Props {
   chats: ChatContract[]
   chatSelectedId?: string
+  typingUsers?: OnTypingMessageResponse[]
   userId: string
   onClickChat: (chat: ChatContract) => void
 }
 
-export const ChatsList: FC<Props> = observer(({chats, userId, chatSelectedId, onClickChat}) => {
+export const ChatsList: FC<Props> = observer(({chats, userId, chatSelectedId, onClickChat, typingUsers}) => {
   const classNames = useClassNames()
   return (
     <div className={classNames.root}>
@@ -27,7 +30,13 @@ export const ChatsList: FC<Props> = observer(({chats, userId, chatSelectedId, on
             key={`chat_${chat._id}`}
             className={clsx(classNames.chatWrapper, {[classNames.chatWrapperIsSelected]: isSelected})}
           >
-            <ChatListItem userId={userId} chat={chat} isSelected={isSelected} onClick={() => onClickChat(chat)} />
+            <ChatListItem
+              typingUsers={typingUsers}
+              userId={userId}
+              chat={chat}
+              isSelected={isSelected}
+              onClick={() => onClickChat(chat)}
+            />
           </div>
         )
       })}

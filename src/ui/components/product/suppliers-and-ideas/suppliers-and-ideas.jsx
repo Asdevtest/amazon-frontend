@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useEffect, useRef, useState} from 'react'
 
 import {Typography} from '@material-ui/core'
@@ -12,6 +13,7 @@ import {SettingsModel} from '@models/settings-model'
 import {Button} from '@components/buttons/button'
 import {IdeaViewAndEditCard} from '@components/cards/idea-view-and-edit-card'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {Modal} from '@components/modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {SuccessInfoModal} from '@components/modals/success-info-modal'
 
@@ -41,6 +43,7 @@ export const SuppliersAndIdeas = observer(
       showProgress,
       showConfirmModal,
       showSuccessModal,
+      showAddOrEditSupplierModal,
       confirmModalSettings,
       successModalTitle,
       onTriggerOpenModal,
@@ -113,6 +116,27 @@ export const SuppliersAndIdeas = observer(
             </Typography>
           </div>
         )}
+
+        {/* <Modal
+          missClickModalOn={!supplierModalReadOnly}
+          openModal={showAddOrEditSupplierModal}
+          setOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
+        >
+          <AddOrEditSupplierModalContent
+            product={product}
+            storekeepersData={storekeepersData}
+            onlyRead={supplierModalReadOnly}
+            requestStatus={requestStatus}
+            sourceYuanToDollarRate={yuanToDollarRate}
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            title={t(TranslationKey['Adding and editing a supplier'])}
+            supplier={selectedSupplier}
+            showProgress={showProgress}
+            progressValue={progressValue}
+            onClickSaveBtn={onClickSaveSupplierBtn}
+            onTriggerShowModal={onTriggerAddOrEditSupplierModal}
+          />
+        </Modal> */}
 
         <ConfirmationModal
           isWarning={confirmModalSettings.isWarning}

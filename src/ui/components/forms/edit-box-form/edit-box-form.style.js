@@ -149,6 +149,18 @@ export const useClassNames = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     alignSelf: 'center',
+    marginBottom: 10,
+  },
+
+  boxPhotoWrapper: {
+    marginTop: 100,
+    width: '250px',
+    height: 200,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    alignSelf: 'center',
+    gap: 20,
   },
 
   storekeeperBtn: {
@@ -272,5 +284,19 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 600,
     fontSize: 16,
     color: '#001029',
+  },
+
+  productImageClass: {
+    width: 197,
+    height: 184,
+    objectFit: 'contain',
+    cursor: 'pointer',
+  },
+
+  boxImageClass: {
+    width: 148,
+    height: 151,
+    objectFit: 'contain',
+    cursor: 'pointer',
   },
 }))

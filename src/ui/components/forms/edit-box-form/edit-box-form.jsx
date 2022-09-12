@@ -5,7 +5,6 @@ import {Checkbox, Chip, Divider, NativeSelect, TableCell, TableRow, Typography} 
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
-// import Carousel from 'react-material-ui-carousel'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -291,7 +290,11 @@ export const EditBoxForm = observer(
                       <div key={index} className={classNames.productWrapper}>
                         <div className={classNames.leftProductColumn}>
                           <div className={classNames.photoWrapper}>
-                            <PhotoCarousel isAmazonPhoto files={item.product.images} width={200} />
+                            <PhotoCarousel
+                              isAmazonPhoto
+                              files={item.product.images}
+                              imageClass={classNames.productImageClass}
+                            />
                           </div>
 
                           <>
@@ -567,11 +570,11 @@ export const EditBoxForm = observer(
 
                 <WarehouseDemensions orderBox={boxFields} sizeSetting={sizeSetting} />
 
-                <div className={classNames.photoWrapper}>
+                <div className={classNames.boxPhotoWrapper}>
                   <Typography className={classNames.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
                   </Typography>
-                  <PhotoCarousel small files={boxFields.images} width={250} />
+                  <PhotoCarousel files={boxFields.images} imageClass={classNames.boxImageClass} />
                 </div>
               </div>
             }

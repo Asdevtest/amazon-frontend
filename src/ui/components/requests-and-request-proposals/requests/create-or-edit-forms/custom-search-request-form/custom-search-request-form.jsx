@@ -7,7 +7,7 @@ import {parseISO} from 'date-fns/esm'
 import {RequestStatus} from '@constants/request-status'
 import {UserRole, UserRoleCodeMap} from '@constants/user-roles'
 
-import {DatePicker} from '@components/date-picker'
+import {NewDatePicker} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
 
 import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
@@ -95,7 +95,7 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
           label={'timeoutAt'}
           inputComponent={
             <div className={clsx({[classNames.deadlineError]: deadlineError})}>
-              <DatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
+              <NewDatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
               {deadlineError && <p className={classNames.deadlineErrorText}>{'deadlineError'}</p>}
             </div>
           }

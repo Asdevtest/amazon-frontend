@@ -30,8 +30,8 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
 
   {
     field: 'asin',
-    headerName: t(TranslationKey.Orders),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Orders)} />,
+    headerName: 'ASIN',
+    renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
     width: 400,
     renderCell: params => <OrderCell product={params.row.originalData.product} />,

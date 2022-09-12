@@ -1,3 +1,5 @@
+import {Link} from '@mui/material'
+
 import React, {FC, useEffect} from 'react'
 
 import {Avatar, Typography} from '@material-ui/core'
@@ -100,7 +102,10 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
               const isNextMessageSameAuthor =
                 !isLastMessage && messages[index + 1]?.userId === messageItem.userId && !isNotPersonal
               return (
-                <div key={`chatMessage_${messageItem._id}`}>
+                <div
+                  key={`chatMessage_${messageItem._id}`}
+                  className={clsx(classNames.message, {[classNames.unReadMessage]: !messageItem.isRead})}
+                >
                   {index === 0 ||
                   formatDateWithoutTime(messages[index - 1].updatedAt) !==
                     formatDateWithoutTime(messageItem.updatedAt) ? (
@@ -119,13 +124,22 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                     })}
                   >
                     {!isNextMessageSameAuthor && !isNotPersonal ? (
-                      <Avatar
-                        src={getUserAvatarSrc(messageItem.userId)}
-                        className={clsx(classNames.messageAvatarWrapper, {
-                          [classNames.messageAvatarWrapperIsIncomming]: isIncomming,
-                        })}
-                      />
-                    ) : undefined}
+                      <Link
+                        target="_blank"
+                        href={
+                          userId === messageItem.userId
+                            ? `${window.location.origin}/profile`
+                            : `${window.location.origin}/another-user?${messageItem.userId}`
+                        }
+                      >
+                        <Avatar
+                          src={getUserAvatarSrc(messageItem.userId)}
+                          className={clsx(classNames.messageAvatarWrapper, {
+                            [classNames.messageAvatarWrapperIsIncomming]: isIncomming,
+                          })}
+                        />
+                      </Link>
+                    ) : null}
                     <div
                       className={clsx(classNames.messageInner, {
                         [classNames.messageInnerIsIncomming]: isIncomming,

@@ -8,6 +8,7 @@ import {
   Chat,
   ChatMessage,
   SendMessageRequestParams,
+  TypingMessageRequestParams,
   WebsocketChatResponse,
   WebsocketChatServiceHandlers,
 } from './interfaces'
@@ -51,9 +52,9 @@ export class WebsocketChatService {
     ;(Object.keys(handlers) as ChatHandlerName[]).forEach((handlerName: ChatHandlerName) => {
       const handlerCallback = handlers[handlerName]
       if (handlerToEventMapping[handlerName] && handlerCallback) {
-        console.log(
-          `WebsocketChatService registerHandlers, register event: ${handlerToEventMapping[handlerName]} with handler: ${handlerName}`,
-        )
+        // console.log(
+        //   `WebsocketChatService registerHandlers, register event: ${handlerToEventMapping[handlerName]} with handler: ${handlerName}`,
+        // )
         this.socket.on(handlerToEventMapping[handlerName], handlerCallback)
       }
     })
@@ -96,6 +97,12 @@ export class WebsocketChatService {
           resolve(sendMessageResponse.data)
         }
       })
+    })
+  }
+
+  public async typingMessage(params: TypingMessageRequestParams): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(EentToEmit.TYPING_MESSAGE, params)
     })
   }
 

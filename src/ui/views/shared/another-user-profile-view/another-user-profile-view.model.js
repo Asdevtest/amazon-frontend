@@ -400,7 +400,11 @@ export class AnotherProfileViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getUserById()
       this.getDataGridState()
-      await this.getShops()
+
+      if (this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]) {
+        await this.getShops()
+      }
+
       await this.getProductsVacant()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -430,8 +434,6 @@ export class AnotherProfileViewModel {
   async getUserById() {
     try {
       const result = await UserModel.getUserInfoById(this.userId)
-
-      // const result = await UserModel.getUserInfoById(this.userId)
 
       runInAction(() => {
         this.user = result

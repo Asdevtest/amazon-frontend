@@ -5,6 +5,8 @@ import {observer} from 'mobx-react'
 
 import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
 
+import {OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
+
 import {isNotUndefined} from '@utils/checks'
 
 import {Chat, RenderAdditionalButtonsParams} from '../chat'
@@ -18,16 +20,19 @@ interface Props {
   userId: string
   chatSelectedId?: string
   chatMessageHandlers?: ChatMessageUniversalHandlers
+  typingUsers?: OnTypingMessageResponse[]
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
   onSubmitMessage: (message: string, links: string[], files: any, chat: string) => void
   onClickChat: (chat: ChatContract) => void
+  onTypingMessage: (chatId: string) => void
 }
 
 export const MultipleChats = observer(
   forwardRef<HTMLDivElement, Props>(
     (
       {
+        typingUsers,
         searchFilter,
         chats,
         userId,
@@ -37,6 +42,7 @@ export const MultipleChats = observer(
         onSubmitMessage,
         onClickChat,
         renderAdditionalButtons,
+        onTypingMessage,
       },
       ref,
     ) => {
@@ -67,6 +73,7 @@ export const MultipleChats = observer(
             <div className={classNames.chatsWrapper}>
               <ChatsList
                 userId={userId}
+                typingUsers={typingUsers}
                 chats={filteredChats}
                 chatSelectedId={chatSelectedId}
                 onClickChat={onClickChat}
@@ -86,6 +93,7 @@ export const MultipleChats = observer(
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   onSubmitMessage(message, links, files, chatSelectedId!)
                 }
+                onTypingMessage={onTypingMessage}
               />
             ) : undefined}
           </div>

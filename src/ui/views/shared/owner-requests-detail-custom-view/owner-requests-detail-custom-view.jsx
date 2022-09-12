@@ -58,6 +58,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
 
   render() {
     const {
+      typingUsers,
       requestProposals,
       drawerOpen,
       request,
@@ -95,6 +96,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       showChat,
       onClickHideChat,
       onClickOrderProposal,
+      onTypingMessage,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -180,6 +182,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                       >
                         <MultipleChats
                           ref={this.chatRef}
+                          typingUsers={typingUsers}
                           chats={chats}
                           userId={userInfo._id}
                           chatSelectedId={chatSelectedId}
@@ -193,6 +196,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
                           updateData={this.viewModel.loadData}
                           onSubmitMessage={onSubmitMessage}
                           onClickChat={onClickChat}
+                          onTypingMessage={onTypingMessage}
                         />
                       </ChatRequestAndRequestProposalContext.Provider>
                     </div>

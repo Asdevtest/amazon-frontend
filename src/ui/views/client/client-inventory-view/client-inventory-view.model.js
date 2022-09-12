@@ -396,7 +396,7 @@ export class ClientInventoryViewModel {
 
   async getIdeas() {
     try {
-      const result = await IdeaModel.getIdeas(this.selectedRowIds[0])
+      const result = await IdeaModel.getIdeas(this.selectedRowIds.slice()[0])
 
       runInAction(() => {
         this.ideasData = [...result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))]

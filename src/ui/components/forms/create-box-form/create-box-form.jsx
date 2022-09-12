@@ -112,6 +112,7 @@ const BlockOfNewBox = ({
         <Field
           containerClasses={classNames.numberInputField}
           error={orderBox.amount < 1}
+          inputProps={{maxLength: 3}}
           label={t(TranslationKey['Quantity of boxes'])}
           value={orderBox.amount}
           onChange={setFormField('amount', orderBoxIndex)}

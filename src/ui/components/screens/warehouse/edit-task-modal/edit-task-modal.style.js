@@ -166,6 +166,7 @@ export const useClassNames = makeStyles(theme => ({
   commentsAndFilesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   buttons: {
@@ -231,10 +232,10 @@ export const useClassNames = makeStyles(theme => ({
       alignItems: 'center',
       gap: '20px',
     },
-    commentsAndFilesWrapper: {
-      width: '280px',
-      flexDirection: 'column',
-    },
+    // commentsAndFilesWrapper: {
+    //   width: '280px',
+    //   flexDirection: 'column',
+    // },
     imageFileInputWrapper: {
       display: 'flex',
       justifyContent: 'center',

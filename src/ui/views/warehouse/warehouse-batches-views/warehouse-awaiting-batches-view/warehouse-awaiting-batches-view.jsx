@@ -194,7 +194,7 @@ export class WarehouseAwaitingBatchesViewRaw extends Component {
             progressValue={progressValue}
             showProgress={showProgress}
             volumeWeightCoefficient={volumeWeightCoefficient}
-            batchToEdit={getCurrentData().find(batch => batch.id === selectedBatches[0])}
+            batchToEdit={getCurrentData().find(batch => batch.id === selectedBatches.slice()[0])}
             boxesData={boxesData}
             onClose={() => onTriggerOpenModal('showAddOrEditBatchModal')}
             onSubmit={onSubmitAddOrEditBatch}

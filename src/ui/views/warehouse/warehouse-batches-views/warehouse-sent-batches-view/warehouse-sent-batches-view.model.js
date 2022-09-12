@@ -12,6 +12,7 @@ import {UserModel} from '@models/user-model'
 import {batchesViewColumns} from '@components/table-columns/batches-columns'
 
 import {warehouseBatchesDataConverter} from '@utils/data-grid-data-converters'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 
 export class WarehouseSentBatchesViewModel {
@@ -153,7 +154,7 @@ export class WarehouseSentBatchesViewModel {
       const result = await BatchesModel.getBatches(BatchStatus.HAS_DISPATCHED)
 
       runInAction(() => {
-        this.batches = warehouseBatchesDataConverter(result)
+        this.batches = warehouseBatchesDataConverter(result.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt')))
       })
     } catch (error) {
       console.log(error)

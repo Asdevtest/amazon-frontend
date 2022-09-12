@@ -10,7 +10,7 @@ import {SettingsModel} from '@models/settings-model'
 import {adminGroupPermissionsColumns} from '@components/table-columns/admin/group-permissions-columns copy'
 
 import {adminGroupPermissionsDataConverter} from '@utils/data-grid-data-converters'
-import {sortObjectsArrayByFiledDate} from '@utils/date-time'
+import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
@@ -158,7 +158,7 @@ export class GroupPermissionsModel {
 
       runInAction(() => {
         this.groupPermissions = adminGroupPermissionsDataConverter(result).sort(
-          sortObjectsArrayByFiledDate('updatedAt'),
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
         )
       })
     } catch (error) {

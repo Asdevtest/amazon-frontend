@@ -11,7 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-import {DatePickerDate, DatePickerTime} from '@components/date-picker/date-picker'
+import {NewDatePicker, DatePickerTime} from '@components/date-picker/date-picker'
 import {Field} from '@components/field'
 import {UploadFilesInput} from '@components/upload-files-input'
 
@@ -203,7 +203,7 @@ export const CreateOrEditRequestContent = ({
                     labelClasses={classNames.spanLabelSmall}
                     inputComponent={
                       <div>
-                        <DatePickerDate
+                        <NewDatePicker
                           value={formFields.request.timeoutAt}
                           onChange={onChangeField('request')('timeoutAt')}
                         />

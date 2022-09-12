@@ -25,6 +25,10 @@ export class MessagesViewModel {
     return ChatModel.simpleChats || []
   }
 
+  get typingUsers() {
+    return ChatModel.typingUsers || []
+  }
+
   get noticeOfSimpleChats() {
     return SettingsModel.noticeOfSimpleChats
   }
@@ -47,6 +51,10 @@ export class MessagesViewModel {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  onTypingMessage(chatId) {
+    ChatModel.typingMessage({chatId})
   }
 
   onTriggerNoticeOfSimpleChats() {

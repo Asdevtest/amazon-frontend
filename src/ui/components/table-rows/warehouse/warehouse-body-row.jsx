@@ -23,7 +23,6 @@ import {t} from '@utils/translations'
 import {styles} from './warehouse-body-row.style'
 
 const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsDatas, areSubBoxes, ...restProps}) => {
-  console.log(box.images)
   const classNames = restProps.classes
   const ordersQty = box.items.length
   const boxCreatedAt = formatNormDateTime(box.createdAt)
