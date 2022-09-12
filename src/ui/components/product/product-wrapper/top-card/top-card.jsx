@@ -312,38 +312,40 @@ export const TopCard = observer(
             ) : (
               <div className={classNames.supplierActionsWrapper}>
                 <div disableGutters className={classNames.supplierContainer}>
-                  {selectedSupplier && selectedSupplier.name !== 'access denied' ? (
-                    <>
-                      {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) ? (
-                        <div className={classNames.supplierButtonWrapper}>
-                          <Button
-                            tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
-                            className={classNames.iconBtn}
-                            onClick={() => onClickSupplierBtns('view')}
-                          >
-                            <VisibilityOutlinedIcon />
-                          </Button>
-                          <Typography className={classNames.supplierButtonText}>
-                            {t(TranslationKey['Open the parameters supplier'])}
-                          </Typography>
-                        </div>
-                      ) : null}
-                      {checkIsBuyer(curUserRole) && user._id === selectedSupplier?.createdBy._id ? (
-                        <div className={classNames.supplierButtonWrapper}>
-                          <Button
-                            tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                            className={classNames.iconBtn}
-                            onClick={() => onClickSupplierBtns('edit')}
-                          >
-                            <EditOutlinedIcon />
-                          </Button>
-                          <Typography className={classNames.supplierButtonText}>
-                            {t(TranslationKey['Edit a supplier'])}
-                          </Typography>
-                        </div>
-                      ) : null}
-                    </>
-                  ) : undefined}
+                  {/* {selectedSupplier && selectedSupplier.name !== 'access denied' ? ( */}
+                  <>
+                    {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) ? (
+                      <div className={classNames.supplierButtonWrapper}>
+                        <Button
+                          disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
+                          tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                          className={classNames.iconBtn}
+                          onClick={() => onClickSupplierBtns('view')}
+                        >
+                          <VisibilityOutlinedIcon />
+                        </Button>
+                        <Typography className={classNames.supplierButtonText}>
+                          {t(TranslationKey['Open the parameters supplier'])}
+                        </Typography>
+                      </div>
+                    ) : null}
+                    {checkIsBuyer(curUserRole) && user._id === selectedSupplier?.createdBy._id ? (
+                      <div className={classNames.supplierButtonWrapper}>
+                        <Button
+                          disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
+                          tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
+                          className={classNames.iconBtn}
+                          onClick={() => onClickSupplierBtns('edit')}
+                        >
+                          <EditOutlinedIcon />
+                        </Button>
+                        <Typography className={classNames.supplierButtonText}>
+                          {t(TranslationKey['Edit a supplier'])}
+                        </Typography>
+                      </div>
+                    ) : null}
+                  </>
+                  {/* ) : undefined} */}
                 </div>
               </div>
             )}

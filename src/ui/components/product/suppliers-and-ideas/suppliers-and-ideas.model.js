@@ -34,6 +34,7 @@ export class SuppliersAndIdeasModel {
 
   showConfirmModal = false
   showSuccessModal = false
+  showAddOrEditSupplierModal = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -236,4 +237,61 @@ export class SuppliersAndIdeasModel {
   onTriggerOpenModal(modal) {
     this[modal] = !this[modal]
   }
+
+  async onClickSupplierButtons(actionType) {
+    switch (actionType) {
+      case 'add':
+        runInAction(() => {
+          this.selectedSupplier = undefined
+          this.supplierModalReadOnly = false
+        })
+
+        this.onTriggerAddOrEditSupplierModal()
+        break
+      case 'view':
+        this.supplierModalReadOnly = true
+
+        this.onTriggerAddOrEditSupplierModal()
+        break
+      case 'edit':
+        runInAction(() => {
+          this.supplierModalReadOnly = false
+        })
+
+        this.onTriggerAddOrEditSupplierModal()
+        break
+
+      case 'delete':
+        runInAction(() => {
+          this.confirmModalSettings = {
+            isWarning: true,
+            message: t(TranslationKey['Are you sure you want to remove the supplier?']),
+            onClickOkBtn: () => this.onRemoveSupplier(),
+          }
+        })
+        this.onTriggerOpenModal('showConfirmModal')
+        break
+    }
+  }
+  // async onRemoveSupplier() {
+  //   try {
+  //     await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
+  //     await SupplierModel.removeSupplier(this.selectedSupplier._id)
+  //     this.setActionStatus(loadingStatuses.success)
+
+  //     runInAction(() => {
+  //       this.product.suppliers
+  //       this.selectedSupplier = undefined
+  //       if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier?._id) {
+  //         this.product.currentSupplierId = undefined
+  //       }
+  //     })
+  //     this.onSaveForceProductData()
+  //   } catch (error) {
+  //     console.log(error)
+  //     if (error.body && error.body.message) {
+  //       this.error = error.body.message
+  //     }
+  //   }
+  // }
 }

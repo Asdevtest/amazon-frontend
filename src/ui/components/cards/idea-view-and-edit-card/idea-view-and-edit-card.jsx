@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -396,7 +397,7 @@ export const IdeaViewAndEditCard = observer(
             containerClasses={classNames.linksContainer}
             inputComponent={
               <>
-                {checkIsBuyer(curUserRole) ||
+                {/* {checkIsBuyer(curUserRole) ||
                   (checkIsClient(curUserRole) && (
                     <div className={classNames.supplierActionsWrapper}>
                       <div disableGutters className={classNames.supplierContainer}>
@@ -438,7 +439,8 @@ export const IdeaViewAndEditCard = observer(
                         ) : null}
                       </div>
                     </div>
-                  ))}
+                  ))} */}
+
                 <TableSupplier
                   product={formFields}
                   selectedSupplier={selectedSupplier}

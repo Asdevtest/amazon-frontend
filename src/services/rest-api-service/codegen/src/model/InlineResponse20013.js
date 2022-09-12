@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusSuppliers from './ApiV1AdminsGetProductsByStatusSuppliers';
 
 /**
  * The InlineResponse20013 model module.
@@ -86,8 +87,8 @@ class InlineResponse20013 {
             if (data.hasOwnProperty('updatedAt')) {
                 obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
-            if (data.hasOwnProperty('supplier')) {
-                obj['supplier'] = ApiClient.convertToType(data['supplier'], ['String']);
+            if (data.hasOwnProperty('suppliers')) {
+                obj['suppliers'] = ApiClient.convertToType(data['suppliers'], [ApiV1AdminsGetProductsByStatusSuppliers]);
             }
             if (data.hasOwnProperty('productId')) {
                 obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
@@ -179,9 +180,9 @@ InlineResponse20013.prototype['updatedAt'] = undefined;
 
 /**
  * Массив поставщиков.
- * @member {Array.<String>} supplier
+ * @member {Array.<module:model/ApiV1AdminsGetProductsByStatusSuppliers>} suppliers
  */
-InlineResponse20013.prototype['supplier'] = undefined;
+InlineResponse20013.prototype['suppliers'] = undefined;
 
 /**
  * Product ID

@@ -400,7 +400,11 @@ export class AnotherProfileViewModel {
       this.setRequestStatus(loadingStatuses.isLoading)
       await this.getUserById()
       this.getDataGridState()
-      await this.getShops()
+
+      if (this.curUser.role === mapUserRoleEnumToKey[UserRole.CLIENT]) {
+        await this.getShops()
+      }
+
       await this.getProductsVacant()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

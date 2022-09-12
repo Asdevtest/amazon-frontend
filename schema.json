@@ -31096,10 +31096,112 @@
                   "length": {"type": "number", "description": "Длина, см", "example": 35},
                   "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
                   "updatedAt": {"type": "string", "format": "date-time", "description": "Дата последнего обновления"},
-                  "supplier": {
+                  "suppliers": {
                     "type": "array",
                     "description": "Массив поставщиков.",
-                    "items": {"type": "string", "description": "GUID поставщика", "example": "60c1e3ff86b7c05cc843cb0f"}
+                    "items": {
+                      "type": "object",
+                      "description": "Новый поставщик.",
+                      "nullable": true,
+                      "properties": {
+                        "_id": {"type": "string", "description": "GUID поставщика в БД"},
+                        "name": {"type": "string", "description": "Название поставщика.", "example": "Bond"},
+                        "link": {"type": "string", "description": "Ссылка на поставщика.", "example": "www.bond.uk"},
+                        "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
+                        "amount": {"type": "number", "description": "кол-во", "example": 300},
+                        "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
+                        "images": {
+                          "type": "array",
+                          "nullable": true,
+                          "description": "Массив картинок.",
+                          "items": {"type": "string"}
+                        },
+                        "comment": {
+                          "type": "string",
+                          "description": "Комментарий",
+                          "example": "Крутой поставщик с правом на обстрел."
+                        },
+                        "yuanRate": {
+                          "type": "number",
+                          "description": "Курс доллара к юаню поставщика. ",
+                          "example": 6.8
+                        },
+                        "priceInYuan": {"type": "number", "description": "Цена за еденицу, yuan", "example": 1000000},
+                        "batchDeliveryCostInDollar": {
+                          "type": "number",
+                          "description": "Доставка партии, dollar",
+                          "example": 100
+                        },
+                        "batchDeliveryCostInYuan": {
+                          "type": "number",
+                          "description": "Доставка партии, yuan",
+                          "example": 600
+                        },
+                        "batchTotalCostInDollar": {
+                          "type": "number",
+                          "description": "Цена партии, dollar",
+                          "example": 300
+                        },
+                        "batchTotalCostInYuan": {"type": "number", "description": "Цена партии, yuan", "example": 1800},
+                        "boxProperties": {
+                          "type": "object",
+                          "nullable": true,
+                          "description": "Параметры коробок.",
+                          "properties": {
+                            "amountInBox": {
+                              "type": "integer",
+                              "example": 45,
+                              "description": "Количество единиц в коробке.",
+                              "exclusiveMinimum": 0,
+                              "exclusiveMaximum": 1000000
+                            },
+                            "boxLengthCm": {
+                              "type": "number",
+                              "example": 20,
+                              "description": "Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                              "exclusiveMinimum": 0,
+                              "exclusiveMaximum": 1000000
+                            },
+                            "boxWidthCm": {
+                              "type": "number",
+                              "example": 20,
+                              "description": "Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                              "exclusiveMinimum": 0,
+                              "exclusiveMaximum": 1000000
+                            },
+                            "boxHeightCm": {
+                              "type": "number",
+                              "example": 20,
+                              "description": "Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                              "exclusiveMinimum": 0,
+                              "exclusiveMaximum": 1000000
+                            },
+                            "boxWeighGrossKg": {
+                              "type": "number",
+                              "example": 20,
+                              "description": "Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                              "exclusiveMinimum": 0,
+                              "exclusiveMaximum": 1000000
+                            }
+                          }
+                        },
+                        "productionTerm": {"type": "number", "example": 20},
+                        "createdBy": {
+                          "type": "object",
+                          "description": "Общая информация о пользователи",
+                          "nullable": true,
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "GUID пользователя.",
+                              "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                            },
+                            "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                            "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                          }
+                        }
+                      }
+                    }
                   },
                   "productId": {
                     "type": "string",
@@ -31222,10 +31324,108 @@
                 "length": {"type": "number", "description": "Длина, см", "example": 35},
                 "createdAt": {"type": "string", "format": "date-time", "description": "Дата создания"},
                 "updatedAt": {"type": "string", "format": "date-time", "description": "Дата последнего обновления"},
-                "supplier": {
+                "suppliers": {
                   "type": "array",
                   "description": "Массив поставщиков.",
-                  "items": {"type": "string", "description": "GUID поставщика", "example": "60c1e3ff86b7c05cc843cb0f"}
+                  "items": {
+                    "type": "object",
+                    "description": "Новый поставщик.",
+                    "nullable": true,
+                    "properties": {
+                      "_id": {"type": "string", "description": "GUID поставщика в БД"},
+                      "name": {"type": "string", "description": "Название поставщика.", "example": "Bond"},
+                      "link": {"type": "string", "description": "Ссылка на поставщика.", "example": "www.bond.uk"},
+                      "price": {"type": "number", "description": "Цена за еденицу, dollar", "example": 1000000},
+                      "amount": {"type": "number", "description": "кол-во", "example": 300},
+                      "minlot": {"type": "number", "description": "Минимальный лот.", "example": 30},
+                      "images": {
+                        "type": "array",
+                        "nullable": true,
+                        "description": "Массив картинок.",
+                        "items": {"type": "string"}
+                      },
+                      "comment": {
+                        "type": "string",
+                        "description": "Комментарий",
+                        "example": "Крутой поставщик с правом на обстрел."
+                      },
+                      "yuanRate": {"type": "number", "description": "Курс доллара к юаню поставщика. ", "example": 6.8},
+                      "priceInYuan": {"type": "number", "description": "Цена за еденицу, yuan", "example": 1000000},
+                      "batchDeliveryCostInDollar": {
+                        "type": "number",
+                        "description": "Доставка партии, dollar",
+                        "example": 100
+                      },
+                      "batchDeliveryCostInYuan": {
+                        "type": "number",
+                        "description": "Доставка партии, yuan",
+                        "example": 600
+                      },
+                      "batchTotalCostInDollar": {
+                        "type": "number",
+                        "description": "Цена партии, dollar",
+                        "example": 300
+                      },
+                      "batchTotalCostInYuan": {"type": "number", "description": "Цена партии, yuan", "example": 1800},
+                      "boxProperties": {
+                        "type": "object",
+                        "nullable": true,
+                        "description": "Параметры коробок.",
+                        "properties": {
+                          "amountInBox": {
+                            "type": "integer",
+                            "example": 45,
+                            "description": "Количество единиц в коробке.",
+                            "exclusiveMinimum": 0,
+                            "exclusiveMaximum": 1000000
+                          },
+                          "boxLengthCm": {
+                            "type": "number",
+                            "example": 20,
+                            "description": "Длина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                            "exclusiveMinimum": 0,
+                            "exclusiveMaximum": 1000000
+                          },
+                          "boxWidthCm": {
+                            "type": "number",
+                            "example": 20,
+                            "description": "Ширина коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                            "exclusiveMinimum": 0,
+                            "exclusiveMaximum": 1000000
+                          },
+                          "boxHeightCm": {
+                            "type": "number",
+                            "example": 20,
+                            "description": "Высота коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                            "exclusiveMinimum": 0,
+                            "exclusiveMaximum": 1000000
+                          },
+                          "boxWeighGrossKg": {
+                            "type": "number",
+                            "example": 20,
+                            "description": "Вес коробки, назвал поставщик при заказе ( могут отличаться с реальными).",
+                            "exclusiveMinimum": 0,
+                            "exclusiveMaximum": 1000000
+                          }
+                        }
+                      },
+                      "productionTerm": {"type": "number", "example": 20},
+                      "createdBy": {
+                        "type": "object",
+                        "description": "Общая информация о пользователи",
+                        "nullable": true,
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "description": "GUID пользователя.",
+                            "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                          },
+                          "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                          "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                        }
+                      }
+                    }
+                  }
                 },
                 "productId": {
                   "type": "string",

@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **length** | **Number** | Длина, см | [optional] 
 **createdAt** | **Date** | Дата создания | [optional] 
 **updatedAt** | **Date** | Дата последнего обновления | [optional] 
-**supplier** | **[String]** | Массив поставщиков. | [optional] 
+**suppliers** | [**[ApiV1AdminsGetProductsByStatusSuppliers]**](ApiV1AdminsGetProductsByStatusSuppliers.md) | Массив поставщиков. | [optional] 
 **productId** | **String** | Product ID | [optional] 
 
 
