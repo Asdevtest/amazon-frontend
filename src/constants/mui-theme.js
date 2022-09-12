@@ -29,15 +29,7 @@ export const muiTheme = createTheme({
         boxShadow: '0px 5px 19px 0px rgb(90 97 105 / 12%)',
       },
     },
-<<<<<<< HEAD
-    MuiTypography: {
-      root: {
-        // userSelect: 'none',
-      },
-    },
-=======
 
->>>>>>> 17bbffb5 (3607 3601 3602)
     MuiTableCell: {
       root: {
         padding: '10px',
