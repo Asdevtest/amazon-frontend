@@ -1537,5 +1537,8 @@
   "Accrual data": "Accrual data",
   "The following ASINs have already been entered into the table": "The following ASINs have already been entered into the table",
   "Offer conditions corrected": "Offer conditions corrected",
-  "Removed Ads": "Removed Ads"
+  "Removed Ads": "Removed Ads",
+  "Primary dimensions": "Primary dimensions",
+  "Shipping dimensions": "Shipping dimensions",
+  "The primary size suitable for shipment": "The primary size suitable for shipment"
 }

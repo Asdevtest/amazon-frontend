@@ -2,7 +2,7 @@ import AddIcon from '@mui/icons-material/Add'
 
 import React, {useState} from 'react'
 
-import {Divider, IconButton, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Checkbox, Divider, IconButton, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {transformAndValidate} from 'class-transformer-validator'
 import clsx from 'clsx'
@@ -13,6 +13,7 @@ import {BoxesWarehouseReceiveBoxModalContract} from '@models/boxes-model/boxes-m
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
+import {Field} from '@components/field/field'
 import {AddFilesForm} from '@components/forms/add-files-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
@@ -28,15 +29,19 @@ import {t} from '@utils/translations'
 // import {CommentsLine} from './comments-line'
 import {useClassNames} from './receive-box-modal.style'
 
-const WAREHOUSE_RECEIVE_HEAD_CELLS = () => [
-  {title: t(TranslationKey.Box)},
-  {title: t(TranslationKey.Quantity)},
-  {title: t(TranslationKey['Number of superboxes'])},
-  {title: t(TranslationKey.Total)},
-  {title: `${t(TranslationKey.Sizes)}, ${t(TranslationKey.cm)}`},
-  {title: t(TranslationKey['Weight, kg'])},
-  {title: t(TranslationKey['Volume weight, kg'])},
-  {title: t(TranslationKey['Final weight, kg'])},
+const WAREHOUSE_RECEIVE_HEAD_CELLS = classNames => [
+  {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Box)}</Typography>},
+  {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Quantity)}</Typography>},
+  {title: <Typography className={classNames.headerCell}>{t(TranslationKey['Number of superboxes'])}</Typography>},
+  {title: <Typography className={classNames.headerCell}>{t(TranslationKey.Total)}</Typography>},
+  {
+    title: (
+      <Typography className={classNames.headerCell}>{`${t(TranslationKey.Sizes)}, ${t(TranslationKey.cm)}`}</Typography>
+    ),
+  },
+  {title: <Typography className={classNames.headerCell}>{t(TranslationKey['Weight, kg'])}</Typography>},
+  {title: <Typography className={classNames.headerCell}>{t(TranslationKey['Volume weight, kg'])}</Typography>},
+  {title: <Typography className={classNames.headerCell}>{t(TranslationKey['Final weight, kg'])}</Typography>},
 ]
 
 const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
@@ -132,6 +137,15 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
         />
       </TableCell>
+      <TableCell className={classNames.checkboxCell}>
+        <Field
+          oneLine
+          containerClasses={classNames.checkboxContainer}
+          labelClasses={classNames.label}
+          label={t(TranslationKey['The primary size suitable for shipment'])}
+          inputComponent={<Checkbox color="primary" />}
+        />
+      </TableCell>
 
       <TableCell>
         <Button onClick={() => handlers.onAddImages(item._id)}>{t(TranslationKey.Photos)}</Button>
@@ -149,7 +163,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
 const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages}) => {
   const classNames = useClassNames()
 
-  const renderHeadRow = () => <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS()} />
+  const renderHeadRow = () => <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS(classNames)} />
 
   return (
     <div className={classNames.newBoxes}>
@@ -269,6 +283,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                 value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
               />
             </div>
+
             <div className={classNames.photoBtnWrapper}>
               <Button onClick={() => onAddImages(item._id)}>{t(TranslationKey.Photos)}</Button>
             </div>
@@ -466,7 +481,7 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
         <CustomCarousel alignButtons="end">
           {boxesBefore.map((box, index) => (
             <div key={index} className={classNames.demensionsWrapper}>
-              <Typography className={classNames.categoryTitle}>{t(TranslationKey['Sizes from supplier:'])}</Typography>
+              <Typography className={classNames.categoryTitle}>{t(TranslationKey['Primary dimensions'])}</Typography>
               <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Length)}: ${toFixed(
                 box.lengthCmSupplier,
                 2,

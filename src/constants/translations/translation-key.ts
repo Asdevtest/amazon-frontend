@@ -1512,6 +1512,7 @@ export enum TranslationKey {
   'Notices are off' = 'Notices are off',
   'Price for the search of a supplier by a Buyer from the Client' = 'Price for the search of a supplier by a Buyer from the Client',
   'for the idea' = 'for the idea',
+<<<<<<< HEAD
   'Writes' = 'Writes',
   'Edit HS Code' = 'Edit HS Code',
   'Change the box' = 'Change the box',
@@ -1543,6 +1544,11 @@ export enum TranslationKey {
   // '' = '',
   // '' = '',
   // '' = '',
+=======
+  'Primary dimensions' = 'Primary dimensions',
+  'Shipping dimensions' = 'Shipping dimensions',
+  'The primary size suitable for shipment' = 'The primary size suitable for shipment',
+>>>>>>> d9bae03c (3599 3603 3604 3605)
   // '' = '',
   // '' = '',
   // '' = '',

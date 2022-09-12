@@ -33,6 +33,17 @@ export const BoxViewForm = observer(
       setSizeSetting(newAlignment)
     }
 
+    const copyValue = value => {
+      navigator.clipboard.writeText(value)
+    }
+
+    const dimensionsConfig = {
+      PRIMARY: 'PRIMARY',
+      SHIPPING: 'SHIPPING',
+    }
+
+    const [toggleDimensionsValue, setToggleDimensionsValue] = useState(dimensionsConfig.PRIMARY)
+
     return (
       <div className={classNames.formContainer}>
         <div className={classNames.titleWrapper}>
@@ -183,9 +194,36 @@ export const BoxViewForm = observer(
               <div className={classNames.sizesWrapper}>
                 <div className={classNames.demensionsWrapper}>
                   <div className={classNames.sizesSubWrapper}>
-                    <Typography className={classNames.label}>{`${t(
-                      TranslationKey['Dimensions from warehouse'],
-                    )}:`}</Typography>
+                    <div className={classNames.toggleSizesWrapper}>
+                      <div className={classNames.toggleItemWrapper}>
+                        {toggleDimensionsValue === dimensionsConfig.PRIMARY ? (
+                          <span className={classNames.indicator}></span>
+                        ) : null}
+
+                        <Typography
+                          className={clsx(classNames.sizesLabel, {
+                            [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.PRIMARY,
+                          })}
+                          onClick={() => setToggleDimensionsValue(dimensionsConfig.PRIMARY)}
+                        >
+                          {t(TranslationKey['Primary dimensions'])}
+                        </Typography>
+                      </div>
+                      <div className={classNames.toggleItemWrapper}>
+                        {toggleDimensionsValue === dimensionsConfig.SHIPPING ? (
+                          <span className={classNames.indicator}></span>
+                        ) : null}
+
+                        <Typography
+                          className={clsx(classNames.sizesLabel, {
+                            [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.SHIPPING,
+                          })}
+                          onClick={() => setToggleDimensionsValue(dimensionsConfig.SHIPPING)}
+                        >
+                          {t(TranslationKey['Shipping dimensions'])}
+                        </Typography>
+                      </div>
+                    </div>
 
                     <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                       <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
@@ -198,30 +236,42 @@ export const BoxViewForm = observer(
                   </div>
                   <Typography>
                     {t(TranslationKey.Length) + ': '}
-                    {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                      ? toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
+                      : 0}
                   </Typography>
                   <Typography>
                     {t(TranslationKey.Width) + ': '}
-                    {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                      ? toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
+                      : 0}
                   </Typography>
                   <Typography>
                     {t(TranslationKey.Height) + ': '}
-                    {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                      ? toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
+                      : 0}
                   </Typography>
 
                   <Typography>
                     {t(TranslationKey.Weight) + ': '}
-                    {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
+                    {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                      ? toFixedWithKg(box.weighGrossKgWarehouse, 2)
+                      : 0}
                   </Typography>
                   <Typography>
                     {t(TranslationKey['Volume weight']) + ': '}
-                    {toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
+                    {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                      ? toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)
+                      : 0}
                   </Typography>
                   <Typography
                     className={clsx({[classNames.alertText]: calcFinalWeightForBox(box, volumeWeightCoefficient) < 12})}
                   >
                     {t(TranslationKey['Final weight']) + ': '}
-                    {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}
+                    {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                      ? toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)
+                      : 0}
                   </Typography>
 
                   {calcFinalWeightForBox(box, volumeWeightCoefficient) < 12 ? (
@@ -238,6 +288,13 @@ export const BoxViewForm = observer(
                 labelClasses={classNames.label}
                 label={t(TranslationKey['Shipping label was glued to the warehouse'])}
                 inputComponent={<Checkbox disabled checked={box.isShippingLabelAttachedByStorekeeper} />}
+              />
+              <Field
+                oneLine
+                containerClasses={classNames.checkboxContainer}
+                labelClasses={classNames.label}
+                label={t(TranslationKey['The primary size suitable for shipment'])}
+                inputComponent={<Checkbox disabled />}
               />
 
               <div className={classNames.labelsInfoWrapper}>

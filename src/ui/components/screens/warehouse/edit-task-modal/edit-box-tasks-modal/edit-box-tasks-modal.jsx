@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Box, Container, Typography} from '@material-ui/core'
+import {Box, Checkbox, Container, Typography} from '@material-ui/core'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -212,6 +212,14 @@ export const EditBoxTasksModal = ({
         setNewBoxField={setNewBoxField}
         volumeWeightCoefficient={volumeWeightCoefficient}
         sizeSetting={sizeSetting}
+      />
+
+      <Field
+        oneLine
+        containerClasses={classNames.checkboxContainer}
+        labelClasses={classNames.label}
+        label={t(TranslationKey['The primary size suitable for shipment'])}
+        inputComponent={<Checkbox color="primary" />}
       />
 
       <Box className={classNames.boxCode}>

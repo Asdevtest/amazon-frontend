@@ -364,6 +364,12 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'end',
   },
 
+  checkboxSizesContainer: {
+    width: '190px',
+    marginLeft: '5px',
+    marginTop: '30px',
+  },
+
   '@media (max-width: 768px)': {
     boxesWrapper: {
       flexDirection: 'column',

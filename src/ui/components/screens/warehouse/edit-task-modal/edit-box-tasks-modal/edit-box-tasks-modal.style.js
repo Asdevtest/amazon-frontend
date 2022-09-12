@@ -145,6 +145,15 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '19px',
     marginBottom: '10px',
   },
+  checkboxContainer: {
+    marginTop: '10px',
+  },
+  label: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#656565',
+  },
+
   '@media (max-width: 768px)': {
     modalWrapper: {
       width: '280px',

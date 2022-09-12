@@ -156,6 +156,7 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    marginBottom: '10px',
   },
 
   imgWrapper: {
@@ -166,7 +167,7 @@ export const useClassNames = makeStyles(() => ({
 
   checkboxContainer: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'end',
     width: '100%',
     marginBottom: '0',
   },
@@ -230,5 +231,28 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '19px',
     color: '#656565',
+  },
+  sizesLabel: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#c4c4c4',
+    cursor: 'pointer',
+  },
+  selectedLabel: {
+    color: '#006CFF',
+  },
+  selectedIndicator: {
+    backgroundColor: '#006CFF',
+  },
+  toggleItemWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+  indicator: {
+    display: 'block',
+    backgroundColor: '#006CFF',
+    width: '2px',
+    height: '10px',
   },
 }))

@@ -158,7 +158,9 @@ const Box = observer(
               <div>
                 <Typography className={classNames.categoryTitle}>
                   {isCurrentBox && taskType === TaskOperationType.RECEIVE
-                    ? t(TranslationKey['Sizes from supplier:'])
+                    ? t(TranslationKey['Primary dimensions'])
+                    : !isCurrentBox && taskType === TaskOperationType.RECEIVE
+                    ? t(TranslationKey['Shipping dimensions'])
                     : t(TranslationKey['Sizes from storekeeper:'])}
                 </Typography>
 
@@ -267,6 +269,15 @@ const Box = observer(
                     </Typography>
                   </div>
                 )}
+                {!isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
+                  <Field
+                    oneLine
+                    containerClasses={classNames.checkboxSizesContainer}
+                    labelClasses={classNames.label}
+                    label={t(TranslationKey['The primary size suitable for shipment'])}
+                    inputComponent={<Checkbox color="primary" />}
+                  />
+                ) : null}
               </div>
 
               <div className={classNames.imagesWrapper}>
