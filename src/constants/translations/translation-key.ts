@@ -1513,7 +1513,7 @@ export enum TranslationKey {
   'Price for the search of a supplier by a Buyer from the Client' = 'Price for the search of a supplier by a Buyer from the Client',
   'for the idea' = 'for the idea',
   'Writes' = 'Writes',
-  // '' = '',
+  'Edit HS Code' = 'Edit HS Code',
   // '' = '',
   // '' = '',
 }

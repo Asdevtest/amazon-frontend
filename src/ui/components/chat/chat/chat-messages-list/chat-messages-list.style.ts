@@ -58,7 +58,15 @@ export const useClassNames = makeStyles(() => ({
     height: '32px',
     width: '32px',
   },
-  messageAvatarWrapperIsIncomming: {},
+  messageAvatarWrapperIsIncomming: {
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+    },
+  },
 
   timeText: {
     fontSize: '14px',

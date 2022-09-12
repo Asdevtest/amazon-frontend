@@ -31,4 +31,21 @@ export const useClassNames = makeStyles(() => ({
       opacity: '0.8',
     },
   },
+
+  avatarWrapper: {
+    marginRight: 10,
+
+    cursor: 'pointer',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+    },
+  },
+
+  linkWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }))
