@@ -1542,6 +1542,10 @@
   "Shipping dimensions": "Shipping dimensions",
   "The primary size suitable for shipment": "The primary size suitable for shipment",
   "Writes": "Writes",
-
-  "Edit HS Code": "Edit HS Code"
+  "Edit HS Code": "Edit HS Code",
+  "Change the box": "Change the box",
+  "Proposal status changed": "Proposal status changed",
+  "Proposal result edited": "Proposal result edited",
+  "Created new proposal, request description": "Created new proposal, request description",
+  "Created new proposal, proposal description": "Created new proposal, proposal description"
 }
