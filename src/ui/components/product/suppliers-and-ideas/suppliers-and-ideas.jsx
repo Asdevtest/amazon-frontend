@@ -20,11 +20,12 @@ import {SuccessInfoModal} from '@components/modals/success-info-modal'
 import {checkIsBuyer, checkIsClient} from '@utils/checks'
 import {t} from '@utils/translations'
 
+import {AddOrEditSupplierModalContent} from '../add-or-edit-supplier-modal-content/add-or-edit-supplier-modal-content'
 import {SuppliersAndIdeasModel} from './suppliers-and-ideas.model'
 import {useClassNames} from './suppliers-and-ideas.style'
 
 export const SuppliersAndIdeas = observer(
-  ({productId, onClickSupplierBtns, curUserRole, onClickSupplier, selectedSupplier}) => {
+  ({productId /* , onClickSupplierBtns, curUserRole, onClickSupplier, selectedSupplier*/}) => {
     const classNames = useClassNames()
     const history = useHistory()
     const model = useRef(new SuppliersAndIdeasModel({history, productId}))
@@ -34,6 +35,11 @@ export const SuppliersAndIdeas = observer(
     }, [])
 
     const {
+      supplierModalReadOnly,
+      requestStatus,
+      yuanToDollarRate,
+      volumeWeightCoefficient,
+      selectedSupplier,
       curUser,
       curIdea,
       inEdit,
@@ -54,6 +60,11 @@ export const SuppliersAndIdeas = observer(
       onSetCurIdea,
       onEditIdea,
       onClickCreateProduct,
+      onClickSupplierButtons,
+
+      onChangeSelectedSupplier,
+      onTriggerAddOrEditSupplierModal,
+      onClickSaveSupplierBtn,
     } = model.current
 
     const [updatedIdea, setUpdatedIdea] = useState(curIdea)
@@ -77,14 +88,14 @@ export const SuppliersAndIdeas = observer(
         {inCreate ? (
           <IdeaViewAndEditCard
             inCreate
+            curUser={curUser}
             curIdea={updatedIdea}
-            curUserRole={curUserRole}
             selectedSupplier={selectedSupplier}
             onClickSaveBtn={onClickSaveBtn}
             onClickCancelBtn={onClickCancelBtn}
             onSetCurIdea={onSetCurIdea}
-            onClickSupplierBtns={onClickSupplierBtns}
-            onClickSupplier={onClickSupplier}
+            onClickSupplierBtns={onClickSupplierButtons}
+            onClickSupplier={onChangeSelectedSupplier}
           />
         ) : null}
 
@@ -93,10 +104,9 @@ export const SuppliersAndIdeas = observer(
             <IdeaViewAndEditCard
               key={idea._id}
               curUser={curUser}
-              curIdea={curIdea}
+              curIdea={updatedIdea}
               inEdit={inEdit}
               idea={idea}
-              curUserRole={curUserRole}
               selectedSupplier={selectedSupplier}
               onCreateProduct={onClickCreateProduct}
               onClickSaveBtn={onClickSaveBtn}
@@ -104,8 +114,8 @@ export const SuppliersAndIdeas = observer(
               onRemove={onClickRemoveIdea}
               onSetCurIdea={onSetCurIdea}
               onEditIdea={onEditIdea}
-              onClickSupplierBtns={onClickSupplierBtns}
-              onClickSupplier={onClickSupplier}
+              onClickSupplierBtns={onClickSupplierButtons}
+              onClickSupplier={onChangeSelectedSupplier}
             />
           ))
         ) : (
@@ -117,14 +127,12 @@ export const SuppliersAndIdeas = observer(
           </div>
         )}
 
-        {/* <Modal
+        <Modal
           missClickModalOn={!supplierModalReadOnly}
           openModal={showAddOrEditSupplierModal}
-          setOpenModal={() => onTriggerOpenModal('showAddOrEditSupplierModal')}
+          setOpenModal={onTriggerAddOrEditSupplierModal}
         >
           <AddOrEditSupplierModalContent
-            product={product}
-            storekeepersData={storekeepersData}
             onlyRead={supplierModalReadOnly}
             requestStatus={requestStatus}
             sourceYuanToDollarRate={yuanToDollarRate}
@@ -136,7 +144,7 @@ export const SuppliersAndIdeas = observer(
             onClickSaveBtn={onClickSaveSupplierBtn}
             onTriggerShowModal={onTriggerAddOrEditSupplierModal}
           />
-        </Modal> */}
+        </Modal>
 
         <ConfirmationModal
           isWarning={confirmModalSettings.isWarning}

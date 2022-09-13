@@ -397,9 +397,14 @@ export class ClientWarehouseViewModel {
 
     this.confirmModalSettings = {
       isWarning: false,
-      confirmMessage: `${t(TranslationKey['The task for the warehouse will be formed'])} ${
-        boxData?.storekeeper?.name
-      } ${t(TranslationKey['to change the Box'])} № ${boxData?.humanFriendlyId}`,
+      confirmMessage:
+        !boxData.clientComment &&
+        boxData.items.every(item => !item.tmpBarCode.length) &&
+        (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
+          ? `${t(TranslationKey['Change the box'])}: № ${boxData?.humanFriendlyId}`
+          : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
+              TranslationKey['to change the Box'],
+            )} № ${boxData?.humanFriendlyId}`,
       onClickConfirm: () => this.onEditBoxSubmit(id, boxData, sourceData),
     }
   }
@@ -646,8 +651,7 @@ export class ClientWarehouseViewModel {
       if (
         !boxData.clientComment &&
         boxData.items.every(item => !item.tmpBarCode.length) &&
-        boxData.shippingLabel === null &&
-        boxData.shippingLabel === sourceData.shippingLabel
+        (boxData.shippingLabel === null || boxData.shippingLabel === sourceData.shippingLabel)
       ) {
         await BoxesModel.editBoxAtClient(id, {
           fbaShipment: boxData.fbaShipment,

@@ -5,6 +5,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
 import {IdeaModel} from '@models/ideas-model'
+import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
@@ -24,9 +25,16 @@ export class SuppliersAndIdeasModel {
   ideasData = []
   ideaIdToRemove = undefined
 
+  selectedSupplier = undefined
+
   dataToCreateProduct = undefined
 
+  yuanToDollarRate = undefined
+  volumeWeightCoefficient = undefined
+
   successModalTitle = ''
+
+  forceUpdateCallBack = undefined
 
   readyFiles = []
   progressValue = 0
@@ -35,6 +43,7 @@ export class SuppliersAndIdeasModel {
   showConfirmModal = false
   showSuccessModal = false
   showAddOrEditSupplierModal = false
+  supplierModalReadOnly = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -78,25 +87,31 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async createIdea(data) {
+  async createIdea(data, isForceUpdate) {
     try {
-      await IdeaModel.createIdea({...data, price: data.price || 0, quantity: data.quantity || 0})
+      const res = await IdeaModel.createIdea({...data, price: data.price || 0, quantity: data.quantity || 0})
 
-      this.successModalTitle = t(TranslationKey['Idea created'])
+      if (isForceUpdate) {
+        return res.guid
+      } else {
+        this.successModalTitle = t(TranslationKey['Idea created'])
 
-      this.onTriggerOpenModal('showSuccessModal')
+        this.onTriggerOpenModal('showSuccessModal')
+      }
     } catch (error) {
       console.log(error)
     }
   }
 
-  async editIdea(id, data) {
+  async editIdea(id, data, isForceUpdate) {
     try {
       await IdeaModel.editIdea(id, data)
 
-      this.successModalTitle = t(TranslationKey['Idea edited'])
+      if (!isForceUpdate) {
+        this.successModalTitle = t(TranslationKey['Idea edited'])
 
-      this.onTriggerOpenModal('showSuccessModal')
+        this.onTriggerOpenModal('showSuccessModal')
+      }
     } catch (error) {
       console.log(error)
     }
@@ -119,20 +134,23 @@ export class SuppliersAndIdeasModel {
   onSetCurIdea(idea) {
     this.curIdea = idea
     this.inEdit = false
+    this.selectedSupplier = undefined
   }
 
   onEditIdea(idea) {
     this.curIdea = idea
     this.inEdit = true
+    this.selectedSupplier = undefined
   }
 
   onClickCancelBtn() {
     this.inCreate = false
     this.inEdit = false
     this.curIdea = undefined
+    this.selectedSupplier = undefined
   }
 
-  async onClickSaveBtn(formFields, files) {
+  async onClickSaveBtn(formFields, files, isForceUpdate) {
     try {
       this.readyFiles = []
 
@@ -151,14 +169,23 @@ export class SuppliersAndIdeasModel {
       )
 
       if (this.inEdit) {
-        await this.editIdea(formFields._id, submitData)
+        await this.editIdea(formFields._id, submitData, isForceUpdate)
       } else {
-        await this.createIdea({...submitData, productId: this.productId})
+        const createdIdeaId = await this.createIdea({...submitData, productId: this.productId}, isForceUpdate)
+
+        const createdIdea = await IdeaModel.getIdeaById(createdIdeaId)
+
+        this.curIdea = createdIdea
       }
 
-      this.inCreate = false
-      this.inEdit = false
-      this.curIdea = undefined
+      if (isForceUpdate) {
+        this.inCreate = false
+        this.inEdit = true
+      } else {
+        this.inCreate = false
+        this.inEdit = false
+        this.curIdea = undefined
+      }
 
       this.loadData()
     } catch (error) {
@@ -238,7 +265,36 @@ export class SuppliersAndIdeasModel {
     this[modal] = !this[modal]
   }
 
-  async onClickSupplierButtons(actionType) {
+  async onTriggerAddOrEditSupplierModal() {
+    try {
+      if (this.showAddOrEditSupplierModal) {
+        this.selectedSupplier = undefined
+      } else {
+        const result = await UserModel.getPlatformSettings()
+
+        this.yuanToDollarRate = result.yuanToDollarRate
+        this.volumeWeightCoefficient = result.volumeWeightCoefficient
+      }
+
+      this.showAddOrEditSupplierModal = !this.showAddOrEditSupplierModal
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  onChangeSelectedSupplier(supplier) {
+    if (this.selectedSupplier && this.selectedSupplier._id === supplier._id) {
+      this.selectedSupplier = undefined
+    } else {
+      this.selectedSupplier = supplier
+    }
+  }
+
+  async onClickSupplierButtons(actionType, callBack) {
+    if (callBack) {
+      this.forceUpdateCallBack = callBack
+    }
+
     switch (actionType) {
       case 'add':
         runInAction(() => {
@@ -265,33 +321,78 @@ export class SuppliersAndIdeasModel {
         runInAction(() => {
           this.confirmModalSettings = {
             isWarning: true,
-            message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-            onClickOkBtn: () => this.onRemoveSupplier(),
+            confirmMessage: t(TranslationKey['Are you sure you want to remove the supplier?']),
+            onClickConfirm: () => this.onRemoveSupplier(),
           }
         })
         this.onTriggerOpenModal('showConfirmModal')
         break
     }
   }
-  // async onRemoveSupplier() {
-  //   try {
-  //     await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
-  //     await SupplierModel.removeSupplier(this.selectedSupplier._id)
-  //     this.setActionStatus(loadingStatuses.success)
 
-  //     runInAction(() => {
-  //       this.product.suppliers
-  //       this.selectedSupplier = undefined
-  //       if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier?._id) {
-  //         this.product.currentSupplierId = undefined
-  //       }
-  //     })
-  //     this.onSaveForceProductData()
-  //   } catch (error) {
-  //     console.log(error)
-  //     if (error.body && error.body.message) {
-  //       this.error = error.body.message
-  //     }
-  //   }
-  // }
+  async onClickSaveSupplierBtn(supplier, photosOfSupplier) {
+    try {
+      this.setRequestStatus(loadingStatuses.isLoading)
+
+      this.readyImages = []
+
+      if (photosOfSupplier.length) {
+        await onSubmitPostImages.call(this, {images: photosOfSupplier, type: 'readyImages'})
+      }
+
+      supplier = {
+        ...supplier,
+        amount: parseFloat(supplier?.amount) || '',
+
+        minlot: parseInt(supplier?.minlot) || '',
+        price: parseFloat(supplier?.price) || '',
+        images: supplier.images.concat(this.readyImages),
+      }
+
+      if (this.forceUpdateCallBack) {
+        await this.forceUpdateCallBack()
+      }
+
+      if (supplier._id) {
+        const supplierUpdateData = getObjectFilteredByKeyArrayBlackList(supplier, ['_id'])
+        await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
+      } else {
+        const createSupplierResult = await SupplierModel.createSupplier(supplier)
+
+        await IdeaModel.addSuppliersToIdea(this.curIdea._id, {suppliersIds: [createSupplierResult.guid]})
+      }
+
+      this.loadData()
+
+      this.setRequestStatus(loadingStatuses.success)
+      this.onTriggerAddOrEditSupplierModal()
+    } catch (error) {
+      console.log(error)
+      this.setRequestStatus(loadingStatuses.failed)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
+
+  async onRemoveSupplier() {
+    try {
+      await IdeaModel.removeSupplierFromIdea(this.curIdea._id, {suppliersId: this.selectedSupplier._id})
+
+      await SupplierModel.removeSupplier(this.selectedSupplier._id)
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      if (this.forceUpdateCallBack) {
+        await this.forceUpdateCallBack()
+      }
+
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+      if (error.body && error.body.message) {
+        this.error = error.body.message
+      }
+    }
+  }
 }
