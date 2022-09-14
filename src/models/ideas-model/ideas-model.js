@@ -6,6 +6,11 @@ class IdeaModelStatic {
     return response
   }
 
+  getIdeaById = async id => {
+    const response = await restApiService.ideaApi.apiV1IdeasGuidGet(id)
+    return response
+  }
+
   getSupplierSearchRequests = async () => {
     const response = await restApiService.ideaApi.apiV1IdeasGetSupplierRequestsGet()
     return response
@@ -32,6 +37,11 @@ class IdeaModelStatic {
   }
   addSuppliersToIdea = async (id, data) => {
     const response = await restApiService.ideaApi.apiV1IdeasAddSuppliersGuidPost(id, {body: data})
+    return response
+  }
+
+  removeSupplierFromIdea = async (id, data) => {
+    const response = await restApiService.ideaApi.apiV1IdeasRemoveSupplierGuidPost(id, {body: data})
     return response
   }
 }

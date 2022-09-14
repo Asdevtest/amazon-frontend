@@ -152,7 +152,7 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                         {renderMessageByType(isIncomming, messageItem)}
                         {messageItem.files.length ? (
                           <div className={classNames.filesMainWrapper}>
-                            <Typography className={classNames.filesTitle}>{`${t(TranslationKey.Files)}:`}</Typography>
+                            {/* <Typography className={classNames.filesTitle}>{`${t(TranslationKey.Files)}:`}</Typography> */}
                             <PhotoAndFilesCarousel notToShowEmpty small files={messageItem.files} width="300px" />
                           </div>
                         ) : undefined}

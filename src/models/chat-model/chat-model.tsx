@@ -141,6 +141,8 @@ class ChatModelStatic {
       throw websocketChatServiceIsNotInitializedError
     }
 
+    console.log('***SEND_MESSAGE', params)
+
     if (params.files?.length) {
       for (let i = 0; i < params.files.length; i++) {
         const file: File = params.files[i]

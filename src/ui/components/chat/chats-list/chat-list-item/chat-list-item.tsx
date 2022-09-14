@@ -40,13 +40,13 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
     ? (() => {
         switch (text) {
           case ChatMessageType.CREATED_NEW_PROPOSAL_PROPOSAL_DESCRIPTION:
-            return 'Created new proposal, proposal description'
+            return t(TranslationKey['Created new proposal, proposal description'])
           case ChatMessageType.CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION:
-            return 'Created new proposal, request description'
+            return t(TranslationKey['Created new proposal, request description'])
           case ChatMessageType.PROPOSAL_RESULT_EDITED:
-            return 'Proposal result edited'
+            return t(TranslationKey['Proposal result edited'])
           case ChatMessageType.PROPOSAL_STATUS_CHANGED:
-            return 'Proposal status changed'
+            return t(TranslationKey['Proposal status changed'])
           default:
             return text
         }

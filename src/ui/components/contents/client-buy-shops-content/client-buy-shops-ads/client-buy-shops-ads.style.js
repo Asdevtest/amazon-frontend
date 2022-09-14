@@ -107,6 +107,8 @@ export const useClassNames = makeStyles(() => ({
 
   button: {
     marginBottom: 5,
+    padding: '0 30px',
+    color: '#007bff !important',
   },
 
   selectedBoxesBtn: {

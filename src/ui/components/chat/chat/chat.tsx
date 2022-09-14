@@ -5,7 +5,6 @@ import 'react-mde/lib/styles/css/react-mde-all.css'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
-import {ChatModel} from '@models/chat-model'
 import {ChatContract} from '@models/chat-model/contracts'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {SettingsModel} from '@models/settings-model'
@@ -70,7 +69,9 @@ export const Chat: FC<Props> = observer(
 
     const [message, setMessage] = useState(messageInitialState.message)
     const [links, setLinks] = useState<string[]>(messageInitialState.links)
-    const [files, setFiles] = useState<any[]>(messageInitialState.files)
+    const [files, setFiles] = useState<any[]>(
+      messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files,
+    )
 
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
 
@@ -136,7 +137,7 @@ export const Chat: FC<Props> = observer(
     useEffect(() => {
       setMessage(messageInitialState.message)
       setLinks(messageInitialState.links)
-      setFiles(messageInitialState.files)
+      setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
 
       setInputMode(ChatInputMode.LINKS) // КОСТЫЛЬ
       setTimeout(() => setInputMode(ChatInputMode.TEXT)) // СКИДЫВАЕТ СЧЕТЧИКИ

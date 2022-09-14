@@ -228,7 +228,7 @@ export class AnotherProfileViewModel {
       if (!this.simpleChats.some(el => el.users.map(e => e._id).includes(anotherUserId))) {
         await RequestModel.createSimpleChatByUserId(anotherUserId)
 
-        ChatModel.init()
+        // ChatModel.init()
       }
 
       this.history.push(`/${UserRoleCodeMapForRoutes[this.curUser.role]}/messages`, {
