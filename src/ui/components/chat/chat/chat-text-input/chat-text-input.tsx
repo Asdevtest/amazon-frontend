@@ -27,7 +27,7 @@ export const ChatTextInput: FC<Props> = ({
   onSubmitKeyPress,
   changeFilesAndState,
 }) => {
-  const [mdeSelectedTab, setMdeSelectedTab] = React.useState<'write' | 'preview'>('write')
+  // const [mdeSelectedTab, setMdeSelectedTab] = React.useState<'write' | 'preview'>('write')
   const classNames = useClassNames()
 
   const handleKeyPress = (event: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -89,7 +89,7 @@ export const ChatTextInput: FC<Props> = ({
     <div className={classNames.root}>
       <ReactMde
         value={message}
-        selectedTab={mdeSelectedTab}
+        // selectedTab={mdeSelectedTab}
         generateMarkdownPreview={markdown => Promise.resolve(getTextFromMarkdown(markdown))}
         maxEditorHeight={100}
         heightUnits="%"
@@ -110,7 +110,7 @@ export const ChatTextInput: FC<Props> = ({
           },
         }}
         onChange={e => setMessage(e)}
-        onTabChange={setMdeSelectedTab}
+        // onTabChange={setMdeSelectedTab}
       />
     </div>
   )

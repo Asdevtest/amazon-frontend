@@ -131,4 +131,11 @@ export const useClassNames = makeStyles(() => ({
     width: 12,
     height: 12,
   },
+
+  carouselImage: {
+    width: 333,
+    height: 241,
+    cursor: 'pointer',
+    objectFit: 'contain',
+  },
 }))

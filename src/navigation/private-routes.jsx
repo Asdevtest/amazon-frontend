@@ -15,11 +15,17 @@ export const PrivateRoutes = observer(() => {
   useEffect(() => {
     if (UserModel.isAuthenticated()) {
       UserModel.getUserInfo()
-      ChatModel.init()
+      // ChatModel.init()
 
       ChatModel.getSimpleChats()
     }
   }, [history.location.pathname])
+
+  useEffect(() => {
+    if (UserModel.isAuthenticated()) {
+      ChatModel.init()
+    }
+  }, [])
 
   const redirectToAuth = <Redirect to={'/auth'} />
 

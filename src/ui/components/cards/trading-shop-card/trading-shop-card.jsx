@@ -28,7 +28,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
         <div className={classNames.photoWrapper}>
-          <PhotoCarousel files={item.files} alignButtons="end" />
+          <PhotoCarousel files={item.files} alignButtons="end" imageClass={classNames.carouselImage} />
         </div>
 
         <div className={classNames.subWrapper}>

@@ -399,82 +399,80 @@ export const IdeaViewAndEditCard = observer(
             containerClasses={classNames.linksContainer}
             inputComponent={
               <>
-                {checkIsBuyer(UserRoleCodeMap[curUser.role]) ||
-                  (checkIsClient(UserRoleCodeMap[curUser.role]) && (inEdit || inCreate) ? (
-                    <div className={classNames.supplierActionsWrapper}>
-                      <div disableGutters className={classNames.supplierContainer}>
-                        <div className={classNames.supplierButtonWrapper}>
-                          <Button
-                            className={classNames.iconBtn}
-                            onClick={() =>
-                              onClickSupplierBtns('add', () =>
-                                onClickSaveBtn(calculateFieldsToSubmit(), inCreate ? images : [], true),
-                              )
-                            }
-                          >
-                            <AddIcon />
-                          </Button>
-                          <Typography className={classNames.supplierButtonText}>
-                            {t(TranslationKey['Add supplier'])}
-                          </Typography>
-                        </div>
-                        {selectedSupplier ? (
-                          <>
-                            <div className={classNames.supplierButtonWrapper}>
-                              <Button
-                                tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
-                                className={classNames.iconBtn}
-                                onClick={() =>
-                                  onClickSupplierBtns('edit', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
-                                }
-                              >
-                                <EditOutlinedIcon />
-                              </Button>
-                              <Typography className={classNames.supplierButtonText}>
-                                {t(TranslationKey['Edit a supplier'])}
-                              </Typography>
-                            </div>
-                            <div className={classNames.supplierButtonWrapper}>
-                              <Button
-                                tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                                className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
-                                onClick={() =>
-                                  onClickSupplierBtns('delete', () =>
-                                    onClickSaveBtn(calculateFieldsToSubmit(), [], true),
-                                  )
-                                }
-                              >
-                                <DeleteOutlineOutlinedIcon />
-                              </Button>
-                              <Typography className={classNames.supplierButtonText}>
-                                {t(TranslationKey['Delete supplier'])}
-                              </Typography>
-                            </div>
-                          </>
-                        ) : null}
+                {(checkIsBuyer(UserRoleCodeMap[curUser.role]) || checkIsClient(UserRoleCodeMap[curUser.role])) &&
+                (inEdit || inCreate) ? (
+                  <div className={classNames.supplierActionsWrapper}>
+                    <div disableGutters className={classNames.supplierContainer}>
+                      <div className={classNames.supplierButtonWrapper}>
+                        <Button
+                          className={classNames.iconBtn}
+                          onClick={() =>
+                            onClickSupplierBtns('add', () =>
+                              onClickSaveBtn(calculateFieldsToSubmit(), inCreate ? images : [], true),
+                            )
+                          }
+                        >
+                          <AddIcon />
+                        </Button>
+                        <Typography className={classNames.supplierButtonText}>
+                          {t(TranslationKey['Add supplier'])}
+                        </Typography>
                       </div>
-                    </div>
-                  ) : (
-                    <div className={classNames.supplierActionsWrapper}>
-                      <div disableGutters className={classNames.supplierContainer}>
-                        {checkIsBuyer(UserRoleCodeMap[curUser.role]) || checkIsClient(UserRoleCodeMap[curUser.role]) ? (
+                      {selectedSupplier ? (
+                        <>
                           <div className={classNames.supplierButtonWrapper}>
                             <Button
-                              disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
-                              tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                              tooltipInfoContent={t(TranslationKey['Edit the selected supplier'])}
                               className={classNames.iconBtn}
-                              onClick={() => onClickSupplierBtns('view')}
+                              onClick={() =>
+                                onClickSupplierBtns('edit', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
+                              }
                             >
-                              <VisibilityOutlinedIcon />
+                              <EditOutlinedIcon />
                             </Button>
                             <Typography className={classNames.supplierButtonText}>
-                              {t(TranslationKey['Open the parameters supplier'])}
+                              {t(TranslationKey['Edit a supplier'])}
                             </Typography>
                           </div>
-                        ) : null}
-                      </div>
+                          <div className={classNames.supplierButtonWrapper}>
+                            <Button
+                              tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
+                              className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
+                              onClick={() =>
+                                onClickSupplierBtns('delete', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
+                              }
+                            >
+                              <DeleteOutlineOutlinedIcon />
+                            </Button>
+                            <Typography className={classNames.supplierButtonText}>
+                              {t(TranslationKey['Delete supplier'])}
+                            </Typography>
+                          </div>
+                        </>
+                      ) : null}
                     </div>
-                  ))}
+                  </div>
+                ) : (
+                  <div className={classNames.supplierActionsWrapper}>
+                    <div disableGutters className={classNames.supplierContainer}>
+                      {checkIsBuyer(UserRoleCodeMap[curUser.role]) || checkIsClient(UserRoleCodeMap[curUser.role]) ? (
+                        <div className={classNames.supplierButtonWrapper}>
+                          <Button
+                            disabled={!selectedSupplier || selectedSupplier.name === 'access denied'}
+                            tooltipInfoContent={t(TranslationKey['Open the parameters supplier'])}
+                            className={classNames.iconBtn}
+                            onClick={() => onClickSupplierBtns('view')}
+                          >
+                            <VisibilityOutlinedIcon />
+                          </Button>
+                          <Typography className={classNames.supplierButtonText}>
+                            {t(TranslationKey['Open the parameters supplier'])}
+                          </Typography>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                )}
 
                 <TableSupplier
                   product={formFields}
