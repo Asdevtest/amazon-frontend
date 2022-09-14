@@ -18,10 +18,10 @@ export const useClassNames = makeStyles(() => ({
   },
 
   commentLabelText: {
-    fontSize: '18px',
+    fontSize: '14px',
     fontWeight: '400',
-    lineHeight: '140%',
-    color: '#001029',
+    lineHeight: '19px',
+    color: '#656565',
   },
 
   heightFieldAuto: {

@@ -47,11 +47,8 @@ class InlineResponse20017 {
         if (data) {
             obj = obj || new InlineResponse20017();
 
-            if (data.hasOwnProperty('userId')) {
-                obj['userId'] = ApiClient.convertToType(data['userId'], 'String');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('exist')) {
+                obj['exist'] = ApiClient.convertToType(data['exist'], 'Boolean');
             }
         }
         return obj;
@@ -61,14 +58,9 @@ class InlineResponse20017 {
 }
 
 /**
- * @member {String} userId
+ * @member {Boolean} exist
  */
-InlineResponse20017.prototype['userId'] = undefined;
-
-/**
- * @member {String} productId
- */
-InlineResponse20017.prototype['productId'] = undefined;
+InlineResponse20017.prototype['exist'] = undefined;
 
 
 

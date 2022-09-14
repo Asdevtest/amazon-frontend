@@ -96,8 +96,8 @@ export class ClientWarehouseViewRaw extends Component {
       onChangeRowsPerPage,
       onTriggerCheckbox,
       onClickConfirmCreateSplitTasks,
-      onClickConfirmCreateChangeTasks,
 
+      onEditBoxSubmit,
       onTriggerOpenModal,
       onModalRedistributeBoxAddNewBox,
 
@@ -262,7 +262,7 @@ export class ClientWarehouseViewRaw extends Component {
             volumeWeightCoefficient={volumeWeightCoefficient}
             requestStatus={requestStatus}
             formItem={boxesMy.find(box => box._id === selectedBoxes.slice()[0])?.originalData}
-            onSubmit={onClickConfirmCreateChangeTasks}
+            onSubmit={onEditBoxSubmit}
             onTriggerOpenModal={() => onTriggerOpenModal('showEditBoxModal')}
           />
         </Modal>

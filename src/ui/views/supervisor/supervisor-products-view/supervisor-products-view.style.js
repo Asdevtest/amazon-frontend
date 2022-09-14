@@ -37,4 +37,16 @@ export const styles = createStyles(() => ({
   toolbarContainer: {
     height: '52px',
   },
+  buttonWrapper: {
+    display: 'flex',
+    justifyContent: 'end',
+  },
+  button: {
+    width: '138px',
+    height: '40px',
+  },
+  dataGridWrapper: {
+    marginTop: '20px',
+    height: '83vh',
+  },
 }))

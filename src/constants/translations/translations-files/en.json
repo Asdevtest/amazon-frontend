@@ -1520,5 +1520,7 @@
   "Proposal status changed": "Proposal status changed",
   "Proposal result edited": "Proposal result edited",
   "Created new proposal, request description": "Created new proposal, request description",
-  "Created new proposal, proposal description": "Created new proposal, proposal description"
+  "Created new proposal, proposal description": "Created new proposal, proposal description",
+  "ASIN list": "ASIN list",
+  "Add a list of ASIN": "Add a list of ASIN"
 }

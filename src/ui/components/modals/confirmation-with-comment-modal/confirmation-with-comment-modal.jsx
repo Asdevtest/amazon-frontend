@@ -2,13 +2,9 @@ import React, {useState, useEffect} from 'react'
 
 import {Typography} from '@material-ui/core'
 
-import {TranslationKey} from '@constants/translations/translation-key'
-
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {Modal} from '@components/modal'
-
-import {t} from '@utils/translations'
 
 import {useClassNames} from './confirmation-with-comment-modal.style'
 
@@ -20,6 +16,7 @@ export const ConfirmWithCommentModal = ({
   commentLabelText,
   okBtnText,
   cancelBtnText,
+  commentConvertToArray,
   onSubmit,
 }) => {
   const classNames = useClassNames()
@@ -35,7 +32,7 @@ export const ConfirmWithCommentModal = ({
   }, [openModal])
 
   const onClickSubmit = () => {
-    onSubmit(comment)
+    commentConvertToArray ? onSubmit(comment.split('\n')) : onSubmit(comment)
     setComment('')
     setSubmitIsClicked(!submitIsClicked)
   }
@@ -56,7 +53,8 @@ export const ConfirmWithCommentModal = ({
           className={classNames.heightFieldAuto}
           rows={7}
           rowsMax={7}
-          placeholder={t(TranslationKey.Reason)}
+          inputProps={{maxLength: 35000}}
+          // placeholder={t(TranslationKey.Reason)}
           labelClasses={classNames.commentLabelText}
           label={commentLabelText}
           value={comment}
