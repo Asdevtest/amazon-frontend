@@ -12,13 +12,13 @@ interface Props {
 
 export const ChatLinksInput: FC<Props> = ({links, setLink, setLinks, inputMode}) => {
   const classNames = useClassNames()
-  console.log('links ', links)
+  // console.log('links ', links)
 
-  useEffect(() => {
-    if (inputMode === ChatInputMode.LINKS) {
-      setLinks([...links.filter(el => el !== ''), ''])
-    }
-  }, [inputMode])
+  // useEffect(() => {
+  //   if (inputMode === ChatInputMode.LINKS) {
+  //     setLinks([...links.filter(el => el !== ''), ''])
+  //   }
+  // }, [inputMode])
 
   return (
     <div className={classNames.root}>

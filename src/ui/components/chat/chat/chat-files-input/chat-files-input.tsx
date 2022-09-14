@@ -13,7 +13,7 @@ interface Props {
 
 export const ChatFilesInput: FC<Props> = ({files, setFiles}) => {
   const classNames = useClassNames()
-  console.log('files ', files)
+  // console.log('files ', files)
   return (
     <div className={classNames.root}>
       <UploadFilesInput

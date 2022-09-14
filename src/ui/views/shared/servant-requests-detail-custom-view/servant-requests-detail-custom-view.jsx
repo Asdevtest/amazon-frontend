@@ -134,7 +134,7 @@ export class RequestDetailCustomViewRaw extends Component {
                           RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED ||
                         findRequestProposalByChatSelectedId.proposal.status === RequestProposalStatus.TO_CORRECT ? (
                           <Button
-                            disabled={!params.links.length && !params.files.length && !params.message}
+                            disabled={!params.files.length && !params.message}
                             onClick={() => {
                               onClickSendAsResult(params)
                               resetAllInputs()

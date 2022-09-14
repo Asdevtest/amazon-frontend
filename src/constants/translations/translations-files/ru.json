@@ -1510,8 +1510,8 @@
   "Total requests": "Всего заявок",
   "Requests in the works": "Заявок в работе",
   "Requests without proposals": "Заявок без предложений",
-  "Notices included": "Уведомления включены",
-  "Notices are off": "Уведомления выключены",
+  "Notices included": "Уведомления вкл.",
+  "Notices are off": "Уведомления выкл.",
   "Price for the search of a supplier by a Buyer from the Client": "Цена за поиск поставщика Байером от Клиента",
   "for the idea": "для идеи",
   "Writes": "Пишет",
@@ -1522,5 +1522,8 @@
   "Created new proposal, request description": "Создание нового предложения, описание заявки",
   "Created new proposal, proposal description": "Создано новое предложение, описание предложения",
   "ASIN list": "Список ASIN",
-  "Add a list of ASIN": "Добавьте список ASIN"
+  "Add a list of ASIN": "Добавьте список ASIN",
+  "Choose chat": "Выберите чат",
+  "Try choosing a dialog or Find a specific performer": "Попробуйте выбрать диалог или Найти конкретного исполнителя",
+  "New Dialogue": "Новый диалог"
 }

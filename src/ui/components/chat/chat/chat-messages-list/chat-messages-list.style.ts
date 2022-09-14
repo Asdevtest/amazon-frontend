@@ -7,22 +7,25 @@ export const useClassNames = makeStyles(() => ({
     height: '100%',
     width: '100%',
 
-    backgroundColor: '#EBEBEB',
+    // backgroundColor: '#EBEBEB',
+    backgroundColor: '#F8F8F8',
   },
   messageWrapper: {
     width: '100%',
     display: 'flex',
     alignItems: 'end',
-    // marginBottom: '30px',
     flexDirection: 'row-reverse',
-    // justifyContent: 'flex-end',
   },
+
   messageWrapperIsNextMessageSameAuthor: {
     // marginBottom: '40px',
   },
+
   messageWrapperIsIncomming: {
     flexDirection: 'row',
     alignItems: 'end',
+
+    // backgroundColor: '#EBEBEB',
   },
   messageWrapperIsLastMessage: {
     marginBottom: 0,
@@ -33,13 +36,11 @@ export const useClassNames = makeStyles(() => ({
   },
   messageInner: {
     marginRight: '12px',
-    // marginBottom: '40px',
-    // maxWidth: '80%',
     wordBreak: 'break-word',
     whiteSpace: 'normal',
     position: 'relative',
-    // minWidth: '50%',
-    // width: '90%',
+
+    // backgroundColor: '#EBEBEB',
   },
   messageInnerContentWrapper: {
     overflow: 'hidden',

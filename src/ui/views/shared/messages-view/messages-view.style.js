@@ -8,18 +8,20 @@ export const styles = createStyles(() => ({
 
   searchInput: {
     border: '1px solid #007bff',
-    width: 250,
+    width: 276,
     height: 36,
   },
 
   searchContainer: {
     width: 'auto',
+    margin: 0,
   },
 
   chatHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 20,
   },
 
   tooltipWrapper: {
@@ -56,5 +58,37 @@ export const styles = createStyles(() => ({
 
   noticesIconOff: {
     color: '#c4c4c4',
+  },
+
+  newDialogBtn: {
+    padding: '11px 25px',
+    marginLeft: 30,
+  },
+
+  leftSide: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  rightSide: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  avatarWrapper: {
+    width: 40,
+    height: 40,
+  },
+
+  opponentName: {
+    marginLeft: 15,
+    fontWeight: 600,
+    fontSize: 18,
+    color: '#001029',
+  },
+
+  opponentWrapper: {
+    display: 'flex',
+    marginLeft: 20,
   },
 }))

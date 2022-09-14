@@ -10,7 +10,6 @@ import {useClassNames} from './chat-text-input.style'
 
 interface Props {
   files: any[]
-  links: string[]
   message: string
   setMessage: (message: string) => void
   setInputMode: (inputMode: ChatInputMode) => void
@@ -19,7 +18,6 @@ interface Props {
 }
 
 export const ChatTextInput: FC<Props> = ({
-  links,
   files,
   message,
   setMessage,
@@ -27,7 +25,6 @@ export const ChatTextInput: FC<Props> = ({
   onSubmitKeyPress,
   changeFilesAndState,
 }) => {
-  // const [mdeSelectedTab, setMdeSelectedTab] = React.useState<'write' | 'preview'>('write')
   const classNames = useClassNames()
 
   const handleKeyPress = (event: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -35,20 +32,6 @@ export const ChatTextInput: FC<Props> = ({
       onSubmitKeyPress()
       event.preventDefault()
     }
-  }
-
-  const linkCommand: Command = {
-    icon: (getIconFromProvider: GetIcon) => (
-      <div className={classNames.iconWrapper}>
-        {getIconFromProvider('link')}
-        {links.filter(link => !!link).length ? (
-          <div className={classNames.badge}>{links.filter(link => !!link).length}</div>
-        ) : undefined}
-      </div>
-    ),
-    execute: () => {
-      setInputMode(ChatInputMode.LINKS)
-    },
   }
 
   const fileCommand: Command = {
@@ -89,12 +72,10 @@ export const ChatTextInput: FC<Props> = ({
     <div className={classNames.root}>
       <ReactMde
         value={message}
-        // selectedTab={mdeSelectedTab}
         generateMarkdownPreview={markdown => Promise.resolve(getTextFromMarkdown(markdown))}
         maxEditorHeight={100}
         heightUnits="%"
         commands={{
-          link: linkCommand,
           file: fileCommand,
         }}
         toolbarCommands={[
@@ -110,7 +91,6 @@ export const ChatTextInput: FC<Props> = ({
           },
         }}
         onChange={e => setMessage(e)}
-        // onTabChange={setMdeSelectedTab}
       />
     </div>
   )

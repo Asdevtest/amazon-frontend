@@ -11,6 +11,7 @@ import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
 import {ChatMessageType} from '@services/websocket-chat-service'
 import {OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
 
+import {formatDateWithoutTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {shortenLongString} from '@utils/text'
 import {t} from '@utils/translations'
@@ -30,15 +31,17 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
   const classNames = useClassNames()
 
   const {messages, users} = chat
-  const {text} = messages[messages.length - 1] || {}
+
+  const lastMessage = messages[messages.length - 1] || {}
+
   const oponentUser = users.filter((user: ChatUserContract) => user._id !== userId)?.[0]
   const title = typeof oponentUser?.name === 'string' ? oponentUser.name : 'User'
 
   const unReadMessages = messages.filter(el => !el.isRead && el.userId !== userId)
 
-  const message = text
+  const message = lastMessage.text
     ? (() => {
-        switch (text) {
+        switch (lastMessage.text) {
           case ChatMessageType.CREATED_NEW_PROPOSAL_PROPOSAL_DESCRIPTION:
             return t(TranslationKey['Created new proposal, proposal description'])
           case ChatMessageType.CREATED_NEW_PROPOSAL_REQUEST_DESCRIPTION:
@@ -48,7 +51,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
           case ChatMessageType.PROPOSAL_STATUS_CHANGED:
             return t(TranslationKey['Proposal status changed'])
           default:
-            return text
+            return lastMessage.text
         }
       })()
     : ''
@@ -61,18 +64,31 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
       <div className={classNames.rightSide}>
         <div className={classNames.titleWrapper}>
           <p className={classNames.titleText}>{title}</p>
+
+          {lastMessage?.updatedAt ? (
+            <p className={classNames.messageDate}>{formatDateWithoutTime(lastMessage.updatedAt)}</p>
+          ) : null}
         </div>
-        {text ? (
+        {lastMessage ? (
           <div className={classNames.lastMessageWrapper}>
-            <p className={classNames.lastMessageText}>
-              {typingUsers?.find(el => el.chatId === chat._id && el.userId === oponentUser._id)
-                ? t(TranslationKey.Writes) + '...'
-                : shortenLongString(message, 18)}
-            </p>
+            {typingUsers?.find(el => el.chatId === chat._id && el.userId === oponentUser._id) ? (
+              <div className={classNames.lastMessageSubWrapper}>
+                <Avatar src={getUserAvatarSrc(oponentUser._id)} className={classNames.miniAvatar} />
+
+                <p className={classNames.lastMessageText}>{t(TranslationKey.Writes) + '...'}</p>
+              </div>
+            ) : (
+              <div className={classNames.lastMessageSubWrapper}>
+                <Avatar src={getUserAvatarSrc(lastMessage.userId)} className={classNames.miniAvatar} />
+
+                <p className={classNames.lastMessageText}>{shortenLongString(message, 20)}</p>
+              </div>
+            )}
+
+            {unReadMessages.length ? <div className={classNames.badge}>{unReadMessages.length}</div> : undefined}
           </div>
         ) : undefined}
       </div>
-      {unReadMessages.length ? <div className={classNames.badge}>{unReadMessages.length}</div> : undefined}
     </div>
   )
 })
