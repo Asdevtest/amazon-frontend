@@ -222,8 +222,8 @@ export const EditOrderModal = observer(
                   disabled={
                     order.status !== orderFields.status ||
                     +orderFields.totalPriceChanged - orderFields.totalPrice > 0 ||
-                    orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
-                    orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK]
+                    orderFields.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]
+                    // orderFields.status === OrderStatusByKey[OrderStatus.IN_STOCK]
                   }
                   variant="filled"
                   value={orderFields.status}

@@ -52,7 +52,8 @@ class VacantDealsViewRaw extends Component {
       proposalId,
     } = this.viewModel
     const {classes: classNames} = this.props
-
+    console.log(requestId)
+    console.log(proposalId)
     const getSortedData = mode => {
       switch (mode) {
         case tableSortMode.DESK:

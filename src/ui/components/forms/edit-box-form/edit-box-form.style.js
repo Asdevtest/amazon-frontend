@@ -299,4 +299,7 @@ export const useClassNames = makeStyles(theme => ({
     objectFit: 'contain',
     cursor: 'pointer',
   },
+  noBarCodeGlued: {
+    color: 'red',
+  },
 }))
