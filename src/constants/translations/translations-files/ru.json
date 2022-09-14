@@ -1540,12 +1540,5 @@
   "Removed Ads": "Удаленные",
   "Primary dimensions": "Первичные размеры",
   "Shipping dimensions": "Размеры для отправки",
-  "The primary size suitable for shipment": "Первичный размер подходит для отправки",
-  "Writes": "Пишет",
-  "Edit HS Code": "Редактировать HS Code",
-  "Change the box": "Изменить коробку",
-  "Proposal status changed": "Статус предложения изменен",
-  "Proposal result edited": "Результат предложения изменен",
-  "Created new proposal, request description": "Создание нового предложения, описание заявки",
-  "Created new proposal, proposal description": "Создано новое предложение, описание предложения"
+  "The primary size suitable for shipment": "Первичный размер подходит для отправки"
 }

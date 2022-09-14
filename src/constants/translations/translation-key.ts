@@ -1512,7 +1512,7 @@ export enum TranslationKey {
   'Notices are off' = 'Notices are off',
   'Price for the search of a supplier by a Buyer from the Client' = 'Price for the search of a supplier by a Buyer from the Client',
   'for the idea' = 'for the idea',
-<<<<<<< HEAD
+
   'Writes' = 'Writes',
   'Edit HS Code' = 'Edit HS Code',
   'Change the box' = 'Change the box',
@@ -1523,6 +1523,7 @@ export enum TranslationKey {
   'ASIN list' = 'ASIN list',
   'Add a list of ASIN' = 'Add a list of ASIN',
   'Choose chat' = 'Choose chat',
+
   'Try selecting a dialogue or Find a concrete speaker' = 'Try selecting a dialogue or Find a concrete speaker',
   'New Dialogue' = 'New Dialogue',
   'Write a message' = 'Write a message',
@@ -1544,19 +1545,18 @@ export enum TranslationKey {
   // '' = '',
   // '' = '',
   // '' = '',
-=======
+
   'Primary dimensions' = 'Primary dimensions',
   'Shipping dimensions' = 'Shipping dimensions',
   'The primary size suitable for shipment' = 'The primary size suitable for shipment',
->>>>>>> d9bae03c (3599 3603 3604 3605)
+
   // '' = '',
-  'Writes' = 'Writes',
-  'Edit HS Code' = 'Edit HS Code',
-  'Change the box' = 'Change the box',
-  'Proposal status changed' = 'Proposal status changed',
-  'Proposal result edited' = 'Proposal result edited',
-  'Created new proposal, request description' = 'Created new proposal, request description',
-  'Created new proposal, proposal description' = 'Created new proposal, proposal description',
+
+  'Try choosing a dialog or Find a specific performer' = 'Try choosing a dialog or Find a specific performer',
+
+  // '' = '',
+  // '' = '',
+
   // '' = '',
   // '' = '',
   // '' = '',
