@@ -36,4 +36,11 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '19px',
     marginBottom: '10px',
   },
+
+  cardValueTitle: {
+    fontSize: '24px',
+    lineHeight: '33px',
+    color: '#001029',
+    fontWeight: 700,
+  },
 }))

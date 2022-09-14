@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
+import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 
 /**
  * The InlineResponse20025 model module.
@@ -52,18 +52,6 @@ class InlineResponse20025 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('ownerId')) {
-                obj['ownerId'] = ApiClient.convertToType(data['ownerId'], 'String');
-            }
-            if (data.hasOwnProperty('bidderId')) {
-                obj['bidderId'] = ApiClient.convertToType(data['bidderId'], 'String');
-            }
-            if (data.hasOwnProperty('moderatorId')) {
-                obj['moderatorId'] = ApiClient.convertToType(data['moderatorId'], 'String');
-            }
-            if (data.hasOwnProperty('chatId')) {
-                obj['chatId'] = ApiClient.convertToType(data['chatId'], 'String');
-            }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
@@ -76,53 +64,17 @@ class InlineResponse20025 {
             if (data.hasOwnProperty('price')) {
                 obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
-            if (data.hasOwnProperty('monthlyProfit')) {
-                obj['monthlyProfit'] = ApiClient.convertToType(data['monthlyProfit'], 'Number');
-            }
-            if (data.hasOwnProperty('monthlyPureProfit')) {
-                obj['monthlyPureProfit'] = ApiClient.convertToType(data['monthlyPureProfit'], 'Number');
-            }
             if (data.hasOwnProperty('monthlyMultiplier')) {
                 obj['monthlyMultiplier'] = ApiClient.convertToType(data['monthlyMultiplier'], 'Number');
             }
             if (data.hasOwnProperty('statistics')) {
-                obj['statistics'] = ApiClient.convertToType(data['statistics'], [ApiV1ShopSellStatistics1]);
+                obj['statistics'] = ApiV1ShopSellStatistics.constructFromObject(data['statistics']);
             }
             if (data.hasOwnProperty('businessStartDate')) {
                 obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
             }
             if (data.hasOwnProperty('shopDetails')) {
                 obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
-            }
-            if (data.hasOwnProperty('shopLink')) {
-                obj['shopLink'] = ApiClient.convertToType(data['shopLink'], 'String');
-            }
-            if (data.hasOwnProperty('shopAssets')) {
-                obj['shopAssets'] = ApiClient.convertToType(data['shopAssets'], ['String']);
-            }
-            if (data.hasOwnProperty('opportunities')) {
-                obj['opportunities'] = ApiClient.convertToType(data['opportunities'], ['String']);
-            }
-            if (data.hasOwnProperty('risks')) {
-                obj['risks'] = ApiClient.convertToType(data['risks'], ['String']);
-            }
-            if (data.hasOwnProperty('requiredSkills')) {
-                obj['requiredSkills'] = ApiClient.convertToType(data['requiredSkills'], ['String']);
-            }
-            if (data.hasOwnProperty('sellIncludes')) {
-                obj['sellIncludes'] = ApiClient.convertToType(data['sellIncludes'], ['String']);
-            }
-            if (data.hasOwnProperty('reasonForSale')) {
-                obj['reasonForSale'] = ApiClient.convertToType(data['reasonForSale'], ['String']);
-            }
-            if (data.hasOwnProperty('additionalInfo')) {
-                obj['additionalInfo'] = ApiClient.convertToType(data['additionalInfo'], ['String']);
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -136,30 +88,6 @@ class InlineResponse20025 {
  * @member {String} _id
  */
 InlineResponse20025.prototype['_id'] = undefined;
-
-/**
- * GUID владельца магазина
- * @member {String} ownerId
- */
-InlineResponse20025.prototype['ownerId'] = undefined;
-
-/**
- * GUID покупателя магазина
- * @member {String} bidderId
- */
-InlineResponse20025.prototype['bidderId'] = undefined;
-
-/**
- * GUID модератора магазина
- * @member {String} moderatorId
- */
-InlineResponse20025.prototype['moderatorId'] = undefined;
-
-/**
- * GUID чата
- * @member {String} chatId
- */
-InlineResponse20025.prototype['chatId'] = undefined;
 
 /**
  * Имя магазина для продажи
@@ -186,26 +114,13 @@ InlineResponse20025.prototype['files'] = undefined;
 InlineResponse20025.prototype['price'] = undefined;
 
 /**
- * Ежемесячная прибыль
- * @member {Number} monthlyProfit
- */
-InlineResponse20025.prototype['monthlyProfit'] = undefined;
-
-/**
- * Ежемесячная чистая прибыль
- * @member {Number} monthlyPureProfit
- */
-InlineResponse20025.prototype['monthlyPureProfit'] = undefined;
-
-/**
  * Ежемесячный множитель
  * @member {Number} monthlyMultiplier
  */
 InlineResponse20025.prototype['monthlyMultiplier'] = undefined;
 
 /**
- * Статистика магазина по месяцам
- * @member {Array.<module:model/ApiV1ShopSellStatistics1>} statistics
+ * @member {module:model/ApiV1ShopSellStatistics} statistics
  */
 InlineResponse20025.prototype['statistics'] = undefined;
 
@@ -220,66 +135,6 @@ InlineResponse20025.prototype['businessStartDate'] = undefined;
  * @member {String} shopDetails
  */
 InlineResponse20025.prototype['shopDetails'] = undefined;
-
-/**
- * Ссылка магазина
- * @member {String} shopLink
- */
-InlineResponse20025.prototype['shopLink'] = undefined;
-
-/**
- * Массив активов
- * @member {Array.<String>} shopAssets
- */
-InlineResponse20025.prototype['shopAssets'] = undefined;
-
-/**
- * Массив возможностей
- * @member {Array.<String>} opportunities
- */
-InlineResponse20025.prototype['opportunities'] = undefined;
-
-/**
- * Массив рисков
- * @member {Array.<String>} risks
- */
-InlineResponse20025.prototype['risks'] = undefined;
-
-/**
- * Массив требуемых навыков
- * @member {Array.<String>} requiredSkills
- */
-InlineResponse20025.prototype['requiredSkills'] = undefined;
-
-/**
- * Поддержка продавца включает
- * @member {Array.<String>} sellIncludes
- */
-InlineResponse20025.prototype['sellIncludes'] = undefined;
-
-/**
- * Причины продажи
- * @member {Array.<String>} reasonForSale
- */
-InlineResponse20025.prototype['reasonForSale'] = undefined;
-
-/**
- * Дополнительная информация
- * @member {Array.<String>} additionalInfo
- */
-InlineResponse20025.prototype['additionalInfo'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineResponse20025.prototype['createdAt'] = undefined;
-
-/**
- * Дата изменения
- * @member {Date} updatedAt
- */
-InlineResponse20025.prototype['updatedAt'] = undefined;
 
 
 

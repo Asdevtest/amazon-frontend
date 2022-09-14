@@ -184,6 +184,7 @@ export const EditOrderModal = observer(
       `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
       `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
       `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+      `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
       `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
     ]
 
@@ -239,7 +240,8 @@ export const EditOrderModal = observer(
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
                       [classNames.red]:
-                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
+                        `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
                     }),
                   }}
                   input={
@@ -259,7 +261,8 @@ export const EditOrderModal = observer(
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
                               [classNames.red]:
-                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
+                                `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
                             })}
                           />
                         </InputAdornment>

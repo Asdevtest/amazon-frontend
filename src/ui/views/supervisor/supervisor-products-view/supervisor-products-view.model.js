@@ -3,6 +3,7 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
+import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {SupervisorModel} from '@models/supervisor-model'
 
@@ -30,6 +31,7 @@ export class SupervisorProductsViewModel {
   rowsPerPage = 15
   densityModel = 'compact'
   columnsModel = supervisorProductsViewColumns()
+  showAsinCheckerModal = false
 
   constructor({history, location}) {
     this.history = history
@@ -148,6 +150,15 @@ export class SupervisorProductsViewModel {
     }
   }
 
+  async onSubmitAsins(data) {
+    try {
+      await OtherModel.checkAsins(data)
+      this.onTriggerOpenModal('showAsinCheckerModal')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   onClickTableRow(item) {
     this.history.push({
       pathname: '/supervisor/products/product',
@@ -161,5 +172,8 @@ export class SupervisorProductsViewModel {
 
   onChangeCurPage(e) {
     this.curPage = e
+  }
+  onTriggerOpenModal(modal) {
+    this[modal] = !this[modal]
   }
 }

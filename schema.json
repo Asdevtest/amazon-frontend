@@ -32760,6 +32760,31 @@
         }
       }
     },
+    "/api/v1/other/check_asins": {
+      "post": {
+        "summary": "# Проверка АСИНов",
+        "description": "## Проверка АСИНов по json массиву",
+        "tags": ["Other"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {"type": "array", "items": {"type": "string", "description": "ASIN", "example": "B01H6GUCCQ"}}
+          },
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {"type": "object", "properties": {"exist": {"type": "boolean", "example": true}}}
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
     "/api/v1/permissions/": {
       "post": {
         "summary": "# Создать permission.",

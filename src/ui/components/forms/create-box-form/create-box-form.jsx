@@ -41,14 +41,14 @@ const BlockOfNewBox = ({
           containerClasses={classNames.numberInputField}
           inputProps={{maxLength: 6}}
           label={`${t(TranslationKey['Box length'])}`}
-          value={orderBox.lengthCmSupplier || 0}
+          value={orderBox.lengthCmSupplier}
           onChange={setFormField('lengthCmSupplier', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
           inputProps={{maxLength: 6}}
           label={`${t(TranslationKey['Box width'])}`}
-          value={orderBox.widthCmSupplier || 0}
+          value={orderBox.widthCmSupplier}
           onChange={setFormField('widthCmSupplier', orderBoxIndex)}
         />
       </div>
@@ -57,14 +57,14 @@ const BlockOfNewBox = ({
           containerClasses={classNames.numberInputField}
           inputProps={{maxLength: 6}}
           label={`${t(TranslationKey['Box height'])}`}
-          value={orderBox.heightCmSupplier || 0}
+          value={orderBox.heightCmSupplier}
           onChange={setFormField('heightCmSupplier', orderBoxIndex)}
         />
         <Field
           containerClasses={classNames.numberInputField}
           inputProps={{maxLength: 6}}
           label={t(TranslationKey['Real weight'])}
-          value={orderBox.weighGrossKgSupplier || 0}
+          value={orderBox.weighGrossKgSupplier}
           onChange={setFormField('weighGrossKgSupplier', orderBoxIndex)}
         />
       </div>
@@ -167,10 +167,10 @@ export const CreateBoxForm = observer(
     const classNames = useClassNames()
 
     const sourceBox = {
-      lengthCmSupplier: formItem?.lengthCmSupplier || '',
-      widthCmSupplier: formItem?.widthCmSupplier || '',
-      heightCmSupplier: formItem?.heightCmSupplier || '',
-      weighGrossKgSupplier: formItem?.weighGrossKgSupplier || '',
+      lengthCmSupplier: formItem?.lengthCmSupplier || 0,
+      widthCmSupplier: formItem?.widthCmSupplier || 0,
+      heightCmSupplier: formItem?.heightCmSupplier || 0,
+      weighGrossKgSupplier: formItem?.weighGrossKgSupplier || 0,
       warehouse: formItem?.warehouse || '',
       deliveryMethod: formItem?.deliveryMethod || '',
       amount: 1,

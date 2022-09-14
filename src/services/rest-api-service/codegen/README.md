@@ -242,6 +242,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch) | **PATCH** /api/v1/integrations/sellerboard_warehouse_products_unLink_sku | # Отвязать товар от SKU.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardWarehouseStocksGet**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseStocksGet) | **GET** /api/v1/integrations/sellerboard_warehouse_stocks | Получить днанные со склада.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsWarehouseReportGet**](docs/IntegrationsApi.md#apiV1IntegrationsWarehouseReportGet) | **GET** /api/v1/integrations/warehouse_report | Поиск по товарам со склада по: asin, sku, title..
+*TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsPost**](docs/OtherApi.md#apiV1OtherCheckAsinsPost) | **POST** /api/v1/other/check_asins | # Проверка АСИНов
 *TestSwagger.OtherApi* | [**apiV1OtherImgGuidGet**](docs/OtherApi.md#apiV1OtherImgGuidGet) | **GET** /api/v1/other/img/{guid} | # Получить изображение.
 *TestSwagger.OtherApi* | [**apiV1OtherPaymentsByProductGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByProductGuidGet) | **GET** /api/v1/other/payments/by_product/{guid} | # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
 *TestSwagger.OtherApi* | [**apiV1OtherPaymentsByUserGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByUserGuidGet) | **GET** /api/v1/other/payments/by_user/{guid} | # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
@@ -535,7 +536,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20030](docs/InlineResponse20030.md)
  - [TestSwagger.InlineResponse20031](docs/InlineResponse20031.md)
  - [TestSwagger.InlineResponse20032](docs/InlineResponse20032.md)
- - [TestSwagger.InlineResponse20032Details](docs/InlineResponse20032Details.md)
+ - [TestSwagger.InlineResponse20033](docs/InlineResponse20033.md)
+ - [TestSwagger.InlineResponse20033Details](docs/InlineResponse20033Details.md)
  - [TestSwagger.InlineResponse2004](docs/InlineResponse2004.md)
  - [TestSwagger.InlineResponse2005](docs/InlineResponse2005.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)

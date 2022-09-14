@@ -25,11 +25,12 @@ export const styles = createStyles(theme => ({
   },
   buttonWrapper: {
     display: 'flex',
-    gap: '10px',
+    gap: '20px',
   },
 
   button: {
-    padding: '0 40px',
+    height: '40px',
+    width: '167px',
     // Height: '40px !important'
   },
 
@@ -38,6 +39,13 @@ export const styles = createStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     height: '145px',
+  },
+
+  icon: {
+    marginLeft: '15px',
+    justifySelf: 'flex-end',
+    width: 15,
+    height: 15,
   },
 
   // withdrawBtn: {

@@ -2,7 +2,8 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   imgBox: {
-    objectFit: 'center',
+    objectFit: 'contain',
+    width: '50vw',
     height: '70vh',
   },
   closeIcon: {

@@ -1520,5 +1520,7 @@
   "Proposal status changed": "Статус предложения изменен",
   "Proposal result edited": "Результат предложения изменен",
   "Created new proposal, request description": "Создание нового предложения, описание заявки",
-  "Created new proposal, proposal description": "Создано новое предложение, описание предложения"
+  "Created new proposal, proposal description": "Создано новое предложение, описание предложения",
+  "ASIN list": "Список ASIN",
+  "Add a list of ASIN": "Добавьте список ASIN"
 }

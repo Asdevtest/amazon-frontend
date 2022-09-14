@@ -100,6 +100,11 @@ class OtherModelStatic {
     const response = await restApiService.otherApi.apiV1OtherPaymentsByUserGuidGet(id)
     return response
   }
+
+  checkAsins = async data => {
+    const response = await restApiService.otherApi.apiV1OtherCheckAsinsPost({body: data})
+    return response
+  }
 }
 
 export const OtherModel = new OtherModelStatic()

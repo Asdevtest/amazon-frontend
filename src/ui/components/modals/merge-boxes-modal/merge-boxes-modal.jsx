@@ -111,7 +111,18 @@ export const MergeBoxesModal = ({
   const tariffRate = storekeepers
     .find(el => el._id === boxBody.storekeeperId)
     ?.tariffLogistics.find(el => el._id === boxBody.logicsTariffId)?.conditionsByRegion[regionOfDeliveryName]?.rate
-  const finalBoxData = selectedBoxes.map(box => box.items)
+  const boxData = selectedBoxes.map(box => box.items)
+
+  const finalBoxData = Object.values(
+    boxData.flat().reduce((acc, item) => {
+      if (!acc[item.product.asin]) {
+        acc[item.product.asin] = {...item}
+      } else {
+        acc[item.product.asin].amount = acc[item.product.asin].amount + item.amount
+      }
+      return acc
+    }, {}),
+  )
 
   return (
     <div>
@@ -137,32 +148,30 @@ export const MergeBoxesModal = ({
           {/* <Typography>{t(TranslationKey['Please note the change in stock and method of delivery!!!'])}</Typography> */}
           <div className={classNames.finalBoxWrapper}>
             {finalBoxData &&
-              finalBoxData.map(box =>
-                box.map((order, orderIndex) => (
-                  <div key={orderIndex} className={classNames.order}>
-                    <img className={classNames.img} src={getAmazonImageUrl(order.product?.images[0])} />
-                    <div>
-                      <div className={classNames.asinWrapper}>
-                        <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
-                        <Typography className={classNames.asinValue}>{order.product?.asin}</Typography>
-                      </div>
-
-                      <Typography className={classNames.title}>{order.product?.amazonTitle}</Typography>
+              finalBoxData.map((order, orderIndex) => (
+                <div key={orderIndex} className={classNames.order}>
+                  <img className={classNames.img} src={getAmazonImageUrl(order.product?.images[0])} />
+                  <div>
+                    <div className={classNames.asinWrapper}>
+                      <Typography className={classNames.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
+                      <Typography className={classNames.asinValue}>{order.product?.asin}</Typography>
                     </div>
 
-                    <div>
-                      <Field
-                        disabled
-                        label={t(TranslationKey.Quantity)}
-                        className={classNames.orderInput}
-                        labelClasses={classNames.label}
-                        value={order?.amount}
-                        tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
-                      />
-                    </div>
+                    <Typography className={classNames.title}>{order.product?.amazonTitle}</Typography>
                   </div>
-                )),
-              )}
+
+                  <div>
+                    <Field
+                      disabled
+                      label={t(TranslationKey.Quantity)}
+                      className={classNames.orderInput}
+                      labelClasses={classNames.label}
+                      value={order?.amount}
+                      tooltipInfoContent={t(TranslationKey['Number of product units in the box'])}
+                    />
+                  </div>
+                </div>
+              ))}
 
             <div className={classNames.itemSubWrapper}>
               <Field

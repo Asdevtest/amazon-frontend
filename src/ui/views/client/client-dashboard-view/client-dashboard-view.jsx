@@ -70,6 +70,7 @@ export class ClientDashboardViewRaw extends Component {
                       onClick={onClickWithdrawMoney}
                     >
                       {t(TranslationKey.Deposit)}
+                      <img src="/assets/icons/white-plus.svg" className={classes.icon} />
                     </Button>
                     <Button
                       tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
