@@ -1524,7 +1524,7 @@ export enum TranslationKey {
   'Choose chat' = 'Choose chat',
   'Try choosing a dialog or Find a specific performer' = 'Try choosing a dialog or Find a specific performer',
   'New Dialogue' = 'New Dialogue',
-  // '' = '',
+  'Write a message' = 'Write a message',
   // '' = '',
   // '' = '',
   // '' = '',

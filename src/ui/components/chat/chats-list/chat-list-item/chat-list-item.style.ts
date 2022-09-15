@@ -63,6 +63,8 @@ export const useClassNames = makeStyles(() => ({
 
     fontSize: 14,
     color: '#656565',
+
+    whiteSpace: 'nowrap',
   },
 
   lastMessageSubWrapper: {

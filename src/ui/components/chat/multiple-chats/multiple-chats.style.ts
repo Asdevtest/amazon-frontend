@@ -19,7 +19,8 @@ export const useClassNames = makeStyles(() => ({
     height: '100%',
   },
   chatWrapper: {
-    flex: 1,
+    // flex: 1,
+    width: '100%',
     display: 'flex',
     // backgroundColor: '#EBEBEB',
   },

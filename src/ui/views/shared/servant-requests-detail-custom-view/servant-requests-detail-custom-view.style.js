@@ -27,7 +27,7 @@ export const styles = createStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginRight: 10,
+    padding: '10px 0',
   },
   cancelRequestProposalBtn: {
     backgroundColor: '#C4C4C4',

@@ -61,6 +61,7 @@ export const useClassNames = makeStyles(() => ({
     },
     marginLeft: '8px',
   },
+
   commentField: {
     height: 'auto',
     width: '100%',
