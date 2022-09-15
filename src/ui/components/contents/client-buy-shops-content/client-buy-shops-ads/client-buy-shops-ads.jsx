@@ -9,7 +9,7 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
-import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
+import {tableSortMode} from '@constants/table-view-modes'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
@@ -37,7 +37,6 @@ export const ClientBuyShopsAds = observer(() => {
     curFilter,
     filtersSettings,
     nameSearchValue,
-    viewMode,
     getCurrentData,
     sortMode,
     onTriggerSortMode,
@@ -114,16 +113,7 @@ export const ClientBuyShopsAds = observer(() => {
           </div>
 
           {getSortedData(sortMode)?.length ? (
-            <div
-              classes={{root: classNames.dashboardCardWrapper}}
-              display="grid"
-              gridTemplateColumns={
-                viewMode === tableViewMode.LIST
-                  ? 'repeat(auto-fill, minmax(100%, 1fr))'
-                  : 'repeat(auto-fill, minmax(330px, 1fr))'
-              }
-              gridGap="20px"
-            >
+            <div>
               {getSortedData(sortMode)?.map(item => (
                 <TradingShopCard key={item._id} item={item} onClickViewMore={onClickViewMore} />
               ))}

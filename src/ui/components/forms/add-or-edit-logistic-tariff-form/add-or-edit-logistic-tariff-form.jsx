@@ -27,6 +27,9 @@ export const AddOrEditLogisticTariffForm = observer(
       IN_YAN: 'IN_YAN',
     }
     const [currencyType, setCurrencyType] = useState(rateSettings.IN_YAN)
+
+    const [submitIsClicked, setSubmitIsClicked] = useState(false)
+
     const handleChange = (event, newAlignment) => {
       setCurrencyType(newAlignment)
     }
@@ -150,6 +153,8 @@ export const AddOrEditLogisticTariffForm = observer(
       } else {
         onCreateSubmit(calculateFieldsToSubmit())
       }
+
+      setSubmitIsClicked(true)
     }
 
     const checkDateByDeadline = date => (date !== null ? date < new Date() : false)
@@ -170,7 +175,8 @@ export const AddOrEditLogisticTariffForm = observer(
       formFields.description.length > 255 ||
       checkDateByDeadline(formFields.cls) ||
       checkDateByDeadline(formFields.etd) ||
-      checkDateByDeadline(formFields.eta)
+      checkDateByDeadline(formFields.eta) ||
+      submitIsClicked
 
     return (
       <div className={classNames.root}>
@@ -293,10 +299,10 @@ export const AddOrEditLogisticTariffForm = observer(
                       [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
                     })}
                   >
-                    <NewDatePicker value={formFields.cls} onChange={onChangeField('cls')} />
+                    <NewDatePicker disablePast value={formFields.cls} onChange={onChangeField('cls')} />
                     {checkDateByDeadline(formFields.cls) && (
                       <p className={classNames.deadlineErrorText}>
-                        {'The deadline date cannot be later than the current date'}
+                        {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
                       </p>
                     )}
                   </div>
@@ -314,11 +320,11 @@ export const AddOrEditLogisticTariffForm = observer(
                       [classNames.deadlineError]: checkDateByDeadline(formFields.etd),
                     })}
                   >
-                    <NewDatePicker value={formFields.etd} onChange={onChangeField('etd')} />
+                    <NewDatePicker disablePast value={formFields.etd} onChange={onChangeField('etd')} />
 
                     {checkDateByDeadline(formFields.etd) && (
                       <p className={classNames.deadlineErrorText}>
-                        {'The deadline date cannot be later than the current date'}
+                        {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
                       </p>
                     )}
                   </div>
@@ -336,10 +342,10 @@ export const AddOrEditLogisticTariffForm = observer(
                       [classNames.deadlineError]: checkDateByDeadline(formFields.eta),
                     })}
                   >
-                    <NewDatePicker value={formFields.eta} onChange={onChangeField('eta')} />
+                    <NewDatePicker disablePast value={formFields.eta} onChange={onChangeField('eta')} />
                     {checkDateByDeadline(formFields.eta) && (
                       <p className={classNames.deadlineErrorText}>
-                        {'The deadline date cannot be later than the current date'}
+                        {t(TranslationKey['Deadline date cannot be earlier than the current date'])}
                       </p>
                     )}
                   </div>

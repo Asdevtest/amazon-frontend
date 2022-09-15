@@ -12,7 +12,8 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
 
     // height: '556px',
-    // height: '100%',
+
+    flex: 1,
 
     minHeight: 278,
     maxHeight: 690,

@@ -393,7 +393,7 @@ export const IdeaViewAndEditCard = observer(
                 {(checkIsBuyer(UserRoleCodeMap[curUser.role]) || checkIsClient(UserRoleCodeMap[curUser.role])) &&
                 (inEdit || inCreate) ? (
                   <div className={classNames.supplierActionsWrapper}>
-                    <div disableGutters className={classNames.supplierContainer}>
+                    <div className={classNames.supplierContainer}>
                       <div className={classNames.supplierButtonWrapper}>
                         <Button
                           className={classNames.iconBtn}
@@ -445,7 +445,7 @@ export const IdeaViewAndEditCard = observer(
                   </div>
                 ) : (
                   <div className={classNames.supplierActionsWrapper}>
-                    <div disableGutters className={classNames.supplierContainer}>
+                    <div className={classNames.supplierContainer}>
                       {checkIsBuyer(UserRoleCodeMap[curUser.role]) || checkIsClient(UserRoleCodeMap[curUser.role]) ? (
                         <div className={classNames.supplierButtonWrapper}>
                           <Button

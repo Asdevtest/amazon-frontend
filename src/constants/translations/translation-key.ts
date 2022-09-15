@@ -1525,7 +1525,7 @@ export enum TranslationKey {
   'Try choosing a dialog or Find a specific performer' = 'Try choosing a dialog or Find a specific performer',
   'New Dialogue' = 'New Dialogue',
   'Write a message' = 'Write a message',
-  // '' = '',
+  'Deadline date cannot be earlier than the current date' = 'Deadline date cannot be earlier than the current date',
   // '' = '',
   // '' = '',
   // '' = '',

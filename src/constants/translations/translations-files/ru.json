@@ -1526,5 +1526,6 @@
   "Choose chat": "Выберите чат",
   "Try choosing a dialog or Find a specific performer": "Попробуйте выбрать диалог или Найти конкретного исполнителя",
   "New Dialogue": "Новый диалог",
-  "Write a message": "Написать сообщение"
+  "Write a message": "Написать сообщение",
+  "Deadline date cannot be earlier than the current date": "Крайняя дата не может быть раньше текущей даты"
 }

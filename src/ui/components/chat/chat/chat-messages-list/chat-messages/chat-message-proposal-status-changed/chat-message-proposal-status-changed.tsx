@@ -132,7 +132,9 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
       <div className={classNames.statusWrapper}>
         <p className={classNames.statusTextDesciption}>
           {`${t(TranslationKey['New proposal status'])}:`}
-          <span className={classNames.statusText}>{<RequestStatusCell isChat status={message.data.status} />}</span>
+          <span className={classNames.statusText}>
+            <RequestStatusCell isChat status={message.data.status} />
+          </span>
         </p>
       </div>
       {renderDetails()}

@@ -81,7 +81,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
               <div className={classNames.lastMessageSubWrapper}>
                 <Avatar src={getUserAvatarSrc(lastMessage.userId)} className={classNames.miniAvatar} />
 
-                <p className={classNames.lastMessageText}>{shortenLongString(message, 20)}</p>
+                <p className={classNames.lastMessageText}>{shortenLongString(message, 18)}</p>
               </div>
             )}
 

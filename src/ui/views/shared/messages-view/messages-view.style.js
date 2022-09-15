@@ -61,7 +61,8 @@ export const styles = createStyles(() => ({
   },
 
   newDialogBtn: {
-    padding: '11px 25px',
+    height: 40,
+    padding: '0 25px',
     marginLeft: 30,
   },
 

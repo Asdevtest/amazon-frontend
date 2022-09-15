@@ -2,6 +2,8 @@ import DateFnsUtils from '@date-io/date-fns'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import TextField from '@mui/material/TextField'
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns'
+// import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
+// import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment'
 import {DatePicker as NewestDatePicker} from '@mui/x-date-pickers/DatePicker'
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider'
 
@@ -68,6 +70,7 @@ export const NewDatePicker = ({value, onChange, ...restProps}) => {
       <NewestDatePicker
         // views={['year', 'month']}
         // label="Year and Month"
+        // placeholder="10/10/2018"
         value={value}
         renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
         onChange={newValue => {

@@ -204,6 +204,9 @@ export const CreateOrEditRequestContent = ({
                     inputComponent={
                       <div>
                         <NewDatePicker
+                          // showToolbar
+                          disablePast
+                          // toolbarFormat="ddd DD MMMM"
                           value={formFields.request.timeoutAt}
                           onChange={onChangeField('request')('timeoutAt')}
                         />

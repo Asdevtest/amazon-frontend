@@ -45,7 +45,7 @@
     "axios": "^0.22.0",
     "blob-url-file": "^1.0.0",
     "blob-url-file-js": "^1.0.1",
-    "class-transformer": "^0.4.0",
+    "class-transformer": "^0.5.1",
     "class-transformer-validator": "^0.9.1",
     "class-validator": "^0.13.1",
     "clsx": "^1.1.1",
@@ -131,5 +131,9 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "resolutions": {
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2"
   }
 }
