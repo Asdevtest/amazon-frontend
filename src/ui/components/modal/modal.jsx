@@ -22,6 +22,11 @@ export const Modal = ({openModal, isWarning, setOpenModal, dialogContextClassNam
     if (!openModal) {
       setShowMissclickModal(false)
     }
+    if (window.getSelection) {
+      window.getSelection().removeAllRanges()
+    } else {
+      document.selection.empty()
+    }
   }, [openModal])
 
   return (

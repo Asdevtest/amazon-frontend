@@ -30,7 +30,7 @@ export const muiTheme = createTheme({
     },
     MuiTypography: {
       root: {
-        userSelect: 'none',
+        // userSelect: 'none',
       },
     },
     MuiTableCell: {
