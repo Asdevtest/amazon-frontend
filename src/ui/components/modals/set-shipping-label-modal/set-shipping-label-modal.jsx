@@ -5,6 +5,7 @@ import {Box, Container, Link, Typography} from '@material-ui/core'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field/field'
 import {UploadFilesInput} from '@components/upload-files-input'
 
@@ -23,10 +24,6 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, i
 
   const [files, setFiles] = useState(tmpShippingLabel?.length ? [...tmpShippingLabel] : [])
 
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
-  }
-
   return (
     <Container disableGutters className={classNames.modalWrapper}>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Set Shipping Label'])}</Typography>
@@ -40,16 +37,7 @@ export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, i
                 <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item?.shippingLabel)}>
                   <Typography className={classNames.link}>{shippingLabel}</Typography>
                 </Link>
-
-                <img
-                  className={classNames.copyImg}
-                  src="/assets/icons/copy-img.svg"
-                  alt=""
-                  onClick={e => {
-                    e.stopPropagation()
-                    copyValue(shippingLabel)
-                  }}
-                />
+                <CopyValue text={shippingLabel} />
               </div>
             }
           />

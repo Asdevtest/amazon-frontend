@@ -7,6 +7,7 @@ import {Link, NativeSelect, Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
 
@@ -19,9 +20,7 @@ import {useClassNames} from './box-for-merge.style'
 export const BoxForMerge = ({box, readOnly = false, index}) => {
   const classNames = useClassNames()
   const [showFullCard, setShowFullCard] = useState(false)
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
-  }
+
   return (
     <div className={classNames.box}>
       <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
@@ -112,12 +111,7 @@ export const BoxForMerge = ({box, readOnly = false, index}) => {
                     <Link href={box.shippingLabel} target="_blank">
                       {t(TranslationKey.View)}
                     </Link>
-                    <img
-                      className={classNames.copyImg}
-                      src="/assets/icons/copy-img.svg"
-                      alt=""
-                      onClick={() => copyValue(box.shippingLabel)}
-                    />
+                    <CopyValue text={box.shippingLabel} />
                   </div>
                 ) : (
                   <div className={classNames.shippingLabelWrapper}>

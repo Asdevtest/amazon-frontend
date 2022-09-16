@@ -8,6 +8,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field/field'
 import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Input} from '@components/input'
@@ -36,10 +37,6 @@ export const OrderModalBodyRow = ({
   withRemove,
 }) => {
   const classNames = useClassNames()
-
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
-  }
 
   const onChangeInput = (event, nameInput) => {
     setOrderStateFiled(nameInput)(event.target.value)
@@ -124,33 +121,13 @@ export const OrderModalBodyRow = ({
           <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
           <div className={classNames.copyValueWrapper}>
             <Typography>{`ASIN: ${item.asin}`}</Typography>
-            {item.asin ? (
-              <img
-                className={classNames.copyImg}
-                src="/assets/icons/copy-img.svg"
-                alt=""
-                onClick={e => {
-                  e.stopPropagation()
-                  copyValue(item.asin)
-                }}
-              />
-            ) : null}
+            {item.asin ? <CopyValue text={item.asin} /> : null}
           </div>
           <div className={classNames.copyValueWrapper}>
             <Typography>{`SKU: ${
               item.skusByClient?.length ? item.skusByClient.join(',') : t(TranslationKey.Missing)
             }`}</Typography>
-            {item.skusByClient[0] ? (
-              <img
-                className={classNames.copyImg}
-                src="/assets/icons/copy-img.svg"
-                alt=""
-                onClick={e => {
-                  e.stopPropagation()
-                  copyValue(item.skusByClient[0])
-                }}
-              />
-            ) : null}
+            {item.skusByClient[0] ? <CopyValue text={item.skusByClient[0]} /> : null}
           </div>
 
           {!item.currentSupplier && (

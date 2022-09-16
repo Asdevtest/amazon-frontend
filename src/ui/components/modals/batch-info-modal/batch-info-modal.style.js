@@ -85,7 +85,7 @@ export const useClassNames = makeStyles(theme => ({
   row: {
     outline: '1px solid rgb(224, 224, 224)',
     borderRadius: '5px',
-    cursor: 'url(/assets/icons/Cursor.svg), auto',
+    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(0.99)',

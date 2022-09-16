@@ -30,4 +30,9 @@ export const useClassNames = makeStyles(() => ({
   title: {
     fontSize: '24px',
   },
+
+  button: {
+    width: '121px',
+    height: '40px',
+  },
 }))

@@ -35,7 +35,10 @@ export class FreelancerDashboardViewRaw extends Component {
   render() {
     const {drawerOpen, onTriggerDrawerOpen, userInfo, dashboardData, onClickInfoCardViewMode} = this.viewModel
     const {classes: classNames} = this.props
-
+    const freelancerButtonsRoutes = {
+      notifications: '',
+      messages: 'messages',
+    }
     return (
       <React.Fragment>
         <Navbar
@@ -51,7 +54,7 @@ export class FreelancerDashboardViewRaw extends Component {
                 <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
 
                 <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
-                <DashboardButtons user={userInfo} />
+                <DashboardButtons user={userInfo} routes={freelancerButtonsRoutes} />
               </Paper>
 
               <div className={classNames.amountWithLabelCardsWrapper}>

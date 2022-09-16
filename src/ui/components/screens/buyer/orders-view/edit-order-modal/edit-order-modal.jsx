@@ -190,7 +190,7 @@ export const EditOrderModal = observer(
 
     const disabledOrderStatuses = [
       `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
-      // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+      `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
       `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
     ]
 
@@ -199,8 +199,6 @@ export const EditOrderModal = observer(
     const [hsCode, setHsCode] = useState(order.product.hsCode)
 
     const disableSubmit = requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status)
-
-    // const statusesColor =
 
     return (
       <Box className={classNames.modalWrapper}>

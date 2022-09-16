@@ -7,6 +7,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {t} from '@utils/translations'
@@ -23,9 +24,6 @@ export const AddSuppliersModal = ({product, onSubmit, onClose, showProgress, pro
   const classNames = useClassNames()
 
   const [images, setImages] = useState('')
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
-  }
 
   return (
     <Container disableGutters className={classNames.root}>
@@ -40,12 +38,7 @@ export const AddSuppliersModal = ({product, onSubmit, onClose, showProgress, pro
         <Typography>{`${t(TranslationKey['Your ID'])}:`}</Typography>
         <div className={classNames.copyWrapper}>
           <Typography>{product?.originalData.client._id}</Typography>
-          <img
-            className={classNames.copyImg}
-            src="/assets/icons/copy-img.svg"
-            alt=""
-            onClick={() => copyValue(product.originalData.client._id)}
-          />
+          <CopyValue text={product.originalData.client._id} />
         </div>
       </div>
 

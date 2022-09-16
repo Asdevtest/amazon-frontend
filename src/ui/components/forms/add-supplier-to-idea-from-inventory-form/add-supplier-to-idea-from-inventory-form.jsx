@@ -9,6 +9,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
 import {Input} from '@components/input'
@@ -24,10 +25,6 @@ import {useClassNames} from './add-supplier-to-idea-from-inventory-form.style'
 export const AddSupplierToIdeaFromInventoryForm = observer(
   ({onSubmit, showProgress, progressValue, onClose, ideas}) => {
     const classNames = useClassNames()
-
-    const copyValue = value => {
-      navigator.clipboard.writeText(value)
-    }
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -183,12 +180,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
                       </Link>
 
                       <div className={classNames.linksBtnsWrapper}>
-                        <img
-                          className={classNames.copyImg}
-                          src="/assets/icons/copy-img.svg"
-                          alt=""
-                          onClick={() => copyValue(el)}
-                        />
+                        <CopyValue text={el} />
 
                         <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
                           <DeleteIcon className={classNames.deleteBtn} />

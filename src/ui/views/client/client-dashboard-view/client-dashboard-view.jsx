@@ -49,7 +49,10 @@ export class ClientDashboardViewRaw extends Component {
       onClickInfoCardViewMode,
     } = this.viewModel
     const {classes} = this.props
-
+    const clientButtonsRoutes = {
+      notifications: 'notifications/orders-notifications',
+      messages: 'messages',
+    }
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawer} />
@@ -83,7 +86,7 @@ export class ClientDashboardViewRaw extends Component {
                     </Button>
                   </div>
                 </div>
-                <DashboardButtons user={userInfo} />
+                <DashboardButtons user={userInfo} routes={clientButtonsRoutes} />
               </Paper>
               <DashboardWidgetsCard
                 config={getClientDashboardCardConfig()}

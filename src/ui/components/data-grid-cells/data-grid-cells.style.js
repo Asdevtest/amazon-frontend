@@ -40,6 +40,7 @@ export const styles = createStyles(() => ({
     padding: '12px 0px',
     height: '88px',
     scope: 'row',
+    position: 'relative',
   },
   productCell: {
     padding: '20px 0px',
@@ -627,7 +628,7 @@ export const styles = createStyles(() => ({
     color: 'rgba(0, 0, 0, 0.87)',
     resize: 'none',
     height: '100%',
-    cursor: 'url(/assets/icons/Cursor.svg), auto',
+    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     // textOverflow: 'ellipsis ',
 
     // whiteSpace: 'normal',

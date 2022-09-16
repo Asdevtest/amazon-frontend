@@ -16,6 +16,7 @@ import {
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 
@@ -71,10 +72,6 @@ export const FieldsAndSuppliers = observer(
       setSelectedItem(null)
       setCurrentShops(currentShops.filter(shop => shop.name !== name))
       currentShopsIds && setCurrentShopsIds(currentShopsIds.filter(shopId => shopId !== id))
-    }
-
-    const copyValue = value => {
-      navigator.clipboard.writeText(value)
     }
 
     const disabledPrivateLabelFields = !(
@@ -161,15 +158,7 @@ export const FieldsAndSuppliers = observer(
                     className={classNames.inputAsin}
                     onChange={onChangeField('asin')}
                   />
-                  <img
-                    className={classNames.copyImg}
-                    src="/assets/icons/copy-img.svg"
-                    alt=""
-                    onClick={e => {
-                      e.stopPropagation()
-                      copyValue(product.asin)
-                    }}
-                  />
+                  <CopyValue text={product.asin} />
                 </div>
               }
             />
@@ -191,15 +180,7 @@ export const FieldsAndSuppliers = observer(
                             className={classNames.inputAsin}
                             onChange={e => onChangeField('skusByClient')({target: {value: [e.target.value]}})}
                           />
-                          <img
-                            className={classNames.copyImg}
-                            src="/assets/icons/copy-img.svg"
-                            alt=""
-                            onClick={e => {
-                              e.stopPropagation()
-                              copyValue(product.asin)
-                            }}
-                          />
+                          <CopyValue text={product.asin} />
                         </div>
                       )}
                   </div>

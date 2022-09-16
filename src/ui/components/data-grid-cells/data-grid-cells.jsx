@@ -23,6 +23,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
@@ -88,10 +89,6 @@ export const UserRolesCell = withStyles(styles)(({classes: classNames, user}) =>
   </div>
 ))
 
-const copyValue = value => {
-  navigator.clipboard.writeText(value)
-}
-
 export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
   <div className={classNames.asinCell}>
     <div className={classNames.asinCellContainer}>
@@ -116,17 +113,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
               <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
             )}
           </Typography>
-          {product.asin ? (
-            <img
-              className={classNames.copyImgAsin}
-              src="/assets/icons/copy-img.svg"
-              alt=""
-              onClick={e => {
-                e.stopPropagation()
-                copyValue(product.asin)
-              }}
-            />
-          ) : null}
+          {product.asin ? <CopyValue text={product.asin} /> : null}
         </div>
 
         <div className={classNames.copyAsin}>
@@ -136,17 +123,7 @@ export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
               {product.skusByClient[0] ? shortSku(product.skusByClient[0]) : t(TranslationKey.Missing)}
             </span>
           </Typography>
-          {product.skusByClient[0] ? (
-            <img
-              className={classNames.copyImgAsin}
-              src="/assets/icons/copy-img.svg"
-              alt=""
-              onClick={e => {
-                e.stopPropagation()
-                copyValue(product.skusByClient[0])
-              }}
-            />
-          ) : null}
+          {product.skusByClient[0] ? <CopyValue text={product.skusByClient[0]} /> : null}
         </div>
       </div>
     </div>
@@ -168,34 +145,14 @@ export const ProductCell = withStyles(styles)(({classes: classNames, product}) =
             </span>
             {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
           </Typography>
-          {product.skusByClient[0] ? (
-            <img
-              className={classNames.copyImgAsin}
-              src="/assets/icons/copy-img.svg"
-              alt=""
-              onClick={e => {
-                e.stopPropagation()
-                copyValue(product.skusByClient[0])
-              }}
-            />
-          ) : null}
+          {product.skusByClient[0] ? <CopyValue text={product.skusByClient[0]} /> : null}
           {'/'}
           <Typography className={classNames.productTypoCell}>
             {t(TranslationKey.ASIN)}
             <span className={classNames.typoSpan}>{shortAsin(product.asin)}</span>
             {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
           </Typography>
-          {product.asin ? (
-            <img
-              className={classNames.copyImgAsin}
-              src="/assets/icons/copy-img.svg"
-              alt=""
-              onClick={e => {
-                e.stopPropagation()
-                copyValue(product.asin)
-              }}
-            />
-          ) : null}
+          {product.asin ? <CopyValue text={product.asin} /> : null}
         </div>
       </div>
     </div>
@@ -374,34 +331,14 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
           <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
           {product.asin}
         </Typography>
-        {product.asin ? (
-          <img
-            className={classNames.copyImgAsin}
-            src="/assets/icons/copy-img.svg"
-            alt=""
-            onClick={e => {
-              e.stopPropagation()
-              copyValue(product.asin)
-            }}
-          />
-        ) : null}
+        {product.asin ? <CopyValue text={product.asin} /> : null}
       </div>
       <div className={classNames.copyAsin}>
         <Typography className={classNames.orderText}>
           <span className={classNames.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
           {product?.skusByClient?.length ? product.skusByClient[0] : t(TranslationKey.Missing)}
         </Typography>
-        {product?.skusByClient?.length ? (
-          <img
-            className={classNames.copyImgAsin}
-            src="/assets/icons/copy-img.svg"
-            alt=""
-            onClick={e => {
-              e.stopPropagation()
-              copyValue(product?.skusByClient[0])
-            }}
-          />
-        ) : null}
+        {product?.skusByClient?.length ? <CopyValue text={product?.skusByClient[0]} /> : null}
       </div>
 
       {superbox && <Typography className={classNames.superboxTypo}>{`${'SB'} x ${superbox}`}</Typography>}
@@ -1231,17 +1168,7 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
                 <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
                 {item.product.asin}
               </Typography>
-              {item.product.asin ? (
-                <img
-                  className={classNames.copyImg}
-                  src="/assets/icons/copy-img.svg"
-                  alt=""
-                  onClick={e => {
-                    e.stopPropagation()
-                    copyValue(item.product.asin)
-                  }}
-                />
-              ) : null}
+              {item.product.asin ? <CopyValue text={item.product.asin} /> : null}
               <Typography className={classNames.orderText}>
                 {box.deliveryTotalPrice - box.deliveryTotalPriceChanged < 0 && itemIndex === 0 && (
                   <span className={classNames.needPay}>{`${t(
@@ -1328,65 +1255,53 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
   </div>
 ))
 
-export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, value, onClickSeeMore, isFirstRow}) => {
-  const copyValue = () => {
-    navigator.clipboard.writeText(value)
-  }
+export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, value, onClickSeeMore, isFirstRow}) => (
+  <div className={classNames.shopsReportBtnsWrapper}>
+    <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
+      <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
+        {t(TranslationKey.download)}
+      </a>
+    </Text>
+    <Button
+      tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])}
+      className={classNames.copyImgButton}
+    >
+      <CopyValue text={value} />
+    </Button>
 
-  return (
-    <div className={classNames.shopsReportBtnsWrapper}>
-      <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
-        <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
-          {t(TranslationKey.download)}
-        </a>
-      </Text>
-      <Button
-        tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])}
-        className={classNames.copyImgButton}
-      >
-        <img className={classNames.copyImg} src="/assets/icons/copy-img.svg" alt="" onClick={copyValue} />
-      </Button>
+    <Button
+      tooltipInfoContent={isFirstRow && t(TranslationKey['Opens the table of a particular store'])}
+      variant="contained"
+      color="primary"
+      className={classNames.viewBtn}
+      onClick={onClickSeeMore}
+    >
+      {t(TranslationKey.View)}
+    </Button>
+  </div>
+))
 
-      <Button
-        tooltipInfoContent={isFirstRow && t(TranslationKey['Opens the table of a particular store'])}
-        variant="contained"
-        color="primary"
-        className={classNames.viewBtn}
-        onClick={onClickSeeMore}
-      >
-        {t(TranslationKey.View)}
-      </Button>
-    </div>
-  )
-})
-
-export const DownloadAndCopyBtnsCell = withStyles(styles)(({classes: classNames, value, isFirstRow}) => {
-  const copyValue = () => {
-    navigator.clipboard.writeText(value)
-  }
-
-  return (
-    <>
-      {value ? (
-        <div className={classNames.shopsReportBtnsWrapper}>
-          <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
-            <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
-              {t(TranslationKey.View)}
-            </a>
-          </Text>
-          <Button
-            tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link'])}
-            className={classNames.copyImgButton}
-          >
-            <img className={classNames.copyImg} src="/assets/icons/copy-img.svg" alt="" onClick={copyValue} />
-          </Button>
-        </div>
-      ) : (
-        <Typography>{'-'}</Typography>
-      )}
-    </>
-  )
-})
+export const DownloadAndCopyBtnsCell = withStyles(styles)(({classes: classNames, value, isFirstRow}) => (
+  <>
+    {value ? (
+      <div className={classNames.shopsReportBtnsWrapper}>
+        <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
+          <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
+            {t(TranslationKey.View)}
+          </a>
+        </Text>
+        <Button
+          tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link'])}
+          className={classNames.copyImgButton}
+        >
+          <CopyValue text={value} />
+        </Button>
+      </div>
+    ) : (
+      <Typography>{'-'}</Typography>
+    )}
+  </>
+))
 
 export const ShortBoxDimensions = withStyles(styles)(({classes: classNames, box, volumeWeightCoefficient}) => {
   const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)

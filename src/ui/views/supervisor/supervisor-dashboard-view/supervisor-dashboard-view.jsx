@@ -35,6 +35,10 @@ export class SupervisorDashboardViewRaw extends Component {
   render() {
     const {userInfo, drawerOpen, dashboardData, onTriggerDrawerOpen, onClickInfoCardViewMode} = this.viewModel
     const {classes: classNames} = this.props
+    const supervisorButtonsRoutes = {
+      notifications: '',
+      messages: 'messages',
+    }
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
@@ -45,7 +49,7 @@ export class SupervisorDashboardViewRaw extends Component {
                 <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
 
                 <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
-                <DashboardButtons user={userInfo} />
+                <DashboardButtons user={userInfo} routes={supervisorButtonsRoutes} />
               </Paper>
 
               <div className={classNames.amountWithLabelCardsWrapper}>

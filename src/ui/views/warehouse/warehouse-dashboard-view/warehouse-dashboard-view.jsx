@@ -35,6 +35,11 @@ export class WarehouseDashboardViewRaw extends Component {
   render() {
     const {dashboardData, userInfo, drawerOpen, onChangeTriggerDrawerOpen, onClickInfoCardViewMode} = this.viewModel
     const {classes: classNames} = this.props
+    const warhouseButtonsRoutes = {
+      notifications: '',
+      messages: 'messages',
+      settings: 'management',
+    }
     return (
       <React.Fragment>
         <Navbar
@@ -49,7 +54,7 @@ export class WarehouseDashboardViewRaw extends Component {
                 <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
 
                 <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
-                <DashboardButtons user={userInfo} />
+                <DashboardButtons user={userInfo} routes={warhouseButtonsRoutes} />
               </Paper>
 
               <SectionalDashboard

@@ -18,6 +18,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
@@ -83,10 +84,6 @@ export const IdeaViewAndEditCard = observer(
 
       setImages([])
     }, [curIdea, inEdit])
-
-    const copyValue = value => {
-      navigator.clipboard.writeText(value)
-    }
 
     const sourceFormFields = {
       media: idea?.media?.length ? [...idea.media] : [],
@@ -302,13 +299,7 @@ export const IdeaViewAndEditCard = observer(
                             </Link>
 
                             <div className={classNames.linksBtnsWrapper}>
-                              <img
-                                className={classNames.copyImg}
-                                src="/assets/icons/copy-img.svg"
-                                alt=""
-                                onClick={() => copyValue(el)}
-                              />
-
+                              <CopyValue text={el} />
                               {!disableFields && (
                                 <IconButton className={classNames.deleteBtnWrapper} onClick={() => onRemoveLink(index)}>
                                   <DeleteIcon className={classNames.deleteBtn} />
