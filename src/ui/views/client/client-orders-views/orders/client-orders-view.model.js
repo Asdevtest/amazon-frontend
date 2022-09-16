@@ -272,6 +272,8 @@ export class ClientOrdersViewModel {
         await this.createOrder(product)
       }
 
+      this.loadData()
+
       if (!this.error) {
         this.successModalText = t(TranslationKey['The order has been created'])
         this.onTriggerOpenModal('showSuccessModal')

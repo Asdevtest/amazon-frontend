@@ -131,6 +131,8 @@ export const Chat: FC<Props> = observer(
       } else {
         const filesArr = Array.from(evt.clipboardData.files)
 
+        const filesAlowLength = 50 - files.length
+
         evt.preventDefault()
 
         const readyFilesArr: any[] = filesArr.map((el: any) => ({
@@ -141,7 +143,7 @@ export const Chat: FC<Props> = observer(
           }),
         }))
 
-        changeFilesAndState([...files, ...readyFilesArr])
+        changeFilesAndState([...files, ...readyFilesArr.slice(0, filesAlowLength)])
       }
     }
 
