@@ -189,7 +189,10 @@ export const EditOrderModal = observer(
     const disabledOrderStatuses = [
       `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
       `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+<<<<<<< HEAD
       // `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
+=======
+>>>>>>> faf2c90f (3652 3653 3659 3661 3663)
       `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
     ]
 
@@ -197,8 +200,12 @@ export const EditOrderModal = observer(
 
     const [hsCode, setHsCode] = useState(order.product.hsCode)
 
+<<<<<<< HEAD
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status + '')
+=======
+    const disableSubmit = requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status)
+>>>>>>> faf2c90f (3652 3653 3659 3661 3663)
 
     return (
       <Box className={classNames.modalWrapper}>

@@ -629,6 +629,11 @@ export const styles = createStyles(() => ({
     color: 'rgba(0, 0, 0, 0.87)',
     resize: 'none',
     height: '100%',
+<<<<<<< HEAD
+=======
+    cursor: 'url(/assets/icons/Cursor.svg), auto',
+
+>>>>>>> faf2c90f (3652 3653 3659 3661 3663)
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     // textOverflow: 'ellipsis ',
 
