@@ -1,25 +1,23 @@
 import SearchIcon from '@mui/icons-material/Search'
-import VolumeOffRoundedIcon from '@mui/icons-material/VolumeOffRounded'
-import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded'
-import {Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
-import {InputAdornment} from '@material-ui/core'
+import {InputAdornment, Avatar, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
+import {Button} from '@components/buttons/button'
 import {MultipleChats} from '@components/chat/multiple-chats'
 import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
 
 import {MessagesViewModel} from './messages-view.model'
@@ -61,35 +59,52 @@ class MessagesViewRaw extends Component {
           <Appbar title={t(TranslationKey.Messages)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <div className={classNames.chatHeaderWrapper}>
-                <Field
-                  containerClasses={classNames.searchContainer}
-                  inputClasses={classNames.searchInput}
-                  value={nameSearchValue}
-                  endAdornment={
-                    <InputAdornment position="start">
-                      <SearchIcon color="primary" />
-                    </InputAdornment>
-                  }
-                  onChange={onChangeNameSearchValue}
-                />
+                <div className={classNames.leftSide}>
+                  <Field
+                    containerClasses={classNames.searchContainer}
+                    inputClasses={classNames.searchInput}
+                    value={nameSearchValue}
+                    endAdornment={
+                      <InputAdornment position="start">
+                        <SearchIcon color="primary" />
+                      </InputAdornment>
+                    }
+                    onChange={onChangeNameSearchValue}
+                  />
 
-                <div className={classNames.tooltipWrapper} onClick={onTriggerNoticeOfSimpleChats}>
-                  {noticeOfSimpleChats ? (
-                    <VolumeUpRoundedIcon className={classNames.noticesIcon} />
-                  ) : (
-                    <VolumeOffRoundedIcon
-                      className={clsx(classNames.noticesIcon, {[classNames.noticesIconOff]: !noticeOfSimpleChats})}
-                    />
-                  )}
-                  {noticeOfSimpleChats ? (
-                    <Typography className={classNames.noticesTextActive}>
-                      {t(TranslationKey['Notices included'])}
-                    </Typography>
-                  ) : (
-                    <Typography className={classNames.noticesTextNoActive}>
-                      {t(TranslationKey['Notices are off'])}
-                    </Typography>
-                  )}
+                  {chatSelectedId && simpleChats.length ? (
+                    <div className={classNames.opponentWrapper}>
+                      <Avatar
+                        src={getUserAvatarSrc(
+                          simpleChats.find(el => el._id === chatSelectedId).users.find(el => el._id !== user._id)._id,
+                        )}
+                        className={classNames.avatarWrapper}
+                      />
+                      <Typography className={classNames.opponentName}>
+                        {simpleChats.find(el => el._id === chatSelectedId).users.find(el => el._id !== user._id).name}
+                      </Typography>
+                    </div>
+                  ) : null}
+                </div>
+
+                <div className={classNames.rightSide}>
+                  <div className={classNames.tooltipWrapper} onClick={onTriggerNoticeOfSimpleChats}>
+                    {noticeOfSimpleChats ? (
+                      <Typography className={classNames.noticesTextActive}>
+                        {t(TranslationKey['Notices included'])}
+                      </Typography>
+                    ) : (
+                      <Typography className={classNames.noticesTextNoActive}>
+                        {t(TranslationKey['Notices are off'])}
+                      </Typography>
+                    )}
+
+                    <img src={noticeOfSimpleChats ? '/assets/icons/sound-on.svg' : '/assets/icons/sound-off.svg'} />
+                  </div>
+
+                  <Button disabled className={classNames.newDialogBtn}>
+                    {t(TranslationKey['New Dialogue'])}
+                  </Button>
                 </div>
               </div>
               <div className={classNames.chatWrapper}>

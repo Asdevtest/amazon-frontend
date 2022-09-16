@@ -1,5 +1,9 @@
-import React, {FC, ReactElement, useEffect, useState} from 'react'
+import TextField from '@mui/material/TextField'
 
+import React, {FC, ReactElement, useEffect, useState, KeyboardEvent} from 'react'
+
+import {InputAdornment, Typography} from '@material-ui/core'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
@@ -14,26 +18,16 @@ import {Button} from '@components/buttons/button'
 import {t} from '@utils/translations'
 
 import {ChatFilesInput} from './chat-files-input'
-import {ChatLinksInput} from './chat-links-input'
 import {ChatMessagesList, ChatMessageUniversalHandlers} from './chat-messages-list'
-import {ChatTextInput} from './chat-text-input'
 import {useClassNames} from './chat.style'
-
-export enum ChatInputMode {
-  TEXT = 'TEXT',
-  LINKS = 'LINKS',
-  FILES = 'FILES',
-}
 
 export interface RenderAdditionalButtonsParams {
   message: string
-  links: string[]
   files: any[]
 }
 
 export interface MessageStateParams {
   message: string
-  links: string[]
   files: any[]
 }
 
@@ -43,7 +37,7 @@ interface Props {
   userId: string
   chatMessageHandlers?: ChatMessageUniversalHandlers
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  onSubmitMessage: (message: string, links: string[], files: any[]) => void
+  onSubmitMessage: (message: string, files: any[]) => void
   updateData: () => void
   onTypingMessage: (chatId: string) => void
 }
@@ -59,16 +53,15 @@ export const Chat: FC<Props> = observer(
     updateData,
     onTypingMessage,
   }) => {
-    const [inputMode, setInputMode] = useState<ChatInputMode>(ChatInputMode.TEXT)
+    const [showFiles, setShowFiles] = useState(false)
 
     const messageInitialState: MessageStateParams = SettingsModel.chatMessageState?.[chat._id] || {
       message: '',
-      links: [],
       files: [],
     }
 
     const [message, setMessage] = useState(messageInitialState.message)
-    const [links, setLinks] = useState<string[]>(messageInitialState.links)
+
     const [files, setFiles] = useState<any[]>(
       messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files,
     )
@@ -85,47 +78,25 @@ export const Chat: FC<Props> = observer(
 
     const changeMessageAndState = (value: string) => {
       setMessage(value)
-      SettingsModel.setChatMessageState({message: value, links, files}, chat._id)
-    }
-
-    const changeLinksAndState = (value: string[]) => {
-      setLinks(value)
-      SettingsModel.setChatMessageState({message, links: value, files}, chat._id)
+      SettingsModel.setChatMessageState({message: value, files}, chat._id)
     }
 
     const changeFilesAndState = (value: any[]) => {
       setFiles(value)
-      SettingsModel.setChatMessageState({message, links, files: value}, chat._id)
+      SettingsModel.setChatMessageState({message, files: value}, chat._id)
     }
 
     const classNames = useClassNames()
 
     const resetAllInputs = () => {
       setMessage('')
-      setLinks(() => [])
       setFiles(() => [])
-      SettingsModel.setChatMessageState({message: '', links: [], files: []}, chat._id)
-
-      setInputMode(ChatInputMode.FILES) // КОСТЫЛЬ
-      setTimeout(() => setInputMode(ChatInputMode.TEXT)) // СКИДЫВАЕТ СЧЕТЧИКИ С ИКОНКИ ФАЙЛОВ И ССЫЛОК
+      SettingsModel.setChatMessageState({message: '', files: []}, chat._id)
     }
 
     const onSubmitMessageInternal = () => {
-      onSubmitMessage(message, links, files)
+      onSubmitMessage(message, files)
       resetAllInputs()
-    }
-
-    const setLink = (index: number) => (value: string) => {
-      const linksNewState = [...links]
-      linksNewState[index] = value
-      if (index === linksNewState.length - 1) {
-        linksNewState[index + 1] = ''
-      }
-      setLinks(
-        linksNewState.filter((link: string, linksNewStateIndex: number) =>
-          linksNewStateIndex !== linksNewState.length - 1 ? !!link : true,
-        ),
-      )
     }
 
     useEffect(() => {
@@ -136,12 +107,43 @@ export const Chat: FC<Props> = observer(
 
     useEffect(() => {
       setMessage(messageInitialState.message)
-      setLinks(messageInitialState.links)
       setFiles(messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files)
-
-      setInputMode(ChatInputMode.LINKS) // КОСТЫЛЬ
-      setTimeout(() => setInputMode(ChatInputMode.TEXT)) // СКИДЫВАЕТ СЧЕТЧИКИ
     }, [chat?._id])
+
+    useEffect(() => {
+      if (files?.length) {
+        setShowFiles(true)
+      } else {
+        setShowFiles(false)
+      }
+    }, [files?.length])
+
+    const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        onSubmitMessageInternal()
+        event.preventDefault()
+      }
+    }
+
+    const onPasteFiles = async (evt: any) => {
+      if (evt.clipboardData.files.length === 0) {
+        return
+      } else {
+        const filesArr = Array.from(evt.clipboardData.files)
+
+        evt.preventDefault()
+
+        const readyFilesArr: any[] = filesArr.map((el: any) => ({
+          data_url: URL.createObjectURL(el),
+          file: new File([el], el.name?.replace(/ /g, ''), {
+            type: el.type,
+            lastModified: el.file?.lastModified,
+          }),
+        }))
+
+        changeFilesAndState([...files, ...readyFilesArr])
+      }
+    }
 
     return (
       <div className={classNames.root}>
@@ -149,57 +151,53 @@ export const Chat: FC<Props> = observer(
           <ChatMessagesList userId={userId} messages={messages} handlers={chatMessageHandlers} />
         </div>
         <div className={classNames.bottomPartWrapper}>
-          {(() => {
-            switch (inputMode) {
-              case ChatInputMode.TEXT:
-                return (
-                  <ChatTextInput
-                    links={links}
-                    files={files}
-                    message={message}
-                    setMessage={changeMessageAndState}
-                    setInputMode={setInputMode}
-                    changeFilesAndState={changeFilesAndState}
-                    onSubmitKeyPress={onSubmitMessageInternal}
-                  />
-                )
-              case ChatInputMode.FILES:
-                return <ChatFilesInput files={files} setFiles={changeFilesAndState} />
-              case ChatInputMode.LINKS:
-                return (
-                  <ChatLinksInput
-                    links={links}
-                    setLink={setLink}
-                    setLinks={changeLinksAndState}
-                    inputMode={inputMode}
-                  />
-                )
-            }
-          })()}
-          <div className={classNames.btnsWrapper}>
-            {inputMode === ChatInputMode.TEXT && renderAdditionalButtons
-              ? renderAdditionalButtons({message, links, files}, resetAllInputs)
-              : undefined}
+          {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
-            {(inputMode === ChatInputMode.FILES || inputMode === ChatInputMode.LINKS) && (
-              <Button className={classNames.backBtn} onClick={() => setInputMode(ChatInputMode.TEXT)}>
-                {t(TranslationKey.Back)}
-              </Button>
-            )}
+          <div className={classNames.inputWrapper}>
+            <TextField
+              multiline
+              autoFocus
+              id="outlined-multiline-flexible"
+              size="small"
+              className={clsx(classNames.input, {[classNames.inputFilled]: message})}
+              maxRows={6}
+              placeholder={t(TranslationKey['Write a message'])}
+              inputProps={{maxLength: 1000}}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end" classes={{root: classNames.endAdornment}}>
+                    <div className={classNames.filesIconWrapper}>
+                      <img
+                        src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}
+                        className={classNames.inputIcon}
+                        onClick={() => setShowFiles(!showFiles)}
+                      />
+                      {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
+                    </div>
+                  </InputAdornment>
+                ),
+              }}
+              value={message}
+              onKeyPress={handleKeyPress}
+              onChange={(e: any) => changeMessageAndState(e.target.value)}
+              onPaste={evt => onPasteFiles(evt)}
+            />
 
             <Button
-              disabled={!message && inputMode === ChatInputMode.TEXT && !files.length}
-              onClick={() => {
-                if (inputMode === ChatInputMode.TEXT) {
-                  onSubmitMessageInternal()
-                } else {
-                  setInputMode(ChatInputMode.TEXT)
-                }
-              }}
+              disabled={!message && !files.length}
+              className={classNames.sendBtn}
+              onClick={() => onSubmitMessageInternal()}
             >
-              {inputMode === ChatInputMode.TEXT ? t(TranslationKey['Send message']) : t(TranslationKey['Attach file'])}
+              {
+                <div className={classNames.sendBtnTextWrapper}>
+                  <Typography>{t(TranslationKey.Send)}</Typography>
+                  <img src="/assets/icons/send.svg" className={classNames.sendBtnIcon} />
+                </div>
+              }
             </Button>
           </div>
+
+          {renderAdditionalButtons ? renderAdditionalButtons({message, files}, resetAllInputs) : undefined}
         </div>
       </div>
     )

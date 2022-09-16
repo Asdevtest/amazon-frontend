@@ -16,6 +16,8 @@ import {useClassNames} from './add-or-edit-warehouse-tariff-form.style'
 export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit}) => {
   const classNames = useClassNames()
 
+  const [submitIsClicked, setSubmitIsClicked] = useState(false)
+
   const sourceFormFields = {
     name: tariffToEdit?.name || '',
     description: tariffToEdit?.description || '',
@@ -47,6 +49,8 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
     } else {
       onCreateSubmit(formFields)
     }
+
+    setSubmitIsClicked(true)
   }
 
   const disableSubmitBtn =
@@ -54,7 +58,8 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
     formFields.name === '' ||
     formFields.description === '' ||
     Number(formFields.price) <= 0 ||
-    Number(formFields.price) > 100000
+    Number(formFields.price) > 100000 ||
+    submitIsClicked
 
   return (
     <div className={classNames.root}>

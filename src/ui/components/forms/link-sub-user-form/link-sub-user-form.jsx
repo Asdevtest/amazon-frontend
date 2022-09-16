@@ -17,7 +17,7 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
   const [email, setEmail] = useState('')
 
   return (
-    <div disableGutters className={classNames.mainWrapper}>
+    <div className={classNames.mainWrapper}>
       <Typography variant="h4">{t(TranslationKey['Add a sub-user'])}</Typography>
 
       <Field

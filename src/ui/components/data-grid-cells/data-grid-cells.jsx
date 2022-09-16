@@ -629,11 +629,7 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
 
   const renderBox = (box, key, isOneBox) => (
     <div key={key && key} className={classNames.imagesWrapper}>
-      <div
-        container
-        spacing={1}
-        className={clsx(classNames.standartBoxWrapper, {[classNames.isOneBoxWrapper]: isOneBox})}
-      >
+      <div className={clsx(classNames.standartBoxWrapper, {[classNames.isOneBoxWrapper]: isOneBox})}>
         {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex))}
       </div>
     </div>

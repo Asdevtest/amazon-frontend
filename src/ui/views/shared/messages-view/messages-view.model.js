@@ -75,10 +75,10 @@ export class MessagesViewModel {
     })
   }
 
-  async onSubmitMessage(message, links, files, chatIdId) {
+  async onSubmitMessage(message, files, chatId) {
     try {
       await ChatModel.sendMessage({
-        chatId: chatIdId,
+        chatId,
         text: message,
         files: files?.map(item => item?.file),
       })

@@ -29,7 +29,7 @@ const TabPanel = ({children, value, index, ...other}) => (
     {...other}
   >
     {value === index && (
-      <div paddingTop={3}>
+      <div>
         <Typography>{children}</Typography>
       </div>
     )}

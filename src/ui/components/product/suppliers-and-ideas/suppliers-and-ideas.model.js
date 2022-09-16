@@ -5,6 +5,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ClientModel} from '@models/client-model'
 import {IdeaModel} from '@models/ideas-model'
+import {ProductModel} from '@models/product-model'
 import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
@@ -209,7 +210,15 @@ export class SuppliersAndIdeasModel {
         clientComment: this.dataToCreateProduct.comments,
       }
 
-      await ClientModel.createProduct(createData)
+      console.log('this.dataToCreateProduct', this.dataToCreateProduct)
+
+      const result = await ClientModel.createProduct(createData)
+
+      const suppliersIds = this.dataToCreateProduct.suppliers?.map(el => el._id)
+
+      if (suppliersIds.length) {
+        await ProductModel.addSuppliersToProduct(result.guid, suppliersIds)
+      }
 
       this.successModalTitle = t(TranslationKey['Product added'])
 

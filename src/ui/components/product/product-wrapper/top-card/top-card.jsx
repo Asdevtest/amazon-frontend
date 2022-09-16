@@ -202,7 +202,7 @@ export const TopCard = observer(
             />
           </Grid>
 
-          <div classsName={classNames.suppliersWrapper}>
+          <div className={classNames.suppliersWrapper}>
             <Typography variant="h6" className={classNames.supplierTitle}>
               {t(TranslationKey['List of suppliers'])}
             </Typography>
@@ -218,7 +218,7 @@ export const TopCard = observer(
                 productBase.status === ProductStatusByKey[ProductStatus.REJECTED_BY_SUPERVISOR_AT_FIRST_STEP])
             ) ? (
               <div className={classNames.supplierActionsWrapper}>
-                <div disableGutters className={classNames.supplierContainer}>
+                <div className={classNames.supplierContainer}>
                   <div className={classNames.supplierButtonWrapper}>
                     <Button
                       tooltipInfoContent={t(TranslationKey['Add a new supplier to this product'])}
@@ -311,7 +311,7 @@ export const TopCard = observer(
               </div>
             ) : (
               <div className={classNames.supplierActionsWrapper}>
-                <div disableGutters className={classNames.supplierContainer}>
+                <div className={classNames.supplierContainer}>
                   {/* {selectedSupplier && selectedSupplier.name !== 'access denied' ? ( */}
                   <>
                     {checkIsAdmin(curUserRole) || checkIsSupervisor(curUserRole) || checkIsClient(curUserRole) ? (

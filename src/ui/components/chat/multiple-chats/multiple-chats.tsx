@@ -1,13 +1,17 @@
 import React, {forwardRef, ReactElement, useState} from 'react'
 
+import {Typography} from '@material-ui/core'
 import {compareDesc, parseISO} from 'date-fns'
 import {observer} from 'mobx-react'
+
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
 
 import {OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
 
 import {isNotUndefined} from '@utils/checks'
+import {t} from '@utils/translations'
 
 import {Chat, RenderAdditionalButtonsParams} from '../chat'
 import {ChatMessageUniversalHandlers} from '../chat/chat-messages-list'
@@ -23,7 +27,7 @@ interface Props {
   typingUsers?: OnTypingMessageResponse[]
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
-  onSubmitMessage: (message: string, links: string[], files: any, chat: string) => void
+  onSubmitMessage: (message: string, files: any, chat: string) => void
   onClickChat: (chat: ChatContract) => void
   onTypingMessage: (chatId: string) => void
 }
@@ -89,13 +93,21 @@ export const MultipleChats = observer(
                 chatMessageHandlers={chatMessageHandlers}
                 renderAdditionalButtons={renderAdditionalButtons}
                 updateData={updateData}
-                onSubmitMessage={(message: string, links: string[], files: any) =>
+                onSubmitMessage={(message: string, files: any) =>
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  onSubmitMessage(message, links, files, chatSelectedId!)
+                  onSubmitMessage(message, files, chatSelectedId!)
                 }
                 onTypingMessage={onTypingMessage}
               />
-            ) : undefined}
+            ) : (
+              <div className={classNames.noChatWrapper}>
+                <img src="/assets/icons/no-chats.svg" />
+                <Typography className={classNames.noChatTitle}>{t(TranslationKey['Choose chat'])}</Typography>
+                <Typography className={classNames.noChatSubTitle}>
+                  {t(TranslationKey['Try choosing a dialog or Find a specific performer'])}
+                </Typography>
+              </div>
+            )}
           </div>
         </div>
       )

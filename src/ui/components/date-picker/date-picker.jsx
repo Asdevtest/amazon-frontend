@@ -2,6 +2,8 @@ import DateFnsUtils from '@date-io/date-fns'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import TextField from '@mui/material/TextField'
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns'
+// import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
+// import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment'
 import {DatePicker as NewestDatePicker} from '@mui/x-date-pickers/DatePicker'
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider'
 
@@ -33,6 +35,19 @@ const getLocalByLanguageTag = languageTag => {
   }
 }
 
+const getPlaceholderByLanguageTag = languageTag => {
+  switch (languageTag) {
+    case LanguageKey.ru:
+      return 'дд.мм.гггг'
+
+    case LanguageKey.en:
+      return 'mm/dd/yyyy'
+
+    default:
+      return 'mm/dd/yyyy'
+  }
+}
+
 export const DateMonthYearPicker = ({value, onChange, ...restProps}) => {
   const [local, setLocal] = useState(enLocale)
 
@@ -59,8 +74,12 @@ export const DateMonthYearPicker = ({value, onChange, ...restProps}) => {
 export const NewDatePicker = ({value, onChange, ...restProps}) => {
   const [local, setLocal] = useState(enLocale)
 
+  const [placeholder, setPlaceholder] = useState('mm/dd/yyyy')
+
   useEffect(() => {
     setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
+
+    setPlaceholder(getPlaceholderByLanguageTag(SettingsModel.languageTag))
   }, [SettingsModel.languageTag])
 
   return (
@@ -68,6 +87,7 @@ export const NewDatePicker = ({value, onChange, ...restProps}) => {
       <NewestDatePicker
         // views={['year', 'month']}
         // label="Year and Month"
+        inputProps={{placeholder}}
         value={value}
         renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
         onChange={newValue => {

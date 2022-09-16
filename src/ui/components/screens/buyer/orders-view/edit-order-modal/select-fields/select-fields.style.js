@@ -26,8 +26,10 @@ export const useClassNames = makeStyles(() => ({
   commentInput: {
     fontSize: '13px',
     height: 'auto',
-    width: '100%',
+    // width: '100%',
     marginTop: '2px',
+
+    width: 231,
   },
   priceOptionsWrapper: {
     width: '573px',
@@ -167,11 +169,12 @@ export const useClassNames = makeStyles(() => ({
     gap: '20px',
   },
 
-  trackAndHsCode: {
+  trackAndHsCodeAndComments: {
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
     margin: 0,
+    gap: 30,
   },
 
   copyImg: {

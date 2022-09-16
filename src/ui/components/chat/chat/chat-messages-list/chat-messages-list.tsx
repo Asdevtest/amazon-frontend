@@ -53,7 +53,7 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
     }
   }, [messages])
 
-  const renderMessageByType = (isIncomming: boolean, messageItem: ChatMessageContract) => {
+  const renderMessageByType = (isIncomming: boolean, messageItem: ChatMessageContract, unReadMessage: boolean) => {
     if (checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract(messageItem)) {
       return <ChatMessageRequest message={messageItem} />
     } else if (handlers && checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract(messageItem)) {
@@ -87,7 +87,7 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
         />
       )
     } else {
-      return <ChatMessageBasicText isIncomming={isIncomming} message={messageItem} />
+      return <ChatMessageBasicText isIncomming={isIncomming} message={messageItem} unReadMessage={unReadMessage} />
     }
   }
 
@@ -97,14 +97,20 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
         {messages
           ? messages.map((messageItem: ChatMessageContract, index: number) => {
               const isIncomming = userId !== messageItem.userId
+
               const isNotPersonal = !messageItem.userId
+
               const isLastMessage = index === messages.length - 1
+
               const isNextMessageSameAuthor =
                 !isLastMessage && messages[index + 1]?.userId === messageItem.userId && !isNotPersonal
+
+              const unReadMessage = !messageItem.isRead
+
               return (
                 <div
                   key={`chatMessage_${messageItem._id}`}
-                  className={clsx(classNames.message, {[classNames.unReadMessage]: !messageItem.isRead})}
+                  className={clsx(classNames.message /* {[classNames.unReadMessage]: unReadMessage}*/)}
                 >
                   {index === 0 ||
                   formatDateWithoutTime(messages[index - 1].updatedAt) !==
@@ -115,6 +121,7 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                       </Typography>
                     </div>
                   ) : null}
+
                   <div
                     className={clsx(classNames.messageWrapper, {
                       [classNames.messageWrapperIsIncomming]: isIncomming,
@@ -140,6 +147,7 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                         />
                       </Link>
                     ) : null}
+
                     <div
                       className={clsx(classNames.messageInner, {
                         [classNames.messageInnerIsIncomming]: isIncomming,
@@ -149,13 +157,7 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                       })}
                     >
                       <div className={classNames.messageInnerContentWrapper}>
-                        {renderMessageByType(isIncomming, messageItem)}
-                        {messageItem.files.length ? (
-                          <div className={classNames.filesMainWrapper}>
-                            {/* <Typography className={classNames.filesTitle}>{`${t(TranslationKey.Files)}:`}</Typography> */}
-                            <PhotoAndFilesCarousel notToShowEmpty small files={messageItem.files} width="300px" />
-                          </div>
-                        ) : undefined}
+                        {renderMessageByType(isIncomming, messageItem, unReadMessage)}
                       </div>
                     </div>
                   </div>

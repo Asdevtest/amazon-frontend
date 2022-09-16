@@ -5,10 +5,12 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     height: '100%',
     overflow: 'auto',
+
+    border: '1px solid #E0E0E0',
   },
   chatWrapper: {
     width: '100%',
-    borderBottomWidth: '1px',
+    borderBottomWidth: '2px',
     borderBottomColor: '#E0E0E0',
     borderBottomStyle: 'solid',
   },

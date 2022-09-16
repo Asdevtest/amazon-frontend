@@ -1,4 +1,4 @@
-import {plainToClass} from 'class-transformer'
+import {plainToInstance} from 'class-transformer'
 import {transformAndValidate} from 'class-transformer-validator'
 import {makeAutoObservable, runInAction} from 'mobx'
 
@@ -88,7 +88,7 @@ class ChatModelStatic {
       const getChatsResult = await this.websocketChatService.getChats(crmItemId, crmItemType)
       console.log('getChatsResult ', getChatsResult)
       runInAction(() => {
-        this.chats = plainToClass(ChatContract, getChatsResult).map((chat: ChatContract) => ({
+        this.chats = plainToInstance(ChatContract, getChatsResult).map((chat: ChatContract) => ({
           ...chat,
           messages: chat.messages,
         }))
@@ -108,7 +108,7 @@ class ChatModelStatic {
       const getSimpleChatsResult = await this.websocketChatService.getChats()
       console.log('getSimpleChatsResult ', getSimpleChatsResult)
       runInAction(() => {
-        this.simpleChats = plainToClass(ChatContract, getSimpleChatsResult).map((chat: ChatContract) => ({
+        this.simpleChats = plainToInstance(ChatContract, getSimpleChatsResult).map((chat: ChatContract) => ({
           ...chat,
           messages: chat.messages,
         }))
@@ -157,7 +157,7 @@ class ChatModelStatic {
     await transformAndValidate(SendMessageRequestParamsContract, paramsWithLoadedFiles)
 
     const sendMessageResult = await this.websocketChatService.sendMessage(paramsWithLoadedFiles)
-    return plainToClass(ChatMessageContract, sendMessageResult)
+    return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
   public async typingMessage(params: TypingMessageRequestParams) {
@@ -166,7 +166,7 @@ class ChatModelStatic {
     }
     console.log('***TYPING_MESSAGE!!!')
     await this.websocketChatService.typingMessage(params)
-    // return plainToClass(ChatMessageContract, sendMessageResult)
+    // return plainToInstance(ChatMessageContract, sendMessageResult)
   }
 
   public async readMessages(messageIds: string[]) {
@@ -214,7 +214,7 @@ class ChatModelStatic {
   }
 
   private onNewMessage(newMessage: ChatMessageContract) {
-    const message = plainToClass<ChatMessageContract<TChatMessageDataUniversal>, unknown>(
+    const message = plainToInstance<ChatMessageContract<TChatMessageDataUniversal>, unknown>(
       ChatMessageContract,
       newMessage,
     )
@@ -294,7 +294,7 @@ class ChatModelStatic {
     console.log('***ON_NEW_CHAT!!!')
     this.getSimpleChats()
 
-    const chat = plainToClass<ChatContract, unknown>(ChatContract, newChat)
+    const chat = plainToInstance<ChatContract, unknown>(ChatContract, newChat)
 
     const findSimpleChatIndexById = this.chats.findIndex((ch: ChatContract) => ch._id === newChat._id)
 

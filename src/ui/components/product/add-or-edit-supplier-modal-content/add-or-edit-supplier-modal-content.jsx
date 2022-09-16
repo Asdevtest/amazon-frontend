@@ -235,12 +235,7 @@ export const AddOrEditSupplierModalContent = observer(
       } else if (onlyRead) {
         return (
           <div className={classNames.buttonsWrapper}>
-            <Button
-              disableElevation
-              className={classNames.cancelBtn}
-              variant="contained"
-              onClick={() => onTriggerShowModal()}
-            >
+            <Button variant="contained" onClick={() => onTriggerShowModal()}>
               {t(TranslationKey.Close)}
             </Button>
           </div>
