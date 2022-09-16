@@ -311,7 +311,7 @@ export const SelectFields = ({
       </Grid>
 
       <Grid item>
-        <Box>
+        {/* <Box>
           <Field
             disabled
             multiline
@@ -334,32 +334,52 @@ export const SelectFields = ({
             label={t(TranslationKey['Buyer comment'])}
             onChange={setOrderField('buyerComment')}
           />
+        </Box> */}
+
+        <Box my={3} className={classNames.trackAndHsCodeAndComments}>
+          <Field
+            disabled
+            multiline
+            rows={4}
+            rowsMax={6}
+            inputClasses={classNames.commentInput}
+            value={orderFields.clientComment}
+            label={t(TranslationKey['Client comment'])}
+            onChange={setOrderField('clientComment')}
+          />
+
+          <Field
+            multiline
+            rows={4}
+            rowsMax={6}
+            inputProps={{maxLength: 500}}
+            inputClasses={classNames.commentInput}
+            value={orderFields.buyerComment}
+            label={t(TranslationKey['Buyer comment'])}
+            onChange={setOrderField('buyerComment')}
+          />
         </Box>
 
-        <Box my={3} className={classNames.trackAndHsCode}>
-          <div>
-            <Field
-              tooltipInfoContent={t(TranslationKey['Tracking number for goods in transit'])}
-              value={orderFields.trackingNumberChina}
-              label={t(TranslationKey['Track number'])}
-              labelClasses={classNames.label}
-              inputClasses={classNames.input}
-              inputProps={{maxLength: 50}}
-              onChange={setOrderField('trackingNumberChina')}
-            />
-          </div>
+        <Box my={3} className={classNames.trackAndHsCodeAndComments}>
+          <Field
+            tooltipInfoContent={t(TranslationKey['Tracking number for goods in transit'])}
+            value={orderFields.trackingNumberChina}
+            label={t(TranslationKey['Track number'])}
+            labelClasses={classNames.label}
+            inputClasses={classNames.input}
+            inputProps={{maxLength: 50}}
+            onChange={setOrderField('trackingNumberChina')}
+          />
 
-          <div>
-            <Field
-              tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
-              value={hsCode}
-              label={t(TranslationKey['HS code'])}
-              labelClasses={classNames.label}
-              inputClasses={classNames.input}
-              inputProps={{maxLength: 50}}
-              onChange={e => setHsCode(e.target.value)}
-            />
-          </div>
+          <Field
+            tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
+            value={hsCode}
+            label={t(TranslationKey['HS code'])}
+            labelClasses={classNames.label}
+            inputClasses={classNames.input}
+            inputProps={{maxLength: 50}}
+            onChange={e => setHsCode(e.target.value)}
+          />
         </Box>
 
         <Box>

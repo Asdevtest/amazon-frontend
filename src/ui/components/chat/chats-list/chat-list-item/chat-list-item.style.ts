@@ -45,7 +45,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: 18,
     color: '#001029',
 
-    maxWidth: 130,
+    maxWidth: 120,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
