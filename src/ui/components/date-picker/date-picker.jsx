@@ -35,6 +35,19 @@ const getLocalByLanguageTag = languageTag => {
   }
 }
 
+const getPlaceholderByLanguageTag = languageTag => {
+  switch (languageTag) {
+    case LanguageKey.ru:
+      return 'дд.мм.гггг'
+
+    case LanguageKey.en:
+      return 'mm/dd/yyyy'
+
+    default:
+      return 'mm/dd/yyyy'
+  }
+}
+
 export const DateMonthYearPicker = ({value, onChange, ...restProps}) => {
   const [local, setLocal] = useState(enLocale)
 
@@ -61,8 +74,12 @@ export const DateMonthYearPicker = ({value, onChange, ...restProps}) => {
 export const NewDatePicker = ({value, onChange, ...restProps}) => {
   const [local, setLocal] = useState(enLocale)
 
+  const [placeholder, setPlaceholder] = useState('mm/dd/yyyy')
+
   useEffect(() => {
     setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
+
+    setPlaceholder(getPlaceholderByLanguageTag(SettingsModel.languageTag))
   }, [SettingsModel.languageTag])
 
   return (
@@ -70,7 +87,7 @@ export const NewDatePicker = ({value, onChange, ...restProps}) => {
       <NewestDatePicker
         // views={['year', 'month']}
         // label="Year and Month"
-        // placeholder="10/10/2018"
+        inputProps={{placeholder}}
         value={value}
         renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
         onChange={newValue => {
