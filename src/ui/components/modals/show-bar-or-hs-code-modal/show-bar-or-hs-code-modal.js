@@ -5,6 +5,7 @@ import {Container, Link, Typography} from '@material-ui/core'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value/copy-value'
 
 import {t} from '@utils/translations'
 
@@ -12,9 +13,7 @@ import {useClassNames} from './show-bar-or-hs-code-modal.style'
 
 export const ShowBarOrHscodeModal = ({barcode, hscode, onCloseModal}) => {
   const classNames = useClassNames()
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
-  }
+
   const renderText = () => {
     if (barcode) {
       return (
@@ -22,30 +21,14 @@ export const ShowBarOrHscodeModal = ({barcode, hscode, onCloseModal}) => {
           <Link className={classNames.modalTitle} target="__blank" href={barcode}>
             {barcode}
           </Link>
-          <img
-            className={classNames.copyImg}
-            src="/assets/icons/copy-img.svg"
-            alt=""
-            onClick={e => {
-              e.stopPropagation()
-              copyValue(barcode)
-            }}
-          />
+          <CopyValue text={barcode} />
         </div>
       )
     } else if (hscode) {
       return (
         <div className={classNames.modalTitleWrapper}>
           <Typography className={classNames.modalTitle}>{hscode}</Typography>
-          <img
-            className={classNames.copyImg}
-            src="/assets/icons/copy-img.svg"
-            alt=""
-            onClick={e => {
-              e.stopPropagation()
-              copyValue(hscode)
-            }}
-          />
+          <CopyValue text={hscode} />
         </div>
       )
     } else {

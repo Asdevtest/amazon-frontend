@@ -9,6 +9,7 @@ import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {CustomCarousel} from '@components/custom-carousel'
 import {PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
@@ -30,10 +31,6 @@ export const BoxViewForm = observer(
 
     const handleChange = (event, newAlignment) => {
       setSizeSetting(newAlignment)
-    }
-
-    const copyValue = value => {
-      navigator.clipboard.writeText(value)
     }
 
     return (
@@ -131,15 +128,7 @@ export const BoxViewForm = observer(
                                 </Link>
                               </Typography>
 
-                              <img
-                                className={classNames.copyImg}
-                                src="/assets/icons/copy-img.svg"
-                                alt=""
-                                onClick={e => {
-                                  e.stopPropagation()
-                                  copyValue(item.barCode)
-                                }}
-                              />
+                              <CopyValue text={item.barCode} />
                             </div>
                           ) : (
                             <Typography className={classNames.linkField}>
@@ -264,15 +253,7 @@ export const BoxViewForm = observer(
                           </Link>
                         </Typography>
 
-                        <img
-                          className={classNames.copyImg}
-                          src="/assets/icons/copy-img.svg"
-                          alt=""
-                          onClick={e => {
-                            e.stopPropagation()
-                            copyValue(box.shippingLabel)
-                          }}
-                        />
+                        <CopyValue text={box.shippingLabel} />
                       </div>
                     ) : (
                       <Typography className={classNames.linkField}>{t(TranslationKey['Not available'])}</Typography>

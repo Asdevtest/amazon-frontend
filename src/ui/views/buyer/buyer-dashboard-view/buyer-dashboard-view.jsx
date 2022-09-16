@@ -35,6 +35,10 @@ export class BuyerDashboardViewRaw extends Component {
   render() {
     const {dashboardData, userInfo, drawerOpen, onTriggerDrawerOpen, onClickInfoCardViewMode} = this.viewModel
     const {classes: classNames} = this.props
+    const buyerButtonsRoutes = {
+      notifications: '',
+      messages: 'messages',
+    }
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
@@ -45,7 +49,7 @@ export class BuyerDashboardViewRaw extends Component {
                 <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
 
                 <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
-                <DashboardButtons user={userInfo} />
+                <DashboardButtons user={userInfo} routes={buyerButtonsRoutes} />
               </Paper>
 
               <div className={classNames.amountWithLabelCardsWrapper}>

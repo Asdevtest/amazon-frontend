@@ -13,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field'
 import {SelectStorekeeperAndTariffForm} from '@components/forms/select-storkeeper-and-tariff-form'
 import {Modal} from '@components/modal'
@@ -46,9 +47,6 @@ const Box = ({
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
   const [showFullCard, setShowFullCard] = useState(true)
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
-  }
 
   const setShippingLabel = () => value => {
     onChangeField({target: {value}}, 'tmpShippingLabel', box._id)
@@ -215,12 +213,7 @@ const Box = ({
                         <Link href={box.shippingLabel} target="_blank">
                           {t(TranslationKey.View)}
                         </Link>
-                        <img
-                          className={classNames.copyImg}
-                          src="/assets/icons/copy-img.svg"
-                          alt=""
-                          onClick={() => copyValue(box.shippingLabel)}
-                        />
+                        <CopyValue text={box.shippingLabel} />
                       </div>
                     ) : (
                       <div className={classNames.shippingLabelWrapper}>

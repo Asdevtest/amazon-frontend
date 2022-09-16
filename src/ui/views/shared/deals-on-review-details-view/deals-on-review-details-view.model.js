@@ -15,6 +15,7 @@ export class VacantDealsDetailsViewModel {
 
   requestId = undefined
   proposalId = undefined
+  curProposalId = undefined
 
   drawerOpen = false
   showConfirmModal = false
@@ -30,6 +31,7 @@ export class VacantDealsDetailsViewModel {
     this.history = history
     if (location.state) {
       this.requestId = location.state.requestId
+      this.curProposalId = location.state.curProposalId
       this.requester = location.state.requester
     }
     makeAutoObservable(this, undefined, {autoBind: true})

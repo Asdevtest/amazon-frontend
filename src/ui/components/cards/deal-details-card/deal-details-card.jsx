@@ -27,9 +27,11 @@ export const DealDetailsCard = ({
   onClickReworkDealModal,
   dealsOnReview,
   item,
+  proposalId,
 }) => {
   const classNames = useClassNames()
-  console.log(item)
+  const curProposal = item.find(el => el?.proposal._id === proposalId)
+  console.log(curProposal)
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -38,53 +40,66 @@ export const DealDetailsCard = ({
             <div className={classNames.userInfoWrapper}>
               <Typography className={classNames.userInfoName}>{t(TranslationKey.Client)}</Typography>
               <div className={classNames.userInfo}>
-                <Avatar src={getUserAvatarSrc(item?.request?.createdBy?._id)} className={classNames.cardImg} />
+                <Avatar src={getUserAvatarSrc(curProposal?.request?.createdBy?._id)} className={classNames.cardImg} />
 
                 <div className={classNames.nameWrapper}>
-                  <UserLink blackText name={item?.request?.createdBy?.name} userId={item?.request?.createdBy?._id} />
-                  {item && <Rating disabled value={item?.request?.createdBy?.rating} />}
+                  <UserLink
+                    blackText
+                    name={curProposal?.request?.createdBy?.name}
+                    userId={item?.request?.createdBy?._id}
+                  />
+                  {curProposal && <Rating disabled value={curProposal?.request?.createdBy?.rating} />}
                 </div>
               </div>
             </div>
             <div className={classNames.userInfoWrapper}>
               <Typography className={classNames.userInfoName}>{t(TranslationKey.Performer)}</Typography>
               <div className={classNames.userInfo}>
-                <Avatar src={getUserAvatarSrc(item?.proposal.createdBy._id)} className={classNames.cardImg} />
+                <Avatar src={getUserAvatarSrc(curProposal?.proposal.createdBy._id)} className={classNames.cardImg} />
 
                 <div className={classNames.nameWrapper}>
-                  <UserLink blackText name={item?.proposal.createdBy.name} userId={item?.proposal.createdBy._id} />
-                  {item && <Rating disabled value={item?.proposal?.createdBy?.rating} />}
+                  <UserLink
+                    blackText
+                    name={curProposal?.proposal.createdBy.name}
+                    userId={curProposal?.proposal.createdBy._id}
+                  />
+                  {curProposal && <Rating disabled value={curProposal?.proposal?.createdBy?.rating} />}
                 </div>
               </div>
             </div>
           </div>
           <div className={classNames.cardTitleBlockWrapper}>
             <div className={classNames.cardTitleBlockHeaderWrapper}>
-              <Typography className={classNames.cardTitle}>{item?.proposal.title}</Typography>
-              <Typography className={classNames.cardDescription}>{item?.proposal.comment}</Typography>
+              <Typography className={classNames.cardTitle}>{curProposal?.proposal.title}</Typography>
+              <Typography className={classNames.cardDescription}>{curProposal?.proposal.comment}</Typography>
             </div>
           </div>
           <div className={classNames.sumAndTimeWrapper}>
             <div>
               <Typography className={classNames.sumAndTimeTitle}>{t(TranslationKey.Budget)}</Typography>
-              <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item?.proposal.price, 2)}</Typography>
+              <Typography className={classNames.cardPrice}>
+                {toFixedWithDollarSign(curProposal?.proposal.price, 2)}
+              </Typography>
             </div>
             <div>
               <Typography className={classNames.sumAndTimeTitle}>{t(TranslationKey.Deadline)}</Typography>
-              <Typography>{formatNormDateTime(item?.proposal.timeoutAt)}</Typography>
+              <Typography>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</Typography>
             </div>
           </div>
           <div className={classNames.filesWrapper}>
-            <PhotoAndFilesCarousel small files={item?.proposal.linksToMediaFiles} />
+            <PhotoAndFilesCarousel small files={curProposal?.proposal.linksToMediaFiles} />
           </div>
           {!dealsOnReview &&
           [
             RequestStatus.CORRECTED,
             RequestStatus.TO_CORRECT_BY_SUPERVISOR,
             RequestStatus.VERIFYING_BY_SUPERVISOR,
-          ].includes(item?.proposal.status) ? (
+          ].includes(curProposal?.proposal.status) ? (
             <div>
-              <Button className={classNames.actionButton} onClick={() => onClickReworkDealModal(item?.proposal._id)}>
+              <Button
+                className={classNames.actionButton}
+                onClick={() => onClickReworkDealModal(curProposal?.proposal._id)}
+              >
                 {t(TranslationKey['Send in for rework'])}
               </Button>
             </div>
@@ -97,13 +112,13 @@ export const DealDetailsCard = ({
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey['Time to complete'])}</Typography>
 
-                <Typography>{minsToTime(item?.proposal.execution_time)}</Typography>
+                <Typography>{minsToTime(curProposal?.proposal.execution_time)}</Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey.Status)}</Typography>
 
                 <Typography className={classNames.statusText}>
-                  {<RequestStatusCell status={item?.proposal.status} />}
+                  {<RequestStatusCell status={curProposal?.proposal.status} />}
                 </Typography>
               </div>
             </div>
@@ -111,24 +126,24 @@ export const DealDetailsCard = ({
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey.Deadline)}</Typography>
 
-                <Typography>{formatNormDateTime(item?.proposal.timeoutAt)}</Typography>
+                <Typography>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey['Total price'])}</Typography>
 
                 <Typography className={classNames.cardPrice}>
-                  {toFixedWithDollarSign(item?.proposal.price, 2)}
+                  {toFixedWithDollarSign(curProposal?.proposal.price, 2)}
                 </Typography>
               </div>
             </div>
           </div>
           <div className={classNames.resultWrapper}>
             <Typography className={classNames.result}>{t(TranslationKey.Result)}</Typography>
-            <Typography className={classNames.resultDescription}>{item?.details.result}</Typography>
+            <Typography className={classNames.resultDescription}>{curProposal?.details.result}</Typography>
           </div>
           <div className={classNames.filesAndTimeWrapper}>
             <div className={classNames.filesWrapper}>
-              <PhotoAndFilesCarousel small files={item?.details?.linksToMediaFiles} />
+              <PhotoAndFilesCarousel small files={curProposal?.details?.linksToMediaFiles} />
             </div>
 
             <div className={classNames.timeOnReviewWrapper}>
@@ -141,7 +156,7 @@ export const DealDetailsCard = ({
               RequestStatus.CORRECTED,
               RequestStatus.TO_CORRECT_BY_SUPERVISOR,
               RequestStatus.VERIFYING_BY_SUPERVISOR,
-            ].includes(item?.proposal.status) && (
+            ].includes(curProposal?.proposal.status) && (
               <div className={classNames.buttonsWrapper}>
                 <Button
                   danger
@@ -149,7 +164,7 @@ export const DealDetailsCard = ({
                   variant="contained"
                   color="primary"
                   className={classNames.actionButton}
-                  onClick={() => onClickRejectDealModal(item?.proposal._id)}
+                  onClick={() => onClickRejectDealModal(curProposal?.proposal._id)}
                 >
                   {t(TranslationKey['Reject the deal'])}
                 </Button>
@@ -160,7 +175,7 @@ export const DealDetailsCard = ({
                   variant="contained"
                   color="primary"
                   className={classNames.actionButton}
-                  onClick={() => onClickConfirmDealModal(item?.proposal._id)}
+                  onClick={() => onClickConfirmDealModal(curProposal?.proposal._id)}
                 >
                   {t(TranslationKey['Accept the deal'])}
                 </Button>
@@ -174,7 +189,7 @@ export const DealDetailsCard = ({
                 variant="contained"
                 color="primary"
                 className={classNames.actionButton}
-                onClick={() => onClickGetToWorkModal(item?.proposal._id)}
+                onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}
               >
                 {t(TranslationKey['Get to work'])}
               </Button>

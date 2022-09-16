@@ -37,7 +37,8 @@ export class DealsOnReviewDetailsView extends Component {
       showRejectModal,
       showReworkModal,
       requestProposals,
-
+      curProposalId,
+      // requestId,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickConfirmDealModal,
@@ -61,7 +62,8 @@ export class DealsOnReviewDetailsView extends Component {
           <Appbar title={t(TranslationKey['Vacant deals'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <DealDetailsCard
-                item={requestProposals[0]}
+                item={requestProposals}
+                proposalId={curProposalId}
                 onClickConfirmDealModal={onClickConfirmDealModal}
                 onClickRejectDealModal={onClickRejectDealModal}
                 onClickReworkDealModal={onClickReworkDealModal}

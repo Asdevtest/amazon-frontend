@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {Modal} from '@components/modal'
 
@@ -22,10 +23,6 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
   const tableCellClsx = clsx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
-
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
-  }
 
   const isNoBarCodGlued = box.items.some(
     item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper,
@@ -115,13 +112,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                         >
                           {t(TranslationKey.download)}
                         </a>
-
-                        <img
-                          className={classNames.copyImg}
-                          src="/assets/icons/copy-img.svg"
-                          alt=""
-                          onClick={() => copyValue(box.items[0].product.barCode)}
-                        />
+                        <CopyValue text={box.items[0].product.barCode} />
                       </div>
                     ) : (
                       <Typography className={classNames.alertSpan}>{'N/A'}</Typography>
@@ -166,13 +157,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                           >
                             {t(TranslationKey.download)}
                           </a>
-
-                          <img
-                            className={classNames.copyImg}
-                            src="/assets/icons/copy-img.svg"
-                            alt=""
-                            onClick={() => copyValue(item.barCode)}
-                          />
+                          <CopyValue text={item.barCode} />
                         </div>
                       ) : (
                         <Typography className={classNames.alertSpan}>{t(TranslationKey.Missing)}</Typography>
@@ -237,13 +222,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
               <a download target="_blank" rel="noreferrer" href={box.shippingLabel} className={classNames.downloadLink}>
                 {t(TranslationKey.download)}
               </a>
-
-              <img
-                className={classNames.copyImg}
-                src="/assets/icons/copy-img.svg"
-                alt=""
-                onClick={() => copyValue(box.shippingLabel)}
-              />
+              <CopyValue text={box.shippingLabel} />
             </div>
           ) : (
             <Typography className={classNames.alertSpan}>{t(TranslationKey.Missing)}</Typography>

@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field/field'
 
 import {t} from '@utils/translations'
@@ -50,10 +51,6 @@ export const TabMainContent = ({
   const onClickDeleteProxy = proxy => {
     const removeProxy = proxyArr.filter(p => p !== proxy)
     setProxyArr(removeProxy)
-  }
-
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
   }
 
   return (
@@ -118,12 +115,7 @@ export const TabMainContent = ({
                 <Typography className={clsx(classNames.proxy)}>
                   {proxy.length > 32 ? proxy.slice(0, 32) + '...' : proxy}
                 </Typography>
-                <img
-                  className={classNames.copyImg}
-                  src="/assets/icons/copy-img.svg"
-                  alt=""
-                  onClick={() => copyValue(proxy)}
-                />
+                <CopyValue text={proxy} />
               </div>
 
               <DeleteOutlineOutlinedIcon className={classNames.deleteProxy} onClick={() => onClickDeleteProxy(proxy)} />

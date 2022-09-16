@@ -228,6 +228,8 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '140%',
     color: '#001029',
     height: '125px',
+    maxWidth: '758px',
+    overflow: 'auto',
   },
   filesAndTimeWrapper: {
     display: 'flex',

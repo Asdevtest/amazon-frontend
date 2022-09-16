@@ -91,7 +91,7 @@ export class DealsOnReviewModel {
     try {
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
         requestId: id,
-        proposalId,
+        curProposalId: proposalId,
       })
     } catch (error) {
       this.onTriggerOpenModal('showWarningModal')

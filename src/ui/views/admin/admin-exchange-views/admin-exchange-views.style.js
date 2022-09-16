@@ -15,7 +15,7 @@ export const styles = createStyles(theme => ({
     marginRight: theme.spacing(2),
   },
   row: {
-    cursor: 'url(/assets/icons/Cursor.svg), auto',
+    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.01)',

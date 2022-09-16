@@ -6,6 +6,7 @@ import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
@@ -17,10 +18,6 @@ import {useClassNames} from './edit-order-suppliers-table.style'
 
 export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) => {
   const classNames = useClassNames()
-
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
-  }
 
   return (
     <TableContainer className={classNames.table}>
@@ -61,16 +58,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
                       <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplier.link)}>
                         <Typography className={classNames.Link}>{t(TranslationKey['Go to supplier site'])}</Typography>
                       </Link>
-
-                      <img
-                        className={classNames.copyImg}
-                        src="/assets/icons/copy-img.svg"
-                        alt=""
-                        onClick={e => {
-                          e.stopPropagation()
-                          copyValue(supplier.link)
-                        }}
-                      />
+                      <CopyValue text={supplier.link} />
                     </div>
                   ) : (
                     <Typography>{t(TranslationKey['Link not available'])}</Typography>

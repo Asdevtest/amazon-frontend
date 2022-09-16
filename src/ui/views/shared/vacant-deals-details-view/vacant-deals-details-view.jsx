@@ -36,24 +36,16 @@ export class VacantDealsDetailsView extends Component {
 
   render() {
     const {
-      // nameSearchValue,
-      // viewMode,
-      // getCurrentData,
-      // sortMode,
-      proposalId,
       requestId,
       drawerOpen,
       requester,
       showConfirmModal,
       requestProposals,
-      // onTriggerSortMode,
+      curProposalId,
       onTriggerDrawerOpen,
       onTriggerOpenModal,
       onClickGetToWorkModal,
       onClickGetToWork,
-      // onClickViewMore,
-      // onChangeViewMode,
-      // onChangeNameSearchValue,
     } = this.viewModel
     // const {classes: classNames} = this.props
 
@@ -70,7 +62,8 @@ export class VacantDealsDetailsView extends Component {
             <MainContent>
               <DealDetailsCard
                 dealsOnReview
-                item={requestProposals[0]}
+                proposalId={curProposalId}
+                item={requestProposals}
                 requester={requester}
                 onClickGetToWorkModal={onClickGetToWorkModal}
               />
@@ -84,7 +77,7 @@ export class VacantDealsDetailsView extends Component {
             message={t(TranslationKey['Taking the deal check to work?'])}
             successBtnText={t(TranslationKey.Yes)}
             cancelBtnText={t(TranslationKey.No)}
-            onClickSuccessBtn={() => onClickGetToWork(proposalId, requestId)}
+            onClickSuccessBtn={() => onClickGetToWork(curProposalId, requestId)}
             onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
           />
         </Main>

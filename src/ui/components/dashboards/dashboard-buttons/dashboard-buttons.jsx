@@ -13,7 +13,7 @@ import {useClassNames} from '@components/dashboards/dashboard-buttons/dashboard-
 import {checkIsAdmin, checkIsStorekeeper} from '@utils/checks'
 import {t} from '@utils/translations'
 
-export const DashboardButtons = ({user}) => {
+export const DashboardButtons = ({user, routes}) => {
   const classNames = useClassNames()
   const history = useHistory()
 
@@ -21,7 +21,7 @@ export const DashboardButtons = ({user}) => {
     <div className={classNames.buttonsWrapper}>
       <div
         className={classNames.buttonWrapper}
-        onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/notifications/orders-notifications`)}
+        onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.notifications}`)}
       >
         <div className={classNames.iconWrapper}>
           <MyNotificationsIcon classes={{root: classNames.fontSizeLarge}} />
@@ -31,7 +31,7 @@ export const DashboardButtons = ({user}) => {
       </div>
       <div
         className={classNames.buttonWrapper}
-        onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/messages`)}
+        onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.messages}`)}
       >
         <div className={classNames.iconWrapper}>
           <Message classes={{root: classNames.fontSizeLarge}} />
@@ -40,12 +40,19 @@ export const DashboardButtons = ({user}) => {
         <Typography className={classNames.title}>{t(TranslationKey.Messages)}</Typography>
       </div>
       {checkIsAdmin(UserRoleCodeMap[user.role]) || checkIsStorekeeper(UserRoleCodeMap[user.role]) ? (
-        <div className={classNames.buttonWrapper}>
+        <div
+          className={classNames.buttonWrapper}
+          onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.settings}`)}
+        >
           <div className={classNames.iconWrapper}>
             <SettingsIcon classes={{root: classNames.fontSizeLarge}} />
           </div>
 
-          <Typography className={classNames.title}>{t(TranslationKey.Settings)}</Typography>
+          <Typography className={classNames.title}>
+            {checkIsStorekeeper(UserRoleCodeMap[user.role])
+              ? t(TranslationKey['Warehouse management'])
+              : t(TranslationKey.Settings)}
+          </Typography>
         </div>
       ) : null}
     </div>

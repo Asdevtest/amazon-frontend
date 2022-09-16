@@ -7,6 +7,8 @@ import {Divider, Typography, Button} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {CopyValue} from '@components/copy-value/copy-value'
+
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {t} from '@utils/translations'
 
@@ -15,9 +17,7 @@ import {ProductParameters} from './product-parameters'
 
 export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
   const classNames = useClassNames()
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
-  }
+
   return (
     <div className={classNames.orderContainer}>
       <div className={classNames.product}>
@@ -29,17 +29,7 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
             <Typography className={classNames.text}>
               <span className={classNames.asinTypo}>{t(TranslationKey.ASIN) + ': '}</span> {order.product.asin}
             </Typography>
-            {order.product.asin ? (
-              <img
-                className={classNames.copyImg}
-                src="/assets/icons/copy-img.svg"
-                alt=""
-                onClick={e => {
-                  e.stopPropagation()
-                  copyValue(order.product.asin)
-                }}
-              />
-            ) : null}
+            {order.product.asin ? <CopyValue text={order.product.asin} /> : null}
           </div>
           <div className={classNames.copyValueWrapper}>
             <Typography className={classNames.text}>
@@ -47,17 +37,7 @@ export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
               {order.product.skusByClient?.length ? order.product.skusByClient.join(',') : t(TranslationKey.Missing)}
             </Typography>
 
-            {order.product?.skusByClient.slice()[0] ? (
-              <img
-                className={classNames.copyImg}
-                src="/assets/icons/copy-img.svg"
-                alt=""
-                onClick={e => {
-                  e.stopPropagation()
-                  copyValue(order.product.skusByClient.slice()[0])
-                }}
-              />
-            ) : null}
+            {order.product?.skusByClient.slice()[0] ? <CopyValue text={order.product.skusByClient.slice()[0]} /> : null}
           </div>
         </div>
       </div>

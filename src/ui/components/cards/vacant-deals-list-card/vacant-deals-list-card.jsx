@@ -104,7 +104,7 @@ export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToW
               variant="contained"
               color="primary"
               className={classNames.actionButton}
-              onClick={() => onClickViewMore(item.requestId)}
+              onClick={() => onClickViewMore(item.requestId, item._id)}
             >
               {t(TranslationKey['Open a deal'])}
             </Button>

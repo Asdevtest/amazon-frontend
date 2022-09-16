@@ -8,6 +8,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
+import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 
@@ -18,10 +19,6 @@ import {useClassNames} from './table-supplier.style'
 
 export const TableSupplier = observer(({product, selectedSupplier, onClickSupplier}) => {
   const classNames = useClassNames()
-
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
-  }
 
   const renderHeader = () => (
     <TableHead>
@@ -73,16 +70,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                       <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(supplier.link)}>
                         <Typography className={classNames.Link}>{t(TranslationKey['Go to supplier site'])}</Typography>
                       </Link>
-
-                      <img
-                        className={classNames.copyImg}
-                        src="/assets/icons/copy-img.svg"
-                        alt=""
-                        onClick={e => {
-                          e.stopPropagation()
-                          copyValue(supplier.link)
-                        }}
-                      />
+                      <CopyValue text={supplier.link} />
                     </div>
                   ) : (
                     <Typography>{t(TranslationKey['Link not available'])}</Typography>

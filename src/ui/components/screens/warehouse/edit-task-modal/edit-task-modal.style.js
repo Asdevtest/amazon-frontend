@@ -166,7 +166,7 @@ export const useClassNames = makeStyles(theme => ({
   commentsAndFilesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'start',
   },
 
   buttons: {

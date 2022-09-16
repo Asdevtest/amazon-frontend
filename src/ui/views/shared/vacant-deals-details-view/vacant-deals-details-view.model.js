@@ -14,7 +14,7 @@ export class VacantDealsDetailsViewModel {
   requestId = undefined
   requester = undefined
   proposalId = undefined
-
+  curProposalId = undefined
   drawerOpen = false
   showConfirmModal = false
   showDetails = true
@@ -25,6 +25,7 @@ export class VacantDealsDetailsViewModel {
     this.history = history
     if (location.state) {
       this.requestId = location.state.requestId
+      this.curProposalId = location.state.curProposalId
       this.requester = location.state.requester
     }
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -60,6 +61,7 @@ export class VacantDealsDetailsViewModel {
       await RequestProposalModel.requestProposalLinkOrUnlinkSupervisor(id, {action: 'LINK'})
       this.history.push(`/${UserRoleCodeMapForRoutes[this.user.role]}/freelance/deals-on-review/deal-on-review`, {
         requestId,
+        curProposalId: id,
       })
       this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
@@ -68,8 +70,7 @@ export class VacantDealsDetailsViewModel {
     }
   }
 
-  onClickGetToWorkModal(proposalId) {
-    this.proposalId = proposalId
+  onClickGetToWorkModal() {
     this.onTriggerOpenModal('showConfirmModal')
   }
 

@@ -12,6 +12,7 @@ import {TaskOperationType} from '@constants/task-operation-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {CustomCarousel, PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field'
 import {Modal} from '@components/modal'
@@ -84,10 +85,6 @@ const Box = observer(
         )}
       </div>
     )
-
-    const copyValue = value => {
-      navigator.clipboard.writeText(value)
-    }
 
     return (
       <div className={classNames.mainPaper}>
@@ -357,12 +354,7 @@ const Box = observer(
                     <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(box.shippingLabel)}>
                       <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
                     </Link>
-                    <img
-                      className={classNames.copyImg}
-                      src="/assets/icons/copy-img.svg"
-                      alt=""
-                      onClick={() => copyValue(box.shippingLabel)}
-                    />
+                    <CopyValue text={box.shippingLabel} />
                   </div>
                 ) : (
                   <Typography className={classNames.link}>{t(TranslationKey['Not available'])}</Typography>

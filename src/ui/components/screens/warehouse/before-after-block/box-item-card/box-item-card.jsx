@@ -4,6 +4,7 @@ import {Checkbox, Link, Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {CopyValue} from '@components/copy-value/copy-value'
 import {Field} from '@components/field'
 import {Text} from '@components/text'
 
@@ -15,10 +16,6 @@ import {useClassNames} from './box-item-card.style'
 
 export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode, boxId, readOnly}) => {
   const classNames = useClassNames()
-
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
-  }
 
   return (
     <div className={classNames.root}>
@@ -61,12 +58,7 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode,
                   <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
                     <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
                   </Link>
-                  <img
-                    className={classNames.copyImg}
-                    src="/assets/icons/copy-img.svg"
-                    alt=""
-                    onClick={() => copyValue(item.barCode)}
-                  />
+                  <CopyValue text={item.barCode} />
                 </div>
               ) : (
                 <Typography className={classNames.barCodeField}>{t(TranslationKey['Not available'])}</Typography>
@@ -133,17 +125,7 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode,
                   <Typography className={classNames.asin}>{t(TranslationKey.ASIN)}</Typography>
                   <Typography className={classNames.asinTitle}>{item.product?.asin}</Typography>
                 </div>
-                {item.product?.asin ? (
-                  <img
-                    className={classNames.copyImg}
-                    src="/assets/icons/copy-img.svg"
-                    alt=""
-                    onClick={e => {
-                      e.stopPropagation()
-                      copyValue(item.product?.asin)
-                    }}
-                  />
-                ) : null}
+                {item.product?.asin ? <CopyValue text={item.product?.asin} /> : null}
               </div>
 
               <Typography className={classNames.title}>{item.product?.amazonTitle}</Typography>
@@ -162,12 +144,7 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode,
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(item.barCode)}>
                 <Typography className={classNames.barCodeField}>{t(TranslationKey.View)}</Typography>
               </Link>
-              <img
-                className={classNames.copyImg}
-                src="/assets/icons/copy-img.svg"
-                alt=""
-                onClick={() => copyValue(item.barCode)}
-              />
+              <CopyValue text={item.barCode} />
             </div>
           ) : (
             <Typography className={classNames.barCodeField}>{t(TranslationKey['Not available'])}</Typography>

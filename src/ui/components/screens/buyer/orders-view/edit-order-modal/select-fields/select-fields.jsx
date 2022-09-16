@@ -7,6 +7,7 @@ import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
+import {CopyValue} from '@components/copy-value/copy-value'
 import {PhotoAndFilesCarousel, PhotoCarousel} from '@components/custom-carousel/custom-carousel'
 import {Field} from '@components/field/field'
 import {BigImagesModal} from '@components/modals/big-images-modal'
@@ -49,10 +50,6 @@ export const SelectFields = ({
   )
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
-
-  const copyValue = value => {
-    navigator.clipboard.writeText(value)
-  }
 
   return (
     <Grid container justify="space-around" className={classNames.container}>
@@ -381,15 +378,7 @@ export const SelectFields = ({
                         >
                           <Typography className={classNames.link}>{orderFields.product.barCode}</Typography>
                         </Link>
-                        <img
-                          className={classNames.copyImg}
-                          src="/assets/icons/copy-img.svg"
-                          alt=""
-                          onClick={e => {
-                            e.stopPropagation()
-                            copyValue(orderFields.product.barCode)
-                          }}
-                        />
+                        <CopyValue text={orderFields.product.barCode} />
                       </div>
                     ) : (
                       <Typography className={classNames.barCodeText}>{t(TranslationKey.Missing)}</Typography>

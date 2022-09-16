@@ -30,7 +30,7 @@ export const UserMoneyTransferModal = ({openModal, setOpenModal, isWithdraw}) =>
           <Typography className={classNames.link}>{t(TranslationKey['Money transfer link'])}</Typography>
         </Link>
 
-        <Button disableElevation variant="contained" onClick={setOpenModal}>
+        <Button success disableElevation variant="contained" className={classNames.button} onClick={setOpenModal}>
           {t(TranslationKey.Ok)}
         </Button>
       </div>
