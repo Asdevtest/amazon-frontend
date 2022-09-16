@@ -169,7 +169,7 @@ export class ProfileViewModel {
     try {
       this.checkValidationNameOrEmail = await UserModel.isCheckUniqueUser({
         name: data.name,
-        email: data.email.toLowerCase(),
+        email: data.email,
       })
 
       if (this.checkValidationNameOrEmail.nameIsUnique || this.checkValidationNameOrEmail.emailIsUnique) {

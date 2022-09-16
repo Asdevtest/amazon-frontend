@@ -45,7 +45,7 @@ export const clientExchangeViewColumns = (handlers, firstRowId) => [
 
     renderCell: params => <MultilineStatusCell status={params.value} />,
 
-    width: 150,
+    width: 120,
   },
 
   {
@@ -63,7 +63,7 @@ export const clientExchangeViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 120,
+    width: 110,
     type: 'number',
   },
 
@@ -83,7 +83,7 @@ export const clientExchangeViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BSR)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 90,
+    width: 70,
     type: 'number',
   },
 
@@ -105,7 +105,7 @@ export const clientExchangeViewColumns = (handlers, firstRowId) => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
     ),
-    width: 130,
+    width: 170,
   },
 
   {
@@ -114,7 +114,7 @@ export const clientExchangeViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
-    width: 105,
+    width: 170,
   },
 
   {
@@ -125,7 +125,7 @@ export const clientExchangeViewColumns = (handlers, firstRowId) => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
     ),
-    width: 155,
+    width: 170,
   },
 
   {

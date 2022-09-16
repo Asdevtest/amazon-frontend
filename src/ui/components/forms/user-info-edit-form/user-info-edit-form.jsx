@@ -36,7 +36,7 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
     const newFormFields = {...formFields}
 
     if (fieldName === 'email') {
-      newFormFields[fieldName] = event.target.value.replace(/ /g, '')
+      newFormFields[fieldName] = event.target.value.replace(/ /g, '').toLowerCase()
       setEmailInputError(false)
     } else if (fieldName === 'name') {
       const nameIsValid = regExpNameCheking.test(formFields.name)
@@ -71,8 +71,8 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
     return res
   }
 
-  const onClickSubmit = event => {
-    event.preventDefault()
+  const onClickSubmit = () => {
+    // event.preventDefault()
 
     const emailIsValid = regExpEmailChecking.test(formFields.email)
 
@@ -120,7 +120,7 @@ export const UserInfoEditForm = observer(({user, onSubmit, onCloseModal, checkVa
       <RegistrationForm isRecoverPassword formFields={{password: ''}} onChangeFormField={onChangeField} />
 
       <div className={classNames.btnsWrapper}>
-        <Button disabled={disabledSubmit} className={classNames.actionBtn} type="submit" /* onClick={onClickSubmit}*/>
+        <Button disabled={disabledSubmit} className={classNames.actionBtn} /* type="submit"*/ onClick={onClickSubmit}>
           {t(TranslationKey.Save)}
         </Button>
 

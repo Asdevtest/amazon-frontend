@@ -92,13 +92,13 @@ export class SuppliersAndIdeasModel {
     try {
       const res = await IdeaModel.createIdea({...data, price: data.price || 0, quantity: data.quantity || 0})
 
-      if (isForceUpdate) {
-        return res.guid
-      } else {
+      if (!isForceUpdate) {
         this.successModalTitle = t(TranslationKey['Idea created'])
 
         this.onTriggerOpenModal('showSuccessModal')
       }
+
+      return res.guid
     } catch (error) {
       console.log(error)
     }
@@ -174,6 +174,8 @@ export class SuppliersAndIdeasModel {
       } else {
         const createdIdeaId = await this.createIdea({...submitData, productId: this.productId}, isForceUpdate)
 
+        console.log('createdIdeaId', createdIdeaId)
+
         const createdIdea = await IdeaModel.getIdeaById(createdIdeaId)
 
         this.curIdea = createdIdea
@@ -199,7 +201,7 @@ export class SuppliersAndIdeasModel {
       const createData = {
         images: this.dataToCreateProduct.media,
         amazonTitle: this.dataToCreateProduct.productName,
-        amazon: this.dataToCreateProduct.price,
+        amazon: this.dataToCreateProduct.price || 0,
         width: this.dataToCreateProduct.width || 0,
         height: this.dataToCreateProduct.height || 0,
         length: this.dataToCreateProduct.length || 0,
