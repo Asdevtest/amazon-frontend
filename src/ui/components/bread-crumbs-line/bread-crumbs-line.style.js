@@ -8,7 +8,7 @@ export const useClassNames = makeStyles({
 
   сrumb: {
     color: '#007bff',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
 
     '&:hover': {

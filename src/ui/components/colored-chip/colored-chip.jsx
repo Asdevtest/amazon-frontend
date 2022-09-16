@@ -28,7 +28,11 @@ export const ColoredChip = observer(
 
     return (
       <div className={classNames.chipWrapper}>
-        <Chip className={clsx(classNames.chip, {[classNames.chipActive]: selected})} {...restProps} />
+        <Chip
+          classes={{root: classNames.root}}
+          className={clsx(classNames.chip, {[classNames.chipActive]: selected})}
+          {...restProps}
+        />
         {tooltipAttentionContent || tooltipInfoContent ? (
           <div className={classNames.tooltipsWrapper}>
             {tooltipAttentionContent ? (

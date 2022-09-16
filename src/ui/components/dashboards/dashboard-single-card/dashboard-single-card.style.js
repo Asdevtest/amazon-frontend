@@ -5,7 +5,7 @@ export const useClassNames = makeStyles({
     height: '148px',
     backgroundColor: '#fff',
     boxShadow: '0px 2px 11px 2px #DFDFDF',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     padding: '30px 20px',
     borderRadius: '8px',
     display: 'flex',

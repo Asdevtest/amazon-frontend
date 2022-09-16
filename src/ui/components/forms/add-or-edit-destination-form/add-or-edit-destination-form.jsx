@@ -101,7 +101,11 @@ export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit,
         <Field
           label={t(TranslationKey['ZIP code'])}
           inputProps={{maxLength: 255}}
-          error={!/^[0-9]{5}$/.test(formFields.zipCode) && t(TranslationKey['numeric format, example:']) + ' 90001'}
+          error={
+            formFields.zipCode &&
+            !/^[0-9]{5}$/.test(formFields.zipCode) &&
+            t(TranslationKey['numeric format, example:']) + ' 90001'
+          }
           value={formFields.zipCode}
           placeholder={t(TranslationKey['ZIP code']) + '...'}
           onChange={onChangeField('zipCode')}

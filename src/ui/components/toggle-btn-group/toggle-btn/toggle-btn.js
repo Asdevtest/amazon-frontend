@@ -13,5 +13,6 @@ export const ToggleBtn = styled(ToggleButton)({
     width: '27px',
     height: '24px',
     fontFamily: "'Manrope, sans-serif'",
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 })

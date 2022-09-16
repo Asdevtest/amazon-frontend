@@ -8,7 +8,7 @@ export const useClassNames = makeStyles(() => ({
 
     borderLeft: '2px solid transparent',
 
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
   rootIsSelected: {
     borderLeftColor: '#006CFF',

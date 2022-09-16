@@ -18,7 +18,7 @@ export const styles = theme =>
     },
     formFooter: {
       width: '290px',
-      cursor: 'pointer',
+      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
       alignItems: 'center',
       display: 'flex',
       marginBottom: theme.spacing(2.5),
@@ -28,7 +28,7 @@ export const styles = theme =>
       position: 'absolute',
       right: 10,
       top: 41,
-      cursor: 'pointer',
+      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     },
 
     inputAdornment: {

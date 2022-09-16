@@ -135,8 +135,7 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    cursor: 'pointer',
-
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover > :not(:last-child)': {
       opacity: '0.3',
     },
@@ -211,7 +210,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   image: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     minWidth: 60,
     minHeight: 60,
     // height: 50,
@@ -222,7 +221,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   smallImage: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     minWidth: 60,
 
     minHeight: 60,

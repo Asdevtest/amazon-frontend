@@ -24,7 +24,7 @@ export const styles = theme =>
     },
     label: {
       fontWeight: 600,
-      cursor: 'pointer',
+      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     },
     formFooter: {
       alignItems: 'center',
@@ -35,7 +35,7 @@ export const styles = theme =>
     forgotPassword: {
       marginLeft: '20px',
       transition: '0.3s ease',
-      cursor: 'pointer',
+      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
       '&:hover': {
         color: '#007bff',
         fontWeight: '500',
@@ -46,7 +46,7 @@ export const styles = theme =>
       position: 'absolute',
       right: 10,
       top: 41,
-      cursor: 'pointer',
+      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     },
 
     inputAdornment: {

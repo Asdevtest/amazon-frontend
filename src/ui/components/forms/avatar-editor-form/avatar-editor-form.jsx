@@ -68,12 +68,12 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
             backgroundColor: '#EBEBEB',
             textAlign: 'center',
             transition: '0.3s ease',
-            cursor: 'pointer',
+            cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
           }}
           borderStyle={{
             border: ' 3px dashed rgba(0,123, 255, .7)',
             transition: '0.3s ease',
-            cursor: 'pointer',
+            cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
             borderRadius: '10px',
             display: 'flex',
             justifyContent: 'center',

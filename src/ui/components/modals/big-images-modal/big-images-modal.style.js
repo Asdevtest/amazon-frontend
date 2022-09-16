@@ -21,7 +21,7 @@ export const useClassNames = makeStyles(() => ({
     position: 'absolute',
     top: '0',
     right: '0',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     zIndex: '333',
     transition: '0.3s ease',
     opacity: '.3',

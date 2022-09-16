@@ -14,7 +14,7 @@ export const useClassNames = makeStyles(() => ({
     padding: '10px 40px',
     borderBottom: '1px solid #eeeeee',
     alignItems: 'center',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       backgroundColor: '#f1f1f1',
     },

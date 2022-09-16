@@ -4,6 +4,7 @@ export const useClassNames = makeStyles(() => ({
   root: {
     minHeight: '36px !important',
     minWidth: '36px !important',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   success: {

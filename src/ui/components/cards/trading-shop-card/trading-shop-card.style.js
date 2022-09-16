@@ -135,7 +135,7 @@ export const useClassNames = makeStyles(() => ({
   carouselImage: {
     width: 333,
     height: 241,
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     objectFit: 'contain',
   },
 }))

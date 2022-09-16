@@ -96,7 +96,7 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: '#fff',
     borderRadius: '50%',
     border: '1px solid #007BFF',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
 
     '&:hover': {
@@ -111,8 +111,7 @@ export const useClassNames = makeStyles(() => ({
 
   avatarWrapper: {
     position: 'relative',
-    cursor: 'pointer',
-
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover > :not(:last-child)': {
       transition: '0.6s ease-out',
       opacity: '0.2',

@@ -233,7 +233,7 @@ export const useClassNames = makeStyles(() => ({
 
   linkText: {
     color: '#007BFF',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
     whiteSpace: 'nowrap',
     overflow: 'auto',
@@ -385,8 +385,7 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    cursor: 'pointer',
-
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover > :not(:last-child)': {
       opacity: '0.3',
     },
@@ -586,7 +585,7 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: '#006CFF',
     borderRadius: '4px',
     color: '#fff',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.1)',
@@ -737,7 +736,7 @@ export const useClassNames = makeStyles(() => ({
     height: '22px',
     fontSize: '18px',
     color: '#00B746',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.1)',
@@ -745,7 +744,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   chartIcon: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.1)',

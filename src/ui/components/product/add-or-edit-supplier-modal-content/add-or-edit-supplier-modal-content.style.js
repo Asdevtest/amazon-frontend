@@ -233,7 +233,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   link: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     color: '#007bff',
     maxWidth: '100%',
     overflow: 'auto',

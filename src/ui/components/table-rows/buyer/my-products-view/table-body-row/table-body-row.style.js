@@ -116,7 +116,7 @@ export const styles = createStyles({
     color: '#FFC632',
   },
   row: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.01)',

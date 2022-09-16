@@ -145,7 +145,7 @@ export const useClassNames = makeStyles(() => ({
   imgBox: {
     width: '100%',
     transition: '.2s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.02)',
     },
@@ -202,6 +202,6 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '140%',
     fontWeight: '400',
     color: '#006CFF',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 }))

@@ -117,7 +117,7 @@ export const useClassNames = makeStyles(() => ({
     width: '145px',
     display: 'flex',
     alignItems: 'center',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
     '&:hover': {
       opacity: '0.8',

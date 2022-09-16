@@ -135,7 +135,7 @@ export const useClassNames = makeStyles(() => ({
   carouselImage: {
     height: '100%',
     transition: '.2s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.02)',
     },

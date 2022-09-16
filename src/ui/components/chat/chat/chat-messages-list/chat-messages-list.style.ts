@@ -60,7 +60,7 @@ export const useClassNames = makeStyles(() => ({
     width: '32px',
   },
   messageAvatarWrapperIsIncomming: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
 
     '&:hover': {
@@ -118,7 +118,7 @@ export const useClassNames = makeStyles(() => ({
     objectFit: 'contain',
     objectPosition: 'center',
     transition: '.2s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.02)',
     },

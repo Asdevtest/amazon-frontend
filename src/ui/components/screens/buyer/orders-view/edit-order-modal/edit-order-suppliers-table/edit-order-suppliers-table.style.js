@@ -174,7 +174,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: 12,
     color: '#006CFF',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.1)',
     },
@@ -185,7 +185,7 @@ export const useClassNames = makeStyles(() => ({
     width: '20px',
     height: '20px',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.2)',
     },

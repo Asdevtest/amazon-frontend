@@ -137,7 +137,7 @@ export const useClassNames = makeStyles(theme => ({
     height: '200px',
     objectFit: 'contain',
     transition: '.2s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.02)',
     },
@@ -290,14 +290,14 @@ export const useClassNames = makeStyles(theme => ({
     width: 197,
     height: 184,
     objectFit: 'contain',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   boxImageClass: {
     width: 148,
     height: 151,
     objectFit: 'contain',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
   noBarCodeGlued: {
     color: 'red',
