@@ -196,7 +196,7 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: '#006CFF',
     borderRadius: '4px',
     color: '#fff',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   actionButton: {
@@ -206,7 +206,7 @@ export const useClassNames = makeStyles(() => ({
     // backgroundColor: '#006CFF',
     // borderRadius: '4px',
     color: '#00B746',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   actionTagButton: {
@@ -219,7 +219,7 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: '#006CFF',
     borderRadius: '4px',
     color: '#fff',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     marginRight: '15px',
   },
 
@@ -233,7 +233,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   removeTagButton: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   allowedStrategiesContainer: {

@@ -38,7 +38,7 @@ export const useClassNames = makeStyles(() => ({
     borderRadius: '50%',
     backgroundColor: '#F8F8F8',
     boxShadow: '0px 0px 14px 6px rgba(184, 184, 184, 0.18), inset -4px -4px 13px rgba(135, 135, 135, 0.15)',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
   buttonsWrapper: {
     display: 'flex',

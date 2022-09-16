@@ -63,7 +63,7 @@ export const useClassNames = makeStyles(() => ({
     border: '1px solid #e0e0e0',
     borderRadius: '4px',
     padding: '10px 15px',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     color: 'rgba(61, 81, 112, 1)',
     fontSize: '16px',
     fontWeight: 400,
@@ -86,14 +86,14 @@ export const useClassNames = makeStyles(() => ({
   },
   collapsedWrapper: {
     textAlign: 'center',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     marginTop: '79px',
   },
   copyImg: {
     width: '20px',
     height: '20px',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.07)',
     },

@@ -59,7 +59,7 @@ export const useClassNames = makeStyles(() => ({
     borderRadius: '4px',
     display: 'flex',
     alignItems: 'center',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease-in-out',
 
     backgroundColor: 'white',
@@ -148,7 +148,7 @@ export const useClassNames = makeStyles(() => ({
 
   linkText: {
     color: '#007BFF',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
     whiteSpace: 'nowrap',
     overflow: 'auto',

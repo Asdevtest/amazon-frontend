@@ -55,7 +55,7 @@ export const useClassNames = makeStyles(theme => ({
     border: '1px solid #ccc',
     borderRadius: '10px',
     padding: '0 8px',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     color: 'rgba(61, 81, 112, 1)',
     fontSize: '14px',
     fontWeight: 400,
@@ -133,7 +133,7 @@ export const useClassNames = makeStyles(theme => ({
     objectFit: 'contain',
     objectPosition: 'center',
     transition: '.2s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.02)',
     },

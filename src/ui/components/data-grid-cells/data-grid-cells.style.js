@@ -168,6 +168,7 @@ export const styles = createStyles(() => ({
     color: 'white',
     fontSize: '13px',
     borderRadius: '4px',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
   barcodeChipHover: {
     '&:hover, &:focus': {
@@ -537,7 +538,7 @@ export const styles = createStyles(() => ({
     height: '20px',
 
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.2)',
     },
@@ -695,7 +696,7 @@ export const styles = createStyles(() => ({
     fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '400',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
 
     '&:hover': {
@@ -709,7 +710,7 @@ export const styles = createStyles(() => ({
     fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '400',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
 
     '&:hover': {
@@ -759,7 +760,7 @@ export const styles = createStyles(() => ({
   downloadLink: {
     color: '#006CFF',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.1)',
     },
@@ -769,7 +770,7 @@ export const styles = createStyles(() => ({
     width: '20px',
     height: '20px',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.2)',
     },
@@ -779,7 +780,7 @@ export const styles = createStyles(() => ({
     width: '18px',
     height: '18px',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.2)',
     },

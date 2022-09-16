@@ -142,7 +142,7 @@ export const useClassNames = makeStyles(() => ({
     objectFit: 'contain',
     objectPosition: 'center',
     transition: '.2s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.02)',
     },
@@ -173,7 +173,7 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'center',
     border: '1px solid rgba(61, 81, 112, 1)',
     borderRadius: '10px',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
     '&:hover': {
       opacity: '0.7',

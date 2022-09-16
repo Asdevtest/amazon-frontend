@@ -28,7 +28,7 @@ export const styles = createStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   noticesTextActive: {

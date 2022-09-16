@@ -45,7 +45,7 @@ export const logisticsTariffsColumns = handlers => [
     field: 'minWeightInKg',
     headerName: t(TranslationKey['Min. weight, kg']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min. weight, kg'])} />,
-    width: 120,
+    width: 100,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -54,7 +54,7 @@ export const logisticsTariffsColumns = handlers => [
     headerName: t(TranslationKey.Region),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Region)} />,
     renderCell: () => <WarehouseTariffDestinationCell />,
-    width: 130,
+    width: 150,
     filterable: false,
     sortable: false,
   },

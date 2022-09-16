@@ -199,7 +199,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   removeShopButton: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     zIndex: 999,
   },
 
@@ -289,7 +289,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   linkOnEdit: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     color: '#007bff',
   },
 
@@ -350,7 +350,7 @@ export const useClassNames = makeStyles(() => ({
     width: '30px',
     height: '30px',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.2)',
     },

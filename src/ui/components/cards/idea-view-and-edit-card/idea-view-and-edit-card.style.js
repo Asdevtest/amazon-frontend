@@ -52,7 +52,7 @@ export const useClassNames = makeStyles(() => ({
     height: '130px',
     objectFit: 'contain',
     transition: '.2s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.02)',
     },
@@ -129,7 +129,7 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
 
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       opacity: '.8',
     },
@@ -197,7 +197,7 @@ export const useClassNames = makeStyles(() => ({
     width: '20px',
     height: '20px',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.07)',
     },

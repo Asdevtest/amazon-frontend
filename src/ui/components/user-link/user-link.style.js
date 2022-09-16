@@ -6,7 +6,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '400',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
 
     '&:hover': {
@@ -20,7 +20,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '600',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
     maxWidth: '100px',
     textAlign: 'end',
@@ -35,7 +35,7 @@ export const useClassNames = makeStyles(() => ({
   avatarWrapper: {
     marginRight: 10,
 
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
 
     '&:hover': {

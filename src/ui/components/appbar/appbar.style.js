@@ -73,7 +73,7 @@ export const useClassNames = makeStyles(theme => ({
   userInfoWrapper: {
     display: 'flex',
     alignItems: 'center',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
     height: '100%',
     '&:hover': {
@@ -93,7 +93,7 @@ export const useClassNames = makeStyles(theme => ({
     height: '100%',
     display: 'flex',
     alignItems: 'center',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
   notificationList: {
     width: '420px',
@@ -222,7 +222,7 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   hintsTextActive: {

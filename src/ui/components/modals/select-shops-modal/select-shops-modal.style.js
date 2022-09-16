@@ -131,7 +131,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   removeShopButton: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   shopsFieldAddButton: {
@@ -140,6 +140,6 @@ export const useClassNames = makeStyles(() => ({
   },
 
   deleteIcon: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 }))

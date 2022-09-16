@@ -22,7 +22,7 @@ export const useClassNames = makeStyles(() => ({
     height: '100px',
     border: ' 3px dashed rgba(0,123, 255, .7)',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '10px',
 
     '&:hover': {
@@ -42,7 +42,7 @@ export const useClassNames = makeStyles(() => ({
     width: '110px',
     transition: '0.3s ease',
     border: ' 1px solid rgba(0,123, 255, .7)',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '10px',
     '&:hover': {
       opacity: '0.7',
@@ -65,7 +65,7 @@ export const useClassNames = makeStyles(() => ({
     width: '90px',
     transition: '0.3s ease',
     border: ' 1px solid rgba(0,123, 255, .7)',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '10px',
     '&:hover': {
       opacity: '0.7',
@@ -161,7 +161,7 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-evenly',
   },
   actionIcon: {
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.1)',

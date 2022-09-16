@@ -229,7 +229,7 @@ export const useClassNames = makeStyles(() => ({
 
   linkText: {
     color: '#007BFF',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
     whiteSpace: 'nowrap',
     overflow: 'auto',
@@ -372,8 +372,7 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    cursor: 'pointer',
-
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover > :not(:last-child)': {
       opacity: '0.3',
     },

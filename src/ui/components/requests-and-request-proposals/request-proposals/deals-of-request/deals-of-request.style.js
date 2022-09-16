@@ -133,6 +133,6 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '140%',
     fontWeight: '400',
     color: '#006CFF',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 }))

@@ -28,7 +28,7 @@ export const useClassNames = makeStyles(theme => ({
     objectFit: 'contain',
     objectPosition: 'center',
     transition: '.2s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.02)',
     },
@@ -142,7 +142,7 @@ export const useClassNames = makeStyles(theme => ({
 
   linkText: {
     color: '#007BFF',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
     whiteSpace: 'nowrap',
     overflow: 'auto',

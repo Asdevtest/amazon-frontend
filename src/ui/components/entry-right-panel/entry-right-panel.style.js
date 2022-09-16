@@ -36,7 +36,7 @@ export const useClassNames = makeStyles(theme => ({
   redirect: {
     margin: '0 30px',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       color: '#007bff',
       fontWeight: '500',

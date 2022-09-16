@@ -10,6 +10,7 @@ export const ToggleBtnGroup = styled(ToggleButtonGroup)({
     width: '58px',
     height: '28px',
     borderRadius: '4px',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   '& > .MuiToggleButtonGroup-grouped:not(:last-of-type)': {

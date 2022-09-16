@@ -52,7 +52,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'translate(0%, -3%)',
     },
@@ -147,7 +147,7 @@ export const useClassNames = makeStyles(() => ({
     borderRadius: '10px',
     marginBottom: '4px',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.01)',
     },
@@ -158,7 +158,7 @@ export const useClassNames = makeStyles(() => ({
     borderRadius: '10px',
     margin: '0 0 4px 10px',
     transition: '0.3s ease',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
       transform: 'scale(1.01)',
     },
@@ -194,6 +194,7 @@ export const useClassNames = makeStyles(() => ({
   tab: {
     color: '#006CFF',
     textTransform: 'inherit',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   selectedTab: {

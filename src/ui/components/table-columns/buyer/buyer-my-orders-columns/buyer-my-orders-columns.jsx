@@ -21,7 +21,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-    width: 75,
+    width: 55,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 
@@ -38,7 +38,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 200,
+    width: 120,
     renderCell: params => <OrderStatusCell status={params.value} />,
   },
 
@@ -48,7 +48,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
 
-    width: 150,
+    width: 70,
   },
 
   {
@@ -56,7 +56,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 200,
+    width: 150,
     renderCell: params => <DownloadAndCopyBtnsCell value={params.value} isFirstRow={firstRowId === params.row.id} />,
   },
 
@@ -68,7 +68,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />
     ),
-    width: 200,
+    width: 160,
   },
 
   {
@@ -79,7 +79,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.product.client?._id} />
     ),
-    width: 200,
+    width: 150,
   },
 
   {
@@ -88,7 +88,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
 
     renderCell: params => <RenderFieldValueCell value={params.value} />,
-    width: 200,
+    width: 120,
   },
 
   {

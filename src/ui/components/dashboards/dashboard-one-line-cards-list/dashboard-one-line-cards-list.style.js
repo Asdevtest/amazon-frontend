@@ -12,7 +12,7 @@ export const useClassNames = makeStyles(() => ({
     padding: '20px',
     borderRadius: '8px',
     height: '151px',
-    cursor: 'pointer',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'column',
