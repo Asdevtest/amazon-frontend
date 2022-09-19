@@ -17,18 +17,19 @@ import {Button} from '@components/buttons/button'
 
 import {t} from '@utils/translations'
 
+import {IFile} from '../multiple-chats'
 import {ChatFilesInput} from './chat-files-input'
 import {ChatMessagesList, ChatMessageUniversalHandlers} from './chat-messages-list'
 import {useClassNames} from './chat.style'
 
 export interface RenderAdditionalButtonsParams {
   message: string
-  files: any[]
+  files: IFile[]
 }
 
 export interface MessageStateParams {
   message: string
-  files: any[]
+  files: IFile[]
 }
 
 interface Props {
@@ -37,7 +38,7 @@ interface Props {
   userId: string
   chatMessageHandlers?: ChatMessageUniversalHandlers
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  onSubmitMessage: (message: string, files: any[]) => void
+  onSubmitMessage: (message: string, files: IFile[]) => void
   updateData: () => void
   onTypingMessage: (chatId: string) => void
 }
@@ -62,7 +63,7 @@ export const Chat: FC<Props> = observer(
 
     const [message, setMessage] = useState(messageInitialState.message)
 
-    const [files, setFiles] = useState<any[]>(
+    const [files, setFiles] = useState<IFile[]>(
       messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files,
     )
 
@@ -81,7 +82,7 @@ export const Chat: FC<Props> = observer(
       SettingsModel.setChatMessageState({message: value, files}, chat._id)
     }
 
-    const changeFilesAndState = (value: any[]) => {
+    const changeFilesAndState = (value: IFile[]) => {
       setFiles(value)
       SettingsModel.setChatMessageState({message, files: value}, chat._id)
     }
@@ -119,13 +120,13 @@ export const Chat: FC<Props> = observer(
     }, [files?.length])
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
-      if (event.key === 'Enter' && !event.shiftKey) {
+      if (!disabledSubmit && event.key === 'Enter' && !event.shiftKey) {
         onSubmitMessageInternal()
         event.preventDefault()
       }
     }
 
-    const onPasteFiles = async (evt: any) => {
+    const onPasteFiles = async (evt: React.ClipboardEvent) => {
       if (evt.clipboardData.files.length === 0) {
         return
       } else {
@@ -135,17 +136,19 @@ export const Chat: FC<Props> = observer(
 
         evt.preventDefault()
 
-        const readyFilesArr: any[] = filesArr.map((el: any) => ({
+        const readyFilesArr: IFile[] = filesArr.map((el: File) => ({
           data_url: URL.createObjectURL(el),
           file: new File([el], el.name?.replace(/ /g, ''), {
             type: el.type,
-            lastModified: el.file?.lastModified,
+            lastModified: el.lastModified,
           }),
         }))
 
         changeFilesAndState([...files, ...readyFilesArr.slice(0, filesAlowLength)])
       }
     }
+
+    const disabledSubmit = !message.replace(/\n/g, '') && !files.length
 
     return (
       <div className={classNames.root}>
@@ -181,15 +184,11 @@ export const Chat: FC<Props> = observer(
               }}
               value={message}
               onKeyPress={handleKeyPress}
-              onChange={(e: any) => changeMessageAndState(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeMessageAndState(e.target.value)}
               onPaste={evt => onPasteFiles(evt)}
             />
 
-            <Button
-              disabled={!message && !files.length}
-              className={classNames.sendBtn}
-              onClick={() => onSubmitMessageInternal()}
-            >
+            <Button disabled={disabledSubmit} className={classNames.sendBtn} onClick={() => onSubmitMessageInternal()}>
               {
                 <div className={classNames.sendBtnTextWrapper}>
                   <Typography>{t(TranslationKey.Send)}</Typography>

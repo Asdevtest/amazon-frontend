@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {Type} from 'class-transformer'
 import {IsBoolean, IsNotEmpty, IsOptional, IsString} from 'class-validator'
 

@@ -12187,6 +12187,11 @@ react-dev-utils@^11.0.3:
     strip-ansi "6.0.0"
     text-table "0.2.0"
 
+react-document-configuration@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/react-document-configuration/-/react-document-configuration-0.1.5.tgz#9499cf20d873cf611980b06c0fed835a5b85a82c"
+  integrity sha512-GHA4JWkF8GK+A9aUZ6FZEkG4coQvyUVcDgSvQWym2qnB9LeOk30tXbqg7ok8wRcvSpJWnKnqa8ULhz7hZ05Igw==
+
 react-dom@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
@@ -12200,6 +12205,11 @@ react-error-overlay@6.0.9, react-error-overlay@^6.0.9:
   version "6.0.9"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.9.tgz#3c743010c9359608c375ecd6bc76f35d93995b0a"
   integrity sha512-nQTTcUu+ATDbrSD1BZHr5kgSD4oF8OFjxun8uAaL8RwPBacGBNPf/yAuVVdx17N8XNzRDMrZ9XcKZHCjPW+9ew==
+
+react-favicon-notification@^1.0.28:
+  version "1.0.28"
+  resolved "https://registry.yarnpkg.com/react-favicon-notification/-/react-favicon-notification-1.0.28.tgz#e891afa48e0c69a6c1bac8750ab878d980279bc6"
+  integrity sha512-XnAFvNuAyPpSAKG1RaKC46Bv930D3Ve3lFOyyXGLEfCUDuy+TugP8l5Te/Wa15qoIuT837Nd3fUhxj1u6j3srw==
 
 "react-images-uploading-alex76457-version@git+https://github.com/Alex76456/react-images-uploading-alex76456-version.git":
   version "3.1.3"

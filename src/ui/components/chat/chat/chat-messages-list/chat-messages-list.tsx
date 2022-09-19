@@ -7,16 +7,11 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
 
-import {TranslationKey} from '@constants/translations/translation-key'
-
 import {ChatModel} from '@models/chat-model'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
-import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
-
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {t} from '@utils/translations'
 import {
   checkIsChatMessageDataCreatedNewProposalProposalDescriptionContract,
   checkIsChatMessageDataCreatedNewProposalRequestDescriptionContract,

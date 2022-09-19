@@ -1,4 +1,4 @@
-import React, {forwardRef, ReactElement, useState} from 'react'
+import React, {forwardRef, ReactElement} from 'react'
 
 import {Typography} from '@material-ui/core'
 import {compareDesc, parseISO} from 'date-fns'
@@ -18,6 +18,10 @@ import {ChatMessageUniversalHandlers} from '../chat/chat-messages-list'
 import {ChatsList} from '../chats-list'
 import {useClassNames} from './multiple-chats.style'
 
+export interface IFile {
+  data_url: string
+  file: File
+}
 interface Props {
   searchFilter: string
   chats: ChatContract[]
@@ -27,7 +31,7 @@ interface Props {
   typingUsers?: OnTypingMessageResponse[]
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   updateData: () => void
-  onSubmitMessage: (message: string, files: any, chat: string) => void
+  onSubmitMessage: (message: string, files: IFile[], chat: string) => void
   onClickChat: (chat: ChatContract) => void
   onTypingMessage: (chatId: string) => void
 }
@@ -93,7 +97,7 @@ export const MultipleChats = observer(
                 chatMessageHandlers={chatMessageHandlers}
                 renderAdditionalButtons={renderAdditionalButtons}
                 updateData={updateData}
-                onSubmitMessage={(message: string, files: any) =>
+                onSubmitMessage={(message: string, files: IFile[]) =>
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   onSubmitMessage(message, files, chatSelectedId!)
                 }

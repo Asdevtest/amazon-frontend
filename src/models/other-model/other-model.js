@@ -30,7 +30,7 @@ class OtherModelStatic {
       },
     })
 
-    return response
+    return response.data.fileName
   }
 
   postAvatar = async dataForm => {

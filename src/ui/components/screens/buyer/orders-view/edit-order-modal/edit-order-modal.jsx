@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import InputBase from '@mui/material/InputBase'
 
 import React, {useEffect, useState} from 'react'
 

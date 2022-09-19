@@ -167,7 +167,7 @@ export const useClassNames = makeStyles(() => ({
   linksSubWrapper: {
     width: '100%',
     maxHeight: '200px',
-    overflow: 'auto',
+    overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column',
     marginTop: 10,

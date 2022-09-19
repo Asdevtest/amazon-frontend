@@ -1,4 +1,5 @@
 import SearchIcon from '@mui/icons-material/Search'
+import {Link} from '@mui/material'
 
 import React, {Component} from 'react'
 
@@ -52,6 +53,8 @@ class MessagesViewRaw extends Component {
     } = this.viewModel
     const {classes: classNames} = this.props
 
+    const currentOpponent = simpleChats.find(el => el._id === chatSelectedId)?.users.find(el => el._id !== user._id)
+
     return (
       <React.Fragment>
         <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
@@ -73,17 +76,16 @@ class MessagesViewRaw extends Component {
                   />
 
                   {chatSelectedId && simpleChats.length ? (
-                    <div className={classNames.opponentWrapper}>
-                      <Avatar
-                        src={getUserAvatarSrc(
-                          simpleChats.find(el => el._id === chatSelectedId).users.find(el => el._id !== user._id)._id,
-                        )}
-                        className={classNames.avatarWrapper}
-                      />
-                      <Typography className={classNames.opponentName}>
-                        {simpleChats.find(el => el._id === chatSelectedId).users.find(el => el._id !== user._id).name}
-                      </Typography>
-                    </div>
+                    <Link
+                      target="_blank"
+                      href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
+                      underline="none"
+                    >
+                      <div className={classNames.opponentWrapper}>
+                        <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
+                        <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
+                      </div>
+                    </Link>
                   ) : null}
                 </div>
 
