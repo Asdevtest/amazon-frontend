@@ -1527,5 +1527,10 @@
   "Try selecting a dialogue or Find a concrete speaker": "Попробуйте выбрать диалог или Найти конкретного собеседника",
   "New Dialogue": "Новый диалог",
   "Write a message": "Написать сообщение",
-  "Deadline date cannot be earlier than the current date": "Крайняя дата не может быть раньше текущей даты"
+  "Deadline date cannot be earlier than the current date": "Крайняя дата не может быть раньше текущей даты",
+  "Add a list of reasons": "Добавьте список причин",
+  "To be added to the list": "Будет добавлено в список",
+  "Search by ASIN, Reason": "Поиск по ASIN, Причине",
+  "Editing ASIN": "Редактирование ASIN",
+  "Are you sure you want to delete ASIN?": "Вы уверены , что хотите удалить ASIN?"
 }

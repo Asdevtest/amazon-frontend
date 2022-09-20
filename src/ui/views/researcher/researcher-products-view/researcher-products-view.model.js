@@ -287,7 +287,8 @@ export class ResearcherProductsViewModel {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
       const checkProductExistResult = await ResearcherModel.checkProductExists(
-        this.formFields.productCode.toUpperCase(),
+        this.formFields.productCode,
+        this.formFields.strategyStatus,
       )
       this.setActionStatus(loadingStatuses.success)
       return checkProductExistResult.isExist

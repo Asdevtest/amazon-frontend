@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20017Failed from './InlineResponse20017Failed';
 
 /**
  * The InlineResponse20017 model module.
@@ -47,8 +48,8 @@ class InlineResponse20017 {
         if (data) {
             obj = obj || new InlineResponse20017();
 
-            if (data.hasOwnProperty('exist')) {
-                obj['exist'] = ApiClient.convertToType(data['exist'], 'Boolean');
+            if (data.hasOwnProperty('failed')) {
+                obj['failed'] = ApiClient.convertToType(data['failed'], [InlineResponse20017Failed]);
             }
         }
         return obj;
@@ -58,9 +59,9 @@ class InlineResponse20017 {
 }
 
 /**
- * @member {Boolean} exist
+ * @member {Array.<module:model/InlineResponse20017Failed>} failed
  */
-InlineResponse20017.prototype['exist'] = undefined;
+InlineResponse20017.prototype['failed'] = undefined;
 
 
 

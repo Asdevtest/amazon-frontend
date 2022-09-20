@@ -107,13 +107,13 @@ export const useClassNames = makeStyles(theme => ({
 
   titleWrapper: {
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: '20px',
   },
 
   storekeeperField: {
-    maxWidth: '250px',
+    maxWidth: '270px',
     margin: '0',
   },
   userLinkWrapper: {

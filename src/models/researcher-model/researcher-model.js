@@ -38,8 +38,8 @@ class ResearcherModelStatic {
     return response
   }
 
-  checkProductExists = async id => {
-    const response = await restApiService.researcherApi.apiV1ResearchersCheckProductsAsinGet(id)
+  checkProductExists = async (asin, strategy) => {
+    const response = await restApiService.researcherApi.apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy)
     return response
   }
 }

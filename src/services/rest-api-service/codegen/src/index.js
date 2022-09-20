@@ -158,6 +158,7 @@ import InlineObject89 from './model/InlineObject89';
 import InlineObject9 from './model/InlineObject9';
 import InlineObject90 from './model/InlineObject90';
 import InlineObject91 from './model/InlineObject91';
+import InlineObject92 from './model/InlineObject92';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
 import InlineResponse20010 from './model/InlineResponse20010';
@@ -168,6 +169,7 @@ import InlineResponse20014 from './model/InlineResponse20014';
 import InlineResponse20015 from './model/InlineResponse20015';
 import InlineResponse20016 from './model/InlineResponse20016';
 import InlineResponse20017 from './model/InlineResponse20017';
+import InlineResponse20017Failed from './model/InlineResponse20017Failed';
 import InlineResponse20018 from './model/InlineResponse20018';
 import InlineResponse20019 from './model/InlineResponse20019';
 import InlineResponse2002 from './model/InlineResponse2002';
@@ -1175,6 +1177,12 @@ export {
     InlineObject91,
 
     /**
+     * The InlineObject92 model constructor.
+     * @property {module:model/InlineObject92}
+     */
+    InlineObject92,
+
+    /**
      * The InlineResponse200 model constructor.
      * @property {module:model/InlineResponse200}
      */
@@ -1233,6 +1241,12 @@ export {
      * @property {module:model/InlineResponse20017}
      */
     InlineResponse20017,
+
+    /**
+     * The InlineResponse20017Failed model constructor.
+     * @property {module:model/InlineResponse20017Failed}
+     */
+    InlineResponse20017Failed,
 
     /**
      * The InlineResponse20018 model constructor.

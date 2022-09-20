@@ -105,6 +105,19 @@ class OtherModelStatic {
     const response = await restApiService.otherApi.apiV1OtherCheckAsinsPost({body: data})
     return response
   }
+
+  getAsins = async () => {
+    const response = await restApiService.otherApi.apiV1OtherCheckAsinsGet()
+    return response
+  }
+  editAsins = async (id, data) => {
+    const response = await restApiService.otherApi.apiV1OtherCheckAsinsGuidPatch(id, {body: data})
+    return response
+  }
+  removeAsin = async id => {
+    const response = await restApiService.otherApi.apiV1OtherCheckAsinsGuidDelete(id)
+    return response
+  }
 }
 
 export const OtherModel = new OtherModelStatic()

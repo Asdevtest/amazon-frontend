@@ -7,7 +7,6 @@ import {Avatar, Divider, Paper, Typography, Hidden, IconButton} from '@material-
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import MenuIcon from '@material-ui/icons/Menu'
 // import NotificationsIcon from '@material-ui/icons/Notifications'
 import clsx from 'clsx'

@@ -1,11 +1,9 @@
-import React, {FC, useEffect, useState} from 'react'
+import React, {FC} from 'react'
 
 import {ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Bar} from 'recharts'
 
-import {SettingsModel} from '@models/settings-model'
-
 interface Props {
-  data: [{}]
+  data: Array<Object>
   xRowKey: string
   firstBarKey: string
   secondBarKey: string

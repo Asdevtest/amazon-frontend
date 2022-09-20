@@ -3,7 +3,6 @@ import {makeAutoObservable, reaction, runInAction, toJS} from 'mobx'
 import {DataGridTablesKeys} from '@constants/data-grid-tables-keys'
 import {loadingStatuses} from '@constants/loading-statuses'
 
-import {OtherModel} from '@models/other-model'
 import {SettingsModel} from '@models/settings-model'
 import {SupervisorModel} from '@models/supervisor-model'
 
@@ -147,15 +146,6 @@ export class SupervisorProductsViewModel {
       if (error.body && error.body.message) {
         this.error = error.body.message
       }
-    }
-  }
-
-  async onSubmitAsins(data) {
-    try {
-      await OtherModel.checkAsins(data)
-      this.onTriggerOpenModal('showAsinCheckerModal')
-    } catch (error) {
-      console.log(error)
     }
   }
 

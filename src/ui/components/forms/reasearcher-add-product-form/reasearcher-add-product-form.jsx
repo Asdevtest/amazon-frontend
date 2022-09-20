@@ -54,7 +54,7 @@ export const ResearcherAddProductFormRaw = observer(
                 tooltipInfoContent={t(TranslationKey['Amazon ID number'])}
                 inputProps={{maxLength: 50}}
                 label={t(TranslationKey['Product code'])}
-                value={formFields.productCode.toUpperCase()}
+                value={formFields.productCode}
                 onChange={onChangeFormFields('productCode')}
               />
             </div>
@@ -75,7 +75,7 @@ export const ResearcherAddProductFormRaw = observer(
                 label={t(TranslationKey['Product Strategy'])}
                 inputComponent={
                   <NativeSelect
-                    disabled={chekedCode === '' || errorMsg}
+                    disabled={errorMsg}
                     value={formFields.strategyStatus}
                     className={classNames.nativeSelect}
                     input={<Input />}

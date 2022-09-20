@@ -182,7 +182,8 @@ export const useClassNames = makeStyles(() => ({
 
   linkWrapper: {
     display: 'flex',
-    alignItems: 'center',
+    // alignItems: 'center',
+    gap: '10px',
   },
 
   row: {
@@ -192,7 +193,6 @@ export const useClassNames = makeStyles(() => ({
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(0.99)',
-      opacity: '0.9',
     },
   },
 
