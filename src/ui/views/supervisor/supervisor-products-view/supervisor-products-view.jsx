@@ -11,10 +11,8 @@ import {ProductStatus} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
-import {Button} from '@components/buttons/button'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
-import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
 import {Navbar} from '@components/navbar'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
@@ -58,7 +56,7 @@ class SupervisorProductsViewRaw extends Component {
       filterModel,
       densityModel,
       columnsModel,
-      showAsinCheckerModal,
+
       drawerOpen,
       curPage,
       rowsPerPage,
@@ -66,12 +64,11 @@ class SupervisorProductsViewRaw extends Component {
       onChangeCurPage,
       onChangeRowsPerPage,
       onClickTableRow,
-      onTriggerOpenModal,
+
       onSelectionModel,
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
-      onSubmitAsins,
     } = this.viewModel
     const {classes: classNames} = this.props
 
@@ -85,15 +82,6 @@ class SupervisorProductsViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey['My products'])} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <div className={classNames.buttonWrapper}>
-                <Button
-                  success
-                  className={classNames.button}
-                  onClick={() => onTriggerOpenModal('showAsinCheckerModal')}
-                >
-                  {'ASIN checker'}
-                </Button>
-              </div>
               <div className={classNames.dataGridWrapper}>
                 <DataGrid
                   pagination
@@ -134,16 +122,6 @@ class SupervisorProductsViewRaw extends Component {
             </MainContent>
           </Appbar>
         </Main>
-        <ConfirmWithCommentModal
-          commentConvertToArray
-          openModal={showAsinCheckerModal}
-          setOpenModal={() => onTriggerOpenModal('showAsinCheckerModal')}
-          titleText={t(TranslationKey['ASIN list'])}
-          commentLabelText={t(TranslationKey['Add a list of ASIN'])}
-          okBtnText={t(TranslationKey.Save)}
-          cancelBtnText={t(TranslationKey.Cancel)}
-          onSubmit={onSubmitAsins}
-        />
       </React.Fragment>
     )
   }

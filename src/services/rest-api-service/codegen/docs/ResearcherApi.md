@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1ResearchersCheckProductsAsinGet**](ResearcherApi.md#apiV1ResearchersCheckProductsAsinGet) | **GET** /api/v1/researchers/check_products/{asin} | Проверить продукт по ID существует ли он в базе.
+[**apiV1ResearchersCheckProductsAsinStrategyGet**](ResearcherApi.md#apiV1ResearchersCheckProductsAsinStrategyGet) | **GET** /api/v1/researchers/check_products/{asin}/{strategy} | Проверить продукт по ID существует ли он в базе.
 [**apiV1ResearchersProductsGet**](ResearcherApi.md#apiV1ResearchersProductsGet) | **GET** /api/v1/researchers/products | Получить список товаров созданных данным пользователем.
 [**apiV1ResearchersProductsGuidDelete**](ResearcherApi.md#apiV1ResearchersProductsGuidDelete) | **DELETE** /api/v1/researchers/products/{guid} | Удалить продукт.
 [**apiV1ResearchersProductsGuidGet**](ResearcherApi.md#apiV1ResearchersProductsGuidGet) | **GET** /api/v1/researchers/products/{guid} | Получить товар по GUID.
@@ -13,9 +13,9 @@ Method | HTTP request | Description
 
 
 
-## apiV1ResearchersCheckProductsAsinGet
+## apiV1ResearchersCheckProductsAsinStrategyGet
 
-> InlineResponse20024 apiV1ResearchersCheckProductsAsinGet(asin, opts)
+> InlineResponse20024 apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts)
 
 Проверить продукт по ID существует ли он в базе.
 
@@ -34,10 +34,11 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 
 let apiInstance = new TestSwagger.ResearcherApi();
 let asin = "asin_example"; // String | ASIN для проверки
+let strategy = "strategy_example"; // String | Стратегия АСИНА для проверки
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1ResearchersCheckProductsAsinGet(asin, opts).then((data) => {
+apiInstance.apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -51,6 +52,7 @@ apiInstance.apiV1ResearchersCheckProductsAsinGet(asin, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **asin** | **String**| ASIN для проверки | 
+ **strategy** | **String**| Стратегия АСИНА для проверки | 
  **Accept_Encoding** | **String**|  | [optional] 
 
 ### Return type
@@ -250,7 +252,7 @@ let apiInstance = new TestSwagger.ResearcherApi();
 let guid = "guid_example"; // String | GUID продукта БД
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject73() // InlineObject73 | 
+  'body': new TestSwagger.InlineObject74() // InlineObject74 | 
 };
 apiInstance.apiV1ResearchersProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -267,7 +269,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | **String**| GUID продукта БД | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject73**](InlineObject73.md)|  | [optional] 
+ **body** | [**InlineObject74**](InlineObject74.md)|  | [optional] 
 
 ### Return type
 
@@ -305,7 +307,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.ResearcherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject72() // InlineObject72 | 
+  'body': new TestSwagger.InlineObject73() // InlineObject73 | 
 };
 apiInstance.apiV1ResearchersProductsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -321,7 +323,7 @@ apiInstance.apiV1ResearchersProductsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject72**](InlineObject72.md)|  | [optional] 
+ **body** | [**InlineObject73**](InlineObject73.md)|  | [optional] 
 
 ### Return type
 

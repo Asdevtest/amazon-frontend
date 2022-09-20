@@ -84,6 +84,7 @@ import {SupervisorProductView} from '@views/supervisor/supervisor-product-view/s
 import {SupervisorProductsView} from '@views/supervisor/supervisor-products-view/'
 import {SupervisorReadyToCheckByClientView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-by-client-view'
 import {SupervisorReadyToCheckView} from '@views/supervisor/supervisor-ready-to-check-views/supervisor-ready-to-check-view'
+import {SupervisorSettingsView} from '@views/supervisor/supervisor-settings-view'
 import {TermsView} from '@views/terms'
 import {WarehouseAwaitingBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-awaiting-batches-view'
 import {WarehouseBatchesView} from '@views/warehouse/warehouse-batches-views/warehouse-batches-view'
@@ -809,6 +810,14 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.SUPERVISOR],
     crumbNameKey: TranslationKey.Messages,
+  },
+
+  {
+    routePath: '/supervisor/settings',
+    component: SupervisorSettingsView,
+    exact: false,
+    permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Settings,
   },
 
   {

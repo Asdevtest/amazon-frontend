@@ -5,7 +5,7 @@ export const ProductStrategyStatus = {
   DROPSHIPPING: 'DROPSHIPPING',
   PRIVATE_LABEL: 'PRIVATE_LABEL',
   ONLINE_ARBITRAGE_CHINA: 'ONLINE_ARBITRAGE_CHINA',
-  WHOLESALE_USA: 'WHOLESALE_USA',
+  WHOLE_SALE_USA: 'WHOLE_SALE_USA',
 }
 
 export const mapProductStrategyStatusEnum = {
@@ -13,7 +13,7 @@ export const mapProductStrategyStatusEnum = {
   10: ProductStrategyStatus.DROPSHIPPING,
   20: ProductStrategyStatus.PRIVATE_LABEL,
   30: ProductStrategyStatus.ONLINE_ARBITRAGE_CHINA,
-  40: ProductStrategyStatus.WHOLESALE_USA,
+  40: ProductStrategyStatus.WHOLE_SALE_USA,
 }
 
 export const humanFriendlyStategyStatus = value => {
@@ -24,8 +24,8 @@ export const humanFriendlyStategyStatus = value => {
       return 'Online arbitrage China'
     case ProductStrategyStatus.PRIVATE_LABEL:
       return 'Private Label'
-    case ProductStrategyStatus.WHOLESALE_USA:
-      return 'Wholesale USA'
+    case ProductStrategyStatus.WHOLE_SALE_USA:
+      return 'Whole sale USA'
   }
 }
 

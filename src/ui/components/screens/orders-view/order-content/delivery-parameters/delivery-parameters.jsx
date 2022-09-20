@@ -1,14 +1,13 @@
 import React from 'react'
 
-import {Avatar, Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {UserLinkCell} from '@components/data-grid-cells/data-grid-cells'
 import {Field} from '@components/field'
-import {UserLink} from '@components/user-link'
 
 import {formatDateWithoutTime} from '@utils/date-time'
-import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {getFullTariffTextForBoxOrOrder} from '@utils/text'
 import {t} from '@utils/translations'
 
@@ -52,8 +51,7 @@ export const DeliveryParameters = ({order}) => {
           labelClasses={classNames.fieldLabel}
           inputComponent={
             <div className={classNames.intWarehouseWrapper}>
-              <Avatar className={classNames.avatar} src={getUserAvatarSrc(order.storekeeper?._id)} />
-              <UserLink blackText name={order.storekeeper?.name} userId={order.storekeeper?._id} />
+              <UserLinkCell blackText name={order.storekeeper?.name} userId={order.storekeeper?._id} />
             </div>
           }
         />
@@ -90,8 +88,7 @@ export const DeliveryParameters = ({order}) => {
           labelClasses={classNames.fieldLabel}
           inputComponent={
             <div className={classNames.intWarehouseWrapper}>
-              <Avatar className={classNames.avatar} src={getUserAvatarSrc(order.buyer?._id)} />
-              <UserLink blackText name={order.buyer?.name} userId={order.buyer?._id} />
+              <UserLinkCell blackText name={order.buyer?.name} userId={order.buyer?._id} />
             </div>
           }
         />

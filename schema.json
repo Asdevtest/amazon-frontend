@@ -32762,15 +32762,32 @@
     },
     "/api/v1/other/check_asins": {
       "post": {
-        "summary": "# Проверка АСИНов",
-        "description": "## Проверка АСИНов по json массиву",
+        "summary": "# Заполнение списка асинов на проверку",
+        "description": "## Заполнение списка асинов на проверку",
         "tags": ["Other"],
         "produces": ["application/json"],
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "schema": {"type": "array", "items": {"type": "string", "description": "ASIN", "example": "B01H6GUCCQ"}}
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["asin", "strategy"],
+                "properties": {
+                  "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                  "reason": {"type": "string", "description": "Причина", "example": "есть в базе"},
+                  "strategy": {
+                    "type": "string",
+                    "enum": ["10", "20", "30", "40"],
+                    "description": "Стратегия",
+                    "example": 10
+                  }
+                }
+              }
+            }
           },
           {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
         ],
@@ -32778,8 +32795,109 @@
         "responses": {
           "200": {
             "description": "Default Response",
-            "schema": {"type": "object", "properties": {"exist": {"type": "boolean", "example": true}}}
+            "schema": {
+              "type": "object",
+              "properties": {
+                "failed": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                      "strategy": {
+                        "type": "string",
+                        "enum": ["10", "20", "30", "40"],
+                        "description": "Стратегия",
+                        "example": 10
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "get": {
+        "summary": "# Получение списка асинов на проверку",
+        "description": "## Получение списка асинов на проверку",
+        "tags": ["Other"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "array",
+              "properties": {
+                "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                "reason": {"type": "string", "description": "Причина", "example": "есть в базе"},
+                "strategy": {
+                  "type": "string",
+                  "enum": ["10", "20", "30", "40"],
+                  "description": "Стратегия",
+                  "example": 10
+                },
+                "_id": {"type": "string"}
+              },
+              "items": {}
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/other/check_asins/{guid}": {
+      "patch": {
+        "summary": "# Изменение асина на проверку из списка",
+        "description": "## Изменение асина на проверку из списка",
+        "tags": ["Other"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "asin": {"type": "string", "description": "ASIN продукта", "example": "B015UKRNGS"},
+                "reason": {"type": "string", "description": "Причина", "example": "есть в базе"},
+                "strategy": {
+                  "type": "string",
+                  "enum": ["10", "20", "30", "40"],
+                  "description": "Стратегия",
+                  "example": 10
+                }
+              }
+            }
+          },
+          {"type": "string", "format": "uuid", "required": true, "in": "path", "name": "guid"},
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      },
+      "delete": {
+        "summary": "# Удаление массива из списка асинов на проверку",
+        "description": "## Удаление массива из списка асинов на проверку",
+        "tags": ["Other"],
+        "produces": ["application/json"],
+        "parameters": [
+          {"type": "string", "format": "uuid", "required": true, "in": "path", "name": "guid"},
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
         }
@@ -36478,7 +36596,7 @@
         }
       }
     },
-    "/api/v1/researchers/check_products/{asin}": {
+    "/api/v1/researchers/check_products/{asin}/{strategy}": {
       "get": {
         "summary": "Проверить продукт по ID существует ли он в базе.",
         "description": "Проверить продукт по ID существует ли он в базе.\n\nВ базе ASIN продукта должно быть уникально. База не даст завести дубль. Перед добавление продукта \n\nнужно проверить, нет ли в базе уже продукта с таким ID \n\n",
@@ -36486,6 +36604,13 @@
         "produces": ["application/json"],
         "parameters": [
           {"type": "string", "description": "ASIN для проверки", "required": true, "in": "path", "name": "asin"},
+          {
+            "type": "string",
+            "description": "Стратегия АСИНА для проверки",
+            "required": true,
+            "in": "path",
+            "name": "strategy"
+          },
           {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
         ],
         "security": [{"AccessTokenBearer": []}],
@@ -36496,7 +36621,8 @@
               "type": "object",
               "description": "Успешный ответ.",
               "properties": {
-                "isExist": {"type": "boolean", "description": "Флаг, показывает есть ли такой ASIN в базе или нет"}
+                "isExist": {"type": "boolean", "description": "Флаг, показывает есть ли такой ASIN в базе или нет"},
+                "reason": {"type": "string", "description": "Причина из таблицы с асинами"}
               }
             }
           },

@@ -4,7 +4,10 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV1OtherCheckAsinsPost**](OtherApi.md#apiV1OtherCheckAsinsPost) | **POST** /api/v1/other/check_asins | # Проверка АСИНов
+[**apiV1OtherCheckAsinsGet**](OtherApi.md#apiV1OtherCheckAsinsGet) | **GET** /api/v1/other/check_asins | # Получение списка асинов на проверку
+[**apiV1OtherCheckAsinsGuidDelete**](OtherApi.md#apiV1OtherCheckAsinsGuidDelete) | **DELETE** /api/v1/other/check_asins/{guid} | # Удаление массива из списка асинов на проверку
+[**apiV1OtherCheckAsinsGuidPatch**](OtherApi.md#apiV1OtherCheckAsinsGuidPatch) | **PATCH** /api/v1/other/check_asins/{guid} | # Изменение асина на проверку из списка
+[**apiV1OtherCheckAsinsPost**](OtherApi.md#apiV1OtherCheckAsinsPost) | **POST** /api/v1/other/check_asins | # Заполнение списка асинов на проверку
 [**apiV1OtherImgGuidGet**](OtherApi.md#apiV1OtherImgGuidGet) | **GET** /api/v1/other/img/{guid} | # Получить изображение.
 [**apiV1OtherPaymentsByProductGuidGet**](OtherApi.md#apiV1OtherPaymentsByProductGuidGet) | **GET** /api/v1/other/payments/by_product/{guid} | # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
 [**apiV1OtherPaymentsByUserGuidGet**](OtherApi.md#apiV1OtherPaymentsByUserGuidGet) | **GET** /api/v1/other/payments/by_user/{guid} | # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
@@ -16,13 +19,175 @@ Method | HTTP request | Description
 
 
 
+## apiV1OtherCheckAsinsGet
+
+> [Object] apiV1OtherCheckAsinsGet(opts)
+
+# Получение списка асинов на проверку
+
+## Получение списка асинов на проверку
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.OtherApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1OtherCheckAsinsGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**[Object]**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1OtherCheckAsinsGuidDelete
+
+> String apiV1OtherCheckAsinsGuidDelete(guid, opts)
+
+# Удаление массива из списка асинов на проверку
+
+## Удаление массива из списка асинов на проверку
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.OtherApi();
+let guid = null; // String | 
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1OtherCheckAsinsGuidDelete(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)|  | 
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1OtherCheckAsinsGuidPatch
+
+> String apiV1OtherCheckAsinsGuidPatch(guid, opts)
+
+# Изменение асина на проверку из списка
+
+## Изменение асина на проверку из списка
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.OtherApi();
+let guid = null; // String | 
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject56() // InlineObject56 | 
+};
+apiInstance.apiV1OtherCheckAsinsGuidPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)|  | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject56**](InlineObject56.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## apiV1OtherCheckAsinsPost
 
 > InlineResponse20017 apiV1OtherCheckAsinsPost(opts)
 
-# Проверка АСИНов
+# Заполнение списка асинов на проверку
 
-## Проверка АСИНов по json массиву
+## Заполнение списка асинов на проверку
 
 ### Example
 
@@ -38,7 +203,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.OtherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': ["B01H6GUCCQ"] // [String] | 
+  'body': [new TestSwagger.InlineObject2()] // [InlineObject2] | 
 };
 apiInstance.apiV1OtherCheckAsinsPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -54,7 +219,7 @@ apiInstance.apiV1OtherCheckAsinsPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**[String]**](String.md)|  | [optional] 
+ **body** | [**[InlineObject2]**](InlineObject2.md)|  | [optional] 
 
 ### Return type
 

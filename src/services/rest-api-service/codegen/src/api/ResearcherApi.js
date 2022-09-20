@@ -15,8 +15,8 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject72 from '../model/InlineObject72';
 import InlineObject73 from '../model/InlineObject73';
+import InlineObject74 from '../model/InlineObject74';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse20024 from '../model/InlineResponse20024';
 import InlineResponse2015 from '../model/InlineResponse2015';
@@ -47,20 +47,26 @@ export default class ResearcherApi {
      * Проверить продукт по ID существует ли он в базе.
      * Проверить продукт по ID существует ли он в базе.  В базе ASIN продукта должно быть уникально. База не даст завести дубль. Перед добавление продукта   нужно проверить, нет ли в базе уже продукта с таким ID   
      * @param {String} asin ASIN для проверки
+     * @param {String} strategy Стратегия АСИНА для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20024} and HTTP response
      */
-    apiV1ResearchersCheckProductsAsinGetWithHttpInfo(asin, opts) {
+    apiV1ResearchersCheckProductsAsinStrategyGetWithHttpInfo(asin, strategy, opts) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'asin' is set
       if (asin === undefined || asin === null) {
-        throw new Error("Missing the required parameter 'asin' when calling apiV1ResearchersCheckProductsAsinGet");
+        throw new Error("Missing the required parameter 'asin' when calling apiV1ResearchersCheckProductsAsinStrategyGet");
+      }
+      // verify the required parameter 'strategy' is set
+      if (strategy === undefined || strategy === null) {
+        throw new Error("Missing the required parameter 'strategy' when calling apiV1ResearchersCheckProductsAsinStrategyGet");
       }
 
       let pathParams = {
-        'asin': asin
+        'asin': asin,
+        'strategy': strategy
       };
       let queryParams = {
       };
@@ -75,7 +81,7 @@ export default class ResearcherApi {
       let accepts = ['application/json'];
       let returnType = InlineResponse20024;
       return this.apiClient.callApi(
-        '/api/v1/researchers/check_products/{asin}', 'GET',
+        '/api/v1/researchers/check_products/{asin}/{strategy}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -85,12 +91,13 @@ export default class ResearcherApi {
      * Проверить продукт по ID существует ли он в базе.
      * Проверить продукт по ID существует ли он в базе.  В базе ASIN продукта должно быть уникально. База не даст завести дубль. Перед добавление продукта   нужно проверить, нет ли в базе уже продукта с таким ID   
      * @param {String} asin ASIN для проверки
+     * @param {String} strategy Стратегия АСИНА для проверки
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20024}
      */
-    apiV1ResearchersCheckProductsAsinGet(asin, opts) {
-      return this.apiV1ResearchersCheckProductsAsinGetWithHttpInfo(asin, opts)
+    apiV1ResearchersCheckProductsAsinStrategyGet(asin, strategy, opts) {
+      return this.apiV1ResearchersCheckProductsAsinStrategyGetWithHttpInfo(asin, strategy, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -258,7 +265,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject73} opts.body 
+     * @param {module:model/InlineObject74} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ResearchersProductsGuidPatchWithHttpInfo(guid, opts) {
@@ -297,7 +304,7 @@ export default class ResearcherApi {
      * @param {String} guid GUID продукта БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject73} opts.body 
+     * @param {module:model/InlineObject74} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ResearchersProductsGuidPatch(guid, opts) {
@@ -313,7 +320,7 @@ export default class ResearcherApi {
      * ## Добавить новый продукт.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject72} opts.body 
+     * @param {module:model/InlineObject73} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2015} and HTTP response
      */
     apiV1ResearchersProductsPostWithHttpInfo(opts) {
@@ -346,7 +353,7 @@ export default class ResearcherApi {
      * ## Добавить новый продукт.   
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject72} opts.body 
+     * @param {module:model/InlineObject73} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2015}
      */
     apiV1ResearchersProductsPost(opts) {

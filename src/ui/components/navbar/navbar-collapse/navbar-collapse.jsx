@@ -56,13 +56,13 @@ export const NavbarCollapse = ({
 
   const renderSubCategory = (subIndex, subCategory) => (
     <Button
+      key={subIndex}
       tooltipPosition="center"
       className={clsx(classNames.menuItem, {[classNames.selected]: subIndex === activeSubCategory})}
       tooltipInfoContent={renderTooltipTitle(subCategory.subtitle, userInfo.role)}
       tooltipAttentionContent={renderAttentionTooltipTitle(subCategory.subtitle, userInfo.role)}
     >
       <NavbarSubCategory
-        key={subIndex}
         button
         disableGutters
         component={Link}

@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**exist** | **Boolean** |  | [optional] 
+**failed** | [**[InlineResponse20017Failed]**](InlineResponse20017Failed.md) |  | [optional] 
 
 

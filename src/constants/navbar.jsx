@@ -471,6 +471,14 @@ export const navbarConfig = () => ({
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: () => true,
     },
+    {
+      icon: SettingsIcon,
+      title: t(TranslationKey.Settings),
+      subtitles: null,
+      route: '/supervisor/settings',
+      key: navBarActiveCategory.NAVBAR_SETTINGS,
+      checkHideBlock: () => true,
+    },
   ],
   [UserRole.BUYER]: [
     {

@@ -15,7 +15,7 @@ interface Props {
   tooltipInfoContent?: ReactElement | string
   value: string
   label: string
-  classes: any
+  classes: Object
 }
 
 export const ITab: FC<Props> = observer(

@@ -154,6 +154,7 @@ docs/InlineObject89.md
 docs/InlineObject9.md
 docs/InlineObject90.md
 docs/InlineObject91.md
+docs/InlineObject92.md
 docs/InlineResponse200.md
 docs/InlineResponse2001.md
 docs/InlineResponse20010.md
@@ -164,6 +165,7 @@ docs/InlineResponse20014.md
 docs/InlineResponse20015.md
 docs/InlineResponse20016.md
 docs/InlineResponse20017.md
+docs/InlineResponse20017Failed.md
 docs/InlineResponse20018.md
 docs/InlineResponse20019.md
 docs/InlineResponse2002.md
@@ -423,6 +425,7 @@ src/model/InlineObject89.js
 src/model/InlineObject9.js
 src/model/InlineObject90.js
 src/model/InlineObject91.js
+src/model/InlineObject92.js
 src/model/InlineResponse200.js
 src/model/InlineResponse2001.js
 src/model/InlineResponse20010.js
@@ -433,6 +436,7 @@ src/model/InlineResponse20014.js
 src/model/InlineResponse20015.js
 src/model/InlineResponse20016.js
 src/model/InlineResponse20017.js
+src/model/InlineResponse20017Failed.js
 src/model/InlineResponse20018.js
 src/model/InlineResponse20019.js
 src/model/InlineResponse2002.js

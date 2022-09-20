@@ -242,7 +242,10 @@ Class | Method | HTTP request | Description
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch) | **PATCH** /api/v1/integrations/sellerboard_warehouse_products_unLink_sku | # Отвязать товар от SKU.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardWarehouseStocksGet**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseStocksGet) | **GET** /api/v1/integrations/sellerboard_warehouse_stocks | Получить днанные со склада.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsWarehouseReportGet**](docs/IntegrationsApi.md#apiV1IntegrationsWarehouseReportGet) | **GET** /api/v1/integrations/warehouse_report | Поиск по товарам со склада по: asin, sku, title..
-*TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsPost**](docs/OtherApi.md#apiV1OtherCheckAsinsPost) | **POST** /api/v1/other/check_asins | # Проверка АСИНов
+*TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsGet**](docs/OtherApi.md#apiV1OtherCheckAsinsGet) | **GET** /api/v1/other/check_asins | # Получение списка асинов на проверку
+*TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsGuidDelete**](docs/OtherApi.md#apiV1OtherCheckAsinsGuidDelete) | **DELETE** /api/v1/other/check_asins/{guid} | # Удаление массива из списка асинов на проверку
+*TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsGuidPatch**](docs/OtherApi.md#apiV1OtherCheckAsinsGuidPatch) | **PATCH** /api/v1/other/check_asins/{guid} | # Изменение асина на проверку из списка
+*TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsPost**](docs/OtherApi.md#apiV1OtherCheckAsinsPost) | **POST** /api/v1/other/check_asins | # Заполнение списка асинов на проверку
 *TestSwagger.OtherApi* | [**apiV1OtherImgGuidGet**](docs/OtherApi.md#apiV1OtherImgGuidGet) | **GET** /api/v1/other/img/{guid} | # Получить изображение.
 *TestSwagger.OtherApi* | [**apiV1OtherPaymentsByProductGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByProductGuidGet) | **GET** /api/v1/other/payments/by_product/{guid} | # Получить все оплаты, которые были начислены в связи с продуктом с указанным гуидом.
 *TestSwagger.OtherApi* | [**apiV1OtherPaymentsByUserGuidGet**](docs/OtherApi.md#apiV1OtherPaymentsByUserGuidGet) | **GET** /api/v1/other/payments/by_user/{guid} | # Получить все оплаты, которые были начислены пользователю с указанным гуидом.
@@ -299,7 +302,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidDelete**](docs/RequestsApi.md#apiV1RequestsGuidDelete) | **DELETE** /api/v1/requests/{guid} | # (возможно данные метод не нужен) Удалить заявку по его GUID.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidPickupPost**](docs/RequestsApi.md#apiV1RequestsGuidPickupPost) | **POST** /api/v1/requests/{guid}/pickup | # Этот метод вызывает тот кто бронирует место в заявке.
 *TestSwagger.RequestsApi* | [**apiV1RequestsGuidToPublishPatch**](docs/RequestsApi.md#apiV1RequestsGuidToPublishPatch) | **PATCH** /api/v1/requests/{guid}/to_publish | #  Опубликовать заявку.
-*TestSwagger.ResearcherApi* | [**apiV1ResearchersCheckProductsAsinGet**](docs/ResearcherApi.md#apiV1ResearchersCheckProductsAsinGet) | **GET** /api/v1/researchers/check_products/{asin} | Проверить продукт по ID существует ли он в базе.
+*TestSwagger.ResearcherApi* | [**apiV1ResearchersCheckProductsAsinStrategyGet**](docs/ResearcherApi.md#apiV1ResearchersCheckProductsAsinStrategyGet) | **GET** /api/v1/researchers/check_products/{asin}/{strategy} | Проверить продукт по ID существует ли он в базе.
 *TestSwagger.ResearcherApi* | [**apiV1ResearchersProductsGet**](docs/ResearcherApi.md#apiV1ResearchersProductsGet) | **GET** /api/v1/researchers/products | Получить список товаров созданных данным пользователем.
 *TestSwagger.ResearcherApi* | [**apiV1ResearchersProductsGuidDelete**](docs/ResearcherApi.md#apiV1ResearchersProductsGuidDelete) | **DELETE** /api/v1/researchers/products/{guid} | Удалить продукт.
 *TestSwagger.ResearcherApi* | [**apiV1ResearchersProductsGuidGet**](docs/ResearcherApi.md#apiV1ResearchersProductsGuidGet) | **GET** /api/v1/researchers/products/{guid} | Получить товар по GUID.
@@ -505,6 +508,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject9](docs/InlineObject9.md)
  - [TestSwagger.InlineObject90](docs/InlineObject90.md)
  - [TestSwagger.InlineObject91](docs/InlineObject91.md)
+ - [TestSwagger.InlineObject92](docs/InlineObject92.md)
  - [TestSwagger.InlineResponse200](docs/InlineResponse200.md)
  - [TestSwagger.InlineResponse2001](docs/InlineResponse2001.md)
  - [TestSwagger.InlineResponse20010](docs/InlineResponse20010.md)
@@ -515,6 +519,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20015](docs/InlineResponse20015.md)
  - [TestSwagger.InlineResponse20016](docs/InlineResponse20016.md)
  - [TestSwagger.InlineResponse20017](docs/InlineResponse20017.md)
+ - [TestSwagger.InlineResponse20017Failed](docs/InlineResponse20017Failed.md)
  - [TestSwagger.InlineResponse20018](docs/InlineResponse20018.md)
  - [TestSwagger.InlineResponse20019](docs/InlineResponse20019.md)
  - [TestSwagger.InlineResponse2002](docs/InlineResponse2002.md)

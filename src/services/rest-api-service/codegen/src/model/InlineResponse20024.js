@@ -51,6 +51,9 @@ class InlineResponse20024 {
             if (data.hasOwnProperty('isExist')) {
                 obj['isExist'] = ApiClient.convertToType(data['isExist'], 'Boolean');
             }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
+            }
         }
         return obj;
     }
@@ -63,6 +66,12 @@ class InlineResponse20024 {
  * @member {Boolean} isExist
  */
 InlineResponse20024.prototype['isExist'] = undefined;
+
+/**
+ * Причина из таблицы с асинами
+ * @member {String} reason
+ */
+InlineResponse20024.prototype['reason'] = undefined;
 
 
 

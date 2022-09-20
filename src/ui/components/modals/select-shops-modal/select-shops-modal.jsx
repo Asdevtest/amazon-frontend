@@ -103,7 +103,7 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
           <Button
             success
             disableElevation
-            disabled={!clearSelect}
+            disabled={selectedItem?.name && !clearSelect}
             // tooltipAttentionContent={!clearSelect && t(TranslationKey.)}
             className={classNames.button}
             // disabled={submitIsClicked}
