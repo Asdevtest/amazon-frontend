@@ -97,6 +97,7 @@ export const ResearcherAddProductFormRaw = observer(
 
             <Box className={classNames.btnsWrapper}>
               <Button
+                disabled={!formFields.strategyStatus}
                 tooltipInfoContent={t(
                   TranslationKey['Checking Amazon ID number for uniqueness and absence in the database'],
                 )}
