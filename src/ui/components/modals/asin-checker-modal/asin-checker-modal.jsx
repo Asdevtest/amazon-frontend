@@ -1,4 +1,5 @@
 import SearchIcon from '@mui/icons-material/Search'
+import VisibilityIcon from '@mui/icons-material/Visibility'
 
 import React, {useEffect, useState} from 'react'
 
@@ -24,14 +25,35 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
   const [updatedAsinsAndReasonsData, setUpdatedAsinsAndReasonsData] = useState([])
   const [nameSearchValue, setNameSearchValue] = useState('')
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   const asinsData = asins ? asins.split('\n') : []
+  //   const reasonsData = reasons ? reasons.split('\n') : []
+  //   const data = []
+  //   asinsData.length &&
+  //     reasonsData.length &&
+  //     asinsData.forEach((item, index) => {
+  //       data.push({asin: item, reason: reasonsData[index], strategy: mapProductStrategyStatusEnumToKey[strategy]})
+  //     })
+  //   if (data.length) {
+  //     setAsinsAndReasonsData(data)
+  //     setUpdatedAsinsAndReasonsData(data)
+  //     setAsins('')
+  //     setReasons('')
+  //   }
+  // }, [asins, reasons])
+
+  const onClickPreviewButton = () => {
     const asinsData = asins ? asins.split('\n') : []
     const reasonsData = reasons ? reasons.split('\n') : []
     const data = []
     asinsData.length &&
       reasonsData.length &&
       asinsData.forEach((item, index) => {
-        data.push({asin: item, reason: reasonsData[index], strategy: mapProductStrategyStatusEnumToKey[strategy]})
+        data.push({
+          asin: item.trim(),
+          reason: reasonsData[index],
+          strategy: mapProductStrategyStatusEnumToKey[strategy],
+        })
       })
     if (data.length) {
       setAsinsAndReasonsData(data)
@@ -39,7 +61,7 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
       setAsins('')
       setReasons('')
     }
-  }, [asins, reasons])
+  }
 
   useEffect(() => {
     const filteredData = asinsAndReasonsData.filter(
@@ -112,25 +134,32 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
         </div>
       ) : null}
       <div className={classNames.buttonsWrapper}>
-        <Button
-          success
-          disabled={!updatedAsinsAndReasonsData.length}
-          variant="contained"
-          className={classNames.buttonOk}
-          onClick={() => onSubmit(updatedAsinsAndReasonsData)}
-        >
-          {t(TranslationKey.Save)}
-        </Button>
+        <div>
+          <Button variant="contained" className={classNames.buttonPreview} onClick={() => onClickPreviewButton()}>
+            <VisibilityIcon className={classNames.icon} />
+          </Button>
+        </div>
+        <div>
+          <Button
+            success
+            disabled={!updatedAsinsAndReasonsData.length}
+            variant="contained"
+            className={classNames.buttonOk}
+            onClick={() => onSubmit(updatedAsinsAndReasonsData)}
+          >
+            {t(TranslationKey.Save)}
+          </Button>
 
-        <Button
-          // disabled={submitIsClicked}
-          color="primary"
-          variant="contained"
-          className={classNames.buttonCancel}
-          onClick={onClose}
-        >
-          {t(TranslationKey.Cancel)}
-        </Button>
+          <Button
+            // disabled={submitIsClicked}
+            color="primary"
+            variant="contained"
+            className={classNames.buttonCancel}
+            onClick={onClose}
+          >
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
       </div>
     </div>
   )

@@ -355,4 +355,13 @@ export const useClassNames = makeStyles(() => ({
       transform: 'scale(1.2)',
     },
   },
+  inputLink: {
+    width: '600px',
+  },
+  copyLink: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'end',
+    gap: '10px',
+  },
 }))

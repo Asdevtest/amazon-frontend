@@ -22,7 +22,7 @@ export const useClassNames = makeStyles(() => ({
     height: '73vh',
   },
   row: {
-    cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',
     '&:hover': {
       transform: 'scale(1.01)',
