@@ -143,7 +143,6 @@ export class SupervisorSettingsContentModel {
   async getAsins(tabIndex) {
     try {
       const result = await OtherModel.getAsins()
-
       runInAction(() => {
         this.asins = result.filter(item => item.strategy === mapProductStrategyStatusEnumToKey[tabIndex].toString())
       })
@@ -166,7 +165,6 @@ export class SupervisorSettingsContentModel {
     try {
       await OtherModel.removeAsin(id)
       this.onTriggerOpenModal('showConfirmModal')
-
       this.loadData()
     } catch (error) {
       console.log(error)
