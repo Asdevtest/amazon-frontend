@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
 
 /**
@@ -52,8 +53,8 @@ class InlineResponse20026 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('ownerId')) {
-                obj['ownerId'] = ApiClient.convertToType(data['ownerId'], 'String');
+            if (data.hasOwnProperty('owner')) {
+                obj['owner'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['owner']);
             }
             if (data.hasOwnProperty('bidderId')) {
                 obj['bidderId'] = ApiClient.convertToType(data['bidderId'], 'String');
@@ -138,10 +139,9 @@ class InlineResponse20026 {
 InlineResponse20026.prototype['_id'] = undefined;
 
 /**
- * GUID владельца магазина
- * @member {String} ownerId
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} owner
  */
-InlineResponse20026.prototype['ownerId'] = undefined;
+InlineResponse20026.prototype['owner'] = undefined;
 
 /**
  * GUID покупателя магазина

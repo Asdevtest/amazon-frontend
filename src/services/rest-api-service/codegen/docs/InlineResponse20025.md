@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | **String** | GUID магазина на продажу. | [optional] 
+**owner** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **title** | **String** | Имя магазина для продажи | [optional] 
 **status** | **String** | Статус магазина для продажи | [optional] 
 **files** | **[String]** | Файлы, которые привязаны к магазину | [optional] 

@@ -214,9 +214,9 @@ class ChatModelStatic {
           ]
         })
       }
-
-      await this.websocketChatService.readMessage(messageId)
     }
+
+    await this.websocketChatService.readMessage(messageIds)
   }
 
   private onConnectionError(error: Error) {

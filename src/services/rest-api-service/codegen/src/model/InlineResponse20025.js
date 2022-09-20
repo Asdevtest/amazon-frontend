@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
 import ApiV1ShopSellStatistics from './ApiV1ShopSellStatistics';
 
 /**
@@ -52,6 +53,9 @@ class InlineResponse20025 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
+            if (data.hasOwnProperty('owner')) {
+                obj['owner'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['owner']);
+            }
             if (data.hasOwnProperty('title')) {
                 obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
@@ -88,6 +92,11 @@ class InlineResponse20025 {
  * @member {String} _id
  */
 InlineResponse20025.prototype['_id'] = undefined;
+
+/**
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} owner
+ */
+InlineResponse20025.prototype['owner'] = undefined;
 
 /**
  * Имя магазина для продажи
