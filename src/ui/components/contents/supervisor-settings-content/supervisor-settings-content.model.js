@@ -121,6 +121,7 @@ export class SupervisorSettingsContentModel {
   async onSubmitAsins(data) {
     try {
       await OtherModel.checkAsins(data)
+
       await this.loadData()
 
       this.onTriggerOpenModal('showAsinCheckerModal')

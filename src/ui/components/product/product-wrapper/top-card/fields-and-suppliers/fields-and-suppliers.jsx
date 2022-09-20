@@ -91,21 +91,24 @@ export const FieldsAndSuppliers = observer(
           label={t(TranslationKey['Amazon product link'])}
           inputComponent={
             <div>
-              <Link
-                contentEditable={!edit || !product.lamazon}
-                target="_blank"
-                rel="noopener"
-                href={checkAndMakeAbsoluteUrl(product.lamazon)}
-                className={clsx({[classNames.linkDecoration]: !edit || !product.lamazon})}
-              >
-                <Input
-                  disabled={edit}
-                  classes={{input: clsx({[classNames.linkOnEdit]: edit && product.lamazon})}}
-                  placeholder={!product.lamazon && t(TranslationKey['Enter link'])}
-                  value={product.lamazon}
-                  onChange={onChangeField('lamazon')}
-                />
-              </Link>
+              <div className={classNames.copyLink}>
+                <Link
+                  contentEditable={!edit || !product.lamazon}
+                  target="_blank"
+                  rel="noopener"
+                  href={checkAndMakeAbsoluteUrl(product.lamazon)}
+                  className={clsx({[classNames.linkDecoration]: !edit || !product.lamazon})}
+                >
+                  <Input
+                    disabled={edit}
+                    classes={{input: clsx(classNames.inputLink, {[classNames.linkOnEdit]: edit && product.lamazon})}}
+                    placeholder={!product.lamazon && t(TranslationKey['Enter link'])}
+                    value={product.lamazon}
+                    onChange={onChangeField('lamazon')}
+                  />
+                </Link>
+                {product.lamazon ? <CopyValue text={product.lamazon} /> : null}
+              </div>
 
               {checkIsClient(curUserRole) &&
                 product.isCreatedByClient &&

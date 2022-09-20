@@ -52,7 +52,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   buttonsWrapper: {
-    alignSelf: 'flex-end',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   searchContainer: {
     width: 'auto',
@@ -76,5 +77,9 @@ export const useClassNames = makeStyles(() => ({
   },
   commentContainer: {
     margin: 0,
+  },
+
+  buttonPreview: {
+    padding: '8px 36px',
   },
 }))

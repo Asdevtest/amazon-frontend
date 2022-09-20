@@ -96,6 +96,9 @@ export const errorMessagesTranslate = error => {
       return t(TranslationKey['Reffee must be a number conforming to the specified constraints'])
     case errorMessages['minpurchase must be a number conforming to the specified constraints']:
       return t(TranslationKey['Min purchase price must be a number conforming to the specified constraints'])
+
+    default:
+      return error
   }
 }
 

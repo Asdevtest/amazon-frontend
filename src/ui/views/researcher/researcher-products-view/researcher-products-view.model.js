@@ -176,9 +176,10 @@ export class ResearcherProductsViewModel {
     }
 
     const checkProductExistResult = await this.checkProductExists(this.formFields.productCode)
-    if (checkProductExistResult) {
+    console.log('checkProductExistResult', checkProductExistResult)
+    if (checkProductExistResult.isExist) {
       runInAction(() => {
-        this.error = 'This product already exists'
+        this.error = checkProductExistResult.reason
         return
       })
     }
@@ -290,8 +291,9 @@ export class ResearcherProductsViewModel {
         this.formFields.productCode,
         this.formFields.strategyStatus,
       )
+
       this.setActionStatus(loadingStatuses.success)
-      return checkProductExistResult.isExist
+      return checkProductExistResult
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)

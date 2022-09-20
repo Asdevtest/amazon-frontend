@@ -1531,6 +1531,7 @@ export enum TranslationKey {
   'Search by ASIN, Reason' = 'Search by ASIN, Reason',
   'Editing ASIN' = 'Editing ASIN',
   'Are you sure you want to delete ASIN?' = 'Are you sure you want to delete ASIN?',
+  'Preview' = 'Preview',
   // '' = '',
   // '' = '',
   // '' = '',
