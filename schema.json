@@ -36762,6 +36762,20 @@
                 "description": "Схема получение лайт версии продажи магазина",
                 "properties": {
                   "_id": {"type": "string", "description": "GUID магазина на продажу."},
+                  "owner": {
+                    "type": "object",
+                    "description": "Общая информация о пользователи",
+                    "nullable": true,
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "description": "GUID пользователя.",
+                        "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                      },
+                      "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                      "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                    }
+                  },
                   "title": {"type": "string", "description": "Имя магазина для продажи", "example": "Store title"},
                   "status": {"type": "string", "description": "Статус магазина для продажи", "example": "DRAFT"},
                   "files": {
@@ -36845,7 +36859,20 @@
               "description": "Схема получение лайт версии продажи магазина",
               "properties": {
                 "_id": {"type": "string", "description": "GUID магазина на продажу."},
-                "ownerId": {"type": "string", "description": "GUID владельца магазина"},
+                "owner": {
+                  "type": "object",
+                  "description": "Общая информация о пользователи",
+                  "nullable": true,
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "GUID пользователя.",
+                      "example": "a1f43b08-7876-491f-b527-ac4878d0b34b"
+                    },
+                    "name": {"type": "string", "description": "Имя пользователя.", "example": "Petia"},
+                    "rating": {"type": "number", "description": "Рейтинг пользователя."}
+                  }
+                },
                 "bidderId": {"type": "string", "description": "GUID покупателя магазина"},
                 "moderatorId": {"type": "string", "description": "GUID модератора магазина"},
                 "chatId": {"type": "string", "description": "GUID чата"},

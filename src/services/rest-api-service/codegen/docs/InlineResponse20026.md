@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **_id** | **String** | GUID магазина на продажу. | [optional] 
-**ownerId** | **String** | GUID владельца магазина | [optional] 
+**owner** | [**ApiV1AdminsGetProductsByStatusCreatedBy**](ApiV1AdminsGetProductsByStatusCreatedBy.md) |  | [optional] 
 **bidderId** | **String** | GUID покупателя магазина | [optional] 
 **moderatorId** | **String** | GUID модератора магазина | [optional] 
 **chatId** | **String** | GUID чата | [optional] 

@@ -89,7 +89,7 @@ export class ClientBuyShopsAdsModel {
       const result = await ShopSellModel.getShopSells()
 
       runInAction(() => {
-        this.shopSellsData = result
+        this.shopSellsData = result.filter(el => el.owner._id !== this.user._id)
       })
     } catch (error) {
       console.log(error)
