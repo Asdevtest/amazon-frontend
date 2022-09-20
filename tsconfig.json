@@ -35,6 +35,7 @@
     "build"
   ],
   "include": [
-    "src/**/*"
+    "src/**/*",
+    ".d.ts"
   ]
 }

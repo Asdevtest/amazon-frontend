@@ -45,17 +45,7 @@ export const Navbar = observer(
                       viewModel.current.userInfo.needConfirmPriceChange.boxes +
                         viewModel.current.userInfo.needConfirmPriceChange.orders +
                         viewModel.current.userInfo.needUpdateTariff.boxes) ||
-                    (category.route?.includes('/messages') &&
-                      viewModel.current.simpleChats.reduce(
-                        (ac, cur) =>
-                          (ac += cur.messages?.length
-                            ? cur.messages.reduce(
-                                (a, c) => (a += !c.isRead && c.userId !== viewModel.current.userInfo._id ? 1 : 0),
-                                0,
-                              )
-                            : 0),
-                        0,
-                      ))
+                    (category.route?.includes('/messages') && viewModel.current.unreadMessages)
                   }
                 />
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
@@ -538,19 +539,18 @@ export const BeforeAfterBlock = observer(
       onEditBox(box)
     }
 
-    // const [showFullIncomingCard, setShowFullIncomingCard] = useState(false)
+    return (
+      <div className={classNames.boxesWrapper}>
+        <div className={classNames.currentBox}>
+          <Text
+            tooltipInfoContent={t(TranslationKey['Previous condition of the box'])}
+            className={classNames.sectionTitle}
+            containerClasses={classNames.sectionTitleWrapper}
+          >
+            {t(TranslationKey.Incoming)}
+          </Text>
 
-    const CurrentBox = ({currentBoxes, readOnly}) => (
-      <div className={classNames.currentBox}>
-        <Text
-          tooltipInfoContent={t(TranslationKey['Previous condition of the box'])}
-          className={classNames.sectionTitle}
-          containerClasses={classNames.sectionTitleWrapper}
-        >
-          {t(TranslationKey.Incoming)}
-        </Text>
-
-        {/* {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
+          {/* {taskType !== TaskOperationType.MERGE && taskType !== TaskOperationType.SPLIT && (
           <div className={classNames.fieldsWrapper}>
             <Field disabled label={t(TranslationKey.Warehouse)} value={currentBoxes[0].destination?.name} />
 
@@ -565,19 +565,19 @@ export const BeforeAfterBlock = observer(
             )}
           </div>
         )} */}
-        <div className={classNames.newBoxesWrapper}>
-          {currentBoxes &&
-            currentBoxes.map((box, boxIndex) => (
-              <>
-                <Box
-                  key={boxIndex}
-                  isCurrentBox
-                  readOnly={readOnly}
-                  box={box}
-                  taskType={taskType}
-                  volumeWeightCoefficient={volumeWeightCoefficient}
-                />
-                {/* {taskType === TaskOperationType.MERGE && (
+          <div className={classNames.newBoxesWrapper}>
+            {incomingBoxes &&
+              incomingBoxes.map((box, boxIndex) => (
+                <>
+                  <Box
+                    key={boxIndex}
+                    isCurrentBox
+                    readOnly={readOnly}
+                    box={box}
+                    taskType={taskType}
+                    volumeWeightCoefficient={volumeWeightCoefficient}
+                  />
+                  {/* {taskType === TaskOperationType.MERGE && (
                   <div
                     className={classNames.tablePanelSortWrapper}
                     onClick={() => setShowFullIncomingCard(!showFullIncomingCard)}
@@ -593,15 +593,10 @@ export const BeforeAfterBlock = observer(
                     )}
                   </div>
                 )} */}
-              </>
-            ))}
+                </>
+              ))}
+          </div>
         </div>
-      </div>
-    )
-
-    return (
-      <div className={classNames.boxesWrapper}>
-        <CurrentBox currentBoxes={incomingBoxes} readOnly={readOnly} />
 
         {desiredBoxes.length > 0 && <Divider flexItem className={classNames.divider} orientation="vertical" />}
 

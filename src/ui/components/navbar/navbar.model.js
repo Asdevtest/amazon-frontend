@@ -12,6 +12,10 @@ export class NavbarModel {
     return ChatModel.simpleChats
   }
 
+  get unreadMessages() {
+    return ChatModel.unreadMessages
+  }
+
   constructor() {
     makeAutoObservable(this, undefined, {autoBind: true})
   }

@@ -340,7 +340,7 @@ export class SubUsersViewModel {
 
       this.warningInfoModalSettings = {
         isWarning: false,
-        title: t(TranslationKey['Sab-user added']),
+        title: t(TranslationKey['Sub-user added']),
       }
 
       this.onTriggerOpenModal('showWarningModal')
@@ -350,7 +350,7 @@ export class SubUsersViewModel {
 
       this.warningInfoModalSettings = {
         isWarning: true,
-        title: error.body.message || t(TranslationKey['Sab-user not added!']),
+        title: error.body.message || t(TranslationKey['Sub-user not added!']),
       }
 
       this.onTriggerOpenModal('showWarningModal')
@@ -363,7 +363,7 @@ export class SubUsersViewModel {
 
       this.warningInfoModalSettings = {
         isWarning: false,
-        title: t(TranslationKey['Sab-user removed']),
+        title: t(TranslationKey['Sub-user removed']),
       }
 
       this.onTriggerOpenModal('showWarningModal')

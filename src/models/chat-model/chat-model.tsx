@@ -39,6 +39,16 @@ class ChatModelStatic {
     return UserModel.userId
   }
 
+  get unreadMessages() {
+    return this.simpleChats.reduce(
+      (ac, cur) =>
+        (ac += cur.messages?.length
+          ? cur.messages.reduce((a, c) => (a += !c.isRead && c.userId !== this.userId ? 1 : 0), 0)
+          : 0),
+      0,
+    )
+  }
+
   get noticeOfSimpleChats() {
     return SettingsModel.noticeOfSimpleChats
   }
@@ -129,8 +139,8 @@ class ChatModelStatic {
     formData.append('filename', fileWithoutSpaces)
 
     try {
-      const imageFile: any = await OtherModel.postImage(formData)
-      this.loadedFiles.push(BACKEND_API_URL + '/uploads/' + imageFile.data.fileName)
+      const fileName: string = await OtherModel.postImage(formData)
+      this.loadedFiles.push(BACKEND_API_URL + '/uploads/' + fileName)
     } catch (error) {
       console.log('error', error)
     }
@@ -152,6 +162,7 @@ class ChatModelStatic {
     }
 
     const paramsWithLoadedFiles = {...params, files: this.loadedFiles}
+
     this.loadedFiles = []
 
     await transformAndValidate(SendMessageRequestParamsContract, paramsWithLoadedFiles)

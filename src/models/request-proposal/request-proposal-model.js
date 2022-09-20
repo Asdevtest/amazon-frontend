@@ -16,8 +16,8 @@ class RequestProposalModelStatic {
     formData.append('filename', fileWithoutSpaces)
 
     try {
-      const imageFile = await OtherModel.postImage(formData)
-      return BACKEND_API_URL + '/uploads/' + imageFile.data.fileName
+      const fileName = await OtherModel.postImage(formData)
+      return BACKEND_API_URL + '/uploads/' + fileName
     } catch (error) {
       console.log('error', error)
     }

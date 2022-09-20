@@ -10,7 +10,6 @@ import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.con
 
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {RequestStatusCell} from '@components/data-grid-cells/data-grid-cells'
-import {Field} from '@components/field/field'
 
 import {formatDateTimeHourAndMinutes, formatNormDateTime} from '@utils/date-time'
 import {toFixedWithDollarSign} from '@utils/text'

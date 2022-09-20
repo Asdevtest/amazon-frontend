@@ -1,8 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {IsBoolean, IsNotEmpty, IsOptional, IsString} from 'class-validator'
 
-import {SendMessageRequestParams} from '@services/websocket-chat-service/interfaces'
+// import {SendMessageRequestParams} from '@services/websocket-chat-service/interfaces'
 
-export class SendMessageRequestParamsContract implements SendMessageRequestParams {
+export class SendMessageRequestParamsContract /* implements SendMessageRequestParams */ {
   @IsNotEmpty()
   @IsString()
   public chatId!: string
@@ -14,7 +15,7 @@ export class SendMessageRequestParamsContract implements SendMessageRequestParam
   public images?: string[]
   @IsOptional()
   // @IsString({each: true})
-  public files?: any[]
+  public files?: File[]
   @IsOptional()
   @IsBoolean()
   public is_draft?: boolean

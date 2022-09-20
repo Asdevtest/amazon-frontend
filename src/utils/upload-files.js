@@ -26,9 +26,9 @@ const onPostImage = async imageData => {
   formData.append('filename', fileWithoutSpaces)
 
   try {
-    const imageFile = await OtherModel.postImage(formData)
+    const fileName = await OtherModel.postImage(formData)
 
-    return BACKEND_API_URL + '/uploads/' + imageFile.data.fileName
+    return BACKEND_API_URL + '/uploads/' + fileName
   } catch (error) {
     this.error = error
   }

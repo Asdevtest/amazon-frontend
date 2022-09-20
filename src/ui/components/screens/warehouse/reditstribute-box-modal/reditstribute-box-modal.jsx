@@ -6,6 +6,7 @@ import React, {useState} from 'react'
 
 import {Chip, IconButton, Link, Typography} from '@material-ui/core'
 import clsx from 'clsx'
+import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {operationTypes} from '@constants/operation-types'
@@ -354,235 +355,232 @@ const NewBoxes = ({
   )
 }
 
-export const RedistributeBox = ({
-  destinations,
-  storekeepers,
-  requestStatus,
-  // addNewBoxModal,
-  // setAddNewBoxModal,
-  selectedBox,
-  onRedistribute,
-  onTriggerOpenModal,
-}) => {
-  const classNames = useClassNames()
-  const [currentBox, setCurrentBox] = useState(selectedBox)
+export const RedistributeBox = observer(
+  ({
+    destinations,
+    storekeepers,
+    requestStatus,
+    // addNewBoxModal,
+    // setAddNewBoxModal,
+    selectedBox,
+    onRedistribute,
+    onTriggerOpenModal,
+  }) => {
+    const classNames = useClassNames()
+    const [currentBox, setCurrentBox] = useState(selectedBox)
 
-  const [showNewBoxAttention, setShowNewBoxAttention] = useState(true)
+    const [showNewBoxAttention, setShowNewBoxAttention] = useState(true)
 
-  const [comment, setComment] = useState('')
+    const isMasterBox = selectedBox?.amount && selectedBox?.amount > 1
 
-  const isMasterBox = selectedBox?.amount && selectedBox?.amount > 1
+    const emptyProducts = currentBox.items.map(product => ({...product, amount: isMasterBox ? product.amount : 0}))
 
-  const emptyProducts = currentBox.items.map(product => ({...product, amount: isMasterBox ? product.amount : 0}))
+    const getEmptyBox = () => ({
+      ...currentBox,
+      _id: 'new_id_' + Date.now(),
+      items: emptyProducts,
+      amount: 1,
+      destinationId: currentBox.destinationId || null,
+      tmpShippingLabel: [],
+    })
 
-  const getEmptyBox = () => ({
-    ...currentBox,
-    _id: 'new_id_' + Date.now(),
-    items: emptyProducts,
-    amount: 1,
-    destinationId: currentBox.destinationId || null,
-    tmpShippingLabel: [],
-  })
+    const emptyBox = getEmptyBox()
+    const [newBoxes, setNewBoxes] = useState([emptyBox])
 
-  const emptyBox = getEmptyBox()
-  const [newBoxes, setNewBoxes] = useState([emptyBox])
-  const totalProductsAmount = isMasterBox
-    ? currentBox.amount - newBoxes.length
-    : currentBox.items.reduce((acc, order) => acc + order.amount, 0)
+    const [comment, setComment] = useState('')
+    const totalProductsAmount = isMasterBox
+      ? currentBox.amount - newBoxes.length
+      : currentBox.items.reduce((acc, order) => acc + order.amount, 0)
 
-  const onChangeAmountInput = (e, _id, order) => {
-    const targetBox = newBoxes.filter(box => box._id === _id)[0]
-    const targetProduct = targetBox.items.filter(product => product.order === order)[0]
-    const updatedTargetProduct = {...targetProduct, amount: Number(e.target.value)}
-    const updatedTargetProducts = targetBox.items.map(product =>
-      product.order === order ? updatedTargetProduct : product,
-    )
-    const updatedTargetBox = {...targetBox, items: updatedTargetProducts}
+    const onChangeAmountInput = (e, _id, order) => {
+      const targetBox = newBoxes.filter(box => box._id === _id)[0]
+      const targetProduct = targetBox.items.filter(product => product.order === order)[0]
+      const updatedTargetProduct = {...targetProduct, amount: Number(e.target.value)}
+      const updatedTargetProducts = targetBox.items.map(product =>
+        product.order === order ? updatedTargetProduct : product,
+      )
+      const updatedTargetBox = {...targetBox, items: updatedTargetProducts}
 
-    const updatedNewBoxes = newBoxes.map(box => (box._id === _id ? updatedTargetBox : box))
+      const updatedNewBoxes = newBoxes.map(box => (box._id === _id ? updatedTargetBox : box))
 
-    const currentOrder = selectedBox.items.filter(product => product.order === order)[0]
-    const newBoxesProductAmount = updatedNewBoxes
-      .map(box => box.items.filter(product => product.order === order)[0].amount)
-      .reduce((acc, amount) => acc + amount, 0)
-    const checkAmount = currentOrder.amount - newBoxesProductAmount
-    if (checkAmount < 0) {
-      return
-    }
-    const updatedCurrentOrder = {...currentOrder, amount: checkAmount}
-    const updatedCurrentOrders = currentBox.items.map(product =>
-      product.order === order ? updatedCurrentOrder : product,
-    )
-    const updatedCurrentBox = {...currentBox, items: updatedCurrentOrders}
-
-    setNewBoxes(updatedNewBoxes)
-    setCurrentBox(updatedCurrentBox)
-  }
-
-  const onChangeField = (e, field, boxId) => {
-    const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
-
-    const updatedTargetBox = {
-      ...targetBox,
-      [field /* field === 'shippingLabel' ? e.target.value.replace(' ', '') :*/]: e.target.value,
-    }
-
-    const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
-
-    setNewBoxes(updatedNewBoxes)
-  }
-
-  const onClickRedistributeBtn = () => {
-    const newBoxesWithoutEmptyBox = filterEmptyBoxes(newBoxes)
-
-    const newBoxesWithoutEmptyOrders = filterEmptyOrders(newBoxesWithoutEmptyBox)
-
-    const beforeBox = selectedBox
-    if (isMasterBox && totalProductsAmount > 1) {
-      beforeBox.items[0].masterBoxAmount = totalProductsAmount
-    }
-
-    if (isMasterBox && totalProductsAmount > 0) {
-      newBoxesWithoutEmptyOrders.push(beforeBox)
-    }
-
-    onRedistribute(
-      selectedBox._id,
-      newBoxesWithoutEmptyOrders.map(el => ({...el, destinationId: el.destinationId || null})),
-      operationTypes.SPLIT,
-      isMasterBox,
-      comment,
-      selectedBox,
-    )
-  }
-
-  const onRemoveBox = boxId => {
-    const arr = newBoxes.filter(box => box._id !== boxId)
-    setNewBoxes([...arr])
-
-    if (!isMasterBox) {
-      const boxForRemove = newBoxes.find(box => box._id === boxId)
-      const newCurrentBox = currentBox
-      for (let i = 0; i < newCurrentBox.items.length; i++) {
-        newCurrentBox.items[i].amount += boxForRemove.items[i].amount
+      const currentOrder = selectedBox.items.filter(product => product.order === order)[0]
+      const newBoxesProductAmount = updatedNewBoxes
+        .map(box => box.items.filter(product => product.order === order)[0].amount)
+        .reduce((acc, amount) => acc + amount, 0)
+      const checkAmount = currentOrder.amount - newBoxesProductAmount
+      if (checkAmount < 0) {
+        return
       }
-      setCurrentBox(newCurrentBox)
+      const updatedCurrentOrder = {...currentOrder, amount: checkAmount}
+      const updatedCurrentOrders = currentBox.items.map(product =>
+        product.order === order ? updatedCurrentOrder : product,
+      )
+      const updatedCurrentBox = {...currentBox, items: updatedCurrentOrders}
+
+      setNewBoxes(updatedNewBoxes)
+      setCurrentBox(updatedCurrentBox)
     }
-  }
 
-  const CurrentBox = () => (
-    <div className={classNames.currentBox}>
-      <div className={classNames.currentBoxTitle}>
-        <Typography className={classNames.sectionTitle}>{t(TranslationKey.Redistribute)}</Typography>
-        <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${
-          currentBox.humanFriendlyId
-        }`}</Typography>
+    const onChangeField = (e, field, boxId) => {
+      const targetBox = newBoxes.filter(newBox => newBox._id === boxId)[0]
+
+      const updatedTargetBox = {
+        ...targetBox,
+        [field /* field === 'shippingLabel' ? e.target.value.replace(' ', '') :*/]: e.target.value,
+      }
+
+      const updatedNewBoxes = newBoxes.map(newBox => (newBox._id === boxId ? updatedTargetBox : newBox))
+
+      setNewBoxes(updatedNewBoxes)
+    }
+
+    const onClickRedistributeBtn = () => {
+      const newBoxesWithoutEmptyBox = filterEmptyBoxes(newBoxes)
+
+      const newBoxesWithoutEmptyOrders = filterEmptyOrders(newBoxesWithoutEmptyBox)
+
+      const beforeBox = selectedBox
+      if (isMasterBox && totalProductsAmount > 1) {
+        beforeBox.items[0].masterBoxAmount = totalProductsAmount
+      }
+
+      if (isMasterBox && totalProductsAmount > 0) {
+        newBoxesWithoutEmptyOrders.push(beforeBox)
+      }
+
+      onRedistribute(
+        selectedBox._id,
+        newBoxesWithoutEmptyOrders.map(el => ({...el, destinationId: el.destinationId || null})),
+        operationTypes.SPLIT,
+        isMasterBox,
+        comment,
+        selectedBox,
+      )
+    }
+
+    const onRemoveBox = boxId => {
+      const arr = newBoxes.filter(box => box._id !== boxId)
+      setNewBoxes([...arr])
+
+      if (!isMasterBox) {
+        const boxForRemove = newBoxes.find(box => box._id === boxId)
+        const newCurrentBox = currentBox
+        for (let i = 0; i < newCurrentBox.items.length; i++) {
+          newCurrentBox.items[i].amount += boxForRemove.items[i].amount
+        }
+        setCurrentBox(newCurrentBox)
+      }
+    }
+
+    const disabledSubmitBtn =
+      totalProductsAmount !== 0 ||
+      requestStatus === loadingStatuses.isLoading ||
+      filterEmptyBoxes(newBoxes).length < 2 ||
+      filterEmptyBoxes(newBoxes).some(
+        el => (el.shippingLabel?.length < 5 && el.shippingLabel?.length > 0) || el.logicsTariffId === '',
+      )
+
+    return (
+      <div>
+        <div className={classNames.boxesWrapper}>
+          <div className={classNames.currentBox}>
+            <div className={classNames.currentBoxTitle}>
+              <Typography className={classNames.sectionTitle}>{t(TranslationKey.Redistribute)}</Typography>
+              <Typography className={classNames.boxTitle}>{`${t(TranslationKey.Box)} № ${
+                currentBox.humanFriendlyId
+              }`}</Typography>
+            </div>
+
+            <Box
+              readOnly
+              destinations={destinations}
+              storekeepers={storekeepers}
+              boxIsMasterBox={isMasterBox}
+              box={currentBox}
+              totalProductsAmount={totalProductsAmount}
+              index={0}
+              isMasterBox={isMasterBox}
+              selectedBox={selectedBox}
+              onChangeAmountInput={onChangeAmountInput}
+            />
+          </div>
+
+          <NewBoxes
+            newBoxes={newBoxes}
+            isMasterBox={isMasterBox}
+            selectedBox={selectedBox}
+            destinations={destinations}
+            storekeepers={storekeepers}
+            onChangeAmountInput={onChangeAmountInput}
+            onChangeField={onChangeField}
+            onRemoveBox={onRemoveBox}
+          />
+
+          <Field
+            multiline
+            inputProps={{maxLength: 255}}
+            className={classNames.heightFieldAuto}
+            rows={18}
+            rowsMax={18}
+            label={t(TranslationKey['Client comment on the task'])}
+            placeholder={t(TranslationKey['Client comment on the task'])}
+            value={comment}
+            onChange={e => setComment(e.target.value)}
+          />
+        </div>
+
+        <div className={classNames.buttonsWrapper}>
+          <Button
+            tooltipInfoContent={t(TranslationKey['Add a new box to the task'])}
+            disabled={totalProductsAmount < 1 && isMasterBox}
+            color="primary"
+            variant="contained"
+            className={classNames.button}
+            onClick={() => {
+              setNewBoxes(newBoxes.concat(getEmptyBox()))
+            }}
+          >
+            {t(TranslationKey['Create a new box'])}
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+            tooltipInfoContent={t(TranslationKey['Create a task to split the box'])}
+            disabled={disabledSubmitBtn}
+            className={classNames.button}
+            onClick={onClickRedistributeBtn}
+          >
+            {t(TranslationKey.Redistribute)}
+          </Button>
+
+          <Button
+            color="primary"
+            variant="text"
+            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
+            className={clsx(classNames.button, classNames.cancelButton)}
+            onClick={() => {
+              onTriggerOpenModal('showRedistributeBoxModal')
+              setShowNewBoxAttention(false)
+            }}
+          >
+            {t(TranslationKey.Cancel)}
+          </Button>
+        </div>
+
+        <WarningInfoModal
+          openModal={showNewBoxAttention}
+          setOpenModal={() => setShowNewBoxAttention(!showNewBoxAttention)}
+          title={t(
+            TranslationKey[
+              'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
+            ],
+          )}
+          btnText={t(TranslationKey.Ok)}
+          onClickBtn={() => {
+            setShowNewBoxAttention(!showNewBoxAttention)
+          }}
+        />
       </div>
-
-      <Box
-        readOnly
-        destinations={destinations}
-        storekeepers={storekeepers}
-        boxIsMasterBox={isMasterBox}
-        box={currentBox}
-        totalProductsAmount={totalProductsAmount}
-        index={0}
-        isMasterBox={isMasterBox}
-        selectedBox={selectedBox}
-        onChangeAmountInput={onChangeAmountInput}
-      />
-    </div>
-  )
-
-  const disabledSubmitBtn =
-    totalProductsAmount !== 0 ||
-    requestStatus === loadingStatuses.isLoading ||
-    filterEmptyBoxes(newBoxes).length < 2 ||
-    filterEmptyBoxes(newBoxes).some(
-      el => (el.shippingLabel?.length < 5 && el.shippingLabel?.length > 0) || el.logicsTariffId === '',
     )
-
-  return (
-    <React.Fragment>
-      <div className={classNames.boxesWrapper}>
-        <CurrentBox />
-
-        <NewBoxes
-          newBoxes={newBoxes}
-          isMasterBox={isMasterBox}
-          selectedBox={selectedBox}
-          destinations={destinations}
-          storekeepers={storekeepers}
-          onChangeAmountInput={onChangeAmountInput}
-          onChangeField={onChangeField}
-          onRemoveBox={onRemoveBox}
-        />
-
-        <Field
-          multiline
-          className={classNames.heightFieldAuto}
-          rows={18}
-          rowsMax={18}
-          label={t(TranslationKey['Client comment on the task'])}
-          placeholder={t(TranslationKey['Client comment on the task'])}
-          value={comment}
-          onChange={e => setComment(e.target.value)}
-        />
-      </div>
-
-      <div className={classNames.buttonsWrapper}>
-        <Button
-          tooltipInfoContent={t(TranslationKey['Add a new box to the task'])}
-          disabled={totalProductsAmount < 1 && isMasterBox}
-          color="primary"
-          variant="contained"
-          className={classNames.button}
-          onClick={() => {
-            setNewBoxes(newBoxes.concat(getEmptyBox()))
-          }}
-        >
-          {t(TranslationKey['Create a new box'])}
-        </Button>
-        <Button
-          color="primary"
-          variant="contained"
-          tooltipInfoContent={t(TranslationKey['Create a task to split the box'])}
-          disabled={disabledSubmitBtn}
-          className={classNames.button}
-          onClick={() => {
-            onClickRedistributeBtn()
-          }}
-        >
-          {t(TranslationKey.Redistribute)}
-        </Button>
-
-        <Button
-          color="primary"
-          variant="text"
-          tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-          className={clsx(classNames.button, classNames.cancelButton)}
-          onClick={() => {
-            onTriggerOpenModal('showRedistributeBoxModal')
-            setShowNewBoxAttention(false)
-          }}
-        >
-          {t(TranslationKey.Cancel)}
-        </Button>
-      </div>
-
-      <WarningInfoModal
-        openModal={showNewBoxAttention}
-        setOpenModal={() => setShowNewBoxAttention(!showNewBoxAttention)}
-        title={t(
-          TranslationKey[
-            'Increasing the number of boxes will require additional payment depending on the rates of the warehouse where the goods are located'
-          ],
-        )}
-        btnText={t(TranslationKey.Ok)}
-        onClickBtn={() => {
-          setShowNewBoxAttention(!showNewBoxAttention)
-        }}
-      />
-    </React.Fragment>
-  )
-}
+  },
+)

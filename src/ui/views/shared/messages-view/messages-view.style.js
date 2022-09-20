@@ -79,6 +79,14 @@ export const styles = createStyles(() => ({
   avatarWrapper: {
     width: 40,
     height: 40,
+
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+    },
   },
 
   opponentName: {
@@ -86,6 +94,14 @@ export const styles = createStyles(() => ({
     fontWeight: 600,
     fontSize: 18,
     color: '#001029',
+
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    transition: '.3s ease',
+
+    '&:hover': {
+      transform: 'scale(1.01)',
+      opacity: '0.8',
+    },
   },
 
   opponentWrapper: {

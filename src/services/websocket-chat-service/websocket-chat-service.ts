@@ -100,8 +100,8 @@ export class WebsocketChatService {
     })
   }
 
-  public async typingMessage(params: TypingMessageRequestParams): Promise<any> {
-    return new Promise((resolve, reject) => {
+  public async typingMessage(params: TypingMessageRequestParams): Promise<{}> {
+    return new Promise(() => {
       this.socket.emit(EentToEmit.TYPING_MESSAGE, params)
     })
   }
@@ -109,7 +109,7 @@ export class WebsocketChatService {
   public async readMessage(guid: string): Promise<ChatMessage> {
     console.log('***READ_MESSAGE!!!')
 
-    return new Promise((resolve, reject) => {
+    return new Promise(() => {
       this.socket.emit(EentToEmit.READ_MESSAGE, {messageId: guid})
     })
   }
