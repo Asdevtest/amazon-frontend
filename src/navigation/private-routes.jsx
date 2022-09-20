@@ -3,7 +3,6 @@ import {useEffect} from 'react'
 
 import {observer} from 'mobx-react'
 import {useFaviconNotification} from 'react-favicon-notification'
-// import Head from 'react-document-configuration'
 import {Redirect, Route, useHistory} from 'react-router-dom'
 
 import {overallRoutesConfigs, privateRoutesConfigs} from '@constants/routes'
@@ -13,7 +12,7 @@ import {ChatModel} from '@models/chat-model'
 import {UserModel} from '@models/user-model'
 
 const startFaviconConfig = {
-  radius: 14,
+  radius: 90,
   counter: 0,
   innerCircle: false,
   backgroundColor: '#DB0101',
@@ -21,8 +20,8 @@ const startFaviconConfig = {
   fontColor: '#FFF',
   fontFamily: 'Arial',
   fontWeight: 'bold',
-  url: '/assets/icons/favicon-04.04.ico',
-  position: 'bottom-right',
+  url: '/assets/icons/favicon-20.09.ico',
+  position: 'top-right',
   show: false,
 }
 
@@ -47,7 +46,6 @@ export const PrivateRoutes = observer(() => {
 
   useEffect(() => {
     if (UserModel.isAuthenticated()) {
-      // setConfig(startFaviconConfig)
       ChatModel.init()
       ChatModel.getSimpleChats()
     }

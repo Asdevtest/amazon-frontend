@@ -108,7 +108,7 @@ export const MultipleChats = observer(
                 <img src="/assets/icons/no-chats.svg" />
                 <Typography className={classNames.noChatTitle}>{t(TranslationKey['Choose chat'])}</Typography>
                 <Typography className={classNames.noChatSubTitle}>
-                  {t(TranslationKey['Try choosing a dialog or Find a specific performer'])}
+                  {t(TranslationKey['Try selecting a dialogue or Find a concrete speaker'])}
                 </Typography>
               </div>
             )}

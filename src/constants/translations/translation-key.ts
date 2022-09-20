@@ -1522,7 +1522,7 @@ export enum TranslationKey {
   'ASIN list' = 'ASIN list',
   'Add a list of ASIN' = 'Add a list of ASIN',
   'Choose chat' = 'Choose chat',
-  'Try choosing a dialog or Find a specific performer' = 'Try choosing a dialog or Find a specific performer',
+  'Try selecting a dialogue or Find a concrete speaker' = 'Try selecting a dialogue or Find a concrete speaker',
   'New Dialogue' = 'New Dialogue',
   'Write a message' = 'Write a message',
   'Deadline date cannot be earlier than the current date' = 'Deadline date cannot be earlier than the current date',

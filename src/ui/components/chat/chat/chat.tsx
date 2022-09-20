@@ -56,6 +56,10 @@ export const Chat: FC<Props> = observer(
   }) => {
     const [showFiles, setShowFiles] = useState(false)
 
+    const [focused, setFocused] = useState(false)
+    const onFocus = () => setFocused(true)
+    const onBlur = () => setFocused(false)
+
     const messageInitialState: MessageStateParams = SettingsModel.chatMessageState?.[chat._id] || {
       message: '',
       files: [],
@@ -164,7 +168,7 @@ export const Chat: FC<Props> = observer(
               autoFocus
               id="outlined-multiline-flexible"
               size="small"
-              className={clsx(classNames.input, {[classNames.inputFilled]: message})}
+              className={clsx(classNames.input, {[classNames.inputFilled]: message || focused})}
               maxRows={6}
               placeholder={t(TranslationKey['Write a message'])}
               inputProps={{maxLength: 1000}}
@@ -183,6 +187,8 @@ export const Chat: FC<Props> = observer(
                 ),
               }}
               value={message}
+              onFocus={onFocus}
+              onBlur={onBlur}
               onKeyPress={handleKeyPress}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeMessageAndState(e.target.value)}
               onPaste={evt => onPasteFiles(evt)}

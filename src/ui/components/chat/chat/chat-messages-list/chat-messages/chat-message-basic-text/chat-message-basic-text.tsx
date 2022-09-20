@@ -3,13 +3,13 @@ import React, {FC} from 'react'
 import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
+import Linkify from 'react-linkify-always-blank'
 
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 
 import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 
 import {formatDateTimeHourAndMinutes} from '@utils/date-time'
-import {getTextFromMarkdown} from '@utils/text'
 
 import {useClassNames} from './chat-message-basic-text.style'
 
@@ -24,10 +24,12 @@ export const ChatMessageBasicText: FC<Props> = observer(({message, isIncomming, 
   return (
     <div className={clsx(classNames.root, {[classNames.rootIsIncomming]: isIncomming})}>
       <div className={classNames.subWrapper}>
-        <div
-          dangerouslySetInnerHTML={{__html: getTextFromMarkdown(message.text)}}
-          className={classNames.messageText}
-        ></div>
+        <Linkify
+        // properties={{target: '_blank', style: {color: 'red', fontWeight: 'bold', textDecoration: 'none'}}} // ЗАЯВЛЕННЫЕ ПРОПЫ НЕ РАБОТАЮТ
+        >
+          <div className={classNames.messageText}>{message.text}</div>
+        </Linkify>
+
         {message.files.length ? (
           <div className={classNames.filesMainWrapper}>
             <PhotoAndFilesCarousel notToShowEmpty small files={message.files} width="300px" />

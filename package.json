@@ -72,6 +72,8 @@
     "react-favicon-notification": "^1.0.28",
     "react-images-uploading-alex76457-version": "git+https://github.com/Alex76456/react-images-uploading-alex76456-version.git",
     "react-inverted-scrollview": "^1.0.7",
+    "react-linkify": "^1.0.0-alpha",
+    "react-linkify-always-blank": "^1.4.0-alpha",
     "react-material-ui-carousel": "^2.3.5",
     "react-mde": "^11.5.0",
     "react-router-dom": "^5.3.0",
