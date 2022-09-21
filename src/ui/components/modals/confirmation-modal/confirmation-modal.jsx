@@ -34,6 +34,19 @@ export const ConfirmationModal = ({
     setSubmitIsClicked(!submitIsClicked)
   }
 
+  useEffect(() => {
+    const listener = event => {
+      if (openModal && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+        event.preventDefault()
+        onSubmit()
+      }
+    }
+    document.addEventListener('keydown', listener)
+    return () => {
+      document.removeEventListener('keydown', listener)
+    }
+  }, [])
+
   return (
     <Modal isWarning={isWarning} openModal={openModal} setOpenModal={setOpenModal}>
       <div className={clsx(classNames.modalMessageWrapper, {[classNames.warningModalMessageWrapper]: isWarning})}>

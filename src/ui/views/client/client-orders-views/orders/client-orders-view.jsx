@@ -32,7 +32,7 @@ const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_ORDERS
 
 @observer
 class ClientOrdersViewRaw extends Component {
-  viewModel = new ClientOrdersViewModel({history: this.props.history})
+  viewModel = new ClientOrdersViewModel({history: this.props.history, location: this.props.location})
 
   componentDidMount() {
     this.viewModel.loadData()

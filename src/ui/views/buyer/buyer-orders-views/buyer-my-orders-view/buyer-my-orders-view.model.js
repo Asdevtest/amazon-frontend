@@ -40,6 +40,8 @@ export class BuyerMyOrdersViewModel {
   error = undefined
 
   ordersMy = []
+  baseNoConvertedOrders = []
+
   curBoxesOfOrder = []
 
   createBoxesResult = []
@@ -100,6 +102,10 @@ export class BuyerMyOrdersViewModel {
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
+
+      this.ordersMy = buyerMyOrdersDataConverter(this.baseNoConvertedOrders).sort(
+        sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+      )
     }
   }
 
@@ -415,6 +421,8 @@ export class BuyerMyOrdersViewModel {
     try {
       const result = await BuyerModel.getOrdersMy()
       runInAction(() => {
+        this.baseNoConvertedOrders = result
+
         this.ordersMy = buyerMyOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {

@@ -36,6 +36,35 @@ export const OrderStatusByCode = {
   50: OrderStatus.SHIPPED, // Отправлен
 }
 
+// export const OrderStatusTranslateKey = status => {
+//   switch (status) {
+//     case OrderStatus.FORMED:
+//       return TranslationKey.Formed
+//     case OrderStatus.NEW:
+//       return TranslationKey.New
+//     case OrderStatus.READY_TO_PROCESS:
+//       return TranslationKey['Ready to process']
+//     case OrderStatus.AT_PROCESS:
+//       return TranslationKey['At process']
+//     case OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE:
+//       return TranslationKey['Need confirming to price change']
+//     case OrderStatus.PAID_TO_SUPPLIER:
+//       return TranslationKey['Paid to supplier']
+//     case OrderStatus.TRACK_NUMBER_ISSUED:
+//       return TranslationKey['Track number issued']
+//     case OrderStatus.IN_STOCK:
+//       return TranslationKey['In stock']
+//     case OrderStatus.CANCELED_BY_BUYER:
+//       return TranslationKey['Canceled by Buyer']
+//     case OrderStatus.CANCELED_BY_CLIENT:
+//       return TranslationKey['Canceled by Client']
+//     case OrderStatus.AWAITING_SHIPMENT:
+//       return TranslationKey['Awaiting shipment']
+//     case OrderStatus.SHIPPED:
+//       return TranslationKey.Shipped
+//   }
+// }
+
 export const OrderStatusTranslate = status => {
   switch (status) {
     case OrderStatus.FORMED:
@@ -120,6 +149,25 @@ export const ORDER_STATUS_OPTIONS = [
     label: 'Shipped',
   },
 ]
+
+export const orderColorByStatus = status => {
+  if (
+    [
+      OrderStatus.AT_PROCESS,
+      OrderStatus.PAID_TO_SUPPLIER,
+      OrderStatus.READY_TO_PROCESS,
+      OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
+    ].includes(status)
+  ) {
+    return '#F3AF00'
+  } else if ([OrderStatus.IN_STOCK, OrderStatus.TRACK_NUMBER_ISSUED].includes(status)) {
+    return '#00B746'
+  } else if ([OrderStatus.CANCELED_BY_BUYER, OrderStatus.CANCELED_BY_CLIENT].includes(status)) {
+    return '#FF1616'
+  } else {
+    return '#black'
+  }
+}
 
 export const OrderStatusText = ({className, status}) => {
   const colorByStatus = () => {

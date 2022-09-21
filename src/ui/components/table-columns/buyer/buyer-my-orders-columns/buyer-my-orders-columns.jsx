@@ -1,5 +1,6 @@
 import React from 'react'
 
+import {orderColorByStatus, OrderStatusByCode} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -8,7 +9,6 @@ import {
   NormDateCell,
   UserLinkCell,
   MultilineTextHeaderCell,
-  OrderStatusCell,
   DownloadAndCopyBtnsCell,
   RenderFieldValueCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -39,7 +39,12 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 120,
-    renderCell: params => <OrderStatusCell status={params.value} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={params.value}
+        color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
+      />
+    ),
   },
 
   {

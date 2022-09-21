@@ -32,6 +32,8 @@ export class AdminOrdersAllViewModel {
 
   currentOrdersData = []
 
+  baseNoConvertedOrders = []
+
   selectionModel = undefined
 
   activeSubCategory = SettingsModel.activeSubCategoryState[ActiveSubCategoryTablesKeys.ADMIN_ORDERS] || 0
@@ -57,6 +59,10 @@ export class AdminOrdersAllViewModel {
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
+
+      this.currentOrdersData = adminOrdersDataConverter(this.baseNoConvertedOrders).sort(
+        sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+      )
     }
   }
 
@@ -120,10 +126,12 @@ export class AdminOrdersAllViewModel {
       this.getDataGridState()
       const result = await AdministratorModel.getOrdersByStatus(ordersStatusBySubCategory[activeSubCategory])
 
-      const ordersData = adminOrdersDataConverter(result)
-
       runInAction(() => {
-        this.currentOrdersData = ordersData.sort(sortObjectsArrayByFiledDateWithParseISO('updatedAt'))
+        this.baseNoConvertedOrders = result
+
+        this.currentOrdersData = adminOrdersDataConverter(result).sort(
+          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
+        )
       })
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {

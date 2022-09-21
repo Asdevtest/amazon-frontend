@@ -1,4 +1,4 @@
-import {OrderStatusByCode} from '@constants/order-status'
+import {OrderStatusByCode, OrderStatusTranslate} from '@constants/order-status'
 import {ProductStatusByCode, productStatusTranslateKey} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel} from '@constants/task-operation-type'
@@ -125,7 +125,7 @@ export const buyerMyOrdersDataConverter = data =>
 
     barCode: item.product.barCode,
 
-    status: OrderStatusByCode[item.status],
+    status: OrderStatusTranslate(OrderStatusByCode[item.status]),
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -266,7 +266,9 @@ export const clientOrdersDataConverter = data =>
     totalPrice: item.totalPrice,
     grossWeightKg: item.product.weight * item.amount,
     warehouses: item.destination?.name,
-    status: OrderStatusByCode[item.status],
+    // status: OrderStatusByCode[item.status],
+
+    status: OrderStatusTranslate(OrderStatusByCode[item.status]),
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
@@ -355,7 +357,8 @@ export const clientOrdersNotificationsDataConverter = data =>
     totalPrice: item.totalPrice,
     grossWeightKg: item.product.weight * item.amount,
     warehouses: item.destination?.name,
-    status: OrderStatusByCode[item.status],
+
+    status: OrderStatusTranslate(OrderStatusByCode[item.status]),
 
     createdAt: item.createdAt,
     amount: item.amount,
@@ -449,7 +452,7 @@ export const adminOrdersDataConverter = data =>
     barCode: item.product.barCode,
     totalPrice: item.totalPrice,
     grossWeightKg: item.product.weight * item.amount,
-    status: OrderStatusByCode[item.status],
+    status: OrderStatusTranslate(OrderStatusByCode[item.status]),
 
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,

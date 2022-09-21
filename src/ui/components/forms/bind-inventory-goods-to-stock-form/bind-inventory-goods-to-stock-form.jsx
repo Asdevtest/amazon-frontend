@@ -29,6 +29,7 @@ const chipConfigSettings = {
 export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockData, product, onSubmit}) => {
   const classNames = useClassNames()
 
+  const [selectedGoods, setSelectedGoods] = useState([])
   const [chosenGoods, setChosenGoods] = useState([])
 
   const [chipConfig, setChipConfig] = useState(chipConfigSettings.RECOMMENDED)
@@ -61,12 +62,25 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
   }
 
   const onSelectionModel = model => {
+    // const curChosenGoodsIds = chosenGoods.map(el => el.id)
+
+    // const newRowIds = model.filter(el => !curChosenGoodsIds.includes(el))
+
+    // const newSelectedItems = toJS(stockData).filter(el => newRowIds.includes(el.id))
+    // setChosenGoods([...chosenGoods, ...newSelectedItems])
+
+    setSelectedGoods(model)
+  }
+
+  const onClickAdd = () => {
     const curChosenGoodsIds = chosenGoods.map(el => el.id)
 
-    const newRowIds = model.filter(el => !curChosenGoodsIds.includes(el))
+    const newRowIds = selectedGoods.filter(el => !curChosenGoodsIds.includes(el))
 
     const newSelectedItems = toJS(stockData).filter(el => newRowIds.includes(el.id))
     setChosenGoods([...chosenGoods, ...newSelectedItems])
+
+    setSelectedGoods([])
   }
 
   useEffect(() => {
@@ -167,8 +181,20 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
             rows={toJS(stockData)}
             columns={sourceColumns()}
             rowHeight={60}
+            selectionModel={selectedGoods}
             onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
           />
+        </div>
+
+        <div className={classNames.btnsWrapper}>
+          <Button
+            disabled={selectedGoods.every(el => chosenGoods.map(el => el.id).includes(el)) || selectedGoods.length < 1}
+            variant="contained"
+            color="primary"
+            onClick={onClickAdd}
+          >
+            {t(TranslationKey.Add)}
+          </Button>
         </div>
 
         <Typography className={classNames.chosenGoodsTitle}>

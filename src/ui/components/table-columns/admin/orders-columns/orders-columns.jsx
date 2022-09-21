@@ -1,5 +1,6 @@
 import React from 'react'
 
+import {orderColorByStatus, OrderStatusByCode} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
@@ -10,7 +11,6 @@ import {
   MultilineTextCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-  OrderStatusCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign} from '@utils/text'
@@ -60,7 +60,12 @@ export const adminOrdersViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 210,
-    renderCell: params => <OrderStatusCell status={params.value} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={params.value}
+        color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
+      />
+    ),
   },
 
   {

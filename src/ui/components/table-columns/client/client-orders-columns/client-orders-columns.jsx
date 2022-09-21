@@ -2,17 +2,16 @@ import React from 'react'
 
 import {t} from 'i18n-js'
 
+import {orderColorByStatus, OrderStatusByCode} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  // ActiveBarcodeCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrderCell,
   MultilineTextCell,
   ToFixedWithKgSignCell,
   UserLinkCell,
-  OrderStatusCell,
   DownloadAndCopyBtnsCell,
   NormalActionBtnCell,
 } from '@components/data-grid-cells/data-grid-cells'
@@ -43,7 +42,12 @@ export const clientOrdersViewColumns = (handlers, firstRowId) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
     width: 160,
-    renderCell: params => <OrderStatusCell status={params.value} />,
+    renderCell: params => (
+      <MultilineTextCell
+        text={params.value}
+        color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
+      />
+    ),
   },
 
   {
