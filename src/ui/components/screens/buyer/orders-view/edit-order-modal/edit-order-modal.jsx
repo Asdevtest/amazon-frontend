@@ -197,8 +197,6 @@ export const EditOrderModal = observer(
 
     const [hsCode, setHsCode] = useState(order.product.hsCode)
 
-    console.log('order.status', order.status)
-
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status + '')
 

@@ -93,12 +93,6 @@ export class ClientDashboardViewRaw extends Component {
                 valuesData={dashboardData}
                 onClickViewMore={onClickInfoCardViewMode}
               />
-
-              {/* <SectionalDashboard
-                config={getClientDashboardCardConfig()}
-                valuesData={dashboardData}
-                onClickViewMore={onClickInfoCardViewMode}
-              /> */}
             </MainContent>
           </Appbar>
         </Main>

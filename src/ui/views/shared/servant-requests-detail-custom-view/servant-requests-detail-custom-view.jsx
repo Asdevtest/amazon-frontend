@@ -12,6 +12,7 @@ import {Button} from '@components/buttons/button'
 import {MultipleChats} from '@components/chat/multiple-chats'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
+import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 import {CustomSearchRequestDetails} from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
@@ -53,6 +54,7 @@ export class RequestDetailCustomViewRaw extends Component {
       drawerOpen,
       request,
       showWarningModal,
+      showConfirmModal,
       warningInfoModalSettings,
       chats,
       userInfo,
@@ -124,7 +126,7 @@ export class RequestDetailCustomViewRaw extends Component {
                         requestProposalCancelAllowedStatuses.includes(
                           findRequestProposalByChatSelectedId.proposal.status,
                         ) ? (
-                          <Button danger onClick={onClickCancelRequestProposal}>
+                          <Button danger onClick={() => onTriggerOpenModal('showConfirmModal')}>
                             {t(TranslationKey['Reject the deal'])}
                           </Button>
                         ) : (
@@ -169,6 +171,18 @@ export class RequestDetailCustomViewRaw extends Component {
           onClickBtn={() => {
             onTriggerOpenModal('showWarningModal')
           }}
+        />
+
+        <ConfirmationModal
+          isWarning
+          openModal={showConfirmModal}
+          setOpenModal={() => onTriggerOpenModal('showConfirmModal')}
+          title={t(TranslationKey.Attention)}
+          message={t(TranslationKey['Reject the deal'])}
+          successBtnText={t(TranslationKey.Yes)}
+          cancelBtnText={t(TranslationKey.No)}
+          onClickSuccessBtn={onClickCancelRequestProposal}
+          onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
         />
       </React.Fragment>
     )

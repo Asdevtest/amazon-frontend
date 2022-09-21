@@ -24,7 +24,6 @@ export class OwnerRequestDetailCustomViewModel {
   requestProposals = []
 
   showConfirmModal = false
-  showOrderModal = false
   showRequestForm = false
   showConfirmWithCommentModal = false
   showChat = false
@@ -32,12 +31,6 @@ export class OwnerRequestDetailCustomViewModel {
   showReviewModal = false
 
   confirmModalSettings = {
-    isWarning: false,
-    message: '',
-    onSubmit: () => {},
-  }
-
-  confirmOrderSettings = {
     isWarning: false,
     message: '',
     onSubmit: () => {},
@@ -241,7 +234,7 @@ export class OwnerRequestDetailCustomViewModel {
       await this.getCustomRequestCur()
       await this.getCustomProposalsForRequestCur()
 
-      this.onTriggerOpenModal('showOrderModal')
+      this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
       this.error = error
@@ -253,7 +246,7 @@ export class OwnerRequestDetailCustomViewModel {
   }
 
   onClickOrderProposal(proposalId, price) {
-    this.confirmOrderSettings = {
+    this.confirmModalSettings = {
       isWarning: false,
       message: `${t(TranslationKey['After confirmation from your account will be frozen'])} ${toFixed(price, 2)} $. ${t(
         TranslationKey.Continue,
@@ -261,7 +254,7 @@ export class OwnerRequestDetailCustomViewModel {
       onSubmit: () => this.onClickAcceptProposal(proposalId),
     }
 
-    this.onTriggerOpenModal('showOrderModal')
+    this.onTriggerOpenModal('showConfirmModal')
   }
 
   onClickRejectProposal(proposalId) {

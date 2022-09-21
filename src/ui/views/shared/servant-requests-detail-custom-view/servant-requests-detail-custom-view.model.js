@@ -21,6 +21,7 @@ export class RequestDetailCustomViewModel {
   request = undefined
   requestProposals = undefined
   showWarningModal = false
+  showConfirmModal = false
 
   loadedFiles = []
 
@@ -216,6 +217,8 @@ export class RequestDetailCustomViewModel {
       }
       await RequestProposalModel.requestProposalCancel(findRequestProposalByChatSelectedId.proposal._id)
       await this.getRequestProposals()
+
+      this.onTriggerOpenModal('showConfirmModal')
     } catch (error) {
       console.log(error)
       this.error = error

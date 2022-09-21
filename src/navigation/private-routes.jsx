@@ -11,20 +11,6 @@ import {UserRoleCodeMap} from '@constants/user-roles'
 import {ChatModel} from '@models/chat-model'
 import {UserModel} from '@models/user-model'
 
-const startFaviconConfig = {
-  radius: 90,
-  counter: 0,
-  innerCircle: false,
-  backgroundColor: '#DB0101',
-
-  fontColor: '#FFF',
-  fontFamily: 'Arial',
-  fontWeight: 'bold',
-  url: '/assets/icons/favicon-20.09.ico',
-  position: 'top-right',
-  show: false,
-}
-
 export const PrivateRoutes = observer(() => {
   const history = useHistory()
 
@@ -32,9 +18,9 @@ export const PrivateRoutes = observer(() => {
 
   useEffect(() => {
     if (ChatModel.unreadMessages > 0) {
-      setConfig({...startFaviconConfig, show: true, counter: ChatModel.unreadMessages})
+      setConfig({...config, show: true, counter: ChatModel.unreadMessages})
     } else {
-      setConfig({...startFaviconConfig, show: false, counter: 0})
+      setConfig({...config, show: false, counter: 0})
     }
   }, [ChatModel.unreadMessages])
 

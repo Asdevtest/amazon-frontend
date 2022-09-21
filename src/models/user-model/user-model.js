@@ -34,10 +34,6 @@ class UserModelStatic {
     return !!this.accessToken
   }
 
-  // initChats() {
-  //   ChatModel.init()
-  // }
-
   signOut() {
     this.accessToken = undefined
     this.userInfo = undefined
@@ -58,8 +54,6 @@ class UserModelStatic {
       this.accessToken = accessToken
     })
     restApiService.setAccessToken(accessToken)
-
-    // this.initChats()
 
     return accessToken
   }
