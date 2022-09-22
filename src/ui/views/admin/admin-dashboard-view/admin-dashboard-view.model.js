@@ -4,6 +4,7 @@ import {AdminDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {AdministratorModel} from '@models/administrator-model'
+import {UserModel} from '@models/user-model'
 
 export class AdminDashboardViewModel {
   history = undefined
@@ -21,6 +22,10 @@ export class AdminDashboardViewModel {
     [AdminDashboardCardDataKey.FINANCES_ACCRUED_TO_SUPERVISORS]: '',
     [AdminDashboardCardDataKey.FINANCES_SUPERVISORS_FINES]: '',
     [AdminDashboardCardDataKey.FINANCES_RESEARCHERS_FINES]: '',
+  }
+
+  get userInfo() {
+    return UserModel.userInfo
   }
 
   constructor({history}) {

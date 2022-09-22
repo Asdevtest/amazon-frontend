@@ -1532,6 +1532,8 @@ export enum TranslationKey {
   'Editing ASIN' = 'Editing ASIN',
   'Are you sure you want to delete ASIN?' = 'Are you sure you want to delete ASIN?',
   'Preview' = 'Preview',
+  'Accrual data' = 'Accrual data',
+  'The following ASINs have already been entered into the table' = 'The following ASINs have already been entered into the table',
   // '' = '',
   // '' = '',
   // '' = '',

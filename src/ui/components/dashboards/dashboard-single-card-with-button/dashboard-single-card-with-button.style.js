@@ -4,15 +4,17 @@ export const useClassNames = makeStyles({
   cardWrapper: {
     backgroundColor: '#fff',
     boxShadow: '0px 2px 11px 2px #DFDFDF',
-    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+
     padding: '30px 20px',
     borderRadius: '8px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     height: '316px',
+    width: '221px',
   },
   cardWrapperHorizontal: {
+    width: '923px',
     height: '115px',
     flexDirection: 'row',
     alignItems: 'center',

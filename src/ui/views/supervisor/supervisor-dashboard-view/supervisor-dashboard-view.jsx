@@ -11,7 +11,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {DashboardBalance} from '@components/dashboards/dashboard-balance'
 import {DashboardButtons} from '@components/dashboards/dashboard-buttons'
-import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
+import {DashboardOneLineCardsList} from '@components/dashboards/dashboard-one-line-cards-list'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
@@ -38,6 +38,7 @@ export class SupervisorDashboardViewRaw extends Component {
     const supervisorButtonsRoutes = {
       notifications: '',
       messages: 'messages',
+      settings: 'settings',
     }
     return (
       <React.Fragment>
@@ -51,14 +52,15 @@ export class SupervisorDashboardViewRaw extends Component {
                 <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
                 <DashboardButtons user={userInfo} routes={supervisorButtonsRoutes} />
               </Paper>
-
-              <div className={classNames.amountWithLabelCardsWrapper}>
-                <SectionalDashboard
-                  config={getSupervisorDashboardCardConfig()}
+              {getSupervisorDashboardCardConfig().map(item => (
+                <DashboardOneLineCardsList
+                  key={item.key}
+                  config={item}
+                  configSubTitle={t(TranslationKey['Accrual data'])}
                   valuesData={dashboardData}
                   onClickViewMore={onClickInfoCardViewMode}
                 />
-              </div>
+              ))}
             </MainContent>
           </Appbar>
         </Main>

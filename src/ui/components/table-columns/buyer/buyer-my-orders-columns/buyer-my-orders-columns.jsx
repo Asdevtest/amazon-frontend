@@ -11,6 +11,7 @@ import {
   MultilineTextHeaderCell,
   DownloadAndCopyBtnsCell,
   RenderFieldValueCell,
+  MultilineTextAlignLeftCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -38,7 +39,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 120,
+    width: 130,
     renderCell: params => (
       <MultilineTextCell
         text={params.value}
@@ -101,7 +102,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell isComment text={params.value} />,
     width: 300,
   },
 
@@ -110,7 +111,7 @@ export const buyerMyOrdersViewColumns = firstRowId => [
     headerName: t(TranslationKey['Buyer comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell isComment text={params.value} />,
     width: 300,
   },
 

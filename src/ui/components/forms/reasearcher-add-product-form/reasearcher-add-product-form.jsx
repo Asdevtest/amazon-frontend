@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Box, NativeSelect} from '@material-ui/core'
+import {Box, NativeSelect, TextareaAutosize, Typography} from '@material-ui/core'
 import {Alert} from '@material-ui/lab'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
@@ -33,6 +33,7 @@ export const ResearcherAddProductFormRaw = observer(
     onClickAddBtn,
     classes: classNames,
     errorMsg,
+    reasonErrorMsg,
     chekedCode,
     actionStatus,
   }) => {
@@ -53,14 +54,23 @@ export const ResearcherAddProductFormRaw = observer(
               <Field
                 tooltipInfoContent={t(TranslationKey['Amazon ID number'])}
                 inputProps={{maxLength: 50}}
-                label={t(TranslationKey['Product code'])}
+                label={`${t(TranslationKey['Product code'])}*`}
                 value={formFields.productCode}
                 onChange={onChangeFormFields('productCode')}
               />
             </div>
             {errorMsg ? (
-              <Alert className={classNames.alert} elevation={0} severity="error">
+              <Alert classes={{root: classNames.alert}} elevation={0} severity="error">
                 {errorMessagesTranslate(errorMsg)}
+                {reasonErrorMsg ? (
+                  <>
+                    <Typography className={classNames.reasonTitleAlert}>{`${t(TranslationKey.Reason)}:`}</Typography>
+                    <TextareaAutosize
+                      className={classNames.alertMessage}
+                      value={errorMessagesTranslate(reasonErrorMsg)}
+                    />
+                  </>
+                ) : null}
               </Alert>
             ) : undefined}
             {!errorMsg && actionStatus === loadingStatuses.success ? (
@@ -72,7 +82,7 @@ export const ResearcherAddProductFormRaw = observer(
             <Box mt={3} className={classNames.strategyWrapper}>
               <Field
                 tooltipInfoContent={t(TranslationKey['Choose a strategy for your future product card'])}
-                label={t(TranslationKey['Product Strategy'])}
+                label={`${t(TranslationKey['Product Strategy'])}*`}
                 inputComponent={
                   <NativeSelect
                     disabled={errorMsg}

@@ -24,8 +24,9 @@ export class SupervisorSettingsContentModel {
   densityModel = 'compact'
   columnsModel = supervisorSettingsViewColumns()
   asins = []
-
+  failedData = {}
   nameSearchValue = undefined
+  selectedRowIds = undefined
 
   asinsToEdit = undefined
   asinsIdToRemove = undefined
@@ -33,6 +34,7 @@ export class SupervisorSettingsContentModel {
   showAsinCheckerModal = false
   showEditAsinCheckerModal = false
   showConfirmModal = false
+  showFailedAsinsModal = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -110,7 +112,9 @@ export class SupervisorSettingsContentModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
+
       await this.getAsins(tabIndex)
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -120,9 +124,15 @@ export class SupervisorSettingsContentModel {
 
   async onSubmitAsins(data) {
     try {
-      await OtherModel.checkAsins(data)
+      const failed = await OtherModel.checkAsins(data)
 
-      await this.loadData()
+      runInAction(() => {
+        this.failedData = failed
+      })
+
+      if (this.failedData.failed.length) {
+        this.onTriggerOpenModal('showFailedAsinsModal')
+      }
 
       this.onTriggerOpenModal('showAsinCheckerModal')
     } catch (error) {
@@ -133,6 +143,7 @@ export class SupervisorSettingsContentModel {
   async getAsins(tabIndex) {
     try {
       const result = await OtherModel.getAsins()
+
       runInAction(() => {
         this.asins = result.filter(item => item.strategy === mapProductStrategyStatusEnumToKey[tabIndex].toString())
       })
@@ -144,8 +155,8 @@ export class SupervisorSettingsContentModel {
   async onEditAsins(id, data) {
     try {
       await OtherModel.editAsins(id, data)
-      this.onTriggerOpenModal('showEditAsinCheckerModal')
       this.loadData()
+      this.onTriggerOpenModal('showEditAsinCheckerModal')
     } catch (error) {
       console.log(error)
     }
@@ -155,6 +166,7 @@ export class SupervisorSettingsContentModel {
     try {
       await OtherModel.removeAsin(id)
       this.onTriggerOpenModal('showConfirmModal')
+
       this.loadData()
     } catch (error) {
       console.log(error)
@@ -192,9 +204,8 @@ export class SupervisorSettingsContentModel {
   onChangeCurPage(e) {
     this.curPage = e
   }
-
   onSelectionModel(model) {
-    this.selectionModel = model
+    this.selectedRowIds = model
   }
 
   onChangeFilterModel(model) {

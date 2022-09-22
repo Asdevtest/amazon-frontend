@@ -50,6 +50,7 @@ class ResearcherProductsViewRaw extends Component {
       curPage,
       formFields,
       error,
+      reasonError,
       actionStatus,
       chekedCode,
       onClickCheckBtn,
@@ -80,6 +81,7 @@ class ResearcherProductsViewRaw extends Component {
                     user={user}
                     formFields={formFields}
                     errorMsg={error}
+                    reasonErrorMsg={reasonError}
                     chekedCode={chekedCode}
                     actionStatus={actionStatus}
                     onChangeFormFields={onChangeFormFields}

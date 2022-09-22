@@ -25,23 +25,6 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
   const [updatedAsinsAndReasonsData, setUpdatedAsinsAndReasonsData] = useState([])
   const [nameSearchValue, setNameSearchValue] = useState('')
 
-  // useEffect(() => {
-  //   const asinsData = asins ? asins.split('\n') : []
-  //   const reasonsData = reasons ? reasons.split('\n') : []
-  //   const data = []
-  //   asinsData.length &&
-  //     reasonsData.length &&
-  //     asinsData.forEach((item, index) => {
-  //       data.push({asin: item, reason: reasonsData[index], strategy: mapProductStrategyStatusEnumToKey[strategy]})
-  //     })
-  //   if (data.length) {
-  //     setAsinsAndReasonsData(data)
-  //     setUpdatedAsinsAndReasonsData(data)
-  //     setAsins('')
-  //     setReasons('')
-  //   }
-  // }, [asins, reasons])
-
   const onClickPreviewButton = () => {
     const asinsData = asins ? asins.split('\n') : []
     const reasonsData = reasons ? reasons.split('\n') : []
@@ -66,8 +49,8 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
   useEffect(() => {
     const filteredData = asinsAndReasonsData.filter(
       item =>
-        item.asin.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
-        item.reason.toLowerCase().includes(nameSearchValue.toLowerCase()),
+        item.asin.toString().toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+        item.reason.toString().toLowerCase().includes(nameSearchValue.toLowerCase()),
     )
     setUpdatedAsinsAndReasonsData(filteredData)
   }, [nameSearchValue])
@@ -145,7 +128,7 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
             disabled={!updatedAsinsAndReasonsData.length}
             variant="contained"
             className={classNames.buttonOk}
-            onClick={() => onSubmit(updatedAsinsAndReasonsData)}
+            onClick={() => onSubmit(asinsAndReasonsData)}
           >
             {t(TranslationKey.Save)}
           </Button>
