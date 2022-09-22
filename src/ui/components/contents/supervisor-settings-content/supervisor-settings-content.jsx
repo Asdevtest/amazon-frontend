@@ -10,7 +10,6 @@ import {observer} from 'mobx-react'
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
 
-// import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
 import {ITab} from '@components/i-tab/i-tab'
@@ -23,8 +22,6 @@ import {FailedAsinsModal} from '@components/modals/failed-asins-modal'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
-// import {ConfirmWithCommentModal} from '@components/modals/confirmation-with-comment-modal'
-// import {t} from '@utils/translations'
 import {SupervisorSettingsContentModel} from './supervisor-settings-content.model'
 import {useClassNames} from './supervisor-settings-content.style'
 
@@ -55,6 +52,7 @@ export const SupervisorSettingsContent = observer(() => {
   const [tabIndex, setTabIndex] = React.useState(tabsValues.ONLINE_ARBITRAGE_CHINA)
   const tabItemStyles = twitterTabsStylesHook.useTabItem()
   const gpModel = useRef(new SupervisorSettingsContentModel({history}))
+
   const {
     showAsinCheckerModal,
     showEditAsinCheckerModal,
@@ -81,6 +79,8 @@ export const SupervisorSettingsContent = observer(() => {
     confirmModalSettings,
     nameSearchValue,
     onChangeNameSearchValue,
+    onSelectionModel,
+    selectedRowIds,
   } = gpModel.current
 
   useEffect(() => {
@@ -89,6 +89,7 @@ export const SupervisorSettingsContent = observer(() => {
 
   const classNames = useClassNames()
 
+  console.log(selectedRowIds)
   return (
     <React.Fragment>
       <Tabs
@@ -132,6 +133,7 @@ export const SupervisorSettingsContent = observer(() => {
         <div className={classNames.dataGridWrapper}>
           <DataGrid
             pagination
+            checkboxSelection
             useResizeContainer
             classes={{
               row: classNames.row,
@@ -160,6 +162,7 @@ export const SupervisorSettingsContent = observer(() => {
             onPageChange={onChangeCurPage}
             onStateChange={setDataGridState}
             onFilterModelChange={model => onChangeFilterModel(model)}
+            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
           />
         </div>
       </TabPanel>
@@ -186,6 +189,7 @@ export const SupervisorSettingsContent = observer(() => {
           <DataGrid
             pagination
             useResizeContainer
+            checkboxSelection
             classes={{
               row: classNames.row,
               root: classNames.rootDataGrid,
@@ -213,6 +217,7 @@ export const SupervisorSettingsContent = observer(() => {
             onPageChange={onChangeCurPage}
             onStateChange={setDataGridState}
             onFilterModelChange={model => onChangeFilterModel(model)}
+            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
           />
         </div>
       </TabPanel>
@@ -239,6 +244,7 @@ export const SupervisorSettingsContent = observer(() => {
           <DataGrid
             pagination
             useResizeContainer
+            checkboxSelection
             classes={{
               row: classNames.row,
               root: classNames.rootDataGrid,
@@ -266,6 +272,7 @@ export const SupervisorSettingsContent = observer(() => {
             onPageChange={onChangeCurPage}
             onStateChange={setDataGridState}
             onFilterModelChange={model => onChangeFilterModel(model)}
+            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
           />
         </div>
       </TabPanel>
@@ -292,6 +299,7 @@ export const SupervisorSettingsContent = observer(() => {
           <DataGrid
             pagination
             useResizeContainer
+            checkboxSelection
             classes={{
               row: classNames.row,
               root: classNames.rootDataGrid,
@@ -319,6 +327,7 @@ export const SupervisorSettingsContent = observer(() => {
             onPageChange={onChangeCurPage}
             onStateChange={setDataGridState}
             onFilterModelChange={model => onChangeFilterModel(model)}
+            onSelectionModelChange={newSelection => onSelectionModel(newSelection)}
           />
         </div>
       </TabPanel>

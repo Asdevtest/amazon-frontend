@@ -26,6 +26,7 @@ export class SupervisorSettingsContentModel {
   asins = []
   failedData = {}
   nameSearchValue = undefined
+  selectedRowIds = undefined
 
   asinsToEdit = undefined
   asinsIdToRemove = undefined
@@ -111,7 +112,9 @@ export class SupervisorSettingsContentModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
+
       await this.getAsins(tabIndex)
+
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -140,6 +143,7 @@ export class SupervisorSettingsContentModel {
   async getAsins(tabIndex) {
     try {
       const result = await OtherModel.getAsins()
+
       runInAction(() => {
         this.asins = result.filter(item => item.strategy === mapProductStrategyStatusEnumToKey[tabIndex].toString())
       })
@@ -151,8 +155,8 @@ export class SupervisorSettingsContentModel {
   async onEditAsins(id, data) {
     try {
       await OtherModel.editAsins(id, data)
-      this.onTriggerOpenModal('showEditAsinCheckerModal')
       this.loadData()
+      this.onTriggerOpenModal('showEditAsinCheckerModal')
     } catch (error) {
       console.log(error)
     }
@@ -162,6 +166,7 @@ export class SupervisorSettingsContentModel {
     try {
       await OtherModel.removeAsin(id)
       this.onTriggerOpenModal('showConfirmModal')
+
       this.loadData()
     } catch (error) {
       console.log(error)
@@ -199,9 +204,8 @@ export class SupervisorSettingsContentModel {
   onChangeCurPage(e) {
     this.curPage = e
   }
-
   onSelectionModel(model) {
-    this.selectionModel = model
+    this.selectedRowIds = model
   }
 
   onChangeFilterModel(model) {
