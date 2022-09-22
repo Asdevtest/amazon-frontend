@@ -42,6 +42,19 @@ export const ConfirmWithCommentModal = ({
     setOpenModal()
   }
 
+  useEffect(() => {
+    const listener = event => {
+      if (openModal && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+        event.preventDefault()
+        onClickSubmit()
+      }
+    }
+    document.addEventListener('keydown', listener)
+    return () => {
+      document.removeEventListener('keydown', listener)
+    }
+  }, [])
+
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMessageWrapper}>

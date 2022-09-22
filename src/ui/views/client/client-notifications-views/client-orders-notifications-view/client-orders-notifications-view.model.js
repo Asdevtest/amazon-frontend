@@ -24,6 +24,8 @@ export class ClientOrdersNotificationsViewModel {
   loadingStatus = undefined
 
   orders = []
+  baseNoConvertedOrders = []
+
   drawerOpen = false
   showConfirmModal = false
   confirmModalSettings = {
@@ -54,6 +56,12 @@ export class ClientOrdersNotificationsViewModel {
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
+
+      this.orders = clientOrdersNotificationsDataConverter(
+        this.baseNoConvertedOrders.filter(
+          order => order.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE],
+        ),
+      ).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
     }
   }
 
@@ -158,6 +166,8 @@ export class ClientOrdersNotificationsViewModel {
       const result = await ClientModel.getOrders()
 
       runInAction(() => {
+        this.baseNoConvertedOrders = result
+
         this.orders = clientOrdersNotificationsDataConverter(
           result.filter(order => order.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]),
         ).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))

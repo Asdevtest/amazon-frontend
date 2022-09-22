@@ -189,6 +189,7 @@ export const EditOrderModal = observer(
     const disabledOrderStatuses = [
       `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}`,
       `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
+      `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`,
       `${OrderStatusByKey[OrderStatus.IN_STOCK]}`,
     ]
 
@@ -196,7 +197,8 @@ export const EditOrderModal = observer(
 
     const [hsCode, setHsCode] = useState(order.product.hsCode)
 
-    const disableSubmit = requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status)
+    const disableSubmit =
+      requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status + '')
 
     return (
       <Box className={classNames.modalWrapper}>
@@ -306,6 +308,7 @@ export const EditOrderModal = observer(
 
         <Paper elevation={0} className={classNames.paper}>
           <SelectFields
+            disableSubmit={disableSubmit}
             hsCode={hsCode}
             setHsCode={setHsCode}
             photosToLoad={photosToLoad}

@@ -63,10 +63,8 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
       drawerOpen,
       request,
       confirmModalSettings,
-      confirmOrderSettings,
       acceptProposalResultSetting,
       showRequestForm,
-      showOrderModal,
       showConfirmModal,
       showConfirmWithCommentModal,
       showReviewModal,
@@ -257,7 +255,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
           />
 
-          <ConfirmationModal
+          {/* <ConfirmationModal
             isWarning={confirmModalSettings.isWarning}
             openModal={showOrderModal}
             setOpenModal={() => onTriggerOpenModal('showOrderModal')}
@@ -267,7 +265,7 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
             cancelBtnText={t(TranslationKey.No)}
             onClickSuccessBtn={confirmOrderSettings.onSubmit}
             onClickCancelBtn={() => onTriggerOpenModal('showOrderModal')}
-          />
+          /> */}
 
           <ConfirmWithCommentModal
             openModal={showConfirmWithCommentModal}

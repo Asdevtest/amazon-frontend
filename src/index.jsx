@@ -4,6 +4,7 @@ import {BrowserTracing} from '@sentry/tracing'
 import React from 'react'
 
 import ReactDOM from 'react-dom'
+import FaviconNotificationContextProvider from 'react-favicon-notification'
 import 'reflect-metadata'
 
 import '@services/mobx-persist-configure'
@@ -19,7 +20,12 @@ Sentry.init({
   tracesSampleRate: 1.0,
 })
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(
+  <FaviconNotificationContextProvider>
+    <App />
+  </FaviconNotificationContextProvider>,
+  document.getElementById('root'),
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -18,7 +18,7 @@ import {translateProposalsLeftMessage} from '@utils/validation'
 
 import {useClassNames} from './vacant-request-short-card.style'
 
-export const VacantRequestShortCard = ({item, onClickViewMore}) => {
+export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
   const classNames = useClassNames()
 
   return (
@@ -68,7 +68,7 @@ export const VacantRequestShortCard = ({item, onClickViewMore}) => {
           </div>
 
           <Button
-            tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
+            tooltipInfoContent={isFirst && t(TranslationKey['Open detailed information about the request'])}
             variant="contained"
             color="primary"
             className={classNames.actionButton}

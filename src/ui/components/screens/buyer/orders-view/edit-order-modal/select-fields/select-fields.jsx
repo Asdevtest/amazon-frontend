@@ -27,6 +27,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-fields.style'
 
 export const SelectFields = ({
+  disableSubmit,
   hsCode,
   setHsCode,
   photosToLoad,
@@ -350,6 +351,7 @@ export const SelectFields = ({
 
           <Field
             multiline
+            disabled={disableSubmit}
             rows={4}
             rowsMax={6}
             inputProps={{maxLength: 500}}
@@ -362,6 +364,7 @@ export const SelectFields = ({
 
         <Box my={3} className={classNames.trackAndHsCodeAndComments}>
           <Field
+            disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Tracking number for goods in transit'])}
             value={orderFields.trackingNumberChina}
             label={t(TranslationKey['Track number'])}
@@ -372,6 +375,7 @@ export const SelectFields = ({
           />
 
           <Field
+            disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Code for Harmonized System Product Identification'])}
             value={hsCode}
             label={t(TranslationKey['HS code'])}
@@ -411,9 +415,11 @@ export const SelectFields = ({
         </Box>
 
         <div>
-          <div className={classNames.imageFileInputWrapper}>
-            <UploadFilesInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
-          </div>
+          {!disableSubmit && (
+            <div className={classNames.imageFileInputWrapper}>
+              <UploadFilesInput images={photosToLoad} setImages={setPhotosToLoad} maxNumber={50} />
+            </div>
+          )}
           <PhotoAndFilesCarousel small files={order.images} width="400px" />
         </div>
       </Grid>

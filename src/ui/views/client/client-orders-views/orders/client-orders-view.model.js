@@ -26,6 +26,7 @@ export class ClientOrdersViewModel {
   successModalText = ''
   nameSearchValue = ''
   orders = []
+  baseNoConvertedOrders = []
   drawerOpen = false
 
   showOrderModal = false
@@ -54,6 +55,7 @@ export class ClientOrdersViewModel {
   }
 
   firstRowId = undefined
+  startFilterModel = undefined
   sortModel = []
   filterModel = {items: []}
   curPage = 0
@@ -61,8 +63,13 @@ export class ClientOrdersViewModel {
   densityModel = 'compact'
   columnsModel = clientOrdersViewColumns(this.rowHandlers, this.firstRowId)
 
-  constructor({history}) {
+  constructor({history, location}) {
     this.history = history
+
+    if (location?.state?.dataGridFilter) {
+      this.startFilterModel = location.state.dataGridFilter
+    }
+
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
       () => SettingsModel.languageTag,
@@ -78,6 +85,10 @@ export class ClientOrdersViewModel {
   async updateColumnsModel() {
     if (await SettingsModel.languageTag) {
       this.getDataGridState()
+
+      this.orders = clientOrdersDataConverter(this.baseNoConvertedOrders).sort(
+        sortObjectsArrayByFiledDateWithParseISO('createdAt'),
+      )
     }
   }
 
@@ -110,7 +121,12 @@ export class ClientOrdersViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = state.filter.filterModel
+      this.filterModel = this.startFilterModel
+        ? {
+            ...this.startFilterModel,
+            items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+          }
+        : state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
@@ -176,6 +192,8 @@ export class ClientOrdersViewModel {
       const result = await ClientModel.getOrders()
 
       runInAction(() => {
+        this.baseNoConvertedOrders = result
+
         this.orders = clientOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
       })
     } catch (error) {

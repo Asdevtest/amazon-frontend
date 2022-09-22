@@ -253,9 +253,11 @@ export class ClientDashboardViewModel {
     }
   }
 
-  onClickInfoCardViewMode(route) {
-    this.history.push(route, {
-      openModal: true,
-    })
+  onClickInfoCardViewMode(route, dataGridFilter) {
+    if (dataGridFilter) {
+      this.history.push(route, {dataGridFilter})
+    } else {
+      this.history.push(route)
+    }
   }
 }

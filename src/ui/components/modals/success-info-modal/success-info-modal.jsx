@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import {Typography} from '@material-ui/core'
 
@@ -9,6 +9,19 @@ import {useClassNames} from './success-info-modal.style'
 
 export const SuccessInfoModal = ({openModal, setOpenModal, title, successBtnText, onClickSuccessBtn}) => {
   const classNames = useClassNames()
+
+  useEffect(() => {
+    const listener = event => {
+      if (openModal && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+        event.preventDefault()
+        onClickSuccessBtn()
+      }
+    }
+    document.addEventListener('keydown', listener)
+    return () => {
+      document.removeEventListener('keydown', listener)
+    }
+  }, [])
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>

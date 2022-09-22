@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
@@ -10,6 +10,19 @@ import {useClassNames} from './warning-info-modal.style'
 
 export const WarningInfoModal = ({openModal, setOpenModal, title, btnText, onClickBtn, isWarning}) => {
   const classNames = useClassNames()
+
+  useEffect(() => {
+    const listener = event => {
+      if (openModal && (event.code === 'Enter' || event.code === 'NumpadEnter')) {
+        event.preventDefault()
+        onClickBtn()
+      }
+    }
+    document.addEventListener('keydown', listener)
+    return () => {
+      document.removeEventListener('keydown', listener)
+    }
+  }, [])
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>

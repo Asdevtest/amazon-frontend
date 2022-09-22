@@ -15,7 +15,7 @@ export const DashboardListOfAnyCard = ({config, configSubTitle, valuesData, onCl
   const classNames = useClassNames()
 
   const CardItem = ({item}) => (
-    <div className={classNames.cardWrapper} onClick={() => onClickViewMore(item.route)}>
+    <div className={classNames.cardWrapper} onClick={() => onClickViewMore(item.route, item.dataGridFilter)}>
       <Typography className={classNames.cardSubTitle}>{item.title}</Typography>
       <div className={classNames.cardValueWrapper}>
         <Typography className={classNames.cardValueTitle}>

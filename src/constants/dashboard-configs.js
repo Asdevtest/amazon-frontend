@@ -256,12 +256,35 @@ export const getClientDashboardCardConfig = () => ({
         title: t(TranslationKey['Paid orders']),
         color: '#00B746',
         route: '/client/orders',
+        dataGridFilter: {
+          items: [
+            {
+              columnField: 'status',
+              operatorValue: 'isAnyOf',
+              value: [
+                TranslationKey['Paid to supplier'],
+                TranslationKey['Track number issued'],
+                TranslationKey['In stock'],
+              ],
+            },
+          ],
+        },
       },
+
       {
         dataKey: ClientDashboardCardDataKey.CANCELED_ORDERS,
         title: t(TranslationKey['Canceled orders']),
         color: '#BC3030',
         route: '/client/orders',
+        dataGridFilter: {
+          items: [
+            {
+              columnField: 'status',
+              operatorValue: 'isAnyOf',
+              value: [TranslationKey['Canceled by Buyer'], TranslationKey['Canceled by Client']],
+            },
+          ],
+        },
       },
     ],
   },
