@@ -1533,5 +1533,7 @@
   "Search by ASIN, Reason": "Поиск по ASIN, Причине",
   "Editing ASIN": "Редактирование ASIN",
   "Are you sure you want to delete ASIN?": "Вы уверены , что хотите удалить ASIN?",
-  "Preview": "Предпросмотр"
+  "Preview": "Предпросмотр",
+  "Accrual data": "Данные по начислениям",
+  "The following ASINs have already been entered into the table": "Следующие ASIN уже внесены в таблицу"
 }

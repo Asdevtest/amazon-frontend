@@ -37,7 +37,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-
+    height: '200px',
     padding: '0 0 35px',
   },
 

@@ -560,7 +560,7 @@ export const styles = createStyles(() => ({
   multilineText: {
     width: '100%',
     maxHeight: '100%',
-    userSelect: 'none',
+    // userSelect: 'none',
     textAlign: 'center',
     whiteSpace: 'normal',
     textOverflow: 'ellipsis',

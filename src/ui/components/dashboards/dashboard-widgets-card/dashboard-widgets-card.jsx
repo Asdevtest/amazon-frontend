@@ -19,6 +19,7 @@ export const DashboardWidgetsCard = observer(({config, valuesData, onClickViewMo
   return (
     <div className={classNames.cardWrapper}>
       <DashboardOneLineCardsList
+        isClient
         config={config.inventory}
         configSubTitle={t(TranslationKey['Your product list data'])}
         valuesData={valuesData}

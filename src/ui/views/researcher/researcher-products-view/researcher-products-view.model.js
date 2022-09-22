@@ -38,6 +38,7 @@ export class ResearcherProductsViewModel {
   history = undefined
   requestStatus = undefined
   error = undefined
+  reasonError = undefined
   actionStatus = undefined
 
   drawerOpen = false
@@ -179,7 +180,8 @@ export class ResearcherProductsViewModel {
     console.log('checkProductExistResult', checkProductExistResult)
     if (checkProductExistResult.isExist) {
       runInAction(() => {
-        this.error = checkProductExistResult.reason
+        this.error = 'This product already exists'
+        this.reasonError = checkProductExistResult.reason
         return
       })
     }

@@ -10,7 +10,7 @@ import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
 import {useClassNames} from '@components/dashboards/dashboard-buttons/dashboard-buttons.style'
 
-import {checkIsAdmin, checkIsStorekeeper} from '@utils/checks'
+import {checkIsAdmin, checkIsStorekeeper, checkIsSupervisor} from '@utils/checks'
 import {t} from '@utils/translations'
 
 export const DashboardButtons = ({user, routes}) => {
@@ -39,7 +39,9 @@ export const DashboardButtons = ({user, routes}) => {
 
         <Typography className={classNames.title}>{t(TranslationKey.Messages)}</Typography>
       </div>
-      {checkIsAdmin(UserRoleCodeMap[user.role]) || checkIsStorekeeper(UserRoleCodeMap[user.role]) ? (
+      {checkIsAdmin(UserRoleCodeMap[user.role]) ||
+      checkIsStorekeeper(UserRoleCodeMap[user.role]) ||
+      checkIsSupervisor(UserRoleCodeMap[user.role]) ? (
         <div
           className={classNames.buttonWrapper}
           onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.settings}`)}

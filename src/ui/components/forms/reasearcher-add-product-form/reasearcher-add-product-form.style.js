@@ -4,6 +4,16 @@ export const styles = createStyles(() => ({
   fieldsWrapper: {},
   alert: {
     marginTop: '24px',
+    minHeight: '40px',
+  },
+
+  alertMessage: {
+    width: '430px',
+
+    backgroundColor: 'inherit',
+    border: 'none',
+    resize: 'none',
+    fontFamily: 'inherit',
   },
 
   btnsWrapper: {
@@ -62,5 +72,10 @@ export const styles = createStyles(() => ({
 
   shortInput: {
     width: '180px',
+  },
+
+  reasonTitleAlert: {
+    fontSize: '14px',
+    marginTop: '10px',
   },
 }))

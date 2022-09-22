@@ -24,7 +24,7 @@ export class SupervisorSettingsContentModel {
   densityModel = 'compact'
   columnsModel = supervisorSettingsViewColumns()
   asins = []
-
+  failedData = {}
   nameSearchValue = undefined
 
   asinsToEdit = undefined
@@ -33,6 +33,7 @@ export class SupervisorSettingsContentModel {
   showAsinCheckerModal = false
   showEditAsinCheckerModal = false
   showConfirmModal = false
+  showFailedAsinsModal = false
 
   confirmModalSettings = {
     isWarning: false,
@@ -120,9 +121,15 @@ export class SupervisorSettingsContentModel {
 
   async onSubmitAsins(data) {
     try {
-      await OtherModel.checkAsins(data)
+      const failed = await OtherModel.checkAsins(data)
 
-      await this.loadData()
+      runInAction(() => {
+        this.failedData = failed
+      })
+
+      if (this.failedData.failed.length) {
+        this.onTriggerOpenModal('showFailedAsinsModal')
+      }
 
       this.onTriggerOpenModal('showAsinCheckerModal')
     } catch (error) {

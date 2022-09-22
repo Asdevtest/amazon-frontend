@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 
+import {Avatar, Paper} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -8,11 +9,14 @@ import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
-import {SectionalDashboard} from '@components/dashboards/sectional-dashboard'
+import {DashboardBalance} from '@components/dashboards/dashboard-balance'
+import {DashboardButtons} from '@components/dashboards/dashboard-buttons'
+import {DashboardOneLineCardsList} from '@components/dashboards/dashboard-one-line-cards-list'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Navbar} from '@components/navbar'
 
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
 
 import {AdminDashboardViewModel} from './admin-dashboard-view.model'
@@ -29,8 +33,13 @@ export class AdminDashboardViewRaw extends Component {
   }
 
   render() {
-    const {drawerOpen, onChangeTriggerDrawerOpen, onClickInfoCardViewMode, dashboardData} = this.viewModel
-    // const {classes: classNames} = this.props
+    const {drawerOpen, onChangeTriggerDrawerOpen, onClickInfoCardViewMode, dashboardData, userInfo} = this.viewModel
+    const {classes: classNames} = this.props
+    const buyerButtonsRoutes = {
+      notifications: '',
+      messages: 'messages',
+      settings: 'settings',
+    }
     return (
       <React.Fragment>
         <Navbar
@@ -41,11 +50,21 @@ export class AdminDashboardViewRaw extends Component {
         <Main>
           <Appbar setDrawerOpen={onChangeTriggerDrawerOpen} title={t(TranslationKey.Dashboard)}>
             <MainContent>
-              <SectionalDashboard
-                config={getAdminDashboardCardConfig()}
-                valuesData={dashboardData}
-                onClickViewMore={onClickInfoCardViewMode}
-              />
+              <Paper className={classNames.userInfoWrapper}>
+                <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
+
+                <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+                <DashboardButtons user={userInfo} routes={buyerButtonsRoutes} />
+              </Paper>
+              {getAdminDashboardCardConfig().map(item => (
+                <DashboardOneLineCardsList
+                  key={item.key}
+                  config={item}
+                  configSubTitle={t(TranslationKey['Accrual data'])}
+                  valuesData={dashboardData}
+                  onClickViewMore={onClickInfoCardViewMode}
+                />
+              ))}
             </MainContent>
           </Appbar>
         </Main>

@@ -18,6 +18,7 @@ import {Modal} from '@components/modal'
 import {AsinCheckerModal} from '@components/modals/asin-checker-modal'
 import {ConfirmationModal} from '@components/modals/confirmation-modal'
 import {EditAsinCheckerModal} from '@components/modals/edit-asin-checker-modal'
+import {FailedAsinsModal} from '@components/modals/failed-asins-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -58,8 +59,10 @@ export const SupervisorSettingsContent = observer(() => {
     showAsinCheckerModal,
     showEditAsinCheckerModal,
     showConfirmModal,
+    showFailedAsinsModal,
     onTriggerOpenModal,
     asinsToEdit,
+    failedData,
     curPage,
     rowsPerPage,
     onChangeCurPage,
@@ -344,6 +347,12 @@ export const SupervisorSettingsContent = observer(() => {
         onClickSuccessBtn={confirmModalSettings.onClickSuccess}
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
       />
+      <Modal openModal={showFailedAsinsModal} setOpenModal={() => onTriggerOpenModal('showFailedAsinsModal')}>
+        <FailedAsinsModal
+          failedData={failedData}
+          onClickSuccessBtn={() => onTriggerOpenModal('showFailedAsinsModal')}
+        />
+      </Modal>
     </React.Fragment>
   )
 })
