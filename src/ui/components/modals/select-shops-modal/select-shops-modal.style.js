@@ -108,6 +108,9 @@ export const useClassNames = makeStyles(() => ({
   shopsSelect: {
     width: '214px',
   },
+  selectMenu: {
+    width: '317px',
+  },
 
   selectedShopsWrapper: {
     width: '100%',
@@ -128,6 +131,13 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '16px',
     fontWeight: '400',
     color: '#001029',
+    maxWidth: '250px',
+  },
+
+  selectedShopText: {
+    maxWidth: '200px',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
 
   removeShopButton: {

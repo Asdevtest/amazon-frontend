@@ -422,15 +422,27 @@ export const MultilineTextCell = withStyles(styles)(({classes: classNames, text,
   </div>
 ))
 
-export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text}) => (
-  <div className={classNames.multilineTextAlignLeftWrapper}>
-    <TextareaAutosize
-      disabled
-      value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
-      className={classNames.multilineTextAlignLeft}
-    />
-  </div>
-))
+export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text, isComment}) =>
+  isComment ? (
+    <Tooltip title={text}>
+      <div className={classNames.multilineTextAlignLeftWrapper}>
+        <TextareaAutosize
+          disabled
+          value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+          className={classNames.multilineTextAlignLeft}
+        />
+      </div>
+    </Tooltip>
+  ) : (
+    <div className={classNames.multilineTextAlignLeftWrapper}>
+      <TextareaAutosize
+        disabled
+        value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+        className={classNames.multilineTextAlignLeft}
+      />
+    </div>
+  ),
+)
 
 export const MultilineTextAlignLeftHeaderCell = withStyles(styles)(({classes: classNames, text}) => (
   <div className={classNames.multilineTextAlignLeftHeaderWrapper}>

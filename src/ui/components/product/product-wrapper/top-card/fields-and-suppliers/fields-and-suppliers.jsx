@@ -383,7 +383,12 @@ export const FieldsAndSuppliers = observer(
                     // onClick={() => setClearSelect(false)}
                   >
                     {shops.map((shop, index) => (
-                      <MenuItem key={index} disabled={currentShops.includes(shop)} value={shop}>
+                      <MenuItem
+                        key={index}
+                        disabled={currentShops.includes(shop)}
+                        value={shop}
+                        className={classNames.selectMenu}
+                      >
                         <Checkbox color="primary" checked={currentShops.includes(shop)} />
                         <ListItemText primary={shop.name} />
                       </MenuItem>
@@ -398,7 +403,7 @@ export const FieldsAndSuppliers = observer(
             <div className={classNames.selectedShopsWrapper}>
               {currentShops.map((shop, index) => (
                 <div key={index} className={classNames.selectedShop}>
-                  <Typography>{shop.name}</Typography>
+                  <Typography className={classNames.selectedShopText}>{shop.name}</Typography>
                   <ClearIcon
                     className={classNames.removeShopButton}
                     onClick={() => onRemoveShop(shop.name, shop._id)}

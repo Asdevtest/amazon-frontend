@@ -54,7 +54,7 @@ export const ResearcherAddProductFormRaw = observer(
               <Field
                 tooltipInfoContent={t(TranslationKey['Amazon ID number'])}
                 inputProps={{maxLength: 50}}
-                label={t(TranslationKey['Product code'])}
+                label={`${t(TranslationKey['Product code'])}*`}
                 value={formFields.productCode}
                 onChange={onChangeFormFields('productCode')}
               />
@@ -82,7 +82,7 @@ export const ResearcherAddProductFormRaw = observer(
             <Box mt={3} className={classNames.strategyWrapper}>
               <Field
                 tooltipInfoContent={t(TranslationKey['Choose a strategy for your future product card'])}
-                label={t(TranslationKey['Product Strategy'])}
+                label={`${t(TranslationKey['Product Strategy'])}*`}
                 inputComponent={
                   <NativeSelect
                     disabled={errorMsg}

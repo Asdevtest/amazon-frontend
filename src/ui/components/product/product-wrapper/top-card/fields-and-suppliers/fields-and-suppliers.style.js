@@ -196,6 +196,12 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '16px',
     fontWeight: '400',
     color: '#001029',
+    maxWidth: '250px',
+  },
+  selectedShopText: {
+    maxWidth: '200px',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
 
   removeShopButton: {
@@ -363,5 +369,9 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     alignItems: 'end',
     gap: '10px',
+  },
+
+  selectMenu: {
+    width: '317px',
   },
 }))

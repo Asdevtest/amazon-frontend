@@ -1,3 +1,4 @@
+import ClearIcon from '@mui/icons-material/Clear'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 
 import React, {useEffect, useState} from 'react'
@@ -67,7 +68,12 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
                   onChange={e => setSelectedItem(e.target.value)}
                 >
                   {shops.map((shop, index) => (
-                    <MenuItem key={index} disabled={currentShops.includes(shop)} value={shop}>
+                    <MenuItem
+                      key={index}
+                      disabled={currentShops.includes(shop)}
+                      value={shop}
+                      className={classNames.selectMenu}
+                    >
                       {/* <Checkbox color="primary" checked={currentShops.includes(shop._id)} /> */}
                       <ListItemText primary={shop.name} />
                     </MenuItem>
@@ -86,12 +92,10 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
           />
           <div className={classNames.selectedShopsWrapper}>
             {currentShops.map((shop, index) => (
-              <Typography key={index} className={classNames.selectedShop}>
-                {shop.name}
-                <Typography className={classNames.removeShopButton} onClick={() => onRemoveShop(shop.name, shop._id)}>
-                  {'х'}
-                </Typography>
-              </Typography>
+              <div key={index} className={classNames.selectedShop}>
+                <Typography className={classNames.selectedShopText}>{shop.name}</Typography>
+                <ClearIcon className={classNames.removeShopButton} onClick={() => onRemoveShop(shop.name, shop._id)} />
+              </div>
             ))}
           </div>
         </div>
