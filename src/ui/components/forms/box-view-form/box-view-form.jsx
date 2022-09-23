@@ -33,10 +33,6 @@ export const BoxViewForm = observer(
       setSizeSetting(newAlignment)
     }
 
-    const copyValue = value => {
-      navigator.clipboard.writeText(value)
-    }
-
     const dimensionsConfig = {
       PRIMARY: 'PRIMARY',
       SHIPPING: 'SHIPPING',
