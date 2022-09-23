@@ -17,8 +17,10 @@ import {buyerMyOrdersViewColumns} from '@components/table-columns/buyer/buyer-my
 
 import {buyerMyOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {resetDataGridFilter} from '@utils/filters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {toFixed} from '@utils/text'
+import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
 
 const updateOrderKeys = [
@@ -84,6 +86,8 @@ export class BuyerMyOrdersViewModel {
 
     if (location?.state?.dataGridFilter) {
       this.startFilterModel = location.state.dataGridFilter
+    } else {
+      this.startFilterModel = resetDataGridFilter
     }
 
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -131,7 +135,12 @@ export class BuyerMyOrdersViewModel {
 
     if (state) {
       this.sortModel = state.sorting.sortModel
-      this.filterModel = this.startFilterModel ? this.startFilterModel : state.filter.filterModel
+      this.filterModel = this.startFilterModel
+        ? {
+            ...this.startFilterModel,
+            items: this.startFilterModel.items.map(el => ({...el, value: el.value.map(e => t(e))})),
+          }
+        : state.filter.filterModel
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value

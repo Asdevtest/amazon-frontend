@@ -1,17 +1,19 @@
 import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
+  cardsWrapper: {},
   cardWrapper: {
-    width: '317px',
+    width: '277px',
     background: 'linear-gradient(157deg,#fff 50%, #F2FBF7 50%);',
     boxShadow: '0px 2px 11px 2px #DFDFDF',
     padding: '20px',
     borderRadius: '8px',
-    height: '151px',
+    height: '111px',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'column',
+    marginTop: '5px',
 
     '&:hover': {
       background: 'linear-gradient(157deg,#fff 50%, #d8fded 50%);',
@@ -39,7 +41,7 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '27px',
     color: '#001029',
     fontWeight: 600,
-    marginLeft: '50px',
+    marginLeft: '86px',
   },
   cardSubTitle: {
     width: '127px',
@@ -56,7 +58,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '19px',
     marginBottom: '10px',
-    marginLeft: '50px',
+    marginLeft: '86px',
   },
   cardHeaderWrapper: {
     display: 'flex',
@@ -64,10 +66,12 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
   },
   swiper: {
-    height: 200,
-    padding: '0 50px',
+    height: 170,
+    margin: '0 43px',
+    padding: '0 45px',
   },
   addButton: {
     marginRight: '50px',
   },
+  nextButton: {},
 }))

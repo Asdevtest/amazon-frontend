@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/styles'
 
 export const useClassNames = makeStyles({
   cardWrapper: {
-    padding: '0 40px',
+    // padding: '0 40px',
   },
   sectionWrapper: {
     display: 'grid',
@@ -14,7 +14,7 @@ export const useClassNames = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
     marginTop: '35px',
-    padding: '0 50px',
+    padding: '0 86px',
   },
   cardListTitle: {
     fontSize: '20px',

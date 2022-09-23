@@ -52,9 +52,12 @@ export class FreelancerDashboardViewRaw extends Component {
           <Appbar title={t(TranslationKey.Dashboard)} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <Paper className={classNames.userInfoWrapper}>
-                <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
+                <div className={classNames.userInfoLeftWrapper}>
+                  <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
 
-                <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+                  <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+                </div>
+
                 <DashboardButtons user={userInfo} routes={freelancerButtonsRoutes} />
               </Paper>
               {getFreelancerDashboardCardConfig().map(item => (

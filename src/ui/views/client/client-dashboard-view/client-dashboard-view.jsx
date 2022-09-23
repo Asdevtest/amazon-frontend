@@ -60,32 +60,35 @@ export class ClientDashboardViewRaw extends Component {
           <Appbar setDrawerOpen={onTriggerDrawer} title={t(TranslationKey.Dashboard)} balance={userInfo.balance}>
             <MainContent>
               <Paper className={classes.userInfoWrapper}>
-                <Avatar src={getUserAvatarSrc(userInfo._id)} className={classes.cardImg} />
-                <div className={classes.balanceWrapper}>
-                  <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+                <div className={classes.userInfoLeftWrapper}>
+                  <Avatar src={getUserAvatarSrc(userInfo._id)} className={classes.cardImg} />
+                  <div className={classes.balanceWrapper}>
+                    <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
 
-                  <div className={classes.buttonWrapper}>
-                    <Button
-                      tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
-                      className={classes.button}
-                      color="primary"
-                      variant="contained"
-                      onClick={onClickWithdrawMoney}
-                    >
-                      {t(TranslationKey.Deposit)}
-                      <img src="/assets/icons/white-plus.svg" className={classes.icon} />
-                    </Button>
-                    <Button
-                      tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
-                      className={[classes.button, classes.withdrawBtn]}
-                      color="primary"
-                      variant="text"
-                      onClick={onClickAddMoney}
-                    >
-                      {t(TranslationKey.Withdraw)}
-                    </Button>
+                    <div className={classes.buttonWrapper}>
+                      <Button
+                        tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
+                        className={classes.button}
+                        color="primary"
+                        variant="contained"
+                        onClick={onClickWithdrawMoney}
+                      >
+                        {t(TranslationKey.Deposit)}
+                        <img src="/assets/icons/white-plus.svg" className={classes.icon} />
+                      </Button>
+                      <Button
+                        tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
+                        className={[classes.button, classes.withdrawBtn]}
+                        color="primary"
+                        variant="text"
+                        onClick={onClickAddMoney}
+                      >
+                        {t(TranslationKey.Withdraw)}
+                      </Button>
+                    </div>
                   </div>
                 </div>
+
                 <DashboardButtons user={userInfo} routes={clientButtonsRoutes} />
               </Paper>
               <DashboardWidgetsCard

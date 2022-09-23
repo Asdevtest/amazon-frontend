@@ -422,7 +422,7 @@ export const MultilineTextCell = withStyles(styles)(({classes: classNames, text,
   </div>
 ))
 
-export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text, isComment}) =>
+export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text, isComment, isAsin}) =>
   isComment ? (
     <Tooltip title={text}>
       <div className={classNames.multilineTextAlignLeftWrapper}>
@@ -438,8 +438,9 @@ export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNam
       <TextareaAutosize
         disabled
         value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
-        className={classNames.multilineTextAlignLeft}
+        className={clsx(classNames.multilineTextAlignLeft, {[classNames.multilineTextAlignLeftSub]: isAsin})}
       />
+      {isAsin ? <CopyValue text={text} /> : null}
     </div>
   ),
 )

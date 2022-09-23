@@ -43,9 +43,10 @@ export const useClassNames = makeStyles(() => ({
   buttonsWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: '54px',
     height: '145px',
-    marginLeft: '150px',
+    marginRight: '298px',
   },
   buttonWrapper: {
     display: 'flex',

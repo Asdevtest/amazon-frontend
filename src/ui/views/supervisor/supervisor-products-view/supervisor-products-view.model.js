@@ -10,6 +10,7 @@ import {supervisorProductsViewColumns} from '@components/table-columns/superviso
 
 import {supervisorProductsDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {resetDataGridFilter} from '@utils/filters'
 import {getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 
@@ -37,6 +38,8 @@ export class SupervisorProductsViewModel {
 
     if (location?.state?.dataGridFilter) {
       this.startFilterModel = location.state.dataGridFilter
+    } else {
+      this.startFilterModel = resetDataGridFilter
     }
 
     makeAutoObservable(this, undefined, {autoBind: true})

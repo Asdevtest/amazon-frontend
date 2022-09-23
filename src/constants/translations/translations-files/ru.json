@@ -1540,5 +1540,10 @@
   "Removed Ads": "Удаленные",
   "Primary dimensions": "Первичные размеры",
   "Shipping dimensions": "Размеры для отправки",
-  "The primary size suitable for shipment": "Первичный размер подходит для отправки"
+  "The primary size suitable for shipment": "Первичный размер подходит для отправки",
+  "Data on product checks": "Данные по проверкам товаров",
+  "Checking": "Проверка",
+  "Your task data": "Данные по Вашим задачам",
+  "Your warehouse data": "Данные Вашего склада",
+  "Batch data": "Данные партий"
 }

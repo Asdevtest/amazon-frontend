@@ -82,13 +82,12 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
         <MultilineTextCell text={params.value} />
       ),
     width: 150,
-    type: 'number',
   },
 
   {
     field: 'destination',
-    headerName: t(TranslationKey.Warehouse),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
+    headerName: t(TranslationKey.Destination),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 160,
@@ -101,7 +100,6 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
     width: 140,
-    type: 'number',
   },
 
   {

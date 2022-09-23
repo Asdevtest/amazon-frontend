@@ -617,7 +617,7 @@ export const styles = createStyles(() => ({
   },
 
   multilineTextAlignLeft: {
-    width: '300px',
+    width: '100%',
     textAlign: 'left',
     // whiteSpace: 'wrap',
     fontWeight: '400',
@@ -642,6 +642,10 @@ export const styles = createStyles(() => ({
     // display: '-webkit-box',
     // '-webkitLineClamp': 3,
     // '-webkitBoxOrient': 'vertical',
+  },
+
+  multilineTextAlignLeftSub: {
+    width: '100px',
   },
 
   multilineTextHeaderWrapper: {
