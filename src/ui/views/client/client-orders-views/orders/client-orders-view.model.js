@@ -309,6 +309,8 @@ export class ClientOrdersViewModel {
   onConfirmSubmitOrderProductModal(ordersDataState, totalOrdersCost) {
     this.ordersDataStateToSubmit = ordersDataState
 
+    console.log('this.ordersDataStateToSubmit', this.ordersDataStateToSubmit)
+
     this.confirmModalSettings = {
       isWarning: false,
       confirmTitle: t(TranslationKey['You are making an order, are you sure?']),

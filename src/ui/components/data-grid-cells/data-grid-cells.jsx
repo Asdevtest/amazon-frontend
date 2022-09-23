@@ -515,6 +515,7 @@ export const RequestStatusCell = withStyles(styles)(({classes: classNames, statu
         RequestStatus.ACCEPTED_BY_SUPERVISOR,
         RequestStatus.ACCEPTED_BY_CLIENT,
         RequestStatus.CORRECTED,
+        RequestStatus.OFFER_CONDITIONS_CORRECTED,
       ].includes(status)
     ) {
       return '#00B746'
