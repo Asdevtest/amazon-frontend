@@ -1535,7 +1535,7 @@ export enum TranslationKey {
   'Accrual data' = 'Accrual data',
   'The following ASINs have already been entered into the table' = 'The following ASINs have already been entered into the table',
   'Offer conditions corrected' = 'Offer conditions corrected',
-  // '' = '',
+  'Removed Ads' = 'Removed Ads',
   // '' = '',
   // '' = '',
   // '' = '',

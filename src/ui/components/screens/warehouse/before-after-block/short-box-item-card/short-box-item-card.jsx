@@ -2,6 +2,7 @@ import React from 'react'
 
 import {Typography} from '@material-ui/core'
 
+import {TaskOperationType} from '@constants/task-operation-type'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {CopyValue} from '@components/copy-value/copy-value'
@@ -12,7 +13,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './box-item-card.style'
 
-export const ShortBoxItemCard = ({item, superCount, boxId}) => {
+export const ShortBoxItemCard = ({item, superCount, boxId, taskType, readOnly}) => {
   const classNames = useClassNames()
 
   return (
@@ -39,10 +40,12 @@ export const ShortBoxItemCard = ({item, superCount, boxId}) => {
                 )} x ${superCount}`}</Typography>
               )}
             </div>
-            <div className={classNames.countSubWrapper}>
-              <Typography className={classNames.subTitle}>{t(TranslationKey['Box number:'])}</Typography>
-              <Typography className={classNames.count}>{boxId}</Typography>
-            </div>
+            {((readOnly && taskType === TaskOperationType.RECEIVE) || taskType !== TaskOperationType.RECEIVE) && (
+              <div className={classNames.countSubWrapper}>
+                <Typography className={classNames.subTitle}>{t(TranslationKey['Box number:'])}</Typography>
+                <Typography className={classNames.count}>{boxId}</Typography>
+              </div>
+            )}
           </div>
 
           <div className={classNames.attributeFooterWrapper}>

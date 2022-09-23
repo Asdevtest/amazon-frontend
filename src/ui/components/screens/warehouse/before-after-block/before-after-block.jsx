@@ -125,6 +125,8 @@ const Box = observer(
               {box.items?.map((item, index) => (
                 <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
                   <ShortBoxItemCard
+                    readOnly={readOnly}
+                    taskType={taskType}
                     item={item}
                     boxId={box.humanFriendlyId}
                     superCount={box.amount}
@@ -140,6 +142,7 @@ const Box = observer(
               {box.items?.map((item, index) => (
                 <div key={`boxItem_${box.items?.[0].product?._id}_${index}`}>
                   <BoxItemCard
+                    taskType={taskType}
                     readOnly={readOnly}
                     item={item}
                     boxId={box.humanFriendlyId}
