@@ -72,7 +72,7 @@ export const OrderProductModal = ({
             clientComment: '',
             barCode: reorderOrder.product.barCode || '',
             productId: reorderOrder.product._id,
-            images: reorderOrder.product.images,
+            images: [],
             tmpBarCode: [],
 
             destinationId: destinations.map(el => el._id).includes(reorderOrder.destination?._id)

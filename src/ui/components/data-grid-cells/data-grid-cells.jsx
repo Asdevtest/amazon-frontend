@@ -515,6 +515,7 @@ export const RequestStatusCell = withStyles(styles)(({classes: classNames, statu
         RequestStatus.ACCEPTED_BY_SUPERVISOR,
         RequestStatus.ACCEPTED_BY_CLIENT,
         RequestStatus.CORRECTED,
+        RequestStatus.OFFER_CONDITIONS_CORRECTED,
       ].includes(status)
     ) {
       return '#00B746'
@@ -724,7 +725,7 @@ export const ShowBarcodeOrHscodeCell = withStyles(styles)(({classes: classNames,
 export const FourMonthesStockCell = withStyles(styles)(({classes: classNames, handlers, params, value}) => (
   <div className={classNames.fourMonthesStockWrapper}>
     <Typography className={classNames.fourMonthesStockLabel}>{`${t(TranslationKey.Repurchase)}: ${
-      params.row.stockSum - value
+      value < params.row.stockSum ? 0 : value - params.row.stockSum
     }`}</Typography>
     <ChangeChipCell
       row={params.row.originalData}

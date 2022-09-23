@@ -1218,7 +1218,7 @@
   "Recommendation for additional purchases": "Рекомендация к дозакупке",
   "The number entered must not exceed the \" Stock sum\" field": "Введенное число не должно превышать поле \"Сумма стока\"",
   "Four months of stock": "Четыре месяца стока",
-  "Repurchase": "Дозакупка",
+  "Repurchase": "К дозакупке",
   "Delete a card": "Удалить карточку",
   "After confirmation, the card will be moved to the archive. Delete?": "После подтверждения карточка будет перенесена в архив. Удалить?",
   "Set": "Установить",
@@ -1535,5 +1535,7 @@
   "Are you sure you want to delete ASIN?": "Вы уверены , что хотите удалить ASIN?",
   "Preview": "Предпросмотр",
   "Accrual data": "Данные по начислениям",
-  "The following ASINs have already been entered into the table": "Следующие ASIN уже внесены в таблицу"
+  "The following ASINs have already been entered into the table": "Следующие ASIN уже внесены в таблицу",
+  "Offer conditions corrected": "Условия предложения скорректированы",
+  "Removed Ads": "Удаленные"
 }

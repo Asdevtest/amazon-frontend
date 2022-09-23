@@ -102,9 +102,8 @@ export class RequestDetailCustomViewModel {
     }
   }
 
-  async onSubmitMessage(message, links, files, chatIdId) {
+  async onSubmitMessage(message, files, chatIdId) {
     try {
-      console.log('files ', files)
       await ChatModel.sendMessage({
         chatId: chatIdId,
         text: message,

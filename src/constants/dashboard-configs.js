@@ -250,6 +250,9 @@ export const getClientDashboardCardConfig = () => ({
         title: t(TranslationKey['Made orders']),
         color: '#ffc107',
         route: '/client/orders',
+        dataGridFilter: {
+          items: [],
+        },
       },
       {
         dataKey: ClientDashboardCardDataKey.PAID_ORDERS,

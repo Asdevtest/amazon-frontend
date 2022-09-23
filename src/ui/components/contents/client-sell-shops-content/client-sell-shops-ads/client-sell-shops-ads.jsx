@@ -98,7 +98,7 @@ export const ClientSellShopsAds = observer(() => {
                 color="primary"
                 onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
               >
-                {t(TranslationKey['Purchased Ads'])}
+                {t(TranslationKey['Removed Ads'])}
               </Button>
             </div>
 

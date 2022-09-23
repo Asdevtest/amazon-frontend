@@ -147,12 +147,14 @@ export const EditTaskModal = observer(
                 <UploadFilesInput images={photosOfTask} setImages={setPhotosOfTask} maxNumber={50} />
               </div>
             ) : (
-              <PhotoAndFilesCarousel
-                small
-                direction={window.screen.width < 768 ? 'column' : 'row'}
-                files={task.images}
-                width="600px"
-              />
+              <div className={classNames.imageFileInputWrapper}>
+                <PhotoAndFilesCarousel
+                  small
+                  direction={window.screen.width < 768 ? 'column' : 'row'}
+                  files={task.images}
+                  width="600px"
+                />
+              </div>
             )}
           </div>
 
