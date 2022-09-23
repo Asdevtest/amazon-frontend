@@ -13,6 +13,7 @@ import {clientOrdersViewColumns} from '@components/table-columns/client/client-o
 
 import {clientOrdersDataConverter} from '@utils/data-grid-data-converters'
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
+import {resetDataGridFilter} from '@utils/filters'
 import {getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList} from '@utils/object'
 import {t} from '@utils/translations'
 import {onSubmitPostImages} from '@utils/upload-files'
@@ -68,6 +69,8 @@ export class ClientOrdersViewModel {
 
     if (location?.state?.dataGridFilter) {
       this.startFilterModel = location.state.dataGridFilter
+    } else {
+      this.startFilterModel = resetDataGridFilter
     }
 
     makeAutoObservable(this, undefined, {autoBind: true})

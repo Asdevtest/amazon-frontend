@@ -423,6 +423,11 @@ export const navbarConfig = () => ({
             !isMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR),
         },
+        {
+          subtitle: t(TranslationKey.Idea),
+          subRoute: '/supervisor/ready-to-check-for-idea',
+          checkHideSubBlock: () => true,
+        },
       ],
       key: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
       checkHideBlock: user =>
@@ -539,13 +544,13 @@ export const navbarConfig = () => ({
             !isMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER),
         },
-        // {
-        //   subtitle: t(TranslationKey.Idea),
-        //   subRoute: '/buyer/search-supplier-for-idea',
-        //   checkHideSubBlock: user =>
-        //     !isMasterUser(user) ||
-        //     user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER),
-        // },
+        {
+          subtitle: t(TranslationKey.Idea),
+          subRoute: '/buyer/search-supplier-for-idea',
+          checkHideSubBlock: user =>
+            !isMasterUser(user) ||
+            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER),
+        },
       ],
       key: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
       checkHideBlock: user =>

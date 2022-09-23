@@ -21,6 +21,7 @@ import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {Modal} from '@components/modal'
 import {Navbar} from '@components/navbar'
+import {EditBoxTasksModal} from '@components/screens/warehouse/edit-task-modal/edit-box-tasks-modal'
 
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
@@ -52,6 +53,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       showAddOrEditHsCodeInBox,
       showAddBatchModal,
       showBoxViewModal,
+      showEditBoxModal,
       requestStatus,
       getCurrentData,
       sortModel,
@@ -71,7 +73,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onTriggerOpenModal,
-
+      onTriggerShowEditBoxModal,
       setCurrentOpenedBox,
       onSubmitMoveBoxToBatch,
       onSubmitCreateBatch,
@@ -123,7 +125,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
-                  rowHeight={170}
+                  rowHeight={225}
                   components={{
                     Toolbar: GridToolbar,
                   }}
@@ -179,6 +181,17 @@ export class WarehouseMyWarehouseViewRaw extends Component {
             box={curBox}
             setOpenModal={() => onTriggerOpenModal('showAddOrEditHsCodeInBox')}
             onSubmit={onSubmitAddOrEditHsCode}
+          />
+        </Modal>
+        <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
+          <EditBoxTasksModal
+            isChangeDimensions
+            volumeWeightCoefficient={volumeWeightCoefficient}
+            setEditModal={onTriggerShowEditBoxModal}
+            box={curBox}
+            // newBoxes={newBoxes}
+            // setNewBoxes={setNewBoxes}
+            // operationType={taskType}
           />
         </Modal>
       </React.Fragment>

@@ -13,8 +13,13 @@ export const styles = createStyles(theme => ({
     padding: '40px 50px',
     display: 'flex',
     alignItems: 'center',
-    gap: '25px',
+    justifyContent: 'space-between',
+
     boxShadow: '0px 2px 8px 2px rgba(0, 0, 0, 0.05)',
+  },
+  userInfoLeftWrapper: {
+    display: 'flex',
+    gap: '25px',
   },
   cardImg: {
     width: '145px',

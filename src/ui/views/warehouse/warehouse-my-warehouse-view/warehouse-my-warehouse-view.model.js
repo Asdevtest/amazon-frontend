@@ -47,10 +47,12 @@ export class WarehouseMyWarehouseViewModel {
   showBoxMoveToBatchModal = false
   showAddBatchModal = false
   showAddOrEditHsCodeInBox = false
+  showEditBoxModal = false
 
   rowHandlers = {
     moveBox: item => this.moveBox(item),
     setHsCode: item => this.setHsCode(item),
+    setDimensions: item => this.setDimensions(item),
   }
 
   uploadedFiles = []
@@ -63,7 +65,11 @@ export class WarehouseMyWarehouseViewModel {
   curPage = 0
   rowsPerPage = 15
   densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId)
+  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo)
+
+  get userInfo() {
+    return UserModel.userInfo
+  }
 
   get isMasterBoxSelected() {
     return this.selectedBoxes.some(boxId => {
@@ -129,7 +135,7 @@ export class WarehouseMyWarehouseViewModel {
       this.rowsPerPage = state.pagination.pageSize
 
       this.densityModel = state.density.value
-      this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId).map(el => ({
+      this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, this.firstRowId, this.userInfo).map(el => ({
         ...el,
         hide: state.columns?.lookup[el?.field]?.hide,
       }))
@@ -227,6 +233,17 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
+  async setDimensions(row) {
+    try {
+      this.curBox = row
+      console.log(row)
+      this.onTriggerShowEditBoxModal()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
   async onSubmitAddBatch(boxesIds, filesToAdd) {
     try {
       this.uploadedFiles = []
@@ -314,6 +331,10 @@ export class WarehouseMyWarehouseViewModel {
       console.log(error)
       this.error = error
     }
+  }
+
+  onTriggerShowEditBoxModal() {
+    this.showEditBoxModal = !this.showEditBoxModal
   }
 
   onTriggerDrawer() {

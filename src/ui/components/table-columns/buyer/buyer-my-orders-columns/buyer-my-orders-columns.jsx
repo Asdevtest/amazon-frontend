@@ -90,11 +90,11 @@ export const buyerMyOrdersViewColumns = firstRowId => [
 
   {
     field: 'warehouses',
-    headerName: t(TranslationKey.Warehouse),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
+    headerName: t(TranslationKey.Destination),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => <RenderFieldValueCell value={params.value} />,
-    width: 120,
+    width: 130,
   },
 
   {

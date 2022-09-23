@@ -123,6 +123,13 @@ export const useClassNames = makeStyles(theme => ({
   standartCell: {
     width: '100px',
   },
+  headerCell: {
+    maxWidth: '100px',
+    whiteSpace: 'pre-wrap',
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#001029',
+  },
 
   sizeWrapper: {
     display: 'flex',
@@ -193,6 +200,20 @@ export const useClassNames = makeStyles(theme => ({
   },
   addButtonWrapperMobile: {
     display: 'none',
+  },
+  checkboxContainer: {
+    width: '190px',
+    margin: 0,
+  },
+  label: {
+    maxWidth: '150px',
+    fontSize: '14px',
+    lineHeight: '19px',
+    whiteSpace: 'pre-wrap',
+    color: '#656565',
+  },
+  checkboxCell: {
+    width: '200px',
   },
   '@media (max-width: 768px)': {
     root: {

@@ -4,12 +4,9 @@ import React from 'react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  // AsinCell,
-  MultilineTextHeaderCell, // NormDateCell,
-  MultilineTextCell,
-  EditOrRemoveIconBtnsCell, // UserLinkCell,
-  // ToFixedWithDollarSignCell,
-  // MultilineStatusCell,
+  MultilineTextHeaderCell,
+  EditOrRemoveIconBtnsCell,
+  MultilineTextAlignLeftCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {t} from '@utils/translations'
@@ -20,8 +17,8 @@ export const supervisorSettingsViewColumns = handlers => [
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 350,
+    renderCell: params => <MultilineTextAlignLeftCell isAsin text={params.value} />,
+    width: 200,
   },
 
   {
@@ -29,8 +26,8 @@ export const supervisorSettingsViewColumns = handlers => [
     headerName: t(TranslationKey.Reason),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reason)} />,
 
-    width: 550,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 535,
+    renderCell: params => <MultilineTextAlignLeftCell text={params.value} />,
   },
   {
     field: 'action',

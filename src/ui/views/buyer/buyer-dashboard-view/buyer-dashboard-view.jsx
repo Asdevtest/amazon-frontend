@@ -47,16 +47,18 @@ export class BuyerDashboardViewRaw extends Component {
           <Appbar title={t(TranslationKey.Dashboard)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
               <Paper className={classNames.userInfoWrapper}>
-                <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
+                <div className={classNames.userInfoLeftWrapper}>
+                  <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
 
-                <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+                  <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+                </div>
+
                 <DashboardButtons user={userInfo} routes={buyerButtonsRoutes} />
               </Paper>
               {getBuyerDashboardCardConfig().map(item => (
                 <DashboardOneLineCardsList
                   key={item.key}
                   config={item}
-                  configSubTitle={t(TranslationKey['Accrual data'])}
                   valuesData={dashboardData}
                   onClickViewMore={onClickInfoCardViewMode}
                 />

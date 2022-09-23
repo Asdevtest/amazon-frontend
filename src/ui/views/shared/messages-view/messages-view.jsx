@@ -1,5 +1,8 @@
 import SearchIcon from '@mui/icons-material/Search'
+<<<<<<< HEAD
 import {Link} from '@mui/material'
+=======
+>>>>>>> 606daa71 (end of day)
 
 import React, {Component} from 'react'
 
@@ -76,6 +79,7 @@ class MessagesViewRaw extends Component {
                   />
 
                   {chatSelectedId && simpleChats.length ? (
+<<<<<<< HEAD
                     <Link
                       target="_blank"
                       href={`${window.location.origin}/another-user?${currentOpponent?._id}`}
@@ -86,6 +90,19 @@ class MessagesViewRaw extends Component {
                         <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
                       </div>
                     </Link>
+=======
+                    <div className={classNames.opponentWrapper}>
+                      <Avatar
+                        src={getUserAvatarSrc(
+                          simpleChats.find(el => el._id === chatSelectedId).users.find(el => el._id !== user._id)._id,
+                        )}
+                        className={classNames.avatarWrapper}
+                      />
+                      <Typography className={classNames.opponentName}>
+                        {simpleChats.find(el => el._id === chatSelectedId).users.find(el => el._id !== user._id).name}
+                      </Typography>
+                    </div>
+>>>>>>> 606daa71 (end of day)
                   ) : null}
                 </div>
 

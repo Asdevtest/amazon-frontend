@@ -239,7 +239,7 @@ export const OrderProductModal = ({
                 className={classNames.warehouseCellBtn}
                 tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
               >
-                {t(TranslationKey.Warehouse)}
+                {t(TranslationKey.Destination)}
               </Button>
             </TableCell>
 

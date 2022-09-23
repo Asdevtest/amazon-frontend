@@ -51,7 +51,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 export const SupervisorSettingsContent = observer(() => {
   const [tabIndex, setTabIndex] = React.useState(tabsValues.ONLINE_ARBITRAGE_CHINA)
   const tabItemStyles = twitterTabsStylesHook.useTabItem()
-  const gpModel = useRef(new SupervisorSettingsContentModel({history}))
+  const gpModel = useRef(new SupervisorSettingsContentModel({history, tabIndex}))
 
   const {
     showAsinCheckerModal,
@@ -90,6 +90,7 @@ export const SupervisorSettingsContent = observer(() => {
   const classNames = useClassNames()
 
   console.log(selectedRowIds)
+
   return (
     <React.Fragment>
       <Tabs

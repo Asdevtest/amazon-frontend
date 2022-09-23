@@ -12,6 +12,7 @@ export const muiTheme = createTheme({
   },
   typography: {
     fontFamily: ['Manrope', 'sans-serif'],
+
     h5: {
       fontWeight: 500,
     },
@@ -28,11 +29,7 @@ export const muiTheme = createTheme({
         boxShadow: '0px 5px 19px 0px rgb(90 97 105 / 12%)',
       },
     },
-    MuiTypography: {
-      root: {
-        // userSelect: 'none',
-      },
-    },
+
     MuiTableCell: {
       root: {
         padding: '10px',

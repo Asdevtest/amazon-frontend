@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Box, Container, Typography} from '@material-ui/core'
+import {Box, Checkbox, Container, Typography} from '@material-ui/core'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -105,6 +105,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
 }
 
 export const EditBoxTasksModal = ({
+  isChangeDimensions,
   setEditModal,
   box,
   operationType,
@@ -214,9 +215,21 @@ export const EditBoxTasksModal = ({
         sizeSetting={sizeSetting}
       />
 
+      <Field
+        oneLine
+        containerClasses={classNames.checkboxContainer}
+        labelClasses={classNames.label}
+        label={t(TranslationKey['The primary size suitable for shipment'])}
+        inputComponent={<Checkbox color="primary" />}
+      />
+
       <Box className={classNames.boxCode}>
         <div className={classNames.imageFileInputWrapper}>
-          <UploadFilesInput images={editingBox.tmpImages} setImages={setImagesOfBox} maxNumber={50} />
+          <UploadFilesInput
+            images={isChangeDimensions ? editingBox.images : editingBox.tmpImages}
+            setImages={setImagesOfBox}
+            maxNumber={50}
+          />
         </div>
       </Box>
       <div className={classNames.photoWrapper}>

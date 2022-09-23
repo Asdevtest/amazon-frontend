@@ -28,7 +28,7 @@ import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {checkIsString} from '@utils/checks'
+import {checkIsStorekeeper, checkIsString} from '@utils/checks'
 import {
   formatDateDistanceFromNow,
   formatDateForShowWithoutParseISO,
@@ -422,7 +422,7 @@ export const MultilineTextCell = withStyles(styles)(({classes: classNames, text,
   </div>
 ))
 
-export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text, isComment}) =>
+export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text, isComment, isAsin}) =>
   isComment ? (
     <Tooltip title={text}>
       <div className={classNames.multilineTextAlignLeftWrapper}>
@@ -438,8 +438,9 @@ export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNam
       <TextareaAutosize
         disabled
         value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
-        className={classNames.multilineTextAlignLeft}
+        className={clsx(classNames.multilineTextAlignLeft, {[classNames.multilineTextAlignLeftSub]: isAsin})}
       />
+      {isAsin ? <CopyValue text={text} /> : null}
     </div>
   ),
 )
@@ -1281,27 +1282,43 @@ export const DownloadAndCopyBtnsCell = withStyles(styles)(({classes: classNames,
   </>
 ))
 
-export const ShortBoxDimensions = withStyles(styles)(({classes: classNames, box, volumeWeightCoefficient}) => {
-  const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
-  return (
-    <div>
-      <Typography>{`${toFixed(box.lengthCmWarehouse, 2)}x${toFixed(box.widthCmWarehouse, 2)}x${toFixed(
-        box.heightCmWarehouse,
-        2,
-      )}`}</Typography>
+export const ShortBoxDimensions = withStyles(styles)(
+  ({classes: classNames, box, volumeWeightCoefficient, curUser, handlers}) => {
+    const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
+    return (
+      <div className={classNames.shortBoxDimensionsWrapper}>
+        <Typography className={classNames.shortBoxDimensionsText}>{`${toFixed(box.lengthCmWarehouse, 2)}x${toFixed(
+          box.widthCmWarehouse,
+          2,
+        )}x${toFixed(box.heightCmWarehouse, 2)}`}</Typography>
 
-      <Typography>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(box.weighGrossKgWarehouse, 2)}`}</Typography>
-      <Typography>{`${t(TranslationKey['Volume weight'])}: ${toFixedWithKg(
-        calcVolumeWeightForBox(box, volumeWeightCoefficient),
-        2,
-      )}`}</Typography>
-      <Typography className={clsx({[classNames.alertText]: !box.isDraft && finalWeight < 12})}>{`${t(
-        TranslationKey['Final weight'],
-      )}: ${toFixedWithKg(finalWeight, 2)}`}</Typography>
+        <Typography className={classNames.shortBoxDimensionsText}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
+          box.weighGrossKgWarehouse,
+          2,
+        )}`}</Typography>
+        <Typography className={classNames.shortBoxDimensionsText}>{`${t(
+          TranslationKey['Volume weight'],
+        )}: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}`}</Typography>
+        <Typography
+          className={clsx(classNames.shortBoxDimensionsText, {
+            [classNames.alertText]: !box.isDraft && finalWeight < 12,
+          })}
+        >{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(finalWeight, 2)}`}</Typography>
 
-      {!box.isDraft && finalWeight < 12 ? (
-        <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
-      ) : null}
-    </div>
-  )
-})
+        {!box.isDraft && finalWeight < 12 ? (
+          <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
+        ) : null}
+        {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
+          <Button
+            className={clsx(classNames.shortBoxDimensionsButton, {
+              [classNames.editPaddingButton]: !box.isDraft && finalWeight < 12,
+            })}
+            onClick={() => handlers.setDimensions(box)}
+          >
+            {t(TranslationKey.Set)}
+          </Button>
+        ) : null}
+      </div>
+    )
+  },
+)

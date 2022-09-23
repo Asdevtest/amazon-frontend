@@ -35,7 +35,7 @@ export class SupervisorSettingsContentModel {
   showEditAsinCheckerModal = false
   showConfirmModal = false
   showFailedAsinsModal = false
-
+  tabIndex = undefined
   confirmModalSettings = {
     isWarning: false,
     message: '',
@@ -47,8 +47,9 @@ export class SupervisorSettingsContentModel {
     onClickEditBtn: row => this.onClickEditBtn(row),
   }
 
-  constructor({history}) {
+  constructor({history, tabIndex}) {
     this.history = history
+    this.tabIndex = tabIndex
 
     makeAutoObservable(this, undefined, {autoBind: true})
     reaction(
@@ -110,10 +111,9 @@ export class SupervisorSettingsContentModel {
 
   async loadData(tabIndex) {
     try {
+      await this.getAsins(tabIndex)
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
-
-      await this.getAsins(tabIndex)
 
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -122,7 +122,7 @@ export class SupervisorSettingsContentModel {
     }
   }
 
-  async onSubmitAsins(data) {
+  async onSubmitAsins(data, tabIndex) {
     try {
       const failed = await OtherModel.checkAsins(data)
 
@@ -135,6 +135,8 @@ export class SupervisorSettingsContentModel {
       }
 
       this.onTriggerOpenModal('showAsinCheckerModal')
+
+      this.loadData(tabIndex)
     } catch (error) {
       console.log(error)
     }
@@ -143,7 +145,6 @@ export class SupervisorSettingsContentModel {
   async getAsins(tabIndex) {
     try {
       const result = await OtherModel.getAsins()
-
       runInAction(() => {
         this.asins = result.filter(item => item.strategy === mapProductStrategyStatusEnumToKey[tabIndex].toString())
       })
@@ -155,8 +156,9 @@ export class SupervisorSettingsContentModel {
   async onEditAsins(id, data) {
     try {
       await OtherModel.editAsins(id, data)
-      this.loadData()
+
       this.onTriggerOpenModal('showEditAsinCheckerModal')
+      this.loadData(this.tabIndex)
     } catch (error) {
       console.log(error)
     }
@@ -167,7 +169,7 @@ export class SupervisorSettingsContentModel {
       await OtherModel.removeAsin(id)
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.loadData()
+      this.loadData(this.tabIndex)
     } catch (error) {
       console.log(error)
     }

@@ -1512,6 +1512,7 @@ export enum TranslationKey {
   'Notices are off' = 'Notices are off',
   'Price for the search of a supplier by a Buyer from the Client' = 'Price for the search of a supplier by a Buyer from the Client',
   'for the idea' = 'for the idea',
+
   'Writes' = 'Writes',
   'Edit HS Code' = 'Edit HS Code',
   'Change the box' = 'Change the box',
@@ -1522,6 +1523,7 @@ export enum TranslationKey {
   'ASIN list' = 'ASIN list',
   'Add a list of ASIN' = 'Add a list of ASIN',
   'Choose chat' = 'Choose chat',
+
   'Try selecting a dialogue or Find a concrete speaker' = 'Try selecting a dialogue or Find a concrete speaker',
   'New Dialogue' = 'New Dialogue',
   'Write a message' = 'Write a message',
@@ -1536,6 +1538,27 @@ export enum TranslationKey {
   'The following ASINs have already been entered into the table' = 'The following ASINs have already been entered into the table',
   'Offer conditions corrected' = 'Offer conditions corrected',
   'Removed Ads' = 'Removed Ads',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+  // '' = '',
+
+  'Primary dimensions' = 'Primary dimensions',
+  'Shipping dimensions' = 'Shipping dimensions',
+  'The primary size suitable for shipment' = 'The primary size suitable for shipment',
+
+  // '' = '',
+
+  'Try choosing a dialog or Find a specific performer' = 'Try choosing a dialog or Find a specific performer',
+
+  // '' = '',
+  // '' = '',
+
+  // '' = '',
+  // '' = '',
   // '' = '',
   // '' = '',
   // '' = '',

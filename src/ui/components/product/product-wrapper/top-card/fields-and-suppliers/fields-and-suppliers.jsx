@@ -161,7 +161,11 @@ export const FieldsAndSuppliers = observer(
                     className={classNames.inputAsin}
                     onChange={onChangeField('asin')}
                   />
+<<<<<<< HEAD
                   {product.asin ? <CopyValue text={product.asin} /> : null}
+=======
+                  <CopyValue text={product.asin} />
+>>>>>>> faf2c90f (3652 3653 3659 3661 3663)
                 </div>
               }
             />
@@ -181,11 +185,17 @@ export const FieldsAndSuppliers = observer(
                             inputProps={{maxLength: 50}}
                             value={product.skusByClient}
                             className={classNames.inputAsin}
+<<<<<<< HEAD
                             onChange={e =>
                               onChangeField('skusByClient')({target: {value: e.target.value ? [e.target.value] : []}})
                             }
                           />
                           {product.skusByClient[0] ? <CopyValue text={product.skusByClient[0]} /> : null}
+=======
+                            onChange={e => onChangeField('skusByClient')({target: {value: [e.target.value]}})}
+                          />
+                          <CopyValue text={product.asin} />
+>>>>>>> faf2c90f (3652 3653 3659 3661 3663)
                         </div>
                       )}
                   </div>

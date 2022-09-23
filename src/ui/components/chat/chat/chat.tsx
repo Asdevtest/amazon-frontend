@@ -9,6 +9,7 @@ import 'react-mde/lib/styles/css/react-mde-all.css'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {ChatModel} from '@models/chat-model'
 import {ChatContract} from '@models/chat-model/contracts'
 import {ChatMessageContract} from '@models/chat-model/contracts/chat-message.contract'
 import {SettingsModel} from '@models/settings-model'
@@ -70,6 +71,16 @@ export const Chat: FC<Props> = observer(
     const [files, setFiles] = useState<IFile[]>(
       messageInitialState.files.some(el => !el.file.size) ? [] : messageInitialState.files,
     )
+
+    const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
+
+    useEffect(() => {
+      if (isSendTypingPossible && message) {
+        onTypingMessage(chat._id)
+        setIsSendTypingPossible(false)
+        setTimeout(() => setIsSendTypingPossible(true), 3000)
+      }
+    }, [message])
 
     const [isSendTypingPossible, setIsSendTypingPossible] = useState(true)
 

@@ -15,7 +15,7 @@ import {useClassNames} from '@components/dashboards/dashboard-one-line-cards-lis
 import {checkIsPositiveNum} from '@utils/checks'
 import {t} from '@utils/translations'
 
-export const DashboardOneLineCardsList = ({config, configSubTitle, valuesData, onClickViewMore, isClient}) => {
+export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, isClient}) => {
   const classNames = useClassNames()
 
   return (
@@ -23,7 +23,7 @@ export const DashboardOneLineCardsList = ({config, configSubTitle, valuesData, o
       <div className={classNames.cardHeaderWrapper}>
         <div>
           <Typography className={classNames.cardListTitle}>{config.title}</Typography>
-          <Typography className={classNames.cardListSubTitle}>{configSubTitle}</Typography>
+          <Typography className={classNames.cardListSubTitle}>{config.subTitle}</Typography>
         </div>
         {isClient ? (
           <Button success className={classNames.addButton} onClick={() => onClickViewMore(config.route)}>
@@ -38,8 +38,8 @@ export const DashboardOneLineCardsList = ({config, configSubTitle, valuesData, o
           // loopFillGroupWithBlank
           navigation={config.items.length > 4}
           slidesPerView={4}
-          spaceBetween={30}
-          slidesPerGroup={1}
+          spaceBetween={50}
+          // slidesPerGroup={1}
           modules={[Navigation]}
           className={classNames.swiper}
         >
@@ -47,9 +47,9 @@ export const DashboardOneLineCardsList = ({config, configSubTitle, valuesData, o
             <SwiperSlide key={item.dataKey}>
               <div
                 className={clsx(classNames.cardWrapper, {
-                  [classNames.cardErrorWrapper]: !checkIsPositiveNum(valuesData[item.dataKey]),
+                  [classNames.cardErrorWrapper]: item.isNegative,
                 })}
-                onClick={() => onClickViewMore(item.route)}
+                onClick={() => onClickViewMore(item.route, item.dataGridFilter)}
               >
                 <InventoryIcon classes={{root: classNames.icon}} />
                 <div className={classNames.cardSubWrapper}>

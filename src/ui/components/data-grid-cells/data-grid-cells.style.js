@@ -617,7 +617,7 @@ export const styles = createStyles(() => ({
   },
 
   multilineTextAlignLeft: {
-    width: '300px',
+    width: '100%',
     textAlign: 'left',
     // whiteSpace: 'wrap',
     fontWeight: '400',
@@ -642,6 +642,10 @@ export const styles = createStyles(() => ({
     // display: '-webkit-box',
     // '-webkitLineClamp': 3,
     // '-webkitBoxOrient': 'vertical',
+  },
+
+  multilineTextAlignLeftSub: {
+    width: '100px',
   },
 
   multilineTextHeaderWrapper: {
@@ -740,10 +744,12 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '8px',
+    // alignItems: 'center',
+    justifyContent: 'end',
+    gap: '10px',
     // minWidth: '190px',
+    height: '100%',
+    padding: '6px 0',
   },
 
   warehouseBoxesBtn: {
@@ -1009,6 +1015,27 @@ export const styles = createStyles(() => ({
     '&:hover': {
       opacity: '.7',
     },
+  },
+
+  shortBoxDimensionsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5px',
+    width: '100%',
+  },
+
+  shortBoxDimensionsText: {
+    fontSize: '14px',
+    lineHeight: '16px',
+  },
+
+  shortBoxDimensionsButton: {
+    width: '100%',
+    marginTop: '23px',
+  },
+
+  editPaddingButton: {
+    marginTop: 0,
   },
 
   '@media (max-width: 768px)': {

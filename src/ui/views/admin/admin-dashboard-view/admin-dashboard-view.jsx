@@ -51,9 +51,12 @@ export class AdminDashboardViewRaw extends Component {
           <Appbar setDrawerOpen={onChangeTriggerDrawerOpen} title={t(TranslationKey.Dashboard)}>
             <MainContent>
               <Paper className={classNames.userInfoWrapper}>
-                <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
+                <div className={classNames.userInfoLeftWrapper}>
+                  <Avatar src={getUserAvatarSrc(userInfo._id)} className={classNames.cardImg} />
 
-                <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+                  <DashboardBalance user={userInfo} title={t(TranslationKey['My balance'])} />
+                </div>
+
                 <DashboardButtons user={userInfo} routes={buyerButtonsRoutes} />
               </Paper>
               {getAdminDashboardCardConfig().map(item => (

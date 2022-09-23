@@ -128,7 +128,7 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
             disabled={!updatedAsinsAndReasonsData.length}
             variant="contained"
             className={classNames.buttonOk}
-            onClick={() => onSubmit(asinsAndReasonsData)}
+            onClick={() => onSubmit(asinsAndReasonsData, strategy)}
           >
             {t(TranslationKey.Save)}
           </Button>

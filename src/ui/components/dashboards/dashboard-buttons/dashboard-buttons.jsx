@@ -39,9 +39,13 @@ export const DashboardButtons = ({user, routes}) => {
 
         <Typography className={classNames.title}>{t(TranslationKey.Messages)}</Typography>
       </div>
+<<<<<<< HEAD
       {checkIsAdmin(UserRoleCodeMap[user.role]) ||
       checkIsStorekeeper(UserRoleCodeMap[user.role]) ||
       checkIsSupervisor(UserRoleCodeMap[user.role]) ? (
+=======
+      {checkIsAdmin(UserRoleCodeMap[user.role]) || checkIsStorekeeper(UserRoleCodeMap[user.role]) ? (
+>>>>>>> faf2c90f (3652 3653 3659 3661 3663)
         <div
           className={classNames.buttonWrapper}
           onClick={() => history.push(`/${UserRoleCodeMapForRoutes[user.role]}/${routes.settings}`)}

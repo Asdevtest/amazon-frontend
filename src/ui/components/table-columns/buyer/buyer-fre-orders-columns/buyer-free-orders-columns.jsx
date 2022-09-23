@@ -95,8 +95,8 @@ export const buyerFreeOrdersViewColumns = (handlers, firstRowId) => [
 
   {
     field: 'warehouses',
-    headerName: t(TranslationKey.Warehouse),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Warehouse)} />,
+    headerName: t(TranslationKey.Destination),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 200,

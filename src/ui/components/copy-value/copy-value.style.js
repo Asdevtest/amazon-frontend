@@ -5,7 +5,11 @@ export const useClassNames = makeStyles(() => ({
     width: '18px',
     height: '18px',
     transition: '0.3s ease',
+<<<<<<< HEAD
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+=======
+    cursor: 'pointer',
+>>>>>>> faf2c90f (3652 3653 3659 3661 3663)
     '&:hover': {
       transform: 'scale(1.2)',
     },

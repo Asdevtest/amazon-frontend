@@ -142,7 +142,7 @@ export class ClientInventoryViewRaw extends Component {
       onClickWithProductsShopBtn,
 
       onChangeNameSearchValue,
-
+      createSupplierSearchRequest,
       withoutProduct,
       withProduct,
     } = this.viewModel
@@ -428,10 +428,10 @@ export class ClientInventoryViewRaw extends Component {
           <AddSupplierToIdeaFromInventoryForm
             showProgress={showProgress}
             progressValue={progressValue}
+            product={productsMy.filter(product => selectedRowIds.includes(product.id)).map(prod => prod.originalData)}
             ideas={ideasData}
             onClose={() => onTriggerOpenModal('showAddSupplierToIdeaFromInventoryModal')}
-
-            // onSubmit={onSubmitCreateProduct}
+            onSubmit={createSupplierSearchRequest}
           />
         </Modal>
 
