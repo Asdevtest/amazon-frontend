@@ -39,27 +39,9 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
   },
 
   {
-    field: 'amountInOrders',
-    headerName: 'Order',
-    renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 60,
-  },
-
-  {
-    field: 'amountInBoxes',
-    headerName: 'In stock',
-    renderHeader: () => <MultilineTextHeaderCell text={'In stock'} />,
-
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 70,
-  },
-
-  {
     field: 'stockValue',
-    headerName: 'FBA/FBM Stock',
-    renderHeader: () => <MultilineTextHeaderCell text={'FBA/FBM Stock'} />,
+    headerName: 'Available',
+    renderHeader: () => <MultilineTextHeaderCell text={'Available'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 70,
@@ -78,6 +60,24 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     field: 'inBoard',
     headerName: 'In Board',
     renderHeader: () => <MultilineTextHeaderCell text={'In Board'} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 70,
+  },
+
+  {
+    field: 'amountInOrders',
+    headerName: 'Order',
+    renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
+
+    renderCell: params => <MultilineTextCell text={params.value} />,
+    width: 60,
+  },
+
+  {
+    field: 'amountInBoxes',
+    headerName: 'In stock',
+    renderHeader: () => <MultilineTextHeaderCell text={'In stock'} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 70,
@@ -162,7 +162,7 @@ export const clientInventoryColumns = (barCodeHandlers, hsCodeHandlers, fourMont
     field: 'fbaamount',
     headerName: t(TranslationKey['Recommend amount']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Recommend amount'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: () => <MultilineTextCell text={'' /* params.value*/} />, // столбец пока без значений
     width: 90,
     type: 'number',
     headerAlign: 'center',

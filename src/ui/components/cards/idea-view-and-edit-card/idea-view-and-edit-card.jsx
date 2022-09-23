@@ -193,9 +193,9 @@ export const IdeaViewAndEditCard = observer(
 
     return (
       <Grid item className={classNames.mainWrapper}>
-        {/* <Typography variant="h5" className={classNames.ideaTitle}>
-        {formFields.title}
-      </Typography> */}
+        <Typography variant="h5" className={classNames.ideaTitle}>
+          {formFields.productName}
+        </Typography>
 
         <div className={classNames.cardWrapper}>
           <div className={classNames.cardBlockWrapper}>

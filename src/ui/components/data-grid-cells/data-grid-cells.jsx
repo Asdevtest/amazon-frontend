@@ -724,7 +724,7 @@ export const ShowBarcodeOrHscodeCell = withStyles(styles)(({classes: classNames,
 export const FourMonthesStockCell = withStyles(styles)(({classes: classNames, handlers, params, value}) => (
   <div className={classNames.fourMonthesStockWrapper}>
     <Typography className={classNames.fourMonthesStockLabel}>{`${t(TranslationKey.Repurchase)}: ${
-      params.row.stockSum - value
+      value < params.row.stockSum ? 0 : value - params.row.stockSum
     }`}</Typography>
     <ChangeChipCell
       row={params.row.originalData}
