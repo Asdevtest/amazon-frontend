@@ -25,6 +25,7 @@ import InlineObject82 from '../model/InlineObject82';
 import InlineObject83 from '../model/InlineObject83';
 import InlineObject84 from '../model/InlineObject84';
 import InlineObject85 from '../model/InlineObject85';
+import InlineObject86 from '../model/InlineObject86';
 import InlineResponse20028 from '../model/InlineResponse20028';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2009 from '../model/InlineResponse2009';
@@ -93,6 +94,62 @@ export default class StorekeepersApi {
      */
     apiV1StorekeepersBoxesGet(opts) {
       return this.apiV1StorekeepersBoxesGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Изменить полей габаритов, массы коробки и поля fitsInitialDimensions (подходят ли первичные размеры для отправки) для доставки и изображения.
+     * ## Изменить полей deliveryLength, deliveryWidth, deliveryHeight, deliveryMass, fitsInitialDimensions в коробке и изображения
+     * @param {String} guid GUID коробки.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject86} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1StorekeepersEditLightGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1StorekeepersEditLightGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/storekeepers/edit/light/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Изменить полей габаритов, массы коробки и поля fitsInitialDimensions (подходят ли первичные размеры для отправки) для доставки и изображения.
+     * ## Изменить полей deliveryLength, deliveryWidth, deliveryHeight, deliveryMass, fitsInitialDimensions в коробке и изображения
+     * @param {String} guid GUID коробки.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject86} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1StorekeepersEditLightGuidPatch(guid, opts) {
+      return this.apiV1StorekeepersEditLightGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

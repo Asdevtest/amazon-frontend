@@ -244,6 +244,44 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
+  // async onSubmitEditBox(id, data) {
+  //   try {
+  //     if (data.tmpImages.length > 0) {
+  //       await onSubmitPostImages.call(this, {images: data.tmpImages, type: 'imagesOfBox'})
+
+  //       data = {...data, images: [...data.images, ...this.imagesOfBox]}
+  //     }
+
+  //     const updateBoxData = {
+  //       ...getObjectFilteredByKeyArrayWhiteList(
+  //         data,
+  //         [
+  //           'lengthCmWarehouse',
+  //           'widthCmWarehouse',
+  //           'heightCmWarehouse',
+  //           'weighGrossKgWarehouse',
+  //           'isShippingLabelAttachedByStorekeeper',
+  //           'isBarCodeAttachedByTheStorekeeper',
+  //           'images',
+  //         ],
+  //         false,
+  //         (key, value) => {
+  //           if (key === 'images') {
+  //             return value || []
+  //           } else {
+  //             return value
+  //           }
+  //         },
+  //       ),
+  //     }
+
+  //     await StorekeeperModel.editBox(id, updateBoxData)
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.error = error
+  //   }
+  // }
+
   async onSubmitAddBatch(boxesIds, filesToAdd) {
     try {
       this.uploadedFiles = []

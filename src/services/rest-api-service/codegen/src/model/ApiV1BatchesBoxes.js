@@ -76,6 +76,21 @@ class ApiV1BatchesBoxes {
             if (data.hasOwnProperty('shippingLabel')) {
                 obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
             }
+            if (data.hasOwnProperty('deliveryLength')) {
+                obj['deliveryLength'] = ApiClient.convertToType(data['deliveryLength'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryWidth')) {
+                obj['deliveryWidth'] = ApiClient.convertToType(data['deliveryWidth'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryHeight')) {
+                obj['deliveryHeight'] = ApiClient.convertToType(data['deliveryHeight'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryMass')) {
+                obj['deliveryMass'] = ApiClient.convertToType(data['deliveryMass'], 'Number');
+            }
+            if (data.hasOwnProperty('fitsInitialDimensions')) {
+                obj['fitsInitialDimensions'] = ApiClient.convertToType(data['fitsInitialDimensions'], 'Boolean');
+            }
             if (data.hasOwnProperty('lengthCmSupplier')) {
                 obj['lengthCmSupplier'] = ApiClient.convertToType(data['lengthCmSupplier'], 'Number');
             }
@@ -217,6 +232,35 @@ ApiV1BatchesBoxes.prototype['fbaShipment'] = undefined;
  * @member {String} shippingLabel
  */
 ApiV1BatchesBoxes.prototype['shippingLabel'] = undefined;
+
+/**
+ * Размеры доставки.
+ * @member {Number} deliveryLength
+ */
+ApiV1BatchesBoxes.prototype['deliveryLength'] = undefined;
+
+/**
+ * Размеры доставки.
+ * @member {Number} deliveryWidth
+ */
+ApiV1BatchesBoxes.prototype['deliveryWidth'] = undefined;
+
+/**
+ * Размеры доставки.
+ * @member {Number} deliveryHeight
+ */
+ApiV1BatchesBoxes.prototype['deliveryHeight'] = undefined;
+
+/**
+ * Масса доставки
+ * @member {Number} deliveryMass
+ */
+ApiV1BatchesBoxes.prototype['deliveryMass'] = undefined;
+
+/**
+ * @member {Boolean} fitsInitialDimensions
+ */
+ApiV1BatchesBoxes.prototype['fitsInitialDimensions'] = undefined;
 
 /**
  * Размеры которые назвал поставщик при заказе ( могут отличаться с реальными).

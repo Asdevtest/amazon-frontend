@@ -116,7 +116,7 @@ export const EditBoxTasksModal = ({
 }) => {
   const classNames = useClassNames()
 
-  const [editingBox, setEditingBox] = useState(box)
+  const [editingBox, setEditingBox] = useState(isChangeDimensions ? {...box, tmpImages: []} : box)
 
   const setNewBoxField = fieldName => e => {
     if (isNaN(e.target.value) || Number(e.target.value) < 0) {
@@ -226,7 +226,7 @@ export const EditBoxTasksModal = ({
       <Box className={classNames.boxCode}>
         <div className={classNames.imageFileInputWrapper}>
           <UploadFilesInput
-            images={isChangeDimensions ? editingBox.images : editingBox.tmpImages}
+            images={/* isChangeDimensions ? editingBox.images : */ editingBox.tmpImages}
             setImages={setImagesOfBox}
             maxNumber={50}
           />

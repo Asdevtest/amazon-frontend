@@ -98,11 +98,12 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
 
   {
     field: 'dimansions',
-    headerName: t(TranslationKey.Demensions),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Demensions)} />,
+    headerName: t(TranslationKey['Shipping sizes']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Shipping sizes'])} />,
 
     renderCell: params => (
       <ShortBoxDimensions
+        isShipping
         box={params.row.originalData}
         volumeWeightCoefficient={params.row.volumeWeightCoefficient}
         curUser={user.role}

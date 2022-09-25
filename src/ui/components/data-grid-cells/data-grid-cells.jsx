@@ -1283,22 +1283,25 @@ export const DownloadAndCopyBtnsCell = withStyles(styles)(({classes: classNames,
 ))
 
 export const ShortBoxDimensions = withStyles(styles)(
-  ({classes: classNames, box, volumeWeightCoefficient, curUser, handlers}) => {
-    const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
+  ({classes: classNames, box, volumeWeightCoefficient, curUser, handlers, isShipping}) => {
+    const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient, isShipping)
     return (
       <div className={classNames.shortBoxDimensionsWrapper}>
-        <Typography className={classNames.shortBoxDimensionsText}>{`${toFixed(box.lengthCmWarehouse, 2)}x${toFixed(
-          box.widthCmWarehouse,
+        <Typography className={classNames.shortBoxDimensionsText}>{`${toFixed(
+          isShipping ? box.deliveryLength : box.lengthCmWarehouse,
           2,
-        )}x${toFixed(box.heightCmWarehouse, 2)}`}</Typography>
+        )}x${toFixed(isShipping ? box.deliveryWidth : box.widthCmWarehouse, 2)}x${toFixed(
+          isShipping ? box.deliveryHeight : box.heightCmWarehouse,
+          2,
+        )}`}</Typography>
 
         <Typography className={classNames.shortBoxDimensionsText}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
-          box.weighGrossKgWarehouse,
+          isShipping ? box.deliveryMass : box.weighGrossKgWarehouse,
           2,
         )}`}</Typography>
         <Typography className={classNames.shortBoxDimensionsText}>{`${t(
           TranslationKey['Volume weight'],
-        )}: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}`}</Typography>
+        )}: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient, isShipping), 2)}`}</Typography>
         <Typography
           className={clsx(classNames.shortBoxDimensionsText, {
             [classNames.alertText]: !box.isDraft && finalWeight < 12,

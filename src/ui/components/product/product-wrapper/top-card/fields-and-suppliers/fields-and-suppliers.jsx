@@ -93,6 +93,7 @@ export const FieldsAndSuppliers = observer(
             <div>
               <div className={classNames.copyLink}>
                 <Link
+                  suppressContentEditableWarning
                   contentEditable={!edit || !product.lamazon}
                   target="_blank"
                   rel="noopener"

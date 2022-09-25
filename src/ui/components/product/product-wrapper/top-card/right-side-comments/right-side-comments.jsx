@@ -63,8 +63,8 @@ export const RightSideComments = observer(
               [classNames.errorActive]: formFieldsValidationErrors.icomment,
             })}
             inputProps={{maxLength: 1000}}
-            rows={4}
-            rowsMax={6}
+            minRows={4}
+            maxRows={6}
             label={t(TranslationKey.Researcher)}
             value={product.icomment}
             onChange={onChangeField('icomment')}
@@ -91,8 +91,8 @@ export const RightSideComments = observer(
               [classNames.errorActive]: formFieldsValidationErrors.checkednotes,
             })}
             inputProps={{maxLength: 1000}}
-            rows={4}
-            rowsMax={6}
+            minRows={4}
+            maxRows={6}
             label={t(TranslationKey.Supervisor)}
             value={product.checkednotes}
             onChange={onChangeField('checkednotes')}
@@ -105,8 +105,8 @@ export const RightSideComments = observer(
               [classNames.errorActive]: formFieldsValidationErrors.buyersComment,
             })}
             inputProps={{maxLength: 1000}}
-            rows={4}
-            rowsMax={6}
+            minRows={4}
+            maxRows={6}
             label={t(TranslationKey.Buyer)}
             value={product.buyersComment}
             onChange={onChangeField('buyersComment')}
@@ -119,8 +119,8 @@ export const RightSideComments = observer(
               // [classNames.errorActive]: formFieldsValidationErrors.icomment,
             })}
             inputProps={{maxLength: 1000}}
-            rows={4}
-            rowsMax={6}
+            minRows={4}
+            maxRows={6}
             label={t(TranslationKey.Client)}
             value={product.clientComment}
             onChange={onChangeField('clientComment')}

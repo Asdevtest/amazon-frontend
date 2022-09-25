@@ -1536,7 +1536,7 @@
   "Preview": "Preview",
   "Accrual data": "Accrual data",
   "The following ASINs have already been entered into the table": "The following ASINs have already been entered into the table",
-  "Offer conditions corrected": "Offer conditions corrected",
+  "Proposal conditions corrected": "Proposal conditions corrected",
   "Removed Ads": "Removed Ads",
   "Primary dimensions": "Primary dimensions",
   "Shipping dimensions": "Shipping dimensions",
@@ -1545,5 +1545,6 @@
   "Checking": "Checking",
   "Your task data": "Your task data",
   "Your warehouse data": "Your warehouse data",
-  "Batch data": "Batch data"
+  "Batch data": "Batch data",
+  "Shipping sizes": "Shipping sizes"
 }

@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import {Divider, Typography} from '@material-ui/core'
+import {useFaviconNotification} from 'react-favicon-notification'
 
 import {LanguageSelector} from '@components/language-selector/language-selector.jsx'
 
@@ -8,6 +9,12 @@ import {useClassNames} from './entry-right-panel.style.js'
 
 export const EntryRightPanel = ({onClickRedirect, redirect, title, children}) => {
   const classNames = useClassNames()
+
+  const [config, setConfig] = useFaviconNotification()
+
+  useEffect(() => {
+    setConfig({...config, show: false})
+  }, [])
 
   return (
     <div className={classNames.rightPanel}>

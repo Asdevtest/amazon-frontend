@@ -4,8 +4,9 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**apiV1OtherCheckAsinsDelete**](OtherApi.md#apiV1OtherCheckAsinsDelete) | **DELETE** /api/v1/other/check_asins | # Удаление массива из списка асинов на проверку
 [**apiV1OtherCheckAsinsGet**](OtherApi.md#apiV1OtherCheckAsinsGet) | **GET** /api/v1/other/check_asins | # Получение списка асинов на проверку
-[**apiV1OtherCheckAsinsGuidDelete**](OtherApi.md#apiV1OtherCheckAsinsGuidDelete) | **DELETE** /api/v1/other/check_asins/{guid} | # Удаление массива из списка асинов на проверку
+[**apiV1OtherCheckAsinsGuidDelete**](OtherApi.md#apiV1OtherCheckAsinsGuidDelete) | **DELETE** /api/v1/other/check_asins/{guid} | # Удаление из списка асинов на проверку
 [**apiV1OtherCheckAsinsGuidPatch**](OtherApi.md#apiV1OtherCheckAsinsGuidPatch) | **PATCH** /api/v1/other/check_asins/{guid} | # Изменение асина на проверку из списка
 [**apiV1OtherCheckAsinsPost**](OtherApi.md#apiV1OtherCheckAsinsPost) | **POST** /api/v1/other/check_asins | # Заполнение списка асинов на проверку
 [**apiV1OtherImgGuidGet**](OtherApi.md#apiV1OtherImgGuidGet) | **GET** /api/v1/other/img/{guid} | # Получить изображение.
@@ -17,6 +18,60 @@ Method | HTTP request | Description
 [**apiV1OtherUploadFileByUrlPost**](OtherApi.md#apiV1OtherUploadFileByUrlPost) | **POST** /api/v1/other/upload_file_by_url | # Загрузить изображение по ссылке.
 [**apiV1OtherUploadFilePost**](OtherApi.md#apiV1OtherUploadFilePost) | **POST** /api/v1/other/upload_file | # Загрузить изображение.
 
+
+
+## apiV1OtherCheckAsinsDelete
+
+> String apiV1OtherCheckAsinsDelete(opts)
+
+# Удаление массива из списка асинов на проверку
+
+## Удаление массива из списка асинов на проверку
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.OtherApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': ["null"] // [String] | 
+};
+apiInstance.apiV1OtherCheckAsinsDelete(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**[String]**](String.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 
 ## apiV1OtherCheckAsinsGet
@@ -75,9 +130,9 @@ Name | Type | Description  | Notes
 
 > String apiV1OtherCheckAsinsGuidDelete(guid, opts)
 
-# Удаление массива из списка асинов на проверку
+# Удаление из списка асинов на проверку
 
-## Удаление массива из списка асинов на проверку
+## Удаление из списка асинов на проверку
 
 ### Example
 
