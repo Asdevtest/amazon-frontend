@@ -263,8 +263,8 @@ export const MergeBoxesModal = ({
         <Field
           multiline
           className={classNames.heightFieldAuto}
-          rows={18}
-          rowsMax={18}
+          minRows={18}
+          maxRows={18}
           inputProps={{maxLength: 2000}}
           label={t(TranslationKey['Client comment on the task'])}
           placeholder={t(TranslationKey['Client comment on the task'])}

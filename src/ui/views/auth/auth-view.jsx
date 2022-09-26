@@ -32,9 +32,6 @@ export class AuthViewRaw extends Component {
   render() {
     const {classes: classNames} = this.props
 
-    // const {language} = this.viewModel
-    // console.log(language)
-
     return (
       <div className={classNames.root}>
         <Hidden smDown>

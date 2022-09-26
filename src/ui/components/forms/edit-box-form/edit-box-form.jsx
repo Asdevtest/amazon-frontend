@@ -426,8 +426,8 @@ export const EditBoxForm = observer(
                           <Field
                             multiline
                             disabled
-                            rows={5}
-                            rowsMax={5}
+                            minRows={5}
+                            maxRows={5}
                             labelClasses={classNames.standartLabel}
                             inputClasses={classNames.multiline}
                             label={t(TranslationKey['Comments on order'])}
@@ -583,8 +583,8 @@ export const EditBoxForm = observer(
           <Field
             multiline
             className={classNames.multiline}
-            rows={25}
-            rowsMax={25}
+            minRows={25}
+            maxRows={25}
             inputProps={{maxLength: 1000}}
             tooltipAttentionContent={t(TranslationKey['A task will be created for the prep center'])}
             label={t(TranslationKey['Write a comment on the task'])}

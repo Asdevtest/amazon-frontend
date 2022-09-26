@@ -23,7 +23,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
   const renderHeader = () => (
     <TableHead>
       <TableRow>
-        <TableCell className={(classNames.tableCellPadding, classNames.alignCenter)}>
+        <TableCell className={clsx(classNames.tableCellPadding, classNames.alignCenter)}>
           {t(TranslationKey.Name)}
         </TableCell>
         <TableCell className={classNames.alignCenter}>{t(TranslationKey.Link)}</TableCell>
@@ -62,7 +62,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                 })}
                 onClick={() => onClickSupplier(supplier, index)}
               >
-                <TableCell className={[classNames.alignCenter, classNames.nameCell]}>{supplier.name}</TableCell>
+                <TableCell className={clsx(classNames.alignCenter, classNames.nameCell)}>{supplier.name}</TableCell>
 
                 <TableCell className={classNames.alignCenter}>
                   {supplier.link !== 'access denied' ? (
@@ -87,7 +87,9 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                   {toFixedWithDollarSign(supplier.batchTotalCostInDollar, 2)}
                 </TableCell>
 
-                <TableCell className={[classNames.alignCenter, classNames.commentCell]}>{supplier.comment}</TableCell>
+                <TableCell className={clsx(classNames.alignCenter, classNames.commentCell)}>
+                  {supplier.comment}
+                </TableCell>
 
                 <TableCell
                   className={classNames.alignCenterFiles}
@@ -107,7 +109,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
             ))
           ) : (
             <TableRow>
-              <TableCell className={(classNames.alignCenter, classNames.tableCellPadding)} colSpan={8}>
+              <TableCell className={clsx(classNames.alignCenter, classNames.tableCellPadding)} colSpan={8}>
                 {t(TranslationKey['No suppliers'])}
               </TableCell>
             </TableRow>

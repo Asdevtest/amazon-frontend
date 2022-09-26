@@ -80,15 +80,6 @@ export const useClassNames = makeStyles(() => ({
     margin: '0px 10px',
   },
 
-  cancelBtn: {
-    color: '#fff',
-    backgroundColor: '#F44336',
-    '&:hover': {
-      opacity: '0.8',
-      backgroundColor: '#F44336',
-    },
-  },
-
   btnLeftMargin: {
     marginLeft: '40px',
   },

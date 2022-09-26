@@ -103,7 +103,7 @@ export const FieldsAndSuppliers = observer(
                   <Input
                     disabled={edit}
                     classes={{input: clsx(classNames.inputLink, {[classNames.linkOnEdit]: edit && product.lamazon})}}
-                    placeholder={!product.lamazon && t(TranslationKey['Enter link'])}
+                    placeholder={!product.lamazon ? t(TranslationKey['Enter link']) : ''}
                     value={product.lamazon}
                     onChange={onChangeField('lamazon')}
                   />

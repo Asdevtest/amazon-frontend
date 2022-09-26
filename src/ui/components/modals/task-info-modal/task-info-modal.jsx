@@ -42,8 +42,8 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWei
             multiline
             disabled
             className={classNames.heightFieldAuto}
-            rows={4}
-            rowsMax={6}
+            minRows={4}
+            maxRows={6}
             label={t(TranslationKey['Client comment'])}
             placeholder={t(TranslationKey['Client comment on the task'])}
             value={task.clientComment || ''}
@@ -52,8 +52,8 @@ export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWei
             multiline
             disabled
             className={classNames.heightFieldAuto}
-            rows={4}
-            rowsMax={6}
+            minRows={4}
+            maxRows={6}
             label={t(TranslationKey['Storekeeper comment'])}
             placeholder={t(TranslationKey['Storekeeper comment to client'])}
             value={task.storekeeperComment || ''}

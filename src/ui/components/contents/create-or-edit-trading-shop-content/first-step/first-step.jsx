@@ -57,7 +57,7 @@ export const FirstStep = ({
             className={classNames.nameField}
             labelClasses={classNames.spanLabelSmall}
             minRows={1}
-            rowsMax={2}
+            maxRows={2}
             value={formFields.title}
             onChange={onChangeField('title')}
           />
@@ -73,7 +73,7 @@ export const FirstStep = ({
             className={classNames.descriptionField}
             labelClasses={classNames.spanLabelSmall}
             minRows={11}
-            rowsMax={11}
+            maxRows={11}
             label={`${t(TranslationKey['Store Details'])} *`}
             value={formFields.shopDetails}
             onChange={onChangeField('shopDetails')}
@@ -105,7 +105,7 @@ export const FirstStep = ({
               className={classNames.nameField}
               labelClasses={classNames.spanLabelSmall}
               minRows={1}
-              rowsMax={2}
+              maxRows={2}
               value={formFields.price}
               onChange={onChangeField('price')}
             />

@@ -14,7 +14,7 @@ export const EntryRightPanel = ({onClickRedirect, redirect, title, children}) =>
 
   useEffect(() => {
     setConfig({...config, show: false})
-  }, [])
+  }, []) // при разлогине скидывает счетчик уведомлений в иконке во вкладке браузера
 
   return (
     <div className={classNames.rightPanel}>

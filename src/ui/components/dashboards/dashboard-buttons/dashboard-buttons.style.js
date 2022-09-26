@@ -28,6 +28,9 @@ export const useClassNames = makeStyles(() => ({
   fontSizeLarge: {
     width: '45px',
     height: '44px',
+    // '&:hover': {
+    //   transform: 'scale(1.1)',
+    // },
   },
   iconWrapper: {
     display: 'flex',
@@ -39,7 +42,32 @@ export const useClassNames = makeStyles(() => ({
     backgroundColor: '#F8F8F8',
     boxShadow: '0px 0px 14px 6px rgba(184, 184, 184, 0.18), inset -4px -4px 13px rgba(135, 135, 135, 0.15)',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+
+    transition: '0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+
+    position: 'relative',
   },
+
+  badge: {
+    position: 'absolute',
+    top: 2,
+    right: 5,
+    height: 28,
+    width: 28,
+    backgroundColor: '#006CFF',
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+    fontSize: '12px',
+    fontWeight: '400',
+    lineHeight: '14px',
+  },
+
   buttonsWrapper: {
     display: 'flex',
     alignItems: 'center',

@@ -357,7 +357,7 @@ export const AddOrEditLogisticTariffForm = observer(
             <Field
               multiline
               minRows={4}
-              rowsMax={4}
+              maxRows={4}
               inputProps={{maxLength: 320}}
               className={classNames.descriptionField}
               tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}

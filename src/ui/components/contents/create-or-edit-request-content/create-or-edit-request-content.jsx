@@ -159,7 +159,7 @@ export const CreateOrEditRequestContent = ({
                   className={classNames.nameField}
                   labelClasses={classNames.spanLabelSmall}
                   minRows={1}
-                  rowsMax={2}
+                  maxRows={2}
                   value={formFields.request.title}
                   onChange={onChangeField('request')('title')}
                 />
@@ -176,7 +176,7 @@ export const CreateOrEditRequestContent = ({
                   className={classNames.descriptionField}
                   labelClasses={classNames.spanLabelSmall}
                   minRows={4}
-                  rowsMax={4}
+                  maxRows={4}
                   label={`${t(TranslationKey['Describe your request'])} *`}
                   value={formFields.details.conditions}
                   onChange={onChangeField('details')('conditions')}
@@ -492,7 +492,7 @@ export const CreateOrEditRequestContent = ({
                   containerClasses={classNames.descriptionStepTwoField}
                   labelClasses={classNames.spanLabel}
                   minRows={13}
-                  rowsMax={13}
+                  maxRows={13}
                   label={t(TranslationKey['Description of your request'])}
                   value={formFields.details.conditions}
                 />
