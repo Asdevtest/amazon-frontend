@@ -84,10 +84,10 @@ export const EditTaskModal = observer(
         box =>
           (box = {
             ...box,
-            lengthCmWarehouse: box?.lengthCmWarehouse || '',
-            widthCmWarehouse: box?.widthCmWarehouse || '',
-            heightCmWarehouse: box?.heightCmWarehouse || '',
-            weighGrossKgWarehouse: box?.weighGrossKgWarehouse || '',
+            lengthCmWarehouse: box?.lengthCmWarehouse || 0,
+            widthCmWarehouse: box?.widthCmWarehouse || 0,
+            heightCmWarehouse: box?.heightCmWarehouse || 0,
+            weighGrossKgWarehouse: box?.weighGrossKgWarehouse || 0,
 
             isBarCodeAlreadyAttachedByTheSupplier: box?.isBarCodeAlreadyAttachedByTheSupplier || false,
             isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,

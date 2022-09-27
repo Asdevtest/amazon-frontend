@@ -370,6 +370,39 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '30px',
   },
 
+  sizesSubWrapper: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: '10px',
+  },
+
+  sizesLabel: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#c4c4c4',
+    cursor: 'pointer',
+  },
+
+  selectedLabel: {
+    color: '#006CFF',
+  },
+  selectedIndicator: {
+    backgroundColor: '#006CFF',
+  },
+  toggleItemWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 5,
+  },
+  indicator: {
+    display: 'block',
+    backgroundColor: '#006CFF',
+    width: '2px',
+    height: '10px',
+  },
+
   '@media (max-width: 768px)': {
     boxesWrapper: {
       flexDirection: 'column',

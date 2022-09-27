@@ -87,6 +87,17 @@ const Box = observer(
       </div>
     )
 
+    const dimensionsConfig = {
+      PRIMARY: 'PRIMARY',
+      SHIPPING: 'SHIPPING',
+    }
+
+    const [toggleDimensionsValue, setToggleDimensionsValue] = useState(
+      (box.deliveryHeight || box.deliveryLength || box.deliveryMass || box.deliveryWidth) && !box.fitsInitialDimensions
+        ? dimensionsConfig.SHIPPING
+        : dimensionsConfig.PRIMARY,
+    )
+
     return (
       <div className={classNames.mainPaper}>
         <div className={classNames.fieldsWrapper}>
@@ -157,21 +168,74 @@ const Box = observer(
             <div className={clsx(classNames.boxInfoWrapper)}>
               <div>
                 <Typography className={classNames.categoryTitle}>
+                  {/* {t(TranslationKey.Sizes)} */}
                   {isCurrentBox && taskType === TaskOperationType.RECEIVE
+                    ? t(TranslationKey['Sizes from supplier:'])
+                    : t(TranslationKey.Sizes)}
+
+                  {/* {isCurrentBox && taskType === TaskOperationType.RECEIVE
                     ? t(TranslationKey['Primary dimensions'])
                     : !isCurrentBox && taskType === TaskOperationType.RECEIVE
                     ? t(TranslationKey['Shipping dimensions'])
-                    : t(TranslationKey['Sizes from storekeeper:'])}
+                    : t(TranslationKey['Sizes from storekeeper:'])} */}
                 </Typography>
 
-                <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+                <div className={classNames.sizesSubWrapper}>
+                  {isCurrentBox && taskType === TaskOperationType.RECEIVE ? //   })} //     [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.PRIMARY, //   className={clsx(classNames.sizesLabel, { // <Typography
+                  // >
+                  //   {t(TranslationKey['Sizes from supplier:'])}
+                  // </Typography>
+                  null : (
+                    <div className={classNames.toggleSizesWrapper}>
+                      <div className={classNames.toggleItemWrapper}>
+                        {toggleDimensionsValue === dimensionsConfig.PRIMARY ? (
+                          <span className={classNames.indicator}></span>
+                        ) : null}
+
+                        <Typography
+                          className={clsx(classNames.sizesLabel, {
+                            [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.PRIMARY,
+                          })}
+                          onClick={() => setToggleDimensionsValue(dimensionsConfig.PRIMARY)}
+                        >
+                          {t(TranslationKey['Primary dimensions'])}
+                        </Typography>
+                      </div>
+                      <div className={classNames.toggleItemWrapper}>
+                        {toggleDimensionsValue === dimensionsConfig.SHIPPING ? (
+                          <span className={classNames.indicator}></span>
+                        ) : null}
+
+                        <Typography
+                          className={clsx(classNames.sizesLabel, {
+                            [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.SHIPPING,
+                          })}
+                          onClick={() => setToggleDimensionsValue(dimensionsConfig.SHIPPING)}
+                        >
+                          {t(TranslationKey['Shipping dimensions'])}
+                        </Typography>
+                      </div>
+                    </div>
+                  )}
+
+                  <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+                    <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                      {'In'}
+                    </ToggleBtn>
+                    <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                      {'Cm'}
+                    </ToggleBtn>
+                  </ToggleBtnGroup>
+                </div>
+
+                {/* <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                   <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
                     {'In'}
                   </ToggleBtn>
                   <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
                     {'Cm'}
                   </ToggleBtn>
-                </ToggleBtnGroup>
+                </ToggleBtnGroup> */}
 
                 {isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
                   <div className={classNames.demensionsWrapper}>
@@ -226,46 +290,76 @@ const Box = observer(
                   <div className={classNames.demensionsWrapper}>
                     <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey.Length) + ': '}
-                      {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                      {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                        ? toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
+                        : toFixed(box.deliveryLength / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                     </Typography>
                     <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey.Width) + ': '}
-                      {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                      {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                        ? toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
+                        : toFixed(box.deliveryWidth / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                     </Typography>
                     <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey.Height) + ': '}
-                      {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                      {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                        ? toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
+                        : toFixed(box.deliveryHeight / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                     </Typography>
 
                     <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey.Weight) + ': '}
-                      {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
+                      {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                        ? toFixedWithKg(box.weighGrossKgWarehouse, 2)
+                        : toFixedWithKg(box.deliveryMass, 2)}
                     </Typography>
                     <Typography className={classNames.mobileDemensions}>
                       {t(TranslationKey['Volume weight']) + ': '}
-                      {toFixedWithKg(
-                        ((parseFloat(box.lengthCmWarehouse) || 0) *
-                          (parseFloat(box.heightCmWarehouse) || 0) *
-                          (parseFloat(box.widthCmWarehouse) || 0)) /
-                          volumeWeightCoefficient,
-                        2,
-                      )}
-                    </Typography>
-                    <Typography className={classNames.mobileDemensions}>
-                      {t(TranslationKey['Final weight']) + ': '}
-                      {toFixedWithKg(
-                        box.weighGrossKgWarehouse >
-                          ((parseFloat(box.lengthCmWarehouse) || 0) *
-                            (parseFloat(box.heightCmWarehouse) || 0) *
-                            (parseFloat(box.widthCmWarehouse) || 0)) /
-                            volumeWeightCoefficient
-                          ? box.weighGrossKgWarehouse
-                          : ((parseFloat(box.lengthCmWarehouse) || 0) *
+                      {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                        ? toFixedWithKg(
+                            ((parseFloat(box.lengthCmWarehouse) || 0) *
                               (parseFloat(box.heightCmWarehouse) || 0) *
                               (parseFloat(box.widthCmWarehouse) || 0)) /
                               volumeWeightCoefficient,
-                        2,
-                      )}
+                            2,
+                          )
+                        : toFixedWithKg(
+                            ((parseFloat(box.deliveryLength) || 0) *
+                              (parseFloat(box.deliveryHeight) || 0) *
+                              (parseFloat(box.deliveryWidth) || 0)) /
+                              volumeWeightCoefficient,
+                            2,
+                          )}
+                    </Typography>
+                    <Typography className={classNames.mobileDemensions}>
+                      {t(TranslationKey['Final weight']) + ': '}
+                      {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                        ? toFixedWithKg(
+                            box.weighGrossKgWarehouse >
+                              ((parseFloat(box.lengthCmWarehouse) || 0) *
+                                (parseFloat(box.heightCmWarehouse) || 0) *
+                                (parseFloat(box.widthCmWarehouse) || 0)) /
+                                volumeWeightCoefficient
+                              ? box.weighGrossKgWarehouse
+                              : ((parseFloat(box.lengthCmWarehouse) || 0) *
+                                  (parseFloat(box.heightCmWarehouse) || 0) *
+                                  (parseFloat(box.widthCmWarehouse) || 0)) /
+                                  volumeWeightCoefficient,
+                            2,
+                          )
+                        : toFixedWithKg(
+                            box.deliveryMass >
+                              ((parseFloat(box.deliveryLength) || 0) *
+                                (parseFloat(box.deliveryHeight) || 0) *
+                                (parseFloat(box.deliveryWidth) || 0)) /
+                                volumeWeightCoefficient
+                              ? box.deliveryMass
+                              : ((parseFloat(box.deliveryLength) || 0) *
+                                  (parseFloat(box.deliveryHeight) || 0) *
+                                  (parseFloat(box.deliveryWidth) || 0)) /
+                                  volumeWeightCoefficient,
+                            2,
+                          )}
                     </Typography>
                   </div>
                 )}
@@ -275,7 +369,7 @@ const Box = observer(
                     containerClasses={classNames.checkboxSizesContainer}
                     labelClasses={classNames.label}
                     label={t(TranslationKey['The primary size suitable for shipment'])}
-                    inputComponent={<Checkbox color="primary" />}
+                    inputComponent={<Checkbox disabled color="primary" checked={box.fitsInitialDimensions} />}
                   />
                 ) : null}
               </div>
@@ -519,6 +613,8 @@ const NewBoxes = observer(
 
         <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
           <EditBoxTasksModal
+            isReceive={taskType === TaskOperationType.RECEIVE}
+            primarySizeSuitableCheckbox={taskType === TaskOperationType.RECEIVE || taskType === TaskOperationType.EDIT}
             volumeWeightCoefficient={volumeWeightCoefficient}
             setEditModal={onTriggerShowEditBoxModal}
             box={curBox}

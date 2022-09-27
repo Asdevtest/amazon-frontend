@@ -8,7 +8,10 @@ import {mapTaskOperationTypeKeyToEnum, TaskOperationType} from '@constants/task-
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {BoxesModel} from '@models/boxes-model'
-import {BoxesWarehouseUpdateBoxInTaskContract} from '@models/boxes-model/boxes-model.contracts'
+import {
+  BoxesWarehouseUpdateBoxInReceiveTaskContract,
+  BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract,
+} from '@models/boxes-model/boxes-model.contracts'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
@@ -227,11 +230,18 @@ export class WarehouseVacantViewModel {
             'isShippingLabelAttachedByStorekeeper',
             'isBarCodeAttachedByTheStorekeeper',
             'images',
+            'fitsInitialDimensions',
+            'deliveryLength',
+            'deliveryHeight',
+            'deliveryWidth',
+            'deliveryMass',
           ],
           false,
           (key, value) => {
             if (key === 'images') {
               return value || []
+            } else if (key === 'weighGrossKgWarehouse') {
+              return value || 0
             } else {
               return value
             }
@@ -273,11 +283,22 @@ export class WarehouseVacantViewModel {
             lengthCmWarehouse: Number(newBoxes[i].lengthCmWarehouse),
             widthCmWarehouse: Number(newBoxes[i].widthCmWarehouse),
             heightCmWarehouse: Number(newBoxes[i].heightCmWarehouse),
+            weighGrossKgWarehouse: Number(newBoxes[i].weighGrossKgWarehouse),
+
+            deliveryLength: Number(newBoxes[i].deliveryLength),
+            deliveryWidth: Number(newBoxes[i].deliveryWidth),
+            deliveryHeight: Number(newBoxes[i].deliveryHeight),
+            deliveryMass: Number(newBoxes[i].deliveryMass),
           },
           ['tmpImages'],
         )
 
-        await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, box)
+        await transformAndValidate(
+          operationType === TaskOperationType.RECEIVE
+            ? BoxesWarehouseUpdateBoxInReceiveTaskContract
+            : BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract,
+          box,
+        )
       }
 
       if (operationType === TaskOperationType.RECEIVE) {
@@ -326,6 +347,7 @@ export class WarehouseVacantViewModel {
               'isShippingLabelAttachedByStorekeeper',
               'items',
               'images',
+              'fitsInitialDimensions',
             ],
           )
 

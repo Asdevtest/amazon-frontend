@@ -7,6 +7,7 @@ import {
   IsOptional,
   IsNumber,
   IsBoolean,
+  IsPositive,
 } from 'class-validator'
 
 export class BoxesCreateBoxContract {
@@ -77,7 +78,7 @@ export class BoxesUpdateBoxContract {
   weightFinalAccountingKgWarehouse
 }
 
-export class BoxesWarehouseUpdateBoxInTaskContract {
+export class BoxesWarehouseUpdateBoxInReceiveTaskContract {
   @IsNotEmpty()
   @IsNumber()
   lengthCmWarehouse
@@ -93,6 +94,32 @@ export class BoxesWarehouseUpdateBoxInTaskContract {
   @IsNotEmpty()
   @IsNumber()
   weighGrossKgWarehouse
+
+  @IsOptional()
+  @IsBoolean()
+  isShippingLabelAttachedByStorekeeper
+}
+
+export class BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract {
+  @IsNotEmpty()
+  // @IsNumber()
+  @IsPositive()
+  deliveryLength
+
+  @IsNotEmpty()
+  // @IsNumber()
+  @IsPositive()
+  deliveryWidth
+
+  @IsNotEmpty()
+  // @IsNumber()
+  @IsPositive()
+  deliveryHeight
+
+  @IsNotEmpty()
+  // @IsNumber()
+  @IsPositive()
+  deliveryMass
 
   @IsOptional()
   @IsBoolean()
