@@ -138,7 +138,7 @@ export const AddOrEditSinglePermissionForm = observer(
           <Field
             multiline
             minRows={4}
-            rowsMax={4}
+            maxRows={4}
             className={classNames.descriptionField}
             label={t(TranslationKey.Description)}
             placeholder={t(TranslationKey.Description) + '...'}
@@ -163,7 +163,7 @@ export const AddOrEditSinglePermissionForm = observer(
                     <Input
                       multiline
                       minRows={1}
-                      rowsMax={3}
+                      maxRows={3}
                       className={classNames.urlInput}
                       value={formFields.allowedUrls[index].url}
                       placeholder={'example/example/example/:guid'}

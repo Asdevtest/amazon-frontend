@@ -220,7 +220,7 @@ export const IdeaViewAndEditCard = observer(
               labelClasses={classNames.spanLabel}
               inputProps={{maxLength: 255}}
               minRows={6}
-              rowsMax={6}
+              maxRows={6}
               label={t(TranslationKey.Comments)}
               value={formFields.comments}
               onChange={onChangeField('comments')}
@@ -251,7 +251,7 @@ export const IdeaViewAndEditCard = observer(
                   className={classNames.criterionsField}
                   inputProps={{maxLength: 255}}
                   minRows={9}
-                  rowsMax={9}
+                  maxRows={9}
                   label={t(TranslationKey['Important criteria'])}
                   value={formFields.criteria}
                   onChange={onChangeField('criteria')}
@@ -330,7 +330,7 @@ export const IdeaViewAndEditCard = observer(
                     disabled={disableFields}
                     labelClasses={classNames.spanLabel}
                     inputClasses={classNames.shortInput}
-                    label={t(TranslationKey['Desired purchase price'])}
+                    label={t(TranslationKey['Desired purchase price']) + ', $'}
                     value={formFields.price}
                     onChange={onChangeField('price')}
                   />
@@ -489,7 +489,6 @@ export const IdeaViewAndEditCard = observer(
 
             <Button
               variant="text"
-              color="alert"
               className={[classNames.actionButton, classNames.btnLeftMargin]}
               onClick={() => onClickCancelBtn()}
             >
@@ -533,9 +532,9 @@ export const IdeaViewAndEditCard = observer(
                 <div>
                   {checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role]) ? (
                     <Button
+                      danger
                       variant="contained"
-                      color="alert"
-                      className={[classNames.actionButton, classNames.cancelBtn, classNames.btnLeftMargin]}
+                      className={[classNames.actionButton, classNames.btnLeftMargin]}
                       onClick={() => {
                         onRemove(formFields._id)
                       }}

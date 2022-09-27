@@ -247,8 +247,8 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
           <div className={classNames.bottomFieldsSubWrapper}>
             <Field
               multiline
-              rows={10}
-              rowsMax={10}
+              minRows={10}
+              maxRows={10}
               inputProps={{maxLength: 50}}
               label={t(TranslationKey['Important criteria'])}
               labelClasses={classNames.label}
@@ -298,7 +298,7 @@ export const AddSupplierToIdeaFromInventoryForm = observer(
             />
             <Field
               inputProps={{maxLength: 50}}
-              label={t(TranslationKey['Desired purchase price'])}
+              label={t(TranslationKey['Desired purchase price']) + ', $'}
               labelClasses={classNames.label}
               value={formFields.price}
               placeholder={t(TranslationKey['Price per unit'])}

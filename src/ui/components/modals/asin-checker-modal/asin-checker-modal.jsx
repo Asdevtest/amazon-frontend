@@ -72,8 +72,8 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
         <Field
           multiline
           className={classNames.heightFieldAuto}
-          rows={7}
-          rowsMax={7}
+          minRows={7}
+          maxRows={7}
           inputProps={{maxLength: 35000}}
           labelClasses={classNames.commentLabelText}
           containerClasses={classNames.commentContainer}
@@ -84,8 +84,8 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
         <Field
           multiline
           className={classNames.heightFieldAuto}
-          rows={7}
-          rowsMax={7}
+          minRows={7}
+          maxRows={7}
           inputProps={{maxLength: 95000}}
           containerClasses={classNames.commentContainer}
           labelClasses={classNames.commentLabelText}

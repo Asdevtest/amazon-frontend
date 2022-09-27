@@ -84,10 +84,10 @@ export const EditTaskModal = observer(
         box =>
           (box = {
             ...box,
-            lengthCmWarehouse: box?.lengthCmWarehouse || '',
-            widthCmWarehouse: box?.widthCmWarehouse || '',
-            heightCmWarehouse: box?.heightCmWarehouse || '',
-            weighGrossKgWarehouse: box?.weighGrossKgWarehouse || '',
+            lengthCmWarehouse: box?.lengthCmWarehouse || 0,
+            widthCmWarehouse: box?.widthCmWarehouse || 0,
+            heightCmWarehouse: box?.heightCmWarehouse || 0,
+            weighGrossKgWarehouse: box?.weighGrossKgWarehouse || 0,
 
             isBarCodeAlreadyAttachedByTheSupplier: box?.isBarCodeAlreadyAttachedByTheSupplier || false,
             isShippingLabelAttachedByStorekeeper: box?.isShippingLabelAttachedByStorekeeper || false,
@@ -123,8 +123,8 @@ export const EditTaskModal = observer(
                 multiline
                 disabled
                 className={classNames.heightFieldAuto}
-                rows={window.screen.width < 768 ? 4 : 9}
-                rowsMax={window.screen.width < 768 ? 4 : 9}
+                minRows={window.screen.width < 768 ? 4 : 9}
+                maxRows={window.screen.width < 768 ? 4 : 9}
                 label={t(TranslationKey['Client comment'])}
                 placeholder={t(TranslationKey['Client comment on the task'])}
                 value={task.clientComment || ''}
@@ -133,8 +133,8 @@ export const EditTaskModal = observer(
                 multiline
                 className={classNames.heightFieldAuto}
                 disabled={readOnly}
-                rows={window.screen.width < 768 ? 4 : 9}
-                rowsMax={window.screen.width < 768 ? 4 : 9}
+                minRows={window.screen.width < 768 ? 4 : 9}
+                maxRows={window.screen.width < 768 ? 4 : 9}
                 inputProps={{maxLength: 2000}}
                 label={t(TranslationKey['Storekeeper comment'])}
                 placeholder={t(TranslationKey['Storekeeper comment to client'])}
@@ -165,8 +165,8 @@ export const EditTaskModal = observer(
               multiline
               disabled
               className={classNames.heightFieldAuto}
-              rows={4}
-              rowsMax={6}
+              minRows={4}
+              maxRows={6}
               label={t(TranslationKey['Buyer comment to order'])}
               placeholder={t(TranslationKey['Buyer comment to order'])}
               value={task.boxesBefore[0].items?.[0].order.buyerComment || ''}

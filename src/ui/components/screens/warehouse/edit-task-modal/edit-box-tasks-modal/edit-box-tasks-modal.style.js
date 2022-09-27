@@ -58,9 +58,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '13px',
     margin: '0px',
   },
-  divider: {
-    margin: '0px -24px',
-  },
+
   boxCode: {
     display: 'flex',
     flexDirection: 'column',
@@ -89,21 +87,21 @@ export const useClassNames = makeStyles(() => ({
   },
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignSelf: 'center',
     width: '100%',
     marginTop: '20px',
-    gap: '30px',
+    gap: 15,
   },
   numberInputFieldsWrapper: {
     width: '100%',
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    gap: '20px',
+    alignItems: 'flex-end',
+    gap: 15,
   },
   numberInputField: {
-    margin: '0 5px',
+    margin: 0,
   },
   blockOfNewBoxWrapper: {
     display: 'flex',
@@ -152,6 +150,24 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '19px',
     color: '#656565',
+  },
+
+  dimensionsWrapper: {
+    display: 'flex',
+    gap: 14,
+    alignItems: 'flex-end',
+    marginTop: 35,
+  },
+
+  subTitle: {
+    fontWeight: 600,
+    fontSize: 14,
+    color: '#001029',
+  },
+
+  divider: {
+    height: '160px',
+    // marginBottom: 15,
   },
 
   '@media (max-width: 768px)': {

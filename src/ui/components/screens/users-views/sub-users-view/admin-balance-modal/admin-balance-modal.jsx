@@ -114,7 +114,7 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
           multiline
           label={t(TranslationKey.Reason)}
           minRows={4}
-          rowsMax={4}
+          maxRows={4}
           value={reasonValue}
           placeholder={t(TranslationKey['Enter the reason...'])}
           className={classNames.modalTextArea}

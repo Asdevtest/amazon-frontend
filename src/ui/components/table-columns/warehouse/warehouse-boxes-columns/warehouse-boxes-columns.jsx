@@ -103,6 +103,7 @@ export const warehouseBoxesViewColumns = (handlers, firstRowId, user) => [
 
     renderCell: params => (
       <ShortBoxDimensions
+        isShipping
         box={params.row.originalData}
         volumeWeightCoefficient={params.row.volumeWeightCoefficient}
         curUser={user.role}

@@ -23,7 +23,7 @@ import InlineObject66 from '../model/InlineObject66';
 import InlineObject67 from '../model/InlineObject67';
 import InlineObject68 from '../model/InlineObject68';
 import InlineObject69 from '../model/InlineObject69';
-import InlineObject90 from '../model/InlineObject90';
+import InlineObject91 from '../model/InlineObject91';
 import InlineResponse20021 from '../model/InlineResponse20021';
 import InlineResponse20031 from '../model/InlineResponse20031';
 import InternalServerError from '../model/InternalServerError';
@@ -163,7 +163,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject90} opts.body 
+     * @param {module:model/InlineObject91} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1RequestProposalsCustomGuidResultEditPatchWithHttpInfo(guid, opts) {
@@ -202,7 +202,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject90} opts.body 
+     * @param {module:model/InlineObject91} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1RequestProposalsCustomGuidResultEditPatch(guid, opts) {

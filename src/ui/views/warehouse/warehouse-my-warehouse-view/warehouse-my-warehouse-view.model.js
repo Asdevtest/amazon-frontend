@@ -244,6 +244,39 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
+  async onSubmitEditBox(id, data) {
+    try {
+      if (data.tmpImages.length > 0) {
+        await onSubmitPostImages.call(this, {images: data.tmpImages, type: 'uploadedFiles'})
+
+        data = {...data, images: [...data.images, ...this.uploadedFiles]}
+      }
+
+      const updateBoxData = {
+        ...getObjectFilteredByKeyArrayWhiteList(
+          data,
+          ['deliveryLength', 'deliveryWidth', 'deliveryHeight', 'deliveryMass', 'fitsInitialDimensions', 'images'],
+          false,
+          (key, value) => {
+            if (key === 'images') {
+              return value || []
+            } else {
+              return value
+            }
+          },
+        ),
+      }
+
+      await StorekeeperModel.editBox(id, updateBoxData)
+
+      this.onTriggerShowEditBoxModal()
+      this.loadData()
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+
   async onSubmitAddBatch(boxesIds, filesToAdd) {
     try {
       this.uploadedFiles = []

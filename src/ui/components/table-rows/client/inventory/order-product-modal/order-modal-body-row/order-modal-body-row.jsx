@@ -222,7 +222,7 @@ export const OrderModalBodyRow = ({
           <Input
             multiline
             minRows={3}
-            rowsMax={3}
+            maxRows={3}
             inputProps={{maxLength: 500}}
             className={classNames.commentInput}
             onChange={e => onChangeInput(e, 'clientComment')}

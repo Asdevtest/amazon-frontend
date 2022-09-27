@@ -80,6 +80,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
       onChangeNameSearchValue,
       onSubmitAddBatch,
       onSubmitAddOrEditHsCode,
+      onSubmitEditBox,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -125,7 +126,8 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                   pageSize={rowsPerPage}
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
-                  rowHeight={225}
+                  // rowHeight={225}
+                  getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: GridToolbar,
                   }}
@@ -185,10 +187,12 @@ export class WarehouseMyWarehouseViewRaw extends Component {
         </Modal>
         <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
           <EditBoxTasksModal
-            isChangeDimensions
+            primarySizeSuitableCheckbox
+            isInStorekeeperWarehouse
             volumeWeightCoefficient={volumeWeightCoefficient}
             setEditModal={onTriggerShowEditBoxModal}
             box={curBox}
+            storekeeperWarehouseSubmit={onSubmitEditBox}
             // newBoxes={newBoxes}
             // setNewBoxes={setNewBoxes}
             // operationType={taskType}

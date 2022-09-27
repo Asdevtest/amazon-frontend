@@ -8,6 +8,8 @@ import {Message, MyNotificationsIcon, SettingsIcon} from '@constants/navbar-svg-
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap, UserRoleCodeMapForRoutes} from '@constants/user-roles'
 
+import {ChatModel} from '@models/chat-model'
+
 import {useClassNames} from '@components/dashboards/dashboard-buttons/dashboard-buttons.style'
 
 import {checkIsAdmin, checkIsStorekeeper, checkIsSupervisor} from '@utils/checks'
@@ -16,6 +18,8 @@ import {t} from '@utils/translations'
 export const DashboardButtons = ({user, routes}) => {
   const classNames = useClassNames()
   const history = useHistory()
+
+  const unreadMessages = ChatModel.unreadMessages
 
   return (
     <div className={classNames.buttonsWrapper}>
@@ -35,6 +39,7 @@ export const DashboardButtons = ({user, routes}) => {
       >
         <div className={classNames.iconWrapper}>
           <Message classes={{root: classNames.fontSizeLarge}} />
+          {unreadMessages ? <div className={classNames.badge}>{unreadMessages}</div> : undefined}
         </div>
 
         <Typography className={classNames.title}>{t(TranslationKey.Messages)}</Typography>

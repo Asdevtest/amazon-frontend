@@ -22,17 +22,23 @@ export const calcExchangeDollarsInYuansPrice = (price, rate) =>
 
 export const calcPriceForItem = (fullPrice, amount) => (parseFloat(fullPrice) || 0) / (parseFloat(amount) || 0)
 
-export const calcVolumeWeightForBox = (box, coefficient) => {
+export const calcVolumeWeightForBox = (box, coefficient, isShipping) => {
+  if (isShipping) {
+    return roundSafely((box.deliveryLength * box.deliveryWidth * box.deliveryHeight) / coefficient) || 0
+  }
+
   if (box.lengthCmWarehouse || box.widthCmWarehouse || box.heightCmWarehouse) {
     return roundSafely((box.lengthCmWarehouse * box.widthCmWarehouse * box.heightCmWarehouse) / coefficient) || 0
   } else {
     return roundSafely((box.lengthCmSupplier * box.widthCmSupplier * box.heightCmSupplier) / coefficient) || 0
   }
 }
-export const calcFinalWeightForBox = (box, coefficient) =>
+export const calcFinalWeightForBox = (box, coefficient, isShipping) =>
   Math.max(
-    parseFloat(calcVolumeWeightForBox(box, coefficient)) || 0,
-    parseFloat(box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier) || 0,
+    parseFloat(calcVolumeWeightForBox(box, coefficient, isShipping)) || 0,
+    parseFloat(
+      isShipping ? box.deliveryMass : box.weighGrossKgWarehouse ? box.weighGrossKgWarehouse : box.weighGrossKgSupplier,
+    ) || 0,
   )
 
 export const calcTotalFbaForProduct = product =>

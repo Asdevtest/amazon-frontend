@@ -64,8 +64,8 @@ export const ConfirmWithCommentModal = ({
         <Field
           multiline
           className={classNames.heightFieldAuto}
-          rows={7}
-          rowsMax={7}
+          minRows={7}
+          maxRows={7}
           inputProps={{maxLength: 35000}}
           // placeholder={t(TranslationKey.Reason)}
           labelClasses={classNames.commentLabelText}

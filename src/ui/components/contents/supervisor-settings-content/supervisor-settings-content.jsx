@@ -133,6 +133,7 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
         <div className={classNames.dataGridWrapper}>
           <DataGrid
+            disableVirtualization
             pagination
             checkboxSelection
             useResizeContainer
@@ -188,6 +189,7 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
         <div className={classNames.dataGridWrapper}>
           <DataGrid
+            disableVirtualization
             pagination
             useResizeContainer
             checkboxSelection
@@ -243,6 +245,7 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
         <div className={classNames.dataGridWrapper}>
           <DataGrid
+            disableVirtualization
             pagination
             useResizeContainer
             checkboxSelection
@@ -298,6 +301,7 @@ export const SupervisorSettingsContent = observer(() => {
         </div>
         <div className={classNames.dataGridWrapper}>
           <DataGrid
+            disableVirtualization
             pagination
             useResizeContainer
             checkboxSelection

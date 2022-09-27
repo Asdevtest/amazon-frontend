@@ -35,10 +35,11 @@ export const useClassNames = makeStyles(() => ({
   },
 
   inputsWrapper: {
-    height: '141px',
+    // height: '141px',
     width: '100%',
 
-    // overflow: 'auto',
+    overflow: 'auto',
+    height: 'auto',
   },
   ratingWrapper: {
     width: '100%',
@@ -52,5 +53,9 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '40px',
 
     marginRight: '25px',
+  },
+
+  fieldContainer: {
+    // height: '141px',
   },
 }))

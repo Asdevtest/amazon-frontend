@@ -316,8 +316,8 @@ export const SelectFields = ({
           <Field
             disabled
             multiline
-            rows={4}
-            rowsMax={6}
+            minRows={4}
+            maxRows={6}
             inputClasses={classNames.commentInput}
             value={orderFields.clientComment}
             label={t(TranslationKey['Client comment'])}
@@ -327,8 +327,8 @@ export const SelectFields = ({
         <Box my={3}>
           <Field
             multiline
-            rows={4}
-            rowsMax={6}
+            minRows={4}
+            maxRows={6}
             inputProps={{maxLength: 500}}
             inputClasses={classNames.commentInput}
             value={orderFields.buyerComment}
@@ -341,8 +341,8 @@ export const SelectFields = ({
           <Field
             disabled
             multiline
-            rows={4}
-            rowsMax={6}
+            minRows={4}
+            maxRows={6}
             inputClasses={classNames.commentInput}
             value={orderFields.clientComment}
             label={t(TranslationKey['Client comment'])}
@@ -352,8 +352,8 @@ export const SelectFields = ({
           <Field
             multiline
             disabled={disableSubmit}
-            rows={4}
-            rowsMax={6}
+            minRows={4}
+            maxRows={6}
             inputProps={{maxLength: 500}}
             inputClasses={classNames.commentInput}
             value={orderFields.buyerComment}

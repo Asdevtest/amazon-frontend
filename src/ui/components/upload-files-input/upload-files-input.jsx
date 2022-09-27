@@ -175,7 +175,7 @@ export const UploadFilesInput = observer(
                 </div>
 
                 {showImages && (
-                  <Grid container className={classNames.imageListWrapper} justify="start" spacing={2} md={12}>
+                  <Grid container className={classNames.imageListWrapper} justifyContent="flex-start" spacing={2}>
                     {imageList.map((image, index) =>
                       typeof image === 'string' ? (
                         <Grid key={index} item>

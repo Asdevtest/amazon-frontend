@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import DoneOutlineRoundedIcon from '@mui/icons-material/DoneOutlineRounded'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import {Rating} from '@mui/material'
 
@@ -1199,7 +1200,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
           t(TranslationKey['The tariff is invalid or has been removed!'])
         }
         tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
-        disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF}
+        disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF || row.isDraft}
         className={classNames.warehouseBoxesBtn}
         variant="contained"
         color="primary"
@@ -1212,6 +1213,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
     {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
       <Button
         success
+        disabled={row.isDraft}
         tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
         className={classNames.warehouseBoxesBtn}
         onClick={() => handlers.moveBox(row)}
@@ -1221,6 +1223,7 @@ export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, 
     )}
 
     <Button
+      disabled={row.isDraft}
       className={classNames.warehouseBoxesBtn}
       tooltipInfoContent={isFirstRow && t(TranslationKey['Code for Harmonized System Product Identification'])}
       variant="contained"
@@ -1283,22 +1286,78 @@ export const DownloadAndCopyBtnsCell = withStyles(styles)(({classes: classNames,
 ))
 
 export const ShortBoxDimensions = withStyles(styles)(
-  ({classes: classNames, box, volumeWeightCoefficient, curUser, handlers}) => {
-    const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
+  ({classes: classNames, box, volumeWeightCoefficient, curUser, handlers, isShipping}) => {
+    const dimensionsConfig = {
+      PRIMARY: 'PRIMARY',
+      SHIPPING: 'SHIPPING',
+    }
+
+    const [toggleDimensionsValue, setToggleDimensionsValue] = useState(
+      (box.deliveryHeight || box.deliveryLength || box.deliveryMass || box.deliveryWidth) && !box.fitsInitialDimensions
+        ? dimensionsConfig.SHIPPING
+        : dimensionsConfig.PRIMARY,
+    )
+
+    const finalWeight = calcFinalWeightForBox(
+      box,
+      volumeWeightCoefficient,
+      toggleDimensionsValue === dimensionsConfig.SHIPPING,
+    )
+
     return (
       <div className={classNames.shortBoxDimensionsWrapper}>
-        <Typography className={classNames.shortBoxDimensionsText}>{`${toFixed(box.lengthCmWarehouse, 2)}x${toFixed(
-          box.widthCmWarehouse,
+        <div className={classNames.toggleSizesWrapper}>
+          <div className={classNames.toggleItemWrapper}>
+            {toggleDimensionsValue === dimensionsConfig.PRIMARY ? <span className={classNames.indicator}></span> : null}
+
+            <Typography
+              className={clsx(classNames.sizesLabel, {
+                [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.PRIMARY,
+              })}
+              onClick={() => setToggleDimensionsValue(dimensionsConfig.PRIMARY)}
+            >
+              {t(TranslationKey['Primary dimensions'])}
+            </Typography>
+
+            {box.fitsInitialDimensions ? <DoneOutlineRoundedIcon color="success" fontSize="small" /> : null}
+          </div>
+          <div className={classNames.toggleItemWrapper}>
+            {toggleDimensionsValue === dimensionsConfig.SHIPPING ? (
+              <span className={classNames.indicator}></span>
+            ) : null}
+
+            <Typography
+              className={clsx(classNames.sizesLabel, {
+                [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.SHIPPING,
+              })}
+              onClick={() => setToggleDimensionsValue(dimensionsConfig.SHIPPING)}
+            >
+              {t(TranslationKey['Shipping dimensions'])}
+            </Typography>
+          </div>
+        </div>
+
+        <Typography className={classNames.shortBoxDimensionsText}>{`${toFixed(
+          toggleDimensionsValue === dimensionsConfig.SHIPPING ? box.deliveryLength : box.lengthCmWarehouse,
           2,
-        )}x${toFixed(box.heightCmWarehouse, 2)}`}</Typography>
+        )}x${toFixed(
+          toggleDimensionsValue === dimensionsConfig.SHIPPING ? box.deliveryWidth : box.widthCmWarehouse,
+          2,
+        )}x${toFixed(
+          toggleDimensionsValue === dimensionsConfig.SHIPPING ? box.deliveryHeight : box.heightCmWarehouse,
+          2,
+        )}`}</Typography>
 
         <Typography className={classNames.shortBoxDimensionsText}>{`${t(TranslationKey.Weight)}: ${toFixedWithKg(
-          box.weighGrossKgWarehouse,
+          toggleDimensionsValue === dimensionsConfig.SHIPPING ? box.deliveryMass : box.weighGrossKgWarehouse,
           2,
         )}`}</Typography>
         <Typography className={classNames.shortBoxDimensionsText}>{`${t(
           TranslationKey['Volume weight'],
-        )}: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}`}</Typography>
+        )}: ${toFixedWithKg(
+          calcVolumeWeightForBox(box, volumeWeightCoefficient, toggleDimensionsValue === dimensionsConfig.SHIPPING),
+          2,
+        )}`}</Typography>
         <Typography
           className={clsx(classNames.shortBoxDimensionsText, {
             [classNames.alertText]: !box.isDraft && finalWeight < 12,
@@ -1310,6 +1369,7 @@ export const ShortBoxDimensions = withStyles(styles)(
         ) : null}
         {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
           <Button
+            disabled={box.isDraft}
             className={clsx(classNames.shortBoxDimensionsButton, {
               [classNames.editPaddingButton]: !box.isDraft && finalWeight < 12,
             })}

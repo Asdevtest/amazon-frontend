@@ -89,8 +89,8 @@ const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: c
       <Input
         multiline
         inputProps={{maxLength: 500}}
-        rows={4}
-        rowsMax={6}
+        minRows={4}
+        maxRows={6}
         className={classNames.clientCommentInput}
         value={orderFields.clientComment}
         onChange={setOderField('clientComment')}

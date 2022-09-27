@@ -61,6 +61,7 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
             minRows={6}
             maxRow={6}
             value={formFields.reason}
+            containerClasses={classNames.fieldContainer}
             inputClasses={classNames.inputsWrapper}
             onChange={onChangeField('reason')}
           />

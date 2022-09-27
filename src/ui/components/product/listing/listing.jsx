@@ -63,7 +63,7 @@ export const Listing = observer(({productId, onClickBack}) => {
               multiline
               disabled={!userCanEdit}
               className={classNames.listingTitle}
-              rows={4}
+              minRows={4}
               inputProps={{maxLength: 1000}}
               label={t(TranslationKey['Listing title'])}
               placeholder={t(TranslationKey['Enter the title of the listing'])}
@@ -96,7 +96,7 @@ export const Listing = observer(({productId, onClickBack}) => {
               label={t(TranslationKey['Details about the product:'])}
               disabled={!userCanEdit}
               minRows={4}
-              rowsMax={4}
+              maxRows={4}
               inputProps={{maxLength: 1000}}
               value={listingProduct.listingProductDetails}
               placeholder={t(TranslationKey['Enter a description'])}

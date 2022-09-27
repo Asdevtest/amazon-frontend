@@ -143,7 +143,14 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           containerClasses={classNames.checkboxContainer}
           labelClasses={classNames.label}
           label={t(TranslationKey['The primary size suitable for shipment'])}
-          inputComponent={<Checkbox color="primary" />}
+          inputComponent={
+            <Checkbox
+              color="primary"
+              checked={item.fitsInitialDimensions}
+              // onChange={setNewBoxField('fitsInitialDimensions')}
+              onChange={e => handlers.onChangeFieldInput(e, item._id, 'fitsInitialDimensions')}
+            />
+          }
         />
       </TableCell>
 
@@ -312,6 +319,7 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
       weighGrossKgWarehouse: emptyBox?.weighGrossKgWarehouse || '',
       volumeWeightKgWarehouse: emptyBox?.volumeWeightKgWarehouse || '',
       weightFinalAccountingKgWarehouse: emptyBox?.weightFinalAccountingKgWarehouse || '',
+      // fitsInitialDimensions: fitsInitialDimensions ||
       tmpImages: [],
       images: (emptyBox?.images === null ? [] : emptyBox?.images) || [],
     }
@@ -366,31 +374,34 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
     ) - actuallyAssembled
 
   const onChangeFieldInput = (e, _id, field) => {
-    if (
-      isNaN(e.target.value) ||
-      Number(e.target.value) < 0 ||
-      (field === 'amount' && Number(e.target.value) === 0 && e.target.value !== '')
-    ) {
-      return
-    }
     const targetBox = newBoxes.filter(box => box._id === _id)[0]
 
-    const updatedTargetBox =
-      field === 'amount'
-        ? {...targetBox, [field]: e.target.value !== '' ? Number(e.target.value) : e.target.value}
-        : {...targetBox, [field]: e.target.value}
+    if (field === 'fitsInitialDimensions') {
+      targetBox[field] = e.target.checked
+    } else {
+      if (
+        isNaN(e.target.value) ||
+        Number(e.target.value) < 0 ||
+        (field === 'amount' && Number(e.target.value) === 0 && e.target.value !== '')
+      ) {
+        return
+      }
 
-    updatedTargetBox.volumeWeightKgWarehouse =
-      ((parseFloat(updatedTargetBox.lengthCmWarehouse) || 0) *
-        (parseFloat(updatedTargetBox.heightCmWarehouse) || 0) *
-        (parseFloat(updatedTargetBox.widthCmWarehouse) || 0)) /
-      volumeWeightCoefficient
-    updatedTargetBox.weightFinalAccountingKgWarehouse = Math.max(
-      parseFloat(updatedTargetBox.volumeWeightKgWarehouse) || 0,
-      parseFloat(updatedTargetBox.weighGrossKgWarehouse) || 0,
-    )
+      targetBox[field] =
+        field === 'amount' ? (e.target.value !== '' ? Number(e.target.value) : e.target.value) : e.target.value
 
-    const updatedNewBoxes = newBoxes.map(box => (box._id === _id ? updatedTargetBox : box))
+      targetBox.volumeWeightKgWarehouse =
+        ((parseFloat(targetBox.lengthCmWarehouse) || 0) *
+          (parseFloat(targetBox.heightCmWarehouse) || 0) *
+          (parseFloat(targetBox.widthCmWarehouse) || 0)) /
+        volumeWeightCoefficient
+      targetBox.weightFinalAccountingKgWarehouse = Math.max(
+        parseFloat(targetBox.volumeWeightKgWarehouse) || 0,
+        parseFloat(targetBox.weighGrossKgWarehouse) || 0,
+      )
+    }
+
+    const updatedNewBoxes = newBoxes.map(box => (box._id === _id ? targetBox : box))
     setNewBoxes(updatedNewBoxes)
   }
 

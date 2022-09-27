@@ -12,8 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestsCustomDetails from './ApiV1RequestsCustomDetails';
-import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 
 /**
  * The InlineObject91 model module.
@@ -23,14 +21,11 @@ import ApiV1RequestsCustomRequest from './ApiV1RequestsCustomRequest';
 class InlineObject91 {
     /**
      * Constructs a new <code>InlineObject91</code>.
-     * Схема универсальной заявки.
      * @alias module:model/InlineObject91
-     * @param request {module:model/ApiV1RequestsCustomRequest} 
-     * @param details {module:model/ApiV1RequestsCustomDetails} 
      */
-    constructor(request, details) { 
+    constructor() { 
         
-        InlineObject91.initialize(this, request, details);
+        InlineObject91.initialize(this);
     }
 
     /**
@@ -38,9 +33,7 @@ class InlineObject91 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, request, details) { 
-        obj['request'] = request;
-        obj['details'] = details;
+    static initialize(obj) { 
     }
 
     /**
@@ -54,11 +47,11 @@ class InlineObject91 {
         if (data) {
             obj = obj || new InlineObject91();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('result')) {
+                obj['result'] = ApiClient.convertToType(data['result'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestsCustomDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('linksToMediaFiles')) {
+                obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
             }
         }
         return obj;
@@ -68,14 +61,16 @@ class InlineObject91 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomRequest} request
+ * Результат работы исполнителя.
+ * @member {String} result
  */
-InlineObject91.prototype['request'] = undefined;
+InlineObject91.prototype['result'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestsCustomDetails} details
+ * Массив ссылок на медиафайлы.
+ * @member {Array.<String>} linksToMediaFiles
  */
-InlineObject91.prototype['details'] = undefined;
+InlineObject91.prototype['linksToMediaFiles'] = undefined;
 
 
 

@@ -242,8 +242,9 @@ Class | Method | HTTP request | Description
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch) | **PATCH** /api/v1/integrations/sellerboard_warehouse_products_unLink_sku | # Отвязать товар от SKU.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsSellerboardWarehouseStocksGet**](docs/IntegrationsApi.md#apiV1IntegrationsSellerboardWarehouseStocksGet) | **GET** /api/v1/integrations/sellerboard_warehouse_stocks | Получить днанные со склада.
 *TestSwagger.IntegrationsApi* | [**apiV1IntegrationsWarehouseReportGet**](docs/IntegrationsApi.md#apiV1IntegrationsWarehouseReportGet) | **GET** /api/v1/integrations/warehouse_report | Поиск по товарам со склада по: asin, sku, title..
+*TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsDelete**](docs/OtherApi.md#apiV1OtherCheckAsinsDelete) | **DELETE** /api/v1/other/check_asins | # Удаление массива из списка асинов на проверку
 *TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsGet**](docs/OtherApi.md#apiV1OtherCheckAsinsGet) | **GET** /api/v1/other/check_asins | # Получение списка асинов на проверку
-*TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsGuidDelete**](docs/OtherApi.md#apiV1OtherCheckAsinsGuidDelete) | **DELETE** /api/v1/other/check_asins/{guid} | # Удаление массива из списка асинов на проверку
+*TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsGuidDelete**](docs/OtherApi.md#apiV1OtherCheckAsinsGuidDelete) | **DELETE** /api/v1/other/check_asins/{guid} | # Удаление из списка асинов на проверку
 *TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsGuidPatch**](docs/OtherApi.md#apiV1OtherCheckAsinsGuidPatch) | **PATCH** /api/v1/other/check_asins/{guid} | # Изменение асина на проверку из списка
 *TestSwagger.OtherApi* | [**apiV1OtherCheckAsinsPost**](docs/OtherApi.md#apiV1OtherCheckAsinsPost) | **POST** /api/v1/other/check_asins | # Заполнение списка асинов на проверку
 *TestSwagger.OtherApi* | [**apiV1OtherImgGuidGet**](docs/OtherApi.md#apiV1OtherImgGuidGet) | **GET** /api/v1/other/img/{guid} | # Получить изображение.
@@ -317,6 +318,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ShopSellApi* | [**apiV1ShopSellGuidPatch**](docs/ShopSellApi.md#apiV1ShopSellGuidPatch) | **PATCH** /api/v1/shop_sell/{guid} | # Обновить магазин на продажу.
 *TestSwagger.ShopSellApi* | [**apiV1ShopSellPost**](docs/ShopSellApi.md#apiV1ShopSellPost) | **POST** /api/v1/shop_sell/ | # Добавить на продажу новый магазин.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersBoxesGet**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesGet) | **GET** /api/v1/storekeepers/boxes | # Получить коробки и их строки по текущему сторкиперу.
+*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersEditLightGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersEditLightGuidPatch) | **PATCH** /api/v1/storekeepers/edit/light/{guid} | # Изменить полей габаритов, массы коробки и поля fitsInitialDimensions (подходят ли первичные размеры для отправки) для доставки и изображения.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersGet**](docs/StorekeepersApi.md#apiV1StorekeepersGet) | **GET** /api/v1/storekeepers/ | # Получить всех сторкиперов(все склады).
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersOrdersSetStatusGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersOrdersSetStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_status/{guid} | # Изменить значение status в сущности заказ.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTariffLogisticsGuidDelete**](docs/StorekeepersApi.md#apiV1StorekeepersTariffLogisticsGuidDelete) | **DELETE** /api/v1/storekeepers/tariff-logistics/{guid} | # Удалить тариф доставки.
@@ -509,6 +511,7 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineObject90](docs/InlineObject90.md)
  - [TestSwagger.InlineObject91](docs/InlineObject91.md)
  - [TestSwagger.InlineObject92](docs/InlineObject92.md)
+ - [TestSwagger.InlineObject93](docs/InlineObject93.md)
  - [TestSwagger.InlineResponse200](docs/InlineResponse200.md)
  - [TestSwagger.InlineResponse2001](docs/InlineResponse2001.md)
  - [TestSwagger.InlineResponse20010](docs/InlineResponse20010.md)

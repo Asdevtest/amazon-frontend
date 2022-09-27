@@ -44,6 +44,55 @@ export default class OtherApi {
 
 
     /**
+     * # Удаление массива из списка асинов на проверку
+     * ## Удаление массива из списка асинов на проверку
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Array.<String>} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1OtherCheckAsinsDeleteWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/other/check_asins', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Удаление массива из списка асинов на проверку
+     * ## Удаление массива из списка асинов на проверку
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {Array.<String>} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1OtherCheckAsinsDelete(opts) {
+      return this.apiV1OtherCheckAsinsDeleteWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * # Получение списка асинов на проверку
      * ## Получение списка асинов на проверку
      * @param {Object} opts Optional parameters
@@ -91,8 +140,8 @@ export default class OtherApi {
 
 
     /**
-     * # Удаление массива из списка асинов на проверку
-     * ## Удаление массива из списка асинов на проверку
+     * # Удаление из списка асинов на проверку
+     * ## Удаление из списка асинов на проверку
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
@@ -129,8 +178,8 @@ export default class OtherApi {
     }
 
     /**
-     * # Удаление массива из списка асинов на проверку
-     * ## Удаление массива из списка асинов на проверку
+     * # Удаление из списка асинов на проверку
+     * ## Удаление из списка асинов на проверку
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 

@@ -86,7 +86,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
         <Field
           multiline
           minRows={4}
-          rowsMax={4}
+          maxRows={4}
           inputProps={{maxLength: 255}}
           tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
           className={classNames.descriptionField}

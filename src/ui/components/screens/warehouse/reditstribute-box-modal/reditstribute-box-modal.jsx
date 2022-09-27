@@ -520,8 +520,8 @@ export const RedistributeBox = observer(
             multiline
             inputProps={{maxLength: 255}}
             className={classNames.heightFieldAuto}
-            rows={18}
-            rowsMax={18}
+            minRows={18}
+            maxRows={18}
             label={t(TranslationKey['Client comment on the task'])}
             placeholder={t(TranslationKey['Client comment on the task'])}
             value={comment}

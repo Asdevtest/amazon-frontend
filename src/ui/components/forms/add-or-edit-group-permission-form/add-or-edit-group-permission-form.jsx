@@ -193,7 +193,7 @@ export const AddOrEditGroupPermissionForm = observer(
           <Field
             multiline
             minRows={4}
-            rowsMax={4}
+            maxRows={4}
             className={classNames.descriptionField}
             label={t(TranslationKey.Description)}
             placeholder={t(TranslationKey.Description) + '...'}

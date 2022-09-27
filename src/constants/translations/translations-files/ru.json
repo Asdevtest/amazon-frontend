@@ -1536,7 +1536,6 @@
   "Preview": "Предпросмотр",
   "Accrual data": "Данные по начислениям",
   "The following ASINs have already been entered into the table": "Следующие ASIN уже внесены в таблицу",
-  "Offer conditions corrected": "Условия предложения скорректированы",
   "Removed Ads": "Удаленные",
   "Primary dimensions": "Первичные размеры",
   "Shipping dimensions": "Размеры для отправки",
@@ -1545,5 +1544,6 @@
   "Checking": "Проверка",
   "Your task data": "Данные по Вашим задачам",
   "Your warehouse data": "Данные Вашего склада",
-  "Batch data": "Данные партий"
+  "Batch data": "Данные партий",
+  "Shipping sizes": "Размеры для отправки"
 }

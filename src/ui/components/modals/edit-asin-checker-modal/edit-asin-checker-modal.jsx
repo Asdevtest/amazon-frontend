@@ -43,8 +43,8 @@ export const EditAsinCheckerModal = ({asinsToEdit, onSubmit, onClose}) => {
       <div className={classNames.modalFieldsWrapper}>
         <Field
           multiline
-          rows={1}
-          rowsMax={1}
+          minRows={1}
+          maxRows={1}
           inputProps={{maxLength: 24}}
           labelClasses={classNames.commentLabelText}
           containerClasses={classNames.commentContainer}
@@ -55,8 +55,8 @@ export const EditAsinCheckerModal = ({asinsToEdit, onSubmit, onClose}) => {
         <Field
           multiline
           className={classNames.heightFieldAuto}
-          rows={7}
-          rowsMax={7}
+          minRows={7}
+          maxRows={7}
           inputProps={{maxLength: 1024}}
           containerClasses={classNames.commentContainer}
           labelClasses={classNames.commentLabelText}

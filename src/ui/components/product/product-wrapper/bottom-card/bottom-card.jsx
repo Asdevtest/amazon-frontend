@@ -41,7 +41,7 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
   const defaultFieldDisable = !(checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole) || clientCanEdit)
 
   return (
-    <React.Fragment>
+    <>
       <Grid container spacing={2}>
         <Grid item sm={7} xs={12}>
           <Paper className={classNames.cardPadding}>
@@ -270,8 +270,8 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               multiline
               disabled={defaultFieldDisable}
               className={classNames.heightFieldAuto}
-              rows={4}
-              rowsMax={6}
+              minRows={4}
+              maxRows={6}
               label={t(TranslationKey['Amazon Brief Description'])}
               value={product.amazonDescription || ''}
               onChange={onChangeField('amazonDescription')}
@@ -281,8 +281,8 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
               multiline
               disabled={defaultFieldDisable}
               className={classNames.heightFieldAuto}
-              rows={4}
-              rowsMax={6}
+              minRows={4}
+              maxRows={6}
               label={t(TranslationKey.Details)}
               value={product.amazonDetail || ''}
               onChange={onChangeField('amazonDetail')}
@@ -290,6 +290,6 @@ export const BottomCard = observer(({curUserRole, product, productBase, onChange
           </Paper>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   )
 })

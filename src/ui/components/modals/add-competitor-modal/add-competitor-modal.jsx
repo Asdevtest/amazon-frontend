@@ -36,7 +36,7 @@ export const AddCompetitorModal = observer(({openModal, setOpenModal, currentCom
           <Field
             multiline
             minRows={4}
-            rowsMax={4}
+            maxRows={4}
             label={t(TranslationKey.Link)}
             className={classNames.linkField}
             value={competitor.link}
@@ -47,7 +47,7 @@ export const AddCompetitorModal = observer(({openModal, setOpenModal, currentCom
             multiline
             label={t(TranslationKey.Comment)}
             minRows={4}
-            rowsMax={4}
+            maxRows={4}
             className={classNames.commentField}
             value={competitor.comments}
             onChange={e => setCompetitor({...competitor, comments: e.target.value})}
