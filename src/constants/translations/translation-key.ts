@@ -1551,7 +1551,7 @@ export enum TranslationKey {
   'Delete selected ASINs' = 'Delete selected ASINs',
   'Are you sure you want to delete the selected ASINs?' = 'Are you sure you want to delete the selected ASINs?',
   'ASIN cannot contain empty values' = 'ASIN cannot contain empty values',
-  // '' = '',
+  'Sizes from buyer' = 'Sizes from buyer',
   // '' = '',
 
   // '' = '',

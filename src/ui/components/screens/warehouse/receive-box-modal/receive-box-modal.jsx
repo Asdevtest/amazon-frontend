@@ -492,7 +492,9 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
         <CustomCarousel alignButtons="end">
           {boxesBefore.map((box, index) => (
             <div key={index} className={classNames.demensionsWrapper}>
-              <Typography className={classNames.categoryTitle}>{t(TranslationKey['Primary dimensions'])}</Typography>
+              <Typography className={classNames.categoryTitle}>
+                {t(TranslationKey['Sizes from buyer']) + ':'}
+              </Typography>
               <Typography className={classNames.footerTitle}>{`${t(TranslationKey.Length)}: ${toFixed(
                 box.lengthCmSupplier,
                 2,

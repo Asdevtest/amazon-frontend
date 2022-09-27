@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Checkbox, Link, Typography} from '@material-ui/core'
+import clsx from 'clsx'
 
 import {TaskOperationType} from '@constants/task-operation-type'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -15,7 +16,18 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './box-item-card.style'
 
-export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode, boxId, readOnly, taskType}) => {
+export const BoxItemCard = ({
+  item,
+  index,
+  superCount,
+  isNewBox,
+  onChangeBarCode,
+  boxId,
+  readOnly,
+  taskType,
+  needAccent,
+  referenceEditingBox,
+}) => {
   const classNames = useClassNames()
 
   return (
@@ -51,7 +63,11 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode,
           </div>
 
           <div className={classNames.attributeFooterWrapper}>
-            <div className={classNames.barCodeWrapper}>
+            <div
+              className={clsx(classNames.barCodeWrapper, {
+                [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.barCode,
+              })}
+            >
               <Text tooltipInfoContent={t(TranslationKey['Product barcode'])} className={classNames.subTitle}>
                 {t(TranslationKey.BarCode) + ':'}
               </Text>
@@ -68,7 +84,11 @@ export const BoxItemCard = ({item, index, superCount, isNewBox, onChangeBarCode,
               )}
             </div>
             <div>
-              <div className={classNames.chipWrapper}>
+              <div
+                className={clsx(classNames.chipWrapper, {
+                  [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.barCode,
+                })}
+              >
                 {item.barCode && (
                   <div className={classNames.barCodeActionsWrapper}>
                     {item.isBarCodeAttachedByTheStorekeeper === false && (

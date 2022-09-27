@@ -116,7 +116,8 @@ export const useClassNames = makeStyles(() => ({
 
   boxInfoWrapper: {
     display: 'flex',
-    gap: '76px',
+    // gap: '46px',
+    justifyContent: 'space-between',
   },
 
   imagesWrapper: {
@@ -403,6 +404,15 @@ export const useClassNames = makeStyles(() => ({
     height: '10px',
   },
 
+  editAccent: {
+    outline: '2px solid #F5CF00',
+    borderRadius: 4,
+  },
+
+  toggleSizesWrapper: {
+    marginRight: 30,
+  },
+
   '@media (max-width: 768px)': {
     boxesWrapper: {
       flexDirection: 'column',
@@ -454,6 +464,8 @@ export const useClassNames = makeStyles(() => ({
     },
     imagesWrapper: {
       width: '280px',
+      // marginRight: 20,
+      // paddingRight: 60,
     },
     footerWrapper: {
       flexDirection: 'column',

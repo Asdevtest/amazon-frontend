@@ -159,6 +159,12 @@ export const useClassNames = makeStyles({
     display: 'flex',
     gap: '10px',
   },
+
+  editAccent: {
+    outline: '2px solid #F5CF00',
+    borderRadius: 4,
+  },
+
   '@media (max-width: 768px)': {
     root: {
       width: '280px',
