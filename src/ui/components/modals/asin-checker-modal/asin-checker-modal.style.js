@@ -82,4 +82,8 @@ export const useClassNames = makeStyles(() => ({
   buttonPreview: {
     padding: '8px 36px',
   },
+
+  error: {
+    color: 'red',
+  },
 }))

@@ -157,10 +157,10 @@ export const productStatusTranslateKey = status => {
       return TranslationKey['Product purchased']
 
     case ProductStatus.COMPLETE_SUPPLIER_WAS_NOT_FOUND:
-      return TranslationKey['Supplier was not found']
+      return TranslationKey['Supplier was not found (сhecked)']
 
     case ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE:
-      return TranslationKey['Supplier price does not fit']
+      return TranslationKey['Supplier price does not fit (сhecked)']
 
     case ProductStatus.NO_PUBLISHED:
       return TranslationKey['Not published']
@@ -184,7 +184,7 @@ export const productStatusTranslateKey = status => {
       return TranslationKey['Supplier was not found']
 
     case ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE:
-      return TranslationKey['Supplier price does not fit']
+      return TranslationKey['Supplier price does not fit (сhecked)']
 
     case ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS:
       return TranslationKey['Search complete']
@@ -193,10 +193,10 @@ export const productStatusTranslateKey = status => {
       return TranslationKey['Paid by the Client']
 
     case ProductStatus.FROM_CLIENT_COMPLETE_SUPPLIER_WAS_NOT_FOUND:
-      return TranslationKey['Supplier was not found']
+      return TranslationKey['Supplier was not found (сhecked)']
 
     case ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE:
-      return TranslationKey['Supplier price does not fit']
+      return TranslationKey['Supplier price does not fit (сhecked)']
   }
 }
 

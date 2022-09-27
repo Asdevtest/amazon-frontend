@@ -423,11 +423,11 @@ export const navbarConfig = () => ({
             !isMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR),
         },
-        {
-          subtitle: t(TranslationKey.Idea),
-          subRoute: '/supervisor/ready-to-check-for-idea',
-          checkHideSubBlock: () => true,
-        },
+        // {
+        //   subtitle: t(TranslationKey.Idea),
+        //   subRoute: '/supervisor/ready-to-check-for-idea',
+        //   checkHideSubBlock: () => true,
+        // },
       ],
       key: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
       checkHideBlock: user =>
@@ -467,6 +467,14 @@ export const navbarConfig = () => ({
         !isMasterUser(user) ||
         user?.permissions.some(item => item.key === permissionsKeys.supervisor.SHOW_PAYMENTS_SUPERVISOR),
     },
+    {
+      icon: SettingsIcon,
+      title: t(TranslationKey.Settings),
+      subtitles: null,
+      route: '/supervisor/settings',
+      key: navBarActiveCategory.NAVBAR_SETTINGS,
+      checkHideBlock: () => true,
+    },
 
     {
       icon: Message,
@@ -474,14 +482,6 @@ export const navbarConfig = () => ({
       route: '/supervisor/messages',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
-      checkHideBlock: () => true,
-    },
-    {
-      icon: SettingsIcon,
-      title: t(TranslationKey.Settings),
-      subtitles: null,
-      route: '/supervisor/settings',
-      key: navBarActiveCategory.NAVBAR_SETTINGS,
       checkHideBlock: () => true,
     },
   ],
@@ -544,13 +544,13 @@ export const navbarConfig = () => ({
             !isMasterUser(user) ||
             user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER),
         },
-        {
-          subtitle: t(TranslationKey.Idea),
-          subRoute: '/buyer/search-supplier-for-idea',
-          checkHideSubBlock: user =>
-            !isMasterUser(user) ||
-            user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER),
-        },
+        // {
+        //   subtitle: t(TranslationKey.Idea),
+        //   subRoute: '/buyer/search-supplier-for-idea',
+        //   checkHideSubBlock: user =>
+        //     !isMasterUser(user) ||
+        //     user?.permissions.some(item => item.key === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER),
+        // },
       ],
       key: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
       checkHideBlock: user =>

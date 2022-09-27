@@ -76,6 +76,7 @@ export class SupervisorDashboardViewModel {
               ProductStatusByKey[ProductStatus.RESEARCHER_CREATED_PRODUCT],
               ProductStatusByKey[ProductStatus.RESEARCHER_FOUND_SUPPLIER],
               ProductStatusByKey[ProductStatus.BUYER_FOUND_SUPPLIER],
+              ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR],
 
               ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER],
               ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE],

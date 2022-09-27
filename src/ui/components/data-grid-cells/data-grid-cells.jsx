@@ -330,7 +330,18 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
       <div className={classNames.copyAsin}>
         <Typography className={classNames.orderText}>
           <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-          {product.asin}
+          {product.asin ? (
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`https://www.amazon.com/dp/${product.asin}`}
+              className={classNames.normalizeLink}
+            >
+              <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
+            </a>
+          ) : (
+            <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+          )}
         </Typography>
         {product.asin ? <CopyValue text={product.asin} /> : null}
       </div>

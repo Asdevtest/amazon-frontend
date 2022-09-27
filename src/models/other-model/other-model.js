@@ -118,6 +118,11 @@ class OtherModelStatic {
     const response = await restApiService.otherApi.apiV1OtherCheckAsinsGuidDelete(id)
     return response
   }
+
+  removeAsins = async ids => {
+    const response = await restApiService.otherApi.apiV1OtherCheckAsinsDelete({body: ids})
+    return response
+  }
 }
 
 export const OtherModel = new OtherModelStatic()

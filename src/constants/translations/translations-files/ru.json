@@ -1427,6 +1427,9 @@
   "Product at the Buyer in work": "Товар у Байера в работе",
   "Buyer found a supplier": "Байер нашел поставщика",
   "Supplier was not found": "Поставщик не был найден",
+  "Supplier was not found (сhecked)": "Поставщик не был найден (проверено)",
+  "Supplier price does not fit (сhecked)": "Цена поставщика не подходит (проверено)",
+
   "Supplier price does not fit": "Цена поставщика не подходит",
   "Search complete": "Поиск завершен",
   "Product purchased": "Товар куплен",
@@ -1545,5 +1548,9 @@
   "Your task data": "Данные по Вашим задачам",
   "Your warehouse data": "Данные Вашего склада",
   "Batch data": "Данные партий",
-  "Shipping sizes": "Размеры для отправки"
+  "Shipping sizes": "Размеры для отправки",
+  "View all": "Смотреть все",
+  "Delete selected ASINs": "Удалить выбранные ASIN",
+  "Are you sure you want to delete the selected ASINs?": "Вы уверены, что хотите удалить выбранные ASIN?",
+  "ASIN cannot contain empty values": "ASIN не может содержать пустые значения"
 }

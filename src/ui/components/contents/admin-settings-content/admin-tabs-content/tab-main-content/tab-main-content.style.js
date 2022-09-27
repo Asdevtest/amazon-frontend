@@ -187,6 +187,11 @@ export const useClassNames = makeStyles(() => ({
     gap: '10px',
     marginTop: '22px',
   },
+
+  halfProxiesWrapper: {
+    height: '230px',
+    overflow: 'hidden',
+  },
   proxySubWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -213,5 +218,24 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       transform: 'scale(1.07)',
     },
+  },
+  tablePanelSortWrapper: {
+    marginTop: '20px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'end',
+
+    transition: '0.3s ease',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+    '&:hover': {
+      opacity: '.8',
+    },
+  },
+  tablePanelViewText: {
+    fontSize: '16px',
+    lineHeight: '19px',
+    color: '#006CFF',
+
+    marginRight: '15px',
   },
 }))

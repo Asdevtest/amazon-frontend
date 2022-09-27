@@ -28,13 +28,13 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
   const onClickPreviewButton = () => {
     const asinsData = asins ? asins.split('\n') : []
     const reasonsData = reasons ? reasons.split('\n') : []
+    console.log(asinsData)
     const data = []
     asinsData.length &&
-      reasonsData.length &&
       asinsData.forEach((item, index) => {
         data.push({
           asin: item.trim(),
-          reason: reasonsData[index],
+          reason: reasonsData[index] || '',
           strategy: mapProductStrategyStatusEnumToKey[strategy],
         })
       })
@@ -77,7 +77,7 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
           inputProps={{maxLength: 35000}}
           labelClasses={classNames.commentLabelText}
           containerClasses={classNames.commentContainer}
-          label={t(TranslationKey['Add a list of ASIN'])}
+          label={`${t(TranslationKey['Add a list of ASIN'])}*`}
           value={asins}
           onChange={e => setAsins(e.target.value)}
         />
@@ -114,6 +114,9 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
             />
           </div>
           <TableAsinAndReason data={updatedAsinsAndReasonsData} onClickRemoveCell={onClickRemoveCell} />
+          {updatedAsinsAndReasonsData.some(item => item.asin === '') ? (
+            <span className={classNames.error}>{t(TranslationKey['ASIN cannot contain empty values'])}</span>
+          ) : null}
         </div>
       ) : null}
       <div className={classNames.buttonsWrapper}>
@@ -125,7 +128,7 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
         <div>
           <Button
             success
-            disabled={!updatedAsinsAndReasonsData.length}
+            disabled={!updatedAsinsAndReasonsData.length || updatedAsinsAndReasonsData.some(item => item.asin === '')}
             variant="contained"
             className={classNames.buttonOk}
             onClick={() => onSubmit(asinsAndReasonsData, strategy)}

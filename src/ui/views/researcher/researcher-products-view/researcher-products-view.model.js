@@ -180,13 +180,16 @@ export class ResearcherProductsViewModel {
     }
 
     const checkProductExistResult = await this.checkProductExists(this.formFields.productCode)
-    console.log('checkProductExistResult', checkProductExistResult)
+
     if (checkProductExistResult.isExist) {
       runInAction(() => {
         this.error = 'This product already exists'
         this.reasonError = checkProductExistResult.reason
         return
       })
+    } else {
+      this.error = ''
+      this.reasonError = ''
     }
 
     runInAction(() => {

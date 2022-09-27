@@ -12,7 +12,7 @@ import {t} from '@utils/translations'
 
 import {useClassNames} from './edit-asin-checker-modal.style'
 
-export const EditAsinCheckerModal = ({asinsToEdit, onSubmit, onClose}) => {
+export const EditAsinCheckerModal = ({asinsToEdit, onSubmit, onClose, strategy}) => {
   const classNames = useClassNames()
 
   const sourceFormFields = {
@@ -72,7 +72,7 @@ export const EditAsinCheckerModal = ({asinsToEdit, onSubmit, onClose}) => {
           // disabled={submitIsClicked}
           variant="contained"
           className={classNames.buttonOk}
-          onClick={() => onSubmit(asinsToEdit?._id, formFields)}
+          onClick={() => onSubmit(asinsToEdit?._id, formFields, strategy)}
         >
           {t(TranslationKey.Save)}
         </Button>

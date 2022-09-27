@@ -81,6 +81,7 @@ export const SupervisorSettingsContent = observer(() => {
     onChangeNameSearchValue,
     onSelectionModel,
     selectedRowIds,
+    onClickRemoveSelectedBtn,
   } = gpModel.current
 
   useEffect(() => {
@@ -127,9 +128,19 @@ export const SupervisorSettingsContent = observer(() => {
             }
             onChange={onChangeNameSearchValue}
           />
-          <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
-            {'ASIN checker'}
-          </Button>
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              danger
+              disabled={!selectedRowIds?.length}
+              className={classNames.button}
+              onClick={onClickRemoveSelectedBtn}
+            >
+              {t(TranslationKey['Delete selected ASINs'])}
+            </Button>
+            <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+              {'ASIN checker'}
+            </Button>
+          </div>
         </div>
         <div className={classNames.dataGridWrapper}>
           <DataGrid
@@ -183,9 +194,19 @@ export const SupervisorSettingsContent = observer(() => {
             }
             onChange={onChangeNameSearchValue}
           />
-          <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
-            {'ASIN checker'}
-          </Button>
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              danger
+              disabled={!selectedRowIds?.length}
+              className={classNames.button}
+              onClick={onClickRemoveSelectedBtn}
+            >
+              {t(TranslationKey['Delete selected ASINs'])}
+            </Button>
+            <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+              {'ASIN checker'}
+            </Button>
+          </div>
         </div>
         <div className={classNames.dataGridWrapper}>
           <DataGrid
@@ -239,9 +260,19 @@ export const SupervisorSettingsContent = observer(() => {
             }
             onChange={onChangeNameSearchValue}
           />
-          <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
-            {'ASIN checker'}
-          </Button>
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              danger
+              disabled={!selectedRowIds?.length}
+              className={classNames.button}
+              onClick={onClickRemoveSelectedBtn}
+            >
+              {t(TranslationKey['Delete selected ASINs'])}
+            </Button>
+            <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+              {'ASIN checker'}
+            </Button>
+          </div>
         </div>
         <div className={classNames.dataGridWrapper}>
           <DataGrid
@@ -295,9 +326,19 @@ export const SupervisorSettingsContent = observer(() => {
             }
             onChange={onChangeNameSearchValue}
           />
-          <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
-            {'ASIN checker'}
-          </Button>
+          <div className={classNames.buttonsWrapper}>
+            <Button
+              danger
+              disabled={!selectedRowIds?.length}
+              className={classNames.button}
+              onClick={onClickRemoveSelectedBtn}
+            >
+              {t(TranslationKey['Delete selected ASINs'])}
+            </Button>
+            <Button success className={classNames.button} onClick={() => onTriggerOpenModal('showAsinCheckerModal')}>
+              {'ASIN checker'}
+            </Button>
+          </div>
         </div>
         <div className={classNames.dataGridWrapper}>
           <DataGrid
@@ -345,6 +386,7 @@ export const SupervisorSettingsContent = observer(() => {
       </Modal>
       <Modal openModal={showEditAsinCheckerModal} setOpenModal={() => onTriggerOpenModal('showEditAsinCheckerModal')}>
         <EditAsinCheckerModal
+          strategy={tabIndex}
           asinsToEdit={asinsToEdit}
           onSubmit={onEditAsins}
           onClose={() => onTriggerOpenModal('showEditAsinCheckerModal')}
@@ -358,7 +400,7 @@ export const SupervisorSettingsContent = observer(() => {
         message={confirmModalSettings.message}
         successBtnText={t(TranslationKey.Yes)}
         cancelBtnText={t(TranslationKey.No)}
-        onClickSuccessBtn={confirmModalSettings.onClickSuccess}
+        onClickSuccessBtn={() => confirmModalSettings.onClickSuccess(tabIndex)}
         onClickCancelBtn={() => onTriggerOpenModal('showConfirmModal')}
       />
       <Modal openModal={showFailedAsinsModal} setOpenModal={() => onTriggerOpenModal('showFailedAsinsModal')}>
