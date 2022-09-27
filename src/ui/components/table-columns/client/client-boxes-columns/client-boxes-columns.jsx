@@ -32,7 +32,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 75,
+    width: 60,
   },
 
   {
@@ -81,7 +81,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
       ) : (
         <MultilineTextCell text={params.value} />
       ),
-    width: 150,
+    width: 100,
   },
 
   {
@@ -90,7 +90,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 160,
+    width: 130,
   },
 
   {
@@ -99,7 +99,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 140,
+    width: 110,
   },
 
   {
@@ -144,7 +144,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     renderCell: params => (
       <ShortBoxDimensions box={params.row.originalData} volumeWeightCoefficient={params.row.volumeWeightCoefficient} />
     ),
-    width: 230,
+    width: 210,
   },
 
   {

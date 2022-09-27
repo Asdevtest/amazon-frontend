@@ -255,4 +255,25 @@ export const useClassNames = makeStyles(() => ({
     width: '2px',
     height: '10px',
   },
+  normalizeLink: {
+    color: '#007bff',
+    textDecoration: 'none',
+    transition: '.3s ease',
+    '&:hover': {
+      opacity: '.7',
+    },
+  },
+  linkSpan: {
+    marginLeft: 10,
+    color: '#007bff',
+  },
+  typoSpan: {
+    marginLeft: 10,
+    color: '#656565',
+  },
+  copyAsin: {
+    display: 'flex',
+    gap: '5px',
+    alignItems: 'center',
+  },
 }))

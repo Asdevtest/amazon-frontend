@@ -1427,6 +1427,8 @@
   "Product at the Buyer in work": "Product at the Buyer in work",
   "Buyer found a supplier": "Buyer found a supplier",
   "Supplier was not found": "Supplier was not found",
+  "Supplier was not found (сhecked)": "Supplier was not found (сhecked)",
+  "Supplier price does not fit (сhecked)": "Supplier price does not fit (сhecked)",
   "Supplier price does not fit": "Supplier price does not fit",
   "Search complete": "Search complete",
   "Product purchased": "Product purchased",
@@ -1546,5 +1548,9 @@
   "Your task data": "Your task data",
   "Your warehouse data": "Your warehouse data",
   "Batch data": "Batch data",
-  "Shipping sizes": "Shipping sizes"
+  "Shipping sizes": "Shipping sizes",
+  "View all": "View all",
+  "Delete selected ASINs": "Delete selected ASINs",
+  "Are you sure you want to delete the selected ASINs?": "Are you sure you want to delete the selected ASINs?",
+  "ASIN cannot contain empty values": "ASIN cannot contain empty values"
 }

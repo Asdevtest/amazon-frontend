@@ -56,4 +56,9 @@ export const useClassNames = makeStyles(() => ({
     width: 'auto',
     justifySelf: 'flex-start',
   },
+
+  buttonsWrapper: {
+    display: 'flex',
+    gap: '30px',
+  },
 }))

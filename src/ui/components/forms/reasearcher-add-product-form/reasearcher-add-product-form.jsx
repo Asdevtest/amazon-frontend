@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Box, NativeSelect, TextareaAutosize, Typography} from '@material-ui/core'
 import {Alert} from '@material-ui/lab'
@@ -39,7 +39,7 @@ export const ResearcherAddProductFormRaw = observer(
   }) => {
     const disabledNoProvatLabel =
       Number(formFields.strategyStatus) !== mapProductStrategyStatusEnumToKey[ProductStrategyStatus.PRIVATE_LABEL]
-
+    const [disableAddButton, setDisabledAddButton] = useState(false)
     return (
       SettingsModel.languageTag && (
         <div className={classNames.mainWrapper}>
@@ -85,11 +85,12 @@ export const ResearcherAddProductFormRaw = observer(
                 label={`${t(TranslationKey['Product Strategy'])}*`}
                 inputComponent={
                   <NativeSelect
-                    disabled={errorMsg}
+                    // disabled={errorMsg}
                     value={formFields.strategyStatus}
                     className={classNames.nativeSelect}
                     input={<Input />}
                     onChange={onChangeFormFields('strategyStatus')}
+                    onClick={() => setDisabledAddButton(true)}
                   >
                     <option value={''}>{t(TranslationKey['not selected'])}</option>
 
@@ -112,13 +113,16 @@ export const ResearcherAddProductFormRaw = observer(
                   TranslationKey['Checking Amazon ID number for uniqueness and absence in the database'],
                 )}
                 className={classNames.button}
-                onClick={onClickCheckBtn}
+                onClick={() => {
+                  onClickCheckBtn()
+                  setDisabledAddButton(false)
+                }}
               >
                 {t(TranslationKey.Check)}
               </Button>
               <Button
                 tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}
-                disabled={chekedCode === '' || errorMsg || formFields.strategyStatus < 10}
+                disabled={chekedCode === '' || errorMsg || formFields.strategyStatus < 10 || disableAddButton}
                 className={classNames.addBtn}
                 onClick={onClickAddBtn}
               >

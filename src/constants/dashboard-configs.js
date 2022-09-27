@@ -164,6 +164,7 @@ export const FreelancerDashboardCardDataKey = {
 export const getFreelancerDashboardCardConfig = () => [
   {
     key: 'FINANCES',
+    subTitle: t(TranslationKey['Accrual data']),
     title: t(TranslationKey.Finances),
     items: [
       {
@@ -184,7 +185,7 @@ export const getFreelancerDashboardCardConfig = () => [
       {
         dataKey: ResearcherDashboardCardDataKey.FINES,
         title: t(TranslationKey.Fines),
-
+        isNegative: true,
         route: '/freelancer/finances',
         dataGridFilter: {
           items: [
@@ -229,6 +230,7 @@ export const getClientDashboardCardConfig = () => ({
   inventory: {
     key: 'inventory',
     title: t(TranslationKey.Inventory),
+    subTitle: t(TranslationKey['Your product list data']),
     route: '/client/inventory',
     items: [
       {
@@ -839,7 +841,9 @@ export const getSupervisorDashboardCardConfig = () => [
               operatorValue: 'isAnyOf',
               value: [
                 TranslationKey['Supplier was not found'],
+                TranslationKey['Supplier was not found (сhecked)'],
                 TranslationKey['Supplier price does not fit'],
+                TranslationKey['Supplier price does not fit (сhecked)'],
                 TranslationKey['Not published'],
               ],
             },

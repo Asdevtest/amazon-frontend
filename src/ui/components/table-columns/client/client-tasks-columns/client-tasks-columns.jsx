@@ -20,7 +20,7 @@ export const clientTasksViewColumns = handlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
-    width: 150,
+    width: 130,
     renderCell: params => <NormDateFromUnixCell value={params.value} />,
     type: 'date',
   },

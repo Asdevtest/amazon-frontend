@@ -18,7 +18,7 @@ import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 import {UserLink} from '@components/user-link'
 
 import {calcFinalWeightForBox, calcVolumeWeightForBox} from '@utils/calculation'
-import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, toFixed, toFixedWithKg} from '@utils/text'
+import {checkAndMakeAbsoluteUrl, getFullTariffTextForBoxOrOrder, shortAsin, toFixed, toFixedWithKg} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './box-view-form.style'
@@ -112,9 +112,23 @@ export const BoxViewForm = observer(
                       </div>
 
                       <Typography className={classNames.amazonTitle}>{item.product.amazonTitle}</Typography>
-                      <div className={classNames.asinWrapper}>
-                        <Typography>{t(TranslationKey.ASIN)}</Typography>
-                        <Typography>{item.product.asin}</Typography>
+                      <div className={classNames.copyAsin}>
+                        <div className={classNames.asinWrapper}>
+                          <Typography>{t(TranslationKey.ASIN)}</Typography>
+                          {item.product.asin ? (
+                            <a
+                              target="_blank"
+                              rel="noreferrer"
+                              href={`https://www.amazon.com/dp/${item.product.asin}`}
+                              className={classNames.normalizeLink}
+                            >
+                              <span className={classNames.linkSpan}>{shortAsin(item.product.asin)}</span>
+                            </a>
+                          ) : (
+                            <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+                          )}
+                        </div>
+                        {item.product.asin ? <CopyValue text={item.product.asin} /> : null}
                       </div>
                     </div>
 

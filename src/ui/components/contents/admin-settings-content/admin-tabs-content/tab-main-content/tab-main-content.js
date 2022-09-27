@@ -1,3 +1,5 @@
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 
 import React, {useEffect, useState} from 'react'
@@ -30,6 +32,7 @@ export const TabMainContent = ({
   const classNames = useClassNames()
   const [proxy, setProxy] = useState('')
   const [error, setError] = useState(false)
+  const [showFullCard, setShowFullCard] = useState(false)
 
   const regExp =
     /\b[a-zA-Z0-9]+:[a-zA-Z0-9]+@(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\d{1,5}\b/
@@ -108,19 +111,37 @@ export const TabMainContent = ({
             {t(TranslationKey.Add)}
           </Button>
         </div>
-        {proxyArr.length !== 0 &&
-          proxyArr.map((proxy, index) => (
-            <div key={index} className={classNames.proxyWrapper}>
-              <div className={classNames.proxySubWrapper}>
-                <Typography className={clsx(classNames.proxy)}>
-                  {proxy.length > 32 ? proxy.slice(0, 32) + '...' : proxy}
-                </Typography>
-                <CopyValue text={proxy} />
-              </div>
+        <div
+          className={clsx(classNames.proxiesWrapper, {
+            [classNames.halfProxiesWrapper]: !showFullCard || proxyArr.length > 5,
+          })}
+        >
+          {proxyArr.length !== 0 &&
+            proxyArr.map((proxy, index) => (
+              <div key={index} className={classNames.proxyWrapper}>
+                <div className={classNames.proxySubWrapper}>
+                  <Typography className={clsx(classNames.proxy)}>
+                    {proxy.length > 32 ? proxy.slice(0, 32) + '...' : proxy}
+                  </Typography>
+                  <CopyValue text={proxy} />
+                </div>
 
-              <DeleteOutlineOutlinedIcon className={classNames.deleteProxy} onClick={() => onClickDeleteProxy(proxy)} />
-            </div>
-          ))}
+                <DeleteOutlineOutlinedIcon
+                  className={classNames.deleteProxy}
+                  onClick={() => onClickDeleteProxy(proxy)}
+                />
+              </div>
+            ))}
+        </div>
+        {proxyArr.length > 5 ? (
+          <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
+            <Typography className={classNames.tablePanelViewText}>
+              {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey['View all'])}
+            </Typography>
+
+            {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+          </div>
+        ) : null}
 
         <div className={classNames.proxyButtonWrapper}>
           <Button disabled={disabledSubmitProxy} className={classNames.submitButton} onClick={() => onSubmitProxy()}>

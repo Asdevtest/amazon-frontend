@@ -153,23 +153,35 @@ export class SupervisorSettingsContentModel {
     }
   }
 
-  async onEditAsins(id, data) {
+  async onEditAsins(id, data, tabIndex) {
     try {
       await OtherModel.editAsins(id, data)
 
       this.onTriggerOpenModal('showEditAsinCheckerModal')
-      this.loadData(this.tabIndex)
+      this.loadData(tabIndex)
     } catch (error) {
       console.log(error)
     }
   }
 
-  async onRemoveAsin(id) {
+  async onRemoveAsin(id, tabIndex) {
     try {
       await OtherModel.removeAsin(id)
       this.onTriggerOpenModal('showConfirmModal')
 
-      this.loadData(this.tabIndex)
+      this.loadData(tabIndex)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async onRemoveAsins(ids, tabIndex) {
+    try {
+      await OtherModel.removeAsins(ids)
+
+      this.onTriggerOpenModal('showConfirmModal')
+
+      this.loadData(tabIndex)
     } catch (error) {
       console.log(error)
     }
@@ -181,7 +193,17 @@ export class SupervisorSettingsContentModel {
     this.confirmModalSettings = {
       isWarning: true,
       message: t(TranslationKey['Are you sure you want to delete ASIN?']),
-      onClickSuccess: () => this.onRemoveAsin(this.asinsIdToRemove),
+      onClickSuccess: tabIndex => this.onRemoveAsin(this.asinsIdToRemove, tabIndex),
+    }
+
+    this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  onClickRemoveSelectedBtn() {
+    this.confirmModalSettings = {
+      isWarning: true,
+      message: t(TranslationKey['Are you sure you want to delete the selected ASINs?']),
+      onClickSuccess: tabIndex => this.onRemoveAsins(this.selectedRowIds, tabIndex),
     }
 
     this.onTriggerOpenModal('showConfirmModal')
