@@ -33,16 +33,16 @@ export const BoxViewForm = observer(
       setSizeSetting(newAlignment)
     }
 
-    const dimensionsConfig = {
-      PRIMARY: 'PRIMARY',
-      SHIPPING: 'SHIPPING',
-    }
+    // const dimensionsConfig = {
+    //   PRIMARY: 'PRIMARY',
+    //   SHIPPING: 'SHIPPING',
+    // }
 
-    const [toggleDimensionsValue, setToggleDimensionsValue] = useState(
-      (box.deliveryHeight || box.deliveryLength || box.deliveryMass || box.deliveryWidth) && !box.fitsInitialDimensions
-        ? dimensionsConfig.SHIPPING
-        : dimensionsConfig.PRIMARY,
-    )
+    // const [toggleDimensionsValue, setToggleDimensionsValue] = useState(
+    //   (box.deliveryHeight || box.deliveryLength || box.deliveryMass || box.deliveryWidth) && !box.fitsInitialDimensions
+    //     ? dimensionsConfig.SHIPPING
+    //     : dimensionsConfig.PRIMARY,
+    // )
 
     return (
       <div className={classNames.formContainer}>
@@ -208,6 +208,57 @@ export const BoxViewForm = observer(
               <div className={classNames.sizesWrapper}>
                 <div className={classNames.demensionsWrapper}>
                   <div className={classNames.sizesSubWrapper}>
+                    <Typography className={classNames.label}>{t(TranslationKey.Demensions) + ':'}</Typography>
+
+                    <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
+                      <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
+                        {'In'}
+                      </ToggleBtn>
+                      <ToggleBtn disabled={sizeSetting === sizesType.CM} value={sizesType.CM}>
+                        {'Cm'}
+                      </ToggleBtn>
+                    </ToggleBtnGroup>
+                  </div>
+                  <Typography>
+                    {t(TranslationKey.Length) + ': '}
+                    {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                  </Typography>
+                  <Typography>
+                    {t(TranslationKey.Width) + ': '}
+                    {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                  </Typography>
+                  <Typography>
+                    {t(TranslationKey.Height) + ': '}
+                    {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                  </Typography>
+
+                  <Typography>
+                    {t(TranslationKey.Weight) + ': '}
+                    {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
+                  </Typography>
+                  <Typography>
+                    {t(TranslationKey['Volume weight']) + ': '}
+                    {toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
+                  </Typography>
+                  <Typography
+                    className={clsx({
+                      [classNames.alertText]: calcFinalWeightForBox(box, volumeWeightCoefficient) < 12,
+                    })}
+                  >
+                    {t(TranslationKey['Final weight']) + ': '}
+                    {toFixedWithKg(calcFinalWeightForBox(box, volumeWeightCoefficient), 2)}
+                  </Typography>
+
+                  {calcFinalWeightForBox(box, volumeWeightCoefficient) < 12 ? (
+                    // eslint-disable-next-line react/jsx-indent
+                    <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
+                  ) : null}
+                </div>
+              </div>
+
+              {/* <div className={classNames.sizesWrapper}>
+                <div className={classNames.demensionsWrapper}>
+                  <div className={classNames.sizesSubWrapper}>
                     <div className={classNames.toggleSizesWrapper}>
                       <div className={classNames.toggleItemWrapper}>
                         {toggleDimensionsValue === dimensionsConfig.PRIMARY ? (
@@ -300,7 +351,7 @@ export const BoxViewForm = observer(
                     <span className={classNames.alertText}>{t(TranslationKey['Weight less than 12 kg!'])}</span>
                   ) : null}
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div>

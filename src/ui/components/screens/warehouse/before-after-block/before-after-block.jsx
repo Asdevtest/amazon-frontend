@@ -88,16 +88,16 @@ const Box = observer(
       </div>
     )
 
-    const dimensionsConfig = {
-      PRIMARY: 'PRIMARY',
-      SHIPPING: 'SHIPPING',
-    }
+    // const dimensionsConfig = {
+    //   PRIMARY: 'PRIMARY',
+    //   SHIPPING: 'SHIPPING',
+    // }
 
-    const [toggleDimensionsValue, setToggleDimensionsValue] = useState(
-      (box.deliveryHeight || box.deliveryLength || box.deliveryMass || box.deliveryWidth) && !box.fitsInitialDimensions
-        ? dimensionsConfig.SHIPPING
-        : dimensionsConfig.PRIMARY,
-    )
+    // const [toggleDimensionsValue, setToggleDimensionsValue] = useState(
+    //   (box.deliveryHeight || box.deliveryLength || box.deliveryMass || box.deliveryWidth) && !box.fitsInitialDimensions
+    //     ? dimensionsConfig.SHIPPING
+    //     : dimensionsConfig.PRIMARY,
+    // )
 
     const needAccent = taskType === TaskOperationType.EDIT && isNewBox
 
@@ -182,12 +182,12 @@ const Box = observer(
                   {taskType === TaskOperationType.RECEIVE
                     ? isCurrentBox
                       ? t(TranslationKey['Sizes from buyer']) + ':'
-                      : t(TranslationKey['Primary dimensions']) + ':'
-                    : t(TranslationKey.Sizes) + ':'}
+                      : t(TranslationKey['Sizes from storekeeper:']) + ':'
+                    : t(TranslationKey['Sizes from storekeeper:'])}
                 </Typography>
 
                 <div className={classNames.sizesSubWrapper}>
-                  {taskType === TaskOperationType.RECEIVE ? null : (
+                  {/* {taskType === TaskOperationType.RECEIVE ? null : (
                     <div className={classNames.toggleSizesWrapper}>
                       <div className={classNames.toggleItemWrapper}>
                         {toggleDimensionsValue === dimensionsConfig.PRIMARY ? (
@@ -218,7 +218,7 @@ const Box = observer(
                         </Typography>
                       </div>
                     </div>
-                  )}
+                  )} */}
 
                   <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                     <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>
@@ -329,90 +329,135 @@ const Box = observer(
                     <div className={classNames.demensionsWrapper}>
                       <Typography className={classNames.mobileDemensions}>
                         {t(TranslationKey.Length) + ': '}
-                        {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                          ? toFixed(
-                              box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                              2,
-                            )
-                          : toFixed(box.deliveryLength / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                        {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                       </Typography>
                       <Typography className={classNames.mobileDemensions}>
                         {t(TranslationKey.Width) + ': '}
-                        {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                          ? toFixed(
-                              box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                              2,
-                            )
-                          : toFixed(box.deliveryWidth / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                        {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                       </Typography>
                       <Typography className={classNames.mobileDemensions}>
                         {t(TranslationKey.Height) + ': '}
-                        {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                          ? toFixed(
-                              box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
-                              2,
-                            )
-                          : toFixed(box.deliveryHeight / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                        {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                       </Typography>
 
                       <Typography className={classNames.mobileDemensions}>
                         {t(TranslationKey.Weight) + ': '}
-                        {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                          ? toFixedWithKg(box.weighGrossKgWarehouse, 2)
-                          : toFixedWithKg(box.deliveryMass, 2)}
+                        {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
                       </Typography>
                       <Typography className={classNames.mobileDemensions}>
                         {t(TranslationKey['Volume weight']) + ': '}
-                        {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                          ? toFixedWithKg(
-                              ((parseFloat(box.lengthCmWarehouse) || 0) *
-                                (parseFloat(box.heightCmWarehouse) || 0) *
-                                (parseFloat(box.widthCmWarehouse) || 0)) /
-                                volumeWeightCoefficient,
-                              2,
-                            )
-                          : toFixedWithKg(
-                              ((parseFloat(box.deliveryLength) || 0) *
-                                (parseFloat(box.deliveryHeight) || 0) *
-                                (parseFloat(box.deliveryWidth) || 0)) /
-                                volumeWeightCoefficient,
-                              2,
-                            )}
+                        {toFixedWithKg(
+                          ((parseFloat(box.lengthCmWarehouse) || 0) *
+                            (parseFloat(box.heightCmWarehouse) || 0) *
+                            (parseFloat(box.widthCmWarehouse) || 0)) /
+                            volumeWeightCoefficient,
+                          2,
+                        )}
                       </Typography>
                       <Typography className={classNames.mobileDemensions}>
                         {t(TranslationKey['Final weight']) + ': '}
-                        {toggleDimensionsValue === dimensionsConfig.PRIMARY
-                          ? toFixedWithKg(
-                              box.weighGrossKgWarehouse >
-                                ((parseFloat(box.lengthCmWarehouse) || 0) *
-                                  (parseFloat(box.heightCmWarehouse) || 0) *
-                                  (parseFloat(box.widthCmWarehouse) || 0)) /
-                                  volumeWeightCoefficient
-                                ? box.weighGrossKgWarehouse
-                                : ((parseFloat(box.lengthCmWarehouse) || 0) *
-                                    (parseFloat(box.heightCmWarehouse) || 0) *
-                                    (parseFloat(box.widthCmWarehouse) || 0)) /
-                                    volumeWeightCoefficient,
-                              2,
-                            )
-                          : toFixedWithKg(
-                              box.deliveryMass >
-                                ((parseFloat(box.deliveryLength) || 0) *
-                                  (parseFloat(box.deliveryHeight) || 0) *
-                                  (parseFloat(box.deliveryWidth) || 0)) /
-                                  volumeWeightCoefficient
-                                ? box.deliveryMass
-                                : ((parseFloat(box.deliveryLength) || 0) *
-                                    (parseFloat(box.deliveryHeight) || 0) *
-                                    (parseFloat(box.deliveryWidth) || 0)) /
-                                    volumeWeightCoefficient,
-                              2,
-                            )}
+                        {toFixedWithKg(
+                          box.weighGrossKgWarehouse >
+                            ((parseFloat(box.lengthCmWarehouse) || 0) *
+                              (parseFloat(box.heightCmWarehouse) || 0) *
+                              (parseFloat(box.widthCmWarehouse) || 0)) /
+                              volumeWeightCoefficient
+                            ? box.weighGrossKgWarehouse
+                            : ((parseFloat(box.lengthCmWarehouse) || 0) *
+                                (parseFloat(box.heightCmWarehouse) || 0) *
+                                (parseFloat(box.widthCmWarehouse) || 0)) /
+                                volumeWeightCoefficient,
+                          2,
+                        )}
                       </Typography>
                     </div>
+                    // <div className={classNames.demensionsWrapper}>
+                    //   <Typography className={classNames.mobileDemensions}>
+                    //     {t(TranslationKey.Length) + ': '}
+                    //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                    //       ? toFixed(
+                    //           box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
+                    //           2,
+                    //         )
+                    //       : toFixed(box.deliveryLength / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    //   </Typography>
+                    //   <Typography className={classNames.mobileDemensions}>
+                    //     {t(TranslationKey.Width) + ': '}
+                    //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                    //       ? toFixed(
+                    //           box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
+                    //           2,
+                    //         )
+                    //       : toFixed(box.deliveryWidth / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    //   </Typography>
+                    //   <Typography className={classNames.mobileDemensions}>
+                    //     {t(TranslationKey.Height) + ': '}
+                    //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                    //       ? toFixed(
+                    //           box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1),
+                    //           2,
+                    //         )
+                    //       : toFixed(box.deliveryHeight / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
+                    //   </Typography>
+
+                    //   <Typography className={classNames.mobileDemensions}>
+                    //     {t(TranslationKey.Weight) + ': '}
+                    //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                    //       ? toFixedWithKg(box.weighGrossKgWarehouse, 2)
+                    //       : toFixedWithKg(box.deliveryMass, 2)}
+                    //   </Typography>
+                    //   <Typography className={classNames.mobileDemensions}>
+                    //     {t(TranslationKey['Volume weight']) + ': '}
+                    //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                    //       ? toFixedWithKg(
+                    //           ((parseFloat(box.lengthCmWarehouse) || 0) *
+                    //             (parseFloat(box.heightCmWarehouse) || 0) *
+                    //             (parseFloat(box.widthCmWarehouse) || 0)) /
+                    //             volumeWeightCoefficient,
+                    //           2,
+                    //         )
+                    //       : toFixedWithKg(
+                    //           ((parseFloat(box.deliveryLength) || 0) *
+                    //             (parseFloat(box.deliveryHeight) || 0) *
+                    //             (parseFloat(box.deliveryWidth) || 0)) /
+                    //             volumeWeightCoefficient,
+                    //           2,
+                    //         )}
+                    //   </Typography>
+                    //   <Typography className={classNames.mobileDemensions}>
+                    //     {t(TranslationKey['Final weight']) + ': '}
+                    //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
+                    //       ? toFixedWithKg(
+                    //           box.weighGrossKgWarehouse >
+                    //             ((parseFloat(box.lengthCmWarehouse) || 0) *
+                    //               (parseFloat(box.heightCmWarehouse) || 0) *
+                    //               (parseFloat(box.widthCmWarehouse) || 0)) /
+                    //               volumeWeightCoefficient
+                    //             ? box.weighGrossKgWarehouse
+                    //             : ((parseFloat(box.lengthCmWarehouse) || 0) *
+                    //                 (parseFloat(box.heightCmWarehouse) || 0) *
+                    //                 (parseFloat(box.widthCmWarehouse) || 0)) /
+                    //                 volumeWeightCoefficient,
+                    //           2,
+                    //         )
+                    //       : toFixedWithKg(
+                    //           box.deliveryMass >
+                    //             ((parseFloat(box.deliveryLength) || 0) *
+                    //               (parseFloat(box.deliveryHeight) || 0) *
+                    //               (parseFloat(box.deliveryWidth) || 0)) /
+                    //               volumeWeightCoefficient
+                    //             ? box.deliveryMass
+                    //             : ((parseFloat(box.deliveryLength) || 0) *
+                    //                 (parseFloat(box.deliveryHeight) || 0) *
+                    //                 (parseFloat(box.deliveryWidth) || 0)) /
+                    //                 volumeWeightCoefficient,
+                    //           2,
+                    //         )}
+                    //   </Typography>
+                    // </div>
                   )
                 }
-                {!isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
+                {/* {!isCurrentBox && taskType === TaskOperationType.RECEIVE ? (
                   <Field
                     oneLine
                     containerClasses={classNames.checkboxSizesContainer}
@@ -420,7 +465,7 @@ const Box = observer(
                     label={t(TranslationKey['The primary size suitable for shipment'])}
                     inputComponent={<Checkbox disabled color="primary" checked={box.fitsInitialDimensions} />}
                   />
-                ) : null}
+                ) : null} */}
               </div>
 
               <div className={classNames.imagesWrapper}>

@@ -423,7 +423,7 @@ export class ClientWarehouseViewRaw extends Component {
       selectedBoxes,
       isMasterBoxSelected,
       isNoDestinationBoxSelected,
-      isNoDeliverySizes,
+      // isNoDeliverySizes,
       isOneItemInBox,
       onClickRequestToSendBatch,
       onClickEditBtn,
@@ -436,7 +436,7 @@ export class ClientWarehouseViewRaw extends Component {
           disableElevation
           tooltipInfoContent={t(TranslationKey['Form for requesting the shipment of boxes in a batch'])}
           tooltipAttentionContent={isNoDestinationBoxSelected && t(TranslationKey['Selected box with no destination'])}
-          disabled={!selectedBoxes.length || isNoDestinationBoxSelected || isNoDeliverySizes}
+          disabled={!selectedBoxes.length || isNoDestinationBoxSelected /* || isNoDeliverySizes*/}
           color="primary"
           variant="contained"
           onClick={onClickRequestToSendBatch}

@@ -1,8 +1,9 @@
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
-import {Typography} from '@material-ui/core'
+import {Typography, InputAdornment} from '@material-ui/core'
 import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
@@ -27,6 +28,8 @@ import {useClassNames} from './add-or-edit-batch-form.style'
 export const AddOrEditBatchForm = observer(
   ({boxesData, onClose, volumeWeightCoefficient, onSubmit, batchToEdit, sourceBox, showProgress, progressValue}) => {
     const classNames = useClassNames()
+
+    const [nameSearchValue, setNameSearchValue] = useState('')
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -67,9 +70,18 @@ export const AddOrEditBatchForm = observer(
       }
     }, [])
 
+    const filterBySearchValue = boxesArr =>
+      boxesArr?.filter(el =>
+        el.originalData.items.some(
+          item =>
+            item.product.amazonTitle?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+            item.product.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()),
+        ),
+      )
+
     useEffect(() => {
       if (chosenBoxes.length && !batchToEdit) {
-        setBoxesToAddData(() => [...filterBoxesToAddData()])
+        setBoxesToAddData(() => filterBySearchValue([...filterBoxesToAddData()]))
       } else if (batchToEdit) {
         const chosenBoxesIds = chosenBoxes.map(box => box._id)
 
@@ -78,21 +90,23 @@ export const AddOrEditBatchForm = observer(
           volumeWeightCoefficient,
         )
 
-        setBoxesToAddData(() => [
-          ...[
-            ...boxesData.filter(
-              box =>
-                box.originalData?.destination?.name === batchToEdit.destination &&
-                box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
-                !chosenBoxesIds.includes(box._id),
-            ),
-          ],
-          ...deletedBoxes,
-        ])
+        setBoxesToAddData(() =>
+          filterBySearchValue([
+            ...[
+              ...boxesData.filter(
+                box =>
+                  box.originalData?.destination?.name === batchToEdit.destination &&
+                  box.originalData?.logicsTariff?.name === batchToEdit.originalData.boxes[0].logicsTariff?.name &&
+                  !chosenBoxesIds.includes(box._id),
+              ),
+            ],
+            ...deletedBoxes,
+          ]),
+        )
       } else {
-        setBoxesToAddData(() => [...[...boxesData]])
+        setBoxesToAddData(() => filterBySearchValue([...[...boxesData]]))
       }
-    }, [chosenBoxes])
+    }, [chosenBoxes, nameSearchValue])
 
     const onClickTrash = () => {
       const filteredArray = [...chosenBoxes].filter(el => !boxesToDeliteIds.includes(el.id))
@@ -217,7 +231,23 @@ export const AddOrEditBatchForm = observer(
             </div>
           </div>
 
-          <Typography>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
+          <div className={classNames.searchWrapper}>
+            <Typography>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
+
+            <Field
+              containerClasses={classNames.searchContainer}
+              inputClasses={classNames.searchInput}
+              value={nameSearchValue}
+              placeholder={t(TranslationKey['Search by ASIN, Title'])}
+              endAdornment={
+                <InputAdornment position="start">
+                  <SearchIcon color="primary" />
+                </InputAdornment>
+              }
+              onChange={e => setNameSearchValue(e.target.value)}
+            />
+          </div>
+
           <div className={classNames.tableWrapper}>
             <DataGrid
               // autoHeight

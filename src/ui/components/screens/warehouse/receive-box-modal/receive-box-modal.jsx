@@ -2,7 +2,7 @@ import AddIcon from '@mui/icons-material/Add'
 
 import React, {useState} from 'react'
 
-import {Checkbox, Divider, IconButton, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
+import {Divider, IconButton, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {transformAndValidate} from 'class-transformer-validator'
 import clsx from 'clsx'
@@ -13,7 +13,7 @@ import {BoxesWarehouseReceiveBoxModalContract} from '@models/boxes-model/boxes-m
 
 import {Button} from '@components/buttons/button'
 import {CustomCarousel} from '@components/custom-carousel'
-import {Field} from '@components/field/field'
+// import {Field} from '@components/field/field'
 import {AddFilesForm} from '@components/forms/add-files-form'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
@@ -137,7 +137,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           value={toFixed(item.weightFinalAccountingKgWarehouse, 3)}
         />
       </TableCell>
-      <TableCell className={classNames.checkboxCell}>
+      {/* <TableCell className={classNames.checkboxCell}>
         <Field
           oneLine
           containerClasses={classNames.checkboxContainer}
@@ -152,7 +152,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
             />
           }
         />
-      </TableCell>
+      </TableCell> */}
 
       <TableCell>
         <Button onClick={() => handlers.onAddImages(item._id)}>{t(TranslationKey.Photos)}</Button>
@@ -376,30 +376,51 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
   const onChangeFieldInput = (e, _id, field) => {
     const targetBox = newBoxes.filter(box => box._id === _id)[0]
 
-    if (field === 'fitsInitialDimensions') {
-      targetBox[field] = e.target.checked
-    } else {
-      if (
-        isNaN(e.target.value) ||
-        Number(e.target.value) < 0 ||
-        (field === 'amount' && Number(e.target.value) === 0 && e.target.value !== '')
-      ) {
-        return
-      }
-
-      targetBox[field] =
-        field === 'amount' ? (e.target.value !== '' ? Number(e.target.value) : e.target.value) : e.target.value
-
-      targetBox.volumeWeightKgWarehouse =
-        ((parseFloat(targetBox.lengthCmWarehouse) || 0) *
-          (parseFloat(targetBox.heightCmWarehouse) || 0) *
-          (parseFloat(targetBox.widthCmWarehouse) || 0)) /
-        volumeWeightCoefficient
-      targetBox.weightFinalAccountingKgWarehouse = Math.max(
-        parseFloat(targetBox.volumeWeightKgWarehouse) || 0,
-        parseFloat(targetBox.weighGrossKgWarehouse) || 0,
-      )
+    if (
+      isNaN(e.target.value) ||
+      Number(e.target.value) < 0 ||
+      (field === 'amount' && Number(e.target.value) === 0 && e.target.value !== '')
+    ) {
+      return
     }
+
+    targetBox[field] =
+      field === 'amount' ? (e.target.value !== '' ? Number(e.target.value) : e.target.value) : e.target.value
+
+    targetBox.volumeWeightKgWarehouse =
+      ((parseFloat(targetBox.lengthCmWarehouse) || 0) *
+        (parseFloat(targetBox.heightCmWarehouse) || 0) *
+        (parseFloat(targetBox.widthCmWarehouse) || 0)) /
+      volumeWeightCoefficient
+    targetBox.weightFinalAccountingKgWarehouse = Math.max(
+      parseFloat(targetBox.volumeWeightKgWarehouse) || 0,
+      parseFloat(targetBox.weighGrossKgWarehouse) || 0,
+    )
+
+    // if (field === 'fitsInitialDimensions') {
+    //   targetBox[field] = e.target.checked
+    // } else {
+    //   if (
+    //     isNaN(e.target.value) ||
+    //     Number(e.target.value) < 0 ||
+    //     (field === 'amount' && Number(e.target.value) === 0 && e.target.value !== '')
+    //   ) {
+    //     return
+    //   }
+
+    //   targetBox[field] =
+    //     field === 'amount' ? (e.target.value !== '' ? Number(e.target.value) : e.target.value) : e.target.value
+
+    //   targetBox.volumeWeightKgWarehouse =
+    //     ((parseFloat(targetBox.lengthCmWarehouse) || 0) *
+    //       (parseFloat(targetBox.heightCmWarehouse) || 0) *
+    //       (parseFloat(targetBox.widthCmWarehouse) || 0)) /
+    //     volumeWeightCoefficient
+    //   targetBox.weightFinalAccountingKgWarehouse = Math.max(
+    //     parseFloat(targetBox.volumeWeightKgWarehouse) || 0,
+    //     parseFloat(targetBox.weighGrossKgWarehouse) || 0,
+    //   )
+    // }
 
     const updatedNewBoxes = newBoxes.map(box => (box._id === _id ? targetBox : box))
     setNewBoxes(updatedNewBoxes)

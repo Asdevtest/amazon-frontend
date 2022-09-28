@@ -41,12 +41,12 @@ export const useClassNames = makeStyles(() => ({
     color: '#001029',
   },
 
-  searchInput: {
-    width: '270px',
-    height: '30px',
-    borderRadius: '22px',
-    border: '.5px solid #000000',
-  },
+  // searchInput: {
+  //   width: '270px',
+  //   height: '30px',
+  //   borderRadius: '22px',
+  //   border: '.5px solid #000000',
+  // },
   searchInputWrapper: {
     display: 'flex',
   },
@@ -179,5 +179,22 @@ export const useClassNames = makeStyles(() => ({
   },
   photoAndFilesWrapper: {
     height: '200px',
+  },
+
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '300px',
+    height: 36,
+  },
+
+  searchContainer: {
+    width: 'auto',
+    justifySelf: 'flex-start',
+  },
+
+  searchWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 }))

@@ -255,7 +255,8 @@ export class WarehouseMyWarehouseViewModel {
       const updateBoxData = {
         ...getObjectFilteredByKeyArrayWhiteList(
           data,
-          ['deliveryLength', 'deliveryWidth', 'deliveryHeight', 'deliveryMass', 'fitsInitialDimensions', 'images'],
+          // ['deliveryLength', 'deliveryWidth', 'deliveryHeight', 'deliveryMass', 'fitsInitialDimensions', 'images'],
+          ['lengthCmWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'weighGrossKgWarehouse', 'images'],
           false,
           (key, value) => {
             if (key === 'images') {

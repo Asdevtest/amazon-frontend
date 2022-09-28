@@ -9,8 +9,8 @@ import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {BoxesModel} from '@models/boxes-model'
 import {
-  BoxesWarehouseUpdateBoxInReceiveTaskContract,
-  BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract,
+  BoxesWarehouseUpdateBoxInTaskContract, // BoxesWarehouseUpdateBoxInReceiveTaskContract,
+  // BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract,
 } from '@models/boxes-model/boxes-model.contracts'
 import {SettingsModel} from '@models/settings-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
@@ -230,11 +230,11 @@ export class WarehouseVacantViewModel {
             'isShippingLabelAttachedByStorekeeper',
             'isBarCodeAttachedByTheStorekeeper',
             'images',
-            'fitsInitialDimensions',
-            'deliveryLength',
-            'deliveryHeight',
-            'deliveryWidth',
-            'deliveryMass',
+            // 'fitsInitialDimensions',
+            // 'deliveryLength',
+            // 'deliveryHeight',
+            // 'deliveryWidth',
+            // 'deliveryMass',
           ],
           false,
           (key, value) => {
@@ -285,20 +285,22 @@ export class WarehouseVacantViewModel {
             heightCmWarehouse: Number(newBoxes[i].heightCmWarehouse),
             weighGrossKgWarehouse: Number(newBoxes[i].weighGrossKgWarehouse),
 
-            deliveryLength: Number(newBoxes[i].deliveryLength),
-            deliveryWidth: Number(newBoxes[i].deliveryWidth),
-            deliveryHeight: Number(newBoxes[i].deliveryHeight),
-            deliveryMass: Number(newBoxes[i].deliveryMass),
+            // deliveryLength: Number(newBoxes[i].deliveryLength),
+            // deliveryWidth: Number(newBoxes[i].deliveryWidth),
+            // deliveryHeight: Number(newBoxes[i].deliveryHeight),
+            // deliveryMass: Number(newBoxes[i].deliveryMass),
           },
           ['tmpImages'],
         )
 
-        await transformAndValidate(
-          operationType === TaskOperationType.RECEIVE
-            ? BoxesWarehouseUpdateBoxInReceiveTaskContract
-            : BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract,
-          box,
-        )
+        await transformAndValidate(BoxesWarehouseUpdateBoxInTaskContract, box)
+
+        // await transformAndValidate(
+        //   operationType === TaskOperationType.RECEIVE
+        //     ? BoxesWarehouseUpdateBoxInReceiveTaskContract
+        //     : BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract,
+        //   box,
+        // )
       }
 
       if (operationType === TaskOperationType.RECEIVE) {

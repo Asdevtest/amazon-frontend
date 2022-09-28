@@ -86,11 +86,18 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
 
   {
     field: 'destination',
-    headerName: t(TranslationKey.Destination),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
+    headerName: t(TranslationKey['Destination and tariff']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Destination and tariff'])} />,
 
-    renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 130,
+    renderCell: params => (
+      <div style={{display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', width: '100%'}}>
+        <MultilineTextCell text={params.row.destination} />
+        <MultilineTextCell text={params.row.logicsTariff} />
+      </div>
+    ),
+    width: 170,
+    filterable: false,
+    sortable: false,
   },
 
   {

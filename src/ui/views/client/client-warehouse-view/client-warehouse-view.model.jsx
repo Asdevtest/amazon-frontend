@@ -147,18 +147,18 @@ export class ClientWarehouseViewModel {
     })
   }
 
-  get isNoDeliverySizes() {
-    return this.selectedBoxes.some(boxId => {
-      const findBox = this.boxesMy.find(box => box._id === boxId)
-      return (
-        (!findBox?.originalData?.deliveryHeight ||
-          !findBox?.originalData?.deliveryLength ||
-          !findBox?.originalData?.deliveryWidth ||
-          !findBox?.originalData?.deliveryMass) &&
-        !findBox?.originalData.fitsInitialDimensions
-      )
-    })
-  }
+  // get isNoDeliverySizes() {
+  //   return this.selectedBoxes.some(boxId => {
+  //     const findBox = this.boxesMy.find(box => box._id === boxId)
+  //     return (
+  //       (!findBox?.originalData?.deliveryHeight ||
+  //         !findBox?.originalData?.deliveryLength ||
+  //         !findBox?.originalData?.deliveryWidth ||
+  //         !findBox?.originalData?.deliveryMass) &&
+  //       !findBox?.originalData.fitsInitialDimensions
+  //     )
+  //   })
+  // }
 
   get isOneItemInBox() {
     const findBox = this.boxesMy.find(box => box._id === this.selectedBoxes.slice()[0])

@@ -6,8 +6,7 @@ import {
   IsArray, // ValidateNested,
   IsOptional,
   IsNumber,
-  IsBoolean,
-  IsPositive,
+  IsBoolean, // IsPositive,
 } from 'class-validator'
 
 export class BoxesCreateBoxContract {
@@ -78,7 +77,7 @@ export class BoxesUpdateBoxContract {
   weightFinalAccountingKgWarehouse
 }
 
-export class BoxesWarehouseUpdateBoxInReceiveTaskContract {
+export class BoxesWarehouseUpdateBoxInTaskContract {
   @IsNotEmpty()
   @IsNumber()
   lengthCmWarehouse
@@ -100,31 +99,53 @@ export class BoxesWarehouseUpdateBoxInReceiveTaskContract {
   isShippingLabelAttachedByStorekeeper
 }
 
-export class BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract {
-  @IsNotEmpty()
-  // @IsNumber()
-  @IsPositive()
-  deliveryLength
+// export class BoxesWarehouseUpdateBoxInReceiveTaskContract {
+//   @IsNotEmpty()
+//   @IsNumber()
+//   lengthCmWarehouse
 
-  @IsNotEmpty()
-  // @IsNumber()
-  @IsPositive()
-  deliveryWidth
+//   @IsNotEmpty()
+//   @IsNumber()
+//   widthCmWarehouse
 
-  @IsNotEmpty()
-  // @IsNumber()
-  @IsPositive()
-  deliveryHeight
+//   @IsNotEmpty()
+//   @IsNumber()
+//   heightCmWarehouse
 
-  @IsNotEmpty()
-  // @IsNumber()
-  @IsPositive()
-  deliveryMass
+//   @IsNotEmpty()
+//   @IsNumber()
+//   weighGrossKgWarehouse
 
-  @IsOptional()
-  @IsBoolean()
-  isShippingLabelAttachedByStorekeeper
-}
+//   @IsOptional()
+//   @IsBoolean()
+//   isShippingLabelAttachedByStorekeeper
+// }
+
+// export class BoxesWarehouseUpdateBoxInTaskSplitMergeEditContract {
+//   @IsNotEmpty()
+//   // @IsNumber()
+//   @IsPositive()
+//   deliveryLength
+
+//   @IsNotEmpty()
+//   // @IsNumber()
+//   @IsPositive()
+//   deliveryWidth
+
+//   @IsNotEmpty()
+//   // @IsNumber()
+//   @IsPositive()
+//   deliveryHeight
+
+//   @IsNotEmpty()
+//   // @IsNumber()
+//   @IsPositive()
+//   deliveryMass
+
+//   @IsOptional()
+//   @IsBoolean()
+//   isShippingLabelAttachedByStorekeeper
+// }
 
 export class BoxesWarehouseReceiveBoxModalContract {
   @IsNotEmpty()

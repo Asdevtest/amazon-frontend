@@ -53,7 +53,7 @@ export const SelectFields = ({
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
   return (
-    <Grid container justify="space-around" className={classNames.container}>
+    <Grid container justifyContent="space-around" className={classNames.container}>
       <Grid item>
         <div className={classNames.photoAndFieldsWrapper}>
           <div className={classNames.photoWrapper}>
