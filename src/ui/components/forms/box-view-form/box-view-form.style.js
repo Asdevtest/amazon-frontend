@@ -118,7 +118,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexWrap: 'wrap',
     width: '225px',
-
+    color: '#001029',
     // overflow: 'auto',
 
     marginBottom: '20px',
@@ -275,5 +275,99 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     gap: '5px',
     alignItems: 'center',
+  },
+
+  '@media (max-width: 768px)': {
+    title: {
+      fontSize: '16px',
+      lineHeight: '22px',
+    },
+    formContainer: {
+      padding: 0,
+      width: '280px',
+    },
+    titleWrapper: {
+      flexDirection: 'column',
+      alignItems: 'start',
+      gap: '20px',
+      marginBottom: 0,
+    },
+    titleSubWrapper: {
+      width: '100%',
+      flexDirection: 'column',
+      justifyContent: 'start',
+      alignItems: 'start',
+      gap: '20px',
+      marginBottom: '10px',
+    },
+    deliveryInfoWrapper: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    deliveryInfoField: {
+      width: '280px',
+    },
+    productsWrapper: {
+      width: '280px',
+    },
+    productWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      width: '280px',
+    },
+    photoWrapper: {
+      width: '280px',
+    },
+    amazonTitle: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      width: '280px',
+      marginBottom: '20px',
+      marginTop: '20px',
+    },
+    rightColumn: {
+      marginTop: '20px',
+      width: '280px',
+    },
+    blocksWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '280px',
+      justifyContent: 'space-between',
+    },
+    blockWrapper: {
+      width: '280px',
+    },
+    imgSizesWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+
+      gap: '20px',
+      marginBottom: '20px',
+      marginTop: '20px',
+    },
+    imgBoxWrapper: {
+      width: '280px',
+    },
+    sizesWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '280px',
+      marginLeft: 0,
+    },
+    labelsInfoWrapper: {
+      width: '280px',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    containerField: {
+      magrin: 0,
+    },
+    divider: {
+      backgroundColor: '#E0E0E0',
+      margin: '0 -20px 15px -20px',
+    },
   },
 }))

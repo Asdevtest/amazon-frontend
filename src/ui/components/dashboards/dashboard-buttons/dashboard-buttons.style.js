@@ -81,4 +81,38 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+
+  '@media (max-width: 768px)': {
+    fontSizeLarge: {
+      width: '29px',
+      height: '28px',
+      // '&:hover': {
+      //   transform: 'scale(1.1)',
+      // },
+    },
+    iconWrapper: {
+      width: '62px',
+      height: '62px',
+    },
+    buttonsWrapper: {
+      width: '100%',
+      alignItems: 'start',
+      justifyContent: 'space-around',
+      // gap: '40px',
+      height: '100px',
+      marginRight: 0,
+    },
+    badge: {
+      height: 17,
+      width: 17,
+    },
+    title: {
+      fontSize: 12,
+      color: '#001029',
+      lineHeight: '16px',
+      marginTop: '12px',
+      maxWidth: '62px',
+      textAlign: 'center',
+    },
+  },
 }))

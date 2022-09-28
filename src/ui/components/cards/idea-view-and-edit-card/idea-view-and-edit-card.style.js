@@ -336,4 +336,13 @@ export const useClassNames = makeStyles(() => ({
   emptyBlock: {
     width: 200,
   },
+
+  count: {
+    display: 'flex',
+    justifyContent: 'end',
+    marginTop: '-20px',
+  },
+  error: {
+    color: 'red',
+  },
 }))

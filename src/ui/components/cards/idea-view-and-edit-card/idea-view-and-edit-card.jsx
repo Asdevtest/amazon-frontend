@@ -239,11 +239,14 @@ export const IdeaViewAndEditCard = observer(
                 <Field
                   disabled={disableFields}
                   labelClasses={classNames.spanLabel}
-                  inputProps={{maxLength: 255}}
+                  inputProps={{maxLength: 130}}
                   label={t(TranslationKey['Product name'])}
                   value={formFields.productName}
                   onChange={onChangeField('productName')}
                 />
+                <span className={clsx(classNames.count, {[classNames.error]: formFields.productName.length > 128})}>{`${
+                  formFields.productName.length
+                } ${t(TranslationKey.of)} 128 ${t(TranslationKey.characters)}`}</span>
 
                 <Field
                   multiline

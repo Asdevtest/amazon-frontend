@@ -87,9 +87,15 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
 
       <TableCell className={classNames.sizesCell}>
         <div className={classNames.sizeWrapper}>
+          {/* <Field oneLine label={t(TranslationKey.L) + ': '} value={item.heightCmWarehouse} /> */}
           <Typography>{t(TranslationKey.L) + ': '}</Typography>
           <Input
-            classes={{root: classNames.inputWrapper, input: classNames.input}}
+            classes={{
+              root: clsx(classNames.inputWrapper, {
+                [classNames.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
+              }),
+              input: classNames.input,
+            }}
             inputProps={{maxLength: 6}}
             value={item.lengthCmWarehouse}
             onChange={e => handlers.onChangeFieldInput(e, item._id, 'lengthCmWarehouse')}
@@ -99,7 +105,12 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
         <div className={classNames.sizeWrapper}>
           <Typography>{t(TranslationKey.W) + ': '}</Typography>
           <Input
-            classes={{root: classNames.inputWrapper, input: classNames.input}}
+            classes={{
+              root: clsx(classNames.inputWrapper, {
+                [classNames.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
+              }),
+              input: classNames.input,
+            }}
             inputProps={{maxLength: 6}}
             value={item.widthCmWarehouse}
             onChange={e => handlers.onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
@@ -108,7 +119,12 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
         <div className={classNames.sizeWrapper}>
           <Typography>{t(TranslationKey.H) + ': '}</Typography>
           <Input
-            classes={{root: classNames.inputWrapper, input: classNames.input}}
+            classes={{
+              root: clsx(classNames.inputWrapper, {
+                [classNames.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
+              }),
+              input: classNames.input,
+            }}
             inputProps={{maxLength: 6}}
             value={item.heightCmWarehouse}
             onChange={e => handlers.onChangeFieldInput(e, item._id, 'heightCmWarehouse')}
@@ -117,7 +133,12 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       </TableCell>
       <TableCell className={classNames.standartCell}>
         <Input
-          classes={{root: classNames.inputWrapper, input: classNames.input}}
+          classes={{
+            root: clsx(classNames.inputWrapper, {
+              [classNames.error]: !item.weighGrossKgWarehouse || item.weighGrossKgWarehouse === '0',
+            }),
+            input: classNames.input,
+          }}
           inputProps={{maxLength: 6}}
           value={item.weighGrossKgWarehouse}
           onChange={e => handlers.onChangeFieldInput(e, item._id, 'weighGrossKgWarehouse')}

@@ -100,4 +100,14 @@ export const useClassNames = makeStyles({
     width: '136px',
     height: '40px',
   },
+
+  '@media (max-width: 768px)': {
+    form: {
+      // marginTop: theme.spacing(2.5),
+      // marginBottom: theme.spacing(2.5),
+      display: 'flex',
+      flexDirection: 'column',
+      width: '300px',
+    },
+  },
 })

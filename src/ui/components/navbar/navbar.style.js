@@ -4,7 +4,13 @@ export const useClassNames = makeStyles(theme => ({
   root: {
     zIndex: 1200,
     width: '240px',
+    position: 'relative',
   },
+
+  hideNavbar: {
+    width: '40px',
+  },
+
   paper: {
     boxShadow: `0px 1px 2px 0px rgba(225, 229, 235, 0.8),
                 0px 13px 27px 0px rgba(90, 97, 105, 0.15)`,
@@ -34,5 +40,33 @@ export const useClassNames = makeStyles(theme => ({
   },
   icon: {
     fontSize: theme.spacing(3),
+  },
+
+  hideAndShowIconWrapper: {
+    position: 'absolute',
+    top: 20,
+    left: 220,
+    zIndex: 9999,
+    width: '40px',
+    height: '40px',
+    backgroundColor: '#d1d1d1a8',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '50%',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
+  hideAndShowIcon: {
+    top: 20,
+    left: 20,
+  },
+  arrowIcon: {
+    marginLeft: 8,
+  },
+
+  '@media (max-width: 959px)': {
+    hideAndShowIconWrapper: {
+      display: 'none',
+    },
   },
 }))

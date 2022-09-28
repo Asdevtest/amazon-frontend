@@ -73,5 +73,23 @@ export const useClassNames = makeStyles(() => ({
   addButton: {
     marginRight: '50px',
   },
-  nextButton: {},
+  '@media (max-width: 768px)': {
+    cardWrapper: {
+      width: '200px',
+
+      height: '91px',
+    },
+    swiper: {
+      height: 150,
+      margin: '0 5px',
+      padding: '0 20px',
+    },
+
+    cardListTitle: {
+      marginLeft: '25px',
+    },
+    cardListSubTitle: {
+      marginLeft: '25px',
+    },
+  },
 }))

@@ -36,9 +36,9 @@ export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, 
         <Swiper
           // loop
           // loopFillGroupWithBlank
-          navigation={config.items.length > 4}
-          slidesPerView={4}
-          spaceBetween={50}
+          navigation={config.items.length > 4 || window.innerWidth > 768}
+          slidesPerView={window.innerWidth > 768 ? 4 : 1}
+          spaceBetween={window.innerWidth > 768 ? 50 : -20}
           // slidesPerGroup={1}
           modules={[Navigation]}
           className={classNames.swiper}
