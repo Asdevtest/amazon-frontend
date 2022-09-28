@@ -59,6 +59,8 @@ const fieldsOfProductAllowedToForceUpdate = [
   'avgPrice',
   'avgReviews',
   // 'totalFba'
+
+  'currentSupplierId',
 ]
 
 const fieldsOfProductAllowedToUpdate = [
@@ -311,12 +313,16 @@ export class ResearcherProductViewModel {
         this.product = {...this.product, currentSupplier: this.selectedSupplier}
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
+
+        this.onSaveForceProductData()
         break
       case 'acceptRevoke':
         this.product = {...this.product, currentSupplierId: null}
         this.product = {...this.product, currentSupplier: undefined}
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
+
+        this.onSaveForceProductData()
         break
       case 'delete':
         this.confirmModalSettings = {
@@ -333,20 +339,21 @@ export class ResearcherProductViewModel {
   async onRemoveSupplier() {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
+
       await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
-      await SupplierModel.removeSupplier(this.selectedSupplier._id)
-      this.setActionStatus(loadingStatuses.success)
 
       runInAction(() => {
-        this.product.suppliers
-        this.selectedSupplier = undefined
-
-        if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier._id) {
-          this.product.currentSupplierId = undefined
+        if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier?._id) {
+          this.product.currentSupplierId = null
         }
       })
-
       this.onSaveForceProductData()
+
+      this.product.suppliers
+      this.selectedSupplier = undefined
+
+      await SupplierModel.removeSupplier(this.selectedSupplier._id)
+      this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)
@@ -360,6 +367,7 @@ export class ResearcherProductViewModel {
     switch (actionType) {
       case 'accept':
         this.openConfirmModalWithTextByStatus(withoutStatus)
+
         break
       case 'cancel':
         this.history.goBack()
