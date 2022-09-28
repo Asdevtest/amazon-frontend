@@ -187,7 +187,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
         </Modal>
         <Modal openModal={showEditBoxModal} setOpenModal={onTriggerShowEditBoxModal}>
           <EditBoxTasksModal
-            primarySizeSuitableCheckbox
+            // primarySizeSuitableCheckbox
             isInStorekeeperWarehouse
             volumeWeightCoefficient={volumeWeightCoefficient}
             setEditModal={onTriggerShowEditBoxModal}

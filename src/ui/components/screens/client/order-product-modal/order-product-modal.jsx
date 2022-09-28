@@ -1,6 +1,16 @@
+/* eslint-disable no-unused-vars */
 import React, {useEffect, useState} from 'react'
 
-import {Container, Typography, Table, TableBody, TableCell, TableHead, TableContainer} from '@material-ui/core'
+import {
+  Container,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableContainer,
+  TableRow,
+} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -174,84 +184,86 @@ export const OrderProductModal = ({
       <TableContainer className={classNames.tableWrapper}>
         <Table className={classNames.table}>
           <TableHead>
-            <TableCell className={classNames.imgCell}>{t(TranslationKey.Image)}</TableCell>
-            <TableCell className={classNames.productCell}>{t(TranslationKey.Product)}</TableCell>
-            <TableCell className={classNames.priceCell}>
-              <Button
-                disabled
-                className={classNames.priceCellBtn}
-                tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
-              >
-                {t(TranslationKey['Price per unit.']) + ' $'}
-              </Button>
-            </TableCell>
+            <TableRow>
+              <TableCell className={classNames.imgCell}>{t(TranslationKey.Image)}</TableCell>
+              <TableCell className={classNames.productCell}>{t(TranslationKey.Product)}</TableCell>
+              <TableCell className={classNames.priceCell}>
+                <Button
+                  disabled
+                  className={classNames.priceCellBtn}
+                  tooltipInfoContent={t(TranslationKey['Unit price of the selected supplier'])}
+                >
+                  {t(TranslationKey['Price per unit.']) + ' $'}
+                </Button>
+              </TableCell>
 
-            <TableCell className={classNames.deliveryCell}>
-              <Button
-                disabled
-                className={classNames.deliveryCellBtn}
-                tooltipInfoContent={t(TranslationKey['Delivery costs to the prep center'])}
-              >
-                {t(TranslationKey['Delivery per unit.']) + ' $'}
-              </Button>
-            </TableCell>
-            <TableCell className={classNames.qntCell}>
-              <Button
-                disabled
-                className={classNames.qntCellBtn}
-                tooltipInfoContent={t(TranslationKey['Specify the amount of goods you want to order'])}
-              >
-                {t(TranslationKey.Quantity)}
-              </Button>
-            </TableCell>
-            <TableCell className={classNames.totalCell}>
-              <Button
-                disabled
-                className={classNames.totalCellBtn}
-                tooltipInfoContent={t(TranslationKey['Order amount for a specific product'])}
-              >
-                {t(TranslationKey.Total) + ' $'}
-              </Button>
-            </TableCell>
-            <TableCell className={classNames.barCodeCell}>
-              <Button
-                disabled
-                className={classNames.barCodeCellBtn}
-                tooltipInfoContent={t(TranslationKey['Product barcode'])}
-              >
-                {t(TranslationKey.BarCode)}
-              </Button>
-            </TableCell>
-            <TableCell className={classNames.tariffCell}>
-              <Button
-                disabled
-                className={classNames.tariffCellBtn}
-                tooltipInfoContent={t(
-                  TranslationKey['Choose a prep center in China and the rate at which the delivery will take place'],
-                )}
-              >
-                {`Storekeeper ${t(TranslationKey.and)} ${t(TranslationKey.Tariff)}`}
-              </Button>
-            </TableCell>
-            <TableCell className={classNames.warehouseCell}>
-              <Button
-                disabled
-                className={classNames.warehouseCellBtn}
-                tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
-              >
-                {t(TranslationKey.Destination)}
-              </Button>
-            </TableCell>
+              <TableCell className={classNames.deliveryCell}>
+                <Button
+                  disabled
+                  className={classNames.deliveryCellBtn}
+                  tooltipInfoContent={t(TranslationKey['Delivery costs to the prep center'])}
+                >
+                  {t(TranslationKey['Delivery per unit.']) + ' $'}
+                </Button>
+              </TableCell>
+              <TableCell className={classNames.qntCell}>
+                <Button
+                  disabled
+                  className={classNames.qntCellBtn}
+                  tooltipInfoContent={t(TranslationKey['Specify the amount of goods you want to order'])}
+                >
+                  {t(TranslationKey.Quantity)}
+                </Button>
+              </TableCell>
+              <TableCell className={classNames.totalCell}>
+                <Button
+                  disabled
+                  className={classNames.totalCellBtn}
+                  tooltipInfoContent={t(TranslationKey['Order amount for a specific product'])}
+                >
+                  {t(TranslationKey.Total) + ' $'}
+                </Button>
+              </TableCell>
+              <TableCell className={classNames.barCodeCell}>
+                <Button
+                  disabled
+                  className={classNames.barCodeCellBtn}
+                  tooltipInfoContent={t(TranslationKey['Product barcode'])}
+                >
+                  {t(TranslationKey.BarCode)}
+                </Button>
+              </TableCell>
+              <TableCell className={classNames.tariffCell}>
+                <Button
+                  disabled
+                  className={classNames.tariffCellBtn}
+                  tooltipInfoContent={t(
+                    TranslationKey['Choose a prep center in China and the rate at which the delivery will take place'],
+                  )}
+                >
+                  {`Storekeeper ${t(TranslationKey.and)} ${t(TranslationKey.Tariff)}`}
+                </Button>
+              </TableCell>
+              <TableCell className={classNames.warehouseCell}>
+                <Button
+                  disabled
+                  className={classNames.warehouseCellBtn}
+                  tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
+                >
+                  {t(TranslationKey.Destination)}
+                </Button>
+              </TableCell>
 
-            <TableCell className={classNames.commentCell}>
-              <Button
-                disabled
-                className={classNames.commentCellBtn}
-                tooltipInfoContent={t(TranslationKey['Comments on the order for the Buyer and the Prep Center'])}
-              >
-                {t(TranslationKey['Client comment'])}
-              </Button>
-            </TableCell>
+              <TableCell className={classNames.commentCell}>
+                <Button
+                  disabled
+                  className={classNames.commentCellBtn}
+                  tooltipInfoContent={t(TranslationKey['Comments on the order for the Buyer and the Prep Center'])}
+                >
+                  {t(TranslationKey['Client comment'])}
+                </Button>
+              </TableCell>
+            </TableRow>
           </TableHead>
           <TableBody>
             {productsForRender.map((product, index) => (

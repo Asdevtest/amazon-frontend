@@ -1,6 +1,8 @@
-import React, {useState} from 'react'
+import SearchIcon from '@mui/icons-material/Search'
 
-import {TableCell, TableRow, Typography} from '@material-ui/core'
+import React, {useState, useEffect} from 'react'
+
+import {TableCell, TableRow, Typography, InputAdornment} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -106,6 +108,26 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
 
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
+  const [nameSearchValue, setNameSearchValue] = useState('')
+
+  const [dataToRender, setDataToRender] = useState(batch.boxes || [])
+
+  useEffect(() => {
+    if (batch?.boxes && nameSearchValue) {
+      setDataToRender(
+        batch?.boxes.filter(el =>
+          el.items.some(
+            item =>
+              item.product.amazonTitle?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              item.product.asin?.toLowerCase().includes(nameSearchValue.toLowerCase()),
+          ),
+        ),
+      )
+    } else {
+      setDataToRender(batch.boxes || [])
+    }
+  }, [nameSearchValue])
+
   const [curBox, setCurBox] = useState({})
 
   const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -194,9 +216,24 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
           />
         </div>
 
+        <div className={classNames.searchWrapper}>
+          <Field
+            containerClasses={classNames.searchContainer}
+            inputClasses={classNames.searchInput}
+            value={nameSearchValue}
+            placeholder={t(TranslationKey['Search by ASIN, Title'])}
+            endAdornment={
+              <InputAdornment position="start">
+                <SearchIcon color="primary" />
+              </InputAdornment>
+            }
+            onChange={e => setNameSearchValue(e.target.value)}
+          />
+        </div>
+
         <Table
           rowsOnly
-          data={batch.boxes}
+          data={dataToRender}
           BodyRow={TableBodyBoxRow}
           renderHeadRow={renderHeadRow}
           rowsHandlers={{openBoxView}}

@@ -170,4 +170,20 @@ export const useClassNames = makeStyles(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '300px',
+    height: 36,
+  },
+
+  searchContainer: {
+    width: 'auto',
+    justifySelf: 'flex-start',
+  },
+
+  searchWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
 }))
