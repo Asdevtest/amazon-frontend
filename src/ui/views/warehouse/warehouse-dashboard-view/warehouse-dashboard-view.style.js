@@ -23,4 +23,19 @@ export const styles = createStyles(theme => ({
     gap: '25px',
     alignItems: 'center',
   },
+
+  '@media (max-width: 768px)': {
+    cardImg: {
+      width: '51px',
+      height: '51px',
+    },
+    userInfoWrapper: {
+      padding: '20px 20px',
+      display: 'flex',
+      alignItems: 'start',
+      flexDirection: 'column',
+      gap: '39px',
+      boxShadow: '0px 2px 8px 2px rgba(0, 0, 0, 0.05)',
+    },
+  },
 }))

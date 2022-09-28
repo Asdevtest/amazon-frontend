@@ -95,6 +95,10 @@ export const useClassNames = makeStyles(theme => ({
     maxWidth: '90px',
     height: '30px',
   },
+
+  error: {
+    border: '1px solid red',
+  },
   input: {
     fontSize: '12px',
     textAlign: 'center',

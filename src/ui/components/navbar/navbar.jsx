@@ -1,3 +1,6 @@
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+
 import React, {useRef, useState, useEffect} from 'react'
 
 import {Drawer, Hidden, List} from '@material-ui/core'
@@ -20,48 +23,51 @@ export const Navbar = observer(
     const viewModel = useRef(new NavbarModel())
 
     const [curNavbar, setCurNavbar] = useState(navbarConfig())
-
+    const [shortNavbar, setShortNavbar] = useState(false)
     useEffect(() => {
       setCurNavbar(navbarConfig())
     }, [SettingsModel.languageTag])
 
     const drawerContent = (
       <React.Fragment>
-        <div className={classNames.logoWrapper}>
-          <img alt="company logo" className={classNames.logo} src={'/assets/icons/logo-01.08.svg'} />
-        </div>
+        {!shortNavbar ? (
+          <div className={classNames.logoWrapper}>
+            <img alt="company logo" className={classNames.logo} src={'/assets/icons/logo-01.08.svg'} />
+          </div>
+        ) : null}
+        {!shortNavbar ? (
+          <List className={classNames.categoriesWrapper}>
+            {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]].map((category, index) =>
+              category.checkHideBlock(viewModel.current.userInfo) ? (
+                <React.Fragment key={index}>
+                  <NavbarCategory
+                    button
+                    isSelected={category.key === activeCategory}
+                    userInfo={viewModel.current.userInfo}
+                    category={category}
+                    badge={
+                      (category.route?.includes('/client/notifications') &&
+                        viewModel.current.userInfo.needConfirmPriceChange.boxes +
+                          viewModel.current.userInfo.needConfirmPriceChange.orders +
+                          viewModel.current.userInfo.needUpdateTariff.boxes) ||
+                      (category.route?.includes('/messages') && viewModel.current.unreadMessages)
+                    }
+                  />
 
-        <List className={classNames.categoriesWrapper}>
-          {curNavbar[UserRoleCodeMap[viewModel.current.userInfo.role]].map((category, index) =>
-            category.checkHideBlock(viewModel.current.userInfo) ? (
-              <React.Fragment key={index}>
-                <NavbarCategory
-                  button
-                  isSelected={category.key === activeCategory}
-                  userInfo={viewModel.current.userInfo}
-                  category={category}
-                  badge={
-                    (category.route?.includes('/client/notifications') &&
-                      viewModel.current.userInfo.needConfirmPriceChange.boxes +
-                        viewModel.current.userInfo.needConfirmPriceChange.orders +
-                        viewModel.current.userInfo.needUpdateTariff.boxes) ||
-                    (category.route?.includes('/messages') && viewModel.current.unreadMessages)
-                  }
-                />
-
-                <NavbarCollapse
-                  activeCategory={activeCategory}
-                  activeSubCategory={activeSubCategory}
-                  category={category}
-                  index={category.key}
-                  userInfo={viewModel.current.userInfo}
-                  currentViewModel={viewModel.current}
-                  onChangeSubCategory={onChangeSubCategory}
-                />
-              </React.Fragment>
-            ) : null,
-          )}
-        </List>
+                  <NavbarCollapse
+                    activeCategory={activeCategory}
+                    activeSubCategory={activeSubCategory}
+                    category={category}
+                    index={category.key}
+                    userInfo={viewModel.current.userInfo}
+                    currentViewModel={viewModel.current}
+                    onChangeSubCategory={onChangeSubCategory}
+                  />
+                </React.Fragment>
+              ) : null,
+            )}
+          </List>
+        ) : null}
       </React.Fragment>
     )
     return (
@@ -70,7 +76,7 @@ export const Navbar = observer(
           <Drawer
             open
             classes={{
-              root: classNames.root,
+              root: clsx(classNames.root, {[classNames.hideNavbar]: shortNavbar}),
               paper: clsx(classNames.paper, classNames.positionStatic),
             }}
             variant="permanent"
@@ -88,6 +94,16 @@ export const Navbar = observer(
             {drawerContent}
           </Drawer>
         </Hidden>
+        <div
+          className={clsx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: shortNavbar})}
+          onClick={() => setShortNavbar(!shortNavbar)}
+        >
+          {shortNavbar ? (
+            <ArrowForwardIosIcon color="primary" />
+          ) : (
+            <ArrowBackIosIcon className={classNames.arrowIcon} color="primary" />
+          )}
+        </div>
       </React.Fragment>
     )
   },

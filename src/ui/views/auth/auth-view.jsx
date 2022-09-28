@@ -31,7 +31,7 @@ export class AuthViewRaw extends Component {
 
   render() {
     const {classes: classNames} = this.props
-
+    console.log(this.viewModel?.error)
     return (
       <div className={classNames.root}>
         <Hidden smDown>
@@ -60,7 +60,8 @@ export class AuthViewRaw extends Component {
   renderError = () => (
     <h3>
       {this.viewModel.error &&
-        ((this.viewModel.error.body && t(TranslationKey['User not found'])) ||
+        ((this.viewModel.error.body.statusCode === 404 && t(TranslationKey['User not found'])) ||
+          (this.viewModel.error.body.statusCode === 403 && t(TranslationKey['Incorrect email or password'])) ||
           t(TranslationKey['The user is waiting for confirmation by the Administrator']))}
     </h3>
   )

@@ -25,4 +25,17 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '140%',
     marginBottom: '16px',
   },
+  '@media (max-width: 768px)': {
+    balanceTitle: {
+      fontSize: 18,
+      lineHeight: '140%',
+      color: '#001029',
+    },
+    title: {
+      fontSize: 12,
+      color: '#001029',
+      lineHeight: '16px',
+      marginBottom: '16px',
+    },
+  },
 }))

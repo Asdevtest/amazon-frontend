@@ -374,6 +374,7 @@ export const BoxViewForm = observer(
                 <Field
                   label={t(TranslationKey['Shipping label'])}
                   labelClasses={classNames.label}
+                  containerClasses={classNames.containerField}
                   inputComponent={
                     box.shippingLabel ? (
                       <div className={classNames.barCode}>
@@ -393,6 +394,7 @@ export const BoxViewForm = observer(
 
                 <Field
                   label={t(TranslationKey['FBA Shipment'])}
+                  containerClasses={classNames.containerField}
                   labelClasses={classNames.label}
                   inputComponent={
                     <div>
