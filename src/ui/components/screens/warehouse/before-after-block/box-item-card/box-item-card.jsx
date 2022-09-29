@@ -30,6 +30,8 @@ export const BoxItemCard = ({
 }) => {
   const classNames = useClassNames()
 
+  console.log('referenceEditingBox', referenceEditingBox)
+
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
@@ -65,7 +67,7 @@ export const BoxItemCard = ({
           <div className={classNames.attributeFooterWrapper}>
             <div
               className={clsx(classNames.barCodeWrapper, {
-                [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.barCode,
+                [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
               })}
             >
               <Text tooltipInfoContent={t(TranslationKey['Product barcode'])} className={classNames.subTitle}>
