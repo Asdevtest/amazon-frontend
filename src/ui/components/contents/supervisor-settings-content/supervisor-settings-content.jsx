@@ -4,7 +4,7 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
 
-import {Typography, Box, Tabs, InputAdornment} from '@material-ui/core'
+import {Box, Tabs, InputAdornment} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -40,11 +40,7 @@ const TabPanel = ({children, value, index, ...other}) => (
     aria-labelledby={`simple-tab-${index}`}
     {...other}
   >
-    {value === index && (
-      <Box paddingTop={3}>
-        <Typography>{children}</Typography>
-      </Box>
-    )}
+    {value === index && <Box paddingTop={3}>{children}</Box>}
   </div>
 )
 
@@ -89,8 +85,6 @@ export const SupervisorSettingsContent = observer(() => {
   }, [tabIndex])
 
   const classNames = useClassNames()
-
-  console.log(selectedRowIds)
 
   return (
     <React.Fragment>

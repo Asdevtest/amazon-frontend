@@ -69,7 +69,7 @@ export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToW
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey.Status)}</Typography>
 
-                <Typography className={classNames.statusText}>{<RequestStatusCell status={item.status} />}</Typography>
+                <RequestStatusCell status={item.status} />
               </div>
             </div>
             <div className={classNames.rightSubBlockWrapper}>

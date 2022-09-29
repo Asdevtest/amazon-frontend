@@ -31,7 +31,7 @@ export const DealDetailsCard = ({
 }) => {
   const classNames = useClassNames()
   const curProposal = item.find(el => el?.proposal._id === proposalId)
-  console.log(curProposal)
+
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
@@ -117,9 +117,7 @@ export const DealDetailsCard = ({
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey.Status)}</Typography>
 
-                <Typography className={classNames.statusText}>
-                  {<RequestStatusCell status={curProposal?.proposal.status} />}
-                </Typography>
+                <RequestStatusCell status={curProposal?.proposal.status} />
               </div>
             </div>
             <div className={classNames.rightSubBlockWrapper}>
