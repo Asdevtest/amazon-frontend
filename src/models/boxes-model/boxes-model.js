@@ -134,7 +134,7 @@ class BoxesModelStatic {
   }
 
   editBoxByStorekeeper = async (id, data) => {
-    const response = await restApiService.boxesApi.apiV1BoxesStorekeepersGuidPatch(id, {body: data})
+    const response = await restApiService.boxesApi.apiV1BoxesChangeDimensionsGuidPatch(id, {body: data})
     return response
   }
 }
