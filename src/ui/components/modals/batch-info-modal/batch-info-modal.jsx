@@ -126,7 +126,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
     } else {
       setDataToRender(batch.boxes || [])
     }
-  }, [nameSearchValue])
+  }, [nameSearchValue, batch])
 
   const [curBox, setCurBox] = useState({})
 

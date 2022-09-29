@@ -4,11 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**deliveryLength** | **Number** |  | [optional] 
-**deliveryHeight** | **Number** |  | [optional] 
-**deliveryWidth** | **Number** |  | [optional] 
-**deliveryMass** | **Number** |  | [optional] 
-**fitsInitialDimensions** | **Boolean** |  | [optional] 
-**images** | **[String]** | Массив ссылок на фотографии. | [optional] 
+**name** | **String** | Название услуги | [optional] 
+**description** | **String** | Описание услуги | [optional] 
+**price** | **Number** | Цена услуги. | [optional] 
 
 

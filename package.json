@@ -19,6 +19,8 @@
   "dependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.14.5",
     "@date-io/date-fns": "1.x",
+    "@emoji-mart/data": "^1.0.6",
+    "@emoji-mart/react": "^1.0.1",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@kotlia/react-i18n-auto": "^1.0.1",
@@ -52,6 +54,7 @@
     "clsx": "^1.1.1",
     "customize-cra": "^1.0.0",
     "date-fns": "^2.25.0",
+    "emoji-mart": "^5.2.2",
     "env-cmd": "^10.1.0",
     "git": "^0.1.5",
     "husky": "^7.0.2",

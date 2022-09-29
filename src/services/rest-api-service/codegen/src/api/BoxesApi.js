@@ -27,6 +27,7 @@ import InlineObject20 from '../model/InlineObject20';
 import InlineObject21 from '../model/InlineObject21';
 import InlineObject22 from '../model/InlineObject22';
 import InlineObject23 from '../model/InlineObject23';
+import InlineObject24 from '../model/InlineObject24';
 import InlineResponse2008 from '../model/InlineResponse2008';
 import InlineResponse2011 from '../model/InlineResponse2011';
 import InlineResponse2012 from '../model/InlineResponse2012';
@@ -406,6 +407,62 @@ export default class BoxesApi {
      */
     apiV1BoxesCancelSplitPost(opts) {
       return this.apiV1BoxesCancelSplitPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Изменить полей габаритов, массы коробки.
+     * ## Изменить полей габаритов, массы коробки.
+     * @param {String} guid GUID коробки.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject24} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1BoxesChangeDimensionsGuidPatchWithHttpInfo(guid, opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+      // verify the required parameter 'guid' is set
+      if (guid === undefined || guid === null) {
+        throw new Error("Missing the required parameter 'guid' when calling apiV1BoxesChangeDimensionsGuidPatch");
+      }
+
+      let pathParams = {
+        'guid': guid
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/boxes/change-dimensions/{guid}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Изменить полей габаритов, массы коробки.
+     * ## Изменить полей габаритов, массы коробки.
+     * @param {String} guid GUID коробки.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject24} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1BoxesChangeDimensionsGuidPatch(guid, opts) {
+      return this.apiV1BoxesChangeDimensionsGuidPatchWithHttpInfo(guid, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

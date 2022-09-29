@@ -447,12 +447,16 @@ export class ClientProductViewModel {
         this.product = {...this.product, currentSupplier: this.selectedSupplier}
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
+
+        this.onSaveForceProductData()
         break
       case 'acceptRevoke':
         this.product = {...this.product, currentSupplierId: null}
         this.product = {...this.product, currentSupplier: undefined}
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
+
+        this.onSaveForceProductData()
         break
       case 'delete':
         runInAction(() => {

@@ -15,12 +15,12 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import InlineObject3 from '../model/InlineObject3';
-import InlineObject58 from '../model/InlineObject58';
 import InlineObject59 from '../model/InlineObject59';
 import InlineObject60 from '../model/InlineObject60';
 import InlineObject61 from '../model/InlineObject61';
+import InlineObject62 from '../model/InlineObject62';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse20020 from '../model/InlineResponse20020';
+import InlineResponse20021 from '../model/InlineResponse20021';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -50,7 +50,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject60} opts.body 
+     * @param {module:model/InlineObject61} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsAddShopsGuidPostWithHttpInfo(guid, opts) {
@@ -89,7 +89,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject60} opts.body 
+     * @param {module:model/InlineObject61} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsAddShopsGuidPost(guid, opts) {
@@ -106,7 +106,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject58} opts.body 
+     * @param {module:model/InlineObject59} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsAddSuppliersGuidPostWithHttpInfo(guid, opts) {
@@ -145,7 +145,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject58} opts.body 
+     * @param {module:model/InlineObject59} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsAddSuppliersGuidPost(guid, opts) {
@@ -374,7 +374,7 @@ export default class ProductApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20020} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20021} and HTTP response
      */
     apiV1ProductsParseSellercentralGetWithHttpInfo(asin, opts) {
       opts = opts || {};
@@ -399,7 +399,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20020;
+      let returnType = InlineResponse20021;
       return this.apiClient.callApi(
         '/api/v1/products/parse_sellercentral', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -414,7 +414,7 @@ export default class ProductApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20020}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20021}
      */
     apiV1ProductsParseSellercentralGet(asin, opts) {
       return this.apiV1ProductsParseSellercentralGetWithHttpInfo(asin, opts)
@@ -430,7 +430,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject61} opts.body 
+     * @param {module:model/InlineObject62} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsRemoveShopsGuidPostWithHttpInfo(guid, opts) {
@@ -469,7 +469,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject61} opts.body 
+     * @param {module:model/InlineObject62} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsRemoveShopsGuidPost(guid, opts) {
@@ -486,7 +486,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject59} opts.body 
+     * @param {module:model/InlineObject60} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1ProductsRemoveSuppliersGuidPostWithHttpInfo(guid, opts) {
@@ -525,7 +525,7 @@ export default class ProductApi {
      * @param {String} guid GUID продукта в БД.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject59} opts.body 
+     * @param {module:model/InlineObject60} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1ProductsRemoveSuppliersGuidPost(guid, opts) {

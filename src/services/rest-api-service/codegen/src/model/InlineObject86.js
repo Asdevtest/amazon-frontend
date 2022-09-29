@@ -47,23 +47,14 @@ class InlineObject86 {
         if (data) {
             obj = obj || new InlineObject86();
 
-            if (data.hasOwnProperty('deliveryLength')) {
-                obj['deliveryLength'] = ApiClient.convertToType(data['deliveryLength'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('deliveryHeight')) {
-                obj['deliveryHeight'] = ApiClient.convertToType(data['deliveryHeight'], 'Number');
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
-            if (data.hasOwnProperty('deliveryWidth')) {
-                obj['deliveryWidth'] = ApiClient.convertToType(data['deliveryWidth'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMass')) {
-                obj['deliveryMass'] = ApiClient.convertToType(data['deliveryMass'], 'Number');
-            }
-            if (data.hasOwnProperty('fitsInitialDimensions')) {
-                obj['fitsInitialDimensions'] = ApiClient.convertToType(data['fitsInitialDimensions'], 'Boolean');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
             }
         }
         return obj;
@@ -73,35 +64,22 @@ class InlineObject86 {
 }
 
 /**
- * @member {Number} deliveryLength
+ * Название услуги
+ * @member {String} name
  */
-InlineObject86.prototype['deliveryLength'] = undefined;
+InlineObject86.prototype['name'] = undefined;
 
 /**
- * @member {Number} deliveryHeight
+ * Описание услуги
+ * @member {String} description
  */
-InlineObject86.prototype['deliveryHeight'] = undefined;
+InlineObject86.prototype['description'] = undefined;
 
 /**
- * @member {Number} deliveryWidth
+ * Цена услуги.
+ * @member {Number} price
  */
-InlineObject86.prototype['deliveryWidth'] = undefined;
-
-/**
- * @member {Number} deliveryMass
- */
-InlineObject86.prototype['deliveryMass'] = undefined;
-
-/**
- * @member {Boolean} fitsInitialDimensions
- */
-InlineObject86.prototype['fitsInitialDimensions'] = undefined;
-
-/**
- * Массив ссылок на фотографии.
- * @member {Array.<String>} images
- */
-InlineObject86.prototype['images'] = undefined;
+InlineObject86.prototype['price'] = undefined;
 
 
 

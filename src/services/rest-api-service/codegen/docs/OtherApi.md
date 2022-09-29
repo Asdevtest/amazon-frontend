@@ -203,7 +203,7 @@ let apiInstance = new TestSwagger.OtherApi();
 let guid = null; // String | 
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject56() // InlineObject56 | 
+  'body': new TestSwagger.InlineObject57() // InlineObject57 | 
 };
 apiInstance.apiV1OtherCheckAsinsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)|  | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject56**](InlineObject56.md)|  | [optional] 
+ **body** | [**InlineObject57**](InlineObject57.md)|  | [optional] 
 
 ### Return type
 
@@ -238,7 +238,7 @@ Name | Type | Description  | Notes
 
 ## apiV1OtherCheckAsinsPost
 
-> InlineResponse20017 apiV1OtherCheckAsinsPost(opts)
+> InlineResponse20018 apiV1OtherCheckAsinsPost(opts)
 
 # Заполнение списка асинов на проверку
 
@@ -278,7 +278,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20017**](InlineResponse20017.md)
+[**InlineResponse20018**](InlineResponse20018.md)
 
 ### Authorization
 
@@ -630,7 +630,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.OtherApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject55() // InlineObject55 | 
+  'body': new TestSwagger.InlineObject56() // InlineObject56 | 
 };
 apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -646,7 +646,7 @@ apiInstance.apiV1OtherUploadFileByUrlPost(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject55**](InlineObject55.md)|  | [optional] 
+ **body** | [**InlineObject56**](InlineObject56.md)|  | [optional] 
 
 ### Return type
 

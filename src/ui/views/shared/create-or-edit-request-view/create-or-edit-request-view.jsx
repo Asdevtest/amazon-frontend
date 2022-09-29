@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -17,7 +17,7 @@ import {t} from '@utils/translations'
 import {CreateOrEditRequestViewModel} from './create-or-edit-request-view.model'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = 1
+const navbarActiveSubCategory = navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS
 @observer
 export class CreateOrEditRequestView extends Component {
   viewModel = new CreateOrEditRequestViewModel({

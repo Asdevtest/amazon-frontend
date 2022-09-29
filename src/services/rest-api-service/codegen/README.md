@@ -164,6 +164,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.BoxesApi* | [**apiV1BoxesCancelEditWithDraftGuidPost**](docs/BoxesApi.md#apiV1BoxesCancelEditWithDraftGuidPost) | **POST** /api/v1/boxes/cancel_edit_with_draft/{guid} | # Отменить редактирование коробок сотрудником склада.
 *TestSwagger.BoxesApi* | [**apiV1BoxesCancelMergePost**](docs/BoxesApi.md#apiV1BoxesCancelMergePost) | **POST** /api/v1/boxes/cancel-merge | # Отменить объединение коробок.
 *TestSwagger.BoxesApi* | [**apiV1BoxesCancelSplitPost**](docs/BoxesApi.md#apiV1BoxesCancelSplitPost) | **POST** /api/v1/boxes/cancel-split | # Отменить разделение коробок.
+*TestSwagger.BoxesApi* | [**apiV1BoxesChangeDimensionsGuidPatch**](docs/BoxesApi.md#apiV1BoxesChangeDimensionsGuidPatch) | **PATCH** /api/v1/boxes/change-dimensions/{guid} | # Изменить полей габаритов, массы коробки.
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsGet**](docs/BoxesApi.md#apiV1BoxesClientsGet) | **GET** /api/v1/boxes/clients | # Получить коробки и их строки по текущему клиенту.
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsGuidPatch**](docs/BoxesApi.md#apiV1BoxesClientsGuidPatch) | **PATCH** /api/v1/boxes/clients/{guid} | # Отредактировать коробку клиентом
 *TestSwagger.BoxesApi* | [**apiV1BoxesClientsLightGet**](docs/BoxesApi.md#apiV1BoxesClientsLightGet) | **GET** /api/v1/boxes/clients_light | # Получить коробки и их строки по текущему клиенту.
@@ -218,6 +219,7 @@ Class | Method | HTTP request | Description
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksCancelGuidPost**](docs/ClientApi.md#apiV1ClientsTasksCancelGuidPost) | **POST** /api/v1/clients/tasks/cancel/{guid} | # Отменить задачу.
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksGet**](docs/ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя в данном складе.
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksPost**](docs/ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.
+*TestSwagger.ClientApi* | [**apiV1DashboardCountsGet**](docs/ClientApi.md#apiV1DashboardCountsGet) | **GET** /api/v1/dashboard/counts | # Получить количество основных элементов в бд.
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfilePost**](docs/GoLoginApi.md#apiV1GologinProfilePost) | **POST** /api/v1/gologin/profile | # Создать новый профайл пользователя.
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfileProfileIdPatch**](docs/GoLoginApi.md#apiV1GologinProfileProfileIdPatch) | **PATCH** /api/v1/gologin/profile/{profileId} | # Изменить профайл пользователя.
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfileStartPost**](docs/GoLoginApi.md#apiV1GologinProfileStartPost) | **POST** /api/v1/gologin/profile/start | # Запустить пользователя.
@@ -318,7 +320,6 @@ Class | Method | HTTP request | Description
 *TestSwagger.ShopSellApi* | [**apiV1ShopSellGuidPatch**](docs/ShopSellApi.md#apiV1ShopSellGuidPatch) | **PATCH** /api/v1/shop_sell/{guid} | # Обновить магазин на продажу.
 *TestSwagger.ShopSellApi* | [**apiV1ShopSellPost**](docs/ShopSellApi.md#apiV1ShopSellPost) | **POST** /api/v1/shop_sell/ | # Добавить на продажу новый магазин.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersBoxesGet**](docs/StorekeepersApi.md#apiV1StorekeepersBoxesGet) | **GET** /api/v1/storekeepers/boxes | # Получить коробки и их строки по текущему сторкиперу.
-*TestSwagger.StorekeepersApi* | [**apiV1StorekeepersEditLightGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersEditLightGuidPatch) | **PATCH** /api/v1/storekeepers/edit/light/{guid} | # Изменить полей габаритов, массы коробки и поля fitsInitialDimensions (подходят ли первичные размеры для отправки) для доставки и изображения.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersGet**](docs/StorekeepersApi.md#apiV1StorekeepersGet) | **GET** /api/v1/storekeepers/ | # Получить всех сторкиперов(все склады).
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersOrdersSetStatusGuidPatch**](docs/StorekeepersApi.md#apiV1StorekeepersOrdersSetStatusGuidPatch) | **PATCH** /api/v1/storekeepers/orders/set_status/{guid} | # Изменить значение status в сущности заказ.
 *TestSwagger.StorekeepersApi* | [**apiV1StorekeepersTariffLogisticsGuidDelete**](docs/StorekeepersApi.md#apiV1StorekeepersTariffLogisticsGuidDelete) | **DELETE** /api/v1/storekeepers/tariff-logistics/{guid} | # Удалить тариф доставки.
@@ -517,13 +518,19 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20010](docs/InlineResponse20010.md)
  - [TestSwagger.InlineResponse20011](docs/InlineResponse20011.md)
  - [TestSwagger.InlineResponse20012](docs/InlineResponse20012.md)
+ - [TestSwagger.InlineResponse20012Batch](docs/InlineResponse20012Batch.md)
+ - [TestSwagger.InlineResponse20012Boxes](docs/InlineResponse20012Boxes.md)
+ - [TestSwagger.InlineResponse20012Orders](docs/InlineResponse20012Orders.md)
+ - [TestSwagger.InlineResponse20012Products](docs/InlineResponse20012Products.md)
+ - [TestSwagger.InlineResponse20012Requests](docs/InlineResponse20012Requests.md)
+ - [TestSwagger.InlineResponse20012Shops](docs/InlineResponse20012Shops.md)
  - [TestSwagger.InlineResponse20013](docs/InlineResponse20013.md)
  - [TestSwagger.InlineResponse20014](docs/InlineResponse20014.md)
  - [TestSwagger.InlineResponse20015](docs/InlineResponse20015.md)
  - [TestSwagger.InlineResponse20016](docs/InlineResponse20016.md)
  - [TestSwagger.InlineResponse20017](docs/InlineResponse20017.md)
- - [TestSwagger.InlineResponse20017Failed](docs/InlineResponse20017Failed.md)
  - [TestSwagger.InlineResponse20018](docs/InlineResponse20018.md)
+ - [TestSwagger.InlineResponse20018Failed](docs/InlineResponse20018Failed.md)
  - [TestSwagger.InlineResponse20019](docs/InlineResponse20019.md)
  - [TestSwagger.InlineResponse2002](docs/InlineResponse2002.md)
  - [TestSwagger.InlineResponse20020](docs/InlineResponse20020.md)
@@ -545,7 +552,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20031](docs/InlineResponse20031.md)
  - [TestSwagger.InlineResponse20032](docs/InlineResponse20032.md)
  - [TestSwagger.InlineResponse20033](docs/InlineResponse20033.md)
- - [TestSwagger.InlineResponse20033Details](docs/InlineResponse20033Details.md)
+ - [TestSwagger.InlineResponse20034](docs/InlineResponse20034.md)
+ - [TestSwagger.InlineResponse20034Details](docs/InlineResponse20034Details.md)
  - [TestSwagger.InlineResponse2004](docs/InlineResponse2004.md)
  - [TestSwagger.InlineResponse2005](docs/InlineResponse2005.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)

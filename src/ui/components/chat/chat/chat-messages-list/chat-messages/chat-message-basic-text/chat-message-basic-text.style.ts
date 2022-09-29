@@ -24,7 +24,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   messageText: {
-    marginRight: 30,
+    marginRight: '30px !important',
+
+    whiteSpace: 'pre-wrap',
+    fontSize: 18,
+    lineHeight: '140%',
+    color: '#001029',
+
+    width: '100%',
   },
 
   filesMainWrapper: {

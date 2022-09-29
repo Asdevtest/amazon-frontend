@@ -21,13 +21,16 @@ interface Props {
 
 export const ChatMessageBasicText: FC<Props> = observer(({message, isIncomming, unReadMessage}) => {
   const classNames = useClassNames()
+
   return (
     <div className={clsx(classNames.root, {[classNames.rootIsIncomming]: isIncomming})}>
       <div className={classNames.subWrapper}>
         <Linkify
         // properties={{target: '_blank', style: {color: 'red', fontWeight: 'bold', textDecoration: 'none'}}} // ЗАЯВЛЕННЫЕ ПРОПЫ НЕ РАБОТАЮТ
         >
-          <div className={classNames.messageText}>{message.text}</div>
+          <Typography paragraph className={classNames.messageText}>
+            {message.text}
+          </Typography>
         </Linkify>
 
         {message.files.length ? (

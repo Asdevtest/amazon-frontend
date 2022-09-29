@@ -21,13 +21,11 @@ import ApiClient from '../ApiClient';
 class InlineObject25 {
     /**
      * Constructs a new <code>InlineObject25</code>.
-     * Схема комментарии байера.
      * @alias module:model/InlineObject25
-     * @param buyerComment {String} Комментарии байера.
      */
-    constructor(buyerComment) { 
+    constructor() { 
         
-        InlineObject25.initialize(this, buyerComment);
+        InlineObject25.initialize(this);
     }
 
     /**
@@ -35,8 +33,7 @@ class InlineObject25 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, buyerComment) { 
-        obj['buyerComment'] = buyerComment;
+    static initialize(obj) { 
     }
 
     /**
@@ -50,8 +47,29 @@ class InlineObject25 {
         if (data) {
             obj = obj || new InlineObject25();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
+            if (data.hasOwnProperty('amazon')) {
+                obj['amazon'] = ApiClient.convertToType(data['amazon'], 'Number');
+            }
+            if (data.hasOwnProperty('reffee')) {
+                obj['reffee'] = ApiClient.convertToType(data['reffee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbafee')) {
+                obj['fbafee'] = ApiClient.convertToType(data['fbafee'], 'Number');
+            }
+            if (data.hasOwnProperty('fbaamount')) {
+                obj['fbaamount'] = ApiClient.convertToType(data['fbaamount'], 'Number');
+            }
+            if (data.hasOwnProperty('status')) {
+                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            }
+            if (data.hasOwnProperty('profit')) {
+                obj['profit'] = ApiClient.convertToType(data['profit'], 'Number');
+            }
+            if (data.hasOwnProperty('margin')) {
+                obj['margin'] = ApiClient.convertToType(data['margin'], 'Number');
+            }
+            if (data.hasOwnProperty('buyersComment')) {
+                obj['buyersComment'] = ApiClient.convertToType(data['buyersComment'], 'String');
             }
         }
         return obj;
@@ -61,10 +79,52 @@ class InlineObject25 {
 }
 
 /**
- * Комментарии байера.
- * @member {String} buyerComment
+ * 
+ * @member {Number} amazon
  */
-InlineObject25.prototype['buyerComment'] = undefined;
+InlineObject25.prototype['amazon'] = undefined;
+
+/**
+ * комиссия которую берет амазон за любой заказ - 15%
+ * @member {Number} reffee
+ */
+InlineObject25.prototype['reffee'] = undefined;
+
+/**
+ * ФБА комиссия
+ * @member {Number} fbafee
+ */
+InlineObject25.prototype['fbafee'] = undefined;
+
+/**
+ * ФБА кол-во
+ * @member {Number} fbaamount
+ */
+InlineObject25.prototype['fbaamount'] = undefined;
+
+/**
+ * Код статуса
+ * @member {Number} status
+ */
+InlineObject25.prototype['status'] = undefined;
+
+/**
+ * Прибыль
+ * @member {Number} profit
+ */
+InlineObject25.prototype['profit'] = undefined;
+
+/**
+ * Маржа
+ * @member {Number} margin
+ */
+InlineObject25.prototype['margin'] = undefined;
+
+/**
+ * Примечания байера.
+ * @member {String} buyersComment
+ */
+InlineObject25.prototype['buyersComment'] = undefined;
 
 
 

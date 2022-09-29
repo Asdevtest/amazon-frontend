@@ -10,7 +10,6 @@ import {ProductModel} from '@models/product-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {SupervisorModel} from '@models/supervisor-model'
 import {SupervisorUpdateProductContract} from '@models/supervisor-model/supervisor-model.contracts'
-import {SupplierModel} from '@models/supplier-model'
 import {UserModel} from '@models/user-model'
 
 import {updateProductAutoCalculatedFields} from '@utils/calculation'
@@ -388,31 +387,6 @@ export class SupervisorProductViewModel {
 
         this.onTriggerAddOrEditSupplierModal()
         break
-    }
-  }
-
-  async onRemoveSupplier() {
-    try {
-      this.setActionStatus(loadingStatuses.isLoading)
-      await SupplierModel.removeSupplier(this.selectedSupplier._id)
-      await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
-      this.setActionStatus(loadingStatuses.success)
-      const findProductSupplierIndex = this.product.suppliers.findIndex(
-        supplierItem => supplierItem._id === this.selectedSupplier._id,
-      )
-      runInAction(() => {
-        this.product.suppliers.splice(findProductSupplierIndex, 1)
-        this.selectedSupplier = undefined
-        this.onSaveProductData()
-      })
-
-      this.loadData()
-    } catch (error) {
-      console.log(error)
-      this.setActionStatus(loadingStatuses.failed)
-      if (error.body && error.body.message) {
-        this.error = error.body.message
-      }
     }
   }
 

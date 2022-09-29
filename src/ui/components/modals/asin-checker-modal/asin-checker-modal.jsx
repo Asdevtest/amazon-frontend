@@ -19,6 +19,8 @@ import {TableAsinAndReason} from './table-asin-and-reason/table-asin-and-reason'
 export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
   const classNames = useClassNames()
 
+  const [submitIsClicked, setSubmitIsClicked] = useState(false)
+
   const [asins, setAsins] = useState('')
   const [reasons, setReasons] = useState('')
   const [asinsAndReasonsData, setAsinsAndReasonsData] = useState([])
@@ -128,10 +130,17 @@ export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
         <div>
           <Button
             success
-            disabled={!updatedAsinsAndReasonsData.length || updatedAsinsAndReasonsData.some(item => item.asin === '')}
+            disabled={
+              !updatedAsinsAndReasonsData.length ||
+              updatedAsinsAndReasonsData.some(item => item.asin === '') ||
+              submitIsClicked
+            }
             variant="contained"
             className={classNames.buttonOk}
-            onClick={() => onSubmit(asinsAndReasonsData, strategy)}
+            onClick={() => {
+              onSubmit(asinsAndReasonsData, strategy)
+              setSubmitIsClicked(true)
+            }}
           >
             {t(TranslationKey.Save)}
           </Button>

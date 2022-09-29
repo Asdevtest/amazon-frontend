@@ -60,9 +60,9 @@ export class AuthViewRaw extends Component {
   renderError = () => (
     <h3>
       {this.viewModel.error &&
-        ((this.viewModel.error.body.statusCode === 404 && t(TranslationKey['User not found'])) ||
-          (this.viewModel.error.body.statusCode === 403 && t(TranslationKey['Incorrect email or password'])) ||
-          t(TranslationKey['The user is waiting for confirmation by the Administrator']))}
+        ((this.viewModel.error.body?.statusCode === 404 && t(TranslationKey['User not found'])) ||
+          (this.viewModel.error.body?.statusCode === 403 && t(TranslationKey['Incorrect email or password'])) ||
+          /* t(TranslationKey['The user is waiting for confirmation by the Administrator'])*/ t(TranslationKey.Error))}
     </h3>
   )
 

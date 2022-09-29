@@ -45,6 +45,7 @@ const fieldsOfProductAllowedToForceUpdate = [
   'margin',
   'buyersComment',
   'additionalProp1',
+  'currentSupplierId',
 ]
 
 const formFieldsDefault = {
@@ -221,6 +222,8 @@ export class BuyerProductViewModel {
 
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
+
+        this.onSaveForceProductData()
         break
       case 'acceptRevoke':
         this.product = {...this.product, currentSupplierId: null}
@@ -228,6 +231,7 @@ export class BuyerProductViewModel {
 
         this.selectedSupplier = undefined
         updateProductAutoCalculatedFields.call(this)
+        this.onSaveForceProductData()
         break
       case 'delete':
         runInAction(() => {
@@ -244,18 +248,21 @@ export class BuyerProductViewModel {
   async onRemoveSupplier() {
     try {
       this.setActionStatus(loadingStatuses.isLoading)
+
       await ProductModel.removeSuppliersFromProduct(this.product._id, [this.selectedSupplier._id])
-      await SupplierModel.removeSupplier(this.selectedSupplier._id)
-      this.setActionStatus(loadingStatuses.success)
 
       runInAction(() => {
-        this.product.suppliers
-        this.selectedSupplier = undefined
         if (this.product.currentSupplierId && this.product.currentSupplierId === this.selectedSupplier?._id) {
-          this.product.currentSupplierId = undefined
+          this.product.currentSupplierId = null
         }
       })
       this.onSaveForceProductData()
+
+      this.product.suppliers
+      this.selectedSupplier = undefined
+
+      await SupplierModel.removeSupplier(this.selectedSupplier._id)
+      this.setActionStatus(loadingStatuses.success)
     } catch (error) {
       console.log(error)
       this.setActionStatus(loadingStatuses.failed)

@@ -182,7 +182,7 @@ const Box = observer(
                   {taskType === TaskOperationType.RECEIVE
                     ? isCurrentBox
                       ? t(TranslationKey['Sizes from buyer']) + ':'
-                      : t(TranslationKey['Sizes from storekeeper:']) + ':'
+                      : t(TranslationKey['Sizes from storekeeper:'])
                     : t(TranslationKey['Sizes from storekeeper:'])}
                 </Typography>
 
@@ -543,12 +543,13 @@ const Box = observer(
                 )}
               </div>
             </div>
-            <div
-              /* className={classNames.footerWrapper}*/ className={clsx(classNames.footerWrapper, {
-                [classNames.editAccent]: needAccent && box.shippingLabel !== referenceEditingBox.shippingLabel,
-              })}
-            >
-              <div className={classNames.chipWrapper}>
+            <div className={classNames.footerWrapper}>
+              <div
+                className={clsx(classNames.chipWrapper, {
+                  [classNames.chipWrapperEditAccent]:
+                    needAccent && !!box.shippingLabel !== !!referenceEditingBox.shippingLabel,
+                })}
+              >
                 <Text
                   tooltipInfoContent={t(TranslationKey['Availability of shipping label'])}
                   className={classNames.subTitle}

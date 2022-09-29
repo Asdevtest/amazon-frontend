@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IntegrationsCreateAndLinkSkuProductsPayload from './ApiV1IntegrationsCreateAndLinkSkuProductsPayload';
+import ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks from './ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks';
 
 /**
  * The InlineObject53 model module.
@@ -23,10 +23,12 @@ class InlineObject53 {
     /**
      * Constructs a new <code>InlineObject53</code>.
      * @alias module:model/InlineObject53
+     * @param productId {String} 
+     * @param warehouseStocks {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} 
      */
-    constructor() { 
+    constructor(productId, warehouseStocks) { 
         
-        InlineObject53.initialize(this);
+        InlineObject53.initialize(this, productId, warehouseStocks);
     }
 
     /**
@@ -34,7 +36,9 @@ class InlineObject53 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, productId, warehouseStocks) { 
+        obj['productId'] = productId;
+        obj['warehouseStocks'] = warehouseStocks;
     }
 
     /**
@@ -48,8 +52,11 @@ class InlineObject53 {
         if (data) {
             obj = obj || new InlineObject53();
 
-            if (data.hasOwnProperty('payload')) {
-                obj['payload'] = ApiClient.convertToType(data['payload'], [ApiV1IntegrationsCreateAndLinkSkuProductsPayload]);
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('warehouseStocks')) {
+                obj['warehouseStocks'] = ApiClient.convertToType(data['warehouseStocks'], [ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks]);
             }
         }
         return obj;
@@ -59,9 +66,14 @@ class InlineObject53 {
 }
 
 /**
- * @member {Array.<module:model/ApiV1IntegrationsCreateAndLinkSkuProductsPayload>} payload
+ * @member {String} productId
  */
-InlineObject53.prototype['payload'] = undefined;
+InlineObject53.prototype['productId'] = undefined;
+
+/**
+ * @member {Array.<module:model/ApiV1IntegrationsSellerboardWarehouseProductsLinkSkuWarehouseStocks>} warehouseStocks
+ */
+InlineObject53.prototype['warehouseStocks'] = undefined;
 
 
 

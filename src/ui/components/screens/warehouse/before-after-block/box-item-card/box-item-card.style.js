@@ -163,6 +163,7 @@ export const useClassNames = makeStyles({
   editAccent: {
     outline: '2px solid #F5CF00',
     borderRadius: 4,
+    padding: 5,
   },
 
   '@media (max-width: 768px)': {
