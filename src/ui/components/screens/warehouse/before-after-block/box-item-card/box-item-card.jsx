@@ -84,11 +84,7 @@ export const BoxItemCard = ({
               )}
             </div>
             <div>
-              <div
-                className={clsx(classNames.chipWrapper, {
-                  [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.barCode,
-                })}
-              >
+              <div className={classNames.chipWrapper}>
                 {item.barCode && (
                   <div className={classNames.barCodeActionsWrapper}>
                     {item.isBarCodeAttachedByTheStorekeeper === false && (

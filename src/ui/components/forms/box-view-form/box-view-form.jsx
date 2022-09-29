@@ -362,13 +362,13 @@ export const BoxViewForm = observer(
                 label={t(TranslationKey['Shipping label was glued to the warehouse'])}
                 inputComponent={<Checkbox disabled checked={box.isShippingLabelAttachedByStorekeeper} />}
               />
-              <Field
+              {/* <Field
                 oneLine
                 containerClasses={classNames.checkboxContainer}
                 labelClasses={classNames.label}
                 label={t(TranslationKey['The primary size suitable for shipment'])}
                 inputComponent={<Checkbox disabled />}
-              />
+              /> */}
 
               <div className={classNames.labelsInfoWrapper}>
                 <Field

@@ -409,6 +409,12 @@ export const useClassNames = makeStyles(() => ({
     borderRadius: 4,
   },
 
+  chipWrapperEditAccent: {
+    outline: '2px solid #F5CF00',
+    borderRadius: 4,
+    padding: 5,
+  },
+
   toggleSizesWrapper: {
     marginRight: 30,
   },

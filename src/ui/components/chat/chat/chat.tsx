@@ -1,6 +1,5 @@
 import TextField from '@mui/material/TextField'
 
-// import TextareaAutosize from '@mui/base/TextareaAutosize'
 import React, {FC, ReactElement, useEffect, useState, KeyboardEvent} from 'react'
 
 import {InputAdornment, Typography} from '@material-ui/core'
@@ -164,37 +163,6 @@ export const Chat: FC<Props> = observer(
           {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
           <div className={classNames.inputWrapper}>
-            {/* <TextareaAutosize
-              multiline
-              autoFocus
-              id="outlined-multiline-flexible"
-              size="small"
-              className={clsx(classNames.input, {[classNames.inputFilled]: message || focused})}
-              maxRows={6}
-              placeholder={t(TranslationKey['Write a message'])}
-              inputProps={{maxLength: 1000}}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end" classes={{root: classNames.endAdornment}}>
-                    <div className={classNames.filesIconWrapper}>
-                      <img
-                        src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}
-                        className={classNames.inputIcon}
-                        onClick={() => setShowFiles(!showFiles)}
-                      />
-                      {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
-                    </div>
-                  </InputAdornment>
-                ),
-              }}
-              value={message}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              onKeyPress={handleKeyPress}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeMessageAndState(e.target.value)}
-              onPaste={evt => onPasteFiles(evt)}
-            /> */}
-
             <TextField
               multiline
               autoFocus
