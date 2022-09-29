@@ -22,7 +22,7 @@ export const DashboardListOfAnyCard = ({config, configSubTitle, valuesData, onCl
           {valuesData[item.dataKey] ? (
             valuesData[item.dataKey]
           ) : (
-            <CircularProgress color="success" thickness={2} size={16} />
+            <CircularProgress color="primary" thickness={2} size={16} />
           )}
         </Typography>
         <ArrowForwardIosIcon fontSize="small" />

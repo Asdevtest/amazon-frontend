@@ -46,7 +46,7 @@ export const useClassNames = makeStyles(theme => ({
     position: 'absolute',
     top: 20,
     left: 220,
-    zIndex: 9999,
+    zIndex: 1200,
     width: '40px',
     height: '40px',
     backgroundColor: '#d1d1d1a8',

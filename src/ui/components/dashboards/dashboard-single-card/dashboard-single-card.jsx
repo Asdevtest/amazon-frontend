@@ -21,7 +21,7 @@ export const DashboardSingleCard = observer(({item, valuesData, onClickViewMore}
           {valuesData[item.dataKey] ? (
             valuesData[item.dataKey]
           ) : (
-            <CircularProgress color="success" thickness={2} size={30} />
+            <CircularProgress color="primary" thickness={2} size={30} />
           )}
         </Typography>
       </div>

@@ -165,6 +165,7 @@ export const AddOrEditLogisticTariffForm = observer(
       Number(formFields.conditionsByRegion.yuanToDollarRate) <= 0 ||
       formFields.name === '' ||
       formFields.minWeightInKg === '' ||
+      formFields.minWeightInKg === 0 ||
       formFields.deliveryTimeInDay === '' ||
       formFields.cls === null ||
       formFields.etd === null ||
@@ -172,6 +173,9 @@ export const AddOrEditLogisticTariffForm = observer(
       formFields.conditionsByRegion.west.rate === '' ||
       formFields.conditionsByRegion.central.rate === '' ||
       formFields.conditionsByRegion.east.rate === '' ||
+      formFields.conditionsByRegion.west.rate === 0 ||
+      formFields.conditionsByRegion.central.rate === 0 ||
+      formFields.conditionsByRegion.east.rate === 0 ||
       formFields.description.length > 255 ||
       checkDateByDeadline(formFields.cls) ||
       checkDateByDeadline(formFields.etd) ||
