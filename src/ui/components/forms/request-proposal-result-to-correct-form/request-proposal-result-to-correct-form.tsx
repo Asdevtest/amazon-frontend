@@ -78,19 +78,17 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
         <Typography className={classNames.countTimes}>{t(TranslationKey['No more than 5 times'])}</Typography>
       </div>
       <div className={classNames.reasonWrapper}>
-        <div className={classNames.reasonInputWrapper}>
-          <Field
-            multiline
-            className={classNames.reasonInput}
-            inputProps={{maxLength: 1100}}
-            minRows={6}
-            maxRow={6}
-            label={t(TranslationKey['Reason for rework']) + '*'}
-            labelClasses={classNames.label}
-            value={formFields.reason}
-            onChange={onChangeField('reason')}
-          />
-        </div>
+        <Field
+          multiline
+          className={classNames.reasonInput}
+          inputProps={{maxLength: 1100}}
+          minRows={6}
+          maxRows={6}
+          label={t(TranslationKey['Reason for rework']) + '*'}
+          labelClasses={classNames.label}
+          value={formFields.reason}
+          onChange={onChangeField('reason')}
+        />
       </div>
       <div className={classNames.totalTime}>
         <Typography className={classNames.time}>{t(TranslationKey['Time for rework']) + '*'}</Typography>

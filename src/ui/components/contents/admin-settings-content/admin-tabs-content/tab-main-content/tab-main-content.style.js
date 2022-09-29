@@ -188,6 +188,10 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '22px',
   },
 
+  proxiesWrapper: {
+    height: '100%',
+  },
+
   halfProxiesWrapper: {
     height: '230px',
     overflow: 'hidden',

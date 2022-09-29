@@ -23,10 +23,18 @@ export const Navbar = observer(
     const viewModel = useRef(new NavbarModel())
 
     const [curNavbar, setCurNavbar] = useState(navbarConfig())
-    const [shortNavbar, setShortNavbar] = useState(false)
+    const [shortNavbar, setShortNavbar] = useState(() => {
+      const saved = localStorage.getItem('shortNavbar')
+      const initialValue = JSON.parse(saved)
+      return initialValue || false
+    })
     useEffect(() => {
       setCurNavbar(navbarConfig())
     }, [SettingsModel.languageTag])
+
+    useEffect(() => {
+      localStorage.setItem('shortNavbar', JSON.stringify(shortNavbar))
+    }, [shortNavbar])
 
     const drawerContent = (
       <React.Fragment>

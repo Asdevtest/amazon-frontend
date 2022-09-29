@@ -6,12 +6,11 @@ export const useClassNames = makeStyles(() => ({
   },
   reasonInputWrapper: {
     width: '100%',
+    height: '100%',
   },
   reasonInput: {
-    display: 'flex',
     height: '136px',
     width: '100%',
-    overflowY: 'auto',
   },
 
   inputWrapper: {

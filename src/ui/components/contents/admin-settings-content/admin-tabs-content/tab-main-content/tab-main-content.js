@@ -113,7 +113,7 @@ export const TabMainContent = ({
         </div>
         <div
           className={clsx(classNames.proxiesWrapper, {
-            [classNames.halfProxiesWrapper]: !showFullCard || proxyArr.length > 5,
+            [classNames.halfProxiesWrapper]: !showFullCard,
           })}
         >
           {proxyArr.length !== 0 &&
