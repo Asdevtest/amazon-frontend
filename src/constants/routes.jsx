@@ -135,55 +135,6 @@ export const overallRoutesConfigs = [
     exact: false,
     crumbNameKey: TranslationKey.User,
   },
-
-  // {
-  //   routePath: '/requests/my',
-  //   component: MyRequestsView,
-  //   exact: false,
-  //   crumbNameKey: TranslationKey['My requests']
-  // },
-
-  // {
-  //   routePath: '/requests/my-proposals',
-  //   component: MyProposalsView,
-  //   exact: false,
-  //   crumbNameKey: TranslationKey['My proposals']
-  // },
-
-  // {
-  //   routePath: '/custom-request',
-  //   component: OwnerRequestDetailCustomView,
-  //   exact: true,
-  //   crumbNameKey: TranslationKey['My request']
-  // },
-
-  // {
-  //   routePath: '/create-or-edit-request',
-  //   component: CreateOrEditRequestView,
-  //   exact: false,
-  //   crumbNameKey: TranslationKey['Create a request']
-  // },
-
-  // {
-  //   routePath: '/vacant-requests',
-  //   component: VacantRequestsView,
-  //   exact: false,
-  //   crumbNameKey: TranslationKey['Vacant requests']
-  // },
-
-  // {
-  //   routePath: '/custom-search-request',
-  //   component: RequestDetailCustomView,
-  //   exact: false,
-  //   crumbNameKey: TranslationKey.Request
-  // },
-
-  // {
-  //   routePath: '/create-or-edit-proposal',
-  //   component: CreateOrEditProposalView,
-  //   exact: false,
-  //   crumbNameKey: TranslationKey['Proposal Creation']
-  // },
 ]
 
 export const privateRoutesConfigs = [

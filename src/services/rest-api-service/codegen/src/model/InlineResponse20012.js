@@ -12,6 +12,12 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20012Batch from './InlineResponse20012Batch';
+import InlineResponse20012Boxes from './InlineResponse20012Boxes';
+import InlineResponse20012Orders from './InlineResponse20012Orders';
+import InlineResponse20012Products from './InlineResponse20012Products';
+import InlineResponse20012Requests from './InlineResponse20012Requests';
+import InlineResponse20012Shops from './InlineResponse20012Shops';
 
 /**
  * The InlineResponse20012 model module.
@@ -47,8 +53,23 @@ class InlineResponse20012 {
         if (data) {
             obj = obj || new InlineResponse20012();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20012Orders.constructFromObject(data['orders']);
+            }
+            if (data.hasOwnProperty('shops')) {
+                obj['shops'] = InlineResponse20012Shops.constructFromObject(data['shops']);
+            }
+            if (data.hasOwnProperty('requests')) {
+                obj['requests'] = InlineResponse20012Requests.constructFromObject(data['requests']);
+            }
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20012Products.constructFromObject(data['products']);
+            }
+            if (data.hasOwnProperty('batch')) {
+                obj['batch'] = InlineResponse20012Batch.constructFromObject(data['batch']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = InlineResponse20012Boxes.constructFromObject(data['boxes']);
             }
         }
         return obj;
@@ -58,10 +79,34 @@ class InlineResponse20012 {
 }
 
 /**
- * id созданного профайла
- * @member {String} profileId
+ * @member {module:model/InlineResponse20012Orders} orders
  */
-InlineResponse20012.prototype['profileId'] = undefined;
+InlineResponse20012.prototype['orders'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20012Shops} shops
+ */
+InlineResponse20012.prototype['shops'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20012Requests} requests
+ */
+InlineResponse20012.prototype['requests'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20012Products} products
+ */
+InlineResponse20012.prototype['products'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20012Batch} batch
+ */
+InlineResponse20012.prototype['batch'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20012Boxes} boxes
+ */
+InlineResponse20012.prototype['boxes'] = undefined;
 
 
 

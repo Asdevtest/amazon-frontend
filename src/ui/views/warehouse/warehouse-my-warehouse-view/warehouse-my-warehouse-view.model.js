@@ -268,7 +268,7 @@ export class WarehouseMyWarehouseViewModel {
         ),
       }
 
-      await StorekeeperModel.editBox(id, updateBoxData)
+      await BoxesModel.editBoxByStorekeeper(id, updateBoxData)
 
       this.onTriggerShowEditBoxModal()
       this.loadData()

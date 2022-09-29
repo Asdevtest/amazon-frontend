@@ -47,20 +47,11 @@ class InlineObject64 {
         if (data) {
             obj = obj || new InlineObject64();
 
-            if (data.hasOwnProperty('execution_time')) {
-                obj['execution_time'] = ApiClient.convertToType(data['execution_time'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
             if (data.hasOwnProperty('linksToMediaFiles')) {
                 obj['linksToMediaFiles'] = ApiClient.convertToType(data['linksToMediaFiles'], ['String']);
-            }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
             }
         }
         return obj;
@@ -70,34 +61,16 @@ class InlineObject64 {
 }
 
 /**
- * Время на выполнение, в минутах.
- * @member {Number} execution_time
+ * Комментарий причин изменения статуса.
+ * @member {String} reason
  */
-InlineObject64.prototype['execution_time'] = undefined;
+InlineObject64.prototype['reason'] = undefined;
 
 /**
- * Цена предложения.
- * @member {Number} price
- */
-InlineObject64.prototype['price'] = undefined;
-
-/**
- * Комментарий к предложению.
- * @member {String} comment
- */
-InlineObject64.prototype['comment'] = undefined;
-
-/**
- * Ссылки на медиафайлы.
+ * Массив ссылок на медиафайлы.
  * @member {Array.<String>} linksToMediaFiles
  */
 InlineObject64.prototype['linksToMediaFiles'] = undefined;
-
-/**
- * Название предложения
- * @member {String} title
- */
-InlineObject64.prototype['title'] = undefined;
 
 
 

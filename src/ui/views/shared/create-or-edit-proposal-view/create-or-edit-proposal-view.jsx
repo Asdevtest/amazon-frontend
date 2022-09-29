@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
-import {navBarActiveCategory} from '@constants/navbar-active-category'
+import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -21,7 +21,6 @@ import {CreateOrEditProposalViewModel} from './create-or-edit-proposal-view.mode
 import {styles} from './create-or-edit-proposal-view.style'
 
 const navbarActiveCategory = navBarActiveCategory.NAVBAR_REQUESTS
-const navbarActiveSubCategory = 0
 @observer
 export class CreateOrEditProposalViewRaw extends Component {
   viewModel = new CreateOrEditProposalViewModel({
@@ -54,7 +53,11 @@ export class CreateOrEditProposalViewRaw extends Component {
       <React.Fragment>
         <Navbar
           activeCategory={navbarActiveCategory}
-          activeSubCategory={navbarActiveSubCategory}
+          activeSubCategory={
+            this.props.location.pathname.includes('my-proposals')
+              ? navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS
+              : navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS
+          }
           drawerOpen={drawerOpen}
           setDrawerOpen={onTriggerDrawerOpen}
         />

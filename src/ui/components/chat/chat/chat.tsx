@@ -1,8 +1,10 @@
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
 import TextField from '@mui/material/TextField'
 
 import React, {FC, ReactElement, useEffect, useState, KeyboardEvent} from 'react'
 
-import {InputAdornment, Typography} from '@material-ui/core'
+import {InputAdornment, Typography, ClickAwayListener} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
@@ -25,6 +27,15 @@ import {useClassNames} from './chat.style'
 export interface RenderAdditionalButtonsParams {
   message: string
   files: IFile[]
+}
+
+export interface OnEmojiSelectEvent {
+  id: string
+  keywords: string[]
+  name: string
+  native: string
+  shortcodes: string
+  unified: string
 }
 
 export interface MessageStateParams {
@@ -55,6 +66,8 @@ export const Chat: FC<Props> = observer(
     onTypingMessage,
   }) => {
     const [showFiles, setShowFiles] = useState(false)
+
+    const [showEmojis, setShowEmojis] = useState(false)
 
     const [focused, setFocused] = useState(false)
     const onFocus = () => setFocused(true)
@@ -162,6 +175,25 @@ export const Chat: FC<Props> = observer(
         <div className={classNames.bottomPartWrapper}>
           {showFiles ? <ChatFilesInput files={files} setFiles={changeFilesAndState} /> : null}
 
+          {showEmojis ? (
+            <ClickAwayListener
+              mouseEvent="onMouseDown"
+              onClickAway={event => {
+                if ((event.target as HTMLElement).id !== 'emoji-icon') {
+                  setShowEmojis(false)
+                }
+              }}
+            >
+              <div className={classNames.emojisWrapper}>
+                <Picker
+                  data={data}
+                  locale={SettingsModel.languageTag}
+                  onEmojiSelect={(e: OnEmojiSelectEvent) => changeMessageAndState(message + e.native)}
+                />
+              </div>
+            </ClickAwayListener>
+          ) : null}
+
           <div className={classNames.inputWrapper}>
             <TextField
               multiline
@@ -176,6 +208,15 @@ export const Chat: FC<Props> = observer(
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end" classes={{root: classNames.endAdornment}}>
+                    <div className={classNames.filesIconWrapper}>
+                      <img
+                        id="emoji-icon"
+                        src={showEmojis ? '/assets/icons/emoji-active.svg' : '/assets/icons/emoji.svg'}
+                        className={classNames.inputIcon}
+                        onClick={() => setShowEmojis(!showEmojis)}
+                      />
+                    </div>
+
                     <div className={classNames.filesIconWrapper}>
                       <img
                         src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}

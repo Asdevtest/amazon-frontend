@@ -22,11 +22,11 @@ class InlineObject70 {
     /**
      * Constructs a new <code>InlineObject70</code>.
      * @alias module:model/InlineObject70
-     * @param totalCost {Number} Для подтверждения нужно вернуть totalCost из калькулятора.
+     * @param action {module:model/InlineObject70.ActionEnum} 
      */
-    constructor(totalCost) { 
+    constructor(action) { 
         
-        InlineObject70.initialize(this, totalCost);
+        InlineObject70.initialize(this, action);
     }
 
     /**
@@ -34,8 +34,8 @@ class InlineObject70 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, totalCost) { 
-        obj['totalCost'] = totalCost;
+    static initialize(obj, action) { 
+        obj['action'] = action;
     }
 
     /**
@@ -49,8 +49,11 @@ class InlineObject70 {
         if (data) {
             obj = obj || new InlineObject70();
 
-            if (data.hasOwnProperty('totalCost')) {
-                obj['totalCost'] = ApiClient.convertToType(data['totalCost'], 'Number');
+            if (data.hasOwnProperty('action')) {
+                obj['action'] = ApiClient.convertToType(data['action'], 'String');
+            }
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -60,13 +63,39 @@ class InlineObject70 {
 }
 
 /**
- * Для подтверждения нужно вернуть totalCost из калькулятора.
- * @member {Number} totalCost
+ * @member {module:model/InlineObject70.ActionEnum} action
  */
-InlineObject70.prototype['totalCost'] = undefined;
+InlineObject70.prototype['action'] = undefined;
+
+/**
+ * Причина смены статуса.
+ * @member {String} reason
+ */
+InlineObject70.prototype['reason'] = undefined;
 
 
 
+
+
+/**
+ * Allowed values for the <code>action</code> property.
+ * @enum {String}
+ * @readonly
+ */
+InlineObject70['ActionEnum'] = {
+
+    /**
+     * value: "LINK"
+     * @const
+     */
+    "LINK": "LINK",
+
+    /**
+     * value: "UNLINK"
+     * @const
+     */
+    "UNLINK": "UNLINK"
+};
 
 
 

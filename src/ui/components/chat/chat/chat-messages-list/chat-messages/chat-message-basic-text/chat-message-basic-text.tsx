@@ -22,7 +22,6 @@ interface Props {
 export const ChatMessageBasicText: FC<Props> = observer(({message, isIncomming, unReadMessage}) => {
   const classNames = useClassNames()
 
-  // console.log('message.text', message.text)
   return (
     <div className={clsx(classNames.root, {[classNames.rootIsIncomming]: isIncomming})}>
       <div className={classNames.subWrapper}>

@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**apiV1BoxesCancelEditWithDraftGuidPost**](BoxesApi.md#apiV1BoxesCancelEditWithDraftGuidPost) | **POST** /api/v1/boxes/cancel_edit_with_draft/{guid} | # Отменить редактирование коробок сотрудником склада.
 [**apiV1BoxesCancelMergePost**](BoxesApi.md#apiV1BoxesCancelMergePost) | **POST** /api/v1/boxes/cancel-merge | # Отменить объединение коробок.
 [**apiV1BoxesCancelSplitPost**](BoxesApi.md#apiV1BoxesCancelSplitPost) | **POST** /api/v1/boxes/cancel-split | # Отменить разделение коробок.
+[**apiV1BoxesChangeDimensionsGuidPatch**](BoxesApi.md#apiV1BoxesChangeDimensionsGuidPatch) | **PATCH** /api/v1/boxes/change-dimensions/{guid} | # Изменить полей габаритов, массы коробки.
 [**apiV1BoxesClientsGet**](BoxesApi.md#apiV1BoxesClientsGet) | **GET** /api/v1/boxes/clients | # Получить коробки и их строки по текущему клиенту.
 [**apiV1BoxesClientsGuidPatch**](BoxesApi.md#apiV1BoxesClientsGuidPatch) | **PATCH** /api/v1/boxes/clients/{guid} | # Отредактировать коробку клиентом
 [**apiV1BoxesClientsLightGet**](BoxesApi.md#apiV1BoxesClientsLightGet) | **GET** /api/v1/boxes/clients_light | # Получить коробки и их строки по текущему клиенту.
@@ -389,6 +390,62 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
  **body** | [**InlineObject20**](InlineObject20.md)|  | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## apiV1BoxesChangeDimensionsGuidPatch
+
+> String apiV1BoxesChangeDimensionsGuidPatch(guid, opts)
+
+# Изменить полей габаритов, массы коробки.
+
+## Изменить полей габаритов, массы коробки.
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.BoxesApi();
+let guid = null; // String | GUID коробки.
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example", // String | 
+  'body': new TestSwagger.InlineObject24() // InlineObject24 | 
+};
+apiInstance.apiV1BoxesChangeDimensionsGuidPatch(guid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **guid** | [**String**](.md)| GUID коробки. | 
+ **Accept_Encoding** | **String**|  | [optional] 
+ **body** | [**InlineObject24**](InlineObject24.md)|  | [optional] 
 
 ### Return type
 

@@ -5374,11 +5374,6 @@
                           "example": "https://www.mf.com/sdkfjasldf.pdf",
                           "description": "Ссылка на наклейку для коробки"
                         },
-                        "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                        "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                        "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                        "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                        "fitsInitialDimensions": {"type": "boolean", "example": false},
                         "lengthCmSupplier": {
                           "type": "number",
                           "example": 25,
@@ -7470,11 +7465,6 @@
                   "example": 45,
                   "description": "Общий вес кг коробки который назвал поставщик."
                 },
-                "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                "fitsInitialDimensions": {"type": "boolean", "example": false},
                 "lengthCmWarehouse": {
                   "type": "number",
                   "example": 25,
@@ -7623,11 +7613,6 @@
                     "example": "https://www.mf.com/sdkfjasldf.pdf",
                     "description": "Ссылка на наклейку для коробки"
                   },
-                  "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                  "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                  "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                  "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                  "fitsInitialDimensions": {"type": "boolean", "example": false},
                   "lengthCmSupplier": {
                     "type": "number",
                     "example": 25,
@@ -9368,11 +9353,6 @@
                     "example": "https://www.mf.com/sdkfjasldf.pdf",
                     "description": "Ссылка на наклейку для коробки"
                   },
-                  "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                  "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                  "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                  "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                  "fitsInitialDimensions": {"type": "boolean", "example": false},
                   "lengthCmSupplier": {
                     "type": "number",
                     "example": 25,
@@ -11086,11 +11066,6 @@
                     "example": "https://www.mf.com/sdkfjasldf.pdf",
                     "description": "Ссылка на наклейку для коробки"
                   },
-                  "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                  "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                  "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                  "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                  "fitsInitialDimensions": {"type": "boolean", "example": false},
                   "lengthCmSupplier": {
                     "type": "number",
                     "example": 25,
@@ -12784,11 +12759,6 @@
                   "example": 45,
                   "description": "Общий вес кг коробки который назвал поставщик."
                 },
-                "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                "fitsInitialDimensions": {"type": "boolean", "example": false},
                 "lengthCmWarehouse": {
                   "type": "number",
                   "example": 25,
@@ -13245,11 +13215,6 @@
                         "example": 45,
                         "description": "Общий вес кг коробки который назвал поставщик."
                       },
-                      "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                      "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                      "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                      "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                      "fitsInitialDimensions": {"type": "boolean", "example": false},
                       "lengthCmWarehouse": {
                         "type": "number",
                         "example": 25,
@@ -13434,11 +13399,6 @@
                     "example": "https://www.mf.com/sdkfjasldf.pdf",
                     "description": "Ссылка на наклейку для коробки"
                   },
-                  "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                  "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                  "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                  "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                  "fitsInitialDimensions": {"type": "boolean", "example": false},
                   "lengthCmSupplier": {
                     "type": "number",
                     "example": 25,
@@ -15455,11 +15415,6 @@
                     "example": "https://www.mf.com/sdkfjasldf.pdf",
                     "description": "Ссылка на наклейку для коробки"
                   },
-                  "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                  "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                  "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                  "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                  "fitsInitialDimensions": {"type": "boolean", "example": false},
                   "lengthCmSupplier": {
                     "type": "number",
                     "example": 25,
@@ -17170,11 +17125,6 @@
                     "example": "https://www.mf.com/sdkfjasldf.pdf",
                     "description": "Ссылка на наклейку для коробки"
                   },
-                  "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                  "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                  "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                  "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                  "fitsInitialDimensions": {"type": "boolean", "example": false},
                   "lengthCmSupplier": {
                     "type": "number",
                     "example": 25,
@@ -18911,6 +18861,47 @@
             }
           },
           {"type": "string", "format": "uuid", "required": true, "in": "path", "name": "guid"},
+          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
+        ],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/boxes/change-dimensions/{guid}": {
+      "patch": {
+        "summary": "# Изменить полей габаритов, массы коробки.",
+        "description": "## Изменить полей габаритов, массы коробки.",
+        "tags": ["Boxes"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "lengthCmWarehouse": {"type": "number", "minimum": 0, "example": 12.23},
+                "widthCmWarehouse": {"type": "number", "minimum": 0, "example": 234.65},
+                "heightCmWarehouse": {"type": "number", "minimum": 0, "example": 184.65},
+                "weighGrossKgWarehouse": {"type": "number", "minimum": 0, "example": 1.542},
+                "images": {"type": "array", "description": "Массив ссылок на фотографии.", "items": {"type": "string"}}
+              }
+            }
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "GUID коробки.",
+            "required": true,
+            "in": "path",
+            "name": "guid"
+          },
           {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
         ],
         "security": [{"AccessTokenBearer": []}],
@@ -22619,11 +22610,6 @@
                           "example": "https://www.mf.com/sdkfjasldf.pdf",
                           "description": "Ссылка на наклейку для коробки"
                         },
-                        "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                        "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                        "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                        "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                        "fitsInitialDimensions": {"type": "boolean", "example": false},
                         "lengthCmSupplier": {
                           "type": "number",
                           "example": 25,
@@ -24463,11 +24449,6 @@
                           "example": "https://www.mf.com/sdkfjasldf.pdf",
                           "description": "Ссылка на наклейку для коробки"
                         },
-                        "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                        "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                        "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                        "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                        "fitsInitialDimensions": {"type": "boolean", "example": false},
                         "lengthCmSupplier": {
                           "type": "number",
                           "example": 25,
@@ -30915,6 +30896,59 @@
         "security": [{"AccessTokenBearer": []}],
         "responses": {
           "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/dashboard/counts": {
+      "get": {
+        "summary": "# Получить количество основных элементов в бд.",
+        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
+        "tags": ["Client"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "orders": {
+                  "type": "object",
+                  "properties": {"all": {"type": "number"}, "paid": {"type": "number"}, "canceled": {"type": "number"}}
+                },
+                "shops": {
+                  "type": "object",
+                  "properties": {
+                    "all": {"type": "number"},
+                    "moderating": {"type": "number"},
+                    "booked": {"type": "number"}
+                  }
+                },
+                "requests": {
+                  "type": "object",
+                  "properties": {
+                    "all": {"type": "number"},
+                    "inProcess": {"type": "number"},
+                    "noProposals": {"type": "number"}
+                  }
+                },
+                "products": {"type": "object", "properties": {"all": {"type": "number"}, "paid": {"type": "number"}}},
+                "batch": {"type": "object", "properties": {"isBeingCollected": {"type": "number"}}},
+                "boxes": {
+                  "type": "object",
+                  "properties": {
+                    "inStock": {"type": "number"},
+                    "requestedSendToBatch": {"type": "number"},
+                    "inBatchOnTheWay": {"type": "number"}
+                  }
+                }
+              }
+            }
+          },
           "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
           "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
           "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
@@ -37590,11 +37624,6 @@
                           "example": "https://www.mf.com/sdkfjasldf.pdf",
                           "description": "Ссылка на наклейку для коробки"
                         },
-                        "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                        "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                        "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                        "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                        "fitsInitialDimensions": {"type": "boolean", "example": false},
                         "lengthCmSupplier": {
                           "type": "number",
                           "example": 25,
@@ -39434,11 +39463,6 @@
                           "example": "https://www.mf.com/sdkfjasldf.pdf",
                           "description": "Ссылка на наклейку для коробки"
                         },
-                        "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                        "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                        "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                        "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                        "fitsInitialDimensions": {"type": "boolean", "example": false},
                         "lengthCmSupplier": {
                           "type": "number",
                           "example": 25,
@@ -41355,11 +41379,6 @@
                         "example": "https://www.mf.com/sdkfjasldf.pdf",
                         "description": "Ссылка на наклейку для коробки"
                       },
-                      "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                      "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                      "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                      "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                      "fitsInitialDimensions": {"type": "boolean", "example": false},
                       "lengthCmSupplier": {
                         "type": "number",
                         "example": 25,
@@ -43139,11 +43158,6 @@
                         "example": "https://www.mf.com/sdkfjasldf.pdf",
                         "description": "Ссылка на наклейку для коробки"
                       },
-                      "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                      "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                      "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                      "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                      "fitsInitialDimensions": {"type": "boolean", "example": false},
                       "lengthCmSupplier": {
                         "type": "number",
                         "example": 25,
@@ -44981,11 +44995,6 @@
                         "example": 45,
                         "description": "Общий вес кг коробки который назвал поставщик."
                       },
-                      "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                      "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                      "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                      "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                      "fitsInitialDimensions": {"type": "boolean", "example": false},
                       "lengthCmWarehouse": {
                         "type": "number",
                         "example": 25,
@@ -45392,11 +45401,6 @@
                           "example": "https://www.mf.com/sdkfjasldf.pdf",
                           "description": "Ссылка на наклейку для коробки"
                         },
-                        "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                        "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                        "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                        "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                        "fitsInitialDimensions": {"type": "boolean", "example": false},
                         "lengthCmSupplier": {
                           "type": "number",
                           "example": 25,
@@ -47236,11 +47240,6 @@
                           "example": "https://www.mf.com/sdkfjasldf.pdf",
                           "description": "Ссылка на наклейку для коробки"
                         },
-                        "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                        "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                        "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                        "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                        "fitsInitialDimensions": {"type": "boolean", "example": false},
                         "lengthCmSupplier": {
                           "type": "number",
                           "example": 25,
@@ -49210,11 +49209,6 @@
                     "example": "https://www.mf.com/sdkfjasldf.pdf",
                     "description": "Ссылка на наклейку для коробки"
                   },
-                  "deliveryLength": {"type": "number", "description": "Размеры доставки.", "example": 25},
-                  "deliveryWidth": {"type": "number", "description": "Размеры доставки.", "example": 35},
-                  "deliveryHeight": {"type": "number", "description": "Размеры доставки.", "example": 45},
-                  "deliveryMass": {"type": "number", "example": 45, "description": "Масса доставки"},
-                  "fitsInitialDimensions": {"type": "boolean", "example": false},
                   "lengthCmSupplier": {
                     "type": "number",
                     "example": 25,
@@ -51506,48 +51500,6 @@
             "type": "string",
             "format": "uuid",
             "description": "GUID тарифа.",
-            "required": true,
-            "in": "path",
-            "name": "guid"
-          },
-          {"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}
-        ],
-        "security": [{"AccessTokenBearer": []}],
-        "responses": {
-          "204": {"description": "Default Response", "schema": {"$ref": "#/definitions/successBlankResponse"}},
-          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
-          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
-          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
-        }
-      }
-    },
-    "/api/v1/storekeepers/edit/light/{guid}": {
-      "patch": {
-        "summary": "# Изменить полей габаритов, массы коробки и поля fitsInitialDimensions (подходят ли первичные размеры для отправки) для доставки и изображения.",
-        "description": "## Изменить полей deliveryLength, deliveryWidth, deliveryHeight, deliveryMass, fitsInitialDimensions в коробке и изображения",
-        "tags": ["Storekeepers"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "deliveryLength": {"type": "number", "exclusiveMinimum": 0, "example": 12.23},
-                "deliveryHeight": {"type": "number", "exclusiveMinimum": 0, "example": 234.65},
-                "deliveryWidth": {"type": "number", "exclusiveMinimum": 0, "example": 184.65},
-                "deliveryMass": {"type": "number", "exclusiveMinimum": 0, "example": 1.542},
-                "fitsInitialDimensions": {"type": "boolean", "example": true},
-                "images": {"type": "array", "description": "Массив ссылок на фотографии.", "items": {"type": "string"}}
-              }
-            }
-          },
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "GUID коробки.",
             "required": true,
             "in": "path",
             "name": "guid"

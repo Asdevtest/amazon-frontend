@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**suppliersIds** | **[String]** | GUIDы магазинов, которые нужно удалить. | [optional] 
+**shopIds** | **[String]** | GUIDы магазинов, которые нужно добавить к продукту. | [optional] 
 
 

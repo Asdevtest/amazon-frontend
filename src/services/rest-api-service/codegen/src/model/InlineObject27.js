@@ -21,11 +21,13 @@ import ApiClient from '../ApiClient';
 class InlineObject27 {
     /**
      * Constructs a new <code>InlineObject27</code>.
+     * Схема изменения итоговой цены, totalPriceChanged
      * @alias module:model/InlineObject27
+     * @param totalPriceChanged {Number} новое значение изменения итоговой цены.
      */
-    constructor() { 
+    constructor(totalPriceChanged) { 
         
-        InlineObject27.initialize(this);
+        InlineObject27.initialize(this, totalPriceChanged);
     }
 
     /**
@@ -33,7 +35,8 @@ class InlineObject27 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, totalPriceChanged) { 
+        obj['totalPriceChanged'] = totalPriceChanged;
     }
 
     /**
@@ -47,32 +50,8 @@ class InlineObject27 {
         if (data) {
             obj = obj || new InlineObject27();
 
-            if (data.hasOwnProperty('buyerComment')) {
-                obj['buyerComment'] = ApiClient.convertToType(data['buyerComment'], 'String');
-            }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
-            }
-            if (data.hasOwnProperty('logicsTariffId')) {
-                obj['logicsTariffId'] = ApiClient.convertToType(data['logicsTariffId'], 'String');
-            }
-            if (data.hasOwnProperty('destinationId')) {
-                obj['destinationId'] = ApiClient.convertToType(data['destinationId'], 'String');
-            }
-            if (data.hasOwnProperty('images')) {
-                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
-            }
-            if (data.hasOwnProperty('yuanToDollarRate')) {
-                obj['yuanToDollarRate'] = ApiClient.convertToType(data['yuanToDollarRate'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryCostToTheWarehouse')) {
-                obj['deliveryCostToTheWarehouse'] = ApiClient.convertToType(data['deliveryCostToTheWarehouse'], 'Number');
-            }
-            if (data.hasOwnProperty('trackingNumberChina')) {
-                obj['trackingNumberChina'] = ApiClient.convertToType(data['trackingNumberChina'], 'String');
-            }
-            if (data.hasOwnProperty('orderSupplierId')) {
-                obj['orderSupplierId'] = ApiClient.convertToType(data['orderSupplierId'], 'String');
+            if (data.hasOwnProperty('totalPriceChanged')) {
+                obj['totalPriceChanged'] = ApiClient.convertToType(data['totalPriceChanged'], 'Number');
             }
         }
         return obj;
@@ -82,58 +61,10 @@ class InlineObject27 {
 }
 
 /**
- * комментарии байера.
- * @member {String} buyerComment
+ * новое значение изменения итоговой цены.
+ * @member {Number} totalPriceChanged
  */
-InlineObject27.prototype['buyerComment'] = undefined;
-
-/**
- * GUID storekeeper-a
- * @member {String} storekeeperId
- */
-InlineObject27.prototype['storekeeperId'] = undefined;
-
-/**
- * GUID тарифа доставки.
- * @member {String} logicsTariffId
- */
-InlineObject27.prototype['logicsTariffId'] = undefined;
-
-/**
- * GUID пункта назначения.
- * @member {String} destinationId
- */
-InlineObject27.prototype['destinationId'] = undefined;
-
-/**
- * Массив картинок.
- * @member {Array.<String>} images
- */
-InlineObject27.prototype['images'] = undefined;
-
-/**
- * Курс юань доллар.
- * @member {Number} yuanToDollarRate
- */
-InlineObject27.prototype['yuanToDollarRate'] = undefined;
-
-/**
- * Стоимость доставки до склада.
- * @member {Number} deliveryCostToTheWarehouse
- */
-InlineObject27.prototype['deliveryCostToTheWarehouse'] = undefined;
-
-/**
- * Трек номер в ЗАКАЗЕ, по китаю отправленный заказ, до нашего склада. Вводиться баером, в заказ.
- * @member {String} trackingNumberChina
- */
-InlineObject27.prototype['trackingNumberChina'] = undefined;
-
-/**
- * GUID поставщика, для данного заказа.
- * @member {String} orderSupplierId
- */
-InlineObject27.prototype['orderSupplierId'] = undefined;
+InlineObject27.prototype['totalPriceChanged'] = undefined;
 
 
 

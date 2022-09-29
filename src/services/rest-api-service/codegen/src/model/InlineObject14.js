@@ -69,21 +69,6 @@ class InlineObject14 {
             if (data.hasOwnProperty('weighGrossKgSupplier')) {
                 obj['weighGrossKgSupplier'] = ApiClient.convertToType(data['weighGrossKgSupplier'], 'Number');
             }
-            if (data.hasOwnProperty('deliveryLength')) {
-                obj['deliveryLength'] = ApiClient.convertToType(data['deliveryLength'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryWidth')) {
-                obj['deliveryWidth'] = ApiClient.convertToType(data['deliveryWidth'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryHeight')) {
-                obj['deliveryHeight'] = ApiClient.convertToType(data['deliveryHeight'], 'Number');
-            }
-            if (data.hasOwnProperty('deliveryMass')) {
-                obj['deliveryMass'] = ApiClient.convertToType(data['deliveryMass'], 'Number');
-            }
-            if (data.hasOwnProperty('fitsInitialDimensions')) {
-                obj['fitsInitialDimensions'] = ApiClient.convertToType(data['fitsInitialDimensions'], 'Boolean');
-            }
             if (data.hasOwnProperty('lengthCmWarehouse')) {
                 obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
             }
@@ -162,35 +147,6 @@ InlineObject14.prototype['heightCmSupplier'] = undefined;
  * @member {Number} weighGrossKgSupplier
  */
 InlineObject14.prototype['weighGrossKgSupplier'] = undefined;
-
-/**
- * Размеры доставки.
- * @member {Number} deliveryLength
- */
-InlineObject14.prototype['deliveryLength'] = undefined;
-
-/**
- * Размеры доставки.
- * @member {Number} deliveryWidth
- */
-InlineObject14.prototype['deliveryWidth'] = undefined;
-
-/**
- * Размеры доставки.
- * @member {Number} deliveryHeight
- */
-InlineObject14.prototype['deliveryHeight'] = undefined;
-
-/**
- * Масса доставки
- * @member {Number} deliveryMass
- */
-InlineObject14.prototype['deliveryMass'] = undefined;
-
-/**
- * @member {Boolean} fitsInitialDimensions
- */
-InlineObject14.prototype['fitsInitialDimensions'] = undefined;
 
 /**
  * Что фактически пришло на склад. Кладовщик.

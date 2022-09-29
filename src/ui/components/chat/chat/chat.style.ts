@@ -30,6 +30,8 @@ export const useClassNames = makeStyles(() => ({
 
     width: '100%',
     padding: '20px 70px',
+
+    position: 'relative',
   },
 
   btnsWrapper: {
@@ -50,6 +52,8 @@ export const useClassNames = makeStyles(() => ({
 
     alignItems: 'flex-end',
     height: '100%',
+
+    gap: 10,
 
     alignSelf: 'flex-end',
   },
@@ -116,5 +120,13 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'center',
     color: 'white',
     fontSize: 12,
+  },
+
+  emojisWrapper: {
+    zIndex: 999,
+    position: 'absolute',
+    right: 65,
+    bottom: 70,
+    transform: 'translate(-50%, 0%)',
   },
 }))
