@@ -3,9 +3,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 import React from 'react'
 
-import {CircularProgress, Typography} from '@material-ui/core'
-
-import {TranslationKey} from '@constants/translations/translation-key'
+import {Typography} from '@material-ui/core'
 
 import {useClassNames} from '@components/dashboards/dashboard-list-of-any-card/dashboard-list-of-any-card.style'
 
@@ -19,12 +17,9 @@ export const DashboardListOfAnyCard = ({config, configSubTitle, valuesData, onCl
       <Typography className={classNames.cardSubTitle}>{item.title}</Typography>
       <div className={classNames.cardValueWrapper}>
         <Typography className={classNames.cardValueTitle}>
-          {valuesData[item.dataKey] ? (
-            valuesData[item.dataKey]
-          ) : (
-            <CircularProgress color="primary" thickness={2} size={16} />
-          )}
+          {valuesData[item.dataKey] && valuesData[item.dataKey]}
         </Typography>
+
         <ArrowForwardIosIcon fontSize="small" />
       </div>
     </div>

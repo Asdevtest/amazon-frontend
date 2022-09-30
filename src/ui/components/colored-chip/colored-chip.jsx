@@ -1,4 +1,4 @@
-import {React, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Chip, Tooltip} from '@material-ui/core'
 import clsx from 'clsx'
@@ -15,6 +15,7 @@ export const ColoredChip = observer(
     selected = false,
     tooltipInfoContent,
     tooltipAttentionContent,
+
     ...restProps
   }) => {
     const styleProps = {color, colorHover}

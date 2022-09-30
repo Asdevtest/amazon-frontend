@@ -61,7 +61,12 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
 
       <TableCell className={classNames.qtyCell}>
         <Input
-          classes={{root: classNames.inputWrapper, input: classNames.input}}
+          classes={{
+            root: clsx(classNames.inputWrapper, {
+              [classNames.error]: !item.items[0].amount || item.items[0].amount === '0',
+            }),
+            input: classNames.input,
+          }}
           inputProps={{maxLength: 6}}
           value={item.items[0].amount}
           onChange={e => handlers.onChangeQtyInput(e, item._id, item.items[0].order)}
@@ -70,7 +75,12 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
 
       <TableCell className={classNames.standartCell}>
         <Input
-          classes={{root: classNames.inputWrapper, input: classNames.input}}
+          classes={{
+            root: clsx(classNames.inputWrapper, {
+              [classNames.error]: !item.amount || item.amount === '0',
+            }),
+            input: classNames.input,
+          }}
           inputProps={{maxLength: 6}}
           value={item.amount}
           onChange={e => handlers.onChangeFieldInput(e, item._id, 'amount')}

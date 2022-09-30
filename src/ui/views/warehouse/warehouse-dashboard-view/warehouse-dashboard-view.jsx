@@ -63,7 +63,6 @@ export class WarehouseDashboardViewRaw extends Component {
                 <DashboardOneLineCardsList
                   key={item.key}
                   config={item}
-                  configSubTitle={t(TranslationKey['Accrual data'])}
                   valuesData={dashboardData}
                   onClickViewMore={onClickInfoCardViewMode}
                 />

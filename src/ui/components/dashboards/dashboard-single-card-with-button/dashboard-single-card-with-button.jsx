@@ -1,4 +1,4 @@
-import {CircularProgress, Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
@@ -24,11 +24,7 @@ export const DashboardSingleCardWithButton = observer(
             >
               <Typography className={classNames.cardTitle}>{item.title}</Typography>
               <Typography className={classNames.cardValueTitle}>
-                {valuesData[item.dataKey] ? (
-                  valuesData[item.dataKey]
-                ) : (
-                  <CircularProgress color="primary" thickness={2} size={16} />
-                )}
+                {valuesData[item.dataKey] && valuesData[item.dataKey]}
               </Typography>
             </div>
           ))}
