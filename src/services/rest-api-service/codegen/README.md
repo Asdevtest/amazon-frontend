@@ -219,7 +219,8 @@ Class | Method | HTTP request | Description
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksCancelGuidPost**](docs/ClientApi.md#apiV1ClientsTasksCancelGuidPost) | **POST** /api/v1/clients/tasks/cancel/{guid} | # Отменить задачу.
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksGet**](docs/ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя в данном складе.
 *TestSwagger.ClientApi* | [**apiV1ClientsTasksPost**](docs/ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.
-*TestSwagger.ClientApi* | [**apiV1DashboardCountsGet**](docs/ClientApi.md#apiV1DashboardCountsGet) | **GET** /api/v1/dashboard/counts | # Получить количество основных элементов в бд.
+*TestSwagger.ClientApi* | [**apiV1DashboardBuyerCountsGet**](docs/ClientApi.md#apiV1DashboardBuyerCountsGet) | **GET** /api/v1/dashboard/buyer/counts | # Получить количество основных элементов в бд.
+*TestSwagger.ClientApi* | [**apiV1DashboardClientCountsGet**](docs/ClientApi.md#apiV1DashboardClientCountsGet) | **GET** /api/v1/dashboard/client/counts | # Получить количество основных элементов в бд.
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfilePost**](docs/GoLoginApi.md#apiV1GologinProfilePost) | **POST** /api/v1/gologin/profile | # Создать новый профайл пользователя.
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfileProfileIdPatch**](docs/GoLoginApi.md#apiV1GologinProfileProfileIdPatch) | **PATCH** /api/v1/gologin/profile/{profileId} | # Изменить профайл пользователя.
 *TestSwagger.GoLoginApi* | [**apiV1GologinProfileStartPost**](docs/GoLoginApi.md#apiV1GologinProfileStartPost) | **POST** /api/v1/gologin/profile/start | # Запустить пользователя.
@@ -525,13 +526,16 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20012Requests](docs/InlineResponse20012Requests.md)
  - [TestSwagger.InlineResponse20012Shops](docs/InlineResponse20012Shops.md)
  - [TestSwagger.InlineResponse20013](docs/InlineResponse20013.md)
+ - [TestSwagger.InlineResponse20013Finances](docs/InlineResponse20013Finances.md)
+ - [TestSwagger.InlineResponse20013Orders](docs/InlineResponse20013Orders.md)
+ - [TestSwagger.InlineResponse20013Products](docs/InlineResponse20013Products.md)
  - [TestSwagger.InlineResponse20014](docs/InlineResponse20014.md)
  - [TestSwagger.InlineResponse20015](docs/InlineResponse20015.md)
  - [TestSwagger.InlineResponse20016](docs/InlineResponse20016.md)
  - [TestSwagger.InlineResponse20017](docs/InlineResponse20017.md)
  - [TestSwagger.InlineResponse20018](docs/InlineResponse20018.md)
- - [TestSwagger.InlineResponse20018Failed](docs/InlineResponse20018Failed.md)
  - [TestSwagger.InlineResponse20019](docs/InlineResponse20019.md)
+ - [TestSwagger.InlineResponse20019Failed](docs/InlineResponse20019Failed.md)
  - [TestSwagger.InlineResponse2002](docs/InlineResponse2002.md)
  - [TestSwagger.InlineResponse20020](docs/InlineResponse20020.md)
  - [TestSwagger.InlineResponse20021](docs/InlineResponse20021.md)
@@ -553,7 +557,8 @@ Class | Method | HTTP request | Description
  - [TestSwagger.InlineResponse20032](docs/InlineResponse20032.md)
  - [TestSwagger.InlineResponse20033](docs/InlineResponse20033.md)
  - [TestSwagger.InlineResponse20034](docs/InlineResponse20034.md)
- - [TestSwagger.InlineResponse20034Details](docs/InlineResponse20034Details.md)
+ - [TestSwagger.InlineResponse20035](docs/InlineResponse20035.md)
+ - [TestSwagger.InlineResponse20035Details](docs/InlineResponse20035Details.md)
  - [TestSwagger.InlineResponse2004](docs/InlineResponse2004.md)
  - [TestSwagger.InlineResponse2005](docs/InlineResponse2005.md)
  - [TestSwagger.InlineResponse2006](docs/InlineResponse2006.md)

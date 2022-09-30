@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## apiV1StorekeepersGet
 
-> [InlineResponse20029] apiV1StorekeepersGet(opts)
+> [InlineResponse20030] apiV1StorekeepersGet(opts)
 
 # Получить всех сторкиперов(все склады).
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20029]**](InlineResponse20029.md)
+[**[InlineResponse20030]**](InlineResponse20030.md)
 
 ### Authorization
 

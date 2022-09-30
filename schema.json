@@ -30902,7 +30902,7 @@
         }
       }
     },
-    "/api/v1/dashboard/counts": {
+    "/api/v1/dashboard/client/counts": {
       "get": {
         "summary": "# Получить количество основных элементов в бд.",
         "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
@@ -30945,6 +30945,56 @@
                     "requestedSendToBatch": {"type": "number"},
                     "inBatchOnTheWay": {"type": "number"}
                   }
+                }
+              }
+            }
+          },
+          "400": {"description": "Default Response", "schema": {"$ref": "#/definitions/badRequestError"}},
+          "404": {"description": "Default Response", "schema": {"$ref": "#/definitions/notFoundError"}},
+          "500": {"description": "Default Response", "schema": {"$ref": "#/definitions/internalServerError"}}
+        }
+      }
+    },
+    "/api/v1/dashboard/buyer/counts": {
+      "get": {
+        "summary": "# Получить количество основных элементов в бд.",
+        "description": "## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.\n\n",
+        "tags": ["Client"],
+        "produces": ["application/json"],
+        "parameters": [{"in": "header", "name": "Accept-Encoding", "required": false, "type": "string"}],
+        "security": [{"AccessTokenBearer": []}],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "products": {
+                  "type": "object",
+                  "properties": {
+                    "all": {"type": "number"},
+                    "success": {"type": "number"},
+                    "paid": {"type": "number"},
+                    "newSearchFromSupervisor": {"type": "number"},
+                    "newSearchFromClient": {"type": "number"},
+                    "inProcessOfSearching": {"type": "number"},
+                    "canceled": {"type": "number"}
+                  }
+                },
+                "orders": {
+                  "type": "object",
+                  "properties": {
+                    "inProcess": {"type": "number"},
+                    "free": {"type": "number"},
+                    "completed": {"type": "number"},
+                    "all": {"type": "number"},
+                    "paid": {"type": "number"},
+                    "canceled": {"type": "number"}
+                  }
+                },
+                "finances": {
+                  "type": "object",
+                  "properties": {"accruals": {"type": "number"}, "fines": {"type": "number"}}
                 }
               }
             }

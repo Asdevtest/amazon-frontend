@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20013Finances from './InlineResponse20013Finances';
+import InlineResponse20013Orders from './InlineResponse20013Orders';
+import InlineResponse20013Products from './InlineResponse20013Products';
 
 /**
  * The InlineResponse20013 model module.
@@ -47,8 +50,14 @@ class InlineResponse20013 {
         if (data) {
             obj = obj || new InlineResponse20013();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('products')) {
+                obj['products'] = InlineResponse20013Products.constructFromObject(data['products']);
+            }
+            if (data.hasOwnProperty('orders')) {
+                obj['orders'] = InlineResponse20013Orders.constructFromObject(data['orders']);
+            }
+            if (data.hasOwnProperty('finances')) {
+                obj['finances'] = InlineResponse20013Finances.constructFromObject(data['finances']);
             }
         }
         return obj;
@@ -58,10 +67,19 @@ class InlineResponse20013 {
 }
 
 /**
- * id созданного профайла
- * @member {String} profileId
+ * @member {module:model/InlineResponse20013Products} products
  */
-InlineResponse20013.prototype['profileId'] = undefined;
+InlineResponse20013.prototype['products'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20013Orders} orders
+ */
+InlineResponse20013.prototype['orders'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20013Finances} finances
+ */
+InlineResponse20013.prototype['finances'] = undefined;
 
 
 

@@ -30,7 +30,8 @@ Method | HTTP request | Description
 [**apiV1ClientsTasksCancelGuidPost**](ClientApi.md#apiV1ClientsTasksCancelGuidPost) | **POST** /api/v1/clients/tasks/cancel/{guid} | # Отменить задачу.
 [**apiV1ClientsTasksGet**](ClientApi.md#apiV1ClientsTasksGet) | **GET** /api/v1/clients/tasks | # Показать все задачи данного пользователя в данном складе.
 [**apiV1ClientsTasksPost**](ClientApi.md#apiV1ClientsTasksPost) | **POST** /api/v1/clients/tasks | # Создать задачу.
-[**apiV1DashboardCountsGet**](ClientApi.md#apiV1DashboardCountsGet) | **GET** /api/v1/dashboard/counts | # Получить количество основных элементов в бд.
+[**apiV1DashboardBuyerCountsGet**](ClientApi.md#apiV1DashboardBuyerCountsGet) | **GET** /api/v1/dashboard/buyer/counts | # Получить количество основных элементов в бд.
+[**apiV1DashboardClientCountsGet**](ClientApi.md#apiV1DashboardClientCountsGet) | **GET** /api/v1/dashboard/client/counts | # Получить количество основных элементов в бд.
 
 
 
@@ -1452,9 +1453,9 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
-## apiV1DashboardCountsGet
+## apiV1DashboardBuyerCountsGet
 
-> InlineResponse20012 apiV1DashboardCountsGet(opts)
+> InlineResponse20013 apiV1DashboardBuyerCountsGet(opts)
 
 # Получить количество основных элементов в бд.
 
@@ -1475,7 +1476,59 @@ let apiInstance = new TestSwagger.ClientApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example" // String | 
 };
-apiInstance.apiV1DashboardCountsGet(opts).then((data) => {
+apiInstance.apiV1DashboardBuyerCountsGet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Accept_Encoding** | **String**|  | [optional] 
+
+### Return type
+
+[**InlineResponse20013**](InlineResponse20013.md)
+
+### Authorization
+
+[AccessTokenBearer](../README.md#AccessTokenBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## apiV1DashboardClientCountsGet
+
+> InlineResponse20012 apiV1DashboardClientCountsGet(opts)
+
+# Получить количество основных элементов в бд.
+
+## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
+
+### Example
+
+```javascript
+import TestSwagger from 'test_swagger';
+let defaultClient = TestSwagger.ApiClient.instance;
+// Configure API key authorization: AccessTokenBearer
+let AccessTokenBearer = defaultClient.authentications['AccessTokenBearer'];
+AccessTokenBearer.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//AccessTokenBearer.apiKeyPrefix = 'Token';
+
+let apiInstance = new TestSwagger.ClientApi();
+let opts = {
+  'Accept_Encoding': "Accept_Encoding_example" // String | 
+};
+apiInstance.apiV1DashboardClientCountsGet(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
