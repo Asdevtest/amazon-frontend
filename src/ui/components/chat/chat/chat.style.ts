@@ -40,7 +40,6 @@ export const useClassNames = makeStyles(() => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    // padding: '10px',
   },
 
   backBtn: {
@@ -56,6 +55,10 @@ export const useClassNames = makeStyles(() => ({
     gap: 10,
 
     alignSelf: 'flex-end',
+
+    position: 'relative',
+
+    width: 80,
   },
 
   inputWrapper: {
@@ -93,11 +96,25 @@ export const useClassNames = makeStyles(() => ({
   },
 
   inputIcon: {
+    position: 'absolute',
+    width: 38,
+    height: 38,
+
     transition: '0.3s ease',
     cursor: 'pointer',
     '&:hover': {
       transform: 'scale(1.1)',
     },
+  },
+
+  emojiIconPos: {
+    top: -30,
+    left: -5,
+  },
+
+  fileIconPos: {
+    top: -30,
+    left: 32,
   },
 
   filesIconWrapper: {

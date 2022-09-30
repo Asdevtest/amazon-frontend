@@ -21,6 +21,7 @@ export class ClientReadyBoxesViewModel {
   requestStatus = undefined
   error = undefined
 
+  nameSearchValue = ''
   boxesMy = []
   curBox = undefined
 
@@ -57,6 +58,12 @@ export class ClientReadyBoxesViewModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
+  }
+
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
   }
 
   setDataGridState(state) {
@@ -107,8 +114,27 @@ export class ClientReadyBoxesViewModel {
     this.sortModel = e.sortModel
   }
 
+  // getCurrentData() {
+  //   return toJS(this.boxesMy)
+  // }
+
   getCurrentData() {
-    return toJS(this.boxesMy)
+    if (this.nameSearchValue) {
+      return toJS(this.boxesMy).filter(
+        el =>
+          el.originalData.items.some(item =>
+            item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ) ||
+          el.originalData.items.some(item =>
+            item.product?.skusByClient[0]?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ) ||
+          el.originalData.items.some(item =>
+            item.product?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          ),
+      )
+    } else {
+      return toJS(this.boxesMy)
+    }
   }
 
   onClickStorekeeperBtn(storekeeper) {

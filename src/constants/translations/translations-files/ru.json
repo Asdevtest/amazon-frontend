@@ -1554,5 +1554,6 @@
   "Are you sure you want to delete the selected ASINs?": "Вы уверены, что хотите удалить выбранные ASIN?",
   "ASIN cannot contain empty values": "ASIN не может содержать пустые значения",
   "Sizes from buyer": "Размеры от байера",
-  "Incorrect email or password": "Некорректный емайл или пароль"
+  "Incorrect email or password": "Некорректный емайл или пароль",
+  "Search by name, email": "Поиск по имени, почте"
 }

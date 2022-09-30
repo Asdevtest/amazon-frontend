@@ -19,6 +19,7 @@ export class ClientAwaitingBatchesViewModel {
   requestStatus = undefined
   error = undefined
 
+  nameSearchValue = ''
   batches = []
   selectedBatches = []
   curBatch = {}
@@ -79,6 +80,12 @@ export class ClientAwaitingBatchesViewModel {
     }
   }
 
+  onChangeNameSearchValue(e) {
+    runInAction(() => {
+      this.nameSearchValue = e.target.value
+    })
+  }
+
   onChangeFilterModel(model) {
     this.filterModel = model
   }
@@ -104,7 +111,21 @@ export class ClientAwaitingBatchesViewModel {
   }
 
   getCurrentData() {
-    return toJS(this.batches)
+    if (this.nameSearchValue) {
+      return toJS(this.batches).filter(
+        el =>
+          el.originalData.boxes?.some(box =>
+            box.items?.some(item => item.product?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase())),
+          ) ||
+          el.originalData.boxes?.some(box =>
+            box.items?.some(item =>
+              item.product?.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+            ),
+          ),
+      )
+    } else {
+      return toJS(this.batches)
+    }
   }
 
   async loadData() {

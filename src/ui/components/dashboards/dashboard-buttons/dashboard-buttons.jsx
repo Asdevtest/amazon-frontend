@@ -21,6 +21,12 @@ export const DashboardButtons = ({user, routes}) => {
 
   const unreadMessages = ChatModel.unreadMessages
 
+  const notices =
+    user.needConfirmPriceChange?.boxes ||
+    0 + user.needConfirmPriceChange?.orders ||
+    0 + user.needUpdateTariff?.boxes ||
+    0
+
   return (
     <div className={classNames.buttonsWrapper}>
       <div
@@ -29,6 +35,7 @@ export const DashboardButtons = ({user, routes}) => {
       >
         <div className={classNames.iconWrapper}>
           <MyNotificationsIcon classes={{root: classNames.fontSizeLarge}} />
+          {Number(notices) > 0 ? <div className={classNames.badge}>{notices}</div> : undefined}
         </div>
 
         <Typography className={classNames.title}>{t(TranslationKey.Notifications)}</Typography>
@@ -39,6 +46,7 @@ export const DashboardButtons = ({user, routes}) => {
       >
         <div className={classNames.iconWrapper}>
           <Message classes={{root: classNames.fontSizeLarge}} />
+
           {unreadMessages ? <div className={classNames.badge}>{unreadMessages}</div> : undefined}
         </div>
 

@@ -1,7 +1,9 @@
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
+import {InputAdornment} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 
@@ -11,6 +13,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
 import {BatchInfoModal} from '@components/modals/batch-info-modal'
@@ -36,6 +39,7 @@ class ClientAwaitingBatchesViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       selectedBatches,
       volumeWeightCoefficient,
       curBatch,
@@ -64,6 +68,8 @@ class ClientAwaitingBatchesViewRaw extends Component {
 
       setCurrentOpenedBatch,
       onClickCancelSendToBatchBtn,
+
+      onChangeNameSearchValue,
     } = this.viewModel
     const {classes: className} = this.props
 
@@ -85,12 +91,26 @@ class ClientAwaitingBatchesViewRaw extends Component {
                   tooltipInfoContent={t(
                     TranslationKey['Returns all boxes from the selected batch to the "Boxes ready to send" section'],
                   )}
+                  className={className.cancelBtn}
                   color="primary"
                   variant="contained"
                   onClick={() => onTriggerOpenModal('showConfirmModal')}
                 >
                   {t(TranslationKey['Cancel Send'])}
                 </Button>
+
+                <Field
+                  containerClasses={className.searchContainer}
+                  inputClasses={className.searchInput}
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by ASIN, Title'])}
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon color="primary" />
+                    </InputAdornment>
+                  }
+                  onChange={onChangeNameSearchValue}
+                />
               </div>
               <div className={className.datagridWrapper}>
                 <DataGrid

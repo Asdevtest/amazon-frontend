@@ -132,7 +132,11 @@ export class SubUsersViewModel {
 
   getCurrentData() {
     if (this.nameSearchValue) {
-      return toJS(this.subUsersData).filter(el => el.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()))
+      return toJS(this.subUsersData).filter(
+        el =>
+          el.name.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el.email.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+      )
     } else {
       return toJS(this.subUsersData)
     }

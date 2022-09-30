@@ -212,7 +212,7 @@ export const Chat: FC<Props> = observer(
                       <img
                         id="emoji-icon"
                         src={showEmojis ? '/assets/icons/emoji-active.svg' : '/assets/icons/emoji.svg'}
-                        className={classNames.inputIcon}
+                        className={clsx(classNames.inputIcon, classNames.emojiIconPos)}
                         onClick={() => setShowEmojis(!showEmojis)}
                       />
                     </div>
@@ -220,7 +220,7 @@ export const Chat: FC<Props> = observer(
                     <div className={classNames.filesIconWrapper}>
                       <img
                         src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}
-                        className={classNames.inputIcon}
+                        className={clsx(classNames.inputIcon, classNames.fileIconPos)}
                         onClick={() => setShowFiles(!showFiles)}
                       />
                       {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}
