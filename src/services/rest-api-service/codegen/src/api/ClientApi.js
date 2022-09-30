@@ -33,6 +33,7 @@ import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse20010 from '../model/InlineResponse20010';
 import InlineResponse20011 from '../model/InlineResponse20011';
 import InlineResponse20012 from '../model/InlineResponse20012';
+import InlineResponse20013 from '../model/InlineResponse20013';
 import InlineResponse2004 from '../model/InlineResponse2004';
 import InlineResponse2014 from '../model/InlineResponse2014';
 import InlineResponse2015 from '../model/InlineResponse2015';
@@ -1415,9 +1416,56 @@ export default class ClientApi {
      * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20013} and HTTP response
+     */
+    apiV1DashboardBuyerCountsGetWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20013;
+      return this.apiClient.callApi(
+        '/api/v1/dashboard/buyer/counts', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Получить количество основных элементов в бд.
+     * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20013}
+     */
+    apiV1DashboardBuyerCountsGet(opts) {
+      return this.apiV1DashboardBuyerCountsGetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Получить количество основных элементов в бд.
+     * ## Получить количество заказов, магазинов, заявок, товаров, партий и коробок.  
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20012} and HTTP response
      */
-    apiV1DashboardCountsGetWithHttpInfo(opts) {
+    apiV1DashboardClientCountsGetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -1436,7 +1484,7 @@ export default class ClientApi {
       let accepts = ['application/json'];
       let returnType = InlineResponse20012;
       return this.apiClient.callApi(
-        '/api/v1/dashboard/counts', 'GET',
+        '/api/v1/dashboard/client/counts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -1449,8 +1497,8 @@ export default class ClientApi {
      * @param {String} opts.Accept_Encoding 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20012}
      */
-    apiV1DashboardCountsGet(opts) {
-      return this.apiV1DashboardCountsGetWithHttpInfo(opts)
+    apiV1DashboardClientCountsGet(opts) {
+      return this.apiV1DashboardClientCountsGetWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

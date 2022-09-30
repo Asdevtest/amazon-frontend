@@ -21,7 +21,7 @@ import InlineObject49 from '../model/InlineObject49';
 import InlineObject50 from '../model/InlineObject50';
 import InlineObject51 from '../model/InlineObject51';
 import InlineObject52 from '../model/InlineObject52';
-import InlineResponse20014 from '../model/InlineResponse20014';
+import InlineResponse20015 from '../model/InlineResponse20015';
 import InlineResponse2014 from '../model/InlineResponse2014';
 import InternalServerError from '../model/InternalServerError';
 
@@ -275,7 +275,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.productId ID продукта, который должен быть в идее
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20014>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20015>} and HTTP response
      */
     apiV1IdeasGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -295,7 +295,7 @@ export default class IdeaApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20014];
+      let returnType = [InlineResponse20015];
       return this.apiClient.callApi(
         '/api/v1/ideas/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -309,7 +309,7 @@ export default class IdeaApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.productId ID продукта, который должен быть в идее
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20014>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20015>}
      */
     apiV1IdeasGet(opts) {
       return this.apiV1IdeasGetWithHttpInfo(opts)

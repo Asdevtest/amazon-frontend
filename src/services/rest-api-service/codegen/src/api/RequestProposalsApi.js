@@ -24,8 +24,8 @@ import InlineObject68 from '../model/InlineObject68';
 import InlineObject69 from '../model/InlineObject69';
 import InlineObject70 from '../model/InlineObject70';
 import InlineObject91 from '../model/InlineObject91';
-import InlineResponse20022 from '../model/InlineResponse20022';
-import InlineResponse20032 from '../model/InlineResponse20032';
+import InlineResponse20023 from '../model/InlineResponse20023';
+import InlineResponse20033 from '../model/InlineResponse20033';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -55,7 +55,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20032>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20033>} and HTTP response
      */
     apiV1RequestProposalsCustomByRequestIdGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -79,7 +79,7 @@ export default class RequestProposalsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20032];
+      let returnType = [InlineResponse20033];
       return this.apiClient.callApi(
         '/api/v1/request-proposals/custom/by_request_id/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -93,7 +93,7 @@ export default class RequestProposalsApi {
      * @param {String} guid GUID в сущности в БД
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20032>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20033>}
      */
     apiV1RequestProposalsCustomByRequestIdGuidGet(guid, opts) {
       return this.apiV1RequestProposalsCustomByRequestIdGuidGetWithHttpInfo(guid, opts)
@@ -221,7 +221,7 @@ export default class RequestProposalsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<module:model/String>} opts.status Сортировать по статусам.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20022>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20023>} and HTTP response
      */
     apiV1RequestProposalsGetWithHttpInfo(type, kind, opts) {
       opts = opts || {};
@@ -251,7 +251,7 @@ export default class RequestProposalsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20022];
+      let returnType = [InlineResponse20023];
       return this.apiClient.callApi(
         '/api/v1/request-proposals/', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -267,7 +267,7 @@ export default class RequestProposalsApi {
      * @param {Object} opts Optional parameters
      * @param {Array.<module:model/String>} opts.status Сортировать по статусам.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20022>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20023>}
      */
     apiV1RequestProposalsGet(type, kind, opts) {
       return this.apiV1RequestProposalsGetWithHttpInfo(type, kind, opts)

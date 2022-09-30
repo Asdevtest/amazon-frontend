@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCalculateRequestCostGuidGet
 
-> InlineResponse20023 apiV1RequestsCalculateRequestCostGuidGet(guid, opts)
+> InlineResponse20024 apiV1RequestsCalculateRequestCostGuidGet(guid, opts)
 
 Получить детализацию стоимости заявки
 
@@ -115,7 +115,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20023**](InlineResponse20023.md)
+[**InlineResponse20024**](InlineResponse20024.md)
 
 ### Authorization
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGet
 
-> [InlineResponse20033] apiV1RequestsCustomGet(guid, opts)
+> [InlineResponse20034] apiV1RequestsCustomGet(guid, opts)
 
 Получить все уникальные заявки для исполнителя.
 
@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20033]**](InlineResponse20033.md)
+[**[InlineResponse20034]**](InlineResponse20034.md)
 
 ### Authorization
 
@@ -183,7 +183,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsCustomGuidGet
 
-> InlineResponse20034 apiV1RequestsCustomGuidGet(guid, opts)
+> InlineResponse20035 apiV1RequestsCustomGuidGet(guid, opts)
 
 Получить уникальную заявку по его guid.
 
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20034**](InlineResponse20034.md)
+[**InlineResponse20035**](InlineResponse20035.md)
 
 ### Authorization
 
@@ -347,7 +347,7 @@ Name | Type | Description  | Notes
 
 ## apiV1RequestsGet
 
-> [InlineResponse20024] apiV1RequestsGet(type, kind, opts)
+> [InlineResponse20025] apiV1RequestsGet(type, kind, opts)
 
 Получить список заявок
 
@@ -389,7 +389,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20024]**](InlineResponse20024.md)
+[**[InlineResponse20025]**](InlineResponse20025.md)
 
 ### Authorization
 

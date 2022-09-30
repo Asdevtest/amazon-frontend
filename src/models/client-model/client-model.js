@@ -202,7 +202,7 @@ class ClientModelStatic {
   }
 
   getDashboardElementCount = async () => {
-    const response = await restApiService.clientApi.apiV1DashboardCountsGet()
+    const response = await restApiService.clientApi.apiV1DashboardClientCountsGet()
     return response
   }
 }

@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsParseSellercentralGet
 
-> InlineResponse20021 apiV1ProductsParseSellercentralGet(asin, opts)
+> InlineResponse20022 apiV1ProductsParseSellercentralGet(asin, opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20021**](InlineResponse20021.md)
+[**InlineResponse20022**](InlineResponse20022.md)
 
 ### Authorization
 
