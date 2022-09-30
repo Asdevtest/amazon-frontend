@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import Rating from '@mui/material/Rating'
 
 import React from 'react'
 
@@ -111,7 +109,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                     {item.statistics.monthlyPureProfitDiffPercentage < 0 ? (
                       <ArrowDropDownIcon color="error" />
                     ) : (
-                      <ArrowDropUpIcon color="success" className={classNames.green} />
+                      <ArrowDropUpIcon className={classNames.green} />
                     )}
                     <Typography
                       className={clsx(classNames.green, {
@@ -131,7 +129,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                     {item.statistics.monthlyProfitDiffPercentage < 0 ? (
                       <ArrowDropDownIcon color="error" />
                     ) : (
-                      <ArrowDropUpIcon color="success" className={classNames.green} />
+                      <ArrowDropUpIcon className={classNames.green} />
                     )}
                     <Typography
                       className={clsx(classNames.green, {
@@ -151,7 +149,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                     {item.statistics.webpageVisitsDiffPercentage < 0 ? (
                       <ArrowDropDownIcon color="error" />
                     ) : (
-                      <ArrowDropUpIcon color="success" className={classNames.green} />
+                      <ArrowDropUpIcon className={classNames.green} />
                     )}
                     <Typography
                       className={clsx(classNames.green, {

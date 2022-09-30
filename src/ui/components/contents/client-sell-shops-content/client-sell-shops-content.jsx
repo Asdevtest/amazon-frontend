@@ -2,7 +2,7 @@ import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
 
 import React from 'react'
 
-import {Typography, Tabs, Tab} from '@material-ui/core'
+import {Tabs, Tab} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -25,11 +25,7 @@ const TabPanel = ({children, value, index, ...other}) => {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <div className={classNames.tabPanel}>
-          <Typography>{children}</Typography>
-        </div>
-      )}
+      {value === index && <div className={classNames.tabPanel}>{children}</div>}
     </div>
   )
 }

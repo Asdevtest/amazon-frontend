@@ -150,7 +150,7 @@ export const FirstStep = ({
                       className={clsx(classNames.actionDelButton, {
                         [classNames.disabledActionButton]: !assetLine,
                       })}
-                      onClick={assetLine && addAsset}
+                      onClick={() => assetLine && addAsset()}
                     >
                       {'+'}
                     </div>

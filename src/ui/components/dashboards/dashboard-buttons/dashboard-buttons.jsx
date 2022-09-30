@@ -22,10 +22,9 @@ export const DashboardButtons = ({user, routes}) => {
   const unreadMessages = ChatModel.unreadMessages
 
   const notices =
-    user.needConfirmPriceChange?.boxes ||
-    0 + user.needConfirmPriceChange?.orders ||
-    0 + user.needUpdateTariff?.boxes ||
-    0
+    (user.needConfirmPriceChange?.boxes || 0) +
+    (user.needConfirmPriceChange?.orders || 0) +
+    (user.needUpdateTariff?.boxes || 0)
 
   return (
     <div className={classNames.buttonsWrapper}>

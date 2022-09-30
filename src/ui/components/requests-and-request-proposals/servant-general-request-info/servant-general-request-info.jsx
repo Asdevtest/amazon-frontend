@@ -76,9 +76,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
 
               <div className={classNames.requestItemInfoWrapper}>
                 <Typography>{t(TranslationKey.Status)}</Typography>
-                <Typography className={classNames.requestStatus}>
-                  {<RequestStatusCell status={request?.request.status} />}
-                </Typography>
+                <div className={classNames.requestStatus}>{<RequestStatusCell status={request?.request.status} />}</div>
               </div>
             </div>
 
@@ -160,9 +158,7 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
 
           <div className={classNames.requestItemInfoProposalsWrapper}>
             <Typography>{t(TranslationKey.Status)}</Typography>
-            <Typography className={classNames.requestStatus}>
-              {<RequestStatusCell status={request?.request.status} />}
-            </Typography>
+            <div className={classNames.requestStatus}>{<RequestStatusCell status={request?.request.status} />}</div>
           </div>
           <div className={classNames.requestItemInfoProposalsWrapper}>
             <Typography>{t(TranslationKey.Deadline)}</Typography>
