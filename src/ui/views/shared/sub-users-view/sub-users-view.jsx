@@ -106,6 +106,7 @@ class SubUsersViewRaw extends Component {
                 <Field
                   containerClasses={classNames.searchContainer}
                   inputClasses={classNames.searchInput}
+                  placeholder={t(TranslationKey['Search by name, email'])}
                   value={nameSearchValue}
                   endAdornment={
                     <InputAdornment position="start">

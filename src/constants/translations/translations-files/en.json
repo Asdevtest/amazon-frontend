@@ -1538,7 +1538,6 @@
   "Preview": "Preview",
   "Accrual data": "Accrual data",
   "The following ASINs have already been entered into the table": "The following ASINs have already been entered into the table",
-  "Proposal conditions corrected": "Proposal conditions corrected",
   "Removed Ads": "Removed Ads",
   "Primary dimensions": "Primary dimensions",
   "Shipping dimensions": "Shipping dimensions",
@@ -1554,5 +1553,6 @@
   "Are you sure you want to delete the selected ASINs?": "Are you sure you want to delete the selected ASINs?",
   "ASIN cannot contain empty values": "ASIN cannot contain empty values",
   "Sizes from buyer": "Sizes from buyer",
-  "Incorrect email or password": "Incorrect email or password"
+  "Incorrect email or password": "Incorrect email or password",
+  "Search by name, email": "Search by name, email"
 }

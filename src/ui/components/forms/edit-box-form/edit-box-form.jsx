@@ -174,6 +174,7 @@ export const EditBoxForm = observer(
 
     const setShippingLabel = () => value => {
       const newFormFields = {...boxFields}
+      newFormFields.shippingLabel = newFormFields.shippingLabel === null ? null : ''
       newFormFields.tmpShippingLabel = value
 
       setBoxFields(newFormFields)
@@ -185,7 +186,7 @@ export const EditBoxForm = observer(
 
     const onDeleteShippingLabel = () => {
       const newFormFields = {...boxFields}
-      newFormFields.shippingLabel = ''
+      newFormFields.shippingLabel = newFormFields.shippingLabel === null ? null : ''
       newFormFields.tmpShippingLabel = []
       setBoxFields(newFormFields)
     }

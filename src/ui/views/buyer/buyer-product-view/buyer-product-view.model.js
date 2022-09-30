@@ -155,6 +155,15 @@ export class BuyerProductViewModel {
         this.productBase = result
         updateProductAutoCalculatedFields.call(this)
       })
+
+      if (
+        result.status === ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH] ||
+        result.status === ProductStatusByKey[ProductStatus.FROM_CLIENT_TO_BUYER_FOR_RESEARCH]
+      ) {
+        await BuyerModel.pickupProduct(this.productId)
+
+        this.getProductById()
+      }
     } catch (error) {
       console.log(error)
     }

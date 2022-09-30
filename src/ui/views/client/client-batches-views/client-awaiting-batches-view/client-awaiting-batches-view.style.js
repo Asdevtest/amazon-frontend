@@ -50,4 +50,18 @@ export const styles = createStyles(() => ({
     marginTop: '10px',
     height: '81vh',
   },
+
+  searchContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '300px',
+    height: 36,
+  },
+
+  cancelBtn: {
+    whiteSpace: 'nowrap',
+  },
 }))

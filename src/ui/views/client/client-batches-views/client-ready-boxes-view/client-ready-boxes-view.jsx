@@ -1,7 +1,9 @@
+import SearchIcon from '@mui/icons-material/Search'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
+import {InputAdornment} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
@@ -12,6 +14,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
+import {Field} from '@components/field'
 import {BoxViewForm} from '@components/forms/box-view-form'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -37,6 +40,7 @@ export class ClientReadyBoxesViewRaw extends Component {
 
   render() {
     const {
+      nameSearchValue,
       showConfirmModal,
       showBoxViewModal,
       curBox,
@@ -69,6 +73,7 @@ export class ClientReadyBoxesViewRaw extends Component {
       setCurrentOpenedBox,
 
       returnBoxesToStock,
+      onChangeNameSearchValue,
     } = this.viewModel
 
     const {classes: classNames} = this.props
@@ -125,11 +130,25 @@ export class ClientReadyBoxesViewRaw extends Component {
                     TranslationKey['Removes the box for further addition to the batch, returns to My Warehouse'],
                   )}
                   color="primary"
+                  className={classNames.returnButton}
                   variant="contained"
                   onClick={() => onTriggerOpenModal('showConfirmModal')}
                 >
                   {t(TranslationKey['Return to stock'])}
                 </Button>
+
+                <Field
+                  containerClasses={classNames.searchContainer}
+                  inputClasses={classNames.searchInput}
+                  value={nameSearchValue}
+                  placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon color="primary" />
+                    </InputAdornment>
+                  }
+                  onChange={onChangeNameSearchValue}
+                />
               </div>
               <div className={classNames.datagridWrapper}>
                 <DataGrid

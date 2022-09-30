@@ -90,4 +90,18 @@ export const styles = createStyles(theme => ({
     marginTop: '10px',
     height: '77vh',
   },
+
+  searchContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  searchInput: {
+    border: '1px solid #007bff',
+    width: '300px',
+    height: 36,
+  },
+
+  returnButton: {
+    whiteSpace: 'nowrap',
+  },
 }))

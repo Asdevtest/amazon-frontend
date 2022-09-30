@@ -1553,7 +1553,7 @@ export enum TranslationKey {
   'ASIN cannot contain empty values' = 'ASIN cannot contain empty values',
   'Sizes from buyer' = 'Sizes from buyer',
   'Incorrect email or password' = 'Incorrect email or password',
-  // '' = '',
+  'Search by name, email' = 'Search by name, email',
   // '' = '',
 
   // '' = '',
