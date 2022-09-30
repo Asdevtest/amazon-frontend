@@ -87,7 +87,6 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
           disableElevation
           tooltipInfoContent={t(TranslationKey['Closes the store creation/editing window without saving'])}
           className={[classNames.button, classNames.cancelBtn]}
-          color="text"
           variant="contained"
           onClick={() => onCloseModal()}
         >

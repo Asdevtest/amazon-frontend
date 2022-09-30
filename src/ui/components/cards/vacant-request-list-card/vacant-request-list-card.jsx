@@ -66,7 +66,7 @@ export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
               <div className={classNames.timeItemInfoWrapper}>
                 <Typography>{t(TranslationKey.Status)}</Typography>
 
-                <Typography className={classNames.statusText}>{<RequestStatusCell status={item.status} />}</Typography>
+                <div className={classNames.statusText}>{<RequestStatusCell status={item.status} />}</div>
               </div>
             </div>
             <div className={classNames.rightSubBlockWrapper}>

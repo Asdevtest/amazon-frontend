@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 
 import {Typography, Paper, Avatar} from '@material-ui/core'
@@ -65,9 +66,7 @@ export const OwnerGeneralRequestInfo = ({
 
             <div className={classNames.requestItemInfoWrapper}>
               <Typography>{t(TranslationKey.Status)}</Typography>
-              <Typography className={classNames.requestStatus}>
-                {<RequestStatusCell status={request?.request.status} />}
-              </Typography>
+              <div className={classNames.requestStatus}>{<RequestStatusCell status={request?.request.status} />}</div>
             </div>
           </div>
 
