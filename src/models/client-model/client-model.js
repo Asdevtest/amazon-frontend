@@ -200,6 +200,11 @@ class ClientModelStatic {
     })
     return response
   }
+
+  getDashboardElementCount = async () => {
+    const response = await restApiService.clientApi.apiV1DashboardCountsGet()
+    return response
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

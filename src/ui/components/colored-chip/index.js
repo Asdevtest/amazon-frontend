@@ -1,1 +1,1 @@
-export {ColoredChip} from './colored-chip'
+export * from './colored-chip'

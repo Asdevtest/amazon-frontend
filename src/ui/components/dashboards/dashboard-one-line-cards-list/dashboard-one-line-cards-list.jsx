@@ -55,7 +55,7 @@ export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, 
                 <div className={classNames.cardSubWrapper}>
                   <Typography className={classNames.cardSubTitle}>{item.title}</Typography>
                   <Typography className={classNames.cardValueTitle}>
-                    {valuesData[item.dataKey] && valuesData[item.dataKey]}
+                    {valuesData[item.dataKey] ? valuesData[item.dataKey] : null}
                   </Typography>
                   {!valuesData[item.dataKey] && <CircularProgress color="primary" thickness={2} />}
                 </div>

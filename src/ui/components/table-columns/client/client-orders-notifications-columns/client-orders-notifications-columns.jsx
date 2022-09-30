@@ -10,6 +10,7 @@ import {
   MultilineTextHeaderCell,
   MultilineTextCell,
   DownloadAndCopyBtnsCell,
+  MultilineTextAlignLeftCell,
 } from '@components/data-grid-cells/data-grid-cells'
 
 import {toFixedWithDollarSign, toFixedWithKg} from '@utils/text'
@@ -21,7 +22,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
 
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
     headerName: t(TranslationKey.Created),
-    width: 120,
+    width: 100,
     renderCell: params => <NormDateCell params={params} />,
     type: 'date',
   },
@@ -30,7 +31,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'priceChanged',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pay more'])} />,
     headerName: t(TranslationKey['Pay more']),
-    width: 140,
+    width: 100,
     renderCell: params => (
       <MultilineTextCell
         text={(params.row.originalData.totalPriceChanged - params.row.originalData.totalPrice).toFixed(2)}
@@ -61,7 +62,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     field: 'buyerComment',
     headerName: t(TranslationKey['Buyer comment to order']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment to order'])} />,
-    renderCell: params => <MultilineTextCell text={params.value} />,
+    renderCell: params => <MultilineTextAlignLeftCell isComment text={params.value} />,
     width: 450,
   },
 
@@ -70,7 +71,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Status),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
 
-    width: 250,
+    width: 230,
     renderCell: params => (
       <MultilineTextCell
         text={params.value}
@@ -93,8 +94,8 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    type: 'number',
-    width: 150,
+
+    width: 100,
   },
 
   {
@@ -102,7 +103,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 200,
+    width: 150,
   },
 
   {
@@ -111,7 +112,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Planned cost'])} />,
 
     width: 190,
-    type: 'number',
+
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
 
@@ -121,7 +122,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Actual cost'])} />,
 
     width: 160,
-    type: 'number',
+
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
   },
 
@@ -131,7 +132,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of purchase per piece.'])} />,
 
     width: 230,
-    type: 'number',
+
     renderCell: params => (
       <MultilineTextCell
         text={toFixedWithDollarSign(params.row.originalData.totalPriceChanged / params.row.amount, 2)}
@@ -144,7 +145,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey['Total weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total weight'])} />,
 
-    width: 160,
+    width: 100,
     renderCell: params => <MultilineTextCell text={toFixedWithKg(params.value, 2)} />,
   },
   {
@@ -152,7 +153,7 @@ export const clientOrdersNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey['Track number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
-    width: 160,
+    width: 100,
     renderCell: params => <MultilineTextCell text={params.value} />,
   },
 ]
