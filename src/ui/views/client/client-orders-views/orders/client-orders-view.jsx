@@ -42,7 +42,8 @@ class ClientOrdersViewRaw extends Component {
     const {
       confirmModalSettings,
       successModalText,
-      reorderOrder,
+      getCurrentReorderData,
+
       selectedProduct,
       storekeepers,
       destinations,
@@ -152,7 +153,7 @@ class ClientOrdersViewRaw extends Component {
               setOpenModal={() => onTriggerOpenModal('showOrderModal')}
             >
               <OrderProductModal
-                reorderOrder={reorderOrder}
+                reorderOrder={getCurrentReorderData()}
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 destinations={destinations}
                 storekeepers={storekeepers}

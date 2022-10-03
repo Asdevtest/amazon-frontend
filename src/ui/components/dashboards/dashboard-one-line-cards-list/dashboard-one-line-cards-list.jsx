@@ -15,7 +15,7 @@ import {useClassNames} from '@components/dashboards/dashboard-one-line-cards-lis
 import {checkIsPositiveNum} from '@utils/checks'
 import {t} from '@utils/translations'
 
-export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, isClient}) => {
+export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, onClickAddProduct, isClient}) => {
   const classNames = useClassNames()
 
   return (
@@ -26,7 +26,7 @@ export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, 
           <Typography className={classNames.cardListSubTitle}>{config.subTitle}</Typography>
         </div>
         {isClient ? (
-          <Button success className={classNames.addButton} onClick={() => onClickViewMore(config.route)}>
+          <Button success className={classNames.addButton} onClick={() => onClickAddProduct(config.route)}>
             {t(TranslationKey['Add product'])}
           </Button>
         ) : null}

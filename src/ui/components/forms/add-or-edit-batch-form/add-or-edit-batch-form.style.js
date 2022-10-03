@@ -197,4 +197,76 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+
+  addButtonWrapper: {
+    display: 'flex',
+    justifyContent: 'end',
+    marginTop: '15px',
+  },
+
+  '@media (max-width: 768px)': {
+    root: {
+      width: '280px',
+      margin: '0 -10px',
+    },
+    modalTitle: {
+      fontWeight: '600',
+      fontSize: '16px',
+      lineHeight: '22px',
+      color: '#001029',
+    },
+    filtersWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    filterField: {
+      width: '280px',
+    },
+    searchWrapper: {
+      flexDirection: 'column',
+      alignItems: 'start',
+    },
+    searchInput: {
+      width: '280px',
+    },
+    sumsWrapper: {
+      flexDirection: 'column',
+      gap: '10px',
+      width: '280px',
+      marginBottom: '15px',
+    },
+    footerWrapper: {
+      flexDirection: 'column',
+      alignItems: 'end',
+      margin: '25px 0 30px',
+    },
+    sumField: {
+      width: '280px',
+    },
+    uploadFilesWrapper: {
+      width: '280px',
+    },
+    imageFileInputWrapper: {
+      flexDirection: 'column',
+      gap: '40px',
+    },
+    filesWrapper: {
+      width: '280px',
+      overflow: 'auto',
+    },
+    btnsWrapper: {
+      marginTop: '30px',
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '10px',
+    },
+    cancelBtn: {
+      width: '120px',
+    },
+    addButtonWrapper: {
+      display: 'flex',
+      justifyContent: 'end',
+      marginTop: '15px',
+    },
+  },
 }))

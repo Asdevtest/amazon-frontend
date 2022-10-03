@@ -64,10 +64,11 @@ export const styles = theme =>
 
     menuItem: {
       overflow: 'hidden',
+
       width: '100%',
       borderRadius: 0,
       padding: 0,
-      display: 'flex',
+      display: 'inline-flex',
       backgroundColor: 'inherit',
 
       color: theme.palette.text.primary,
