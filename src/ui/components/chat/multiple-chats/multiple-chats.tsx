@@ -7,6 +7,7 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {ChatContract, ChatUserContract} from '@models/chat-model/contracts'
+import {SettingsModel} from '@models/settings-model'
 
 import {OnTypingMessageResponse} from '@services/websocket-chat-service/interfaces'
 
@@ -88,31 +89,33 @@ export const MultipleChats = observer(
               />
             </div>
           }
-          <div className={classNames.chatWrapper}>
-            {isNotUndefined(chatSelectedId) && findChatByChatId ? (
-              <Chat
-                userId={userId}
-                chat={findChatByChatId}
-                messages={findChatByChatId.messages}
-                chatMessageHandlers={chatMessageHandlers}
-                renderAdditionalButtons={renderAdditionalButtons}
-                updateData={updateData}
-                onSubmitMessage={(message: string, files: IFile[]) =>
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  onSubmitMessage(message, files, chatSelectedId!)
-                }
-                onTypingMessage={onTypingMessage}
-              />
-            ) : (
-              <div className={classNames.noChatWrapper}>
-                <img src="/assets/icons/no-chats.svg" />
-                <Typography className={classNames.noChatTitle}>{t(TranslationKey['Choose chat'])}</Typography>
-                <Typography className={classNames.noChatSubTitle}>
-                  {t(TranslationKey['Try selecting a dialogue or Find a concrete speaker'])}
-                </Typography>
-              </div>
-            )}
-          </div>
+          {SettingsModel.languageTag && (
+            <div className={classNames.chatWrapper}>
+              {isNotUndefined(chatSelectedId) && findChatByChatId ? (
+                <Chat
+                  userId={userId}
+                  chat={findChatByChatId}
+                  messages={findChatByChatId.messages}
+                  chatMessageHandlers={chatMessageHandlers}
+                  renderAdditionalButtons={renderAdditionalButtons}
+                  updateData={updateData}
+                  onSubmitMessage={(message: string, files: IFile[]) =>
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                    onSubmitMessage(message, files, chatSelectedId!)
+                  }
+                  onTypingMessage={onTypingMessage}
+                />
+              ) : (
+                <div className={classNames.noChatWrapper}>
+                  <img src="/assets/icons/no-chats.svg" />
+                  <Typography className={classNames.noChatTitle}>{t(TranslationKey['Choose chat'])}</Typography>
+                  <Typography className={classNames.noChatSubTitle}>
+                    {t(TranslationKey['Try selecting a dialogue or Find a concrete speaker'])}
+                  </Typography>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )
     },

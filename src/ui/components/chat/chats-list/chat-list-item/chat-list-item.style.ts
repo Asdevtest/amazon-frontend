@@ -64,6 +64,11 @@ export const useClassNames = makeStyles(() => ({
     fontSize: 14,
     color: '#656565',
 
+    // whiteSpace: 'nowrap',
+
+    width: '140px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
 
@@ -91,5 +96,12 @@ export const useClassNames = makeStyles(() => ({
     margin: 0,
     fontSize: 14,
     color: '#656565',
+  },
+
+  readIconsWrapper: {
+    width: 35,
+    display: 'flex',
+    alignItems: 'flex-end',
+    // marginLeft: 10,
   },
 }))

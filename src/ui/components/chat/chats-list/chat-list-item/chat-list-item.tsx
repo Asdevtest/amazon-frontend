@@ -13,7 +13,6 @@ import {OnTypingMessageResponse} from '@services/websocket-chat-service/interfac
 
 import {formatDateWithoutTime} from '@utils/date-time'
 import {getUserAvatarSrc} from '@utils/get-user-avatar'
-import {shortenLongString} from '@utils/text'
 import {t} from '@utils/translations'
 
 import {useClassNames} from './chat-list-item.style'
@@ -81,9 +80,15 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
               <div className={classNames.lastMessageSubWrapper}>
                 <Avatar src={getUserAvatarSrc(lastMessage.userId)} className={classNames.miniAvatar} />
 
-                <p className={classNames.lastMessageText}>{shortenLongString(message, 18)}</p>
+                <p className={classNames.lastMessageText}>{message}</p>
               </div>
             )}
+
+            {userId === lastMessage.userId ? (
+              <div className={classNames.readIconsWrapper}>
+                <img src={lastMessage.isRead ? '/assets/icons/is-read.svg' : '/assets/icons/no-read.svg'} />
+              </div>
+            ) : null}
 
             {unReadMessages.length ? <div className={classNames.badge}>{unReadMessages.length}</div> : undefined}
           </div>
