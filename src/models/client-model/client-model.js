@@ -205,6 +205,15 @@ class ClientModelStatic {
     const response = await restApiService.clientApi.apiV1DashboardClientCountsGet()
     return response
   }
+
+  getDashboardBuyerElementCount = async () => {
+    const response = await restApiService.clientApi.apiV1DashboardBuyerCountsGet()
+    return response
+  }
+  getDashboardStorekeeperElementCount = async () => {
+    const response = await restApiService.clientApi.apiV1DashboardStorekeeperCountsGet()
+    return response
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

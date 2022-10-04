@@ -252,6 +252,16 @@ export const useClassNames = makeStyles(theme => ({
     //   transform: 'scale(1.1)',
     // },
   },
+  menuClientInfoWrapper: {display: 'none'},
+  menuClientInfo: {display: 'none'},
+  menuClientInfoText: {display: 'none'},
+  mobileAllowedRolesMainWrapper: {},
+  mobileAllowedRolesWrapper: {display: 'none'},
+  mobileUserroleTitle: {display: 'none'},
+  menuClientRoleWrapper: {display: 'none'},
+  mobileAllowedRolesItem: {display: 'none'},
+  indicator: {},
+  userRoleWrapper: {},
 
   '@media (max-width: 768px)': {
     hintsTextActive: {
@@ -283,13 +293,113 @@ export const useClassNames = makeStyles(theme => ({
       height: '32px',
     },
     menu: {
-      width: '170px',
-      marginTop: '40px',
+      width: '161px',
+      marginTop: -16,
       marginLeft: '15px',
       display: 'flex',
+      // height: '150vh !important',
     },
+
     breadCrumbsWrapper: {
       paddingLeft: 10,
+    },
+    menuClientInfoWrapper: {
+      display: 'flex',
+      justifyContent: 'start',
+      marginTop: '2px',
+      gap: 15,
+    },
+    menuClientInfo: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+
+    menuClientInfoText: {
+      display: 'block',
+      fontSize: '14px',
+      lineHeight: '19px',
+      color: '#656565',
+      textAlign: 'end',
+    },
+    mobileAllowedRolesMainWrapper: {
+      // display: 'flex',
+      // flexDirection: 'column',
+    },
+    mobileAllowedRolesWrapper: {
+      width: '161px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'start',
+      marginBottom: '20px',
+    },
+    mobileUserroleTitle: {
+      display: 'block',
+      fontSize: '14px',
+      lineHeight: '19px',
+      color: '#656565',
+      marginTop: '20px',
+      marginBottom: '20px',
+      textTransform: 'capitalize',
+    },
+    menuClientRoleWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'start',
+    },
+    userrole: {
+      marginRight: 0,
+      color: '#656565',
+      fontSize: '14px',
+      lineHeight: '19px',
+      padding: 0,
+      fontWeight: 600,
+      borderRadius: 0,
+      marginBottom: 10,
+    },
+    сurrentAllowedRolesItem: {
+      background: '#fff',
+
+      borderBottom: 0,
+      color: '#006CFF',
+    },
+    menuWrapper: {
+      display: 'flex',
+
+      justifyContent: 'start',
+      width: '161px',
+      padding: '13px 0 13px 10px',
+      fontSize: 16,
+      lineHeight: '22px',
+      fontWeight: 400,
+      color: '#001029',
+      backgroundColor: '#fff',
+
+      '&:hover': {
+        backgroundColor: '#CCE2FF',
+      },
+    },
+    allowedRolesWrapper: {
+      flexDirection: 'column',
+      marginRight: '30px',
+    },
+    allowedRolesItem: {
+      color: 'rgba(0, 0, 0, 0.54)',
+      fontSize: '16px',
+      transition: '.15s ease-in-out',
+      '&:hover': {
+        color: '#0460DE',
+        transform: 'scale(1.01)',
+      },
+    },
+    indicator: {
+      display: 'block',
+      width: '2px',
+      height: '16px',
+      backgroundColor: '#006CFF',
+    },
+    userRoleWrapper: {
+      display: 'flex',
+      gap: 5,
     },
   },
 

@@ -81,7 +81,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
       ) : (
         <MultilineTextCell text={params.value} />
       ),
-    width: 100,
+    width: 90,
   },
 
   {
@@ -139,7 +139,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
         />
       </div>
     ),
-    minWidth: 230,
+    minWidth: 220,
     headerAlign: 'center',
   },
 
@@ -168,7 +168,7 @@ export const clientBoxesViewColumns = (handlers, storekeepersData) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    width: 140,
+    width: 120,
     type: 'date',
   },
 ]

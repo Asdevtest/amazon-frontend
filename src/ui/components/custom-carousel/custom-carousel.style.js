@@ -152,6 +152,7 @@ export const useClassNames = makeStyles(() => ({
   emptyProposalsIconWrapper: {
     display: 'flex',
     justifyContent: 'center',
+    flexDirection: 'column',
     alignItems: 'center',
     margin: '24px 0 24px 0',
   },

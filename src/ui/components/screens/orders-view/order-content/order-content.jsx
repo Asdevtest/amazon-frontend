@@ -34,6 +34,10 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
 
   const [headCells, setHeadCells] = useState(CLIENT_WAREHOUSE_HEAD_CELLS)
 
+  // useEffect(() => {
+  //   setUpdatedProduct(() => ({...product}))
+  // }, [SettingsModel.languageTag, product])
+
   const renderHeadRow = () => (
     <TableRow>
       {headCells.map((item, index) => (

@@ -266,7 +266,7 @@ export const AddOrEditBatchForm = observer(
             />
           </div>
 
-          <div className={classNames.btnsWrapper}>
+          <div className={classNames.addButtonWrapper}>
             <Button
               tooltipAttentionContent={!chosenBoxes.length && !batchToEdit && t(TranslationKey['First select one box'])}
               disabled={!boxesToAddIds.length || (!chosenBoxes.length && boxesToAddIds.length !== 1 && !batchToEdit)}
@@ -363,7 +363,12 @@ export const AddOrEditBatchForm = observer(
                 containerClasses={classNames.filesWrapper}
                 label={t(TranslationKey.Files)}
                 inputComponent={
-                  <PhotoAndFilesCarousel small files={batchToEdit?.originalData.attachedDocuments} width="400px" />
+                  <PhotoAndFilesCarousel
+                    small
+                    direction={window.screen.width < 768 ? 'column' : 'row'}
+                    files={batchToEdit?.originalData.attachedDocuments}
+                    width={window.screen.width < 768 ? '100%' : '400px'}
+                  />
                 }
               />
             </div>

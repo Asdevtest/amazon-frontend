@@ -20,7 +20,7 @@ import InlineObject60 from '../model/InlineObject60';
 import InlineObject61 from '../model/InlineObject61';
 import InlineObject62 from '../model/InlineObject62';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse20022 from '../model/InlineResponse20022';
+import InlineResponse20023 from '../model/InlineResponse20023';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -374,7 +374,7 @@ export default class ProductApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20022} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20023} and HTTP response
      */
     apiV1ProductsParseSellercentralGetWithHttpInfo(asin, opts) {
       opts = opts || {};
@@ -399,7 +399,7 @@ export default class ProductApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20022;
+      let returnType = InlineResponse20023;
       return this.apiClient.callApi(
         '/api/v1/products/parse_sellercentral', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -414,7 +414,7 @@ export default class ProductApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.price Цена продукта.
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20022}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20023}
      */
     apiV1ProductsParseSellercentralGet(asin, opts) {
       return this.apiV1ProductsParseSellercentralGetWithHttpInfo(asin, opts)

@@ -47,6 +47,7 @@ export class ClientDashboardViewRaw extends Component {
       onClickAddMoney,
       onClickWithdrawMoney,
       onClickInfoCardViewMode,
+      onClickAddProduct,
     } = this.viewModel
     const {classes} = this.props
     const clientButtonsRoutes = {
@@ -95,6 +96,7 @@ export class ClientDashboardViewRaw extends Component {
                 config={getClientDashboardCardConfig()}
                 valuesData={dashboardData}
                 onClickViewMore={onClickInfoCardViewMode}
+                onClickAddProduct={onClickAddProduct}
               />
             </MainContent>
           </Appbar>

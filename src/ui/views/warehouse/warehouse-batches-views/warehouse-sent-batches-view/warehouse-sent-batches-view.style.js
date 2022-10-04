@@ -72,4 +72,9 @@ export const styles = createStyles(theme => ({
     marginTop: '10px',
     height: '82vh',
   },
+  '@media (max-width: 768px)': {
+    toolbarContainer: {
+      visibility: 'hidden',
+    },
+  },
 }))

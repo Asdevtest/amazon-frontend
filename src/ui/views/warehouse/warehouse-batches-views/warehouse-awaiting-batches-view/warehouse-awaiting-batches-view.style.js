@@ -96,4 +96,44 @@ export const styles = createStyles(theme => ({
     width: '300px',
     height: 36,
   },
+  '@media (max-width: 768px)': {
+    toolbarContainer: {
+      visibility: 'hidden',
+    },
+    btnsWrapper: {
+      display: 'flex',
+      flexDirection: 'column-reverse',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      margin: '15px 0',
+      gap: 15,
+      '& > :nth-child(1)': {
+        order: 0,
+      },
+      '&> :nth-child(2)': {
+        order: 2,
+      },
+      '&> :nth-child(3)': {
+        order: 1,
+      },
+    },
+    searchInput: {
+      width: '280px',
+    },
+    leftBtnsWrapper: {
+      gap: '15px',
+    },
+    editBtn: {
+      width: '280px',
+    },
+    batchBtn: {
+      width: '280px',
+    },
+    createBtn: {
+      width: '280px',
+    },
+    searchContainer: {
+      margin: 0,
+    },
+  },
 }))

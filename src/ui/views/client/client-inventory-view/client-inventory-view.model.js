@@ -124,7 +124,7 @@ export class ClientInventoryViewModel {
   priceForSeekSupplier = 0
   currentBarcode = ''
   currentHscode = ''
-
+  isModalOpen = false
   barCodeHandlers = {
     onClickBarcode: item => this.onClickBarcode(item),
     onDoubleClickBarcode: item => this.onDoubleClickBarcode(item),
@@ -182,6 +182,7 @@ export class ClientInventoryViewModel {
 
     if (location.state) {
       this.isArchive = location.state.isArchive
+      this.isModalOpen = location.state.isModalOpen
     }
 
     makeAutoObservable(this, undefined, {autoBind: true})
@@ -348,10 +349,11 @@ export class ClientInventoryViewModel {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
       this.getDataGridState()
+
       await this.getShops()
 
       await this.getProductsMy()
-
+      this.isModalOpen && this.onTriggerOpenModal('showSendOwnProductModal')
       await this.getOrders()
 
       this.setRequestStatus(loadingStatuses.success)

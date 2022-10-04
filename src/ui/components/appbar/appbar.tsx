@@ -196,6 +196,70 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               classes={{paper: classNames.menu, list: classNames.list}}
               onClose={handleClose}
             >
+              <MenuItem className={classNames.menuClientInfoWrapper}>
+                <div className={classNames.menuClientInfo}>
+                  <Typography className={classNames.menuClientInfoText}>
+                    {componentModel.current.userName.length > 10
+                      ? componentModel.current.userName.slice(0, 10) + '...'
+                      : componentModel.current.userName}
+                  </Typography>
+
+                  <Typography className={classNames.menuClientInfoText}>
+                    {toFixedWithDollarSign(componentModel.current.balance, 2)}
+                  </Typography>
+                </div>
+
+                <Avatar className={classNames.avatar} src={getUserAvatarSrc(componentModel.current.userId)} />
+              </MenuItem>
+              <MenuItem className={classNames.mobileAllowedRolesWrapper}>
+                <Typography className={classNames.mobileUserroleTitle}>{t(TranslationKey['your role:'])}</Typography>
+                <div className={classNames.mobileAllowedRolesMainWrapper}>
+                  {/* {!componentModel.current.masterUser ? ( */}
+                  {/* <div className={classNames.allowedRolesWrapper}>
+                {allowedRolesWithoutCandidate?.map((roleCode: number) => (
+                  <Button
+                    key={roleCode}
+                    variant={'text'}
+                    className={clsx(classNames.allowedRolesItem, {
+                      [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
+                    })}
+                    onClick={() => onChangeUserInfo(roleCode)}
+                  >
+                    {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
+                  </Button>
+                ))}
+              </div> */}
+                  {/* ) : null} */}
+
+                  {allowedRolesWithoutCandidate?.length > 1 ? (
+                    <div className={classNames.allowedRolesWrapper}>
+                      {allowedRolesWithoutCandidate?.map((roleCode: number) => (
+                        <div key={roleCode} className={classNames.userRoleWrapper}>
+                          {roleCode === componentModel.current.role ? (
+                            <span className={classNames.indicator}></span>
+                          ) : null}
+
+                          <Typography
+                            className={clsx(classNames.userrole, {
+                              [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
+                            })}
+                            onClick={() => onChangeUserInfo(roleCode)}
+                          >
+                            {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
+                          </Typography>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={classNames.userRoleWrapper}>
+                      <span className={classNames.indicator}></span>
+                      <Typography className={clsx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
+                        {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
+                      </Typography>
+                    </div>
+                  )}
+                </div>
+              </MenuItem>
               <MenuItem className={classNames.menuWrapper} onClick={onClickProfile}>
                 <PersonIcon color="primary" classes={{root: classNames.icon}} />
                 {t(TranslationKey.Profile)}

@@ -63,4 +63,42 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-between',
     width: '400px',
   },
+
+  '@media (max-width: 768px)': {
+    batchesExistBlock: {
+      width: '280px',
+    },
+
+    messageWrapper: {
+      width: '214px',
+      textAlign: 'center',
+      margin: '0 auto',
+      marginTop: '10px',
+      color: '#001029',
+
+      '& > :nth-child(n)': {
+        fontSize: '12px',
+        lineHeight: '16px',
+      },
+    },
+    btnsSecondWrapper: {
+      marginTop: '20px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '300px',
+      gap: 10,
+    },
+    cancelBtn: {
+      marginLeft: 0,
+    },
+
+    title: {
+      fontSize: '16px',
+      fontWeight: 600,
+      lineHeight: '22px',
+      color: '#001029',
+    },
+  },
 }))

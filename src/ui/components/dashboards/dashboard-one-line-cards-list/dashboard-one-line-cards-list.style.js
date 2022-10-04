@@ -13,7 +13,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'column',
-    marginTop: '5px',
+    // marginTop: '5px',
 
     '&:hover': {
       background: 'linear-gradient(157deg,#fff 50%, #d8fded 50%);',
@@ -80,16 +80,18 @@ export const useClassNames = makeStyles(() => ({
       height: '91px',
     },
     swiper: {
+      minWidth: '300px',
       height: 150,
       margin: '0 5px',
-      padding: '0 20px',
+      padding: '0 10px',
+      marginBottom: '15px',
     },
 
     cardListTitle: {
-      marginLeft: '25px',
+      marginLeft: '15px',
     },
     cardListSubTitle: {
-      marginLeft: '25px',
+      marginLeft: '15px',
     },
   },
 }))

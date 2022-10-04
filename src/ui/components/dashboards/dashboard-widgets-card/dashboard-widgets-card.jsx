@@ -13,7 +13,7 @@ import {DashboardSingleCardWithButton} from '../dashboard-single-card-with-butto
 // import {t} from '@utils/translations'
 import {useClassNames} from './dashboard-widgets-card.style'
 
-export const DashboardWidgetsCard = observer(({config, valuesData, onClickViewMore}) => {
+export const DashboardWidgetsCard = observer(({config, valuesData, onClickViewMore, onClickAddProduct}) => {
   const classNames = useClassNames()
 
   return (
@@ -24,6 +24,7 @@ export const DashboardWidgetsCard = observer(({config, valuesData, onClickViewMo
         configSubTitle={t(TranslationKey['Your product list data'])}
         valuesData={valuesData}
         onClickViewMore={onClickViewMore}
+        onClickAddProduct={onClickAddProduct}
       />
       <div className={classNames.bottomWidgetsWrapper}>
         <DashboardListOfAnyCard

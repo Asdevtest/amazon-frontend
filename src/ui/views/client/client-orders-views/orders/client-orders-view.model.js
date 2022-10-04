@@ -175,6 +175,10 @@ export class ClientOrdersViewModel {
     }
   }
 
+  getCurrentReorderData() {
+    return toJS(this.reorderOrder)
+  }
+
   async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
