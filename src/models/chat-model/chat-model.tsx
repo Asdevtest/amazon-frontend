@@ -258,13 +258,15 @@ class ChatModelStatic {
   }
 
   private onReadMessage(response: OnReadMessageResponse) {
+    console.log('***MY_MESSAGE_IS_READ_!!!')
+
     const findChatIndexById = this.chats.findIndex((chat: ChatContract) => chat._id === response.chatId)
 
     if (findChatIndexById !== -1) {
       runInAction(() => {
         this.chats[findChatIndexById].messages = [
           ...this.chats[findChatIndexById].messages.map(mes =>
-            mes._id === response.messageId ? {...mes, isRead: true} : mes,
+            response.messagesId.includes(mes._id) ? {...mes, isRead: true} : mes,
           ),
         ]
       })
@@ -276,7 +278,7 @@ class ChatModelStatic {
       runInAction(() => {
         this.simpleChats[findSimpleChatIndexById].messages = [
           ...this.simpleChats[findSimpleChatIndexById].messages.map(mes =>
-            mes._id === response.messageId ? {...mes, isRead: true} : mes,
+            response.messagesId.includes(mes._id) ? {...mes, isRead: true} : mes,
           ),
         ]
       })
@@ -284,7 +286,7 @@ class ChatModelStatic {
   }
 
   private onTypingMessage(response: OnTypingMessageResponse) {
-    console.log('***ON_TYPING_MESSAGE!!!')
+    // console.log('***ON_TYPING_MESSAGE!!!')
 
     runInAction(() => {
       this.typingUsers = [...this.typingUsers, response]

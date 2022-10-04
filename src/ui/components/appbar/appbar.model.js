@@ -54,4 +54,8 @@ export class AppbarModel {
       console.log(error)
     }
   }
+
+  changeUiTheme(theme) {
+    SettingsModel.setUiTheme(theme)
+  }
 }

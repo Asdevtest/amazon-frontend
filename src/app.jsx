@@ -4,10 +4,7 @@ import * as Sentry from '@sentry/react'
 import {useEffect} from 'react'
 
 import {CssBaseline} from '@material-ui/core'
-import {ThemeProvider} from '@material-ui/styles'
-import FaviconNotificationContextProvider, {useFaviconNotification} from 'react-favicon-notification'
-
-import {muiTheme} from '@constants/mui-theme'
+import {useFaviconNotification} from 'react-favicon-notification'
 
 import {MainNav} from '@navigation/main-nav'
 
@@ -41,11 +38,9 @@ export const App = () => {
   return (
     <div className="App">
       <Sentry.ErrorBoundary showDialog fallback={myFallback}>
-        <ThemeProvider theme={muiTheme}>
-          <CssBaseline />
+        <CssBaseline />
 
-          <MainNav />
-        </ThemeProvider>
+        <MainNav />
       </Sentry.ErrorBoundary>
     </div>
   )

@@ -1,4 +1,6 @@
+import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import PersonIcon from '@mui/icons-material/Person'
+import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {useRef, useState, FC} from 'react'
@@ -13,8 +15,11 @@ import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
+import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-roles'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {BreadCrumbsLine} from '@components/bread-crumbs-line'
 // import {Badge} from '@components/badge'
@@ -74,6 +79,10 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
     history.push('/profile')
   }
 
+  const onClickThemeIcon = (theme: string) => {
+    componentModel.current.changeUiTheme(theme)
+  }
+
   const allowedRolesWithoutCandidate = componentModel.current.allowedRoles?.filter(
     (el: number) => el !== (mapUserRoleEnumToKey as {[key: string]: number})[UserRole.CANDIDATE],
   )
@@ -103,23 +112,6 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
             <Typography className={classNames.userroleTitle}>{t(TranslationKey['your role:'])}</Typography>
 
             <div className={classNames.allowedRolesMainWrapper}>
-              {/* {!componentModel.current.masterUser ? ( */}
-              {/* <div className={classNames.allowedRolesWrapper}>
-                {allowedRolesWithoutCandidate?.map((roleCode: number) => (
-                  <Button
-                    key={roleCode}
-                    variant={'text'}
-                    className={clsx(classNames.allowedRolesItem, {
-                      [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
-                    })}
-                    onClick={() => onChangeUserInfo(roleCode)}
-                  >
-                    {(UserRoleCodeMap as {[key: number]: string})[roleCode]}
-                  </Button>
-                ))}
-              </div> */}
-              {/* ) : null} */}
-
               {allowedRolesWithoutCandidate?.length > 1 ? (
                 <div className={classNames.allowedRolesWrapper}>
                   {allowedRolesWithoutCandidate?.map((roleCode: number) => (
@@ -147,8 +139,22 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
             <NotificationsIcon color="action" />
           </Badge> */}
 
-            <div className={classNames.languageSelectorWrapper}>
+            <div className={classNames.selectorsWrapper}>
               <LanguageSelector />
+
+              {SettingsModel.uiTheme === UiTheme.light ? (
+                <WbSunnyRoundedIcon
+                  color="primary"
+                  className={classNames.themeIcon}
+                  // onClick={() => onClickThemeIcon(UiTheme.dark)}
+                />
+              ) : (
+                <Brightness3RoundedIcon
+                  color="primary"
+                  className={classNames.themeIcon}
+                  // onClick={() => onClickThemeIcon(UiTheme.light)}
+                />
+              )}
             </div>
 
             <Divider orientation="vertical" className={classNames.hideOnModile} />

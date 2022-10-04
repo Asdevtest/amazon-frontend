@@ -1,15 +1,7 @@
 import {createTheme} from '@material-ui/core'
 import {grey} from '@material-ui/core/colors'
 
-export const muiTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#007bff',
-    },
-    text: {
-      primary: '#3d5170',
-    },
-  },
+const baseThemeSettings = {
   typography: {
     fontFamily: ['Manrope', 'sans-serif'],
 
@@ -37,6 +29,52 @@ export const muiTheme = createTheme({
       body: {
         color: grey[600],
       },
+    },
+  },
+}
+
+export const lightTheme = createTheme({
+  ...baseThemeSettings,
+
+  palette: {
+    primary: {
+      main: '#007bff',
+    },
+    text: {
+      primary: '#3d5170',
+      general: '#001029',
+      second: '#656565',
+    },
+
+    background: {
+      main: '#fff',
+    },
+
+    icons: {
+      navbar: '#000000',
+    },
+  },
+})
+
+export const darkTheme = createTheme({
+  ...baseThemeSettings,
+
+  palette: {
+    primary: {
+      main: '#008CF1',
+    },
+    text: {
+      primary: '#3d5170',
+      general: '#fff',
+      second: '#E1E1E1',
+    },
+
+    background: {
+      main: '#2B2B34',
+    },
+
+    icons: {
+      navbar: '#fff',
     },
   },
 })
