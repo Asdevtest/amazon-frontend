@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {CircularProgress, Typography} from '@material-ui/core'
 import clsx from 'clsx'
@@ -12,11 +12,18 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Button} from '@components/buttons/button'
 import {useClassNames} from '@components/dashboards/dashboard-one-line-cards-list/dashboard-one-line-cards-list.style'
 
-import {checkIsPositiveNum} from '@utils/checks'
 import {t} from '@utils/translations'
 
 export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, onClickAddProduct, isClient}) => {
   const classNames = useClassNames()
+  const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const resizeScreen = () => {
+      setCurrentScreenWidth(window.innerWidth)
+    }
+    window.addEventListener('resize', resizeScreen)
+  }, [window.innerWidth])
 
   return (
     <div className={classNames.cardListWrapper}>
@@ -34,12 +41,11 @@ export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, 
 
       <div className={classNames.cardsWrapper}>
         <Swiper
-          // loop
-          // loopFillGroupWithBlank
           navigation={config.items.length > 4 || window.innerWidth > 768}
-          slidesPerView={window.innerWidth > 768 ? 4 : 1}
-          spaceBetween={window.innerWidth > 768 ? 50 : -20}
-          // slidesPerGroup={1}
+          slidesPerView={currentScreenWidth > 768 ? 4 : 2}
+          spaceBetween={
+            currentScreenWidth <= 370 ? 220 : currentScreenWidth > 370 && currentScreenWidth <= 480 ? 170 : 50
+          }
           modules={[Navigation]}
           className={classNames.swiper}
         >

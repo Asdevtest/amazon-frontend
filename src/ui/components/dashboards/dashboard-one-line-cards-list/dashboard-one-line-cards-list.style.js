@@ -80,6 +80,7 @@ export const useClassNames = makeStyles(() => ({
       height: '91px',
     },
     swiper: {
+      minWidth: '300px',
       height: 150,
       margin: '0 5px',
       padding: '0 10px',
