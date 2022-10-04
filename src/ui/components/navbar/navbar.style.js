@@ -1,6 +1,10 @@
 import {makeStyles} from '@material-ui/styles'
 
 export const useClassNames = makeStyles(theme => ({
+  mainWrapper: {
+    backgroundColor: theme.palette.background.main,
+  },
+
   root: {
     zIndex: 1200,
     width: '240px',
@@ -26,6 +30,8 @@ export const useClassNames = makeStyles(theme => ({
     height: theme.spacing(7),
     flexShrink: 0,
     width: '240px',
+
+    backgroundColor: 'inherit',
   },
   logo: {
     marginTop: '15px',
@@ -62,6 +68,10 @@ export const useClassNames = makeStyles(theme => ({
   },
   arrowIcon: {
     marginLeft: 8,
+  },
+
+  categoriesWrapper: {
+    backgroundColor: theme.palette.background.main,
   },
 
   '@media (max-width: 959px)': {

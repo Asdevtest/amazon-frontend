@@ -107,7 +107,7 @@ export class WebsocketChatService {
   }
 
   public async readMessage(messageIds: string[]): Promise<ChatMessage> {
-    console.log('***READ_MESSAGE!!!')
+    console.log('***READ_OPPONENT_MESSAGE!!!')
 
     return new Promise(() => {
       this.socket.emit(EentToEmit.READ_MESSAGE, {messageIds})

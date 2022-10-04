@@ -1,6 +1,7 @@
 import {makeAutoObservable, reaction} from 'mobx'
 import {makePersistable} from 'mobx-persist-store'
 
+import {UiTheme} from '@constants/themes'
 import {LanguageKey} from '@constants/translations/language-key'
 
 import {setI18nConfig} from '@utils/translations'
@@ -11,6 +12,7 @@ const persistProperties = [
   'viewTableModeState',
   'languageTag',
   'chatMessageState',
+  'uiTheme',
 ]
 
 const stateModelName = 'SettingsModel'
@@ -21,6 +23,7 @@ class SettingsModelStatic {
   chatMessageState = undefined
 
   languageTag = LanguageKey.en
+  uiTheme = UiTheme.light
   isHydrated = false
 
   showHints = true
@@ -68,6 +71,10 @@ class SettingsModelStatic {
 
   setLanguageTag(languageKey) {
     this.languageTag = languageKey
+  }
+
+  setUiTheme(theme) {
+    this.uiTheme = theme
   }
 }
 

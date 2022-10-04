@@ -201,11 +201,11 @@ export const useClassNames = makeStyles(theme => ({
     color: '#0460DE',
   },
 
-  languageSelectorWrapper: {
-    width: '90px',
+  selectorsWrapper: {
+    width: '110px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
 
   breadCrumbsWrapper: {
@@ -243,6 +243,14 @@ export const useClassNames = makeStyles(theme => ({
 
   menuIcon: {
     color: '#006CFF',
+  },
+
+  themeIcon: {
+    // cursor: 'pointer',
+    transition: '0.3s ease',
+    // '&:hover': {
+    //   transform: 'scale(1.1)',
+    // },
   },
 
   '@media (max-width: 768px)': {

@@ -37,7 +37,7 @@ export const Navbar = observer(
     }, [shortNavbar])
 
     const drawerContent = (
-      <React.Fragment>
+      <div className={classNames.mainWrapper}>
         {!shortNavbar ? (
           <div className={classNames.logoWrapper}>
             <img alt="company logo" className={classNames.logo} src={'/assets/icons/logo-01.08.svg'} />
@@ -76,10 +76,10 @@ export const Navbar = observer(
             )}
           </List>
         ) : null}
-      </React.Fragment>
+      </div>
     )
     return (
-      <React.Fragment>
+      <div className={classNames.mainWrapper}>
         <Hidden smDown>
           <Drawer
             open
@@ -112,7 +112,7 @@ export const Navbar = observer(
             <ArrowBackIosIcon className={classNames.arrowIcon} color="primary" />
           )}
         </div>
-      </React.Fragment>
+      </div>
     )
   },
 )

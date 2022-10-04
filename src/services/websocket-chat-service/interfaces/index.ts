@@ -32,7 +32,7 @@ export interface TypingMessageRequestParams {
 
 export interface OnReadMessageResponse {
   chatId: string
-  messageId: string
+  messagesId: string[]
 }
 
 export interface OnTypingMessageResponse {
