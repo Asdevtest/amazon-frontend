@@ -126,8 +126,10 @@ export const useClassNames = makeStyles(() => ({
 
   badge: {
     position: 'absolute',
-    top: 14,
-    left: 14,
+    top: -10,
+    left: 55,
+
+    // top: 14,
     height: 16,
     width: 16,
     backgroundColor: 'red',

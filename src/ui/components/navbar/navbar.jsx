@@ -79,7 +79,8 @@ export const Navbar = observer(
       </div>
     )
     return (
-      <div className={classNames.mainWrapper}>
+      // <div className={classNames.mainWrapper}>
+      <>
         <Hidden smDown>
           <Drawer
             open
@@ -112,7 +113,8 @@ export const Navbar = observer(
             <ArrowBackIosIcon className={classNames.arrowIcon} color="primary" />
           )}
         </div>
-      </div>
+        {/* </div> */}
+      </>
     )
   },
 )

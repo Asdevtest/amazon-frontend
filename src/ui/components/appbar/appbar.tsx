@@ -22,7 +22,6 @@ import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap} from '@constants/user-r
 import {SettingsModel} from '@models/settings-model'
 
 import {BreadCrumbsLine} from '@components/bread-crumbs-line'
-// import {Badge} from '@components/badge'
 import {Button} from '@components/buttons/button'
 import {LanguageSelector} from '@components/language-selector'
 
@@ -135,9 +134,6 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
             </div>
 
             <Divider orientation="vertical" className={classNames.hideOnModile} />
-            {/* <Badge showZero badgeContent={2}>
-            <NotificationsIcon color="action" />
-          </Badge> */}
 
             <div className={classNames.selectorsWrapper}>
               <LanguageSelector />
