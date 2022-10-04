@@ -3,13 +3,16 @@ import {makeStyles} from '@material-ui/styles'
 export const useClassNames = makeStyles(theme => ({
   mainWrapper: {
     width: '100%',
+    backgroundColor: theme.palette.background.second,
   },
 
   appbar: {
     width: '100%',
     height: theme.spacing(7),
     boxShadow: `0px 5px 19px 0px rgba(90, 97, 105, 0.12)`,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
+
+    backgroundColor: theme.palette.background.main,
     borderRadius: '0',
     zIndex: 1100,
     flexShrink: 0,
@@ -28,7 +31,7 @@ export const useClassNames = makeStyles(theme => ({
 
   title: {
     fontWeight: 600,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: '16px',
   },
 
@@ -54,12 +57,16 @@ export const useClassNames = makeStyles(theme => ({
     marginRight: theme.spacing(3),
   },
   username: {
+    color: theme.palette.text.second,
+
     fontSize: '14px',
     fontWeight: 500,
     width: '110px',
     textOverflow: 'ellipsis',
   },
   userroleTitle: {
+    color: theme.palette.text.second,
+
     marginRight: '5px',
   },
   userrole: {
@@ -85,6 +92,8 @@ export const useClassNames = makeStyles(theme => ({
     textAlign: 'right',
   },
   balance: {
+    color: theme.palette.text.second,
+
     fontSize: '14px',
     fontWeight: 500,
     lineHeight: 1,
@@ -185,11 +194,13 @@ export const useClassNames = makeStyles(theme => ({
 
   allowedRolesItem: {
     marginLeft: '10px',
-    color: 'rgba(0, 0, 0, 0.54)',
+    color: theme.palette.text.general,
+
+    // color: 'rgba(0, 0, 0, 0.54)',
     fontSize: '16px',
     transition: '.15s ease-in-out',
     '&:hover': {
-      color: '#0460DE',
+      color: theme.palette.primary.main,
       transform: 'scale(1.01)',
     },
   },
@@ -198,7 +209,7 @@ export const useClassNames = makeStyles(theme => ({
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
 
     borderBottom: '5px solid #0460DE',
-    color: '#0460DE',
+    color: theme.palette.primary.main,
   },
 
   selectorsWrapper: {
@@ -229,7 +240,7 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: 18,
     lineHeight: '140%',
     fontWeight: 400,
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   hintsTextNoActive: {
     fontSize: 18,
@@ -246,6 +257,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   themeIcon: {
+    color: theme.palette.primary.main,
     // cursor: 'pointer',
     transition: '0.3s ease',
     // '&:hover': {
@@ -348,7 +360,9 @@ export const useClassNames = makeStyles(theme => ({
     },
     userrole: {
       marginRight: 0,
-      color: '#656565',
+      color: theme.palette.text.general,
+
+      // color: '#656565',
       fontSize: '14px',
       lineHeight: '19px',
       padding: 0,
@@ -383,7 +397,9 @@ export const useClassNames = makeStyles(theme => ({
       marginRight: '30px',
     },
     allowedRolesItem: {
-      color: 'rgba(0, 0, 0, 0.54)',
+      color: theme.palette.text.general,
+
+      // color: 'rgba(0, 0, 0, 0.54)',
       fontSize: '16px',
       transition: '.15s ease-in-out',
       '&:hover': {

@@ -193,6 +193,9 @@ export const useClassNames = makeStyles(theme => ({
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'end',
+
+    // position: 'sticky',
+    // bottom: 0,
   },
   photosWrapper: {
     display: 'flex',
@@ -260,6 +263,9 @@ export const useClassNames = makeStyles(theme => ({
     },
 
     buttonsWrapper: {
+      position: 'sticky',
+      bottom: 0,
+
       display: 'flex',
       justifyContent: 'center',
     },

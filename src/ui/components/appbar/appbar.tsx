@@ -164,13 +164,11 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
 
               {SettingsModel.uiTheme === UiTheme.light ? (
                 <WbSunnyRoundedIcon
-                  color="primary"
                   className={classNames.themeIcon}
-                  // onClick={() => onClickThemeIcon(UiTheme.dark)}
+                  //  onClick={() => onClickThemeIcon(UiTheme.dark)}
                 />
               ) : (
                 <Brightness3RoundedIcon
-                  color="primary"
                   className={classNames.themeIcon}
                   // onClick={() => onClickThemeIcon(UiTheme.light)}
                 />

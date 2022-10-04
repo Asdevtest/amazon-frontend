@@ -41,7 +41,11 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
             [classNames.notSelected]: !isSelected,
           })}
         >
-          <SvgIcon inheritviewbox="true" className={classNames.icon} component={category.icon} />
+          <SvgIcon
+            inheritviewbox="true"
+            className={clsx(classNames.icon, {[classNames.selectedIcon]: isSelected})}
+            component={category.icon}
+          />
 
           {badge ? <div className={classNames.badge}>{badge}</div> : undefined}
         </ListItemIcon>

@@ -48,11 +48,12 @@ export const lightTheme = createTheme({
 
     background: {
       main: '#fff',
+      second: '#F8F8F8',
     },
 
-    icons: {
-      navbar: '#000000',
-    },
+    // icons: {
+    //   navbar: '#000000',
+    // },
   },
 })
 
@@ -71,10 +72,11 @@ export const darkTheme = createTheme({
 
     background: {
       main: '#2B2B34',
+      second: '#21212B',
     },
 
-    icons: {
-      navbar: '#fff',
-    },
+    // icons: {
+    //   navbar: '#fff',
+    // },
   },
 })

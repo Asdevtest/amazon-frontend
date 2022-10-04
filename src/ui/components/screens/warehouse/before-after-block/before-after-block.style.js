@@ -12,6 +12,7 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-between',
   },
   buttonsWrapper: {},
+
   currentBox: {
     marginBottom: '20px',
     width: '690px',

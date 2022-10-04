@@ -16,8 +16,8 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   paper: {
-    boxShadow: `0px 1px 2px 0px rgba(225, 229, 235, 0.8),
-                0px 13px 27px 0px rgba(90, 97, 105, 0.15)`,
+    // boxShadow: `0px 1px 2px 0px rgba(225, 229, 235, 0.8),
+    //             0px 13px 27px 0px rgba(90, 97, 105, 0.15)`,
     border: 'none',
   },
   positionStatic: {

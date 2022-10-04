@@ -1,5 +1,7 @@
 import React from 'react'
 
+import clsx from 'clsx'
+
 import {LanguageKey} from '@constants/translations/language-key'
 
 import {SettingsModel} from '@models/settings-model'
@@ -9,22 +11,30 @@ import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {setI18nConfig} from '@utils/translations'
 
-// import {useClassNames} from './language-selector.style'
+import {useClassNames} from './language-selector.style'
 
 export const LanguageSelector = () => {
   const handleChange = (event, newAlignment) => {
     SettingsModel.setLanguageTag(newAlignment)
     setI18nConfig()
   }
-  // const classNames = useClassNames()
+  const classNames = useClassNames()
 
   return (
     <div>
       <ToggleBtnGroup exclusive size="small" color="primary" value={SettingsModel.languageTag} onChange={handleChange}>
-        <ToggleBtn disabled={SettingsModel.languageTag === LanguageKey.ru} value={LanguageKey.ru}>
+        <ToggleBtn
+          disabled={SettingsModel.languageTag === LanguageKey.ru}
+          className={clsx({[classNames.selectedBtn]: SettingsModel.languageTag === LanguageKey.ru})}
+          value={LanguageKey.ru}
+        >
           {'Ru'}
         </ToggleBtn>
-        <ToggleBtn disabled={SettingsModel.languageTag === LanguageKey.en} value={LanguageKey.en}>
+        <ToggleBtn
+          disabled={SettingsModel.languageTag === LanguageKey.en}
+          className={clsx({[classNames.selectedBtn]: SettingsModel.languageTag === LanguageKey.en})}
+          value={LanguageKey.en}
+        >
           {'En'}
         </ToggleBtn>
       </ToggleBtnGroup>

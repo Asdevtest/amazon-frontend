@@ -9,6 +9,7 @@ import {observer} from 'mobx-react'
 
 import {navbarConfig} from '@constants/navbar'
 import {Feedback} from '@constants/navbar-svg-icons'
+import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
@@ -50,7 +51,15 @@ export const Navbar = observer(
       <div className={classNames.mainWrapper}>
         {!shortNavbar ? (
           <div className={classNames.logoWrapper}>
-            <img alt="company logo" className={classNames.logo} src={'/assets/icons/logo-01.08.svg'} />
+            <img
+              alt="company logo"
+              className={classNames.logo}
+              src={
+                SettingsModel.uiTheme === UiTheme.light
+                  ? '/assets/icons/logo-01.08.svg'
+                  : '/assets/icons/dt-navbar-logo.svg'
+              }
+            />
           </div>
         ) : null}
         {!shortNavbar ? (
@@ -99,8 +108,7 @@ export const Navbar = observer(
       </div>
     )
     return (
-      // <div className={classNames.mainWrapper}>
-      <>
+      <div className={classNames.mainWrapper}>
         <Hidden smDown>
           <Drawer
             open
@@ -133,8 +141,7 @@ export const Navbar = observer(
             <ArrowBackIosIcon className={classNames.arrowIcon} color="primary" />
           )}
         </div>
-        {/* </div> */}
-      </>
+      </div>
     )
   },
 )

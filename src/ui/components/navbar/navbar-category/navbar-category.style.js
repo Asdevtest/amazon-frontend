@@ -8,7 +8,7 @@ export const styles = theme =>
       fontSize: '13px',
       lineHeight: '15px',
       fontWeight: 500,
-      color: theme.palette.text.primary,
+      color: theme.palette.text.general,
       borderLeft: `5px solid transparent`,
       paddingRight: '16px',
       transition: '0.3s ease',
@@ -24,12 +24,14 @@ export const styles = theme =>
       '&:hover': {backgroundColor: 'rgba(0,123,255,0.3)'},
     },
     selected: {
-      color: theme.palette.primary.main,
+      color: `${theme.palette.primary.main} !important`,
       background: 'linear-gradient(90deg, rgba(0, 108, 255, 0.2) 0%, rgba(0, 108, 255, 0) 100%)',
     },
 
     selectedIcon: {
-      color: theme.palette.primary.main,
+      color: `${theme.palette.primary.main} !important`,
+
+      // color: theme.palette.primary.main,
     },
     notSelected: {
       // color: 'rgba(189, 194, 209, 1)',
@@ -46,7 +48,7 @@ export const styles = theme =>
       left: 25,
       height: 18,
       width: 18,
-      backgroundColor: '#006CFF',
+      backgroundColor: theme.palette.primary.main,
       borderRadius: '50%',
       display: 'flex',
       justifyContent: 'center',
@@ -59,7 +61,9 @@ export const styles = theme =>
 
     icon: {
       backgroundColor: 'none',
-      // color: '#007bff'
+      // color: '#fff',
+
+      color: theme.palette.text.general,
     },
 
     menuItem: {
