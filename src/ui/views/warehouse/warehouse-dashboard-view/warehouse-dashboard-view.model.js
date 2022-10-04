@@ -48,7 +48,7 @@ export class WarehouseDashboardViewModel {
       await this.getTasksMy()
       await this.getBoxesMy(id)
       await this.getBatches()
-      // this.getDashboardElementCount()
+      this.getDashboardElementCount()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -142,6 +142,7 @@ export class WarehouseDashboardViewModel {
   async getDashboardElementCount() {
     try {
       const result = await ClientModel.getDashboardStorekeeperElementCount()
+      console.log(result)
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,

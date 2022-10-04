@@ -84,9 +84,9 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
     history.push(`/profile`)
   }
 
-  const onClickThemeIcon = (theme: string) => {
-    componentModel.current.changeUiTheme(theme)
-  }
+  // const onClickThemeIcon = (theme: string) => {
+  //   componentModel.current.changeUiTheme(theme)
+  // }
 
   const allowedRolesWithoutCandidate = componentModel.current.allowedRoles?.filter(
     (el: number) => el !== (mapUserRoleEnumToKey as {[key: string]: number})[UserRole.CANDIDATE],

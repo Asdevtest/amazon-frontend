@@ -51,16 +51,19 @@ export const BreadCrumbsLine = observer(({lastCrumbAdditionalText}) => {
       hostory.push(to)
     }
   }
-  console.log(pathnames)
+  if (location.pathname === '/profile') {
+    pathnames.push('profile')
+  }
+
   return (
     <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNextIcon fontSize="small" color="primary" />}>
       {pathnames.length > 2 || location.pathname === '/profile'
         ? pathnames.map((value, index) => {
             const last = index === pathnames.length - 1
             const isPreLast = index === pathnames.length - 2
-            // console.log(SettingsModel.breadcrumbsForProfile)
 
-            const to = `/${pathnames.slice(0, index + 1).join('/')}`
+            const to =
+              location.pathname === '/profile' && last ? '/profile' : `/${pathnames.slice(0, index + 1).join('/')}`
 
             if (exclusionWords.includes(to)) {
               return null

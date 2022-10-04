@@ -1,10 +1,10 @@
-import {makeAutoObservable, reaction, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 
 import {BoxesModel} from '@models/boxes-model'
 import {ClientModel} from '@models/client-model'
-import {SettingsModel} from '@models/settings-model'
+// import {SettingsModel} from '@models/settings-model'
 import {UserModel} from '@models/user-model'
 
 import {sortObjectsArrayByFiledDateWithParseISO} from '@utils/date-time'
@@ -31,10 +31,10 @@ export class ClientOrderViewModel {
 
     makeAutoObservable(this, undefined, {autoBind: true})
 
-    reaction(
-      () => SettingsModel.languageTag,
-      () => this.loadData(),
-    )
+    // reaction(
+    //   () => SettingsModel.languageTag,
+    //   () => this.loadData(),
+    // )
   }
 
   async loadData() {
