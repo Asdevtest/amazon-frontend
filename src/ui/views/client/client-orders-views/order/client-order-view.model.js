@@ -30,6 +30,11 @@ export class ClientOrderViewModel {
     this.orderId = history.location.search.slice(1)
 
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => SettingsModel.languageTag,
+      () => this.loadData(),
+    )
   }
 
   async loadData() {
