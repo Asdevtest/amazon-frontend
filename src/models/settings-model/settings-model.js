@@ -25,7 +25,7 @@ class SettingsModelStatic {
   languageTag = LanguageKey.en
   uiTheme = UiTheme.light
   isHydrated = false
-
+  breadcrumbsForProfile = null
   showHints = true
   noticeOfSimpleChats = true
 
@@ -75,6 +75,10 @@ class SettingsModelStatic {
 
   setUiTheme(theme) {
     this.uiTheme = theme
+  }
+
+  setBreadcrumbsForProfile(pathname) {
+    this.breadcrumbsForProfile = pathname
   }
 }
 

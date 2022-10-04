@@ -11,6 +11,8 @@ import {Link as RouterLink, useHistory, useLocation} from 'react-router-dom'
 
 import {overallRoutesConfigs, privateRoutesConfigs} from '@constants/routes'
 
+import {SettingsModel} from '@models/settings-model'
+
 import {t} from '@utils/translations'
 
 import {useClassNames} from './bread-crumbs-line.style'
@@ -32,7 +34,9 @@ export const BreadCrumbsLine = observer(({lastCrumbAdditionalText}) => {
   const hostory = useHistory()
 
   const location = useLocation()
-  const pathnames = location.pathname.split('/').filter(x => x)
+  const pathnames = SettingsModel.breadcrumbsForProfile
+    ? SettingsModel.breadcrumbsForProfile.split('/').filter(x => x)
+    : []
 
   // const LinkRouter = props => <Link {...props} component={RouterLink} />
 
@@ -47,15 +51,17 @@ export const BreadCrumbsLine = observer(({lastCrumbAdditionalText}) => {
       hostory.push(to)
     }
   }
-
+  console.log(pathnames)
   return (
     <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNextIcon fontSize="small" color="primary" />}>
-      {pathnames.length > 2
+      {pathnames.length > 2 || location.pathname === '/profile'
         ? pathnames.map((value, index) => {
             const last = index === pathnames.length - 1
             const isPreLast = index === pathnames.length - 2
+            // console.log(SettingsModel.breadcrumbsForProfile)
 
             const to = `/${pathnames.slice(0, index + 1).join('/')}`
+
             if (exclusionWords.includes(to)) {
               return null
             }
