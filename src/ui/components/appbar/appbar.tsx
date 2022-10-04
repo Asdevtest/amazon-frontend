@@ -3,7 +3,7 @@ import PersonIcon from '@mui/icons-material/Person'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {useRef, useState, FC} from 'react'
+import React, {useRef, useState, FC, useEffect} from 'react'
 
 import {Avatar, Divider, Paper, Typography, Hidden, IconButton} from '@material-ui/core'
 import Menu from '@material-ui/core/Menu'
@@ -13,7 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 // import NotificationsIcon from '@material-ui/icons/Notifications'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
-import {useHistory} from 'react-router-dom'
+import {useHistory, useLocation} from 'react-router-dom'
 
 import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -42,6 +42,7 @@ interface Props {
 
 export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, lastCrumbAdditionalText}) => {
   const history = useHistory()
+  const location = useLocation()
   const classNames = useClassNames()
   const componentModel = useRef(new AppbarModel())
 
@@ -52,6 +53,11 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
       </IconButton>
     </Hidden>
   )
+  useEffect(() => {
+    if (location.pathname !== '/profile') {
+      SettingsModel.setBreadcrumbsForProfile(location.pathname)
+    }
+  }, [location.pathname])
 
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null)
 
@@ -75,12 +81,12 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   }
 
   const onClickProfile = () => {
-    history.push('/profile')
+    history.push(`/profile`)
   }
 
-  const onClickThemeIcon = (theme: string) => {
-    componentModel.current.changeUiTheme(theme)
-  }
+  // const onClickThemeIcon = (theme: string) => {
+  //   componentModel.current.changeUiTheme(theme)
+  // }
 
   const allowedRolesWithoutCandidate = componentModel.current.allowedRoles?.filter(
     (el: number) => el !== (mapUserRoleEnumToKey as {[key: string]: number})[UserRole.CANDIDATE],

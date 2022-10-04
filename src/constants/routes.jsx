@@ -123,7 +123,7 @@ export const publicRoutesConfigs = [
 
 export const overallRoutesConfigs = [
   {
-    routePath: '/profile',
+    routePath: `/profile`,
     component: UserProfileView,
     exact: false,
     crumbNameKey: TranslationKey.Profile,
