@@ -6,6 +6,7 @@ import {loadingStatuses} from '@constants/loading-statuses'
 import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
 import {BatchesModel} from '@models/batches-model'
+import {ClientModel} from '@models/client-model'
 import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
@@ -47,6 +48,7 @@ export class WarehouseDashboardViewModel {
       await this.getTasksMy()
       await this.getBoxesMy(id)
       await this.getBatches()
+      // this.getDashboardElementCount()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
       this.setRequestStatus(loadingStatuses.failed)
@@ -121,6 +123,25 @@ export class WarehouseDashboardViewModel {
   async getBatches() {
     try {
       const result = await BatchesModel.getBatches()
+      runInAction(() => {
+        this.dashboardData = {
+          ...this.dashboardData,
+          [WarehouseDashboardCardDataKey.SENT_BATCHES]: result.filter(
+            batch => batch.status === BatchStatus.HAS_DISPATCHED,
+          ).length,
+          [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: result.filter(
+            batch => batch.status === BatchStatus.IS_BEING_COLLECTED,
+          ).length,
+        }
+      })
+    } catch (error) {
+      console.log(error)
+      this.error = error
+    }
+  }
+  async getDashboardElementCount() {
+    try {
+      const result = await ClientModel.getDashboardStorekeeperElementCount()
       runInAction(() => {
         this.dashboardData = {
           ...this.dashboardData,

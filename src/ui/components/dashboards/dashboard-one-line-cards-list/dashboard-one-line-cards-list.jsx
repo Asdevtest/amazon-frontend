@@ -42,10 +42,10 @@ export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, 
       <div className={classNames.cardsWrapper}>
         <Swiper
           navigation={config.items.length > 4 || window.innerWidth > 768}
-          slidesPerView={currentScreenWidth > 768 ? 4 : 2}
-          spaceBetween={
-            currentScreenWidth <= 370 ? 220 : currentScreenWidth > 370 && currentScreenWidth <= 480 ? 170 : 50
+          slidesPerView={
+            currentScreenWidth > 768 ? 4 : currentScreenWidth >= 320 && currentScreenWidth <= 360 ? 1.2 : 1.3
           }
+          spaceBetween={40}
           modules={[Navigation]}
           className={classNames.swiper}
         >

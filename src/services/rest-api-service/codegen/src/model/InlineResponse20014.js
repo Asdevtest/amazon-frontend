@@ -12,6 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
+import InlineResponse20014Batches from './InlineResponse20014Batches';
+import InlineResponse20014Boxes from './InlineResponse20014Boxes';
+import InlineResponse20014Tasks from './InlineResponse20014Tasks';
 
 /**
  * The InlineResponse20014 model module.
@@ -47,8 +50,14 @@ class InlineResponse20014 {
         if (data) {
             obj = obj || new InlineResponse20014();
 
-            if (data.hasOwnProperty('profileId')) {
-                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
+            if (data.hasOwnProperty('tasks')) {
+                obj['tasks'] = InlineResponse20014Tasks.constructFromObject(data['tasks']);
+            }
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = InlineResponse20014Boxes.constructFromObject(data['boxes']);
+            }
+            if (data.hasOwnProperty('batches')) {
+                obj['batches'] = InlineResponse20014Batches.constructFromObject(data['batches']);
             }
         }
         return obj;
@@ -58,10 +67,19 @@ class InlineResponse20014 {
 }
 
 /**
- * id созданного профайла
- * @member {String} profileId
+ * @member {module:model/InlineResponse20014Tasks} tasks
  */
-InlineResponse20014.prototype['profileId'] = undefined;
+InlineResponse20014.prototype['tasks'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20014Boxes} boxes
+ */
+InlineResponse20014.prototype['boxes'] = undefined;
+
+/**
+ * @member {module:model/InlineResponse20014Batches} batches
+ */
+InlineResponse20014.prototype['batches'] = undefined;
 
 
 
