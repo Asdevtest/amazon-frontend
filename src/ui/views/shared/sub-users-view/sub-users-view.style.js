@@ -63,4 +63,9 @@ export const styles = createStyles(theme => ({
   toolbarContainer: {
     height: '52px',
   },
+  '@media (max-width: 768px)': {
+    toolbarContainer: {
+      visibility: 'hidden',
+    },
+  },
 }))

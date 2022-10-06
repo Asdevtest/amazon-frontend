@@ -134,4 +134,81 @@ export const useClassNames = makeStyles(() => ({
   error: {
     color: 'red',
   },
+  courseWrapper: {
+    display: 'flex',
+    gap: 10,
+  },
+
+  '@media (max-width: 768px)': {
+    form: {
+      width: '280px',
+    },
+    root: {
+      minWidth: 0,
+      width: '280px',
+      margin: '0 -10px',
+    },
+    modalTitle: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      color: '#001029',
+      fontWeight: 600,
+    },
+    nameDeliveryWrapper: {
+      width: '280px',
+      flexDirection: 'column',
+    },
+    longContainer: {
+      width: '280px',
+    },
+    fieldLabel: {
+      fontSize: '14px',
+      lineHeight: '19px',
+      color: '#656565',
+    },
+    courseWrapper: {
+      display: 'none',
+    },
+    costBlock: {
+      width: '280px',
+    },
+
+    blockWrapper: {
+      width: '280px',
+      flexDirection: 'column',
+
+      alignItems: 'flex-start',
+    },
+
+    blockItem: {
+      width: '280px',
+    },
+    deadlineError: {
+      borderBottom: 'none',
+    },
+    deadlineErrorText: {
+      color: 'red',
+      padding: 0,
+      margin: 0,
+    },
+    modalSubTitle: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      color: '#001029',
+      fontWeight: 600,
+    },
+    rateTitle: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      color: '#001029',
+      fontWeight: 600,
+    },
+    descriptionFieldWrapper: {
+      width: '280px',
+    },
+    btnsWrapper: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+  },
 }))

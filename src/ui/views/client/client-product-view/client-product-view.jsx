@@ -33,6 +33,7 @@ export class ClientProductView extends Component {
   render() {
     const {
       storekeepersData,
+      getCurrentData,
       shopsData,
       supplierModalReadOnly,
       actionStatus,
@@ -79,7 +80,7 @@ export class ClientProductView extends Component {
                   imagesForLoad={imagesForLoad}
                   showProgress={showProgress}
                   progressValue={progressValue}
-                  product={product}
+                  product={getCurrentData()}
                   shops={shopsData}
                   acceptMessage={acceptMessage}
                   actionStatus={actionStatus}

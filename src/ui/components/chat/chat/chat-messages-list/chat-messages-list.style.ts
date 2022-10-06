@@ -151,4 +151,9 @@ export const useClassNames = makeStyles(() => ({
 
     padding: 10,
   },
+  '@media (max-width: 768px)': {
+    messageWrapper: {
+      width: '95%',
+    },
+  },
 }))

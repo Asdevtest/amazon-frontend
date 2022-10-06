@@ -63,12 +63,15 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h5">{t(TranslationKey['Adding tariff'])}</Typography>
+      <Typography variant="h5" className={classNames.modalTitle}>
+        {t(TranslationKey['Adding tariff'])}
+      </Typography>
 
       <div className={classNames.form}>
         <Field
           label={t(TranslationKey.Title)}
           inputProps={{maxLength: 50}}
+          labelClasses={classNames.fieldLabel}
           tooltipInfoContent={t(TranslationKey['Rate name'])}
           value={formFields.name}
           placeholder={t(TranslationKey.Title)}
@@ -78,6 +81,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
         <Field
           label={t(TranslationKey['Service cost per kg, $']) + '*'}
           inputProps={{maxLength: 10}}
+          labelClasses={classNames.fieldLabel}
           tooltipInfoContent={t(TranslationKey['The cost of providing the service'])}
           value={formFields.price}
           onChange={onChangeField('price')}
@@ -88,6 +92,7 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
           minRows={4}
           maxRows={4}
           inputProps={{maxLength: 255}}
+          labelClasses={classNames.fieldLabel}
           tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}
           className={classNames.descriptionField}
           label={t(TranslationKey.Description)}

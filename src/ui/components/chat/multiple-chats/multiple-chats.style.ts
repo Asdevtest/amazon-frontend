@@ -16,7 +16,7 @@ export const useClassNames = makeStyles(() => ({
   },
   chatsWrapper: {
     width: '276px',
-    height: '100%',
+    height: '100vh',
   },
   chatWrapper: {
     flex: 1,
@@ -41,5 +41,21 @@ export const useClassNames = makeStyles(() => ({
     fontSize: 18,
 
     color: '#001029',
+  },
+  hideChatWrapper: {display: 'none'},
+  hideChatsWrapper: {},
+  '@media (max-width: 768px)': {
+    chatsWrapper: {
+      width: '100%',
+      height: '100%',
+    },
+    hideChatWrapper: {
+      display: 'none',
+    },
+    hideChatsWrapper: {display: 'none'},
+    root: {
+      height: '100%',
+      overflow: 'hidden',
+    },
   },
 }))

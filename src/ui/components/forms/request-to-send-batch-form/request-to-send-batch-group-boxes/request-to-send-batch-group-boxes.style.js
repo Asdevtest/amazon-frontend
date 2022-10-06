@@ -5,7 +5,7 @@ export const useClassNames = makeStyles(() => ({
   table: {
     borderCollapse: 'collapse',
     border: 0,
-    height: '100px',
+    height: '110px',
     width: '100%',
   },
   tableWrapper: {

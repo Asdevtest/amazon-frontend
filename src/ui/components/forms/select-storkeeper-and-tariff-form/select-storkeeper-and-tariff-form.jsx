@@ -4,7 +4,7 @@ import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useState} from 'react'
 
-import {Typography, Box, Tabs, Tab, InputAdornment} from '@material-ui/core'
+import {Box, Tabs, Tab, InputAdornment} from '@material-ui/core'
 import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
@@ -28,11 +28,7 @@ const TabPanel = ({children, value, index, ...other}) => (
     aria-labelledby={`simple-tab-${index}`}
     {...other}
   >
-    {value === index && (
-      <Box paddingTop={3}>
-        <Typography>{children}</Typography>
-      </Box>
-    )}
+    {value === index && <Box paddingTop={3}>{children}</Box>}
   </div>
 )
 

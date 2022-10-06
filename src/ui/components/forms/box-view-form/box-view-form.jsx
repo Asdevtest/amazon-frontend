@@ -1,3 +1,5 @@
+import {Tooltip} from '@mui/material'
+
 import {React, useState} from 'react'
 
 import {Checkbox, Divider, Grid, Link, Typography} from '@material-ui/core'
@@ -110,8 +112,14 @@ export const BoxViewForm = observer(
                       <div className={classNames.photoWrapper}>
                         <PhotoCarousel isAmazonPhoto files={item.product.images} />
                       </div>
+                      <Tooltip placement={'right-start'} title={item.product.amazonTitle}>
+                        <Typography className={classNames.amazonTitle}>
+                          {item.product.amazonTitle.length > 225
+                            ? item.product.amazonTitle.slice(0, 225) + '...'
+                            : item.product.amazonTitle}
+                        </Typography>
+                      </Tooltip>
 
-                      <Typography className={classNames.amazonTitle}>{item.product.amazonTitle}</Typography>
                       <div className={classNames.copyAsin}>
                         <div className={classNames.asinWrapper}>
                           <Typography>{t(TranslationKey.ASIN)}</Typography>

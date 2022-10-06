@@ -165,11 +165,14 @@ export const AddOrEditLogisticTariffForm = observer(
       Number(formFields.conditionsByRegion.yuanToDollarRate) <= 0 ||
       formFields.name === '' ||
       formFields.minWeightInKg === '' ||
-      formFields.minWeightInKg === 0 ||
+      formFields.minWeightInKg === '0' ||
       formFields.deliveryTimeInDay === '' ||
       formFields.cls === null ||
       formFields.etd === null ||
       formFields.eta === null ||
+      formFields.cls.toString() === 'Invalid Date' ||
+      formFields.etd.toString() === 'Invalid Date' ||
+      formFields.eta.toString() === 'Invalid Date' ||
       formFields.conditionsByRegion.west.rate === '' ||
       formFields.conditionsByRegion.central.rate === '' ||
       formFields.conditionsByRegion.east.rate === '' ||
@@ -184,7 +187,9 @@ export const AddOrEditLogisticTariffForm = observer(
 
     return (
       <div className={classNames.root}>
-        <Typography variant="h5">{t(TranslationKey['Adding tariff'])}</Typography>
+        <Typography variant="h5" className={classNames.modalTitle}>
+          {t(TranslationKey['Adding tariff'])}
+        </Typography>
 
         <div className={classNames.form}>
           <div className={classNames.nameDeliveryWrapper}>
@@ -236,29 +241,30 @@ export const AddOrEditLogisticTariffForm = observer(
                 {'¥'}
               </ToggleBtn>
             </ToggleBtnGroup>
+            <div className={classNames.courseWrapper}>
+              <Field
+                oneLine
+                disabled
+                label={t(TranslationKey['Current exchange rate'])}
+                tooltipInfoContent={t(TranslationKey['Course indicated by the system'])}
+                containerClasses={classNames.rateContainer}
+                labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
+                inputClasses={classNames.middleInput}
+                value={sourceYuanToDollarRate}
+              />
 
-            <Field
-              oneLine
-              disabled
-              label={t(TranslationKey['Current exchange rate'])}
-              tooltipInfoContent={t(TranslationKey['Course indicated by the system'])}
-              containerClasses={classNames.rateContainer}
-              labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
-              inputClasses={classNames.middleInput}
-              value={sourceYuanToDollarRate}
-            />
-
-            <Field
-              oneLine
-              label={t(TranslationKey['Yuan to USD exchange rate'])}
-              inputProps={{maxLength: 8}}
-              tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
-              containerClasses={classNames.rateContainer}
-              labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
-              inputClasses={classNames.middleInput}
-              value={formFields.conditionsByRegion.yuanToDollarRate}
-              onChange={onChangeField('yuanToDollarRate')}
-            />
+              <Field
+                oneLine
+                label={t(TranslationKey['Yuan to USD exchange rate'])}
+                inputProps={{maxLength: 8}}
+                tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
+                containerClasses={classNames.rateContainer}
+                labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
+                inputClasses={classNames.middleInput}
+                value={formFields.conditionsByRegion.yuanToDollarRate}
+                onChange={onChangeField('yuanToDollarRate')}
+              />
+            </div>
           </div>
 
           <div className={classNames.blockWrapper}>
@@ -290,7 +296,9 @@ export const AddOrEditLogisticTariffForm = observer(
             </div>
           </div>
 
-          <Typography variant="h5">{t(TranslationKey['Shipping dates'])}</Typography>
+          <Typography variant="h5" className={classNames.modalSubTitle}>
+            {t(TranslationKey['Shipping dates'])}
+          </Typography>
 
           <div className={classNames.blockWrapper}>
             <div className={classNames.blockItem}>
@@ -362,6 +370,7 @@ export const AddOrEditLogisticTariffForm = observer(
               multiline
               minRows={4}
               maxRows={4}
+              labelClasses={classNames.fieldLabel}
               inputProps={{maxLength: 320}}
               className={classNames.descriptionField}
               tooltipInfoContent={t(TranslationKey['Additional information about the rate'])}

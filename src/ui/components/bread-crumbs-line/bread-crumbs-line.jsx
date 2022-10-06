@@ -10,6 +10,7 @@ import {observer} from 'mobx-react'
 import {Link as RouterLink, useHistory, useLocation} from 'react-router-dom'
 
 import {overallRoutesConfigs, privateRoutesConfigs} from '@constants/routes'
+import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
 
@@ -28,7 +29,7 @@ const exclusionWords = [
   '/moderator',
 ]
 
-export const BreadCrumbsLine = observer(({lastCrumbAdditionalText}) => {
+export const BreadCrumbsLine = observer(({lastCrumbAdditionalText, savedLastCrumbAdditionalText}) => {
   const classNames = useClassNames()
 
   const hostory = useHistory()
@@ -79,7 +80,9 @@ export const BreadCrumbsLine = observer(({lastCrumbAdditionalText}) => {
               // </LinkRouter>
 
               <Typography key={to} className={classNames.сrumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
-                {t(getCrumbNameKey(to))}
+                {getCrumbNameKey(to) === 'Order'
+                  ? `${t(TranslationKey.Order)} ${savedLastCrumbAdditionalText ? savedLastCrumbAdditionalText : ''}`
+                  : t(getCrumbNameKey(to))}
               </Typography>
             )
           })

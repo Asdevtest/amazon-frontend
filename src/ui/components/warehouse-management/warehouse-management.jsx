@@ -1,4 +1,4 @@
-import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
+import {twitterTabsStylesHook, appleTabsStylesHook} from '@mui-treasury/styles/tabs'
 
 import React, {useEffect} from 'react'
 
@@ -38,6 +38,7 @@ export const WarehouseManagement = observer(() => {
 
   const [tabIndex, setTabIndex] = React.useState(0)
   const tabItemStyles = twitterTabsStylesHook.useTabItem()
+  const tabItemStylesMobile = appleTabsStylesHook.useTabItem()
 
   useEffect(() => {
     setTabIndex(() => tabIndex)
@@ -46,22 +47,24 @@ export const WarehouseManagement = observer(() => {
   return (
     <React.Fragment>
       <Tabs
-        variant={'fullWidth'}
+        orientation="horizontal"
+        variant={'scrollable'}
         classes={{
           root: classNames.row,
           indicator: classNames.indicator,
+          flexContainer: classNames.flexContainer,
         }}
         value={tabIndex}
         onChange={(e, index) => setTabIndex(index)}
       >
         <ITab
           tooltipInfoContent={t(TranslationKey['Rates for shipping boxes to Amazon warehouses'])}
-          classes={tabItemStyles}
+          classes={window.innerWidth > 768 ? tabItemStyles : tabItemStylesMobile}
           label={t(TranslationKey['Logistics tariffs'])}
         />
         <ITab
           tooltipInfoContent={t(TranslationKey['Prices for additional warehouse services'])}
-          classes={tabItemStyles}
+          classes={window.innerWidth > 768 ? tabItemStyles : tabItemStylesMobile}
           label={t(TranslationKey['Tariffs of warehouse services'])}
         />
       </Tabs>

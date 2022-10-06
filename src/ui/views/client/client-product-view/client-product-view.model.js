@@ -152,6 +152,10 @@ export class ClientProductViewModel {
     makeAutoObservable(this, undefined, {autoBind: true})
   }
 
+  getCurrentData() {
+    return toJS(this.product)
+  }
+
   async loadData() {
     try {
       await this.getProductById()

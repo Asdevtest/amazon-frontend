@@ -108,4 +108,41 @@ export const styles = createStyles(() => ({
     display: 'flex',
     marginLeft: 20,
   },
+
+  '@media (max-width: 768px)': {
+    noticesTextActive: {
+      display: 'none',
+    },
+    noticesTextNoActive: {
+      display: 'none',
+    },
+    chatHeaderWrapper: {
+      flexDirection: 'column',
+      gap: '15px',
+      marginBottom: 20,
+    },
+    searchInput: {
+      width: '100%',
+    },
+    searchContainer: {
+      width: '100%',
+    },
+    leftSide: {
+      width: '100%',
+      // flexDirection: 'column',
+    },
+    rightSide: {
+      width: '100%',
+      justifyContent: 'space-between',
+    },
+    hideChatHeaderWrapper: {
+      display: 'none',
+    },
+
+    '@media (max-width: 768px)': {
+      chatWrapper: {
+        height: '100%',
+      },
+    },
+  },
 }))

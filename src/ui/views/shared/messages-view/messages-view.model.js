@@ -87,6 +87,10 @@ export class MessagesViewModel {
     }
   }
 
+  onClickBackButton() {
+    this.chatSelectedId = undefined
+  }
+
   onTriggerDrawerOpen() {
     this.drawerOpen = !this.drawerOpen
   }

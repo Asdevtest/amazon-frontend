@@ -1,4 +1,5 @@
 import AddIcon from '@mui/icons-material/Add'
+import {Tooltip} from '@mui/material'
 
 import React, {useState} from 'react'
 
@@ -516,7 +517,13 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
     <div className={classNames.currentBox}>
       <div className={classNames.order}>
         <img className={classNames.img} src={getAmazonImageUrl(boxesBefore[0]?.items[0]?.product.images[0])} />
-        <Typography className={classNames.titleOfCurBox}>{boxesBefore[0].items[0].product.amazonTitle}</Typography>
+        <Tooltip title={boxesBefore[0].items[0].product.amazonTitle}>
+          <Typography className={classNames.titleOfCurBox}>
+            {boxesBefore[0].items[0].product.amazonTitle.length > 225
+              ? boxesBefore[0].items[0].product.amazonTitle.slice(0, 225) + '...'
+              : boxesBefore[0].items[0].product.amazonTitle}
+          </Typography>
+        </Tooltip>
       </div>
       <div className={classNames.currentBoxFooter}>
         <div className={classNames.qtyWrapper}>

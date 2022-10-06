@@ -46,6 +46,14 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
   const classNames = useClassNames()
   const componentModel = useRef(new AppbarModel())
 
+  useEffect(() => {
+    if (lastCrumbAdditionalText !== undefined) {
+      localStorage.setItem('last', lastCrumbAdditionalText)
+    }
+  }, [lastCrumbAdditionalText])
+
+  const savedLastCrumbAdditionalText = localStorage.getItem('last')
+
   const renderNavbarButton = (
     <Hidden mdUp>
       <IconButton onClick={setDrawerOpen}>
@@ -277,7 +285,10 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
         </Paper>
 
         <div className={classNames.breadCrumbsWrapper}>
-          <BreadCrumbsLine lastCrumbAdditionalText={lastCrumbAdditionalText} />
+          <BreadCrumbsLine
+            lastCrumbAdditionalText={lastCrumbAdditionalText}
+            savedLastCrumbAdditionalText={savedLastCrumbAdditionalText}
+          />
         </div>
       </div>
 
