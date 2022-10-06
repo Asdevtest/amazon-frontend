@@ -1,6 +1,6 @@
 import {makeStyles} from '@material-ui/core'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles(theme => ({
   balanceWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -9,7 +9,9 @@ export const useClassNames = makeStyles(() => ({
   balanceTitle: {
     fontSize: 36,
     lineHeight: '49px',
-    color: '#001029',
+    // color: '#001029',
+
+    color: theme.palette.text.general,
   },
 
   balanceFreeze: {
@@ -21,9 +23,11 @@ export const useClassNames = makeStyles(() => ({
 
   title: {
     fontSize: 18,
-    color: '#001029',
+    // color: '#001029',
     lineHeight: '140%',
     marginBottom: '16px',
+
+    color: theme.palette.text.general,
   },
   '@media (max-width: 768px)': {
     balanceTitle: {

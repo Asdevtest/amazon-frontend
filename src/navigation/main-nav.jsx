@@ -1,4 +1,7 @@
 /* eslint-disable no-unused-vars */
+// import {
+//   ThemeProvider, // createTheme,
+// } from '@mui/material/styles'
 import {useMemo, useEffect, useRef} from 'react'
 
 import {ThemeProvider} from '@material-ui/styles'
@@ -33,7 +36,7 @@ export const MainNav = observer(() => {
   )
 
   return (
-    <ThemeProvider theme={/* SettingsModel.uiTheme === UiTheme.light ? */ theme /* : darkTheme*/}>
+    <ThemeProvider theme={theme}>
       <Router>
         <Switch>
           {generateRedirects()}

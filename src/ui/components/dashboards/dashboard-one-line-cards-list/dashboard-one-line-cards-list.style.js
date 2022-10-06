@@ -1,11 +1,16 @@
 import {makeStyles} from '@material-ui/core'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles(theme => ({
   cardsWrapper: {},
   cardWrapper: {
     width: '277px',
-    background: 'linear-gradient(157deg,#fff 50%, #F2FBF7 50%);',
-    boxShadow: '0px 2px 11px 2px #DFDFDF',
+    // background: 'linear-gradient(157deg,#fff 50%, #F2FBF7 50%);',
+    // background: `linear-gradient(157deg,${theme.palette.background.main} 50%, #F2FBF7 50%)`,
+    background: theme.palette.linearGradient.successDashboardCard,
+    // boxShadow: '0px 2px 11px 2px #DFDFDF',
+
+    boxShadow: `0px 2px 11px 2px ${theme.palette.boxShadow.main}`,
+
     padding: '20px',
     borderRadius: '8px',
     height: '111px',
@@ -13,17 +18,26 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'column',
-    // marginTop: '5px',
+    marginTop: '5px',
+
+    transition: '0.3s ease',
 
     '&:hover': {
-      background: 'linear-gradient(157deg,#fff 50%, #d8fded 50%);',
+      // background: 'linear-gradient(157deg,#fff 50%, #d8fded 50%) !important',
+
+      background: theme.palette.linearGradient.hoverSuccessDashboardCard,
     },
   },
 
   cardErrorWrapper: {
-    background: 'linear-gradient(157deg,#fff 50%, #FBF2F2 50%);',
+    // background: 'linear-gradient(157deg,#fff 50%, #FBF2F2 50%);',
+
+    transition: '0.3s ease',
+
+    background: theme.palette.linearGradient.negativeDashboardCard,
     '&:hover': {
-      background: 'linear-gradient(157deg,#fff 50%, #f8dede 50%);',
+      // background: 'linear-gradient(157deg,#fff 50%, #f8dede 50%);',
+      background: theme.palette.linearGradient.hoverNegativeDashboardCard,
     },
   },
   cardSubWrapper: {
@@ -39,19 +53,19 @@ export const useClassNames = makeStyles(() => ({
   cardListTitle: {
     fontSize: '20px',
     lineHeight: '27px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: 600,
     marginLeft: '86px',
   },
   cardSubTitle: {
     width: '127px',
-    color: '#001029',
+    color: theme.palette.text.second,
   },
   cardValueTitle: {
     fontWeight: 700,
     fontSize: '32px',
     lineHeight: '44px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   cardListSubTitle: {
     color: '#656565',

@@ -53,7 +53,7 @@ export const styles = theme =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      color: 'white',
+      color: theme.palette.text.negativeMain,
       fontSize: '12px',
       fontWeight: '400',
       lineHeight: '14px',

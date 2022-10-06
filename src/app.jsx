@@ -1,11 +1,16 @@
 /* eslint-disable no-unused-vars */
+// import {
+//   ThemeProvider, // createTheme,
+// } from '@mui/material/styles'
+// import {CssBaseline} from '@material-ui/core'
+import CssBaseline from '@mui/material/CssBaseline'
 import * as Sentry from '@sentry/react'
 
 import {useEffect} from 'react'
 
-import {CssBaseline} from '@material-ui/core'
 import {useFaviconNotification} from 'react-favicon-notification'
 
+// import {lightTheme} from '@constants/mui-theme'
 import {MainNav} from '@navigation/main-nav'
 
 import '@styles/global.css'
@@ -36,6 +41,7 @@ export const App = () => {
   }, [])
 
   return (
+    // <ThemeProvider theme={lightTheme}>
     <div className="App">
       <Sentry.ErrorBoundary showDialog fallback={myFallback}>
         <CssBaseline />
@@ -43,5 +49,6 @@ export const App = () => {
         <MainNav />
       </Sentry.ErrorBoundary>
     </div>
+    // </ThemeProvider>
   )
 }

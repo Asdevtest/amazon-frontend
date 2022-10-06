@@ -1,6 +1,6 @@
 import {makeStyles} from '@material-ui/core'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles(theme => ({
   balanceWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -21,14 +21,15 @@ export const useClassNames = makeStyles(() => ({
 
   title: {
     fontSize: 14,
-
+    color: theme.palette.text.second,
     lineHeight: '19px',
     marginTop: '12px',
-    color: '#656565',
   },
   fontSizeLarge: {
     width: '45px',
     height: '44px',
+
+    color: theme.palette.text.general,
     // '&:hover': {
     //   transform: 'scale(1.1)',
     // },
@@ -40,8 +41,13 @@ export const useClassNames = makeStyles(() => ({
     width: '97px',
     height: '97px',
     borderRadius: '50%',
-    backgroundColor: '#F8F8F8',
-    boxShadow: '0px 0px 14px 6px rgba(184, 184, 184, 0.18), inset -4px -4px 13px rgba(135, 135, 135, 0.15)',
+    // backgroundColor: '#F8F8F8',
+    backgroundColor: theme.palette.background.second,
+
+    // boxShadow: '0px 0px 14px 6px rgba(184, 184, 184, 0.18), inset -4px -4px 13px rgba(135, 135, 135, 0.15)',
+
+    boxShadow: `0px 0px 14px 6px ${theme.palette.boxShadow.main}, inset -4px -4px 13px ${theme.palette.boxShadow.main}`,
+
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
 
     transition: '0.3s ease',
@@ -58,12 +64,12 @@ export const useClassNames = makeStyles(() => ({
     right: 5,
     height: 28,
     width: 28,
-    backgroundColor: '#006CFF',
+    backgroundColor: theme.palette.primary.main,
     borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: 'white',
+    color: theme.palette.text.negativeMain,
     fontSize: '12px',
     fontWeight: '400',
     lineHeight: '14px',

@@ -1,7 +1,9 @@
+import {ClassNameMap} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {FC, ReactElement, useEffect, useState} from 'react'
 
+import {withStyles} from '@material-ui/styles'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
@@ -28,10 +30,10 @@ interface Props {
   onClick?: () => void
   disableElevation?: boolean
   btnWrapperStyle?: string
-  children: any
+  classes: ClassNameMap
 }
 
-export const Button: FC<Props> = observer(
+const ButtonRaw: FC<Props> = observer(
   ({
     tooltipAttentionContent,
     tooltipInfoContent,
@@ -44,9 +46,11 @@ export const Button: FC<Props> = observer(
     className,
     disabled,
     btnWrapperStyle,
+    classes,
     ...restProps
   }) => {
-    const classNames = useClassNames()
+    // const classNames = useClassNames
+    const classNames = classes
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
 
@@ -89,3 +93,5 @@ export const Button: FC<Props> = observer(
     )
   },
 )
+
+export const Button = withStyles(useClassNames)(ButtonRaw)

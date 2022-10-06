@@ -15,6 +15,8 @@ export const useClassNames = makeStyles(theme => ({
     },
     minHeight: '50vh',
     overflowY: 'scroll',
+
+    backgroundColor: theme.palette.background.second,
   },
 
   '@media (max-width: 768px)': {

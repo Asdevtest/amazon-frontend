@@ -1,10 +1,12 @@
 import {createStyles} from '@material-ui/styles'
 
-export const styles = createStyles(() => ({
+export const styles = createStyles(theme => ({
   fieldsWrapper: {},
   alert: {
     marginTop: '24px',
     minHeight: '40px',
+
+    // backgroundColor: theme.palette.background.second,
   },
 
   alertMessage: {
@@ -22,21 +24,6 @@ export const styles = createStyles(() => ({
     marginTop: '24px',
   },
 
-  addBtn: {
-    color: '#fff',
-    backgroundColor: '#4caf50',
-    '&:hover': {
-      backgroundColor: '#009a07',
-
-      '@media (hover: none)': {
-        backgroundColor: '#009a07',
-      },
-    },
-    '&:disabled': {
-      backgroundColor: 'rgba(15, 169, 20, 0.5)',
-    },
-  },
-
   strategyLabel: {
     fontSize: '16px',
     lineHeight: '20px',
@@ -47,6 +34,9 @@ export const styles = createStyles(() => ({
 
   nativeSelect: {
     width: '300px',
+
+    // backgroundColor: theme.palette.background.main,
+    // color: theme.palette.text.general,
   },
 
   mainWrapper: {
@@ -71,11 +61,23 @@ export const styles = createStyles(() => ({
   },
 
   shortInput: {
-    width: '180px',
+    width: '170px',
   },
 
   reasonTitleAlert: {
     fontSize: '14px',
     marginTop: '10px',
+  },
+
+  input: {
+    overflow: 'hidden',
+
+    border: `1px solid ${theme.palette.input.border} `,
+
+    color: theme.palette.text.general,
+  },
+
+  selectOption: {
+    color: theme.palette.text.negativeMain,
   },
 }))

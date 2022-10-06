@@ -258,11 +258,11 @@ export const useClassNames = makeStyles(theme => ({
 
   themeIcon: {
     color: theme.palette.primary.main,
-    // cursor: 'pointer',
+    cursor: 'pointer',
     transition: '0.3s ease',
-    // '&:hover': {
-    //   transform: 'scale(1.1)',
-    // },
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
   },
   menuClientInfoWrapper: {display: 'none'},
   menuClientInfo: {display: 'none'},

@@ -1,6 +1,6 @@
 import {createStyles} from '@material-ui/core'
 
-export const styles = createStyles(() => ({
+export const styles = createStyles(theme => ({
   img: {
     height: '64px',
     width: '64px',
@@ -693,7 +693,8 @@ export const styles = createStyles(() => ({
     textAlign: 'center',
     whiteSpace: 'normal',
 
-    color: 'rgba(0, 0, 0, 0.87)',
+    // color: 'rgba(0, 0, 0, 0.87)',
+    color: theme.palette.text.general,
 
     fontWeight: '600',
     fontSize: '12px',

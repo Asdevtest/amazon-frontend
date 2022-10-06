@@ -1,6 +1,8 @@
 import {makeStyles} from '@material-ui/styles'
 
-export const useClassNames = makeStyles({
+// import {createStyles} from '@material-ui/core'
+
+export const useClassNames = makeStyles(theme => ({
   root: {
     marginBottom: '20px',
     width: '100%',
@@ -19,7 +21,7 @@ export const useClassNames = makeStyles({
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '12px',
   },
 
@@ -30,6 +32,12 @@ export const useClassNames = makeStyles({
     width: '100%',
     height: '32px',
     borderRadius: '4px',
+
+    overflow: 'hidden',
+
+    border: `1px solid ${theme.palette.input.border}`,
+
+    color: theme.palette.text.general,
   },
   errorText: {
     marginTop: '2px',
@@ -71,4 +79,8 @@ export const useClassNames = makeStyles({
     display: 'flex',
     alignItems: 'flex-start',
   },
-})
+
+  inputDisabled: {
+    backgroundColor: theme.palette.input.disabled,
+  },
+}))

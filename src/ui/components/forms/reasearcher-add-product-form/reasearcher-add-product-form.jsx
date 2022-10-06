@@ -88,16 +88,25 @@ export const ResearcherAddProductFormRaw = observer(
                     // disabled={errorMsg}
                     value={formFields.strategyStatus}
                     className={classNames.nativeSelect}
-                    input={<Input />}
+                    input={
+                      <Input
+                        classes={{
+                          input: classNames.input,
+                          disabled: classNames.inputDisabled,
+                        }}
+                      />
+                    }
                     onChange={onChangeFormFields('strategyStatus')}
                     onClick={() => setDisabledAddButton(true)}
                   >
-                    <option value={''}>{t(TranslationKey['not selected'])}</option>
+                    <option value={''} className={classNames.selectOption}>
+                      {t(TranslationKey['not selected'])}
+                    </option>
 
                     {Object.keys(mapProductStrategyStatusEnum)
                       .filter(el => user.allowedStrategies.includes(Number(el)))
                       .map((statusCode, statusIndex) => (
-                        <option key={statusIndex} value={statusCode}>
+                        <option key={statusIndex} value={statusCode} className={classNames.selectOption}>
                           {mapProductStrategyStatusEnum[statusCode]?.replace(/_/g, ' ')}
                         </option>
                       ))}
@@ -112,7 +121,6 @@ export const ResearcherAddProductFormRaw = observer(
                 tooltipInfoContent={t(
                   TranslationKey['Checking Amazon ID number for uniqueness and absence in the database'],
                 )}
-                className={classNames.button}
                 onClick={() => {
                   onClickCheckBtn()
                   setDisabledAddButton(false)
@@ -121,9 +129,9 @@ export const ResearcherAddProductFormRaw = observer(
                 {t(TranslationKey.Check)}
               </Button>
               <Button
+                success
                 tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}
                 disabled={chekedCode === '' || errorMsg || formFields.strategyStatus < 10 || disableAddButton}
-                className={classNames.addBtn}
                 onClick={onClickAddBtn}
               >
                 {t(TranslationKey['Add a product card'])}

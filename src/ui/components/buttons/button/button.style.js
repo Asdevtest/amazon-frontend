@@ -1,14 +1,18 @@
-import {makeStyles} from '@material-ui/core'
+import {createStyles} from '@material-ui/styles'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = createStyles(theme => ({
   root: {
     minHeight: '36px !important',
     minWidth: '36px !important',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+
+    color: theme.palette.text.negativeMain,
   },
 
   success: {
-    color: '#fff !important',
+    color: `${theme.palette.text.negativeMain} !important`,
+
+    // color: '#fff !important',
     backgroundColor: '#009a07 !important',
     '&:hover': {
       backgroundColor: '#4caf50 !important',
@@ -22,7 +26,8 @@ export const useClassNames = makeStyles(() => ({
     },
   },
   danger: {
-    color: '#fff !important',
+    // color: '#fff !important',
+    color: `${theme.palette.text.negativeMain} !important`,
     backgroundColor: '#ff0000 !important',
     '&:hover': {
       backgroundColor: '#c51a1c !important',

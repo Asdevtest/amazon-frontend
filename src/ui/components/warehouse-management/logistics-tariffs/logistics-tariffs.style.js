@@ -1,6 +1,6 @@
 import {makeStyles} from '@material-ui/core'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles(theme => ({
   mainWrapper: {
     display: 'flex',
     gap: '10px',
@@ -22,7 +22,9 @@ export const useClassNames = makeStyles(() => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
+
+    backgroundColor: theme.palette.background.main,
   },
 
   footerContainer: {

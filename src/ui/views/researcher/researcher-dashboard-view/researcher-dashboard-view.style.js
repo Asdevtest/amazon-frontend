@@ -17,6 +17,8 @@ export const styles = createStyles(theme => ({
     justifyContent: 'space-between',
     gap: '25px',
     boxShadow: '0px 2px 8px 2px rgba(0, 0, 0, 0.05)',
+
+    backgroundColor: theme.palette.background.main,
   },
   cardImg: {
     width: '145px',
