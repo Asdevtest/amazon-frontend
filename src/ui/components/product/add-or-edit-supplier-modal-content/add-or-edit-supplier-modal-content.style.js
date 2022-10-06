@@ -125,7 +125,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   middleContainer: {
-    width: '185px',
+    width: '190px',
   },
 
   shortContainer: {
@@ -181,7 +181,7 @@ export const useClassNames = makeStyles(() => ({
   calculationSubWrapper: {},
 
   divider: {
-    margin: '35px 18px 10px',
+    margin: '35px 10px 10px 10px',
   },
 
   sizesSubWrapper: {

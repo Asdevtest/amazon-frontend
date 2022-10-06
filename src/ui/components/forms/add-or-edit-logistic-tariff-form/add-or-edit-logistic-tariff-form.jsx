@@ -165,11 +165,14 @@ export const AddOrEditLogisticTariffForm = observer(
       Number(formFields.conditionsByRegion.yuanToDollarRate) <= 0 ||
       formFields.name === '' ||
       formFields.minWeightInKg === '' ||
-      formFields.minWeightInKg === 0 ||
+      formFields.minWeightInKg === '0' ||
       formFields.deliveryTimeInDay === '' ||
       formFields.cls === null ||
       formFields.etd === null ||
       formFields.eta === null ||
+      formFields.cls.toString() === 'Invalid Date' ||
+      formFields.etd.toString() === 'Invalid Date' ||
+      formFields.eta.toString() === 'Invalid Date' ||
       formFields.conditionsByRegion.west.rate === '' ||
       formFields.conditionsByRegion.central.rate === '' ||
       formFields.conditionsByRegion.east.rate === '' ||

@@ -126,6 +126,8 @@ export const useClassNames = makeStyles(theme => ({
 
   checkboxLabelContainer: {
     margin: 0,
+    maxWidth: '80px',
+    marginRight: '50px',
   },
 
   deleteBtn: {

@@ -58,6 +58,7 @@ class BuyerFreeOrdersViewRaw extends Component {
       setDataGridState,
       onChangeSortingModel,
       onChangeFilterModel,
+      onClickContinueWorkButton,
     } = this.viewModel
     const {classes: classNames} = this.props
     return (
@@ -123,7 +124,7 @@ class BuyerFreeOrdersViewRaw extends Component {
           topBtnText={t(TranslationKey['Go to order'])}
           bottomBtnText={t(TranslationKey['Continue to work with free orders'])}
           onClickTopBtn={() => goToMyOrders()}
-          onClickBottomBtn={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
+          onClickBottomBtn={onClickContinueWorkButton}
         />
 
         <WarningInfoModal

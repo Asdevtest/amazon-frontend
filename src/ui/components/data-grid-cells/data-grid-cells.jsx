@@ -1325,7 +1325,7 @@ export const ShortBoxDimensions = withStyles(styles)(
         ) : null}
         {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
           <Button
-            disabled={box.isDraft}
+            disabled={box.isDraft || box.status !== BoxStatus.IN_STOCK}
             className={clsx(classNames.shortBoxDimensionsButton, {
               [classNames.editPaddingButton]: !box.isDraft && finalWeight < 12,
             })}

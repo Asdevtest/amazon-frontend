@@ -202,6 +202,10 @@ export class BuyerFreeOrdersViewModel {
       }
     }
   }
+  onClickContinueWorkButton() {
+    this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+    this.loadData()
+  }
 
   onTriggerShowOrderModal() {
     this.showOrderModal = !this.showOrderModal

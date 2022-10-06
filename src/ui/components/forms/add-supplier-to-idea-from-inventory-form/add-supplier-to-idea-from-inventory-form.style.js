@@ -120,7 +120,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   successBtn: {
-    width: 136,
+    width: 140,
   },
 
   cancelBtn: {
