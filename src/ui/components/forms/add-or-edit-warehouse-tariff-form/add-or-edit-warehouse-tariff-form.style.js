@@ -52,4 +52,26 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  '@media (max-width: 768px)': {
+    root: {
+      minWidth: 0,
+      width: '280px',
+      margin: '0 -10px',
+    },
+    fieldLabel: {
+      fontSize: '14px',
+      lineHeight: '19px',
+      color: '#656565',
+    },
+    btnsWrapper: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    modalTitle: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      color: '#001029',
+      fontWeight: 600,
+    },
+  },
 }))

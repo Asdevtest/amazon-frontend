@@ -1192,8 +1192,8 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
   )
 })
 
-export const TrashCell = withStyles(styles)(({classes: classNames, onClick, tooltipText}) => (
-  <Button tooltipInfoContent={tooltipText} className={classNames.trashWrapper}>
+export const TrashCell = withStyles(styles)(({classes: classNames, onClick, tooltipText, isFirstRow}) => (
+  <Button tooltipInfoContent={isFirstRow && tooltipText} className={classNames.trashWrapper}>
     <img className={classNames.trashImg} src="/assets/icons/trash.svg" alt="" onClick={onClick} />
   </Button>
 ))

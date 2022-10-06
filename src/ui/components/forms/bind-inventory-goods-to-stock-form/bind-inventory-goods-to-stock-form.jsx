@@ -106,6 +106,8 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
     onSubmit({productId: product._id, warehouseStocks: selectedWarehouseStocks})
   }
 
+  const firstRowId = chosenGoods.length ? chosenGoods[0].id : null
+
   return (
     <div className={classNames.root}>
       <Typography variant="h6">{t(TranslationKey['Bind an product from Amazon'])}</Typography>
@@ -210,7 +212,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
               backgroundColor: '#fff',
             }}
             rows={chosenGoods || []}
-            columns={chosenGoodsColumns({onClickTrash})}
+            columns={chosenGoodsColumns({onClickTrash}, firstRowId)}
             rowHeight={60}
           />
         </div>

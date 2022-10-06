@@ -38,7 +38,7 @@ export const RequestToSendBatchesGroupBoxes = ({
   )
 
   const firstNumOfCode = selectedGroup.destination?.zipCode?.[0] || null
-  console.log(boxesDeliveryCosts)
+
   const regionOfDeliveryName =
     firstNumOfCode === null ? null : zipCodeGroups.find(el => el.codes.includes(Number(firstNumOfCode)))?.name
 
@@ -57,7 +57,7 @@ export const RequestToSendBatchesGroupBoxes = ({
           <div className={classNames.headerSubWrapper}>
             <Typography className={classNames.headerTitle}>{t(TranslationKey.Destination)}</Typography>
 
-            <Typography className={[classNames.headerSpanText, classNames.textEllipsis]}>
+            <Typography className={clsx(classNames.headerSpanText, classNames.textEllipsis)}>
               {selectedGroup.destination?.name}
             </Typography>
           </div>
@@ -86,7 +86,7 @@ export const RequestToSendBatchesGroupBoxes = ({
         </div>
       )}
 
-      <table border="1" className={classNames.table}>
+      <div className={classNames.table}>
         {selectedGroup.boxes.map((boxId, index) => {
           const findBox = boxesMy.find(box => box._id === boxId._id)
           const findRequestToSendBatchPriceForCurBox = boxesDeliveryCosts.find(
@@ -106,7 +106,7 @@ export const RequestToSendBatchesGroupBoxes = ({
             </div>
           )
         })}
-      </table>
+      </div>
       {selectedGroup.price !== 0 && (
         <div className={classNames.footerWrapper}>
           {tariffIsInvalid ? (

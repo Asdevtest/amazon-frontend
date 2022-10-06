@@ -37,4 +37,15 @@ export const useClassNames = makeStyles(() => ({
   toolbarContainer: {
     height: '52px',
   },
+  '@media (max-width: 768px)': {
+    toolbarContainer: {
+      visibility: 'hidden',
+    },
+    placeAddBtnWrapper: {
+      paddingRight: '10px',
+    },
+    placeAddBtn: {
+      width: '91px',
+    },
+  },
 }))

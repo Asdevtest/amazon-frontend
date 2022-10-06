@@ -18,12 +18,9 @@ export const DashboardSingleCard = observer(({item, valuesData, onClickViewMore}
       <div className={classNames.textWrapper}>
         <Typography className={classNames.cardTitle}>{item.title}</Typography>
         <Typography className={classNames.cardValueTitle}>
-          {valuesData[item.dataKey] ? (
-            valuesData[item.dataKey]
-          ) : (
-            <CircularProgress color="primary" thickness={2} size={30} />
-          )}
+          {valuesData[item.dataKey] ? valuesData[item.dataKey] : null}
         </Typography>
+        {!valuesData[item.dataKey] ? <CircularProgress color="primary" thickness={2} size={30} /> : null}
       </div>
     </div>
   )

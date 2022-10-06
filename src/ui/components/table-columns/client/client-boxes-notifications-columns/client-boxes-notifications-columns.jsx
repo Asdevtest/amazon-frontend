@@ -103,8 +103,8 @@ export const clientBoxesNotificationsViewColumns = handlers => [
 
   {
     field: 'storekeeper',
-    headerName: t(TranslationKey.Storekeeper),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
+    headerName: t(TranslationKey['Int warehouse']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.storekeeper?._id} />

@@ -8,4 +8,8 @@ export const useClassNames = makeStyles(() => ({
   indicator: {
     backgroundColor: '#1da1f2',
   },
+  flexContainer: {
+    // flexDirection: 'column',
+    // width: '200px',
+  },
 }))

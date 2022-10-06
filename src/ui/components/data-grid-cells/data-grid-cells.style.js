@@ -326,6 +326,7 @@ export const styles = createStyles(() => ({
     fontWeight: 600,
     fontSize: 14,
     color: '#006CFF',
+    width: '50px',
   },
   imgWrapper: {
     display: 'flex',

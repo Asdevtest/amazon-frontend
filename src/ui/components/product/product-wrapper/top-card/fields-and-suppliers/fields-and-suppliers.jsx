@@ -370,8 +370,8 @@ export const FieldsAndSuppliers = observer(
               inputComponent={
                 <div className={classNames.shopsFieldWrapper}>
                   <Select
-                    value={shops?.length ? shopsNames : t(TranslationKey['No stores'])}
                     disabled={!shops.length}
+                    value={shops?.length ? shopsNames : t(TranslationKey['No stores'])}
                     renderValue={() =>
                       clearSelect
                         ? t(TranslationKey['Select a store'])

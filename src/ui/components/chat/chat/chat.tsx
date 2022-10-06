@@ -1,10 +1,11 @@
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import TextField from '@mui/material/TextField'
 
 import React, {FC, ReactElement, useEffect, useState, KeyboardEvent} from 'react'
 
-import {InputAdornment, Typography, ClickAwayListener} from '@material-ui/core'
+import {InputAdornment, Typography, ClickAwayListener, Avatar} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
@@ -17,9 +18,10 @@ import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 
+import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {t} from '@utils/translations'
 
-import {IFile} from '../multiple-chats'
+import {CurrentOpponent, IFile} from '../multiple-chats'
 import {ChatFilesInput} from './chat-files-input'
 import {ChatMessagesList, ChatMessageUniversalHandlers} from './chat-messages-list'
 import {useClassNames} from './chat.style'
@@ -47,11 +49,13 @@ interface Props {
   chat: ChatContract
   messages: ChatMessageContract[]
   userId: string
+  currentOpponent?: CurrentOpponent
   chatMessageHandlers?: ChatMessageUniversalHandlers
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
   onSubmitMessage: (message: string, files: IFile[]) => void
   updateData: () => void
   onTypingMessage: (chatId: string) => void
+  onClickBackButton: () => void
 }
 
 export const Chat: FC<Props> = observer(
@@ -59,11 +63,13 @@ export const Chat: FC<Props> = observer(
     chat,
     messages,
     userId,
+    currentOpponent,
     chatMessageHandlers,
     onSubmitMessage,
     renderAdditionalButtons,
     updateData,
     onTypingMessage,
+    onClickBackButton,
   }) => {
     const [showFiles, setShowFiles] = useState(false)
 
@@ -169,6 +175,13 @@ export const Chat: FC<Props> = observer(
 
     return (
       <div className={classNames.root}>
+        <div className={classNames.opponentWrapper}>
+          <ArrowBackIosIcon color="primary" onClick={onClickBackButton} />
+          <div className={classNames.opponentSubWrapper}>
+            <Avatar src={getUserAvatarSrc(currentOpponent?._id)} className={classNames.avatarWrapper} />
+            <Typography className={classNames.opponentName}>{currentOpponent?.name}</Typography>
+          </div>
+        </div>
         <div className={classNames.scrollViewWrapper}>
           <ChatMessagesList userId={userId} messages={messages} handlers={chatMessageHandlers} />
         </div>
@@ -239,7 +252,7 @@ export const Chat: FC<Props> = observer(
             <Button disabled={disabledSubmit} className={classNames.sendBtn} onClick={() => onSubmitMessageInternal()}>
               {
                 <div className={classNames.sendBtnTextWrapper}>
-                  <Typography>{t(TranslationKey.Send)}</Typography>
+                  <Typography className={classNames.sendBtnText}>{t(TranslationKey.Send)}</Typography>
                   <img src="/assets/icons/send.svg" className={classNames.sendBtnIcon} />
                 </div>
               }

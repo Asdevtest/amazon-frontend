@@ -50,4 +50,19 @@ export const useClassNames = makeStyles(() => ({
     alignItems: 'flex-end',
     marginLeft: 10,
   },
+  '@media (max-width: 768px)': {
+    filesMainWrapper: {
+      width: '230px',
+    },
+    messageText: {
+      marginRight: '30px !important',
+
+      whiteSpace: 'pre-wrap',
+      fontSize: 14,
+      lineHeight: '19px',
+      color: '#001029',
+
+      width: '100%',
+    },
+  },
 }))

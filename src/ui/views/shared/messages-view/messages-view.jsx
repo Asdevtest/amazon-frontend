@@ -5,6 +5,7 @@ import React, {Component} from 'react'
 
 import {InputAdornment, Avatar, Typography} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -48,6 +49,7 @@ class MessagesViewRaw extends Component {
       onClickChat,
       onTriggerDrawerOpen,
       onSubmitMessage,
+      onClickBackButton,
       onChangeNameSearchValue,
       onTriggerNoticeOfSimpleChats,
     } = this.viewModel
@@ -61,7 +63,7 @@ class MessagesViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Messages)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <div className={classNames.chatHeaderWrapper}>
+              <div className={clsx(classNames.chatHeaderWrapper, {[classNames.hideChatHeaderWrapper]: chatSelectedId})}>
                 <div className={classNames.leftSide}>
                   <Field
                     containerClasses={classNames.searchContainer}
@@ -114,6 +116,7 @@ class MessagesViewRaw extends Component {
                   ref={this.chatRef}
                   typingUsers={typingUsers}
                   searchFilter={nameSearchValue}
+                  currentOpponent={currentOpponent}
                   chats={simpleChats}
                   userId={user._id}
                   chatSelectedId={chatSelectedId}
@@ -121,6 +124,7 @@ class MessagesViewRaw extends Component {
                   onTypingMessage={onTypingMessage}
                   onSubmitMessage={onSubmitMessage}
                   onClickChat={onClickChat}
+                  onClickBackButton={onClickBackButton}
                 />
               </div>
             </MainContent>

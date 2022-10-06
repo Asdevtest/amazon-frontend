@@ -1,6 +1,7 @@
 import React, {forwardRef, ReactElement} from 'react'
 
 import {Typography} from '@material-ui/core'
+import clsx from 'clsx'
 import {compareDesc, parseISO} from 'date-fns'
 import {observer} from 'mobx-react'
 
@@ -23,10 +24,25 @@ export interface IFile {
   data_url: string
   file: File
 }
+
+export interface CurrentOpponent {
+  active: boolean
+  balance: number
+  balanceFreeze: number
+  canByMasterUser: boolean
+  chat_users: Object
+  email: string
+  fba: boolean
+  name: string
+  overdraft: number
+  rate: number
+  _id: string
+}
 interface Props {
   searchFilter: string
   chats: ChatContract[]
   userId: string
+  currentOpponent?: CurrentOpponent
   chatSelectedId?: string
   chatMessageHandlers?: ChatMessageUniversalHandlers
   typingUsers?: OnTypingMessageResponse[]
@@ -35,6 +51,7 @@ interface Props {
   onSubmitMessage: (message: string, files: IFile[], chat: string) => void
   onClickChat: (chat: ChatContract) => void
   onTypingMessage: (chatId: string) => void
+  onClickBackButton: () => void
 }
 
 export const MultipleChats = observer(
@@ -52,6 +69,8 @@ export const MultipleChats = observer(
         onClickChat,
         renderAdditionalButtons,
         onTypingMessage,
+        currentOpponent,
+        onClickBackButton,
       },
       ref,
     ) => {
@@ -79,7 +98,11 @@ export const MultipleChats = observer(
       return (
         <div ref={ref} className={classNames.root}>
           {
-            <div className={classNames.chatsWrapper}>
+            <div
+              className={clsx(classNames.chatsWrapper, {
+                [classNames.hideChatsWrapper]: isNotUndefined(chatSelectedId) && findChatByChatId,
+              })}
+            >
               <ChatsList
                 userId={userId}
                 typingUsers={typingUsers}
@@ -89,7 +112,7 @@ export const MultipleChats = observer(
               />
             </div>
           }
-          {SettingsModel.languageTag && (
+          {SettingsModel.languageTag && window.innerWidth > 768 && (
             <div className={classNames.chatWrapper}>
               {isNotUndefined(chatSelectedId) && findChatByChatId ? (
                 <Chat
@@ -104,6 +127,7 @@ export const MultipleChats = observer(
                     onSubmitMessage(message, files, chatSelectedId!)
                   }
                   onTypingMessage={onTypingMessage}
+                  onClickBackButton={onClickBackButton}
                 />
               ) : (
                 <div className={classNames.noChatWrapper}>
@@ -114,6 +138,28 @@ export const MultipleChats = observer(
                   </Typography>
                 </div>
               )}
+            </div>
+          )}
+
+          {isNotUndefined(chatSelectedId) && findChatByChatId && window.innerWidth < 768 && (
+            <div className={classNames.chatWrapper}>
+              {
+                <Chat
+                  userId={userId}
+                  chat={findChatByChatId}
+                  currentOpponent={currentOpponent}
+                  messages={findChatByChatId.messages}
+                  chatMessageHandlers={chatMessageHandlers}
+                  renderAdditionalButtons={renderAdditionalButtons}
+                  updateData={updateData}
+                  onSubmitMessage={(message: string, files: IFile[]) =>
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                    onSubmitMessage(message, files, chatSelectedId!)
+                  }
+                  onTypingMessage={onTypingMessage}
+                  onClickBackButton={onClickBackButton}
+                />
+              }
             </div>
           )}
         </div>
