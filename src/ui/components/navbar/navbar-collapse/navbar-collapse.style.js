@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginRight: '12px',
   },
   selected: {
-    color: theme.palette.primary.main,
+    color: `${theme.palette.primary.main} !important`,
   },
 
   badge: {

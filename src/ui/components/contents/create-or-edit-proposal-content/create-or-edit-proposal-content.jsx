@@ -1,7 +1,6 @@
 import {cx} from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
-import {Rating} from '@mui/material'
-import {Avatar, Checkbox, Link, List, ListItem, ListItemText, TextareaAutosize, Typography} from '@mui/material'
+import {Avatar, Checkbox, Link, List, ListItem, ListItemText, TextareaAutosize, Typography, Rating} from '@mui/material'
 
 import React, {useState} from 'react'
 

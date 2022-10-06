@@ -1,10 +1,8 @@
-// import {withStyles} from '@mui/styles'
 import {Paper} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-// import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
@@ -19,7 +17,6 @@ import {MainContent} from '@components/main-content'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
 import {Navbar} from '@components/navbar'
 
-// import {CustomPagination} from '@components/table-pagination'
 import {getLocalizationByLanguageTag} from '@utils/data-grid-localization'
 import {t} from '@utils/translations'
 
@@ -104,7 +101,6 @@ class ResearcherProductsViewRaw extends Component {
                     footerContainer: classNames.footerContainer,
                     footerCell: classNames.footerCell,
                     toolbarContainer: classNames.toolbarContainer,
-                    toolbar: classNames.pagination,
                   }}
                   sortModel={sortModel}
                   filterModel={filterModel}
@@ -115,7 +111,6 @@ class ResearcherProductsViewRaw extends Component {
                   rowHeight={60}
                   components={{
                     Toolbar: GridToolbar,
-                    // Pagination: CustomPagination,
                   }}
                   density={densityModel}
                   columns={columnsModel}

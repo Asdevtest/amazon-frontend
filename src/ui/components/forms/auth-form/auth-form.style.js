@@ -1,5 +1,3 @@
-// import {createStyles} from '@material-ui/styles'
-
 export const styles = theme => ({
   // root: {
   //   padding: '0 40px',

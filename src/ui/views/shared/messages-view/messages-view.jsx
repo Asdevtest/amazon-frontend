@@ -1,6 +1,5 @@
 import SearchIcon from '@mui/icons-material/Search'
-import {Link} from '@mui/material'
-import {InputAdornment, Avatar, Typography} from '@mui/material'
+import {InputAdornment, Avatar, Typography, Link} from '@mui/material'
 
 import React, {Component} from 'react'
 

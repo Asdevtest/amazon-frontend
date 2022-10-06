@@ -1,6 +1,5 @@
 import {cx} from '@emotion/css'
-import {Link} from '@mui/material'
-import {Avatar, Typography} from '@mui/material'
+import {Avatar, Typography, Link} from '@mui/material'
 
 import React, {FC, useEffect} from 'react'
 

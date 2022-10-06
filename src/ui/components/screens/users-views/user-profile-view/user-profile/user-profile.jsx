@@ -1,6 +1,5 @@
 import AutorenewIcon from '@mui/icons-material/Autorenew'
-import {Rating} from '@mui/material'
-import {Avatar, Box, Paper, Typography, Button} from '@mui/material'
+import {Avatar, Box, Paper, Typography, Button, Rating} from '@mui/material'
 
 import React from 'react'
 

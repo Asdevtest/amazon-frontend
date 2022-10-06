@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(()=> ({
+export const useClassNames = makeStyles()(() => ({
   root: {
     height: '120px',
     minWidth: '320px',
@@ -63,4 +63,4 @@ export const useClassNames = makeStyles()(()=> ({
     lineHeight: '21px',
     color: 'rgba(61, 81, 112, 1)',
   },
-})
+}))

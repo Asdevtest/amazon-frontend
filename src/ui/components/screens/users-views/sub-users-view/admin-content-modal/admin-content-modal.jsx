@@ -1,5 +1,14 @@
-import {Rating} from '@mui/material'
-import {Container, Button, Typography, NativeSelect, Checkbox, Select, ListItemText, MenuItem} from '@mui/material'
+import {
+  Container,
+  Button,
+  Typography,
+  NativeSelect,
+  Checkbox,
+  Select,
+  ListItemText,
+  MenuItem,
+  Rating,
+} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 

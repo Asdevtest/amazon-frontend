@@ -72,7 +72,11 @@ export const NavbarCollapse = ({
         to={subCategory.subRoute}
         onClick={() => onClickCategory(subIndex)}
       >
-        <ListItemText disableTypography className={cx(classNames.listItemText)} primary={subCategory.subtitle} />
+        <ListItemText
+          disableTypography
+          className={cx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
+          primary={subCategory.subtitle}
+        />
 
         {renderNotificationBySubRoute(subCategory.subRoute)}
       </NavbarSubCategory>

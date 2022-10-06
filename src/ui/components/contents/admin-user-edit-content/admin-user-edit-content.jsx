@@ -1,6 +1,5 @@
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
-import {Rating} from '@mui/material'
-import {Typography, NativeSelect, Checkbox, Select, ListItemText, MenuItem} from '@mui/material'
+import {Typography, NativeSelect, Checkbox, Select, ListItemText, MenuItem, Rating} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 

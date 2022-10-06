@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(()=> ({
+export const useClassNames = makeStyles()(() => ({
   root: {
     marginBottom: '20px',
   },
@@ -18,4 +18,4 @@ export const useClassNames = makeStyles()(()=> ({
     fontWeight: '400',
     marginBottom: '12px',
   },
-})
+}))

@@ -4,8 +4,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneOutlineRoundedIcon from '@mui/icons-material/DoneOutlineRounded'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import {Rating} from '@mui/material'
-import {Avatar, Badge, Chip, Grid, Link, TextareaAutosize, Tooltip, Typography} from '@mui/material'
+import {Avatar, Badge, Chip, Grid, Link, TextareaAutosize, Tooltip, Typography, Rating} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 

@@ -1,5 +1,3 @@
-// import {createStyles} from '@material-ui/styles'
-
 export const styles = theme => ({
   root: {
     minHeight: '36px !important',

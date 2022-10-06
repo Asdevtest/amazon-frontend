@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(()=> ({
+export const useClassNames = makeStyles()(() => ({
   root: {
     display: 'flex',
     alignItems: 'center',
@@ -20,4 +20,4 @@ export const useClassNames = makeStyles()(()=> ({
   active: {
     color: '#FFC632',
   },
-})
+}))

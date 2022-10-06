@@ -1,5 +1,3 @@
-// import {createStyles} from '@mui/material'
-
 export const styles = theme => ({
   img: {
     height: '64px',
@@ -879,7 +877,7 @@ export const styles = theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   sabUserRatingWrapper: {

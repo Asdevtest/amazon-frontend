@@ -1,5 +1,3 @@
-// import {createStyles} from '@material-ui/styles'
-
 export const styles = theme => ({
   root: {
     color: theme.palette.text.secondary,

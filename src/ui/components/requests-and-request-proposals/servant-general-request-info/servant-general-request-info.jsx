@@ -1,5 +1,4 @@
-import {Rating} from '@mui/material'
-import {Typography, Paper, Avatar} from '@mui/material'
+import {Typography, Paper, Avatar, Rating} from '@mui/material'
 
 import React from 'react'
 

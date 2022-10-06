@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
@@ -32,7 +32,7 @@ export const useClassNames = makeStyles()(() => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#656565',
+    color: theme.palette.text.second,
     textAlign: 'center',
     marginBottom: 24,
   },

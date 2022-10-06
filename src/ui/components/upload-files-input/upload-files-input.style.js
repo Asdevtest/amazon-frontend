@@ -2,7 +2,7 @@ import {tooltipClasses} from '@mui/material/Tooltip'
 
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -25,6 +25,9 @@ export const useClassNames = makeStyles()(() => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '10px',
 
+    color: theme.palette.text.general,
+    backgroundColor: theme.palette.background.second,
+
     '&:hover': {
       transform: 'scale(1.02)',
     },
@@ -44,6 +47,8 @@ export const useClassNames = makeStyles()(() => ({
     border: ' 1px solid rgba(0,123, 255, .7)',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '10px',
+
+    color: theme.palette.text.second,
     '&:hover': {
       opacity: '0.7',
     },
@@ -67,6 +72,7 @@ export const useClassNames = makeStyles()(() => ({
     border: ' 1px solid rgba(0,123, 255, .7)',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '10px',
+    color: theme.palette.text.second,
     '&:hover': {
       opacity: '0.7',
     },
@@ -178,6 +184,8 @@ export const useClassNames = makeStyles()(() => ({
     height: '40px',
     borderRadius: '8px',
     width: 'calc(100% - 182px)',
+
+    border: `1px solid #424250`,
   },
 
   loadBtn: {
