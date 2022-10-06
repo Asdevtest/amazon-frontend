@@ -1,6 +1,7 @@
-import MuiListItem from '@material-ui/core/ListItem'
-import {withStyles} from '@material-ui/styles'
+import MuiListItem from '@mui/material/ListItem'
+
+import {withStyles} from 'tss-react/mui'
 
 import {styles} from './navbar-sub-category.style'
 
-export const NavbarSubCategory = withStyles(styles)(MuiListItem)
+export const NavbarSubCategory = withStyles(MuiListItem, styles)

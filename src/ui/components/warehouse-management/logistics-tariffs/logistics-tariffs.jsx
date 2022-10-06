@@ -20,7 +20,7 @@ import {LogisticsTariffsModel} from './logistics-tariffs.model'
 import {useClassNames} from './logistics-tariffs.style'
 
 export const LogisticsTariffs = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const gpModel = useRef(new LogisticsTariffsModel({history}))
 

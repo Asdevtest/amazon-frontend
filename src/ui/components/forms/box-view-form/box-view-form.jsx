@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 import {Tooltip} from '@mui/material'
+=======
+import {cx} from '@emotion/css'
+import {Checkbox, Divider, Grid, Link, Typography} from '@mui/material'
+>>>>>>> 56997012... success migration on 5 mui
 
 import {React, useState} from 'react'
 
-import {Checkbox, Divider, Grid, Link, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 // import Carousel from 'react-material-ui-carousel'
@@ -27,7 +30,7 @@ import {useClassNames} from './box-view-form.style'
 
 export const BoxViewForm = observer(
   ({box, setOpenModal, volumeWeightCoefficient, batchHumanFriendlyId, storekeeper}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 
@@ -249,7 +252,7 @@ export const BoxViewForm = observer(
                     {toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
                   </Typography>
                   <Typography
-                    className={clsx({
+                    className={cx({
                       [classNames.alertText]: calcFinalWeightForBox(box, volumeWeightCoefficient) < 12,
                     })}
                   >
@@ -274,7 +277,7 @@ export const BoxViewForm = observer(
                         ) : null}
 
                         <Typography
-                          className={clsx(classNames.sizesLabel, {
+                          className={cx(classNames.sizesLabel, {
                             [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.PRIMARY,
                           })}
                           onClick={() => setToggleDimensionsValue(dimensionsConfig.PRIMARY)}
@@ -288,7 +291,7 @@ export const BoxViewForm = observer(
                         ) : null}
 
                         <Typography
-                          className={clsx(classNames.sizesLabel, {
+                          className={cx(classNames.sizesLabel, {
                             [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.SHIPPING,
                           })}
                           onClick={() => setToggleDimensionsValue(dimensionsConfig.SHIPPING)}
@@ -339,7 +342,7 @@ export const BoxViewForm = observer(
                       : toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient, true), 2)}
                   </Typography>
                   <Typography
-                    className={clsx({
+                    className={cx({
                       [classNames.alertText]:
                         (toggleDimensionsValue === dimensionsConfig.PRIMARY
                           ? calcFinalWeightForBox(box, volumeWeightCoefficient)

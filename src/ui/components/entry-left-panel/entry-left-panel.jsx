@@ -1,6 +1,6 @@
-import React from 'react'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -9,7 +9,12 @@ import {t} from '@utils/translations'
 import {useClassNames} from './entry-left-panel.style'
 
 export const EntryLeftPanel = () => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
+
+  // const classNames = classes
+
+  // console.log('classes', classes)
+
   return (
     <div className={classNames.leftPanel}>
       <div className={classNames.header}>

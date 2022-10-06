@@ -1,8 +1,8 @@
 import SearchIcon from '@mui/icons-material/Search'
+import {TableCell, TableRow, Typography, InputAdornment} from '@mui/material'
 
 import React, {useState, useEffect} from 'react'
 
-import {TableCell, TableRow, Typography, InputAdornment} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -27,7 +27,7 @@ import {BigImagesModal} from '../big-images-modal'
 import {useClassNames} from './batch-info-modal.style'
 
 const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <TableRow className={classNames.row} onDoubleClick={() => handlers.openBoxView(item)}>
@@ -91,7 +91,7 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
 }
 
 export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeWeightCoefficient}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const BATCH_INFO_HEAD_CELLS = [
     {title: t(TranslationKey.Boxes)},

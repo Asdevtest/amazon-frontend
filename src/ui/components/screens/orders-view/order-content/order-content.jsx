@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell} from '@mui/material'
 
-import {Container, Divider, Typography, useTheme, useMediaQuery, Paper, TableRow, TableCell} from '@material-ui/core'
+import React, {useEffect, useState} from 'react'
 
 import {OrderStatusByCode, OrderStatus, OrderStatusByKey, OrderStatusText} from '@constants/order-status'
 import {CLIENT_WAREHOUSE_HEAD_CELLS} from '@constants/table-head-cells'
@@ -25,7 +25,7 @@ import {useClassNames} from './order-content.style'
 const MEDIA_SCALE_POINTS = '1812'
 
 export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoefficient}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [collapsed, setCollapsed] = useState(false)
   const [updatedOrder, setUpdatedOrder] = useState(order)

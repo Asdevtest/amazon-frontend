@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles({
+export const styles = {
   count: {
     fontSize: '13px',
     lineHeight: '15px',
@@ -58,4 +58,4 @@ export const styles = createStyles({
     whiteSpace: 'nowrap',
     overflowX: 'auto',
   },
-})
+}

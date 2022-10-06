@@ -1,8 +1,8 @@
+import {Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useState} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -16,7 +16,7 @@ import {moveBoxToBatchFormColumns} from './move-box-to-batch-form-columns'
 import {useClassNames} from './move-box-to-batch-form.style'
 
 export const MoveBoxToBatchForm = observer(({batches, setOpenModal, onSubmit, box, onSubmitCreateBatch}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [selectedBatch, setSelectedBatch] = useState(null)
 

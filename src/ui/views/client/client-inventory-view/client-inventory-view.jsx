@@ -1,12 +1,12 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import SearchIcon from '@mui/icons-material/Search'
+import {InputAdornment} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {InputAdornment} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -575,4 +575,4 @@ export class ClientInventoryViewRaw extends Component {
   }
 }
 
-export const ClientInventoryView = withStyles(styles)(ClientInventoryViewRaw)
+export const ClientInventoryView = withStyles(ClientInventoryViewRaw, styles)

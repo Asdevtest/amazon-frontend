@@ -1,8 +1,8 @@
 import ClearIcon from '@mui/icons-material/Clear'
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material'
 
 import React from 'react'
 
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -15,7 +15,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './table-asin-and-reason.style'
 
 export const TableAsinAndReason = observer(({data, onClickRemoveCell}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const renderHeader = () => (
     <TableHead className={classNames.tableHeader}>

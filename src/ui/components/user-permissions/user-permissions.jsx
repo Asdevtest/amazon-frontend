@@ -1,8 +1,8 @@
 import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
+import {Typography, Box, Tabs, Tab} from '@mui/material'
 
 import React from 'react'
 
-import {Typography, Box, Tabs, Tab} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -32,7 +32,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 )
 
 export const UserPermissions = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(0)
   const tabItemStyles = twitterTabsStylesHook.useTabItem()

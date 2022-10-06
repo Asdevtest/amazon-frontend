@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
+import {Typography, Divider, Paper} from '@mui/material'
+
 import React, {useEffect, useRef} from 'react'
 
-import {Typography, Divider, Paper} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
@@ -23,7 +24,7 @@ import {ListingModel} from './listing.model'
 import {useClassNames} from './listing.style'
 
 export const Listing = observer(({productId, onClickBack}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const listingModel = useRef(new ListingModel({history, productId}))
 

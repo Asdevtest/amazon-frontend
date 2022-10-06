@@ -1,9 +1,8 @@
+import {cx} from '@emotion/css'
+import {Avatar, Grid, Typography} from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
-
-import {Avatar, Grid, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 
 import {RequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -29,13 +28,13 @@ export const DealDetailsCard = ({
   item,
   proposalId,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const curProposal = item.find(el => el?.proposal._id === proposalId)
 
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
-        <div className={clsx(classNames.leftBlockWrapper, {[classNames.leftBlockMarginWrapper]: dealsOnReview})}>
+        <div className={cx(classNames.leftBlockWrapper, {[classNames.leftBlockMarginWrapper]: dealsOnReview})}>
           <div className={classNames.usersInfoBlockWrapper}>
             <div className={classNames.userInfoWrapper}>
               <Typography className={classNames.userInfoName}>{t(TranslationKey.Client)}</Typography>

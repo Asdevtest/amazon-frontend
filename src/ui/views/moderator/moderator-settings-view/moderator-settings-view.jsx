@@ -1,7 +1,8 @@
+import {Typography} from '@mui/material'
+
 import {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -45,4 +46,4 @@ export class ModeratorSettingsViewRaw extends Component {
   }
 }
 
-export const ModeratorSettingsView = withStyles(styles)(ModeratorSettingsViewRaw)
+export const ModeratorSettingsView = withStyles(ModeratorSettingsViewRaw, styles)

@@ -1,6 +1,6 @@
-import React from 'react'
+import {Box, Grid} from '@mui/material'
 
-import {Box, Grid} from '@material-ui/core'
+import React from 'react'
 
 import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'

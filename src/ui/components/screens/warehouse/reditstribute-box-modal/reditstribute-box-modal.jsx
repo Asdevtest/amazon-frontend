@@ -1,11 +1,11 @@
+import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import {Chip, IconButton, Link, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {Chip, IconButton, Link, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -44,7 +44,7 @@ const Box = ({
   isNewBox,
   totalProductsAmount,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
   const [showFullCard, setShowFullCard] = useState(true)
@@ -155,7 +155,7 @@ const Box = ({
                         disabled={!isNewBox}
                         color="primary"
                         variant={box.logicsTariffId && 'text'}
-                        className={clsx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
+                        className={cx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
                         onClick={() =>
                           setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                         }
@@ -240,7 +240,7 @@ const Box = ({
                           deleteIcon: classNames.barcodeChipIcon,
                           label: classNames.barcodeChiplabel,
                         }}
-                        className={clsx({[classNames.barcodeChipExists]: box.shippingLabel})}
+                        className={cx({[classNames.barcodeChipExists]: box.shippingLabel})}
                         size="small"
                         label={
                           box.tmpShippingLabel?.length
@@ -326,7 +326,7 @@ const NewBoxes = ({
   destinations,
   storekeepers,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.newBoxes}>
@@ -335,7 +335,7 @@ const NewBoxes = ({
       </div>
 
       {newBoxes.map((box, boxIndex) => (
-        <div key={boxIndex} className={clsx({[classNames.marginBox]: newBoxes.length > 1})}>
+        <div key={boxIndex} className={cx({[classNames.marginBox]: newBoxes.length > 1})}>
           <Box
             isNewBox
             destinations={destinations}
@@ -366,7 +366,7 @@ export const RedistributeBox = observer(
     onRedistribute,
     onTriggerOpenModal,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
     const [currentBox, setCurrentBox] = useState(selectedBox)
 
     const [showNewBoxAttention, setShowNewBoxAttention] = useState(true)
@@ -557,7 +557,7 @@ export const RedistributeBox = observer(
             color="primary"
             variant="text"
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            className={clsx(classNames.button, classNames.cancelButton)}
+            className={cx(classNames.button, classNames.cancelButton)}
             onClick={() => {
               onTriggerOpenModal('showRedistributeBoxModal')
               setShowNewBoxAttention(false)

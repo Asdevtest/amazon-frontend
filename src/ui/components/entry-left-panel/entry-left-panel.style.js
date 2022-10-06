@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(() => ({
   leftPanel: {
     display: 'flex',
     flex: '0 0 45%',

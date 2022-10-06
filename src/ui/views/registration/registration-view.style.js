@@ -1,10 +1,9 @@
-import {createStyles} from '@material-ui/styles'
+// import {createStyles} from '@material-ui/styles'
 
-export const styles = () =>
-  createStyles({
-    root: {
-      display: 'flex',
-      height: '100%',
-      flex: 1,
-    },
-  })
+export const styles = () => ({
+  root: {
+    display: 'flex',
+    height: '100%',
+    flex: 1,
+  },
+})

@@ -1,9 +1,10 @@
+import {cx} from '@emotion/css'
+import {Collapse, Divider, Drawer, List, ListItemText, ListItemIcon, SvgIcon, Hidden} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Collapse, Divider, Drawer, List, ListItemText, ListItemIcon, SvgIcon, Hidden} from '@material-ui/core'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import clsx from 'clsx'
 
 import {CATEGORIES_LIST} from '@constants/categories-list-documentation'
 
@@ -123,7 +124,7 @@ export const NavbarDocumentation = ({
                     onClick={() => itemHandleClick(index, user)}
                   >
                     <ListItemIcon
-                      className={clsx(classNames.iconWrapper, {
+                      className={cx(classNames.iconWrapper, {
                         [classNames.selected]: activeItem === index,
                       })}
                     >
@@ -164,7 +165,7 @@ export const NavbarDocumentation = ({
           open
           classes={{
             root: classNames.root,
-            paper: clsx(classNames.paper, classNames.positionStatic),
+            paper: cx(classNames.paper, classNames.positionStatic),
           }}
           variant="permanent"
         >

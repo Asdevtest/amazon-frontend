@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles({
+export const styles = {
   tableHeadTypography: {
     color: 'rgb(61, 81, 112)',
     fontWeight: 500,
@@ -8,4 +8,4 @@ export const styles = createStyles({
   tableHeadCell: {
     padding: '8px',
   },
-})
+}

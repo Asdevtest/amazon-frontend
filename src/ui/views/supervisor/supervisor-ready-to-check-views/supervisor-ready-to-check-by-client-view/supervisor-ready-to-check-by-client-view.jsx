@@ -2,8 +2,8 @@ import {DataGrid} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -113,4 +113,4 @@ class SupervisorReadyToCheckByClientViewRaw extends Component {
   }
 }
 
-export const SupervisorReadyToCheckByClientView = withStyles(styles)(SupervisorReadyToCheckByClientViewRaw)
+export const SupervisorReadyToCheckByClientView = withStyles(SupervisorReadyToCheckByClientViewRaw, styles)

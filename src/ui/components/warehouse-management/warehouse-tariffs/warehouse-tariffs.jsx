@@ -20,7 +20,7 @@ import {WarehouseTariffModel} from './warehouse-tariffs.model'
 import {useClassNames} from './warehouse-tariffs.style'
 
 export const WarehouseTariffs = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const spModel = useRef(new WarehouseTariffModel({history}))
 

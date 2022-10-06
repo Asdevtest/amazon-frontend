@@ -1,13 +1,13 @@
 import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
-
-import React, {useEffect, useState} from 'react'
-
 import {
   Typography,
   /* Box,*/
   Tabs,
   Tab,
-} from '@material-ui/core'
+} from '@mui/material'
+
+import React, {useEffect, useState} from 'react'
+
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -37,7 +37,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 )
 
 export const UserInfoAndEdit = observer(({user}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(0)
   const tabItemStyles = twitterTabsStylesHook.useTabItem()

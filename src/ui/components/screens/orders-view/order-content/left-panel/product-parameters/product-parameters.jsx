@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import {Typography, Link} from '@mui/material'
 
-import {Typography, Link} from '@material-ui/core'
+import React, {useState} from 'react'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -16,7 +16,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './product-parameters.style'
 
 export const ProductParameters = ({order, collapsed}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 

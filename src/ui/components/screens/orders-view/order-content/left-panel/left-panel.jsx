@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import {Divider, Typography, Button} from '@mui/material'
 
 import React from 'react'
-
-import {Divider, Typography, Button} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -16,7 +15,7 @@ import {useClassNames} from './left-panel.style'
 import {ProductParameters} from './product-parameters'
 
 export const LeftPanel = ({order, collapsed, narrow, setCollapsed}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.orderContainer}>

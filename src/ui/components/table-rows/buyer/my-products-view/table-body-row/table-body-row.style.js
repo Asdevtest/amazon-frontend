@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles({
+export const styles = {
   img: {
     backgroundColor: 'rgba(61, 81, 112, 1)',
     height: '64px',
@@ -122,4 +122,4 @@ export const styles = createStyles({
       transform: 'scale(1.01)',
     },
   },
-})
+}

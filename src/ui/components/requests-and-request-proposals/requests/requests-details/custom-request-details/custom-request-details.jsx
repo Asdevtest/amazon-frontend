@@ -1,11 +1,10 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import {TextareaAutosize, Typography} from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 
 import React, {useState} from 'react'
-
-import {TextareaAutosize, Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -17,7 +16,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './custom-request-details.style'
 
 export const CustomSearchRequestDetails = ({request}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [showDetails, setShowDetails] = useState(false)
 

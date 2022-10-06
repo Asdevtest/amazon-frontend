@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import {SvgIcon} from '@material-ui/core'
+import {SvgIcon} from '@mui/material'
 
 export const DashboardIcon = props => (
   <SvgIcon {...props}>

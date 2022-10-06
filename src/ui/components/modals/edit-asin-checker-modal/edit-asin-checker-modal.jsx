@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
+import React, {useState} from 'react'
 
 // import {mapProductStrategyStatusEnumToKey} from '@constants/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -13,7 +13,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './edit-asin-checker-modal.style'
 
 export const EditAsinCheckerModal = ({asinsToEdit, onSubmit, onClose, strategy}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const sourceFormFields = {
     asin: asinsToEdit?.asin || '',

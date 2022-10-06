@@ -1,8 +1,8 @@
-import React from 'react'
+import TableCell from '@mui/material/TableCell'
+import TableRow from '@mui/material/TableRow'
+import Typography from '@mui/material/Typography'
 
-import TableCell from '@material-ui/core/TableCell'
-import TableRow from '@material-ui/core/TableRow'
-import Typography from '@material-ui/core/Typography'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './table-body-row.style'
 
 export const TableBodyRow = ({item, itemIndex, handlers}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <TableRow key={item.asin} hover role="checkbox">
       <TableCell className={classNames.indexCell}>

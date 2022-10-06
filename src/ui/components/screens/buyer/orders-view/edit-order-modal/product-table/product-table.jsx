@@ -1,6 +1,6 @@
-import React from 'react'
+import {Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Typography, Link} from '@mui/material'
 
-import {Table, TableCell, TableContainer, TableRow, TableHead, TableBody, Typography, Link} from '@material-ui/core'
+import React from 'react'
 
 import {calcProductsPriceWithDelivery} from '@utils/calculation'
 import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
@@ -9,7 +9,7 @@ import {checkAndMakeAbsoluteUrl, toFixed, toFixedWithDollarSign} from '@utils/te
 import {useClassNames} from './product-table.style'
 
 export const ProductTable = ({modalHeadCells, order, orderFields}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <TableContainer className={classNames.tableContainer}>
       <Table className={classNames.table}>

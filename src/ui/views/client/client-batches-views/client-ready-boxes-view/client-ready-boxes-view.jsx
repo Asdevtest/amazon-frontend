@@ -1,12 +1,12 @@
+import {cx} from '@emotion/css'
 import SearchIcon from '@mui/icons-material/Search'
+import {InputAdornment} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {InputAdornment} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
@@ -94,7 +94,7 @@ export class ClientReadyBoxesViewRaw extends Component {
               <div className={classNames.boxesFiltersWrapper}>
                 <Button
                   disabled={!currentStorekeeper?._id}
-                  className={clsx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
+                  className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
                   variant="text"
                   color="primary"
                   onClick={onClickStorekeeperBtn}
@@ -110,7 +110,7 @@ export class ClientReadyBoxesViewRaw extends Component {
                       <Button
                         key={storekeeper._id}
                         disabled={currentStorekeeper?._id === storekeeper._id}
-                        className={clsx(classNames.button, {
+                        className={cx(classNames.button, {
                           [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
                         })}
                         variant="text"
@@ -218,4 +218,4 @@ export class ClientReadyBoxesViewRaw extends Component {
   }
 }
 
-export const ClientReadyBoxesView = withStyles(styles)(ClientReadyBoxesViewRaw)
+export const ClientReadyBoxesView = withStyles(ClientReadyBoxesViewRaw, styles)

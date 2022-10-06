@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Link} from '@mui/material'
+
 import React from 'react'
 
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Link} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -17,7 +18,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './edit-order-suppliers-table.style'
 
 export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <TableContainer className={classNames.table}>
@@ -44,11 +45,11 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
             suppliers.map((supplier, index) => (
               <TableRow
                 key={`supplier_${supplier.id}_${index}`}
-                className={clsx({
+                className={cx({
                   [classNames.tableRowAcceptedSupplier]: selectedSupplier?._id === supplier._id,
                 })}
               >
-                <TableCell className={clsx(classNames.alignCenter, classNames.alignCenter)}>
+                <TableCell className={cx(classNames.alignCenter, classNames.alignCenter)}>
                   <Typography className={classNames.nameCell}>{supplier.name}</Typography>
                 </TableCell>
 
@@ -103,7 +104,7 @@ export const EditOrderSuppliersTable = observer(({suppliers, selectedSupplier}) 
             ))
           ) : (
             <TableRow>
-              <TableCell className={clsx(classNames.alignCenter, classNames.tableCellPadding)} colSpan={8}>
+              <TableCell className={cx(classNames.alignCenter, classNames.tableCellPadding)} colSpan={8}>
                 {t(TranslationKey['No suppliers'])}
               </TableCell>
             </TableRow>

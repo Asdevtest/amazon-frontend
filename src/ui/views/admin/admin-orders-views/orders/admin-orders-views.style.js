@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   modalTitle: {
     color: 'rgb(61, 81, 112)',
     fontSize: '24px',
@@ -83,4 +83,4 @@ export const styles = createStyles(theme => ({
   toolbarContainer: {
     height: '52px',
   },
-}))
+})

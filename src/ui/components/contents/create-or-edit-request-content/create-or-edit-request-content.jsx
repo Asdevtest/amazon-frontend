@@ -1,9 +1,8 @@
+import {cx} from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
+import {Checkbox, Typography, Link, List, ListItem, ListItemText} from '@mui/material'
 
 import React, {useState} from 'react'
-
-import {Checkbox, Typography, Link, List, ListItem, ListItemText} from '@material-ui/core'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -34,7 +33,7 @@ export const CreateOrEditRequestContent = ({
   showProgress,
   progressValue,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [images, setImages] = useState([])
 
@@ -163,7 +162,7 @@ export const CreateOrEditRequestContent = ({
                   value={formFields.request.title}
                   onChange={onChangeField('request')('title')}
                 />
-                <span className={clsx(formFields.request.title.length > 80 && classNames.error)}>{`${
+                <span className={cx(formFields.request.title.length > 80 && classNames.error)}>{`${
                   formFields.request.title.length
                 } ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span>
               </div>
@@ -181,7 +180,7 @@ export const CreateOrEditRequestContent = ({
                   value={formFields.details.conditions}
                   onChange={onChangeField('details')('conditions')}
                 />
-                <span className={clsx(formFields.details.conditions.length > 1000 && classNames.error)}>{`${
+                <span className={cx(formFields.details.conditions.length > 1000 && classNames.error)}>{`${
                   formFields.details.conditions.length
                 } ${t(TranslationKey.of)} 1000 ${t(TranslationKey.characters)}`}</span>
               </div>
@@ -360,7 +359,7 @@ export const CreateOrEditRequestContent = ({
                             <Typography>{t(TranslationKey.Next)}</Typography>
                             <img
                               src="/assets/icons/right-arrow.svg"
-                              className={clsx(classNames.successBtnArrow, {
+                              className={cx(classNames.successBtnArrow, {
                                 [classNames.disablesBtnArrow]: disableSubmit,
                               })}
                             />
@@ -532,7 +531,7 @@ export const CreateOrEditRequestContent = ({
                         <Typography>{t(TranslationKey.Next)}</Typography>
                         <img
                           src="/assets/icons/right-arrow.svg"
-                          className={clsx(classNames.successBtnArrow, {
+                          className={cx(classNames.successBtnArrow, {
                             [classNames.disablesBtnArrow]: disableSubmit,
                           })}
                         />

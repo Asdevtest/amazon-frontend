@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 import {twitterTabsStylesHook, appleTabsStylesHook} from '@mui-treasury/styles/tabs'
+=======
+import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
+import {Typography, Box, Tabs} from '@mui/material'
+>>>>>>> 56997012... success migration on 5 mui
 
 import React, {useEffect} from 'react'
 
-import {Typography, Box, Tabs} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -34,7 +38,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 )
 
 export const WarehouseManagement = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(0)
   const tabItemStyles = twitterTabsStylesHook.useTabItem()

@@ -23,7 +23,7 @@ import {IntegrationsModel} from './integrations.model'
 import {useClassNames} from './integrations.style'
 
 export const Integrations = observer(({productId}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const model = useRef(new IntegrationsModel({history, productId}))
 

@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(() => ({
   img: {
     height: '64px',
     width: '64px',

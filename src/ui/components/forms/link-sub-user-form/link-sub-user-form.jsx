@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -12,7 +12,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './link-sub-user-form.style'
 
 export const LinkSubUserForm = ({closeModal, onSubmit}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [email, setEmail] = useState('')
 

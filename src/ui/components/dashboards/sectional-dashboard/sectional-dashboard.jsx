@@ -1,12 +1,12 @@
-import React from 'react'
+import {Grid, Typography} from '@mui/material'
 
-import {Grid, Typography} from '@material-ui/core'
+import React from 'react'
 
 import {DashboardInfoCard} from '../dashboard-info-card'
 import {useClassNames} from './sectional-dashboard.style'
 
 export const SectionalDashboard = ({config, valuesData, onClickViewMore}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const renderInfoCard = (infoCardData, section, sectionIndex, sectionSubIndex) => (
     <Grid key={`dashboardSection_${section.dataKey}_infoCard_${infoCardData.dataKey}`} item lg={4} sm={6} xs={12}>

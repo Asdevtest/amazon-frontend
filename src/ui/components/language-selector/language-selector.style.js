@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles()(() => ({
   root: {},
   title: {
     color: '#007bff',
@@ -32,4 +32,4 @@ export const useClassNames = makeStyles({
   //   justifyContent: 'center',
   //   gap: '20px',
   // },
-})
+}))

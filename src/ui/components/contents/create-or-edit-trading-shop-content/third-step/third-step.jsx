@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import {cx} from '@emotion/css'
+import {Typography, Paper, Checkbox} from '@mui/material'
 
-import {Typography, Paper, Checkbox} from '@material-ui/core'
-import clsx from 'clsx'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './third-step.style'
 
 export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEstimate, setMakeEstimate}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [opportunities, setOpportunities] = useState('')
   const [risks, setRisks] = useState('')
@@ -84,7 +84,7 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
                 />
 
                 <div
-                  className={clsx(classNames.actionDelButton, {
+                  className={cx(classNames.actionDelButton, {
                     [classNames.disabledActionButton]: !opportunities,
                   })}
                   onClick={() => opportunities && addAsset('opportunities')}
@@ -123,7 +123,7 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
                 />
 
                 <div
-                  className={clsx(classNames.actionDelButton, {
+                  className={cx(classNames.actionDelButton, {
                     [classNames.disabledActionButton]: !risks,
                   })}
                   onClick={() => risks && addAsset('risks')}
@@ -162,7 +162,7 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
                 />
 
                 <div
-                  className={clsx(classNames.actionDelButton, {
+                  className={cx(classNames.actionDelButton, {
                     [classNames.disabledActionButton]: !requiredSkills,
                   })}
                   onClick={() => requiredSkills && addAsset('requiredSkills')}
@@ -185,7 +185,7 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
         />
       </div>
 
-      <div className={clsx(classNames.infosWrapper, classNames.infosWrapperMarginTop)}>
+      <div className={cx(classNames.infosWrapper, classNames.infosWrapperMarginTop)}>
         <Field
           multiline
           inputProps={{maxLength: 100}}
@@ -203,7 +203,7 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
                 />
 
                 <div
-                  className={clsx(classNames.actionDelButton, {
+                  className={cx(classNames.actionDelButton, {
                     [classNames.disabledActionButton]: !sellIncludes,
                   })}
                   onClick={() => sellIncludes && addAsset('sellIncludes')}
@@ -242,7 +242,7 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
                 />
 
                 <div
-                  className={clsx(classNames.actionDelButton, {
+                  className={cx(classNames.actionDelButton, {
                     [classNames.disabledActionButton]: !reasonForSale,
                   })}
                   onClick={() => reasonForSale && addAsset('reasonForSale')}
@@ -281,7 +281,7 @@ export const ThirdStep = ({formFields, setFormFields, renderBackNextBtns, makeEs
                 />
 
                 <div
-                  className={clsx(classNames.actionDelButton, {
+                  className={cx(classNames.actionDelButton, {
                     [classNames.disabledActionButton]: !additionalInfo,
                   })}
                   onClick={() => additionalInfo && addAsset('additionalInfo')}

@@ -1,10 +1,10 @@
 import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
 import SearchIcon from '@mui/icons-material/Search'
+import {Box, Tabs, InputAdornment} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
 
-import {Box, Tabs, InputAdornment} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -84,7 +84,7 @@ export const SupervisorSettingsContent = observer(() => {
     gpModel.current.loadData(tabIndex)
   }, [tabIndex])
 
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <React.Fragment>

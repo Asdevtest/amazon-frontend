@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
+import {Checkbox, Chip, Divider, NativeSelect, TableCell, TableRow, Typography} from '@mui/material'
+
 import {useState} from 'react'
 
-import {Checkbox, Chip, Divider, NativeSelect, TableCell, TableRow, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -35,7 +36,7 @@ import {useClassNames} from './edit-box-form.style'
 import {ProductInOrderTableRow} from './product-in-order-table-row'
 
 const WarehouseDemensions = ({orderBox, sizeSetting}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.demensionsWrapper}>
@@ -63,7 +64,7 @@ const WarehouseDemensions = ({orderBox, sizeSetting}) => {
         {toFixed(orderBox.volumeWeightKgWarehouse, 4) || 0}
       </Typography>
 
-      <Typography className={clsx({[classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse < 12})}>
+      <Typography className={cx({[classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse < 12})}>
         {t(TranslationKey['Final weight']) + ': '}
         {toFixed(orderBox.weightFinalAccountingKgWarehouse, 4) || 0}
       </Typography>
@@ -97,7 +98,7 @@ const renderHeadRow = () => (
 
 export const EditBoxForm = observer(
   ({formItem, onSubmit, onTriggerOpenModal, requestStatus, volumeWeightCoefficient, destinations, storekeepers}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
     const [showPhotosModal, setShowPhotosModal] = useState(false)
@@ -324,7 +325,7 @@ export const EditBoxForm = observer(
                                       deleteIcon: classNames.barcodeChipIcon,
                                       label: classNames.barcodeChiplabel,
                                     }}
-                                    className={clsx({[classNames.barcodeChipExists]: item.barCode})}
+                                    className={cx({[classNames.barcodeChipExists]: item.barCode})}
                                     size="small"
                                     label={
                                       item.tmpBarCode.length
@@ -476,7 +477,7 @@ export const EditBoxForm = observer(
                           disableElevation
                           color="primary"
                           variant={boxFields.storekeeperId && 'text'}
-                          className={clsx({[classNames.storekeeperBtn]: !boxFields.storekeeperId})}
+                          className={cx({[classNames.storekeeperBtn]: !boxFields.storekeeperId})}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
@@ -525,7 +526,7 @@ export const EditBoxForm = observer(
                               deleteIcon: classNames.barcodeChipIcon,
                               label: classNames.barcodeChiplabel,
                             }}
-                            className={clsx({[classNames.barcodeChipExists]: boxFields.shippingLabel})}
+                            className={cx({[classNames.barcodeChipExists]: boxFields.shippingLabel})}
                             size="small"
                             label={
                               boxFields.tmpShippingLabel.length

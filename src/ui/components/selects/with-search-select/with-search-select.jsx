@@ -1,12 +1,12 @@
+import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import SearchIcon from '@mui/icons-material/Search'
+import {Button, ClickAwayListener, InputAdornment, Popover, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Button, ClickAwayListener, InputAdornment, Popover, Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
+import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -57,10 +57,10 @@ const WithSearchSelectRaw = ({
 
   return (
     <ClickAwayListener mouseEvent="onMouseDown" onClickAway={handleClose}>
-      <div className={clsx(classNames.root, {[classNames.disableRoot]: disabled})} style={width && {width}}>
+      <div className={cx(classNames.root, {[classNames.disableRoot]: disabled})} style={width && {width}}>
         <div className={classNames.mainWrapper}>
           <div
-            className={clsx(classNames.chosenItem, {[classNames.disabledChosenItem]: disabled})}
+            className={cx(classNames.chosenItem, {[classNames.disabledChosenItem]: disabled})}
             onClick={e => !disabled && handleClick(e)}
           >
             <Typography className={classNames.selectedItemName}>{selectedItemName}</Typography>
@@ -126,4 +126,4 @@ const WithSearchSelectRaw = ({
     </ClickAwayListener>
   )
 }
-export const WithSearchSelect = withStyles(styles)(WithSearchSelectRaw)
+export const WithSearchSelect = withStyles(WithSearchSelectRaw, styles)

@@ -1,10 +1,10 @@
+import {cx} from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import {Drawer, Hidden, List} from '@mui/material'
 
 import React, {useRef, useState, useEffect} from 'react'
 
-import {Drawer, Hidden, List, SvgIcon, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {navbarConfig} from '@constants/navbar'
@@ -28,7 +28,10 @@ import {useClassNames} from './navbar.style'
 
 export const Navbar = observer(
   ({activeCategory, activeSubCategory, drawerOpen, setDrawerOpen, onChangeSubCategory}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
+
+    // const {classes: classNames} = useClassNames()
+
     const viewModel = useRef(new NavbarModel())
 
     const {showFeedbackModal, onTriggerOpenModal, sendFeedbackAboutPlatform, userInfo} = viewModel.current
@@ -113,8 +116,8 @@ export const Navbar = observer(
           <Drawer
             open
             classes={{
-              root: clsx(classNames.root, {[classNames.hideNavbar]: shortNavbar}),
-              paper: clsx(classNames.paper, classNames.positionStatic),
+              root: cx(classNames.root, {[classNames.hideNavbar]: shortNavbar}),
+              paper: cx(classNames.paper, classNames.positionStatic),
             }}
             variant="permanent"
           >
@@ -132,7 +135,7 @@ export const Navbar = observer(
           </Drawer>
         </Hidden>
         <div
-          className={clsx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: shortNavbar})}
+          className={cx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: shortNavbar})}
           onClick={() => setShortNavbar(!shortNavbar)}
         >
           {shortNavbar ? (

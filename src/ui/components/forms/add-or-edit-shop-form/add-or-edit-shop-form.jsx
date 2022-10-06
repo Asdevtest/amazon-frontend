@@ -1,7 +1,7 @@
+import {Typography} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -14,7 +14,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './add-or-edit-shop-form.style'
 
 export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const sourceFormFields = {
     name: shopToEdit?.name || '',

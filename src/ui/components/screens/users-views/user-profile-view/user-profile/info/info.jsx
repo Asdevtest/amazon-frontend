@@ -1,6 +1,6 @@
-import React from 'react'
+import {Box, Divider, Paper, Typography} from '@mui/material'
 
-import {Box, Divider, Paper, Typography} from '@material-ui/core'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -10,7 +10,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './info.style'
 
 export const Info = ({headerInfoData}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const InfoRow = ({label, value}) => (
     <Box className={classNames.infoRow}>

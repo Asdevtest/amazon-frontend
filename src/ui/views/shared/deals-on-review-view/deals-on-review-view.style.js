@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(() => ({
+export const styles = () => ({
   dealsOnReviewWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -41,4 +41,4 @@ export const styles = createStyles(() => ({
   emptyTableText: {
     marginTop: '30px',
   },
-}))
+})

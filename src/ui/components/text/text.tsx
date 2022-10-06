@@ -1,9 +1,9 @@
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {FC, ReactElement, useEffect, useState} from 'react'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {SettingsModel} from '@models/settings-model'
@@ -27,7 +27,7 @@ interface Props {
 
 export const Text: FC<Props> = observer(
   ({tooltipAttentionContent, tooltipInfoContent, tooltipPosition, children, className, containerClasses, style}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
 
@@ -37,7 +37,7 @@ export const Text: FC<Props> = observer(
 
     return (
       <div
-        className={clsx(
+        className={cx(
           tooltipPosition === 'corner' ? classNames.noFlextextWrapper : classNames.textWrapper,
           containerClasses,
         )}
@@ -56,7 +56,7 @@ export const Text: FC<Props> = observer(
 
             {tooltipInfoContent && showHints ? (
               <Tooltip arrow title={tooltipInfoContent} placement="top-end">
-                <img className={clsx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
+                <img className={cx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
               </Tooltip>
             ) : null}
           </div>

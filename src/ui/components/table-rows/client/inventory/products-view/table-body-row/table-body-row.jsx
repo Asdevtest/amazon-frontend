@@ -1,12 +1,13 @@
+import {cx} from '@emotion/css'
+import {Button, Chip, Checkbox} from '@mui/material'
+import IconButton from '@mui/material/IconButton'
+import TableCell from '@mui/material/TableCell'
+import TableRow from '@mui/material/TableRow'
+import Typography from '@mui/material/Typography'
+
 import React from 'react'
 
-import {Button, Chip, Checkbox} from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton'
-import TableCell from '@material-ui/core/TableCell'
-import TableRow from '@material-ui/core/TableRow'
-import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -18,7 +19,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './table-body-row.style'
 
 export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <TableRow
       key={item._id}
@@ -72,7 +73,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, rowsDatas}) => {
             deletable: classNames.barcodeChipHover,
             deleteIcon: classNames.barcodeChipIcon,
           }}
-          className={clsx({[classNames.barcodeChipExists]: item.barCode})}
+          className={cx({[classNames.barcodeChipExists]: item.barCode})}
           size="small"
           label={item.barCode ? trimBarcode(item.barCode) : t(TranslationKey['Set Barcode'])}
           onClick={() => handlers.onClickBarcode(item, itemIndex)}

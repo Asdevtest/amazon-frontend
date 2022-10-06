@@ -1,8 +1,7 @@
 import {Rating} from '@mui/material'
+import {Typography, Paper, Avatar} from '@mui/material'
 
 import React from 'react'
-
-import {Typography, Paper, Avatar} from '@material-ui/core'
 
 import {
   RequestProposalStatus,
@@ -26,7 +25,7 @@ import {translateProposalsLeftMessage} from '@utils/validation'
 import {useClassNames} from './servant-general-request-info.style'
 
 export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const buttonDisabled =
     request?.request.restrictMoreThanOneProposalFromOneAssignee ||

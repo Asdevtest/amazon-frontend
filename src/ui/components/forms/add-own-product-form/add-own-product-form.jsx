@@ -1,6 +1,7 @@
+import {Typography, IconButton, Grid, Checkbox} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Typography, IconButton, Grid, Checkbox} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
@@ -18,7 +19,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './add-own-product-form.style'
 
 export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValue}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [skuLine, setSkuLine] = useState('')
 

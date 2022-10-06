@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
+
 import React, {FC} from 'react'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import Linkify from 'react-linkify-always-blank'
 
@@ -20,10 +21,10 @@ interface Props {
 }
 
 export const ChatMessageBasicText: FC<Props> = observer(({message, isIncomming, unReadMessage}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
-    <div className={clsx(classNames.root, {[classNames.rootIsIncomming]: isIncomming})}>
+    <div className={cx(classNames.root, {[classNames.rootIsIncomming]: isIncomming})}>
       <div className={classNames.subWrapper}>
         <Linkify
         // properties={{target: '_blank', style: {color: 'red', fontWeight: 'bold', textDecoration: 'none'}}} // ЗАЯВЛЕННЫЕ ПРОПЫ НЕ РАБОТАЮТ

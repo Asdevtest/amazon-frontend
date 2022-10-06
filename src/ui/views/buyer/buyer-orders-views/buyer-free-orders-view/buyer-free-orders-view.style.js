@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   buttonWrapper: {
     padding: '16px',
     textAlign: 'right',
@@ -42,4 +42,4 @@ export const styles = createStyles(theme => ({
   dataGridWrapper: {
     height: '84vh',
   },
-}))
+})

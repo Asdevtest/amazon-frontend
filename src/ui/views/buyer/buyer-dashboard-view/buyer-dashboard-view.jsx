@@ -1,8 +1,9 @@
+import {Avatar, Paper} from '@mui/material'
+
 import React, {Component} from 'react'
 
-import {Avatar, Paper} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {getBuyerDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -78,4 +79,4 @@ export class BuyerDashboardViewRaw extends Component {
   }
 }
 
-export const BuyerDashboardView = withStyles(styles)(BuyerDashboardViewRaw)
+export const BuyerDashboardView = withStyles(BuyerDashboardViewRaw, styles)

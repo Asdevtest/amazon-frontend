@@ -1,14 +1,14 @@
-import React from 'react'
+import {cx} from '@emotion/css'
+import {Typography, Paper} from '@mui/material'
 
-import {Typography, Paper} from '@material-ui/core'
-import clsx from 'clsx'
+import React from 'react'
 
 import {toFixedWithDollarSign} from '@utils/text'
 
 import {useClassNames} from './niche-request-details.style'
 
 export const NicheSearchRequestDetails = ({request}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Paper>
@@ -148,7 +148,7 @@ export const NicheSearchRequestDetails = ({request}) => {
               <div className={classNames.leftColumn}>
                 <Typography>{'tableNotesField'}</Typography>
               </div>
-              <div className={clsx(classNames.rightColumn, classNames.clientComment)}>
+              <div className={cx(classNames.rightColumn, classNames.clientComment)}>
                 <Typography>{request.clientComment}</Typography>
               </div>
             </div>

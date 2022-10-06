@@ -1,7 +1,7 @@
-import React from 'react'
+import {cx} from '@emotion/css'
+import {Checkbox, TableCell, TableRow, Button, Chip, Typography} from '@mui/material'
 
-import {Checkbox, TableCell, TableRow, Button, Chip, Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -14,7 +14,7 @@ import calculateSrc from '../assets/calculate.svg'
 import {useClassNames} from './products-body-row.style'
 
 export const ProductsBodyRow = ({item, itemIndex, handlers}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <TableRow key={item.asin} hover role="checkbox">
@@ -96,7 +96,7 @@ export const ProductsBodyRow = ({item, itemIndex, handlers}) => {
             deletable: classNames.barcodeChipHover,
             deleteIcon: classNames.barcodeChipIcon,
           }}
-          className={clsx({[classNames.barcodeChipExists]: item.barcode})}
+          className={cx({[classNames.barcodeChipExists]: item.barcode})}
           size="small"
           label={item.barcode ? trimBarcode(item.barcode) : t(TranslationKey['Set Barcode'])}
           onClick={() => handlers.onClickBarcode(item, itemIndex)}

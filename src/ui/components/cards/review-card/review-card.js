@@ -1,8 +1,7 @@
+import {Avatar, Grid, Typography} from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
-
-import {Avatar, Grid, Typography} from '@material-ui/core'
 
 import {UserLink} from '@components/user-link'
 
@@ -13,7 +12,7 @@ import {UserLink} from '@components/user-link'
 import {useClassNames} from './review-card.style'
 
 export const ReviewCard = () => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Grid item className={classNames.mainWrapper}>

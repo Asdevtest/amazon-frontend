@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   balanceTitle: {
     color: 'rgba(61, 81, 112, 1)',
     fontSize: '72px',
@@ -58,4 +58,4 @@ export const styles = createStyles(theme => ({
   toolbarContainer: {
     height: '52px',
   },
-}))
+})

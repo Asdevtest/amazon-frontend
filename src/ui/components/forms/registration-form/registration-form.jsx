@@ -3,12 +3,12 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import PersonIcon from '@mui/icons-material/Person'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import {Button, Checkbox, InputAdornment, Typography} from '@mui/material'
 
 import {useEffect, useState} from 'react'
 
-import {Button, Checkbox, InputAdornment, Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {Link} from 'react-router-dom'
+import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -286,4 +286,4 @@ export const RegistrationFormRaw = ({
     </form>
   )
 }
-export const RegistrationForm = withStyles(styles)(RegistrationFormRaw)
+export const RegistrationForm = withStyles(RegistrationFormRaw, styles)

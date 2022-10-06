@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
-// import {
-//   ThemeProvider, // createTheme,
-// } from '@mui/material/styles'
+import {
+  ThemeProvider, // createTheme,
+} from '@mui/material/styles'
+
 import {useMemo, useEffect, useRef} from 'react'
 
-import {ThemeProvider} from '@material-ui/styles'
+// import {ThemeProvider} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 import {BrowserRouter as Router, Switch} from 'react-router-dom'
 

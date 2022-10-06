@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   multiline: {
     height: 'auto',
     width: '100%',
@@ -57,4 +57,4 @@ export const styles = createStyles(theme => ({
   toolbarContainer: {
     height: '52px',
   },
-}))
+})

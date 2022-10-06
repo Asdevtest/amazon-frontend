@@ -1,8 +1,7 @@
+import {Avatar, Grid, Typography} from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
-
-import {Avatar, Grid, Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -18,7 +17,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './vacant-deals-list-card.style'
 
 export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToWorkModal, item}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Grid item className={classNames.mainWrapper}>

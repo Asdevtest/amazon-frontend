@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles()(() => ({
   cardWrapper: {
     backgroundColor: '#fff',
     boxShadow: '0px 2px 11px 2px #DFDFDF',
@@ -51,4 +51,4 @@ export const useClassNames = makeStyles({
     color: '#001029',
     textAlign: 'end',
   },
-})
+}))

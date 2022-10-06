@@ -19,7 +19,7 @@ import {UserBalanceModel} from './user-balance.model'
 import {useClassNames} from './user-balance.style'
 
 export const UserBalance = observer(({userId}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const model = useRef(new UserBalanceModel({history, userId}))
 

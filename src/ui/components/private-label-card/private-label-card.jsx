@@ -1,5 +1,5 @@
-import {Divider, InputBase, Paper, Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import {cx} from '@emotion/css'
+import {Divider, InputBase, Paper, Typography} from '@mui/material'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -12,12 +12,12 @@ import {t} from '@utils/translations'
 import {useClassNames} from './private-label-card.style'
 
 export const PrivateLabelCard = ({item, setProductToPay, index}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const InfoRow = ({label, value}) => (
     <div className={classNames.textWrapper}>
-      <Typography className={clsx(classNames.text, classNames.label)}>{label}</Typography>
-      <Typography className={clsx(classNames.text, classNames.value)}>{value}</Typography>
+      <Typography className={cx(classNames.text, classNames.label)}>{label}</Typography>
+      <Typography className={cx(classNames.text, classNames.value)}>{value}</Typography>
     </div>
   )
 
@@ -33,7 +33,7 @@ export const PrivateLabelCard = ({item, setProductToPay, index}) => {
 
         <InfoRow label={t(TranslationKey.Price)} value={toFixedWithDollarSign(item.amazon, 2)} />
         <div className={classNames.textWrapper}>
-          <Typography className={clsx(classNames.text, classNames.label)}>{t(TranslationKey.Quantity)}</Typography>
+          <Typography className={cx(classNames.text, classNames.label)}>{t(TranslationKey.Quantity)}</Typography>
           <InputBase classes={{root: classNames.inputWrapper, input: classNames.input}} defaultValue={100} />
         </div>
 

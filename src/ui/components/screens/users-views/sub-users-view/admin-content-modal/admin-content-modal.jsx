@@ -1,8 +1,8 @@
 import {Rating} from '@mui/material'
+import {Container, Button, Typography, NativeSelect, Checkbox, Select, ListItemText, MenuItem} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Container, Button, Typography, NativeSelect, Checkbox, Select, ListItemText, MenuItem} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -36,7 +36,7 @@ export const AdminContentModal = observer(
     checkValidationNameOrEmail,
     changeNameAndEmail,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [showPermissionModal, setShowPermissionModal] = useState(false)
 

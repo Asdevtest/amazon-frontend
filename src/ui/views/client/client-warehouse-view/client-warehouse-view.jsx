@@ -1,13 +1,13 @@
+import {cx} from '@emotion/css'
 import SearchIcon from '@mui/icons-material/Search'
+import {InputAdornment, Typography} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {InputAdornment, Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -140,7 +140,7 @@ export class ClientWarehouseViewRaw extends Component {
                   <Button
                     disabled={!currentStorekeeper?._id}
                     tooltipInfoContent={t(TranslationKey['Filter for sorting boxes by prep centers'])}
-                    className={clsx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
+                    className={cx(classNames.button, {[classNames.selectedBoxesBtn]: !currentStorekeeper?._id})}
                     variant="text"
                     color="primary"
                     onClick={onClickStorekeeperBtn}
@@ -156,7 +156,7 @@ export class ClientWarehouseViewRaw extends Component {
                         <Button
                           key={storekeeper._id}
                           disabled={currentStorekeeper?._id === storekeeper._id}
-                          className={clsx(classNames.button, {
+                          className={cx(classNames.button, {
                             [classNames.selectedBoxesBtn]: currentStorekeeper?._id === storekeeper._id,
                           })}
                           variant="text"
@@ -476,4 +476,4 @@ export class ClientWarehouseViewRaw extends Component {
   }
 }
 
-export const ClientWarehouseView = withStyles(styles)(ClientWarehouseViewRaw)
+export const ClientWarehouseView = withStyles(ClientWarehouseViewRaw, styles)

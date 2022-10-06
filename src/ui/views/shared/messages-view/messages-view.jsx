@@ -1,12 +1,11 @@
 import SearchIcon from '@mui/icons-material/Search'
 import {Link} from '@mui/material'
+import {InputAdornment, Avatar, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
-import {InputAdornment, Avatar, Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -138,4 +137,4 @@ class MessagesViewRaw extends Component {
   }
 }
 
-export const MessagesView = withStyles(styles)(MessagesViewRaw)
+export const MessagesView = withStyles(MessagesViewRaw, styles)

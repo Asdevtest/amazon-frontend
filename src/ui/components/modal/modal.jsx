@@ -1,9 +1,8 @@
+import {cx} from '@emotion/css'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
+import {Dialog, DialogContent} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
-
-import {Dialog, DialogContent} from '@material-ui/core'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -14,7 +13,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './modal.style'
 
 export const Modal = ({openModal, isWarning, setOpenModal, dialogContextClassName, children, missClickModalOn}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [showMissclickModal, setShowMissclickModal] = useState(false)
 
@@ -33,7 +32,7 @@ export const Modal = ({openModal, isWarning, setOpenModal, dialogContextClassNam
     <Dialog
       maxWidth={false}
       classes={{
-        paperScrollBody: clsx(classNames.dialogContent, {[classNames.warningPaper]: isWarning}),
+        paperScrollBody: cx(classNames.dialogContent, {[classNames.warningPaper]: isWarning}),
       }}
       open={openModal}
       scroll={'body'}
@@ -46,11 +45,7 @@ export const Modal = ({openModal, isWarning, setOpenModal, dialogContextClassNam
       <CloseRoundedIcon className={classNames.closeIcon} fontSize="large" onClick={() => setOpenModal()} />
 
       <DialogContent
-        className={clsx(
-          classNames.dialogPadding,
-          {[classNames.warningDialogPadding]: isWarning},
-          dialogContextClassName,
-        )}
+        className={cx(classNames.dialogPadding, {[classNames.warningDialogPadding]: isWarning}, dialogContextClassName)}
       >
         {children}
       </DialogContent>

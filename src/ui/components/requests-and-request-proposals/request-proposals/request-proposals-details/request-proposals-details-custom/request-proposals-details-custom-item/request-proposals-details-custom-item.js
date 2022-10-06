@@ -9,7 +9,7 @@ import {formatDateTime} from '@utils/date-time'
 import {useClassNames} from './request-proposals-details-custom-item.style'
 
 export const RequestProposalsDetailsCustomItem = observer(({requestProposal}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const {proposal, details} = requestProposal
   const {createdAt, createdById} = proposal
   const {result, comment} = details

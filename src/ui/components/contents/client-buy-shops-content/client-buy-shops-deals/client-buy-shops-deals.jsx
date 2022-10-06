@@ -1,10 +1,10 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import SearchIcon from '@mui/icons-material/Search'
+import {InputAdornment, Typography} from '@mui/material'
 
 import React, {useEffect, useRef} from 'react'
 
-import {InputAdornment, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
@@ -23,7 +23,7 @@ import {ClientBuyShopsDealsModel} from './client-buy-shops-deals.model'
 import {useClassNames} from './client-buy-shops-deals.style'
 
 export const ClientBuyShopsDeals = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const model = useRef(new ClientBuyShopsDealsModel({history}))
 

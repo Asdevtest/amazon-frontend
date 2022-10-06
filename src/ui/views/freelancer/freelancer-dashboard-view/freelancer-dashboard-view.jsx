@@ -1,8 +1,9 @@
+import {Avatar, Paper} from '@mui/material'
+
 import React, {Component} from 'react'
 
-import {Avatar, Paper} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {getFreelancerDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -77,4 +78,4 @@ export class FreelancerDashboardViewRaw extends Component {
   }
 }
 
-export const FreelancerDashboardView = withStyles(styles)(FreelancerDashboardViewRaw)
+export const FreelancerDashboardView = withStyles(FreelancerDashboardViewRaw, styles)

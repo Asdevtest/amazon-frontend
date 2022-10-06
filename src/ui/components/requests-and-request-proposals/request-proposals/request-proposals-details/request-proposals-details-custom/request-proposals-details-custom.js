@@ -1,13 +1,13 @@
+import {cx} from '@emotion/css'
 import {Typography} from '@mui/material'
 
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {RequestProposalsDetailsCustomItem} from './request-proposals-details-custom-item'
 import {useClassNames} from './request-proposals-details-custom.style'
 
 export const RequestProposalsDetailsCustom = observer(({requestProposals}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <div className={classNames.root}>
       <div className={classNames.titleWrapper}>
@@ -18,7 +18,7 @@ export const RequestProposalsDetailsCustom = observer(({requestProposals}) => {
           requestProposals.map((requestProposal, index) => (
             <div
               key={`requestProposal_${requestProposal._id}`}
-              className={clsx(classNames.requestProposalWrapper, {[classNames.requestProposalWrapperNotFirst]: index})}
+              className={cx(classNames.requestProposalWrapper, {[classNames.requestProposalWrapperNotFirst]: index})}
             >
               <RequestProposalsDetailsCustomItem requestProposal={requestProposal} />
             </div>

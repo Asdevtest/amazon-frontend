@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -19,10 +19,10 @@ import {t} from '@utils/translations'
 import {useClassNames} from './request-to-send-batch-box.styles'
 
 export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, volumeWeightCoefficient}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const [showBoxViewModal, setShowBoxViewModal] = useState(false)
 
-  const tableCellClsx = clsx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
+  const tableCellClsx = cx(classNames.tableCell, {[classNames.boxNoPrice]: !price})
 
   const isNoBarCodGlued = box.items.some(
     item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper,
@@ -48,15 +48,27 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
   }
 
   return (
+<<<<<<< HEAD
     <tr
       className={clsx(classNames.box, classNames.row, {[classNames.badBox]: isBadBox})}
       onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
     >
       <td className={clsx(tableCellClsx, classNames.indexCell)}>
+=======
+    <div
+      className={cx(classNames.box, classNames.row, {[classNames.badBox]: isBadBox})}
+      onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
+    >
+      <div className={cx(tableCellClsx, classNames.indexCell)}>
+>>>>>>> 56997012... success migration on 5 mui
         <Typography variant="subtitle2">{`№ ${box.humanFriendlyId}`}</Typography>
       </td>
 
+<<<<<<< HEAD
       <td className={clsx(tableCellClsx, classNames.productCell)}>
+=======
+      <div className={cx(tableCellClsx, classNames.productCell)}>
+>>>>>>> 56997012... success migration on 5 mui
         <div className={classNames.boxWrapper}>
           {box.amount > 1 ? (
             <div className={classNames.boxItemWrapper}>
@@ -81,13 +93,13 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
                   <div className={classNames.barCodeLabelWrapper}>
                     <Typography
-                      className={clsx(classNames.spanText, {[classNames.alertSpan]: !box.items[0].product.barCode})}
+                      className={cx(classNames.spanText, {[classNames.alertSpan]: !box.items[0].product.barCode})}
                     >
                       {t(TranslationKey.BarCode)}
                     </Typography>
 
                     {/* <div className={classNames.checkboxWrapper}>
-                      <Typography className={clsx({[classNames.alertSpan]: isNoBarCodGlued})}>
+                      <Typography className={cx({[classNames.alertSpan]: isNoBarCodGlued})}>
                         {t(TranslationKey.glued)}
                       </Typography>
 
@@ -142,7 +154,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
                     </div>
 
                     <div className={classNames.barCodeLabelWrapper}>
-                      <Typography className={clsx(classNames.spanText, {[classNames.alertSpan]: !item.barCode})}>
+                      <Typography className={cx(classNames.spanText, {[classNames.alertSpan]: !item.barCode})}>
                         {t(TranslationKey.BarCode)}
                       </Typography>
 
@@ -171,7 +183,11 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
         </div>
       </td>
 
+<<<<<<< HEAD
       <td className={clsx(tableCellClsx, classNames.dementionsCell)}>
+=======
+      <div className={cx(tableCellClsx, classNames.dementionsCell)}>
+>>>>>>> 56997012... success migration on 5 mui
         <div className={classNames.dementionsSubWrapper}>
           <Typography className={classNames.dementionsTitle}>{t(TranslationKey['Actual weight'])}</Typography>
 
@@ -190,7 +206,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
 
         <div className={classNames.dementionsSubWrapper}>
           <Typography
-            className={clsx(classNames.dementionsTitle, {
+            className={cx(classNames.dementionsTitle, {
               [classNames.alertText]: isSmallWeight,
             })}
           >
@@ -198,7 +214,7 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
           </Typography>
 
           <Typography
-            className={clsx(classNames.dementionsSpanText, {
+            className={cx(classNames.dementionsSpanText, {
               [classNames.alertText]: isSmallWeight,
             })}
           >
@@ -211,9 +227,13 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
         ) : null}
       </td>
 
+<<<<<<< HEAD
       <td className={clsx(tableCellClsx, classNames.shippingLabelCell)}>
+=======
+      <div className={cx(tableCellClsx, classNames.shippingLabelCell)}>
+>>>>>>> 56997012... success migration on 5 mui
         <div className={classNames.shippingLabelWrapper}>
-          <Typography className={clsx(classNames.spanText, {[classNames.alertSpan]: !box.shippingLabel})}>
+          <Typography className={cx(classNames.spanText, {[classNames.alertSpan]: !box.shippingLabel})}>
             {t(TranslationKey['Shipping label'])}
           </Typography>
 
@@ -228,17 +248,22 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
             <Typography className={classNames.alertSpan}>{t(TranslationKey.Missing)}</Typography>
           )}
         </div>
+<<<<<<< HEAD
       </td>
       <td className={clsx(tableCellClsx, classNames.pricePerAmoutCell)}>
+=======
+      </div>
+      <div className={cx(tableCellClsx, classNames.pricePerAmoutCell)}>
+>>>>>>> 56997012... success migration on 5 mui
         {box.items.map((item, index) => (
           <div key={index}>
-            <div className={clsx(tableCellClsx, classNames.priceCell)}>
+            <div className={cx(tableCellClsx, classNames.priceCell)}>
               <Typography className={classNames.spanText}>
                 {t(TranslationKey['Average delivery cost per pc'])}
               </Typography>
             </div>
 
-            <div className={clsx(tableCellClsx, classNames.priceCellRight)}>
+            <div className={cx(tableCellClsx, classNames.priceCellRight)}>
               <Typography variant="h5">
                 {calculateDeliveryCostPerPcs(
                   box.items,
@@ -270,11 +295,19 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
         ))}
       </td>
 
+<<<<<<< HEAD
       <td className={clsx(tableCellClsx, classNames.priceCell)}>
+=======
+      <div className={cx(tableCellClsx, classNames.priceCell)}>
+>>>>>>> 56997012... success migration on 5 mui
         <Typography className={classNames.spanText}>{t(TranslationKey['Box delivery cost'])}</Typography>
       </td>
 
+<<<<<<< HEAD
       <td className={clsx(tableCellClsx, classNames.priceCellRight)}>
+=======
+      <div className={cx(tableCellClsx, classNames.priceCellRight)}>
+>>>>>>> 56997012... success migration on 5 mui
         {price ? <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography> : null}
       </td>
 

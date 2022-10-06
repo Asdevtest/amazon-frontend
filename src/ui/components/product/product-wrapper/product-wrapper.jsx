@@ -1,8 +1,8 @@
 import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
+import {Box, Tabs} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Box, Tabs} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -67,7 +67,7 @@ export const ProductWrapper = observer(
     onChangeImagesForLoad,
     acceptMessage,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const curUserRole = UserRoleCodeMap[userRole]
 

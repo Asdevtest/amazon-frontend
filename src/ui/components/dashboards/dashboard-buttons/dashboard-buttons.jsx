@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
+import {Typography} from '@mui/material'
+
 import React from 'react'
 
-import {Typography} from '@material-ui/core'
 import {useHistory} from 'react-router-dom'
 
 import {Message, MyNotificationsIcon, SettingsIcon} from '@constants/navbar-svg-icons'
@@ -16,7 +17,7 @@ import {checkIsAdmin, checkIsStorekeeper, checkIsSupervisor} from '@utils/checks
 import {t} from '@utils/translations'
 
 export const DashboardButtons = ({user, routes}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
 
   const unreadMessages = ChatModel.unreadMessages

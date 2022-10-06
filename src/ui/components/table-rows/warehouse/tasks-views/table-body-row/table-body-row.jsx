@@ -1,6 +1,6 @@
-import React from 'react'
+import {TableCell, TableRow, Typography} from '@mui/material'
 
-import {TableCell, TableRow, Typography} from '@material-ui/core'
+import React from 'react'
 
 import {
   mapTaskOperationTypeKeyToEnum,
@@ -24,7 +24,7 @@ export const WarehouseTasksBodyRowViewMode = {
 }
 
 export const TableBodyRow = ({item, handlers, hideActions, viewMode}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const onClickResolveBtn = () => {
     handlers.onSelectTask(item)

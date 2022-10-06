@@ -1,6 +1,7 @@
+import {Divider, Typography} from '@mui/material'
+
 import React, {useEffect, useState} from 'react'
 
-import {Divider, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -36,7 +37,7 @@ export const EditTaskModal = observer(
     onTriggerShowEditBoxModal,
     readOnly,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
 

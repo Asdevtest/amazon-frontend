@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/styles'
+// import {createStyles} from '@material-ui/styles'
 
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   fieldsWrapper: {},
   alert: {
     marginTop: '24px',
@@ -41,6 +41,8 @@ export const styles = createStyles(theme => ({
 
   mainWrapper: {
     display: 'flex',
+
+    backgroundColor: theme.palette.background.main,
   },
 
   leftBlockWrapper: {
@@ -80,4 +82,4 @@ export const styles = createStyles(theme => ({
   selectOption: {
     color: theme.palette.text.negativeMain,
   },
-}))
+})

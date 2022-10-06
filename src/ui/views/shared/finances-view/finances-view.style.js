@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   modalTitle: {
     color: 'rgb(61, 81, 112)',
     fontSize: '24px',
@@ -65,4 +63,4 @@ export const styles = createStyles(theme => ({
       visibility: 'hidden',
     },
   },
-}))
+})

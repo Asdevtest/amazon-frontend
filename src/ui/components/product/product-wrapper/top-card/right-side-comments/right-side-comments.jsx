@@ -1,9 +1,9 @@
+import {cx} from '@emotion/css'
 import {Alert} from '@mui/material'
+import {Box, Grid, Typography} from '@mui/material'
 
 import React from 'react'
 
-import {Box, Grid, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
@@ -47,7 +47,7 @@ export const RightSideComments = observer(
     formFieldsValidationErrors,
     acceptMessage,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
     const productStatusButtonsConfig =
       productStatusButtonsConfigs[curUserRole] && productStatusButtonsConfigs[curUserRole](productBase.status)
 
@@ -59,7 +59,7 @@ export const RightSideComments = observer(
             multiline
             disabled={!checkIsResearcher(curUserRole) || !showActionBtns}
             error={errorMessagesTranslate(formFieldsValidationErrors.icomment)}
-            className={clsx(classNames.heightFieldAuto, {
+            className={cx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.icomment,
             })}
             inputProps={{maxLength: 1000}}
@@ -87,7 +87,7 @@ export const RightSideComments = observer(
             multiline
             disabled={!checkIsSupervisor(curUserRole) || !showActionBtns}
             error={errorMessagesTranslate(formFieldsValidationErrors.checkednotes)}
-            className={clsx(classNames.heightFieldAuto, {
+            className={cx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.checkednotes,
             })}
             inputProps={{maxLength: 1000}}
@@ -101,7 +101,7 @@ export const RightSideComments = observer(
             multiline
             disabled={!checkIsBuyer(curUserRole) || !showActionBtns}
             error={errorMessagesTranslate(formFieldsValidationErrors.buyersComment)}
-            className={clsx(classNames.heightFieldAuto, {
+            className={cx(classNames.heightFieldAuto, {
               [classNames.errorActive]: formFieldsValidationErrors.buyersComment,
             })}
             inputProps={{maxLength: 1000}}
@@ -115,7 +115,7 @@ export const RightSideComments = observer(
           <Field
             multiline
             disabled={!checkIsClient(curUserRole) || !clientToEditStatuses.includes(productBase.status)}
-            className={clsx(classNames.heightFieldAuto, {
+            className={cx(classNames.heightFieldAuto, {
               // [classNames.errorActive]: formFieldsValidationErrors.icomment,
             })}
             inputProps={{maxLength: 1000}}
@@ -139,7 +139,7 @@ export const RightSideComments = observer(
               </Button>
               <Button
                 tooltipInfoContent={translateTooltipCloseBtnMessage(curUserRole)}
-                className={clsx(classNames.buttonClose, {
+                className={cx(classNames.buttonClose, {
                   [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
                 })}
                 variant="contained"
@@ -174,7 +174,7 @@ export const RightSideComments = observer(
             <div className={classNames.buttonWrapper}>
               <Button
                 tooltipInfoContent={t(TranslationKey['Close product card'])}
-                className={clsx(classNames.buttonClose, {
+                className={cx(classNames.buttonClose, {
                   [classNames.buttonNormalNoMargin]: !checkIsResearcher(curUserRole),
                 })}
                 variant="contained"

@@ -1,9 +1,9 @@
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import {Rating} from '@mui/material'
+import {Avatar, Box, Paper, Typography, Button} from '@mui/material'
 
 import React from 'react'
 
-import {Avatar, Box, Paper, Typography, Button} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -37,7 +37,7 @@ export const UserProfile = observer(
     setTabReview,
     onClickWriteBtn,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     console.log('user', user)
 

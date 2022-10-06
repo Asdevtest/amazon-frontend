@@ -1,5 +1,6 @@
-import {Button, TableCell, TableRow} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
+import {Button, TableCell, TableRow} from '@mui/material'
+
+import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -47,4 +48,4 @@ const ExchangeBodyRowRaw = ({item, itemIndex, handlers, classes: classNames}) =>
   </TableRow>
 )
 
-export const ExchangeBodyRow = withStyles(styles)(ExchangeBodyRowRaw)
+export const ExchangeBodyRow = withStyles(ExchangeBodyRowRaw, styles)

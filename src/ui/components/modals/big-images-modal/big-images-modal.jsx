@@ -9,7 +9,7 @@ import {getAmazonImageUrl} from '@utils/get-amazon-image-url'
 import {useClassNames} from './big-images-modal.style'
 
 export const BigImagesModal = ({openModal, setOpenModal, images, isAmazone, imgIndex = 0}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>

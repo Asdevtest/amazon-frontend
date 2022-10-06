@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@mui/material'
+
 import React from 'react'
 
-import {Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -18,12 +19,12 @@ import {t} from '@utils/translations'
 import {useClassNames} from './table-supplier.style'
 
 export const TableSupplier = observer(({product, selectedSupplier, onClickSupplier}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const renderHeader = () => (
     <TableHead>
       <TableRow>
-        <TableCell className={clsx(classNames.tableCellPadding, classNames.alignCenter)}>
+        <TableCell className={cx(classNames.tableCellPadding, classNames.alignCenter)}>
           {t(TranslationKey.Name)}
         </TableCell>
         <TableCell className={classNames.alignCenter}>{t(TranslationKey.Link)}</TableCell>
@@ -55,14 +56,14 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
             ).map((supplier, index) => (
               <TableRow
                 key={`supplier_${supplier.id}_${index}`}
-                className={clsx({
+                className={cx({
                   [classNames.tableRowSelectedSupplier]: selectedSupplier && supplier._id === selectedSupplier._id,
                   [classNames.tableRowAcceptedSupplier]:
                     product.currentSupplierId && product.currentSupplierId === supplier._id,
                 })}
                 onClick={() => onClickSupplier(supplier, index)}
               >
-                <TableCell className={clsx(classNames.alignCenter, classNames.nameCell)}>{supplier.name}</TableCell>
+                <TableCell className={cx(classNames.alignCenter, classNames.nameCell)}>{supplier.name}</TableCell>
 
                 <TableCell className={classNames.alignCenter}>
                   {supplier.link !== 'access denied' ? (
@@ -87,9 +88,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
                   {toFixedWithDollarSign(supplier.batchTotalCostInDollar, 2)}
                 </TableCell>
 
-                <TableCell className={clsx(classNames.alignCenter, classNames.commentCell)}>
-                  {supplier.comment}
-                </TableCell>
+                <TableCell className={cx(classNames.alignCenter, classNames.commentCell)}>{supplier.comment}</TableCell>
 
                 <TableCell
                   className={classNames.alignCenterFiles}
@@ -109,7 +108,7 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
             ))
           ) : (
             <TableRow>
-              <TableCell className={clsx(classNames.alignCenter, classNames.tableCellPadding)} colSpan={8}>
+              <TableCell className={cx(classNames.alignCenter, classNames.tableCellPadding)} colSpan={8}>
                 {t(TranslationKey['No suppliers'])}
               </TableCell>
             </TableRow>

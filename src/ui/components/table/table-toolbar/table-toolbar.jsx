@@ -1,4 +1,5 @@
-import {Button, IconButton, InputAdornment, NativeSelect, Toolbar, Typography} from '@material-ui/core'
+import {Button, IconButton, InputAdornment, NativeSelect, Toolbar, Typography} from '@mui/material'
+
 import {FormatAlignLeft, Search} from '@material-ui/icons'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -10,7 +11,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './table-toolbar.style'
 
 export const TableToolbar = ({rowsPerPage, handlerRowsPerPage}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Toolbar className={classNames.root}>

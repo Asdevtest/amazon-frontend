@@ -1,6 +1,6 @@
-import React from 'react'
+import {Link, Typography} from '@mui/material'
 
-import {Link, Typography} from '@material-ui/core'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './user-money-transfer-modal.style'
 
 export const UserMoneyTransferModal = ({openModal, setOpenModal, isWithdraw}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>

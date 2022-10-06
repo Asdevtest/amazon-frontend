@@ -1,9 +1,8 @@
+import {cx} from '@emotion/css'
+import {Typography, Avatar} from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
-
-import {Typography, Avatar} from '@material-ui/core'
-import clsx from 'clsx'
 
 import {
   RequestProposalStatus,
@@ -29,7 +28,7 @@ export const OwnerRequestProposalsCard = ({
   onClickOrderProposal,
   onClickRejectProposal,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.cardMainWrapper}>
@@ -108,7 +107,7 @@ export const OwnerRequestProposalsCard = ({
                 )}
                 variant="contained"
                 color="primary"
-                className={clsx(classNames.actionButton, classNames.cancelBtn)}
+                className={cx(classNames.actionButton, classNames.cancelBtn)}
                 onClick={() => onClickRejectProposal(item.proposal._id)}
               >
                 {t(TranslationKey.Reject)}
@@ -117,7 +116,7 @@ export const OwnerRequestProposalsCard = ({
                 tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
                 variant="contained"
                 color="primary"
-                className={clsx(classNames.actionButton, classNames.successBtn)}
+                className={cx(classNames.actionButton, classNames.successBtn)}
                 onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
               >
                 {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}

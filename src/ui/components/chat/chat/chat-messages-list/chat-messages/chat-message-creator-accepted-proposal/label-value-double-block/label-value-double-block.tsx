@@ -1,6 +1,6 @@
-import React, {FC} from 'react'
+import {cx} from '@emotion/css'
 
-import clsx from 'clsx'
+import React, {FC} from 'react'
 
 import {useClassNames} from './label-value-double-block.style'
 
@@ -15,9 +15,9 @@ interface Props {
 }
 
 export const LabelValueDoubleBlock: FC<Props> = ({labelValueDouble, bgColor}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
-    <div className={clsx(classNames.root, {[classNames.rootGreen]: bgColor === 'green'})}>
+    <div className={cx(classNames.root, {[classNames.rootGreen]: bgColor === 'green'})}>
       <div className={classNames.row}>
         <div className={classNames.labelWrapper}>
           <p className={classNames.labelText}>{labelValueDouble[0].label}</p>
@@ -26,7 +26,7 @@ export const LabelValueDoubleBlock: FC<Props> = ({labelValueDouble, bgColor}) =>
           <p className={classNames.valueText}>{labelValueDouble[0].value}</p>
         </div>
       </div>
-      <div className={clsx(classNames.row, classNames.rowNotFirst)}>
+      <div className={cx(classNames.row, classNames.rowNotFirst)}>
         <div className={classNames.labelWrapper}>
           <p className={classNames.labelText}>{labelValueDouble[0].label}</p>
         </div>

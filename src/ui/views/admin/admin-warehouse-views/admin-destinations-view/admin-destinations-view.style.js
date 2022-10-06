@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   mainWrapper: {
     display: 'flex',
     gap: '10px',
@@ -39,4 +39,4 @@ export const styles = createStyles(theme => ({
   toolbarContainer: {
     height: '52px',
   },
-}))
+})

@@ -1,6 +1,7 @@
+import {Typography} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -14,7 +15,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './add-or-edit-warehouse-tariff-form.style'
 
 export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 

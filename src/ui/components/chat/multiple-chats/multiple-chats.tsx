@@ -1,7 +1,12 @@
+import {Typography} from '@mui/material'
+
 import React, {forwardRef, ReactElement} from 'react'
 
+<<<<<<< HEAD
 import {Typography} from '@material-ui/core'
 import clsx from 'clsx'
+=======
+>>>>>>> 56997012... success migration on 5 mui
 import {compareDesc, parseISO} from 'date-fns'
 import {observer} from 'mobx-react'
 
@@ -74,7 +79,7 @@ export const MultipleChats = observer(
       },
       ref,
     ) => {
-      const classNames = useClassNames()
+      const {classes: classNames} = useClassNames()
 
       const filteredChats = chats
         .filter(el => {

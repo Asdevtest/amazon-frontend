@@ -1,8 +1,9 @@
+import {Avatar, Paper} from '@mui/material'
+
 import React, {Component} from 'react'
 
-import {Avatar, Paper} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {getResearcherDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -70,4 +71,4 @@ export class ResearcherDashboardViewRaw extends Component {
   }
 }
 
-export const ResearcherDashboardView = withStyles(styles)(ResearcherDashboardViewRaw)
+export const ResearcherDashboardView = withStyles(ResearcherDashboardViewRaw, styles)

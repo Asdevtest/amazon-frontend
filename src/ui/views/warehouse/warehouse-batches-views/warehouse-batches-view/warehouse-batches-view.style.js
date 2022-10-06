@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(() => ({
+export const styles = () => ({
   title: {
     fontSize: '18px',
     lineHeight: '140%',
@@ -29,4 +29,4 @@ export const styles = createStyles(() => ({
     width: '100%',
     whiteSpace: 'nowrap',
   },
-}))
+})

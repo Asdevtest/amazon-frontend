@@ -1,9 +1,9 @@
+import {cx} from '@emotion/css'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import {Paper, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Paper, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -24,7 +24,7 @@ const filterSettings = {
 }
 
 export const BarChartsCard = observer(({isRevenue, data}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [curFilterSetting, setCurFilterSetting] = useState(filterSettings.ALL_MONTHS)
 
@@ -77,7 +77,7 @@ export const BarChartsCard = observer(({isRevenue, data}) => {
 
         <div className={classNames.buttonsWrapper}>
           <Button
-            className={clsx(classNames.button, {
+            className={cx(classNames.button, {
               [classNames.selectedBtn]: curFilterSetting === filterSettings.SIX_MONTHS,
             })}
             variant="text"
@@ -87,7 +87,7 @@ export const BarChartsCard = observer(({isRevenue, data}) => {
             {`6 ${t(TranslationKey.months)}`}
           </Button>
           <Button
-            className={clsx(classNames.button, {
+            className={cx(classNames.button, {
               [classNames.selectedBtn]: curFilterSetting === filterSettings.TWELVE_MONTHS,
             })}
             variant="text"
@@ -97,7 +97,7 @@ export const BarChartsCard = observer(({isRevenue, data}) => {
             {`12 ${t(TranslationKey.months)}`}
           </Button>
           <Button
-            className={clsx(classNames.button, {
+            className={cx(classNames.button, {
               [classNames.selectedBtn]: curFilterSetting === filterSettings.ALL_MONTHS,
             })}
             variant="text"

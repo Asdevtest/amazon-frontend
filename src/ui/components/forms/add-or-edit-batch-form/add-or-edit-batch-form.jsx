@@ -1,10 +1,10 @@
+import {cx} from '@emotion/css'
 import SearchIcon from '@mui/icons-material/Search'
+import {Typography, InputAdornment} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
-import {Typography, InputAdornment} from '@material-ui/core'
-import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -27,7 +27,7 @@ import {useClassNames} from './add-or-edit-batch-form.style'
 
 export const AddOrEditBatchForm = observer(
   ({boxesData, onClose, volumeWeightCoefficient, onSubmit, batchToEdit, sourceBox, showProgress, progressValue}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -390,7 +390,7 @@ export const AddOrEditBatchForm = observer(
             <Button
               color="primary"
               variant="text"
-              className={clsx(classNames.actionBtn, classNames.cancelBtn)}
+              className={cx(classNames.actionBtn, classNames.cancelBtn)}
               onClick={onClose}
             >
               {t(TranslationKey.Cancel)}

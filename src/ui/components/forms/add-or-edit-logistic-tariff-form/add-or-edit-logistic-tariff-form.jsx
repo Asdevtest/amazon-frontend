@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
+
 import React, {useEffect, useState} from 'react'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -20,7 +21,7 @@ import {useClassNames} from './add-or-edit-logistic-tariff-form.style'
 
 export const AddOrEditLogisticTariffForm = observer(
   ({onCloseModal, onCreateSubmit, onEditSubmit, tariffToEdit, sourceYuanToDollarRate}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const rateSettings = {
       IN_DOLLAR: 'IN_DOLLAR',
@@ -256,18 +257,28 @@ export const AddOrEditLogisticTariffForm = observer(
                 value={sourceYuanToDollarRate}
               />
 
-              <Field
-                oneLine
-                label={t(TranslationKey['Yuan to USD exchange rate'])}
-                inputProps={{maxLength: 8}}
-                tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
-                containerClasses={classNames.rateContainer}
-                labelClasses={clsx(classNames.rateLabel, classNames.rightMargin)}
-                inputClasses={classNames.middleInput}
-                value={formFields.conditionsByRegion.yuanToDollarRate}
-                onChange={onChangeField('yuanToDollarRate')}
-              />
-            </div>
+            <Field
+              oneLine
+              disabled
+              label={t(TranslationKey['Current exchange rate'])}
+              tooltipInfoContent={t(TranslationKey['Course indicated by the system'])}
+              containerClasses={classNames.rateContainer}
+              labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
+              inputClasses={classNames.middleInput}
+              value={sourceYuanToDollarRate}
+            />
+
+            <Field
+              oneLine
+              label={t(TranslationKey['Yuan to USD exchange rate'])}
+              inputProps={{maxLength: 8}}
+              tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
+              containerClasses={classNames.rateContainer}
+              labelClasses={cx(classNames.rateLabel, classNames.rightMargin)}
+              inputClasses={classNames.middleInput}
+              value={formFields.conditionsByRegion.yuanToDollarRate}
+              onChange={onChangeField('yuanToDollarRate')}
+            />
           </div>
 
           <div className={classNames.blockWrapper}>
@@ -310,7 +321,7 @@ export const AddOrEditLogisticTariffForm = observer(
                 labelClasses={classNames.fieldLabel}
                 inputComponent={
                   <div
-                    className={clsx({
+                    className={cx({
                       [classNames.deadlineError]: checkDateByDeadline(formFields.cls),
                     })}
                   >
@@ -331,7 +342,7 @@ export const AddOrEditLogisticTariffForm = observer(
                 labelClasses={classNames.fieldLabel}
                 inputComponent={
                   <div
-                    className={clsx({
+                    className={cx({
                       [classNames.deadlineError]: checkDateByDeadline(formFields.etd),
                     })}
                   >
@@ -353,7 +364,7 @@ export const AddOrEditLogisticTariffForm = observer(
                 labelClasses={classNames.fieldLabel}
                 inputComponent={
                   <div
-                    className={clsx({
+                    className={cx({
                       [classNames.deadlineError]: checkDateByDeadline(formFields.eta),
                     })}
                   >
@@ -382,7 +393,7 @@ export const AddOrEditLogisticTariffForm = observer(
               value={formFields.description}
               onChange={onChangeField('description')}
             />
-            <span className={clsx(formFields.description.length > 255 && classNames.error)}>{`${
+            <span className={cx(formFields.description.length > 255 && classNames.error)}>{`${
               formFields.description.length
             } ${t(TranslationKey.of)} 255 ${t(TranslationKey.characters)}`}</span>
           </div>
@@ -412,5 +423,5 @@ export const AddOrEditLogisticTariffForm = observer(
         </div>
       </div>
     )
-  },
+  }
 )

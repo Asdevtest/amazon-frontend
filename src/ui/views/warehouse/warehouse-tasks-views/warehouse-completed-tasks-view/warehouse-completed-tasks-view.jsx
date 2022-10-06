@@ -2,8 +2,8 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
@@ -120,4 +120,4 @@ export class WarehouseCompletedTasksViewRaw extends Component {
   }
 }
 
-export const WarehouseCompletedTasksView = withStyles(styles)(WarehouseCompletedTasksViewRaw)
+export const WarehouseCompletedTasksView = withStyles(WarehouseCompletedTasksViewRaw, styles)

@@ -1,8 +1,8 @@
 import {tooltipClasses} from '@mui/material/Tooltip'
 
-const {makeStyles} = require('@material-ui/core')
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(() => ({
   boxWrapper: {
     padding: '20px 30px',
     margin: '0 2px',

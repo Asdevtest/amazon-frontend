@@ -1,6 +1,6 @@
-import React from 'react'
+import {Box, TableCell, TableRow, Typography} from '@mui/material'
 
-import {Box, TableCell, TableRow, Typography} from '@material-ui/core'
+import React from 'react'
 
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -14,7 +14,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './table-body-row.style'
 
 export const TableBodyRow = ({item, handlers}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <TableRow hover>
       <TableCell className={classNames.statusCell}>{getOrderStatusOptionByCode(item.status).label}</TableCell>

@@ -1,10 +1,10 @@
+import {Box} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {Box} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -149,4 +149,4 @@ class ShopsViewRaw extends Component {
   }
 }
 
-export const ShopsView = withStyles(styles)(ShopsViewRaw)
+export const ShopsView = withStyles(ShopsViewRaw, styles)

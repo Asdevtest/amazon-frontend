@@ -1,4 +1,4 @@
-import {Radio} from '@material-ui/core'
+import {Radio} from '@mui/material'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 

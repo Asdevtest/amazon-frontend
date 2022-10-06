@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(() => ({
+export const styles = () => ({
   vacantDealsWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -43,4 +43,4 @@ export const styles = createStyles(() => ({
 
     marginRight: '15px',
   },
-}))
+})

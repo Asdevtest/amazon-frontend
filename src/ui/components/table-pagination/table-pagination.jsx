@@ -6,7 +6,7 @@ import * as React from 'react'
 import {useClassNames} from './table-pagination.style'
 
 export const CustomPagination = () => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const apiRef = useGridApiContext()
   const page = useGridSelector(apiRef, gridPageSelector)

@@ -1,10 +1,10 @@
+import {cx} from '@emotion/css'
 import ClearIcon from '@mui/icons-material/Clear'
+import {Box, Grid, Typography, Link, NativeSelect, Select, MenuItem, Checkbox, ListItemText} from '@mui/material'
+import MuiCheckbox from '@mui/material/Checkbox'
 
 import React, {useEffect, useState} from 'react'
 
-import {Box, Grid, Typography, Link, NativeSelect, Select, MenuItem, Checkbox, ListItemText} from '@material-ui/core'
-import MuiCheckbox from '@material-ui/core/Checkbox'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {ProductStatusByKey, ProductStatus} from '@constants/product-status'
@@ -36,7 +36,7 @@ const clientToEditStatuses = [
 
 export const FieldsAndSuppliers = observer(
   ({user, showActionBtns, curUserRole, onChangeField, product, productBase, formFieldsValidationErrors, shops}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [edit, setEdit] = useState(true)
 
@@ -98,11 +98,11 @@ export const FieldsAndSuppliers = observer(
                   target="_blank"
                   rel="noopener"
                   href={checkAndMakeAbsoluteUrl(product.lamazon)}
-                  className={clsx({[classNames.linkDecoration]: !edit || !product.lamazon})}
+                  className={cx({[classNames.linkDecoration]: !edit || !product.lamazon})}
                 >
                   <Input
                     disabled={edit}
-                    classes={{input: clsx(classNames.inputLink, {[classNames.linkOnEdit]: edit && product.lamazon})}}
+                    classes={{input: cx(classNames.inputLink, {[classNames.linkOnEdit]: edit && product.lamazon})}}
                     placeholder={!product.lamazon ? t(TranslationKey['Enter link']) : ''}
                     value={product.lamazon}
                     onChange={onChangeField('lamazon')}
@@ -265,7 +265,7 @@ export const FieldsAndSuppliers = observer(
                         <option
                           key={statusIndex}
                           value={statusCode}
-                          className={clsx({
+                          className={cx({
                             [classNames.disabledOption]:
                               checkIsResearcher(curUserRole) && !user?.allowedStrategies.includes(Number(statusCode)),
                           })}

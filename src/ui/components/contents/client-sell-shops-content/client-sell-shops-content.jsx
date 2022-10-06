@@ -1,8 +1,8 @@
 import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
+import {Tabs, Tab} from '@mui/material'
 
 import React from 'react'
 
-import {Tabs, Tab} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -16,7 +16,7 @@ import {useClassNames} from './client-sell-shops-content.style'
 import {ClientSellShopsDeals} from './client-sell-shops-deals'
 
 const TabPanel = ({children, value, index, ...other}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <div
       role="tabpanel"
@@ -30,7 +30,7 @@ const TabPanel = ({children, value, index, ...other}) => {
   )
 }
 export const ClientSellShopsContent = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(0)
   const tabItemStyles = twitterTabsStylesHook.useTabItem()

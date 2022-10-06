@@ -1,9 +1,8 @@
 import ClearIcon from '@mui/icons-material/Clear'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import {ListItemText, MenuItem, Select, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
-
-import {ListItemText, MenuItem, Select, Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -15,7 +14,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './select-shops-modal.style'
 
 export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, message, shops}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const shopsNames = shops.map(shop => shop.name)
   const [clearSelect, setClearSelect] = useState(true)

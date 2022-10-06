@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {RequestProposalStatus} from '@constants/request-proposal-status'
@@ -193,4 +193,4 @@ export class RequestDetailCustomViewRaw extends Component {
   }
 }
 
-export const RequestDetailCustomView = withStyles(styles)(RequestDetailCustomViewRaw)
+export const RequestDetailCustomView = withStyles(RequestDetailCustomViewRaw, styles)

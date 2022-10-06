@@ -1,8 +1,9 @@
+import {cx} from '@emotion/css'
+import {Divider, Typography, Checkbox} from '@mui/material'
+
 import {useState} from 'react'
 
-import {Divider, Typography, Checkbox} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
@@ -32,7 +33,7 @@ const BlockOfNewBox = ({
   sizeSetting,
   volumeWeightCoefficient,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
@@ -166,7 +167,7 @@ export const CreateBoxForm = observer(
     order,
     isEdit,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const sourceBox = {
       lengthCmSupplier: formItem?.lengthCmSupplier || 0,
@@ -363,7 +364,7 @@ export const CreateBoxForm = observer(
               label={t(TranslationKey.Status)}
               inputComponent={
                 <Typography
-                  className={clsx({
+                  className={cx({
                     [classNames.orange]:
                       formItem.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
                       formItem.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||

@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   cardsWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -28,4 +28,4 @@ export const styles = createStyles(theme => ({
   noRows: {
     marginTop: '150px',
   },
-}))
+})

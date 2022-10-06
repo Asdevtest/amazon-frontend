@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
+import {CircularProgress, Typography} from '@mui/material'
+
 import React, {useEffect, useState} from 'react'
 
-import {CircularProgress, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {Navigation} from 'swiper'
 import {Swiper, SwiperSlide} from 'swiper/react'
 
@@ -15,7 +16,7 @@ import {useClassNames} from '@components/dashboards/dashboard-one-line-cards-lis
 import {t} from '@utils/translations'
 
 export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, onClickAddProduct, isClient}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export const DashboardOneLineCardsList = ({config, valuesData, onClickViewMore, 
           {config.items.map(item => (
             <SwiperSlide key={item.dataKey}>
               <div
-                className={clsx(classNames.cardWrapper, {
+                className={cx(classNames.cardWrapper, {
                   [classNames.cardErrorWrapper]: item.isNegative,
                 })}
                 onClick={() => onClickViewMore(item.route, item.dataGridFilter)}

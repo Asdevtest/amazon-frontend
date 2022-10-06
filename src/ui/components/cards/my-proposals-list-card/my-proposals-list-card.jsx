@@ -1,8 +1,7 @@
+import {Grid, Typography, Avatar, Divider} from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
-
-import {Grid, Typography, Avatar, Divider} from '@material-ui/core'
 
 import {
   RequestProposalStatus,
@@ -24,7 +23,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './my-proposals-list-card.style'
 
 export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onClickOpenBtn, isFirst}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const noDisabledEditBtnStatuses = [
     RequestProposalStatus.CREATED,

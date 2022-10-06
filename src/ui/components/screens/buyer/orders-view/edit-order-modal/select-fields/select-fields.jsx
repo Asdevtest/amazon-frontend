@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import {cx} from '@emotion/css'
+import {Box, Grid, Typography, Checkbox, Link} from '@mui/material'
 
-import {Box, Grid, Typography, Checkbox, Link} from '@material-ui/core'
-import clsx from 'clsx'
+import React, {useState} from 'react'
 
 import {OrderStatusByKey, OrderStatus} from '@constants/order-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -38,7 +38,7 @@ export const SelectFields = ({
   progressValue,
   setPhotosToLoad,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [priceYuansForBatch, setPriceYuansForBatch] = useState('')
   const [priceYuansDeliveryCostToTheWarehouse, setPriceYuansDeliveryCostToTheWarehouse] = useState('')
@@ -91,7 +91,7 @@ export const SelectFields = ({
         </div>
 
         <div
-          className={clsx(classNames.priceOptionsWrapper, {
+          className={cx(classNames.priceOptionsWrapper, {
             [classNames.disabledPriceOptionsWrapper]: checkIsPlanningPrice,
           })}
         >

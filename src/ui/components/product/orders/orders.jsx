@@ -23,7 +23,7 @@ import {OrdersModel} from './orders.model'
 import {useClassNames} from './orders.style'
 
 export const Orders = observer(({productId}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const model = useRef(new OrdersModel({history, productId}))
 

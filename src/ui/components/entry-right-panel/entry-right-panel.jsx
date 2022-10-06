@@ -1,6 +1,7 @@
+import {Divider, Typography} from '@mui/material'
+
 import React, {useEffect} from 'react'
 
-import {Divider, Typography} from '@material-ui/core'
 import {useFaviconNotification} from 'react-favicon-notification'
 
 import {LanguageSelector} from '@components/language-selector/language-selector.jsx'
@@ -8,7 +9,7 @@ import {LanguageSelector} from '@components/language-selector/language-selector.
 import {useClassNames} from './entry-right-panel.style.js'
 
 export const EntryRightPanel = ({onClickRedirect, redirect, title, children}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [config, setConfig] = useFaviconNotification()
 

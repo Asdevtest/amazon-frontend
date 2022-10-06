@@ -1,7 +1,11 @@
-import React, {useState} from 'react'
+import {Box, Container, Typography} from '@mui/material'
 
+<<<<<<< HEAD
 import {Box, Container, Typography} from '@material-ui/core'
 import clsx from 'clsx'
+=======
+import React, {useState} from 'react'
+>>>>>>> 56997012... success migration on 5 mui
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -14,7 +18,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './set-four-monthes-stock-value-modal.style'
 
 export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selectedProduct}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [newValue, setNewValue] = useState(selectedProduct?.fourMonthesStock || 0)
   // const [error, setError] = useState(false)

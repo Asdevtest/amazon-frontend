@@ -6,8 +6,8 @@ import clsx from 'clsx'
 
 import {useClassNames} from './copy-value.style'
 
-export const CopyValue = ({text, disabled}) => {
-  const classNames = useClassNames()
+export const CopyValue = ({text}) => {
+  const {classes: classNames} = useClassNames()
   const [copied, setCopied] = useState(false)
 
   const copyValue = value => {

@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import {Box, Container, Typography} from '@mui/material'
 
-import {Box, Container, Typography} from '@material-ui/core'
+import React, {useState} from 'react'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -18,7 +18,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './edit-box-tasks-modal.style'
 
 const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, sizeSetting}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <div className={classNames.numberInputFieldsBlocksWrapper}>
       <div className={classNames.numberInputFieldsWrapper}>
@@ -115,7 +115,7 @@ const AttributesEditBlock = ({box, setNewBoxField, volumeWeightCoefficient, size
 
 //   isNoActive,
 // }) => {
-//   const classNames = useClassNames()
+//   const {classes: classNames} = useClassNames()
 //   return (
 //     <div className={classNames.numberInputFieldsBlocksWrapper}>
 //       <div className={classNames.numberInputFieldsWrapper}>
@@ -271,7 +271,7 @@ export const EditBoxTasksModal = ({
   // isReceive,
   // primarySizeSuitableCheckbox,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [editingBox, setEditingBox] = useState(isInStorekeeperWarehouse ? {...box, tmpImages: []} : box)
 

@@ -1,7 +1,7 @@
-import React from 'react'
+import {cx} from '@emotion/css'
+import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@mui/material'
 
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -12,7 +12,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './user-balance-history.style'
 
 export const UserBalanceHistory = ({historyData, title}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Paper>
@@ -36,7 +36,7 @@ export const UserBalanceHistory = ({historyData, title}) => {
                 {historyData.map((item, index) => (
                   <TableRow
                     key={index}
-                    className={clsx({
+                    className={cx({
                       [classNames.replenishRow]: item.sum >= 0,
                       [classNames.withdrawRow]: item.sum < 0,
                     })}

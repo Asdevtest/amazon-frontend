@@ -1,9 +1,8 @@
 import SearchIcon from '@mui/icons-material/Search'
 import VisibilityIcon from '@mui/icons-material/Visibility'
+import {InputAdornment, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
-
-import {InputAdornment, Typography} from '@material-ui/core'
 
 import {humanFriendlyStategyStatus, mapProductStrategyStatusEnumToKey} from '@constants/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -17,7 +16,7 @@ import {useClassNames} from './asin-checker-modal.style'
 import {TableAsinAndReason} from './table-asin-and-reason/table-asin-and-reason'
 
 export const AsinCheckerModal = ({strategy, onSubmit, onClose}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 

@@ -1,6 +1,6 @@
-const {makeStyles} = require('@material-ui/core')
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(() => ({
   boxesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

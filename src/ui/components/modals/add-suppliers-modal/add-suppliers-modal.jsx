@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import {cx} from '@emotion/css'
+import {Container, Link, Typography} from '@mui/material'
 
-import {Container, Link, Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -20,8 +20,13 @@ import {t} from '@utils/translations'
 import {useClassNames} from './add-suppliers-modal.style'
 import Template from './template.xlsx'
 
+<<<<<<< HEAD
 export const AddSuppliersModal = ({userInfo, onSubmit, onClose, showProgress, progressValue}) => {
   const classNames = useClassNames()
+=======
+export const AddSuppliersModal = ({product, onSubmit, onClose, showProgress, progressValue}) => {
+  const {classes: classNames} = useClassNames()
+>>>>>>> 56997012... success migration on 5 mui
 
   const [images, setImages] = useState('')
 
@@ -47,7 +52,7 @@ export const AddSuppliersModal = ({userInfo, onSubmit, onClose, showProgress, pr
         <Button success disabled={!images} className={classNames.button} onClick={() => onSubmit(images[0].file)}>
           {t(TranslationKey.Save)}
         </Button>
-        <Button variant="text" className={clsx(classNames.button, classNames.cancelButton)} onClick={onClose}>
+        <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={onClose}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

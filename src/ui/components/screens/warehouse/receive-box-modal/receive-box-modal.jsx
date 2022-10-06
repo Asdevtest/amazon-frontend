@@ -1,12 +1,11 @@
+import {cx} from '@emotion/css'
 import AddIcon from '@mui/icons-material/Add'
-import {Tooltip} from '@mui/material'
+import {Divider, IconButton, Paper, TableCell, TableRow, Typography, Tooltip} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {Divider, IconButton, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {transformAndValidate} from 'class-transformer-validator'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -46,7 +45,7 @@ const WAREHOUSE_RECEIVE_HEAD_CELLS = classNames => [
 ]
 
 const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <TableRow className={classNames.row}>
@@ -63,7 +62,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.qtyCell}>
         <Input
           classes={{
-            root: clsx(classNames.inputWrapper, {
+            root: cx(classNames.inputWrapper, {
               [classNames.error]: !item.items[0].amount || item.items[0].amount === '0',
             }),
             input: classNames.input,
@@ -77,7 +76,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.standartCell}>
         <Input
           classes={{
-            root: clsx(classNames.inputWrapper, {
+            root: cx(classNames.inputWrapper, {
               [classNames.error]: !item.amount || item.amount === '0',
             }),
             input: classNames.input,
@@ -102,7 +101,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           <Typography>{t(TranslationKey.L) + ': '}</Typography>
           <Input
             classes={{
-              root: clsx(classNames.inputWrapper, {
+              root: cx(classNames.inputWrapper, {
                 [classNames.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
               }),
               input: classNames.input,
@@ -117,7 +116,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           <Typography>{t(TranslationKey.W) + ': '}</Typography>
           <Input
             classes={{
-              root: clsx(classNames.inputWrapper, {
+              root: cx(classNames.inputWrapper, {
                 [classNames.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
               }),
               input: classNames.input,
@@ -131,7 +130,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
           <Typography>{t(TranslationKey.H) + ': '}</Typography>
           <Input
             classes={{
-              root: clsx(classNames.inputWrapper, {
+              root: cx(classNames.inputWrapper, {
                 [classNames.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
               }),
               input: classNames.input,
@@ -145,7 +144,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
       <TableCell className={classNames.standartCell}>
         <Input
           classes={{
-            root: clsx(classNames.inputWrapper, {
+            root: cx(classNames.inputWrapper, {
               [classNames.error]: !item.weighGrossKgWarehouse || item.weighGrossKgWarehouse === '0',
             }),
             input: classNames.input,
@@ -200,7 +199,7 @@ const TableBodyBoxRow = ({item, itemIndex, handlers}) => {
 }
 
 const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, onAddImages}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const renderHeadRow = () => <TableHeadRow headCells={WAREHOUSE_RECEIVE_HEAD_CELLS(classNames)} />
 
@@ -364,7 +363,7 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
 }
 
 export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoefficient, boxesBefore}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const [showNoDimensionsErrorModal, setShowNoDimensionsErrorModal] = useState(false)
   const [showAddImagesModal, setShowAddImagesModal] = useState(false)
 
@@ -697,7 +696,7 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
 
         <Button
           variant="text"
-          className={clsx(classNames.button, classNames.cancelButton)}
+          className={cx(classNames.button, classNames.cancelButton)}
           onClick={() => {
             setOpenModal()
           }}

@@ -1,10 +1,10 @@
+import {Typography} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -206,4 +206,4 @@ class AnotherUserProfileViewRaw extends Component {
   }
 }
 
-export const AnotherUserProfileView = withStyles(styles)(AnotherUserProfileViewRaw)
+export const AnotherUserProfileView = withStyles(AnotherUserProfileViewRaw, styles)

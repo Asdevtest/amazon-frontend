@@ -1,6 +1,6 @@
-import React from 'react'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
+import React from 'react'
 
 import {TaskOperationType} from '@constants/task-operation-type'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -14,7 +14,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './box-item-card.style'
 
 export const ShortBoxItemCard = ({item, superCount, boxId, taskType, readOnly}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.root}>

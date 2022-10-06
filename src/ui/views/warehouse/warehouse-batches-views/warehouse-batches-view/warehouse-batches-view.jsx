@@ -1,10 +1,10 @@
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
+import {Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -69,4 +69,4 @@ class WarehouseBatchesViewRaw extends Component {
   }
 }
 
-export const WarehouseBatchesView = withStyles(styles)(WarehouseBatchesViewRaw)
+export const WarehouseBatchesView = withStyles(WarehouseBatchesViewRaw, styles)

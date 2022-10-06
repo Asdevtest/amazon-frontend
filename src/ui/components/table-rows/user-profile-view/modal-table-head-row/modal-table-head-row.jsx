@@ -1,7 +1,8 @@
+import {Typography, TableRow, TableCell} from '@mui/material'
+
 import React from 'react'
 
-import {Typography, TableRow, TableCell} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
+import {withStyles} from 'tss-react/mui'
 
 import {styles} from './modal-table-head-row.style'
 
@@ -20,4 +21,4 @@ const ModalTableHeadRowRaw = ({headCells, ...restProps}) => {
   )
 }
 
-export const ModalTableHeadRow = withStyles(styles)(ModalTableHeadRowRaw)
+export const ModalTableHeadRow = withStyles(ModalTableHeadRowRaw, styles)

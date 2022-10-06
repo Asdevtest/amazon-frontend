@@ -1,6 +1,7 @@
+import {Typography} from '@mui/material'
+
 import React from 'react'
 
-import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -16,7 +17,7 @@ import {BeforeAfterInfoTaskBlock} from './before-after-info-task-block'
 import {useClassNames} from './task-info-modal.style'
 
 export const TaskInfoModal = observer(({openModal, setOpenModal, task, volumeWeightCoefficient}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const renderDescriptionText = () => {
     switch (task.operationType) {

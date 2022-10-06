@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import {cx} from '@emotion/css'
+import {Typography, Paper, Avatar} from '@mui/material'
 
-import {Typography, Paper, Avatar} from '@material-ui/core'
-import clsx from 'clsx'
+import React from 'react'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {RequestStatus} from '@constants/request-status'
@@ -27,7 +27,7 @@ export const OwnerGeneralRequestInfo = ({
   onClickCancelBtn,
   onClickAbortBtn,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const now = new Date()
 
   const requestIsNotDraftAndPublished =
@@ -206,7 +206,7 @@ export const OwnerGeneralRequestInfo = ({
                   variant="contained"
                   color="primary"
                   btnWrapperStyle={classNames.buttonWrapperFullWidth}
-                  className={clsx(classNames.button, {
+                  className={cx(classNames.button, {
                     [classNames.buttonEditRemoveBtnIsShown]: requestIsNotDraftAndPublished,
                   })}
                   onClick={onClickEditBtn}
@@ -228,7 +228,7 @@ export const OwnerGeneralRequestInfo = ({
                   variant="contained"
                   color="primary"
                   btnWrapperStyle={classNames.buttonWrapperFullWidth}
-                  className={clsx(classNames.button, {
+                  className={cx(classNames.button, {
                     [classNames.stopBtn]: request?.request.status !== RequestStatus.FORBID_NEW_PROPOSALS,
                   })}
                   onClick={request?.request.status !== 'FORBID_NEW_PROPOSALS' ? onClickAbortBtn : onClickPublishBtn}

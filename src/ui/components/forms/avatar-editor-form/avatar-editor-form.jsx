@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Typography, Avatar as AvatarMui} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Typography, Avatar as AvatarMui} from '@material-ui/core'
-import clsx from 'clsx'
 import Avatar from 'react-avatar-edit'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -14,7 +15,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './avatar-editor-form.style'
 
 export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [showInfoModal, setShowInfoModal] = useState(false)
 
@@ -89,12 +90,12 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
       </div>
 
       <div className={classNames.textsWrapper}>
-        <Typography className={clsx({[classNames.successText]: state.preview})}>
+        <Typography className={cx({[classNames.successText]: state.preview})}>
           {t(TranslationKey['The image size should not exceed'])}{' '}
           {<span className={classNames.spanText}>{'15 mb.'}</span>}
         </Typography>
 
-        <Typography className={clsx({[classNames.successText]: state.preview})}>
+        <Typography className={cx({[classNames.successText]: state.preview})}>
           {t(TranslationKey['Allowed image formats'])}
           {'('}
           {<span className={classNames.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}

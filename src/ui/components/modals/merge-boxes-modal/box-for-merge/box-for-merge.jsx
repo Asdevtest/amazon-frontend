@@ -1,9 +1,8 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import {Link, NativeSelect, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
-
-import {Link, NativeSelect, Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -18,7 +17,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './box-for-merge.style'
 
 export const BoxForMerge = ({box, readOnly = false, index}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const [showFullCard, setShowFullCard] = useState(false)
 
   return (

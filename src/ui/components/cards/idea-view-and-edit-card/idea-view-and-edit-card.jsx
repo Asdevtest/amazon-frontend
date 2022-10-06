@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
+import {Divider, Grid, Link, Typography, IconButton} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Divider, Grid, Link, Typography, IconButton} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
@@ -56,7 +56,7 @@ export const IdeaViewAndEditCard = observer(
     onClickSupplierBtns,
     onClickSupplier,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [linkLine, setLinkLine] = useState('')
 
@@ -228,7 +228,7 @@ export const IdeaViewAndEditCard = observer(
           </div>
         </div>
 
-        <div className={clsx(classNames.middleBlock, {[classNames.fullMiddleBlock]: showFullCard})}>
+        <div className={cx(classNames.middleBlock, {[classNames.fullMiddleBlock]: showFullCard})}>
           <Typography className={classNames.supplierSearchTitle}>
             {t(TranslationKey['Supplier search options'])}
           </Typography>
@@ -244,7 +244,7 @@ export const IdeaViewAndEditCard = observer(
                   value={formFields.productName}
                   onChange={onChangeField('productName')}
                 />
-                <span className={clsx(classNames.count, {[classNames.error]: formFields.productName.length > 128})}>{`${
+                <span className={cx(classNames.count, {[classNames.error]: formFields.productName.length > 128})}>{`${
                   formFields.productName.length
                 } ${t(TranslationKey.of)} 128 ${t(TranslationKey.characters)}`}</span>
 
@@ -431,7 +431,7 @@ export const IdeaViewAndEditCard = observer(
                           <div className={classNames.supplierButtonWrapper}>
                             <Button
                               tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                              className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
+                              className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
                               onClick={() =>
                                 onClickSupplierBtns('delete', () => onClickSaveBtn(calculateFieldsToSubmit(), [], true))
                               }

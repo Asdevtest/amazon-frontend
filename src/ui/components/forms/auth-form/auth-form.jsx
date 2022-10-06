@@ -3,11 +3,11 @@ import LockIcon from '@mui/icons-material/Lock'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import {Button, Checkbox, InputAdornment, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Button, Checkbox, InputAdornment, Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
+import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -98,4 +98,4 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
     </div>
   )
 }
-export const AuthForm = withStyles(styles)(AuthFormRaw)
+export const AuthForm = withStyles(AuthFormRaw, styles)

@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles()(() => ({
   cardWrapper: {
     // padding: '0 40px',
   },
@@ -37,4 +37,4 @@ export const useClassNames = makeStyles({
     flexDirection: 'column',
     gap: '35px',
   },
-})
+}))

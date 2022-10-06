@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/styles'
+// import {createStyles} from '@material-ui/styles'
 
-export const useClassNames = createStyles(theme => ({
+export const styles = theme => ({
   root: {
     minHeight: '36px !important',
     minWidth: '36px !important',
@@ -77,4 +77,4 @@ export const useClassNames = createStyles(theme => ({
     position: 'relative',
     display: 'inline',
   },
-}))
+})

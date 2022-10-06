@@ -1,8 +1,9 @@
+import {Avatar, Paper} from '@mui/material'
+
 import React, {Component} from 'react'
 
-import {Avatar, Paper} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {getClientDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -111,4 +112,4 @@ export class ClientDashboardViewRaw extends Component {
   }
 }
 
-export const ClientDashboardView = withStyles(styles)(ClientDashboardViewRaw)
+export const ClientDashboardView = withStyles(ClientDashboardViewRaw, styles)

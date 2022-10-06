@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles()(()=> ({
   boxLastRow: {
     borderBottom: '1px solid rgba(217, 222, 229, 1)',
   },

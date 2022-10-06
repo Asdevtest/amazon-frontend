@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles({
+export const styles = {
   imgCell: {
     height: '64px',
     width: '64px',
@@ -18,4 +18,4 @@ export const styles = createStyles({
     width: '100%',
     marginTop: '2px',
   },
-})
+}

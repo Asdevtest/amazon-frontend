@@ -1,11 +1,11 @@
 import SearchIcon from '@mui/icons-material/Search'
+import {InputAdornment} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {InputAdornment} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
@@ -169,4 +169,4 @@ export class WarehouseSentBatchesViewRaw extends Component {
   }
 }
 
-export const WarehouseSentBatchesView = withStyles(styles)(WarehouseSentBatchesViewRaw)
+export const WarehouseSentBatchesView = withStyles(WarehouseSentBatchesViewRaw, styles)

@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import DoneOutlineRoundedIcon from '@mui/icons-material/DoneOutlineRounded'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import {Rating} from '@mui/material'
+import {Avatar, Badge, Chip, Grid, Link, TextareaAutosize, Tooltip, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Avatar, Badge, Chip, Grid, Link, TextareaAutosize, Tooltip, Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 import {fromUnixTime} from 'date-fns'
 import {TextArea} from 'react-mde'
 import {useHistory} from 'react-router-dom'
+import {withStyles} from 'tss-react/mui'
 
 import {BoxStatus} from '@constants/box-status'
 import {getOrderStatusOptionByCode, OrderStatus, OrderStatusByKey, OrderStatusTranslate} from '@constants/order-status'
@@ -55,113 +55,125 @@ import {t} from '@utils/translations'
 
 import {styles} from './data-grid-cells.style'
 
-export const UserCell = withStyles(styles)(({classes: classNames, user}) => (
-  <div className={classNames.sabUserWrapper}>
-    <div className={classNames.userAvatarWrapper}>
-      <Avatar src={getUserAvatarSrc(user?._id)} className={classNames.userAvatar} />
-    </div>
-
-    <div className={classNames.sabUserInfoWrapper}>
-      <div className={classNames.userLink}>
-        <UserLink name={user?.name} userId={user?._id} />
+export const UserCell = withStyles(
+  ({classes: classNames, user}) => (
+    <div className={classNames.sabUserWrapper}>
+      <div className={classNames.userAvatarWrapper}>
+        <Avatar src={getUserAvatarSrc(user?._id)} className={classNames.userAvatar} />
       </div>
 
-      <Typography className={classNames.userEmail}>{user?.email}</Typography>
-
-      <div className={classNames.sabUserRatingWrapper}>
-        <Typography>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
-
-        <Rating disabled className={classNames.sabUserRating} value={user?.rating} />
-      </div>
-    </div>
-  </div>
-))
-
-export const UserRolesCell = withStyles(styles)(({classes: classNames, user}) => (
-  <div className={classNames.userRolesWrapper}>
-    <Typography className={classNames.userRole}>{UserRolePrettyMap[user.role]}</Typography>
-
-    {user.allowedRoles
-      .filter(el => el !== mapUserRoleEnumToKey[UserRole.CANDIDATE] && el !== user.role)
-      .map((role, index) => (
-        <Typography key={index} className={classNames.userRole}>
-          {UserRolePrettyMap[role]}
-        </Typography>
-      ))}
-  </div>
-))
-
-export const AsinCell = withStyles(styles)(({classes: classNames, product}) => (
-  <div className={classNames.asinCell}>
-    <div className={classNames.asinCellContainer}>
-      <img alt="" className={classNames.img} src={getAmazonImageUrl(product.images[0])} />
-
-      <div>
-        <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
-        <div className={classNames.copyAsin}>
-          <Typography className={classNames.typoCell}>
-            {t(TranslationKey.ASIN)}
-
-            {product.asin ? (
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={`https://www.amazon.com/dp/${product.asin}`}
-                className={classNames.normalizeLink}
-              >
-                <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
-              </a>
-            ) : (
-              <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
-            )}
-          </Typography>
-          {product.asin ? <CopyValue text={product.asin} /> : null}
+      <div className={classNames.sabUserInfoWrapper}>
+        <div className={classNames.userLink}>
+          <UserLink name={user?.name} userId={user?._id} />
         </div>
 
-        <div className={classNames.copyAsin}>
-          <Typography className={classNames.typoCell}>
-            {t(TranslationKey.SKU)}
-            <span className={classNames.typoSpan}>
-              {product.skusByClient[0] ? shortSku(product.skusByClient[0]) : t(TranslationKey.Missing)}
-            </span>
-          </Typography>
-          {product.skusByClient[0] ? <CopyValue text={product.skusByClient[0]} /> : null}
+        <Typography className={classNames.userEmail}>{user?.email}</Typography>
+
+        <div className={classNames.sabUserRatingWrapper}>
+          <Typography>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
+
+          <Rating disabled className={classNames.sabUserRating} value={user?.rating} />
         </div>
       </div>
     </div>
-  </div>
-))
+  ),
+  styles,
+)
 
-export const ProductCell = withStyles(styles)(({classes: classNames, product}) => (
-  <div className={classNames.productCell}>
-    <div className={classNames.asinCellContainer}>
-      <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images[0])} />
+export const UserRolesCell = withStyles(
+  ({classes: classNames, user}) => (
+    <div className={classNames.userRolesWrapper}>
+      <Typography className={classNames.userRole}>{UserRolePrettyMap[user.role]}</Typography>
 
-      <div className={classNames.productWrapper}>
-        <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
-        <div className={classNames.skuAndAsinWrapper}>
-          <Typography className={classNames.productTypoCell}>
-            {t(TranslationKey.SKU)}
-            <span className={classNames.typoSpan}>
-              {product.skusByClient?.length ? shortSku(product.skusByClient[0]) : '-'}
-            </span>
-            {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
+      {user.allowedRoles
+        .filter(el => el !== mapUserRoleEnumToKey[UserRole.CANDIDATE] && el !== user.role)
+        .map((role, index) => (
+          <Typography key={index} className={classNames.userRole}>
+            {UserRolePrettyMap[role]}
           </Typography>
-          {product.skusByClient[0] ? <CopyValue text={product.skusByClient[0]} /> : null}
-          {'/'}
-          <Typography className={classNames.productTypoCell}>
-            {t(TranslationKey.ASIN)}
-            <span className={classNames.typoSpan}>{shortAsin(product.asin)}</span>
-            {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
-          </Typography>
-          {product.asin ? <CopyValue text={product.asin} /> : null}
+        ))}
+    </div>
+  ),
+  styles,
+)
+
+export const AsinCell = withStyles(
+  ({classes: classNames, product}) => (
+    <div className={classNames.asinCell}>
+      <div className={classNames.asinCellContainer}>
+        <img alt="" className={classNames.img} src={getAmazonImageUrl(product.images[0])} />
+
+        <div>
+          <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
+          <div className={classNames.copyAsin}>
+            <Typography className={classNames.typoCell}>
+              {t(TranslationKey.ASIN)}
+
+              {product.asin ? (
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={`https://www.amazon.com/dp/${product.asin}`}
+                  className={classNames.normalizeLink}
+                >
+                  <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
+                </a>
+              ) : (
+                <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+              )}
+            </Typography>
+            {product.asin ? <CopyValue text={product.asin} /> : null}
+          </div>
+
+          <div className={classNames.copyAsin}>
+            <Typography className={classNames.typoCell}>
+              {t(TranslationKey.SKU)}
+              <span className={classNames.typoSpan}>
+                {product.skusByClient[0] ? shortSku(product.skusByClient[0]) : t(TranslationKey.Missing)}
+              </span>
+            </Typography>
+            {product.skusByClient[0] ? <CopyValue text={product.skusByClient[0]} /> : null}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-))
+  ),
+  styles,
+)
 
-export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
+export const ProductCell = withStyles(
+  ({classes: classNames, product}) => (
+    <div className={classNames.productCell}>
+      <div className={classNames.asinCellContainer}>
+        <img alt="" className={classNames.productCellImg} src={getAmazonImageUrl(product.images[0])} />
+
+        <div className={classNames.productWrapper}>
+          <Typography className={classNames.csCodeTypo}>{product.amazonTitle}</Typography>
+          <div className={classNames.skuAndAsinWrapper}>
+            <Typography className={classNames.productTypoCell}>
+              {t(TranslationKey.SKU)}
+              <span className={classNames.typoSpan}>
+                {product.skusByClient?.length ? shortSku(product.skusByClient[0]) : '-'}
+              </span>
+              {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
+            </Typography>
+            {product.skusByClient[0] ? <CopyValue text={product.skusByClient[0]} /> : null}
+            {'/'}
+            <Typography className={classNames.productTypoCell}>
+              {t(TranslationKey.ASIN)}
+              <span className={classNames.typoSpan}>{shortAsin(product.asin)}</span>
+              {/* {` | ${formatDateDistanceFromNow(product.createdAt)}`} // пока отключим */}
+            </Typography>
+            {product.asin ? <CopyValue text={product.asin} /> : null}
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+  styles,
+)
+
+export const FeesValuesWithCalculateBtnCell = withStyles(
   ({classes: classNames, product, noCalculate, onClickCalculate}) => (
     <div className={classNames.feesTableWrapper}>
       <Typography className={classNames.typoCell}>
@@ -184,91 +196,116 @@ export const FeesValuesWithCalculateBtnCell = withStyles(styles)(
       )}
     </div>
   ),
+  styles,
 )
 
-export const SupplierCell = withStyles(styles)(({classes: classNames, product}) => (
-  <div>
-    <Typography className={classNames.researcherCell}>
-      {!product.currentSupplier ? '-' : product.currentSupplier.name}
-    </Typography>
+export const SupplierCell = withStyles(
+  ({classes: classNames, product}) => (
+    <div>
+      <Typography className={classNames.researcherCell}>
+        {!product.currentSupplier ? '-' : product.currentSupplier.name}
+      </Typography>
 
-    {product.currentSupplier && (
-      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.currentSupplier?.link)}>
-        <Typography className={classNames.noActiveLink}>{product.currentSupplier?.link}</Typography>
-      </Link>
-    )}
-  </div>
-))
+      {product.currentSupplier && (
+        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(product.currentSupplier?.link)}>
+          <Typography className={classNames.noActiveLink}>{product.currentSupplier?.link}</Typography>
+        </Link>
+      )}
+    </div>
+  ),
+  styles,
+)
 
-export const UserLinkCell = withStyles(styles)(({classes: classNames, name, userId, blackText}) => (
-  <div className={classNames.userLinkWrapper}>
-    <UserLink withAvatar name={name} userId={userId} blackText={blackText} />
-  </div>
-))
+export const UserLinkCell = withStyles(
+  ({classes: classNames, name, userId, blackText}) => (
+    <div className={classNames.userLinkWrapper}>
+      <UserLink withAvatar name={name} userId={userId} blackText={blackText} />
+    </div>
+  ),
+  styles,
+)
 
-export const SupervisorCell = withStyles(styles)(({classes: classNames, product}) => (
-  <div>
-    <Typography className={classNames.researcherCell}>{!product.checkedBy ? '-' : product.checkedBy.name}</Typography>
-  </div>
-))
+export const SupervisorCell = withStyles(
+  ({classes: classNames, product}) => (
+    <div>
+      <Typography className={classNames.researcherCell}>{!product.checkedBy ? '-' : product.checkedBy.name}</Typography>
+    </div>
+  ),
+  styles,
+)
 
-export const ResearcherCell = withStyles(styles)(({classes: classNames, product}) => (
-  <div>
-    <Typography className={classNames.researcherCell}>{!product.createdBy ? '-' : product.createdBy.name}</Typography>
-  </div>
-))
+export const ResearcherCell = withStyles(
+  ({classes: classNames, product}) => (
+    <div>
+      <Typography className={classNames.researcherCell}>{!product.createdBy ? '-' : product.createdBy.name}</Typography>
+    </div>
+  ),
+  styles,
+)
 
-export const ClientCell = withStyles(styles)(({classes: classNames, product}) => (
-  <div>
-    <Typography className={classNames.researcherCell}>{!product.client ? '-' : product.client.name}</Typography>
-  </div>
-))
+export const ClientCell = withStyles(
+  ({classes: classNames, product}) => (
+    <div>
+      <Typography className={classNames.researcherCell}>{!product.client ? '-' : product.client.name}</Typography>
+    </div>
+  ),
+  styles,
+)
 
-export const BuyerCell = withStyles(styles)(({classes: classNames, product}) => (
-  <div>
-    <Typography className={classNames.researcherCell}>{!product.buyer ? '-' : product.buyer.name}</Typography>
-  </div>
-))
+export const BuyerCell = withStyles(
+  ({classes: classNames, product}) => (
+    <div>
+      <Typography className={classNames.researcherCell}>{!product.buyer ? '-' : product.buyer.name}</Typography>
+    </div>
+  ),
+  styles,
+)
 
-export const BarcodeCell = withStyles(styles)(({classes: classNames, product, handlers}) => (
-  <React.Fragment>
-    <Chip
-      classes={{
-        root: classNames.barcodeChip,
-        clickable: classNames.barcodeChipHover,
-        deletable: classNames.barcodeChipHover,
-        deleteIcon: classNames.barcodeChipIcon,
-      }}
-      className={clsx({[classNames.barcodeChipExists]: product.barCode})}
-      size="small"
-      label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey.BarCode)}
-      onClick={() => handlers.onClickBarcode(product)}
-      onDoubleClick={() => handlers.onDoubleClickBarcode(product)}
-      onDelete={!product.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
-    />
-  </React.Fragment>
-))
+export const BarcodeCell = withStyles(
+  ({classes: classNames, product, handlers}) => (
+    <React.Fragment>
+      <Chip
+        classes={{
+          root: classNames.barcodeChip,
+          clickable: classNames.barcodeChipHover,
+          deletable: classNames.barcodeChipHover,
+          deleteIcon: classNames.barcodeChipIcon,
+        }}
+        className={cx({[classNames.barcodeChipExists]: product.barCode})}
+        size="small"
+        label={product.barCode ? trimBarcode(product.barCode) : t(TranslationKey.BarCode)}
+        onClick={() => handlers.onClickBarcode(product)}
+        onDoubleClick={() => handlers.onDoubleClickBarcode(product)}
+        onDelete={!product.barCode ? undefined : () => handlers.onDeleteBarcode(product)}
+      />
+    </React.Fragment>
+  ),
+  styles,
+)
 
-export const HsCodeCell = withStyles(styles)(({classes: classNames, product, handlers}) => (
-  <React.Fragment>
-    <Chip
-      classes={{
-        root: classNames.barcodeChip,
-        clickable: classNames.barcodeChipHover,
-        deletable: classNames.barcodeChipHover,
-        deleteIcon: classNames.barcodeChipIcon,
-      }}
-      className={clsx({[classNames.barcodeChipExists]: product.hsCode})}
-      size="small"
-      label={product.hsCode ? trimBarcode(product.hsCode) : t(TranslationKey['HS code'])}
-      onClick={() => handlers.onClickHsCode(product)}
-      onDoubleClick={() => handlers.onDoubleClickHsCode(product)}
-      onDelete={!product.hsCode ? undefined : () => handlers.onDeleteHsCode(product)}
-    />
-  </React.Fragment>
-))
+export const HsCodeCell = withStyles(
+  ({classes: classNames, product, handlers}) => (
+    <React.Fragment>
+      <Chip
+        classes={{
+          root: classNames.barcodeChip,
+          clickable: classNames.barcodeChipHover,
+          deletable: classNames.barcodeChipHover,
+          deleteIcon: classNames.barcodeChipIcon,
+        }}
+        className={cx({[classNames.barcodeChipExists]: product.hsCode})}
+        size="small"
+        label={product.hsCode ? trimBarcode(product.hsCode) : t(TranslationKey['HS code'])}
+        onClick={() => handlers.onClickHsCode(product)}
+        onDoubleClick={() => handlers.onDoubleClickHsCode(product)}
+        onDelete={!product.hsCode ? undefined : () => handlers.onDeleteHsCode(product)}
+      />
+    </React.Fragment>
+  ),
+  styles,
+)
 
-export const ChangeChipCell = withStyles(styles)(
+export const ChangeChipCell = withStyles(
   ({classes: classNames, row, value, onClickChip, onDoubleClickChip, onDeleteChip, text, disabled, label}) => (
     <div>
       {label ? <Typography className={classNames.changeChipCellLabel}>{label}</Typography> : null}
@@ -280,7 +317,7 @@ export const ChangeChipCell = withStyles(styles)(
           deletable: classNames.barcodeChipHover,
           deleteIcon: classNames.barcodeChipIcon,
         }}
-        className={clsx(classNames.chipStock, {[classNames.barcodeChipExists]: value})}
+        className={cx(classNames.chipStock, {[classNames.barcodeChipExists]: value})}
         size="small"
         label={value ? trimBarcode(value) : text}
         onClick={() => onClickChip(row)}
@@ -289,8 +326,10 @@ export const ChangeChipCell = withStyles(styles)(
       />
     </div>
   ),
+  styles,
 )
 
+<<<<<<< HEAD
 export const DateCell = withStyles(styles)(({params}) => (
   <Typography>{!params.value ? '-' : formatDateTime(params.value)}</Typography>
 ))
@@ -359,80 +398,175 @@ export const OrderCell = withStyles(styles)(({classes: classNames, product, supe
         </Typography>
         {product?.skusByClient?.length ? <CopyValue text={product?.skusByClient[0]} /> : null}
       </div>
+=======
+export const DateCell = withStyles(
+  ({params}) => <Typography>{!params.value ? '-' : formatDateTime(params.value)}</Typography>,
+  styles,
+)
+>>>>>>> 56997012... success migration on 5 mui
 
-      {superbox && <Typography className={classNames.superboxTypo}>{`${'SB'} x ${superbox}`}</Typography>}
+export const NormDateCell = withStyles(
+  ({classes: classNames, params}) => (
+    <Typography className={classNames.normDateCellTypo}>
+      {!(params && params.value) ? '-' : formatNormDateTime(params.value)}
+    </Typography>
+  ),
+  styles,
+)
 
-      {box && box.totalPrice - box.totalPriceChanged < 0 && (
-        <span className={classNames.needPay}>{`${t(TranslationKey['Extra payment required!'])} (${toFixedWithDollarSign(
-          box.totalPriceChanged - box.totalPrice,
-          2,
-        )})`}</span>
-      )}
+export const NormDateWithoutTimeCell = withStyles(
+  ({classes: classNames, params}) => (
+    <Typography className={classNames.normDateCellTypo}>
+      {!(params && params.value) ? '-' : formatDateWithoutTime(params.value)}
+    </Typography>
+  ),
+  styles,
+)
 
-      {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
-        <span className={classNames.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
-      )}
+export const ShortDateCell = withStyles(
+  ({classes: classNames, params}) => (
+    <Typography className={classNames.shortDateCellTypo}>
+      {!(params && params.value) ? '-' : formatShortDateTime(params.value)}
+    </Typography>
+  ),
+  styles,
+)
 
-      {error && <span className={classNames.OrderCellError}>{error}</span>}
-    </div>
-  </div>
-))
+export const NormDateFromUnixCell = withStyles(
+  ({classes: classNames, value}) => (
+    <Typography className={classNames.normDateCellTypo}>
+      {!value ? '-' : formatDateForShowWithoutParseISO(fromUnixTime(value))}
+    </Typography>
+  ),
+  styles,
+)
 
-export const OrderBoxesCell = withStyles(styles)(({classes: classNames, superbox, superboxQty, qty, box, product}) =>
-  superbox ? (
-    <div className={classNames.orderBoxesWrapper}>
-      <SuperboxQtyCell qty={qty} superbox={superboxQty} />
-      <OrderManyItemsCell box={box} />
-    </div>
-  ) : (
-    <div className={classNames.orderBoxesWrapper}>
-      <MultilineTextCell text={`x${qty}`} />
-      <OrderCell product={product} superbox={superboxQty} box={box} />
+export const NormDateWithParseISOCell = withStyles(
+  ({params}) => <Typography>{!params.value ? '-' : formatNormDateTimeWithParseISO(params.value)}</Typography>,
+  styles,
+)
+
+export const OrderCell = withStyles(
+  ({classes: classNames, product, superbox, box, error}) => (
+    <div className={classNames.order}>
+      <img alt="" src={getAmazonImageUrl(product.images[0])} className={classNames.orderImg} />
+      <div>
+        <Typography className={classNames.orderTitle}>{product.amazonTitle}</Typography>
+        <div className={classNames.copyAsin}>
+          <Typography className={classNames.orderText}>
+            <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
+            {product.asin ? (
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`https://www.amazon.com/dp/${product.asin}`}
+                className={classNames.normalizeLink}
+              >
+                <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
+              </a>
+            ) : (
+              <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
+            )}
+          </Typography>
+          {product.asin ? <CopyValue text={product.asin} /> : null}
+        </div>
+        <div className={classNames.copyAsin}>
+          <Typography className={classNames.orderText}>
+            <span className={classNames.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
+            {product?.skusByClient?.length ? product.skusByClient[0] : t(TranslationKey.Missing)}
+          </Typography>
+          {product?.skusByClient?.length ? <CopyValue text={product?.skusByClient[0]} /> : null}
+        </div>
+
+        {superbox && <Typography className={classNames.superboxTypo}>{`${'SB'} x ${superbox}`}</Typography>}
+
+        {box && box.totalPrice - box.totalPriceChanged < 0 && (
+          <span className={classNames.needPay}>{`${t(
+            TranslationKey['Extra payment required!'],
+          )} (${toFixedWithDollarSign(box.totalPriceChanged - box.totalPrice, 2)})`}</span>
+        )}
+
+        {box?.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF && (
+          <span className={classNames.needPay}>{t(TranslationKey['The tariff is invalid or has been removed!'])}</span>
+        )}
+
+        {error && <span className={classNames.OrderCellError}>{error}</span>}
+      </div>
     </div>
   ),
+  styles,
+)
+
+export const OrderBoxesCell = withStyles(
+  ({classes: classNames, superbox, superboxQty, qty, box, product}) =>
+    superbox ? (
+      <div className={classNames.orderBoxesWrapper}>
+        <SuperboxQtyCell qty={qty} superbox={superboxQty} />
+        <OrderManyItemsCell box={box} />
+      </div>
+    ) : (
+      <div className={classNames.orderBoxesWrapper}>
+        <MultilineTextCell text={`x${qty}`} />
+        <OrderCell product={product} superbox={superboxQty} box={box} />
+      </div>
+    ),
+  styles,
 )
 
 export const renderFieldValueCell = value => (!value && value !== 0 ? '-' : value)
 
-export const WarehouseTariffDestinationCell = withStyles(styles)(() => (
-  <div>
-    <Typography>{'US West Coast'}</Typography>
-    <Typography>{'US Central '}</Typography>
-    <Typography>{'US East Coast '}</Typography>
-  </div>
-))
-
-export const WarehouseTariffRatesCell = withStyles(styles)(({classes: classNames, conditionsByRegion}) => (
-  <div className={classNames.tariffRatesWrapper}>
-    <Typography>{toFixed(conditionsByRegion.west.rate, 2) || '-'}</Typography>
-    <Typography>{toFixed(conditionsByRegion.central.rate, 2) || '-'}</Typography>
-    <Typography>{toFixed(conditionsByRegion.east.rate, 2) || '-'}</Typography>
-  </div>
-))
-
-export const WarehouseTariffDatesCell = withStyles(styles)(({classes: classNames, row}) => (
-  <div>
-    <div className={classNames.warehouseTariffDatesItem}>
-      <Typography>{t(TranslationKey['CLS (batch closing date)'])}</Typography>
-      <Typography>{!row.cls ? '-' : formatDateWithoutTime(row.cls)}</Typography>
+export const WarehouseTariffDestinationCell = withStyles(
+  () => (
+    <div>
+      <Typography>{'US West Coast'}</Typography>
+      <Typography>{'US Central '}</Typography>
+      <Typography>{'US East Coast '}</Typography>
     </div>
+  ),
+  styles,
+)
 
-    <div className={classNames.warehouseTariffDatesItem}>
-      <Typography>{t(TranslationKey['ETD (date of shipment)'])}</Typography>
-      <Typography>{!row.etd ? '-' : formatDateWithoutTime(row.etd)}</Typography>
+export const WarehouseTariffRatesCell = withStyles(
+  ({classes: classNames, conditionsByRegion}) => (
+    <div className={classNames.tariffRatesWrapper}>
+      <Typography>{toFixed(conditionsByRegion.west.rate, 2) || '-'}</Typography>
+      <Typography>{toFixed(conditionsByRegion.central.rate, 2) || '-'}</Typography>
+      <Typography>{toFixed(conditionsByRegion.east.rate, 2) || '-'}</Typography>
     </div>
+  ),
+  styles,
+)
 
-    <div className={classNames.warehouseTariffDatesItem}>
-      <Typography>{t(TranslationKey['ETA (arrival date)'])}</Typography>
-      <Typography>{!row.eta ? '-' : formatDateWithoutTime(row.eta)}</Typography>
+export const WarehouseTariffDatesCell = withStyles(
+  ({classes: classNames, row}) => (
+    <div>
+      <div className={classNames.warehouseTariffDatesItem}>
+        <Typography>{t(TranslationKey['CLS (batch closing date)'])}</Typography>
+        <Typography>{!row.cls ? '-' : formatDateWithoutTime(row.cls)}</Typography>
+      </div>
+
+      <div className={classNames.warehouseTariffDatesItem}>
+        <Typography>{t(TranslationKey['ETD (date of shipment)'])}</Typography>
+        <Typography>{!row.etd ? '-' : formatDateWithoutTime(row.etd)}</Typography>
+      </div>
+
+      <div className={classNames.warehouseTariffDatesItem}>
+        <Typography>{t(TranslationKey['ETA (arrival date)'])}</Typography>
+        <Typography>{!row.eta ? '-' : formatDateWithoutTime(row.eta)}</Typography>
+      </div>
     </div>
-  </div>
-))
+  ),
+  styles,
+)
 
-export const RenderFieldValueCell = withStyles(styles)(({classes: classNames, value}) => (
-  <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
-))
+export const RenderFieldValueCell = withStyles(
+  ({classes: classNames, value}) => (
+    <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
+  ),
+  styles,
+)
 
+<<<<<<< HEAD
 export const MultilineTextCell = withStyles(styles)(
   ({classes: classNames, text, noTextText, color, isStatus, isAsin}) => (
     <div className={classNames.multilineTextWrapper}>
@@ -440,22 +574,49 @@ export const MultilineTextCell = withStyles(styles)(
         className={clsx(classNames.multilineText, {[classNames.multilineLeftText]: isStatus})}
         style={color && {color}}
       >
+=======
+export const MultilineTextCell = withStyles(
+  ({classes: classNames, text, noTextText, color}) => (
+    <div className={classNames.multilineTextWrapper}>
+      <Typography className={classNames.multilineText} style={color && {color}}>
+>>>>>>> 56997012... success migration on 5 mui
         {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
       </Typography>
     </div>
   ),
+<<<<<<< HEAD
+=======
+  styles,
+>>>>>>> 56997012... success migration on 5 mui
 )
 
-export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text, isComment, isAsin}) =>
-  isComment ? (
-    <Tooltip title={text}>
+export const MultilineTextAlignLeftCell = withStyles(
+  ({classes: classNames, text, isComment, isAsin}) =>
+    isComment ? (
+      <Tooltip title={text}>
+        <div className={classNames.multilineTextAlignLeftWrapper}>
+          <TextareaAutosize
+            disabled
+            value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+            className={classNames.multilineTextAlignLeft}
+          />
+        </div>
+      </Tooltip>
+    ) : (
       <div className={classNames.multilineTextAlignLeftWrapper}>
         <TextareaAutosize
           disabled
+<<<<<<< HEAD
           value={text.length > 200 ? text.slice(0, 192) + '...' : text}
           className={classNames.multilineTextAlignLeft}
+=======
+          value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+          className={cx(classNames.multilineTextAlignLeft, {[classNames.multilineTextAlignLeftSub]: isAsin})}
+>>>>>>> 56997012... success migration on 5 mui
         />
+        {isAsin ? <CopyValue text={text} /> : null}
       </div>
+<<<<<<< HEAD
     </Tooltip>
   ) : (
     <div className={classNames.multilineTextAlignLeftWrapper}>
@@ -472,35 +633,49 @@ export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNam
       )}
 
       {isAsin ? <CopyValue text={text} /> : null}
-    </div>
-  ),
+=======
+    ),
+  styles,
 )
 
-export const MultilineTextAlignLeftHeaderCell = withStyles(styles)(({classes: classNames, text}) => (
-  <div className={classNames.multilineTextAlignLeftHeaderWrapper}>
-    <Typography className={classNames.multilineTextAlignLeftHeader}>{text}</Typography>
-  </div>
-))
+export const MultilineTextAlignLeftHeaderCell = withStyles(
+  ({classes: classNames, text}) => (
+    <div className={classNames.multilineTextAlignLeftHeaderWrapper}>
+      <Typography className={classNames.multilineTextAlignLeftHeader}>{text}</Typography>
+    </div>
+  ),
+  styles,
+)
 
-export const MultilineTextHeaderCell = withStyles(styles)(({classes: classNames, text}) => (
-  <div className={classNames.multilineTextHeaderWrapper}>
-    <Typography className={classNames.multilineHeaderText}>{text}</Typography>
-  </div>
-))
+export const MultilineTextHeaderCell = withStyles(
+  ({classes: classNames, text}) => (
+    <div className={classNames.multilineTextHeaderWrapper}>
+      <Typography className={classNames.multilineHeaderText}>{text}</Typography>
+    </div>
+  ),
+  styles,
+)
 
-export const TextHeaderCell = withStyles(styles)(({classes: classNames, text}) => (
-  <div className={classNames.textHeaderWrapper}>
-    <Typography className={classNames.headerText}>{text}</Typography>
-  </div>
-))
+export const TextHeaderCell = withStyles(
+  ({classes: classNames, text}) => (
+    <div className={classNames.textHeaderWrapper}>
+      <Typography className={classNames.headerText}>{text}</Typography>
+    </div>
+  ),
+  styles,
+)
 
-export const MultilineStatusCell = withStyles(styles)(({classes: classNames, status}) => (
-  <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.statusMultilineText}>{status?.replace(/_/g, ' ')}</Typography>
-  </div>
-))
+export const MultilineStatusCell = withStyles(
+  ({classes: classNames, status}) => (
+    <div className={classNames.multilineTextWrapper}>
+      <Typography className={classNames.statusMultilineText}>{status?.replace(/_/g, ' ')}</Typography>
+>>>>>>> 56997012... success migration on 5 mui
+    </div>
+  ),
+  styles,
+)
 
-export const TaskStatusCell = withStyles(styles)(({classes: classNames, status}) => {
+export const TaskStatusCell = withStyles(({classes: classNames, status}) => {
   const colorByStatus = () => {
     if ([TaskStatus.AT_PROCESS, TaskStatus.NEW].includes(status)) {
       return '#F3AF00'
@@ -522,9 +697,9 @@ export const TaskStatusCell = withStyles(styles)(({classes: classNames, status})
       </Typography>
     </div>
   )
-})
+}, styles)
 
-export const RequestStatusCell = withStyles(styles)(({classes: classNames, status, isChat}) => {
+export const RequestStatusCell = withStyles(({classes: classNames, status, isChat}) => {
   const colorByStatus = () => {
     if ([RequestStatus.DRAFT].includes(status)) {
       return '#006CFF'
@@ -572,16 +747,16 @@ export const RequestStatusCell = withStyles(styles)(({classes: classNames, statu
   return (
     <div className={classNames.statusWrapper}>
       <Typography
-        className={clsx(classNames.statusText, {[classNames.statusTextChat]: isChat})}
+        className={cx(classNames.statusText, {[classNames.statusTextChat]: isChat})}
         style={{color: colorStatus}}
       >
         {MyRequestStatusTranslate(status)}
       </Typography>
     </div>
   )
-})
+}, styles)
 
-export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNames, status, fontSize = '14px'}) => {
+export const MultilineRequestStatusCell = withStyles(({classes: classNames, status, fontSize = '14px'}) => {
   const colorByStatus = () => {
     if ([RequestStatus.DRAFT].includes(status)) {
       return '#006CFF'
@@ -614,9 +789,9 @@ export const MultilineRequestStatusCell = withStyles(styles)(({classes: classNam
       </Typography>
     </div>
   )
-})
+}, styles)
 
-export const TaskTypeCell = withStyles(styles)(({classes: classNames, task}) => {
+export const TaskTypeCell = withStyles(({classes: classNames, task}) => {
   const renderTaskDescription = type => {
     switch (type) {
       case TaskOperationType.MERGE:
@@ -631,9 +806,9 @@ export const TaskTypeCell = withStyles(styles)(({classes: classNames, task}) => 
   }
 
   return <div className={classNames.taskDescriptionScrollWrapper}>{renderTaskDescription(task.operationType)}</div>
-})
+}, styles)
 
-export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, task}) => {
+export const TaskDescriptionCell = withStyles(({classes: classNames, task}) => {
   const renderProductImages = (product, key) => (
     <Grid key={key && key} item className={classNames.imgWrapper}>
       <img alt="" className={classNames.taskDescriptionImg} src={getAmazonImageUrl(product?.product.images[0])} />
@@ -643,7 +818,7 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
 
   const renderBox = (box, key, isOneBox) => (
     <div key={key && key} className={classNames.imagesWrapper}>
-      <div className={clsx(classNames.standartBoxWrapper, {[classNames.isOneBoxWrapper]: isOneBox})}>
+      <div className={cx(classNames.standartBoxWrapper, {[classNames.isOneBoxWrapper]: isOneBox})}>
         {box.items && box.items.map((product, productIndex) => renderProductImages(product, productIndex))}
       </div>
     </div>
@@ -734,86 +909,113 @@ export const TaskDescriptionCell = withStyles(styles)(({classes: classNames, tas
   }
 
   return <div className={classNames.taskDescriptionScrollWrapper}>{renderTaskDescription(task.operationType)}</div>
-})
+}, styles)
 
-export const IdCell = withStyles(styles)(({id}) => (
-  <React.Fragment>
-    <Typography>{`id: ${id}`}</Typography>
-  </React.Fragment>
-))
+export const IdCell = withStyles(
+  ({id}) => (
+    <React.Fragment>
+      <Typography>{`id: ${id}`}</Typography>
+    </React.Fragment>
+  ),
+  styles,
+)
 
-export const NoActiveBarcodeCell = withStyles(styles)(({classes: classNames, barCode}) => (
-  <React.Fragment>
-    <Typography className={classNames.noActivebarCode}>{barCode || '-'}</Typography>
-  </React.Fragment>
-))
+export const NoActiveBarcodeCell = withStyles(
+  ({classes: classNames, barCode}) => (
+    <React.Fragment>
+      <Typography className={classNames.noActivebarCode}>{barCode || '-'}</Typography>
+    </React.Fragment>
+  ),
+  styles,
+)
 
-export const ShowBarcodeOrHscodeCell = withStyles(styles)(({classes: classNames, barCode, hsCode, handlers}) => (
-  <div className={classNames.showButton}>
-    <Button onClick={() => handlers.showBarcodeOrHscode(barCode, hsCode)}>{t(TranslationKey.View)}</Button>
-  </div>
-))
+export const ShowBarcodeOrHscodeCell = withStyles(
+  ({classes: classNames, barCode, hsCode, handlers}) => (
+    <div className={classNames.showButton}>
+      <Button onClick={() => handlers.showBarcodeOrHscode(barCode, hsCode)}>{t(TranslationKey.View)}</Button>
+    </div>
+  ),
+  styles,
+)
 
-export const FourMonthesStockCell = withStyles(styles)(({classes: classNames, handlers, params, value}) => (
-  <div className={classNames.fourMonthesStockWrapper}>
-    <Typography className={classNames.fourMonthesStockLabel}>{`${t(TranslationKey.Repurchase)}: ${
-      value < params.row.stockSum ? 0 : value - params.row.stockSum
-    }`}</Typography>
-    <ChangeChipCell
-      row={params.row.originalData}
-      // value={value}
-      text={value > 0 ? `${t(TranslationKey.Edit)} Stock` : `${t(TranslationKey.Set)} Stock`}
-      onClickChip={() => handlers.onClickFourMonthsStock(params.row.originalData)}
-      onDeleteChip={() => handlers.onDeleteFourMonthesStock(params.row.originalData)}
-    />
-  </div>
-))
+export const FourMonthesStockCell = withStyles(
+  ({classes: classNames, handlers, params, value}) => (
+    <div className={classNames.fourMonthesStockWrapper}>
+      <Typography className={classNames.fourMonthesStockLabel}>{`${t(TranslationKey.Repurchase)}: ${
+        value < params.row.stockSum ? 0 : value - params.row.stockSum
+      }`}</Typography>
+      <ChangeChipCell
+        row={params.row.originalData}
+        // value={value}
+        text={value > 0 ? `${t(TranslationKey.Edit)} Stock` : `${t(TranslationKey.Set)} Stock`}
+        onClickChip={() => handlers.onClickFourMonthsStock(params.row.originalData)}
+        onDeleteChip={() => handlers.onDeleteFourMonthesStock(params.row.originalData)}
+      />
+    </div>
+  ),
+  styles,
+)
 
-export const ActiveBarcodeCell = withStyles(styles)(({classes: classNames, barCode}) => (
-  <React.Fragment>
-    {/* <Typography className={classNames.noActivebarCode}>{barCode || '-'}</Typography> */}
+export const ActiveBarcodeCell = withStyles(
+  ({classes: classNames, barCode}) => (
+    <React.Fragment>
+      {/* <Typography className={classNames.noActivebarCode}>{barCode || '-'}</Typography> */}
 
-    {barCode ? (
-      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
-        <Typography className={classNames.noActivebarCode}>{barCode}</Typography>
-      </Link>
-    ) : (
-      <Typography className={classNames.noActivebarCode}>{'-'}</Typography>
-    )}
-  </React.Fragment>
-))
+      {barCode ? (
+        <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
+          <Typography className={classNames.noActivebarCode}>{barCode}</Typography>
+        </Link>
+      ) : (
+        <Typography className={classNames.noActivebarCode}>{'-'}</Typography>
+      )}
+    </React.Fragment>
+  ),
+  styles,
+)
 
-export const ToFixedWithKgSignCell = withStyles(styles)(({classes: classNames, value, fix}) => (
-  <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText}>
-      {!value ? (value === 0 ? 0 : '-') : toFixedWithKg(value, fix)}
-    </Typography>
-  </div>
-))
+export const ToFixedWithKgSignCell = withStyles(
+  ({classes: classNames, value, fix}) => (
+    <div className={classNames.multilineTextWrapper}>
+      <Typography className={classNames.multilineText}>
+        {!value ? (value === 0 ? 0 : '-') : toFixedWithKg(value, fix)}
+      </Typography>
+    </div>
+  ),
+  styles,
+)
 
-export const SmallRowImageCell = withStyles(styles)(({classes: classNames, images}) => (
-  <div className={classNames.smallRowImgWrapper}>
-    <img alt="" className={classNames.img} src={getAmazonImageUrl(images[0])} />
-  </div>
-))
+export const SmallRowImageCell = withStyles(
+  ({classes: classNames, images}) => (
+    <div className={classNames.smallRowImgWrapper}>
+      <img alt="" className={classNames.img} src={getAmazonImageUrl(images[0])} />
+    </div>
+  ),
+  styles,
+)
 
-export const ToFixedCell = withStyles(styles)(({classes: classNames, value, fix}) => (
-  <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText}>
-      {!value ? (value === 0 ? 0 : '-') : toFixed(value, fix)}
-    </Typography>
-  </div>
-))
+export const ToFixedCell = withStyles(
+  ({classes: classNames, value, fix}) => (
+    <div className={classNames.multilineTextWrapper}>
+      <Typography className={classNames.multilineText}>
+        {!value ? (value === 0 ? 0 : '-') : toFixed(value, fix)}
+      </Typography>
+    </div>
+  ),
+  styles,
+)
 
-export const ToFixedWithDollarSignCell = withStyles(styles)(({classes: classNames, value, fix}) => (
-  <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText}>
-      {!value ? (value === 0 ? 0 : '-') : toFixedWithDollarSign(value, fix)}
-    </Typography>
-  </div>
-))
+export const ToFixedWithDollarSignCell = withStyles(
+  ({classes: classNames, value, fix}) => (
+    <div className={classNames.multilineTextWrapper}>
+      <Typography className={classNames.multilineText}>
+        {!value ? (value === 0 ? 0 : '-') : toFixedWithDollarSign(value, fix)}
+      </Typography>
+    </div>
+  ),
+  styles,
+)
 
-export const SuccessActionBtnCell = withStyles(styles)(
+export const SuccessActionBtnCell = withStyles(
   ({classes: classNames, onClickOkBtn, bTnText, tooltipText, isFirstRow}) => (
     <div className={classNames.successActionBtnWrapper}>
       <Button success tooltipInfoContent={isFirstRow && tooltipText} onClick={onClickOkBtn}>
@@ -821,9 +1023,10 @@ export const SuccessActionBtnCell = withStyles(styles)(
       </Button>
     </div>
   ),
+  styles,
 )
 
-export const NormalActionBtnCell = withStyles(styles)(
+export const NormalActionBtnCell = withStyles(
   ({classes: classNames, onClickOkBtn, bTnText, tooltipText, disabled, isFirstRow}) => (
     <div className={classNames.normalActionBtnWrapper}>
       <Button
@@ -838,37 +1041,41 @@ export const NormalActionBtnCell = withStyles(styles)(
       </Button>
     </div>
   ),
+  styles,
 )
 
-export const WarehouseMyTasksBtnsCell = withStyles(styles)(({classes: classNames, row, handlers, isFirstRow}) => (
-  <div className={classNames.warehouseMyTasksBtnsWrapper}>
-    <Button
-      success
-      tooltipInfoContent={isFirstRow && t(TranslationKey['Open a window to perform a task'])}
-      className={classNames.warehouseMyTasksSuccessBtn}
-      onClick={() => handlers.onClickResolveBtn(row)}
-    >
-      {t(TranslationKey.Resolve)}
-    </Button>
-
-    {row.operationType !== TaskOperationType.RECEIVE && (
+export const WarehouseMyTasksBtnsCell = withStyles(
+  ({classes: classNames, row, handlers, isFirstRow}) => (
+    <div className={classNames.warehouseMyTasksBtnsWrapper}>
       <Button
-        danger
-        tooltipInfoContent={
-          isFirstRow && t(TranslationKey['The task will be canceled, the box will keep its previous state'])
-        }
-        className={clsx(classNames.rowCancelBtn, classNames.warehouseMyTasksCancelBtn)}
-        onClick={() => {
-          handlers.onClickCancelTask(row.boxes[0]._id, row._id, row.operationType)
-        }}
+        success
+        tooltipInfoContent={isFirstRow && t(TranslationKey['Open a window to perform a task'])}
+        className={classNames.warehouseMyTasksSuccessBtn}
+        onClick={() => handlers.onClickResolveBtn(row)}
       >
-        {t(TranslationKey.Cancel)}
+        {t(TranslationKey.Resolve)}
       </Button>
-    )}
-  </div>
-))
 
-export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: classNames, row, handlers}) => {
+      {row.operationType !== TaskOperationType.RECEIVE && (
+        <Button
+          danger
+          tooltipInfoContent={
+            isFirstRow && t(TranslationKey['The task will be canceled, the box will keep its previous state'])
+          }
+          className={cx(classNames.rowCancelBtn, classNames.warehouseMyTasksCancelBtn)}
+          onClick={() => {
+            handlers.onClickCancelTask(row.boxes[0]._id, row._id, row.operationType)
+          }}
+        >
+          {t(TranslationKey.Cancel)}
+        </Button>
+      )}
+    </div>
+  ),
+  styles,
+)
+
+export const ClientTasksActionBtnsCell = withStyles(({classes: classNames, row, handlers}) => {
   const checkIfTaskCouldBeCanceled = status => {
     if (status === mapTaskStatusEmumToKey[TaskStatus.NEW]) {
       return true
@@ -940,33 +1147,36 @@ export const ClientTasksActionBtnsCell = withStyles(styles)(({classes: className
   }
 
   return <div className={classNames.clientTasksActionBtnsWrapper}>{renderHistoryItem()}</div>
-})
+}, styles)
 
-export const ClientNotificationsBtnsCell = withStyles(styles)(({classes: classNames, row, handlers, disabled}) => (
-  <div className={classNames.notificationBtnsWrapper}>
-    <Button
-      disabled={disabled}
-      variant="contained"
-      color="primary"
-      className={classNames.notificationBtn}
-      onClick={() => handlers.onTriggerOpenConfirmModal(row)}
-    >
-      {t(TranslationKey.Confirm)}
-    </Button>
-    <Button
-      danger
-      disabled={disabled}
-      className={classNames.notificationBtn}
-      onClick={() => {
-        handlers.onTriggerOpenRejectModal(row)
-      }}
-    >
-      {t(TranslationKey.Reject)}
-    </Button>
-  </div>
-))
+export const ClientNotificationsBtnsCell = withStyles(
+  ({classes: classNames, row, handlers, disabled}) => (
+    <div className={classNames.notificationBtnsWrapper}>
+      <Button
+        disabled={disabled}
+        variant="contained"
+        color="primary"
+        className={classNames.notificationBtn}
+        onClick={() => handlers.onTriggerOpenConfirmModal(row)}
+      >
+        {t(TranslationKey.Confirm)}
+      </Button>
+      <Button
+        danger
+        disabled={disabled}
+        className={classNames.notificationBtn}
+        onClick={() => {
+          handlers.onTriggerOpenRejectModal(row)
+        }}
+      >
+        {t(TranslationKey.Reject)}
+      </Button>
+    </div>
+  ),
+  styles,
+)
 
-export const AdminUsersActionBtnsCell = withStyles(styles)(
+export const AdminUsersActionBtnsCell = withStyles(
   ({classes: classNames, row, handlers, editBtnText, balanceBtnText}) => (
     <React.Fragment>
       <Button
@@ -983,16 +1193,31 @@ export const AdminUsersActionBtnsCell = withStyles(styles)(
       </Button>
     </React.Fragment>
   ),
+  styles,
 )
 
+<<<<<<< HEAD
 export const SuperboxQtyCell = withStyles(styles)(({classes: classNames, qty, superbox}) => (
   <div className={classNames.multilineSuperBoxWrapper}>
     <Typography>{qty || '-'}</Typography>
     <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
   </div>
 ))
+=======
+export const SuperboxQtyCell = withStyles(
+  ({classes: classNames, qty, superbox}) => (
+    <div className={classNames.multilineTextWrapper}>
+      <Typography>
+        {qty || '-'}
+        <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
+      </Typography>
+    </div>
+  ),
+  styles,
+)
+>>>>>>> 56997012... success migration on 5 mui
 
-export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box, error}) => {
+export const OrderManyItemsCell = withStyles(({classes: classNames, box, error}) => {
   const renderProductInfo = () => (
     <div className={classNames.manyItemsOrderWrapper}>
       {box.items.map((item, itemIndex) => (
@@ -1052,35 +1277,44 @@ export const OrderManyItemsCell = withStyles(styles)(({classes: classNames, box,
       </div>
     </Tooltip>
   )
-})
+}, styles)
 
-export const ScrollingCell = withStyles(styles)(({classes: classNames, value}) => (
-  <React.Fragment>
-    <Typography className={classNames.scrollingValue}>{value || '-'}</Typography>
-  </React.Fragment>
-))
+export const ScrollingCell = withStyles(
+  ({classes: classNames, value}) => (
+    <React.Fragment>
+      <Typography className={classNames.scrollingValue}>{value || '-'}</Typography>
+    </React.Fragment>
+  ),
+  styles,
+)
 
-// export const ScrollingCell = withStyles(styles)(({classes: classNames, value}) => (
+// export const ScrollingCell = withStyles(({classes: classNames, value}) => (
 //   <React.Fragment>
 //     <Typography className={classNames.scrollingValue}>{value || '-'}</Typography>
 //   </React.Fragment>
 // ))
 
-export const MultilineCell = withStyles(styles)(({classes: classNames, value}) => (
-  <React.Fragment>
-    <Typography className={classNames.multilineValue}>{value || '-'}</Typography>
-  </React.Fragment>
-))
+export const MultilineCell = withStyles(
+  ({classes: classNames, value}) => (
+    <React.Fragment>
+      <Typography className={classNames.multilineValue}>{value || '-'}</Typography>
+    </React.Fragment>
+  ),
+  styles,
+)
 
-export const ScrollingLinkCell = withStyles(styles)(({classes: classNames, value}) => (
-  <React.Fragment>
-    <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(value)} className={classNames.scrollingValue}>
-      <Typography>{value || '-'}</Typography>
-    </Link>
-  </React.Fragment>
-))
+export const ScrollingLinkCell = withStyles(
+  ({classes: classNames, value}) => (
+    <React.Fragment>
+      <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(value)} className={classNames.scrollingValue}>
+        <Typography>{value || '-'}</Typography>
+      </Link>
+    </React.Fragment>
+  ),
+  styles,
+)
 
-export const EditOrRemoveBtnsCell = withStyles(styles)(
+export const EditOrRemoveBtnsCell = withStyles(
   ({
     classes: classNames,
     row,
@@ -1117,9 +1351,10 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
       </Button>
     </div>
   ),
+  styles,
 )
 
-export const EditOrRemoveIconBtnsCell = withStyles(styles)(
+export const EditOrRemoveIconBtnsCell = withStyles(
   ({
     classes: classNames,
     row,
@@ -1161,9 +1396,10 @@ export const EditOrRemoveIconBtnsCell = withStyles(styles)(
       </div>
     </div>
   ),
+  styles,
 )
 
-export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) => {
+export const BatchBoxesCell = withStyles(({classes: classNames, boxes}) => {
   const renderProductInfo = box => (
     <div className={classNames.batchProductsWrapper}>
       {box.items.map((item, itemIndex) => (
@@ -1207,113 +1443,133 @@ export const BatchBoxesCell = withStyles(styles)(({classes: classNames, boxes}) 
       ))}
     </div>
   )
-})
+}, styles)
 
+export const TrashCell = withStyles(
+  ({classes: classNames, onClick, tooltipText}) => (
+    <Button tooltipInfoContent={tooltipText} className={classNames.trashWrapper}>
+      <img className={classNames.trashImg} src="/assets/icons/trash.svg" alt="" onClick={onClick} />
+    </Button>
+  ),
+  styles,
+)
+
+export const WarehouseBoxesBtnsCell = withStyles(
+  ({classes: classNames, row, handlers, isFirstRow}) => (
+    <div className={classNames.warehouseBoxesBtnsWrapper}>
+      {row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
+        <Typography>{t(TranslationKey['Not ready to ship'])}</Typography>
+      )}
+
+<<<<<<< HEAD
 export const TrashCell = withStyles(styles)(({classes: classNames, onClick, tooltipText, isFirstRow}) => (
   <Button tooltipInfoContent={isFirstRow && tooltipText} className={classNames.trashWrapper}>
     <img className={classNames.trashImg} src="/assets/icons/trash.svg" alt="" onClick={onClick} />
   </Button>
 ))
+=======
+      {row.batchId && row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE && (
+        <Button
+          tooltipAttentionContent={
+            row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF &&
+            t(TranslationKey['The tariff is invalid or has been removed!'])
+          }
+          tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
+          disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF || row.isDraft}
+          className={classNames.warehouseBoxesBtn}
+          variant="contained"
+          color="primary"
+          onClick={() => handlers.moveBox(row)}
+        >
+          {t(TranslationKey['Move box'])}
+        </Button>
+      )}
+>>>>>>> 56997012... success migration on 5 mui
 
-export const WarehouseBoxesBtnsCell = withStyles(styles)(({classes: classNames, row, handlers, isFirstRow}) => (
-  <div className={classNames.warehouseBoxesBtnsWrapper}>
-    {row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
-      <Typography>{t(TranslationKey['Not ready to ship'])}</Typography>
-    )}
+      {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
+        <Button
+          success
+          disabled={row.isDraft}
+          tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
+          className={classNames.warehouseBoxesBtn}
+          onClick={() => handlers.moveBox(row)}
+        >
+          {t(TranslationKey['Add to batch'])}
+        </Button>
+      )}
 
-    {row.batchId && row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE && (
       <Button
-        tooltipAttentionContent={
-          row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF &&
-          t(TranslationKey['The tariff is invalid or has been removed!'])
-        }
-        tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
-        disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF || row.isDraft}
+        disabled={row.isDraft}
         className={classNames.warehouseBoxesBtn}
+        tooltipInfoContent={isFirstRow && t(TranslationKey['Code for Harmonized System Product Identification'])}
         variant="contained"
         color="primary"
-        onClick={() => handlers.moveBox(row)}
+        onClick={() => handlers.setHsCode(row)}
       >
-        {t(TranslationKey['Move box'])}
+        {row.items.some(item => !item.product.hsCode)
+          ? t(TranslationKey['Add HS Code'])
+          : t(TranslationKey['Edit HS Code'])}
       </Button>
-    )}
+    </div>
+  ),
+  styles,
+)
 
-    {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
+export const ShopsReportBtnsCell = withStyles(
+  ({classes: classNames, value, onClickSeeMore, isFirstRow}) => (
+    <div className={classNames.shopsReportBtnsWrapper}>
+      <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
+        <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
+          {t(TranslationKey.download)}
+        </a>
+      </Text>
       <Button
-        success
-        disabled={row.isDraft}
-        tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
-        className={classNames.warehouseBoxesBtn}
-        onClick={() => handlers.moveBox(row)}
+        tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])}
+        className={classNames.copyImgButton}
       >
-        {t(TranslationKey['Add to batch'])}
+        <CopyValue text={value} />
       </Button>
-    )}
 
-    <Button
-      disabled={row.isDraft}
-      className={classNames.warehouseBoxesBtn}
-      tooltipInfoContent={isFirstRow && t(TranslationKey['Code for Harmonized System Product Identification'])}
-      variant="contained"
-      color="primary"
-      onClick={() => handlers.setHsCode(row)}
-    >
-      {row.items.some(item => !item.product.hsCode)
-        ? t(TranslationKey['Add HS Code'])
-        : t(TranslationKey['Edit HS Code'])}
-    </Button>
-  </div>
-))
+      <Button
+        tooltipInfoContent={isFirstRow && t(TranslationKey['Opens the table of a particular store'])}
+        variant="contained"
+        color="primary"
+        className={classNames.viewBtn}
+        onClick={onClickSeeMore}
+      >
+        {t(TranslationKey.View)}
+      </Button>
+    </div>
+  ),
+  styles,
+)
 
-export const ShopsReportBtnsCell = withStyles(styles)(({classes: classNames, value, onClickSeeMore, isFirstRow}) => (
-  <div className={classNames.shopsReportBtnsWrapper}>
-    <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
-      <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
-        {t(TranslationKey.download)}
-      </a>
-    </Text>
-    <Button
-      tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link to the report'])}
-      className={classNames.copyImgButton}
-    >
-      <CopyValue text={value} />
-    </Button>
+export const DownloadAndCopyBtnsCell = withStyles(
+  ({classes: classNames, value, isFirstRow}) => (
+    <>
+      {value ? (
+        <div className={classNames.shopsReportBtnsWrapper}>
+          <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
+            <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
+              {t(TranslationKey.View)}
+            </a>
+          </Text>
+          <Button
+            tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link'])}
+            className={classNames.copyImgButton}
+          >
+            <CopyValue text={value} />
+          </Button>
+        </div>
+      ) : (
+        <Typography>{'-'}</Typography>
+      )}
+    </>
+  ),
+  styles,
+)
 
-    <Button
-      tooltipInfoContent={isFirstRow && t(TranslationKey['Opens the table of a particular store'])}
-      variant="contained"
-      color="primary"
-      className={classNames.viewBtn}
-      onClick={onClickSeeMore}
-    >
-      {t(TranslationKey.View)}
-    </Button>
-  </div>
-))
-
-export const DownloadAndCopyBtnsCell = withStyles(styles)(({classes: classNames, value, isFirstRow}) => (
-  <>
-    {value ? (
-      <div className={classNames.shopsReportBtnsWrapper}>
-        <Text tooltipInfoContent={isFirstRow && t(TranslationKey['Download the file to your device'])}>
-          <a download target="_blank" rel="noreferrer" href={value} className={classNames.downloadLink}>
-            {t(TranslationKey.View)}
-          </a>
-        </Text>
-        <Button
-          tooltipInfoContent={isFirstRow && t(TranslationKey['Copy the link'])}
-          className={classNames.copyImgButton}
-        >
-          <CopyValue text={value} />
-        </Button>
-      </div>
-    ) : (
-      <Typography>{'-'}</Typography>
-    )}
-  </>
-))
-
-export const ShortBoxDimensions = withStyles(styles)(
+export const ShortBoxDimensions = withStyles(
   ({classes: classNames, box, volumeWeightCoefficient, curUser, handlers}) => {
     const finalWeight = calcFinalWeightForBox(box, volumeWeightCoefficient)
 
@@ -1332,7 +1588,7 @@ export const ShortBoxDimensions = withStyles(styles)(
           TranslationKey['Volume weight'],
         )}: ${toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}`}</Typography>
         <Typography
-          className={clsx(classNames.shortBoxDimensionsText, {
+          className={cx(classNames.shortBoxDimensionsText, {
             [classNames.alertText]: !box.isDraft && finalWeight < 12,
           })}
         >{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(finalWeight, 2)}`}</Typography>
@@ -1342,8 +1598,13 @@ export const ShortBoxDimensions = withStyles(styles)(
         ) : null}
         {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
           <Button
+<<<<<<< HEAD
             disabled={box.isDraft || box.status !== BoxStatus.IN_STOCK}
             className={clsx(classNames.shortBoxDimensionsButton, {
+=======
+            disabled={box.isDraft}
+            className={cx(classNames.shortBoxDimensionsButton, {
+>>>>>>> 56997012... success migration on 5 mui
               [classNames.editPaddingButton]: !box.isDraft && finalWeight < 12,
             })}
             onClick={() => handlers.setDimensions(box)}
@@ -1354,9 +1615,10 @@ export const ShortBoxDimensions = withStyles(styles)(
       </div>
     )
   },
+  styles,
 )
 
-// export const ShortBoxDimensions = withStyles(styles)(
+// export const ShortBoxDimensions = withStyles(
 //   ({classes: classNames, box, volumeWeightCoefficient, curUser, handlers}) => {
 //     const dimensionsConfig = {
 //       PRIMARY: 'PRIMARY',
@@ -1382,7 +1644,7 @@ export const ShortBoxDimensions = withStyles(styles)(
 //             {toggleDimensionsValue === dimensionsConfig.PRIMARY ? <span className={classNames.indicator}></span> : null}
 
 //             <Typography
-//               className={clsx(classNames.sizesLabel, {
+//               className={cx(classNames.sizesLabel, {
 //                 [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.PRIMARY,
 //               })}
 //               onClick={() => setToggleDimensionsValue(dimensionsConfig.PRIMARY)}
@@ -1398,7 +1660,7 @@ export const ShortBoxDimensions = withStyles(styles)(
 //             ) : null}
 
 //             <Typography
-//               className={clsx(classNames.sizesLabel, {
+//               className={cx(classNames.sizesLabel, {
 //                 [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.SHIPPING,
 //               })}
 //               onClick={() => setToggleDimensionsValue(dimensionsConfig.SHIPPING)}
@@ -1430,7 +1692,7 @@ export const ShortBoxDimensions = withStyles(styles)(
 //           2,
 //         )}`}</Typography>
 //         <Typography
-//           className={clsx(classNames.shortBoxDimensionsText, {
+//           className={cx(classNames.shortBoxDimensionsText, {
 //             [classNames.alertText]: !box.isDraft && finalWeight < 12,
 //           })}
 //         >{`${t(TranslationKey['Final weight'])}: ${toFixedWithKg(finalWeight, 2)}`}</Typography>
@@ -1441,7 +1703,7 @@ export const ShortBoxDimensions = withStyles(styles)(
 //         {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
 //           <Button
 //             disabled={box.isDraft}
-//             className={clsx(classNames.shortBoxDimensionsButton, {
+//             className={cx(classNames.shortBoxDimensionsButton, {
 //               [classNames.editPaddingButton]: !box.isDraft && finalWeight < 12,
 //             })}
 //             onClick={() => handlers.setDimensions(box)}

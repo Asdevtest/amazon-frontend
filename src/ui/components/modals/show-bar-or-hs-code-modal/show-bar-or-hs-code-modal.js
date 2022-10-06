@@ -1,6 +1,6 @@
-import React from 'react'
+import {Container, Link, Typography} from '@mui/material'
 
-import {Container, Link, Typography} from '@material-ui/core'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -12,7 +12,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './show-bar-or-hs-code-modal.style'
 
 export const ShowBarOrHscodeModal = ({barcode, hscode, onCloseModal}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const renderText = () => {
     if (barcode) {

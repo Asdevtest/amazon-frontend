@@ -1,12 +1,9 @@
-import {createStyles} from '@material-ui/core'
-
+// // import {createStyles} from '@mui/material'
 // import {createStyles} from '@mui/material/styles'
-
 // import {createStyles} from '@mui/styles'
+// import {makeStyles} from 'tss-react/mui'
 
-// import { makeStyles } from 'tss-react/mui';
-
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   card: {
     padding: '16px 20px',
     marginBottom: '42px',
@@ -15,6 +12,7 @@ export const styles = createStyles(theme => ({
   },
   formWrapper: {
     marginTop: '32px',
+    // backgroundColor: theme.palette.background.main,
   },
   tableWrapper: {
     marginTop: '32px',
@@ -61,4 +59,4 @@ export const styles = createStyles(theme => ({
   pagination: {
     color: `${theme.palette.text.general} !important`,
   },
-}))
+})

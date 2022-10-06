@@ -1,6 +1,6 @@
-import React, {FC} from 'react'
+import {cx} from '@emotion/css'
 
-import clsx from 'clsx'
+import React, {FC} from 'react'
 
 import {useClassNames} from './chat-message-creator-accepted-proposal.style'
 import {LabelValueDoubleBlock} from './label-value-double-block'
@@ -8,7 +8,7 @@ import {LabelValueDoubleBlock} from './label-value-double-block'
 interface Props {}
 
 export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <div className={classNames.root}>
       <div className={classNames.headerWrapper}>
@@ -40,7 +40,7 @@ export const ChatMessageCreatorAcceptedProposal: FC<Props> = () => {
             ]}
           />
         </div>
-        <div className={clsx(classNames.labelValueDoubleBlockWrapper, classNames.labelValueDoubleBlockWrapperNotFirst)}>
+        <div className={cx(classNames.labelValueDoubleBlockWrapper, classNames.labelValueDoubleBlockWrapperNotFirst)}>
           <LabelValueDoubleBlock
             bgColor="green"
             labelValueDouble={[

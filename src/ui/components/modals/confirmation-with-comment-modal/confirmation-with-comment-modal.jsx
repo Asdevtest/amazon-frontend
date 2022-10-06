@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
+import React, {useState, useEffect} from 'react'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
@@ -19,7 +19,7 @@ export const ConfirmWithCommentModal = ({
   commentConvertToArray,
   onSubmit,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [comment, setComment] = useState('')
 

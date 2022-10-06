@@ -1,10 +1,10 @@
+import {cx} from '@emotion/css'
 import SearchIcon from '@mui/icons-material/Search'
+import {InputAdornment, Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
-import {InputAdornment, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import qs from 'qs'
@@ -27,7 +27,7 @@ const chipConfigSettings = {
 }
 
 export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockData, product, onSubmit}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [selectedGoods, setSelectedGoods] = useState([])
   const [chosenGoods, setChosenGoods] = useState([])
@@ -116,7 +116,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
         <div className={classNames.filtersWrapper}>
           <Button
             variant={'text'}
-            className={clsx(classNames.chip, {
+            className={cx(classNames.chip, {
               [classNames.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
             })}
             onClick={() => setRecommendChip()}
@@ -128,7 +128,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
 
           <Button
             variant={'text'}
-            className={clsx(classNames.chip, classNames.chipLeftMargin, {
+            className={cx(classNames.chip, classNames.chipLeftMargin, {
               [classNames.chipActive]: chipConfig === chipConfigSettings.NAME,
             })}
             onClick={() => setChipConfig(chipConfigSettings.NAME)}
@@ -138,7 +138,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
 
           <Button
             variant={'text'}
-            className={clsx(classNames.chip, classNames.chipLeftMargin, {
+            className={cx(classNames.chip, classNames.chipLeftMargin, {
               [classNames.chipActive]: chipConfig === chipConfigSettings.ASIN,
             })}
             onClick={() => setChipConfig(chipConfigSettings.ASIN)}
@@ -148,7 +148,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
 
           <Button
             variant={'text'}
-            className={clsx(classNames.chip, classNames.chipLeftMargin, {
+            className={cx(classNames.chip, classNames.chipLeftMargin, {
               [classNames.chipActive]: chipConfig === chipConfigSettings.SKU,
             })}
             onClick={() => setChipConfig(chipConfigSettings.SKU)}

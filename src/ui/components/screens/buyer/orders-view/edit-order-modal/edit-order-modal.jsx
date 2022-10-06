@@ -1,9 +1,9 @@
+import {cx} from '@emotion/css'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import {Box, InputAdornment, NativeSelect, Paper, TableCell, TableRow, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Box, InputAdornment, NativeSelect, Paper, TableCell, TableRow, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -60,7 +60,7 @@ export const EditOrderModal = observer(
     progressValue,
     volumeWeightCoefficient,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
 
@@ -239,7 +239,7 @@ export const EditOrderModal = observer(
                   variant="filled"
                   value={orderFields.status}
                   classes={{
-                    select: clsx({
+                    select: cx({
                       [classNames.orange]:
                         `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                         `${orderFields.status}` ===
@@ -260,7 +260,7 @@ export const EditOrderModal = observer(
                       startAdornment={
                         <InputAdornment position="start">
                           <FiberManualRecordRoundedIcon
-                            className={clsx({
+                            className={cx({
                               [classNames.orange]:
                                 `${orderFields.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                                 `${orderFields.status}` ===
@@ -291,8 +291,8 @@ export const EditOrderModal = observer(
                     <option
                       key={statusIndex}
                       value={statusCode}
-                      className={clsx(
-                        clsx({
+                      className={cx(
+                        cx({
                           [classNames.orange]:
                             statusCode === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
                             statusCode === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||

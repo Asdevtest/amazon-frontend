@@ -1,7 +1,6 @@
-// import {createTheme} from '@material-ui/core'
+// import {createTheme} from '@mui/material'
+import {grey} from '@mui/material/colors'
 import {createTheme} from '@mui/material/styles'
-
-// import {grey} from '@material-ui/core/colors'
 
 const baseThemeSettings = {
   components: {
@@ -25,16 +24,34 @@ const baseThemeSettings = {
         },
       },
     },
-  },
 
-  overrides: {
-    // Style sheet name ⚛️
-    MuiTablePagination: {
-      root: {
-        color: '#fff !important',
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
       },
-      toolbar: {
-        color: '#fff !important',
+    },
+    MuiPaper: {
+      styleOverrides: {
+        // elevation1: {
+        //   boxShadow: '0px 5px 19px 0px rgb(90 97 105 / 12%)',
+        // },
+        // root: {
+        //   backgroundColor: '#21212B',
+        //   boxSizing: 'border-box',
+        // },
+      },
+    },
+
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          padding: '10px',
+        },
+        body: {
+          color: grey[600],
+        },
       },
     },
   },
@@ -46,28 +63,6 @@ const baseThemeSettings = {
       fontWeight: 500,
     },
   },
-
-  // overrides: {
-  //   MuiButton: {
-  //     root: {
-  //       textTransform: 'none',
-  //     },
-  //   },
-  //   MuiPaper: {
-  //     elevation1: {
-  //       boxShadow: '0px 5px 19px 0px rgb(90 97 105 / 12%)',
-  //     },
-  //   },
-
-  //   MuiTableCell: {
-  //     root: {
-  //       padding: '10px',
-  //     },
-  //     body: {
-  //       color: grey[600],
-  //     },
-  //   },
-  // },
 }
 
 export const lightTheme = createTheme({

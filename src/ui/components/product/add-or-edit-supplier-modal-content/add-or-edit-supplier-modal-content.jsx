@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Checkbox, Container, Divider, Grid, Link, Typography} from '@mui/material'
+
 import {React, useState} from 'react'
 
-import {Checkbox, Container, Divider, Grid, Link, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -42,7 +43,7 @@ export const AddOrEditSupplierModalContent = observer(
     outsideProduct,
     onClickPrevButton,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [showSupplierApproximateCalculationsModal, setShowSupplierApproximateCalculationsModal] = useState(false)
 
@@ -487,7 +488,7 @@ export const AddOrEditSupplierModalContent = observer(
               label={t(TranslationKey['Yuan to USD exchange rate'])}
               inputProps={{maxLength: 8}}
               containerClasses={classNames.rateContainer}
-              labelClasses={clsx(classNames.rateLabel)}
+              labelClasses={cx(classNames.rateLabel)}
               inputClasses={classNames.rateInput}
               value={yuanToDollarRate}
               onChange={onChangeYuanToDollarRate}
@@ -691,7 +692,7 @@ export const AddOrEditSupplierModalContent = observer(
                     label={t(TranslationKey.H)}
                     inputProps={{maxLength: 6}}
                     containerClasses={classNames.sizeContainer}
-                    labelClasses={clsx(classNames.rateLabel)}
+                    labelClasses={cx(classNames.rateLabel)}
                     inputClasses={classNames.sizeInput}
                     value={tmpSupplier.boxProperties.boxHeightCm}
                     onChange={onChangeField('boxHeightCm')}
@@ -702,7 +703,7 @@ export const AddOrEditSupplierModalContent = observer(
                     label={t(TranslationKey.W)}
                     inputProps={{maxLength: 6}}
                     containerClasses={classNames.sizeContainer}
-                    labelClasses={clsx(classNames.rateLabel)}
+                    labelClasses={cx(classNames.rateLabel)}
                     inputClasses={classNames.sizeInput}
                     value={tmpSupplier.boxProperties.boxWidthCm}
                     onChange={onChangeField('boxWidthCm')}
@@ -713,7 +714,7 @@ export const AddOrEditSupplierModalContent = observer(
                     label={t(TranslationKey.L)}
                     inputProps={{maxLength: 6}}
                     containerClasses={classNames.sizeContainer}
-                    labelClasses={clsx(classNames.rateLabel)}
+                    labelClasses={cx(classNames.rateLabel)}
                     inputClasses={classNames.sizeInput}
                     value={tmpSupplier.boxProperties.boxLengthCm}
                     onChange={onChangeField('boxLengthCm')}

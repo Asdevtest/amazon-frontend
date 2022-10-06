@@ -1,10 +1,10 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles()(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
     width: '60%',
   },
-})
+}))

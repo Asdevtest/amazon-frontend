@@ -1,7 +1,7 @@
-import React from 'react'
+import {cx} from '@emotion/css'
+import {TableCell, TableRow} from '@mui/material'
 
-import {TableCell, TableRow} from '@material-ui/core'
-import clsx from 'clsx'
+import React from 'react'
 
 import {ProductStatus, ProductStatusByKey, ProductStatusByCode} from '@constants/product-status'
 
@@ -11,12 +11,12 @@ import {toFixed} from '@utils/text'
 import {useClassNames} from './table-body-row.style'
 
 export const TableBodyRow = ({item, handlers}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <TableRow
       hover
-      className={clsx(classNames.tableRow, {
+      className={cx(classNames.tableRow, {
         [classNames.noClickable]: item.status > ProductStatusByKey[ProductStatus.TO_BUYER_FOR_RESEARCH],
       })}
       onClick={() => handlers.onClickTableRow(item)}

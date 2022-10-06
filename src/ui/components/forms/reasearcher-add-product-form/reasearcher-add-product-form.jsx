@@ -1,9 +1,10 @@
+import {Box, NativeSelect, TextareaAutosize, Typography} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Box, NativeSelect, TextareaAutosize, Typography} from '@material-ui/core'
 import {Alert} from '@material-ui/lab'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {
@@ -218,4 +219,4 @@ export const ResearcherAddProductFormRaw = observer(
   },
 )
 
-export const ResearcherAddProductForm = withStyles(styles)(ResearcherAddProductFormRaw)
+export const ResearcherAddProductForm = withStyles(ResearcherAddProductFormRaw, styles)

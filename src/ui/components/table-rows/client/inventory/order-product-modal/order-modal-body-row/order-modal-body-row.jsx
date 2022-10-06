@@ -1,8 +1,9 @@
+import {cx} from '@emotion/css'
+import {Chip, Typography, TableCell, TableRow, IconButton} from '@mui/material'
+
 import React, {useEffect, useState} from 'react'
 
-import {Chip, Typography, TableCell, TableRow, IconButton} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
@@ -36,7 +37,7 @@ export const OrderModalBodyRow = ({
   onRemoveProduct,
   withRemove,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const onChangeInput = (event, nameInput) => {
     setOrderStateFiled(nameInput)(event.target.value)
@@ -107,7 +108,7 @@ export const OrderModalBodyRow = ({
         key={item._id}
         hover
         role="checkbox"
-        className={clsx(classNames.row, {[classNames.noCurrentSupplier]: !item.currentSupplier})}
+        className={cx(classNames.row, {[classNames.noCurrentSupplier]: !item.currentSupplier})}
       >
         <TableCell className={classNames.asinCell}>
           <div className={classNames.asinCellContainer}>
@@ -169,7 +170,7 @@ export const OrderModalBodyRow = ({
               deletable: classNames.barcodeChipHover,
               deleteIcon: classNames.barcodeChipIcon,
             }}
-            className={clsx({[classNames.barcodeChipExists]: item.barCode})}
+            className={cx({[classNames.barcodeChipExists]: item.barCode})}
             size="small"
             label={
               orderState.tmpBarCode.length
@@ -189,7 +190,7 @@ export const OrderModalBodyRow = ({
             disableElevation
             color="primary"
             variant={item.storekeeperId && 'text'}
-            className={clsx({[classNames.storekeeperBtn]: !item.storekeeperId})}
+            className={cx({[classNames.storekeeperBtn]: !item.storekeeperId})}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
             {item.storekeeperId

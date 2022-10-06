@@ -1,8 +1,9 @@
+import {cx} from '@emotion/css'
+import {Paper, Typography} from '@mui/material'
+
 import React from 'react'
 
-import {Paper, Typography} from '@material-ui/core'
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -11,10 +12,10 @@ import {t} from '@utils/translations'
 import {useClassNames} from './feedback-card.style'
 
 export const FeedbackCard = ({isPositive, counter}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <Paper
-      className={clsx(classNames.paper, {
+      className={cx(classNames.paper, {
         [classNames.selected]: isPositive === true,
       })}
     >
@@ -24,7 +25,7 @@ export const FeedbackCard = ({isPositive, counter}) => {
         </Typography>
 
         <Typography
-          className={clsx(classNames.countTypo, {
+          className={cx(classNames.countTypo, {
             [classNames.selectedCount]: isPositive === true,
           })}
         >
@@ -32,7 +33,7 @@ export const FeedbackCard = ({isPositive, counter}) => {
         </Typography>
 
         <ThumbUpAltOutlinedIcon
-          className={clsx(classNames.thumbUpAltOutlinedIcon, {
+          className={cx(classNames.thumbUpAltOutlinedIcon, {
             [classNames.selectedThumbUpAlt]: isPositive === true,
           })}
         />

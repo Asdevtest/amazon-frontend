@@ -20,7 +20,7 @@ import {SinglePermissionsModel} from './single-permissions.model'
 import {useClassNames} from './single-permissions.style'
 
 export const SinglePermissions = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const spModel = useRef(new SinglePermissionsModel({history}))
 

@@ -29,8 +29,13 @@ const exclusionWords = [
   '/moderator',
 ]
 
+<<<<<<< HEAD
 export const BreadCrumbsLine = observer(({lastCrumbAdditionalText, savedLastCrumbAdditionalText}) => {
   const classNames = useClassNames()
+=======
+export const BreadCrumbsLine = observer(({lastCrumbAdditionalText}) => {
+  const {classes: classNames} = useClassNames()
+>>>>>>> 56997012... success migration on 5 mui
 
   const hostory = useHistory()
 

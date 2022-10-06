@@ -1,9 +1,9 @@
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import {Rating} from '@mui/material'
+import {Typography, NativeSelect, Checkbox, Select, ListItemText, MenuItem} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Typography, NativeSelect, Checkbox, Select, ListItemText, MenuItem} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
@@ -39,7 +39,7 @@ export const AdminUserEditContent = observer(
     checkValidationNameOrEmail,
     changeFields,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [showPermissionModal, setShowPermissionModal] = useState(false)
 

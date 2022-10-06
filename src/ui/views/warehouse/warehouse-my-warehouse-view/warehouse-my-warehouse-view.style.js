@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   sendOwnProductBtn: {
     marginBottom: theme.spacing(2),
   },
@@ -94,4 +94,4 @@ export const styles = createStyles(theme => ({
       visibility: 'hidden',
     },
   },
-}))
+})

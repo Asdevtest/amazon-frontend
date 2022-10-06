@@ -1,6 +1,6 @@
-import React from 'react'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
+import React from 'react'
 
 import {Button} from '@components/buttons/button'
 import {Modal} from '@components/modal'
@@ -18,7 +18,7 @@ export const TwoVerticalChoicesModal = ({
   tooltipFirstButton,
   tooltipSecondButton,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>

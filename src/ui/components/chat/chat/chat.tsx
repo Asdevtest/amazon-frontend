@@ -1,12 +1,12 @@
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
+import {cx} from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import {InputAdornment, Typography, ClickAwayListener} from '@mui/material'
 import TextField from '@mui/material/TextField'
 
 import React, {FC, ReactElement, useEffect, useState, KeyboardEvent} from 'react'
 
-import {InputAdornment, Typography, ClickAwayListener, Avatar} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 
@@ -110,7 +110,7 @@ export const Chat: FC<Props> = observer(
       SettingsModel.setChatMessageState({message, files: value}, chat._id)
     }
 
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const resetAllInputs = () => {
       setMessage('')
@@ -214,7 +214,7 @@ export const Chat: FC<Props> = observer(
               type="text"
               id="outlined-multiline-flexible"
               size="small"
-              className={clsx(classNames.input, {[classNames.inputFilled]: message || focused})}
+              className={cx(classNames.input, {[classNames.inputFilled]: message || focused})}
               maxRows={6}
               placeholder={t(TranslationKey['Write a message'])}
               inputProps={{maxLength: 1000}}
@@ -225,7 +225,7 @@ export const Chat: FC<Props> = observer(
                       <img
                         id="emoji-icon"
                         src={showEmojis ? '/assets/icons/emoji-active.svg' : '/assets/icons/emoji.svg'}
-                        className={clsx(classNames.inputIcon, classNames.emojiIconPos)}
+                        className={cx(classNames.inputIcon, classNames.emojiIconPos)}
                         onClick={() => setShowEmojis(!showEmojis)}
                       />
                     </div>
@@ -233,7 +233,7 @@ export const Chat: FC<Props> = observer(
                     <div className={classNames.filesIconWrapper}>
                       <img
                         src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}
-                        className={clsx(classNames.inputIcon, classNames.fileIconPos)}
+                        className={cx(classNames.inputIcon, classNames.fileIconPos)}
                         onClick={() => setShowFiles(!showFiles)}
                       />
                       {files.length ? <div className={classNames.badge}>{files.length}</div> : undefined}

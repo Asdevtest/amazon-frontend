@@ -1,8 +1,9 @@
+import {Typography} from '@mui/material'
+
 import {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -25,4 +26,4 @@ class TermsRaw extends Component {
   }
 }
 
-export const TermsView = withStyles(styles)(TermsRaw)
+export const TermsView = withStyles(TermsRaw, styles)

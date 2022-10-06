@@ -1,15 +1,15 @@
+import {cx} from '@emotion/css'
 import {ClassNameMap} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {FC, ReactElement, useEffect, useState} from 'react'
 
-import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {useClassNames} from './button.style'
+import {styles} from './button.style'
 import {StyledButton} from './styled-button'
 
 enum tooltipPositions {
@@ -59,13 +59,13 @@ const ButtonRaw: FC<Props> = observer(
     }, [SettingsModel.showHints])
 
     return (
-      <div className={clsx(classNames.btnWrapper, btnWrapperStyle)}>
+      <div className={cx(classNames.btnWrapper, btnWrapperStyle)}>
         <StyledButton
           disableElevation
           color={color || 'primary'}
           disabled={disabled}
           variant={variant || 'contained'}
-          className={clsx(classNames.root, className, {
+          className={cx(classNames.root, className, {
             [classNames.success]: success,
             [classNames.danger]: danger,
             [classNames.disabled]: disabled,
@@ -84,7 +84,7 @@ const ButtonRaw: FC<Props> = observer(
 
             {tooltipInfoContent && showHints ? (
               <Tooltip arrow title={tooltipInfoContent} placement="top-end">
-                <img className={clsx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
+                <img className={cx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
               </Tooltip>
             ) : null}
           </div>
@@ -94,4 +94,4 @@ const ButtonRaw: FC<Props> = observer(
   },
 )
 
-export const Button = withStyles(useClassNames)(ButtonRaw)
+export const Button = withStyles(ButtonRaw, styles)

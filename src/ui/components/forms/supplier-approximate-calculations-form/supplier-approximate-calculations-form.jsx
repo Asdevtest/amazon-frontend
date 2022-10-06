@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useState} from 'react'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -62,7 +62,7 @@ const supplierApproximateCalculationsDataConverter = (tariffLogistics, product, 
 
 export const SupplierApproximateCalculationsForm = observer(
   ({product, supplier, storekeepers, onClose, volumeWeightCoefficient}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [curStorekeeper, setCurStorekeeper] = useState(
       storekeepers.slice().sort((a, b) => a.name.localeCompare(b.name))[0],
@@ -80,7 +80,7 @@ export const SupplierApproximateCalculationsForm = observer(
               <Button
                 key={storekeeper._id}
                 disabled={curStorekeeper?._id === storekeeper._id}
-                className={clsx(classNames.button, {
+                className={cx(classNames.button, {
                   [classNames.selectedBoxesBtn]: curStorekeeper?._id === storekeeper._id,
                 })}
                 variant="text"

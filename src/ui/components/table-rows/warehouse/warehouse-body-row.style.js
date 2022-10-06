@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles({
+export const styles = {
   productCell: {
     display: 'flex',
     alignItems: 'center',
@@ -66,4 +66,4 @@ export const styles = createStyles({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-})
+}

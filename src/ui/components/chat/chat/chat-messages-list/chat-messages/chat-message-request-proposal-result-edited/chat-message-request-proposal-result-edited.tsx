@@ -1,6 +1,6 @@
-import React, {FC, useContext} from 'react'
+import {cx} from '@emotion/css'
 
-import clsx from 'clsx'
+import React, {FC, useContext} from 'react'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -30,7 +30,7 @@ interface Props {
 }
 
 export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, handlers}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const proposal = message.data.proposal
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
@@ -86,7 +86,7 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
                 variant="contained"
                 color="primary"
                 btnWrapperStyle={classNames.actionBtnWrapperStyle}
-                className={clsx(classNames.actionButton, classNames.editButton)}
+                className={cx(classNames.actionButton, classNames.editButton)}
                 onClick={() => handlers.onClickProposalResultToCorrect(proposal._id)}
               >
                 {t(TranslationKey['Send in for rework'])}
@@ -95,8 +95,8 @@ export const ChatMessageRequestProposalResultEdited: FC<Props> = ({message, hand
             <Button
               variant="contained"
               color="primary"
-              btnWrapperStyle={clsx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
-              className={clsx(classNames.actionButton, classNames.successBtn)}
+              btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
+              className={cx(classNames.actionButton, classNames.successBtn)}
               onClick={() => handlers.onClickProposalResultAccept(proposal._id)}
             >
               {t(TranslationKey.Receive)}

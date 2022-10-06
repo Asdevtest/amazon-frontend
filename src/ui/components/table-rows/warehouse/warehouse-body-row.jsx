@@ -1,10 +1,11 @@
+import {cx} from '@emotion/css'
+import {Checkbox, TableCell, TableRow, Typography, Table, TableBody} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Checkbox, TableCell, TableRow, Typography, Table, TableBody} from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
+import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -79,7 +80,7 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
       {box.items.map((order, orderIndex) => (
         <React.Fragment key={`orderBox_${order.order._id}_${orderIndex}`}>
           <TableRow
-            className={clsx(classNames.row, {[classNames.boxLastRow]: orderIndex === ordersQty - 1})}
+            className={cx(classNames.row, {[classNames.boxLastRow]: orderIndex === ordersQty - 1})}
             onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
           >
             {orderIndex === 0 && (
@@ -194,4 +195,4 @@ const WarehouseBodyRowRaw = ({item: box, itemIndex: boxIndex, handlers, rowsData
   )
 }
 
-export const WarehouseBodyRow = withStyles(styles)(WarehouseBodyRowRaw)
+export const WarehouseBodyRow = withStyles(WarehouseBodyRowRaw, styles)

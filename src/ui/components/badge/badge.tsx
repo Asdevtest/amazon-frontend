@@ -1,5 +1,6 @@
-import {Badge as MuiBadge} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
+import {Badge as MuiBadge} from '@mui/material'
+
+import {withStyles} from 'tss-react/mui'
 
 import {StyleClass} from '../../../typings/class-name-types'
 import {styles} from './badge.style'
@@ -12,4 +13,4 @@ interface Props {
 
 const BadgeRaw: React.FC<Props> = props => <MuiBadge {...props} />
 
-export const Badge = withStyles(styles)(BadgeRaw)
+export const Badge = withStyles(BadgeRaw, styles)

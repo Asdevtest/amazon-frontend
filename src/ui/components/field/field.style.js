@@ -1,8 +1,8 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-// import {createStyles} from '@material-ui/core'
+// // import {createStyles} from '@mui/material'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     marginBottom: '20px',
     width: '100%',

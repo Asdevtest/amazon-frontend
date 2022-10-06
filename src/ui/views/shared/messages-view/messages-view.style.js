@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(() => ({
+export const styles = () => ({
   chatWrapper: {
     width: '100%',
     height: '778px',
@@ -108,6 +108,7 @@ export const styles = createStyles(() => ({
     display: 'flex',
     marginLeft: 20,
   },
+<<<<<<< HEAD
 
   '@media (max-width: 768px)': {
     noticesTextActive: {
@@ -153,3 +154,6 @@ export const styles = createStyles(() => ({
     },
   },
 }))
+=======
+})
+>>>>>>> 56997012... success migration on 5 mui

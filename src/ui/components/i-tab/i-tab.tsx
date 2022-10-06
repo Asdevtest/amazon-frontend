@@ -1,9 +1,9 @@
+import {cx} from '@emotion/css'
+import {Tab} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {FC, ReactElement, useEffect, useState} from 'react'
 
-import {Tab} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {SettingsModel} from '@models/settings-model'
@@ -20,7 +20,7 @@ interface Props {
 
 export const ITab: FC<Props> = observer(
   ({tooltipAttentionContent, tooltipInfoContent, value, label, classes, ...restProps}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
 
@@ -42,7 +42,7 @@ export const ITab: FC<Props> = observer(
 
             {tooltipInfoContent && showHints ? (
               <Tooltip arrow title={tooltipInfoContent} placement="top-end">
-                <img className={clsx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
+                <img className={cx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
               </Tooltip>
             ) : null}
           </div>

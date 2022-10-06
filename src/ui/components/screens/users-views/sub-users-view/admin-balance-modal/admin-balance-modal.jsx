@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import {Container, Button, Typography, NativeSelect} from '@mui/material'
 
-import {Container, Button, Typography, NativeSelect} from '@material-ui/core'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -20,7 +20,7 @@ const paymentTypeSettings = {
 }
 
 export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSubmit}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [balanceValue, setBalanceValue] = useState('')
 

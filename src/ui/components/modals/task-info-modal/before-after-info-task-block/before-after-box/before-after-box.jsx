@@ -1,6 +1,6 @@
-import React from 'react'
+import {Typography, Paper, Checkbox, Link} from '@mui/material'
 
-import {Typography, Paper, Checkbox, Link} from '@material-ui/core'
+import React from 'react'
 
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 import {TaskOperationType} from '@constants/task-operation-type'
@@ -16,7 +16,7 @@ import {useClassNames} from './before-after-box.style'
 import {TaskInfoBoxItemCard} from './task-info-box-item-card'
 
 export const BeforeAfterBox = ({box, isCurrentBox, taskType, volumeWeightCoefficient}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Paper className={classNames.box}>

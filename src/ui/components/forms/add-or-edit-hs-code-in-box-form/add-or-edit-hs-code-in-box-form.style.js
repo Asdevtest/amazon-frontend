@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles()(() => ({
   commentsWrapper: {
     display: 'flex',
     gap: '10px',
@@ -116,4 +116,4 @@ export const useClassNames = makeStyles({
       gap: '10px',
     },
   },
-})
+}))

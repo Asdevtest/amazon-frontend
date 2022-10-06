@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(() => ({
+export const styles = () => ({
   card: {
     padding: '16px 20px',
     marginBottom: '42px',
@@ -71,4 +71,4 @@ export const styles = createStyles(() => ({
 
     marginRight: '15px',
   },
-}))
+})

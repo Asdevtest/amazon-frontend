@@ -15,7 +15,7 @@ import {UserEditModel} from './user-edit.model'
 import {useClassNames} from './user-edit.style'
 
 export const UserEdit = observer(({user}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const model = useRef(new UserEditModel({history, user}))
 

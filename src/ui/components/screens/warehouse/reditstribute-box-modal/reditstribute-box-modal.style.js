@@ -1,6 +1,6 @@
-const {makeStyles} = require('@material-ui/core')
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   boxesWrapper: {
     display: 'flex',
     gap: '40px',

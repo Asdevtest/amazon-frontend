@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   tableWrapper: {
     marginTop: '32px',
     minWidth: '100%',
@@ -51,4 +51,4 @@ export const styles = createStyles(theme => ({
     marginTop: '20px',
     height: '83vh',
   },
-}))
+})

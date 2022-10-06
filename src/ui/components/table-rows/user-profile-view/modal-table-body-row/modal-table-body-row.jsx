@@ -1,7 +1,8 @@
+import {Typography, TableRow, TableCell, NativeSelect} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Typography, TableRow, TableCell, NativeSelect} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
+import {withStyles} from 'tss-react/mui'
 
 import {Input} from '@components/input'
 
@@ -77,4 +78,4 @@ const ModalTableBodyRowRaw = ({product, managersList, ...restProps}) => {
   )
 }
 
-export const ModalTableBodyRow = withStyles(styles)(ModalTableBodyRowRaw)
+export const ModalTableBodyRow = withStyles(ModalTableBodyRowRaw, styles)

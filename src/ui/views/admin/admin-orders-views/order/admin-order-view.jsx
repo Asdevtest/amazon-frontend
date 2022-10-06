@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
-import {withStyles} from '@material-ui/core'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -61,4 +61,4 @@ export class AdminOrderViewRaw extends Component {
   }
 }
 
-export const AdminOrderView = withStyles(styles)(AdminOrderViewRaw)
+export const AdminOrderView = withStyles(AdminOrderViewRaw, styles)

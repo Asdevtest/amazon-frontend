@@ -1,6 +1,7 @@
+import {IconButton, NativeSelect, Typography} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {IconButton, NativeSelect, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
@@ -20,7 +21,7 @@ import {useClassNames} from './add-or-edit-single-permission-form.style'
 
 export const AddOrEditSinglePermissionForm = observer(
   ({onCloseModal, onSubmit, isEdit, permissionToEdit, existingSinglePermissions}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [onKeyFieldEditing, setOnKeyFieldEditing] = useState(false)
 

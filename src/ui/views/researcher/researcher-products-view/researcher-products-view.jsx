@@ -1,11 +1,12 @@
 // import {withStyles} from '@mui/styles'
+import {Paper} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {Paper} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
+// import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -149,4 +150,4 @@ class ResearcherProductsViewRaw extends Component {
   }
 }
 
-export const ResearcherProductsView = withStyles(styles)(ResearcherProductsViewRaw)
+export const ResearcherProductsView = withStyles(ResearcherProductsViewRaw, styles)

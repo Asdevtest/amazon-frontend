@@ -1,3 +1,4 @@
+import {Typography, Tooltip, IconButton, NativeSelect, Input} from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
@@ -6,7 +7,6 @@ import Select from '@mui/material/Select'
 
 import React, {useState} from 'react'
 
-import {Typography, Tooltip, IconButton, NativeSelect, Input} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
@@ -25,7 +25,7 @@ import {useClassNames} from './add-or-edit-group-permission-form.style'
 
 export const AddOrEditGroupPermissionForm = observer(
   ({onCloseModal, onSubmit, isEdit, permissionToEdit, singlePermissions, existingGroupPermissions}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const objectSinglePermissions = singlePermissions.reduce(
       (prev, item) => ({...prev, [item.role]: prev[item.role] ? [...prev[item.role], item] : [item]}),

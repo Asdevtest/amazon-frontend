@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(() => ({
+export const styles = () => ({
   backButtonWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -14,4 +14,4 @@ export const styles = createStyles(() => ({
     height: '40px',
     width: '140px',
   },
-}))
+})

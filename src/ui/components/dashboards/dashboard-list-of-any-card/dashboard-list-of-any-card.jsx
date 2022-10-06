@@ -1,16 +1,15 @@
 /* eslint-disable no-unused-vars */
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import {Typography} from '@mui/material'
 
 import React from 'react'
-
-import {Typography} from '@material-ui/core'
 
 import {useClassNames} from '@components/dashboards/dashboard-list-of-any-card/dashboard-list-of-any-card.style'
 
 import {t} from '@utils/translations'
 
 export const DashboardListOfAnyCard = ({config, configSubTitle, valuesData, onClickViewMore}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const CardItem = ({item}) => (
     <div className={classNames.cardWrapper} onClick={() => onClickViewMore(item.route, item.dataGridFilter)}>

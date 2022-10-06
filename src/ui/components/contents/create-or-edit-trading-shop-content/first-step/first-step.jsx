@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import {cx} from '@emotion/css'
+import {Typography, Paper} from '@mui/material'
 
-import {Typography, Paper} from '@material-ui/core'
-import clsx from 'clsx'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -24,7 +24,7 @@ export const FirstStep = ({
   setImages,
   deadlineError,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [assetLine, setAssetLine] = useState('')
 
@@ -61,7 +61,7 @@ export const FirstStep = ({
             value={formFields.title}
             onChange={onChangeField('title')}
           />
-          <span className={clsx(formFields.title.length > 80 && classNames.error)}>{`${formFields.title.length} ${t(
+          <span className={cx(formFields.title.length > 80 && classNames.error)}>{`${formFields.title.length} ${t(
             TranslationKey.of,
           )} 80 ${t(TranslationKey.characters)}`}</span>
         </div>
@@ -78,7 +78,7 @@ export const FirstStep = ({
             value={formFields.shopDetails}
             onChange={onChangeField('shopDetails')}
           />
-          <span className={clsx(formFields.shopDetails.length > 1000 && classNames.error)}>{`${
+          <span className={cx(formFields.shopDetails.length > 1000 && classNames.error)}>{`${
             formFields.shopDetails.length
           } ${t(TranslationKey.of)} 1000 ${t(TranslationKey.characters)}`}</span>
         </div>
@@ -114,7 +114,7 @@ export const FirstStep = ({
               label={`${t(TranslationKey['When did business start?'])} *`}
               labelClasses={classNames.spanLabelSmall}
               inputComponent={
-                <div className={clsx({[classNames.deadlineError]: deadlineError})}>
+                <div className={cx({[classNames.deadlineError]: deadlineError})}>
                   {/* <DatePickerDate value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} /> */}
                   <NewDatePicker value={formFields.businessStartDate} onChange={onChangeField('businessStartDate')} />
 
@@ -147,7 +147,7 @@ export const FirstStep = ({
                     </div>
 
                     <div
-                      className={clsx(classNames.actionDelButton, {
+                      className={cx(classNames.actionDelButton, {
                         [classNames.disabledActionButton]: !assetLine,
                       })}
                       onClick={() => assetLine && addAsset()}

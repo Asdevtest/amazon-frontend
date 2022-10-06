@@ -1,13 +1,16 @@
+<<<<<<< HEAD
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+=======
+import {cx} from '@emotion/css'
+import {Box, Divider, ListItemText, Tabs, Typography} from '@mui/material'
+>>>>>>> 56997012... success migration on 5 mui
 import Checkbox from '@mui/material/Checkbox'
 import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
 
 import React, {useEffect, useState} from 'react'
 
-import {Box, Divider, ListItemText, Tabs, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -53,7 +56,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
     isWithoutShopsDepends,
     isWithoutProductPermissions,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(tabsValues.ASSIGN_PERMISSIONS)
 
@@ -186,6 +189,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
         {/* <Typography variant="h5">{t(TranslationKey['Assign permissions'])}</Typography> */}
 
         <TabPanel value={tabIndex} index={tabsValues.ASSIGN_PERMISSIONS}>
+<<<<<<< HEAD
           {window.innerWidth > 768 ? (
             <div className={classNames.form}>
               <div className={classNames.leftSideWrapper}>
@@ -193,6 +197,25 @@ export const NewAddOrEditUserPermissionsForm = observer(
                   <div key={item._id} className={classNames.permissionGroupsToSelectItemWrapper}>
                     <div
                       className={clsx(classNames.permissionGroupsToSelectItem, {
+=======
+          <div className={classNames.form}>
+            <div className={classNames.leftSideWrapper}>
+              {groupsToSelect.map(item => (
+                <div key={item._id} className={classNames.permissionGroupsToSelectItemWrapper}>
+                  <div
+                    className={cx(classNames.permissionGroupsToSelectItem, {
+                      [classNames.selectedItem]: rightSide.key === item.key,
+                    })}
+                    onClick={() => onSetRightSide(item)}
+                  >
+                    <ListItemText primary={`${item.title}`} />
+                  </div>
+
+                  <div
+                    className={cx(
+                      classNames.permissionGroupsToSelectCheckboxWrapper,
+                      {
+>>>>>>> 56997012... success migration on 5 mui
                         [classNames.selectedItem]: rightSide.key === item.key,
                       })}
                       onClick={() => onSetRightSide(item)}
@@ -257,6 +280,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
                   ))}
               </div>
             </div>
+<<<<<<< HEAD
           ) : (
             <div className={classNames.form}>
               <div className={classNames.leftSideWrapper}>
@@ -335,6 +359,33 @@ export const NewAddOrEditUserPermissionsForm = observer(
                       </div>
                     )}
                   </div>
+=======
+
+            <Divider flexItem orientation={'vertical'} className={classNames.divider} />
+
+            <div className={classNames.rightSideWrapper}>
+              <Typography>{rightSide?.title}</Typography>
+
+              {rightSide?.permissions
+                ?.sort((a, b) => a.hierarchy - b.hierarchy)
+                .map(item => (
+                  <Tooltip
+                    key={item.key}
+                    // followCursor
+                    arrow
+                    title={item.description}
+                    placement="right-end"
+                    TransitionComponent={Zoom}
+                    TransitionProps={{timeout: 900}}
+                  >
+                    <Box className={classNames.permissionWrapper} onClick={() => onChangePermissionCheckbox(item._id)}>
+                      <Checkbox color="primary" checked={formFields.includes(item._id)} />
+                      <Typography className={cx({[classNames.keyPermission]: item.key.startsWith('SHOW_')})}>
+                        {item.title}
+                      </Typography>
+                    </Box>
+                  </Tooltip>
+>>>>>>> 56997012... success migration on 5 mui
                 ))}
               </div>
             </div>
@@ -380,7 +431,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
           <Button
             disableElevation
-            className={clsx(classNames.button, classNames.cancelBtn)}
+            className={cx(classNames.button, classNames.cancelBtn)}
             color="primary"
             variant="text"
             onClick={() => onCloseModal()}

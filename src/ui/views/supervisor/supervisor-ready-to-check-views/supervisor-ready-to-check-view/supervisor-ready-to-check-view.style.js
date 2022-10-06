@@ -1,6 +1,6 @@
-import {createStyles} from '@material-ui/core'
+// import {createStyles} from '@mui/material'
 
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   btnsWrapper: {
     margin: '0 0 15px 0',
     display: 'flex',
@@ -30,4 +30,4 @@ export const styles = createStyles(theme => ({
     marginTop: '10px',
     height: '84vh',
   },
-}))
+})

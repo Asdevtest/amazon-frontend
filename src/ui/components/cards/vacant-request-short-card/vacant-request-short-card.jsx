@@ -1,8 +1,7 @@
+import {Divider, Grid, Typography, Avatar} from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
-
-import {Divider, Grid, Typography, Avatar} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -19,7 +18,7 @@ import {translateProposalsLeftMessage} from '@utils/validation'
 import {useClassNames} from './vacant-request-short-card.style'
 
 export const VacantRequestShortCard = ({item, onClickViewMore, isFirst}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Grid item>

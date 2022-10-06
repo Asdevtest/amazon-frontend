@@ -1,11 +1,11 @@
+import {cx} from '@emotion/css'
 import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
 import SearchIcon from '@mui/icons-material/Search'
+import {Typography, Box, Tabs, Tab, InputAdornment} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useState} from 'react'
 
-import {Box, Tabs, Tab, InputAdornment} from '@material-ui/core'
-import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -34,7 +34,7 @@ const TabPanel = ({children, value, index, ...other}) => (
 
 export const SelectStorekeeperAndTariffForm = observer(
   ({storekeepers, curStorekeeperId, curTariffId, onSubmit, inNotifications}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(0)
     const tabItemStyles = twitterTabsStylesHook.useTabItem()
@@ -71,7 +71,7 @@ export const SelectStorekeeperAndTariffForm = observer(
               <Button
                 key={storekeeper._id}
                 disabled={curStorekeeper?._id === storekeeper._id}
-                className={clsx(
+                className={cx(
                   classNames.button,
                   {
                     [classNames.selectedBoxesBtn]: curStorekeeper?._id === storekeeper._id,

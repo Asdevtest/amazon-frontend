@@ -1,7 +1,7 @@
-import React from 'react'
+import {cx} from '@emotion/css'
+import {Tab, Tabs, Typography, Paper} from '@mui/material'
 
-import {Tab, Tabs, Typography, Paper} from '@material-ui/core'
-import clsx from 'clsx'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -10,7 +10,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './purchase-history.style'
 
 export const PurchaseHistory = ({user, tabHistory, setTabHistory}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <React.Fragment>
       <Typography variant="h6" className={classNames.mainTitle}>
@@ -27,7 +27,7 @@ export const PurchaseHistory = ({user, tabHistory, setTabHistory}) => {
           onChange={(e, newValue) => setTabHistory(newValue)}
         >
           <Tab
-            className={clsx(classNames.text, {
+            className={cx(classNames.text, {
               [classNames.selected]: tabHistory === 0,
             })}
             index={0}
@@ -35,14 +35,14 @@ export const PurchaseHistory = ({user, tabHistory, setTabHistory}) => {
           />
 
           <Tab
-            className={clsx(classNames.text, {
+            className={cx(classNames.text, {
               [classNames.selected]: tabHistory === 1,
             })}
             index={1}
             label={t(TranslationKey['From buyers'])}
           />
           <Tab
-            className={clsx(classNames.text, {
+            className={cx(classNames.text, {
               [classNames.selected]: tabHistory === 2,
             })}
             index={2}

@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {
   Container,
   Divider,
@@ -10,7 +8,9 @@ import {
   TableCell,
   TableHead,
   TableContainer,
-} from '@material-ui/core'
+} from '@mui/material'
+
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -22,7 +22,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './content-modal.style'
 
 export const ContentModal = props => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <Container disableGutters>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Order of goods'])}</Typography>
