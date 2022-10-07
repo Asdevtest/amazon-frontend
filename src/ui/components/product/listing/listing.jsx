@@ -97,7 +97,7 @@ export const Listing = observer(({productId, onClickBack}) => {
               label={t(TranslationKey['Details about the product:'])}
               disabled={!userCanEdit}
               minRows={4}
-              maxRows={4}
+              // maxRows={4}
               inputProps={{maxLength: 1000}}
               value={listingProduct.listingProductDetails}
               placeholder={t(TranslationKey['Enter a description'])}
@@ -110,7 +110,7 @@ export const Listing = observer(({productId, onClickBack}) => {
 
           <div className={classNames.sideBlockWrapper}>
             <Field
-              multiline
+              // multiline
               className={classNames.listingSearchTerms}
               disabled={!userCanEdit}
               inputProps={{maxLength: 1000}}

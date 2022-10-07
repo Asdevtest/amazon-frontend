@@ -1,6 +1,11 @@
 import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
+  mainWrapper: {
+    marginTop: 10,
+    padding: 10,
+  },
+
   table: {
     whiteSpace: 'nowrap',
     '& td': {
@@ -22,6 +27,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
   mainTitle: {
     marginTop: '30px',
+
+    color: theme.palette.text.general,
+  },
+
+  subTitle: {
+    color: theme.palette.text.second,
   },
   replenishRow: {
     '& td': {

@@ -78,6 +78,9 @@ export const useClassNames = makeStyles()(theme => ({
   heightFieldAuto: {
     height: '376px',
     width: '330px',
+
+    padding: 0,
+    border: 'none',
   },
 
   itemWrapper: {

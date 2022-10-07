@@ -111,6 +111,9 @@ export const useClassNames = makeStyles()(() => ({
   },
   heightFieldAuto: {
     height: 'auto',
+
+    padding: 0,
+    border: 'none',
   },
   buttonsWrapper: {
     display: 'flex',

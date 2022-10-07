@@ -1,9 +1,13 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   button: {
     width: '144px',
     height: '40px',
+  },
+
+  modalTitle: {
+    color: theme.palette.text.general,
   },
   cancelButton: {
     color: '#001029',
@@ -31,7 +35,6 @@ export const useClassNames = makeStyles()(() => ({
       fontSize: '16px',
       lineHeight: '22px',
       fontWeight: 600,
-      color: '#001029',
     },
     labelField: {
       fontSize: '14px',

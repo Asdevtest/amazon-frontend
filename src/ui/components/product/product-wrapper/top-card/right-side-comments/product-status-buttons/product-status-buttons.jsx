@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {Box, Grid} from '@mui/material'
 
 import React from 'react'
@@ -42,7 +43,7 @@ export const ProductStatusButtons = ({
               color={buttonConfig.color}
               colorHover={buttonConfig.colorHover}
               selected={ProductStatusByCode[productStatus] === buttonConfig.statusKey}
-              onClick={() => onClickButton(buttonConfig.statusKey)}
+              onClickChip={() => onClickButton(buttonConfig.statusKey)}
             />
           </Grid>
         ))}

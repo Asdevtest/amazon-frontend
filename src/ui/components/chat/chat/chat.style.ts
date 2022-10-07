@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
     height: '100%',
@@ -20,7 +20,7 @@ export const useClassNames = makeStyles()(() => ({
     maxHeight: 690,
   },
   bottomPartWrapper: {
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.background.main,
 
     // height: '227px',
     // minHeight: 80,
@@ -73,7 +73,10 @@ export const useClassNames = makeStyles()(() => ({
     width: '100%',
     // height: 40,
     borderRadius: 4,
-    backgroundColor: '#E0E0E0',
+    // backgroundColor: '#E0E0E0',
+
+    backgroundColor: theme.palette.input.second,
+
     // padding: '5.5px 8px !important',
   },
 
@@ -93,7 +96,9 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   inputFilled: {
-    backgroundColor: '#FFF',
+    // backgroundColor: '#FFF',
+
+    backgroundColor: theme.palette.input.second,
   },
 
   inputIcon: {

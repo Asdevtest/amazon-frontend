@@ -1,5 +1,3 @@
-// import {createStyles} from '@mui/material'
-
 export const styles = theme => ({
   dashboardCardWrapper: {
     marginTop: '24px',

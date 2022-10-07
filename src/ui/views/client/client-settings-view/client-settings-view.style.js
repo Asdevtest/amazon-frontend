@@ -1,5 +1,3 @@
-// import {createStyles} from '@mui/material'
-
 export const styles = () => ({
   modalTitle: {
     color: 'rgb(61, 81, 112)',

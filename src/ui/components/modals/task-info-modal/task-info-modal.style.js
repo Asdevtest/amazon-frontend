@@ -4,6 +4,9 @@ export const useClassNames = makeStyles()(theme => ({
   heightFieldAuto: {
     height: 'auto',
     minWidth: '650px',
+
+    padding: 0,
+    border: 'none',
   },
   commentsWrapper: {
     display: 'flex',

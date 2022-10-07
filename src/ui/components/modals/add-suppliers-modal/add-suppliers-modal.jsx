@@ -20,13 +20,8 @@ import {t} from '@utils/translations'
 import {useClassNames} from './add-suppliers-modal.style'
 import Template from './template.xlsx'
 
-<<<<<<< HEAD
-export const AddSuppliersModal = ({userInfo, onSubmit, onClose, showProgress, progressValue}) => {
-  const classNames = useClassNames()
-=======
 export const AddSuppliersModal = ({product, onSubmit, onClose, showProgress, progressValue}) => {
   const {classes: classNames} = useClassNames()
->>>>>>> 56997012... success migration on 5 mui
 
   const [images, setImages] = useState('')
 

@@ -6,12 +6,6 @@ import {Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-<<<<<<< HEAD
-import {IconButton, Typography} from '@material-ui/core'
-import clsx from 'clsx'
-
-=======
->>>>>>> 56997012... success migration on 5 mui
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'

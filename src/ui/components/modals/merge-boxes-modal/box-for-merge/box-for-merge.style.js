@@ -5,6 +5,9 @@ export const useClassNames = makeStyles()(theme => ({
     height: 'auto',
     maxWidth: '380px',
     minWidth: '380px',
+
+    padding: 0,
+    border: 'none',
   },
 
   button: {

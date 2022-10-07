@@ -48,7 +48,7 @@ export const useClassNames = makeStyles()(theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '10px',
 
-    color: theme.palette.text.second,
+    color: theme.palette.text.negativeMain,
     '&:hover': {
       opacity: '0.7',
     },
@@ -57,12 +57,14 @@ export const useClassNames = makeStyles()(theme => ({
   imagesCount: {
     fontSize: '12px',
     textAlign: 'center',
+
+    color: theme.palette.text.second,
   },
 
   imagesCountSpan: {
     fontSize: '16px',
     fontWeight: '600',
-    color: 'rgba(0,123, 255, 1)',
+    color: theme.palette.primary.main,
   },
 
   removeAllBtn: {
@@ -72,7 +74,7 @@ export const useClassNames = makeStyles()(theme => ({
     border: ' 1px solid rgba(0,123, 255, .7)',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     borderRadius: '10px',
-    color: theme.palette.text.second,
+    color: theme.palette.text.negativeMain,
     '&:hover': {
       opacity: '0.7',
     },
@@ -127,6 +129,8 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     fontSize: '9px',
+
+    color: theme.palette.text.second,
   },
 
   linkName: {
@@ -134,13 +138,17 @@ export const useClassNames = makeStyles()(theme => ({
     height: '80px',
     overflow: 'auto',
     fontSize: '10px',
+
+    color: theme.palette.text.second,
   },
 
   imageListItem: {
     overflow: 'hidden',
     border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
-    background: '#EFEFEF',
+    // background: '#EFEFEF',
+
+    background: theme.palette.background.second,
 
     display: 'flex',
     flexDirection: 'column',
@@ -151,7 +159,9 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     border: ' 1px solid rgba(0,123, 255, .7)',
     borderRadius: '10px',
-    background: '#EFEFEF',
+    // background: '#EFEFEF',
+
+    background: theme.palette.background.second,
     padding: '5px',
 
     display: 'flex',

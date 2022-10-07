@@ -117,6 +117,9 @@ export const useClassNames = makeStyles()(theme => ({
     height: 'auto',
     maxWidth: '380px',
     minWidth: '250px',
+
+    padding: 0,
+    border: 'none',
   },
   commentsWrapper: {
     display: 'flex',

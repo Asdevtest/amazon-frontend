@@ -328,81 +328,19 @@ export const ChangeChipCell = withStyles(
   styles,
 )
 
-<<<<<<< HEAD
-export const DateCell = withStyles(styles)(({params}) => (
-  <Typography>{!params.value ? '-' : formatDateTime(params.value)}</Typography>
-))
+export const PhotoAndFilesCell = withStyles(
+  (({classes: classNames, files}) => (
+    <div className={classNames.photoWrapper}>
+      <PhotoAndFilesCarousel small width={'300px'} files={files} />
+    </div>
+  ),
+  styles),
+)
 
-export const PhotoAndFilesCell = withStyles(styles)(({classes: classNames, files}) => (
-  <div className={classNames.photoWrapper}>
-    <PhotoAndFilesCarousel small width={'300px'} files={files} />
-  </div>
-))
-
-export const NormDateCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.normDateCellTypo}>
-    {!(params && params.value) ? '-' : formatNormDateTime(params.value)}
-  </Typography>
-))
-
-export const NormDateWithoutTimeCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.normDateCellTypo}>
-    {!(params && params.value) ? '-' : formatDateWithoutTime(params.value)}
-  </Typography>
-))
-
-export const ShortDateCell = withStyles(styles)(({classes: classNames, params}) => (
-  <Typography className={classNames.shortDateCellTypo}>
-    {!(params && params.value) ? '-' : formatShortDateTime(params.value)}
-  </Typography>
-))
-
-export const NormDateFromUnixCell = withStyles(styles)(({classes: classNames, value}) => (
-  <Typography className={classNames.normDateCellTypo}>
-    {!value ? '-' : formatDateForShowWithoutParseISO(fromUnixTime(value))}
-  </Typography>
-))
-
-export const NormDateWithParseISOCell = withStyles(styles)(({params}) => (
-  <Typography>{!params.value ? '-' : formatNormDateTimeWithParseISO(params.value)}</Typography>
-))
-
-export const OrderCell = withStyles(styles)(({classes: classNames, product, superbox, box, error}) => (
-  <div className={classNames.order}>
-    <img alt="" src={getAmazonImageUrl(product.images[0])} className={classNames.orderImg} />
-    <div>
-      <Typography className={classNames.orderTitle}>{product.amazonTitle}</Typography>
-      <div className={classNames.copyAsin}>
-        <Typography className={classNames.orderText}>
-          <span className={classNames.orderTextSpan}>{t(TranslationKey.ASIN) + ': '}</span>
-          {product.asin ? (
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={`https://www.amazon.com/dp/${product.asin}`}
-              className={classNames.normalizeLink}
-            >
-              <span className={classNames.linkSpan}>{shortAsin(product.asin)}</span>
-            </a>
-          ) : (
-            <span className={classNames.typoSpan}>{t(TranslationKey.Missing)}</span>
-          )}
-        </Typography>
-        {product.asin ? <CopyValue text={product.asin} /> : null}
-      </div>
-      <div className={classNames.copyAsin}>
-        <Typography className={classNames.orderText}>
-          <span className={classNames.orderTextSpan}>{t(TranslationKey.SKU) + ': '}</span>
-          {product?.skusByClient?.length ? product.skusByClient[0] : t(TranslationKey.Missing)}
-        </Typography>
-        {product?.skusByClient?.length ? <CopyValue text={product?.skusByClient[0]} /> : null}
-      </div>
-=======
 export const DateCell = withStyles(
   ({params}) => <Typography>{!params.value ? '-' : formatDateTime(params.value)}</Typography>,
   styles,
 )
->>>>>>> 56997012... success migration on 5 mui
 
 export const NormDateCell = withStyles(
   ({classes: classNames, params}) => (
@@ -565,28 +503,15 @@ export const RenderFieldValueCell = withStyles(
   styles,
 )
 
-<<<<<<< HEAD
-export const MultilineTextCell = withStyles(styles)(
-  ({classes: classNames, text, noTextText, color, isStatus, isAsin}) => (
-    <div className={classNames.multilineTextWrapper}>
-      <Typography
-        className={clsx(classNames.multilineText, {[classNames.multilineLeftText]: isStatus})}
-        style={color && {color}}
-      >
-=======
 export const MultilineTextCell = withStyles(
   ({classes: classNames, text, noTextText, color}) => (
     <div className={classNames.multilineTextWrapper}>
       <Typography className={classNames.multilineText} style={color && {color}}>
->>>>>>> 56997012... success migration on 5 mui
         {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
       </Typography>
     </div>
   ),
-<<<<<<< HEAD
-=======
   styles,
->>>>>>> 56997012... success migration on 5 mui
 )
 
 export const MultilineTextAlignLeftCell = withStyles(
@@ -596,43 +521,26 @@ export const MultilineTextAlignLeftCell = withStyles(
         <div className={classNames.multilineTextAlignLeftWrapper}>
           <TextareaAutosize
             disabled
-            value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+            value={checkIsString(text).length > 200 ? text.slice(0, 197) + '...' : text}
             className={classNames.multilineTextAlignLeft}
           />
         </div>
       </Tooltip>
     ) : (
       <div className={classNames.multilineTextAlignLeftWrapper}>
-        <TextareaAutosize
-          disabled
-<<<<<<< HEAD
-          value={text.length > 200 ? text.slice(0, 192) + '...' : text}
-          className={classNames.multilineTextAlignLeft}
-=======
-          value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
-          className={cx(classNames.multilineTextAlignLeft, {[classNames.multilineTextAlignLeftSub]: isAsin})}
->>>>>>> 56997012... success migration on 5 mui
-        />
+        {isAsin ? (
+          <Typography className={cx(classNames.multilineAsinTextAlignLeft)}>
+            {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+          </Typography>
+        ) : (
+          <TextareaAutosize
+            disabled
+            value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+            className={cx(classNames.multilineTextAlignLeft, {[classNames.multilineTextAlignLeftSub]: isAsin})}
+          />
+        )}
         {isAsin ? <CopyValue text={text} /> : null}
       </div>
-<<<<<<< HEAD
-    </Tooltip>
-  ) : (
-    <div className={classNames.multilineTextAlignLeftWrapper}>
-      {isAsin ? (
-        <Typography className={clsx(classNames.multilineAsinTextAlignLeft)}>
-          {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
-        </Typography>
-      ) : (
-        <TextareaAutosize
-          disabled
-          value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
-          className={clsx(classNames.multilineTextAlignLeft, {[classNames.multilineTextAlignLeftSub]: isAsin})}
-        />
-      )}
-
-      {isAsin ? <CopyValue text={text} /> : null}
-=======
     ),
   styles,
 )
@@ -668,7 +576,6 @@ export const MultilineStatusCell = withStyles(
   ({classes: classNames, status}) => (
     <div className={classNames.multilineTextWrapper}>
       <Typography className={classNames.statusMultilineText}>{status?.replace(/_/g, ' ')}</Typography>
->>>>>>> 56997012... success migration on 5 mui
     </div>
   ),
   styles,
@@ -1195,26 +1102,15 @@ export const AdminUsersActionBtnsCell = withStyles(
   styles,
 )
 
-<<<<<<< HEAD
-export const SuperboxQtyCell = withStyles(styles)(({classes: classNames, qty, superbox}) => (
-  <div className={classNames.multilineSuperBoxWrapper}>
-    <Typography>{qty || '-'}</Typography>
-    <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
-  </div>
-))
-=======
 export const SuperboxQtyCell = withStyles(
   ({classes: classNames, qty, superbox}) => (
     <div className={classNames.multilineTextWrapper}>
-      <Typography>
-        {qty || '-'}
-        <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
-      </Typography>
+      <Typography>{qty || '-'}</Typography>
+      <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
     </div>
   ),
   styles,
 )
->>>>>>> 56997012... success migration on 5 mui
 
 export const OrderManyItemsCell = withStyles(({classes: classNames, box, error}) => {
   const renderProductInfo = () => (
@@ -1445,8 +1341,8 @@ export const BatchBoxesCell = withStyles(({classes: classNames, boxes}) => {
 }, styles)
 
 export const TrashCell = withStyles(
-  ({classes: classNames, onClick, tooltipText}) => (
-    <Button tooltipInfoContent={tooltipText} className={classNames.trashWrapper}>
+  ({classes: classNames, onClick, tooltipText, isFirstRow}) => (
+    <Button tooltipInfoContent={isFirstRow && tooltipText} className={classNames.trashWrapper}>
       <img className={classNames.trashImg} src="/assets/icons/trash.svg" alt="" onClick={onClick} />
     </Button>
   ),
@@ -1460,13 +1356,6 @@ export const WarehouseBoxesBtnsCell = withStyles(
         <Typography>{t(TranslationKey['Not ready to ship'])}</Typography>
       )}
 
-<<<<<<< HEAD
-export const TrashCell = withStyles(styles)(({classes: classNames, onClick, tooltipText, isFirstRow}) => (
-  <Button tooltipInfoContent={isFirstRow && tooltipText} className={classNames.trashWrapper}>
-    <img className={classNames.trashImg} src="/assets/icons/trash.svg" alt="" onClick={onClick} />
-  </Button>
-))
-=======
       {row.batchId && row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE && (
         <Button
           tooltipAttentionContent={
@@ -1483,7 +1372,6 @@ export const TrashCell = withStyles(styles)(({classes: classNames, onClick, tool
           {t(TranslationKey['Move box'])}
         </Button>
       )}
->>>>>>> 56997012... success migration on 5 mui
 
       {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
         <Button
@@ -1597,13 +1485,8 @@ export const ShortBoxDimensions = withStyles(
         ) : null}
         {checkIsStorekeeper(UserRoleCodeMap[curUser]) ? (
           <Button
-<<<<<<< HEAD
             disabled={box.isDraft || box.status !== BoxStatus.IN_STOCK}
-            className={clsx(classNames.shortBoxDimensionsButton, {
-=======
-            disabled={box.isDraft}
             className={cx(classNames.shortBoxDimensionsButton, {
->>>>>>> 56997012... success migration on 5 mui
               [classNames.editPaddingButton]: !box.isDraft && finalWeight < 12,
             })}
             onClick={() => handlers.setDimensions(box)}

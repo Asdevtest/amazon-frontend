@@ -39,11 +39,11 @@ export const useClassNames = makeStyles()(() => ({
     border: '1px solid rgb(224, 224, 224)',
     '& td': {
       flexShrink: 0,
-      color: 'rgba(61, 81, 112, 1)',
+      // color: 'rgba(61, 81, 112, 1)',
       borderBottom: 'none',
     },
     '& th': {
-      color: 'rgba(61, 81, 112, 1)',
+      // color: 'rgba(61, 81, 112, 1)',
       fontWeight: 700,
       lineHeight: '15px',
       fontSize: '15px',
@@ -114,6 +114,9 @@ export const useClassNames = makeStyles()(() => ({
   },
   heightFieldAuto: {
     height: 'auto',
+
+    padding: 0,
+    border: 'none',
   },
   buttonsWrapper: {
     display: 'flex',

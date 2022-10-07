@@ -1,11 +1,13 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    // color: 'rgba(61, 81, 112, 1)',
     fontWeight: '600',
+
+    color: theme.palette.text.general,
   },
   input: {
     width: '100%',
@@ -109,6 +111,9 @@ export const useClassNames = makeStyles()(() => ({
   },
   heightFieldAuto: {
     height: 'auto',
+
+    padding: 0,
+    border: 'none',
   },
   buttonsWrapper: {
     display: 'flex',
@@ -154,6 +159,8 @@ export const useClassNames = makeStyles()(() => ({
 
   supplierTitle: {
     marginBottom: '5px',
+
+    color: theme.palette.text.general,
   },
 
   supplierActionsWrapper: {
@@ -199,6 +206,8 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '12px',
     lineHeight: '14px',
     fontWeight: '400',
-    color: '#656565',
+    // color: '#656565',
+
+    color: theme.palette.text.second,
   },
 }))

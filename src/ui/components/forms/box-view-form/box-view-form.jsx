@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import {Tooltip} from '@mui/material'
-=======
 import {cx} from '@emotion/css'
-import {Checkbox, Divider, Grid, Link, Typography} from '@mui/material'
->>>>>>> 56997012... success migration on 5 mui
+import {Checkbox, Divider, Grid, Link, Typography, Tooltip} from '@mui/material'
 
 import {React, useState} from 'react'
 

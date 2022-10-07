@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '674px',
     height: '619px',
@@ -151,6 +151,16 @@ export const useClassNames = makeStyles()(() => ({
     '&:hover': {
       transform: 'scale(1.01)',
     },
+
+    color: theme.palette.text.general,
+  },
+
+  rightSideTitle: {
+    color: theme.palette.text.general,
+  },
+
+  permissionItem: {
+    color: theme.palette.text.general,
   },
 
   permissionGroupsToSelectCheckboxWrapper: {

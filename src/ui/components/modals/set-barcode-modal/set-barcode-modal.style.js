@@ -1,13 +1,10 @@
 import {makeStyles} from 'tss-react/mui'
 
-<<<<<<< HEAD
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(() => ({
   modalWrapper: {
     width: '700px',
   },
-=======
-export const useClassNames = makeStyles()(() => ({
->>>>>>> 56997012... success migration on 5 mui
+
   modalTitle: {
     color: '#001029',
     fontSize: '18px',

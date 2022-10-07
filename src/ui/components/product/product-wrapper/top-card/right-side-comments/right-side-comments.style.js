@@ -109,6 +109,9 @@ export const useClassNames = makeStyles()(theme => ({
   heightFieldAuto: {
     height: 'auto',
     width: '100%',
+
+    padding: 0,
+    border: 'none',
   },
   buttonsWrapper: {
     position: 'fixed',

@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()((theme, props) => ({
   '@global': {
     '@keyframes hypnoEye': {
       '0%': {
@@ -12,7 +12,29 @@ export const useClassNames = makeStyles()(() => ({
     },
   },
 
-  chip: props => ({
+  // chip: props => ({
+  //   fontSize: '15px',
+  //   fontWeight: '600',
+  //   lineHeight: '20p',
+
+  //   borderRadius: '4px',
+  //   height: '36.5px',
+  //   color: 'rgba(0,0,0,.7)',
+  //   transition: '.7s ease-in-out',
+  //   backgroundColor: props.color,
+  //   '&:focus': {
+  //     backgroundColor: props.colorHover,
+  //     transform: 'scale(1.01)',
+  //     color: '#fff',
+  //   },
+  //   '&:hover': {
+  //     backgroundColor: props.colorHover,
+  //     transform: 'scale(1.01)',
+  //     color: 'rgba(255,255,255,.7)',
+  //   },
+  // }),
+
+  chip: {
     fontSize: '15px',
     fontWeight: '600',
     lineHeight: '20p',
@@ -22,6 +44,8 @@ export const useClassNames = makeStyles()(() => ({
     color: 'rgba(0,0,0,.7)',
     transition: '.7s ease-in-out',
     backgroundColor: props.color,
+
+    cursor: 'pointer',
     '&:focus': {
       backgroundColor: props.colorHover,
       transform: 'scale(1.01)',
@@ -32,8 +56,26 @@ export const useClassNames = makeStyles()(() => ({
       transform: 'scale(1.01)',
       color: 'rgba(255,255,255,.7)',
     },
-  }),
-  chipActive: () => ({
+  },
+
+  // chipActive: () => ({
+  //   color: '#fff',
+
+  //   '&::before': {
+  //     content: '""',
+  //     backgroundColor: 'black',
+  //     height: '36.5px',
+  //     width: '36.5px',
+  //     right: '30%',
+  //     textAlign: 'center',
+  //     borderRadius: '4px',
+  //     opacity: '0.4',
+  //     border: '7px solid white',
+  //     animation: 'hypnoEye .7s ease-in-out',
+  //   },
+  // }),
+
+  chipActive: {
     color: '#fff',
 
     '&::before': {
@@ -48,7 +90,7 @@ export const useClassNames = makeStyles()(() => ({
       border: '7px solid white',
       animation: 'hypnoEye .7s ease-in-out',
     },
-  }),
+  },
 
   chipWrapper: {
     position: 'relative',

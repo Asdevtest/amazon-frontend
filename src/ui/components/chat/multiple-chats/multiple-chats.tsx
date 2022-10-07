@@ -2,11 +2,6 @@ import {Typography} from '@mui/material'
 
 import React, {forwardRef, ReactElement} from 'react'
 
-<<<<<<< HEAD
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
-=======
->>>>>>> 56997012... success migration on 5 mui
 import {compareDesc, parseISO} from 'date-fns'
 import {observer} from 'mobx-react'
 

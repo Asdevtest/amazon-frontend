@@ -30,6 +30,9 @@ export const useClassNames = makeStyles()(() => ({
     marginTop: '2px',
 
     width: 231,
+
+    padding: 0,
+    border: 'none',
   },
   priceOptionsWrapper: {
     width: '573px',

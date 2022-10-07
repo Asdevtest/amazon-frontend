@@ -28,11 +28,11 @@ export const useClassNames = makeStyles()(() => ({
       transform: 'scale(1.01)',
     },
   },
-  rootDataGrid: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: '#fff',
-  },
+  // rootDataGrid: {
+  //   border: '0 !important',
+  //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+  //   backgroundColor: '#fff',
+  // },
 
   footerContainer: {
     position: 'absolute',

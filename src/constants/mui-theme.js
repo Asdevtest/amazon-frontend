@@ -77,6 +77,10 @@ export const lightTheme = createTheme({
 
           border: `1px solid #E0E0E0`,
         },
+
+        // disabled: {
+        //   color: '#001029',
+        // },
       },
     },
 
@@ -92,6 +96,14 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#fff',
+        },
+      },
+    },
+
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          color: '#001029',
         },
       },
     },
@@ -112,6 +124,9 @@ export const lightTheme = createTheme({
     background: {
       main: '#fff',
       second: '#F8F8F8',
+
+      chatIncomeMessage: '#EBEBEB',
+      chatMyMessage: '#CCE2FF',
     },
 
     linearGradient: {
@@ -171,7 +186,20 @@ export const darkTheme = createTheme({
           overflow: 'hidden',
 
           border: `1px solid #424250`,
+
+          // '&:disabled': {
+          //   color: '#fff',
+          // },
+
+          '-webkit-text-fill-color': '#fff !important',
         },
+
+        // disabled: {
+        //   // color: '#fff !important',
+        //   backgroundColor: '#fff',
+
+        //   '-webkit-text-fill-color': '#fff !important',
+        // },
       },
     },
 
@@ -187,6 +215,14 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#2B2B34',
+        },
+      },
+    },
+
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
         },
       },
     },
@@ -207,6 +243,9 @@ export const darkTheme = createTheme({
     background: {
       main: '#2B2B34',
       second: '#21212B',
+
+      chatIncomeMessage: '#36363F',
+      chatMyMessage: '#384C68',
     },
 
     linearGradient: {
@@ -222,7 +261,11 @@ export const darkTheme = createTheme({
     },
 
     input: {
-      disabled: '#36363F',
+      // disabled: '#36363F',
+      // disabled: '#9999a8',
+
+      disabled: '#a0a0a4',
+
       border: '#424250',
     },
   },

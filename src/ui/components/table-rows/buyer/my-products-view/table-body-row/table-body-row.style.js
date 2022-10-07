@@ -1,5 +1,3 @@
-// import {createStyles} from '@mui/material'
-
 export const styles = {
   img: {
     backgroundColor: 'rgba(61, 81, 112, 1)',

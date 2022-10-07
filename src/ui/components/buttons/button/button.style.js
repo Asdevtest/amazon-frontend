@@ -5,6 +5,10 @@ export const styles = theme => ({
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
 
     color: theme.palette.text.negativeMain,
+
+    // '&$disabled': {
+    //   backgroundColor: '#fff !important',
+    // },
   },
 
   success: {
@@ -38,7 +42,9 @@ export const styles = theme => ({
       backgroundColor: 'rgba(210, 35, 35, 0.5) !important',
     },
   },
-  disabled: {},
+  disabled: {
+    backgroundColor: '#a0a0a4 !important',
+  },
 
   tooltipsWrapper: {
     position: 'absolute',

@@ -1,5 +1,3 @@
-// import {createStyles} from '@mui/material'
-
 export const styles = theme => ({
   tableWrapper: {
     marginTop: '32px',
@@ -16,6 +14,9 @@ export const styles = theme => ({
     height: 'auto',
     maxWidth: '380px',
     minWidth: '250px',
+
+    padding: 0,
+    border: 'none',
   },
   buttonsWrapper: {
     marginTop: '15px',

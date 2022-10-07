@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     gap: '5px',
     width: '100%',
@@ -35,7 +35,7 @@ export const useClassNames = makeStyles()(() => ({
   title: {
     fontSize: '24px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontWeight: '500',
     textAlign: 'center',
     marginBottom: '24px',
@@ -45,12 +45,18 @@ export const useClassNames = makeStyles()(() => ({
     width: '100%',
     display: 'block',
     fontSize: '25px',
+
+    padding: 0,
+    border: 'none',
   },
 
   listingSearchTerms: {
     height: 'auto',
     width: '100%',
     display: 'block',
+
+    padding: 0,
+    border: 'none',
   },
 
   searchSupplierField: {
@@ -98,7 +104,7 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   subTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '20px',
@@ -215,9 +221,12 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   modalTextArea: {
-    height: '100px',
+    height: 'auto',
     width: '100%',
-    overflowY: 'hidden',
+    // overflowY: 'hidden',
+
+    padding: 0,
+    border: 'none',
   },
 
   descriptionProduct: {

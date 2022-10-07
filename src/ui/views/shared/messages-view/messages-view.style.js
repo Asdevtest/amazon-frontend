@@ -1,13 +1,14 @@
-// import {createStyles} from '@mui/material'
-
-export const styles = () => ({
+export const styles = theme => ({
   chatWrapper: {
     width: '100%',
     height: '778px',
   },
 
   searchInput: {
-    border: '1px solid #007bff',
+    // border: '1px solid #007bff',
+
+    border: `1px solid ${theme.palette.primary.main}`,
+
     width: 276,
     height: 36,
   },
@@ -35,7 +36,7 @@ export const styles = () => ({
     fontSize: 18,
     lineHeight: '140%',
     fontWeight: 400,
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   noticesTextNoActive: {
     fontSize: 18,
@@ -93,7 +94,7 @@ export const styles = () => ({
     marginLeft: 15,
     fontWeight: 600,
     fontSize: 18,
-    color: '#001029',
+    color: theme.palette.text.general,
 
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',

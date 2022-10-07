@@ -1,5 +1,3 @@
-// import {createStyles} from '@mui/material'
-
 export const styles = theme => ({
   amountWithLabelCardsWrapper: {
     marginTop: theme.spacing(4),

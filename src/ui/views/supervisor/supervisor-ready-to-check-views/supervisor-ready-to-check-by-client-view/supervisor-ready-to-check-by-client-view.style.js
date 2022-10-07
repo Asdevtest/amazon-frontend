@@ -1,5 +1,3 @@
-// import {createStyles} from '@mui/material'
-
 export const styles = theme => ({
   btnsWrapper: {
     margin: '0 0 15px 0',

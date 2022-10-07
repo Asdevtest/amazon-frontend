@@ -1,1 +1,1 @@
-export {ITab} from './i-tab.tsx'
+export {ITab} from './i-tab.jsx'

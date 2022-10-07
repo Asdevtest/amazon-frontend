@@ -1,8 +1,9 @@
-import {Box, NativeSelect, TextareaAutosize, Typography} from '@mui/material'
+/* eslint-disable no-unused-vars */
+import {Box, NativeSelect, TextareaAutosize, Typography, Alert} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {Alert} from '@material-ui/lab'
+// import {Alert} from '@material-ui/lab'
 import {observer} from 'mobx-react'
 import {withStyles} from 'tss-react/mui'
 
@@ -60,6 +61,25 @@ export const ResearcherAddProductFormRaw = observer(
                 onChange={onChangeFormFields('productCode')}
               />
             </div>
+
+            {/* {errorMsg ? (
+              <div className={classNames.alert}>
+                {errorMessagesTranslate(errorMsg)}
+                {reasonErrorMsg ? (
+                  <>
+                    <Typography className={classNames.reasonTitleAlert}>{`${t(TranslationKey.Reason)}:`}</Typography>
+                    <TextareaAutosize
+                      className={classNames.alertMessage}
+                      value={errorMessagesTranslate(reasonErrorMsg)}
+                    />
+                  </>
+                ) : null}
+              </div>
+            ) : undefined}
+            {!errorMsg && actionStatus === loadingStatuses.success ? (
+              <Typography className={classNames.alert}>{t(TranslationKey['Operation complete'])}</Typography>
+            ) : undefined} */}
+
             {errorMsg ? (
               <Alert classes={{root: classNames.alert}} elevation={0} severity="error">
                 {errorMessagesTranslate(errorMsg)}
@@ -75,7 +95,7 @@ export const ResearcherAddProductFormRaw = observer(
               </Alert>
             ) : undefined}
             {!errorMsg && actionStatus === loadingStatuses.success ? (
-              <Alert className={classNames.alert} elevation={0} severity="success">
+              <Alert className={classNames.alert} elevation={5} severity="success">
                 {t(TranslationKey['Operation complete'])}
               </Alert>
             ) : undefined}

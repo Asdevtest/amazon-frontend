@@ -1,5 +1,3 @@
-// import {createStyles} from '@mui/material'
-
 export const styles = () => ({
   proposalFormWrapper: {
     marginTop: '10px',

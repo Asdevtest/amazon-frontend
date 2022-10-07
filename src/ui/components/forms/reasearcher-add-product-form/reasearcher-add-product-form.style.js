@@ -4,11 +4,23 @@ export const styles = theme => ({
     marginTop: '24px',
     minHeight: '40px',
 
+    // display: 'none',
+
+    // maxHeight: 200,
+
     // backgroundColor: theme.palette.background.second,
+
+    // color: theme.palette.text.second,
+
+    // borderRadius: 4,
+    // padding: 5,
+
+    // backgroundColor: 'inherit',
   },
 
   alertMessage: {
     width: '430px',
+    // height: 100,
 
     backgroundColor: 'inherit',
     border: 'none',

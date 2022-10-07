@@ -144,6 +144,9 @@ export const useClassNames = makeStyles()(theme => ({
   heightFieldAuto: {
     height: '185px',
     width: '330px',
+
+    padding: 0,
+    border: 'none',
   },
   commentsWrapper: {
     width: '400px',
@@ -232,7 +235,14 @@ export const useClassNames = makeStyles()(theme => ({
 
     heightFieldAuto: {
       height: '96px',
+<<<<<<< HEAD
       width: '100%',
+=======
+      width: '280px',
+
+      padding: 0,
+      border: 'none',
+>>>>>>> 7bfc35ee... save 07.10
     },
 
     commentsWrapper: {

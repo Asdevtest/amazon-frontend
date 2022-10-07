@@ -1,7 +1,9 @@
 import {cx} from '@emotion/css'
-import {ClassNameMap} from '@mui/material'
+// import {ClassNamesArg} from '@emotion/react'
+// import {ClassNameMap} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
+// import {CSSObject} from '@mui/system'
 import React, {FC, ReactElement, useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
@@ -30,7 +32,8 @@ interface Props {
   onClick?: () => void
   disableElevation?: boolean
   btnWrapperStyle?: string
-  classes: ClassNameMap
+  // classes: ClassNamesArg | undefined // any /* ClassNamesArg | undefined*/ // ClassNameMap
+  classes: any
 }
 
 const ButtonRaw: FC<Props> = observer(

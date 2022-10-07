@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     padding: '14px 10px',
     '& p, h1, h2, h3, h4, h5, span': {
@@ -11,16 +11,18 @@ export const useClassNames = makeStyles()(() => ({
     alignItems: 'flex-end',
     maxWidth: 690,
 
-    backgroundColor: '#CCE2FF',
+    backgroundColor: theme.palette.background.chatMyMessage,
     borderRadius: 20,
   },
   rootIsIncomming: {
-    backgroundColor: '#EBEBEB',
+    backgroundColor: `${theme.palette.background.chatIncomeMessage} !important`,
   },
 
   timeText: {
     fontSize: '14px',
     minWidth: 40,
+
+    color: theme.palette.text.second,
   },
 
   messageText: {
@@ -29,7 +31,7 @@ export const useClassNames = makeStyles()(() => ({
     whiteSpace: 'pre-wrap',
     fontSize: 18,
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
 
     width: '100%',
   },

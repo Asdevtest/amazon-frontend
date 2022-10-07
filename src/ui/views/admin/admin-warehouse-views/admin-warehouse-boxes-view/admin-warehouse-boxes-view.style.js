@@ -1,5 +1,3 @@
-// import {createStyles} from '@mui/material'
-
 export const styles = theme => ({
   sendOwnProductBtn: {
     marginBottom: theme.spacing(2),

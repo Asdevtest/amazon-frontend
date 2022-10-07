@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
     flex: 1,
@@ -12,7 +12,7 @@ export const useClassNames = makeStyles()(() => ({
     overflow: 'hidden',
 
     boxShadow: '0px 2px 10px 2px rgba(150, 150, 150, 0.15)',
-    background: '#FFFFFF',
+    backgroundColor: theme.palette.background.main,
   },
   chatsWrapper: {
     width: '276px',
@@ -33,14 +33,14 @@ export const useClassNames = makeStyles()(() => ({
 
   noChatTitle: {
     fontSize: 24,
-    color: '#656565',
+    color: theme.palette.text.second,
     margin: '30px 0 10px',
   },
 
   noChatSubTitle: {
     fontSize: 18,
 
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   hideChatWrapper: {display: 'none'},
   hideChatsWrapper: {},

@@ -364,7 +364,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
             <Divider flexItem orientation={'vertical'} className={classNames.divider} />
 
             <div className={classNames.rightSideWrapper}>
-              <Typography>{rightSide?.title}</Typography>
+              <Typography className={classNames.rightSideTitle}>{rightSide?.title}</Typography>
 
               {rightSide?.permissions
                 ?.sort((a, b) => a.hierarchy - b.hierarchy)
@@ -380,7 +380,11 @@ export const NewAddOrEditUserPermissionsForm = observer(
                   >
                     <Box className={classNames.permissionWrapper} onClick={() => onChangePermissionCheckbox(item._id)}>
                       <Checkbox color="primary" checked={formFields.includes(item._id)} />
-                      <Typography className={cx({[classNames.keyPermission]: item.key.startsWith('SHOW_')})}>
+                      <Typography
+                        className={cx(classNames.permissionItem, {
+                          [classNames.keyPermission]: item.key.startsWith('SHOW_'),
+                        })}
+                      >
                         {item.title}
                       </Typography>
                     </Box>

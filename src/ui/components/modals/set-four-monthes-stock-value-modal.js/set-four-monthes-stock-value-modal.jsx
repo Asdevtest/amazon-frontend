@@ -1,11 +1,6 @@
 import {Box, Container, Typography} from '@mui/material'
 
-<<<<<<< HEAD
-import {Box, Container, Typography} from '@material-ui/core'
-import clsx from 'clsx'
-=======
 import React, {useState} from 'react'
->>>>>>> 56997012... success migration on 5 mui
 
 import {TranslationKey} from '@constants/translations/translation-key'
 

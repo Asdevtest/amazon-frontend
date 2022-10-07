@@ -1,5 +1,3 @@
-// import {createStyles} from '@mui/material'
-
 export const styles = {
   tableHeadTypography: {
     color: 'rgb(61, 81, 112)',

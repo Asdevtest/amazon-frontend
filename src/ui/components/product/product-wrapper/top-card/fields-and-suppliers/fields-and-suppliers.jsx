@@ -98,11 +98,17 @@ export const FieldsAndSuppliers = observer(
                   target="_blank"
                   rel="noopener"
                   href={checkAndMakeAbsoluteUrl(product.lamazon)}
-                  className={cx({[classNames.linkDecoration]: !edit || !product.lamazon})}
+                  className={cx(classNames.inputLink, {[classNames.linkDecoration]: !edit || !product.lamazon})}
                 >
                   <Input
                     disabled={edit}
-                    classes={{input: cx(classNames.inputLink, {[classNames.linkOnEdit]: edit && product.lamazon})}}
+                    classes={{
+                      input: cx(
+                        classNames.inputLink,
+                        {[classNames.inputDisabled]: edit},
+                        {[classNames.linkOnEdit]: edit && product.lamazon},
+                      ),
+                    }}
                     placeholder={!product.lamazon ? t(TranslationKey['Enter link']) : ''}
                     value={product.lamazon}
                     onChange={onChangeField('lamazon')}
@@ -159,7 +165,15 @@ export const FieldsAndSuppliers = observer(
                     }
                     value={product.asin}
                     inputProps={{maxLength: 254}}
-                    className={classNames.inputAsin}
+                    className={cx(classNames.inputAsin, {
+                      [classNames.inputDisabled]: !(
+                        checkIsClient(curUserRole) &&
+                        product.isCreatedByClient &&
+                        clientToEditStatuses.includes(productBase.status) &&
+                        checkIsClient(curUserRole) &&
+                        !product.archive
+                      ),
+                    })}
                     onChange={onChangeField('asin')}
                   />
                   {product.asin ? <CopyValue text={product.asin} /> : null}

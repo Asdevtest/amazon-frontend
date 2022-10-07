@@ -36,6 +36,9 @@ export const useClassNames = makeStyles()(() => ({
   heightFieldAuto: {
     height: '141px',
     width: '100%',
+
+    padding: 0,
+    border: 'none',
   },
 
   buttonOk: {
