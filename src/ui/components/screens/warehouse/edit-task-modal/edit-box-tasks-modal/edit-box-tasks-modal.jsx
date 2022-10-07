@@ -494,7 +494,7 @@ export const EditBoxTasksModal = ({
             small
             direction={window.screen.width < 768 ? 'column' : 'row'}
             files={box.images}
-            width="300px"
+            width={window.screen.width < 768 ? '400px' : '300px'}
           />
         </div>
       </div>

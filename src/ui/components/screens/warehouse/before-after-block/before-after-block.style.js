@@ -427,10 +427,11 @@ export const useClassNames = makeStyles(() => ({
       marginTop: '30px',
     },
     fieldsWrapper: {
+      margin: '0 5px',
       flexDirection: 'column',
     },
     field: {
-      width: '280px',
+      width: '100%',
     },
     smallLabel: {
       fontSize: '14px',
@@ -441,10 +442,10 @@ export const useClassNames = makeStyles(() => ({
       padding: '20px 20px',
     },
     currentBox: {
-      maxWidth: '280px',
+      width: '100%',
     },
     newBoxes: {
-      width: '280px',
+      width: '100%',
     },
     mobileDemensions: {
       fontSize: '14px',
@@ -455,8 +456,8 @@ export const useClassNames = makeStyles(() => ({
       gap: '30px',
     },
     photoSubWrapper: {
-      height: '200px',
-      marginLeft: '-50px',
+      height: '250px',
+      // marginLeft: '-50px',
       // display: 'flex',
       // justifyContent: 'center',
     },
@@ -465,11 +466,15 @@ export const useClassNames = makeStyles(() => ({
       textAlign: 'center',
     },
     photoWrapper: {
-      width: '280px',
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
       marginLeft: 0,
     },
     imagesWrapper: {
-      width: '280px',
+      width: '100%',
       // marginRight: 20,
       // paddingRight: 60,
     },
@@ -499,7 +504,7 @@ export const useClassNames = makeStyles(() => ({
       cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     },
     receiveBoxWrapper: {
-      width: '280px',
+      width: '100%',
       marginBottom: '50px',
     },
 

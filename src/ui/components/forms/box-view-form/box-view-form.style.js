@@ -293,7 +293,7 @@ export const useClassNames = makeStyles(() => ({
       marginBottom: 0,
     },
     titleSubWrapper: {
-      width: '100%',
+      width: '280px',
       flexDirection: 'column',
       justifyContent: 'start',
       alignItems: 'start',
@@ -301,7 +301,7 @@ export const useClassNames = makeStyles(() => ({
       marginBottom: '10px',
     },
     deliveryInfoWrapper: {
-      width: '100%',
+      width: '280px',
       display: 'flex',
       flexDirection: 'column',
     },
@@ -319,6 +319,8 @@ export const useClassNames = makeStyles(() => ({
     },
     photoWrapper: {
       width: '280px',
+      height: '240px',
+      paddingBottom: '10px',
     },
     amazonTitle: {
       display: 'flex',

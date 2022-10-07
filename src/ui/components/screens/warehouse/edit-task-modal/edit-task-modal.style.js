@@ -158,6 +158,10 @@ export const useClassNames = makeStyles(theme => ({
     width: '690px',
   },
 
+  imageAndFileInputWrapper: {
+    width: '690px',
+  },
+
   successBtn: {
     width: '183px',
     height: '40px',
@@ -200,7 +204,8 @@ export const useClassNames = makeStyles(theme => ({
 
   '@media (max-width: 768px)': {
     root: {
-      width: '280px',
+      width: '100%',
+      maxWidth: '520px',
       overflow: 'hidden',
     },
     modalTitle: {
@@ -223,25 +228,32 @@ export const useClassNames = makeStyles(theme => ({
 
     heightFieldAuto: {
       height: '96px',
-      width: '280px',
+      width: '100%',
     },
 
     commentsWrapper: {
-      width: '280px',
+      width: '100%',
       flexDirection: 'column',
       alignItems: 'center',
       gap: '20px',
     },
-    // commentsAndFilesWrapper: {
-    //   width: '280px',
-    //   flexDirection: 'column',
-    // },
-    imageFileInputWrapper: {
-      display: 'flex',
-      justifyContent: 'center',
+    commentsAndFilesWrapper: {
       width: '100%',
+      flexDirection: 'column',
+    },
+    imageFileInputWrapper: {
+      width: '100%',
+
       padding: '0 10px',
     },
+    imageAndFileInputWrapper: {
+      width: '100%',
+      minWidth: '280px',
+
+      display: 'flex',
+      justifyContent: 'center',
+    },
+
     horizontalDivider: {
       display: 'none',
     },
@@ -249,7 +261,6 @@ export const useClassNames = makeStyles(theme => ({
     buttonsWrapper: {
       display: 'flex',
       justifyContent: 'center',
-      gap: '20px',
     },
     successBtn: {
       width: '121px',

@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core'
 export const useClassNames = makeStyles(() => ({
   dialogPadding: {
     padding: '40px 30px',
+    height: '100%',
   },
 
   warningDialogPadding: {
@@ -35,10 +36,19 @@ export const useClassNames = makeStyles(() => ({
   },
   '@media (max-width: 768px)': {
     dialogPadding: {
-      padding: '30px 20px',
+      padding: '30px 10px',
     },
     closeIcon: {
-      visibility: 'hidden',
+      zIndex: 999,
+      color: '#006CFF',
+      position: 'absolute',
+      top: '10px',
+      right: '10px',
+      transition: '0.3s ease',
+      cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+      '&:hover': {
+        transform: 'scale(1.2)',
+      },
     },
   },
 }))

@@ -172,7 +172,8 @@ export const useClassNames = makeStyles(() => ({
 
   '@media (max-width: 768px)': {
     modalWrapper: {
-      width: '280px',
+      width: '100%',
+      maxWidth: '520px',
     },
     modalTitle: {
       color: '#001029',
@@ -182,7 +183,7 @@ export const useClassNames = makeStyles(() => ({
       marginBottom: '24px',
     },
     imageFileInputWrapper: {
-      width: '280px',
+      width: '100%',
     },
     label: {
       fontSize: '14px',
@@ -191,13 +192,14 @@ export const useClassNames = makeStyles(() => ({
     },
     numberInputFieldsBlocksWrapper: {
       flexDirection: 'column',
-      width: '280px',
+      width: '100%',
     },
     numberInputFieldsWrapper: {
       flexDirection: 'row',
     },
     photoAndFilesTitleMobileWrapper: {
-      marginLeft: '-15px',
+      display: 'flex',
+      justifyContent: 'center',
     },
     photoAndFilesTitle: {
       textAlign: 'center',

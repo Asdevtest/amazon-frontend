@@ -17,4 +17,10 @@ export const useClassNames = makeStyles(() => ({
   chatWrapperIsSelected: {
     borderBottomColor: '#006CFF',
   },
+
+  '@media (max-width: 768px)': {
+    root: {
+      borderRadius: '4px',
+    },
+  },
 }))

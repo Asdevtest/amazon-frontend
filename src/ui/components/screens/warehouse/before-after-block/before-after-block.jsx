@@ -479,7 +479,7 @@ const Box = observer(
                         small
                         direction={window.screen.width < 768 ? 'column' : 'row'}
                         files={box.images}
-                        width={'340px'}
+                        width={window.screen.width < 768 ? '375px' : '340px'}
                       />
                     </div>
 
@@ -536,7 +536,7 @@ const Box = observer(
                         small
                         direction={window.screen.width < 768 ? 'column' : 'row'}
                         files={box.items[0].order.images}
-                        width="340px"
+                        width={window.screen.width < 768 ? '380px' : '340px'}
                       />
                     </div>
                   </div>

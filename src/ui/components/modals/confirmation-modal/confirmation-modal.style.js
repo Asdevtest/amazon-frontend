@@ -101,7 +101,7 @@ export const useClassNames = makeStyles(() => ({
 
   '@media (max-width: 768px)': {
     modalMessageWrapper: {
-      width: '180px',
+      width: '300px',
       minHeight: '0',
       height: '122px',
 

@@ -99,7 +99,7 @@ export const useClassNames = makeStyles({
   },
   mainWrapper: {
     display: 'flex',
-    // justifyContent: 'space-between',
+
     width: '100%',
     // padding: '10px',
     gap: '10px',
@@ -168,11 +168,23 @@ export const useClassNames = makeStyles({
 
   '@media (max-width: 768px)': {
     root: {
-      width: '280px',
+      width: '100%',
+    },
+    mainWrapper: {
+      width: '100%',
+
+      justifyContent: 'space-between',
     },
     img: {
       width: '85px',
       height: '85px',
+    },
+    attributeWrapper: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'end',
+      gap: '10px',
     },
     attributeHeaderWrapper: {
       flexDirection: 'column',
@@ -188,7 +200,7 @@ export const useClassNames = makeStyles({
       gap: '14px',
     },
     title: {
-      width: '243px',
+      width: '100%',
     },
     countSubWrapper: {
       gap: '10px',

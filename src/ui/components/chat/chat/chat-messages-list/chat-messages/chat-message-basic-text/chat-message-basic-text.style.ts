@@ -52,7 +52,7 @@ export const useClassNames = makeStyles(() => ({
   },
   '@media (max-width: 768px)': {
     filesMainWrapper: {
-      width: '230px',
+      // width: '120px',
     },
     messageText: {
       marginRight: '30px !important',

@@ -142,6 +142,13 @@ export const styles = createStyles(() => ({
     '@media (max-width: 768px)': {
       chatWrapper: {
         height: '100%',
+        padding: '0 10px',
+      },
+      chatHeaderWrapper: {
+        padding: '0 10px',
+      },
+      newDialogBtn: {
+        width: '223px',
       },
     },
   },

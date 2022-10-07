@@ -49,6 +49,7 @@ export const useClassNames = makeStyles(() => ({
       width: '100%',
       height: '100%',
     },
+
     hideChatWrapper: {
       display: 'none',
     },

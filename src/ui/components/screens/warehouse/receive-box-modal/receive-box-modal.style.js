@@ -221,7 +221,10 @@ export const useClassNames = makeStyles(theme => ({
   },
   '@media (max-width: 768px)': {
     root: {
-      width: '300px',
+      width: '100%',
+    },
+    currentBoxesWrapper: {
+      width: '100%',
     },
 
     modalTitle: {
@@ -232,7 +235,7 @@ export const useClassNames = makeStyles(theme => ({
       marginBottom: '27px',
     },
     boxesWrapper: {
-      width: '300px',
+      width: '100%',
       // marginLeft: '-10px',
       // marginRight: '-20px',
       flexDirection: 'column',
@@ -345,6 +348,9 @@ export const useClassNames = makeStyles(theme => ({
     },
     cancelButton: {
       color: '#001029',
+    },
+    error: {
+      border: '1px solid red',
     },
   },
 }))
