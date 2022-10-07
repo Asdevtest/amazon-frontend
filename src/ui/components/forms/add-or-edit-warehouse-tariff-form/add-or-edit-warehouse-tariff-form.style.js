@@ -56,7 +56,6 @@ export const useClassNames = makeStyles(() => ({
     root: {
       minWidth: 0,
       width: '280px',
-      margin: '0 -10px',
     },
     fieldLabel: {
       fontSize: '14px',

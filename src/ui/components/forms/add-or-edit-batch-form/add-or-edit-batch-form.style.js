@@ -207,7 +207,6 @@ export const useClassNames = makeStyles(() => ({
   '@media (max-width: 768px)': {
     root: {
       width: '280px',
-      margin: '0 -10px',
     },
     modalTitle: {
       fontWeight: '600',
@@ -247,12 +246,19 @@ export const useClassNames = makeStyles(() => ({
       width: '280px',
     },
     imageFileInputWrapper: {
+      width: '280px',
       flexDirection: 'column',
+
       gap: '40px',
     },
-    filesWrapper: {
+    imageAndFileInputWrapper: {
       width: '280px',
-      overflow: 'auto',
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    filesWrapper: {
+      overflow: 'hidden',
+      margin: 0,
     },
     btnsWrapper: {
       marginTop: '30px',

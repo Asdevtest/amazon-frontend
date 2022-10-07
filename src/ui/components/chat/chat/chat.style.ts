@@ -179,13 +179,13 @@ export const useClassNames = makeStyles(() => ({
     },
     sendBtn: {width: 40, height: 40, borderRadius: '50%'},
     bottomPartWrapper: {
-      padding: '10px 20px',
+      padding: '10px 40px 10px 10px',
       width: '100vw',
     },
     emojisWrapper: {
       zIndex: 999,
       position: 'absolute',
-      left: 'calc(100% - 245px)',
+      left: 'calc(100% - 270px)',
       right: 0,
       bottom: 70,
       transform: 'translate(-50%, 0%)',

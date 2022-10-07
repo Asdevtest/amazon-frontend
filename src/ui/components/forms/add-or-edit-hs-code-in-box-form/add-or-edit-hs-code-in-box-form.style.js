@@ -107,7 +107,13 @@ export const useClassNames = makeStyles({
       // marginBottom: theme.spacing(2.5),
       display: 'flex',
       flexDirection: 'column',
-      width: '300px',
+      width: '100%',
+    },
+    buttonsWrapper: {
+      marginTop: '30px',
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '10px',
     },
   },
 })

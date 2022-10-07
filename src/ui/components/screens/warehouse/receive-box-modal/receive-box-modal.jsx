@@ -243,7 +243,12 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
             <div className={classNames.tableRow}>
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey.Quantity)}</Typography>
               <Input
-                classes={{root: classNames.inputWrapper, input: classNames.input}}
+                classes={{
+                  root: clsx(classNames.inputWrapper, {
+                    [classNames.error]: !item.items[0].amount || item.items[0].amount === 0,
+                  }),
+                  input: classNames.input,
+                }}
                 inputProps={{maxLength: 6}}
                 value={item.items[0].amount}
                 onChange={e => onChangeQtyInput(e, item._id, item.items[0].order)}
@@ -252,7 +257,12 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
             <div className={classNames.tableRow}>
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Number of superboxes'])}</Typography>
               <Input
-                classes={{root: classNames.inputWrapper, input: classNames.input}}
+                classes={{
+                  root: clsx(classNames.inputWrapper, {
+                    [classNames.error]: !item.amount || item.amount === '0',
+                  }),
+                  input: classNames.input,
+                }}
                 inputProps={{maxLength: 6}}
                 value={item.amount}
                 onChange={e => onChangeFieldInput(e, item._id, 'amount')}
@@ -272,16 +282,26 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
                 <Typography className={classNames.sizeTitle}>{t(TranslationKey.L) + ': '}</Typography>
 
                 <Input
-                  classes={{root: classNames.inputWrapper, input: classNames.input}}
+                  classes={{
+                    root: clsx(classNames.inputWrapper, {
+                      [classNames.error]: !item.lengthCmWarehouse || item.lengthCmWarehouse === '0',
+                    }),
+                    input: classNames.input,
+                  }}
                   inputProps={{maxLength: 6}}
-                  value={item.heightCmWarehouse}
-                  onChange={e => onChangeFieldInput(e, item._id, 'heightCmWarehouse')}
+                  value={item.lengthCmWarehouse}
+                  onChange={e => onChangeFieldInput(e, item._id, 'lengthCmWarehouse')}
                 />
               </div>
               <div className={classNames.sizeWrapper}>
                 <Typography className={classNames.sizeTitle}>{t(TranslationKey.W) + ': '}</Typography>
                 <Input
-                  classes={{root: classNames.inputWrapper, input: classNames.input}}
+                  classes={{
+                    root: clsx(classNames.inputWrapper, {
+                      [classNames.error]: !item.widthCmWarehouse || item.widthCmWarehouse === '0',
+                    }),
+                    input: classNames.input,
+                  }}
                   inputProps={{maxLength: 6}}
                   value={item.widthCmWarehouse}
                   onChange={e => onChangeFieldInput(e, item._id, 'widthCmWarehouse')}
@@ -290,17 +310,27 @@ const NewBoxes = ({newBoxes, onChangeQtyInput, onChangeFieldInput, onRemoveBox, 
               <div className={classNames.sizeWrapper}>
                 <Typography className={classNames.sizeTitle}>{t(TranslationKey.H) + ': '}</Typography>
                 <Input
-                  classes={{root: classNames.inputWrapper, input: classNames.input}}
+                  classes={{
+                    root: clsx(classNames.inputWrapper, {
+                      [classNames.error]: !item.heightCmWarehouse || item.heightCmWarehouse === '0',
+                    }),
+                    input: classNames.input,
+                  }}
                   inputProps={{maxLength: 6}}
-                  value={item.lengthCmWarehouse}
-                  onChange={e => onChangeFieldInput(e, item._id, 'lengthCmWarehouse')}
+                  value={item.heightCmWarehouse}
+                  onChange={e => onChangeFieldInput(e, item._id, 'heightCmWarehouse')}
                 />
               </div>
             </div>
             <div className={classNames.tableRow}>
               <Typography className={classNames.boxTitleMobile}>{t(TranslationKey['Weight, kg'])}</Typography>
               <Input
-                classes={{root: classNames.inputWrapper, input: classNames.input}}
+                classes={{
+                  root: clsx(classNames.inputWrapper, {
+                    [classNames.error]: !item.weighGrossKgWarehouse || item.weighGrossKgWarehouse === '0',
+                  }),
+                  input: classNames.input,
+                }}
                 inputProps={{maxLength: 6}}
                 value={item.weighGrossKgWarehouse}
                 onChange={e => onChangeFieldInput(e, item._id, 'weighGrossKgWarehouse')}

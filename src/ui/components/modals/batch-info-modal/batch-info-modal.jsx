@@ -149,6 +149,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
             oneLine
             label={t(TranslationKey['Int warehouse']) + ': '}
             containerClasses={classNames.storekeeperField}
+            labelClasses={classNames.fieldLabel}
             inputComponent={
               <div className={classNames.userLinkWrapper}>
                 <UserLinkCell blackText name={batch.storekeeper?.name} userId={batch.storekeeper?._id} />
@@ -161,6 +162,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
           <Field
             disabled
             containerClasses={classNames.infoField}
+            labelClasses={classNames.subFieldLabel}
             label={t(TranslationKey['Batch number'])}
             value={batch?.humanFriendlyId}
             placeholder={'N/A'}
@@ -169,6 +171,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
           <Field
             disabled
             containerClasses={classNames.sumField}
+            labelClasses={classNames.subFieldLabel}
             label={t(TranslationKey.Tariff)}
             value={(batch.boxes && getFullTariffTextForBoxOrOrder(batch.boxes?.[0])) || ''}
             placeholder={'N/A'}
@@ -177,6 +180,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
           <Field
             disabled
             containerClasses={classNames.sumField}
+            labelClasses={classNames.subFieldLabel}
             label={t(TranslationKey.Destination)}
             value={batch.boxes?.[0].destination?.name}
             placeholder={'N/A'}
@@ -185,6 +189,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
           <Field
             disabled
             containerClasses={classNames.sumField}
+            labelClasses={classNames.subFieldLabel}
             label={t(TranslationKey['Volume weight'])}
             value={toFixed(
               batch.boxes?.reduce((ac, cur) => (ac += calcVolumeWeightForBox(cur, volumeWeightCoefficient)), 0),
@@ -196,6 +201,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
           <Field
             disabled
             containerClasses={classNames.sumField}
+            labelClasses={classNames.subFieldLabel}
             label={t(TranslationKey['Final weight'])}
             value={toFixed(
               batch.boxes?.reduce((ac, cur) => (ac += calcFinalWeightForBox(cur, volumeWeightCoefficient)), 0),
@@ -207,6 +213,7 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
           <Field
             disabled
             containerClasses={classNames.sumField}
+            labelClasses={classNames.subFieldLabel}
             label={t(TranslationKey['Total price'])}
             value={toFixed(
               batch.boxes?.reduce((ac, cur) => (ac += calcPriceForBox(cur)), 0),
@@ -239,16 +246,14 @@ export const BatchInfoModal = observer(({openModal, setOpenModal, batch, volumeW
           rowsHandlers={{openBoxView}}
           volumeWeightCoefficient={volumeWeightCoefficient}
         />
-
-        <Field
-          containerClasses={classNames.filesWrapper}
-          label={t(TranslationKey.Files)}
-          inputComponent={
-            <div className={classNames.filesSubWrapper}>
-              <PhotoAndFilesCarousel small files={batch.attachedDocuments} width="400px" />
-            </div>
-          }
-        />
+        <div className={classNames.filesSubWrapper}>
+          <PhotoAndFilesCarousel
+            small
+            direction={window.innerWidth < 768 ? 'column' : 'row'}
+            files={batch.attachedDocuments}
+            width="400px"
+          />
+        </div>
 
         <div className={classNames.buttonsWrapper}>
           <Button

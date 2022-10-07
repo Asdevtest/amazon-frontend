@@ -84,4 +84,12 @@ export const useClassNames = makeStyles(() => ({
   closeBtn: {
     width: '140px',
   },
+  error: {
+    color: 'red',
+  },
+  errorWrapper: {
+    display: 'flex',
+    justifyContent: 'end',
+    marginTop: '-20px',
+  },
 }))

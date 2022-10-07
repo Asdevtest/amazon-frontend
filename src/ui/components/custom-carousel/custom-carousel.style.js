@@ -94,6 +94,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   imagesAndFilesWrapperColumn: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -153,6 +154,8 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
+    width: '100%',
+    minWidth: '400px',
     alignItems: 'center',
     margin: '24px 0 24px 0',
   },
@@ -166,7 +169,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   emptyProposalsDescriptionWrapper: {
-    marginLeft: '5%',
+    // marginLeft: '5%',
   },
 
   emptyProposalsTitle: {
@@ -227,7 +230,7 @@ export const useClassNames = makeStyles(() => ({
 
     minHeight: 60,
     // height: 50,
-    maxHeight: 70,
+    maxHeight: 105,
     objectFit: 'contain',
   },
 

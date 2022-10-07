@@ -35,7 +35,12 @@ export const ChatMessageBasicText: FC<Props> = observer(({message, isIncomming, 
 
         {message.files.length ? (
           <div className={classNames.filesMainWrapper}>
-            <PhotoAndFilesCarousel notToShowEmpty small files={message.files} width="250px" />
+            <PhotoAndFilesCarousel
+              notToShowEmpty
+              small
+              files={message.files}
+              width={window.innerWidth < 768 ? '150px' : '250px'}
+            />
           </div>
         ) : undefined}
       </div>

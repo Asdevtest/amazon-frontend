@@ -134,12 +134,19 @@ export const useClassNames = makeStyles({
 
   '@media (max-width: 768px)': {
     root: {
-      width: '280px',
+      width: '100%',
     },
 
     img: {
       width: '85px',
       height: '85px',
+    },
+    attributeWrapper: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'end',
+      gap: '10px',
     },
     attributeHeaderWrapper: {
       flexDirection: 'column',
@@ -154,7 +161,7 @@ export const useClassNames = makeStyles({
     },
 
     title: {
-      width: '243px',
+      width: '100%',
     },
   },
 })

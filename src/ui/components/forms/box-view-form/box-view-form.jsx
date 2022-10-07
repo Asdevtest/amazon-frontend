@@ -56,7 +56,7 @@ export const BoxViewForm = observer(
           <div className={classNames.titleSubWrapper}>
             <Field
               oneLine
-              label={'Storekeeper: '}
+              label={`${t(TranslationKey['Int warehouse'])}:`}
               containerClasses={classNames.storekeeperField}
               inputComponent={
                 <div className={classNames.userLinkWrapper}>

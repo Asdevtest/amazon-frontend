@@ -23,4 +23,16 @@ export const useClassNames = makeStyles(() => ({
     width: '118px',
     fontSize: '18px',
   },
+  '@media (max-width: 768px)': {
+    modalMessageWrapper: {
+      width: '260px',
+      minHeight: '120px',
+      gap: '20px',
+    },
+    title: {
+      textAlign: 'center',
+      width: '280px',
+      fontSize: '14px',
+    },
+  },
 }))

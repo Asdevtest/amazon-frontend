@@ -1,13 +1,9 @@
 import {makeAutoObservable, runInAction} from 'mobx'
 
-import {BatchStatus} from '@constants/batch-status'
 import {WarehouseDashboardCardDataKey} from '@constants/dashboard-configs'
 import {loadingStatuses} from '@constants/loading-statuses'
-import {mapTaskStatusEmumToKey, TaskStatus} from '@constants/task-status'
 
-import {BatchesModel} from '@models/batches-model'
 import {ClientModel} from '@models/client-model'
-import {StorekeeperModel} from '@models/storekeeper-model'
 import {UserModel} from '@models/user-model'
 
 export class WarehouseDashboardViewModel {
@@ -41,13 +37,10 @@ export class WarehouseDashboardViewModel {
     this.drawerOpen = !this.drawerOpen
   }
 
-  async loadData(id) {
+  async loadData() {
     try {
       this.setRequestStatus(loadingStatuses.isLoading)
-      await this.getTasksVacant()
-      await this.getTasksMy()
-      await this.getBoxesMy(id)
-      await this.getBatches()
+
       this.getDashboardElementCount()
       this.setRequestStatus(loadingStatuses.success)
     } catch (error) {
@@ -60,98 +53,20 @@ export class WarehouseDashboardViewModel {
     this.history.push(route)
   }
 
-  async getTasksVacant() {
-    try {
-      const result = await StorekeeperModel.getLightTasksVacant()
-      runInAction(() => {
-        this.dashboardData = {
-          ...this.dashboardData,
-          [WarehouseDashboardCardDataKey.VACANT_TASKS]: result.filter(
-            task => task.status === mapTaskStatusEmumToKey[TaskStatus.NEW],
-          ).length,
-        }
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  async getTasksMy() {
-    try {
-      const result = await StorekeeperModel.getLightTasksMy()
-      runInAction(() => {
-        this.dashboardData = {
-          ...this.dashboardData,
-          [WarehouseDashboardCardDataKey.TASKS_MY]: result.filter(
-            task => task.status === mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS],
-          ).length,
-          [WarehouseDashboardCardDataKey.COMPLETED_TASKS]: result.filter(
-            task => task.status === mapTaskStatusEmumToKey[TaskStatus.SOLVED],
-          ).length,
-
-          [WarehouseDashboardCardDataKey.CANCELED_TASKS]: result.filter(
-            task => task.status === mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED],
-          ).length,
-        }
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  async getBoxesMy() {
-    try {
-      const result = await StorekeeperModel.getBoxesMy()
-
-      runInAction(() => {
-        this.dashboardData = {
-          ...this.dashboardData,
-          [WarehouseDashboardCardDataKey.BOXES_IN_STORE]: result.length,
-          [WarehouseDashboardCardDataKey.REQUESTED_SEND_TO_BATCH]: result.filter(
-            box => box.status === WarehouseDashboardCardDataKey.REQUESTED_SEND_TO_BATCH,
-          ).length,
-        }
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
-
-  async getBatches() {
-    try {
-      const result = await BatchesModel.getBatches()
-      runInAction(() => {
-        this.dashboardData = {
-          ...this.dashboardData,
-          [WarehouseDashboardCardDataKey.SENT_BATCHES]: result.filter(
-            batch => batch.status === BatchStatus.HAS_DISPATCHED,
-          ).length,
-          [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: result.filter(
-            batch => batch.status === BatchStatus.IS_BEING_COLLECTED,
-          ).length,
-        }
-      })
-    } catch (error) {
-      console.log(error)
-      this.error = error
-    }
-  }
   async getDashboardElementCount() {
     try {
       const result = await ClientModel.getDashboardStorekeeperElementCount()
       console.log(result)
       runInAction(() => {
         this.dashboardData = {
-          ...this.dashboardData,
-          [WarehouseDashboardCardDataKey.SENT_BATCHES]: result.filter(
-            batch => batch.status === BatchStatus.HAS_DISPATCHED,
-          ).length,
-          [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: result.filter(
-            batch => batch.status === BatchStatus.IS_BEING_COLLECTED,
-          ).length,
+          [WarehouseDashboardCardDataKey.VACANT_TASKS]: result.tasks.vacant,
+          [WarehouseDashboardCardDataKey.TASKS_MY]: result.tasks.my,
+          [WarehouseDashboardCardDataKey.COMPLETED_TASKS]: result.tasks.completed,
+          [WarehouseDashboardCardDataKey.CANCELED_TASKS]: result.tasks.canceled,
+          [WarehouseDashboardCardDataKey.BOXES_IN_STORE]: result.boxes.all,
+          [WarehouseDashboardCardDataKey.SENT_BATCHES]: result.batches.sent,
+          [WarehouseDashboardCardDataKey.NOT_SENT_BATCHES]: result.batches.awaitingSend,
+          [WarehouseDashboardCardDataKey.REQUESTED_SEND_TO_BATCH]: result.boxes.requestedShipment,
         }
       })
     } catch (error) {
