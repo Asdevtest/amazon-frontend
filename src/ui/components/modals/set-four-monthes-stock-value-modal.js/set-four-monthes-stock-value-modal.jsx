@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 
 import {Box, Container, Typography} from '@material-ui/core'
+import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -15,7 +16,7 @@ import {useClassNames} from './set-four-monthes-stock-value-modal.style'
 export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selectedProduct}) => {
   const classNames = useClassNames()
 
-  const [newValue, setNewValue] = useState(selectedProduct?.fourMonthesStock)
+  const [newValue, setNewValue] = useState(selectedProduct?.fourMonthesStock || 0)
   // const [error, setError] = useState(false)
 
   // const stockSum =
@@ -32,6 +33,7 @@ export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selecte
   //     setError(false)
   //   }
   // }, [newValue])
+
   return (
     <Container disableGutters className={classNames.root}>
       <Typography className={classNames.modalTitle}>{title}</Typography>
@@ -39,15 +41,20 @@ export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selecte
       <Field
         containerClasses={classNames.field}
         // error={error && t(TranslationKey['The number entered must not exceed the " Stock sum" field'])}
-        inputProps={{maxLength: 255}}
+        inputProps={{maxLength: 12}}
         value={newValue}
         onChange={e => checkIsPositiveNum(e.target.value) && setNewValue(e.target.value)}
       />
+      <div className={classNames.errorWrapper}>
+        <span className={clsx(newValue.toString().length > 7 && classNames.error)}>{`${newValue.toString().length} ${t(
+          TranslationKey.of,
+        )} 7 ${t(TranslationKey.characters)}`}</span>
+      </div>
 
       <Box className={classNames.saveBox}>
         <Button
           success
-          disabled={/* error || */ !newValue}
+          disabled={/* error || */ !newValue || newValue.toString().length > 7}
           className={classNames.saveBtn}
           onClick={() => onSubmit(newValue)}
         >

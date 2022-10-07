@@ -485,9 +485,9 @@ export const EditBoxForm = observer(
                             ? `${storekeepers.find(el => el._id === boxFields.storekeeperId)?.name || 'N/A'} /  
                         ${
                           boxFields.storekeeperId
-                            ? `${tariffName}${regionOfDeliveryName ? ' / ' + regionOfDeliveryName : ''}${
-                                tariffRate ? ' / ' + tariffRate + ' $' : ''
-                              }`
+                            ? `${tariffName ? tariffName + ' / ' : ''}${
+                                regionOfDeliveryName ? regionOfDeliveryName : ''
+                              }${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : 'none'
                         }`
                             : t(TranslationKey.Select)}

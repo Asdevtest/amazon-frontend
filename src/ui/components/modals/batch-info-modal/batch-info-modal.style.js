@@ -186,4 +186,53 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  '@media (max-width: 768px)': {
+    form: {
+      width: '280px',
+      overflow: 'hidden',
+      marginBottom: theme.spacing(1),
+    },
+    titleWrapper: {
+      flexDirection: 'column',
+      alignItems: 'start',
+      gap: 15,
+    },
+    modalTitle: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      color: '#001029',
+      fontWeight: 600,
+      marginRight: 0,
+    },
+    fieldLabel: {
+      fontSize: '14px',
+      lineHeight: '16px',
+      color: '#001029',
+      fontWeight: 600,
+    },
+    infoWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      gap: '5px',
+    },
+    subFieldLabel: {
+      fontSize: '14px',
+      lineHeight: '19px',
+      color: '#656565',
+    },
+    searchInput: {
+      border: '1px solid #007bff',
+      width: '280px',
+      height: 36,
+    },
+
+    filesSubWrapper: {
+      width: '100%',
+      minWidth: '280px',
+
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  },
 }))
