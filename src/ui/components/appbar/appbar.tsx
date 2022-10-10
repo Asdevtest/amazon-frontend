@@ -55,13 +55,13 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
 
   const savedLastCrumbAdditionalText = localStorage.getItem('last')
 
-  // const renderNavbarButton = (
-  //   <Hidden mdUp>
-  //     <IconButton onClick={setDrawerOpen}>
-  //       <MenuIcon classes={{root: classNames.menuIcon}} />
-  //     </IconButton>
-  //   </Hidden>
-  // )
+  const renderNavbarButton = (
+    <Hidden mdUp>
+      <IconButton onClick={setDrawerOpen}>
+        <MenuIcon classes={{root: classNames.menuIcon}} />
+      </IconButton>
+    </Hidden>
+  )
   useEffect(() => {
     if (location.pathname !== '/profile') {
       SettingsModel.setBreadcrumbsForProfile(location.pathname)
@@ -106,7 +106,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
       <div className={classNames.mainWrapper}>
         <Paper className={classNames.appbar}>
           <div className={classNames.toolbar}>
-            {/* {renderNavbarButton} */}
+            {renderNavbarButton}
 
             <div className={classNames.titleWrapper}>
               <Typography className={classNames.title}>{title}</Typography>
