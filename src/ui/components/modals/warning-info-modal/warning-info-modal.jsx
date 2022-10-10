@@ -22,7 +22,7 @@ export const WarningInfoModal = ({openModal, setOpenModal, title, btnText, onCli
     return () => {
       document.removeEventListener('keydown', listener)
     }
-  }, [])
+  }, [openModal])
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>

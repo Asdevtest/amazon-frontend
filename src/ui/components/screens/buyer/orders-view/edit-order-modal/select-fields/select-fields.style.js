@@ -24,8 +24,8 @@ export const useClassNames = makeStyles(() => ({
   },
 
   commentInput: {
-    fontSize: '13px',
-    height: 'auto',
+    fontSize: '14px',
+    height: '75px',
 
     marginTop: '2px',
 

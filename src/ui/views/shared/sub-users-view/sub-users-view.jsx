@@ -115,7 +115,7 @@ class SubUsersViewRaw extends Component {
                   }
                   onChange={onChangeNameSearchValue}
                 />
-                <div>
+                <div className={classNames.buttonWrapper}>
                   <Button
                     success
                     tooltipInfoContent={t(TranslationKey['Add your own sub-user'])}

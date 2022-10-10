@@ -67,5 +67,25 @@ export const styles = createStyles(theme => ({
     toolbarContainer: {
       visibility: 'hidden',
     },
+    subUserHeader: {
+      width: '100%',
+      flexDirection: 'column',
+    },
+    searchInput: {
+      width: '100%',
+    },
+    searchContainer: {
+      marginTop: 0,
+      width: '100%',
+      marginRight: 0,
+    },
+    addUserButton: {
+      width: '280px',
+    },
+    buttonWrapper: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+    },
   },
 }))
