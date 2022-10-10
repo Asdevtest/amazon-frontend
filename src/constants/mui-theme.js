@@ -127,6 +127,8 @@ export const lightTheme = createTheme({
 
       chatIncomeMessage: '#EBEBEB',
       chatMyMessage: '#CCE2FF',
+
+      tableCurRow: '#baffba',
     },
 
     linearGradient: {
@@ -246,6 +248,8 @@ export const darkTheme = createTheme({
 
       chatIncomeMessage: '#36363F',
       chatMyMessage: '#384C68',
+
+      tableCurRow: '#388E3C',
     },
 
     linearGradient: {

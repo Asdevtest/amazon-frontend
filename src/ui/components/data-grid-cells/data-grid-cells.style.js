@@ -323,7 +323,7 @@ export const styles = theme => ({
   imgNum: {
     fontWeight: 600,
     fontSize: 14,
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     width: '50px',
   },
   imgWrapper: {
@@ -790,7 +790,7 @@ export const styles = theme => ({
   },
 
   downloadLink: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
@@ -1111,7 +1111,7 @@ export const styles = theme => ({
   },
 
   selectedLabel: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   selectedIndicator: {
     backgroundColor: '#006CFF',

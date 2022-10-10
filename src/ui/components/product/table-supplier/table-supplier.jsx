@@ -57,9 +57,9 @@ export const TableSupplier = observer(({product, selectedSupplier, onClickSuppli
               <TableRow
                 key={`supplier_${supplier.id}_${index}`}
                 className={cx({
-                  [classNames.tableRowSelectedSupplier]: selectedSupplier && supplier._id === selectedSupplier._id,
                   [classNames.tableRowAcceptedSupplier]:
                     product.currentSupplierId && product.currentSupplierId === supplier._id,
+                  [classNames.tableRowSelectedSupplier]: selectedSupplier && supplier._id === selectedSupplier._id,
                 })}
                 onClick={() => onClickSupplier(supplier, index)}
               >

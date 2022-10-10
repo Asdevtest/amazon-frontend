@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -494,7 +494,7 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   restrictMoreThanOneProposal: {
     fontWeight: '600',

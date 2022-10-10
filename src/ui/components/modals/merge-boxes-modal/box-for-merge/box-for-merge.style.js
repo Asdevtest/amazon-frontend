@@ -149,7 +149,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 400,
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   copyImg: {
     width: '20px',

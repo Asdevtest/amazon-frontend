@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
     borderRadius: '4px',
@@ -129,7 +129,7 @@ export const useClassNames = makeStyles()(() => ({
   tablePanelViewText: {
     fontSize: '20px',
     lineHeight: '23px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
 
     marginRight: '15px',
   },
@@ -296,8 +296,17 @@ export const useClassNames = makeStyles()(() => ({
   supplierSearchTitle: {
     fontWeight: 600,
     fontSize: 18,
-    color: '#001029',
+    // color: '#001029',
+    color: theme.palette.text.general,
   },
+  demensionsTitle: {
+    color: theme.palette.text.general,
+  },
+
+  noDataText: {
+    color: theme.palette.text.second,
+  },
+
   supplierActionsWrapper: {
     display: 'flex',
   },
@@ -341,6 +350,8 @@ export const useClassNames = makeStyles()(() => ({
     display: 'flex',
     justifyContent: 'end',
     marginTop: '-20px',
+
+    color: theme.palette.text.second,
   },
   error: {
     color: 'red',

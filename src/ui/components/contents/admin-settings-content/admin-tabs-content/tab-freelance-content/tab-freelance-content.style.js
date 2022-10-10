@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -79,7 +79,7 @@ export const useClassNames = makeStyles()(() => ({
 
   tabItemActiveButton: {
     height: '50px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     backgroundColor: 'inherit',
     borderBottom: '1px solid #006CFF',
     fontSize: '18px',

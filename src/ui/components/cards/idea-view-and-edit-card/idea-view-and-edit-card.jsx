@@ -312,7 +312,7 @@ export const IdeaViewAndEditCard = observer(
                           </div>
                         ))
                       ) : (
-                        <Typography>{t(TranslationKey['No data'])}</Typography>
+                        <Typography className={classNames.noDataText}>{t(TranslationKey['No data'])}</Typography>
                       )}
                     </div>
                   </div>
@@ -341,7 +341,7 @@ export const IdeaViewAndEditCard = observer(
 
                 <div className={classNames.sizesWrapper}>
                   <div className={classNames.sizesSubWrapper}>
-                    <Typography>{t(TranslationKey.Demensions)}</Typography>
+                    <Typography className={classNames.demensionsTitle}>{t(TranslationKey.Demensions)}</Typography>
 
                     <ToggleBtnGroup exclusive size="small" color="primary" value={sizeSetting} onChange={handleChange}>
                       <ToggleBtn disabled={sizeSetting === sizesType.INCHES} value={sizesType.INCHES}>

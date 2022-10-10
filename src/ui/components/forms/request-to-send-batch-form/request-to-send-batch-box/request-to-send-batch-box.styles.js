@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   box: {
     display: 'flex',
     alignItems: 'center',
@@ -161,7 +161,7 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   downloadLink: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {

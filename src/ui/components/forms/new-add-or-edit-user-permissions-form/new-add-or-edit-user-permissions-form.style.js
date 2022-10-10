@@ -202,7 +202,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   tab: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     textTransform: 'inherit',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },

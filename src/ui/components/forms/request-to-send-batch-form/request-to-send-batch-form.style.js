@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   dialogContextClassName: {},
   content: {
     width: '100%',
@@ -19,7 +19,7 @@ export const useClassNames = makeStyles()(() => ({
     color: 'red',
   },
   noWarningText: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   btnsWrapper: {
     flex: 1,

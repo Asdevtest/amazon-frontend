@@ -253,7 +253,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   menuIcon: {
-    color: '#006CFF',
+    // color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   themeIcon: {
@@ -374,7 +375,8 @@ export const useClassNames = makeStyles()(theme => ({
       background: '#fff',
 
       borderBottom: 0,
-      color: '#006CFF',
+      // color: '#006CFF',
+      color: theme.palette.primary.main,
     },
     menuWrapper: {
       display: 'flex',

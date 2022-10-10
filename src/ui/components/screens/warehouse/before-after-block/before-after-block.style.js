@@ -2,7 +2,7 @@ import {tooltipClasses} from '@mui/material/Tooltip'
 
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   boxWrapper: {
     padding: '20px 30px',
     margin: '0 2px',
@@ -276,7 +276,7 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 400,
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   photoAndFilesTitle: {
@@ -306,7 +306,7 @@ export const useClassNames = makeStyles()(() => ({
   barCodeField: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     fontWeight: '400',
   },
 
@@ -390,7 +390,7 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   selectedLabel: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   selectedIndicator: {
     backgroundColor: '#006CFF',

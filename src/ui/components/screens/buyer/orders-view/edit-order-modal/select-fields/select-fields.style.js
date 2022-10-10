@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalText: {
     color: 'rgba(61, 81, 112, 1)',
     fontSize: '14px',
@@ -139,7 +139,7 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   blueLabel: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   greenLabel: {

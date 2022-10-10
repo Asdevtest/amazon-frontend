@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
     display: 'flex',
@@ -132,7 +132,7 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 }))

@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
     padding: '15px 15px',
     width: '500px',
@@ -37,7 +37,7 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   label: {
     fontSize: '12px',

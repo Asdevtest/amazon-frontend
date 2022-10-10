@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '850px',
   },
@@ -31,7 +31,7 @@ export const useClassNames = makeStyles()(() => ({
   searchBtnText: {
     fontSize: '14px',
     lineHeight: '17px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   filtersWrapper: {

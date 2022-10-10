@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -61,7 +61,7 @@ export const useClassNames = makeStyles()(() => ({
 
   tabItemActiveButton: {
     height: '50px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     backgroundColor: 'inherit',
     borderBottom: '1px solid #006CFF',
     fontSize: '18px',
@@ -202,7 +202,7 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   proxy: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     fontSize: '16px',
     lineHeight: '19px',
   },
@@ -238,7 +238,7 @@ export const useClassNames = makeStyles()(() => ({
   tablePanelViewText: {
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
 
     marginRight: '15px',
   },

@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
     display: 'flex',
@@ -146,7 +146,7 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   price: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   photoWrapper: {

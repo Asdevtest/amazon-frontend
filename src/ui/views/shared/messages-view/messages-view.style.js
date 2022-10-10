@@ -50,7 +50,7 @@ export const styles = theme => ({
     height: 18,
     marginLeft: 20,
     transition: '.2s ease',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
 
     '&:hover': {
       transform: 'scale(1.1)',

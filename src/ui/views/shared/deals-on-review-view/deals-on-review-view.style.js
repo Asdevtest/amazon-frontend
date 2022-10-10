@@ -1,4 +1,4 @@
-export const styles = () => ({
+export const styles = theme => ({
   dealsOnReviewWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -23,7 +23,7 @@ export const styles = () => ({
   tablePanelViewText: {
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
 
     marginRight: '15px',
   },

@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalMessageWrapper: {
     width: '586px',
     minHeight: '168px',
@@ -66,7 +66,7 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   applyBtn: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   estimateCostWrapper: {
@@ -99,7 +99,7 @@ export const useClassNames = makeStyles()(() => ({
   reqMultiplier: {
     marginLeft: 10,
     fontSize: 16,
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   multiplierWrapper: {

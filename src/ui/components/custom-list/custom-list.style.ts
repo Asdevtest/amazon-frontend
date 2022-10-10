@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   listItem: {
     padding: 0,
   },
@@ -18,6 +18,6 @@ export const useClassNames = makeStyles()(() => ({
 
   dot: {
     width: '10px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 }))

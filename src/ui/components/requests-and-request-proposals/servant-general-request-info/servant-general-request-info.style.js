@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
     // flexDirection: 'column',
@@ -243,7 +243,7 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   price: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '19px',

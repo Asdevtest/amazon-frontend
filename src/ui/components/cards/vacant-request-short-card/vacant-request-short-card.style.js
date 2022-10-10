@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
     minHeight: '373px',
     borderRadius: '4px',
@@ -78,7 +78,7 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '14px',
     lineHeight: '17px',
     fontWeight: '600',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   cardTime: {

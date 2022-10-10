@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -239,7 +239,7 @@ export const useClassNames = makeStyles()(() => ({
     cursor: 'pointer',
   },
   selectedLabel: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   selectedIndicator: {
     backgroundColor: '#006CFF',

@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     height: '120px',
     minWidth: '320px',
@@ -32,7 +32,7 @@ export const useClassNames = makeStyles()(() => ({
     padding: '10px 10px 0 0',
     '&:hover': {
       backgroundColor: 'inherit',
-      color: '#006CFF',
+      color: theme.palette.primary.main,
     },
   },
   subTitleWrapper: {

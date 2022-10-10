@@ -61,7 +61,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   tabItemActiveButton: {
     height: '50px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     backgroundColor: 'inherit',
     borderBottom: '1px solid #006CFF',
     fontSize: '18px',
