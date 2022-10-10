@@ -10,7 +10,7 @@ export const useClassNames = makeStyles(() => ({
   },
   cancelBtn: {
     marginLeft: '50px',
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
   },
 
   button: {

@@ -48,7 +48,7 @@ export class MessagesViewModel {
 
         setTimeout(() => {
           this.showProgress = false
-        }, 3000)
+        }, 5000)
       }
     }
 

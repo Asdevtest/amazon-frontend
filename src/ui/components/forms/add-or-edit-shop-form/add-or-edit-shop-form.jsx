@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 
 import {Typography} from '@material-ui/core'
+import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -86,8 +87,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
         <Button
           disableElevation
           tooltipInfoContent={t(TranslationKey['Closes the store creation/editing window without saving'])}
-          className={[classNames.button, classNames.cancelBtn]}
-          variant="contained"
+          className={clsx(classNames.button, classNames.cancelBtn)}
           onClick={() => onCloseModal()}
         >
           {t(TranslationKey.Cancel)}

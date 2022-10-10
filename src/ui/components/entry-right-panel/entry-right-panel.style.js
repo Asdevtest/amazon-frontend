@@ -5,6 +5,10 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    // flexDirection: 'column',
+
+    // height: '100vh',
+    // width: '100%',
     flexGrow: 1,
     backgroundColor: '#fff',
     padding: '48px 64px',
@@ -13,9 +17,11 @@ export const useClassNames = makeStyles(theme => ({
     },
   },
   formWrapper: {
+    justifySelf: 'center',
+
     minWidth: '300px',
     maxWidth: '600px',
-    flex: '1 1 300px',
+    // flex: '1 1 300px',
     [theme.breakpoints.down('sm')]: {
       flex: '0 1 60%',
     },
@@ -46,5 +52,11 @@ export const useClassNames = makeStyles(theme => ({
   redirectWrapper: {
     display: 'flex',
     alignItems: 'center',
+  },
+
+  version: {
+    alignSelf: 'flex-end',
+    justifySelf: 'flex-end',
+    transform: 'translate(150%, 0)',
   },
 }))

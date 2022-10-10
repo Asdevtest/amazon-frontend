@@ -32,6 +32,8 @@ export const EntryRightPanel = ({onClickRedirect, redirect, title, children}) =>
         <Divider className={classNames.divider} />
         {children}
       </div>
+
+      <Typography className={classNames.version}>{'version: 1.0.0'}</Typography>
     </div>
   )
 }
