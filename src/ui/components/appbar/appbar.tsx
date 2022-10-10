@@ -1,11 +1,19 @@
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import PersonIcon from '@mui/icons-material/Person'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
+import {Hidden} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {useRef, useState, FC, useEffect, ReactFragment} from 'react'
 
-import {Avatar, Divider, Paper, Typography, Hidden, IconButton} from '@material-ui/core'
+import {
+  Avatar,
+  Divider,
+  Paper,
+  Typography,
+  /* Hidden,*/
+  IconButton,
+} from '@material-ui/core'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
@@ -62,6 +70,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
       </IconButton>
     </Hidden>
   )
+
   useEffect(() => {
     if (location.pathname !== '/profile') {
       SettingsModel.setBreadcrumbsForProfile(location.pathname)

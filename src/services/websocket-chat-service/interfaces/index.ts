@@ -9,6 +9,7 @@ export interface WebsocketChatServiceHandlers {
   [ChatHandlerName.onConnectionError]?: (error: Error) => void
   [ChatHandlerName.onNewMessage]?: (message: ChatMessage) => void
   // [ChatHandlerName.onNewChat]?: (chat: Chat) => void
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [x: string | symbol]: ((...args: any[]) => void) | undefined
 }
