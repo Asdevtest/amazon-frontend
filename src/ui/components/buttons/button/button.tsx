@@ -28,6 +28,7 @@ interface Props {
   onClick?: () => void
   disableElevation?: boolean
   btnWrapperStyle?: string
+  children: any
 }
 
 export const Button: FC<Props> = observer(

@@ -1555,5 +1555,6 @@
   "ASIN cannot contain empty values": "ASIN не может содержать пустые значения",
   "Sizes from buyer": "Размеры от байера",
   "Incorrect email or password": "Некорректный емайл или пароль",
-  "Search by name, email": "Поиск по имени, почте"
+  "Search by name, email": "Поиск по имени, почте",
+  "Creating a Chat": "Создание чата"
 }

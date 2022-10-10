@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from 'mobx'
+import {makeAutoObservable, runInAction, reaction} from 'mobx'
 
 import {ChatModel} from '@models/chat-model'
 import {SettingsModel} from '@models/settings-model'
@@ -16,6 +16,8 @@ export class MessagesViewModel {
   chatSelectedId = undefined
 
   nameSearchValue = ''
+
+  showProgress = false
 
   get user() {
     return UserModel.userInfo
@@ -36,13 +38,33 @@ export class MessagesViewModel {
   constructor({history, location}) {
     this.history = history
 
-    if (location.state) {
+    if (location.state?.anotherUserId) {
       this.chatSelectedId = this.simpleChats.find(el =>
         el.users.map(e => e._id).includes(location.state.anotherUserId),
       )?._id
+
+      if (!this.chatSelectedId) {
+        this.showProgress = true
+
+        setTimeout(() => {
+          this.showProgress = false
+        }, 3000)
+      }
     }
 
     makeAutoObservable(this, undefined, {autoBind: true})
+
+    reaction(
+      () => this.simpleChats,
+      () => {
+        if (
+          location.state?.anotherUserId &&
+          this.simpleChats.some(el => el.users.map(e => e._id).includes(location.state?.anotherUserId))
+        ) {
+          this.showProgress = false
+        }
+      },
+    )
   }
 
   async loadData() {

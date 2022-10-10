@@ -177,6 +177,10 @@ export class ClientInventoryViewModel {
     })
   }
 
+  get userInfo() {
+    return UserModel.userInfo
+  }
+
   constructor({history, location}) {
     this.history = history
 

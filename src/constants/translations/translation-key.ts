@@ -1554,7 +1554,7 @@ export enum TranslationKey {
   'Sizes from buyer' = 'Sizes from buyer',
   'Incorrect email or password' = 'Incorrect email or password',
   'Search by name, email' = 'Search by name, email',
-  // '' = '',
+  'Creating a Chat' = 'Creating a Chat',
 
   // '' = '',
   // '' = '',

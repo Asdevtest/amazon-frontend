@@ -20,7 +20,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './add-suppliers-modal.style'
 import Template from './template.xlsx'
 
-export const AddSuppliersModal = ({product, onSubmit, onClose, showProgress, progressValue}) => {
+export const AddSuppliersModal = ({userInfo, onSubmit, onClose, showProgress, progressValue}) => {
   const classNames = useClassNames()
 
   const [images, setImages] = useState('')
@@ -37,8 +37,8 @@ export const AddSuppliersModal = ({product, onSubmit, onClose, showProgress, pro
       <div className={classNames.idWrapper}>
         <Typography>{`${t(TranslationKey['Your ID'])}:`}</Typography>
         <div className={classNames.copyWrapper}>
-          <Typography>{product?.originalData.client._id}</Typography>
-          <CopyValue text={product.originalData.client._id} />
+          <Typography>{userInfo._id}</Typography>
+          <CopyValue text={userInfo._id} />
         </div>
       </div>
 
