@@ -1,4 +1,6 @@
-export const styles = theme => ({
+import {makeStyles} from 'tss-react/mui'
+
+export const useClassNames = makeStyles()(theme => ({
   root: {
     minHeight: '36px !important',
     minWidth: '36px !important',
@@ -81,4 +83,4 @@ export const styles = theme => ({
     position: 'relative',
     display: 'inline',
   },
-})
+}))

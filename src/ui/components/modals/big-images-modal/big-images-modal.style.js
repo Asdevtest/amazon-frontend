@@ -6,6 +6,11 @@ export const useClassNames = makeStyles()(() => ({
     width: '50vw',
     height: '70vh',
   },
+  carouselWrapper: {
+    textAlign: 'center',
+    width: '55vw',
+  },
+
   closeIcon: {
     color: 'white',
   },
@@ -32,5 +37,7 @@ export const useClassNames = makeStyles()(() => ({
   mainWrapper: {
     position: 'relative',
     overflow: 'visible',
+    // width: '50vw',
+    // height: '70vh',
   },
 }))

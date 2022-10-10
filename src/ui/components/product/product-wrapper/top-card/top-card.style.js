@@ -131,7 +131,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '350px',
   },
   carouselImageWrapper: {
-    // width: '100%',
+    // width: '300px',
     height: '300px',
     display: 'flex',
     alignItems: 'center',

@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import CssBaseline from '@mui/material/CssBaseline'
 import {
   ThemeProvider, // createTheme,
 } from '@mui/material/styles'
@@ -37,6 +38,7 @@ export const MainNav = observer(() => {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Router>
         <Switch>
           {generateRedirects()}

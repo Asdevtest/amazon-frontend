@@ -13,13 +13,15 @@ export const BigImagesModal = ({openModal, setOpenModal, images, isAmazone, imgI
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <Carousel autoPlay={false} timeout={100} animation="fade" index={imgIndex}>
-        {images.map((el, index) => (
-          <div key={index} className={classNames.mainWrapper}>
-            <img alt="" className={classNames.imgBox} src={isAmazone ? getAmazonImageUrl(el) : el} />
-          </div>
-        ))}
-      </Carousel>
+      <div className={classNames.carouselWrapper}>
+        <Carousel autoPlay={false} timeout={100} animation="fade" index={imgIndex}>
+          {images.map((el, index) => (
+            <div key={index} className={classNames.mainWrapper}>
+              <img alt="" className={classNames.imgBox} src={isAmazone ? getAmazonImageUrl(el) : el} />
+            </div>
+          ))}
+        </Carousel>
+      </div>
     </Modal>
   )
 }

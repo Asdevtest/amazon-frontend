@@ -44,7 +44,7 @@ export const App = () => {
     // <ThemeProvider theme={lightTheme}>
     <div className="App">
       <Sentry.ErrorBoundary showDialog fallback={myFallback}>
-        <CssBaseline />
+        {/* <CssBaseline /> */}
 
         <MainNav />
       </Sentry.ErrorBoundary>

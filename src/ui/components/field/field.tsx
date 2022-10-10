@@ -26,6 +26,8 @@ interface Props {
   error?: string
   oneLine?: boolean
   withIcon?: boolean
+  // children?: React.ReactNode
+  // inputComponent?: JSX.Element | JSX.Element[]
 }
 
 export const Field: FC<Props> = observer(
@@ -40,6 +42,7 @@ export const Field: FC<Props> = observer(
     tooltipAttentionContent,
     tooltipInfoContent,
     withIcon,
+
     ...restProps
   }) => {
     const {classes: classNames} = useClassNames()
@@ -52,44 +55,46 @@ export const Field: FC<Props> = observer(
 
     return (
       <div className={cx(classNames.root, containerClasses, {[classNames.rootOneLine]: oneLine})}>
-        <div className={classNames.labelWrapper}>
-          {label ? (
-            <Typography className={cx(classNames.label, labelClasses, {[classNames.labelOneLine]: oneLine})}>
-              {label}
-            </Typography>
-          ) : null}
+        <>
+          <div className={classNames.labelWrapper}>
+            {label ? (
+              <Typography className={cx(classNames.label, labelClasses, {[classNames.labelOneLine]: oneLine})}>
+                {label}
+              </Typography>
+            ) : null}
 
-          {(tooltipAttentionContent || tooltipInfoContent) && label ? (
-            <div className={classNames.tooltipsWrapper}>
-              {tooltipAttentionContent ? (
-                <Tooltip arrow title={tooltipAttentionContent} placement="top-end">
-                  <img className={classNames.tooltip} src="/assets/icons/attention.svg" />
-                </Tooltip>
-              ) : null}
+            {(tooltipAttentionContent || tooltipInfoContent) && label ? (
+              <div className={classNames.tooltipsWrapper}>
+                {tooltipAttentionContent ? (
+                  <Tooltip arrow title={tooltipAttentionContent} placement="top-end">
+                    <img className={classNames.tooltip} src="/assets/icons/attention.svg" />
+                  </Tooltip>
+                ) : null}
 
-              {tooltipInfoContent && showHints ? (
-                <Tooltip arrow title={tooltipInfoContent} placement="top-end">
-                  <img className={cx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
-                </Tooltip>
-              ) : null}
-            </div>
-          ) : null}
-        </div>
-        {inputComponent ||
-          (withIcon ? (
-            <InputWithIcon
-              classes={{input: classNames.input, disabled: classNames.inputDisabled}}
-              className={cx(classNames.input, inputClasses, {[classNames.errorActive]: !!error})}
-              {...restProps}
-            />
-          ) : (
-            <Input
-              classes={{input: classNames.input, disabled: classNames.inputDisabled}}
-              className={cx(classNames.input, inputClasses, {[classNames.errorActive]: !!error})}
-              {...restProps}
-            />
-          ))}
-        {error && <Typography className={classNames.errorText}>{error}</Typography>}
+                {tooltipInfoContent && showHints ? (
+                  <Tooltip arrow title={tooltipInfoContent} placement="top-end">
+                    <img className={cx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
+                  </Tooltip>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
+          {inputComponent ||
+            (withIcon ? (
+              <InputWithIcon
+                classes={{input: classNames.input, disabled: classNames.inputDisabled}}
+                className={cx(classNames.input, inputClasses, {[classNames.errorActive]: !!error})}
+                {...restProps}
+              />
+            ) : (
+              <Input
+                classes={{input: classNames.input, disabled: classNames.inputDisabled}}
+                className={cx(classNames.input, inputClasses, {[classNames.errorActive]: !!error})}
+                {...restProps}
+              />
+            ))}
+          {error && <Typography className={classNames.errorText}>{error}</Typography>}
+        </>
       </div>
     )
   },

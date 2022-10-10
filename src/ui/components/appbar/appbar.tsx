@@ -8,7 +8,7 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {useRef, useState, FC, useEffect, ReactFragment} from 'react'
+import React, {useRef, useState, FC, useEffect, ReactElement} from 'react'
 
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -38,7 +38,7 @@ interface Props {
   curUserRole: string
   setDrawerOpen: () => void
   lastCrumbAdditionalText?: string
-  children?: ReactFragment
+  children: ReactElement
 }
 
 export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, lastCrumbAdditionalText}) => {

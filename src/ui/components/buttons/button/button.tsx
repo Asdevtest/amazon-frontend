@@ -1,17 +1,13 @@
 import {cx} from '@emotion/css'
-// import {ClassNamesArg} from '@emotion/react'
-// import {ClassNameMap} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
-// import {CSSObject} from '@mui/system'
 import React, {FC, ReactElement, useEffect, useState} from 'react'
 
 import {observer} from 'mobx-react'
-import {withStyles} from 'tss-react/mui'
 
 import {SettingsModel} from '@models/settings-model'
 
-import {styles} from './button.style'
+import {useClassNames} from './button.style'
 import {StyledButton} from './styled-button'
 
 enum tooltipPositions {
@@ -32,11 +28,10 @@ interface Props {
   onClick?: () => void
   disableElevation?: boolean
   btnWrapperStyle?: string
-  // classes: ClassNamesArg | undefined // any /* ClassNamesArg | undefined*/ // ClassNameMap
-  classes: any
+  children?: string
 }
 
-const ButtonRaw: FC<Props> = observer(
+export const Button: FC<Props> = observer(
   ({
     tooltipAttentionContent,
     tooltipInfoContent,
@@ -49,11 +44,9 @@ const ButtonRaw: FC<Props> = observer(
     className,
     disabled,
     btnWrapperStyle,
-    classes,
     ...restProps
   }) => {
-    // const classNames = useClassNames
-    const classNames = classes
+    const {classes: classNames} = useClassNames()
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
 
@@ -68,11 +61,18 @@ const ButtonRaw: FC<Props> = observer(
           color={color || 'primary'}
           disabled={disabled}
           variant={variant || 'contained'}
-          className={cx(classNames.root, className, {
-            [classNames.success]: success,
-            [classNames.danger]: danger,
-            [classNames.disabled]: disabled,
-          })}
+          // className={cx(classNames.root, className, {
+          //   [classNames.success]: success,
+          //   [classNames.danger]: danger,
+          //   [classNames.disabled]: disabled,
+          // })}
+          classes={{
+            root: cx(classNames.root, className, {
+              [classNames.success]: success,
+              [classNames.danger]: danger,
+              [classNames.disabled]: disabled,
+            }),
+          }}
           {...restProps}
         >
           {children}
@@ -97,4 +97,4 @@ const ButtonRaw: FC<Props> = observer(
   },
 )
 
-export const Button = withStyles(ButtonRaw, styles)
+// export const Button = withStyles(ButtonRaw, styles)

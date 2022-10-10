@@ -35,12 +35,13 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: 'inherit',
     borderRadius: 0,
 
-    color: theme.palette.text.primary,
+    color: theme.palette.text.secondary,
     '&:hover': {backgroundColor: '#0000ff0a'},
   },
 
   subCategory: {
     padding: '0 20px 0 56px',
     width: '100%',
+    // color: theme.palette.text.secondary,
   },
 }))

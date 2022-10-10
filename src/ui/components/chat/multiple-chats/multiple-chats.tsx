@@ -99,7 +99,7 @@ export const MultipleChats = observer(
         <div ref={ref} className={classNames.root}>
           {
             <div
-              className={clsx(classNames.chatsWrapper, {
+              className={cx(classNames.chatsWrapper, {
                 [classNames.hideChatsWrapper]: isNotUndefined(chatSelectedId) && findChatByChatId,
               })}
             >
