@@ -3,7 +3,7 @@ import PersonIcon from '@mui/icons-material/Person'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {useRef, useState, FC, useEffect} from 'react'
+import React, {useRef, useState, FC, useEffect, ReactFragment} from 'react'
 
 import {Avatar, Divider, Paper, Typography, Hidden, IconButton} from '@material-ui/core'
 import Menu from '@material-ui/core/Menu'
@@ -38,6 +38,7 @@ interface Props {
   curUserRole: string
   setDrawerOpen: () => void
   lastCrumbAdditionalText?: string
+  children?: ReactFragment
 }
 
 export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, lastCrumbAdditionalText}) => {
@@ -54,13 +55,13 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
 
   const savedLastCrumbAdditionalText = localStorage.getItem('last')
 
-  const renderNavbarButton = (
-    <Hidden mdUp>
-      <IconButton onClick={setDrawerOpen}>
-        <MenuIcon classes={{root: classNames.menuIcon}} />
-      </IconButton>
-    </Hidden>
-  )
+  // const renderNavbarButton = (
+  //   <Hidden mdUp>
+  //     <IconButton onClick={setDrawerOpen}>
+  //       <MenuIcon classes={{root: classNames.menuIcon}} />
+  //     </IconButton>
+  //   </Hidden>
+  // )
   useEffect(() => {
     if (location.pathname !== '/profile') {
       SettingsModel.setBreadcrumbsForProfile(location.pathname)
@@ -105,7 +106,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
       <div className={classNames.mainWrapper}>
         <Paper className={classNames.appbar}>
           <div className={classNames.toolbar}>
-            {renderNavbarButton}
+            {/* {renderNavbarButton} */}
 
             <div className={classNames.titleWrapper}>
               <Typography className={classNames.title}>{title}</Typography>

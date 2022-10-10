@@ -22,6 +22,7 @@ interface Props {
   className?: string
   containerClasses?: string
   style?: {}
+  children?: string
 }
 
 export const Text: FC<Props> = observer(

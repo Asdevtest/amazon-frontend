@@ -54,6 +54,7 @@ export class ClientInventoryViewRaw extends Component {
 
   render() {
     const {
+      userInfo,
       nameSearchValue,
       showInfoModalTitle,
       requestStatus,
@@ -530,7 +531,7 @@ export class ClientInventoryViewRaw extends Component {
 
         <Modal openModal={showAddSuppliersModal} setOpenModal={() => onTriggerOpenModal('showAddSuppliersModal')}>
           <AddSuppliersModal
-            product={productsMy.slice()[0]}
+            userInfo={userInfo}
             showProgress={showProgress}
             progressValue={progressValue}
             onSubmit={uploadTemplateFile}

@@ -14,6 +14,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 import {Appbar} from '@components/appbar'
 import {Button} from '@components/buttons/button'
 import {MultipleChats} from '@components/chat/multiple-chats'
+import {CircularProgressWithLabel} from '@components/circular-progress-with-label'
 import {Field} from '@components/field'
 import {Main} from '@components/main'
 import {MainContent} from '@components/main-content'
@@ -37,6 +38,7 @@ class MessagesViewRaw extends Component {
 
   render() {
     const {
+      showProgress,
       typingUsers,
       noticeOfSimpleChats,
       nameSearchValue,
@@ -127,6 +129,7 @@ class MessagesViewRaw extends Component {
                   onClickBackButton={onClickBackButton}
                 />
               </div>
+              {showProgress && <CircularProgressWithLabel title={t(TranslationKey['Creating a Chat']) + '...'} />}
             </MainContent>
           </Appbar>
         </Main>
