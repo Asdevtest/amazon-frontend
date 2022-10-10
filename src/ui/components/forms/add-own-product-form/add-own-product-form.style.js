@@ -2,7 +2,7 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    width: '750px',
+    width: '700px',
   },
 
   mainTitle: {
@@ -82,7 +82,11 @@ export const useClassNames = makeStyles(() => ({
   },
 
   title: {
-    marginBottom: '25px',
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: 600,
+    color: '#001029',
+    marginBottom: '30px',
   },
 
   skuItemsWrapper: {
@@ -122,5 +126,10 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       opacity: '0.8',
     },
+  },
+  fieldLabel: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#656565',
   },
 }))

@@ -77,6 +77,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
       <Field
         label={t(TranslationKey['Amazon product link'])}
         tooltipInfoContent={t(TranslationKey['Provide a link to the product you want to add to Amazon'])}
+        labelClasses={classNames.fieldLabel}
         inputComponent={
           <div className={classNames.inputWrapper}>
             <Input
@@ -102,6 +103,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
       <Field
         inputProps={{maxLength: 50}}
         label={t(TranslationKey.ASIN)}
+        labelClasses={classNames.fieldLabel}
         value={formFields.asin}
         placeholder={t(TranslationKey.ASIN)}
         onChange={onChangeField('asin')}
@@ -112,6 +114,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
           oneLine
           tooltipInfoContent={t(TranslationKey['Opens additional fields to be filled in when adding a product'])}
           label={t(TranslationKey.No) + ' ASIN'}
+          labelClasses={classNames.fieldLabel}
           inputComponent={<Checkbox color="primary" checked={isNoAsin} />}
         />
       </div>
@@ -120,6 +123,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
         <div>
           <Field
             label={t(TranslationKey.SKU)}
+            labelClasses={classNames.fieldLabel}
             inputComponent={
               <div>
                 {formFields.skusByClient.length ? (
@@ -161,6 +165,7 @@ export const AddOwnProductForm = observer(({onSubmit, showProgress, progressValu
 
           <Field
             label={t(TranslationKey.Title)}
+            labelClasses={classNames.fieldLabel}
             value={formFields.amazonTitle}
             placeholder={t(TranslationKey.Title)}
             onChange={onChangeField('amazonTitle')}

@@ -47,12 +47,10 @@ export const WarehouseManagement = observer(() => {
   return (
     <React.Fragment>
       <Tabs
-        orientation="horizontal"
-        variant={'scrollable'}
+        variant="fullWidth"
         classes={{
           root: classNames.row,
           indicator: classNames.indicator,
-          flexContainer: classNames.flexContainer,
         }}
         value={tabIndex}
         onChange={(e, index) => setTabIndex(index)}

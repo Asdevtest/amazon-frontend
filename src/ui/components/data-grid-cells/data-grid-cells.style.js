@@ -822,7 +822,10 @@ export const styles = createStyles(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    gap: '10px',
+    gap: '40px',
+  },
+  addPermissionBtn: {
+    width: '251px',
   },
 
   sabUserWrapper: {

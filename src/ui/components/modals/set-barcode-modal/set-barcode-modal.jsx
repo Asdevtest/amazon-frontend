@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 
 import {Box, Container, Typography, Link} from '@material-ui/core'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
+import {CopyValue} from '@components/copy-value'
+import {Field} from '@components/field/field'
 import {UploadFilesInput} from '@components/upload-files-input'
 
 import {checkAndMakeAbsoluteUrl} from '@utils/text'
@@ -21,19 +22,21 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item
   const [files, setFiles] = useState(tmpCode?.length ? [...tmpCode] : [])
 
   return (
-    <Container disableGutters>
+    <Container disableGutters className={classNames.modalWrapper}>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Add barcode'])}</Typography>
 
       {barCode && (
-        <Box className={classNames.boxCode}>
-          <Typography className={clsx(classNames.modalText, classNames.typoCode)}>
-            {t(TranslationKey.BarCode)}
-          </Typography>
-
-          <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
-            <Typography className={classNames.link}>{barCode}</Typography>
-          </Link>
-        </Box>
+        <Field
+          label={t(TranslationKey.BarCode)}
+          inputComponent={
+            <div className={classNames.barCodeWrapper}>
+              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
+                <Typography className={classNames.link}>{barCode}</Typography>
+              </Link>
+              <CopyValue text={barCode} />
+            </div>
+          }
+        />
       )}
 
       <div className={classNames.imageFileInputWrapper}>
@@ -44,7 +47,9 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item
         <Button disabled={!files.length} className={classNames.saveBtn} onClick={() => onClickSaveBarcode([files[0]])}>
           {t(TranslationKey.Save)}
         </Button>
-        <Button onClick={onCloseModal}>{t(TranslationKey.Close)}</Button>
+        <Button variant="text" className={classNames.closeBtn} onClick={onCloseModal}>
+          {t(TranslationKey.Close)}
+        </Button>
       </Box>
     </Container>
   )

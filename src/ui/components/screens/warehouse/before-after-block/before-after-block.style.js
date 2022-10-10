@@ -94,6 +94,7 @@ export const useClassNames = makeStyles(() => ({
   },
   superWrapper: {
     display: 'flex',
+    alignItems: 'center',
     gap: '5px',
   },
   barCodeActionsWrapper: {

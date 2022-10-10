@@ -1,12 +1,15 @@
 import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
+  modalWrapper: {
+    width: '700px',
+  },
   modalTitle: {
-    color: 'rgb(61, 81, 112)',
-    fontSize: '24px',
-    fontWeight: 500,
-    lineHeight: '28px',
-    marginBottom: '24px',
+    color: '#001029',
+    fontSize: '18px',
+    fontWeight: 600,
+    lineHeight: '140%',
+    marginBottom: '30px',
   },
   modalText: {
     color: 'rgba(61, 81, 112, 1)',
@@ -70,16 +73,29 @@ export const useClassNames = makeStyles(() => ({
     width: '400px',
   },
   saveBox: {
-    textAlign: 'right',
-    marginTop: '16px',
+    display: 'flex',
+    gap: 20,
+    justifyContent: 'end',
+    marginTop: '40px',
   },
   saveBtn: {
-    marginRight: '8px',
+    width: '123px',
+    height: '40px',
+  },
+  closeBtn: {
+    width: '123px',
+    height: '40px',
+    color: '#001029',
   },
 
   link: {
-    width: '450px',
+    width: '660px',
+    textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    overflowX: 'auto',
+    overflow: 'hidden',
+  },
+  barCodeWrapper: {
+    display: 'flex',
+    gap: '10px',
   },
 }))

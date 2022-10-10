@@ -186,8 +186,10 @@ export const useClassNames = makeStyles({
       alignItems: 'end',
       gap: '10px',
     },
+    countWrapper: {flexDirection: 'column', alignItems: 'end', gap: '20px'},
     attributeHeaderWrapper: {
       flexDirection: 'column',
+      alignItems: 'end',
       gap: '14px',
     },
 

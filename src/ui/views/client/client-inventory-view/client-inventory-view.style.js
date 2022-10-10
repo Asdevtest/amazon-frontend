@@ -95,8 +95,11 @@ export const styles = createStyles({
   },
 
   icon: {
-    marginLeft: '15px',
-    justifySelf: 'flex-end',
+    // marginLeft: '15px',
+    position: 'absolute',
+    top: '11px',
+    right: '13px',
+
     width: 15,
     height: 15,
   },
@@ -114,9 +117,11 @@ export const styles = createStyles({
   },
 
   rightAddingBtn: {
-    width: 270,
+    width: 282,
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    position: 'relative',
+    paddingRight: '40px',
   },
 
   searchInput: {
