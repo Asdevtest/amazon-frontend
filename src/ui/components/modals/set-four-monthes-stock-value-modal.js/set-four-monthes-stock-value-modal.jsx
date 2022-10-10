@@ -60,7 +60,7 @@ export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selecte
         >
           {t(TranslationKey.Save)}
         </Button>
-        <Button className={classNames.closeBtn} onClick={onCloseModal}>
+        <Button variant="text" className={classNames.closeBtn} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
         </Button>
       </Box>

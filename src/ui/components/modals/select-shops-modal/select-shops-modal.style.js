@@ -18,11 +18,8 @@ export const useClassNames = makeStyles(() => ({
   modalMessageWrapper: {
     width: '425px',
     minHeight: '168px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0 28px',
+
+    padding: '0 20px',
     // gap: '20px',
   },
 
@@ -55,6 +52,9 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  allowedRoleContainer: {
+    margin: 0,
+  },
 
   warningButtonsWrapper: {
     borderRadius: '0 0 10px 10px',
@@ -69,9 +69,11 @@ export const useClassNames = makeStyles(() => ({
   },
 
   title: {
-    width: '350px',
     textAlign: 'center',
-    marginBottom: '11px',
+    marginBottom: '30px',
+    fontSize: '18px',
+    lineHeight: '140%',
+    fontWeight: 600,
   },
 
   warningTitle: {
@@ -101,13 +103,19 @@ export const useClassNames = makeStyles(() => ({
 
   shopsFieldWrapper: {
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: '25px',
   },
 
-  shopsSelect: {
-    width: '214px',
+  select: {
+    width: '167px',
+
+    border: '1px solid #e0e0e0',
+    padding: '10px 15px',
+    borderRadius: '4px',
   },
+
+  shopsSelect: {},
   selectMenu: {
     width: '317px',
   },
@@ -117,7 +125,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     gap: '10px',
     flexWrap: 'wrap',
-    marginBottom: '30px',
+    margin: '10px 0 20px',
   },
 
   selectedShop: {
@@ -151,5 +159,10 @@ export const useClassNames = makeStyles(() => ({
 
   deleteIcon: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
+  fieldLabel: {
+    fontSize: '14px',
+    lineHeight: '19px',
+    color: '#656565',
   },
 }))

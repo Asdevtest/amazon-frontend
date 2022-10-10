@@ -18,10 +18,13 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
 
   return (
     <div className={classNames.mainWrapper}>
-      <Typography variant="h4">{t(TranslationKey['Add a sub-user'])}</Typography>
+      <Typography variant="h4" className={classNames.modalTitle}>
+        {t(TranslationKey['Add a sub-user'])}
+      </Typography>
 
       <Field
         label={t(TranslationKey['Enter the email of the user you want to add'])}
+        labelClasses={classNames.labelField}
         type="email"
         onChange={e => setEmail(e.target.value)}
       />
@@ -37,7 +40,7 @@ export const LinkSubUserForm = ({closeModal, onSubmit}) => {
           {t(TranslationKey.Add)}
         </Button>
 
-        <Button disableElevation variant="contained" className={classNames.button} onClick={() => closeModal()}>
+        <Button variant="text" className={[classNames.button, classNames.cancelButton]} onClick={() => closeModal()}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

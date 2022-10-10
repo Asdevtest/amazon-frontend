@@ -1555,6 +1555,8 @@ export enum TranslationKey {
   'Incorrect email or password' = 'Incorrect email or password',
   'Search by name, email' = 'Search by name, email',
   'Creating a Chat' = 'Creating a Chat',
+  'Purchasing a product card' = 'Purchasing a product card',
+  // '' = '',
 
   // '' = '',
   // '' = '',

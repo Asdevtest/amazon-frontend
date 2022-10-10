@@ -33,7 +33,7 @@ export const subUsersColumns = (handlers, firstRowId) => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-    width: 365,
+    width: 485,
     renderCell: params => (
       <EditOrRemoveBtnsCell
         isSubUsersTable

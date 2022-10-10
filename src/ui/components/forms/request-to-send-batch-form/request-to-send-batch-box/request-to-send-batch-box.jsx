@@ -48,15 +48,15 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
   }
 
   return (
-    <div
+    <tr
       className={clsx(classNames.box, classNames.row, {[classNames.badBox]: isBadBox})}
       onDoubleClick={() => setShowBoxViewModal(!showBoxViewModal)}
     >
-      <div className={clsx(tableCellClsx, classNames.indexCell)}>
+      <td className={clsx(tableCellClsx, classNames.indexCell)}>
         <Typography variant="subtitle2">{`№ ${box.humanFriendlyId}`}</Typography>
-      </div>
+      </td>
 
-      <div className={clsx(tableCellClsx, classNames.productCell)}>
+      <td className={clsx(tableCellClsx, classNames.productCell)}>
         <div className={classNames.boxWrapper}>
           {box.amount > 1 ? (
             <div className={classNames.boxItemWrapper}>
@@ -169,9 +169,9 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
             ))
           )}
         </div>
-      </div>
+      </td>
 
-      <div className={clsx(tableCellClsx, classNames.dementionsCell)}>
+      <td className={clsx(tableCellClsx, classNames.dementionsCell)}>
         <div className={classNames.dementionsSubWrapper}>
           <Typography className={classNames.dementionsTitle}>{t(TranslationKey['Actual weight'])}</Typography>
 
@@ -209,9 +209,9 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
         {calcFinalWeightForBox(box, volumeWeightCoefficient) < 12 ? (
           <span className={classNames.alertText}>{`(${t(TranslationKey['Weight less than 12 kg!'])})`}</span>
         ) : null}
-      </div>
+      </td>
 
-      <div className={clsx(tableCellClsx, classNames.shippingLabelCell)}>
+      <td className={clsx(tableCellClsx, classNames.shippingLabelCell)}>
         <div className={classNames.shippingLabelWrapper}>
           <Typography className={clsx(classNames.spanText, {[classNames.alertSpan]: !box.shippingLabel})}>
             {t(TranslationKey['Shipping label'])}
@@ -228,8 +228,8 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
             <Typography className={classNames.alertSpan}>{t(TranslationKey.Missing)}</Typography>
           )}
         </div>
-      </div>
-      <div className={clsx(tableCellClsx, classNames.pricePerAmoutCell)}>
+      </td>
+      <td className={clsx(tableCellClsx, classNames.pricePerAmoutCell)}>
         {box.items.map((item, index) => (
           <div key={index}>
             <div className={clsx(tableCellClsx, classNames.priceCell)}>
@@ -268,21 +268,21 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
             </div>
           </div>
         ))}
-      </div>
+      </td>
 
-      <div className={clsx(tableCellClsx, classNames.priceCell)}>
+      <td className={clsx(tableCellClsx, classNames.priceCell)}>
         <Typography className={classNames.spanText}>{t(TranslationKey['Box delivery cost'])}</Typography>
-      </div>
+      </td>
 
-      <div className={clsx(tableCellClsx, classNames.priceCellRight)}>
+      <td className={clsx(tableCellClsx, classNames.priceCellRight)}>
         {price ? <Typography variant="h5">{toFixedWithDollarSign(price, 2)}</Typography> : null}
-      </div>
+      </td>
 
-      <div className={classNames.tableCellCrossBtn}>
+      <td className={classNames.tableCellCrossBtn}>
         <Button danger className={classNames.crossBtn} onClick={onClickRemoveBoxFromBatch}>
           X
         </Button>
-      </div>
+      </td>
 
       <Modal openModal={showBoxViewModal} setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}>
         <BoxViewForm
@@ -291,6 +291,6 @@ export const RequestToSendBatchBox = ({box, price, onClickRemoveBoxFromBatch, vo
           setOpenModal={() => setShowBoxViewModal(!showBoxViewModal)}
         />
       </Modal>
-    </div>
+    </tr>
   )
 }

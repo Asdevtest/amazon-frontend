@@ -5,8 +5,9 @@ export const useClassNames = makeStyles(() => ({
     minWidth: '500px',
   },
 
-  button: {
-    marginLeft: '10px',
+  button: {width: '121px', height: '40px'},
+  closeButton: {
+    color: '#001029',
   },
   multiline: {
     width: '100%',
@@ -51,6 +52,7 @@ export const useClassNames = makeStyles(() => ({
   btnsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: '20px',
   },
   '@media (max-width: 768px)': {
     root: {

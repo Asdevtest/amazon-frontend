@@ -215,7 +215,7 @@ export const clientInventoryDataConverter = data =>
     stockSum:
       item.amountInOrders +
       item.amountInBoxes +
-      item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.stockValue), 0) +
+      item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.fbaFbmStock), 0) +
       item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.reserved), 0) +
       item.productsInWarehouse?.reduce((ac, cur) => (ac += cur.sentToFba), 0),
 

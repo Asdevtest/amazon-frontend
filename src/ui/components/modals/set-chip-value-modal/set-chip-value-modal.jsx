@@ -17,7 +17,7 @@ export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue}) 
   const [newValue, setNewValue] = useState(sourceValue)
 
   return (
-    <Container disableGutters>
+    <Container disableGutters className={classNames.modalWrapper}>
       <Typography className={classNames.modalTitle}>{title}</Typography>
 
       <Field
@@ -31,7 +31,9 @@ export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue}) 
         <Button disabled={sourceValue === newValue} className={classNames.saveBtn} onClick={() => onSubmit(newValue)}>
           {t(TranslationKey.Save)}
         </Button>
-        <Button onClick={onCloseModal}>{t(TranslationKey.Close)}</Button>
+        <Button variant="text" className={classNames.closeBtn} onClick={onCloseModal}>
+          {t(TranslationKey.Close)}
+        </Button>
       </Box>
     </Container>
   )

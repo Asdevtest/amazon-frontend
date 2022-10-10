@@ -2,18 +2,45 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   button: {
-    color: 'white',
-    backgroundColor: 'rgb(0, 123, 255)',
-    textTransform: 'none',
-    marginLeft: '10px',
+    width: '144px',
+    height: '40px',
+  },
+  cancelButton: {
+    color: '#001029',
   },
   buttonWrapper: {
-    textAlign: 'right',
+    display: 'flex',
+    justifyContent: 'end',
+    gap: 20,
   },
   mainWrapper: {
     minWidth: '460px',
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
+  },
+  '@media (max-width: 768px)': {
+    mainWrapper: {
+      minWidth: '280px',
+
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '20px',
+    },
+    modalTitle: {
+      fontSize: '16px',
+      lineHeight: '22px',
+      fontWeight: 600,
+      color: '#001029',
+    },
+    labelField: {
+      fontSize: '14px',
+      lineHeight: '19px',
+      color: '#656565',
+    },
+    buttonWrapper: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
   },
 }))

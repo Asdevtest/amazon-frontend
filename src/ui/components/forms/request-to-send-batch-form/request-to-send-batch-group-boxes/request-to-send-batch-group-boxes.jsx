@@ -86,7 +86,7 @@ export const RequestToSendBatchesGroupBoxes = ({
         </div>
       )}
 
-      <div className={classNames.table}>
+      <table className={classNames.table}>
         {selectedGroup.boxes.map((boxId, index) => {
           const findBox = boxesMy.find(box => box._id === boxId._id)
           const findRequestToSendBatchPriceForCurBox = boxesDeliveryCosts.find(
@@ -94,7 +94,7 @@ export const RequestToSendBatchesGroupBoxes = ({
           )
 
           return (
-            <div key={`requestToSendBatchModalBox_${findBox._id}_${index}`} className={classNames.boxWrapper}>
+            <tbody key={`requestToSendBatchModalBox_${findBox._id}_${index}`} className={classNames.boxWrapper}>
               <RequestToSendBatchBox
                 volumeWeightCoefficient={volumeWeightCoefficient}
                 box={findBox}
@@ -103,10 +103,10 @@ export const RequestToSendBatchesGroupBoxes = ({
                 currentTariff={currentTariff}
                 onClickRemoveBoxFromBatch={() => onClickRemoveBoxFromBatch(boxId._id)}
               />
-            </div>
+            </tbody>
           )
         })}
-      </div>
+      </table>
       {selectedGroup.price !== 0 && (
         <div className={classNames.footerWrapper}>
           {tariffIsInvalid ? (

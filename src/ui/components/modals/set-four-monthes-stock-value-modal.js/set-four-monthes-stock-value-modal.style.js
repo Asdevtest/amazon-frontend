@@ -2,14 +2,15 @@ import {makeStyles} from '@material-ui/core'
 
 export const useClassNames = makeStyles(() => ({
   root: {
-    width: '365px',
+    width: '425px',
+    padding: '0 40px',
   },
   modalTitle: {
-    color: 'rgb(61, 81, 112)',
-    fontSize: '24px',
-    fontWeight: 500,
-    lineHeight: '28px',
-    marginBottom: '20px',
+    color: '#001029',
+    fontSize: '18px',
+    fontWeight: 600,
+    lineHeight: '140%',
+    marginBottom: '30px',
     textAlign: 'center',
   },
   modalText: {
@@ -79,10 +80,13 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '20px',
   },
   saveBtn: {
-    width: '140px',
+    width: '123px',
+    height: '40px',
   },
   closeBtn: {
-    width: '140px',
+    width: '123px',
+    height: '40px',
+    color: '#001029',
   },
   error: {
     color: 'red',

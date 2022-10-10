@@ -342,7 +342,7 @@ export const SelectFields = ({
             disabled
             multiline
             minRows={4}
-            maxRows={6}
+            maxRows={4}
             inputClasses={classNames.commentInput}
             value={orderFields.clientComment}
             label={t(TranslationKey['Client comment'])}
@@ -353,7 +353,7 @@ export const SelectFields = ({
             multiline
             disabled={disableSubmit}
             minRows={4}
-            maxRows={6}
+            maxRows={4}
             inputProps={{maxLength: 500}}
             inputClasses={classNames.commentInput}
             value={orderFields.buyerComment}

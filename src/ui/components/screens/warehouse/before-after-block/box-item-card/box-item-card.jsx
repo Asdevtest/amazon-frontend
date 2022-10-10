@@ -51,9 +51,10 @@ export const BoxItemCard = ({
               </div>
 
               {superCount > 1 && (
-                <Typography className={classNames.superCount}>{`${t(
-                  TranslationKey['Super Box'],
-                )} x ${superCount}`}</Typography>
+                <div className={classNames.countSubWrapper}>
+                  <Typography className={classNames.subTitle}>{t(TranslationKey['Super Box']) + ':'}</Typography>
+                  <Typography className={classNames.count}>{`x${superCount}`}</Typography>
+                </div>
               )}
             </div>
             {((readOnly && taskType === TaskOperationType.RECEIVE) || taskType !== TaskOperationType.RECEIVE) && (

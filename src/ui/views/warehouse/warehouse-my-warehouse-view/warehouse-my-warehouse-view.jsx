@@ -127,7 +127,7 @@ export class WarehouseMyWarehouseViewRaw extends Component {
                   rowsPerPageOptions={[15, 25, 50, 100]}
                   rows={getCurrentData()}
                   // rowHeight={225}
-                  getRowHeight={() => (window.innerWidth < 768 ? 134 : 'auto')}
+                  getRowHeight={() => 'auto'}
                   components={{
                     Toolbar: GridToolbar,
                   }}

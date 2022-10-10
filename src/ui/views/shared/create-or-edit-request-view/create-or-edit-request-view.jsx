@@ -67,7 +67,7 @@ export class CreateOrEditRequestView extends Component {
           openModal={showInfoModal}
           setOpenModal={() => onTriggerOpenModal('showInfoModal')}
           title={infoModalText}
-          btnText={t(TranslationKey.Close)}
+          btnText={t(TranslationKey.Ok)}
           onClickBtn={onClickOkInfoModal}
         />
       </React.Fragment>

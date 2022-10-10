@@ -1081,7 +1081,7 @@ export const EditOrRemoveBtnsCell = withStyles(styles)(
         variant="contained"
         color="primary"
         disabled={disableActionBtn}
-        className={classNames.rowCancelBtn}
+        className={[classNames.rowCancelBtn, classNames.addPermissionBtn]}
         onClick={() => handlers.onClickEditBtn(row)}
       >
         {isSubUsersTable ? t(TranslationKey['Assign permissions']) : t(TranslationKey.Edit)}

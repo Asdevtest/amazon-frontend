@@ -20,10 +20,11 @@ export const useClassNames = makeStyles(() => ({
   },
 
   title: {
-    fontSize: 16,
-    color: '#001029',
-    lineHeight: '22px',
+    fontSize: 14,
+
+    lineHeight: '19px',
     marginTop: '12px',
+    color: '#656565',
   },
   fontSizeLarge: {
     width: '45px',

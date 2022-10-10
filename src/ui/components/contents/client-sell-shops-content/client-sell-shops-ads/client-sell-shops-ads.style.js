@@ -81,13 +81,16 @@ export const useClassNames = makeStyles(() => ({
 
   searchInput: {
     border: '1px solid #007bff',
-    width: '400px',
+    width: '290px',
+    height: '40px',
+    fontSize: '16px',
+    paddingLeft: '7px',
   },
 
   searchContainer: {
     width: 'auto',
+    marginLeft: '200px',
   },
-
   btnsWrapper: {
     width: '100%',
     display: 'flex',

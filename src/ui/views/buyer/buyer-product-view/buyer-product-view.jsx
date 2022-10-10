@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import {observer} from 'mobx-react'
 
+import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Appbar} from '@components/appbar'
@@ -17,6 +18,8 @@ import {ProductWrapper} from '@components/product/product-wrapper'
 import {t} from '@utils/translations'
 
 import {BuyerProductViewModel} from './buyer-product-view.model'
+
+const navbarActiveCategory = navBarActiveCategory.NAVBAR_MY_PRODUCTS
 
 @observer
 export class BuyerProductView extends Component {
@@ -62,7 +65,7 @@ export class BuyerProductView extends Component {
 
     return (
       <React.Fragment>
-        <Navbar drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
+        <Navbar activeCategory={navbarActiveCategory} drawerOpen={drawerOpen} setDrawerOpen={onTriggerDrawerOpen} />
         <Main>
           <Appbar title={t(TranslationKey.Product)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>

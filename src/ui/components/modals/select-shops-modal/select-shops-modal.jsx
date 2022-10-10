@@ -50,12 +50,14 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
 
         <div className={classNames.shopsWrapper}>
           <Field
-            label={t(TranslationKey.Shop)}
+            label={t(TranslationKey.Shops)}
+            labelClasses={classNames.fieldLabel}
             containerClasses={classNames.allowedRoleContainer}
             inputComponent={
               <div className={classNames.shopsFieldWrapper}>
                 <Select
                   value={shops?.length ? shopsNames : t(TranslationKey['No stores'])}
+                  variant="outlined"
                   disabled={!shops.length}
                   renderValue={() =>
                     clearSelect
@@ -65,6 +67,7 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
                       : selectedItem?.name
                   }
                   className={classNames.shopsSelect}
+                  classes={{select: classNames.select}}
                   onChange={e => setSelectedItem(e.target.value)}
                 >
                   {shops.map((shop, index) => (
@@ -90,6 +93,7 @@ export const SelectShopsModal = ({onClickSuccessBtn, onClickCancelBtn, title, me
               </div>
             }
           />
+
           <div className={classNames.selectedShopsWrapper}>
             {currentShops.map((shop, index) => (
               <div key={index} className={classNames.selectedShop}>

@@ -35,7 +35,7 @@ export const styles = createStyles(theme => ({
 
   button: {
     height: '40px',
-    width: '167px',
+    width: '172px',
     // Height: '40px !important'
   },
 
@@ -47,10 +47,10 @@ export const styles = createStyles(theme => ({
   },
 
   icon: {
-    marginLeft: '15px',
+    marginLeft: '20px',
     justifySelf: 'flex-end',
-    width: 15,
-    height: 15,
+    width: 11,
+    height: 11,
   },
 
   // withdrawBtn: {

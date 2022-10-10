@@ -211,7 +211,7 @@ export const AddOrEditBatchForm = observer(
                     ? getFullTariffTextForBoxOrOrder(sourceDataForFilters)
                     : getFullTariffTextForBoxOrOrder(chosenBoxes[0]?.originalData)) || ''
                 }
-                placeholder={'N/A'}
+                placeholder={t(TranslationKey['Not chosen'])}
               />
             </div>
 
@@ -226,7 +226,7 @@ export const AddOrEditBatchForm = observer(
                     ? sourceDataForFilters.destination?.name
                     : chosenBoxes[0]?.originalData?.destination?.name) || ''
                 }
-                placeholder={'N/A'}
+                placeholder={t(TranslationKey['Not chosen'])}
               />
             </div>
           </div>
