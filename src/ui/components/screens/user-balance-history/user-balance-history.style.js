@@ -10,10 +10,10 @@ export const useClassNames = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     '& td': {
       flexShrink: 0,
-      color: 'rgba(61, 81, 112, 1)',
+      color: theme.palette.text.general,
     },
     '& th': {
-      color: 'rgba(61, 81, 112, 1)',
+      color: theme.palette.text.general,
       fontWeight: 700,
       lineHeight: '15px',
       fontSize: '15px',

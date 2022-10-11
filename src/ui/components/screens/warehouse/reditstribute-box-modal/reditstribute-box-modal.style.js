@@ -45,7 +45,7 @@ export const useClassNames = makeStyles()(theme => ({
     objectPosition: 'center',
   },
   sectionTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     lineHeight: '140%',
   },
@@ -61,7 +61,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   subTitle: {
     fontSize: '14px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginRight: theme.spacing(1),
   },
 
@@ -157,7 +157,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
     marginBottom: '10px',
   },
 
@@ -177,7 +177,7 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '0 25px',
   },
   cancelButton: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   bottomBlockWrapper: {
@@ -209,17 +209,17 @@ export const useClassNames = makeStyles()(theme => ({
   label: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   asinTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   copyImg: {
     width: '20px',

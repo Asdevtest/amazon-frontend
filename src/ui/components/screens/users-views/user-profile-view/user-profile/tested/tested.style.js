@@ -1,8 +1,8 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   text: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
@@ -12,7 +12,7 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '26px',
   },
   checkedStrategyRow: {

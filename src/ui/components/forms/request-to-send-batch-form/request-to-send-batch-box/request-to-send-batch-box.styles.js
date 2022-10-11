@@ -98,7 +98,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   shippingLabelCell: {

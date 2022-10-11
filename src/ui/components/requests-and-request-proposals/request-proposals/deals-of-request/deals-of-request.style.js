@@ -125,7 +125,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: '400',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   reviews: {

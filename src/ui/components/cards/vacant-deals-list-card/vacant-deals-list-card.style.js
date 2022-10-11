@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '30px',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
   },
 
   nameWrapper: {
@@ -49,14 +49,14 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   cardDescription: {
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginTop: '10px',
     height: '57px',
     overflow: 'auto',
@@ -66,7 +66,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   rightBlockWrapper: {
@@ -96,7 +96,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '10px',
   },
 
@@ -152,7 +152,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
     marginRight: 5,
   },
 
@@ -199,5 +199,9 @@ export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+
+  text: {
+    color: theme.palette.text.general,
   },
 }))

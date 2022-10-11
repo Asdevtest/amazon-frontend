@@ -108,12 +108,12 @@ export const useClassNames = makeStyles()(theme => ({
 
   chip: {
     marginBottom: 5,
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     backgroundColor: '#F4F4F4',
     transition: '.15s ease-in-out',
     '&:hover': {
-      color: '#007bff',
+      color: theme.palette.primary.main,
       transform: 'scale(1.01)',
     },
   },
@@ -121,7 +121,7 @@ export const useClassNames = makeStyles()(theme => ({
   chipActive: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
-    color: '#007bff',
+    color: theme.palette.primary.main,
 
     borderBottom: '5px solid #0460DE',
   },
@@ -132,7 +132,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: 40,
     '&:focus-within': {
-      backgroundColor: '#fff',
+      backgroundColor: theme.palette.background.main,
     },
   },
 

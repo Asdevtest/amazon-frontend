@@ -1,22 +1,22 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
     marginBottom: '24px',
   },
   modalSubTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '13px',
     fontWeight: 700,
     lineHeight: '15px',
     marginBottom: '8px',
   },
   modalText: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -28,7 +28,7 @@ export const useClassNames = makeStyles()(() => ({
     width: '100%',
   },
   inputLabel: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -74,7 +74,7 @@ export const useClassNames = makeStyles()(() => ({
       // border: '1px solid #fff',
     },
     '& th': {
-      color: '#001029',
+      color: theme.palette.text.general,
       fontWeight: 600,
       lineHeight: '16px',
       fontSize: '14px',
@@ -132,7 +132,7 @@ export const useClassNames = makeStyles()(() => ({
 
     '&:disabled': {
       backgroundColor: 'inherit',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -158,7 +158,7 @@ export const useClassNames = makeStyles()(() => ({
 
     '&:disabled': {
       backgroundColor: 'inherit',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -179,7 +179,7 @@ export const useClassNames = makeStyles()(() => ({
 
     '&:disabled': {
       backgroundColor: 'inherit',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -202,7 +202,7 @@ export const useClassNames = makeStyles()(() => ({
 
     '&:disabled': {
       backgroundColor: 'inherit',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -224,7 +224,7 @@ export const useClassNames = makeStyles()(() => ({
 
     '&:disabled': {
       backgroundColor: 'inherit',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -246,7 +246,7 @@ export const useClassNames = makeStyles()(() => ({
 
     '&:disabled': {
       backgroundColor: 'inherit',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -269,7 +269,7 @@ export const useClassNames = makeStyles()(() => ({
 
     '&:disabled': {
       backgroundColor: 'inherit',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -290,7 +290,7 @@ export const useClassNames = makeStyles()(() => ({
 
     '&:disabled': {
       backgroundColor: 'inherit',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -307,10 +307,10 @@ export const useClassNames = makeStyles()(() => ({
   },
   cancelBtn: {
     backgroundColor: 'inherit',
-    color: '#001029',
+    color: theme.palette.text.general,
     textTransform: 'none',
     '&:hover': {
-      color: '#001029',
+      color: theme.palette.text.general,
       backgroundColor: '#e4e4e4',
     },
   },
@@ -323,7 +323,7 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginTop: '10px',
   },
 }))

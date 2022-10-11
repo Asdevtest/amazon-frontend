@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     alignSelf: 'start',
   },
 
@@ -23,7 +23,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: '400',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   heightFieldAuto: {
@@ -41,8 +41,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   buttonCancel: {
     padding: '8px 36px',
-    backgroundColor: '#fff',
-    color: '#001029',
+    backgroundColor: theme.palette.background.main,
+    color: theme.palette.text.general,
     '&:hover': {
       backgroundColor: 'rgba(231, 231, 231, 0.801)',
     },
@@ -57,7 +57,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: 400,
     textAlign: 'center',
 
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   fieldInput: {
@@ -93,7 +93,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   fieldLabel: {
     fontSize: 16,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   reqMultiplier: {

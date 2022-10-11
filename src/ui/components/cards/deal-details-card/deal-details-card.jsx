@@ -82,7 +82,7 @@ export const DealDetailsCard = ({
             </div>
             <div>
               <Typography className={classNames.sumAndTimeTitle}>{t(TranslationKey.Deadline)}</Typography>
-              <Typography>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</Typography>
+              <Typography className={classNames.text}>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</Typography>
             </div>
           </div>
           <div className={classNames.filesWrapper}>
@@ -109,24 +109,26 @@ export const DealDetailsCard = ({
           <div className={classNames.subBlockWrapper}>
             <div className={classNames.leftSubBlockWrapper}>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey['Time to complete'])}</Typography>
+                <Typography className={classNames.text}>{t(TranslationKey['Time to complete'])}</Typography>
 
-                <Typography>{minsToTime(curProposal?.proposal.execution_time)}</Typography>
+                <Typography className={classNames.text}>{minsToTime(curProposal?.proposal.execution_time)}</Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey.Status)}</Typography>
+                <Typography className={classNames.text}>{t(TranslationKey.Status)}</Typography>
 
                 <RequestStatusCell status={curProposal?.proposal.status} />
               </div>
             </div>
             <div className={classNames.rightSubBlockWrapper}>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey.Deadline)}</Typography>
+                <Typography className={classNames.text}>{t(TranslationKey.Deadline)}</Typography>
 
-                <Typography>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</Typography>
+                <Typography className={classNames.text}>
+                  {formatNormDateTime(curProposal?.proposal.timeoutAt)}
+                </Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey['Total price'])}</Typography>
+                <Typography className={classNames.text}>{t(TranslationKey['Total price'])}</Typography>
 
                 <Typography className={classNames.cardPrice}>
                   {toFixedWithDollarSign(curProposal?.proposal.price, 2)}

@@ -29,7 +29,7 @@ export const useClassNames = makeStyles()(theme => ({
   textField: {
     width: '100%',
     minHeight: '40px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     padding: '8px',
     fontSize: '16px',
     outline: 'none',
@@ -46,7 +46,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   tabItemButton: {
     height: '50px',
-    color: '#656565',
+    color: theme.palette.text.second,
     backgroundColor: 'inherit',
     fontSize: '18px',
     lineHeight: '140%',
@@ -138,7 +138,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   proxyFieldTextUnSelection: {
@@ -146,7 +146,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     userSelect: 'none',
   },
 
@@ -162,7 +162,7 @@ export const useClassNames = makeStyles()(theme => ({
   textFieldUnSelection: {
     width: '100%',
     minHeight: '40px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     padding: '8px',
     fontSize: '16px',
     outline: 'none',

@@ -113,12 +113,12 @@ export const styles = theme => ({
     fontSize: '30px',
     lineHeight: '40px',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: '#fff',
+    // backgroundColor: theme.palette.background.main,
 
     backgroundColor: theme.palette.background.main,
   },

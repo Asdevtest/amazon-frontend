@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   chartWrapper: {
     width: '168px',
     display: 'flex',
@@ -12,7 +12,7 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '5px',
   },
 }))

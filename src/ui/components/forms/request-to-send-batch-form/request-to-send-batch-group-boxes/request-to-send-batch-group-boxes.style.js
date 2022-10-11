@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   dialogContextClassName: {},
   table: {
     borderCollapse: 'collapse',
@@ -49,7 +49,7 @@ export const useClassNames = makeStyles()(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   headerSpanText: {
@@ -88,7 +88,7 @@ export const useClassNames = makeStyles()(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   footerSpanText: {

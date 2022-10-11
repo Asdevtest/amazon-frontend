@@ -4,7 +4,7 @@ export const useClassNames = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
-    // color: 'rgba(61, 81, 112, 1)',
+    // color: theme.palette.text.general,
     fontWeight: '600',
 
     color: theme.palette.text.general,
@@ -12,7 +12,7 @@ export const useClassNames = makeStyles()(theme => ({
   strategyLabel: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontWeight: '600',
     marginBottom: '12px',
   },
@@ -24,7 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   text: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '22px',
@@ -43,7 +43,7 @@ export const useClassNames = makeStyles()(theme => ({
   title: {
     fontSize: '24px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontWeight: '500',
     textAlign: 'center',
     marginBottom: '24px',
@@ -52,11 +52,11 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid rgb(224, 224, 224)',
     '& td': {
       flexShrink: 0,
-      color: 'rgba(61, 81, 112, 1)',
+      color: theme.palette.text.general,
       borderBottom: 'none',
     },
     '& th': {
-      color: 'rgba(61, 81, 112, 1)',
+      color: theme.palette.text.general,
       fontWeight: 700,
       lineHeight: '15px',
       fontSize: '15px',
@@ -200,7 +200,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     maxWidth: '250px',
   },
   selectedShopText: {
@@ -301,7 +301,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   linkOnEdit: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    color: '#007bff',
+    color: theme.palette.primary.main,
   },
 
   supplierButtonWrapper: {
@@ -317,7 +317,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '14px',
     fontWeight: '400',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   mainWrapper: {

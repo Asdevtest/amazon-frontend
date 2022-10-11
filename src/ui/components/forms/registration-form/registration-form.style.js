@@ -45,14 +45,14 @@ export const styles = theme => ({
 
   validationTitle: {
     fontSize: '14px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   validationText: {
     fontSize: '12px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   validationHiddenMessage: {
@@ -65,7 +65,7 @@ export const styles = theme => ({
     fontSize: '12px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   input: {

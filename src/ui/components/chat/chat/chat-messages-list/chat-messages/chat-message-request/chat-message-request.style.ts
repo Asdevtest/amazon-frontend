@@ -1,9 +1,9 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     // backgroundColor: '#D9FAE5',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
     padding: '40px 30px',
     width: '870px',
     margin: '0 auto',
@@ -28,7 +28,7 @@ export const useClassNames = makeStyles()(() => ({
     width: '50px',
   },
   timeText: {
-    color: '#656565',
+    color: theme.palette.text.second,
     fontSize: 14,
     lineHeight: '16px',
     fontWeight: 400,

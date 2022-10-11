@@ -1,6 +1,6 @@
 export const styles = theme => ({
   root: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   colorPrimary: {

@@ -4,14 +4,14 @@ export const useClassNames = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontWeight: '600',
   },
   input: {
     width: '100%',
   },
   text: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '22px',
@@ -29,7 +29,7 @@ export const useClassNames = makeStyles()(theme => ({
   title: {
     fontSize: '24px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontWeight: '500',
     textAlign: 'center',
     marginBottom: '24px',
@@ -39,11 +39,11 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid rgb(224, 224, 224)',
     '& td': {
       flexShrink: 0,
-      // color: 'rgba(61, 81, 112, 1)',
+      // color: theme.palette.text.general,
       borderBottom: 'none',
     },
     '& th': {
-      // color: 'rgba(61, 81, 112, 1)',
+      // color: theme.palette.text.general,
       fontWeight: 700,
       lineHeight: '15px',
       fontSize: '15px',

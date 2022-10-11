@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   avatar: {
     height: '140px',
     width: '140px',
@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(() => ({
     objectFit: 'cover',
   },
   username: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '23px',
     fontWeight: 500,
   },
@@ -21,7 +21,7 @@ export const useClassNames = makeStyles()(() => ({
   title: {
     fontSize: '20px',
     fontWeight: 500,
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
   },
   tableHeadTypography: {
     color: 'rgb(61, 81, 112)',
@@ -93,7 +93,7 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   badge: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
     borderRadius: '50%',
     border: '1px solid #007BFF',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',

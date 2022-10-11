@@ -10,7 +10,7 @@ export const useClassNames = makeStyles()(theme => ({
     // height: '100vh',
     // width: '100%',
     flexGrow: 1,
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
     padding: '48px 64px',
     [theme.breakpoints.down('sm')]: {
       padding: '8px',
@@ -44,7 +44,7 @@ export const useClassNames = makeStyles()(theme => ({
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
-      color: '#007bff',
+      color: theme.palette.primary.main,
       fontWeight: '500',
     },
   },

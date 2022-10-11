@@ -198,6 +198,10 @@ export const useClassNames = makeStyles()(theme => ({
     border: `1px solid #424250`,
   },
 
+  inputColor: {
+    color: `${theme.palette.text.general} !important`,
+  },
+
   loadBtn: {
     marginLeft: '10px',
     borderRadius: '4px',

@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '600px',
     display: 'flex',
@@ -13,7 +13,7 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   link: {
@@ -45,7 +45,7 @@ export const useClassNames = makeStyles()(() => ({
   textField: {
     width: '100%',
     height: '32px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     // padding: '8px',
     fontSize: '16px',
     outline: 'none',

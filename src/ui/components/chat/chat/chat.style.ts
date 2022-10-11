@@ -96,7 +96,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   inputFilled: {
-    // backgroundColor: '#FFF',
+    // backgroundColor: theme.palette.background.main,
 
     backgroundColor: theme.palette.input.second,
   },

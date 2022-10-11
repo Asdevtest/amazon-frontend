@@ -97,7 +97,8 @@ export const UploadFilesInput = observer(
                   <Input
                     disabled={disabled}
                     placeholder={t(TranslationKey.Link)}
-                    className={classNames.loadImageInput}
+                    // className={classNames.loadImageInput}
+                    classes={{root: classNames.loadImageInput, input: classNames.inputColor}}
                     value={linkInput}
                     onChange={e => onChangeLinkInput(e.target.value)}
                   />

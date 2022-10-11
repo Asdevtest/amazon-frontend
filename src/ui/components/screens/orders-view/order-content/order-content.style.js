@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
     padding: '16px 32px',
     display: 'flex',
@@ -23,13 +23,13 @@ export const useClassNames = makeStyles()(() => ({
     marginBottom: '24px',
   },
   tableText: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 500,
     lineHeight: '28px',
   },
   noBoxesText: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 400,
     lineHeight: '22px',
@@ -62,14 +62,14 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   orderPrice: {
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   orderPriceWrapper: {
@@ -88,7 +88,7 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   batchPriceWrapper: {
@@ -104,14 +104,14 @@ export const useClassNames = makeStyles()(() => ({
     fontWeight: '600',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   label: {
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   field: {

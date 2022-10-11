@@ -52,7 +52,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   selectionBtn: {
     fontSize: 18,
-    color: '#656565',
+    color: theme.palette.text.second,
     borderRadius: 0,
   },
 

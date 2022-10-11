@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     minWidth: '500px',
   },
@@ -10,7 +10,11 @@ export const useClassNames = makeStyles()(() => ({
   },
   cancelBtn: {
     marginLeft: '50px',
+<<<<<<< HEAD
     // backgroundColor: '#fff',
+=======
+    backgroundColor: theme.palette.background.main,
+>>>>>>> 3136d1fa... save 11.10
   },
 
   button: {
@@ -61,6 +65,6 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '18px',
     lineHeight: '140%',
 
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 }))

@@ -9,7 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
   balanceTitle: {
     fontSize: 36,
     lineHeight: '49px',
-    // color: '#001029',
+    // color: theme.palette.text.general,
 
     color: theme.palette.text.general,
   },
@@ -23,7 +23,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   title: {
     fontSize: 18,
-    // color: '#001029',
+    // color: theme.palette.text.general,
     lineHeight: '140%',
     marginBottom: '16px',
 
@@ -33,11 +33,11 @@ export const useClassNames = makeStyles()(theme => ({
     balanceTitle: {
       fontSize: 18,
       lineHeight: '140%',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
     title: {
       fontSize: 12,
-      color: '#001029',
+      color: theme.palette.text.general,
       lineHeight: '16px',
       marginBottom: '16px',
     },

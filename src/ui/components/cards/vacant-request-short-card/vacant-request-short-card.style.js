@@ -16,7 +16,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '20px',
     height: '50px',
     overflow: 'hidden',
@@ -27,7 +27,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
-    color: '#656565',
+    color: theme.palette.text.second,
     marginTop: '10px',
   },
 
@@ -84,7 +84,7 @@ export const useClassNames = makeStyles()(theme => ({
   cardTime: {
     fontSize: '14px',
     lineHeight: '16px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   nameRatingWrapper: {
@@ -106,14 +106,14 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   deadline: {
     fontSize: '14px',
     lineHeight: '17px',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   timeWrapper: {
@@ -132,6 +132,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: '14px',
     lineHeight: '16px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 }))

@@ -61,24 +61,24 @@ export const VacantDealsListCard = ({onClickViewMore, showDetails, onClickGetToW
           <div className={classNames.subBlockWrapper}>
             <div className={classNames.leftSubBlockWrapper}>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey['Time to complete'])}</Typography>
+                <Typography className={classNames.text}>{t(TranslationKey['Time to complete'])}</Typography>
 
-                <Typography>{minsToTime(item.execution_time)}</Typography>
+                <Typography className={classNames.text}>{minsToTime(item.execution_time)}</Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey.Status)}</Typography>
+                <Typography className={classNames.text}>{t(TranslationKey.Status)}</Typography>
 
                 <RequestStatusCell status={item.status} />
               </div>
             </div>
             <div className={classNames.rightSubBlockWrapper}>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey.Deadline)}</Typography>
+                <Typography className={classNames.text}>{t(TranslationKey.Deadline)}</Typography>
 
-                <Typography>{formatNormDateTime(item.timeoutAt)}</Typography>
+                <Typography className={classNames.text}>{formatNormDateTime(item.timeoutAt)}</Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey['Total price'])}</Typography>
+                <Typography className={classNames.text}>{t(TranslationKey['Total price'])}</Typography>
 
                 <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
               </div>

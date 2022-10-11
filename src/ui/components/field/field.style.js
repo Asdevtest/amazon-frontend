@@ -14,7 +14,7 @@ export const useClassNames = makeStyles()(theme => ({
   label: {
     // fontSize: '16px',
     // lineHeight: '20px',
-    // color: 'rgba(61, 81, 112, 1)',
+    // color: theme.palette.text.general,
     // fontWeight: '600',
     // marginBottom: '12px',
 

@@ -71,12 +71,16 @@ export const lightTheme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
-          color: '#001029',
+          // color: '#001029',
 
           overflow: 'hidden',
 
           border: `1px solid #E0E0E0`,
         },
+
+        // input: {
+        //   color: '#001029',
+        // },
 
         // disabled: {
         //   color: '#001029',
@@ -184,17 +188,17 @@ export const darkTheme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
-          color: '#fff',
+          // color: '#fff',
           overflow: 'hidden',
-
-          border: `1px solid #424250`,
-
+          border: '1px solid #424250',
           // '&:disabled': {
           //   color: '#fff',
           // },
-
-          '-webkit-text-fill-color': '#fff !important',
         },
+
+        // input: {
+        //   color: '#fff',
+        // },
 
         // disabled: {
         //   // color: '#fff !important',

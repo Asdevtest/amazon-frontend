@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '640px',
 
@@ -50,7 +50,7 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   spanText: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     fontWeight: '500',
   },
 

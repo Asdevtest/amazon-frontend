@@ -1,4 +1,4 @@
-export const styles = {
+export const styles = theme => ({
   img: {
     backgroundColor: 'rgba(61, 81, 112, 1)',
     height: '64px',
@@ -9,7 +9,7 @@ export const styles = {
   },
   chip: {
     height: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     backgroundColor: 'rgba(240, 242, 244, 1)',
     fontSize: '12px',
   },
@@ -42,7 +42,7 @@ export const styles = {
     color: 'rgba(189, 194, 209, 1)',
   },
   typoSpan: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
   },
   cellBtn: {
     color: 'rgba(0, 123, 255, 1)',
@@ -120,4 +120,4 @@ export const styles = {
       transform: 'scale(1.01)',
     },
   },
-}
+})

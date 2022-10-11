@@ -1,4 +1,4 @@
-export const styles = () => ({
+export const styles = theme => ({
   root: {
     width: 280,
     height: 36,
@@ -24,7 +24,7 @@ export const styles = () => ({
   },
 
   selectorIsOpen: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
     maxHeight: 400,
     position: 'absolute',
 
@@ -91,7 +91,7 @@ export const styles = () => ({
 
   selectedItemName: {
     width: '90%',
-    color: '#007bff',
+    color: theme.palette.primary.main,
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     whiteSpace: 'nowrap',

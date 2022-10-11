@@ -120,10 +120,6 @@ export class UserBalanceModel {
     this.rowsPerPage = e
   }
 
-  onChangeCurPage(e) {
-    this.curPage = e
-  }
-
   onTriggerReplenishModal() {
     this.showReplenishModal = !this.showReplenishModal
   }

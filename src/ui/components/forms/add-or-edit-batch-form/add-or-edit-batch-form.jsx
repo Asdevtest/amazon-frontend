@@ -86,7 +86,7 @@ export const AddOrEditBatchForm = observer(
         const chosenBoxesIds = chosenBoxes.map(box => box._id)
 
         const deletedBoxes = clientWarehouseDataConverter(
-          [...batchToEdit.originalData?.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
+          [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
           volumeWeightCoefficient,
         )
 
@@ -253,11 +253,11 @@ export const AddOrEditBatchForm = observer(
               // autoHeight
               hideFooter
               checkboxSelection
-              sx={{
-                border: 0,
-                boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                backgroundColor: '#fff',
-              }}
+              // sx={{
+              //   border: 0,
+              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+              //   backgroundColor: theme.palette.background.main,
+              // }}
               rows={toJS(boxesToAddData)}
               columns={addOrEditBatchFormColumns()}
               rowHeight={100}
@@ -286,11 +286,11 @@ export const AddOrEditBatchForm = observer(
               // autoHeight
               hideFooter
               checkboxSelection
-              sx={{
-                border: 0,
-                boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                backgroundColor: '#fff',
-              }}
+              // sx={{
+              //   border: 0,
+              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+              //   backgroundColor: theme.palette.background.main,
+              // }}
               rows={chosenBoxes || []}
               columns={addOrEditBatchFormColumns()}
               rowHeight={100}

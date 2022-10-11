@@ -1,13 +1,13 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
     width: '485px',
     minHeight: '168px',
   },
 
   modalTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
@@ -19,7 +19,7 @@ export const useClassNames = makeStyles()(() => ({
   },
 
   modalLabel: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 400,
     lineHeight: '140%',
@@ -29,7 +29,7 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '18px',
   },
   modalText: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -81,7 +81,7 @@ export const useClassNames = makeStyles()(() => ({
     height: '40px',
 
     backgroundColor: 'inherit',
-    color: '#001029',
+    color: theme.palette.text.general,
 
     '&:hover': {
       backgroundColor: '#e4e4e4',
@@ -126,7 +126,7 @@ export const useClassNames = makeStyles()(() => ({
   subTitle: {
     fontSize: 18,
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: 20,
   },
 

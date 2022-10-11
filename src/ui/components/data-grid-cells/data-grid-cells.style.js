@@ -24,7 +24,7 @@ export const styles = theme => ({
   },
   chip: {
     height: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     backgroundColor: 'rgba(240, 242, 244, 1)',
     fontSize: '12px',
   },
@@ -65,22 +65,22 @@ export const styles = theme => ({
   productTypoCell: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
     display: 'flex',
     gap: '3px',
   },
   typoSpan: {
     marginLeft: 10,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   misSpan: {
     marginLeft: 10,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   linkSpan: {
     marginLeft: 10,
-    color: '#007bff',
+    color: theme.palette.primary.main,
   },
 
   cellBtn: {
@@ -401,7 +401,7 @@ export const styles = theme => ({
 
   superboxTypo: {
     margin: '0',
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     fontSize: '20px',
     fontWeight: '900px',
   },
@@ -627,7 +627,7 @@ export const styles = theme => ({
     fontSize: '14px',
     lineHeight: '17px',
 
-    color: 'rgba(0, 0, 0, 0.87)',
+    color: theme.palette.text.general,
 
     height: '100%',
   },
@@ -651,7 +651,7 @@ export const styles = theme => ({
     fontFamily: 'inherit',
     border: 'none',
     backgroundColor: 'inherit',
-    color: 'rgba(0, 0, 0, 0.87)',
+    color: theme.palette.text.general,
     resize: 'none',
     height: '100%',
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
@@ -691,7 +691,7 @@ export const styles = theme => ({
     textAlign: 'center',
     whiteSpace: 'normal',
 
-    // color: 'rgba(0, 0, 0, 0.87)',
+    // color: theme.palette.text.general,
     color: theme.palette.text.general,
 
     fontWeight: '600',
@@ -704,7 +704,7 @@ export const styles = theme => ({
     textAlign: 'left',
     whiteSpace: 'normal',
 
-    color: 'rgba(0, 0, 0, 0.87)',
+    color: theme.palette.text.general,
 
     fontWeight: '600',
     fontSize: '14px',
@@ -722,7 +722,7 @@ export const styles = theme => ({
   },
 
   linkText: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '400',
@@ -736,7 +736,7 @@ export const styles = theme => ({
   },
 
   blackLinkText: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '400',
@@ -1005,7 +1005,7 @@ export const styles = theme => ({
     fontSize: '12px',
     lineHeight: '14px',
     fontWeight: '400',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   orderStatusText: {
@@ -1038,7 +1038,7 @@ export const styles = theme => ({
     display: 'inline-flex',
   },
   normalizeLink: {
-    color: '#007bff',
+    color: theme.palette.primary.main,
     textDecoration: 'none',
     transition: '.3s ease',
     '&:hover': {

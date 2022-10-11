@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {},
 
   batchesExistBlock: {
@@ -74,7 +74,7 @@ export const useClassNames = makeStyles()(() => ({
       textAlign: 'center',
       margin: '0 auto',
       marginTop: '10px',
-      color: '#001029',
+      color: theme.palette.text.general,
 
       '& > :nth-child(n)': {
         fontSize: '12px',
@@ -98,7 +98,7 @@ export const useClassNames = makeStyles()(() => ({
       fontSize: '16px',
       fontWeight: 600,
       lineHeight: '22px',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 }))

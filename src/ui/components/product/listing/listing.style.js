@@ -95,7 +95,7 @@ export const useClassNames = makeStyles()(theme => ({
     border: '1px solid rgba(217, 222, 229, 1)',
     borderRadius: '4px',
     padding: '6px 8px 7px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '17px',
     '&:focus': {
       border: '1px solid rgba(0, 123, 255, 1)',
@@ -116,7 +116,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   text: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '22px',
@@ -133,7 +133,7 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '48px 0px',
   },
   modalText: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',

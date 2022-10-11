@@ -100,7 +100,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   personWrapper: {
@@ -135,7 +135,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   transactions: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
@@ -151,7 +151,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: '400',
     lineHeight: '16px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   proposalsWrapper: {
@@ -168,7 +168,7 @@ export const useClassNames = makeStyles()(theme => ({
     margin: '30px 0 20px 0',
     overflow: 'auto',
     height: '76px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
@@ -194,7 +194,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '58%',
 
     '& > :first-child': {
-      color: '#001029',
+      color: theme.palette.text.general,
       fontSize: '16px',
       fontWeight: '400',
       lineHeight: '19px',
@@ -208,7 +208,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '35%',
 
     '& > :first-child': {
-      color: '#001029',
+      color: theme.palette.text.general,
       fontSize: '16px',
       fontWeight: '400',
       lineHeight: '19px',
@@ -228,7 +228,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   status: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
@@ -236,7 +236,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   timeCount: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '19px',
@@ -280,6 +280,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 }))

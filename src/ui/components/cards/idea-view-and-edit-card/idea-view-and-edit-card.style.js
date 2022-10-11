@@ -277,7 +277,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   searchTitle: {
@@ -285,7 +285,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '140%',
 
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   criterionsField: {
@@ -296,7 +296,7 @@ export const useClassNames = makeStyles()(theme => ({
   supplierSearchTitle: {
     fontWeight: 600,
     fontSize: 18,
-    // color: '#001029',
+    // color: theme.palette.text.general,
     color: theme.palette.text.general,
   },
   demensionsTitle: {
@@ -339,7 +339,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '12px',
     lineHeight: '14px',
     fontWeight: '400',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   emptyBlock: {

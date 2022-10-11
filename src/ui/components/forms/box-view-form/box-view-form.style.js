@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   titleWrapper: {
@@ -118,7 +118,7 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     width: '225px',
-    color: '#001029',
+    color: theme.palette.text.general,
     // overflow: 'auto',
 
     marginBottom: '20px',
@@ -197,7 +197,7 @@ export const useClassNames = makeStyles()(theme => ({
       fontSize: '16px',
       lineHeight: '19px',
       fontWeight: '400',
-      color: '#656565',
+      color: theme.palette.text.second,
     },
   },
 
@@ -230,7 +230,7 @@ export const useClassNames = makeStyles()(theme => ({
   label: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   sizesLabel: {
     fontSize: '14px',
@@ -256,7 +256,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '10px',
   },
   normalizeLink: {
-    color: '#007bff',
+    color: theme.palette.primary.main,
     textDecoration: 'none',
     transition: '.3s ease',
     '&:hover': {
@@ -265,11 +265,11 @@ export const useClassNames = makeStyles()(theme => ({
   },
   linkSpan: {
     marginLeft: 10,
-    color: '#007bff',
+    color: theme.palette.primary.main,
   },
   typoSpan: {
     marginLeft: 10,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   copyAsin: {
     display: 'flex',

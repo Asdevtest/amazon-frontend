@@ -213,6 +213,8 @@ export const EditOrderModal = observer(
     const disableSubmit =
       requestStatus === loadingStatuses.isLoading || disabledOrderStatuses.includes(order.status + '')
 
+    console.log('orderFields.status', orderFields.status)
+
     return (
       <Box className={classNames.modalWrapper}>
         <div className={classNames.modalHeader}>

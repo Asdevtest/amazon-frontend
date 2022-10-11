@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   '@global': {
     '@keyframes animate_gradient': {
       '0%': {
@@ -98,7 +98,7 @@ export const useClassNames = makeStyles()(() => ({
   cancelButton: {
     height: '40px',
     width: '98px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   shopsFieldWrapper: {
@@ -138,7 +138,7 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     maxWidth: '250px',
   },
 

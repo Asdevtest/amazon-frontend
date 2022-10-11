@@ -34,7 +34,7 @@ export const styles = theme => ({
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
-      color: '#007bff',
+      color: theme.palette.primary.main,
       fontWeight: '500',
     },
   },

@@ -84,35 +84,35 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   cardPriceValue: {
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   cardTime: {
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   cardTimeValue: {
     fontWeight: '600',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   successDeals: {
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   userRating: {
@@ -135,7 +135,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   proposalDescriptionWrapper: {

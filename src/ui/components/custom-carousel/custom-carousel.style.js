@@ -130,7 +130,7 @@ export const useClassNames = makeStyles()(theme => ({
     position: 'relative',
     width: '100%',
 
-    color: '#001029',
+    color: theme.palette.text.general,
 
     display: 'flex',
     flexDirection: 'column',
@@ -146,7 +146,7 @@ export const useClassNames = makeStyles()(theme => ({
       position: 'absolute',
 
       textAlign: 'center',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -176,7 +176,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '10px',
   },
 
@@ -184,7 +184,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   filesTitleWrapper: {

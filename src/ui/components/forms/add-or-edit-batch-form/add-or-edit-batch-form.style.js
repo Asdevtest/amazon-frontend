@@ -9,7 +9,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   mainTitle: {
@@ -38,7 +38,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cancelBtn: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   // searchInput: {
@@ -147,7 +147,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   linkText: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
     whiteSpace: 'nowrap',
@@ -212,7 +212,7 @@ export const useClassNames = makeStyles()(theme => ({
       fontWeight: '600',
       fontSize: '16px',
       lineHeight: '22px',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
     filtersWrapper: {
       display: 'flex',

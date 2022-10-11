@@ -30,7 +30,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '20px',
   },
   subTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '20px',

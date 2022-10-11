@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
     alignItems: 'flex-start',
@@ -28,30 +28,30 @@ export const useClassNames = makeStyles()(() => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     overflowY: 'auto',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   subTitle: {
     fontSize: '14px',
-    color: '#656565',
+    color: theme.palette.text.second,
     lineHeight: '19px',
     // marginRight: theme.spacing(1),
   },
   asin: {
     fontSize: '14px',
-    color: '#656565',
+    color: theme.palette.text.second,
     lineHeight: '19px',
   },
 
   count: {
     fontSize: '14px',
-    color: '#001029',
+    color: theme.palette.text.general,
     lineHeight: '19px',
     fontWeight: 600,
   },
   asinTitle: {
     fontSize: '14px',
-    color: '#001029',
+    color: theme.palette.text.general,
     lineHeight: '19px',
     fontWeight: 600,
   },

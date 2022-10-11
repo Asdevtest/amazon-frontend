@@ -14,7 +14,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '80px',
   },
   label: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginRight: '8px',
   },
 

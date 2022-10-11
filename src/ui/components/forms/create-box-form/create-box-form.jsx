@@ -366,17 +366,17 @@ export const CreateBoxForm = observer(
                 <Typography
                   className={cx({
                     [classNames.orange]:
-                      formItem.status === OrderStatusByKey[OrderStatus.AT_PROCESS] ||
-                      formItem.status === OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE] ||
-                      formItem.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER],
+                      `${formItem.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
+                      `${formItem.status}` === `${OrderStatusByKey[OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE]}` ||
+                      `${formItem.status}` === `${OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER]}`,
 
                     [classNames.green]:
-                      formItem.status === OrderStatusByKey[OrderStatus.IN_STOCK] ||
-                      formItem.status === OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED],
+                      `${formItem.status}` === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` ||
+                      `${formItem.status}` === `${OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]}`,
 
                     [classNames.red]:
-                      formItem.status === OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER] ||
-                      formItem.status === OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT],
+                      `${formItem.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}` ||
+                      `${formItem.status}` === `${OrderStatusByKey[OrderStatus.CANCELED_BY_CLIENT]}`,
                   })}
                 >
                   {/* {formItem.status && getOrderStatusOptionByCode(formItem.status).label} */}

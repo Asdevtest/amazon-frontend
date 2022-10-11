@@ -151,20 +151,19 @@ export const CreateOrEditRequestContent = ({
             <div className={classNames.middleWrapper}>
               <div className={classNames.nameFieldWrapper}>
                 <Field
-                  multiline
                   tooltipInfoContent={t(TranslationKey['Future request title'])}
                   inputProps={{maxLength: 100}}
                   label={`${t(TranslationKey.Title)} *`}
                   className={classNames.nameField}
                   labelClasses={classNames.spanLabelSmall}
-                  minRows={1}
-                  maxRows={2}
                   value={formFields.request.title}
                   onChange={onChangeField('request')('title')}
                 />
-                <span className={cx(formFields.request.title.length > 80 && classNames.error)}>{`${
-                  formFields.request.title.length
-                } ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span>
+                <span
+                  className={cx(classNames.charactersHints, {[classNames.error]: formFields.request.title.length > 80})}
+                >{`${formFields.request.title.length} ${t(TranslationKey.of)} 80 ${t(
+                  TranslationKey.characters,
+                )}`}</span>
               </div>
 
               <div className={classNames.descriptionFieldWrapper}>
@@ -180,9 +179,13 @@ export const CreateOrEditRequestContent = ({
                   value={formFields.details.conditions}
                   onChange={onChangeField('details')('conditions')}
                 />
-                <span className={cx(formFields.details.conditions.length > 1000 && classNames.error)}>{`${
-                  formFields.details.conditions.length
-                } ${t(TranslationKey.of)} 1000 ${t(TranslationKey.characters)}`}</span>
+                <span
+                  className={cx(classNames.charactersHints, {
+                    [classNames.error]: formFields.details.conditions.length > 1000,
+                  })}
+                >{`${formFields.details.conditions.length} ${t(TranslationKey.of)} 1000 ${t(
+                  TranslationKey.characters,
+                )}`}</span>
               </div>
 
               <div className={classNames.imageFileInputWrapper}>

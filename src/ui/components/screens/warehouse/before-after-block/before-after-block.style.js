@@ -61,7 +61,7 @@ export const useClassNames = makeStyles()(theme => ({
   categoryTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: '600',
     marginBottom: '12px',
   },
@@ -249,7 +249,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   sectionTitleWrapper: {
     marginBottom: '20px',
@@ -282,19 +282,19 @@ export const useClassNames = makeStyles()(theme => ({
   photoAndFilesTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: '600',
   },
   label: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: 400,
   },
   labelShipping: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: 400,
   },
   footerWrapper: {
@@ -313,7 +313,7 @@ export const useClassNames = makeStyles()(theme => ({
   subTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: 600,
   },
   copyImg: {
@@ -359,7 +359,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 400,
-    color: '#001029',
+    color: theme.palette.text.general,
     marginTop: '90px',
   },
 
@@ -439,7 +439,7 @@ export const useClassNames = makeStyles()(theme => ({
     smallLabel: {
       fontSize: '14px',
       lineHeight: '19px',
-      color: '#656565',
+      color: theme.palette.text.second,
     },
     boxWrapper: {
       padding: '20px 20px',

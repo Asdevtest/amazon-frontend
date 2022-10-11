@@ -34,7 +34,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     maxWidth: '420px',
     height: 50,
     marginBottom: '10px',
@@ -54,7 +54,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   cardSubTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: '400',
@@ -137,7 +137,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   btnsWrapper: {
@@ -149,7 +149,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   price: {
     marginLeft: '20px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
@@ -256,7 +256,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginRight: '20px',
   },
 

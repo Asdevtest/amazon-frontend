@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import {Avatar, Paper} from '@mui/material'
 
 import React, {Component} from 'react'
@@ -80,8 +81,7 @@ export class ClientDashboardViewRaw extends Component {
                       </Button>
                       <Button
                         tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
-                        className={[classes.button, classes.withdrawBtn]}
-                        color="primary"
+                        className={cx(classes.button, classes.withdrawBtn)}
                         variant="text"
                         onClick={onClickAddMoney}
                       >

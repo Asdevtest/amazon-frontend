@@ -48,7 +48,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '34px',
     lineHeight: '40px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   headerWrapper: {
@@ -60,13 +60,15 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
+
+    color: theme.palette.text.general,
   },
 
   mainSubTitle: {
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginTop: '30px',
     width: '373px',
   },
@@ -75,7 +77,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginTop: '20px',
   },
 
@@ -120,6 +122,8 @@ export const useClassNames = makeStyles()(theme => ({
   backBtn: {
     width: '211px',
     height: '42px',
+
+    color: theme.palette.text.general,
   },
 
   successBtn: {
@@ -159,7 +163,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   descriptionField: {
-    height: '81px',
+    height: '95px',
     width: '100%',
     overflowY: 'hidden',
   },
@@ -173,6 +177,7 @@ export const useClassNames = makeStyles()(theme => ({
   twoStepFieldResult: {
     minHeight: '40px',
 
+    color: theme.palette.text.second,
     // background: 'rgba(200,200,200, .1)',
   },
 
@@ -208,18 +213,22 @@ export const useClassNames = makeStyles()(theme => ({
     overflowY: 'hidden',
   },
 
+  charactersHints: {
+    color: theme.palette.text.second,
+  },
+
   spanLabel: {
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 'bold',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   spanLabelSmall: {
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   filesContainer: {
@@ -229,7 +238,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   linkText: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
     whiteSpace: 'nowrap',
@@ -265,7 +274,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   error: {
-    color: 'red',
+    color: 'red !important',
   },
 
   adviceWrapper: {
@@ -278,7 +287,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: '600',
     marginBottom: '22px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   adviceListItem: {
     padding: '0',
@@ -289,7 +298,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   trainingTextWrapper: {
@@ -304,7 +313,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   trainingLink: {
@@ -327,7 +336,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   mainTwoStepWrapper: {
@@ -339,9 +348,9 @@ export const useClassNames = makeStyles()(theme => ({
     height: '100%',
     width: '100%',
     padding: '0',
-    backgroundColor: '#fafafa',
+    // backgroundColor: theme.palette.,
     '& :disabled': {
-      backgroundColor: '#fafafa',
+      // backgroundColor: theme.palette.,
       height: '100%',
     },
   },
@@ -382,7 +391,7 @@ export const useClassNames = makeStyles()(theme => ({
       display: 'block',
       position: 'absolute',
       textAlign: 'center',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -430,7 +439,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '10px',
   },
 
@@ -438,14 +447,14 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   documentEmpty: {
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginTop: '10px',
   },
 

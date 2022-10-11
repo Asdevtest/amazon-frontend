@@ -1,18 +1,18 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
     width: '700px',
   },
   modalTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
     marginBottom: '30px',
   },
   modalText: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',

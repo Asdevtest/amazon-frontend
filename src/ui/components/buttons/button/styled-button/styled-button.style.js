@@ -42,7 +42,7 @@ export const styles = () => ({
   //     },
   //   },
   //   textSecondary: {
-  //     color: 'rgba(61, 81, 112, 1)',
+  //     color: theme.palette.text.general,
   //     '&:hover': {
   //       backgroundColor: 'rgba(61, 81, 112, 0.04)',
   //       '@media (hover: none)': {

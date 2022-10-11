@@ -1,8 +1,8 @@
-export const styles = () => ({
+export const styles = theme => ({
   title: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: 30,
   },
 

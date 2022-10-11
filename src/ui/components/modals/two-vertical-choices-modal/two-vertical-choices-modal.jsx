@@ -23,7 +23,9 @@ export const TwoVerticalChoicesModal = ({
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMessageWrapper}>
-        <Typography variant="h5">{title}</Typography>
+        <Typography variant="h5" className={classNames.title}>
+          {title}
+        </Typography>
 
         <div className={classNames.resultButtonsWrapper}>
           <Button
@@ -35,7 +37,13 @@ export const TwoVerticalChoicesModal = ({
           >
             {topBtnText}
           </Button>
-          <Button tooltipInfoContent={tooltipSecondButton} color="primary" variant="text" onClick={onClickBottomBtn}>
+          <Button
+            tooltipInfoContent={tooltipSecondButton}
+            color="primary"
+            variant="text"
+            className={classNames.bottomBtnText}
+            onClick={onClickBottomBtn}
+          >
             {bottomBtnText}
           </Button>
         </div>

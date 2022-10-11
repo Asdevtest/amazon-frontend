@@ -10,7 +10,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: theme.spacing(7),
     boxShadow: `0px 5px 19px 0px rgba(90, 97, 105, 0.12)`,
-    // backgroundColor: '#fff',
+    // backgroundColor: theme.palette.background.main,
 
     backgroundColor: theme.palette.background.main,
     borderRadius: '0',
@@ -136,8 +136,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '140%',
     fontWeight: 400,
-    color: '#001029',
-    backgroundColor: '#fff',
+    color: theme.palette.text.general,
+    backgroundColor: theme.palette.background.main,
 
     '&:hover': {
       backgroundColor: '#CCE2FF',
@@ -331,7 +331,7 @@ export const useClassNames = makeStyles()(theme => ({
       display: 'block',
       fontSize: '14px',
       lineHeight: '19px',
-      color: '#656565',
+      color: theme.palette.text.second,
       textAlign: 'end',
     },
     mobileAllowedRolesMainWrapper: {
@@ -349,7 +349,7 @@ export const useClassNames = makeStyles()(theme => ({
       display: 'block',
       fontSize: '14px',
       lineHeight: '19px',
-      color: '#656565',
+      color: theme.palette.text.second,
       marginTop: '20px',
       marginBottom: '20px',
       textTransform: 'capitalize',
@@ -363,7 +363,7 @@ export const useClassNames = makeStyles()(theme => ({
       marginRight: 0,
       color: theme.palette.text.general,
 
-      // color: '#656565',
+      // color: theme.palette.text.second,
       fontSize: '14px',
       lineHeight: '19px',
       padding: 0,
@@ -387,8 +387,8 @@ export const useClassNames = makeStyles()(theme => ({
       fontSize: 16,
       lineHeight: '22px',
       fontWeight: 400,
-      color: '#001029',
-      backgroundColor: '#fff',
+      color: theme.palette.text.general,
+      backgroundColor: theme.palette.background.main,
 
       '&:hover': {
         backgroundColor: '#CCE2FF',

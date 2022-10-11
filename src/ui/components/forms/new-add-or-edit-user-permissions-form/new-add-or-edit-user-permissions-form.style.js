@@ -70,7 +70,7 @@ export const useClassNames = makeStyles()(theme => ({
     height: '40px',
   },
   cancelBtn: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   multiline: {
     width: '100%',
@@ -179,7 +179,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   keyPermission: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     fontWeight: 'bold',
   },
 
@@ -230,7 +230,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   selectedValue: {
     marginLeft: '5px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   details: {
     height: '53vh',

@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 500,
     fontSize: '16px',
     lineHeight: '19px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
   },
   titleWrapper: {
     position: 'relative',
@@ -61,6 +61,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '20px',
     fontWeight: 700,
     lineHeight: '21px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
   },
 }))

@@ -185,7 +185,7 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '35px',
     fontWeight: '600',
     marginBottom: '22px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   adviceListItem: {
     padding: '0',
@@ -196,7 +196,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   trainingTextWrapper: {
@@ -211,7 +211,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   trainingLink: {
@@ -239,7 +239,7 @@ export const useClassNames = makeStyles()(theme => ({
       marginRight: '60px',
       fontSize: '16px',
       lineHeight: '19px',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
   subTitle: {
@@ -254,21 +254,21 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   imageFileInputTitle: {
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   checkboxLabel: {
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginRight: '83px',
   },
 

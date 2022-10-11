@@ -1,4 +1,4 @@
-export const styles = () => ({
+export const styles = theme => ({
   btnsWrapper: {
     marginTop: '20px',
     display: 'flex',
@@ -38,7 +38,7 @@ export const styles = () => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   emptyProposalsIconWrapper: {
@@ -65,7 +65,7 @@ export const styles = () => ({
     fontWeight: '600',
     fontSize: '24px',
     lineHeight: '28px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   proposalAndChatWrapper: {

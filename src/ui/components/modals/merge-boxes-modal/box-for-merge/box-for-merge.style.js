@@ -53,7 +53,7 @@ export const useClassNames = makeStyles()(theme => ({
     objectPosition: 'center',
   },
   sectionTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginBottom: theme.spacing(1),
   },
   title: {
@@ -68,7 +68,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   subTitle: {
     fontSize: '14px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginRight: theme.spacing(1),
   },
 
@@ -95,12 +95,12 @@ export const useClassNames = makeStyles()(theme => ({
   asinTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   orderInput: {
     width: '79px',
@@ -118,7 +118,7 @@ export const useClassNames = makeStyles()(theme => ({
   label: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   destinationSelect: {
     height: '40px',

@@ -15,7 +15,7 @@ export const useClassNames = makeStyles()(theme => ({
   balanceTitle: {
     fontSize: 46,
     lineHeight: '54px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   balanceFreeze: {
     fontSize: '34px',

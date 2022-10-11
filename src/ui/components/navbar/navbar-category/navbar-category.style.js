@@ -32,7 +32,7 @@ export const styles = theme => ({
   },
   notSelected: {
     // color: 'rgba(189, 194, 209, 1)',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   iconWrapper: {
     // position: 'relative',

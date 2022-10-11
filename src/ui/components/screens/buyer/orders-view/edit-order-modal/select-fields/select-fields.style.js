@@ -2,7 +2,7 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   modalText: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -66,7 +66,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '20px',
   },
   totalPrice: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: 500,
     lineHeight: '21px',

@@ -32,8 +32,6 @@ export class ProfileViewModel {
   productsVacant = []
 
   drawerOpen = false
-  rowsPerPage = 15
-  curPage = 1
   productList = []
   tabExchange = 0
   tabHistory = 0

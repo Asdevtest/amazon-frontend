@@ -1,10 +1,11 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   cardsWrapper: {
     width: '485px',
-    backgroundColor: '#fff',
-    boxShadow: '0px 2px 11px 2px #DFDFDF',
+    backgroundColor: theme.palette.background.main,
+    // boxShadow: '0px 2px 11px 2px #DFDFDF',
+    boxShadow: `0px 2px 11px 2px ${theme.palette.boxShadow.main}`,
     borderRadius: '8px',
   },
 
@@ -16,7 +17,8 @@ export const useClassNames = makeStyles()(() => ({
     alignItems: 'center',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
-      backgroundColor: '#f1f1f1',
+      // backgroundColor: '#f1f1f1',
+      backgroundColor: theme.palette.background.second,
     },
   },
   cardValueWrapper: {
@@ -27,11 +29,11 @@ export const useClassNames = makeStyles()(() => ({
   cardListTitle: {
     fontSize: '20px',
     lineHeight: '27px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: 600,
   },
   cardListSubTitle: {
-    color: '#656565',
+    color: theme.palette.text.second,
     fontSize: '14px',
     lineHeight: '19px',
     marginBottom: '10px',
@@ -40,7 +42,11 @@ export const useClassNames = makeStyles()(() => ({
   cardValueTitle: {
     fontSize: '24px',
     lineHeight: '33px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: 700,
+  },
+
+  cardSubTitle: {
+    color: theme.palette.text.second,
   },
 }))

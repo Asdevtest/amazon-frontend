@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   commentsWrapper: {
     display: 'flex',
     gap: '10px',
@@ -17,10 +17,10 @@ export const useClassNames = makeStyles()(() => ({
     fontSize: '22px',
     lineHeight: '30px',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   subTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '20px',
@@ -76,7 +76,7 @@ export const useClassNames = makeStyles()(() => ({
 
   superboxTypo: {
     marginLeft: '10px',
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     fontSize: '20px',
     fontWeight: '900px',
   },
@@ -94,7 +94,7 @@ export const useClassNames = makeStyles()(() => ({
   closeButton: {
     width: '136px',
     height: '40px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   saveButton: {
     width: '136px',

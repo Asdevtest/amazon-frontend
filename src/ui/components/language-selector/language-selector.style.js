@@ -1,9 +1,9 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {},
   title: {
-    color: '#007bff',
+    color: theme.palette.primary.main,
     fontSize: '18px',
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',

@@ -22,7 +22,7 @@ export const UserMoneyTransferModal = ({openModal, setOpenModal, isWithdraw}) =>
           {!isWithdraw ? t(TranslationKey['Withdraw money']) : t(TranslationKey['Add money'])}
         </Typography>
 
-        <Typography paragraph>
+        <Typography paragraph className={classNames.text}>
           {t(TranslationKey['Money transfer is possible with the administrator at the link below:'])}
         </Typography>
 

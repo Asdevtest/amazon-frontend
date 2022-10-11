@@ -68,11 +68,11 @@ class FinancesViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
-                }}
+                // sx={{
+                //   border: 0,
+                //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                //   backgroundColor: theme.palette.background.main,
+                // }}
                 classes={{
                   root: classNames.root,
                   footerContainer: classNames.footerContainer,

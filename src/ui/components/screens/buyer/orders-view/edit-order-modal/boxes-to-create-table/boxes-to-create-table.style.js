@@ -38,7 +38,7 @@ export const useClassNames = makeStyles()(theme => ({
     objectPosition: 'center',
   },
   sectionTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginBottom: '10px',
     marginTop: '10px',
   },
@@ -67,7 +67,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   subTitle: {
     fontSize: '14px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginRight: theme.spacing(1),
   },
 
@@ -81,6 +81,8 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '22px',
     textAlign: 'center',
     padding: '6px 8px',
+
+    // color: `${theme.palette.text.second} !important`,
   },
   row: {
     minWidth: '300px',
@@ -150,7 +152,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
 
   labelWrapper: {

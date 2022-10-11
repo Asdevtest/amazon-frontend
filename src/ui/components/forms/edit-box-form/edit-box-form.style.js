@@ -29,7 +29,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginLeft: '40px',
   },
   subTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
   field: {
     width: '100%',
@@ -275,18 +275,18 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 30,
 
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   standartLabel: {
     fontSize: 14,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   tableTitle: {
     fontWeight: 600,
     fontSize: 16,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   productImageClass: {

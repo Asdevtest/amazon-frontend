@@ -9,14 +9,14 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   orderPrice: {
     fontSize: '24px',
     fontWeight: 500,
     lineHeight: '28px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     whiteSpace: 'nowrap',
   },
   product: {
@@ -46,7 +46,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: 'rgba(143, 152, 165, 1)',
   },
   text: {
-    color: '#656565',
+    color: theme.palette.text.second,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '16px',
@@ -64,7 +64,7 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '4px',
     padding: '10px 15px',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',

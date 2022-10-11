@@ -1,8 +1,8 @@
-export const styles = () => ({
+export const styles = theme => ({
   root: {
     height: '32px',
     width: '100%',
-    border: '1px solid rgba(217, 222, 229, 1)',
+    // border: '1px solid rgba(217, 222, 229, 1)',
     borderRadius: '4px',
     flexShrink: '0',
     '&$disabled': {
@@ -12,7 +12,7 @@ export const styles = () => ({
   input: {
     paddingLeft: '8px',
     paddingRight: '8px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
 
     '&:-webkit-autofill': {
       borderRadius: '4px',
@@ -21,10 +21,12 @@ export const styles = () => ({
   focused: {
     border: '1px solid rgba(0, 123, 255, 1)',
   },
-  disabled: {},
+  disabled: {
+    backgroundColor: theme.palette.input.disabled,
+  },
 })
 
-export const stylesWithIcon = () => ({
+export const stylesWithIcon = theme => ({
   root: {
     height: '32px',
     width: '100%',
@@ -38,7 +40,7 @@ export const stylesWithIcon = () => ({
   input: {
     paddingLeft: '40px',
     paddingRight: '40px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
 
     '&:-webkit-autofill': {
       borderRadius: '4px',

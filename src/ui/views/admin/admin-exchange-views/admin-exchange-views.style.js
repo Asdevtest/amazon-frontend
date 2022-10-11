@@ -1,6 +1,6 @@
 export const styles = theme => ({
   balanceTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '72px',
     fontWeight: 400,
     lineHeight: '84px',
@@ -32,13 +32,13 @@ export const styles = theme => ({
 
   filterBtn: {
     marginLeft: '10px',
-    color: '#007bff',
+    color: theme.palette.primary.main,
     marginBottom: '5px',
 
     fontSize: '16px',
     transition: '.15s ease-in-out',
     '&:hover': {
-      color: '#007bff',
+      color: theme.palette.primary.main,
       transform: 'scale(1.01)',
     },
   },
@@ -53,7 +53,7 @@ export const styles = theme => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    // backgroundColor: '#fff',
+    // backgroundColor: theme.palette.background.main,
 
     backgroundColor: theme.palette.background.main,
   },

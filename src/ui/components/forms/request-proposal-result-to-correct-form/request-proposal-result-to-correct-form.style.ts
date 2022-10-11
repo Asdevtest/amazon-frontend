@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '586px',
   },
@@ -28,7 +28,7 @@ export const useClassNames = makeStyles()(() => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   modalHeader: {
     width: '100%',
@@ -40,14 +40,14 @@ export const useClassNames = makeStyles()(() => ({
     fontWeight: 400,
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   label: {
     fontWeight: 400,
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   input: {
@@ -89,7 +89,7 @@ export const useClassNames = makeStyles()(() => ({
     fontWeight: 400,
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '10px',
   },
 

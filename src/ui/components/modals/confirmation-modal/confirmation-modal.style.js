@@ -106,7 +106,7 @@ export const useClassNames = makeStyles()(theme => ({
   cancelButton: {
     height: '40px',
     width: '98px',
-    // color: '#001029',
+    // color: theme.palette.text.general,
 
     // color: theme.palette.text.negativeMain,
   },

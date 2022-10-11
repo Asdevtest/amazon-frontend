@@ -48,6 +48,10 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: '#a0a0a4 !important',
   },
 
+  text: {
+    color: theme.palette.text.general,
+  },
+
   tooltipsWrapper: {
     position: 'absolute',
     top: '-10px',

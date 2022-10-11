@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
     // padding: '0 40px',
   },
@@ -19,11 +19,11 @@ export const useClassNames = makeStyles()(() => ({
   cardListTitle: {
     fontSize: '20px',
     lineHeight: '27px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: 600,
   },
   cardListSubTitle: {
-    color: '#656565',
+    color: theme.palette.text.second,
     fontSize: '14px',
     lineHeight: '19px',
     marginBottom: '10px',

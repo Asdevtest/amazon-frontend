@@ -97,7 +97,7 @@ export const useClassNames = makeStyles()(theme => ({
   messageDate: {
     margin: 0,
     fontSize: 14,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   readIconsWrapper: {

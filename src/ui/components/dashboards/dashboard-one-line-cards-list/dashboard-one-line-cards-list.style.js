@@ -68,7 +68,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
   cardListSubTitle: {
-    color: '#656565',
+    color: theme.palette.text.second,
     fontSize: '14px',
     lineHeight: '19px',
     marginBottom: '10px',

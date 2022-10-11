@@ -46,7 +46,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     overflowY: 'auto',
     width: '395px',
     height: '160px',
@@ -56,7 +56,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   rightBlockWrapper: {
@@ -133,7 +133,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
     marginRight: 5,
   },
 
