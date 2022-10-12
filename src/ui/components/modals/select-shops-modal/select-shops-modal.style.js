@@ -24,7 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   warningModalMessageWrapper: {
-    background: '#fff',
+    backgroundColor: theme.palette.background.main,
     borderRadius: '10px 10px',
     // padding: '10px',
   },
@@ -32,6 +32,8 @@ export const useClassNames = makeStyles()(theme => ({
   modalMessage: {
     // maxWidth: '350px',
     textAlign: 'center',
+
+    color: theme.palette.text.general,
   },
 
   warningModalMessage: {
@@ -58,7 +60,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   warningButtonsWrapper: {
     borderRadius: '0 0 10px 10px',
-    background: '#fff',
+    backgroundColor: theme.palette.background.main,
     marginTop: '22px',
   },
 
@@ -74,6 +76,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
+
+    color: theme.palette.text.general,
   },
 
   warningTitle: {
@@ -86,7 +90,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     textAlign: 'center',
-    color: '#354256',
+    color: theme.palette.text.second,
     verticalAlign: 'middle',
   },
 
@@ -115,9 +119,16 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: '4px',
   },
 
-  shopsSelect: {},
+  shopsSelect: {
+    width: '214px',
+
+    color: theme.palette.text.general,
+  },
+
   selectMenu: {
     width: '317px',
+
+    color: theme.palette.text.general,
   },
 
   selectedShopsWrapper: {
@@ -133,7 +144,9 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     gap: '24px',
     padding: '5px 15px',
-    backgroundColor: '#CCE2FF',
+    // backgroundColor: '#CCE2FF',
+
+    backgroundColor: theme.palette.background.second,
     borderRadius: '4px',
     fontSize: '14px',
     lineHeight: '16px',

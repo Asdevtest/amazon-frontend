@@ -20,7 +20,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   headerWrapper: {},
   headerText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
     fontWeight: 600,
   },
@@ -41,14 +41,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
   titleWrapper: {},
   titleText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   descriptionWrapper: {
     marginTop: 18,
   },
   descriptionText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   footerWrapper: {
@@ -129,7 +129,7 @@ export const useClassNames = makeStyles()(theme => ({
   conditionsField: {
     border: 'none',
     resize: 'none',
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
     fontFamily: 'inherit',
     width: '305px',

@@ -180,7 +180,7 @@ export const styles = theme => ({
     },
   },
   barcodeChipExists: {
-    backgroundColor: 'rgb(61, 81, 112)',
+    backgroundcolor: theme.palette.text.general,
   },
 
   chipStock: {
@@ -245,7 +245,7 @@ export const styles = theme => ({
     color: 'rgb(189, 194, 209)',
   },
   select: {
-    backgroundColor: 'rgb(61, 81, 112)',
+    backgroundcolor: theme.palette.text.general,
   },
 
   defaultOrderSpan: {

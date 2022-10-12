@@ -64,7 +64,11 @@ export const AddOrEditWarehouseTariffForm = observer(({onCloseModal, onCreateSub
 
   return (
     <div className={classNames.root}>
+<<<<<<< HEAD
       <Typography variant="h5" className={classNames.modalTitle}>
+=======
+      <Typography variant="h5" className={classNames.title}>
+>>>>>>> 46652e19... save 12.10
         {t(TranslationKey['Adding tariff'])}
       </Typography>
 

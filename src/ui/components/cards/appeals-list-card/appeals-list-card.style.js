@@ -221,6 +221,6 @@ export const useClassNames = makeStyles()(theme => ({
 
   timeOnReview: {
     padding: '8px 16px 8px 16px',
-    backgroundColor: '#FFC7C7',
+    backgroundColor: theme.palette.background.red,
   },
 }))

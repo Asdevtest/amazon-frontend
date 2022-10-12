@@ -22,6 +22,10 @@ export const useClassNames = makeStyles()(theme => ({
     transitionDuration: '300ms',
     transitionTimingFunction: 'ease-in-out',
   },
+
+  emptyDocs: {
+    color: theme.palette.text.second,
+  },
   allClides: {
     display: 'flex',
     alignItems: 'center',
@@ -45,6 +49,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
+
+    color: theme.palette.text.general,
   },
 
   buttonDocumentsWrapper: {

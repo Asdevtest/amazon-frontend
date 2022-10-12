@@ -203,7 +203,10 @@ export const MergeBoxesModal = ({
                     disabled={isDifferentStorekeepers}
                     color="primary"
                     variant={boxBody.logicsTariffId && 'text'}
-                    className={cx({[classNames.storekeeperBtn]: !boxBody.logicsTariffId})}
+                    className={cx(
+                      {[classNames.storekeeperBtn]: !boxBody.logicsTariffId},
+                      {[classNames.standartText]: boxBody.logicsTariffId},
+                    )}
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {boxBody.logicsTariffId

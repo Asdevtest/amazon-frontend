@@ -37,6 +37,10 @@ export const useClassNames = makeStyles()(theme => ({
     // lineHeight: '19px',
   },
 
+  standartText: {
+    color: theme.palette.text.second,
+  },
+
   fieldLabel: {
     color: theme.palette.text.general,
     fontSize: '16px',

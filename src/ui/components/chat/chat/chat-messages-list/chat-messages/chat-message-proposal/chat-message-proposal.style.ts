@@ -39,7 +39,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   titleWrapper: {},
   titleText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   descriptionWrapper: {
@@ -48,7 +48,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   descriptionText: {
     width: '305px',
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   footerWrapper: {

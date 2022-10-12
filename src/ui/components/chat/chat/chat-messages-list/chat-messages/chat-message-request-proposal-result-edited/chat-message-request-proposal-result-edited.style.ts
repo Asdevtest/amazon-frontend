@@ -41,14 +41,14 @@ export const useClassNames = makeStyles()(theme => ({
   },
   titleWrapper: {},
   titleText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   descriptionWrapper: {
     marginTop: 18,
   },
   descriptionText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   resultWrapper: {

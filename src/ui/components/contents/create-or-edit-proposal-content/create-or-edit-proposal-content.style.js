@@ -31,7 +31,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '30px',
     lineHeight: '35px',
-    color: '#354256',
+    color: theme.palette.text.second,
   },
 
   title: {
@@ -41,7 +41,7 @@ export const useClassNames = makeStyles()(theme => ({
   mainSubTitle: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#354256',
+    color: theme.palette.text.second,
     marginTop: '47px',
   },
 
@@ -121,9 +121,15 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
   },
 
+  standartText: {
+    color: theme.palette.text.second,
+  },
+
   twoStepFieldResult: {
     minHeight: '40px',
     background: 'rgba(200,200,200, .1)',
+
+    color: theme.palette.text.second,
   },
 
   twoStepDeadlineField: {
@@ -168,7 +174,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   error: {
-    color: 'red',
+    color: 'red !important',
   },
 
   nameField: {
@@ -248,6 +254,8 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '16px',
     marginTop: '10px',
     marginBottom: '30px',
+
+    color: theme.palette.text.second,
   },
 
   spanLabel: {
@@ -298,6 +306,8 @@ export const useClassNames = makeStyles()(theme => ({
     border: 'none',
     backgroundColor: 'inherit',
     resize: 'none',
+
+    color: theme.palette.text.second,
   },
   listItemDot: {
     width: '8px !important',

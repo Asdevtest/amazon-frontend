@@ -155,7 +155,10 @@ const Box = ({
                         disabled={!isNewBox}
                         color="primary"
                         variant={box.logicsTariffId && 'text'}
-                        className={cx({[classNames.storekeeperBtn]: !box.logicsTariffId})}
+                        className={cx(
+                          {[classNames.storekeeperBtn]: !box.logicsTariffId},
+                          {[classNames.standartText]: box.logicsTariffId},
+                        )}
                         onClick={() =>
                           setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                         }
@@ -218,7 +221,7 @@ const Box = ({
                       </div>
                     ) : (
                       <div className={classNames.shippingLabelWrapper}>
-                        <Typography>{t(TranslationKey['Not available'])}</Typography>
+                        <Typography className={classNames.miss}>{t(TranslationKey['Not available'])}</Typography>
                       </div>
                     )
                   }

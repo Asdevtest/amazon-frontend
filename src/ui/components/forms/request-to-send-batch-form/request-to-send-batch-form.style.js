@@ -5,7 +5,9 @@ export const useClassNames = makeStyles()(theme => ({
   content: {
     width: '100%',
   },
-  modalTitle: {},
+  modalTitle: {
+    color: theme.palette.text.general,
+  },
 
   boxesWrapper: {
     marginTop: '20px',

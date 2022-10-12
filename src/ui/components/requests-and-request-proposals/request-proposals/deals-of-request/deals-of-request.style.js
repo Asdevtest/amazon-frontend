@@ -17,14 +17,14 @@ export const useClassNames = makeStyles()(theme => ({
 
   accordion: {
     width: '100%',
-    backgroundColor: 'red',
+    // backgroundColor: theme.palette,
   },
 
   title: {
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',
-    color: '#354256',
+    color: theme.palette.text.second,
   },
 
   dealWrapper: {
@@ -109,7 +109,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '21px',
-    color: '#0460DE',
+    color: theme.palette.primary.main,
   },
 
   blockInfoStatusWrapper: {
@@ -134,5 +134,9 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     color: theme.palette.primary.main,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 }))

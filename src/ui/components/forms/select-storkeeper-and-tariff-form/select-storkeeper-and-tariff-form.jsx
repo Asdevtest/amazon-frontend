@@ -1,7 +1,11 @@
 import {cx} from '@emotion/css'
-import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
 import SearchIcon from '@mui/icons-material/Search'
-import {Typography, Box, Tabs, Tab, InputAdornment} from '@mui/material'
+import {
+  Box,
+  Tabs,
+  /* Tab, */
+  InputAdornment,
+} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useState} from 'react'
@@ -13,6 +17,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
+import {ITab} from '@components/i-tab/i-tab'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {t} from '@utils/translations'
@@ -37,7 +42,6 @@ export const SelectStorekeeperAndTariffForm = observer(
     const {classes: classNames} = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(0)
-    const tabItemStyles = twitterTabsStylesHook.useTabItem()
 
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -81,7 +85,6 @@ export const SelectStorekeeperAndTariffForm = observer(
                   },
                 )}
                 variant="text"
-                color="primary"
                 onClick={() => setCurStorekeeper(storekeeper)}
               >
                 {storekeeper.name}
@@ -111,8 +114,8 @@ export const SelectStorekeeperAndTariffForm = observer(
           value={tabIndex}
           onChange={(e, index) => setTabIndex(index)}
         >
-          <Tab classes={tabItemStyles} label={t(TranslationKey['Logistics tariffs'])} />
-          <Tab classes={tabItemStyles} label={t(TranslationKey['Tariffs of warehouse services'])} />
+          <ITab label={t(TranslationKey['Logistics tariffs'])} />
+          <ITab label={t(TranslationKey['Tariffs of warehouse services'])} />
         </Tabs>
         <TabPanel value={tabIndex} index={0}>
           <div className={classNames.tableWrapper}>
@@ -135,7 +138,13 @@ export const SelectStorekeeperAndTariffForm = observer(
           </div>
           {!inNotifications ? (
             <div className={classNames.clearBtnWrapper}>
-              <Button disableElevation color="primary" variant={'outlined'} onClick={() => onSubmit('', '')}>
+              <Button
+                disableElevation
+                color="primary"
+                variant={'outlined'}
+                className={classNames.resetBtn}
+                onClick={() => onSubmit('', '')}
+              >
                 {t(TranslationKey.reset)}
               </Button>
             </div>

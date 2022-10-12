@@ -40,31 +40,35 @@ const WarehouseDemensions = ({orderBox, sizeSetting}) => {
 
   return (
     <div className={classNames.demensionsWrapper}>
-      <Typography>
+      <Typography className={classNames.standartText}>
         {t(TranslationKey.Length) + ': '}
 
         {toFixed(orderBox.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
       </Typography>
-      <Typography>
+      <Typography className={classNames.standartText}>
         {t(TranslationKey.Width) + ': '}
         {toFixed(orderBox.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
       </Typography>
-      <Typography>
+      <Typography className={classNames.standartText}>
         {t(TranslationKey.Height) + ': '}
         {toFixed(orderBox.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
       </Typography>
 
-      <Typography>
+      <Typography className={classNames.standartText}>
         {t(TranslationKey.Weight) + ': '}
         {orderBox.weighGrossKgWarehouse || 0}
       </Typography>
 
-      <Typography>
+      <Typography className={classNames.standartText}>
         {t(TranslationKey['Volume weight']) + ': '}
         {toFixed(orderBox.volumeWeightKgWarehouse, 4) || 0}
       </Typography>
 
-      <Typography className={cx({[classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse < 12})}>
+      <Typography
+        className={cx(classNames.standartText, {
+          [classNames.alertText]: orderBox.weightFinalAccountingKgWarehouse < 12,
+        })}
+      >
         {t(TranslationKey['Final weight']) + ': '}
         {toFixed(orderBox.weightFinalAccountingKgWarehouse, 4) || 0}
       </Typography>
@@ -477,7 +481,10 @@ export const EditBoxForm = observer(
                           disableElevation
                           color="primary"
                           variant={boxFields.storekeeperId && 'text'}
-                          className={cx({[classNames.storekeeperBtn]: !boxFields.storekeeperId})}
+                          className={cx(
+                            {[classNames.storekeeperBtn]: !boxFields.storekeeperId},
+                            {[classNames.standartText]: boxFields.storekeeperId},
+                          )}
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }

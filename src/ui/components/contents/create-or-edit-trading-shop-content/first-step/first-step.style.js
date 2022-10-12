@@ -158,7 +158,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   descriptionField: {
-    height: '225px',
+    height: '255px',
     width: '100%',
     // overflowY: 'scroll',
   },
@@ -558,6 +558,8 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     width: '280px',
+
+    color: theme.palette.text.general,
   },
 
   actionDelButton: {
@@ -595,5 +597,9 @@ export const useClassNames = makeStyles()(theme => ({
   indicatorInput: {
     width: 70,
     margin: '0 10px',
+  },
+
+  charactersHints: {
+    color: theme.palette.text.second,
   },
 }))

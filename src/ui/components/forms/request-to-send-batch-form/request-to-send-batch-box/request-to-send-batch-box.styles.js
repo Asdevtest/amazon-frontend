@@ -10,7 +10,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   badBox: {
-    backgroundColor: '#FFC7C7',
+    backgroundColor: theme.palette.background.red,
   },
 
   boxNoPrice: {
@@ -21,6 +21,8 @@ export const useClassNames = makeStyles()(theme => ({
     textAlign: 'left',
     display: 'table-cell',
     verticalAlign: 'middle',
+
+    color: theme.palette.text.second,
   },
   priceCellRight: {
     textAlign: 'center',

@@ -133,6 +133,7 @@ export const lightTheme = createTheme({
       chatMyMessage: '#CCE2FF',
 
       tableCurRow: '#baffba',
+      red: '#FFC7C7',
     },
 
     linearGradient: {
@@ -254,6 +255,7 @@ export const darkTheme = createTheme({
       chatMyMessage: '#384C68',
 
       tableCurRow: '#388E3C',
+      red: '#2E0505',
     },
 
     linearGradient: {

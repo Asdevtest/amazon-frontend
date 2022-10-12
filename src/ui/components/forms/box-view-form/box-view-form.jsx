@@ -68,7 +68,7 @@ export const BoxViewForm = observer(
               }
             />
 
-            <Typography>{`${t(TranslationKey.Batch)} № ${
+            <Typography className={classNames.batchId}>{`${t(TranslationKey.Batch)} № ${
               (batchHumanFriendlyId ? batchHumanFriendlyId : box.batch?.humanFriendlyId) ||
               t(TranslationKey['Not available'])
             }`}</Typography>
@@ -226,29 +226,29 @@ export const BoxViewForm = observer(
                       </ToggleBtn>
                     </ToggleBtnGroup>
                   </div>
-                  <Typography>
+                  <Typography className={classNames.standartText}>
                     {t(TranslationKey.Length) + ': '}
                     {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                   </Typography>
-                  <Typography>
+                  <Typography className={classNames.standartText}>
                     {t(TranslationKey.Width) + ': '}
                     {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                   </Typography>
-                  <Typography>
+                  <Typography className={classNames.standartText}>
                     {t(TranslationKey.Height) + ': '}
                     {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                   </Typography>
 
-                  <Typography>
+                  <Typography className={classNames.standartText}>
                     {t(TranslationKey.Weight) + ': '}
                     {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
                   </Typography>
-                  <Typography>
+                  <Typography className={classNames.standartText}>
                     {t(TranslationKey['Volume weight']) + ': '}
                     {toFixedWithKg(calcVolumeWeightForBox(box, volumeWeightCoefficient), 2)}
                   </Typography>
                   <Typography
-                    className={cx({
+                    className={cx(classNames.standartText, {
                       [classNames.alertText]: calcFinalWeightForBox(box, volumeWeightCoefficient) < 12,
                     })}
                   >

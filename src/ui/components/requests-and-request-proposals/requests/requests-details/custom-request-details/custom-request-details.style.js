@@ -32,18 +32,20 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     lineHeight: '1.5',
     resize: 'none',
+
+    color: theme.palette.text.general,
   },
 
   accordion: {
     width: '100%',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
 
   title: {
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',
-    color: '#354256',
+    color: theme.palette.text.second,
   },
 
   imgBox: {

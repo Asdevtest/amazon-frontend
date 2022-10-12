@@ -84,6 +84,10 @@ export const useClassNames = makeStyles()(theme => ({
     marginLeft: '40px',
   },
 
+  cancelBtn: {
+    color: theme.palette.text.general,
+  },
+
   successBtn: {
     backgroundColor: '#4CAF50',
     '&:hover': {

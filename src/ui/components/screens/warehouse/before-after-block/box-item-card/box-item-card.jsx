@@ -30,8 +30,6 @@ export const BoxItemCard = ({
 }) => {
   const {classes: classNames} = useClassNames()
 
-  console.log('referenceEditingBox', referenceEditingBox)
-
   return (
     <div className={classNames.root}>
       <div className={classNames.mainWrapper}>
@@ -83,7 +81,7 @@ export const BoxItemCard = ({
                   <CopyValue text={item.barCode} />
                 </div>
               ) : (
-                <Typography className={classNames.barCodeField}>{t(TranslationKey['Not available'])}</Typography>
+                <Typography className={classNames.miss}>{t(TranslationKey['Not available'])}</Typography>
               )}
             </div>
             <div>

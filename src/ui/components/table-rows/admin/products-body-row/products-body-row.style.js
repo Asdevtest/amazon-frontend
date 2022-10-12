@@ -133,6 +133,6 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   barcodeChipExists: {
-    backgroundColor: 'rgb(61, 81, 112)',
+    backgroundcolor: theme.palette.text.general,
   },
 }))

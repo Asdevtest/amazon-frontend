@@ -67,7 +67,9 @@ export const DealsOfRequest = ({requestProposals, onClickReview}) => {
                       <Typography className={classNames.requestStatus}>
                         <span style={{backgroundColor: RequestProposalStatusColor(deal.proposal.status)}}></span>
                       </Typography>
-                      <Typography>{RequestProposalStatusTranslate(deal.proposal.status)}</Typography>
+                      <Typography className={classNames.standartText}>
+                        {RequestProposalStatusTranslate(deal.proposal.status)}
+                      </Typography>
                     </div>
                   </div>
                 </div>

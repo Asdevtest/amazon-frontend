@@ -34,4 +34,8 @@ export const useClassNames = makeStyles()(theme => ({
   divider: {
     margin: '8px -16px',
   },
+
+  miss: {
+    color: theme.palette.text.second,
+  },
 }))

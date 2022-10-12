@@ -121,11 +121,11 @@ export const OrderModalBodyRow = ({
         <TableCell className={classNames.cell}>
           <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
           <div className={classNames.copyValueWrapper}>
-            <Typography>{`ASIN: ${item.asin}`}</Typography>
+            <Typography className={classNames.standartText}>{`ASIN: ${item.asin}`}</Typography>
             {item.asin ? <CopyValue text={item.asin} /> : null}
           </div>
           <div className={classNames.copyValueWrapper}>
-            <Typography>{`SKU: ${
+            <Typography className={classNames.standartText}>{`SKU: ${
               item.skusByClient?.length ? item.skusByClient.join(',') : t(TranslationKey.Missing)
             }`}</Typography>
             {item.skusByClient[0] ? <CopyValue text={item.skusByClient[0]} /> : null}
@@ -139,11 +139,13 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <Typography>{item.currentSupplier && item.currentSupplier.price}</Typography>
+          <Typography className={classNames.standartText}>
+            {item.currentSupplier && item.currentSupplier.price}
+          </Typography>
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <Typography>
+          <Typography className={classNames.standartText}>
             {item.currentSupplier &&
               toFixed(item.currentSupplier.batchDeliveryCostInDollar / item.currentSupplier.amount, 2)}
           </Typography>
@@ -159,7 +161,9 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <Typography>{toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}</Typography>
+          <Typography className={classNames.standartText}>
+            {toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}
+          </Typography>
         </TableCell>
 
         <TableCell className={classNames.cell}>
@@ -190,7 +194,10 @@ export const OrderModalBodyRow = ({
             disableElevation
             color="primary"
             variant={item.storekeeperId && 'text'}
-            className={cx({[classNames.storekeeperBtn]: !item.storekeeperId})}
+            className={cx(
+              {[classNames.storekeeperBtn]: !item.storekeeperId},
+              {[classNames.standartText]: item.storekeeperId},
+            )}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
             {item.storekeeperId

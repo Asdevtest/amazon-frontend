@@ -232,7 +232,7 @@ export const AddOrEditBatchForm = observer(
           </div>
 
           <div className={classNames.searchWrapper}>
-            <Typography>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
+            <Typography className={classNames.subTitle}>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
 
             <Field
               containerClasses={classNames.searchContainer}

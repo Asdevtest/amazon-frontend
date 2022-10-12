@@ -45,5 +45,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: '40px',
+
+    color: theme.palette.text.second,
   },
 }))

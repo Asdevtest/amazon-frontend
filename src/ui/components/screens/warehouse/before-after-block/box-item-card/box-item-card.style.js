@@ -19,6 +19,10 @@ export const useClassNames = makeStyles()(theme => ({
     objectPosition: 'center',
   },
 
+  miss: {
+    color: theme.palette.text.second,
+  },
+
   title: {
     fontSize: '14px',
     fontWeight: 400,
@@ -35,6 +39,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '16px',
     // width: '280px',
+
+    color: theme.palette.text.general,
   },
 
   subTitle: {

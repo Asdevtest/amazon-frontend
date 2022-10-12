@@ -60,24 +60,28 @@ export const OwnerGeneralRequestInfo = ({
         <div className={classNames.requestInfoWrapper}>
           <div className={classNames.blockInfoWrapper}>
             <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{t(TranslationKey.Time)}</Typography>
-              <Typography>{request && formatDateDistanceFromNowStrict(request?.request.timeoutAt, now)}</Typography>
+              <Typography className={classNames.standartText}>{t(TranslationKey.Time)}</Typography>
+              <Typography className={classNames.standartText}>
+                {request && formatDateDistanceFromNowStrict(request?.request.timeoutAt, now)}
+              </Typography>
             </div>
 
             <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{t(TranslationKey.Status)}</Typography>
+              <Typography className={classNames.standartText}>{t(TranslationKey.Status)}</Typography>
               <div className={classNames.requestStatus}>{<RequestStatusCell status={request?.request.status} />}</div>
             </div>
           </div>
 
           <div className={classNames.blockInfoWrapper}>
             <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{t(TranslationKey.Deadline)}</Typography>
-              <Typography>{formatNormDateTime(request?.request.timeoutAt)}</Typography>
+              <Typography className={classNames.standartText}>{t(TranslationKey.Deadline)}</Typography>
+              <Typography className={classNames.standartText}>
+                {formatNormDateTime(request?.request.timeoutAt)}
+              </Typography>
             </div>
 
             <div className={classNames.requestItemInfoWrapper}>
-              <Typography>{t(TranslationKey['Total price'])}</Typography>
+              <Typography className={classNames.standartText}>{t(TranslationKey['Total price'])}</Typography>
               <Typography className={classNames.price}>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
             </div>
           </div>
@@ -86,42 +90,42 @@ export const OwnerGeneralRequestInfo = ({
 
       <div className={classNames.middleBlockWrapper}>
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{t(TranslationKey.Total)}</Typography>
-          <Typography>{requestProposals?.length || 0}</Typography>
+          <Typography className={classNames.standartText}>{t(TranslationKey.Total)}</Typography>
+          <Typography className={classNames.standartText}>{requestProposals?.length || 0}</Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{t(TranslationKey.Submitted)}</Typography>
-          <Typography>
+          <Typography className={classNames.standartText}>{t(TranslationKey.Submitted)}</Typography>
+          <Typography className={classNames.standartText}>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.CREATED).length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{t(TranslationKey['In the work'])}</Typography>
-          <Typography>
+          <Typography className={classNames.standartText}>{t(TranslationKey['In the work'])}</Typography>
+          <Typography className={classNames.standartText}>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_ACCEPTED)
               .length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{t(TranslationKey['On refinement'])}</Typography>
-          <Typography>
+          <Typography className={classNames.standartText}>{t(TranslationKey['On refinement'])}</Typography>
+          <Typography className={classNames.standartText}>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.TO_CORRECT).length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{t(TranslationKey['Waiting for checks'])}</Typography>
-          <Typography>
+          <Typography className={classNames.standartText}>{t(TranslationKey['Waiting for checks'])}</Typography>
+          <Typography className={classNames.standartText}>
             {requestProposals?.filter(el => el.proposal.status === RequestProposalStatus.READY_TO_VERIFY).length || 0}
           </Typography>
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{t(TranslationKey.Accepted)}</Typography>
-          <Typography>
+          <Typography className={classNames.standartText}>{t(TranslationKey.Accepted)}</Typography>
+          <Typography className={classNames.standartText}>
             {requestProposals?.filter(
               el =>
                 el.proposal.status === RequestProposalStatus.ACCEPTED_BY_CLIENT ||
@@ -132,8 +136,8 @@ export const OwnerGeneralRequestInfo = ({
         </div>
 
         <div className={classNames.middleBlockItemInfoWrapper}>
-          <Typography>{t(TranslationKey.Rejected)}</Typography>
-          <Typography>
+          <Typography className={classNames.standartText}>{t(TranslationKey.Rejected)}</Typography>
+          <Typography className={classNames.standartText}>
             {requestProposals?.filter(
               el =>
                 el.proposal.status === RequestProposalStatus.CANCELED_BY_CREATOR_OF_REQUEST ||

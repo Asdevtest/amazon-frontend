@@ -393,9 +393,9 @@ export const AddOrEditLogisticTariffForm = observer(
               value={formFields.description}
               onChange={onChangeField('description')}
             />
-            <span className={cx(formFields.description.length > 255 && classNames.error)}>{`${
-              formFields.description.length
-            } ${t(TranslationKey.of)} 255 ${t(TranslationKey.characters)}`}</span>
+            <span
+              className={cx(classNames.standartText, {[classNames.error]: formFields.description.length > 255})}
+            >{`${formFields.description.length} ${t(TranslationKey.of)} 255 ${t(TranslationKey.characters)}`}</span>
           </div>
         </div>
 

@@ -53,7 +53,7 @@ export const Reviews = ({tabReview, setTabReview}) => {
 
         <div className={classNames.tabContent} role="tabpanel">
           <div className={classNames.subTabWrapper}>
-            <Typography className={(classNames.text, classNames.typoNoReviews)}>
+            <Typography className={cx(classNames.text, classNames.typoNoReviews)}>
               {t(TranslationKey['No transaction history found'])}
             </Typography>
           </div>

@@ -492,7 +492,7 @@ export const IdeaViewAndEditCard = observer(
 
             <Button
               variant="text"
-              className={[classNames.actionButton, classNames.btnLeftMargin]}
+              className={cx(classNames.actionButton, classNames.btnLeftMargin, classNames.cancelBtn)}
               onClick={() => onClickCancelBtn()}
             >
               {t(TranslationKey.Cancel)}

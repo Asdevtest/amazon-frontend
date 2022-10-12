@@ -694,13 +694,7 @@ export const ReceiveBoxModal = ({setOpenModal, setSourceBoxes, volumeWeightCoeff
           {t(TranslationKey.Save)}
         </Button>
 
-        <Button
-          variant="text"
-          className={cx(classNames.button, classNames.cancelButton)}
-          onClick={() => {
-            setOpenModal()
-          }}
-        >
+        <Button variant="text" className={cx(classNames.button, classNames.cancelButton)} onClick={setOpenModal}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

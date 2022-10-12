@@ -13,7 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 500,
   },
   text: {
-    color: '#89919C',
+    color: theme.palette.text.second,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',

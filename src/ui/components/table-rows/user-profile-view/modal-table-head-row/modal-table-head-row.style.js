@@ -1,9 +1,9 @@
-export const styles = {
+export const styles = theme => ({
   tableHeadTypography: {
-    color: 'rgb(61, 81, 112)',
+    color: theme.palette.text.general,
     fontWeight: 500,
   },
   tableHeadCell: {
     padding: '8px',
   },
-}
+})

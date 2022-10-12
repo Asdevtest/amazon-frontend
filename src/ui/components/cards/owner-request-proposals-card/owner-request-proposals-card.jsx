@@ -92,7 +92,9 @@ export const OwnerRequestProposalsCard = ({
             className={classNames.circleIndicator}
             style={{backgroundColor: RequestProposalStatusColor(item.proposal.status)}}
           />
-          <Typography>{RequestProposalStatusTranslate(item.proposal.status)}</Typography>
+          <Typography className={classNames.standartText}>
+            {RequestProposalStatusTranslate(item.proposal.status)}
+          </Typography>
         </div>
 
         <div className={classNames.actionButtonWrapper}>

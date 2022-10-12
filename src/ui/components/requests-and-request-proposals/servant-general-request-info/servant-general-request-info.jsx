@@ -82,24 +82,28 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
           <div className={classNames.requestInfoWrapper}>
             <div className={classNames.blockInfoWrapper}>
               <div className={classNames.requestItemInfoWrapper}>
-                <Typography>{t(TranslationKey.Time)}</Typography>
-                <Typography>{minsToTime(request?.request.timeLimitInMinutes)}</Typography>
+                <Typography className={classNames.standartText}>{t(TranslationKey.Time)}</Typography>
+                <Typography className={classNames.standartText}>
+                  {minsToTime(request?.request.timeLimitInMinutes)}
+                </Typography>
               </div>
 
               <div className={classNames.requestItemInfoWrapper}>
-                <Typography>{t(TranslationKey.Status)}</Typography>
+                <Typography className={classNames.standartText}>{t(TranslationKey.Status)}</Typography>
                 <div className={classNames.requestStatus}>{<RequestStatusCell status={request?.request.status} />}</div>
               </div>
             </div>
 
             <div className={classNames.blockInfoWrapper}>
               <div className={classNames.requestItemInfoWrapper}>
-                <Typography>{t(TranslationKey.Deadline)}</Typography>
-                <Typography>{formatNormDateTime(request?.request.timeoutAt)}</Typography>
+                <Typography className={classNames.standartText}>{t(TranslationKey.Deadline)}</Typography>
+                <Typography className={classNames.standartText}>
+                  {formatNormDateTime(request?.request.timeoutAt)}
+                </Typography>
               </div>
 
               <div className={classNames.requestItemInfoWrapper}>
-                <Typography>{t(TranslationKey['Total price'])}</Typography>
+                <Typography className={classNames.standartText}>{t(TranslationKey['Total price'])}</Typography>
                 <Typography className={classNames.price}>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
               </div>
             </div>
@@ -164,21 +168,25 @@ export const ServantGeneralRequestInfo = ({request, onSubmit, requestProposals})
         </div>
         <div className={classNames.middleSideWrapper}>
           <div className={classNames.requestItemInfoProposalsWrapper}>
-            <Typography>{t(TranslationKey.Time)}</Typography>
-            <Typography>{minsToTime(request?.request.timeLimitInMinutes)}</Typography>
+            <Typography className={classNames.standartText}>{t(TranslationKey.Time)}</Typography>
+            <Typography className={classNames.standartText}>
+              {minsToTime(request?.request.timeLimitInMinutes)}
+            </Typography>
           </div>
 
           <div className={classNames.requestItemInfoProposalsWrapper}>
-            <Typography>{t(TranslationKey.Status)}</Typography>
+            <Typography className={classNames.standartText}>{t(TranslationKey.Status)}</Typography>
             <div className={classNames.requestStatus}>{<RequestStatusCell status={request?.request.status} />}</div>
           </div>
           <div className={classNames.requestItemInfoProposalsWrapper}>
-            <Typography>{t(TranslationKey.Deadline)}</Typography>
-            <Typography>{formatNormDateTime(request?.request.timeoutAt)}</Typography>
+            <Typography className={classNames.standartText}>{t(TranslationKey.Deadline)}</Typography>
+            <Typography className={classNames.standartText}>
+              {formatNormDateTime(request?.request.timeoutAt)}
+            </Typography>
           </div>
 
           <div className={classNames.requestItemInfoProposalsWrapper}>
-            <Typography>{t(TranslationKey['Total price'])}</Typography>
+            <Typography className={classNames.standartText}>{t(TranslationKey['Total price'])}</Typography>
             <Typography className={classNames.price}>{toFixedWithDollarSign(request?.request.price, 2)}</Typography>
           </div>
         </div>

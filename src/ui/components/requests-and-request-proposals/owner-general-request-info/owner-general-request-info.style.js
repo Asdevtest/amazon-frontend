@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
     borderRadius: '4px',
@@ -56,13 +56,14 @@ export const useClassNames = makeStyles()(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',
-    color: '#354256',
+    color: theme.palette.text.second,
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     height: '60px',
   },
   subTitle: {
     marginTop: '10px',
+    color: theme.palette.text.second,
   },
   btnsBlockWrapper: {
     width: '23%',
@@ -73,7 +74,7 @@ export const useClassNames = makeStyles()(() => ({
   stopBtn: {
     width: '100%',
     background: '#F3AF00',
-    color: '#354256',
+    color: '#001029',
     '&:hover': {
       opacity: '0.8',
       background: '#F3AF00',
@@ -125,6 +126,10 @@ export const useClassNames = makeStyles()(() => ({
     },
   },
   price: {
-    color: '#0460DE',
+    color: theme.palette.primary.main,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 }))

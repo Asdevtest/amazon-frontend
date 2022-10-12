@@ -120,6 +120,8 @@ export const useClassNames = makeStyles()(theme => ({
   backBtn: {
     width: '211px',
     height: '42px',
+
+    color: theme.palette.text.general,
   },
 
   successBtn: {

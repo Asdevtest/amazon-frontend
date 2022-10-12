@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     padding: '20px 17px',
     backgroundColor: '#ffffff',
@@ -18,12 +18,12 @@ export const useClassNames = makeStyles()(() => ({
   },
   labelWrapper: {},
   labelText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   valueWrapper: {},
   valueText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   rowNotFirst: {

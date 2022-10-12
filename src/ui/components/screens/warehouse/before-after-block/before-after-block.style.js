@@ -156,6 +156,8 @@ export const useClassNames = makeStyles()(theme => ({
     maxWidth: '325px',
     whiteSpace: 'nowrap',
     overflowX: 'auto',
+
+    color: theme.palette.text.general,
   },
 
   checkboxContainer: {
@@ -420,6 +422,10 @@ export const useClassNames = makeStyles()(theme => ({
 
   toggleSizesWrapper: {
     marginRight: 30,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 
   '@media (max-width: 768px)': {

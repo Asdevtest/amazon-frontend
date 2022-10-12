@@ -560,6 +560,8 @@ export const useClassNames = makeStyles()(theme => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     width: '90%',
+
+    color: theme.palette.text.general,
   },
 
   actionDelButton: {

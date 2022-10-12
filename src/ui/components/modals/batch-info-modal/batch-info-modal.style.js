@@ -13,6 +13,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
   modalTitle: {
     marginRight: '100px',
+
+    color: theme.palette.text.general,
   },
   subTitle: {
     color: theme.palette.text.general,

@@ -93,16 +93,20 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                       className={classNames.circleIndicator}
                       style={{backgroundColor: RequestProposalStatusColor(proposal.status)}}
                     />
-                    <Typography>{RequestProposalStatusTranslate(proposal.status)}</Typography>
+                    <Typography className={classNames.standartText}>
+                      {RequestProposalStatusTranslate(proposal.status)}
+                    </Typography>
                   </div>
                   <div className={classNames.timeAndPriceWrapper}>
                     <div className={classNames.timeWrapper}>
-                      <Typography>{t(TranslationKey['Time to complete'])}</Typography>
+                      <Typography className={classNames.standartText}>
+                        {t(TranslationKey['Time to complete'])}
+                      </Typography>
                       <Typography className={classNames.timeCount}>{minsToTime(proposal.execution_time)}</Typography>
                     </div>
 
                     <div className={classNames.rightItemSubWrapper}>
-                      <Typography>{t(TranslationKey['Total price'])}</Typography>
+                      <Typography className={classNames.standartText}>{t(TranslationKey['Total price'])}</Typography>
                       <Typography className={classNames.price}>{toFixedWithDollarSign(proposal.price, 2)}</Typography>
                     </div>
                   </div>
@@ -115,7 +119,7 @@ export const MyProposalsListCard = ({item, onClickEditBtn, onClickDeleteBtn, onC
                       tooltipInfoContent={isFirst && t(TranslationKey['Cancel current proposal'])}
                       disabled={disabledCancelBtnStatuses.includes(proposal.status)}
                       color="primary"
-                      className={classNames.button}
+                      className={[classNames.button, classNames.cancelBtn]}
                       variant="text"
                       onClick={() => onClickDeleteBtn(proposal)}
                     >

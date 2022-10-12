@@ -127,11 +127,11 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 0,
 
     '&:hover': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
     },
 
     '&:disabled': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
       color: theme.palette.text.general,
     },
   },
@@ -153,11 +153,11 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 0,
 
     '&:hover': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
     },
 
     '&:disabled': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
       color: theme.palette.text.general,
     },
   },
@@ -174,11 +174,11 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 0,
 
     '&:hover': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
     },
 
     '&:disabled': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
       color: theme.palette.text.general,
     },
   },
@@ -197,11 +197,11 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 0,
 
     '&:hover': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
     },
 
     '&:disabled': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
       color: theme.palette.text.general,
     },
   },
@@ -219,11 +219,11 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 0,
 
     '&:hover': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
     },
 
     '&:disabled': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
       color: theme.palette.text.general,
     },
   },
@@ -241,11 +241,11 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 0,
 
     '&:hover': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
     },
 
     '&:disabled': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
       color: theme.palette.text.general,
     },
   },
@@ -264,11 +264,11 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 0,
 
     '&:hover': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
     },
 
     '&:disabled': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
       color: theme.palette.text.general,
     },
   },
@@ -285,11 +285,11 @@ export const useClassNames = makeStyles()(theme => ({
     borderRadius: 0,
 
     '&:hover': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
     },
 
     '&:disabled': {
-      backgroundColor: 'inherit',
+      backgroundColor: 'inherit !important',
       color: theme.palette.text.general,
     },
   },
@@ -306,7 +306,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: '#fff',
   },
   cancelBtn: {
-    backgroundColor: 'inherit',
+    backgroundColor: 'inherit !important',
     color: theme.palette.text.general,
     textTransform: 'none',
     '&:hover': {

@@ -29,7 +29,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   warningModalMessageWrapper: {
-    background: '#fff',
+    background: theme.palette.background.main,
     borderRadius: '10px 10px',
     // padding: '10px',
   },
@@ -64,7 +64,8 @@ export const useClassNames = makeStyles()(theme => ({
 
   warningButtonsWrapper: {
     borderRadius: '0 0 10px 10px',
-    background: '#fff',
+    backgroundColor: theme.palette.background.main,
+
     marginTop: '22px',
   },
 
@@ -92,7 +93,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     textAlign: 'center',
-    // color: '#354256',
+    // color: theme.palette.text.second
     verticalAlign: 'middle',
   },
 
@@ -106,7 +107,7 @@ export const useClassNames = makeStyles()(theme => ({
   cancelButton: {
     height: '40px',
     width: '98px',
-    // color: theme.palette.text.general,
+    color: theme.palette.text.general,
 
     // color: theme.palette.text.negativeMain,
   },

@@ -82,16 +82,12 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   title: {
-<<<<<<< HEAD
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: '#001029',
-    marginBottom: '30px',
-=======
-    marginBottom: '25px',
     color: theme.palette.text.general,
->>>>>>> 3136d1fa... save 11.10
+
+    marginBottom: '30px',
   },
 
   skuItemsWrapper: {

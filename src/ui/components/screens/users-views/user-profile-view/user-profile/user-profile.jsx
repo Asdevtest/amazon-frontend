@@ -38,8 +38,6 @@ export const UserProfile = observer(
   }) => {
     const {classes: classNames} = useClassNames()
 
-    console.log('user', user)
-
     return (
       <>
         {SettingsModel.languageTag && (
@@ -64,7 +62,7 @@ export const UserProfile = observer(
                   <Typography className={classNames.userEmail}>{user?.email}</Typography>
 
                   <div className={classNames.ratingWrapper}>
-                    <Typography>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
+                    <Typography className={classNames.standartText}>{`Rating ${toFixed(user?.rating, 1)}`}</Typography>
 
                     <Rating disabled className={classNames.userRating} value={user?.rating} />
                   </div>
@@ -97,7 +95,9 @@ export const UserProfile = observer(
 
               {!isAnotherUser && (
                 <div className={classNames.rolesWrapper}>
-                  <Typography variant="h6">{t(TranslationKey.Roles)}</Typography>
+                  <Typography variant="h6" className={classNames.standartText}>
+                    {t(TranslationKey.Roles)}
+                  </Typography>
 
                   {user?.allowedRoles.length && !user?.masterUser ? (
                     <div className={classNames.roles}>

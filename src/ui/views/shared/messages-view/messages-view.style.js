@@ -9,7 +9,7 @@ export const styles = theme => ({
 
     border: `1px solid ${theme.palette.primary.main}`,
 
-    width: 276,
+    width: 296,
     height: 36,
   },
 

@@ -234,7 +234,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
 
     heightFieldAuto: {
-      height: '96px',
+      height: 'auto',
       width: '280px',
 
       padding: 0,

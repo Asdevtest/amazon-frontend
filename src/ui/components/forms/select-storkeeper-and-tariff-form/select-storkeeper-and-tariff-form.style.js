@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '80vw',
   },
@@ -11,6 +11,8 @@ export const useClassNames = makeStyles()(() => ({
   button: {
     marginBottom: 5,
     marginRight: '10px',
+
+    color: theme.palette.text.general,
   },
 
   selectedBoxesBtn: {
@@ -22,6 +24,12 @@ export const useClassNames = makeStyles()(() => ({
 
   selectedStorekeeperBtn: {
     boxShadow: 'inset 0 0 15px #007BFF',
+
+    // color: theme.palette.text.general,
+  },
+
+  resetBtn: {
+    color: theme.palette.text.general,
   },
 
   tableWrapper: {

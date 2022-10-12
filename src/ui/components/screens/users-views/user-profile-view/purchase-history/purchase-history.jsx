@@ -51,7 +51,7 @@ export const PurchaseHistory = ({user, tabHistory, setTabHistory}) => {
         </Tabs>
         <div className={classNames.tabContent} role="tabpanel">
           <div className={classNames.subTabWrapper}>
-            <Typography className={(classNames.text, classNames.typoNoHistory)}>
+            <Typography className={cx(classNames.text, classNames.typoNoHistory)}>
               {t(TranslationKey['No transaction history found'])}
             </Typography>
           </div>

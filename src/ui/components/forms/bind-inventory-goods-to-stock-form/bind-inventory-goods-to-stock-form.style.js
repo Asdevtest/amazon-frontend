@@ -5,6 +5,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '850px',
   },
 
+  title: {
+    color: theme.palette.text.general,
+  },
+
   mainTitle: {
     fontStyle: 'normal',
     fontWeight: 'bold',
@@ -20,6 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   chosenGoodsTitle: {
     margin: '24px 0 4px',
+    color: theme.palette.text.second,
   },
 
   btnsWrapper: {
@@ -43,6 +48,8 @@ export const useClassNames = makeStyles()(theme => ({
   betweenChipsText: {
     margin: '0 17px',
     minWidth: 100,
+
+    color: theme.palette.text.second,
   },
 
   asinChip: {
@@ -57,7 +64,7 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: 5,
     color: theme.palette.text.general,
     fontSize: '16px',
-    backgroundColor: '#F4F4F4',
+    // backgroundColor: '#F4F4F4',
     transition: '.15s ease-in-out',
     '&:hover': {
       color: theme.palette.primary.main,
@@ -74,7 +81,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   searchInput: {
-    backgroundColor: '#F4F4F4',
+    // backgroundColor: '#F4F4F4',
     width: '100%',
     height: 40,
     '&:focus-within': {

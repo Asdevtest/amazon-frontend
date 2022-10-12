@@ -32,7 +32,7 @@ export const Tested = ({user}) => {
           <CheckedStrategyRow key={i} label={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[strategy])} />
         ))
       ) : (
-        <Typography>{t(TranslationKey['No passed strategies'])}</Typography>
+        <Typography className={classNames.miss}>{t(TranslationKey['No passed strategies'])}</Typography>
       )}
     </Paper>
   )

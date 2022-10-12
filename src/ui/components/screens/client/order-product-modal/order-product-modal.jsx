@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {Container, Typography, Table, TableBody, TableCell, TableHead, TableContainer, TableRow} from '@mui/material'
+import {Typography, Table, TableBody, TableCell, TableHead, TableContainer, TableRow} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -170,7 +170,7 @@ export const OrderProductModal = ({
     submitIsClicked
 
   return (
-    <Container disableGutters maxWidth={'xl'}>
+    <div>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Order products'])}</Typography>
       <TableContainer className={classNames.tableWrapper}>
         <Table className={classNames.table}>
@@ -325,6 +325,6 @@ export const OrderProductModal = ({
           onCloseModal={triggerBarcodeModal}
         />
       </Modal>
-    </Container>
+    </div>
   )
 }

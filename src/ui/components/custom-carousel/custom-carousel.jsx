@@ -258,7 +258,7 @@ export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 
                 <div className={classNames.emptyIcon}>
                   <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
                 </div>
-                <Typography>{t(TranslationKey['No documents'])}</Typography>
+                <Typography className={classNames.emptyDocs}>{t(TranslationKey['No documents'])}</Typography>
               </div>
             </div>
           )}

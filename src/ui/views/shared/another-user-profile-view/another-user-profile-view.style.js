@@ -30,4 +30,9 @@ export const styles = theme => ({
     textAlign: 'center',
     marginTop: 300,
   },
+
+  title: {
+    margin: '10px 0',
+    color: theme.palette.text.general,
+  },
 })

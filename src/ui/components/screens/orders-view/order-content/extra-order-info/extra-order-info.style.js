@@ -159,7 +159,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   input: {
-    height: '117px',
+    height: '140px',
     border: '1px solid #e0e0e0',
     borderRadius: '4px',
 

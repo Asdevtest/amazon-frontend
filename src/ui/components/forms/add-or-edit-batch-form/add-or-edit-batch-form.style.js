@@ -12,6 +12,10 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
+  subTitle: {
+    color: theme.palette.text.general,
+  },
+
   mainTitle: {
     fontStyle: 'normal',
     fontWeight: 'bold',
@@ -28,6 +32,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   chosenGoodsTitle: {
     margin: '24px 0 4px',
+    color: theme.palette.text.general,
   },
 
   btnsWrapper: {

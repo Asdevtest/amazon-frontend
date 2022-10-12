@@ -102,7 +102,9 @@ export const BindStockGoodsToInventoryForm = observer(
 
     return (
       <div className={classNames.root}>
-        <Typography variant="h5">{t(TranslationKey['Bind to an item in the inventory'])}</Typography>
+        <Typography variant="h5" className={classNames.title}>
+          {t(TranslationKey['Bind to an item in the inventory'])}
+        </Typography>
 
         <div className={classNames.form}>
           <div className={classNames.filtersWrapper}>

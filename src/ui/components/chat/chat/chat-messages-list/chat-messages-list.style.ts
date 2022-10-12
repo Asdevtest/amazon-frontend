@@ -8,7 +8,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
 
     // backgroundColor: '#EBEBEB',
-    // backgroundColor: '#F8F8F8',
+    // backgroundColor: theme.palette.background.second,
     backgroundColor: theme.palette.background.second,
   },
   messageWrapper: {

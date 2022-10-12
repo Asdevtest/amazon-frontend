@@ -65,6 +65,16 @@ export const useClassNames = makeStyles()(theme => ({
     marginBottom: '39px',
     overflow: 'auto',
     maxHeight: '90px',
+
+    color: theme.palette.text.second,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
+  cancelBtn: {
+    color: theme.palette.text.general,
   },
 
   rightBlockWrapper: {
@@ -167,6 +177,8 @@ export const useClassNames = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
+
+    color: theme.palette.text.second,
   },
 
   proposalFooter: {

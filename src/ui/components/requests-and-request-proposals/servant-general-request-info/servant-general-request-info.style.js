@@ -10,6 +10,10 @@ export const useClassNames = makeStyles()(theme => ({
     width: '100%',
     height: '263px',
   },
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
   mainBlockWrapper: {
     width: '100%',
     display: 'flex',
@@ -65,7 +69,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',
-    color: '#354256',
+    color: theme.palette.text.second,
     overflow: 'auto',
     height: 80,
   },

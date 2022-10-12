@@ -116,7 +116,7 @@ export const ProductParameters = ({order, collapsed}) => {
                 <CopyValue text={order.product.barCode} />
               </div>
             ) : (
-              <Typography className={classNames.scrollingText}>{t(TranslationKey['Not available'])}</Typography>
+              <Typography className={classNames.standartText}>{t(TranslationKey['Not available'])}</Typography>
             )}
           </div>
         }

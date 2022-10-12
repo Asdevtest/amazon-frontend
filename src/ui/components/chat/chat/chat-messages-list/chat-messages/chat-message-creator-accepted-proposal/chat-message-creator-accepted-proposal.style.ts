@@ -1,6 +1,6 @@
 import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles()(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     backgroundColor: '#CCE2FF',
     padding: '15px 14px',
@@ -23,7 +23,7 @@ export const useClassNames = makeStyles()(() => ({
     marginLeft: 15,
   },
   headerText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   mainInfoWrapper: {},
@@ -31,14 +31,14 @@ export const useClassNames = makeStyles()(() => ({
     marginTop: 10,
   },
   titleText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   descriptionWrapper: {
     marginTop: 10,
   },
   descriptionText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   otherInfoWrapper: {

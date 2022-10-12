@@ -6,7 +6,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
+
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',

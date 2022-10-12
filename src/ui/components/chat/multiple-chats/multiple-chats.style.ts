@@ -15,8 +15,8 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: theme.palette.background.main,
   },
   chatsWrapper: {
-    width: '276px',
-    height: '100vh',
+    width: '296px',
+    height: '100%',
   },
   chatWrapper: {
     flex: 1,

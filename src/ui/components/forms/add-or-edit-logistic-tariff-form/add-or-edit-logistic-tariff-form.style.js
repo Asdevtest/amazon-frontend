@@ -2,11 +2,20 @@ import {makeStyles} from 'tss-react/mui'
 
 export const useClassNames = makeStyles()(theme => ({
   root: {
-    minWidth: '700px',
+    minWidth: '750px',
+  },
+
+  modalTitle: {
+    color: theme.palette.text.general,
+  },
+
+  modalSubTitle: {
+    color: theme.palette.text.general,
   },
 
   button: {
     marginLeft: '10px',
+    color: theme.palette.text.general,
   },
   multiline: {
     width: '100%',
@@ -14,9 +23,16 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   descriptionField: {
-    height: '100px',
+    height: 'auto',
     width: '100%',
     overflowY: 'hidden',
+
+    padding: 0,
+    border: 'none',
+  },
+
+  standartText: {
+    color: theme.palette.text.second,
   },
 
   allowUrlsWrapper: {
@@ -74,7 +90,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#354256',
+    color: theme.palette.text.second,
   },
 
   blockItem: {
@@ -150,7 +166,6 @@ export const useClassNames = makeStyles()(theme => ({
     modalTitle: {
       fontSize: '16px',
       lineHeight: '22px',
-      color: '#001029',
       fontWeight: 600,
     },
     nameDeliveryWrapper: {
@@ -193,7 +208,6 @@ export const useClassNames = makeStyles()(theme => ({
     modalSubTitle: {
       fontSize: '16px',
       lineHeight: '22px',
-      color: '#001029',
       fontWeight: 600,
     },
     rateTitle: {

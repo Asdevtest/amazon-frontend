@@ -62,6 +62,6 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#354256',
+    color: theme.palette.text.second,
   },
 }))

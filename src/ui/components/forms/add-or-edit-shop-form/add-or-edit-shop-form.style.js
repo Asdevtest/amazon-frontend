@@ -10,11 +10,10 @@ export const useClassNames = makeStyles()(theme => ({
   },
   cancelBtn: {
     marginLeft: '50px',
-<<<<<<< HEAD
-    // backgroundColor: '#fff',
-=======
+
     backgroundColor: theme.palette.background.main,
->>>>>>> 3136d1fa... save 11.10
+
+    color: theme.palette.text.general,
   },
 
   button: {

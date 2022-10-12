@@ -29,7 +29,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   headerWrapper: {
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.palette.background.second,
     height: '65px',
     display: 'flex',
     alignItems: 'center',
@@ -55,7 +55,7 @@ export const useClassNames = makeStyles()(theme => ({
   headerSpanText: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#0460DE',
+    color: theme.palette.primary.main,
     marginLeft: '30px',
   },
 
@@ -67,7 +67,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   footerWrapper: {
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.palette.background.second,
     height: '65px',
     display: 'flex',
     alignItems: 'center',
@@ -94,7 +94,7 @@ export const useClassNames = makeStyles()(theme => ({
   footerSpanText: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#0460DE',
+    color: theme.palette.primary.main,
     marginLeft: '30px',
   },
 

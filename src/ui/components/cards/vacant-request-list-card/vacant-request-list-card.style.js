@@ -173,4 +173,8 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'end',
   },
+
+  standartText: {
+    color: theme.palette.text.general,
+  },
 }))

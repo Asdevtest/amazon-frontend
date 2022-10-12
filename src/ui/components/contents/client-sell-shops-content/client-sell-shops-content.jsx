@@ -1,5 +1,4 @@
-import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
-import {Tabs, Tab} from '@mui/material'
+import {Tabs} from '@mui/material'
 
 import React from 'react'
 
@@ -8,6 +7,8 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
+
+import {ITab} from '@components/i-tab/i-tab'
 
 import {t} from '@utils/translations'
 
@@ -33,7 +34,6 @@ export const ClientSellShopsContent = observer(() => {
   const {classes: classNames} = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(0)
-  const tabItemStyles = twitterTabsStylesHook.useTabItem()
 
   return (
     <React.Fragment>
@@ -48,8 +48,8 @@ export const ClientSellShopsContent = observer(() => {
             value={tabIndex}
             onChange={(e, index) => setTabIndex(index)}
           >
-            <Tab classes={tabItemStyles} label={t(TranslationKey.Ads)} />
-            <Tab classes={tabItemStyles} label={t(TranslationKey.Deals)} />
+            <ITab label={t(TranslationKey.Ads)} />
+            <ITab label={t(TranslationKey.Deals)} />
           </Tabs>
           <TabPanel value={tabIndex} index={0}>
             <ClientSellShopsAds />

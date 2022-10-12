@@ -1,10 +1,4 @@
-import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
-import {
-  Typography,
-  /* Box,*/
-  Tabs,
-  Tab,
-} from '@mui/material'
+import {Tabs} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
@@ -13,6 +7,8 @@ import {observer} from 'mobx-react'
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
+
+import {ITab} from '@components/i-tab/i-tab'
 
 import {t} from '@utils/translations'
 
@@ -28,11 +24,7 @@ const TabPanel = ({children, value, index, ...other}) => (
     aria-labelledby={`simple-tab-${index}`}
     {...other}
   >
-    {value === index && (
-      <div>
-        <Typography>{children}</Typography>
-      </div>
-    )}
+    {value === index && <div>{children}</div>}
   </div>
 )
 
@@ -40,7 +32,6 @@ export const UserInfoAndEdit = observer(({user}) => {
   const {classes: classNames} = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(0)
-  const tabItemStyles = twitterTabsStylesHook.useTabItem()
 
   const [updatedUser, setUpdatedUser] = useState(user)
 
@@ -60,8 +51,8 @@ export const UserInfoAndEdit = observer(({user}) => {
           value={tabIndex}
           onChange={(e, index) => setTabIndex(index)}
         >
-          <Tab classes={tabItemStyles} label={t(TranslationKey.Edit)} />
-          <Tab classes={tabItemStyles} label={t(TranslationKey.Balance)} />
+          <ITab label={t(TranslationKey.Edit)} />
+          <ITab label={t(TranslationKey.Balance)} />
         </Tabs>
       )}
 

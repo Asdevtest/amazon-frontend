@@ -372,7 +372,7 @@ export const useClassNames = makeStyles()(theme => ({
       marginBottom: 10,
     },
     сurrentAllowedRolesItem: {
-      background: '#fff',
+      backgroundColor: theme.palette.background.main,
 
       borderBottom: 0,
       // color: '#006CFF',
@@ -405,7 +405,7 @@ export const useClassNames = makeStyles()(theme => ({
       fontSize: '16px',
       transition: '.15s ease-in-out',
       '&:hover': {
-        color: '#0460DE',
+        color: theme.palette.primary.main,
         transform: 'scale(1.01)',
       },
     },

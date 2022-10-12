@@ -13,7 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 500,
   },
   text: {
-    color: '#89919C',
+    color: theme.palette.text.second,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -24,7 +24,7 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
   tableHeadTypography: {
-    color: 'rgb(61, 81, 112)',
+    color: theme.palette.text.general,
     fontWeight: 500,
   },
   paper: {
@@ -76,6 +76,7 @@ export const useClassNames = makeStyles()(theme => ({
 
   role: {
     marginLeft: '10px',
+    color: theme.palette.text.general,
   },
 
   ratingWrapper: {
@@ -90,6 +91,11 @@ export const useClassNames = makeStyles()(theme => ({
   userEmail: {
     fontWeight: 'bold',
     marginTop: '10px',
+    color: theme.palette.text.general,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 
   badge: {

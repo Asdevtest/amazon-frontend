@@ -128,6 +128,12 @@ export const useClassNames = makeStyles()(theme => ({
     maxWidth: '200px',
     whiteSpace: 'nowrap',
     overflowX: 'auto',
+
+    color: theme.palette.text.second,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 
   labelsInfoWrapper: {
@@ -275,6 +281,10 @@ export const useClassNames = makeStyles()(theme => ({
     display: 'flex',
     gap: '5px',
     alignItems: 'center',
+  },
+
+  batchId: {
+    color: theme.palette.text.second,
   },
 
   '@media (max-width: 768px)': {

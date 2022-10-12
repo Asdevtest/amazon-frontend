@@ -114,7 +114,7 @@ export const BoxForMerge = ({box, readOnly = false, index}) => {
                   </div>
                 ) : (
                   <div className={classNames.shippingLabelWrapper}>
-                    <Typography>{t(TranslationKey['Not available'])}</Typography>
+                    <Typography className={classNames.notAvailable}>{t(TranslationKey['Not available'])}</Typography>
                   </div>
                 )
               }

@@ -58,24 +58,24 @@ export const VacantRequestListCard = ({item, onClickViewMore, isFirst}) => {
           <div className={classNames.subBlockWrapper}>
             <div className={classNames.leftSubBlockWrapper}>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey['Time to complete'])}</Typography>
+                <Typography className={classNames.standartText}>{t(TranslationKey['Time to complete'])}</Typography>
 
-                <Typography>{minsToTime(item.timeLimitInMinutes)}</Typography>
+                <Typography className={classNames.standartText}>{minsToTime(item.timeLimitInMinutes)}</Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey.Status)}</Typography>
+                <Typography className={classNames.standartText}>{t(TranslationKey.Status)}</Typography>
 
                 <div className={classNames.statusText}>{<RequestStatusCell status={item.status} />}</div>
               </div>
             </div>
             <div className={classNames.rightSubBlockWrapper}>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey.Deadline)}</Typography>
+                <Typography className={classNames.standartText}>{t(TranslationKey.Deadline)}</Typography>
 
-                <Typography>{formatNormDateTime(item.timeoutAt)}</Typography>
+                <Typography className={classNames.standartText}>{formatNormDateTime(item.timeoutAt)}</Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey['Total price'])}</Typography>
+                <Typography className={classNames.standartText}>{t(TranslationKey['Total price'])}</Typography>
 
                 <Typography className={classNames.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
               </div>

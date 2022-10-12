@@ -76,7 +76,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   asinTypo: {
-    color: '#89919C',
+    color: theme.palette.text.second,
   },
   divider: {
     margin: '10px 0',

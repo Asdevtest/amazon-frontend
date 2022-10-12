@@ -18,6 +18,10 @@ export const useClassNames = makeStyles()(theme => ({
     justifyContent: 'space-between',
   },
 
+  footerTitle: {
+    color: theme.palette.text.general,
+  },
+
   boxesWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -219,6 +223,11 @@ export const useClassNames = makeStyles()(theme => ({
   checkboxCell: {
     width: '200px',
   },
+
+  cancelButton: {
+    color: theme.palette.text.general,
+  },
+
   '@media (max-width: 768px)': {
     root: {
       width: '100%',
@@ -346,9 +355,7 @@ export const useClassNames = makeStyles()(theme => ({
     button: {
       width: '121px',
     },
-    cancelButton: {
-      color: theme.palette.text.general,
-    },
+
     error: {
       border: '1px solid red',
     },

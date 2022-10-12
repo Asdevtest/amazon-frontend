@@ -41,7 +41,7 @@ export const useClassNames = makeStyles()(theme => ({
     width: '97px',
     height: '97px',
     borderRadius: '50%',
-    // backgroundColor: '#F8F8F8',
+    // backgroundColor: theme.palette.background.second,
     backgroundColor: theme.palette.background.second,
 
     // boxShadow: '0px 0px 14px 6px rgba(184, 184, 184, 0.18), inset -4px -4px 13px rgba(135, 135, 135, 0.15)',

@@ -66,6 +66,8 @@ export const styles = theme => ({
   openArchiveBtn: {
     width: 230,
     padding: '0 30px 0 30px',
+
+    color: theme.palette.text.general,
   },
 
   button: {

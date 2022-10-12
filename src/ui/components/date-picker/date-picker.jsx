@@ -50,27 +50,46 @@ const getPlaceholderByLanguageTag = languageTag => {
 }
 
 export const DateMonthYearPicker = ({value, onChange, ...restProps}) => {
+  const {classes: classNames} = useClassNames()
+
   const [local, setLocal] = useState(enLocale)
 
   useEffect(() => {
     setLocal(getLocalByLanguageTag(SettingsModel.languageTag))
   }, [SettingsModel.languageTag])
 
+  const theme = createTheme({
+    components: {
+      MuiInputAdornment: {
+        styleOverrides: {
+          root: {
+            paddingRight: 10,
+          },
+        },
+      },
+    },
+  })
+
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
-      <NewestDatePicker
-        closeOnSelect
-        showToolbar={false}
-        views={['year', 'month']}
-        // label="Year and Month"
-        value={value}
-        renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
-        onChange={newValue => {
-          onChange(newValue)
-        }}
-        {...restProps}
-      />
-    </LocalizationProvider>
+    <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
+        <NewestDatePicker
+          closeOnSelect
+          showToolbar={false}
+          views={['year', 'month']}
+          // label="Year and Month"
+          inputProps={{
+            className: classNames.root,
+          }}
+          value={value}
+          renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
+          onChange={newValue => {
+            onChange(newValue)
+          }}
+          {...restProps}
+        />
+      </LocalizationProvider>
+    </ThemeProvider>
   )
 }
 

@@ -204,4 +204,8 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.primary.main,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
+
+  standartText: {
+    color: theme.palette.text.general,
+  },
 }))

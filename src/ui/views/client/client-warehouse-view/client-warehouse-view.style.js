@@ -39,6 +39,7 @@ export const styles = theme => ({
   },
   button: {
     marginBottom: 5,
+    color: theme.palette.text.general,
   },
 
   tableWrapper: {

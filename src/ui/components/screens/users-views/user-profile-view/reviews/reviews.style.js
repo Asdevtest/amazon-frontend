@@ -13,7 +13,7 @@ export const useClassNames = makeStyles()(theme => ({
     fontWeight: 500,
   },
   text: {
-    color: '#89919C',
+    color: theme.palette.text.second,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -33,11 +33,12 @@ export const useClassNames = makeStyles()(theme => ({
     backgroundColor: 'rgb(0, 123, 255)',
   },
   tableHeadTypography: {
-    color: 'rgb(61, 81, 112)',
+    color: theme.palette.text.general,
     fontWeight: 500,
   },
   mainTitle: {
     marginTop: '48px',
+    color: theme.palette.text.general,
   },
   subTabWrapper: {
     height: '98px',

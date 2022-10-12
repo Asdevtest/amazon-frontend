@@ -46,6 +46,8 @@ export const useClassNames = makeStyles()(theme => ({
   },
   disabled: {
     backgroundColor: '#a0a0a4 !important',
+
+    // color: theme.palette.text.general,
   },
 
   text: {

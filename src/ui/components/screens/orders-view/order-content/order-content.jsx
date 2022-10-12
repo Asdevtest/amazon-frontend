@@ -116,7 +116,7 @@ export const OrderContent = ({order, boxes, onClickCancelOrder, volumeWeightCoef
           <div className={classNames.tableWrapper}>
             <Text
               tooltipInfoContent={t(TranslationKey['All boxes received/received by the prep center on order'])}
-              textClasses={classNames.tableText}
+              className={classNames.tableText}
               containerClasses={classNames.container}
             >
               {t(TranslationKey['Boxes to order'])}

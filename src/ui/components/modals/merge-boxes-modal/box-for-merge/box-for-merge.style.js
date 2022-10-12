@@ -32,7 +32,7 @@ export const useClassNames = makeStyles()(theme => ({
   },
   box: {
     width: 527,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.palette.background.second,
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
     borderRadius: '4px',
     padding: '20px 17px',
@@ -42,6 +42,7 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'start',
     justifyContent: 'space-between',
     marginBottom: '30px',
+    color: theme.palette.text.general,
   },
   divider: {
     margin: '0 30px',
@@ -53,9 +54,18 @@ export const useClassNames = makeStyles()(theme => ({
     objectPosition: 'center',
   },
   sectionTitle: {
-    color: theme.palette.text.second,
+    color: theme.palette.text.general,
     marginBottom: theme.spacing(1),
   },
+
+  boxTitle: {
+    color: theme.palette.text.second,
+  },
+
+  notAvailable: {
+    color: theme.palette.text.second,
+  },
+
   title: {
     fontSize: '14px',
     fontWeight: 400,

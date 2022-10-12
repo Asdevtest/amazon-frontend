@@ -109,7 +109,9 @@ class AnotherUserProfileViewRaw extends Component {
                 mapUserRoleEnumToKey[UserRole.BUYER],
               ].includes(user.role) ? (
                 <>
-                  <Typography variant="h6">{t(TranslationKey['Active offers on the commodity exchange'])}</Typography>
+                  <Typography variant="h6" className={classNames.title}>
+                    {t(TranslationKey['Active offers on the commodity exchange'])}
+                  </Typography>
 
                   <DataGrid
                     pagination

@@ -7,12 +7,20 @@ export const useClassNames = makeStyles()(theme => ({
   },
 
   modalTitle: {
+<<<<<<< HEAD
     color: '#001029',
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
     marginBottom: '30px',
     textAlign: 'center',
+=======
+    color: theme.palette.text.general,
+    fontSize: '24px',
+    fontWeight: 500,
+    lineHeight: '28px',
+    marginBottom: '20px',
+>>>>>>> 46652e19... save 12.10
   },
   modalText: {
     color: theme.palette.text.general,

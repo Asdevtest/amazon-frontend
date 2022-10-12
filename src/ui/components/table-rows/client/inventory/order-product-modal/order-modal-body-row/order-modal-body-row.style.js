@@ -42,7 +42,7 @@ export const useClassNames = makeStyles()(theme => ({
   typoCell: {
     fontSize: '14px',
     lineHeight: '21px',
-    color: 'rgba(189, 194, 209, 1)',
+    // color: 'rgba(189, 194, 209, 1)',
   },
   typoSpan: {
     color: theme.palette.text.general,
@@ -135,7 +135,7 @@ export const useClassNames = makeStyles()(theme => ({
     },
   },
   barcodeChipExists: {
-    backgroundColor: 'rgb(61, 81, 112)',
+    backgroundcolor: theme.palette.text.general,
   },
   amountCell: {
     width: '90px',
@@ -178,6 +178,12 @@ export const useClassNames = makeStyles()(theme => ({
 
     width: '100%',
     marginBottom: '5px',
+
+    color: theme.palette.text.general,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 
   storekeeperSelectCell: {

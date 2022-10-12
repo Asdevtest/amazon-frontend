@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css'
 import {Box, Divider, Paper, Typography} from '@mui/material'
 
 import React from 'react'
@@ -14,8 +15,8 @@ export const Info = ({headerInfoData}) => {
 
   const InfoRow = ({label, value}) => (
     <Box className={classNames.infoRow}>
-      <Typography className={(classNames.text, classNames.typoLabel)}>{label}</Typography>
-      <Typography className={(classNames.text, classNames.typoValue)}>{value}</Typography>
+      <Typography className={cx(classNames.text, classNames.typoLabel)}>{label}</Typography>
+      <Typography className={cx(classNames.text, classNames.typoValue)}>{value}</Typography>
     </Box>
   )
 
