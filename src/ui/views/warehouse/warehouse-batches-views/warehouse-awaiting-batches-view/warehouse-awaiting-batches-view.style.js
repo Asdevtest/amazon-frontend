@@ -34,6 +34,7 @@ export const styles = createStyles(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     margin: '15px 0',
+    paddingRight: '5px',
   },
 
   leftBtnsWrapper: {

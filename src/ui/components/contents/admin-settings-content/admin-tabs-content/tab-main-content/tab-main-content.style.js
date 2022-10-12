@@ -242,4 +242,7 @@ export const useClassNames = makeStyles(() => ({
 
     marginRight: '15px',
   },
+  disabledTablePanelSortWrapper: {
+    cursor: 'default',
+  },
 }))

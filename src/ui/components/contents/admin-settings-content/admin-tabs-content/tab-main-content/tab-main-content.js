@@ -4,7 +4,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 
 import React, {useEffect, useState} from 'react'
 
-import {Typography} from '@material-ui/core'
+import {IconButton, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -120,22 +120,26 @@ export const TabMainContent = ({
             proxyArr.map((proxy, index) => (
               <div key={index} className={classNames.proxyWrapper}>
                 <div className={classNames.proxySubWrapper}>
-                  <Typography className={clsx(classNames.proxy)}>
+                  <Typography className={clsx(classNames.proxy, {[classNames.unselectable]: disabled})}>
                     {proxy.length > 32 ? proxy.slice(0, 32) + '...' : proxy}
                   </Typography>
-                  <CopyValue text={proxy} />
+                  <CopyValue text={proxy} disabled={disabled} />
                 </div>
-
-                <DeleteOutlineOutlinedIcon
-                  className={classNames.deleteProxy}
-                  onClick={() => onClickDeleteProxy(proxy)}
-                />
+                <IconButton size="small" disabled={disabledAddButton}>
+                  <DeleteOutlineOutlinedIcon
+                    className={classNames.deleteProxy}
+                    onClick={() => onClickDeleteProxy(proxy)}
+                  />
+                </IconButton>
               </div>
             ))}
         </div>
         {proxyArr.length > 5 ? (
-          <div className={classNames.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
-            <Typography className={classNames.tablePanelViewText}>
+          <div
+            className={clsx(classNames.tablePanelSortWrapper, {[classNames.disabledTablePanelSortWrapper]: disabled})}
+            onClick={() => !disabled && setShowFullCard(!showFullCard)}
+          >
+            <Typography className={clsx(classNames.tablePanelViewText, {[classNames.unselectable]: disabled})}>
               {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey['View all'])}
             </Typography>
 

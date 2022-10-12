@@ -107,6 +107,7 @@ export const styles = createStyles({
   simpleBtnsWrapper: {
     display: 'flex',
     gap: '30px',
+    paddingRight: '5px',
   },
 
   topHeaderBtnsWrapper: {

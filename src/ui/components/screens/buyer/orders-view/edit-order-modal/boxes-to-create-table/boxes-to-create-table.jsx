@@ -1,3 +1,5 @@
+import EditIcon from '@mui/icons-material/Edit'
+
 import React, {useState} from 'react'
 
 import {Checkbox, TableCell, TableRow, Typography} from '@material-ui/core'
@@ -170,13 +172,16 @@ const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
       </TableCell>
 
       <TableCell>
-        <div className={classNames.normalCell}>
+        <div className={classNames.buttonCell}>
           <Button
             tooltipInfoContent={t(TranslationKey['Remove box'])}
             className={classNames.deleteBtnWrapper}
             onClick={() => handlers.onRemoveBox(itemIndex)}
           >
             <DeleteIcon className={classNames.deleteBtn} />
+          </Button>
+          <Button className={classNames.editBtnWrapper} onClick={() => handlers.onEditBox(itemIndex)}>
+            <EditIcon className={classNames.editBtn} />
           </Button>
         </div>
       </TableCell>
@@ -188,6 +193,7 @@ export const BoxesToCreateTable = ({
   barcodeIsExist,
   newBoxes,
   onRemoveBox,
+  onEditBox,
   onClickBarcodeCheckbox,
   onClickUpdateSupplierStandart,
   volumeWeightCoefficient,
@@ -222,7 +228,7 @@ export const BoxesToCreateTable = ({
         data={newBoxes}
         BodyRow={TableBodyBoxRow}
         renderHeadRow={renderHeadRow()}
-        rowsHandlers={{onRemoveBox, onClickBarcodeCheckbox, onClickUpdateSupplierStandart}}
+        rowsHandlers={{onRemoveBox, onEditBox, onClickBarcodeCheckbox, onClickUpdateSupplierStandart}}
         barcodeIsExist={barcodeIsExist}
         volumeWeightCoefficient={volumeWeightCoefficient}
         sizeSetting={sizeSetting}

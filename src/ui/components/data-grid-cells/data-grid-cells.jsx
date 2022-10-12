@@ -967,11 +967,9 @@ export const AdminUsersActionBtnsCell = withStyles(styles)(
 )
 
 export const SuperboxQtyCell = withStyles(styles)(({classes: classNames, qty, superbox}) => (
-  <div className={classNames.multilineTextWrapper}>
-    <Typography>
-      {qty || '-'}
-      <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
-    </Typography>
+  <div className={classNames.multilineSuperBoxWrapper}>
+    <Typography>{qty || '-'}</Typography>
+    <Typography className={classNames.superboxTypo}>{` x ${superbox}`}</Typography>
   </div>
 ))
 

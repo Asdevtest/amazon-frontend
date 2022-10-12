@@ -1,3 +1,5 @@
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import Checkbox from '@mui/material/Checkbox'
 import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
@@ -56,6 +58,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
     const [tabIndex, setTabIndex] = React.useState(tabsValues.ASSIGN_PERMISSIONS)
 
     const [selectedShop, setSelectedShop] = useState(null)
+    const [showPermissions, setShowPermissions] = useState(false)
 
     const [isReady, setIsReady] = useState(true)
 
@@ -128,6 +131,7 @@ export const NewAddOrEditUserPermissionsForm = observer(
 
     const onSetRightSide = item => {
       setRightSide(item)
+      setShowPermissions(!showPermissions)
     }
 
     const onClickLeftCheckbox = item => {
@@ -169,85 +173,172 @@ export const NewAddOrEditUserPermissionsForm = observer(
             value={tabsValues.ASSIGN_PERMISSIONS}
             label={t(TranslationKey['Assign permissions'])}
           />
-
-          <ITab
-            disabled={isWithoutProductPermissions}
-            classes={{root: classNames.tab, selected: classNames.selectedTab}}
-            value={tabsValues.ACCESS_TO_PRODUCTS}
-            label={t(TranslationKey['Access to products'])}
-          />
+          {!isWithoutProductPermissions ? (
+            <ITab
+              disabled={isWithoutProductPermissions}
+              classes={{root: classNames.tab, selected: classNames.selectedTab}}
+              value={tabsValues.ACCESS_TO_PRODUCTS}
+              label={t(TranslationKey['Access to products'])}
+            />
+          ) : null}
         </Tabs>
 
         {/* <Typography variant="h5">{t(TranslationKey['Assign permissions'])}</Typography> */}
 
         <TabPanel value={tabIndex} index={tabsValues.ASSIGN_PERMISSIONS}>
-          <div className={classNames.form}>
-            <div className={classNames.leftSideWrapper}>
-              {groupsToSelect.map(item => (
-                <div key={item._id} className={classNames.permissionGroupsToSelectItemWrapper}>
-                  <div
-                    className={clsx(classNames.permissionGroupsToSelectItem, {
-                      [classNames.selectedItem]: rightSide.key === item.key,
-                    })}
-                    onClick={() => onSetRightSide(item)}
-                  >
-                    <ListItemText primary={`${item.title}`} />
-                  </div>
-
-                  <div
-                    className={clsx(
-                      classNames.permissionGroupsToSelectCheckboxWrapper,
-                      {
+          {window.innerWidth > 768 ? (
+            <div className={classNames.form}>
+              <div className={classNames.leftSideWrapper}>
+                {groupsToSelect.map(item => (
+                  <div key={item._id} className={classNames.permissionGroupsToSelectItemWrapper}>
+                    <div
+                      className={clsx(classNames.permissionGroupsToSelectItem, {
                         [classNames.selectedItem]: rightSide.key === item.key,
-                      },
-                      {
-                        [classNames.tabWillBeOpened]: formFields.includes(
-                          item.permissions.find(el => el.key.startsWith('SHOW_'))?._id,
-                        ),
-                      },
-                    )}
-                    onClick={() => onClickLeftCheckbox(item)}
-                  >
-                    <Checkbox
-                      color="primary"
-                      checked={item.permissions.every(el => formFields.includes(el._id))}
-                      indeterminate={
-                        item.permissions.some(el => formFields.includes(el._id)) &&
-                        !item.permissions.every(el => formFields.includes(el._id))
-                      }
-                    />
+                      })}
+                      onClick={() => onSetRightSide(item)}
+                    >
+                      <ListItemText primary={`${item.title}`} />
+                    </div>
+
+                    <div
+                      className={clsx(
+                        classNames.permissionGroupsToSelectCheckboxWrapper,
+                        {
+                          [classNames.selectedItem]: rightSide.key === item.key,
+                        },
+                        {
+                          [classNames.tabWillBeOpened]: formFields.includes(
+                            item.permissions.find(el => el.key.startsWith('SHOW_'))?._id,
+                          ),
+                        },
+                      )}
+                      onClick={() => onClickLeftCheckbox(item)}
+                    >
+                      <Checkbox
+                        color="primary"
+                        checked={item.permissions.every(el => formFields.includes(el._id))}
+                        indeterminate={
+                          item.permissions.some(el => formFields.includes(el._id)) &&
+                          !item.permissions.every(el => formFields.includes(el._id))
+                        }
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-
-            <Divider flexItem orientation={'vertical'} className={classNames.divider} />
-
-            <div className={classNames.rightSideWrapper}>
-              <Typography>{rightSide?.title}</Typography>
-
-              {rightSide?.permissions
-                ?.sort((a, b) => a.hierarchy - b.hierarchy)
-                .map(item => (
-                  <Tooltip
-                    key={item.key}
-                    // followCursor
-                    arrow
-                    title={item.description}
-                    placement="right-end"
-                    TransitionComponent={Zoom}
-                    TransitionProps={{timeout: 900}}
-                  >
-                    <Box className={classNames.permissionWrapper} onClick={() => onChangePermissionCheckbox(item._id)}>
-                      <Checkbox color="primary" checked={formFields.includes(item._id)} />
-                      <Typography className={clsx({[classNames.keyPermission]: item.key.startsWith('SHOW_')})}>
-                        {item.title}
-                      </Typography>
-                    </Box>
-                  </Tooltip>
                 ))}
+              </div>
+
+              <Divider flexItem orientation={'vertical'} className={classNames.divider} />
+
+              <div className={classNames.rightSideWrapper}>
+                <Typography>{rightSide?.title}</Typography>
+
+                {rightSide?.permissions
+                  ?.sort((a, b) => a.hierarchy - b.hierarchy)
+                  .map(item => (
+                    <Tooltip
+                      key={item.key}
+                      // followCursor
+                      arrow
+                      title={item.description}
+                      placement="right-end"
+                      TransitionComponent={Zoom}
+                      TransitionProps={{timeout: 900}}
+                    >
+                      <Box
+                        className={classNames.permissionWrapper}
+                        onClick={() => onChangePermissionCheckbox(item._id)}
+                      >
+                        <Checkbox color="primary" checked={formFields.includes(item._id)} />
+                        <Typography className={clsx({[classNames.keyPermission]: item.key.startsWith('SHOW_')})}>
+                          {item.title}
+                        </Typography>
+                      </Box>
+                    </Tooltip>
+                  ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className={classNames.form}>
+              <div className={classNames.leftSideWrapper}>
+                {groupsToSelect.map(item => (
+                  <div key={item._id} className={classNames.permGroupWrapper}>
+                    <div
+                      className={classNames.permissionGroupsToSelectItemWrapper}
+                      onClick={() => onSetRightSide(item)}
+                    >
+                      <div className={classNames.permissionGroupsToSelectItemSubWrapper}>
+                        <div
+                          className={clsx(
+                            classNames.permissionGroupsToSelectCheckboxWrapper,
+                            {
+                              [classNames.selectedItem]: rightSide.key === item.key && showPermissions,
+                            },
+                            {
+                              [classNames.tabWillBeOpened]: formFields.includes(
+                                item.permissions.find(el => el.key.startsWith('SHOW_'))?._id,
+                              ),
+                            },
+                          )}
+                          onClick={e => {
+                            e.stopPropagation()
+                            onClickLeftCheckbox(item)
+                          }}
+                        >
+                          <Checkbox
+                            color="primary"
+                            checked={item.permissions.every(el => formFields.includes(el._id))}
+                            indeterminate={
+                              item.permissions.some(el => formFields.includes(el._id)) &&
+                              !item.permissions.every(el => formFields.includes(el._id))
+                            }
+                          />
+                        </div>
+                        <div
+                          className={clsx(classNames.permissionGroupsToSelectItem, {
+                            [classNames.selectedItem]: rightSide.key === item.key,
+                          })}
+                        >
+                          <ListItemText primary={`${item.title}`} />
+                        </div>
+                        <div className={classNames.iconWrapper}>
+                          {!showPermissions ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+                        </div>
+                      </div>
+                    </div>
+                    {rightSide.key === item.key && showPermissions && (
+                      <div className={classNames.rightSideWrapper}>
+                        {rightSide?.permissions
+                          ?.sort((a, b) => a.hierarchy - b.hierarchy)
+                          .map(item => (
+                            <Tooltip
+                              key={item.key}
+                              // followCursor
+                              arrow
+                              title={item.description}
+                              placement="right-end"
+                              TransitionComponent={Zoom}
+                              TransitionProps={{timeout: 900}}
+                            >
+                              <Box
+                                className={classNames.permissionWrapper}
+                                onClick={() => onChangePermissionCheckbox(item._id)}
+                              >
+                                <Checkbox color="primary" checked={formFields.includes(item._id)} />
+                                <Typography
+                                  className={clsx({[classNames.keyPermission]: item.key.startsWith('SHOW_')})}
+                                >
+                                  {item.title}
+                                </Typography>
+                              </Box>
+                            </Tooltip>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.ACCESS_TO_PRODUCTS}>

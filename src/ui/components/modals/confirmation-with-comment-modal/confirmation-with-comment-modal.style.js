@@ -31,7 +31,6 @@ export const useClassNames = makeStyles(() => ({
 
   buttonOk: {
     padding: '8px 36px',
-    marginRight: '10px',
   },
 
   buttonCancel: {
@@ -44,6 +43,18 @@ export const useClassNames = makeStyles(() => ({
   },
 
   buttonsWrapper: {
-    alignSelf: 'flex-end',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  '@media (max-width: 768px)': {
+    modalMessageWrapper: {
+      width: '280px',
+      minHeight: '168px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      gap: '30px',
+    },
   },
 }))

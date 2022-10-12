@@ -19,4 +19,11 @@ export const useClassNames = makeStyles(() => ({
   copyImgWrapper: {
     position: 'relative',
   },
+  disabledIcon: {
+    userSelect: 'none',
+    cursor: 'auto',
+    '&:hover': {
+      transform: 'none',
+    },
+  },
 }))

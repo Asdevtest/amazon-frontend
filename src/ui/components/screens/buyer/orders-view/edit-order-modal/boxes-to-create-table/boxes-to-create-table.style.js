@@ -73,7 +73,7 @@ export const useClassNames = makeStyles(theme => ({
 
   inputWrapper: {
     borderRadius: '4px',
-    width: '90px',
+    width: '100px',
     height: '40px',
   },
   input: {
@@ -93,6 +93,13 @@ export const useClassNames = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonCell: {
+    minWidth: 80,
+    display: 'flex',
+    alignItems: 'center',
+
+    flexDirection: 'column',
   },
 
   sizesWrapper: {
@@ -125,6 +132,9 @@ export const useClassNames = makeStyles(theme => ({
   deleteBtn: {
     color: 'rgba(189, 194, 209, 1)',
   },
+  editBtn: {
+    color: 'rgba(189, 194, 209, 1)',
+  },
 
   checkboxWithLabelWrapper: {
     display: 'flex',
@@ -149,9 +159,22 @@ export const useClassNames = makeStyles(theme => ({
 
   deleteBtnWrapper: {
     backgroundColor: 'inherit',
+    width: '40px',
+    height: '40px',
+    marginLeft: '10px',
 
     '&:hover': {
       backgroundColor: '#e4e4e4',
     },
+  },
+  editBtnWrapper: {
+    backgroundColor: 'inherit',
+    width: '40px',
+    height: '40px',
+
+    '&:hover': {
+      backgroundColor: '#e4e4e4',
+    },
+    marginLeft: 10,
   },
 }))

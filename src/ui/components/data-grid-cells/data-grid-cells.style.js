@@ -557,6 +557,14 @@ export const styles = createStyles(() => ({
     justifyContent: 'start',
     // marginLeft: '6px',
   },
+  multilineSuperBoxWrapper: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
 
   multilineText: {
     width: '100%',
