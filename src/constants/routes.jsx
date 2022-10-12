@@ -3,6 +3,7 @@ import {AdminBatchesView} from '@views/admin/admin-batches-views/admin-batches-v
 import {AdminSentBatchesView} from '@views/admin/admin-batches-views/admin-sent-batches-view'
 import {AdminDashboardView} from '@views/admin/admin-dashboard-view'
 import {AdminExchangeViews} from '@views/admin/admin-exchange-views'
+import {AdminFeedbackView} from '@views/admin/admin-feedback-view'
 import {AdminInventoryView} from '@views/admin/admin-inventory-view'
 import {AdminOrderView} from '@views/admin/admin-orders-views/order'
 import {AdminOrdersViews} from '@views/admin/admin-orders-views/orders'
@@ -1039,6 +1040,13 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Settings,
+  },
+  {
+    routePath: '/admin/feedback',
+    component: AdminFeedbackView,
+    exact: false,
+    permission: [UserRole.ADMIN],
+    crumbNameKey: TranslationKey.Feedback,
   },
 
   {

@@ -1,7 +1,7 @@
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {
-  EditOrRemoveBtnsCell,
+  EditOrRemoveIconBtnsCell,
   MultilineTextCell,
   MultilineTextHeaderCell,
   ShopsReportBtnsCell,
@@ -66,15 +66,15 @@ export const shopsColumns = (handlers, firstRowId) => [
 
     width: 510,
     renderCell: params => (
-      <EditOrRemoveBtnsCell
+      <EditOrRemoveIconBtnsCell
         tooltipFirstButton={t(TranslationKey['Change store name or links to reports'])}
         tooltipSecondButton={t(TranslationKey['Remove a store from your list'])}
         handlers={handlers}
         row={params.row}
-        params={params}
         isFirstRow={firstRowId === params.row.id}
       />
     ),
+
     filterable: false,
     sortable: false,
   },

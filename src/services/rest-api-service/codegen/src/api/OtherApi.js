@@ -15,9 +15,10 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import InlineObject2 from '../model/InlineObject2';
-import InlineObject56 from '../model/InlineObject56';
 import InlineObject57 from '../model/InlineObject57';
-import InlineResponse20020 from '../model/InlineResponse20020';
+import InlineObject58 from '../model/InlineObject58';
+import InlineObject59 from '../model/InlineObject59';
+import InlineResponse20023 from '../model/InlineResponse20023';
 import InlineResponse2003 from '../model/InlineResponse2003';
 import InlineResponse2017 from '../model/InlineResponse2017';
 import InternalServerError from '../model/InternalServerError';
@@ -199,7 +200,7 @@ export default class OtherApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject57} opts.body 
+     * @param {module:model/InlineObject58} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1OtherCheckAsinsGuidPatchWithHttpInfo(guid, opts) {
@@ -238,7 +239,7 @@ export default class OtherApi {
      * @param {String} guid 
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject57} opts.body 
+     * @param {module:model/InlineObject58} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1OtherCheckAsinsGuidPatch(guid, opts) {
@@ -255,7 +256,7 @@ export default class OtherApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<module:model/InlineObject2>} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20020} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20023} and HTTP response
      */
     apiV1OtherCheckAsinsPostWithHttpInfo(opts) {
       opts = opts || {};
@@ -274,7 +275,7 @@ export default class OtherApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20020;
+      let returnType = InlineResponse20023;
       return this.apiClient.callApi(
         '/api/v1/other/check_asins', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -288,10 +289,59 @@ export default class OtherApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<module:model/InlineObject2>} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20020}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20023}
      */
     apiV1OtherCheckAsinsPost(opts) {
       return this.apiV1OtherCheckAsinsPostWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * # Отправить отзыв
+     * ## Отправка отзыва/репорта
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject59} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
+     */
+    apiV1OtherFeedbackPostWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['body'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+        'Accept-Encoding': opts['Accept_Encoding']
+      };
+      let formParams = {
+      };
+
+      let authNames = ['AccessTokenBearer'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = 'String';
+      return this.apiClient.callApi(
+        '/api/v1/other/feedback', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * # Отправить отзыв
+     * ## Отправка отзыва/репорта
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.Accept_Encoding 
+     * @param {module:model/InlineObject59} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
+     */
+    apiV1OtherFeedbackPost(opts) {
+      return this.apiV1OtherFeedbackPostWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -606,7 +656,7 @@ export default class OtherApi {
      * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg Доступные форматы: jpeg, jpg, png, webp, gif, avif, tiff, pdf новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject56} opts.body 
+     * @param {module:model/InlineObject57} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2017} and HTTP response
      */
     apiV1OtherUploadFileByUrlPostWithHttpInfo(opts) {
@@ -639,7 +689,7 @@ export default class OtherApi {
      * ## Загрузить изображение ссылке.   Если файл картинка, то создается превьюшка, не более 150*150 точек, путь до которой \"fileName\" + \".preview.webp\" При сохранении к имени файла добавляется случайно сгенерированный GUID  пример: ссылка на файл https://www.amazon.com/Oculus.jpeg Доступные форматы: jpeg, jpg, png, webp, gif, avif, tiff, pdf новое имя файла на сервере 318b1f4d-ae7a-443e-8258-f8ed05237812.Oculus.jpeg
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject56} opts.body 
+     * @param {module:model/InlineObject57} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2017}
      */
     apiV1OtherUploadFileByUrlPost(opts) {

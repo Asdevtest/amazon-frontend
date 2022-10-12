@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineObject82 {
     /**
      * Constructs a new <code>InlineObject82</code>.
+     * Схема магазина.
      * @alias module:model/InlineObject82
      */
     constructor() { 
@@ -47,8 +48,14 @@ class InlineObject82 {
         if (data) {
             obj = obj || new InlineObject82();
 
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
+            }
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
         }
         return obj;
@@ -58,10 +65,22 @@ class InlineObject82 {
 }
 
 /**
- * Статус
- * @member {Number} status
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
+ * @member {String} name
  */
-InlineObject82.prototype['status'] = undefined;
+InlineObject82.prototype['name'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
+ */
+InlineObject82.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
+
+/**
+ * uri полный путь до файла, для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
+ */
+InlineObject82.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 
 

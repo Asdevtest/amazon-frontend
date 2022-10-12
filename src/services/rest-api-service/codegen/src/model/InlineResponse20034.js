@@ -12,9 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsCustomByRequestIdGuidDetails from './ApiV1RequestProposalsCustomByRequestIdGuidDetails';
-import ApiV1RequestProposalsCustomByRequestIdGuidProposal from './ApiV1RequestProposalsCustomByRequestIdGuidProposal';
-import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestProposalsCustomByRequestIdGuidRequest';
+import ApiV1AdminsOrdersLogicsTariff from './ApiV1AdminsOrdersLogicsTariff';
+import ApiV1StorekeepersTariffWarehouses from './ApiV1StorekeepersTariffWarehouses';
 
 /**
  * The InlineResponse20034 model module.
@@ -24,12 +23,12 @@ import ApiV1RequestProposalsCustomByRequestIdGuidRequest from './ApiV1RequestPro
 class InlineResponse20034 {
     /**
      * Constructs a new <code>InlineResponse20034</code>.
-     * Схема универсального предложения
      * @alias module:model/InlineResponse20034
+     * @param _id {String} GUID сторкипера в DB
      */
-    constructor() { 
+    constructor(_id) { 
         
-        InlineResponse20034.initialize(this);
+        InlineResponse20034.initialize(this, _id);
     }
 
     /**
@@ -37,7 +36,8 @@ class InlineResponse20034 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, _id) { 
+        obj['_id'] = _id;
     }
 
     /**
@@ -51,14 +51,20 @@ class InlineResponse20034 {
         if (data) {
             obj = obj || new InlineResponse20034();
 
-            if (data.hasOwnProperty('proposal')) {
-                obj['proposal'] = ApiV1RequestProposalsCustomByRequestIdGuidProposal.constructFromObject(data['proposal']);
+            if (data.hasOwnProperty('_id')) {
+                obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestProposalsCustomByRequestIdGuidDetails.constructFromObject(data['details']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestProposalsCustomByRequestIdGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('tariffLogistics')) {
+                obj['tariffLogistics'] = ApiClient.convertToType(data['tariffLogistics'], [ApiV1AdminsOrdersLogicsTariff]);
+            }
+            if (data.hasOwnProperty('tariffWarehouses')) {
+                obj['tariffWarehouses'] = ApiClient.convertToType(data['tariffWarehouses'], [ApiV1StorekeepersTariffWarehouses]);
+            }
+            if (data.hasOwnProperty('boxesCount')) {
+                obj['boxesCount'] = ApiClient.convertToType(data['boxesCount'], 'Number');
             }
         }
         return obj;
@@ -68,19 +74,34 @@ class InlineResponse20034 {
 }
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidProposal} proposal
+ * GUID сторкипера в DB
+ * @member {String} _id
  */
-InlineResponse20034.prototype['proposal'] = undefined;
+InlineResponse20034.prototype['_id'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidDetails} details
+ * Имя сторкипера.
+ * @member {String} name
  */
-InlineResponse20034.prototype['details'] = undefined;
+InlineResponse20034.prototype['name'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsCustomByRequestIdGuidRequest} request
+ * Тарифы логистики для сторкипера.
+ * @member {Array.<module:model/ApiV1AdminsOrdersLogicsTariff>} tariffLogistics
  */
-InlineResponse20034.prototype['request'] = undefined;
+InlineResponse20034.prototype['tariffLogistics'] = undefined;
+
+/**
+ * Тарифы складов для сторкипера.
+ * @member {Array.<module:model/ApiV1StorekeepersTariffWarehouses>} tariffWarehouses
+ */
+InlineResponse20034.prototype['tariffWarehouses'] = undefined;
+
+/**
+ * Количество коробок в сторкепере.
+ * @member {Number} boxesCount
+ */
+InlineResponse20034.prototype['boxesCount'] = undefined;
 
 
 

@@ -380,7 +380,7 @@
   "Actual weight": "Фактический вес",
   "Return to stock": "Вернуть на склад",
   "Warehouse report": "Отчет со склада",
-  "Dashboard by goods/days": "Dashboard по товарам/дням",
+  "Dashboard by goods/days": "Дашборд по товарам/дням",
   "Add shop": "Добавить магазин",
   "Store name": "Название магазина",
   "Link to report from the warehouse": "Ссылка на отчет со склада",
@@ -1557,5 +1557,9 @@
   "Incorrect email or password": "Некорректный емайл или пароль",
   "Search by name, email": "Поиск по имени, почте",
   "Creating a Chat": "Создание чата",
-  "Purchasing a product card": "Покупка карточки товара"
+  "Purchasing a product card": "Покупка карточки товара",
+  "Feedback": "Обратная связь",
+  "Any suggestions?": "Есть предложения?",
+  "Tell us how we can improve our platform": "Расскажите нам как мы можем улучшить нашу платформу",
+  "Reply": "Ответить"
 }

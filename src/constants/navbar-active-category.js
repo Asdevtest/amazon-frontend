@@ -30,6 +30,7 @@ export const navBarActiveCategory = {
   NAVBAR_MANAGEMENT: 'NAVBAR_MANAGEMENT',
   NAVBAR_TRADING_SHOPS: 'NAVBAR_TRADING_SHOPS',
   NAVBAR_APPEALS: 'NAVBAR_APPEALS',
+  NAVBAR_FEEDBACK: 'NAVBAR_FEEDBACK',
 }
 
 export const navBarActiveSubCategory = {

@@ -75,7 +75,7 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'center',
     gap: '54px',
     height: '145px',
-    marginRight: '298px',
+    marginRight: '250px',
   },
   buttonWrapper: {
     display: 'flex',

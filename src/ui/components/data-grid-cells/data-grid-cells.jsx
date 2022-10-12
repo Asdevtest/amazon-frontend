@@ -25,6 +25,7 @@ import {mapUserRoleEnumToKey, UserRole, UserRoleCodeMap, UserRolePrettyMap} from
 
 import {Button} from '@components/buttons/button'
 import {CopyValue} from '@components/copy-value/copy-value'
+import {PhotoAndFilesCarousel} from '@components/custom-carousel/custom-carousel'
 import {Text} from '@components/text'
 import {UserLink} from '@components/user-link'
 
@@ -294,6 +295,12 @@ export const DateCell = withStyles(styles)(({params}) => (
   <Typography>{!params.value ? '-' : formatDateTime(params.value)}</Typography>
 ))
 
+export const PhotoAndFilesCell = withStyles(styles)(({classes: classNames, files}) => (
+  <div className={classNames.photoWrapper}>
+    <PhotoAndFilesCarousel small width={'300px'} files={files} />
+  </div>
+))
+
 export const NormDateCell = withStyles(styles)(({classes: classNames, params}) => (
   <Typography className={classNames.normDateCellTypo}>
     {!(params && params.value) ? '-' : formatNormDateTime(params.value)}
@@ -426,9 +433,12 @@ export const RenderFieldValueCell = withStyles(styles)(({classes: classNames, va
   <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
 ))
 
-export const MultilineTextCell = withStyles(styles)(({classes: classNames, text, noTextText, color}) => (
+export const MultilineTextCell = withStyles(styles)(({classes: classNames, text, noTextText, color, isStatus}) => (
   <div className={classNames.multilineTextWrapper}>
-    <Typography className={classNames.multilineText} style={color && {color}}>
+    <Typography
+      className={clsx(classNames.multilineText, {[classNames.multilineLeftText]: isStatus})}
+      style={color && {color}}
+    >
       {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
     </Typography>
   </div>

@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
 
 /**
  * The InlineObject76 model module.
@@ -22,7 +21,6 @@ import ApiV1ShopSellStatistics1 from './ApiV1ShopSellStatistics1';
 class InlineObject76 {
     /**
      * Constructs a new <code>InlineObject76</code>.
-     * Схема продажи магазина
      * @alias module:model/InlineObject76
      */
     constructor() { 
@@ -49,47 +47,8 @@ class InlineObject76 {
         if (data) {
             obj = obj || new InlineObject76();
 
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('businessStartDate')) {
-                obj['businessStartDate'] = ApiClient.convertToType(data['businessStartDate'], 'Date');
-            }
-            if (data.hasOwnProperty('shopDetails')) {
-                obj['shopDetails'] = ApiClient.convertToType(data['shopDetails'], 'String');
-            }
-            if (data.hasOwnProperty('shopAssets')) {
-                obj['shopAssets'] = ApiClient.convertToType(data['shopAssets'], ['String']);
-            }
-            if (data.hasOwnProperty('files')) {
-                obj['files'] = ApiClient.convertToType(data['files'], ['String']);
-            }
-            if (data.hasOwnProperty('shopLink')) {
-                obj['shopLink'] = ApiClient.convertToType(data['shopLink'], 'String');
-            }
-            if (data.hasOwnProperty('statistics')) {
-                obj['statistics'] = ApiClient.convertToType(data['statistics'], [ApiV1ShopSellStatistics1]);
-            }
-            if (data.hasOwnProperty('opportunities')) {
-                obj['opportunities'] = ApiClient.convertToType(data['opportunities'], ['String']);
-            }
-            if (data.hasOwnProperty('risks')) {
-                obj['risks'] = ApiClient.convertToType(data['risks'], ['String']);
-            }
-            if (data.hasOwnProperty('requiredSkills')) {
-                obj['requiredSkills'] = ApiClient.convertToType(data['requiredSkills'], ['String']);
-            }
-            if (data.hasOwnProperty('sellIncludes')) {
-                obj['sellIncludes'] = ApiClient.convertToType(data['sellIncludes'], ['String']);
-            }
-            if (data.hasOwnProperty('reasonForSale')) {
-                obj['reasonForSale'] = ApiClient.convertToType(data['reasonForSale'], ['String']);
-            }
-            if (data.hasOwnProperty('additionalInfo')) {
-                obj['additionalInfo'] = ApiClient.convertToType(data['additionalInfo'], ['String']);
+            if (data.hasOwnProperty('reason')) {
+                obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
         }
         return obj;
@@ -99,88 +58,10 @@ class InlineObject76 {
 }
 
 /**
- * Имя магазина для продажи
- * @member {String} title
+ * Причины закрытия приема предложений.
+ * @member {String} reason
  */
-InlineObject76.prototype['title'] = undefined;
-
-/**
- * Стоимость магазина
- * @member {Number} price
- */
-InlineObject76.prototype['price'] = undefined;
-
-/**
- * Дата создания бизнеса
- * @member {Date} businessStartDate
- */
-InlineObject76.prototype['businessStartDate'] = undefined;
-
-/**
- * Детали магазина
- * @member {String} shopDetails
- */
-InlineObject76.prototype['shopDetails'] = undefined;
-
-/**
- * Активы магазина
- * @member {Array.<String>} shopAssets
- */
-InlineObject76.prototype['shopAssets'] = undefined;
-
-/**
- * Файлы, которые привязаны к магазину (Пока заглушка, потом можно будет отправлят файлы, сейчас - ссылки)
- * @member {Array.<String>} files
- */
-InlineObject76.prototype['files'] = undefined;
-
-/**
- * Ссылка на сайт магазина
- * @member {String} shopLink
- */
-InlineObject76.prototype['shopLink'] = undefined;
-
-/**
- * Статистика магазина по месяцам
- * @member {Array.<module:model/ApiV1ShopSellStatistics1>} statistics
- */
-InlineObject76.prototype['statistics'] = undefined;
-
-/**
- * Возможности магазина
- * @member {Array.<String>} opportunities
- */
-InlineObject76.prototype['opportunities'] = undefined;
-
-/**
- * Риски магазина
- * @member {Array.<String>} risks
- */
-InlineObject76.prototype['risks'] = undefined;
-
-/**
- * Требуемые навыки
- * @member {Array.<String>} requiredSkills
- */
-InlineObject76.prototype['requiredSkills'] = undefined;
-
-/**
- * В продажу также включено
- * @member {Array.<String>} sellIncludes
- */
-InlineObject76.prototype['sellIncludes'] = undefined;
-
-/**
- * Причина продажи
- * @member {Array.<String>} reasonForSale
- */
-InlineObject76.prototype['reasonForSale'] = undefined;
-
-/**
- * Дополнительная информация
- * @member {Array.<String>} additionalInfo
- */
-InlineObject76.prototype['additionalInfo'] = undefined;
+InlineObject76.prototype['reason'] = undefined;
 
 
 

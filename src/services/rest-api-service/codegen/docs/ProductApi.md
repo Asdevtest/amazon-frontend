@@ -39,7 +39,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject61() // InlineObject61 | 
+  'body': new TestSwagger.InlineObject63() // InlineObject63 | 
 };
 apiInstance.apiV1ProductsAddShopsGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject61**](InlineObject61.md)|  | [optional] 
+ **body** | [**InlineObject63**](InlineObject63.md)|  | [optional] 
 
 ### Return type
 
@@ -95,7 +95,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject59() // InlineObject59 | 
+  'body': new TestSwagger.InlineObject61() // InlineObject61 | 
 };
 apiInstance.apiV1ProductsAddSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -112,7 +112,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject59**](InlineObject59.md)|  | [optional] 
+ **body** | [**InlineObject61**](InlineObject61.md)|  | [optional] 
 
 ### Return type
 
@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsByCreatorGuidGet
 
-> [InlineResponse200] apiV1ProductsByCreatorGuidGet(guid, opts)
+> [InlineResponse20012] apiV1ProductsByCreatorGuidGet(guid, opts)
 
 Получение продуктов по ID создателя
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse200]**](InlineResponse200.md)
+[**[InlineResponse20012]**](InlineResponse20012.md)
 
 ### Authorization
 
@@ -346,7 +346,7 @@ Name | Type | Description  | Notes
 
 ## apiV1ProductsParseSellercentralGet
 
-> InlineResponse20023 apiV1ProductsParseSellercentralGet(asin, opts)
+> InlineResponse20026 apiV1ProductsParseSellercentralGet(asin, opts)
 
 Получить данные о продукте с SellerCentral
 
@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse20023**](InlineResponse20023.md)
+[**InlineResponse20026**](InlineResponse20026.md)
 
 ### Authorization
 
@@ -423,7 +423,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject62() // InlineObject62 | 
+  'body': new TestSwagger.InlineObject64() // InlineObject64 | 
 };
 apiInstance.apiV1ProductsRemoveShopsGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -440,7 +440,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject62**](InlineObject62.md)|  | [optional] 
+ **body** | [**InlineObject64**](InlineObject64.md)|  | [optional] 
 
 ### Return type
 
@@ -479,7 +479,7 @@ let apiInstance = new TestSwagger.ProductApi();
 let guid = null; // String | GUID продукта в БД.
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject60() // InlineObject60 | 
+  'body': new TestSwagger.InlineObject62() // InlineObject62 | 
 };
 apiInstance.apiV1ProductsRemoveSuppliersGuidPost(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -496,7 +496,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта в БД. | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject60**](InlineObject60.md)|  | [optional] 
+ **body** | [**InlineObject62**](InlineObject62.md)|  | [optional] 
 
 ### Return type
 

@@ -21,6 +21,7 @@ import ApiClient from '../ApiClient';
 class InlineResponse20033 {
     /**
      * Constructs a new <code>InlineResponse20033</code>.
+     * Схема магазина.
      * @alias module:model/InlineResponse20033
      */
     constructor() { 
@@ -53,23 +54,26 @@ class InlineResponse20033 {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('rating')) {
-                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlDaily')) {
+                obj['sellerBoardWarehouseReportUrlDaily'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlDaily'], 'String');
             }
-            if (data.hasOwnProperty('numberOfPositiveFeedbacks')) {
-                obj['numberOfPositiveFeedbacks'] = ApiClient.convertToType(data['numberOfPositiveFeedbacks'], 'Number');
+            if (data.hasOwnProperty('sellerBoardWarehouseReportUrlMonthly')) {
+                obj['sellerBoardWarehouseReportUrlMonthly'] = ApiClient.convertToType(data['sellerBoardWarehouseReportUrlMonthly'], 'String');
             }
-            if (data.hasOwnProperty('numberOfNegativeFeedbacks')) {
-                obj['numberOfNegativeFeedbacks'] = ApiClient.convertToType(data['numberOfNegativeFeedbacks'], 'Number');
+            if (data.hasOwnProperty('ownerId')) {
+                obj['ownerId'] = ApiClient.convertToType(data['ownerId'], 'String');
             }
-            if (data.hasOwnProperty('country')) {
-                obj['country'] = ApiClient.convertToType(data['country'], 'String');
+            if (data.hasOwnProperty('createdById')) {
+                obj['createdById'] = ApiClient.convertToType(data['createdById'], 'String');
             }
-            if (data.hasOwnProperty('isOnline')) {
-                obj['isOnline'] = ApiClient.convertToType(data['isOnline'], 'Boolean');
+            if (data.hasOwnProperty('lastModifiedById')) {
+                obj['lastModifiedById'] = ApiClient.convertToType(data['lastModifiedById'], 'String');
             }
-            if (data.hasOwnProperty('countsOfDeals')) {
-                obj['countsOfDeals'] = ApiClient.convertToType(data['countsOfDeals'], 'Number');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
             }
         }
         return obj;
@@ -79,52 +83,58 @@ class InlineResponse20033 {
 }
 
 /**
- * GUID пользователя.
+ * ID магазина.
  * @member {String} _id
  */
 InlineResponse20033.prototype['_id'] = undefined;
 
 /**
- * Имя пользователя.
+ * Имя магазина, у удного пользователя не может быть два магазина с одинаковыми именами.
  * @member {String} name
  */
 InlineResponse20033.prototype['name'] = undefined;
 
 /**
- * Рейтинг пользователя.
- * @member {Number} rating
+ * URL для скачивания ежедневных отчетов SellerBoard.
+ * @member {String} sellerBoardWarehouseReportUrlDaily
  */
-InlineResponse20033.prototype['rating'] = undefined;
+InlineResponse20033.prototype['sellerBoardWarehouseReportUrlDaily'] = undefined;
 
 /**
- * Количество положительных отзыв
- * @member {Number} numberOfPositiveFeedbacks
+ * URL для скачивания отчетов SellerBoard за последний месяц.
+ * @member {String} sellerBoardWarehouseReportUrlMonthly
  */
-InlineResponse20033.prototype['numberOfPositiveFeedbacks'] = undefined;
+InlineResponse20033.prototype['sellerBoardWarehouseReportUrlMonthly'] = undefined;
 
 /**
- * Количество негативных отзыв
- * @member {Number} numberOfNegativeFeedbacks
+ * GUID, владелеца.
+ * @member {String} ownerId
  */
-InlineResponse20033.prototype['numberOfNegativeFeedbacks'] = undefined;
+InlineResponse20033.prototype['ownerId'] = undefined;
 
 /**
- * Страна
- * @member {String} country
+ * GUID любого, кто последний создал.
+ * @member {String} createdById
  */
-InlineResponse20033.prototype['country'] = undefined;
+InlineResponse20033.prototype['createdById'] = undefined;
 
 /**
- * Пользователь онлайн
- * @member {Boolean} isOnline
+ * GUID любого, кто последний редактировал.
+ * @member {String} lastModifiedById
  */
-InlineResponse20033.prototype['isOnline'] = undefined;
+InlineResponse20033.prototype['lastModifiedById'] = undefined;
 
 /**
- * Количество общих сделок
- * @member {Number} countsOfDeals
+ * Дата создания
+ * @member {Date} createdAt
  */
-InlineResponse20033.prototype['countsOfDeals'] = undefined;
+InlineResponse20033.prototype['createdAt'] = undefined;
+
+/**
+ * Дата изменения
+ * @member {Date} updatedAt
+ */
+InlineResponse20033.prototype['updatedAt'] = undefined;
 
 
 

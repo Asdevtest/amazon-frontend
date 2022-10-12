@@ -12,7 +12,9 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1IntegrationsSellerboardWarehouseStocksShop from './ApiV1IntegrationsSellerboardWarehouseStocksShop';
+import InlineResponse20017Batches from './InlineResponse20017Batches';
+import InlineResponse20017Boxes from './InlineResponse20017Boxes';
+import InlineResponse20017Tasks from './InlineResponse20017Tasks';
 
 /**
  * The InlineResponse20017 model module.
@@ -22,7 +24,6 @@ import ApiV1IntegrationsSellerboardWarehouseStocksShop from './ApiV1Integrations
 class InlineResponse20017 {
     /**
      * Constructs a new <code>InlineResponse20017</code>.
-     * Схема репорта за 30 дней с Seller-board
      * @alias module:model/InlineResponse20017
      */
     constructor() { 
@@ -49,83 +50,14 @@ class InlineResponse20017 {
         if (data) {
             obj = obj || new InlineResponse20017();
 
-            if (data.hasOwnProperty('asin')) {
-                obj['asin'] = ApiClient.convertToType(data['asin'], 'String');
+            if (data.hasOwnProperty('tasks')) {
+                obj['tasks'] = InlineResponse20017Tasks.constructFromObject(data['tasks']);
             }
-            if (data.hasOwnProperty('sku')) {
-                obj['sku'] = ApiClient.convertToType(data['sku'], 'String');
+            if (data.hasOwnProperty('boxes')) {
+                obj['boxes'] = InlineResponse20017Boxes.constructFromObject(data['boxes']);
             }
-            if (data.hasOwnProperty('title')) {
-                obj['title'] = ApiClient.convertToType(data['title'], 'String');
-            }
-            if (data.hasOwnProperty('roi')) {
-                obj['roi'] = ApiClient.convertToType(data['roi'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaFbmStock')) {
-                obj['fbaFbmStock'] = ApiClient.convertToType(data['fbaFbmStock'], 'Number');
-            }
-            if (data.hasOwnProperty('stockValue')) {
-                obj['stockValue'] = ApiClient.convertToType(data['stockValue'], 'Number');
-            }
-            if (data.hasOwnProperty('estimatedSalesVelocity')) {
-                obj['estimatedSalesVelocity'] = ApiClient.convertToType(data['estimatedSalesVelocity'], 'Number');
-            }
-            if (data.hasOwnProperty('daysOfStockLeft')) {
-                obj['daysOfStockLeft'] = ApiClient.convertToType(data['daysOfStockLeft'], 'Number');
-            }
-            if (data.hasOwnProperty('recommendedQuantityForReordering')) {
-                obj['recommendedQuantityForReordering'] = ApiClient.convertToType(data['recommendedQuantityForReordering'], 'Number');
-            }
-            if (data.hasOwnProperty('runningOutOfStock')) {
-                obj['runningOutOfStock'] = ApiClient.convertToType(data['runningOutOfStock'], 'String');
-            }
-            if (data.hasOwnProperty('reserved')) {
-                obj['reserved'] = ApiClient.convertToType(data['reserved'], 'Number');
-            }
-            if (data.hasOwnProperty('sentToFba')) {
-                obj['sentToFba'] = ApiClient.convertToType(data['sentToFba'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaPrepStock')) {
-                obj['fbaPrepStock'] = ApiClient.convertToType(data['fbaPrepStock'], 'Number');
-            }
-            if (data.hasOwnProperty('ordered')) {
-                obj['ordered'] = ApiClient.convertToType(data['ordered'], 'String');
-            }
-            if (data.hasOwnProperty('timeToReorder')) {
-                obj['timeToReorder'] = ApiClient.convertToType(data['timeToReorder'], 'String');
-            }
-            if (data.hasOwnProperty('comment')) {
-                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
-            }
-            if (data.hasOwnProperty('marketplace')) {
-                obj['marketplace'] = ApiClient.convertToType(data['marketplace'], 'String');
-            }
-            if (data.hasOwnProperty('targetStockRangeAfterNewOrderDays')) {
-                obj['targetStockRangeAfterNewOrderDays'] = ApiClient.convertToType(data['targetStockRangeAfterNewOrderDays'], 'Number');
-            }
-            if (data.hasOwnProperty('fbaBufferDays')) {
-                obj['fbaBufferDays'] = ApiClient.convertToType(data['fbaBufferDays'], 'Number');
-            }
-            if (data.hasOwnProperty('manufTimeDays')) {
-                obj['manufTimeDays'] = ApiClient.convertToType(data['manufTimeDays'], 'Number');
-            }
-            if (data.hasOwnProperty('useAPrepCenter')) {
-                obj['useAPrepCenter'] = ApiClient.convertToType(data['useAPrepCenter'], 'String');
-            }
-            if (data.hasOwnProperty('shippingToPrepCenterDays')) {
-                obj['shippingToPrepCenterDays'] = ApiClient.convertToType(data['shippingToPrepCenterDays'], 'Number');
-            }
-            if (data.hasOwnProperty('shippingToFbaDays')) {
-                obj['shippingToFbaDays'] = ApiClient.convertToType(data['shippingToFbaDays'], 'Number');
-            }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
-            }
-            if (data.hasOwnProperty('updatedAt')) {
-                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
-            }
-            if (data.hasOwnProperty('shop')) {
-                obj['shop'] = ApiV1IntegrationsSellerboardWarehouseStocksShop.constructFromObject(data['shop']);
+            if (data.hasOwnProperty('batches')) {
+                obj['batches'] = InlineResponse20017Batches.constructFromObject(data['batches']);
             }
         }
         return obj;
@@ -135,159 +67,19 @@ class InlineResponse20017 {
 }
 
 /**
- * ﻿\"ASIN\"
- * @member {String} asin
+ * @member {module:model/InlineResponse20017Tasks} tasks
  */
-InlineResponse20017.prototype['asin'] = undefined;
+InlineResponse20017.prototype['tasks'] = undefined;
 
 /**
- * SKU
- * @member {String} sku
+ * @member {module:model/InlineResponse20017Boxes} boxes
  */
-InlineResponse20017.prototype['sku'] = undefined;
+InlineResponse20017.prototype['boxes'] = undefined;
 
 /**
- * Title
- * @member {String} title
+ * @member {module:model/InlineResponse20017Batches} batches
  */
-InlineResponse20017.prototype['title'] = undefined;
-
-/**
- * ROI, %
- * @member {Number} roi
- */
-InlineResponse20017.prototype['roi'] = undefined;
-
-/**
- * FBA/FBM Stock
- * @member {Number} fbaFbmStock
- */
-InlineResponse20017.prototype['fbaFbmStock'] = undefined;
-
-/**
- * Stock value
- * @member {Number} stockValue
- */
-InlineResponse20017.prototype['stockValue'] = undefined;
-
-/**
- * Estimated Sales Velocity
- * @member {Number} estimatedSalesVelocity
- */
-InlineResponse20017.prototype['estimatedSalesVelocity'] = undefined;
-
-/**
- * Days  of stock  left
- * @member {Number} daysOfStockLeft
- */
-InlineResponse20017.prototype['daysOfStockLeft'] = undefined;
-
-/**
- * Recommended quantity for  reordering
- * @member {Number} recommendedQuantityForReordering
- */
-InlineResponse20017.prototype['recommendedQuantityForReordering'] = undefined;
-
-/**
- * Running  out of stock
- * @member {String} runningOutOfStock
- */
-InlineResponse20017.prototype['runningOutOfStock'] = undefined;
-
-/**
- * Reserved
- * @member {Number} reserved
- */
-InlineResponse20017.prototype['reserved'] = undefined;
-
-/**
- * Sent  to FBA
- * @member {Number} sentToFba
- */
-InlineResponse20017.prototype['sentToFba'] = undefined;
-
-/**
- * FBA  Prep. Stock
- * @member {Number} fbaPrepStock
- */
-InlineResponse20017.prototype['fbaPrepStock'] = undefined;
-
-/**
- * Ordered
- * @member {String} ordered
- */
-InlineResponse20017.prototype['ordered'] = undefined;
-
-/**
- * Time to  reorder
- * @member {String} timeToReorder
- */
-InlineResponse20017.prototype['timeToReorder'] = undefined;
-
-/**
- * Comment
- * @member {String} comment
- */
-InlineResponse20017.prototype['comment'] = undefined;
-
-/**
- * Marketplace
- * @member {String} marketplace
- */
-InlineResponse20017.prototype['marketplace'] = undefined;
-
-/**
- * Target stock range after new order days
- * @member {Number} targetStockRangeAfterNewOrderDays
- */
-InlineResponse20017.prototype['targetStockRangeAfterNewOrderDays'] = undefined;
-
-/**
- * FBA buffer days
- * @member {Number} fbaBufferDays
- */
-InlineResponse20017.prototype['fbaBufferDays'] = undefined;
-
-/**
- * Manuf. time days
- * @member {Number} manufTimeDays
- */
-InlineResponse20017.prototype['manufTimeDays'] = undefined;
-
-/**
- * Use a Prep Center
- * @member {String} useAPrepCenter
- */
-InlineResponse20017.prototype['useAPrepCenter'] = undefined;
-
-/**
- * Shipping to Prep Center days
- * @member {Number} shippingToPrepCenterDays
- */
-InlineResponse20017.prototype['shippingToPrepCenterDays'] = undefined;
-
-/**
- * Shipping to FBA days
- * @member {Number} shippingToFbaDays
- */
-InlineResponse20017.prototype['shippingToFbaDays'] = undefined;
-
-/**
- * Дата создания
- * @member {Date} createdAt
- */
-InlineResponse20017.prototype['createdAt'] = undefined;
-
-/**
- * Дата обновления
- * @member {Date} updatedAt
- */
-InlineResponse20017.prototype['updatedAt'] = undefined;
-
-/**
- * @member {module:model/ApiV1IntegrationsSellerboardWarehouseStocksShop} shop
- */
-InlineResponse20017.prototype['shop'] = undefined;
+InlineResponse20017.prototype['batches'] = undefined;
 
 
 

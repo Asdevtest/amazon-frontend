@@ -1556,6 +1556,10 @@ export enum TranslationKey {
   'Search by name, email' = 'Search by name, email',
   'Creating a Chat' = 'Creating a Chat',
   'Purchasing a product card' = 'Purchasing a product card',
+  'Feedback' = 'Feedback',
+  'Any suggestions?' = 'Any suggestions?',
+  'Tell us how we can improve our platform' = 'Tell us how we can improve our platform',
+  'Reply' = 'Reply',
   // '' = '',
 
   // '' = '',

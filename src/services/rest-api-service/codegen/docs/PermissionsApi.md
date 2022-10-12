@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 
 ## apiV1PermissionsProductsGet
 
-> [InlineResponse20021] apiV1PermissionsProductsGet(opts)
+> [InlineResponse20024] apiV1PermissionsProductsGet(opts)
 
 Получить список разрешений для продуктов всех сабъюзеров.
 
@@ -495,7 +495,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20021]**](InlineResponse20021.md)
+[**[InlineResponse20024]**](InlineResponse20024.md)
 
 ### Authorization
 
@@ -509,7 +509,7 @@ Name | Type | Description  | Notes
 
 ## apiV1PermissionsProductsGuidGet
 
-> [InlineResponse20022] apiV1PermissionsProductsGuidGet(guid, opts)
+> [InlineResponse20025] apiV1PermissionsProductsGuidGet(guid, opts)
 
 Получить список разрешений для продуктов юзера по его айди.
 
@@ -549,7 +549,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[InlineResponse20022]**](InlineResponse20022.md)
+[**[InlineResponse20025]**](InlineResponse20025.md)
 
 ### Authorization
 
@@ -583,7 +583,7 @@ AccessTokenBearer.apiKey = 'YOUR API KEY';
 let apiInstance = new TestSwagger.PermissionsApi();
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject58() // InlineObject58 | 
+  'body': new TestSwagger.InlineObject60() // InlineObject60 | 
 };
 apiInstance.apiV1PermissionsProductsPatch(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -599,7 +599,7 @@ apiInstance.apiV1PermissionsProductsPatch(opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject58**](InlineObject58.md)|  | [optional] 
+ **body** | [**InlineObject60**](InlineObject60.md)|  | [optional] 
 
 ### Return type
 

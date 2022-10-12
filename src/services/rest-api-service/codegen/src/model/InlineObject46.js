@@ -22,10 +22,11 @@ class InlineObject46 {
     /**
      * Constructs a new <code>InlineObject46</code>.
      * @alias module:model/InlineObject46
+     * @param profileId {String} id профайла
      */
-    constructor() { 
+    constructor(profileId) { 
         
-        InlineObject46.initialize(this);
+        InlineObject46.initialize(this, profileId);
     }
 
     /**
@@ -33,7 +34,8 @@ class InlineObject46 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, profileId) { 
+        obj['profileId'] = profileId;
     }
 
     /**
@@ -47,38 +49,8 @@ class InlineObject46 {
         if (data) {
             obj = obj || new InlineObject46();
 
-            if (data.hasOwnProperty('media')) {
-                obj['media'] = ApiClient.convertToType(data['media'], [NULL_SCHEMA_ERR]);
-            }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], 'String');
-            }
-            if (data.hasOwnProperty('productName')) {
-                obj['productName'] = ApiClient.convertToType(data['productName'], 'String');
-            }
-            if (data.hasOwnProperty('productLinks')) {
-                obj['productLinks'] = ApiClient.convertToType(data['productLinks'], [NULL_SCHEMA_ERR]);
-            }
-            if (data.hasOwnProperty('criteria')) {
-                obj['criteria'] = ApiClient.convertToType(data['criteria'], 'String');
-            }
-            if (data.hasOwnProperty('quantity')) {
-                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
-            }
-            if (data.hasOwnProperty('price')) {
-                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
-            }
-            if (data.hasOwnProperty('width')) {
-                obj['width'] = ApiClient.convertToType(data['width'], 'Number');
-            }
-            if (data.hasOwnProperty('height')) {
-                obj['height'] = ApiClient.convertToType(data['height'], 'Number');
-            }
-            if (data.hasOwnProperty('length')) {
-                obj['length'] = ApiClient.convertToType(data['length'], 'Number');
-            }
-            if (data.hasOwnProperty('productId')) {
-                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            if (data.hasOwnProperty('profileId')) {
+                obj['profileId'] = ApiClient.convertToType(data['profileId'], 'String');
             }
         }
         return obj;
@@ -88,70 +60,10 @@ class InlineObject46 {
 }
 
 /**
- * Image URL
- * @member {Array.<String>} media
+ * id профайла
+ * @member {String} profileId
  */
-InlineObject46.prototype['media'] = undefined;
-
-/**
- * Комментарий к идее
- * @member {String} comments
- */
-InlineObject46.prototype['comments'] = undefined;
-
-/**
- * Назавние продукта
- * @member {String} productName
- */
-InlineObject46.prototype['productName'] = undefined;
-
-/**
- * Ссылки на продукт, если есть
- * @member {Array.<String>} productLinks
- */
-InlineObject46.prototype['productLinks'] = undefined;
-
-/**
- * Дополнительные критерии для поиска товара
- * @member {String} criteria
- */
-InlineObject46.prototype['criteria'] = undefined;
-
-/**
- * Количество товаров
- * @member {Number} quantity
- */
-InlineObject46.prototype['quantity'] = undefined;
-
-/**
- * Желаемая цена
- * @member {Number} price
- */
-InlineObject46.prototype['price'] = undefined;
-
-/**
- * Ширина, см
- * @member {Number} width
- */
-InlineObject46.prototype['width'] = undefined;
-
-/**
- * Высота, см
- * @member {Number} height
- */
-InlineObject46.prototype['height'] = undefined;
-
-/**
- * Длина, см
- * @member {Number} length
- */
-InlineObject46.prototype['length'] = undefined;
-
-/**
- * Product ID
- * @member {String} productId
- */
-InlineObject46.prototype['productId'] = undefined;
+InlineObject46.prototype['profileId'] = undefined;
 
 
 

@@ -120,6 +120,11 @@ class AdministratorModelStatic {
     return response
   }
 
+  getFeedback = async () => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGet()
+    return response
+  }
+
   setSettings = async data => {
     const response = await restApiService.administratorApi.apiV1AdminsSetSettingPatch({
       body: data,

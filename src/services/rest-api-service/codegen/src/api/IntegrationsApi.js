@@ -15,12 +15,12 @@
 import ApiClient from "../ApiClient";
 import BadRequestError from '../model/BadRequestError';
 import ConflictInTheState from '../model/ConflictInTheState';
-import InlineObject53 from '../model/InlineObject53';
 import InlineObject54 from '../model/InlineObject54';
 import InlineObject55 from '../model/InlineObject55';
-import InlineResponse20017 from '../model/InlineResponse20017';
-import InlineResponse20018 from '../model/InlineResponse20018';
-import InlineResponse20019 from '../model/InlineResponse20019';
+import InlineObject56 from '../model/InlineObject56';
+import InlineResponse20020 from '../model/InlineResponse20020';
+import InlineResponse20021 from '../model/InlineResponse20021';
+import InlineResponse20022 from '../model/InlineResponse20022';
 import InternalServerError from '../model/InternalServerError';
 import NotFoundError from '../model/NotFoundError';
 
@@ -49,7 +49,7 @@ export default class IntegrationsApi {
      * ## Создать, привязать товары к SKU. Спарсить данные.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject54} opts.body 
+     * @param {module:model/InlineObject55} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1IntegrationsCreateAndLinkSkuProductsPostWithHttpInfo(opts) {
@@ -82,7 +82,7 @@ export default class IntegrationsApi {
      * ## Создать, привязать товары к SKU. Спарсить данные.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject54} opts.body 
+     * @param {module:model/InlineObject55} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1IntegrationsCreateAndLinkSkuProductsPost(opts) {
@@ -99,7 +99,7 @@ export default class IntegrationsApi {
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20017>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20020>} and HTTP response
      */
     apiV1IntegrationsGetSkusByProductIdGuidGetWithHttpInfo(guid, opts) {
       opts = opts || {};
@@ -123,7 +123,7 @@ export default class IntegrationsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20017];
+      let returnType = [InlineResponse20020];
       return this.apiClient.callApi(
         '/api/v1/integrations/get_skus_by_product_id/{guid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -137,7 +137,7 @@ export default class IntegrationsApi {
      * @param {String} guid GUID продукта.
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20017>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20020>}
      */
     apiV1IntegrationsGetSkusByProductIdGuidGet(guid, opts) {
       return this.apiV1IntegrationsGetSkusByProductIdGuidGetWithHttpInfo(guid, opts)
@@ -153,7 +153,7 @@ export default class IntegrationsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<String>} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20019} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20022} and HTTP response
      */
     apiV1IntegrationsRefreshProductsPatchWithHttpInfo(opts) {
       opts = opts || {};
@@ -172,7 +172,7 @@ export default class IntegrationsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = InlineResponse20019;
+      let returnType = InlineResponse20022;
       return this.apiClient.callApi(
         '/api/v1/integrations/refresh_products', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -186,7 +186,7 @@ export default class IntegrationsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
      * @param {Array.<String>} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20019}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20022}
      */
     apiV1IntegrationsRefreshProductsPatch(opts) {
       return this.apiV1IntegrationsRefreshProductsPatchWithHttpInfo(opts)
@@ -202,7 +202,7 @@ export default class IntegrationsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.shopId GUID магазина
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20018>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20021>} and HTTP response
      */
     apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -222,7 +222,7 @@ export default class IntegrationsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20018];
+      let returnType = [InlineResponse20021];
       return this.apiClient.callApi(
         '/api/v1/integrations/sellerboard_dashboard_products_days_reports_last_30_days', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -236,7 +236,7 @@ export default class IntegrationsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.shopId GUID магазина
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20018>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20021>}
      */
     apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGet(opts) {
       return this.apiV1IntegrationsSellerboardDashboardProductsDaysReportsLast30DaysGetWithHttpInfo(opts)
@@ -251,7 +251,7 @@ export default class IntegrationsApi {
      * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject53} opts.body 
+     * @param {module:model/InlineObject54} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatchWithHttpInfo(opts) {
@@ -284,7 +284,7 @@ export default class IntegrationsApi {
      * ## Привязать к товару SKU. Проверки:  Наличие всех SKU и продукта Массив всех SKU с должны принадлежать данному магазину Только для клиента
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject53} opts.body 
+     * @param {module:model/InlineObject54} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1IntegrationsSellerboardWarehouseProductsLinkSkuPatch(opts) {
@@ -300,7 +300,7 @@ export default class IntegrationsApi {
      * ## Отвязать товар от SKU.  Нужна проверка может ли данный пользователь удалять связи!!!(пока такой проверки нет)
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject55} opts.body 
+     * @param {module:model/InlineObject56} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link String} and HTTP response
      */
     apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatchWithHttpInfo(opts) {
@@ -333,7 +333,7 @@ export default class IntegrationsApi {
      * ## Отвязать товар от SKU.  Нужна проверка может ли данный пользователь удалять связи!!!(пока такой проверки нет)
      * @param {Object} opts Optional parameters
      * @param {String} opts.Accept_Encoding 
-     * @param {module:model/InlineObject55} opts.body 
+     * @param {module:model/InlineObject56} opts.body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link String}
      */
     apiV1IntegrationsSellerboardWarehouseProductsUnLinkSkuPatch(opts) {
@@ -350,7 +350,7 @@ export default class IntegrationsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.shopId GUID магазина
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20017>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20020>} and HTTP response
      */
     apiV1IntegrationsSellerboardWarehouseStocksGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -370,7 +370,7 @@ export default class IntegrationsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20017];
+      let returnType = [InlineResponse20020];
       return this.apiClient.callApi(
         '/api/v1/integrations/sellerboard_warehouse_stocks', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -384,7 +384,7 @@ export default class IntegrationsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.shopId GUID магазина
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20017>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20020>}
      */
     apiV1IntegrationsSellerboardWarehouseStocksGet(opts) {
       return this.apiV1IntegrationsSellerboardWarehouseStocksGetWithHttpInfo(opts)
@@ -400,7 +400,7 @@ export default class IntegrationsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters Примеры: ?filters=or[0][sku][$eq]=L9-HOQU-YEE4;or[1][title][$contains]=Measuring отдает все где sku = \"L9-HOQU-YEE4\" или в title встречается \"Measuring\", не чувствителен к регистру.  без или: ?filters=[title][$contains]=Measuring
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20017>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/InlineResponse20020>} and HTTP response
      */
     apiV1IntegrationsWarehouseReportGetWithHttpInfo(opts) {
       opts = opts || {};
@@ -420,7 +420,7 @@ export default class IntegrationsApi {
       let authNames = ['AccessTokenBearer'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [InlineResponse20017];
+      let returnType = [InlineResponse20020];
       return this.apiClient.callApi(
         '/api/v1/integrations/warehouse_report', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -434,7 +434,7 @@ export default class IntegrationsApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.filters Примеры: ?filters=or[0][sku][$eq]=L9-HOQU-YEE4;or[1][title][$contains]=Measuring отдает все где sku = \"L9-HOQU-YEE4\" или в title встречается \"Measuring\", не чувствителен к регистру.  без или: ?filters=[title][$contains]=Measuring
      * @param {String} opts.Accept_Encoding 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20017>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/InlineResponse20020>}
      */
     apiV1IntegrationsWarehouseReportGet(opts) {
       return this.apiV1IntegrationsWarehouseReportGetWithHttpInfo(opts)

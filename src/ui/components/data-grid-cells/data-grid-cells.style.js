@@ -580,6 +580,10 @@ export const styles = createStyles(() => ({
     lineHeight: '16px',
   },
 
+  multilineLeftText: {
+    textAlign: 'start',
+  },
+
   statusMultilineText: {
     width: '100%',
     maxHeight: '100%',
@@ -1049,6 +1053,12 @@ export const styles = createStyles(() => ({
 
   editPaddingButton: {
     marginTop: 0,
+  },
+
+  photoWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px 0',
   },
 
   '@media (max-width: 768px)': {

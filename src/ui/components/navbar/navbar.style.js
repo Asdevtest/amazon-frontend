@@ -73,6 +73,26 @@ export const useClassNames = makeStyles(theme => ({
   categoriesWrapper: {
     backgroundColor: theme.palette.background.main,
   },
+  feedBackButton: {
+    position: 'absolute',
+    bottom: '20px',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '20px',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
+  feedBackText: {
+    fontSize: '18px',
+    lineHeight: '140%',
+    color: '#001029',
+  },
+
+  feedbackIcon: {
+    width: '54px',
+    height: '48px',
+  },
 
   '@media (max-width: 959px)': {
     hideAndShowIconWrapper: {

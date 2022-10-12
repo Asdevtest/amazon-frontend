@@ -47,6 +47,9 @@ class InlineObject66 {
         if (data) {
             obj = obj || new InlineObject66();
 
+            if (data.hasOwnProperty('rating')) {
+                obj['rating'] = ApiClient.convertToType(data['rating'], 'Number');
+            }
             if (data.hasOwnProperty('reason')) {
                 obj['reason'] = ApiClient.convertToType(data['reason'], 'String');
             }
@@ -59,6 +62,12 @@ class InlineObject66 {
 
 
 }
+
+/**
+ * Поставить оценку юзеру
+ * @member {Number} rating
+ */
+InlineObject66.prototype['rating'] = undefined;
 
 /**
  * Комментарий причин изменения статуса.

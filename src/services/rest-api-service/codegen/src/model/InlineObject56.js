@@ -22,11 +22,12 @@ class InlineObject56 {
     /**
      * Constructs a new <code>InlineObject56</code>.
      * @alias module:model/InlineObject56
-     * @param fileUrl {String} uri полный путь до файла, для скачивания
+     * @param productId {String} 
+     * @param skus {Array.<String>} 
      */
-    constructor(fileUrl) { 
+    constructor(productId, skus) { 
         
-        InlineObject56.initialize(this, fileUrl);
+        InlineObject56.initialize(this, productId, skus);
     }
 
     /**
@@ -34,8 +35,9 @@ class InlineObject56 {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, fileUrl) { 
-        obj['fileUrl'] = fileUrl;
+    static initialize(obj, productId, skus) { 
+        obj['productId'] = productId;
+        obj['skus'] = skus;
     }
 
     /**
@@ -49,8 +51,11 @@ class InlineObject56 {
         if (data) {
             obj = obj || new InlineObject56();
 
-            if (data.hasOwnProperty('fileUrl')) {
-                obj['fileUrl'] = ApiClient.convertToType(data['fileUrl'], 'String');
+            if (data.hasOwnProperty('productId')) {
+                obj['productId'] = ApiClient.convertToType(data['productId'], 'String');
+            }
+            if (data.hasOwnProperty('skus')) {
+                obj['skus'] = ApiClient.convertToType(data['skus'], ['String']);
             }
         }
         return obj;
@@ -60,10 +65,14 @@ class InlineObject56 {
 }
 
 /**
- * uri полный путь до файла, для скачивания
- * @member {String} fileUrl
+ * @member {String} productId
  */
-InlineObject56.prototype['fileUrl'] = undefined;
+InlineObject56.prototype['productId'] = undefined;
+
+/**
+ * @member {Array.<String>} skus
+ */
+InlineObject56.prototype['skus'] = undefined;
 
 
 

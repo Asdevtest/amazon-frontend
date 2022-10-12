@@ -35,7 +35,7 @@ let apiInstance = new TestSwagger.SupervisorApi();
 let guid = null; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject87() // InlineObject87 | 
+  'body': new TestSwagger.InlineObject90() // InlineObject90 | 
 };
 apiInstance.apiV1SupervisorsProductsGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject87**](InlineObject87.md)|  | [optional] 
+ **body** | [**InlineObject90**](InlineObject90.md)|  | [optional] 
 
 ### Return type
 
@@ -91,7 +91,7 @@ let apiInstance = new TestSwagger.SupervisorApi();
 let guid = null; // String | GUID продукта, который планируем изменить
 let opts = {
   'Accept_Encoding': "Accept_Encoding_example", // String | 
-  'body': new TestSwagger.InlineObject88() // InlineObject88 | 
+  'body': new TestSwagger.InlineObject91() // InlineObject91 | 
 };
 apiInstance.apiV1SupervisorsProductsListingGuidPatch(guid, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guid** | [**String**](.md)| GUID продукта, который планируем изменить | 
  **Accept_Encoding** | **String**|  | [optional] 
- **body** | [**InlineObject88**](InlineObject88.md)|  | [optional] 
+ **body** | [**InlineObject91**](InlineObject91.md)|  | [optional] 
 
 ### Return type
 

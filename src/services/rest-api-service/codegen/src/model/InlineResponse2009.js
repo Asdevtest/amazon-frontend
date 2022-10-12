@@ -13,7 +13,10 @@
 
 import ApiClient from '../ApiClient';
 import ApiV1AdminsGetProductsByStatusCreatedBy from './ApiV1AdminsGetProductsByStatusCreatedBy';
-import ApiV1BatchesBoxes from './ApiV1BatchesBoxes';
+import ApiV1BoxesClientsLightBatch from './ApiV1BoxesClientsLightBatch';
+import ApiV1BoxesClientsLightDestination from './ApiV1BoxesClientsLightDestination';
+import ApiV1BoxesClientsLightItems from './ApiV1BoxesClientsLightItems';
+import ApiV1BoxesClientsLightLogicsTariff from './ApiV1BoxesClientsLightLogicsTariff';
 
 /**
  * The InlineResponse2009 model module.
@@ -52,41 +55,77 @@ class InlineResponse2009 {
             if (data.hasOwnProperty('_id')) {
                 obj['_id'] = ApiClient.convertToType(data['_id'], 'String');
             }
-            if (data.hasOwnProperty('taskId')) {
-                obj['taskId'] = ApiClient.convertToType(data['taskId'], 'Number');
+            if (data.hasOwnProperty('humanFriendlyId')) {
+                obj['humanFriendlyId'] = ApiClient.convertToType(data['humanFriendlyId'], 'Number');
             }
-            if (data.hasOwnProperty('operationType')) {
-                obj['operationType'] = ApiClient.convertToType(data['operationType'], 'String');
-            }
-            if (data.hasOwnProperty('boxesBefore')) {
-                obj['boxesBefore'] = ApiClient.convertToType(data['boxesBefore'], [ApiV1BatchesBoxes]);
-            }
-            if (data.hasOwnProperty('boxes')) {
-                obj['boxes'] = ApiClient.convertToType(data['boxes'], [ApiV1BatchesBoxes]);
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
             }
             if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
-            if (data.hasOwnProperty('storekeeperComment')) {
-                obj['storekeeperComment'] = ApiClient.convertToType(data['storekeeperComment'], 'String');
+            if (data.hasOwnProperty('isActual')) {
+                obj['isActual'] = ApiClient.convertToType(data['isActual'], 'Boolean');
             }
-            if (data.hasOwnProperty('clientComment')) {
-                obj['clientComment'] = ApiClient.convertToType(data['clientComment'], 'String');
+            if (data.hasOwnProperty('isDraft')) {
+                obj['isDraft'] = ApiClient.convertToType(data['isDraft'], 'Boolean');
+            }
+            if (data.hasOwnProperty('shippingLabel')) {
+                obj['shippingLabel'] = ApiClient.convertToType(data['shippingLabel'], 'String');
+            }
+            if (data.hasOwnProperty('lengthCmWarehouse')) {
+                obj['lengthCmWarehouse'] = ApiClient.convertToType(data['lengthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('widthCmWarehouse')) {
+                obj['widthCmWarehouse'] = ApiClient.convertToType(data['widthCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('heightCmWarehouse')) {
+                obj['heightCmWarehouse'] = ApiClient.convertToType(data['heightCmWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('weighGrossKgWarehouse')) {
+                obj['weighGrossKgWarehouse'] = ApiClient.convertToType(data['weighGrossKgWarehouse'], 'Number');
+            }
+            if (data.hasOwnProperty('isShippingLabelAttachedByStorekeeper')) {
+                obj['isShippingLabelAttachedByStorekeeper'] = ApiClient.convertToType(data['isShippingLabelAttachedByStorekeeper'], 'Boolean');
+            }
+            if (data.hasOwnProperty('fbaShipment')) {
+                obj['fbaShipment'] = ApiClient.convertToType(data['fbaShipment'], 'String');
+            }
+            if (data.hasOwnProperty('deliveryTotalPrice')) {
+                obj['deliveryTotalPrice'] = ApiClient.convertToType(data['deliveryTotalPrice'], 'Number');
+            }
+            if (data.hasOwnProperty('deliveryTotalPriceChanged')) {
+                obj['deliveryTotalPriceChanged'] = ApiClient.convertToType(data['deliveryTotalPriceChanged'], 'Number');
             }
             if (data.hasOwnProperty('images')) {
                 obj['images'] = ApiClient.convertToType(data['images'], ['String']);
             }
-            if (data.hasOwnProperty('storekeeperId')) {
-                obj['storekeeperId'] = ApiClient.convertToType(data['storekeeperId'], 'String');
+            if (data.hasOwnProperty('createdAt')) {
+                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            }
+            if (data.hasOwnProperty('updatedAt')) {
+                obj['updatedAt'] = ApiClient.convertToType(data['updatedAt'], 'Date');
+            }
+            if (data.hasOwnProperty('items')) {
+                obj['items'] = ApiClient.convertToType(data['items'], [ApiV1BoxesClientsLightItems]);
             }
             if (data.hasOwnProperty('storekeeper')) {
                 obj['storekeeper'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['storekeeper']);
             }
-            if (data.hasOwnProperty('createdAt')) {
-                obj['createdAt'] = ApiClient.convertToType(data['createdAt'], 'Date');
+            if (data.hasOwnProperty('client')) {
+                obj['client'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['client']);
             }
-            if (data.hasOwnProperty('updateDate')) {
-                obj['updateDate'] = ApiClient.convertToType(data['updateDate'], 'Date');
+            if (data.hasOwnProperty('createdBy')) {
+                obj['createdBy'] = ApiV1AdminsGetProductsByStatusCreatedBy.constructFromObject(data['createdBy']);
+            }
+            if (data.hasOwnProperty('destination')) {
+                obj['destination'] = ApiV1BoxesClientsLightDestination.constructFromObject(data['destination']);
+            }
+            if (data.hasOwnProperty('logicsTariff')) {
+                obj['logicsTariff'] = ApiV1BoxesClientsLightLogicsTariff.constructFromObject(data['logicsTariff']);
+            }
+            if (data.hasOwnProperty('batch')) {
+                obj['batch'] = ApiV1BoxesClientsLightBatch.constructFromObject(data['batch']);
             }
         }
         return obj;
@@ -96,52 +135,94 @@ class InlineResponse2009 {
 }
 
 /**
- * GUID
+ * GUID коробки.
  * @member {String} _id
  */
 InlineResponse2009.prototype['_id'] = undefined;
 
 /**
- * ID задачи, для типовых. Что бы можно было вывести нужную надпись для исполнителя.
- * @member {Number} taskId
+ * Номер коробки.
+ * @member {Number} humanFriendlyId
  */
-InlineResponse2009.prototype['taskId'] = undefined;
+InlineResponse2009.prototype['humanFriendlyId'] = undefined;
 
 /**
- * Тип операции
- * @member {module:model/InlineResponse2009.OperationTypeEnum} operationType
+ * ККоличества в коробке.
+ * @member {Number} amount
  */
-InlineResponse2009.prototype['operationType'] = undefined;
+InlineResponse2009.prototype['amount'] = undefined;
 
 /**
- * Массив коробок которые были до переформирования коробок.
- * @member {Array.<module:model/ApiV1BatchesBoxes>} boxesBefore
- */
-InlineResponse2009.prototype['boxesBefore'] = undefined;
-
-/**
- * Массив коробок.
- * @member {Array.<module:model/ApiV1BatchesBoxes>} boxes
- */
-InlineResponse2009.prototype['boxes'] = undefined;
-
-/**
- * Текущий статус задачи. 0 - новая, 10 - взята в работу, 20 - выполнено, 30 - не выполнено.
- * @member {Number} status
+ * Статус коробки
+ * @member {String} status
  */
 InlineResponse2009.prototype['status'] = undefined;
 
 /**
- * Комментарий работника склада.
- * @member {String} storekeeperComment
+ * Если false - значит коробку расформировали. Удалить совсем нельзя, для того что бы можно было восстановить по кодам.
+ * @member {Boolean} isActual
  */
-InlineResponse2009.prototype['storekeeperComment'] = undefined;
+InlineResponse2009.prototype['isActual'] = undefined;
 
 /**
- * Комментарий клиента.
- * @member {String} clientComment
+ * Если true - значит коробку черновик.
+ * @member {Boolean} isDraft
  */
-InlineResponse2009.prototype['clientComment'] = undefined;
+InlineResponse2009.prototype['isDraft'] = undefined;
+
+/**
+ * Ссылка на наклейку для коробки
+ * @member {String} shippingLabel
+ */
+InlineResponse2009.prototype['shippingLabel'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} lengthCmWarehouse
+ */
+InlineResponse2009.prototype['lengthCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} widthCmWarehouse
+ */
+InlineResponse2009.prototype['widthCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} heightCmWarehouse
+ */
+InlineResponse2009.prototype['heightCmWarehouse'] = undefined;
+
+/**
+ * Что фактически пришло на склад. Кладовщик.
+ * @member {Number} weighGrossKgWarehouse
+ */
+InlineResponse2009.prototype['weighGrossKgWarehouse'] = undefined;
+
+/**
+ * Поле будет указывать на то что при решении задачи сторкипером на обновление коробок что он проклеил шиппинг лейбл.
+ * @member {Boolean} isShippingLabelAttachedByStorekeeper
+ */
+InlineResponse2009.prototype['isShippingLabelAttachedByStorekeeper'] = undefined;
+
+/**
+ * Это номер конкретной коробки при отправке в амазон.
+ * @member {String} fbaShipment
+ */
+InlineResponse2009.prototype['fbaShipment'] = undefined;
+
+/**
+ * Итого за доставку.
+ * @member {Number} deliveryTotalPrice
+ */
+InlineResponse2009.prototype['deliveryTotalPrice'] = undefined;
+
+/**
+ * Обновление итога за доставку.
+ * @member {Number} deliveryTotalPriceChanged
+ */
+InlineResponse2009.prototype['deliveryTotalPriceChanged'] = undefined;
 
 /**
  * Массив картинок.
@@ -150,10 +231,20 @@ InlineResponse2009.prototype['clientComment'] = undefined;
 InlineResponse2009.prototype['images'] = undefined;
 
 /**
- * GUID сотрудника склада, который выполняет задачу.
- * @member {String} storekeeperId
+ * @member {Date} createdAt
  */
-InlineResponse2009.prototype['storekeeperId'] = undefined;
+InlineResponse2009.prototype['createdAt'] = undefined;
+
+/**
+ * @member {Date} updatedAt
+ */
+InlineResponse2009.prototype['updatedAt'] = undefined;
+
+/**
+ * Массив коробок.
+ * @member {Array.<module:model/ApiV1BoxesClientsLightItems>} items
+ */
+InlineResponse2009.prototype['items'] = undefined;
 
 /**
  * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} storekeeper
@@ -161,46 +252,32 @@ InlineResponse2009.prototype['storekeeperId'] = undefined;
 InlineResponse2009.prototype['storekeeper'] = undefined;
 
 /**
- * Дата создания.
- * @member {Date} createdAt
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} client
  */
-InlineResponse2009.prototype['createdAt'] = undefined;
+InlineResponse2009.prototype['client'] = undefined;
 
 /**
- * Дата обновления.
- * @member {Date} updateDate
+ * @member {module:model/ApiV1AdminsGetProductsByStatusCreatedBy} createdBy
  */
-InlineResponse2009.prototype['updateDate'] = undefined;
-
-
-
-
+InlineResponse2009.prototype['createdBy'] = undefined;
 
 /**
- * Allowed values for the <code>operationType</code> property.
- * @enum {String}
- * @readonly
+ * @member {module:model/ApiV1BoxesClientsLightDestination} destination
  */
-InlineResponse2009['OperationTypeEnum'] = {
+InlineResponse2009.prototype['destination'] = undefined;
 
-    /**
-     * value: "merge"
-     * @const
-     */
-    "merge": "merge",
+/**
+ * @member {module:model/ApiV1BoxesClientsLightLogicsTariff} logicsTariff
+ */
+InlineResponse2009.prototype['logicsTariff'] = undefined;
 
-    /**
-     * value: "split"
-     * @const
-     */
-    "split": "split",
+/**
+ * @member {module:model/ApiV1BoxesClientsLightBatch} batch
+ */
+InlineResponse2009.prototype['batch'] = undefined;
 
-    /**
-     * value: "receive"
-     * @const
-     */
-    "receive": "receive"
-};
+
+
 
 
 

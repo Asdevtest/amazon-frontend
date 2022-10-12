@@ -3,14 +3,22 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 import React, {useRef, useState, useEffect} from 'react'
 
-import {Drawer, Hidden, List} from '@material-ui/core'
+import {Drawer, Hidden, List, SvgIcon, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {navbarConfig} from '@constants/navbar'
+import {Feedback} from '@constants/navbar-svg-icons'
+import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
 import {SettingsModel} from '@models/settings-model'
+
+import {Modal} from '@components/modal'
+import {FeedBackModal} from '@components/modals/feedback-modal'
+
+import {checkIsAdmin} from '@utils/checks'
+import {t} from '@utils/translations'
 
 import {NavbarCategory} from './navbar-category'
 import {NavbarCollapse} from './navbar-collapse'
@@ -21,6 +29,8 @@ export const Navbar = observer(
   ({activeCategory, activeSubCategory, drawerOpen, setDrawerOpen, onChangeSubCategory}) => {
     const classNames = useClassNames()
     const viewModel = useRef(new NavbarModel())
+
+    const {showFeedbackModal, onTriggerOpenModal, sendFeedbackAboutPlatform, userInfo} = viewModel.current
 
     const [curNavbar, setCurNavbar] = useState(navbarConfig())
     const [shortNavbar, setShortNavbar] = useState(() => {
@@ -76,6 +86,16 @@ export const Navbar = observer(
             )}
           </List>
         ) : null}
+        {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) ? (
+          <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
+            <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
+            <SvgIcon viewBox={'0 0 54 48'} className={classNames.feedbackIcon} component={Feedback} />
+          </div>
+        ) : null}
+
+        <Modal openModal={showFeedbackModal} setOpenModal={() => onTriggerOpenModal('showFeedbackModal')}>
+          <FeedBackModal onSubmit={sendFeedbackAboutPlatform} onClose={() => onTriggerOpenModal('showFeedbackModal')} />
+        </Modal>
       </div>
     )
     return (

@@ -6,6 +6,7 @@ import {
   Addresses,
   DashboardIcon,
   ExchangeIcon,
+  Feedback,
   FreelanceIcon,
   FreeOrdersIcon,
   InventoryIcon,
@@ -799,6 +800,14 @@ export const navbarConfig = () => ({
       subtitles: null,
       route: '/admin/settings',
       key: navBarActiveCategory.NAVBAR_SETTINGS,
+      checkHideBlock: () => true,
+    },
+    {
+      icon: Feedback,
+      title: t(TranslationKey.Feedback),
+      subtitles: null,
+      route: '/admin/feedback',
+      key: navBarActiveCategory.NAVBAR_FEEDBACK,
       checkHideBlock: () => true,
     },
 

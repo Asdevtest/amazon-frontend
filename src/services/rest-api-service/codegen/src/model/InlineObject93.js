@@ -12,8 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import ApiV1RequestProposalsRequestDetailsCustom from './ApiV1RequestProposalsRequestDetailsCustom';
-import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
+import ApiV1SuppliersBoxProperties from './ApiV1SuppliersBoxProperties';
 
 /**
  * The InlineObject93 model module.
@@ -23,7 +22,6 @@ import ApiV1RequestsCustomGuidRequest from './ApiV1RequestsCustomGuidRequest';
 class InlineObject93 {
     /**
      * Constructs a new <code>InlineObject93</code>.
-     * Схема универсальной заявки.
      * @alias module:model/InlineObject93
      */
     constructor() { 
@@ -50,11 +48,50 @@ class InlineObject93 {
         if (data) {
             obj = obj || new InlineObject93();
 
-            if (data.hasOwnProperty('request')) {
-                obj['request'] = ApiV1RequestsCustomGuidRequest.constructFromObject(data['request']);
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('details')) {
-                obj['details'] = ApiV1RequestProposalsRequestDetailsCustom.constructFromObject(data['details']);
+            if (data.hasOwnProperty('link')) {
+                obj['link'] = ApiClient.convertToType(data['link'], 'String');
+            }
+            if (data.hasOwnProperty('price')) {
+                obj['price'] = ApiClient.convertToType(data['price'], 'Number');
+            }
+            if (data.hasOwnProperty('amount')) {
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+            }
+            if (data.hasOwnProperty('minlot')) {
+                obj['minlot'] = ApiClient.convertToType(data['minlot'], 'Number');
+            }
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], ['String']);
+            }
+            if (data.hasOwnProperty('comment')) {
+                obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
+            }
+            if (data.hasOwnProperty('yuanRate')) {
+                obj['yuanRate'] = ApiClient.convertToType(data['yuanRate'], 'Number');
+            }
+            if (data.hasOwnProperty('priceInYuan')) {
+                obj['priceInYuan'] = ApiClient.convertToType(data['priceInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInDollar')) {
+                obj['batchDeliveryCostInDollar'] = ApiClient.convertToType(data['batchDeliveryCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchDeliveryCostInYuan')) {
+                obj['batchDeliveryCostInYuan'] = ApiClient.convertToType(data['batchDeliveryCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInDollar')) {
+                obj['batchTotalCostInDollar'] = ApiClient.convertToType(data['batchTotalCostInDollar'], 'Number');
+            }
+            if (data.hasOwnProperty('batchTotalCostInYuan')) {
+                obj['batchTotalCostInYuan'] = ApiClient.convertToType(data['batchTotalCostInYuan'], 'Number');
+            }
+            if (data.hasOwnProperty('productionTerm')) {
+                obj['productionTerm'] = ApiClient.convertToType(data['productionTerm'], 'Number');
+            }
+            if (data.hasOwnProperty('boxProperties')) {
+                obj['boxProperties'] = ApiV1SuppliersBoxProperties.constructFromObject(data['boxProperties']);
             }
         }
         return obj;
@@ -64,14 +101,92 @@ class InlineObject93 {
 }
 
 /**
- * @member {module:model/ApiV1RequestsCustomGuidRequest} request
+ * Название поставщика.
+ * @member {String} name
  */
-InlineObject93.prototype['request'] = undefined;
+InlineObject93.prototype['name'] = undefined;
 
 /**
- * @member {module:model/ApiV1RequestProposalsRequestDetailsCustom} details
+ * Ссылка на поставщика.
+ * @member {String} link
  */
-InlineObject93.prototype['details'] = undefined;
+InlineObject93.prototype['link'] = undefined;
+
+/**
+ * Цена за еденицу, dollar
+ * @member {Number} price
+ */
+InlineObject93.prototype['price'] = undefined;
+
+/**
+ * кол-во
+ * @member {Number} amount
+ */
+InlineObject93.prototype['amount'] = undefined;
+
+/**
+ * Минимальный лот.
+ * @member {Number} minlot
+ */
+InlineObject93.prototype['minlot'] = undefined;
+
+/**
+ * Массив картинок.
+ * @member {Array.<String>} images
+ */
+InlineObject93.prototype['images'] = undefined;
+
+/**
+ * Комментарий
+ * @member {String} comment
+ */
+InlineObject93.prototype['comment'] = undefined;
+
+/**
+ * Курс доллара к юаню поставщика. 
+ * @member {Number} yuanRate
+ */
+InlineObject93.prototype['yuanRate'] = undefined;
+
+/**
+ * Цена за еденицу, yuan
+ * @member {Number} priceInYuan
+ */
+InlineObject93.prototype['priceInYuan'] = undefined;
+
+/**
+ * Доставка партии, dollar
+ * @member {Number} batchDeliveryCostInDollar
+ */
+InlineObject93.prototype['batchDeliveryCostInDollar'] = undefined;
+
+/**
+ * Доставка партии, yuan
+ * @member {Number} batchDeliveryCostInYuan
+ */
+InlineObject93.prototype['batchDeliveryCostInYuan'] = undefined;
+
+/**
+ * Цена партии, dollar
+ * @member {Number} batchTotalCostInDollar
+ */
+InlineObject93.prototype['batchTotalCostInDollar'] = undefined;
+
+/**
+ * Цена партии, yuan
+ * @member {Number} batchTotalCostInYuan
+ */
+InlineObject93.prototype['batchTotalCostInYuan'] = undefined;
+
+/**
+ * @member {Number} productionTerm
+ */
+InlineObject93.prototype['productionTerm'] = undefined;
+
+/**
+ * @member {module:model/ApiV1SuppliersBoxProperties} boxProperties
+ */
+InlineObject93.prototype['boxProperties'] = undefined;
 
 
 
