@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {Divider, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
@@ -41,6 +41,14 @@ export const EditTaskModal = observer(
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
 
     const [storekeeperComment, setStorekeeperComment] = useState(task.storekeeperComment)
+    const [currentScreenWidth, setCurrentScreenWidth] = useState(window.innerWidth)
+
+    useEffect(() => {
+      const resizeScreen = () => {
+        setCurrentScreenWidth(window.innerWidth)
+      }
+      window.addEventListener('resize', resizeScreen)
+    }, [window.innerWidth])
 
     const renderModalTitle = status => {
       switch (status) {
@@ -123,8 +131,8 @@ export const EditTaskModal = observer(
                 multiline
                 disabled
                 className={classNames.heightFieldAuto}
-                minRows={window.screen.width < 768 ? 4 : 9}
-                maxRows={window.screen.width < 768 ? 4 : 9}
+                minRows={currentScreenWidth < 768 ? 4 : 9}
+                maxRows={currentScreenWidth < 768 ? 4 : 9}
                 label={t(TranslationKey['Client comment'])}
                 placeholder={t(TranslationKey['Client comment on the task'])}
                 value={task.clientComment || ''}
@@ -133,8 +141,8 @@ export const EditTaskModal = observer(
                 multiline
                 className={classNames.heightFieldAuto}
                 disabled={readOnly}
-                minRows={window.screen.width < 768 ? 4 : 9}
-                maxRows={window.screen.width < 768 ? 4 : 9}
+                minRows={currentScreenWidth < 768 ? 4 : 9}
+                maxRows={currentScreenWidth < 768 ? 4 : 9}
                 inputProps={{maxLength: 2000}}
                 label={t(TranslationKey['Storekeeper comment'])}
                 placeholder={t(TranslationKey['Storekeeper comment to client'])}

@@ -12,7 +12,7 @@ import {
 
 import {t} from '@utils/translations'
 
-export const adminFeedbackViewColumns = () => [
+export const adminFeedbackViewColumns = handlers => [
   {
     field: 'user',
     headerName: t(TranslationKey.User),
@@ -40,11 +40,11 @@ export const adminFeedbackViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
     width: 180,
-    renderCell: () => (
+    renderCell: params => (
       <NormalActionBtnCell
         bTnText={t(TranslationKey.Reply)}
         // isFirstRow={firstRowId === params.row.id}
-        // onClickOkBtn={() => handlers.onClickTableRowBtn(params.row)}
+        onClickOkBtn={() => handlers.onClickWriteBtn(params.row.userId)}
       />
     ),
   },

@@ -48,7 +48,7 @@ export class AdminFeedbackViewRaw extends Component {
       onTriggerDrawer,
       setDataGridState,
       onChangeSortingModel,
-      onClickTableRow,
+
       onChangeFilterModel,
     } = this.viewModel
 
@@ -93,7 +93,6 @@ export class AdminFeedbackViewRaw extends Component {
                 onPageSizeChange={onChangeRowsPerPage}
                 onPageChange={onChangeCurPage}
                 onStateChange={setDataGridState}
-                onRowDoubleClick={e => onClickTableRow(e.row)}
                 onFilterModelChange={model => onChangeFilterModel(model)}
               />
             </MainContent>

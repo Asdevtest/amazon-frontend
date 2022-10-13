@@ -1560,6 +1560,7 @@ export enum TranslationKey {
   'Any suggestions?' = 'Any suggestions?',
   'Tell us how we can improve our platform' = 'Tell us how we can improve our platform',
   'Reply' = 'Reply',
+  'files' = 'files',
   // '' = '',
 
   // '' = '',

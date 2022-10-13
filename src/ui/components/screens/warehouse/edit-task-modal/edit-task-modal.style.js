@@ -5,6 +5,7 @@ export const useClassNames = makeStyles(theme => ({
     width: '1480px',
     display: 'flex',
     flexDirection: 'column',
+    overflow: 'hidden',
   },
   modalHeader: {
     display: 'flex',

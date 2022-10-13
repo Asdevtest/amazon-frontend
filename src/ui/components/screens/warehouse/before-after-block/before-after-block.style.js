@@ -5,6 +5,7 @@ const {makeStyles} = require('@material-ui/core')
 export const useClassNames = makeStyles(() => ({
   boxWrapper: {
     padding: '20px 30px',
+    margin: '0 2px',
   },
   boxesWrapper: {
     display: 'flex',

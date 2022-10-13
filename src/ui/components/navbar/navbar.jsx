@@ -89,7 +89,7 @@ export const Navbar = observer(
         {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) ? (
           <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
             <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
-            <SvgIcon viewBox={'0 0 54 48'} className={classNames.feedbackIcon} component={Feedback} />
+            <SvgIcon className={classNames.feedbackIcon} component={Feedback} />
           </div>
         ) : null}
 
