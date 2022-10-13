@@ -2,9 +2,6 @@ import {ToggleButton} from '@mui/material'
 
 import {withStyles} from 'tss-react/mui'
 
-// import {styled} from '@mui/material/styles'
-// import {createStyles, withStyles} from '@material-ui/styles'
-
 export const ToggleBtn = withStyles(ToggleButton, theme => ({
   selected: {
     color: 'white !important',

@@ -113,7 +113,7 @@ export const MultipleChats = observer(
               />
             </div>
           }
-          {SettingsModel.languageTag && window.innerWidth > 768 && (
+          {SettingsModel.languageTag && window.innerWidth >= 768 && (
             <div className={classNames.chatWrapper}>
               {isNotUndefined(chatSelectedId) && findChatByChatId ? (
                 <Chat

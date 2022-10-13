@@ -1,8 +1,7 @@
 import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 
 import React, {useState} from 'react'
-
-import {Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -15,7 +14,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './feedback-modal.style'
 
 export const FeedBackModal = ({onSubmit, onClose}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [comment, setComment] = useState('')
   const [images, setImages] = useState([])
@@ -81,7 +80,7 @@ export const FeedBackModal = ({onSubmit, onClose}) => {
         >
           {t(TranslationKey.Send)}
         </Button>
-        <Button color="primary" variant="contained" className={classNames.buttonCancel} onClick={onClickCloseButton}>
+        <Button variant="text" className={classNames.buttonCancel} onClick={onClickCloseButton}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

@@ -4,6 +4,10 @@ import {makeStyles} from 'tss-react/mui'
 export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     backgroundColor: theme.palette.background.main,
+
+    position: 'relative',
+
+    height: '100vh',
   },
 
   root: {
@@ -87,12 +91,13 @@ export const useClassNames = makeStyles()(theme => ({
   feedBackText: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   feedbackIcon: {
     width: '54px',
     height: '48px',
+    color: `${theme.palette.text.general} !important`,
   },
 
   '@media (max-width: 959px)': {

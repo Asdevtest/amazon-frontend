@@ -329,12 +329,12 @@ export const ChangeChipCell = withStyles(
 )
 
 export const PhotoAndFilesCell = withStyles(
-  (({classes: classNames, files}) => (
+  ({classes: classNames, files}) => (
     <div className={classNames.photoWrapper}>
       <PhotoAndFilesCarousel small width={'300px'} files={files} />
     </div>
   ),
-  styles),
+  styles,
 )
 
 export const DateCell = withStyles(

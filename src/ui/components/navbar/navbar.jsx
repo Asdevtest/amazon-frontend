@@ -1,7 +1,7 @@
 import {cx} from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import {Drawer, Hidden, List, SvgIcon, Typography} from '@mui/material'
+import {Drawer, Hidden, List, Typography} from '@mui/material'
 
 import React, {useRef, useState, useEffect} from 'react'
 
@@ -29,8 +29,6 @@ import {useClassNames} from './navbar.style'
 export const Navbar = observer(
   ({activeCategory, activeSubCategory, drawerOpen, setDrawerOpen, onChangeSubCategory}) => {
     const {classes: classNames} = useClassNames()
-
-    // const {classes: classNames} = useClassNames()
 
     const viewModel = useRef(new NavbarModel())
 
@@ -101,7 +99,7 @@ export const Navbar = observer(
         {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) ? (
           <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
             <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
-            <SvgIcon className={classNames.feedbackIcon} component={Feedback} />
+            <Feedback className={classNames.feedbackIcon} />
           </div>
         ) : null}
 
