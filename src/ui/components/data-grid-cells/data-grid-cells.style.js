@@ -580,6 +580,20 @@ export const styles = createStyles(() => ({
     lineHeight: '16px',
   },
 
+  multilineAsinTextAlignLeft: {
+    width: '100%',
+    maxHeight: '100%',
+    // userSelect: 'none',
+    textAlign: 'start',
+    whiteSpace: 'normal',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+
+    fontWeight: '400',
+    fontSize: '14px',
+    lineHeight: '16px',
+  },
+
   multilineLeftText: {
     textAlign: 'start',
   },
@@ -626,7 +640,7 @@ export const styles = createStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'start',
-    flexWrap: 'wrap',
+    flexWrap: 'no-wrap',
   },
 
   multilineTextAlignLeft: {

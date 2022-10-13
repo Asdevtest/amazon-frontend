@@ -44,7 +44,12 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item
       </div>
 
       <Box className={classNames.saveBox}>
-        <Button disabled={!files.length} className={classNames.saveBtn} onClick={() => onClickSaveBarcode([files[0]])}>
+        <Button
+          success
+          disabled={!files.length}
+          className={classNames.saveBtn}
+          onClick={() => onClickSaveBarcode([files[0]])}
+        >
           {t(TranslationKey.Save)}
         </Button>
         <Button variant="text" className={classNames.closeBtn} onClick={onCloseModal}>

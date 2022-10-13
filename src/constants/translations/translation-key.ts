@@ -1561,6 +1561,8 @@ export enum TranslationKey {
   'Tell us how we can improve our platform' = 'Tell us how we can improve our platform',
   'Reply' = 'Reply',
   'files' = 'files',
+  'New task' = 'New task',
+  'Maximum value' = 'Maximum value',
   // '' = '',
 
   // '' = '',

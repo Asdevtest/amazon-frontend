@@ -71,7 +71,9 @@ export const useClassNames = makeStyles(() => ({
     padding: '0 45px',
   },
   addButton: {
-    marginRight: '50px',
+    width: '157px',
+    height: '40px',
+    marginRight: '90px',
   },
   '@media (max-width: 768px)': {
     cardWrapper: {

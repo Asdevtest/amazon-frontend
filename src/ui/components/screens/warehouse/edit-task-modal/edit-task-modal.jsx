@@ -58,6 +58,8 @@ export const EditTaskModal = observer(
           return t(TranslationKey['Viewing a canceled task'])
         case mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS]:
           return t(TranslationKey['Resolve task'])
+        case mapTaskStatusEmumToKey[TaskStatus.NEW]:
+          return t(TranslationKey['New task'])
       }
     }
 

@@ -433,16 +433,18 @@ export const RenderFieldValueCell = withStyles(styles)(({classes: classNames, va
   <Typography className={classNames.renderFieldValueCellText}>{!value && value !== 0 ? '-' : value}</Typography>
 ))
 
-export const MultilineTextCell = withStyles(styles)(({classes: classNames, text, noTextText, color, isStatus}) => (
-  <div className={classNames.multilineTextWrapper}>
-    <Typography
-      className={clsx(classNames.multilineText, {[classNames.multilineLeftText]: isStatus})}
-      style={color && {color}}
-    >
-      {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
-    </Typography>
-  </div>
-))
+export const MultilineTextCell = withStyles(styles)(
+  ({classes: classNames, text, noTextText, color, isStatus, isAsin}) => (
+    <div className={classNames.multilineTextWrapper}>
+      <Typography
+        className={clsx(classNames.multilineText, {[classNames.multilineLeftText]: isStatus})}
+        style={color && {color}}
+      >
+        {checkIsString(text) ? text.replace(/\n/g, ' ') : text || noTextText || '-'}
+      </Typography>
+    </div>
+  ),
+)
 
 export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNames, text, isComment, isAsin}) =>
   isComment ? (
@@ -450,18 +452,25 @@ export const MultilineTextAlignLeftCell = withStyles(styles)(({classes: classNam
       <div className={classNames.multilineTextAlignLeftWrapper}>
         <TextareaAutosize
           disabled
-          value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+          value={text.length > 200 ? text.slice(0, 192) + '...' : text}
           className={classNames.multilineTextAlignLeft}
         />
       </div>
     </Tooltip>
   ) : (
     <div className={classNames.multilineTextAlignLeftWrapper}>
-      <TextareaAutosize
-        disabled
-        value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
-        className={clsx(classNames.multilineTextAlignLeft, {[classNames.multilineTextAlignLeftSub]: isAsin})}
-      />
+      {isAsin ? (
+        <Typography className={clsx(classNames.multilineAsinTextAlignLeft)}>
+          {checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+        </Typography>
+      ) : (
+        <TextareaAutosize
+          disabled
+          value={checkIsString(text) ? text.replace(/\n/g, ' ') : text}
+          className={clsx(classNames.multilineTextAlignLeft, {[classNames.multilineTextAlignLeftSub]: isAsin})}
+        />
+      )}
+
       {isAsin ? <CopyValue text={text} /> : null}
     </div>
   ),

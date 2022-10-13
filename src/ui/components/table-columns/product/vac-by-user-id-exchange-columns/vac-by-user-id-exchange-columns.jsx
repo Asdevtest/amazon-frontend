@@ -32,7 +32,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     renderCell: params => <NormDateCell params={params} />,
-    minWidth: 120,
+    minWidth: 100,
     type: 'date',
   },
 
@@ -42,7 +42,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,
 
     renderCell: params => <MultilineTextCell text={params.value} />,
-    width: 250,
+    width: 150,
   },
 
   {
@@ -60,8 +60,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Amazon price'])} />,
 
     renderCell: params => <MultilineTextCell text={toFixedWithDollarSign(params.value, 2)} />,
-    width: 120,
-    type: 'number',
+    width: 100,
   },
 
   {
@@ -70,8 +69,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Weight)} />,
 
     renderCell: params => <ToFixedWithKgSignCell value={params.value} fix={2} />,
-    width: 90,
-    type: 'number',
+    width: 70,
   },
 
   {
@@ -81,7 +79,6 @@ export const vacByUserIdExchangeColumns = () => [
 
     renderCell: params => <MultilineTextCell text={params.value} />,
     width: 90,
-    type: 'number',
   },
 
   {
@@ -102,7 +99,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
     ),
-    width: 130,
+    width: 200,
   },
 
   {
@@ -111,7 +108,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
     renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
-    width: 105,
+    width: 200,
   },
 
   {
@@ -122,6 +119,6 @@ export const vacByUserIdExchangeColumns = () => [
     renderCell: params => (
       <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
     ),
-    width: 155,
+    width: 200,
   },
 ]

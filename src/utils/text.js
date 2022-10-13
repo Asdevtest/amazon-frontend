@@ -66,7 +66,7 @@ export const minsToTime = mins =>
 
 export const getFullTariffTextForBoxOrOrder = box => {
   if (!box) {
-    return t(TranslationKey['Not chosen'])
+    return
   }
 
   const firstNumOfCode = box.destination?.zipCode?.[0] || null

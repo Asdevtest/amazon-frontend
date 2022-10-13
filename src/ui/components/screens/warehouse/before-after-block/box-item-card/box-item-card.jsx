@@ -156,7 +156,11 @@ export const BoxItemCard = ({
         </div>
       </div>
       <div className={classNames.attributeFooterWrapperMobile}>
-        <div className={classNames.barCodeWrapper}>
+        <div
+          className={clsx(classNames.barCodeWrapper, {
+            [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
+          })}
+        >
           <Text tooltipInfoContent={t(TranslationKey['Product barcode'])} className={classNames.subTitle}>
             {t(TranslationKey.BarCode) + ':'}
           </Text>

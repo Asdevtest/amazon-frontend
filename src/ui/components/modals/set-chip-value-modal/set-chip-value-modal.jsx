@@ -28,7 +28,12 @@ export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue}) 
       />
 
       <Box className={classNames.saveBox}>
-        <Button disabled={sourceValue === newValue} className={classNames.saveBtn} onClick={() => onSubmit(newValue)}>
+        <Button
+          success
+          disabled={sourceValue === newValue}
+          className={classNames.saveBtn}
+          onClick={() => onSubmit(newValue)}
+        >
           {t(TranslationKey.Save)}
         </Button>
         <Button variant="text" className={classNames.closeBtn} onClick={onCloseModal}>

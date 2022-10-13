@@ -41,20 +41,20 @@ export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selecte
       <Field
         containerClasses={classNames.field}
         // error={error && t(TranslationKey['The number entered must not exceed the " Stock sum" field'])}
-        inputProps={{maxLength: 12}}
+        inputProps={{maxLength: 64}}
         value={newValue}
         onChange={e => checkIsPositiveNum(e.target.value) && setNewValue(e.target.value)}
       />
       <div className={classNames.errorWrapper}>
-        <span className={clsx(newValue.toString().length > 7 && classNames.error)}>{`${newValue.toString().length} ${t(
-          TranslationKey.of,
-        )} 7 ${t(TranslationKey.characters)}`}</span>
+        <span className={clsx(newValue > 99999 && classNames.error)}>{`${t(
+          TranslationKey['Maximum value'],
+        )} 99999`}</span>
       </div>
 
       <Box className={classNames.saveBox}>
         <Button
           success
-          disabled={/* error || */ !newValue || newValue.toString().length > 7}
+          disabled={/* error || */ !newValue || newValue > 99999}
           className={classNames.saveBtn}
           onClick={() => onSubmit(newValue)}
         >
