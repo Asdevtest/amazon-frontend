@@ -1563,6 +1563,8 @@ export enum TranslationKey {
   'files' = 'files',
   'New task' = 'New task',
   'Maximum value' = 'Maximum value',
+  'Cancel task' = 'Cancel task',
+  'Select date' = 'Select date',
   // '' = '',
 
   // '' = '',

@@ -58,6 +58,8 @@ export const DateMonthYearPicker = ({value, onChange, ...restProps}) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
       <NewestDatePicker
+        closeOnSelect
+        showToolbar={false}
         views={['year', 'month']}
         // label="Year and Month"
         value={value}
@@ -85,8 +87,16 @@ export const NewDatePicker = ({value, onChange, ...restProps}) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={local}>
       <NewestDatePicker
+        closeOnSelect
+        showToolbar={false}
         // views={['year', 'month']}
         // label="Year and Month"
+        componentsProps={{
+          actionBar: {
+            // The actions will be the same between desktop and mobile
+            actions: [],
+          },
+        }}
         inputProps={{placeholder}}
         value={value}
         renderInput={params => <TextField {...params} helperText={null} variant="standard" size="small" />}
