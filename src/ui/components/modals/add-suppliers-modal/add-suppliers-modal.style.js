@@ -1,18 +1,18 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '700px',
   },
   modalTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
     marginBottom: '30px',
   },
   modalText: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -27,7 +27,7 @@ export const useClassNames = makeStyles(() => ({
       fontWeight: 400,
     },
     '& > :first-child': {
-      color: '#001029',
+      color: theme.palette.text.general,
     },
     marginBottom: '30px',
   },
@@ -41,7 +41,7 @@ export const useClassNames = makeStyles(() => ({
       fontWeight: 400,
     },
     '& > :first-child': {
-      color: '#656565',
+      color: theme.palette.text.second,
     },
     alignItems: 'center',
     marginBottom: '30px',
@@ -66,7 +66,7 @@ export const useClassNames = makeStyles(() => ({
       fontSize: '14px',
       lineHeight: '19px',
       fontWeight: 400,
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -82,6 +82,6 @@ export const useClassNames = makeStyles(() => ({
     height: '40px',
   },
   cancelButton: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 }))

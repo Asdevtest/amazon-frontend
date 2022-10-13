@@ -1,17 +1,15 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
     fontWeight: '600',
   },
   input: {
     width: '100%',
   },
   text: {
-    color: 'rgba(61, 81, 112, 1)',
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '22px',
@@ -19,7 +17,6 @@ export const useClassNames = makeStyles(() => ({
   iconButton: {
     height: '40px',
     width: '40px',
-    color: 'white',
     backgroundColor: 'rgba(0, 123, 255, 1)',
     borderRadius: '4px',
     '&:hover': {
@@ -29,7 +26,6 @@ export const useClassNames = makeStyles(() => ({
   title: {
     fontSize: '24px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
     fontWeight: '500',
     textAlign: 'center',
     marginBottom: '24px',
@@ -40,11 +36,9 @@ export const useClassNames = makeStyles(() => ({
     border: '1px solid rgb(224, 224, 224)',
     '& td': {
       flexShrink: 0,
-      color: 'rgba(61, 81, 112, 1)',
       borderBottom: 'none',
     },
     '& th': {
-      color: 'rgba(61, 81, 112, 1)',
       fontWeight: 700,
       lineHeight: '15px',
       fontSize: '15px',
@@ -111,6 +105,9 @@ export const useClassNames = makeStyles(() => ({
   },
   heightFieldAuto: {
     height: 'auto',
+
+    padding: 0,
+    border: 'none',
   },
   buttonsWrapper: {
     display: 'flex',
@@ -123,16 +120,12 @@ export const useClassNames = makeStyles(() => ({
     flexGrow: 1,
   },
   tableRowAcceptedSupplier: {
-    backgroundColor: '#baffba',
+    // backgroundColor: '#baffba',
+    backgroundColor: theme.palette.background.tableCurRow,
   },
   tableRowSelectedSupplier: {
-    backgroundColor: 'rgba(245, 0, 87, 0.08)',
+    backgroundColor: theme.palette.background.tableCurRow,
   },
-  // link: {
-  //   width: '100px',
-  //   overflowX: 'auto',
-  //   whiteSpace: 'nowrap',
-  // },
 
   textCell: {
     width: '254px',
@@ -172,7 +165,7 @@ export const useClassNames = makeStyles(() => ({
 
   link: {
     fontSize: 12,
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {

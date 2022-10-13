@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
+import {Typography} from '@mui/material'
+
 import React, {useEffect, useRef, useState} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
@@ -25,7 +26,7 @@ import {SuppliersAndIdeasModel} from './suppliers-and-ideas.model'
 import {useClassNames} from './suppliers-and-ideas.style'
 
 export const SuppliersAndIdeas = observer(({productId}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const model = useRef(new SuppliersAndIdeasModel({history, productId}))
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -12,7 +12,7 @@ import {toFixed, toFixedWithDollarSign, withDollarSign} from '@utils/text'
 import {t} from '@utils/translations'
 
 export const DashboardBalance = ({user, title}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <div>
       {title ? <Typography className={classNames.title}>{title}</Typography> : null}

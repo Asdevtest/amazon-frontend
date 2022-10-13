@@ -10,7 +10,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './tab-search-supplier-content.style'
 
 export const TabSearchSupplierContent = ({disabled, disabledSubmit, onChangeField, onSubmit, formFields}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <>
       <Field

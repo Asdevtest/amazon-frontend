@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     borderRadius: '4px',
     minHeight: '380px',
@@ -31,7 +31,7 @@ export const useClassNames = makeStyles(theme => ({
     justifyContent: 'space-between',
   },
   title: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '20px',
     fontWeight: 600,
     lineHeight: '26px',
@@ -52,7 +52,7 @@ export const useClassNames = makeStyles(theme => ({
     padding: '4px 0px',
   },
   text: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '20px',

@@ -12,7 +12,7 @@ import {useClassNames} from './shop-wrapper.style'
 import {TopCard} from './top-card'
 
 export const ShopWrapper = observer(({userInfo, shopInfo, onClickEditBtn}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const [updatedShopInfo, setUpdatedShopInfo] = useState(shopInfo)
 
   useEffect(() => {

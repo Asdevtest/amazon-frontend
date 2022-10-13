@@ -1,12 +1,21 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
-    minWidth: '700px',
+    minWidth: '750px',
+  },
+
+  modalTitle: {
+    color: theme.palette.text.general,
+  },
+
+  modalSubTitle: {
+    color: theme.palette.text.general,
   },
 
   button: {
     marginLeft: '10px',
+    color: theme.palette.text.general,
   },
   multiline: {
     width: '100%',
@@ -14,9 +23,16 @@ export const useClassNames = makeStyles(() => ({
   },
 
   descriptionField: {
-    height: '100px',
+    height: 'auto',
     width: '100%',
     overflowY: 'hidden',
+
+    padding: 0,
+    border: 'none',
+  },
+
+  standartText: {
+    color: theme.palette.text.second,
   },
 
   allowUrlsWrapper: {
@@ -74,7 +90,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#354256',
+    color: theme.palette.text.second,
   },
 
   blockItem: {
@@ -118,7 +134,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   descriptionFieldWrapper: {
@@ -150,7 +166,6 @@ export const useClassNames = makeStyles(() => ({
     modalTitle: {
       fontSize: '16px',
       lineHeight: '22px',
-      color: '#001029',
       fontWeight: 600,
     },
     nameDeliveryWrapper: {
@@ -193,7 +208,6 @@ export const useClassNames = makeStyles(() => ({
     modalSubTitle: {
       fontSize: '16px',
       lineHeight: '22px',
-      color: '#001029',
       fontWeight: 600,
     },
     rateTitle: {

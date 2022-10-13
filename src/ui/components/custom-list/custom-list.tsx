@@ -1,8 +1,7 @@
 import CircleIcon from '@mui/icons-material/Circle'
+import {List, ListItem, ListItemText, Typography} from '@mui/material'
 
 import React, {FC} from 'react'
-
-import {List, ListItem, ListItemText, Typography} from '@material-ui/core'
 
 import {useClassNames} from './custom-list.style'
 
@@ -12,7 +11,7 @@ interface Props {
 }
 
 export const CustomList: FC<Props> = ({dataList, title}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <div>
       <Typography className={classNames.listTitle}>{title}</Typography>

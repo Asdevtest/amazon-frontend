@@ -1,8 +1,8 @@
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import {Box, Link, Typography} from '@mui/material'
 
 import React from 'react'
 
-import {Box, Link, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -18,7 +18,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './shop-info.style'
 
 export const ShopInfo = observer(({userInfo, data, onClickEditBtn}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const averageGrossIncome =
     data.statistics.reduce((acc, cur) => (acc += +cur.grossIncome), 0) /

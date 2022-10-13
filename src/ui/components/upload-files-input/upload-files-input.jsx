@@ -1,11 +1,11 @@
+import {cx} from '@emotion/css'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import {Grid, Typography, Avatar, Link} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {useState} from 'react'
 
-import {Grid, Typography, Avatar, Link} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import ImageUploading from 'react-images-uploading-alex76457-version'
 
@@ -39,7 +39,7 @@ export const UploadFilesInput = observer(
     title = false,
     disabled = false,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [linkInput, setLinkInput] = useState('')
 
@@ -97,7 +97,8 @@ export const UploadFilesInput = observer(
                   <Input
                     disabled={disabled}
                     placeholder={t(TranslationKey.Link)}
-                    className={classNames.loadImageInput}
+                    // className={classNames.loadImageInput}
+                    classes={{root: classNames.loadImageInput, input: classNames.inputColor}}
                     value={linkInput}
                     onChange={e => onChangeLinkInput(e.target.value)}
                   />
@@ -137,7 +138,7 @@ export const UploadFilesInput = observer(
               dragProps,
               errors,
             }) => (
-              <div className={clsx(classNames.mainWrapper, {[classNames.oneLineMainWrapper]: oneLine})}>
+              <div className={cx(classNames.mainWrapper, {[classNames.oneLineMainWrapper]: oneLine})}>
                 {errors?.maxNumber && (
                   <Typography className={classNames.errorText}>{t(TranslationKey['You cannot load more!'])}</Typography>
                 )}
@@ -145,7 +146,7 @@ export const UploadFilesInput = observer(
                 <div className={classNames.mainSubWrapper}>
                   <button
                     disabled={disabled}
-                    className={clsx(classNames.dragAndDropBtn, {[classNames.dragingOnDropBtn]: isDragging})}
+                    className={cx(classNames.dragAndDropBtn, {[classNames.dragingOnDropBtn]: isDragging})}
                     onClick={onImageUpload}
                     {...dragProps}
                   >
@@ -162,7 +163,7 @@ export const UploadFilesInput = observer(
                     </button>
                     <Typography className={classNames.imagesCount}>
                       {<span className={classNames.imagesCountSpan}>{`${images.length}/${maxNumber}`}</span>}
-                      {` ${t(TranslationKey.files)}`}{' '}
+                      {` ${t(TranslationKey.files)}`}
                     </Typography>
                     <button
                       disabled={images.length === 0}

@@ -1,14 +1,26 @@
-import {createStyles} from '@material-ui/styles'
-
-export const styles = createStyles(() => ({
+export const styles = theme => ({
   fieldsWrapper: {},
   alert: {
     marginTop: '24px',
     minHeight: '40px',
+
+    // display: 'none',
+
+    // maxHeight: 200,
+
+    // backgroundColor: theme.palette.background.second,
+
+    // color: theme.palette.text.second,
+
+    // borderRadius: 4,
+    // padding: 5,
+
+    // backgroundColor: 'inherit',
   },
 
   alertMessage: {
     width: '430px',
+    // height: 100,
 
     backgroundColor: 'inherit',
     border: 'none',
@@ -22,35 +34,25 @@ export const styles = createStyles(() => ({
     marginTop: '24px',
   },
 
-  addBtn: {
-    color: '#fff',
-    backgroundColor: '#4caf50',
-    '&:hover': {
-      backgroundColor: '#009a07',
-
-      '@media (hover: none)': {
-        backgroundColor: '#009a07',
-      },
-    },
-    '&:disabled': {
-      backgroundColor: 'rgba(15, 169, 20, 0.5)',
-    },
-  },
-
   strategyLabel: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontWeight: '600',
     marginBottom: '12px',
   },
 
   nativeSelect: {
     width: '300px',
+
+    // backgroundColor: theme.palette.background.main,
+    // color: theme.palette.text.general,
   },
 
   mainWrapper: {
     display: 'flex',
+
+    backgroundColor: theme.palette.background.main,
   },
 
   leftBlockWrapper: {
@@ -71,11 +73,23 @@ export const styles = createStyles(() => ({
   },
 
   shortInput: {
-    width: '180px',
+    width: '170px',
   },
 
   reasonTitleAlert: {
     fontSize: '14px',
     marginTop: '10px',
   },
-}))
+
+  input: {
+    overflow: 'hidden',
+
+    border: `1px solid ${theme.palette.input.border} `,
+
+    color: theme.palette.text.general,
+  },
+
+  selectOption: {
+    color: theme.palette.text.negativeMain,
+  },
+})

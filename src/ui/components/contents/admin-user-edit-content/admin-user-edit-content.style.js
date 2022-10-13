@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   // '@global': {
   //   '@keyframes pulse': {
   //     '0%': {
@@ -40,13 +40,21 @@ export const useClassNames = makeStyles(() => ({
   },
   checkboxLabel: {
     fontWeight: 600,
+
+    color: theme.palette.text.general,
   },
+  cancelBtn: {
+    color: theme.palette.text.general,
+  },
+
   isWrongPermissionsSelectError: {
     color: 'red',
     marginBottom: '15px',
   },
 
   userRoleSelect: {
+    color: theme.palette.text.negativeMain,
+
     '&:disabled': {
       color: '#DEDEDE',
     },
@@ -125,14 +133,16 @@ export const useClassNames = makeStyles(() => ({
   },
 
   allowedRoleRateContainer: {
-    margin: 0,
+    marginBottom: 0,
     width: '38px',
+    gap: 10,
+    // marginRight: 20,
   },
   roleContainer: {
     width: '270px',
   },
   allowedRoleContainer: {
-    margin: 0,
+    marginBottom: 0,
     width: '139px',
   },
 
@@ -144,7 +154,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '10px',
   },
 
@@ -152,6 +162,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     gap: '47px',
+    height: 30,
   },
 
   allowedRoleWrapper: {
@@ -169,6 +180,10 @@ export const useClassNames = makeStyles(() => ({
     border: 0,
     borderBottom: '1px solid #656565',
     height: '19px',
+
+    // margin: 0,
+    width: 60,
+    // backgroundColor: 'inherit',
   },
 
   selectedRoleWrapper: {
@@ -184,6 +199,8 @@ export const useClassNames = makeStyles(() => ({
 
   selectedRole: {
     width: '139px',
+
+    color: theme.palette.text.general,
   },
 
   actionDelButton: {
@@ -252,6 +269,20 @@ export const useClassNames = makeStyles(() => ({
 
   roleSelect: {
     width: '139px',
+    color: theme.palette.text.general,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
+  selectRoot: {
+    border: 'none',
+    outline: 'none',
+
+    height: 20,
+    width: '139px',
+    color: theme.palette.text.general,
   },
 
   // actionPulseButton: {

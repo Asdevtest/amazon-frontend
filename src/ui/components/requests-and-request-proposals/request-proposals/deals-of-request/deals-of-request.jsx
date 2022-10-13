@@ -1,12 +1,10 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import {Rating} from '@mui/material'
+import {Avatar, Typography, Rating} from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 
 import React, {useState} from 'react'
-
-import {Avatar, Typography} from '@material-ui/core'
 
 import {RequestProposalStatusColor, RequestProposalStatusTranslate} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -21,7 +19,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './deals-of-request.style'
 
 export const DealsOfRequest = ({requestProposals, onClickReview}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [showDetails, setShowDetails] = useState(false)
 
@@ -69,7 +67,9 @@ export const DealsOfRequest = ({requestProposals, onClickReview}) => {
                       <Typography className={classNames.requestStatus}>
                         <span style={{backgroundColor: RequestProposalStatusColor(deal.proposal.status)}}></span>
                       </Typography>
-                      <Typography>{RequestProposalStatusTranslate(deal.proposal.status)}</Typography>
+                      <Typography className={classNames.standartText}>
+                        {RequestProposalStatusTranslate(deal.proposal.status)}
+                      </Typography>
                     </div>
                   </div>
                 </div>

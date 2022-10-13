@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles({
+export const styles = theme => ({
   row: {
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
     transition: '0.3s ease',
@@ -35,5 +33,10 @@ export const styles = createStyles({
   },
   toolbarContainer: {
     height: '52px',
+  },
+
+  title: {
+    margin: '10px 0',
+    color: theme.palette.text.general,
   },
 })

@@ -30,7 +30,7 @@ const exclusionWords = [
 ]
 
 export const BreadCrumbsLine = observer(({lastCrumbAdditionalText, savedLastCrumbAdditionalText}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const hostory = useHistory()
 

@@ -1,10 +1,8 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles(() => ({
+export const styles = theme => ({
   title: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: 30,
   },
 
@@ -20,6 +18,7 @@ export const styles = createStyles(() => ({
 
   btnText: {
     marginRight: 10,
+    color: theme.palette.text.general,
   },
 
   btnTextWrapper: {
@@ -29,4 +28,4 @@ export const styles = createStyles(() => ({
     width: '100%',
     whiteSpace: 'nowrap',
   },
-}))
+})

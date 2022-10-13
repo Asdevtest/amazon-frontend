@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
     display: 'flex',
@@ -8,10 +8,12 @@ export const useClassNames = makeStyles(() => ({
 
     borderLeft: '2px solid transparent',
 
+    // borderLeft: `2px solid ${theme.palette.primary.main}`,
+
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
   rootIsSelected: {
-    borderLeftColor: '#006CFF',
+    borderLeftColor: theme.palette.primary.main,
   },
 
   leftSide: {},
@@ -43,7 +45,7 @@ export const useClassNames = makeStyles(() => ({
     margin: '0',
     fontWeight: 600,
     fontSize: 18,
-    color: '#001029',
+    color: theme.palette.text.general,
 
     maxWidth: 120,
     overflow: 'hidden',
@@ -62,7 +64,7 @@ export const useClassNames = makeStyles(() => ({
     margin: 0,
 
     fontSize: 14,
-    color: '#656565',
+    color: theme.palette.text.second,
 
     // whiteSpace: 'nowrap',
 
@@ -82,12 +84,12 @@ export const useClassNames = makeStyles(() => ({
     alignSelf: 'flex-start',
     height: 18,
     width: 18,
-    backgroundColor: '#006CFF',
+    backgroundColor: theme.palette.primary.main,
     borderRadius: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: 'white',
+    color: theme.palette.text.negativeMain,
     fontSize: '12px',
     lineHeight: '14px',
   },
@@ -95,7 +97,7 @@ export const useClassNames = makeStyles(() => ({
   messageDate: {
     margin: 0,
     fontSize: 14,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   readIconsWrapper: {

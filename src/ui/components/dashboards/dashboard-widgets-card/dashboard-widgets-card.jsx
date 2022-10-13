@@ -1,4 +1,5 @@
-import {Typography} from '@material-ui/core'
+import {Typography} from '@mui/material'
+
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -14,7 +15,7 @@ import {DashboardSingleCardWithButton} from '../dashboard-single-card-with-butto
 import {useClassNames} from './dashboard-widgets-card.style'
 
 export const DashboardWidgetsCard = observer(({config, valuesData, onClickViewMore, onClickAddProduct}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.cardWrapper}>

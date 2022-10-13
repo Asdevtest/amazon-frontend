@@ -3,7 +3,6 @@ import * as Sentry from '@sentry/react'
 
 import {useEffect} from 'react'
 
-import {CssBaseline} from '@material-ui/core'
 import {useFaviconNotification} from 'react-favicon-notification'
 
 import {MainNav} from '@navigation/main-nav'
@@ -38,8 +37,6 @@ export const App = () => {
   return (
     <div className="App">
       <Sentry.ErrorBoundary showDialog fallback={myFallback}>
-        <CssBaseline />
-
         <MainNav />
       </Sentry.ErrorBoundary>
     </div>

@@ -23,7 +23,7 @@ import {IntegrationsModel} from './integrations.model'
 import {useClassNames} from './integrations.style'
 
 export const Integrations = observer(({productId}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const model = useRef(new IntegrationsModel({history, productId}))
 
@@ -65,11 +65,11 @@ export const Integrations = observer(({productId}) => {
       <DataGrid
         pagination
         useResizeContainer
-        sx={{
-          border: 0,
-          boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-          backgroundColor: '#fff',
-        }}
+        // sx={{
+        //   border: 0,
+        //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+        //   backgroundColor: theme.palette.background.main,
+        // }}
         localeText={getLocalizationByLanguageTag()}
         classes={{
           row: classNames.row,

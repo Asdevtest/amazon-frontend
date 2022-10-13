@@ -1,11 +1,11 @@
+import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import SearchIcon from '@mui/icons-material/Search'
+import {InputAdornment, Typography} from '@mui/material'
 
 import React, {useEffect, useRef} from 'react'
 
-import {InputAdornment, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
@@ -25,7 +25,7 @@ import {ClientBuyShopsAdsModel} from './client-buy-shops-ads.model'
 import {useClassNames} from './client-buy-shops-ads.style'
 
 export const ClientBuyShopsAds = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const model = useRef(new ClientBuyShopsAdsModel({history}))
 
@@ -62,7 +62,7 @@ export const ClientBuyShopsAds = observer(() => {
           <div className={classNames.boxesFiltersWrapper}>
             <Button
               disabled={curFilter === filtersSettings.ALL_ADS}
-              className={clsx(classNames.button, {
+              className={cx(classNames.button, {
                 [classNames.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
               })}
               variant="text"
@@ -74,7 +74,7 @@ export const ClientBuyShopsAds = observer(() => {
 
             <Button
               disabled={curFilter === filtersSettings.PURCHASED_ADS}
-              className={clsx(classNames.button, {
+              className={cx(classNames.button, {
                 [classNames.selectedBoxesBtn]: curFilter === filtersSettings.PURCHASED_ADS,
               })}
               variant="text"

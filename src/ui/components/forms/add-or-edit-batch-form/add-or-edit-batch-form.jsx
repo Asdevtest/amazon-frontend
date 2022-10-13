@@ -1,10 +1,10 @@
+import {cx} from '@emotion/css'
 import SearchIcon from '@mui/icons-material/Search'
+import {Typography, InputAdornment} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
-import {Typography, InputAdornment} from '@material-ui/core'
-import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -27,7 +27,7 @@ import {useClassNames} from './add-or-edit-batch-form.style'
 
 export const AddOrEditBatchForm = observer(
   ({boxesData, onClose, volumeWeightCoefficient, onSubmit, batchToEdit, sourceBox, showProgress, progressValue}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -86,7 +86,7 @@ export const AddOrEditBatchForm = observer(
         const chosenBoxesIds = chosenBoxes.map(box => box._id)
 
         const deletedBoxes = clientWarehouseDataConverter(
-          [...batchToEdit.originalData?.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
+          [...batchToEdit.originalData.boxes].filter(el => !chosenBoxesIds.includes(el._id)),
           volumeWeightCoefficient,
         )
 
@@ -232,7 +232,7 @@ export const AddOrEditBatchForm = observer(
           </div>
 
           <div className={classNames.searchWrapper}>
-            <Typography>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
+            <Typography className={classNames.subTitle}>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
 
             <Field
               containerClasses={classNames.searchContainer}
@@ -253,11 +253,11 @@ export const AddOrEditBatchForm = observer(
               // autoHeight
               hideFooter
               checkboxSelection
-              sx={{
-                border: 0,
-                boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                backgroundColor: '#fff',
-              }}
+              // sx={{
+              //   border: 0,
+              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+              //   backgroundColor: theme.palette.background.main,
+              // }}
               rows={toJS(boxesToAddData)}
               columns={addOrEditBatchFormColumns()}
               rowHeight={100}
@@ -286,11 +286,11 @@ export const AddOrEditBatchForm = observer(
               // autoHeight
               hideFooter
               checkboxSelection
-              sx={{
-                border: 0,
-                boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                backgroundColor: '#fff',
-              }}
+              // sx={{
+              //   border: 0,
+              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+              //   backgroundColor: theme.palette.background.main,
+              // }}
               rows={chosenBoxes || []}
               columns={addOrEditBatchFormColumns()}
               rowHeight={100}
@@ -390,7 +390,7 @@ export const AddOrEditBatchForm = observer(
             <Button
               color="primary"
               variant="text"
-              className={clsx(classNames.actionBtn, classNames.cancelBtn)}
+              className={cx(classNames.actionBtn, classNames.cancelBtn)}
               onClick={onClose}
             >
               {t(TranslationKey.Cancel)}

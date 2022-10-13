@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   resultButtonsWrapper: {
     margin: '20px 0',
     height: '90px',
@@ -18,6 +18,14 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'center',
     width: '445px',
     minHeight: '168px',
+  },
+
+  title: {
+    color: theme.palette.text.general,
+  },
+
+  bottomBtnText: {
+    color: `${theme.palette.text.general} !important`,
   },
 
   '@media (max-width: 768px)': {

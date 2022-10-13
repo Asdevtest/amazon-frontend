@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import {Box, Container, Link, Typography} from '@mui/material'
 
-import {Box, Container, Link, Typography} from '@material-ui/core'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -15,7 +15,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './set-shipping-label-modal.style'
 
 export const SetShippingLabelModal = ({onClickSaveShippingLabel, onCloseModal, item, tmpShippingLabel}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const shippingLabel =
     (item?.shippingLabel?.length > 200

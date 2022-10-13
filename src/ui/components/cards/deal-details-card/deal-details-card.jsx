@@ -1,9 +1,8 @@
+import {cx} from '@emotion/css'
+import {Avatar, Grid, Typography} from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import React from 'react'
-
-import {Avatar, Grid, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 
 import {RequestStatus} from '@constants/request-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -29,13 +28,13 @@ export const DealDetailsCard = ({
   item,
   proposalId,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const curProposal = item.find(el => el?.proposal._id === proposalId)
 
   return (
     <Grid item className={classNames.mainWrapper}>
       <div className={classNames.cardWrapper}>
-        <div className={clsx(classNames.leftBlockWrapper, {[classNames.leftBlockMarginWrapper]: dealsOnReview})}>
+        <div className={cx(classNames.leftBlockWrapper, {[classNames.leftBlockMarginWrapper]: dealsOnReview})}>
           <div className={classNames.usersInfoBlockWrapper}>
             <div className={classNames.userInfoWrapper}>
               <Typography className={classNames.userInfoName}>{t(TranslationKey.Client)}</Typography>
@@ -83,7 +82,7 @@ export const DealDetailsCard = ({
             </div>
             <div>
               <Typography className={classNames.sumAndTimeTitle}>{t(TranslationKey.Deadline)}</Typography>
-              <Typography>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</Typography>
+              <Typography className={classNames.text}>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</Typography>
             </div>
           </div>
           <div className={classNames.filesWrapper}>
@@ -110,24 +109,26 @@ export const DealDetailsCard = ({
           <div className={classNames.subBlockWrapper}>
             <div className={classNames.leftSubBlockWrapper}>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey['Time to complete'])}</Typography>
+                <Typography className={classNames.text}>{t(TranslationKey['Time to complete'])}</Typography>
 
-                <Typography>{minsToTime(curProposal?.proposal.execution_time)}</Typography>
+                <Typography className={classNames.text}>{minsToTime(curProposal?.proposal.execution_time)}</Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey.Status)}</Typography>
+                <Typography className={classNames.text}>{t(TranslationKey.Status)}</Typography>
 
                 <RequestStatusCell status={curProposal?.proposal.status} />
               </div>
             </div>
             <div className={classNames.rightSubBlockWrapper}>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey.Deadline)}</Typography>
+                <Typography className={classNames.text}>{t(TranslationKey.Deadline)}</Typography>
 
-                <Typography>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</Typography>
+                <Typography className={classNames.text}>
+                  {formatNormDateTime(curProposal?.proposal.timeoutAt)}
+                </Typography>
               </div>
               <div className={classNames.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey['Total price'])}</Typography>
+                <Typography className={classNames.text}>{t(TranslationKey['Total price'])}</Typography>
 
                 <Typography className={classNames.cardPrice}>
                   {toFixedWithDollarSign(curProposal?.proposal.price, 2)}

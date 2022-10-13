@@ -1,13 +1,15 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   leftPanel: {
     display: 'flex',
     flex: '0 0 45%',
     flexDirection: 'column',
     padding: '48px',
-    background: 'linear-gradient(112.25deg, #CCE2FF 17.37%, #D9F1E3 79.14%)',
-    color: '#354256',
+    background: theme.palette.background.entryLeftPanel,
+    color: theme.palette.text.second,
+
+    // color: '#656565',
   },
   header: {
     minHeight: '40%',

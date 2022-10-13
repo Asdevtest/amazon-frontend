@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Button, Checkbox, ListItemText, MenuItem, Select, TextareaAutosize, Typography} from '@mui/material'
+
 import {useState} from 'react'
 
-import {Button, Checkbox, ListItemText, MenuItem, Select, TextareaAutosize, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {parseISO} from 'date-fns/esm'
 
 import {RequestStatus} from '@constants/request-status'
@@ -15,7 +16,7 @@ import {checkIsPositiveNummberAndNoMoreNCharactersAfterDot} from '@utils/checks'
 import {useClassNames} from './custom-search-request-form.style'
 
 export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, requestToEdit}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const sourceFormFields = {
     request: {
@@ -94,7 +95,7 @@ export const CustomSearchRequestForm = ({onSubmit, setOpenModal, isEdit, request
           containerClasses={classNames.field}
           label={'timeoutAt'}
           inputComponent={
-            <div className={clsx({[classNames.deadlineError]: deadlineError})}>
+            <div className={cx({[classNames.deadlineError]: deadlineError})}>
               <NewDatePicker value={formFields.request.timeoutAt} onChange={onChangeField('request')('timeoutAt')} />
               {deadlineError && <p className={classNames.deadlineErrorText}>{'deadlineError'}</p>}
             </div>

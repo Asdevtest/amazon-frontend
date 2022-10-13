@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   '@global': {
     '@keyframes animate_gradient': {
       '0%': {
@@ -24,10 +24,12 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-between',
     padding: '0 28px',
     // gap: '20px',
+
+    backgroundColor: theme.palette.background.main,
   },
 
   warningModalMessageWrapper: {
-    background: '#fff',
+    background: theme.palette.background.main,
     borderRadius: '10px 10px',
     // padding: '10px',
   },
@@ -35,6 +37,8 @@ export const useClassNames = makeStyles(() => ({
   modalMessage: {
     // maxWidth: '350px',
     textAlign: 'center',
+
+    color: theme.palette.text.general,
   },
 
   warningModalMessage: {
@@ -54,11 +58,14 @@ export const useClassNames = makeStyles(() => ({
     gap: '30px',
     justifyContent: 'center',
     alignItems: 'center',
+
+    backgroundColor: theme.palette.background.main,
   },
 
   warningButtonsWrapper: {
     borderRadius: '0 0 10px 10px',
-    background: '#fff',
+    backgroundColor: theme.palette.background.main,
+
     marginTop: '22px',
   },
 
@@ -72,6 +79,8 @@ export const useClassNames = makeStyles(() => ({
     width: '350px',
     textAlign: 'center',
     marginBottom: '11px',
+
+    color: theme.palette.text.general,
   },
 
   warningTitle: {
@@ -84,19 +93,23 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     textAlign: 'center',
-    color: '#354256',
+    // color: theme.palette.text.second
     verticalAlign: 'middle',
   },
 
   button: {
     height: '40px',
     width: '98px',
+
+    // color: theme.palette.text.negativeMain,
   },
 
   cancelButton: {
     height: '40px',
     width: '98px',
-    color: '#001029',
+    color: theme.palette.text.general,
+
+    // color: theme.palette.text.negativeMain,
   },
 
   '@media (max-width: 768px)': {

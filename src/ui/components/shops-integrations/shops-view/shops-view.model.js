@@ -34,7 +34,6 @@ export class ShopsViewModel {
   selectionModel = undefined
 
   activeSubCategory = 0
-  drawerOpen = false
 
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
@@ -56,7 +55,6 @@ export class ShopsViewModel {
     isWarning: false,
     title: '',
   }
-  openModal = null
 
   constructor({history, tabsValues, onChangeTabIndex, onChangeCurShop, openModal}) {
     this.history = history
@@ -144,10 +142,6 @@ export class ShopsViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
-  }
-
-  onChangeCurPage(e) {
-    this.curPage = e
   }
 
   onClickSeeStockReport(shop) {

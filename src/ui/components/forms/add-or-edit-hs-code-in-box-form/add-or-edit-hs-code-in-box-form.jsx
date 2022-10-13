@@ -1,6 +1,7 @@
+import {TableCell, TableRow, Typography} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {TableCell, TableRow, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -17,7 +18,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './add-or-edit-hs-code-in-box-form.style'
 
 const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <TableRow>
@@ -56,7 +57,7 @@ const TableBodyBoxRow = ({item, handlers, ...restProps}) => {
 }
 
 export const AddOrEditHsCodeInBox = observer(({box, setOpenModal, onSubmit}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const HEAD_CELLS = [
     {title: t(TranslationKey.Product)},

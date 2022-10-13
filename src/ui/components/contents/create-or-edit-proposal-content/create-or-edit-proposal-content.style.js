@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
     display: 'flex',
@@ -31,7 +31,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '30px',
     lineHeight: '35px',
-    color: '#354256',
+    color: theme.palette.text.second,
   },
 
   title: {
@@ -41,7 +41,7 @@ export const useClassNames = makeStyles(() => ({
   mainSubTitle: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#354256',
+    color: theme.palette.text.second,
     marginTop: '47px',
   },
 
@@ -121,9 +121,15 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
   },
 
+  standartText: {
+    color: theme.palette.text.second,
+  },
+
   twoStepFieldResult: {
     minHeight: '40px',
     background: 'rgba(200,200,200, .1)',
+
+    color: theme.palette.text.second,
   },
 
   twoStepDeadlineField: {
@@ -146,7 +152,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   price: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   photoWrapper: {
@@ -168,7 +174,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   error: {
-    color: 'red',
+    color: 'red !important',
   },
 
   nameField: {
@@ -185,7 +191,7 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '35px',
     fontWeight: '600',
     marginBottom: '22px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   adviceListItem: {
     padding: '0',
@@ -196,7 +202,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   trainingTextWrapper: {
@@ -211,7 +217,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   trainingLink: {
@@ -239,7 +245,7 @@ export const useClassNames = makeStyles(() => ({
       marginRight: '60px',
       fontSize: '16px',
       lineHeight: '19px',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
   subTitle: {
@@ -248,27 +254,29 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '16px',
     marginTop: '10px',
     marginBottom: '30px',
+
+    color: theme.palette.text.second,
   },
 
   spanLabel: {
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   imageFileInputTitle: {
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   checkboxLabel: {
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginRight: '83px',
   },
 
@@ -298,6 +306,8 @@ export const useClassNames = makeStyles(() => ({
     border: 'none',
     backgroundColor: 'inherit',
     resize: 'none',
+
+    color: theme.palette.text.second,
   },
   listItemDot: {
     width: '8px !important',

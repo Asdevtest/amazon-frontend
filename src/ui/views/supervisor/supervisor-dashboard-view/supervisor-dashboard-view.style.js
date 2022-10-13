@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   amountWithLabelCardsWrapper: {
     marginTop: theme.spacing(4),
   },
@@ -23,4 +21,4 @@ export const styles = createStyles(theme => ({
     gap: '25px',
     alignItems: 'center',
   },
-}))
+})

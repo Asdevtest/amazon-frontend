@@ -1,6 +1,7 @@
-import React from 'react'
+import {cx} from '@emotion/css'
+import {Box, Divider, Paper, Typography} from '@mui/material'
 
-import {Box, Divider, Paper, Typography} from '@material-ui/core'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -10,12 +11,12 @@ import {t} from '@utils/translations'
 import {useClassNames} from './info.style'
 
 export const Info = ({headerInfoData}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const InfoRow = ({label, value}) => (
     <Box className={classNames.infoRow}>
-      <Typography className={(classNames.text, classNames.typoLabel)}>{label}</Typography>
-      <Typography className={(classNames.text, classNames.typoValue)}>{value}</Typography>
+      <Typography className={cx(classNames.text, classNames.typoLabel)}>{label}</Typography>
+      <Typography className={cx(classNames.text, classNames.typoValue)}>{value}</Typography>
     </Box>
   )
 

@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
+
 import React, {useEffect, useState} from 'react'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -25,7 +26,7 @@ export const RequestToSendBatchForm = observer(
     onClickRemoveBoxFromBatch,
     closeModal,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
     useEffect(() => {
       if (!selectedBoxes.length) {
         closeModal()
@@ -118,7 +119,7 @@ export const RequestToSendBatchForm = observer(
         <div className={classNames.warningWrapper}>
           <Typography
             variant="subtitle1"
-            className={clsx(classNames.warningText, {[classNames.noWarningText]: !disabledSubmit})}
+            className={cx(classNames.warningText, {[classNames.noWarningText]: !disabledSubmit})}
           >
             {'*' +
               t(

@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles({
+export const styles = {
   imgCell: {
     height: '64px',
     width: '64px',
@@ -15,4 +13,4 @@ export const styles = createStyles({
   alignCenter: {
     textAlign: 'center',
   },
-})
+}

@@ -1,14 +1,15 @@
 import {tooltipClasses} from '@mui/material/Tooltip'
 
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     height: '100%',
     width: '100%',
 
     // backgroundColor: '#EBEBEB',
-    backgroundColor: '#F8F8F8',
+    // backgroundColor: theme.palette.background.second,
+    backgroundColor: theme.palette.background.second,
   },
   messageWrapper: {
     width: '100%',
@@ -72,6 +73,8 @@ export const useClassNames = makeStyles(() => ({
   timeText: {
     fontSize: '14px',
     textAlign: 'center',
+
+    color: theme.palette.text.second,
   },
   linkText: {
     fontSize: '10px',

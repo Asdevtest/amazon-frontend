@@ -5,3 +5,9 @@ declare module 'react-linkify'
 declare module 'react-linkify-always-blank'
 
 declare module '@emoji-mart/react'
+
+declare module '@mui/material/styles' {
+  interface TypeBackground {
+    main: string
+  }
+}

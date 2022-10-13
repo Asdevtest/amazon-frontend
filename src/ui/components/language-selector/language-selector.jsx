@@ -1,3 +1,5 @@
+import {cx} from '@emotion/css'
+
 import React from 'react'
 
 import {LanguageKey} from '@constants/translations/language-key'
@@ -9,22 +11,30 @@ import {ToggleBtn} from '@components/toggle-btn-group/toggle-btn/toggle-btn'
 
 import {setI18nConfig} from '@utils/translations'
 
-// import {useClassNames} from './language-selector.style'
+import {useClassNames} from './language-selector.style'
 
 export const LanguageSelector = () => {
   const handleChange = (event, newAlignment) => {
     SettingsModel.setLanguageTag(newAlignment)
     setI18nConfig()
   }
-  // const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <div>
       <ToggleBtnGroup exclusive size="small" color="primary" value={SettingsModel.languageTag} onChange={handleChange}>
-        <ToggleBtn disabled={SettingsModel.languageTag === LanguageKey.ru} value={LanguageKey.ru}>
+        <ToggleBtn
+          disabled={SettingsModel.languageTag === LanguageKey.ru}
+          className={cx({[classNames.selectedBtn]: SettingsModel.languageTag === LanguageKey.ru})}
+          value={LanguageKey.ru}
+        >
           {'Ru'}
         </ToggleBtn>
-        <ToggleBtn disabled={SettingsModel.languageTag === LanguageKey.en} value={LanguageKey.en}>
+        <ToggleBtn
+          disabled={SettingsModel.languageTag === LanguageKey.en}
+          className={cx({[classNames.selectedBtn]: SettingsModel.languageTag === LanguageKey.en})}
+          value={LanguageKey.en}
+        >
           {'En'}
         </ToggleBtn>
       </ToggleBtnGroup>
@@ -34,9 +44,9 @@ export const LanguageSelector = () => {
 
 // import React, {useState} from 'react'  // ГОТОВЫЙ ВАРИАНТ С МОДАЛКОЙ, КОГДА ЯЗЫКОВ БУДЕТ БОЛЬШЕ
 
-// import {Typography} from '@material-ui/core'
-// import Menu from '@material-ui/core/Menu'
-// import MenuItem from '@material-ui/core/MenuItem'
+// import {Typography} from '@mui/material'
+// import Menu from '@mui/material/Menu'
+// import MenuItem from '@mui/material/MenuItem'
 
 // import {languageOptions} from '@constants/translations/language-options'
 // import {TranslationKey} from '@constants/translations/translation-key'
@@ -48,7 +58,7 @@ export const LanguageSelector = () => {
 // import {useClassNames} from './language-selector.style'
 
 // export const LanguageSelector = () => {
-//   const classNames = useClassNames()
+//   const {classes: classNames} = useClassNames()
 
 //   const [anchorEl, setAnchorEl] = useState(false)
 

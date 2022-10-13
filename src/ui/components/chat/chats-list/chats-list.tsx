@@ -1,6 +1,7 @@
+import {cx} from '@emotion/css'
+
 import React, {FC} from 'react'
 
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {ChatContract} from '@models/chat-model/contracts'
@@ -19,7 +20,7 @@ interface Props {
 }
 
 export const ChatsList: FC<Props> = observer(({chats, userId, chatSelectedId, onClickChat, typingUsers}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <div className={classNames.root}>
       {chats.map((chat: ChatContract) => {
@@ -28,7 +29,7 @@ export const ChatsList: FC<Props> = observer(({chats, userId, chatSelectedId, on
         return (
           <div
             key={`chat_${chat._id}`}
-            className={clsx(classNames.chatWrapper, {[classNames.chatWrapperIsSelected]: isSelected})}
+            className={cx(classNames.chatWrapper, {[classNames.chatWrapperIsSelected]: isSelected})}
           >
             <ChatListItem
               typingUsers={typingUsers}

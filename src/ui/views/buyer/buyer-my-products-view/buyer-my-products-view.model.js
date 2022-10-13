@@ -23,9 +23,6 @@ export class BuyerMyProductsViewModel {
   productsMy = []
   drawerOpen = false
 
-  sortModel = []
-  filterModel = {items: []}
-
   rowHandlers = {
     onClickFeesCalculate: item => this.onClickFeesCalculate(item),
   }

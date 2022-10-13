@@ -1,8 +1,8 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '24px',
     fontWeight: 500,
     lineHeight: '28px',
@@ -10,7 +10,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   modalText: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '30px',
     fontWeight: 600,
     lineHeight: '36px',
@@ -37,7 +37,7 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '15px',
   },
   noBoxesText: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '24px',
     fontWeight: 500,
     lineHeight: '28px',
@@ -57,7 +57,7 @@ export const useClassNames = makeStyles(() => ({
   addBoxTitle: {
     marginBottom: '43px',
     marginTop: '40px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 400,
     lineHeight: '140%',
@@ -78,7 +78,7 @@ export const useClassNames = makeStyles(() => ({
   cancelBtn: {
     height: '40px',
     width: '190px',
-    color: '#001029',
+    color: theme.palette.text.general,
     backgroundColor: 'inherit',
     '&:hover': {
       backgroundColor: '#e4e4e4',
@@ -93,7 +93,7 @@ export const useClassNames = makeStyles(() => ({
   },
   amazonTitle: {
     width: '417px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
@@ -101,7 +101,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   orderStatus: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
@@ -138,7 +138,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   tableTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 400,
     lineHeight: '140%',
@@ -149,14 +149,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   orange: {
-    color: '#F3AF00',
+    color: '#F3AF00 !important',
   },
 
   red: {
-    color: 'red',
+    color: 'red !important',
   },
 
   green: {
-    color: 'green',
+    color: 'green !important',
   },
 }))

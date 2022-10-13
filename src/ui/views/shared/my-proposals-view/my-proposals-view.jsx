@@ -1,11 +1,11 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import {Grid, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
-import {Grid, Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
@@ -162,4 +162,4 @@ class MyProposalsViewRaw extends Component {
   }
 }
 
-export const MyProposalsView = withStyles(styles)(MyProposalsViewRaw)
+export const MyProposalsView = withStyles(MyProposalsViewRaw, styles)

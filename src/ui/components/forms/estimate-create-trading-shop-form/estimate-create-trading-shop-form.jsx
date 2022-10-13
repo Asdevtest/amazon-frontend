@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React, {useState, useEffect} from 'react'
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import React, {useState, useEffect} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -26,7 +26,7 @@ export const EstimateCreateTradingShopForm = ({
   makeEstimate,
   files,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -77,7 +77,7 @@ export const EstimateCreateTradingShopForm = ({
           : t(TranslationKey['Adding an ad to sell the store'])}
       </Typography>
 
-      <div className={clsx(classNames.fieldsWrapper, {[classNames.oneFieldInRow]: !makeEstimate})}>
+      <div className={cx(classNames.fieldsWrapper, {[classNames.oneFieldInRow]: !makeEstimate})}>
         <Field
           labelClasses={classNames.fieldLabel}
           label={t(TranslationKey['Total price'])}

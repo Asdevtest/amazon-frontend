@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
+import {Typography, Divider, Paper} from '@mui/material'
+
 import React, {useEffect, useRef} from 'react'
 
-import {Typography, Divider, Paper} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
@@ -23,7 +24,7 @@ import {ListingModel} from './listing.model'
 import {useClassNames} from './listing.style'
 
 export const Listing = observer(({productId, onClickBack}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const listingModel = useRef(new ListingModel({history, productId}))
 
@@ -96,7 +97,7 @@ export const Listing = observer(({productId, onClickBack}) => {
               label={t(TranslationKey['Details about the product:'])}
               disabled={!userCanEdit}
               minRows={4}
-              maxRows={4}
+              // maxRows={4}
               inputProps={{maxLength: 1000}}
               value={listingProduct.listingProductDetails}
               placeholder={t(TranslationKey['Enter a description'])}
@@ -109,7 +110,7 @@ export const Listing = observer(({productId, onClickBack}) => {
 
           <div className={classNames.sideBlockWrapper}>
             <Field
-              multiline
+              // multiline
               className={classNames.listingSearchTerms}
               disabled={!userCanEdit}
               inputProps={{maxLength: 1000}}

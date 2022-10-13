@@ -1,8 +1,9 @@
+import {Hidden} from '@mui/material'
+
 import {Component} from 'react'
 
-import {Hidden} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -75,4 +76,4 @@ export class AuthViewRaw extends Component {
   }
 }
 
-export const AuthView = withStyles(styles)(AuthViewRaw)
+export const AuthView = withStyles(AuthViewRaw, styles)

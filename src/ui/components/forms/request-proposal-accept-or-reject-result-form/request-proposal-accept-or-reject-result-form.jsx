@@ -1,8 +1,9 @@
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {Rating} from '@material-ui/lab'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {Button} from '@components/buttons/button'
@@ -23,9 +24,8 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
     cancelBtnText,
     rejectButtonText,
   }) => {
-    const classNames = useClassNames()
-
     const [formFields, setFormFields] = useState({reason: '', rating: ''})
+    const {classes: classNames} = useClassNames()
 
     const onChangeField = fieldName => event => {
       setFormFields({
@@ -72,12 +72,12 @@ export const RequestProposalAcceptOrRejectResultForm = observer(
             success={!isReject}
             danger={isReject}
             color="primary"
-            className={clsx(classNames.btnSubmit, {[classNames.btnLargeSubmit]: isSupervisor})}
+            className={cx(classNames.btnSubmit, {[classNames.btnLargeSubmit]: isSupervisor})}
             onClick={() => onSubmit(formFields)}
           >
             {isReject ? rejectButtonText : confirmButtonText}
           </Button>
-          <Button variant="text" className={clsx(classNames.btnSubmit, classNames.cancelSubmit)} onClick={onClose}>
+          <Button variant="text" className={cx(classNames.btnSubmit, classNames.cancelSubmit)} onClick={onClose}>
             {cancelBtnText}
           </Button>
         </div>

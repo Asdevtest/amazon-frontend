@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -29,7 +29,7 @@ export const useClassNames = makeStyles(() => ({
   textFieldUnSelection: {
     width: '100%',
     minHeight: '40px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     padding: '8px',
     fontSize: '16px',
     outline: 'none',
@@ -47,7 +47,7 @@ export const useClassNames = makeStyles(() => ({
   textField: {
     width: '100%',
     minHeight: '40px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     padding: '8px',
     fontSize: '16px',
     outline: 'none',
@@ -64,7 +64,7 @@ export const useClassNames = makeStyles(() => ({
 
   tabItemButton: {
     height: '50px',
-    color: '#656565',
+    color: theme.palette.text.second,
     backgroundColor: 'inherit',
     fontSize: '18px',
     lineHeight: '140%',
@@ -79,7 +79,7 @@ export const useClassNames = makeStyles(() => ({
 
   tabItemActiveButton: {
     height: '50px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     backgroundColor: 'inherit',
     borderBottom: '1px solid #006CFF',
     fontSize: '18px',

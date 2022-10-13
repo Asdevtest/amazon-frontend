@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '869px',
     padding: '10px 0',
@@ -25,7 +25,7 @@ export const useClassNames = makeStyles(() => ({
   detailsWrapper: {
     marginTop: '5px',
     width: '100%',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
     padding: '40px 30px',
     borderRadius: '4px',
     '& p, h1, h2, h3, h4, h5, span': {

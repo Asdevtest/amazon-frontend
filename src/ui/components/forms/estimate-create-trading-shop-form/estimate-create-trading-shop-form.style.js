@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalMessageWrapper: {
     width: '586px',
     minHeight: '168px',
@@ -15,7 +15,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     alignSelf: 'start',
   },
 
@@ -23,12 +23,15 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     fontWeight: '400',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   heightFieldAuto: {
     height: '141px',
     width: '100%',
+
+    padding: 0,
+    border: 'none',
   },
 
   buttonOk: {
@@ -38,8 +41,8 @@ export const useClassNames = makeStyles(() => ({
 
   buttonCancel: {
     padding: '8px 36px',
-    backgroundColor: '#fff',
-    color: '#001029',
+    backgroundColor: theme.palette.background.main,
+    color: theme.palette.text.general,
     '&:hover': {
       backgroundColor: 'rgba(231, 231, 231, 0.801)',
     },
@@ -54,7 +57,7 @@ export const useClassNames = makeStyles(() => ({
     width: 400,
     textAlign: 'center',
 
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   fieldInput: {
@@ -63,7 +66,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   applyBtn: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   estimateCostWrapper: {
@@ -90,13 +93,13 @@ export const useClassNames = makeStyles(() => ({
 
   fieldLabel: {
     fontSize: 16,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   reqMultiplier: {
     marginLeft: 10,
     fontSize: 16,
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   multiplierWrapper: {

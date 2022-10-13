@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     gap: '10px',
@@ -25,7 +25,7 @@ export const useClassNames = makeStyles(() => ({
   textField: {
     width: '100%',
     minHeight: '60px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     padding: '8px',
     fontSize: '16px',
     outline: 'none',

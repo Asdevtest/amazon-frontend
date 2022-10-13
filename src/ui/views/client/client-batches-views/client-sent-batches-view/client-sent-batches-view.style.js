@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles(() => ({
+export const styles = theme => ({
   card: {
     padding: '16px 20px',
     marginBottom: '42px',
@@ -25,7 +23,9 @@ export const styles = createStyles(() => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: '#fff',
+    // backgroundColor: theme.palette.background.main,
+
+    backgroundColor: theme.palette.background.main,
   },
 
   footerContainer: {
@@ -55,4 +55,4 @@ export const styles = createStyles(() => ({
     width: '300px',
     height: 36,
   },
-}))
+})

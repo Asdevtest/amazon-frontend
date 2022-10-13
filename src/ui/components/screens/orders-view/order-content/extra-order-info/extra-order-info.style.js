@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
     padding: '15px 15px',
     width: '537px',
@@ -14,7 +14,7 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '24px',
     fontWeight: 500,
     lineHeight: '28px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     whiteSpace: 'nowrap',
   },
   product: {
@@ -34,7 +34,7 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '14px',
     fontWeight: 500,
     lineHeight: '18px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
   },
   label: {
     fontSize: '12px',
@@ -43,7 +43,7 @@ export const useClassNames = makeStyles(theme => ({
     color: 'rgba(143, 152, 165, 1)',
   },
   text: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -56,7 +56,7 @@ export const useClassNames = makeStyles(theme => ({
     borderRadius: '10px',
     padding: '0 8px',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -96,7 +96,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   subTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
@@ -159,13 +159,13 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   input: {
-    height: '117px',
+    height: '140px',
     border: '1px solid #e0e0e0',
     borderRadius: '4px',
 
-    '& > :disabled': {
-      backgroundColor: '#fff',
-    },
+    // '& > :disabled': {
+    // backgroundColor: theme.palette.background.main,
+    // },
   },
 
   commentsWrapper: {
@@ -180,7 +180,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   commentsTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',

@@ -1,9 +1,8 @@
+import {cx} from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
+import {Checkbox, Typography, Link, List, ListItem, ListItemText} from '@mui/material'
 
 import React, {useState} from 'react'
-
-import {Checkbox, Typography, Link, List, ListItem, ListItemText} from '@material-ui/core'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -34,7 +33,7 @@ export const CreateOrEditRequestContent = ({
   showProgress,
   progressValue,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [images, setImages] = useState([])
 
@@ -152,20 +151,19 @@ export const CreateOrEditRequestContent = ({
             <div className={classNames.middleWrapper}>
               <div className={classNames.nameFieldWrapper}>
                 <Field
-                  multiline
                   tooltipInfoContent={t(TranslationKey['Future request title'])}
                   inputProps={{maxLength: 100}}
                   label={`${t(TranslationKey.Title)} *`}
                   className={classNames.nameField}
                   labelClasses={classNames.spanLabelSmall}
-                  minRows={1}
-                  maxRows={2}
                   value={formFields.request.title}
                   onChange={onChangeField('request')('title')}
                 />
-                <span className={clsx(formFields.request.title.length > 80 && classNames.error)}>{`${
-                  formFields.request.title.length
-                } ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span>
+                <span
+                  className={cx(classNames.charactersHints, {[classNames.error]: formFields.request.title.length > 80})}
+                >{`${formFields.request.title.length} ${t(TranslationKey.of)} 80 ${t(
+                  TranslationKey.characters,
+                )}`}</span>
               </div>
 
               <div className={classNames.descriptionFieldWrapper}>
@@ -181,9 +179,13 @@ export const CreateOrEditRequestContent = ({
                   value={formFields.details.conditions}
                   onChange={onChangeField('details')('conditions')}
                 />
-                <span className={clsx(formFields.details.conditions.length > 1000 && classNames.error)}>{`${
-                  formFields.details.conditions.length
-                } ${t(TranslationKey.of)} 1000 ${t(TranslationKey.characters)}`}</span>
+                <span
+                  className={cx(classNames.charactersHints, {
+                    [classNames.error]: formFields.details.conditions.length > 1000,
+                  })}
+                >{`${formFields.details.conditions.length} ${t(TranslationKey.of)} 1000 ${t(
+                  TranslationKey.characters,
+                )}`}</span>
               </div>
 
               <div className={classNames.imageFileInputWrapper}>
@@ -360,7 +362,7 @@ export const CreateOrEditRequestContent = ({
                             <Typography>{t(TranslationKey.Next)}</Typography>
                             <img
                               src="/assets/icons/right-arrow.svg"
-                              className={clsx(classNames.successBtnArrow, {
+                              className={cx(classNames.successBtnArrow, {
                                 [classNames.disablesBtnArrow]: disableSubmit,
                               })}
                             />
@@ -532,7 +534,7 @@ export const CreateOrEditRequestContent = ({
                         <Typography>{t(TranslationKey.Next)}</Typography>
                         <img
                           src="/assets/icons/right-arrow.svg"
-                          className={clsx(classNames.successBtnArrow, {
+                          className={cx(classNames.successBtnArrow, {
                             [classNames.disablesBtnArrow]: disableSubmit,
                           })}
                         />

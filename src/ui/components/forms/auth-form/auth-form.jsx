@@ -3,11 +3,11 @@ import LockIcon from '@mui/icons-material/Lock'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import {Button, Checkbox, InputAdornment, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Button, Checkbox, InputAdornment, Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
+import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -80,7 +80,7 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
             onChange={onChangeFormField('password')}
           />
           <div className={classNames.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
-            {!visibilityPass ? <VisibilityOffIcon color="disabled" /> : <VisibilityIcon color="disabled" />}
+            {!visibilityPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
           </div>
         </div>
 
@@ -90,12 +90,13 @@ const AuthFormRaw = ({classes: classNames, formFields, onChangeFormField, onSubm
             <Typography className={classNames.label}>{t(TranslationKey['Remember me'])}</Typography>
           </div>
           <Typography className={classNames.forgotPassword}>{t(TranslationKey['Forgot password'])}</Typography>
+
+          <Button type="submit" color="primary" variant="contained" className={classNames.loginBtn}>
+            {t(TranslationKey.Login)}
+          </Button>
         </div>
-        <Button disableElevation type="submit" color="primary" variant="contained">
-          {t(TranslationKey.Login)}
-        </Button>
       </form>
     </div>
   )
 }
-export const AuthForm = withStyles(styles)(AuthFormRaw)
+export const AuthForm = withStyles(AuthFormRaw, styles)

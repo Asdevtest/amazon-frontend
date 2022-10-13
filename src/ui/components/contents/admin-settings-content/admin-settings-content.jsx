@@ -1,8 +1,8 @@
+import {Box} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef, useState} from 'react'
 
-import {Box} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -42,7 +42,7 @@ const tabsValues = {
 }
 
 export const AdminSettingsContent = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const asModel = useRef(new AdminSettingsModel({history}))
 

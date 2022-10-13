@@ -1,6 +1,8 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+//
+
+export const useClassNames = makeStyles()(theme => ({
   root: {
     marginBottom: '20px',
     width: '100%',
@@ -12,14 +14,14 @@ export const useClassNames = makeStyles({
   label: {
     // fontSize: '16px',
     // lineHeight: '20px',
-    // color: 'rgba(61, 81, 112, 1)',
+    // color: theme.palette.text.general,
     // fontWeight: '600',
     // marginBottom: '12px',
 
     fontWeight: 400,
     fontSize: 18,
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '12px',
   },
 
@@ -27,9 +29,12 @@ export const useClassNames = makeStyles({
     marginBottom: 0,
   },
   input: {
-    width: '100%',
-    height: '32px',
-    borderRadius: '4px',
+    // width: '100%',
+    // height: '32px',
+    // borderRadius: '4px',
+    // overflow: 'hidden',
+    // border: `1px solid ${theme.palette.input.border}`,
+    // color: theme.palette.text.general,
   },
   errorText: {
     marginTop: '2px',
@@ -71,4 +76,8 @@ export const useClassNames = makeStyles({
     display: 'flex',
     alignItems: 'flex-start',
   },
-})
+
+  inputDisabled: {
+    backgroundColor: theme.palette.input.disabled,
+  },
+}))

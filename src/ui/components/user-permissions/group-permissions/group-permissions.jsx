@@ -20,7 +20,7 @@ import {GroupPermissionsModel} from './group-permissions.model'
 import {useClassNames} from './group-permissions.style'
 
 export const GroupPermissions = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const gpModel = useRef(new GroupPermissionsModel({history}))
 

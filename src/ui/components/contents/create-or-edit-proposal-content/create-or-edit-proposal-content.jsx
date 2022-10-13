@@ -1,10 +1,8 @@
+import {cx} from '@emotion/css'
 import CircleIcon from '@mui/icons-material/Circle'
-import {Rating} from '@mui/material'
+import {Avatar, Checkbox, Link, List, ListItem, ListItemText, TextareaAutosize, Typography, Rating} from '@mui/material'
 
 import React, {useState} from 'react'
-
-import {Avatar, Checkbox, Link, List, ListItem, ListItemText, TextareaAutosize, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -31,7 +29,7 @@ export const CreateOrEditProposalContent = ({
   progressValue,
   proposalToEdit,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [images, setImages] = useState([])
 
@@ -169,7 +167,7 @@ export const CreateOrEditProposalContent = ({
             label={t(TranslationKey.Price)}
             labelClasses={classNames.spanLabel}
             inputComponent={
-              <Typography className={clsx(classNames.twoStepFieldResult, classNames.price)}>
+              <Typography className={cx(classNames.twoStepFieldResult, classNames.price)}>
                 {toFixedWithDollarSign(request?.request.price, 2)}
               </Typography>
             }
@@ -192,19 +190,16 @@ export const CreateOrEditProposalContent = ({
           <div className={classNames.descriptionFieldWrapper}>
             <div className={classNames.nameFieldWrapper}>
               <Field
-                multiline
                 className={classNames.nameField}
                 labelClasses={classNames.spanLabel}
                 inputProps={{maxLength: 100}}
-                minRows={1}
-                maxRows={2}
                 label={t(TranslationKey['Proposal Name*'])}
                 value={formFields.title}
                 onChange={onChangeField('title')}
               />
-              <span className={clsx(formFields.title.length > 80 && classNames.error)}>{`${formFields.title.length} ${t(
-                TranslationKey.of,
-              )} 80 ${t(TranslationKey.characters)}`}</span>
+              <span className={cx(classNames.standartText, {[classNames.error]: formFields.title.length > 80})}>{`${
+                formFields.title.length
+              } ${t(TranslationKey.of)} 80 ${t(TranslationKey.characters)}`}</span>
             </div>
 
             <div className={classNames.imageFileInputWrapper}>
@@ -226,7 +221,7 @@ export const CreateOrEditProposalContent = ({
                 value={formFields.comment}
                 onChange={onChangeField('comment')}
               />
-              <span className={clsx(formFields.comment.length > 2000 && classNames.error)}>{`${
+              <span className={cx(classNames.standartText, {[classNames.error]: formFields.title.length > 2000})}>{`${
                 formFields.comment.length
               } ${t(TranslationKey.of)} 2000 ${t(TranslationKey.characters)}`}</span>
             </div>

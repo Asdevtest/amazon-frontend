@@ -1,13 +1,13 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     marginBottom: '20px',
   },
   label: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontWeight: '600',
     marginBottom: '12px',
   },
@@ -18,4 +18,4 @@ export const useClassNames = makeStyles({
     fontWeight: '400',
     marginBottom: '12px',
   },
-})
+}))

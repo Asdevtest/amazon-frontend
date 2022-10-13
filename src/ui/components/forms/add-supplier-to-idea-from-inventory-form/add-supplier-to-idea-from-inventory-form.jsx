@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
+import {Typography, IconButton, Grid, Checkbox, NativeSelect, Link} from '@mui/material'
+
 import React, {useEffect, useState} from 'react'
 
-import {Typography, IconButton, Grid, Checkbox, NativeSelect, Link} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
@@ -24,7 +25,7 @@ import {useClassNames} from './add-supplier-to-idea-from-inventory-form.style'
 
 export const AddSupplierToIdeaFromInventoryForm = observer(
   ({onSubmit, showProgress, progressValue, onClose, ideas, product}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [submitIsClicked, setSubmitIsClicked] = useState(false)
 

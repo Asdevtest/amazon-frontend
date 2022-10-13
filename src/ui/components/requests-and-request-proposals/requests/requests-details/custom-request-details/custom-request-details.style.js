@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
     display: 'flex',
@@ -32,18 +32,20 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     lineHeight: '1.5',
     resize: 'none',
+
+    color: theme.palette.text.general,
   },
 
   accordion: {
     width: '100%',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
 
   title: {
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',
-    color: '#354256',
+    color: theme.palette.text.second,
   },
 
   imgBox: {
@@ -72,7 +74,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   linkText: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
     whiteSpace: 'nowrap',
@@ -91,13 +93,13 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   conditionsLabel: {
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 }))

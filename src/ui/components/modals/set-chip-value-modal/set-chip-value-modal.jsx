@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import {Box, Container, Typography} from '@mui/material'
 
-import {Box, Container, Typography} from '@material-ui/core'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -12,7 +12,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './set-chip-value-modal.style'
 
 export const SetChipValueModal = ({title, onSubmit, onCloseModal, sourceValue}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [newValue, setNewValue] = useState(sourceValue)
 

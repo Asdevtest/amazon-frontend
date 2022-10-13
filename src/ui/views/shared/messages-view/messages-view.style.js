@@ -1,14 +1,15 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles(() => ({
+export const styles = theme => ({
   chatWrapper: {
     width: '100%',
     height: '778px',
   },
 
   searchInput: {
-    border: '1px solid #007bff',
-    width: 276,
+    // border: '1px solid #007bff',
+
+    border: `1px solid ${theme.palette.primary.main}`,
+
+    width: 296,
     height: 36,
   },
 
@@ -35,7 +36,7 @@ export const styles = createStyles(() => ({
     fontSize: 18,
     lineHeight: '140%',
     fontWeight: 400,
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   noticesTextNoActive: {
     fontSize: 18,
@@ -49,7 +50,7 @@ export const styles = createStyles(() => ({
     height: 18,
     marginLeft: 20,
     transition: '.2s ease',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
 
     '&:hover': {
       transform: 'scale(1.1)',
@@ -93,7 +94,7 @@ export const styles = createStyles(() => ({
     marginLeft: 15,
     fontWeight: 600,
     fontSize: 18,
-    color: '#001029',
+    color: theme.palette.text.general,
 
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
@@ -120,6 +121,8 @@ export const styles = createStyles(() => ({
       flexDirection: 'column',
       gap: '15px',
       marginBottom: 20,
+
+      padding: '0 10px',
     },
     searchInput: {
       width: '100%',
@@ -139,17 +142,13 @@ export const styles = createStyles(() => ({
       display: 'none',
     },
 
-    '@media (max-width: 768px)': {
-      chatWrapper: {
-        height: '100%',
-        padding: '0 10px',
-      },
-      chatHeaderWrapper: {
-        padding: '0 10px',
-      },
-      newDialogBtn: {
-        width: '223px',
-      },
+    chatWrapper: {
+      height: '100%',
+      padding: '0 10px',
+    },
+
+    newDialogBtn: {
+      width: '223px',
     },
   },
-}))
+})

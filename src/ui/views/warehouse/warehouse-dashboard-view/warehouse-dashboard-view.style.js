@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   dashboardCardWrapper: {
     marginTop: '24px',
   },
@@ -38,4 +36,4 @@ export const styles = createStyles(theme => ({
       boxShadow: '0px 2px 8px 2px rgba(0, 0, 0, 0.05)',
     },
   },
-}))
+})

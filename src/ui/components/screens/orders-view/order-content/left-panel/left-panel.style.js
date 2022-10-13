@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   orderContainer: {
     padding: '15px 15px',
     width: '500px',
@@ -9,14 +9,14 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   orderPrice: {
     fontSize: '24px',
     fontWeight: 500,
     lineHeight: '28px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     whiteSpace: 'nowrap',
   },
   product: {
@@ -37,7 +37,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   label: {
     fontSize: '12px',
@@ -46,7 +46,7 @@ export const useClassNames = makeStyles(() => ({
     color: 'rgba(143, 152, 165, 1)',
   },
   text: {
-    color: '#656565',
+    color: theme.palette.text.second,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '16px',
@@ -64,7 +64,7 @@ export const useClassNames = makeStyles(() => ({
     borderRadius: '4px',
     padding: '10px 15px',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '19px',
@@ -76,7 +76,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   asinTypo: {
-    color: '#89919C',
+    color: theme.palette.text.second,
   },
   divider: {
     margin: '10px 0',

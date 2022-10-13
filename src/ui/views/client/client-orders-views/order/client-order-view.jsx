@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
-import {withStyles} from '@material-ui/core'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -95,4 +95,4 @@ class ClientOrderViewRaw extends Component {
   }
 }
 
-export const ClientOrderView = withStyles(styles)(ClientOrderViewRaw)
+export const ClientOrderView = withStyles(ClientOrderViewRaw, styles)

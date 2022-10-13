@@ -36,8 +36,6 @@ export class AnotherProfileViewModel {
 
   drawerOpen = false
 
-  rowsPerPage = 15
-  curPage = 1
   productList = []
 
   productsVacant = []

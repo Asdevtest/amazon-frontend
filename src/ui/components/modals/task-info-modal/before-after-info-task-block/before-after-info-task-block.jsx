@@ -1,6 +1,7 @@
+import {Divider, Typography} from '@mui/material'
+
 import React from 'react'
 
-import {Divider, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -11,7 +12,7 @@ import {BeforeAfterBox} from './before-after-box'
 import {useClassNames} from './before-after-info-task-block.style'
 
 export const BeforeAfterInfoTaskBlock = observer(({beforeBoxes, afterBoxes, taskType, volumeWeightCoefficient}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.boxesWrapper}>

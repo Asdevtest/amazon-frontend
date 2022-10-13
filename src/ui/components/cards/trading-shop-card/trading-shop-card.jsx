@@ -1,11 +1,11 @@
+import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import {Grid, Typography} from '@mui/material'
 
 import React from 'react'
 
-import {Grid, Typography} from '@material-ui/core'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -20,7 +20,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './trading-shop-card.style'
 
 export const TradingShopCard = ({item, onClickViewMore}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Grid item className={classNames.mainWrapper}>
@@ -112,7 +112,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                       <ArrowDropUpIcon className={classNames.green} />
                     )}
                     <Typography
-                      className={clsx(classNames.green, {
+                      className={cx(classNames.green, {
                         [classNames.red]: item.statistics.monthlyPureProfitDiffPercentage < 0,
                       })}
                     >{`${toFixed(item.statistics.monthlyPureProfitDiffPercentage)} %`}</Typography>
@@ -132,7 +132,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                       <ArrowDropUpIcon className={classNames.green} />
                     )}
                     <Typography
-                      className={clsx(classNames.green, {
+                      className={cx(classNames.green, {
                         [classNames.red]: item.statistics.monthlyProfitDiffPercentage < 0,
                       })}
                     >{`${toFixed(item.statistics.monthlyProfitDiffPercentage)} %`}</Typography>
@@ -152,7 +152,7 @@ export const TradingShopCard = ({item, onClickViewMore}) => {
                       <ArrowDropUpIcon className={classNames.green} />
                     )}
                     <Typography
-                      className={clsx(classNames.green, {
+                      className={cx(classNames.green, {
                         [classNames.red]: item.statistics.webpageVisitsDiffPercentage < 0,
                       })}
                     >{`${toFixed(item.statistics.webpageVisitsDiffPercentage)} %`}</Typography>

@@ -1,8 +1,9 @@
+import {Hidden} from '@mui/material'
+
 import {Component} from 'react'
 
-import {Hidden} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -104,4 +105,4 @@ class RegistrationViewRaw extends Component {
   )
 }
 
-export const RegistrationView = withStyles(styles)(RegistrationViewRaw)
+export const RegistrationView = withStyles(RegistrationViewRaw, styles)

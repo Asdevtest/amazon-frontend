@@ -1,11 +1,11 @@
+import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
+import {Divider, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {Divider, Typography} from '@material-ui/core'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -23,7 +23,7 @@ import {ChartsForm} from './charts-form/charts-form'
 import {useClassNames} from './second-step.style'
 
 export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onChangeStatisticsField}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [showBarChat, setShowBarChat] = useState(false)
 
@@ -141,7 +141,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                         />
                       ) : (
                         <div
-                          className={clsx(classNames.actionDelButton, {
+                          className={cx(classNames.actionDelButton, {
                             [classNames.disabledActionButton]: dateLine === null,
                           })}
                           onClick={() => dateLine !== null && addIndicator()}
@@ -410,7 +410,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                       ) : (
                         <ArrowDropUpIcon color="success" className={classNames.green} />
                       )}
-                      <Typography className={clsx(classNames.green, {[classNames.red]: trafficСhange < 0})}>{`${toFixed(
+                      <Typography className={cx(classNames.green, {[classNames.red]: trafficСhange < 0})}>{`${toFixed(
                         isNaN(trafficСhange) ? 0 : trafficСhange,
                         2,
                       )} %`}</Typography>
@@ -432,7 +432,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                           <ArrowDropUpIcon color="success" className={classNames.green} />
                         )}
                         <Typography
-                          className={clsx(classNames.green, {[classNames.red]: grossIncomeСhange < 0})}
+                          className={cx(classNames.green, {[classNames.red]: grossIncomeСhange < 0})}
                         >{`${toFixed(isNaN(grossIncomeСhange) ? 0 : grossIncomeСhange, 2)} %`}</Typography>
                       </div>
                     }
@@ -451,7 +451,7 @@ export const SecondStep = ({formFields, setFormFields, renderBackNextBtns, onCha
                           <ArrowDropUpIcon color="success" className={classNames.green} />
                         )}
                         <Typography
-                          className={clsx(classNames.green, {[classNames.red]: pureIncomeСhange < 0})}
+                          className={cx(classNames.green, {[classNames.red]: pureIncomeСhange < 0})}
                         >{`${toFixed(isNaN(pureIncomeСhange) ? 0 : pureIncomeСhange, 2)} %`}</Typography>
                       </div>
                     }

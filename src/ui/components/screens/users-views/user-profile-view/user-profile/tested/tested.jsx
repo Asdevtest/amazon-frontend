@@ -1,8 +1,7 @@
 import CheckIcon from '@mui/icons-material/Check'
+import {Box, Paper, Typography} from '@mui/material'
 
 import React from 'react'
-
-import {Box, Paper, Typography} from '@material-ui/core'
 
 // import AcUnitIcon from '@material-ui/icons/AcUnit'
 import {humanFriendlyStategyStatus, mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
@@ -13,7 +12,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './tested.style'
 
 export const Tested = ({user}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const CheckedStrategyRow = ({label, icon}) => (
     <>
@@ -33,7 +32,7 @@ export const Tested = ({user}) => {
           <CheckedStrategyRow key={i} label={humanFriendlyStategyStatus(mapProductStrategyStatusEnum[strategy])} />
         ))
       ) : (
-        <Typography>{t(TranslationKey['No passed strategies'])}</Typography>
+        <Typography className={classNames.miss}>{t(TranslationKey['No passed strategies'])}</Typography>
       )}
     </Paper>
   )

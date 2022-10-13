@@ -1,17 +1,17 @@
+/* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
+import {Box, Grid, Paper, Typography, Alert} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {Box, Grid, Paper, Typography} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import AcceptIcon from '@material-ui/icons/Check'
 import AcceptRevokeIcon from '@material-ui/icons/Clear'
 // import DeleteIcon from '@material-ui/icons/Delete'
 // import EditIcon from '@material-ui/icons/Edit'
-import {Alert} from '@material-ui/lab'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import Carousel from 'react-material-ui-carousel'
 
@@ -66,7 +66,7 @@ export const TopCard = observer(
     onChangeImagesForLoad,
     acceptMessage,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [showImageModal, setShowImageModal] = useState(false)
 
@@ -268,7 +268,7 @@ export const TopCard = observer(
                             <div className={classNames.supplierButtonWrapper}>
                               <Button
                                 tooltipInfoContent={t(TranslationKey['Delete the selected supplier'])}
-                                className={clsx(classNames.iconBtn, classNames.iconBtnRemove)}
+                                className={cx(classNames.iconBtn, classNames.iconBtnRemove)}
                                 onClick={() => onClickSupplierBtns('delete')}
                               >
                                 <DeleteOutlineOutlinedIcon />
@@ -288,7 +288,7 @@ export const TopCard = observer(
                               ? t(TranslationKey['Remove the current supplier'])
                               : t(TranslationKey['Select a supplier as the current supplier'])
                           }
-                          className={clsx(classNames.iconBtn, classNames.iconBtnAccept, {
+                          className={cx(classNames.iconBtn, classNames.iconBtnAccept, {
                             [classNames.iconBtnAcceptRevoke]: isSupplierAcceptRevokeActive,
                           })}
                           onClick={() =>

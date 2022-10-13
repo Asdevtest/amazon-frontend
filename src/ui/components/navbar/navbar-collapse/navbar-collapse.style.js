@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     zIndex: 1200,
   },
@@ -8,7 +8,7 @@ export const useClassNames = makeStyles(theme => ({
     marginRight: '12px',
   },
   selected: {
-    color: theme.palette.primary.main,
+    color: `${theme.palette.primary.main} !important`,
   },
 
   badge: {
@@ -35,12 +35,13 @@ export const useClassNames = makeStyles(theme => ({
     backgroundColor: 'inherit',
     borderRadius: 0,
 
-    color: theme.palette.text.primary,
+    color: theme.palette.text.second,
     '&:hover': {backgroundColor: '#0000ff0a'},
   },
 
   subCategory: {
     padding: '0 20px 0 56px',
     width: '100%',
+    // color: theme.palette.text.second,
   },
 }))

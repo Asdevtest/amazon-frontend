@@ -1,13 +1,13 @@
+import {cx} from '@emotion/css'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import InboxIcon from '@mui/icons-material/Inbox'
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
+import {Avatar, Link, Typography} from '@mui/material'
 
 import {Children, cloneElement, useEffect, useState} from 'react'
 
-import {Avatar, Link, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -26,7 +26,7 @@ import {useClassNames} from './custom-carousel.style'
 export const RIGHT_BLOCK_WIDTH = 100
 
 export const CustomCarousel = observer(({children, title, view = 'simple', alignButtons = 'center'}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const [clides, setClides] = useState([])
   const [offset, setOffset] = useState(0)
 
@@ -169,7 +169,7 @@ const openPdfFile = url => {
 }
 
 export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 'row', notToShowEmpty = false}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
@@ -187,7 +187,7 @@ export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 
       }}
     >
       {(notToShowEmpty && notEmptyPhotos?.length) || !notToShowEmpty ? (
-        <div className={clsx(classNames.imagesWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
+        <div className={cx(classNames.imagesWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
           {notEmptyPhotos?.length ? (
             <CustomCarousel>
               {notEmptyPhotos.map((photo, index) => (
@@ -217,7 +217,7 @@ export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 
                 <div className={classNames.emptyIcon}>
                   <PhotoCameraIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
                 </div>
-                <Typography>{t(TranslationKey['No photos'])}</Typography>
+                <Typography className={classNames.noPhotoText}>{t(TranslationKey['No photos'])}</Typography>
               </div>
             </div>
           )}
@@ -225,7 +225,7 @@ export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 
       ) : null}
 
       {(notToShowEmpty && notEmptyFiles?.length) || !notToShowEmpty ? (
-        <div className={clsx(classNames.documentsWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
+        <div className={cx(classNames.documentsWrapper, {[classNames.notToShowEmptyWrapper]: notToShowEmpty})}>
           {notEmptyFiles?.length ? (
             <CustomCarousel>
               {notEmptyFiles.map((file, index) =>
@@ -258,7 +258,7 @@ export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 
                 <div className={classNames.emptyIcon}>
                   <InboxIcon style={{color: '#C4C4C4', fontSize: '30px'}} />
                 </div>
-                <Typography>{t(TranslationKey['No documents'])}</Typography>
+                <Typography className={classNames.emptyDocs}>{t(TranslationKey['No documents'])}</Typography>
               </div>
             </div>
           )}
@@ -284,7 +284,7 @@ export const PhotoAndFilesCarousel = ({files, width, small = false, direction = 
 }
 
 export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons, small = false, imageClass}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const [bigImagesOptions, setBigImagesOptions] = useState({images: [], imgIndex: 0})
   const [showPhotosModal, setShowPhotosModal] = useState(false)
 
@@ -347,7 +347,7 @@ export const PhotoCarousel = observer(({files, isAmazonPhoto, view, alignButtons
 })
 
 export const FilesCarousel = observer(({files}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const notEmptyFiles = files?.length
     ? files.filter(el => (el?.file?.name ? !checkIsImageLink(el?.file?.name) : !checkIsImageLink(el)))

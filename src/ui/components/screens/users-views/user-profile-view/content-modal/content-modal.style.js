@@ -1,22 +1,22 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '24px',
     fontWeight: 500,
     lineHeight: '28px',
     marginBottom: '24px',
   },
   modalSubTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '13px',
     fontWeight: 700,
     lineHeight: '15px',
     marginBottom: '8px',
   },
   modalText: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -28,7 +28,7 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
   },
   inputLabel: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -70,11 +70,11 @@ export const useClassNames = makeStyles(() => ({
   table: {
     '& td': {
       flexShrink: 0,
-      color: 'rgba(61, 81, 112, 1)',
+      color: theme.palette.text.general,
       borderBottom: 'none',
     },
     '& th': {
-      color: 'rgba(61, 81, 112, 1)',
+      color: theme.palette.text.general,
       fontWeight: 700,
       lineHeight: '15px',
       fontSize: '15px',
@@ -108,7 +108,7 @@ export const useClassNames = makeStyles(() => ({
   },
   cancelBtn: {
     backgroundColor: '#d5d5d5',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     textTransform: 'none',
   },
 }))

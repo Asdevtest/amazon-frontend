@@ -2,8 +2,8 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -116,4 +116,4 @@ class GoodsDaysReportRaw extends Component {
   }
 }
 
-export const GoodsDaysReport = withStyles(styles)(GoodsDaysReportRaw)
+export const GoodsDaysReport = withStyles(GoodsDaysReportRaw, styles)

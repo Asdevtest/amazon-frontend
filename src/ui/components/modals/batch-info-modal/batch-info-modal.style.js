@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   commentsWrapper: {
     display: 'flex',
     gap: '10px',
@@ -13,9 +13,11 @@ export const useClassNames = makeStyles(theme => ({
   },
   modalTitle: {
     marginRight: '100px',
+
+    color: theme.palette.text.general,
   },
   subTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '20px',
@@ -73,7 +75,7 @@ export const useClassNames = makeStyles(theme => ({
 
   superboxTypo: {
     marginLeft: '10px',
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     fontSize: '20px',
     fontWeight: '900px',
   },
@@ -141,7 +143,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   linkText: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
     whiteSpace: 'nowrap',
@@ -161,7 +163,7 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   textEllipsis: {

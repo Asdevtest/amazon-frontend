@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   count: {
     fontSize: '13px',
     lineHeight: '15px',
@@ -43,7 +43,7 @@ export const useClassNames = makeStyles(() => ({
     },
   },
   selected: {
-    color: 'rgb(61, 81, 112)',
+    color: theme.palette.text.general,
   },
   tooltip: {
     fontSize: '13px',

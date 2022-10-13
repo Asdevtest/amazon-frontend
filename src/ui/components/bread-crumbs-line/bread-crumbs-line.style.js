@@ -1,13 +1,13 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles()(theme => ({
   lastCrumb: {
-    color: '#001029;',
+    color: theme.palette.text.general,
     fontSize: 18,
   },
 
   сrumb: {
-    color: '#007bff',
+    color: theme.palette.primary.main,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
 
@@ -24,4 +24,4 @@ export const useClassNames = makeStyles({
       fontSize: '14px !important',
     },
   },
-})
+}))

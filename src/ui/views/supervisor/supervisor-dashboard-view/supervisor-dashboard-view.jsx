@@ -1,8 +1,9 @@
+import {Avatar, Paper} from '@mui/material'
+
 import React, {Component} from 'react'
 
-import {Avatar, Paper} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {getSupervisorDashboardCardConfig} from '@constants/dashboard-configs'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -71,4 +72,4 @@ export class SupervisorDashboardViewRaw extends Component {
   }
 }
 
-export const SupervisorDashboardView = withStyles(styles)(SupervisorDashboardViewRaw)
+export const SupervisorDashboardView = withStyles(SupervisorDashboardViewRaw, styles)

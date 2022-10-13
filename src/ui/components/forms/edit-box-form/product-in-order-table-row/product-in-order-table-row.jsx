@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Checkbox, TableCell, TableRow, Typography} from '@mui/material'
+
 import React from 'react'
 
-import {Checkbox, TableCell, TableRow, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -16,7 +17,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './product-in-order-table-row.style'
 
 export const ProductInOrderTableRow = observer(({item, handlers, ...restProps}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <TableRow>
@@ -48,7 +49,7 @@ export const ProductInOrderTableRow = observer(({item, handlers, ...restProps}) 
               !item.barCode &&
               t(TranslationKey['Add a product barcode to the box. A task will be created for the prep center'])
             }
-            className={clsx({[classNames.barcodeChipExists]: item.barCode})}
+            className={cx({[classNames.barcodeChipExists]: item.barCode})}
             size="small"
             label={
               item.tmpBarCode.length

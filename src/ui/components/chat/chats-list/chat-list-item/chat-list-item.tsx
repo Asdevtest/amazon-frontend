@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Avatar} from '@mui/material'
+
 import React, {FC} from 'react'
 
-import {Avatar} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -27,7 +28,7 @@ interface Props {
 }
 
 export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onClick, typingUsers}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const {messages, users} = chat
 
@@ -56,7 +57,7 @@ export const ChatListItem: FC<Props> = observer(({chat, isSelected, userId, onCl
     : ''
 
   return (
-    <div className={clsx(classNames.root, {[classNames.rootIsSelected]: isSelected})} onClick={onClick}>
+    <div className={cx(classNames.root, {[classNames.rootIsSelected]: isSelected})} onClick={onClick}>
       <div className={classNames.leftSide}>
         <Avatar src={getUserAvatarSrc(oponentUser._id)} className={classNames.avatarWrapper} />
       </div>

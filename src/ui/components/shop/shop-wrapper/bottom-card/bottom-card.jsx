@@ -1,6 +1,7 @@
+import {Typography, Paper} from '@mui/material'
+
 import React from 'react'
 
-import {Typography, Paper} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -16,7 +17,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './bottom-card.style'
 
 export const BottomCard = observer(({data}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <React.Fragment>

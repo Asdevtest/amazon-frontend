@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   box: {
     display: 'flex',
     alignItems: 'center',
@@ -10,7 +10,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   badBox: {
-    backgroundColor: '#FFC7C7',
+    backgroundColor: theme.palette.background.red,
   },
 
   boxNoPrice: {
@@ -21,6 +21,8 @@ export const useClassNames = makeStyles(() => ({
     textAlign: 'left',
     display: 'table-cell',
     verticalAlign: 'middle',
+
+    color: theme.palette.text.second,
   },
   priceCellRight: {
     textAlign: 'center',
@@ -98,7 +100,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   shippingLabelCell: {
@@ -161,7 +163,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   downloadLink: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {

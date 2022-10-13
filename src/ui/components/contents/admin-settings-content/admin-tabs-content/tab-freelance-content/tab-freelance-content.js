@@ -10,7 +10,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './tab-freelance-content.style'
 
 export const TabFreelanceContent = ({disabled, disabledSubmit, onChangeField, onSubmit, formFields}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <>
       <Field

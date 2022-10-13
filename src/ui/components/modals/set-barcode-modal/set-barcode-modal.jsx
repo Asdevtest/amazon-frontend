@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import {Box, Container, Typography, Link} from '@mui/material'
 
-import {Box, Container, Typography, Link} from '@material-ui/core'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -15,7 +15,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './set-barcode-modal.style'
 
 export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const barCode = item?.barCode || ''
 
@@ -31,7 +31,7 @@ export const SetBarcodeModal = ({onClickSaveBarcode, onCloseModal, tmpCode, item
           inputComponent={
             <div className={classNames.barCodeWrapper}>
               <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(barCode)}>
-                <Typography className={classNames.link}>{barCode}</Typography>
+                <Typography className={classNames.link}>{t(TranslationKey.View)}</Typography>
               </Link>
               <CopyValue text={barCode} />
             </div>

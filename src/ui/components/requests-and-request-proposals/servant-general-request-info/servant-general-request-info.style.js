@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
     // flexDirection: 'column',
@@ -10,6 +10,10 @@ export const useClassNames = makeStyles(() => ({
     width: '100%',
     height: '263px',
   },
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
   mainBlockWrapper: {
     width: '100%',
     display: 'flex',
@@ -65,7 +69,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',
-    color: '#354256',
+    color: theme.palette.text.second,
     overflow: 'auto',
     height: 80,
   },
@@ -100,7 +104,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   personWrapper: {
@@ -135,7 +139,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   transactions: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
@@ -151,7 +155,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     fontWeight: '400',
     lineHeight: '16px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   proposalsWrapper: {
@@ -168,7 +172,7 @@ export const useClassNames = makeStyles(() => ({
     margin: '30px 0 20px 0',
     overflow: 'auto',
     height: '76px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
@@ -194,7 +198,7 @@ export const useClassNames = makeStyles(() => ({
     width: '58%',
 
     '& > :first-child': {
-      color: '#001029',
+      color: theme.palette.text.general,
       fontSize: '16px',
       fontWeight: '400',
       lineHeight: '19px',
@@ -208,7 +212,7 @@ export const useClassNames = makeStyles(() => ({
     width: '35%',
 
     '& > :first-child': {
-      color: '#001029',
+      color: theme.palette.text.general,
       fontSize: '16px',
       fontWeight: '400',
       lineHeight: '19px',
@@ -228,7 +232,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   status: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '400',
     lineHeight: '19px',
@@ -236,14 +240,14 @@ export const useClassNames = makeStyles(() => ({
   },
 
   timeCount: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '19px',
   },
 
   price: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '19px',
@@ -280,6 +284,6 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 }))

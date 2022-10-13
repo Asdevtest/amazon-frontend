@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(() => ({
   tableRow: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '0.3s ease',

@@ -1,9 +1,10 @@
-import {ListItemIcon, ListItemText, SvgIcon} from '@material-ui/core'
-import MuiListItem from '@material-ui/core/ListItem'
-import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
+import {cx} from '@emotion/css'
+import {ListItemIcon, ListItemText, SvgIcon} from '@mui/material'
+import MuiListItem from '@mui/material/ListItem'
+
 import {observer} from 'mobx-react'
 import {Link} from 'react-router-dom'
+import {withStyles} from 'tss-react/mui'
 
 import {Button} from '@components/buttons/button'
 
@@ -36,18 +37,22 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
         classes={{root: classNames.root, selected: classNames.selected}}
       >
         <ListItemIcon
-          className={clsx(classNames.iconWrapper, {
+          className={cx(classNames.iconWrapper, {
             [classNames.selectedIcon]: isSelected,
             [classNames.notSelected]: !isSelected,
           })}
         >
-          <SvgIcon inheritviewbox="true" className={classNames.icon} component={category.icon} />
+          <SvgIcon
+            inheritviewbox="true"
+            className={cx(classNames.icon, {[classNames.selectedIcon]: isSelected})}
+            component={category.icon}
+          />
 
           {badge ? <div className={classNames.badge}>{badge}</div> : undefined}
         </ListItemIcon>
         <ListItemText
           disableTypography
-          className={clsx({[classNames.listItemSelected]: isSelected})}
+          className={cx({[classNames.listItemSelected]: isSelected})}
           primary={category.title}
         />
       </MuiListItem>
@@ -55,4 +60,4 @@ const NavBarCategoryRaw = observer(({badge, classes: classNames, isSelected, use
   )
 })
 
-export const NavbarCategory = withStyles(styles)(NavBarCategoryRaw)
+export const NavbarCategory = withStyles(NavBarCategoryRaw, styles)

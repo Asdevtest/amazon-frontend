@@ -1,7 +1,7 @@
-import React from 'react'
+import {cx} from '@emotion/css'
+import {Checkbox, Link, Typography} from '@mui/material'
 
-import {Checkbox, Link, Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import React from 'react'
 
 import {TaskOperationType} from '@constants/task-operation-type'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -28,9 +28,7 @@ export const BoxItemCard = ({
   needAccent,
   referenceEditingBox,
 }) => {
-  const classNames = useClassNames()
-
-  console.log('referenceEditingBox', referenceEditingBox)
+  const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.root}>
@@ -67,7 +65,7 @@ export const BoxItemCard = ({
 
           <div className={classNames.attributeFooterWrapper}>
             <div
-              className={clsx(classNames.barCodeWrapper, {
+              className={cx(classNames.barCodeWrapper, {
                 [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
               })}
             >
@@ -83,7 +81,7 @@ export const BoxItemCard = ({
                   <CopyValue text={item.barCode} />
                 </div>
               ) : (
-                <Typography className={classNames.barCodeField}>{t(TranslationKey['Not available'])}</Typography>
+                <Typography className={classNames.miss}>{t(TranslationKey['Not available'])}</Typography>
               )}
             </div>
             <div>
@@ -157,7 +155,7 @@ export const BoxItemCard = ({
       </div>
       <div className={classNames.attributeFooterWrapperMobile}>
         <div
-          className={clsx(classNames.barCodeWrapper, {
+          className={cx(classNames.barCodeWrapper, {
             [classNames.editAccent]: needAccent && item.barCode !== referenceEditingBox.items[index].barCode,
           })}
         >

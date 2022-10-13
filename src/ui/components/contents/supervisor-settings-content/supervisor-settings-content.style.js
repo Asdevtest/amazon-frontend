@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(() => ({
   root: {
     width: '100%',
     boxShadow: 'inset 0 -1px 0 0 #E6ECF0',
@@ -28,11 +28,11 @@ export const useClassNames = makeStyles(() => ({
       transform: 'scale(1.01)',
     },
   },
-  rootDataGrid: {
-    border: '0 !important',
-    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: '#fff',
-  },
+  // rootDataGrid: {
+  //   border: '0 !important',
+  //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+  //   backgroundColor: theme.palette.background.main,
+  // },
 
   footerContainer: {
     position: 'absolute',

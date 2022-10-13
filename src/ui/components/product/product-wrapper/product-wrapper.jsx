@@ -1,8 +1,7 @@
-import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
+import {Box, Tabs} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Box, Tabs} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -67,12 +66,12 @@ export const ProductWrapper = observer(
     onChangeImagesForLoad,
     acceptMessage,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const curUserRole = UserRoleCodeMap[userRole]
 
     const [tabIndex, setTabIndex] = React.useState(tabsValues.MAIN_INFO)
-    const tabItemStyles = twitterTabsStylesHook.useTabItem()
+
     const [updatedProduct, setUpdatedProduct] = useState(product)
 
     useEffect(() => {
@@ -94,7 +93,6 @@ export const ProductWrapper = observer(
         >
           <ITab
             tooltipInfoContent={t(TranslationKey['General product information from the Amazon page'])}
-            classes={tabItemStyles}
             value={tabsValues.MAIN_INFO}
             label={t(TranslationKey['Basic information'])}
           />
@@ -102,7 +100,6 @@ export const ProductWrapper = observer(
           {checkIsClient(curUserRole) && (
             <ITab
               tooltipInfoContent={t(TranslationKey['All orders related to this product'])}
-              classes={tabItemStyles}
               label={t(TranslationKey.Orders)}
               value={tabsValues.ORDERS}
             />
@@ -111,22 +108,15 @@ export const ProductWrapper = observer(
           {checkIsClient(curUserRole) && (
             <ITab
               tooltipInfoContent={t(TranslationKey['Goods from the store, linked to the product card'])}
-              classes={tabItemStyles}
               label={t(TranslationKey.Integrations)}
               value={tabsValues.INTEGRATIONS}
             />
           )}
 
-          {!checkIsBuyer(curUserRole) && (
-            <ITab classes={tabItemStyles} label={t(TranslationKey.Content)} value={tabsValues.LISTING} />
-          )}
+          {!checkIsBuyer(curUserRole) && <ITab label={t(TranslationKey.Content)} value={tabsValues.LISTING} />}
 
           {!checkIsResearcher(curUserRole) && (
-            <ITab
-              classes={tabItemStyles}
-              label={t(TranslationKey['Suppliers and Ideas'])}
-              value={tabsValues.SUPPLIERS_AND_IDEAS}
-            />
+            <ITab label={t(TranslationKey['Suppliers and Ideas'])} value={tabsValues.SUPPLIERS_AND_IDEAS} />
           )}
         </Tabs>
 

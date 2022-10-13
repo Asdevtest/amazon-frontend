@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   balanceWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -9,7 +9,9 @@ export const useClassNames = makeStyles(() => ({
   balanceTitle: {
     fontSize: 36,
     lineHeight: '49px',
-    color: '#001029',
+    // color: theme.palette.text.general,
+
+    color: theme.palette.text.general,
   },
 
   balanceFreeze: {
@@ -21,19 +23,21 @@ export const useClassNames = makeStyles(() => ({
 
   title: {
     fontSize: 18,
-    color: '#001029',
+    // color: theme.palette.text.general,
     lineHeight: '140%',
     marginBottom: '16px',
+
+    color: theme.palette.text.general,
   },
   '@media (max-width: 768px)': {
     balanceTitle: {
       fontSize: 18,
       lineHeight: '140%',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
     title: {
       fontSize: 12,
-      color: '#001029',
+      color: theme.palette.text.general,
       lineHeight: '16px',
       marginBottom: '16px',
     },

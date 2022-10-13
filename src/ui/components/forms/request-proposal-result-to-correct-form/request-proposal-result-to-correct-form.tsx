@@ -1,6 +1,7 @@
+import {Typography} from '@mui/material'
+
 import React, {ChangeEvent, FC, useEffect, useState} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -32,7 +33,7 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({onPressS
   const [hour, setHour] = useState('')
   const [minute, setMinute] = useState('')
   const [images, setImages] = useState([])
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const onChangeHour = (value: string) => {
     const maxValue = 99

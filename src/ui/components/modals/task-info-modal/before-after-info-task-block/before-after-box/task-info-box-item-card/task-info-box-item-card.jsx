@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import {Paper, Typography, Checkbox, Link} from '@mui/material'
 
-import {Paper, Typography, Checkbox, Link} from '@material-ui/core'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -16,7 +16,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './task-info-box-item-card.style'
 
 export const TaskInfoBoxItemCard = ({item, superCount}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const [collapsed, setCollapsed] = useState(false)
 
   return (

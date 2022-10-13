@@ -1,11 +1,15 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '640px',
 
     display: 'flex',
     flexDirection: 'column',
+  },
+
+  mainTitle: {
+    color: theme.palette.text.general,
   },
 
   mainWrapper: {
@@ -33,6 +37,8 @@ export const useClassNames = makeStyles(() => ({
 
     border: '1px solid #007BFF',
     borderRadius: '50%',
+
+    backgroundColor: theme.palette.background.second,
   },
 
   btnsWrapper: {
@@ -43,6 +49,19 @@ export const useClassNames = makeStyles(() => ({
 
   cancelBtn: {
     marginLeft: '30px',
+    color: theme.palette.text.general,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
+  labelStyle: {
+    width: '100%',
+    backgroundColor: theme.palette.background.second,
+    textAlign: 'center',
+    transition: '0.3s ease',
+    cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
 
   successText: {
@@ -50,7 +69,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   spanText: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     fontWeight: '500',
   },
 
@@ -62,6 +81,6 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#354256',
+    color: theme.palette.text.second,
   },
 }))

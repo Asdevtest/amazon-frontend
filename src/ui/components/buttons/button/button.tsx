@@ -1,8 +1,8 @@
+import {cx} from '@emotion/css'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {FC, ReactElement, useEffect, useState} from 'react'
 
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {SettingsModel} from '@models/settings-model'
@@ -28,7 +28,7 @@ interface Props {
   onClick?: () => void
   disableElevation?: boolean
   btnWrapperStyle?: string
-  children: any
+  children?: string
 }
 
 export const Button: FC<Props> = observer(
@@ -46,7 +46,7 @@ export const Button: FC<Props> = observer(
     btnWrapperStyle,
     ...restProps
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
 
@@ -55,17 +55,32 @@ export const Button: FC<Props> = observer(
     }, [SettingsModel.showHints])
 
     return (
-      <div className={clsx(classNames.btnWrapper, btnWrapperStyle)}>
+      <div className={cx(classNames.btnWrapper, btnWrapperStyle)}>
         <StyledButton
           disableElevation
           color={color || 'primary'}
           disabled={disabled}
           variant={variant || 'contained'}
-          className={clsx(classNames.root, className, {
-            [classNames.success]: success,
-            [classNames.danger]: danger,
-            [classNames.disabled]: disabled,
-          })}
+          // className={cx(classNames.root, className, {
+          //   [classNames.success]: success,
+          //   [classNames.danger]: danger,
+          //   [classNames.disabled]: disabled,
+          // })}
+          classes={{
+            root: cx(
+              classNames.root,
+              {
+                [classNames.success]: success,
+                [classNames.danger]: danger,
+                [classNames.disabled]: disabled,
+
+                // [classNames.text]: variant === 'text',
+              },
+              className,
+            ),
+
+            // text: classNames.text,
+          }}
           {...restProps}
         >
           {children}
@@ -80,7 +95,7 @@ export const Button: FC<Props> = observer(
 
             {tooltipInfoContent && showHints ? (
               <Tooltip arrow title={tooltipInfoContent} placement="top-end">
-                <img className={clsx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
+                <img className={cx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
               </Tooltip>
             ) : null}
           </div>
@@ -89,3 +104,5 @@ export const Button: FC<Props> = observer(
     )
   },
 )
+
+// export const Button = withStyles(ButtonRaw, styles)

@@ -1,8 +1,8 @@
 import {tooltipClasses} from '@mui/material/Tooltip'
 
-const {makeStyles} = require('@material-ui/core')
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   boxWrapper: {
     padding: '20px 30px',
     margin: '0 2px',
@@ -12,6 +12,7 @@ export const useClassNames = makeStyles(() => ({
     justifyContent: 'space-between',
   },
   buttonsWrapper: {},
+
   currentBox: {
     marginBottom: '20px',
     width: '690px',
@@ -60,7 +61,7 @@ export const useClassNames = makeStyles(() => ({
   categoryTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: '600',
     marginBottom: '12px',
   },
@@ -155,6 +156,8 @@ export const useClassNames = makeStyles(() => ({
     maxWidth: '325px',
     whiteSpace: 'nowrap',
     overflowX: 'auto',
+
+    color: theme.palette.text.general,
   },
 
   checkboxContainer: {
@@ -248,7 +251,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   sectionTitleWrapper: {
     marginBottom: '20px',
@@ -275,25 +278,25 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 400,
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   photoAndFilesTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: '600',
   },
   label: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: 400,
   },
   labelShipping: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: 400,
   },
   footerWrapper: {
@@ -305,14 +308,14 @@ export const useClassNames = makeStyles(() => ({
   barCodeField: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     fontWeight: '400',
   },
 
   subTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: 600,
   },
   copyImg: {
@@ -358,7 +361,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 400,
-    color: '#001029',
+    color: theme.palette.text.general,
     marginTop: '90px',
   },
 
@@ -389,7 +392,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   selectedLabel: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   selectedIndicator: {
     backgroundColor: '#006CFF',
@@ -421,6 +424,10 @@ export const useClassNames = makeStyles(() => ({
     marginRight: 30,
   },
 
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
   '@media (max-width: 768px)': {
     boxesWrapper: {
       flexDirection: 'column',
@@ -438,7 +445,7 @@ export const useClassNames = makeStyles(() => ({
     smallLabel: {
       fontSize: '14px',
       lineHeight: '19px',
-      color: '#656565',
+      color: theme.palette.text.second,
     },
     boxWrapper: {
       padding: '20px 20px',

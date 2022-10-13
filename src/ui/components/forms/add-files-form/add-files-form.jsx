@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import {Box, Typography} from '@mui/material'
 
-import {Box, Typography} from '@material-ui/core'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -12,7 +12,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './add-files-form.style'
 
 export const AddFilesForm = ({item, allItemsArray, setAllItemsArray, onCloseModal}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [editingItem, setEditingItem] = useState(item)
 
@@ -35,9 +35,7 @@ export const AddFilesForm = ({item, allItemsArray, setAllItemsArray, onCloseModa
   return (
     <div className={classNames.root}>
       <Box className={classNames.boxCode}>
-        <Typography className={(classNames.modalText, classNames.typoCode)}>
-          {t(TranslationKey['Add files'])}
-        </Typography>
+        <Typography className={classNames.modalText}>{t(TranslationKey['Add files'])}</Typography>
 
         <div className={classNames.imageFileInputWrapper}>
           <UploadFilesInput withoutTitle images={editingItem.tmpImages} setImages={setImagesOfItem} maxNumber={50} />

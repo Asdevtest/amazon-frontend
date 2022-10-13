@@ -1,6 +1,7 @@
-import {Button, Checkbox, TableCell, TableRow} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
+import {cx} from '@emotion/css'
+import {Button, Checkbox, TableCell, TableRow} from '@mui/material'
+
+import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -35,7 +36,7 @@ const ExchangeRequestsBodyRowRaw = ({item, itemIndex, handlers, selectedRequests
         />
       </TableCell>
       {Object.entries(item).map(([key, value], index) => (
-        <TableCell key={`${index}${key}-${value}`} className={clsx({[classNames.alignRight]: isNumber(value)})}>
+        <TableCell key={`${index}${key}-${value}`} className={cx({[classNames.alignRight]: isNumber(value)})}>
           {renderCell(key, value)}
         </TableCell>
       ))}
@@ -53,4 +54,4 @@ const ExchangeRequestsBodyRowRaw = ({item, itemIndex, handlers, selectedRequests
   )
 }
 
-export const ExchangeRequestsBodyRow = withStyles(styles)(ExchangeRequestsBodyRowRaw)
+export const ExchangeRequestsBodyRow = withStyles(ExchangeRequestsBodyRowRaw, styles)

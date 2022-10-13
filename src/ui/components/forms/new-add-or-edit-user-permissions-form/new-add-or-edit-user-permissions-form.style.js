@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '674px',
     height: '619px',
@@ -70,7 +70,7 @@ export const useClassNames = makeStyles(() => ({
     height: '40px',
   },
   cancelBtn: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   multiline: {
     width: '100%',
@@ -151,6 +151,16 @@ export const useClassNames = makeStyles(() => ({
     '&:hover': {
       transform: 'scale(1.01)',
     },
+
+    color: theme.palette.text.general,
+  },
+
+  rightSideTitle: {
+    color: theme.palette.text.general,
+  },
+
+  permissionItem: {
+    color: theme.palette.text.general,
   },
 
   permissionGroupsToSelectCheckboxWrapper: {
@@ -169,7 +179,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   keyPermission: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     fontWeight: 'bold',
   },
 
@@ -192,7 +202,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   tab: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     textTransform: 'inherit',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
   },
@@ -220,7 +230,7 @@ export const useClassNames = makeStyles(() => ({
   },
   selectedValue: {
     marginLeft: '5px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   details: {
     height: '53vh',

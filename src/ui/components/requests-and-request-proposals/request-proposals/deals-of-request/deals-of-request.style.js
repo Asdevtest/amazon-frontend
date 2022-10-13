@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '100%',
     display: 'flex',
@@ -17,14 +17,14 @@ export const useClassNames = makeStyles(() => ({
 
   accordion: {
     width: '100%',
-    backgroundColor: 'red',
+    // backgroundColor: theme.palette,
   },
 
   title: {
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '21px',
-    color: '#354256',
+    color: theme.palette.text.second,
   },
 
   dealWrapper: {
@@ -109,7 +109,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '21px',
-    color: '#0460DE',
+    color: theme.palette.primary.main,
   },
 
   blockInfoStatusWrapper: {
@@ -125,14 +125,18 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     fontWeight: '400',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   reviews: {
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 }))

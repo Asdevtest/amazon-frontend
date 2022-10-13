@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -14,7 +15,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './add-or-edit-shop-form.style'
 
 export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const sourceFormFields = {
     name: shopToEdit?.name || '',
@@ -87,7 +88,7 @@ export const AddOrEditShopForm = observer(({onCloseModal, onSubmit, shopToEdit})
         <Button
           disableElevation
           tooltipInfoContent={t(TranslationKey['Closes the store creation/editing window without saving'])}
-          className={clsx(classNames.button, classNames.cancelBtn)}
+          className={cx(classNames.button, classNames.cancelBtn)}
           onClick={() => onCloseModal()}
         >
           {t(TranslationKey.Cancel)}

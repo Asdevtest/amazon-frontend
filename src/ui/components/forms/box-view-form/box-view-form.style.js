@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -15,7 +15,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   titleWrapper: {
@@ -118,7 +118,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     flexWrap: 'wrap',
     width: '225px',
-    color: '#001029',
+    color: theme.palette.text.general,
     // overflow: 'auto',
 
     marginBottom: '20px',
@@ -128,6 +128,12 @@ export const useClassNames = makeStyles(() => ({
     maxWidth: '200px',
     whiteSpace: 'nowrap',
     overflowX: 'auto',
+
+    color: theme.palette.text.second,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 
   labelsInfoWrapper: {
@@ -197,7 +203,7 @@ export const useClassNames = makeStyles(() => ({
       fontSize: '16px',
       lineHeight: '19px',
       fontWeight: '400',
-      color: '#656565',
+      color: theme.palette.text.second,
     },
   },
 
@@ -230,7 +236,7 @@ export const useClassNames = makeStyles(() => ({
   label: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   sizesLabel: {
     fontSize: '14px',
@@ -239,7 +245,7 @@ export const useClassNames = makeStyles(() => ({
     cursor: 'pointer',
   },
   selectedLabel: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   selectedIndicator: {
     backgroundColor: '#006CFF',
@@ -256,7 +262,7 @@ export const useClassNames = makeStyles(() => ({
     height: '10px',
   },
   normalizeLink: {
-    color: '#007bff',
+    color: theme.palette.primary.main,
     textDecoration: 'none',
     transition: '.3s ease',
     '&:hover': {
@@ -265,16 +271,20 @@ export const useClassNames = makeStyles(() => ({
   },
   linkSpan: {
     marginLeft: 10,
-    color: '#007bff',
+    color: theme.palette.primary.main,
   },
   typoSpan: {
     marginLeft: 10,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   copyAsin: {
     display: 'flex',
     gap: '5px',
     alignItems: 'center',
+  },
+
+  batchId: {
+    color: theme.palette.text.second,
   },
 
   '@media (max-width: 768px)': {

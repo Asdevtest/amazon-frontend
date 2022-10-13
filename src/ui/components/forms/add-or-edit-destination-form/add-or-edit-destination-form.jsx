@@ -1,6 +1,7 @@
+import {Typography} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -13,7 +14,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './add-or-edit-destination-form.style'
 
 export const AddOrEditDestinationForm = observer(({onCloseModal, onCreateSubmit, onEditSubmit, destinationToEdit}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const sourceFormFields = {
     name: destinationToEdit?.name || '',

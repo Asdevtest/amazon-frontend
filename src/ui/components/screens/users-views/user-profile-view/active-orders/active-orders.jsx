@@ -1,7 +1,7 @@
-import React from 'react'
+import {cx} from '@emotion/css'
+import {Tab, Tabs, Typography, Table, TableBody, TableHead, TableContainer, Paper} from '@mui/material'
 
-import {Tab, Tabs, Typography, Table, TableBody, TableHead, TableContainer, Paper} from '@material-ui/core'
-import clsx from 'clsx'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -11,7 +11,7 @@ import {useClassNames} from './active-orders.style'
 import {ExchangeProductItem} from './exchange-product-item'
 
 export const ActiveOrders = ({tabExchange, setTabExchange, productList, handlerClickButtonPrivateLabel}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const renderProductList =
     productList.length === 0 ? (
@@ -52,7 +52,7 @@ export const ActiveOrders = ({tabExchange, setTabExchange, productList, handlerC
           onChange={(e, newValue) => setTabExchange(newValue)}
         >
           <Tab
-            className={clsx(classNames.text, {
+            className={cx(classNames.text, {
               [classNames.selected]: tabExchange === 0,
             })}
             index={0}

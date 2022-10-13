@@ -1,6 +1,6 @@
-import React from 'react'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
+import React from 'react'
 
 import {Button} from '@components/buttons/button'
 import {Modal} from '@components/modal'
@@ -18,12 +18,14 @@ export const TwoVerticalChoicesModal = ({
   tooltipFirstButton,
   tooltipSecondButton,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={classNames.modalMessageWrapper}>
-        <Typography variant="h5">{title}</Typography>
+        <Typography variant="h5" className={classNames.title}>
+          {title}
+        </Typography>
 
         <div className={classNames.resultButtonsWrapper}>
           <Button
@@ -35,7 +37,13 @@ export const TwoVerticalChoicesModal = ({
           >
             {topBtnText}
           </Button>
-          <Button tooltipInfoContent={tooltipSecondButton} color="primary" variant="text" onClick={onClickBottomBtn}>
+          <Button
+            tooltipInfoContent={tooltipSecondButton}
+            color="primary"
+            variant="text"
+            className={classNames.bottomBtnText}
+            onClick={onClickBottomBtn}
+          >
             {bottomBtnText}
           </Button>
         </div>

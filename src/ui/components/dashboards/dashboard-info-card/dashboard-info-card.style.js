@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     height: '120px',
     minWidth: '320px',
@@ -15,7 +15,7 @@ export const useClassNames = makeStyles({
     fontWeight: 500,
     fontSize: '16px',
     lineHeight: '19px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
   },
   titleWrapper: {
     position: 'relative',
@@ -32,7 +32,7 @@ export const useClassNames = makeStyles({
     padding: '10px 10px 0 0',
     '&:hover': {
       backgroundColor: 'inherit',
-      color: '#006CFF',
+      color: theme.palette.primary.main,
     },
   },
   subTitleWrapper: {
@@ -61,6 +61,6 @@ export const useClassNames = makeStyles({
     fontSize: '20px',
     fontWeight: 700,
     lineHeight: '21px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
   },
-})
+}))

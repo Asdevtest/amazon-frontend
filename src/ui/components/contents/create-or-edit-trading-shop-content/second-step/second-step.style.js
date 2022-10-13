@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainContentWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -42,7 +42,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '34px',
     lineHeight: '40px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   headerWrapper: {
@@ -60,7 +60,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginTop: '30px',
     // width: '373px',
   },
@@ -69,7 +69,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginTop: '20px',
   },
 
@@ -209,20 +209,20 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 'bold',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   chartSubLabel: {
     fontWeight: '600',
     fontSize: '14px',
     lineHeight: '17px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   chartLabel: {
     fontSize: '16px',
     lineHeight: '22px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   filesContainer: {
@@ -232,7 +232,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   linkText: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
     whiteSpace: 'nowrap',
@@ -290,7 +290,7 @@ export const useClassNames = makeStyles(() => ({
     lineHeight: '140%',
     fontWeight: '600',
     marginBottom: '22px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   adviceListItem: {
     padding: '0',
@@ -301,7 +301,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   trainingTextWrapper: {
@@ -316,7 +316,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   trainingLink: {
@@ -339,7 +339,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   mainTwoStepWrapper: {
@@ -351,9 +351,9 @@ export const useClassNames = makeStyles(() => ({
     height: '100%',
     width: '100%',
     padding: '0',
-    backgroundColor: '#fafafa',
+    // backgroundColor: theme.palette.,
     '& :disabled': {
-      backgroundColor: '#fafafa',
+      // backgroundColor: theme.palette.,
       height: '100%',
     },
   },
@@ -394,7 +394,7 @@ export const useClassNames = makeStyles(() => ({
       display: 'block',
       position: 'absolute',
       textAlign: 'center',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -442,7 +442,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '10px',
   },
 
@@ -450,14 +450,14 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   documentEmpty: {
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginTop: '10px',
   },
 
@@ -514,7 +514,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   assetsPaper: {
@@ -532,7 +532,7 @@ export const useClassNames = makeStyles(() => ({
     padding: '0 5px',
     borderRadius: '4px',
     marginBottom: '10px',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
   },
 
   indicatorWrapper: {
@@ -544,7 +544,7 @@ export const useClassNames = makeStyles(() => ({
     // padding: '0 5px',
     borderRadius: '4px',
     marginBottom: '10px',
-    // backgroundColor: '#fafafa',
+    // // backgroundColor: theme.palette.,
   },
 
   assetInputWrapper: {
@@ -618,7 +618,7 @@ export const useClassNames = makeStyles(() => ({
   indicatorInput: {
     // width: 70,
     // margin: '0 5px',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
   },
 
   subLabelWrapper: {
@@ -673,7 +673,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: 14,
     whiteSpace: 'nowrap',
 
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   totalContainer: {
@@ -691,7 +691,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 600,
     fontSize: 18,
 
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   profitWrapper: {

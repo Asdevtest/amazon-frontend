@@ -1,10 +1,6 @@
 /* eslint-disable no-unused-vars */
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import SearchIcon from '@mui/icons-material/Search'
-import {DataGrid} from '@mui/x-data-grid'
-
-import React, {useEffect, useState} from 'react'
-
 import {
   Accordion,
   AccordionDetails,
@@ -15,7 +11,11 @@ import {
   Radio,
   RadioGroup,
   Typography,
-} from '@material-ui/core'
+} from '@mui/material'
+import {DataGrid} from '@mui/x-data-grid'
+
+import React, {useEffect, useState} from 'react'
+
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -35,7 +35,7 @@ const accessProductSettings = {
 
 export const AccessToProductForm = observer(
   ({isReady, shop, shops, selectedShop, updatedProducts, onClickToShowDetails, setShopDataToRender}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [curProdutsData, setCurProdutsData] = useState(updatedProducts || null)
 
@@ -176,11 +176,11 @@ export const AccessToProductForm = observer(
                     hideFooter
                     disableSelectionOnClick
                     checkboxSelection={selectedAccess === accessProductSettings.NEED_SELECT}
-                    sx={{
-                      border: 0,
-                      boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                      backgroundColor: '#fff',
-                    }}
+                    // sx={{
+                    //   border: 0,
+                    //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                    //   backgroundColor: theme.palette.background.main,
+                    // }}
                     rows={toJS(curProdutsData)}
                     columns={sourceColumns()}
                     rowHeight={65}

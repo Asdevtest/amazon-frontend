@@ -1,55 +1,55 @@
-import {createStyles} from '@material-ui/styles'
+export const styles = theme => ({
+  root: {
+    height: '32px',
+    width: '100%',
+    // border: '1px solid rgba(217, 222, 229, 1)',
+    borderRadius: '4px',
+    flexShrink: '0',
+    '&$disabled': {
+      backgroundColor: '#e4e7ea',
+    },
+  },
+  input: {
+    paddingLeft: '8px',
+    paddingRight: '8px',
+    color: theme.palette.text.general,
 
-export const styles = () =>
-  createStyles({
-    root: {
-      height: '32px',
-      width: '100%',
-      border: '1px solid rgba(217, 222, 229, 1)',
+    '&:-webkit-autofill': {
       borderRadius: '4px',
-      flexShrink: '0',
-      '&$disabled': {
-        backgroundColor: '#e4e7ea',
-      },
     },
-    input: {
-      paddingLeft: '8px',
-      paddingRight: '8px',
-      color: 'rgba(61, 81, 112, 1)',
+  },
+  focused: {
+    border: '1px solid rgba(0, 123, 255, 1)',
+  },
+  disabled: {
+    backgroundColor: theme.palette.input.disabled,
+  },
+})
 
-      '&:-webkit-autofill': {
-        borderRadius: '4px',
-      },
+export const stylesWithIcon = theme => ({
+  root: {
+    height: '32px',
+    width: '100%',
+    // border: '1px solid rgba(217, 222, 229, 1)',
+    borderRadius: '4px',
+    flexShrink: '0',
+    '&$disabled': {
+      backgroundColor: '#e4e7ea',
     },
-    focused: {
-      border: '1px solid rgba(0, 123, 255, 1)',
-    },
-    disabled: {},
-  })
+  },
+  input: {
+    paddingLeft: '40px',
+    paddingRight: '40px',
+    color: theme.palette.text.general,
 
-export const stylesWithIcon = () =>
-  createStyles({
-    root: {
-      height: '32px',
-      width: '100%',
-      border: '1px solid rgba(217, 222, 229, 1)',
+    '&:-webkit-autofill': {
       borderRadius: '4px',
-      flexShrink: '0',
-      '&$disabled': {
-        backgroundColor: '#e4e7ea',
-      },
     },
-    input: {
-      paddingLeft: '40px',
-      paddingRight: '40px',
-      color: 'rgba(61, 81, 112, 1)',
-
-      '&:-webkit-autofill': {
-        borderRadius: '4px',
-      },
-    },
-    focused: {
-      border: '1px solid rgba(0, 123, 255, 1)',
-    },
-    disabled: {},
-  })
+  },
+  focused: {
+    border: '1px solid rgba(0, 123, 255, 1)',
+  },
+  disabled: {
+    backgroundColor: theme.palette.input.disabled,
+  },
+})

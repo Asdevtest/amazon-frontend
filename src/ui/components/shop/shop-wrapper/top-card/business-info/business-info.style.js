@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   businessInfoWrapper: {
     height: '100%',
     display: 'flex',
@@ -12,18 +12,18 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   businessInfoDate: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   businessInfoDateAgo: {
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 400,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   assetsListItem: {
     padding: 0,
@@ -37,6 +37,6 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 }))

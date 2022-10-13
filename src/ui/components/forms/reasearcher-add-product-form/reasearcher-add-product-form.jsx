@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
+import {Box, NativeSelect, TextareaAutosize, Typography, Alert} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Box, NativeSelect, TextareaAutosize, Typography} from '@material-ui/core'
-import {Alert} from '@material-ui/lab'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {
@@ -59,6 +60,25 @@ export const ResearcherAddProductFormRaw = observer(
                 onChange={onChangeFormFields('productCode')}
               />
             </div>
+
+            {/* {errorMsg ? (
+              <div className={classNames.alert}>
+                {errorMessagesTranslate(errorMsg)}
+                {reasonErrorMsg ? (
+                  <>
+                    <Typography className={classNames.reasonTitleAlert}>{`${t(TranslationKey.Reason)}:`}</Typography>
+                    <TextareaAutosize
+                      className={classNames.alertMessage}
+                      value={errorMessagesTranslate(reasonErrorMsg)}
+                    />
+                  </>
+                ) : null}
+              </div>
+            ) : undefined}
+            {!errorMsg && actionStatus === loadingStatuses.success ? (
+              <Typography className={classNames.alert}>{t(TranslationKey['Operation complete'])}</Typography>
+            ) : undefined} */}
+
             {errorMsg ? (
               <Alert classes={{root: classNames.alert}} elevation={0} severity="error">
                 {errorMessagesTranslate(errorMsg)}
@@ -74,7 +94,7 @@ export const ResearcherAddProductFormRaw = observer(
               </Alert>
             ) : undefined}
             {!errorMsg && actionStatus === loadingStatuses.success ? (
-              <Alert className={classNames.alert} elevation={0} severity="success">
+              <Alert className={classNames.alert} elevation={5} severity="success">
                 {t(TranslationKey['Operation complete'])}
               </Alert>
             ) : undefined}
@@ -88,16 +108,25 @@ export const ResearcherAddProductFormRaw = observer(
                     // disabled={errorMsg}
                     value={formFields.strategyStatus}
                     className={classNames.nativeSelect}
-                    input={<Input />}
+                    input={
+                      <Input
+                        classes={{
+                          input: classNames.input,
+                          disabled: classNames.inputDisabled,
+                        }}
+                      />
+                    }
                     onChange={onChangeFormFields('strategyStatus')}
                     onClick={() => setDisabledAddButton(true)}
                   >
-                    <option value={''}>{t(TranslationKey['not selected'])}</option>
+                    <option value={''} className={classNames.selectOption}>
+                      {t(TranslationKey['not selected'])}
+                    </option>
 
                     {Object.keys(mapProductStrategyStatusEnum)
                       .filter(el => user.allowedStrategies.includes(Number(el)))
                       .map((statusCode, statusIndex) => (
-                        <option key={statusIndex} value={statusCode}>
+                        <option key={statusIndex} value={statusCode} className={classNames.selectOption}>
                           {mapProductStrategyStatusEnum[statusCode]?.replace(/_/g, ' ')}
                         </option>
                       ))}
@@ -112,7 +141,6 @@ export const ResearcherAddProductFormRaw = observer(
                 tooltipInfoContent={t(
                   TranslationKey['Checking Amazon ID number for uniqueness and absence in the database'],
                 )}
-                className={classNames.button}
                 onClick={() => {
                   onClickCheckBtn()
                   setDisabledAddButton(false)
@@ -121,9 +149,9 @@ export const ResearcherAddProductFormRaw = observer(
                 {t(TranslationKey.Check)}
               </Button>
               <Button
+                success
                 tooltipInfoContent={t(TranslationKey['Create a product card based on an Amazon ID number'])}
                 disabled={chekedCode === '' || errorMsg || formFields.strategyStatus < 10 || disableAddButton}
-                className={classNames.addBtn}
                 onClick={onClickAddBtn}
               >
                 {t(TranslationKey['Add a product card'])}
@@ -210,4 +238,4 @@ export const ResearcherAddProductFormRaw = observer(
   },
 )
 
-export const ResearcherAddProductForm = withStyles(styles)(ResearcherAddProductFormRaw)
+export const ResearcherAddProductForm = withStyles(ResearcherAddProductFormRaw, styles)

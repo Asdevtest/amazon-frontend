@@ -1,17 +1,19 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   label: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    // color: theme.palette.text.general,
     fontWeight: '600',
+
+    color: theme.palette.text.general,
   },
   input: {
     width: '100%',
   },
   text: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '22px',
@@ -29,7 +31,7 @@ export const useClassNames = makeStyles(() => ({
   title: {
     fontSize: '24px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontWeight: '500',
     textAlign: 'center',
     marginBottom: '24px',
@@ -38,11 +40,11 @@ export const useClassNames = makeStyles(() => ({
     border: '1px solid rgb(224, 224, 224)',
     '& td': {
       flexShrink: 0,
-      color: 'rgba(61, 81, 112, 1)',
+      color: theme.palette.text.general,
       borderBottom: 'none',
     },
     '& th': {
-      color: 'rgba(61, 81, 112, 1)',
+      color: theme.palette.text.general,
       fontWeight: 700,
       lineHeight: '15px',
       fontSize: '15px',
@@ -109,6 +111,9 @@ export const useClassNames = makeStyles(() => ({
   },
   heightFieldAuto: {
     height: 'auto',
+
+    padding: 0,
+    border: 'none',
   },
   buttonsWrapper: {
     display: 'flex',
@@ -126,7 +131,7 @@ export const useClassNames = makeStyles(() => ({
     height: '350px',
   },
   carouselImageWrapper: {
-    // width: '100%',
+    // width: '300px',
     height: '300px',
     display: 'flex',
     alignItems: 'center',
@@ -154,6 +159,8 @@ export const useClassNames = makeStyles(() => ({
 
   supplierTitle: {
     marginBottom: '5px',
+
+    color: theme.palette.text.general,
   },
 
   supplierActionsWrapper: {
@@ -199,6 +206,8 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '12px',
     lineHeight: '14px',
     fontWeight: '400',
-    color: '#656565',
+    // color: theme.palette.text.second,
+
+    color: theme.palette.text.second,
   },
 }))

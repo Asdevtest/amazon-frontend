@@ -1,11 +1,10 @@
+import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+import {IconButton, Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
-
-import {IconButton, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -29,7 +28,7 @@ export const TabMainContent = ({
   setProxyArr,
   proxyArr,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const [proxy, setProxy] = useState('')
   const [error, setError] = useState(false)
   const [showFullCard, setShowFullCard] = useState(false)
@@ -112,7 +111,7 @@ export const TabMainContent = ({
           </Button>
         </div>
         <div
-          className={clsx(classNames.proxiesWrapper, {
+          className={cx(classNames.proxiesWrapper, {
             [classNames.halfProxiesWrapper]: !showFullCard,
           })}
         >
@@ -120,7 +119,7 @@ export const TabMainContent = ({
             proxyArr.map((proxy, index) => (
               <div key={index} className={classNames.proxyWrapper}>
                 <div className={classNames.proxySubWrapper}>
-                  <Typography className={clsx(classNames.proxy, {[classNames.unselectable]: disabled})}>
+                  <Typography className={cx(classNames.proxy, {[classNames.unselectable]: disabled})}>
                     {proxy.length > 32 ? proxy.slice(0, 32) + '...' : proxy}
                   </Typography>
                   <CopyValue text={proxy} disabled={disabled} />
@@ -136,10 +135,10 @@ export const TabMainContent = ({
         </div>
         {proxyArr.length > 5 ? (
           <div
-            className={clsx(classNames.tablePanelSortWrapper, {[classNames.disabledTablePanelSortWrapper]: disabled})}
+            className={cx(classNames.tablePanelSortWrapper, {[classNames.disabledTablePanelSortWrapper]: disabled})}
             onClick={() => !disabled && setShowFullCard(!showFullCard)}
           >
-            <Typography className={clsx(classNames.tablePanelViewText, {[classNames.unselectable]: disabled})}>
+            <Typography className={cx(classNames.tablePanelViewText, {[classNames.unselectable]: disabled})}>
               {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey['View all'])}
             </Typography>
 

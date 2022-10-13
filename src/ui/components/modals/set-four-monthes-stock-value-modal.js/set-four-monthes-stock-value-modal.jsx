@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import {cx} from '@emotion/css'
+import {Box, Container, Typography} from '@mui/material'
 
-import {Box, Container, Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -14,7 +14,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './set-four-monthes-stock-value-modal.style'
 
 export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selectedProduct}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [newValue, setNewValue] = useState(selectedProduct?.fourMonthesStock || 0)
   // const [error, setError] = useState(false)
@@ -46,7 +46,7 @@ export const SetFourMonthesStockModal = ({title, onSubmit, onCloseModal, selecte
         onChange={e => checkIsPositiveNum(e.target.value) && setNewValue(e.target.value)}
       />
       <div className={classNames.errorWrapper}>
-        <span className={clsx(newValue > 99999 && classNames.error)}>{`${t(
+        <span className={cx(newValue > 99999 && classNames.error)}>{`${t(
           TranslationKey['Maximum value'],
         )} 99999`}</span>
       </div>

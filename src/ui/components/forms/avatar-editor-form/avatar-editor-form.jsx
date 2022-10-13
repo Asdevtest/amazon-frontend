@@ -1,10 +1,14 @@
+import {cx} from '@emotion/css'
+import {Typography, Avatar as AvatarMui} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {Typography, Avatar as AvatarMui} from '@material-ui/core'
-import clsx from 'clsx'
 import Avatar from 'react-avatar-edit'
 
+import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
+
+import {SettingsModel} from '@models/settings-model'
 
 import {Button} from '@components/buttons/button'
 import {WarningInfoModal} from '@components/modals/warning-info-modal'
@@ -14,7 +18,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './avatar-editor-form.style'
 
 export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [showInfoModal, setShowInfoModal] = useState(false)
 
@@ -57,18 +61,22 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h4">{t(TranslationKey.Load)}</Typography>
+      <Typography variant="h4" className={classNames.mainTitle}>
+        {t(TranslationKey.Load)}
+      </Typography>
 
       <div className={classNames.mainWrapper}>
         <Avatar
           width={320}
           height={210}
+          // labelStyle={classNames.labelStyle}
           labelStyle={{
             width: '100%',
-            backgroundColor: '#EBEBEB',
+            backgroundColor: SettingsModel.uiTheme === UiTheme.light ? '#EBEBEB' : '#36363F',
             textAlign: 'center',
             transition: '0.3s ease',
             cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
+            color: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
           }}
           borderStyle={{
             border: ' 3px dashed rgba(0,123, 255, .7)',
@@ -89,12 +97,12 @@ export const AvatarEditorForm = ({onSubmit, onCloseModal}) => {
       </div>
 
       <div className={classNames.textsWrapper}>
-        <Typography className={clsx({[classNames.successText]: state.preview})}>
+        <Typography className={cx(classNames.standartText, {[classNames.successText]: state.preview})}>
           {t(TranslationKey['The image size should not exceed'])}{' '}
           {<span className={classNames.spanText}>{'15 mb.'}</span>}
         </Typography>
 
-        <Typography className={clsx({[classNames.successText]: state.preview})}>
+        <Typography className={cx(classNames.standartText, {[classNames.successText]: state.preview})}>
           {t(TranslationKey['Allowed image formats'])}
           {'('}
           {<span className={classNames.spanText}>{`'jpeg', 'jpg', 'png', 'webp', 'gif', 'ico', 'svg', 'avif'`}</span>}

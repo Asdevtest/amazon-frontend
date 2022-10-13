@@ -1,6 +1,7 @@
+import {TextareaAutosize, Typography} from '@mui/material'
+
 import React, {useEffect, useRef} from 'react'
 
-import {TextareaAutosize, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 import {useHistory} from 'react-router-dom'
 
@@ -17,7 +18,7 @@ import {UserSettingsModel} from './user-settings-form.model'
 import {useClassNames} from './user-settings-form.style'
 
 export const UserSettingsForm = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const asModel = useRef(new UserSettingsModel({history}))
 

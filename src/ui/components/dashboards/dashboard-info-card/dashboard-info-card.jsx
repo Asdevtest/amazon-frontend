@@ -1,4 +1,5 @@
-import {Paper, Typography} from '@material-ui/core'
+import {Paper, Typography} from '@mui/material'
+
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -13,7 +14,7 @@ import {useClassNames} from './dashboard-info-card.style'
 
 export const DashboardInfoCard = observer(
   ({color, title, value, route, onClickViewMore, sectionIndex, sectionSubIndex, dataGridFilter}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     return (
       SettingsModel.languageTag && (

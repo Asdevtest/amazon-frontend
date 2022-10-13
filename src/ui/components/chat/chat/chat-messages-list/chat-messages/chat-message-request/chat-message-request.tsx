@@ -1,7 +1,7 @@
-import React, {FC} from 'react'
+import {cx} from '@emotion/css'
+import {TextareaAutosize} from '@mui/material'
 
-import {TextareaAutosize} from '@material-ui/core'
-import clsx from 'clsx'
+import React, {FC} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -23,7 +23,7 @@ interface Props {
 }
 
 export const ChatMessageRequest: FC<Props> = ({message}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <div className={classNames.root}>
@@ -54,7 +54,7 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
               bgColor="green"
             />
           </div>
-          <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
+          <div className={cx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
             <LabelValuePairBlock
               label={t(TranslationKey.Status)}
               value={<RequestStatusCell status={message.data?.status} />}
@@ -62,7 +62,7 @@ export const ChatMessageRequest: FC<Props> = ({message}) => {
             />
           </div>
 
-          <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
+          <div className={cx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
             <LabelValuePairBlock
               label={t(TranslationKey['Total price'])}
               value={toFixedWithDollarSign(message.data?.price, 2)}

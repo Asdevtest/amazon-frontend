@@ -165,8 +165,4 @@ export class AdminOrdersAllViewModel {
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
   }
-
-  onChangeCurPage(e) {
-    this.curPage = e
-  }
 }

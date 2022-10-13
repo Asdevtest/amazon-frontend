@@ -1,9 +1,8 @@
-import {Link} from '@mui/material'
+import {cx} from '@emotion/css'
+import {Avatar, Typography, Link} from '@mui/material'
 
 import React, {FC, useEffect} from 'react'
 
-import {Avatar, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import ScrollView from 'react-inverted-scrollview'
 
@@ -38,7 +37,7 @@ interface Props {
 }
 
 export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   useEffect(() => {
     const unReadMessages = messages?.filter(el => el.userId !== userId && !el.isRead)
@@ -105,7 +104,7 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
               return (
                 <div
                   key={`chatMessage_${messageItem._id}`}
-                  className={clsx(classNames.message /* {[classNames.unReadMessage]: unReadMessage}*/)}
+                  className={cx(classNames.message /* {[classNames.unReadMessage]: unReadMessage}*/)}
                 >
                   {index === 0 ||
                   formatDateWithoutTime(messages[index - 1].updatedAt) !==
@@ -118,7 +117,7 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                   ) : null}
 
                   <div
-                    className={clsx(classNames.messageWrapper, {
+                    className={cx(classNames.messageWrapper, {
                       [classNames.messageWrapperIsIncomming]: isIncomming,
                       [classNames.messageWrapperIsNextMessageSameAuthor]: isNextMessageSameAuthor,
                       [classNames.messageWrapperIsLastMessage]: isLastMessage,
@@ -136,7 +135,7 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                       >
                         <Avatar
                           src={getUserAvatarSrc(messageItem.userId)}
-                          className={clsx(classNames.messageAvatarWrapper, {
+                          className={cx(classNames.messageAvatarWrapper, {
                             [classNames.messageAvatarWrapperIsIncomming]: isIncomming,
                           })}
                         />
@@ -144,7 +143,7 @@ export const ChatMessagesList: FC<Props> = observer(({messages, userId, handlers
                     ) : null}
 
                     <div
-                      className={clsx(classNames.messageInner, {
+                      className={cx(classNames.messageInner, {
                         [classNames.messageInnerIsIncomming]: isIncomming,
                         [classNames.messageInnerIsNextMessageSameAuthor]: isNextMessageSameAuthor && !isIncomming,
                         [classNames.messageInnerIsNextMessageSameAuthorIsInclomming]:

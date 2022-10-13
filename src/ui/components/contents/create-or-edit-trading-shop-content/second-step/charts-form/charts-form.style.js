@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: 1100,
   },
@@ -52,14 +52,14 @@ export const useClassNames = makeStyles(() => ({
 
   selectionBtn: {
     fontSize: 18,
-    color: '#656565',
+    color: theme.palette.text.second,
     borderRadius: 0,
   },
 
   curSelectionBtn: {
     fontSize: 18,
 
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     borderBottom: '2px solid #006CFF',
   },
 }))

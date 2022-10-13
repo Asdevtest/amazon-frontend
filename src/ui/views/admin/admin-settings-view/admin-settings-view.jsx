@@ -1,6 +1,6 @@
 import {Component} from 'react'
 
-import {withStyles} from '@material-ui/styles'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -44,4 +44,4 @@ export class AdminSettingsViewRaw extends Component {
   }
 }
 
-export const AdminSettingsView = withStyles(styles)(AdminSettingsViewRaw)
+export const AdminSettingsView = withStyles(AdminSettingsViewRaw, styles)

@@ -2,8 +2,8 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
@@ -80,11 +80,11 @@ export class WarehouseVacantTasksViewRaw extends Component {
               <DataGrid
                 pagination
                 useResizeContainer
-                sx={{
-                  border: 0,
-                  boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
-                }}
+                // sx={{
+                //   border: 0,
+                //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                //   backgroundColor: theme.palette.background.main,
+                // }}
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
                   row: classNames.row,
@@ -143,4 +143,4 @@ export class WarehouseVacantTasksViewRaw extends Component {
   }
 }
 
-export const WarehouseVacantTasksView = withStyles(styles)(WarehouseVacantTasksViewRaw)
+export const WarehouseVacantTasksView = withStyles(WarehouseVacantTasksViewRaw, styles)

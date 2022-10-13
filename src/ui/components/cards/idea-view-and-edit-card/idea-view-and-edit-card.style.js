@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
     borderRadius: '4px',
@@ -84,6 +84,10 @@ export const useClassNames = makeStyles(() => ({
     marginLeft: '40px',
   },
 
+  cancelBtn: {
+    color: theme.palette.text.general,
+  },
+
   successBtn: {
     backgroundColor: '#4CAF50',
     '&:hover': {
@@ -129,7 +133,7 @@ export const useClassNames = makeStyles(() => ({
   tablePanelViewText: {
     fontSize: '20px',
     lineHeight: '23px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
 
     marginRight: '15px',
   },
@@ -277,7 +281,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   searchTitle: {
@@ -285,7 +289,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: 18,
     lineHeight: '140%',
 
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   criterionsField: {
@@ -296,8 +300,17 @@ export const useClassNames = makeStyles(() => ({
   supplierSearchTitle: {
     fontWeight: 600,
     fontSize: 18,
-    color: '#001029',
+    // color: theme.palette.text.general,
+    color: theme.palette.text.general,
   },
+  demensionsTitle: {
+    color: theme.palette.text.general,
+  },
+
+  noDataText: {
+    color: theme.palette.text.second,
+  },
+
   supplierActionsWrapper: {
     display: 'flex',
   },
@@ -330,7 +343,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '12px',
     lineHeight: '14px',
     fontWeight: '400',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   emptyBlock: {
@@ -341,6 +354,8 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'end',
     marginTop: '-20px',
+
+    color: theme.palette.text.second,
   },
   error: {
     color: 'red',

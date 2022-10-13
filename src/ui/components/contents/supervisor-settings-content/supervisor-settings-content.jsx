@@ -1,10 +1,9 @@
-import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
 import SearchIcon from '@mui/icons-material/Search'
+import {Box, Tabs, InputAdornment} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {useEffect, useRef} from 'react'
 
-import {Box, Tabs, InputAdornment} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -46,7 +45,6 @@ const TabPanel = ({children, value, index, ...other}) => (
 
 export const SupervisorSettingsContent = observer(() => {
   const [tabIndex, setTabIndex] = React.useState(tabsValues.ONLINE_ARBITRAGE_CHINA)
-  const tabItemStyles = twitterTabsStylesHook.useTabItem()
   const gpModel = useRef(new SupervisorSettingsContentModel({history, tabIndex}))
 
   const {
@@ -84,7 +82,7 @@ export const SupervisorSettingsContent = observer(() => {
     gpModel.current.loadData(tabIndex)
   }, [tabIndex])
 
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <React.Fragment>
@@ -99,13 +97,13 @@ export const SupervisorSettingsContent = observer(() => {
           setTabIndex(value)
         }}
       >
-        <ITab classes={tabItemStyles} value={tabsValues.ONLINE_ARBITRAGE_CHINA} label={'ONLINE ARBITRAGE CHINA'} />
+        <ITab value={tabsValues.ONLINE_ARBITRAGE_CHINA} label={'ONLINE ARBITRAGE CHINA'} />
 
-        <ITab classes={tabItemStyles} label={'DROPSHIPPING'} value={tabsValues.DROPSHIPPING} />
+        <ITab label={'DROPSHIPPING'} value={tabsValues.DROPSHIPPING} />
 
-        <ITab classes={tabItemStyles} label={'PRIVATE LABEL'} value={tabsValues.PRIVATE_LABEL} />
+        <ITab label={'PRIVATE LABEL'} value={tabsValues.PRIVATE_LABEL} />
 
-        <ITab classes={tabItemStyles} label={'WHOLE SALE USA'} value={tabsValues.WHOLE_SALE_USA} />
+        <ITab label={'WHOLE SALE USA'} value={tabsValues.WHOLE_SALE_USA} />
       </Tabs>
 
       <TabPanel value={tabIndex} index={tabsValues.ONLINE_ARBITRAGE_CHINA}>
@@ -144,7 +142,7 @@ export const SupervisorSettingsContent = observer(() => {
             useResizeContainer
             classes={{
               row: classNames.row,
-              root: classNames.rootDataGrid,
+              // root: classNames.rootDataGrid,
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
@@ -210,7 +208,7 @@ export const SupervisorSettingsContent = observer(() => {
             checkboxSelection
             classes={{
               row: classNames.row,
-              root: classNames.rootDataGrid,
+              // root: classNames.rootDataGrid,
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
@@ -276,7 +274,7 @@ export const SupervisorSettingsContent = observer(() => {
             checkboxSelection
             classes={{
               row: classNames.row,
-              root: classNames.rootDataGrid,
+              // root: classNames.rootDataGrid,
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,
@@ -342,7 +340,7 @@ export const SupervisorSettingsContent = observer(() => {
             checkboxSelection
             classes={{
               row: classNames.row,
-              root: classNames.rootDataGrid,
+              // root: classNames.rootDataGrid,
               footerContainer: classNames.footerContainer,
               footerCell: classNames.footerCell,
               toolbarContainer: classNames.toolbarContainer,

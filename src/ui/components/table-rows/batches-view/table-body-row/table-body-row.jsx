@@ -1,14 +1,14 @@
-import React from 'react'
+import {cx} from '@emotion/css'
+import {TableCell, TableRow} from '@mui/material'
 
-import {TableCell, TableRow} from '@material-ui/core'
-import clsx from 'clsx'
+import React from 'react'
 
 import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-double-click'
 
 import {useClassNames} from './table-body-row.style'
 
 export const TableBodyRow = ({item, itemIndex, handlers, selectedBatchIndex}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const boxQty = item.boxes.length
   const [handleClick, handleDoubleClick] = useClickPreventionOnDoubleClick(
     () => {
@@ -25,7 +25,7 @@ export const TableBodyRow = ({item, itemIndex, handlers, selectedBatchIndex}) =>
   return item.boxes.map((box, boxIndex) => (
     <TableRow
       key={boxIndex}
-      className={clsx(classNames.row, {
+      className={cx(classNames.row, {
         [classNames.boxLastRow]: boxIndex === boxQty - 1,
         [classNames.selected]: selectedBatchIndex === itemIndex,
       })}

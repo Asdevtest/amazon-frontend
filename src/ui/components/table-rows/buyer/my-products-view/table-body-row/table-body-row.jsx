@@ -1,12 +1,13 @@
+import {Button, Chip} from '@mui/material'
+import IconButton from '@mui/material/IconButton'
+import TableCell from '@mui/material/TableCell'
+import TableRow from '@mui/material/TableRow'
+import Typography from '@mui/material/Typography'
+
 import React from 'react'
 
-import {Button, Chip} from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton'
-import TableCell from '@material-ui/core/TableCell'
-import TableRow from '@material-ui/core/TableRow'
-import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {withStyles} from '@material-ui/styles'
+import {withStyles} from 'tss-react/mui'
 
 import {ProductStatusByCode} from '@constants/product-status'
 
@@ -92,4 +93,4 @@ const TableBodyRowRaw = ({item, itemIndex, handlers, ...restProps}) => {
   )
 }
 
-export const TableBodyRow = withStyles(styles)(TableBodyRowRaw)
+export const TableBodyRow = withStyles(TableBodyRowRaw, styles)

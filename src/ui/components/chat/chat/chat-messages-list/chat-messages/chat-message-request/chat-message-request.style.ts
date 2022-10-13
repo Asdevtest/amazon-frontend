@@ -1,9 +1,9 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
-    // backgroundColor: '#D9FAE5',
-    backgroundColor: '#fff',
+    // backgroundColor: theme.palette.background.green,
+    backgroundColor: theme.palette.background.main,
     padding: '40px 30px',
     width: '870px',
     margin: '0 auto',
@@ -20,7 +20,7 @@ export const useClassNames = makeStyles(() => ({
   },
   headerWrapper: {},
   headerText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
     fontWeight: 600,
   },
@@ -28,7 +28,7 @@ export const useClassNames = makeStyles(() => ({
     width: '50px',
   },
   timeText: {
-    color: '#656565',
+    color: theme.palette.text.second,
     fontSize: 14,
     lineHeight: '16px',
     fontWeight: 400,
@@ -41,14 +41,14 @@ export const useClassNames = makeStyles(() => ({
   },
   titleWrapper: {},
   titleText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   descriptionWrapper: {
     marginTop: 18,
   },
   descriptionText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   footerWrapper: {
@@ -67,7 +67,7 @@ export const useClassNames = makeStyles(() => ({
     marginTop: 20,
   },
   labelValueBlockWrapper: {
-    backgroundColor: '#D9FAE5',
+    // backgroundColor: theme.palette.background.green,
     width: '28%',
   },
   labelValueBlockWrapperNotFirst: {},
@@ -129,7 +129,7 @@ export const useClassNames = makeStyles(() => ({
   conditionsField: {
     border: 'none',
     resize: 'none',
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
     fontFamily: 'inherit',
     width: '305px',

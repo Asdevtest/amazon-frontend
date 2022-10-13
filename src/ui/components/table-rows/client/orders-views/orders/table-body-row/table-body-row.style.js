@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles({
+export const styles = theme => ({
   count: {
     fontSize: '13px',
     lineHeight: '15px',
@@ -50,7 +48,7 @@ export const styles = createStyles({
     color: 'rgb(189, 194, 209)',
   },
   select: {
-    backgroundColor: 'rgb(61, 81, 112)',
+    backgroundcolor: theme.palette.text.general,
     maxWidth: '200px',
   },
   barCode: {

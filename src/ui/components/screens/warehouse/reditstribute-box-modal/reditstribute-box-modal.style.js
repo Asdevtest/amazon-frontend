@@ -1,6 +1,6 @@
-const {makeStyles} = require('@material-ui/core')
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   boxesWrapper: {
     display: 'flex',
     gap: '40px',
@@ -20,7 +20,7 @@ export const useClassNames = makeStyles(theme => ({
 
   box: {
     width: 527,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.palette.background.second,
     boxShadow: 'inset 0px -4px 13px rgba(135, 135, 135, 0.15)',
     borderRadius: '4px',
     padding: '20px 17px',
@@ -45,10 +45,26 @@ export const useClassNames = makeStyles(theme => ({
     objectPosition: 'center',
   },
   sectionTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     lineHeight: '140%',
   },
+
+  footerTitle: {
+    color: theme.palette.text.second,
+  },
+  miss: {
+    color: theme.palette.text.second,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
+  deleteBtn: {
+    color: theme.palette.text.second,
+  },
+
   title: {
     fontSize: '14px',
     fontWeight: 400,
@@ -58,10 +74,12 @@ export const useClassNames = makeStyles(theme => ({
     // overflow: 'hidden',
     // textOverflow: 'ellipsis',
     // whiteSpace: 'wrap',
+
+    color: theme.palette.text.general,
   },
   subTitle: {
     fontSize: '14px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginRight: theme.spacing(1),
   },
 
@@ -76,8 +94,11 @@ export const useClassNames = makeStyles(theme => ({
     textAlign: 'center',
   },
   heightFieldAuto: {
-    height: '376px',
+    height: '420px',
     width: '330px',
+
+    padding: 0,
+    border: 'none',
   },
 
   itemWrapper: {
@@ -118,7 +139,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   barcodeChipExists: {
-    backgroundColor: 'rgb(61, 81, 112)',
+    backgroundcolor: theme.palette.text.general,
   },
 
   link: {
@@ -154,7 +175,7 @@ export const useClassNames = makeStyles(theme => ({
     alignItems: 'center',
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
     marginBottom: '10px',
   },
 
@@ -174,7 +195,7 @@ export const useClassNames = makeStyles(theme => ({
     padding: '0 25px',
   },
   cancelButton: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   bottomBlockWrapper: {
@@ -195,7 +216,7 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 400,
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   marginBox: {
@@ -206,17 +227,17 @@ export const useClassNames = makeStyles(theme => ({
   label: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   asinTitle: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   asinValue: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   copyImg: {
     width: '20px',

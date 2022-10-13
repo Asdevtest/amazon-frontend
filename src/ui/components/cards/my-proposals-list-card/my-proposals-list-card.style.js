@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
   },
@@ -34,7 +34,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     maxWidth: '420px',
     height: 50,
     marginBottom: '10px',
@@ -54,7 +54,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cardSubTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: '400',
@@ -65,6 +65,16 @@ export const useClassNames = makeStyles(() => ({
     marginBottom: '39px',
     overflow: 'auto',
     maxHeight: '90px',
+
+    color: theme.palette.text.second,
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
+  },
+
+  cancelBtn: {
+    color: theme.palette.text.general,
   },
 
   rightBlockWrapper: {
@@ -107,7 +117,7 @@ export const useClassNames = makeStyles(() => ({
   cardPrice: {
     fontSize: '18px',
     lineHeight: '21px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   statusText: {
@@ -137,7 +147,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   btnsWrapper: {
@@ -149,7 +159,7 @@ export const useClassNames = makeStyles(() => ({
 
   price: {
     marginLeft: '20px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
@@ -167,6 +177,8 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
+
+    color: theme.palette.text.second,
   },
 
   proposalFooter: {
@@ -256,7 +268,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginRight: '20px',
   },
 

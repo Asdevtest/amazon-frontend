@@ -1,7 +1,7 @@
-import React from 'react'
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
@@ -25,7 +25,7 @@ export const RequestToSendBatchesGroupBoxes = ({
   boxesDeliveryCosts,
   onClickRemoveBoxFromBatch,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const totalPrice = selectedGroup.boxes.reduce(
     (acc, cur) => (acc += boxesDeliveryCosts.find(priceObj => priceObj.guid === cur._id)?.deliveryCost),
@@ -51,13 +51,13 @@ export const RequestToSendBatchesGroupBoxes = ({
   const currentTariff = selectedGroup.logicsTariff?.conditionsByRegion?.[regionOfDeliveryName]?.rate
 
   return (
-    <div className={clsx(classNames.tableWrapper, {[classNames.tableAlertWrapper]: tariffIsInvalid})}>
+    <div className={cx(classNames.tableWrapper, {[classNames.tableAlertWrapper]: tariffIsInvalid})}>
       {selectedGroup.price !== 0 && (
         <div className={classNames.headerWrapper}>
           <div className={classNames.headerSubWrapper}>
             <Typography className={classNames.headerTitle}>{t(TranslationKey.Destination)}</Typography>
 
-            <Typography className={clsx(classNames.headerSpanText, classNames.textEllipsis)}>
+            <Typography className={cx(classNames.headerSpanText, classNames.textEllipsis)}>
               {selectedGroup.destination?.name}
             </Typography>
           </div>

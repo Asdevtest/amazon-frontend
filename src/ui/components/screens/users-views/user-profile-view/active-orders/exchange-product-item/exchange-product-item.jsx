@@ -1,6 +1,6 @@
-import React from 'react'
+import {Typography, TableRow, TableCell} from '@mui/material'
 
-import {Typography, TableRow, TableCell} from '@material-ui/core'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -11,7 +11,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './exchange-product-item.style'
 
 export const ExchangeProductItem = ({product, handlerPrivateLabel, index}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <TableRow>
       <TableCell>

@@ -1,10 +1,11 @@
+import {Button, Chip} from '@mui/material'
+import IconButton from '@mui/material/IconButton'
+import TableCell from '@mui/material/TableCell'
+import TableRow from '@mui/material/TableRow'
+import Typography from '@mui/material/Typography'
+
 import React from 'react'
 
-import {Button, Chip} from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton'
-import TableCell from '@material-ui/core/TableCell'
-import TableRow from '@material-ui/core/TableRow'
-import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import {ProductStatus, ProductStatusByCode} from '@constants/product-status'
@@ -17,7 +18,7 @@ import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-doubl
 import {useClassNames} from './table-body-row.style'
 
 export const TableBodyRow = ({item, itemIndex, handlers}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const [handleClick, handleDoubleClick] = useClickPreventionOnDoubleClick(
     () => {
       if (handlers.onClickTableRow) {

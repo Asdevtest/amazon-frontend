@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     // display: 'flex',
     // gap: '10px',
@@ -15,7 +15,7 @@ export const useClassNames = makeStyles(theme => ({
   balanceTitle: {
     fontSize: 46,
     lineHeight: '54px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   balanceFreeze: {
     fontSize: '34px',
@@ -28,6 +28,10 @@ export const useClassNames = makeStyles(theme => ({
     marginTop: '24px',
     width: '100%',
     height: '68vh',
+  },
+
+  cancelBtn: {
+    color: theme.palette.text.general,
   },
 
   redRow: {

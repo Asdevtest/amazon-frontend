@@ -1,6 +1,10 @@
-import {withStyles} from '@material-ui/core'
-import MuiButton from '@material-ui/core/Button'
+// import MuiButton from '@material-ui/core/Button'
+import {Button} from '@mui/material'
 
-import {styles} from './styled-button.style'
+// import {withStyles} from 'tss-react/mui'
 
-export const StyledButton = withStyles(styles)(MuiButton)
+// import {styles} from './styled-button.style'
+
+// export const StyledButton = withStyles(Button, styles)
+
+export const StyledButton = Button

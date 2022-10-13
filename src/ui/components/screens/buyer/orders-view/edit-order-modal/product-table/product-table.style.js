@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(() => ({
   tableContainer: {
     marginBottom: '40px',
   },
@@ -18,12 +18,10 @@ export const useClassNames = makeStyles(() => ({
   table: {
     '& td': {
       flexShrink: 0,
-      color: 'rgba(61, 81, 112, 1)',
       borderBottom: 'none',
       whiteSpace: 'nowrap',
     },
     '& th': {
-      color: 'rgba(61, 81, 112, 1)',
       fontWeight: 700,
       lineHeight: '15px',
       fontSize: '15px',
@@ -35,7 +33,6 @@ export const useClassNames = makeStyles(() => ({
   },
   orderChip: {
     backgroundColor: 'rgb(0, 123, 255)',
-    color: 'white',
     fontSize: '13px',
     borderRadius: '4px',
   },
@@ -44,12 +41,7 @@ export const useClassNames = makeStyles(() => ({
       backgroundColor: 'rgb(0, 123, 255)',
     },
   },
-  orderChipIcon: {
-    color: 'rgba(255,255,255,0.26)',
-    '&:hover, &:focus': {
-      color: 'rgba(255,255,255,0.46)',
-    },
-  },
+
   tableCell: {
     textAlign: 'center',
   },
@@ -57,7 +49,6 @@ export const useClassNames = makeStyles(() => ({
     width: '80px',
   },
   selected: {
-    color: 'white',
     backgroundColor: 'rgba(0, 123, 255, 1)',
     '&:hover, &:focus': {
       backgroundColor: '#1269ec',

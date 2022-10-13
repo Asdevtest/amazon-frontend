@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles(() => ({
+export const styles = theme => ({
   img: {
     height: '64px',
     width: '64px',
@@ -26,7 +24,7 @@ export const styles = createStyles(() => ({
   },
   chip: {
     height: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     backgroundColor: 'rgba(240, 242, 244, 1)',
     fontSize: '12px',
   },
@@ -67,22 +65,22 @@ export const styles = createStyles(() => ({
   productTypoCell: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
     display: 'flex',
     gap: '3px',
   },
   typoSpan: {
     marginLeft: 10,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   misSpan: {
     marginLeft: 10,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   linkSpan: {
     marginLeft: 10,
-    color: '#007bff',
+    color: theme.palette.primary.main,
   },
 
   cellBtn: {
@@ -182,7 +180,7 @@ export const styles = createStyles(() => ({
     },
   },
   barcodeChipExists: {
-    backgroundColor: 'rgb(61, 81, 112)',
+    backgroundcolor: theme.palette.text.general,
   },
 
   chipStock: {
@@ -247,7 +245,7 @@ export const styles = createStyles(() => ({
     color: 'rgb(189, 194, 209)',
   },
   select: {
-    backgroundColor: 'rgb(61, 81, 112)',
+    backgroundcolor: theme.palette.text.general,
   },
 
   defaultOrderSpan: {
@@ -325,7 +323,7 @@ export const styles = createStyles(() => ({
   imgNum: {
     fontWeight: 600,
     fontSize: 14,
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     width: '50px',
   },
   imgWrapper: {
@@ -403,7 +401,7 @@ export const styles = createStyles(() => ({
 
   superboxTypo: {
     margin: '0',
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     fontSize: '20px',
     fontWeight: '900px',
   },
@@ -629,7 +627,7 @@ export const styles = createStyles(() => ({
     fontSize: '14px',
     lineHeight: '17px',
 
-    color: 'rgba(0, 0, 0, 0.87)',
+    color: theme.palette.text.general,
 
     height: '100%',
   },
@@ -653,7 +651,7 @@ export const styles = createStyles(() => ({
     fontFamily: 'inherit',
     border: 'none',
     backgroundColor: 'inherit',
-    color: 'rgba(0, 0, 0, 0.87)',
+    color: theme.palette.text.general,
     resize: 'none',
     height: '100%',
     cursor: 'url(/assets/icons/Cursor.svg) 4 12, auto',
@@ -693,7 +691,8 @@ export const styles = createStyles(() => ({
     textAlign: 'center',
     whiteSpace: 'normal',
 
-    color: 'rgba(0, 0, 0, 0.87)',
+    // color: theme.palette.text.general,
+    color: theme.palette.text.general,
 
     fontWeight: '600',
     fontSize: '12px',
@@ -705,7 +704,7 @@ export const styles = createStyles(() => ({
     textAlign: 'left',
     whiteSpace: 'normal',
 
-    color: 'rgba(0, 0, 0, 0.87)',
+    color: theme.palette.text.general,
 
     fontWeight: '600',
     fontSize: '14px',
@@ -723,7 +722,7 @@ export const styles = createStyles(() => ({
   },
 
   linkText: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '400',
@@ -737,7 +736,7 @@ export const styles = createStyles(() => ({
   },
 
   blackLinkText: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '400',
@@ -791,7 +790,7 @@ export const styles = createStyles(() => ({
   },
 
   downloadLink: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     '&:hover': {
@@ -878,7 +877,7 @@ export const styles = createStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   sabUserRatingWrapper: {
@@ -1006,7 +1005,7 @@ export const styles = createStyles(() => ({
     fontSize: '12px',
     lineHeight: '14px',
     fontWeight: '400',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   orderStatusText: {
@@ -1039,7 +1038,7 @@ export const styles = createStyles(() => ({
     display: 'inline-flex',
   },
   normalizeLink: {
-    color: '#007bff',
+    color: theme.palette.primary.main,
     textDecoration: 'none',
     transition: '.3s ease',
     '&:hover': {
@@ -1112,7 +1111,7 @@ export const styles = createStyles(() => ({
   },
 
   selectedLabel: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   selectedIndicator: {
     backgroundColor: '#006CFF',
@@ -1128,4 +1127,4 @@ export const styles = createStyles(() => ({
     width: '2px',
     height: '10px',
   },
-}))
+})

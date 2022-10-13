@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   tooltipsWrapper: {
     position: 'absolute',
     top: '1px',
@@ -33,5 +33,6 @@ export const useClassNames = makeStyles(() => ({
 
   root: {
     width: '100%',
+    color: theme.palette.text.general,
   },
 }))

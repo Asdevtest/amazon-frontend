@@ -1,9 +1,10 @@
-import React, {useState} from 'react'
+import {Container, Typography, NativeSelect} from '@mui/material'
 
-import {Container, Button, Typography, NativeSelect} from '@material-ui/core'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
+import {Button} from '@components/buttons/button'
 import {Field} from '@components/field'
 import {Input} from '@components/input'
 import {Modal} from '@components/modal'
@@ -20,7 +21,7 @@ const paymentTypeSettings = {
 }
 
 export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSubmit}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [balanceValue, setBalanceValue] = useState('')
 
@@ -77,7 +78,7 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
   return (
     <>
       <Container disableGutters className={classNames.modalContainer}>
-        <Typography paragraph variant="h3">
+        <Typography paragraph variant="h3" className={classNames.title}>
           {isWithdraw ? t(TranslationKey.Withdraw) : t(TranslationKey.Deposit)}
         </Typography>
 
@@ -140,12 +141,10 @@ export const AdminBalanceModal = ({user, isWithdraw, onTriggerParentModal, onSub
         <div className={classNames.confirmModal}>
           <Typography paragraph>{confirmMsg()}</Typography>
           <div className={classNames.buttonWrapper}>
-            <Button disableElevation color="primary" variant="contained" onClick={onConfirm}>
+            <Button color="primary" variant="contained" onClick={onConfirm}>
               {t(TranslationKey.Yes)}
             </Button>
-            <Button disableElevation onClick={onDecline}>
-              {t(TranslationKey.Cancel)}
-            </Button>
+            <Button onClick={onDecline}>{t(TranslationKey.Cancel)}</Button>
           </div>
         </div>
       </Modal>

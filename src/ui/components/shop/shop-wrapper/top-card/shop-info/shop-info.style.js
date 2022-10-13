@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   photosWrapper: {
     height: '211px',
   },
@@ -34,21 +34,21 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   shortInfoValue: {
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   shortInfoLabel: {
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 400,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   shortInfoWrapper: {
@@ -87,7 +87,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '19px',
     fontWeight: 400,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   chart: {
@@ -105,7 +105,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '5px',
   },
 
@@ -113,7 +113,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '20px',
   },
 }))

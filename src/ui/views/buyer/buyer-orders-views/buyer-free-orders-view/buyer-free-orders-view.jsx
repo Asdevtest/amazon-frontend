@@ -2,8 +2,8 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -141,4 +141,4 @@ class BuyerFreeOrdersViewRaw extends Component {
   }
 }
 
-export const BuyerFreeOrdersView = withStyles(styles)(BuyerFreeOrdersViewRaw)
+export const BuyerFreeOrdersView = withStyles(BuyerFreeOrdersViewRaw, styles)

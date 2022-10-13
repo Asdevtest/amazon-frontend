@@ -1,9 +1,10 @@
+import {cx} from '@emotion/css'
+import {ClassNamesArg} from '@emotion/react'
+import {Typography} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import React, {FC, ReactElement, useState, useEffect} from 'react'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {SettingsModel} from '@models/settings-model'
@@ -11,20 +12,22 @@ import {SettingsModel} from '@models/settings-model'
 import {Input} from '@components/input'
 import {InputWithIcon} from '@components/input/input'
 
-import {StyleClass} from '../../../typings/class-name-types'
+// import {StyleClass} from '../../../typings/class-name-types'
 import {useClassNames} from './field.style'
 
 interface Props {
   label: string
   tooltipAttentionContent?: ReactElement | string
   tooltipInfoContent?: ReactElement | string
-  containerClasses?: StyleClass
-  labelClasses?: StyleClass
-  inputClasses?: StyleClass
+  containerClasses?: ClassNamesArg | undefined
+  labelClasses?: ClassNamesArg | undefined
+  inputClasses?: ClassNamesArg | undefined
   inputComponent?: React.ComponentType
   error?: string
   oneLine?: boolean
   withIcon?: boolean
+  // children?: React.ReactNode
+  // inputComponent?: JSX.Element | JSX.Element[]
 }
 
 export const Field: FC<Props> = observer(
@@ -39,9 +42,10 @@ export const Field: FC<Props> = observer(
     tooltipAttentionContent,
     tooltipInfoContent,
     withIcon,
+
     ...restProps
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
 
@@ -50,11 +54,11 @@ export const Field: FC<Props> = observer(
     }, [SettingsModel.showHints])
 
     return (
-      <div className={clsx(classNames.root, containerClasses, {[classNames.rootOneLine]: oneLine})}>
+      <div className={cx(classNames.root, containerClasses, {[classNames.rootOneLine]: oneLine})}>
         <>
           <div className={classNames.labelWrapper}>
             {label ? (
-              <Typography className={clsx(classNames.label, labelClasses, {[classNames.labelOneLine]: oneLine})}>
+              <Typography className={cx(classNames.label, labelClasses, {[classNames.labelOneLine]: oneLine})}>
                 {label}
               </Typography>
             ) : null}
@@ -69,7 +73,7 @@ export const Field: FC<Props> = observer(
 
                 {tooltipInfoContent && showHints ? (
                   <Tooltip arrow title={tooltipInfoContent} placement="top-end">
-                    <img className={clsx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
+                    <img className={cx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
                   </Tooltip>
                 ) : null}
               </div>
@@ -78,12 +82,14 @@ export const Field: FC<Props> = observer(
           {inputComponent ||
             (withIcon ? (
               <InputWithIcon
-                className={clsx(classNames.input, inputClasses, {[classNames.errorActive]: error})}
+                classes={{input: classNames.input, disabled: classNames.inputDisabled}}
+                className={cx(classNames.input, inputClasses, {[classNames.errorActive]: !!error})}
                 {...restProps}
               />
             ) : (
               <Input
-                className={clsx(classNames.input, inputClasses, {[classNames.errorActive]: error})}
+                classes={{input: classNames.input, disabled: classNames.inputDisabled}}
+                className={cx(classNames.input, inputClasses, {[classNames.errorActive]: !!error})}
                 {...restProps}
               />
             ))}

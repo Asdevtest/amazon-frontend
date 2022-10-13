@@ -1,10 +1,10 @@
 import InboxIcon from '@mui/icons-material/Inbox'
+import {Typography, Paper, Accordion, AccordionDetails, AccordionSummary} from '@mui/material'
 
 import React, {Component, createRef} from 'react'
 
-import {Typography, Paper, Accordion, AccordionDetails, AccordionSummary} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -282,4 +282,4 @@ export class OwnerRequestDetailCustomViewRaw extends Component {
   }
 }
 
-export const OwnerRequestDetailCustomView = withStyles(styles)(OwnerRequestDetailCustomViewRaw)
+export const OwnerRequestDetailCustomView = withStyles(OwnerRequestDetailCustomViewRaw, styles)

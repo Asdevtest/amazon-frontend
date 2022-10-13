@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '700px',
   },
@@ -41,7 +41,7 @@ export const useClassNames = makeStyles(() => ({
   searchBtnText: {
     fontSize: '14px',
     lineHeight: '17px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   filtersWrapper: {
@@ -85,7 +85,8 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: '#001029',
+    color: theme.palette.text.general,
+
     marginBottom: '30px',
   },
 

@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles({
+export const styles = theme => ({
   cardWidthTest: {
     width: '200px',
   },
@@ -58,7 +56,7 @@ export const styles = createStyles({
 
     border: 0,
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
   },
 
   archiveIcon: {
@@ -68,6 +66,8 @@ export const styles = createStyles({
   openArchiveBtn: {
     width: 230,
     padding: '0 30px 0 30px',
+
+    color: theme.palette.text.general,
   },
 
   button: {
@@ -142,7 +142,9 @@ export const styles = createStyles({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: '#fff',
+    // backgroundColor: theme.palette.background.main,
+
+    backgroundColor: theme.palette.background.main,
   },
 
   footerContainer: {

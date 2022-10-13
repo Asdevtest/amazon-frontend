@@ -1,10 +1,10 @@
+import {cx} from '@emotion/css'
 import SearchIcon from '@mui/icons-material/Search'
+import {InputAdornment, Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
-import {InputAdornment, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import qs from 'qs'
@@ -27,7 +27,7 @@ const chipConfigSettings = {
 
 export const BindStockGoodsToInventoryForm = observer(
   ({goodsToSelect, inventoryData, updateInventoryData, onSubmit}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [chosenGoods, setChosenGoods] = useState(goodsToSelect)
 
@@ -102,13 +102,15 @@ export const BindStockGoodsToInventoryForm = observer(
 
     return (
       <div className={classNames.root}>
-        <Typography variant="h5">{t(TranslationKey['Bind to an item in the inventory'])}</Typography>
+        <Typography variant="h5" className={classNames.title}>
+          {t(TranslationKey['Bind to an item in the inventory'])}
+        </Typography>
 
         <div className={classNames.form}>
           <div className={classNames.filtersWrapper}>
             <Button
               variant={'text'}
-              className={clsx(classNames.chip, {
+              className={cx(classNames.chip, {
                 [classNames.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
               })}
               onClick={() => setRecommendChip()}
@@ -120,7 +122,7 @@ export const BindStockGoodsToInventoryForm = observer(
 
             <Button
               variant={'text'}
-              className={clsx(classNames.chip, classNames.chipLeftMargin, {
+              className={cx(classNames.chip, classNames.chipLeftMargin, {
                 [classNames.chipActive]: chipConfig === chipConfigSettings.NAME,
               })}
               onClick={() => setChipConfig(chipConfigSettings.NAME)}
@@ -130,7 +132,7 @@ export const BindStockGoodsToInventoryForm = observer(
 
             <Button
               variant={'text'}
-              className={clsx(classNames.chip, classNames.chipLeftMargin, {
+              className={cx(classNames.chip, classNames.chipLeftMargin, {
                 [classNames.chipActive]: chipConfig === chipConfigSettings.ASIN,
               })}
               onClick={() => setChipConfig(chipConfigSettings.ASIN)}
@@ -156,11 +158,11 @@ export const BindStockGoodsToInventoryForm = observer(
           <div className={classNames.tableWrapper}>
             <DataGrid
               hideFooter
-              sx={{
-                border: 0,
-                boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                backgroundColor: '#fff',
-              }}
+              // sx={{
+              //   border: 0,
+              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+              //   backgroundColor: theme.palette.background.main,
+              // }}
               rows={toJS(inventoryData)}
               columns={inventoryColumns({selectRow: onClickRowRadioBtn}, selectedRow)}
               rowHeight={60}
@@ -174,11 +176,11 @@ export const BindStockGoodsToInventoryForm = observer(
           <div className={classNames.tableWrapper}>
             <DataGrid
               hideFooter
-              sx={{
-                border: 0,
-                boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                backgroundColor: '#fff',
-              }}
+              // sx={{
+              //   border: 0,
+              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+              //   backgroundColor: theme.palette.background.main,
+              // }}
               rows={chosenGoods || []}
               columns={chosenGoodsColumns({onClickTrash})}
               rowHeight={60}

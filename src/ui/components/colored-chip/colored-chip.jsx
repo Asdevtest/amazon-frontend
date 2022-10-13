@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Chip, Tooltip} from '@mui/material'
+
 import React, {useEffect, useState} from 'react'
 
-import {Chip, Tooltip} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {SettingsModel} from '@models/settings-model'
@@ -16,10 +17,14 @@ export const ColoredChip = observer(
     tooltipInfoContent,
     tooltipAttentionContent,
 
+    onClickChip,
+    // label,
+
     ...restProps
   }) => {
     const styleProps = {color, colorHover}
-    const classNames = useClassNames(styleProps)
+
+    const {classes: classNames} = useClassNames(styleProps)
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
 
@@ -28,12 +33,8 @@ export const ColoredChip = observer(
     }, [SettingsModel.showHints])
 
     return (
-      <div className={classNames.chipWrapper}>
-        <Chip
-          classes={{root: classNames.root}}
-          className={clsx(classNames.chip, {[classNames.chipActive]: selected})}
-          {...restProps}
-        />
+      <div className={classNames.chipWrapper} onClick={onClickChip}>
+        <Chip className={cx(classNames.chip, {[classNames.chipActive]: !!selected})} {...restProps} />
         {tooltipAttentionContent || tooltipInfoContent ? (
           <div className={classNames.tooltipsWrapper}>
             {tooltipAttentionContent ? (
@@ -44,7 +45,7 @@ export const ColoredChip = observer(
 
             {tooltipInfoContent && showHints ? (
               <Tooltip arrow title={tooltipInfoContent} placement="top-end">
-                <img className={clsx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
+                <img className={cx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
               </Tooltip>
             ) : null}
           </div>

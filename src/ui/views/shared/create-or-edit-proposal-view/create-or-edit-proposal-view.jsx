@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -114,4 +114,4 @@ export class CreateOrEditProposalViewRaw extends Component {
   }
 }
 
-export const CreateOrEditProposalView = withStyles(styles)(CreateOrEditProposalViewRaw)
+export const CreateOrEditProposalView = withStyles(CreateOrEditProposalViewRaw, styles)

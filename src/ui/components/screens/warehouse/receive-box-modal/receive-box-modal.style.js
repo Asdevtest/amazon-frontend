@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '1779px',
   },
@@ -9,13 +9,17 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '30px',
     lineHeight: '41px',
     fontWeight: 600,
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '27px',
   },
 
   modalHeaderWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+
+  footerTitle: {
+    color: theme.palette.text.general,
   },
 
   boxesWrapper: {
@@ -63,7 +67,7 @@ export const useClassNames = makeStyles(theme => ({
     objectPosition: 'center',
   },
   sectionTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginBottom: theme.spacing(1),
   },
   title: {
@@ -81,11 +85,11 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 400,
     lineHeight: '21px',
     width: '218px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   subTitle: {
     fontSize: '14px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginRight: theme.spacing(1),
   },
 
@@ -132,7 +136,7 @@ export const useClassNames = makeStyles(theme => ({
     whiteSpace: 'pre-wrap',
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   sizeWrapper: {
@@ -151,11 +155,11 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   qtySubTitle: {
     fontWeight: 600,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   buttonsWrapper: {
     marginTop: '30px',
@@ -183,7 +187,7 @@ export const useClassNames = makeStyles(theme => ({
   categoryTitle: {
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: '600',
     marginBottom: '15px',
   },
@@ -214,11 +218,16 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     whiteSpace: 'pre-wrap',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   checkboxCell: {
     width: '200px',
   },
+
+  cancelButton: {
+    color: theme.palette.text.general,
+  },
+
   '@media (max-width: 768px)': {
     root: {
       width: '100%',
@@ -231,7 +240,7 @@ export const useClassNames = makeStyles(theme => ({
       fontSize: '16px',
       lineHeight: '22px',
       fontWeight: 600,
-      color: '#001029',
+      color: theme.palette.text.general,
       marginBottom: '27px',
     },
     boxesWrapper: {
@@ -267,16 +276,16 @@ export const useClassNames = makeStyles(theme => ({
       marginBottom: '40px',
       fontSize: '16px',
       lineHeight: '22px',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
     deleteBtn: {
-      color: '#001029',
+      color: theme.palette.text.general,
     },
     boxesTitle: {
       fontSize: '12px',
       lineHeight: '140%',
       fontWeight: 600,
-      color: '#001029',
+      color: theme.palette.text.general,
       textTransform: 'uppercase',
     },
     boxesTitleWrapper: {
@@ -287,7 +296,7 @@ export const useClassNames = makeStyles(theme => ({
     boxTitle: {
       fontSize: '12px',
       lineHeight: '16px',
-      color: '#656565',
+      color: theme.palette.text.second,
       marginBottom: '12px',
     },
     img: {
@@ -310,7 +319,7 @@ export const useClassNames = makeStyles(theme => ({
       fontSize: '12px',
       lineHeight: '16px',
       fontWeight: 600,
-      color: '#001029',
+      color: theme.palette.text.general,
     },
     inputWrapper: {
       border: '1px solid rgba(143, 152, 165, 1)',
@@ -321,7 +330,7 @@ export const useClassNames = makeStyles(theme => ({
     sizeTitle: {
       fontSize: '12px',
       lineHeight: '16px',
-      color: '#656565',
+      color: theme.palette.text.second,
     },
     sizeWrapper: {
       display: 'flex',
@@ -346,9 +355,7 @@ export const useClassNames = makeStyles(theme => ({
     button: {
       width: '121px',
     },
-    cancelButton: {
-      color: '#001029',
-    },
+
     error: {
       border: '1px solid red',
     },

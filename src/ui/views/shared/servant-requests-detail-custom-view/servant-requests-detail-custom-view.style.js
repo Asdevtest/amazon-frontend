@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles(() => ({
+export const styles = () => ({
   proposalFormWrapper: {
     backgroundColor: 'white',
     borderRadius: '4px',
@@ -37,4 +35,4 @@ export const styles = createStyles(() => ({
     width: '140px',
     height: '40px',
   },
-}))
+})

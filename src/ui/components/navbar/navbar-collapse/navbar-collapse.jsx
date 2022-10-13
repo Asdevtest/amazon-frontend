@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Collapse, List, ListItemIcon, ListItemText} from '@mui/material'
+
 import React from 'react'
 
-import {Collapse, List, ListItemIcon, ListItemText} from '@material-ui/core'
-import clsx from 'clsx'
 import {Link} from 'react-router-dom'
 
 import {Button} from '@components/buttons/button'
@@ -20,7 +21,7 @@ export const NavbarCollapse = ({
   onChangeSubCategory,
   currentViewModel,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const onClickCategory = subIndex => {
     onChangeSubCategory && onChangeSubCategory(subIndex)
@@ -58,7 +59,7 @@ export const NavbarCollapse = ({
     <Button
       key={subIndex}
       tooltipPosition="center"
-      className={clsx(classNames.menuItem, {[classNames.selected]: subIndex === activeSubCategory})}
+      className={cx(classNames.menuItem, {[classNames.selected]: subIndex === activeSubCategory})}
       tooltipInfoContent={renderTooltipTitle(subCategory.subtitle, userInfo.role)}
       tooltipAttentionContent={renderAttentionTooltipTitle(subCategory.subtitle, userInfo.role)}
     >
@@ -71,7 +72,11 @@ export const NavbarCollapse = ({
         to={subCategory.subRoute}
         onClick={() => onClickCategory(subIndex)}
       >
-        <ListItemText disableTypography className={clsx(classNames.listItemText)} primary={subCategory.subtitle} />
+        <ListItemText
+          disableTypography
+          className={cx(classNames.listItemText, {[classNames.selected]: subIndex === activeSubCategory})}
+          primary={subCategory.subtitle}
+        />
 
         {renderNotificationBySubRoute(subCategory.subRoute)}
       </NavbarSubCategory>

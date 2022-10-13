@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import {cx} from '@emotion/css'
+import {Chip, Typography} from '@mui/material'
 
-import {Chip, Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import React, {useState} from 'react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -29,7 +29,7 @@ export const MergeBoxesModal = ({
   onSubmit,
   onRemoveBoxFromSelected,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [boxBody, setBoxBody] = useState({
     shippingLabel: null,
@@ -203,7 +203,10 @@ export const MergeBoxesModal = ({
                     disabled={isDifferentStorekeepers}
                     color="primary"
                     variant={boxBody.logicsTariffId && 'text'}
-                    className={clsx({[classNames.storekeeperBtn]: !boxBody.logicsTariffId})}
+                    className={cx(
+                      {[classNames.storekeeperBtn]: !boxBody.logicsTariffId},
+                      {[classNames.standartText]: boxBody.logicsTariffId},
+                    )}
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {boxBody.logicsTariffId
@@ -242,7 +245,7 @@ export const MergeBoxesModal = ({
                       deleteIcon: classNames.barcodeChipIcon,
                       label: classNames.barcodeChiplabel,
                     }}
-                    className={clsx({[classNames.barcodeChipExists]: boxBody.shippingLabel})}
+                    className={cx({[classNames.barcodeChipExists]: boxBody.shippingLabel})}
                     size="small"
                     label={
                       boxBody.tmpShippingLabel?.length
@@ -272,7 +275,7 @@ export const MergeBoxesModal = ({
           onChange={e => setComment(e.target.value)}
         />
       </div>
-      <div className={clsx(classNames.modalFooter, {[classNames.modalAlternateFooter]: !isDifferentStorekeepers})}>
+      <div className={cx(classNames.modalFooter, {[classNames.modalAlternateFooter]: !isDifferentStorekeepers})}>
         {isDifferentStorekeepers && (
           <Typography className={classNames.attentionDifStorekeepers}>
             {t(TranslationKey['Intermediate warehouses must match!'])}
@@ -296,7 +299,7 @@ export const MergeBoxesModal = ({
             disabled={requestStatus === loadingStatuses.isLoading}
             color="primary"
             variant="text"
-            className={clsx(classNames.button, classNames.cancelButton)}
+            className={cx(classNames.button, classNames.cancelButton)}
             onClick={() => {
               onCloseBoxesModal()
             }}

@@ -1,25 +1,17 @@
+// import NotificationsIcon from '@material-ui/icons/Notifications'
+import {cx} from '@emotion/css'
 import Brightness3RoundedIcon from '@mui/icons-material/Brightness3Rounded'
 import PersonIcon from '@mui/icons-material/Person'
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded'
-import {Hidden} from '@mui/material'
+import {Avatar, Divider, Paper, Typography, Hidden, IconButton} from '@mui/material'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {useRef, useState, FC, useEffect, ReactFragment} from 'react'
+import React, {useRef, useState, FC, useEffect, ReactElement} from 'react'
 
-import {
-  Avatar,
-  Divider,
-  Paper,
-  Typography,
-  /* Hidden,*/
-  IconButton,
-} from '@material-ui/core'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import MenuIcon from '@material-ui/icons/Menu'
-// import NotificationsIcon from '@material-ui/icons/Notifications'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 import {useHistory, useLocation} from 'react-router-dom'
 
@@ -46,13 +38,13 @@ interface Props {
   curUserRole: string
   setDrawerOpen: () => void
   lastCrumbAdditionalText?: string
-  children?: ReactFragment
+  children: ReactElement
 }
 
 export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, lastCrumbAdditionalText}) => {
   const history = useHistory()
   const location = useLocation()
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const componentModel = useRef(new AppbarModel())
 
   useEffect(() => {
@@ -102,9 +94,9 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
     history.push(`/profile`)
   }
 
-  // const onClickThemeIcon = (theme: string) => {
-  //   componentModel.current.changeUiTheme(theme)
-  // }
+  const onClickThemeIcon = (theme: string) => {
+    componentModel.current.changeUiTheme(theme)
+  }
 
   const allowedRolesWithoutCandidate = componentModel.current.allowedRoles?.filter(
     (el: number) => el !== (mapUserRoleEnumToKey as {[key: string]: number})[UserRole.CANDIDATE],
@@ -141,7 +133,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                     <Button
                       key={roleCode}
                       variant={'text'}
-                      className={clsx(classNames.allowedRolesItem, {
+                      className={cx(classNames.allowedRolesItem, {
                         [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
                       })}
                       onClick={() => onChangeUserInfo(roleCode)}
@@ -151,7 +143,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                   ))}
                 </div>
               ) : (
-                <Typography className={clsx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
+                <Typography className={cx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
                   {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
                 </Typography>
               )}
@@ -163,16 +155,11 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
               <LanguageSelector />
 
               {SettingsModel.uiTheme === UiTheme.light ? (
-                <WbSunnyRoundedIcon
-                  color="primary"
-                  className={classNames.themeIcon}
-                  // onClick={() => onClickThemeIcon(UiTheme.dark)}
-                />
+                <WbSunnyRoundedIcon className={classNames.themeIcon} onClick={() => onClickThemeIcon(UiTheme.dark)} />
               ) : (
                 <Brightness3RoundedIcon
-                  color="primary"
                   className={classNames.themeIcon}
-                  // onClick={() => onClickThemeIcon(UiTheme.light)}
+                  onClick={() => onClickThemeIcon(UiTheme.light)}
                 />
               )}
             </div>
@@ -240,7 +227,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                   <Button
                     key={roleCode}
                     variant={'text'}
-                    className={clsx(classNames.allowedRolesItem, {
+                    className={cx(classNames.allowedRolesItem, {
                       [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
                     })}
                     onClick={() => onChangeUserInfo(roleCode)}
@@ -260,7 +247,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                           ) : null}
 
                           <Typography
-                            className={clsx(classNames.userrole, {
+                            className={cx(classNames.userrole, {
                               [classNames.сurrentAllowedRolesItem]: roleCode === componentModel.current.role,
                             })}
                             onClick={() => onChangeUserInfo(roleCode)}
@@ -273,7 +260,7 @@ export const Appbar: FC<Props> = observer(({children, title, setDrawerOpen, last
                   ) : (
                     <div className={classNames.userRoleWrapper}>
                       <span className={classNames.indicator}></span>
-                      <Typography className={clsx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
+                      <Typography className={cx(classNames.userrole, classNames.сurrentAllowedRolesItem)}>
                         {(UserRoleCodeMap as {[key: number]: string})[componentModel.current.role]}
                       </Typography>
                     </div>

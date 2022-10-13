@@ -1,13 +1,14 @@
-import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
+import {Box, Tabs} from '@mui/material'
 
 import React from 'react'
 
-import {Typography, Box, Tabs, Tab} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
 import {SettingsModel} from '@models/settings-model'
+
+import {ITab} from '@components/i-tab/i-tab'
 
 import {t} from '@utils/translations'
 
@@ -23,19 +24,14 @@ const TabPanel = ({children, value, index, ...other}) => (
     aria-labelledby={`simple-tab-${index}`}
     {...other}
   >
-    {value === index && (
-      <Box paddingTop={3}>
-        <Typography>{children}</Typography>
-      </Box>
-    )}
+    {value === index && <Box paddingTop={3}>{children}</Box>}
   </div>
 )
 
 export const UserPermissions = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(0)
-  const tabItemStyles = twitterTabsStylesHook.useTabItem()
 
   return (
     <React.Fragment>
@@ -49,8 +45,8 @@ export const UserPermissions = observer(() => {
           value={tabIndex}
           onChange={(e, index) => setTabIndex(index)}
         >
-          <Tab classes={tabItemStyles} label={t(TranslationKey['Permission Groups'])} />
-          <Tab classes={tabItemStyles} label={t(TranslationKey.Permissions)} />
+          <ITab label={t(TranslationKey['Permission Groups'])} />
+          <ITab label={t(TranslationKey.Permissions)} />
         </Tabs>
       )}
 

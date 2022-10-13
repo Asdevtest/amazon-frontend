@@ -1,11 +1,13 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   dialogContextClassName: {},
   content: {
     width: '100%',
   },
-  modalTitle: {},
+  modalTitle: {
+    color: theme.palette.text.general,
+  },
 
   boxesWrapper: {
     marginTop: '20px',
@@ -19,7 +21,7 @@ export const useClassNames = makeStyles(() => ({
     color: 'red',
   },
   noWarningText: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
   btnsWrapper: {
     flex: 1,

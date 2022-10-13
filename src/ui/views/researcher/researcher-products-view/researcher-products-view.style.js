@@ -1,12 +1,13 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles(() => ({
+export const styles = theme => ({
   card: {
     padding: '16px 20px',
     marginBottom: '42px',
+
+    backgroundColor: theme.palette.background.main,
   },
   formWrapper: {
     marginTop: '32px',
+    // backgroundColor: theme.palette.background.main,
   },
   tableWrapper: {
     marginTop: '32px',
@@ -24,7 +25,6 @@ export const styles = createStyles(() => ({
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: '#fff',
   },
 
   footerContainer: {
@@ -40,4 +40,4 @@ export const styles = createStyles(() => ({
   toolbarContainer: {
     height: '52px',
   },
-}))
+})

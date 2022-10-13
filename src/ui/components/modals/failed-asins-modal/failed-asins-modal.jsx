@@ -1,6 +1,6 @@
-import React from 'react'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
+import React from 'react'
 
 import {humanFriendlyStategyStatus, mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -12,7 +12,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './failed-asins-modal.style'
 
 export const FailedAsinsModal = ({failedData, onClickSuccessBtn}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   console.log(failedData)
   return (
     <div className={classNames.modalMessageWrapper}>

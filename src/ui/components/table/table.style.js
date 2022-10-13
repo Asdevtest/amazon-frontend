@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   table: {
     whiteSpace: 'nowrap',
 
@@ -45,5 +45,7 @@ export const useClassNames = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: '40px',
+
+    color: theme.palette.text.second,
   },
 }))

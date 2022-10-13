@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
+import React, {useEffect} from 'react'
 
 import {Button} from '@components/buttons/button'
 import {Modal} from '@components/modal'
@@ -8,7 +8,7 @@ import {Modal} from '@components/modal'
 import {useClassNames} from './success-info-modal.style'
 
 export const SuccessInfoModal = ({openModal, setOpenModal, title, successBtnText, onClickSuccessBtn}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   useEffect(() => {
     const listener = event => {

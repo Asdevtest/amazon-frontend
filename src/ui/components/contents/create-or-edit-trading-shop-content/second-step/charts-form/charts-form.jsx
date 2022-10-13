@@ -1,9 +1,9 @@
+import {cx} from '@emotion/css'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import {Typography} from '@mui/material'
 
 import React, {useEffect, useState} from 'react'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -22,7 +22,7 @@ const filterSettings = {
 }
 
 export const ChartsForm = observer(({data, isRevenueBeggin}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [isRevenue, setIsRevenue] = useState(isRevenueBeggin)
 
@@ -51,7 +51,7 @@ export const ChartsForm = observer(({data, isRevenueBeggin}) => {
       <div className={classNames.cardHeaderWrapper}>
         <div className={classNames.selectionBtns}>
           <Button
-            className={clsx(classNames.selectionBtn, {
+            className={cx(classNames.selectionBtn, {
               [classNames.curSelectionBtn]: isRevenue,
             })}
             variant="text"
@@ -61,7 +61,7 @@ export const ChartsForm = observer(({data, isRevenueBeggin}) => {
             {t(TranslationKey.Revenue)}
           </Button>
           <Button
-            className={clsx(classNames.selectionBtn, {
+            className={cx(classNames.selectionBtn, {
               [classNames.curSelectionBtn]: !isRevenue,
             })}
             variant="text"
@@ -102,7 +102,7 @@ export const ChartsForm = observer(({data, isRevenueBeggin}) => {
 
       <div className={classNames.buttonsWrapper}>
         <Button
-          className={clsx(classNames.button, {
+          className={cx(classNames.button, {
             [classNames.selectedBtn]: curFilterSetting === filterSettings.SIX_MONTHS,
           })}
           variant="text"
@@ -112,7 +112,7 @@ export const ChartsForm = observer(({data, isRevenueBeggin}) => {
           {`6 ${t(TranslationKey.months)}`}
         </Button>
         <Button
-          className={clsx(classNames.button, {
+          className={cx(classNames.button, {
             [classNames.selectedBtn]: curFilterSetting === filterSettings.TWELVE_MONTHS,
           })}
           variant="text"
@@ -122,7 +122,7 @@ export const ChartsForm = observer(({data, isRevenueBeggin}) => {
           {`12 ${t(TranslationKey.months)}`}
         </Button>
         <Button
-          className={clsx(classNames.button, {
+          className={cx(classNames.button, {
             [classNames.selectedBtn]: curFilterSetting === filterSettings.ALL_MONTHS,
           })}
           variant="text"

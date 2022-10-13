@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -69,4 +69,4 @@ class ModeratorAppealsViewRaw extends Component {
   }
 }
 
-export const ModeratorAppealsView = withStyles(styles)(ModeratorAppealsViewRaw)
+export const ModeratorAppealsView = withStyles(ModeratorAppealsViewRaw, styles)

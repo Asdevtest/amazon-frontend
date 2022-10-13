@@ -1,6 +1,7 @@
+import {Box, Typography} from '@mui/material'
+
 import React from 'react'
 
-import {Box, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -13,7 +14,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './business-info.style'
 
 export const BusinessInfo = observer(({data}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Box className={classNames.businessInfoWrapper}>

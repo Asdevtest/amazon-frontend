@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   sendOwnProductBtn: {
     marginBottom: theme.spacing(2),
   },
@@ -32,12 +30,16 @@ export const styles = createStyles(theme => ({
     height: 'auto',
     maxWidth: '380px',
     minWidth: '250px',
+
+    padding: 0,
+    border: 'none',
   },
   buttonsWrapper: {
     marginTop: '15px',
   },
   button: {
     marginBottom: 5,
+    color: theme.palette.text.general,
   },
 
   tableWrapper: {
@@ -112,12 +114,14 @@ export const styles = createStyles(theme => ({
     fontSize: '30px',
     lineHeight: '40px',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   root: {
     border: '0 !important',
     boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-    backgroundColor: '#fff',
+    // backgroundColor: theme.palette.background.main,
+
+    backgroundColor: theme.palette.background.main,
   },
   datagridWrapper: {
     marginTop: '10px',
@@ -136,4 +140,4 @@ export const styles = createStyles(theme => ({
   toolbarContainer: {
     height: '52px',
   },
-}))
+})

@@ -2,8 +2,8 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -95,7 +95,7 @@ export class ClientExchangeViewRaw extends Component {
                 // sx={{
                 //   border: 0,
                 //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                //   backgroundColor: '#fff',
+                //   backgroundColor: theme.palette.background.main,
                 // }}
                 classes={{
                   root: classNames.root,
@@ -190,4 +190,4 @@ export class ClientExchangeViewRaw extends Component {
   }
 }
 
-export const ClientExchangeView = withStyles(styles)(ClientExchangeViewRaw)
+export const ClientExchangeView = withStyles(ClientExchangeViewRaw, styles)

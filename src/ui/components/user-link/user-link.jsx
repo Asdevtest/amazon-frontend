@@ -1,8 +1,7 @@
-import {Avatar} from '@mui/material'
+import {Link, Typography, Avatar} from '@mui/material'
 
 import React from 'react'
 
-import {Link, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {UserModel} from '@models/user-model'
@@ -12,7 +11,7 @@ import {getUserAvatarSrc} from '@utils/get-user-avatar'
 import {useClassNames} from './user-link.style'
 
 export const UserLink = observer(({name, userId, blackText, withAvatar}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const curUserId = UserModel.userId
 

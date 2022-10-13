@@ -1,6 +1,6 @@
-import React, {FC, useContext} from 'react'
+import {cx} from '@emotion/css'
 
-import clsx from 'clsx'
+import React, {FC, useContext} from 'react'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -32,7 +32,7 @@ interface Props {
 
 export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   console.log(message.data.price)
   return (
     <div className={classNames.root}>
@@ -58,7 +58,7 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
                 bgColor="green"
               />
             </div>
-            <div className={clsx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
+            <div className={cx(classNames.labelValueBlockWrapper, classNames.labelValueBlockWrapperNotFirst)}>
               <LabelValuePairBlock
                 label={t(TranslationKey['Total price'])}
                 value={toFixedWithDollarSign(message.data.price, 2)}
@@ -82,7 +82,7 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
                   <Button
                     variant="contained"
                     color="primary"
-                    className={clsx(classNames.actionButton, classNames.cancelBtn)}
+                    className={cx(classNames.actionButton, classNames.cancelBtn)}
                     onClick={() => handlers.onClickProposalRegect(message.data._id)}
                   >
                     {t(TranslationKey.Reject)}
@@ -91,7 +91,7 @@ export const ChatMessageProposal: FC<Props> = ({message, handlers}) => {
                 <Button
                   variant="contained"
                   color="primary"
-                  className={clsx(classNames.actionButton, classNames.successBtn)}
+                  className={cx(classNames.actionButton, classNames.successBtn)}
                   onClick={() => handlers.onClickProposalAccept(message.data._id, message.data.price)}
                 >
                   {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(message.data.price, 2)}`}

@@ -1,12 +1,11 @@
+import {cx} from '@emotion/css'
 import SearchIcon from '@mui/icons-material/Search'
-import {Link} from '@mui/material'
+import {InputAdornment, Avatar, Typography, Link} from '@mui/material'
 
 import React, {Component} from 'react'
 
-import {InputAdornment, Avatar, Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory} from '@constants/navbar-active-category'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -65,7 +64,7 @@ class MessagesViewRaw extends Component {
         <Main>
           <Appbar title={t(TranslationKey.Messages)} setDrawerOpen={onTriggerDrawerOpen}>
             <MainContent>
-              <div className={clsx(classNames.chatHeaderWrapper, {[classNames.hideChatHeaderWrapper]: chatSelectedId})}>
+              <div className={cx(classNames.chatHeaderWrapper, {[classNames.hideChatHeaderWrapper]: chatSelectedId})}>
                 <div className={classNames.leftSide}>
                   <Field
                     containerClasses={classNames.searchContainer}
@@ -138,4 +137,4 @@ class MessagesViewRaw extends Component {
   }
 }
 
-export const MessagesView = withStyles(styles)(MessagesViewRaw)
+export const MessagesView = withStyles(MessagesViewRaw, styles)

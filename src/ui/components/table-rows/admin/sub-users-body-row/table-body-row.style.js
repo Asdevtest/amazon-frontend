@@ -1,7 +1,5 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles({
+export const styles = {
   editBtn: {
     marginRight: '8px',
   },
-})
+}

@@ -1,7 +1,8 @@
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
+
 import React, {forwardRef, ReactElement} from 'react'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {compareDesc, parseISO} from 'date-fns'
 import {observer} from 'mobx-react'
 
@@ -74,7 +75,7 @@ export const MultipleChats = observer(
       },
       ref,
     ) => {
-      const classNames = useClassNames()
+      const {classes: classNames} = useClassNames()
 
       const filteredChats = chats
         .filter(el => {
@@ -99,8 +100,8 @@ export const MultipleChats = observer(
         <div ref={ref} className={classNames.root}>
           {
             <div
-              className={clsx(classNames.chatsWrapper, {
-                [classNames.hideChatsWrapper]: isNotUndefined(chatSelectedId) && findChatByChatId,
+              className={cx(classNames.chatsWrapper, {
+                [classNames.hideChatsWrapper]: !!isNotUndefined(chatSelectedId) && !!findChatByChatId,
               })}
             >
               <ChatsList
@@ -112,7 +113,7 @@ export const MultipleChats = observer(
               />
             </div>
           }
-          {SettingsModel.languageTag && window.innerWidth > 768 && (
+          {SettingsModel.languageTag && window.innerWidth >= 768 && (
             <div className={classNames.chatWrapper}>
               {isNotUndefined(chatSelectedId) && findChatByChatId ? (
                 <Chat

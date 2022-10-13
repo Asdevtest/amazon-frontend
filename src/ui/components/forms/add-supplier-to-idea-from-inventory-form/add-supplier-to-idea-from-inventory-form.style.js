@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '750px',
     display: 'flex',
@@ -17,14 +17,14 @@ export const useClassNames = makeStyles(() => ({
 
   title: {
     marginBottom: '25px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '600',
   },
 
   label: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: '400',
@@ -121,10 +121,12 @@ export const useClassNames = makeStyles(() => ({
 
   successBtn: {
     width: 140,
+    whiteSpace: 'nowrap',
   },
 
   cancelBtn: {
     marginLeft: 100,
+    color: theme.palette.text.general,
   },
 
   defaultBtn: {

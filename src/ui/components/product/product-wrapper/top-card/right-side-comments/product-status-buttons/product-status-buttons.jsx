@@ -1,6 +1,7 @@
-import React from 'react'
+/* eslint-disable no-unused-vars */
+import {Box, Grid} from '@mui/material'
 
-import {Box, Grid} from '@material-ui/core'
+import React from 'react'
 
 import {ProductStatus, ProductStatusByCode, ProductStatusByKey} from '@constants/product-status'
 import {mapProductStrategyStatusEnum} from '@constants/product-strategy-status'
@@ -42,7 +43,7 @@ export const ProductStatusButtons = ({
               color={buttonConfig.color}
               colorHover={buttonConfig.colorHover}
               selected={ProductStatusByCode[productStatus] === buttonConfig.statusKey}
-              onClick={() => onClickButton(buttonConfig.statusKey)}
+              onClickChip={() => onClickButton(buttonConfig.statusKey)}
             />
           </Grid>
         ))}

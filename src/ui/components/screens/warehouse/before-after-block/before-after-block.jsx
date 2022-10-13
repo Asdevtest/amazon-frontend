@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
+import {cx} from '@emotion/css'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import {Divider, Typography, Paper, Checkbox, Link, Tooltip, Avatar} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {Divider, Typography, Paper, Checkbox, Link, Tooltip, Avatar} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
@@ -44,7 +44,7 @@ const Box = observer(
     volumeWeightCoefficient,
     referenceEditingBox,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [showFullCard, setShowFullCard] = useState(isEdit && newBoxes[0]._id === box._id ? true : false)
 
@@ -110,7 +110,7 @@ const Box = observer(
               tooltipInfoContent={t(TranslationKey["Amazon's final warehouse in the United States"])}
               label={t(TranslationKey.Warehouse)}
               labelClasses={classNames.smallLabel}
-              inputClasses={clsx(classNames.field, {
+              inputClasses={cx(classNames.field, {
                 [classNames.editAccent]: needAccent && box.destination?.name !== referenceEditingBox.destination?.name,
               })}
               value={box.destination?.name ? box.destination?.name : t(TranslationKey['Not available'])}
@@ -124,7 +124,7 @@ const Box = observer(
               label={t(TranslationKey.Tariff)}
               labelClasses={classNames.smallLabel}
               value={getFullTariffTextForBoxOrOrder(box) || 'N/A'}
-              inputClasses={clsx(classNames.field, {
+              inputClasses={cx(classNames.field, {
                 [classNames.editAccent]:
                   needAccent &&
                   getFullTariffTextForBoxOrOrder(box) !== getFullTariffTextForBoxOrOrder(referenceEditingBox),
@@ -176,7 +176,7 @@ const Box = observer(
                 </div>
               ))}
             </div>
-            <div className={clsx(classNames.boxInfoWrapper)}>
+            <div className={cx(classNames.boxInfoWrapper)}>
               <div>
                 <Typography className={classNames.categoryTitle}>
                   {taskType === TaskOperationType.RECEIVE
@@ -195,7 +195,7 @@ const Box = observer(
                         ) : null}
 
                         <Typography
-                          className={clsx(classNames.sizesLabel, {
+                          className={cx(classNames.sizesLabel, {
                             [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.PRIMARY,
                           })}
                           onClick={() => setToggleDimensionsValue(dimensionsConfig.PRIMARY)}
@@ -209,7 +209,7 @@ const Box = observer(
                         ) : null}
 
                         <Typography
-                          className={clsx(classNames.sizesLabel, {
+                          className={cx(classNames.sizesLabel, {
                             [classNames.selectedLabel]: toggleDimensionsValue === dimensionsConfig.SHIPPING,
                           })}
                           onClick={() => setToggleDimensionsValue(dimensionsConfig.SHIPPING)}
@@ -233,7 +233,7 @@ const Box = observer(
                 {
                   /* isCurrentBox &&*/ taskType === TaskOperationType.RECEIVE ? (
                     <div className={classNames.demensionsWrapper}>
-                      <Typography className={classNames.mobileDemensions}>
+                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Length) + ': '}
 
                         {isCurrentBox
@@ -246,7 +246,7 @@ const Box = observer(
                               2,
                             )}
                       </Typography>
-                      <Typography className={classNames.mobileDemensions}>
+                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Width) + ': '}
                         {isCurrentBox
                           ? toFixed(box.widthCmSupplier / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)
@@ -255,7 +255,7 @@ const Box = observer(
                               2,
                             )}
                       </Typography>
-                      <Typography className={classNames.mobileDemensions}>
+                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Height) + ': '}
                         {isCurrentBox
                           ? toFixed(
@@ -268,14 +268,14 @@ const Box = observer(
                             )}
                       </Typography>
 
-                      <Typography className={classNames.mobileDemensions}>
+                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Weight) + ': '}
                         {isCurrentBox
                           ? toFixedWithKg(box.weighGrossKgSupplier, 2)
                           : toFixedWithKg(box.weighGrossKgWarehouse, 2)}
                       </Typography>
 
-                      <Typography className={classNames.mobileDemensions}>
+                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Volume weight']) + ': '}
                         {isCurrentBox
                           ? toFixedWithKg(
@@ -294,7 +294,7 @@ const Box = observer(
                             )}
                       </Typography>
 
-                      <Typography className={classNames.mobileDemensions}>
+                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Final weight']) + ': '}
                         {isCurrentBox
                           ? toFixedWithKg(
@@ -327,24 +327,24 @@ const Box = observer(
                     </div>
                   ) : (
                     <div className={classNames.demensionsWrapper}>
-                      <Typography className={classNames.mobileDemensions}>
+                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Length) + ': '}
                         {toFixed(box.lengthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                       </Typography>
-                      <Typography className={classNames.mobileDemensions}>
+                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Width) + ': '}
                         {toFixed(box.widthCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                       </Typography>
-                      <Typography className={classNames.mobileDemensions}>
+                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Height) + ': '}
                         {toFixed(box.heightCmWarehouse / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                       </Typography>
 
-                      <Typography className={classNames.mobileDemensions}>
+                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey.Weight) + ': '}
                         {toFixedWithKg(box.weighGrossKgWarehouse, 2)}
                       </Typography>
-                      <Typography className={classNames.mobileDemensions}>
+                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Volume weight']) + ': '}
                         {toFixedWithKg(
                           ((parseFloat(box.lengthCmWarehouse) || 0) *
@@ -354,7 +354,7 @@ const Box = observer(
                           2,
                         )}
                       </Typography>
-                      <Typography className={classNames.mobileDemensions}>
+                      <Typography className={cx(classNames.standartText, classNames.mobileDemensions)}>
                         {t(TranslationKey['Final weight']) + ': '}
                         {toFixedWithKg(
                           box.weighGrossKgWarehouse >
@@ -372,7 +372,7 @@ const Box = observer(
                       </Typography>
                     </div>
                     // <div className={classNames.demensionsWrapper}>
-                    //   <Typography className={classNames.mobileDemensions}>
+                    //   <Typography className={cx(classNames.standartText,classNames.mobileDemensions)}>
                     //     {t(TranslationKey.Length) + ': '}
                     //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
                     //       ? toFixed(
@@ -381,7 +381,7 @@ const Box = observer(
                     //         )
                     //       : toFixed(box.deliveryLength / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                     //   </Typography>
-                    //   <Typography className={classNames.mobileDemensions}>
+                    //   <Typography className={cx(classNames.standartText,classNames.mobileDemensions)}>
                     //     {t(TranslationKey.Width) + ': '}
                     //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
                     //       ? toFixed(
@@ -390,7 +390,7 @@ const Box = observer(
                     //         )
                     //       : toFixed(box.deliveryWidth / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                     //   </Typography>
-                    //   <Typography className={classNames.mobileDemensions}>
+                    //   <Typography className={cx(classNames.standartText,classNames.mobileDemensions)}>
                     //     {t(TranslationKey.Height) + ': '}
                     //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
                     //       ? toFixed(
@@ -400,13 +400,13 @@ const Box = observer(
                     //       : toFixed(box.deliveryHeight / (sizeSetting === sizesType.INCHES ? inchesCoefficient : 1), 2)}
                     //   </Typography>
 
-                    //   <Typography className={classNames.mobileDemensions}>
+                    //   <Typography className={cx(classNames.standartText,classNames.mobileDemensions)}>
                     //     {t(TranslationKey.Weight) + ': '}
                     //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
                     //       ? toFixedWithKg(box.weighGrossKgWarehouse, 2)
                     //       : toFixedWithKg(box.deliveryMass, 2)}
                     //   </Typography>
-                    //   <Typography className={classNames.mobileDemensions}>
+                    //   <Typography className={cx(classNames.standartText,classNames.mobileDemensions)}>
                     //     {t(TranslationKey['Volume weight']) + ': '}
                     //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
                     //       ? toFixedWithKg(
@@ -424,7 +424,7 @@ const Box = observer(
                     //           2,
                     //         )}
                     //   </Typography>
-                    //   <Typography className={classNames.mobileDemensions}>
+                    //   <Typography className={cx(classNames.standartText,classNames.mobileDemensions)}>
                     //     {t(TranslationKey['Final weight']) + ': '}
                     //     {toggleDimensionsValue === dimensionsConfig.PRIMARY
                     //       ? toFixedWithKg(
@@ -545,7 +545,7 @@ const Box = observer(
             </div>
             <div className={classNames.footerWrapper}>
               <div
-                className={clsx(classNames.chipWrapper, {
+                className={cx(classNames.chipWrapper, {
                   [classNames.chipWrapperEditAccent]:
                     needAccent && !!box.shippingLabel !== !!referenceEditingBox.shippingLabel,
                 })}
@@ -592,7 +592,7 @@ const Box = observer(
 
         {isNewBox && (
           <div className={classNames.bottomBlockWrapper}>
-            <div className={clsx(classNames.editBtnWrapper, {[classNames.noEditBtnWrapper]: readOnly})}>
+            <div className={cx(classNames.editBtnWrapper, {[classNames.noEditBtnWrapper]: readOnly})}>
               {isEdit && !readOnly && (
                 <div>
                   <Button
@@ -636,7 +636,7 @@ const Box = observer(
 )
 
 const ReceiveBoxes = ({taskType, onClickOpenModal}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <div className={classNames.receiveBoxWrapper}>
       <div className={classNames.receiveBox}>
@@ -677,7 +677,7 @@ const NewBoxes = observer(
     volumeWeightCoefficient,
     readOnly,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [curBox, setCurBox] = useState({})
 
@@ -744,7 +744,7 @@ export const BeforeAfterBlock = observer(
     onClickOpenModal,
     readOnly,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const onClickEditBox = box => {
       onEditBox(box)

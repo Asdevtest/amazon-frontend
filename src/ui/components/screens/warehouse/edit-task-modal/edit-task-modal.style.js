@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '1480px',
     display: 'flex',
@@ -16,7 +16,7 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '30px',
     lineHeight: '41px',
     fontWeight: 600,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   typeTaskWrapper: {
     display: 'flex',
@@ -27,13 +27,13 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   typeTaskSubTitle: {
     fontSize: '30px',
     lineHeight: '41px',
     fontWeight: 600,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   form: {
     marginTop: theme.spacing(2.5),
@@ -56,7 +56,7 @@ export const useClassNames = makeStyles(theme => ({
     fontSize: '18px',
     lineHeight: '140%',
     fontWeight: 600,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   field: {
     flexBasis: '100%',
@@ -116,7 +116,7 @@ export const useClassNames = makeStyles(theme => ({
     marginRight: '4px',
   },
   sectionTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginBottom: theme.spacing(1),
   },
   title: {
@@ -128,7 +128,7 @@ export const useClassNames = makeStyles(theme => ({
   },
   subTitleSSS: {
     fontSize: '14px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginRight: theme.spacing(1),
   },
   inputWrapper: {
@@ -144,6 +144,9 @@ export const useClassNames = makeStyles(theme => ({
   heightFieldAuto: {
     height: '185px',
     width: '330px',
+
+    padding: 0,
+    border: 'none',
   },
   commentsWrapper: {
     width: '400px',
@@ -182,7 +185,7 @@ export const useClassNames = makeStyles(theme => ({
   cancelButton: {
     width: '183px',
     height: '40px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   closeButton: {
@@ -193,6 +196,9 @@ export const useClassNames = makeStyles(theme => ({
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'end',
+
+    // position: 'sticky',
+    // bottom: 0,
   },
   photosWrapper: {
     display: 'flex',
@@ -228,8 +234,11 @@ export const useClassNames = makeStyles(theme => ({
     },
 
     heightFieldAuto: {
-      height: '96px',
-      width: '100%',
+      height: 'auto',
+      width: '280px',
+
+      padding: 0,
+      border: 'none',
     },
 
     commentsWrapper: {
@@ -260,6 +269,9 @@ export const useClassNames = makeStyles(theme => ({
     },
 
     buttonsWrapper: {
+      position: 'sticky',
+      bottom: 0,
+
       display: 'flex',
       justifyContent: 'center',
     },

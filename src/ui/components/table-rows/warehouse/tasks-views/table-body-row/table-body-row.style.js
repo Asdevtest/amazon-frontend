@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles()(() => ({
   defaultOrderSpan: {
     color: 'rgba(0, 123, 255, 1)',
   },
@@ -54,4 +54,4 @@ export const useClassNames = makeStyles({
     alignItems: 'center',
     gap: '3px',
   },
-})
+}))

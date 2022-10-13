@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import React, {useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -14,7 +14,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './feedback-modal.style'
 
 export const FeedBackModal = ({onSubmit, onClose}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [comment, setComment] = useState('')
   const [images, setImages] = useState([])
@@ -64,7 +64,7 @@ export const FeedBackModal = ({onSubmit, onClose}) => {
         />
         <img
           src={showFiles ? '/assets/icons/files-active.svg' : '/assets/icons/files.svg'}
-          className={clsx(classNames.inputIcon, classNames.fileIconPos)}
+          className={cx(classNames.inputIcon, classNames.fileIconPos)}
           onClick={() => setShowFiles(!showFiles)}
         />
       </div>
@@ -80,7 +80,7 @@ export const FeedBackModal = ({onSubmit, onClose}) => {
         >
           {t(TranslationKey.Send)}
         </Button>
-        <Button color="primary" variant="contained" className={classNames.buttonCancel} onClick={onClickCloseButton}>
+        <Button variant="text" className={classNames.buttonCancel} onClick={onClickCloseButton}>
           {t(TranslationKey.Cancel)}
         </Button>
       </div>

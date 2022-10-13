@@ -1,6 +1,6 @@
-import React from 'react'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
+import React from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -14,7 +14,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './delivery-parameters.style'
 
 export const DeliveryParameters = ({order}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const OrderParameter = ({label, value, tooltipText}) => (
     <Field

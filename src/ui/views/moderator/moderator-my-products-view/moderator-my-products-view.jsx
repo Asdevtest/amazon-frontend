@@ -1,9 +1,10 @@
 // import {DataGrid, GridToolbar} from '@mui/x-data-grid'
+import {Typography} from '@mui/material'
+
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 // import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -72,7 +73,7 @@ export class ModeratorMyProductsViewRaw extends Component {
                 sx={{
                   border: 0,
                   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                  backgroundColor: '#fff',
+                  backgroundColor: theme.palette.background.main,
                 }}
                 localeText={getLocalizationByLanguageTag()}
                 classes={{
@@ -110,4 +111,4 @@ export class ModeratorMyProductsViewRaw extends Component {
   }
 }
 
-export const ModeratorMyProductsView = withStyles(styles)(ModeratorMyProductsViewRaw)
+export const ModeratorMyProductsView = withStyles(ModeratorMyProductsViewRaw, styles)

@@ -134,8 +134,4 @@ export class FinancesViewModel {
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
   }
-
-  onChangeCurPage(e) {
-    this.curPage = e
-  }
 }

@@ -47,7 +47,6 @@ export class SubUsersViewModel {
   selectionModel = undefined
 
   activeSubCategory = 0
-  drawerOpen = false
 
   rowHandlers = {
     onClickRemoveBtn: row => this.onClickRemoveBtn(row),
@@ -164,10 +163,6 @@ export class SubUsersViewModel {
 
   onChangeRowsPerPage(e) {
     this.rowsPerPage = e
-  }
-
-  onChangeCurPage(e) {
-    this.curPage = e
   }
 
   async loadData() {

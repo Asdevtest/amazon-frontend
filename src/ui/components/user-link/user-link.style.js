@@ -1,8 +1,8 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   linkText: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '400',
@@ -16,7 +16,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   blackLinkText: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
     lineHeight: '140%',
     fontWeight: '600',

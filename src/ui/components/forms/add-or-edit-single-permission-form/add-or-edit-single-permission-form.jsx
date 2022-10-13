@@ -1,6 +1,7 @@
+import {IconButton, NativeSelect, Typography} from '@mui/material'
+
 import React, {useState} from 'react'
 
-import {IconButton, NativeSelect, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {observer} from 'mobx-react'
 
@@ -20,7 +21,7 @@ import {useClassNames} from './add-or-edit-single-permission-form.style'
 
 export const AddOrEditSinglePermissionForm = observer(
   ({onCloseModal, onSubmit, isEdit, permissionToEdit, existingSinglePermissions}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [onKeyFieldEditing, setOnKeyFieldEditing] = useState(false)
 
@@ -90,7 +91,7 @@ export const AddOrEditSinglePermissionForm = observer(
 
     return (
       <div className={classNames.root}>
-        <Typography variant="h5">
+        <Typography variant="h5" className={classNames.mainTitle}>
           {isEdit ? t(TranslationKey['Change permission']) : t(TranslationKey['New Permission'])}
         </Typography>
 
@@ -104,9 +105,11 @@ export const AddOrEditSinglePermissionForm = observer(
                 input={<Input fullWidth />}
                 onChange={onChangeField('role')}
               >
-                <option value={'None'}>{'none'}</option>
+                <option value={'None'} className={classNames.selectOption}>
+                  {'none'}
+                </option>
                 {Object.keys(UserRoleCodeMap).map((roleCode, index) => (
-                  <option key={index} value={roleCode}>
+                  <option key={index} value={roleCode} className={classNames.selectOption}>
                     {UserRoleCodeMap[roleCode]}
                   </option>
                 ))}
@@ -176,9 +179,11 @@ export const AddOrEditSinglePermissionForm = observer(
                       className={classNames.httpMethodSelect}
                       onChange={onChangeField('allowedUrls', index, 'httpMethod')}
                     >
-                      <option value={'None'}>{'none'}</option>
+                      <option value={'None'} className={classNames.selectOption}>
+                        {'none'}
+                      </option>
                       {Object.keys(HttpMethod).map((http, idx) => (
-                        <option key={idx} value={http}>
+                        <option key={idx} value={http} className={classNames.selectOption}>
                           {HttpMethod[http]}
                         </option>
                       ))}

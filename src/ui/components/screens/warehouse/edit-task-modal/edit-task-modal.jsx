@@ -1,6 +1,7 @@
+import {Divider, Typography} from '@mui/material'
+
 import React, {useEffect, useState} from 'react'
 
-import {Divider, Typography} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {loadingStatuses} from '@constants/loading-statuses'
@@ -36,7 +37,7 @@ export const EditTaskModal = observer(
     onTriggerShowEditBoxModal,
     readOnly,
   }) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [receiveBoxModal, setReceiveBoxModal] = useState(false)
 
@@ -133,8 +134,8 @@ export const EditTaskModal = observer(
                 multiline
                 disabled
                 className={classNames.heightFieldAuto}
-                minRows={currentScreenWidth < 768 ? 4 : 9}
-                maxRows={currentScreenWidth < 768 ? 4 : 9}
+                minRows={currentScreenWidth < 768 ? 4 : 8}
+                maxRows={currentScreenWidth < 768 ? 4 : 8}
                 label={t(TranslationKey['Client comment'])}
                 placeholder={t(TranslationKey['Client comment on the task'])}
                 value={task.clientComment || ''}
@@ -143,8 +144,8 @@ export const EditTaskModal = observer(
                 multiline
                 className={classNames.heightFieldAuto}
                 disabled={readOnly}
-                minRows={currentScreenWidth < 768 ? 4 : 9}
-                maxRows={currentScreenWidth < 768 ? 4 : 9}
+                minRows={currentScreenWidth < 768 ? 4 : 8}
+                maxRows={currentScreenWidth < 768 ? 4 : 8}
                 inputProps={{maxLength: 2000}}
                 label={t(TranslationKey['Storekeeper comment'])}
                 placeholder={t(TranslationKey['Storekeeper comment to client'])}

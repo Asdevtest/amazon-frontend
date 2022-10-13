@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
   },
@@ -15,7 +15,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '30px',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
   },
 
   leftBlockWrapper: {
@@ -62,14 +62,14 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   cardDescription: {
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginTop: '10px',
     height: '57px',
     overflow: 'auto',
@@ -80,7 +80,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   rightBlockWrapper: {
@@ -110,7 +110,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '10px',
   },
 
@@ -146,7 +146,7 @@ export const useClassNames = makeStyles(() => ({
   cardPrice: {
     fontSize: '16px',
     lineHeight: '21px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   statusText: {
@@ -166,7 +166,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
     marginRight: 5,
   },
 
@@ -219,14 +219,14 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   resultDescription: {
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     height: '125px',
     maxWidth: '758px',
     overflow: 'auto',
@@ -253,12 +253,12 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   timeOnReview: {
     padding: '8px 16px 8px 56px',
-    backgroundColor: '#D9FAE5',
+    backgroundColor: theme.palette.background.green,
   },
 
   sumAndTimeWrapper: {
@@ -271,6 +271,10 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
+  },
+
+  text: {
+    color: theme.palette.text.general,
   },
 }))

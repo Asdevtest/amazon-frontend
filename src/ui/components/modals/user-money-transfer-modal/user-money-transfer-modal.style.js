@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalMessageWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -29,6 +29,11 @@ export const useClassNames = makeStyles(() => ({
 
   title: {
     fontSize: '24px',
+    color: theme.palette.text.general,
+  },
+
+  text: {
+    color: theme.palette.text.second,
   },
 
   button: {

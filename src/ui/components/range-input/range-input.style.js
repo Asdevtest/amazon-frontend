@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
     alignItems: 'center',
@@ -14,7 +14,7 @@ export const useClassNames = makeStyles(theme => ({
     width: '80px',
   },
   label: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
     marginRight: '8px',
   },
 

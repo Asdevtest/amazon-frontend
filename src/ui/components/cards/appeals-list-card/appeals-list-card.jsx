@@ -1,9 +1,6 @@
-// import Rating from '@mui/material/Rating'
-import {Rating} from '@mui/material'
+import {Avatar, Grid, Typography, Rating} from '@mui/material'
 
 import React from 'react'
-
-import {Avatar, Grid, Typography} from '@material-ui/core'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -30,7 +27,7 @@ import {t} from '@utils/translations'
 import {useClassNames} from './appeals-list-card.style'
 
 export const AppealsListCard = ({onClickViewMore}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <Grid item className={classNames.mainWrapper}>

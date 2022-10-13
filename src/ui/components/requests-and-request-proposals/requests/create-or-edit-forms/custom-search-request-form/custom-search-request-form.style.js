@@ -1,13 +1,13 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   button: {
     marginLeft: '10px',
   },
   conditionsField: {
     width: '100%',
     minHeight: '300px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     padding: '8px',
     fontSize: '16px',
     outline: 'none',
@@ -20,7 +20,7 @@ export const useClassNames = makeStyles(() => ({
   nameField: {
     width: '100%',
     minHeight: '60px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     padding: '8px',
     fontSize: '16px',
     outline: 'none',

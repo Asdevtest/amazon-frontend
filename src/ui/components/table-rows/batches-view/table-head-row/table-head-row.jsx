@@ -1,6 +1,6 @@
-import React from 'react'
+import {TableCell, TableRow} from '@mui/material'
 
-import {TableCell, TableRow} from '@material-ui/core'
+import React from 'react'
 
 export const TableHeadRow = ({headCells}) => (
   <TableRow>

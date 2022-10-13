@@ -1,6 +1,7 @@
+import {Grid, Typography, Paper} from '@mui/material'
+
 import React from 'react'
 
-import {Grid, Typography, Paper} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {
@@ -30,7 +31,7 @@ const clientToEditStatuses = [
 ]
 
 export const BottomCard = observer(({curUserRole, product, productBase, onChangeField, formFieldsValidationErrors}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const clientCanEdit =
     checkIsClient(curUserRole) &&

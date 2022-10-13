@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import {cx} from '@emotion/css'
+import {Container, Divider, Grid, Typography} from '@mui/material'
 
-import {Container, Divider, Grid, Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import React, {useState} from 'react'
 
 import {ProductStatus, ProductStatusByKey} from '@constants/product-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -40,19 +40,19 @@ export const SelectionSupplierModal = ({
 
   const [comment, setComment] = useState(product?.originalData.clientComment || '')
 
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
-  const buttonSearchSupplierForIdeaClsx = clsx(classNames.modalButton, classNames.searchSupplierForIdeaBtn, {
+  const buttonSearchSupplierForIdeaClsx = cx(classNames.modalButton, classNames.searchSupplierForIdeaBtn, {
     [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.SUPPLIER_TO_IDEAS,
   })
 
-  const buttonSendRequestClsx = clsx(classNames.modalButton, {
+  const buttonSendRequestClsx = cx(classNames.modalButton, {
     [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST,
   })
-  const buttonAddSupplierClsx = clsx(classNames.modalButton, {
+  const buttonAddSupplierClsx = cx(classNames.modalButton, {
     [classNames.modalButtonActive]: selectedButtonValue === selectedButtonValueConfig.ADD_NEW_SUPPLIER,
   })
-  const modalTitleClsx = clsx(classNames.modalTitle, {[classNames.modalTitleChange]: clickNextOrPrevButton})
+  const modalTitleClsx = cx(classNames.modalTitle, {[classNames.modalTitleChange]: clickNextOrPrevButton})
 
   const onClickSearchSupplierForIdeaButton = () => {
     setSelectedButtonValue(selectedButtonValueConfig.SUPPLIER_TO_IDEAS)
@@ -148,7 +148,7 @@ export const SelectionSupplierModal = ({
       <Grid
         container
         spacing={2}
-        className={clsx(classNames.modalButtonWrapper, {
+        className={cx(classNames.modalButtonWrapper, {
           [classNames.modalButtonNextStepWrapper]:
             selectedButtonValue === selectedButtonValueConfig.SEND_REQUEST && clickNextOrPrevButton,
         })}

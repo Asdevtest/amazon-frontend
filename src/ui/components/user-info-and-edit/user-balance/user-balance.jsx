@@ -19,7 +19,7 @@ import {UserBalanceModel} from './user-balance.model'
 import {useClassNames} from './user-balance.style'
 
 export const UserBalance = observer(({userId}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const history = useHistory()
   const model = useRef(new UserBalanceModel({history, userId}))
 
@@ -73,7 +73,7 @@ export const UserBalance = observer(({userId}) => {
       </Button>
       <Button
         disableElevation
-        className={classNames.button}
+        className={[classNames.button, classNames.cancelBtn]}
         color="primary"
         variant="text"
         onClick={onTriggerWithdrawModal}
@@ -84,11 +84,11 @@ export const UserBalance = observer(({userId}) => {
         <DataGrid
           pagination
           useResizeContainer
-          sx={{
-            border: 0,
-            boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-            backgroundColor: '#fff',
-          }}
+          // sx={{
+          //   border: 0,
+          //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+          //   backgroundColor: theme.palette.background.main,
+          // }}
           getRowClassName={getRowClassName}
           sortModel={sortModel}
           filterModel={filterModel}

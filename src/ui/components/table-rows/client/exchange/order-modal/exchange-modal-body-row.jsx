@@ -1,5 +1,6 @@
-import {TableCell, TableRow, Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
+import {TableCell, TableRow, Typography} from '@mui/material'
+
+import {withStyles} from 'tss-react/mui'
 
 import {Input} from '@components/input'
 
@@ -99,4 +100,4 @@ const ExchangeModalBodyRowRaw = ({product, orderFields, setOderField, classes: c
   </TableRow>
 )
 
-export const ExchangeModalBodyRow = withStyles(styles)(ExchangeModalBodyRowRaw)
+export const ExchangeModalBodyRow = withStyles(ExchangeModalBodyRowRaw, styles)

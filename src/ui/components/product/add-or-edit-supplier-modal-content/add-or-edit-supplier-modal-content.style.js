@@ -1,8 +1,8 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '24px',
     fontWeight: 500,
     lineHeight: '28px',
@@ -54,7 +54,7 @@ export const useClassNames = makeStyles(() => ({
   },
   cancelBtn: {
     backgroundColor: '#d5d5d5',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     textTransform: 'none',
     '&:hover': {
       color: '#fff',
@@ -71,7 +71,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   loadTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: '600',
     lineHeight: '20px',
@@ -106,7 +106,7 @@ export const useClassNames = makeStyles(() => ({
   checkboxText: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontWeight: '600',
   },
 
@@ -234,7 +234,7 @@ export const useClassNames = makeStyles(() => ({
 
   link: {
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
-    color: '#007bff',
+    color: theme.palette.primary.main,
     maxWidth: '100%',
     overflow: 'auto',
   },

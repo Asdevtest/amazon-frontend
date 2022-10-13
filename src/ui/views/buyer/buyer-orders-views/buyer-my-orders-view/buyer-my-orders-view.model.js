@@ -38,7 +38,6 @@ const updateOrderKeys = [
 export class BuyerMyOrdersViewModel {
   history = undefined
   requestStatus = undefined
-  actionStatus = undefined
   error = undefined
 
   ordersMy = []
@@ -454,9 +453,5 @@ export class BuyerMyOrdersViewModel {
 
   onChangeCurPage(e) {
     this.curPage = e
-  }
-
-  actionStatus(actionStatus) {
-    this.actionStatus = actionStatus
   }
 }

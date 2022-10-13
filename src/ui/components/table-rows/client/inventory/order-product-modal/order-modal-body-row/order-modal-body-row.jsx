@@ -1,8 +1,9 @@
+import {cx} from '@emotion/css'
+import {Chip, Typography, TableCell, TableRow, IconButton} from '@mui/material'
+
 import React, {useEffect, useState} from 'react'
 
-import {Chip, Typography, TableCell, TableRow, IconButton} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
-import clsx from 'clsx'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 import {zipCodeGroups} from '@constants/zip-code-groups'
@@ -36,7 +37,7 @@ export const OrderModalBodyRow = ({
   onRemoveProduct,
   withRemove,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const onChangeInput = (event, nameInput) => {
     setOrderStateFiled(nameInput)(event.target.value)
@@ -107,7 +108,7 @@ export const OrderModalBodyRow = ({
         key={item._id}
         hover
         role="checkbox"
-        className={clsx(classNames.row, {[classNames.noCurrentSupplier]: !item.currentSupplier})}
+        className={cx(classNames.row, {[classNames.noCurrentSupplier]: !item.currentSupplier})}
       >
         <TableCell className={classNames.asinCell}>
           <div className={classNames.asinCellContainer}>
@@ -120,11 +121,11 @@ export const OrderModalBodyRow = ({
         <TableCell className={classNames.cell}>
           <Typography className={classNames.amazonTitle}>{item.amazonTitle}</Typography>
           <div className={classNames.copyValueWrapper}>
-            <Typography>{`ASIN: ${item.asin}`}</Typography>
+            <Typography className={classNames.standartText}>{`ASIN: ${item.asin}`}</Typography>
             {item.asin ? <CopyValue text={item.asin} /> : null}
           </div>
           <div className={classNames.copyValueWrapper}>
-            <Typography>{`SKU: ${
+            <Typography className={classNames.standartText}>{`SKU: ${
               item.skusByClient?.length ? item.skusByClient.join(',') : t(TranslationKey.Missing)
             }`}</Typography>
             {item.skusByClient[0] ? <CopyValue text={item.skusByClient[0]} /> : null}
@@ -138,11 +139,13 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <Typography>{item.currentSupplier && item.currentSupplier.price}</Typography>
+          <Typography className={classNames.standartText}>
+            {item.currentSupplier && item.currentSupplier.price}
+          </Typography>
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <Typography>
+          <Typography className={classNames.standartText}>
             {item.currentSupplier &&
               toFixed(item.currentSupplier.batchDeliveryCostInDollar / item.currentSupplier.amount, 2)}
           </Typography>
@@ -158,7 +161,9 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={classNames.cell}>
-          <Typography>{toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}</Typography>
+          <Typography className={classNames.standartText}>
+            {toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}
+          </Typography>
         </TableCell>
 
         <TableCell className={classNames.cell}>
@@ -169,7 +174,7 @@ export const OrderModalBodyRow = ({
               deletable: classNames.barcodeChipHover,
               deleteIcon: classNames.barcodeChipIcon,
             }}
-            className={clsx({[classNames.barcodeChipExists]: item.barCode})}
+            className={cx({[classNames.barcodeChipExists]: item.barCode})}
             size="small"
             label={
               orderState.tmpBarCode.length
@@ -189,7 +194,10 @@ export const OrderModalBodyRow = ({
             disableElevation
             color="primary"
             variant={item.storekeeperId && 'text'}
-            className={clsx({[classNames.storekeeperBtn]: !item.storekeeperId})}
+            className={cx(
+              {[classNames.storekeeperBtn]: !item.storekeeperId},
+              {[classNames.standartText]: item.storekeeperId},
+            )}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
             {item.storekeeperId

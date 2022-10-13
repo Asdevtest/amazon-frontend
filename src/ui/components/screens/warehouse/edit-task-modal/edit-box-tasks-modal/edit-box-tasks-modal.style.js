@@ -1,18 +1,18 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalWrapper: {
     width: '700px',
   },
   modalTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '140%',
     marginBottom: '24px',
   },
   modalText: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -83,7 +83,7 @@ export const useClassNames = makeStyles(() => ({
   cancelButton: {
     width: '179px',
     height: '40px',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   numberInputFieldsBlocksWrapper: {
     display: 'flex',
@@ -137,7 +137,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   photoAndFilesTitle: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '19px',
@@ -149,7 +149,7 @@ export const useClassNames = makeStyles(() => ({
   label: {
     fontSize: '14px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   dimensionsWrapper: {
@@ -162,7 +162,7 @@ export const useClassNames = makeStyles(() => ({
   subTitle: {
     fontWeight: 600,
     fontSize: 14,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   divider: {
@@ -176,7 +176,7 @@ export const useClassNames = makeStyles(() => ({
       maxWidth: '520px',
     },
     modalTitle: {
-      color: '#001029',
+      color: theme.palette.text.general,
       fontSize: '16px',
       fontWeight: 600,
       lineHeight: '22px',
@@ -188,7 +188,7 @@ export const useClassNames = makeStyles(() => ({
     label: {
       fontSize: '14px',
       lineHeight: '19px',
-      color: '#656565',
+      color: theme.palette.text.second,
     },
     numberInputFieldsBlocksWrapper: {
       flexDirection: 'column',

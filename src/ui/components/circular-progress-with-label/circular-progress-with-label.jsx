@@ -1,12 +1,12 @@
-import React from 'react'
+import CircularProgress from '@mui/material/CircularProgress'
+import Typography from '@mui/material/Typography'
 
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Typography from '@material-ui/core/Typography'
+import React from 'react'
 
 import {useClassNames} from './circular-progress-with-label.style'
 
 export const CircularProgressWithLabel = ({value, title}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
     <div className={classNames.mainWrapper}>
       <div className={classNames.progressContainer}>

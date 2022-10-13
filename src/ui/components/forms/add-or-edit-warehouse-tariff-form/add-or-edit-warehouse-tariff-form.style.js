@@ -1,23 +1,39 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     minWidth: '500px',
   },
 
-  button: {width: '121px', height: '40px'},
-  closeButton: {
-    color: '#001029',
+  modalTitle: {
+    fontSize: '16px',
+    lineHeight: '22px',
+    color: theme.palette.text.general,
+
+    fontWeight: 600,
   },
+
+  button: {width: '121px', height: '40px'},
+
+  closeButton: {
+    color: theme.palette.text.general,
+  },
+  title: {
+    color: theme.palette.text.general,
+  },
+
   multiline: {
     width: '100%',
     minHeight: '100px',
   },
 
   descriptionField: {
-    height: '100px',
+    height: 'auto',
     width: '100%',
     overflowY: 'hidden',
+
+    padding: 0,
+    border: 'none',
   },
 
   allowUrlsWrapper: {
@@ -71,7 +87,6 @@ export const useClassNames = makeStyles(() => ({
     modalTitle: {
       fontSize: '16px',
       lineHeight: '22px',
-      color: '#001029',
       fontWeight: 600,
     },
   },

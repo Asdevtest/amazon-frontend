@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -29,7 +29,7 @@ export const useClassNames = makeStyles(theme => ({
     marginLeft: '40px',
   },
   subTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
   field: {
     width: '100%',
@@ -37,6 +37,13 @@ export const useClassNames = makeStyles(theme => ({
   multiline: {
     height: 'auto',
     width: '100%',
+
+    padding: 0,
+    border: 'none',
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 
   divider: {
@@ -73,7 +80,7 @@ export const useClassNames = makeStyles(theme => ({
 
     padding: '10px 20px',
 
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.palette.background.second,
 
     display: 'flex',
     flexDirection: 'column',
@@ -106,7 +113,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   barcodeChipExists: {
-    backgroundColor: 'rgb(61, 81, 112)',
+    backgroundcolor: theme.palette.text.general,
     width: '230px',
   },
   topWrapper: {
@@ -117,6 +124,9 @@ export const useClassNames = makeStyles(theme => ({
     height: 'auto',
     maxWidth: '380px',
     minWidth: '250px',
+
+    padding: 0,
+    border: 'none',
   },
   commentsWrapper: {
     display: 'flex',
@@ -206,7 +216,7 @@ export const useClassNames = makeStyles(theme => ({
   },
 
   editBlockWrapper: {
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.palette.background.second,
     height: '100%',
   },
 
@@ -254,10 +264,13 @@ export const useClassNames = makeStyles(theme => ({
 
     width: '230px',
     marginBottom: '5px',
+
+    color: theme.palette.text.general,
   },
 
   asinText: {
     marginLeft: 10,
+    color: theme.palette.text.second,
   },
 
   titleWrapper: {
@@ -272,18 +285,18 @@ export const useClassNames = makeStyles(theme => ({
     fontWeight: 600,
     fontSize: 30,
 
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   standartLabel: {
     fontSize: 14,
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   tableTitle: {
     fontWeight: 600,
     fontSize: 16,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   productImageClass: {

@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
+import CssBaseline from '@mui/material/CssBaseline'
+import {ThemeProvider} from '@mui/material/styles'
+
 import {useMemo, useEffect, useRef} from 'react'
 
-import {ThemeProvider} from '@material-ui/styles'
 import {observer} from 'mobx-react'
 import {BrowserRouter as Router, Switch} from 'react-router-dom'
 
@@ -33,7 +35,8 @@ export const MainNav = observer(() => {
   )
 
   return (
-    <ThemeProvider theme={/* SettingsModel.uiTheme === UiTheme.light ? */ theme /* : darkTheme*/}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Router>
         <Switch>
           {generateRedirects()}

@@ -1,6 +1,6 @@
-import React from 'react'
+import {Box, TableCell, TableRow, Typography} from '@mui/material'
 
-import {Box, TableCell, TableRow, Typography} from '@material-ui/core'
+import React from 'react'
 
 import {getOrderStatusOptionByCode} from '@constants/order-status'
 
@@ -11,7 +11,7 @@ import {useClickPreventionOnDoubleClick} from '@utils/use-click-prevent-on-doubl
 import {useClassNames} from './table-body-row.style'
 
 export const TableBodyRow = ({item, itemIndex, handlers}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   const [handleClick, handleDoubleClick] = useClickPreventionOnDoubleClick(
     () => {
       if (handlers.onClickOrder) {

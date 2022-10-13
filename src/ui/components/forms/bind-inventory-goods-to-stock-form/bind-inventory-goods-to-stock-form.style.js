@@ -1,8 +1,12 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '850px',
+  },
+
+  title: {
+    color: theme.palette.text.general,
   },
 
   mainTitle: {
@@ -20,6 +24,7 @@ export const useClassNames = makeStyles(() => ({
 
   chosenGoodsTitle: {
     margin: '24px 0 4px',
+    color: theme.palette.text.second,
   },
 
   btnsWrapper: {
@@ -31,7 +36,7 @@ export const useClassNames = makeStyles(() => ({
   searchBtnText: {
     fontSize: '14px',
     lineHeight: '17px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   filtersWrapper: {
@@ -43,6 +48,8 @@ export const useClassNames = makeStyles(() => ({
   betweenChipsText: {
     margin: '0 17px',
     minWidth: 100,
+
+    color: theme.palette.text.second,
   },
 
   asinChip: {
@@ -55,12 +62,12 @@ export const useClassNames = makeStyles(() => ({
 
   chip: {
     marginBottom: 5,
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: '16px',
-    backgroundColor: '#F4F4F4',
+    // backgroundColor: '#F4F4F4',
     transition: '.15s ease-in-out',
     '&:hover': {
-      color: '#007bff',
+      color: theme.palette.primary.main,
       transform: 'scale(1.01)',
     },
   },
@@ -68,17 +75,17 @@ export const useClassNames = makeStyles(() => ({
   chipActive: {
     marginBottom: 0,
     background: 'linear-gradient(360deg, rgba(0, 108, 255, 0.2) 10.71%, rgba(0, 108, 255, 0) 100%)',
-    color: '#007bff',
+    color: theme.palette.primary.main,
 
     borderBottom: '5px solid #0460DE',
   },
 
   searchInput: {
-    backgroundColor: '#F4F4F4',
+    // backgroundColor: '#F4F4F4',
     width: '100%',
     height: 40,
     '&:focus-within': {
-      backgroundColor: '#fff',
+      backgroundColor: theme.palette.background.main,
     },
   },
 

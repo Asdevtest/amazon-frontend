@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(theme => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -29,7 +29,7 @@ export const useClassNames = makeStyles(theme => ({
     marginLeft: '10px',
   },
   subTitle: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.second,
   },
   field: {
     flexBasis: '100%',
@@ -91,7 +91,7 @@ export const useClassNames = makeStyles(theme => ({
     },
   },
   barcodeChipExists: {
-    backgroundColor: 'rgb(61, 81, 112)',
+    backgroundcolor: theme.palette.text.general,
   },
   topWrapper: {
     display: 'flex',
@@ -151,5 +151,7 @@ export const useClassNames = makeStyles(theme => ({
     textAlign: 'left',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+
+    color: theme.palette.text.second,
   },
 }))

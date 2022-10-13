@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainContainer: {
     width: '100%',
     height: '100%',
@@ -21,6 +21,10 @@ export const useClassNames = makeStyles(() => ({
     transitionProperty: 'transform',
     transitionDuration: '300ms',
     transitionTimingFunction: 'ease-in-out',
+  },
+
+  emptyDocs: {
+    color: theme.palette.text.second,
   },
   allClides: {
     display: 'flex',
@@ -45,6 +49,8 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
+
+    color: theme.palette.text.general,
   },
 
   buttonDocumentsWrapper: {
@@ -130,7 +136,7 @@ export const useClassNames = makeStyles(() => ({
     position: 'relative',
     width: '100%',
 
-    color: '#001029',
+    color: theme.palette.text.general,
 
     display: 'flex',
     flexDirection: 'column',
@@ -146,7 +152,7 @@ export const useClassNames = makeStyles(() => ({
       position: 'absolute',
 
       textAlign: 'center',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
   },
 
@@ -176,7 +182,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '16px',
     lineHeight: '19px',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '10px',
   },
 
@@ -184,7 +190,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   filesTitleWrapper: {
@@ -253,5 +259,6 @@ export const useClassNames = makeStyles(() => ({
 
   noPhotoText: {
     textAlign: 'center',
+    color: theme.palette.text.second,
   },
 }))

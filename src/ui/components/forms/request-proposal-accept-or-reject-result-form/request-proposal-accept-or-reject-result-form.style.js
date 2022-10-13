@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '586px',
   },
@@ -15,7 +15,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '30px',
   },
 
@@ -31,7 +31,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cancelSubmit: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   inputsWrapper: {

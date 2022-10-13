@@ -1,9 +1,10 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
-    backgroundColor: '#fff',
-    boxShadow: '0px 2px 11px 2px #DFDFDF',
+    backgroundColor: theme.palette.background.main,
+    // boxShadow: '0px 2px 11px 2px #DFDFDF',
+    boxShadow: `0px 2px 11px 2px ${theme.palette.boxShadow.main}`,
 
     padding: '30px 20px',
     borderRadius: '8px',
@@ -27,15 +28,16 @@ export const useClassNames = makeStyles({
   cardTitleWrapperHorizontal: {gap: '38px'},
   cardTitle: {
     width: '111px',
+    color: theme.palette.text.second,
   },
   cardListTitle: {
     fontSize: '20px',
     lineHeight: '27px',
-    color: '#001029',
+    color: theme.palette.text.general,
     fontWeight: 600,
   },
   cardListSubTitle: {
-    color: '#656565',
+    color: theme.palette.text.second,
     fontSize: '14px',
     lineHeight: '19px',
     marginBottom: '10px',
@@ -48,7 +50,7 @@ export const useClassNames = makeStyles({
     fontWeight: 700,
     fontSize: '32px',
     lineHeight: '44px',
-    color: '#001029',
+    color: theme.palette.text.general,
     textAlign: 'end',
   },
-})
+}))

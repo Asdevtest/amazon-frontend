@@ -3,12 +3,12 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import SearchIcon from '@mui/icons-material/Search'
 import TableRowsIcon from '@mui/icons-material/TableRows'
 import ViewModuleIcon from '@mui/icons-material/ViewModule'
+import {Box, InputAdornment, Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
-import {Box, InputAdornment, Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {tableViewMode, tableSortMode} from '@constants/table-view-modes'
@@ -160,4 +160,4 @@ class VacantRequestsViewRaw extends Component {
   }
 }
 
-export const VacantRequestsView = withStyles(styles)(VacantRequestsViewRaw)
+export const VacantRequestsView = withStyles(VacantRequestsViewRaw, styles)

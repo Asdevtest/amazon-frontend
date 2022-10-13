@@ -1,16 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React, {useEffect, useState} from 'react'
+import {Typography, Table, TableBody, TableCell, TableHead, TableContainer, TableRow} from '@mui/material'
 
-import {
-  Container,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableContainer,
-  TableRow,
-} from '@material-ui/core'
+import React, {useEffect, useState} from 'react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -37,7 +28,7 @@ export const OrderProductModal = ({
   onClickCancel,
   reorderOrder,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
@@ -179,7 +170,7 @@ export const OrderProductModal = ({
     submitIsClicked
 
   return (
-    <Container disableGutters maxWidth={'xl'}>
+    <div>
       <Typography className={classNames.modalTitle}>{t(TranslationKey['Order products'])}</Typography>
       <TableContainer className={classNames.tableWrapper}>
         <Table className={classNames.table}>
@@ -334,6 +325,6 @@ export const OrderProductModal = ({
           onCloseModal={triggerBarcodeModal}
         />
       </Modal>
-    </Container>
+    </div>
   )
 }

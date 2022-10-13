@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
 
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import React, {useEffect, useState} from 'react'
 
 import {Button} from '@components/buttons/button'
 import {Modal} from '@components/modal'
@@ -19,7 +19,7 @@ export const ConfirmationModal = ({
   onClickSuccessBtn,
   onClickCancelBtn,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [submitIsClicked, setSubmitIsClicked] = useState(false)
 
@@ -49,17 +49,17 @@ export const ConfirmationModal = ({
 
   return (
     <Modal isWarning={isWarning} openModal={openModal} setOpenModal={setOpenModal}>
-      <div className={clsx(classNames.modalMessageWrapper, {[classNames.warningModalMessageWrapper]: isWarning})}>
+      <div className={cx(classNames.modalMessageWrapper, {[classNames.warningModalMessageWrapper]: isWarning})}>
         <div className={classNames.titleWrapper}>
-          <Typography variant="h5" className={clsx(classNames.title, {[classNames.warningTitle]: isWarning})}>
+          <Typography variant="h5" className={cx(classNames.title, {[classNames.warningTitle]: isWarning})}>
             {title}
           </Typography>
         </div>
 
-        <Typography paragraph className={clsx(classNames.modalMessage, {[classNames.warningModalMessage]: isWarning})}>
+        <Typography paragraph className={cx(classNames.modalMessage, {[classNames.warningModalMessage]: isWarning})}>
           {message}
         </Typography>
-        <div className={clsx(classNames.buttonsWrapper, {[classNames.warningButtonsWrapper]: isWarning})}>
+        <div className={cx(classNames.buttonsWrapper, {[classNames.warningButtonsWrapper]: isWarning})}>
           {isWarning ? (
             <Button
               danger
@@ -88,7 +88,6 @@ export const ConfirmationModal = ({
             disabled={submitIsClicked}
             className={classNames.cancelButton}
             variant={'text'}
-            color="primary"
             onClick={onClickCancelBtn}
           >
             {cancelBtnText}

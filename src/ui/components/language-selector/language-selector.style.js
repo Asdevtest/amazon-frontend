@@ -1,9 +1,9 @@
-import {makeStyles} from '@material-ui/styles'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles({
+export const useClassNames = makeStyles()(theme => ({
   root: {},
   title: {
-    color: '#007bff',
+    color: theme.palette.primary.main,
     fontSize: '18px',
     transition: '0.3s ease',
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
@@ -14,7 +14,9 @@ export const useClassNames = makeStyles({
 
   selectedBtn: {
     // backgroundСolor: 'rgba(25, 118, 210, 0.8)',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
+
+    color: 'white !important',
   },
 
   // button: {
@@ -30,4 +32,4 @@ export const useClassNames = makeStyles({
   //   justifyContent: 'center',
   //   gap: '20px',
   // },
-})
+}))

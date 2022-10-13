@@ -1,7 +1,8 @@
+import {TableCell, TableRow, Typography} from '@mui/material'
+
 import React from 'react'
 
-import {TableCell, TableRow, Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
+import {withStyles} from 'tss-react/mui'
 
 import {TranslationKey} from '@constants/translations/translation-key'
 
@@ -36,4 +37,4 @@ const TableBodyRowRaw = ({item, handlers, ...restProps}) => {
   )
 }
 
-export const TableBodyRow = withStyles(styles)(TableBodyRowRaw)
+export const TableBodyRow = withStyles(TableBodyRowRaw, styles)

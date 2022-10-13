@@ -1,6 +1,6 @@
-import React, {FC, useContext} from 'react'
+import {cx} from '@emotion/css'
 
-import clsx from 'clsx'
+import React, {FC, useContext} from 'react'
 
 import {RequestProposalStatus} from '@constants/request-proposal-status'
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -27,7 +27,7 @@ interface Props {
 }
 
 export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const chatRequestAndRequestProposal = useContext(ChatRequestAndRequestProposalContext)
 
@@ -96,7 +96,7 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
                       variant="contained"
                       color="primary"
                       btnWrapperStyle={classNames.actionBtnWrapperStyle}
-                      className={clsx(classNames.actionButton, classNames.editBtn)}
+                      className={cx(classNames.actionButton, classNames.editBtn)}
                       onClick={() =>
                         chatRequestAndRequestProposal.requestProposal &&
                         handlers.onClickProposalResultToCorrect(
@@ -110,8 +110,8 @@ export const ChatMessageProposalStatusChanged: FC<Props> = ({message, handlers})
                   <Button
                     variant="contained"
                     color="primary"
-                    btnWrapperStyle={clsx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
-                    className={clsx(classNames.actionButton, classNames.successBtn)}
+                    btnWrapperStyle={cx(classNames.actionBtnWrapperStyle, classNames.actionBtnWrapperStyleNotFirst)}
+                    className={cx(classNames.actionButton, classNames.successBtn)}
                     onClick={() =>
                       chatRequestAndRequestProposal.requestProposal &&
                       handlers.onClickProposalResultAccept(chatRequestAndRequestProposal.requestProposal.proposal._id)

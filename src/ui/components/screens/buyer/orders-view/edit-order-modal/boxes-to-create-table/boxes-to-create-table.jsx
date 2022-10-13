@@ -1,8 +1,8 @@
 import EditIcon from '@mui/icons-material/Edit'
+import {Checkbox, TableCell, TableRow, Typography} from '@mui/material'
 
 import React, {useState} from 'react'
 
-import {Checkbox, TableCell, TableRow, Typography} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import {inchesCoefficient, sizesType} from '@constants/sizes-settings'
@@ -42,7 +42,7 @@ const renderHeadRow = () => (
 )
 
 const TableBodyBoxRow = ({item, itemIndex, handlers, ...restProps}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   return (
     <TableRow className={classNames.row}>
@@ -198,7 +198,7 @@ export const BoxesToCreateTable = ({
   onClickUpdateSupplierStandart,
   volumeWeightCoefficient,
 }) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [sizeSetting, setSizeSetting] = useState(sizesType.CM)
 

@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     minWidth: '500px',
   },
@@ -10,7 +10,10 @@ export const useClassNames = makeStyles(() => ({
   },
   cancelBtn: {
     marginLeft: '50px',
-    // backgroundColor: '#fff',
+
+    backgroundColor: theme.palette.background.main,
+
+    color: theme.palette.text.general,
   },
 
   button: {
@@ -61,6 +64,6 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     lineHeight: '140%',
 
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 }))

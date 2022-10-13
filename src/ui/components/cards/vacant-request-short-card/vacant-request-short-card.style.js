@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   cardWrapper: {
     minHeight: '373px',
     borderRadius: '4px',
@@ -16,7 +16,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '20px',
     height: '50px',
     overflow: 'hidden',
@@ -27,7 +27,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
-    color: '#656565',
+    color: theme.palette.text.second,
     marginTop: '10px',
   },
 
@@ -78,13 +78,13 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '17px',
     fontWeight: '600',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   cardTime: {
     fontSize: '14px',
     lineHeight: '16px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   nameRatingWrapper: {
@@ -106,14 +106,14 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   deadline: {
     fontSize: '14px',
     lineHeight: '17px',
     fontWeight: '600',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   timeWrapper: {
@@ -132,6 +132,6 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 400,
     fontSize: '14px',
     lineHeight: '16px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 }))

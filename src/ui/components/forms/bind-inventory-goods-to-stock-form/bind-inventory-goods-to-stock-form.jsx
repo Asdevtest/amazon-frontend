@@ -1,10 +1,10 @@
+import {cx} from '@emotion/css'
 import SearchIcon from '@mui/icons-material/Search'
+import {InputAdornment, Typography} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useEffect, useState} from 'react'
 
-import {InputAdornment, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 import qs from 'qs'
@@ -27,7 +27,7 @@ const chipConfigSettings = {
 }
 
 export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockData, product, onSubmit}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [selectedGoods, setSelectedGoods] = useState([])
   const [chosenGoods, setChosenGoods] = useState([])
@@ -110,13 +110,15 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
 
   return (
     <div className={classNames.root}>
-      <Typography variant="h6">{t(TranslationKey['Bind an product from Amazon'])}</Typography>
+      <Typography variant="h6" className={classNames.title}>
+        {t(TranslationKey['Bind an product from Amazon'])}
+      </Typography>
 
       <div className={classNames.form}>
         <div className={classNames.filtersWrapper}>
           <Button
             variant={'text'}
-            className={clsx(classNames.chip, {
+            className={cx(classNames.chip, {
               [classNames.chipActive]: chipConfig === chipConfigSettings.RECOMMENDED,
             })}
             onClick={() => setRecommendChip()}
@@ -128,7 +130,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
 
           <Button
             variant={'text'}
-            className={clsx(classNames.chip, classNames.chipLeftMargin, {
+            className={cx(classNames.chip, classNames.chipLeftMargin, {
               [classNames.chipActive]: chipConfig === chipConfigSettings.NAME,
             })}
             onClick={() => setChipConfig(chipConfigSettings.NAME)}
@@ -138,7 +140,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
 
           <Button
             variant={'text'}
-            className={clsx(classNames.chip, classNames.chipLeftMargin, {
+            className={cx(classNames.chip, classNames.chipLeftMargin, {
               [classNames.chipActive]: chipConfig === chipConfigSettings.ASIN,
             })}
             onClick={() => setChipConfig(chipConfigSettings.ASIN)}
@@ -148,7 +150,7 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
 
           <Button
             variant={'text'}
-            className={clsx(classNames.chip, classNames.chipLeftMargin, {
+            className={cx(classNames.chip, classNames.chipLeftMargin, {
               [classNames.chipActive]: chipConfig === chipConfigSettings.SKU,
             })}
             onClick={() => setChipConfig(chipConfigSettings.SKU)}
@@ -175,11 +177,11 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
           <DataGrid
             hideFooter
             checkboxSelection
-            sx={{
-              border: 0,
-              boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-              backgroundColor: '#fff',
-            }}
+            // sx={{
+            //   border: 0,
+            //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+            //   backgroundColor: theme.palette.background.main,
+            // }}
             rows={toJS(stockData)}
             columns={sourceColumns()}
             rowHeight={60}
@@ -206,11 +208,11 @@ export const BindInventoryGoodsToStockForm = observer(({stockData, updateStockDa
         <div className={classNames.tableWrapper}>
           <DataGrid
             hideFooter
-            sx={{
-              border: 0,
-              boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-              backgroundColor: '#fff',
-            }}
+            // sx={{
+            //   border: 0,
+            //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+            //   backgroundColor: theme.palette.background.main,
+            // }}
             rows={chosenGoods || []}
             columns={chosenGoodsColumns({onClickTrash}, firstRowId)}
             rowHeight={60}

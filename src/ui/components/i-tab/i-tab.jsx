@@ -1,26 +1,31 @@
+import {cx} from '@emotion/css'
+// import {ClassNamesArg} from '@emotion/react'
+import {Tab} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
-import React, {FC, ReactElement, useEffect, useState} from 'react'
+import React, {
+  /* FC, ReactElement,*/
+  useEffect,
+  useState,
+} from 'react'
 
-import {Tab} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {SettingsModel} from '@models/settings-model'
 
 import {useClassNames} from './i-tab.style'
 
-interface Props {
-  tooltipAttentionContent?: ReactElement | string
-  tooltipInfoContent?: ReactElement | string
-  value: string
-  label: string
-  classes: Object
-}
+// interface Props {
+//   tooltipAttentionContent?: ReactElement | string
+//   tooltipInfoContent?: ReactElement | string
+//   value: string
+//   label: string
+//   // classes: any // ClassNamesArg | undefined // Object
+// }
 
-export const ITab: FC<Props> = observer(
-  ({tooltipAttentionContent, tooltipInfoContent, value, label, classes, ...restProps}) => {
-    const classNames = useClassNames()
+export const ITab /* : FC<Props> */ = observer(
+  ({tooltipAttentionContent, tooltipInfoContent, value, label, /* classes,*/ ...restProps}) => {
+    const {classes: classNames} = useClassNames()
 
     const [showHints, setShowHints] = useState(SettingsModel.showHints)
 
@@ -30,7 +35,7 @@ export const ITab: FC<Props> = observer(
 
     return (
       <div className={classNames.tabWrapper}>
-        <Tab classes={classes} className={classNames.root} value={value} label={label} {...restProps} />
+        <Tab /* classes={classes} */ className={classNames.root} value={value} label={label} {...restProps} />
 
         {tooltipAttentionContent || tooltipInfoContent ? (
           <div className={classNames.tooltipsWrapper}>
@@ -42,7 +47,7 @@ export const ITab: FC<Props> = observer(
 
             {tooltipInfoContent && showHints ? (
               <Tooltip arrow title={tooltipInfoContent} placement="top-end">
-                <img className={clsx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
+                <img className={cx(classNames.tooltip, classNames.tooltipInfo)} src="/assets/icons/info-q.svg" />
               </Tooltip>
             ) : null}
           </div>

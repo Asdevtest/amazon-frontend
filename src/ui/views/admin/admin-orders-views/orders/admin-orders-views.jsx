@@ -1,11 +1,11 @@
+import {cx} from '@emotion/css'
+import {Grid} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {Grid} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -77,7 +77,7 @@ class AdminOrdersViewsRaw extends Component {
                   <Grid key={buttonConfig.status} item>
                     <Button
                       variant={'text'}
-                      className={clsx(classNames.filterBtn, {
+                      className={cx(classNames.filterBtn, {
                         [classNames.currentFilterBtn]: activeSubCategory === index,
                       })}
                       onClick={() => onChangeSubCategory(index)}
@@ -131,4 +131,4 @@ class AdminOrdersViewsRaw extends Component {
   }
 }
 
-export const AdminOrdersViews = withStyles(styles)(AdminOrdersViewsRaw)
+export const AdminOrdersViews = withStyles(AdminOrdersViewsRaw, styles)

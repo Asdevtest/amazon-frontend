@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
   },
@@ -46,7 +46,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     overflowY: 'auto',
     width: '395px',
     height: '160px',
@@ -56,7 +56,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   rightBlockWrapper: {
@@ -113,7 +113,7 @@ export const useClassNames = makeStyles(() => ({
   cardPrice: {
     fontSize: '16px',
     lineHeight: '21px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   statusText: {
@@ -133,7 +133,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
     marginRight: 5,
   },
 
@@ -172,5 +172,9 @@ export const useClassNames = makeStyles(() => ({
   buttonWrapper: {
     display: 'flex',
     justifyContent: 'end',
+  },
+
+  standartText: {
+    color: theme.palette.text.general,
   },
 }))

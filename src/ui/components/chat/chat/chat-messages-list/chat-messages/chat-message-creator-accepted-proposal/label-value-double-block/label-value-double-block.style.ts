@@ -1,13 +1,15 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     padding: '20px 17px',
-    backgroundColor: '#ffffff',
+    backgroundColor: theme.palette.background.main,
     minWidth: 306,
+
+    borderRadius: 4,
   },
   rootGreen: {
-    backgroundColor: '#D9FAE5',
+    backgroundColor: theme.palette.background.green,
   },
   row: {
     display: 'flex',
@@ -18,12 +20,12 @@ export const useClassNames = makeStyles(() => ({
   },
   labelWrapper: {},
   labelText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   valueWrapper: {},
   valueText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   rowNotFirst: {

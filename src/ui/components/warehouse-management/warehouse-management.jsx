@@ -1,8 +1,7 @@
-import {twitterTabsStylesHook, appleTabsStylesHook} from '@mui-treasury/styles/tabs'
+import {Box, Tabs} from '@mui/material'
 
 import React, {useEffect} from 'react'
 
-import {Typography, Box, Tabs} from '@material-ui/core'
 import {observer} from 'mobx-react'
 
 import {TranslationKey} from '@constants/translations/translation-key'
@@ -25,20 +24,14 @@ const TabPanel = ({children, value, index, ...other}) => (
     aria-labelledby={`simple-tab-${index}`}
     {...other}
   >
-    {value === index && (
-      <Box paddingTop={3}>
-        <Typography>{children}</Typography>
-      </Box>
-    )}
+    {value === index && <Box paddingTop={3}>{children}</Box>}
   </div>
 )
 
 export const WarehouseManagement = observer(() => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
 
   const [tabIndex, setTabIndex] = React.useState(0)
-  const tabItemStyles = twitterTabsStylesHook.useTabItem()
-  const tabItemStylesMobile = appleTabsStylesHook.useTabItem()
 
   useEffect(() => {
     setTabIndex(() => tabIndex)
@@ -57,12 +50,10 @@ export const WarehouseManagement = observer(() => {
       >
         <ITab
           tooltipInfoContent={t(TranslationKey['Rates for shipping boxes to Amazon warehouses'])}
-          classes={window.innerWidth > 768 ? tabItemStyles : tabItemStylesMobile}
           label={t(TranslationKey['Logistics tariffs'])}
         />
         <ITab
           tooltipInfoContent={t(TranslationKey['Prices for additional warehouse services'])}
-          classes={window.innerWidth > 768 ? tabItemStyles : tabItemStylesMobile}
           label={t(TranslationKey['Tariffs of warehouse services'])}
         />
       </Tabs>

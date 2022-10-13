@@ -1,11 +1,15 @@
-import {twitterTabsStylesHook} from '@mui-treasury/styles/tabs'
+import {cx} from '@emotion/css'
 import SearchIcon from '@mui/icons-material/Search'
+import {
+  Box,
+  Tabs,
+  /* Tab, */
+  InputAdornment,
+} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 
 import React, {useState} from 'react'
 
-import {Box, Tabs, Tab, InputAdornment} from '@material-ui/core'
-import clsx from 'clsx'
 import {toJS} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -13,6 +17,7 @@ import {TranslationKey} from '@constants/translations/translation-key'
 
 import {Button} from '@components/buttons/button'
 import {Field} from '@components/field/field'
+import {ITab} from '@components/i-tab/i-tab'
 
 import {addIdDataConverter} from '@utils/data-grid-data-converters'
 import {t} from '@utils/translations'
@@ -34,10 +39,9 @@ const TabPanel = ({children, value, index, ...other}) => (
 
 export const SelectStorekeeperAndTariffForm = observer(
   ({storekeepers, curStorekeeperId, curTariffId, onSubmit, inNotifications}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     const [tabIndex, setTabIndex] = React.useState(0)
-    const tabItemStyles = twitterTabsStylesHook.useTabItem()
 
     const [nameSearchValue, setNameSearchValue] = useState('')
 
@@ -71,7 +75,7 @@ export const SelectStorekeeperAndTariffForm = observer(
               <Button
                 key={storekeeper._id}
                 disabled={curStorekeeper?._id === storekeeper._id}
-                className={clsx(
+                className={cx(
                   classNames.button,
                   {
                     [classNames.selectedBoxesBtn]: curStorekeeper?._id === storekeeper._id,
@@ -81,7 +85,6 @@ export const SelectStorekeeperAndTariffForm = observer(
                   },
                 )}
                 variant="text"
-                color="primary"
                 onClick={() => setCurStorekeeper(storekeeper)}
               >
                 {storekeeper.name}
@@ -111,18 +114,18 @@ export const SelectStorekeeperAndTariffForm = observer(
           value={tabIndex}
           onChange={(e, index) => setTabIndex(index)}
         >
-          <Tab classes={tabItemStyles} label={t(TranslationKey['Logistics tariffs'])} />
-          <Tab classes={tabItemStyles} label={t(TranslationKey['Tariffs of warehouse services'])} />
+          <ITab label={t(TranslationKey['Logistics tariffs'])} />
+          <ITab label={t(TranslationKey['Tariffs of warehouse services'])} />
         </Tabs>
         <TabPanel value={tabIndex} index={0}>
           <div className={classNames.tableWrapper}>
             <DataGrid
               hideFooter
-              sx={{
-                border: 0,
-                boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                backgroundColor: '#fff',
-              }}
+              // sx={{
+              //   border: 0,
+              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+              //   backgroundColor: theme.palette.background.main,
+              // }}
               getRowClassName={getRowClassName}
               rows={
                 curStorekeeper.tariffLogistics?.length
@@ -135,7 +138,13 @@ export const SelectStorekeeperAndTariffForm = observer(
           </div>
           {!inNotifications ? (
             <div className={classNames.clearBtnWrapper}>
-              <Button disableElevation color="primary" variant={'outlined'} onClick={() => onSubmit('', '')}>
+              <Button
+                disableElevation
+                color="primary"
+                variant={'outlined'}
+                className={classNames.resetBtn}
+                onClick={() => onSubmit('', '')}
+              >
                 {t(TranslationKey.reset)}
               </Button>
             </div>
@@ -145,11 +154,11 @@ export const SelectStorekeeperAndTariffForm = observer(
           <div className={classNames.tableWrapper}>
             <DataGrid
               hideFooter
-              sx={{
-                border: 0,
-                boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                backgroundColor: '#fff',
-              }}
+              // sx={{
+              //   border: 0,
+              //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+              //   backgroundColor: theme.palette.background.main,
+              // }}
               rows={
                 curStorekeeper.tariffWarehouses?.length
                   ? filterByNameSearch(addIdDataConverter(curStorekeeper.tariffWarehouses))

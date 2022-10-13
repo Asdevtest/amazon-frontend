@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
   },
@@ -48,7 +48,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 600,
     fontSize: 18,
 
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   shortInfoWrapper: {
@@ -72,7 +72,7 @@ export const useClassNames = makeStyles(() => ({
 
   shortInfoValue: {
     fontSize: 18,
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   description: {
@@ -82,7 +82,7 @@ export const useClassNames = makeStyles(() => ({
 
     width: '100%',
     fontSize: 16,
-    color: '#001029',
+    color: theme.palette.text.general,
     height: 70,
     overflow: 'hidden',
     textOverflow: 'ellipsis',

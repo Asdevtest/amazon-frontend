@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles({
+export const styles = {
   img: {
     height: '64px',
     width: '64px',
@@ -45,4 +43,4 @@ export const styles = createStyles({
   select: {
     width: '160px',
   },
-})
+}

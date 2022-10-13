@@ -1,8 +1,8 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalText: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
@@ -30,6 +30,9 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '2px',
 
     width: 231,
+
+    padding: 0,
+    border: 'none',
   },
   priceOptionsWrapper: {
     width: '573px',
@@ -63,7 +66,7 @@ export const useClassNames = makeStyles(() => ({
     marginTop: '20px',
   },
   totalPrice: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '16px',
     fontWeight: 500,
     lineHeight: '21px',
@@ -136,7 +139,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   blueLabel: {
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   greenLabel: {

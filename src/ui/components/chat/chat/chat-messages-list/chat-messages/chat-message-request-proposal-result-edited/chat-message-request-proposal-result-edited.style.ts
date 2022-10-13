@@ -1,8 +1,8 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
     padding: '40px 30px',
     width: '869px',
     margin: '0 auto',
@@ -20,7 +20,7 @@ export const useClassNames = makeStyles(() => ({
   },
   headerWrapper: {},
   headerText: {
-    color: '#001029',
+    color: theme.palette.text.general,
     fontSize: 18,
     fontWeight: 600,
     lineHeight: '140%',
@@ -30,7 +30,7 @@ export const useClassNames = makeStyles(() => ({
     marginLeft: '20px',
   },
   timeText: {
-    color: '#5F5F5F',
+    color: theme.palette.text.second,
     fontSize: 14,
     fontWeight: 400,
     lineHeight: '16px',
@@ -41,14 +41,14 @@ export const useClassNames = makeStyles(() => ({
   },
   titleWrapper: {},
   titleText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   descriptionWrapper: {
     marginTop: 18,
   },
   descriptionText: {
-    color: '#354256',
+    color: theme.palette.text.second,
     fontSize: 18,
   },
   resultWrapper: {
@@ -69,7 +69,7 @@ export const useClassNames = makeStyles(() => ({
     fontSize: 18,
     fontWeight: 400,
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   resultLinksWrapper: {
     marginTop: 20,
@@ -87,19 +87,19 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: 600,
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   timeToCheckBlockValueWrapper: {
     width: '158px',
     padding: '8px 16px 7px 56px',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
     borderRadius: '4px',
     marginTop: 15,
     textAlign: 'end',
   },
   timeToCheckBlockValueText: {
     fontSize: '15px',
-    color: '#5F5F5F',
+    color: theme.palette.text.second,
   },
   footerWrapper: {
     marginTop: '20px',

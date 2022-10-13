@@ -1,11 +1,11 @@
 import SearchIcon from '@mui/icons-material/Search'
+import {InputAdornment} from '@mui/material'
 import {DataGrid, GridToolbar} from '@mui/x-data-grid'
 
 import React, {Component} from 'react'
 
-import {InputAdornment} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {loadingStatuses} from '@constants/loading-statuses'
 import {navBarActiveCategory} from '@constants/navbar-active-category'
@@ -130,11 +130,11 @@ class SubUsersViewRaw extends Component {
                 <DataGrid
                   pagination
                   useResizeContainer
-                  sx={{
-                    border: 0,
-                    boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
-                    backgroundColor: '#fff',
-                  }}
+                  // sx={{
+                  //   border: 0,
+                  //   boxShadow: '0px 2px 10px 2px rgba(190, 190, 190, 0.15)',
+                  //   backgroundColor: theme.palette.background.main,
+                  // }}
                   classes={{
                     root: classNames.root,
                     footerContainer: classNames.footerContainer,
@@ -216,4 +216,4 @@ class SubUsersViewRaw extends Component {
   }
 }
 
-export const SubUsersView = withStyles(styles)(SubUsersViewRaw)
+export const SubUsersView = withStyles(SubUsersViewRaw, styles)

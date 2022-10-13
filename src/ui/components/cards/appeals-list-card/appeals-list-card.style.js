@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   mainWrapper: {
     width: '100%',
   },
@@ -15,7 +15,7 @@ export const useClassNames = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     padding: '30px',
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.main,
   },
 
   nameWrapper: {
@@ -50,14 +50,14 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   cardDescription: {
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginTop: '10px',
     height: '57px',
   },
@@ -66,7 +66,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   leftBlockWrapper: {
@@ -103,7 +103,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
     marginBottom: '10px',
   },
 
@@ -139,7 +139,7 @@ export const useClassNames = makeStyles(() => ({
   cardPrice: {
     fontSize: '18px',
     lineHeight: '21px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   statusText: {
@@ -159,7 +159,7 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
     marginRight: 5,
   },
 
@@ -216,11 +216,11 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '400',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   timeOnReview: {
     padding: '8px 16px 8px 16px',
-    backgroundColor: '#FFC7C7',
+    backgroundColor: theme.palette.background.red,
   },
 }))

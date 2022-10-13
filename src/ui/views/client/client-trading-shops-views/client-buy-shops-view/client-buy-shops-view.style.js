@@ -1,6 +1,4 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles(() => ({
+export const styles = theme => ({
   card: {
     padding: '16px 20px',
     marginBottom: '42px',
@@ -48,7 +46,7 @@ export const styles = createStyles(() => ({
   tablePanelViewText: {
     fontSize: '16px',
     lineHeight: '19px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
 
     marginRight: '15px',
   },
@@ -80,4 +78,4 @@ export const styles = createStyles(() => ({
   searchContainer: {
     width: 'auto',
   },
-}))
+})

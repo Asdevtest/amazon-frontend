@@ -1,11 +1,11 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import {Typography} from '@mui/material'
 
 import React, {Component} from 'react'
 
-import {Typography} from '@material-ui/core'
-import {withStyles} from '@material-ui/styles'
 import {observer} from 'mobx-react'
+import {withStyles} from 'tss-react/mui'
 
 import {navBarActiveCategory, navBarActiveSubCategory} from '@constants/navbar-active-category'
 import {tableSortMode, tableViewMode} from '@constants/table-view-modes'
@@ -110,4 +110,4 @@ class DealsOnReviewViewRaw extends Component {
   }
 }
 
-export const DealsOnReviewView = withStyles(styles)(DealsOnReviewViewRaw)
+export const DealsOnReviewView = withStyles(DealsOnReviewViewRaw, styles)

@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   root: {
     width: '1360px',
   },
@@ -9,7 +9,11 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
+  },
+
+  subTitle: {
+    color: theme.palette.text.general,
   },
 
   mainTitle: {
@@ -28,6 +32,7 @@ export const useClassNames = makeStyles(() => ({
 
   chosenGoodsTitle: {
     margin: '24px 0 4px',
+    color: theme.palette.text.general,
   },
 
   btnsWrapper: {
@@ -38,7 +43,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   cancelBtn: {
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   // searchInput: {
@@ -63,7 +68,7 @@ export const useClassNames = makeStyles(() => ({
     transition: '.3s ease-in-out',
 
     backgroundColor: 'white',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
     '&:hover': {
       opacity: '0.5',
     },
@@ -78,7 +83,7 @@ export const useClassNames = makeStyles(() => ({
   searchBtnText: {
     fontSize: '14px',
     lineHeight: '17px',
-    color: '#006CFF',
+    color: theme.palette.primary.main,
   },
 
   filtersWrapper: {
@@ -147,7 +152,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   linkText: {
-    color: '#007BFF',
+    color: theme.palette.primary.main,
     cursor: 'url(/assets/icons/cursor-two.svg) 5 0, auto',
     transition: '.3s ease',
     whiteSpace: 'nowrap',
@@ -212,7 +217,7 @@ export const useClassNames = makeStyles(() => ({
       fontWeight: '600',
       fontSize: '16px',
       lineHeight: '22px',
-      color: '#001029',
+      color: theme.palette.text.general,
     },
     filtersWrapper: {
       display: 'flex',

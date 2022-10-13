@@ -1,6 +1,6 @@
-import React, {FC} from 'react'
+import {cx} from '@emotion/css'
 
-import clsx from 'clsx'
+import React, {FC} from 'react'
 
 import {useClassNames} from './label-value-pair-block.style'
 
@@ -11,9 +11,9 @@ interface Props {
 }
 
 export const LabelValuePairBlock: FC<Props> = ({bgColor, label, value}) => {
-  const classNames = useClassNames()
+  const {classes: classNames} = useClassNames()
   return (
-    <div className={clsx(classNames.root, {[classNames.rootGreen]: bgColor === 'green'})}>
+    <div className={cx(classNames.root, {[classNames.rootGreen]: bgColor === 'green'})}>
       <div className={classNames.labelWrapper}>
         <p className={classNames.labelText}>{label}</p>
       </div>

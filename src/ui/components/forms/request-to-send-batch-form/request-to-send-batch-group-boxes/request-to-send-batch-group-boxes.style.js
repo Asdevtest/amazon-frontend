@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   dialogContextClassName: {},
   table: {
     borderCollapse: 'collapse',
@@ -29,7 +29,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   headerWrapper: {
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.palette.background.second,
     height: '65px',
     display: 'flex',
     alignItems: 'center',
@@ -49,13 +49,13 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   headerSpanText: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#0460DE',
+    color: theme.palette.primary.main,
     marginLeft: '30px',
   },
 
@@ -67,7 +67,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   footerWrapper: {
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.palette.background.second,
     height: '65px',
     display: 'flex',
     alignItems: 'center',
@@ -88,13 +88,13 @@ export const useClassNames = makeStyles(() => ({
     fontWeight: '600',
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   footerSpanText: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#0460DE',
+    color: theme.palette.primary.main,
     marginLeft: '30px',
   },
 

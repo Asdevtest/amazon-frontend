@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   accordion: {
     boxShadow: 'none',
 
@@ -17,7 +17,7 @@ export const useClassNames = makeStyles(() => ({
   },
   selectedValue: {
     marginLeft: '5px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
   details: {
     height: '53vh',
@@ -52,7 +52,7 @@ export const useClassNames = makeStyles(() => ({
   },
 
   chosenText: {
-    color: '#007bff',
+    color: theme.palette.primary.main,
     marginLeft: 'auto',
   },
   title: {

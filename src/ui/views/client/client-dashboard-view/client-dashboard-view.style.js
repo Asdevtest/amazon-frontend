@@ -1,8 +1,6 @@
-import {createStyles} from '@material-ui/core'
-
-export const styles = createStyles(theme => ({
+export const styles = theme => ({
   balanceTitle: {
-    color: 'rgba(61, 81, 112, 1)',
+    color: theme.palette.text.general,
     fontSize: '72px',
     fontWeight: 400,
     lineHeight: '84px',
@@ -53,7 +51,8 @@ export const styles = createStyles(theme => ({
     height: 11,
   },
 
-  // withdrawBtn: {
-  //   marginLeft: 50,
-  // },
-}))
+  withdrawBtn: {
+    // marginLeft: 50,
+    color: `${theme.palette.text.general} !important`,
+  },
+})

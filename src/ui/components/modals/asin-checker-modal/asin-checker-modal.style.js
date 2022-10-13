@@ -1,6 +1,6 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   modalTitle: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -22,19 +22,22 @@ export const useClassNames = makeStyles(() => ({
     fontSize: '18px',
     fontWeight: '600',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
 
   commentLabelText: {
     fontSize: '14px',
     fontWeight: '400',
     lineHeight: '19px',
-    color: '#656565',
+    color: theme.palette.text.second,
   },
 
   heightFieldAuto: {
     height: '141px',
     width: '100%',
+
+    padding: 0,
+    border: 'none',
   },
 
   buttonOk: {
@@ -44,8 +47,8 @@ export const useClassNames = makeStyles(() => ({
 
   buttonCancel: {
     padding: '8px 36px',
-    backgroundColor: '#fff',
-    color: '#001029',
+    backgroundColor: theme.palette.background.main,
+    color: theme.palette.text.general,
     '&:hover': {
       backgroundColor: 'rgba(231, 231, 231, 0.801)',
     },
@@ -73,7 +76,7 @@ export const useClassNames = makeStyles(() => ({
   tableSearchTitle: {
     fontSize: '18px',
     lineHeight: '140%',
-    color: '#001029',
+    color: theme.palette.text.general,
   },
   commentContainer: {
     margin: 0,

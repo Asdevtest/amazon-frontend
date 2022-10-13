@@ -1,5 +1,6 @@
-import {Typography} from '@material-ui/core'
-import clsx from 'clsx'
+import {cx} from '@emotion/css'
+import {Typography} from '@mui/material'
+
 import {observer} from 'mobx-react'
 
 import {Button} from '@components/buttons/button'
@@ -10,17 +11,17 @@ import {useClassNames} from './dashboard-single-card-with-button.style'
 
 export const DashboardSingleCardWithButton = observer(
   ({horizontal, config, valuesData, buttonText, configSubTitle, onClickViewMore}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
 
     return (
       <div>
         <Typography className={classNames.cardListTitle}>{config.title}</Typography>
         <Typography className={classNames.cardListSubTitle}>{configSubTitle}</Typography>
-        <div className={clsx(classNames.cardWrapper, {[classNames.cardWrapperHorizontal]: horizontal})}>
+        <div className={cx(classNames.cardWrapper, {[classNames.cardWrapperHorizontal]: horizontal})}>
           {config.items.map(item => (
             <div
               key={item.dataKey}
-              className={clsx(classNames.cardTitleWrapper, {[classNames.cardTitleWrapperHorizontal]: horizontal})}
+              className={cx(classNames.cardTitleWrapper, {[classNames.cardTitleWrapperHorizontal]: horizontal})}
             >
               <Typography className={classNames.cardTitle}>{item.title}</Typography>
               <Typography className={classNames.cardValueTitle}>

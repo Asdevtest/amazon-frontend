@@ -1,14 +1,15 @@
+import {cx} from '@emotion/css'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import {Drawer, Hidden, List, Typography} from '@mui/material'
 
 import React, {useRef, useState, useEffect} from 'react'
 
-import {Drawer, Hidden, List, SvgIcon, Typography} from '@material-ui/core'
-import clsx from 'clsx'
 import {observer} from 'mobx-react'
 
 import {navbarConfig} from '@constants/navbar'
 import {Feedback} from '@constants/navbar-svg-icons'
+import {UiTheme} from '@constants/themes'
 import {TranslationKey} from '@constants/translations/translation-key'
 import {UserRoleCodeMap} from '@constants/user-roles'
 
@@ -27,7 +28,8 @@ import {useClassNames} from './navbar.style'
 
 export const Navbar = observer(
   ({activeCategory, activeSubCategory, drawerOpen, setDrawerOpen, onChangeSubCategory}) => {
-    const classNames = useClassNames()
+    const {classes: classNames} = useClassNames()
+
     const viewModel = useRef(new NavbarModel())
 
     const {showFeedbackModal, onTriggerOpenModal, sendFeedbackAboutPlatform, userInfo} = viewModel.current
@@ -50,7 +52,15 @@ export const Navbar = observer(
       <div className={classNames.mainWrapper}>
         {!shortNavbar ? (
           <div className={classNames.logoWrapper}>
-            <img alt="company logo" className={classNames.logo} src={'/assets/icons/logo-01.08.svg'} />
+            <img
+              alt="company logo"
+              className={classNames.logo}
+              src={
+                SettingsModel.uiTheme === UiTheme.light
+                  ? '/assets/icons/logo-01.08.svg'
+                  : '/assets/icons/dt-navbar-logo.svg'
+              }
+            />
           </div>
         ) : null}
         {!shortNavbar ? (
@@ -89,7 +99,7 @@ export const Navbar = observer(
         {!checkIsAdmin(UserRoleCodeMap[userInfo.role]) ? (
           <div className={classNames.feedBackButton} onClick={() => onTriggerOpenModal('showFeedbackModal')}>
             <Typography className={classNames.feedBackText}>{t(TranslationKey.Feedback)}</Typography>
-            <SvgIcon className={classNames.feedbackIcon} component={Feedback} />
+            <Feedback className={classNames.feedbackIcon} />
           </div>
         ) : null}
 
@@ -99,14 +109,13 @@ export const Navbar = observer(
       </div>
     )
     return (
-      // <div className={classNames.mainWrapper}>
-      <>
+      <div className={classNames.mainWrapper}>
         <Hidden smDown>
           <Drawer
             open
             classes={{
-              root: clsx(classNames.root, {[classNames.hideNavbar]: shortNavbar}),
-              paper: clsx(classNames.paper, classNames.positionStatic),
+              root: cx(classNames.root, {[classNames.hideNavbar]: shortNavbar}),
+              paper: cx(classNames.paper, classNames.positionStatic),
             }}
             variant="permanent"
           >
@@ -124,7 +133,7 @@ export const Navbar = observer(
           </Drawer>
         </Hidden>
         <div
-          className={clsx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: shortNavbar})}
+          className={cx(classNames.hideAndShowIconWrapper, {[classNames.hideAndShowIcon]: shortNavbar})}
           onClick={() => setShortNavbar(!shortNavbar)}
         >
           {shortNavbar ? (
@@ -133,8 +142,7 @@ export const Navbar = observer(
             <ArrowBackIosIcon className={classNames.arrowIcon} color="primary" />
           )}
         </div>
-        {/* </div> */}
-      </>
+      </div>
     )
   },
 )

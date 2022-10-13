@@ -1,12 +1,16 @@
-import {makeStyles} from '@material-ui/core'
+import {makeStyles} from 'tss-react/mui'
 
-export const useClassNames = makeStyles(() => ({
+export const useClassNames = makeStyles()(theme => ({
   text: {
-    color: '#89919C',
+    color: theme.palette.text.second,
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
   },
+  title: {
+    color: theme.palette.text.general,
+  },
+
   infoRow: {
     display: 'flex',
     alignItems: 'center',
