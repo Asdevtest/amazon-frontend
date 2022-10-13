@@ -50,11 +50,20 @@ export const useClassNames = makeStyles()(theme => ({
     '&:hover': {
       transform: 'scale(1.1)',
     },
+    [theme.breakpoints.down(768)]: {
+      marginLeft: 10,
+    },
   },
 
   avatar: {
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
+    [theme.breakpoints.down(768)]: {
+      marginLeft: 0,
+      marginRight: 0,
+      width: '32px',
+      height: '32px',
+    },
   },
   username: {
     color: theme.palette.text.second,
@@ -68,6 +77,9 @@ export const useClassNames = makeStyles()(theme => ({
     color: theme.palette.text.second,
 
     marginRight: '5px',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
   userrole: {
     marginRight: '20px',
@@ -76,6 +88,18 @@ export const useClassNames = makeStyles()(theme => ({
     padding: '6px 16px',
     fontWeight: 500,
     borderRadius: '4px',
+    [theme.breakpoints.down(768)]: {
+      marginRight: 0,
+      color: theme.palette.text.general,
+
+      // color: theme.palette.text.second,
+      fontSize: '14px',
+      lineHeight: '19px',
+      padding: 0,
+      fontWeight: 600,
+      borderRadius: 0,
+      marginBottom: 10,
+    },
   },
   userInfoWrapper: {
     display: 'flex',
@@ -90,6 +114,9 @@ export const useClassNames = makeStyles()(theme => ({
   usernameAndBalanceWrapper: {
     marginRight: '8px',
     textAlign: 'right',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
   balance: {
     color: theme.palette.text.second,
@@ -126,6 +153,12 @@ export const useClassNames = makeStyles()(theme => ({
     marginTop: '40px',
     marginLeft: '85px',
     display: 'flex',
+    [theme.breakpoints.down(768)]: {
+      width: '161px',
+      marginTop: -16,
+      marginLeft: '15px',
+      display: 'flex',
+    },
   },
 
   menuWrapper: {
@@ -141,6 +174,22 @@ export const useClassNames = makeStyles()(theme => ({
 
     '&:hover': {
       backgroundColor: '#CCE2FF',
+    },
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+
+      justifyContent: 'start',
+      width: '161px',
+      padding: '13px 0 13px 10px',
+      fontSize: 16,
+      lineHeight: '22px',
+      fontWeight: 400,
+      color: theme.palette.text.general,
+      backgroundColor: theme.palette.background.main,
+
+      '&:hover': {
+        backgroundColor: '#CCE2FF',
+      },
     },
   },
 
@@ -184,12 +233,19 @@ export const useClassNames = makeStyles()(theme => ({
   allowedRolesWrapper: {
     display: 'flex',
     marginRight: '30px',
+    [theme.breakpoints.down(768)]: {
+      flexDirection: 'column',
+      marginRight: '30px',
+    },
   },
 
   allowedRolesMainWrapper: {
     display: 'flex',
     justifyContent: 'center',
     minWidth: '200px',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
 
   allowedRolesItem: {
@@ -203,6 +259,16 @@ export const useClassNames = makeStyles()(theme => ({
       color: theme.palette.primary.main,
       transform: 'scale(1.01)',
     },
+    [theme.breakpoints.down(768)]: {
+      color: theme.palette.text.general,
+
+      fontSize: '16px',
+      transition: '.15s ease-in-out',
+      '&:hover': {
+        color: theme.palette.primary.main,
+        transform: 'scale(1.01)',
+      },
+    },
   },
 
   сurrentAllowedRolesItem: {
@@ -210,6 +276,12 @@ export const useClassNames = makeStyles()(theme => ({
 
     borderBottom: '5px solid #0460DE',
     color: theme.palette.primary.main,
+    [theme.breakpoints.down(768)]: {
+      background: 'none',
+      backgroundColor: 'theme.palette.background.main',
+      borderBottom: 0,
+      color: theme.palette.primary.main,
+    },
   },
 
   selectorsWrapper: {
@@ -227,6 +299,9 @@ export const useClassNames = makeStyles()(theme => ({
     alignItems: 'center',
     margin: '10px 0 5px 0',
     height: 'min-content',
+    [theme.breakpoints.down(768)]: {
+      paddingLeft: 10,
+    },
   },
 
   tooltipWrapper: {
@@ -241,15 +316,24 @@ export const useClassNames = makeStyles()(theme => ({
     lineHeight: '140%',
     fontWeight: 400,
     color: theme.palette.primary.main,
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
   hintsTextNoActive: {
     fontSize: 18,
     lineHeight: '140%',
     fontWeight: 400,
     color: '#c4c4c4',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
   hideOnModile: {
     display: 'block',
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
   },
 
   menuIcon: {
@@ -265,87 +349,46 @@ export const useClassNames = makeStyles()(theme => ({
       transform: 'scale(1.1)',
     },
   },
-  menuClientInfoWrapper: {display: 'none'},
-  menuClientInfo: {display: 'none'},
-  menuClientInfoText: {display: 'none'},
-  mobileAllowedRolesMainWrapper: {},
-  mobileAllowedRolesWrapper: {display: 'none'},
-  mobileUserroleTitle: {display: 'none'},
-  menuClientRoleWrapper: {display: 'none'},
-  mobileAllowedRolesItem: {display: 'none'},
-  indicator: {},
-  userRoleWrapper: {},
-
-  '@media (max-width: 768px)': {
-    hintsTextActive: {
-      display: 'none',
-    },
-    hintsTextNoActive: {
-      display: 'none',
-    },
-    userroleTitle: {
-      display: 'none',
-    },
-    allowedRolesMainWrapper: {
-      display: 'none',
-    },
-    hideOnModile: {
-      display: 'none',
-    },
-    usernameAndBalanceWrapper: {
-      display: 'none',
-    },
-    hintsIcon: {
-      marginLeft: 10,
-    },
-
-    avatar: {
-      marginLeft: 0,
-      marginRight: 0,
-      width: '32px',
-      height: '32px',
-    },
-    menu: {
-      width: '161px',
-      marginTop: -16,
-      marginLeft: '15px',
-      display: 'flex',
-      // height: '150vh !important',
-    },
-
-    breadCrumbsWrapper: {
-      paddingLeft: 10,
-    },
-    menuClientInfoWrapper: {
+  menuClientInfoWrapper: {
+    display: 'none',
+    [theme.breakpoints.down(768)]: {
       display: 'flex',
       justifyContent: 'start',
       marginTop: '2px',
       gap: 15,
     },
-    menuClientInfo: {
+  },
+  menuClientInfo: {
+    display: 'none',
+    [theme.breakpoints.down(768)]: {
       display: 'flex',
       flexDirection: 'column',
     },
-
-    menuClientInfoText: {
+  },
+  menuClientInfoText: {
+    display: 'none',
+    [theme.breakpoints.down(768)]: {
       display: 'block',
       fontSize: '14px',
       lineHeight: '19px',
       color: theme.palette.text.second,
       textAlign: 'end',
     },
-    mobileAllowedRolesMainWrapper: {
-      // display: 'flex',
-      // flexDirection: 'column',
-    },
-    mobileAllowedRolesWrapper: {
+  },
+  mobileAllowedRolesMainWrapper: {},
+  mobileAllowedRolesWrapper: {
+    display: 'none',
+    [theme.breakpoints.down(768)]: {
       width: '161px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'start',
       marginBottom: '20px',
     },
-    mobileUserroleTitle: {
+  },
+  mobileUserroleTitle: {
+    display: 'none',
+    [theme.breakpoints.down(768)]: {
       display: 'block',
       fontSize: '14px',
       lineHeight: '19px',
@@ -354,72 +397,165 @@ export const useClassNames = makeStyles()(theme => ({
       marginBottom: '20px',
       textTransform: 'capitalize',
     },
-    menuClientRoleWrapper: {
+  },
+  menuClientRoleWrapper: {
+    display: 'none',
+    [theme.breakpoints.down(768)]: {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'start',
     },
-    userrole: {
-      marginRight: 0,
-      color: theme.palette.text.general,
-
-      // color: theme.palette.text.second,
-      fontSize: '14px',
-      lineHeight: '19px',
-      padding: 0,
-      fontWeight: 600,
-      borderRadius: 0,
-      marginBottom: 10,
-    },
-    сurrentAllowedRolesItem: {
-      backgroundColor: theme.palette.background.main,
-
-      borderBottom: 0,
-      // color: '#006CFF',
-      color: theme.palette.primary.main,
-    },
-    menuWrapper: {
-      display: 'flex',
-
-      justifyContent: 'start',
-      width: '161px',
-      padding: '13px 0 13px 10px',
-      fontSize: 16,
-      lineHeight: '22px',
-      fontWeight: 400,
-      color: theme.palette.text.general,
-      backgroundColor: theme.palette.background.main,
-
-      '&:hover': {
-        backgroundColor: '#CCE2FF',
-      },
-    },
-    allowedRolesWrapper: {
-      flexDirection: 'column',
-      marginRight: '30px',
-    },
-    allowedRolesItem: {
-      color: theme.palette.text.general,
-
-      // color: 'rgba(0, 0, 0, 0.54)',
-      fontSize: '16px',
-      transition: '.15s ease-in-out',
-      '&:hover': {
-        color: theme.palette.primary.main,
-        transform: 'scale(1.01)',
-      },
-    },
-    indicator: {
+  },
+  mobileAllowedRolesItem: {display: 'none'},
+  indicator: {
+    [theme.breakpoints.down(768)]: {
       display: 'block',
       width: '2px',
       height: '16px',
       backgroundColor: '#006CFF',
     },
-    userRoleWrapper: {
+  },
+  userRoleWrapper: {
+    [theme.breakpoints.down(768)]: {
       display: 'flex',
       gap: 5,
     },
   },
 
-  e: {},
+  '@media (min-width: 768px)': {
+    // hintsTextActive: {
+    //   display: 'none',
+    // },
+    // hintsTextNoActive: {
+    //   display: 'none',
+    // },
+    // userroleTitle: {
+    //   display: 'none',
+    // },
+    // allowedRolesMainWrapper: {
+    //   display: 'none',
+    // },
+    // hideOnModile: {
+    //   display: 'none',
+    // },
+    // usernameAndBalanceWrapper: {
+    //   display: 'none',
+    // },
+    // hintsIcon: {
+    //   marginLeft: 10,
+    // },
+    // avatar: {
+    //   marginLeft: 0,
+    //   marginRight: 0,
+    //   width: '32px',
+    //   height: '32px',
+    // },
+    // menu: {
+    //   width: '161px',
+    //   marginTop: -16,
+    //   marginLeft: '15px',
+    //   display: 'flex',
+    //   // height: '150vh !important',
+    // },
+    // breadCrumbsWrapper: {
+    //   paddingLeft: 10,
+    // },
+    // menuClientInfoWrapper: {
+    //   display: 'flex',
+    //   justifyContent: 'start',
+    //   marginTop: '2px',
+    //   gap: 15,
+    // },
+    // menuClientInfo: {
+    //   display: 'flex',
+    //   flexDirection: 'column',
+    // },
+    // menuClientInfoText: {
+    //   display: 'block',
+    //   fontSize: '14px',
+    //   lineHeight: '19px',
+    //   color: theme.palette.text.second,
+    //   textAlign: 'end',
+    // },
+    // mobileAllowedRolesMainWrapper: {
+    //   // display: 'flex',
+    //   // flexDirection: 'column',
+    // },
+    // mobileAllowedRolesWrapper: {
+    //   width: '161px',
+    //   display: 'flex',
+    //   flexDirection: 'column',
+    //   alignItems: 'start',
+    //   marginBottom: '20px',
+    // },
+    // mobileUserroleTitle: {
+    //   display: 'block',
+    //   fontSize: '14px',
+    //   lineHeight: '19px',
+    //   color: theme.palette.text.second,
+    //   marginTop: '20px',
+    //   marginBottom: '20px',
+    //   textTransform: 'capitalize',
+    // },
+    // menuClientRoleWrapper: {
+    //   display: 'flex',
+    //   flexDirection: 'column',
+    //   justifyContent: 'start',
+    // },
+    // userrole: {
+    //   marginRight: 0,
+    //   color: theme.palette.text.general,
+    //   // color: theme.palette.text.second,
+    //   fontSize: '14px',
+    //   lineHeight: '19px',
+    //   padding: 0,
+    //   fontWeight: 600,
+    //   borderRadius: 0,
+    //   marginBottom: 10,
+    // },
+    // сurrentAllowedRolesItem: {
+    //   backgroundColor: theme.palette.background.main,
+    //   borderBottom: 0,
+    //   // color: '#006CFF',
+    //   color: theme.palette.primary.main,
+    // },
+    // menuWrapper: {
+    //   display: 'flex',
+    //   justifyContent: 'start',
+    //   width: '161px',
+    //   padding: '13px 0 13px 10px',
+    //   fontSize: 16,
+    //   lineHeight: '22px',
+    //   fontWeight: 400,
+    //   color: theme.palette.text.general,
+    //   backgroundColor: theme.palette.background.main,
+    //   '&:hover': {
+    //     backgroundColor: '#CCE2FF',
+    //   },
+    // },
+    // allowedRolesWrapper: {
+    //   flexDirection: 'column',
+    //   marginRight: '30px',
+    // },
+    // allowedRolesItem: {
+    //   color: theme.palette.text.general,
+    //   // color: 'rgba(0, 0, 0, 0.54)',
+    //   fontSize: '16px',
+    //   transition: '.15s ease-in-out',
+    //   '&:hover': {
+    //     color: theme.palette.primary.main,
+    //     transform: 'scale(1.01)',
+    //   },
+    // },
+    // indicator: {
+    //   display: 'block',
+    //   width: '2px',
+    //   height: '16px',
+    //   backgroundColor: '#006CFF',
+    // },
+    // userRoleWrapper: {
+    //   display: 'flex',
+    //   gap: 5,
+    // },
+  },
 }))
